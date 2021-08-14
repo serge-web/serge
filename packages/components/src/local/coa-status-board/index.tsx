@@ -86,10 +86,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         [CollaborativeMessageStates.Rejected]: '#434343',
         [CollaborativeMessageStates.EditResponse]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.EditDocument]: '#ffc107',
-        //[CollaborativeMessageStates.Finalized]: '',
-        //[CollaborativeMessageStates.DocumentPending]: '',
-        //[CollaborativeMessageStates.ResponsePending]: '',
+        [CollaborativeMessageStates.EditDocument]: '#ffc107'
+        // [CollaborativeMessageStates.Finalized]: '',
+        // [CollaborativeMessageStates.DocumentPending]: '',
+        // [CollaborativeMessageStates.ResponsePending]: '',
       }
 
       return {

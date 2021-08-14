@@ -542,9 +542,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        >
-          Channel 16
-        </td>
+        />
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -717,9 +715,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        >
-          Channel 16
-        </td>
+        />
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -870,56 +866,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-36 makeStyles-root-38 MuiButton-contained makeStyles-contained-37 makeStyles-contained-39 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Reject
-                        </span>
-                      </button>
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-36 makeStyles-root-40 MuiButton-contained makeStyles-contained-37 makeStyles-contained-41 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Release
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -941,20 +888,18 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        >
-          Channel 16
-        </td>
+        />
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-42"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-36"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-43"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-37"
             >
               CO
             </span>
@@ -969,12 +914,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-44"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-38"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-45"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-39"
             >
               Released
             </span>
@@ -1031,12 +976,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                           />
                         </svg>
                         <div
-                          className="MuiChip-root makeStyles-root-9 makeStyles-root-46"
+                          className="MuiChip-root makeStyles-root-9 makeStyles-root-40"
                           onKeyDown={[Function]}
                           onKeyUp={[Function]}
                         >
                           <span
-                            className="MuiChip-label makeStyles-label-11 makeStyles-label-47"
+                            className="MuiChip-label makeStyles-label-11 makeStyles-label-41"
                           >
                             Released
                           </span>

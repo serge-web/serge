@@ -62,7 +62,7 @@ const colabEdit: ChannelData = {
   format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
   name: 'New CE',
   participants: [
-    { 
+    {
       canCollaborate: false,
       canReleaseMessages: false,
       force: 'White',
@@ -86,7 +86,7 @@ const CECPchannel: ChannelData = {
   format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
   name: 'New CE',
   participants: [
-    { 
+    {
       canCollaborate: true,
       canReleaseMessages: false,
       force: 'White',
@@ -110,7 +110,7 @@ const CERMchannel: ChannelData = {
   format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
   name: 'New CE',
   participants: [
-    { 
+    {
       canCollaborate: false,
       canReleaseMessages: true,
       force: 'White',
@@ -259,7 +259,6 @@ const colabEditMock: MessageCustom[] = [
     isOpen: false
   }
 ]
-
 
 const colabResponse: ChannelData = {
   collabOptions: {
@@ -505,7 +504,6 @@ CEReleaseManager.args = {
   isUmpire: true,
   role: role
 }
-
 
 export const CollaborativeResponding = Template.bind({})
 CollaborativeResponding.args = {

@@ -16,15 +16,15 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
-import { 
-  formEditable, 
+import {
+  formEditable,
   ColEditRelManDocPend,
   ColEditRelManReview,
   ColEditCollPartAssClaim,
   ColEditCollPartEditDoc,
   ColRespRelManReview,
   ColRespRelManRespPen,
-  ColRespRelManEditResp,
+  ColRespRelManEditResp
 } from './helpers/visibility'
 import { CollaborativeMessageStates } from '@serge/config'
 
@@ -32,7 +32,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
 )
 
-/* Render component */ // onChange, 
+/* Render component */ // onChange,
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpire, isRFIManager, channels, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
@@ -78,52 +78,51 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpi
       }
       <div className={styles.actions}>
         {
-          ColEditRelManDocPend(message, channels, canReleaseMessages) && 
+          ColEditRelManDocPend(message, channels, canReleaseMessages) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Request Changes')}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Endors')}>Endors</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endors')}>Endors</Button>
           </>
         }
         {
-          ColEditRelManReview(message, channels, canReleaseMessages) && 
+          ColEditRelManReview(message, channels, canReleaseMessages) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Close')}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Finalise')}>Finalise</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Request Changes')}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Endors')}>Endors</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Close')}>Close</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Finalise')}>Finalise</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endors')}>Endors</Button>
           </>
         }
         {
           ColEditCollPartAssClaim(message, channels, canCollaborate) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Assign')}>Assign</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Claim')}>Claim</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Assign')}>Assign</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Claim')}>Claim</Button>
           </>
         }
         {
-          ColEditCollPartEditDoc(message, channels, canCollaborate) && 
-          <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Submit')}>Submit</Button>
+          ColEditCollPartEditDoc(message, channels, canCollaborate) &&
+          <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Submit')}>Submit</Button>
         }
-
 
         {
           ColRespRelManReview(message, channels, canReleaseMessages) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Release')}>Release</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Close')}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Request Changes')}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Release')}>Release</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Close')}>Close</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
           </>
         }
         {
           ColRespRelManRespPen(message, channels, canCollaborate) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Assign')}>Assign</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Claim')}>Claim</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Assign')}>Assign</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Claim')}>Claim</Button>
           </>
         }
         {
           ColRespRelManEditResp(message, channels, canCollaborate) &&
-          <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Submit')}>Submit</Button>
+          <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Submit')}>Submit</Button>
         }
       </div>
     </div>

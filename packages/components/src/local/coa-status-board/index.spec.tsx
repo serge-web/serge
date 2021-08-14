@@ -25,7 +25,7 @@ const testChannel: ChannelData = {
   format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
   name: 'New CE',
   participants: [
-    { 
+    {
       canCollaborate: true,
       canReleaseMessages: false,
       force: 'White',
