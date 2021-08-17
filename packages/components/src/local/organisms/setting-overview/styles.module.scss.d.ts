@@ -4,6 +4,7 @@ interface CssExports {
   'actions': string;
   'col': string;
   'flatpickr': string;
+  'formcontrol': string;
   'group': string;
   'hidden': string;
   'label': string;

@@ -58,6 +58,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         messages={state.channels[channelId].messages || []}
         onRead={handleOpenMessage}
         onUnread={handleUnreadMessage}
+        turnPresentation={state.turnPresentation}
         role={selectedRole}
         isRFIManager={state.isRFIManager}
         isUmpire={!!isUmpire}

@@ -19,6 +19,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     currentWargame,
     gameDate,
     currentTurn,
+    turnPresentation,
     wargameTitle,
     adjudicationStartTime,
     isGameControl,
@@ -70,6 +71,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
         adjudicationStartTime={adjudicationStartTime}
         isGameControl={isGameControl}
         currentTurn={currentTurn}
+        turnPresentation={turnPresentation}
         gameDate={gameDate}
         onNextTurn={() => { nextGameTurn(currentWargame)() }}
         phase={phase}

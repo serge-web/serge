@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Phase } from '@serge/config'
+import { Phase, TurnFormats } from '@serge/config'
 import { Story } from '@storybook/react/types-6-0'
 // Import component files
 import TurnProgression from './index'
@@ -36,14 +36,33 @@ export default {
           Phase.Adjudication
         ]
       }
+    },
+    turnPresentation: {
+      name: 'Turn format',
+      control: {
+        type: 'radio',
+        defaultValue: TurnFormats.Natural,
+        options: [
+          TurnFormats.Natural,
+          TurnFormats.TurnPairNumbers,
+          TurnFormats.TurnPairLetters
+        ]
+      }
+    },
+    isGameControl: {
+      name: 'Is Game Control'
+    },
+    wargameInitiated: {
+      name: 'Is Wargame Initiated'
     }
   }
+
 }
 
 const Template: Story<TurnPropTypes> = (args) => {
   const [state, setState] = useState({
     phase: Phase.Planning,
-    currentTurn: 1
+    currentTurn: args.currentTurn
   })
   const updateState = (): void => {
     setState({
@@ -56,7 +75,10 @@ const Template: Story<TurnPropTypes> = (args) => {
   return <TurnProgression
     {...props}
     onNextTurn={updateState}
+    wargameInitiated={args.wargameInitiated}
+    isGameControl={args.isGameControl}
     currentTurn={state.currentTurn}
+    turnPresentation={args.turnPresentation}
     phase={state.phase} />
 }
 
@@ -64,6 +86,10 @@ export const WithPhases = Template
 WithPhases.args = {
   adjudicationStartTime: '2019-09-30T14:13:22+01:00',
   turnEndTime: '0',
+  currentTurn: 0,
   timeWarning: 60000,
-  gameDate: '2019-10-01T02:02'
+  isGameControl: true,
+  wargameInitiated: true,
+  gameDate: '2019-10-01T02:02',
+  turnPresentation: TurnFormats.Natural
 }

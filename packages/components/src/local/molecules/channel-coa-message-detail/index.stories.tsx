@@ -6,7 +6,7 @@ import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
 import docs from './README.md'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI, GameChannels } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
 import { MessageCustom, ForceRole } from '@serge/custom-types'
 
@@ -76,6 +76,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
       isUmpire={isUmpire}
+      channels={GameChannels[0]}
     />
   )
 }

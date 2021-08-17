@@ -9,6 +9,7 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
+import { formatTurn } from '../../../../../helpers/build'
 
 const GameControl = styled(Button)({
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
@@ -27,6 +28,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     turnEndTime,
     timeWarning,
     currentTurn,
+    turnPresentation,
     phase,
     gameDate,
     isGameControl,
@@ -120,7 +122,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     ])} data-tour='turn-phase-step'
     >
       <div className={styles['turn-info-phase']}>
-        <h5>Turn {currentTurn} - {phase} phase</h5>
+        <h5>Turn { formatTurn(currentTurn, turnPresentation) } - {phase} phase</h5>
         <time dateTime={gameDate}>{moment(gameDate).format('DD/MM/YYYY HH:mm')}</time>
         {
           isGameControl

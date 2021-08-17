@@ -86,6 +86,16 @@ export enum CollaborativeMessageStates {
   RequestChanges = 'Request changes'
 }
 
+/** the ways in which turn numbers may be displayed */
+export enum TurnFormats {
+  // 0, 1, 2, 3
+  Natural = 'Natural',
+  // 0.1, 0.2, 1.1, 1.2
+  TurnPairNumbers = 'Turn-Pair-Numbers',
+  // 0.a, 0.b, 1.a, 1.b
+  TurnPairLetters = 'Turn-Pair-Letters'
+}
+
 /** the phases of an asset that is
  * available for movement by a player during
  * force laydown
