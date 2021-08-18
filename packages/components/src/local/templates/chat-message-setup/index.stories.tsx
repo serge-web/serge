@@ -6,7 +6,7 @@ import docs from './README.md'
 import { Story } from '@storybook/react/types-6-0'
 import { ChatMessagesMock } from '@serge/mocks'
 import Props from './types/props'
-import { TurnFormats } from '../../../../../config/build'
+import { TurnFormats } from '@serge/helpers'
 
 export default {
   title: 'local/templates/ChatMessageSetup',

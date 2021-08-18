@@ -9,7 +9,7 @@ import { SpecialChannelTypes, CUSTOM_MESSAGE, CollaborativeMessageStates } from 
 import { MessageCustom, ForceRole, ChannelData, Role } from '@serge/custom-types'
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
-import { forces } from '../../../../mocks/forces.mock'
+import { forces } from '@serge/mocks'
 
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
