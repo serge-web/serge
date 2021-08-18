@@ -340,12 +340,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           />
                         </svg>
                         <div
-                          className="MuiChip-root makeStyles-root-9 makeStyles-root-18"
+                          className="MuiChip-root makeStyles-root makeStyles-root"
                           onKeyDown={[Function]}
                           onKeyUp={[Function]}
                         >
                           <span
-                            className="MuiChip-label makeStyles-label-11 makeStyles-label-19"
+                            className="MuiChip-label makeStyles-label makeStyles-label"
                           >
                             Not assigned
                           </span>
@@ -403,32 +403,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -552,12 +527,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           />
                         </svg>
                         <div
-                          className="MuiChip-root makeStyles-root-9 makeStyles-root-26"
+                          className="MuiChip-root makeStyles-root makeStyles-root"
                           onKeyDown={[Function]}
                           onKeyUp={[Function]}
                         >
                           <span
-                            className="MuiChip-label makeStyles-label-11 makeStyles-label-27"
+                            className="MuiChip-label makeStyles-label makeStyles-label"
                           >
                             Not assigned
                           </span>
@@ -641,7 +616,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                         </span>
                       </button>
                       <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-28 makeStyles-root-32 MuiButton-contained makeStyles-contained-29 makeStyles-contained-33 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
                         disabled={false}
                         onBlur={[Function]}
                         onClick={[Function]}
@@ -788,12 +763,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           />
                         </svg>
                         <div
-                          className="MuiChip-root makeStyles-root-9 makeStyles-root-40"
+                          className="MuiChip-root makeStyles-root makeStyles-root"
                           onKeyDown={[Function]}
                           onKeyUp={[Function]}
                         >
                           <span
-                            className="MuiChip-label makeStyles-label-11 makeStyles-label-41"
+                            className="MuiChip-label makeStyles-label makeStyles-label"
                           >
                             Not assigned
                           </span>
@@ -851,32 +826,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -1065,32 +1015,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -1493,32 +1418,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -2317,32 +2217,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>

@@ -151,7 +151,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
             <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleEndors}>Endors</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleEndors}>Endorse</Button>
           </>
         }
         {

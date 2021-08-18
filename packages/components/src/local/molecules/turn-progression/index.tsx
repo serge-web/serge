@@ -9,7 +9,7 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { formatTurn } from '../../../../../helpers/build'
+import { formatTurn } from '@serge/helpers'
 
 const GameControl = styled(Button)({
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
