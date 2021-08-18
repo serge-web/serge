@@ -22,7 +22,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
-    channel.name,
     message.details.from.roleName,
     message.details.from.forceColor,
     message.message.Title,
@@ -81,7 +80,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
       }
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, channelId, mRole, forceColor, content, status, owner] = row
+      const [id, mRole, forceColor, content, status, owner] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.InProgress]: '#E7740A',
@@ -113,7 +112,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
         ),
         cells: [
           id,
-          channelId,
           {
             component: <Badge customBackgroundColor={forceColor} label={mRole} />,
             label: mRole
