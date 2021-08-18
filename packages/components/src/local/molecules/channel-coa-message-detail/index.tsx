@@ -81,7 +81,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpi
           ColEditRelManDocPend(message, channels, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endors')}>Endors</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endorse')}>Endorse</Button>
           </>
         }
         {
@@ -90,7 +90,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpi
             <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Close')}>Close</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Finalise')}>Finalise</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endors')}>Endors</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endorse')}>Endorse</Button>
           </>
         }
         {
