@@ -48,6 +48,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChange, isUmpire, isRFIManager, channel, canCollaborate, canReleaseMessages }) => {
+
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
