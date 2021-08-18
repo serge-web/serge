@@ -185,6 +185,8 @@ const roles = [
 ]
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
+const onChange = () => console.log()
+
 it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
@@ -195,6 +197,7 @@ it('CoaStatusBoard renders correctly', () => {
         roles={roles}
         channels={testChannel}
         rfiMessages={testMock}
+        onChange={onChange}
       />
     )
     .toJSON()

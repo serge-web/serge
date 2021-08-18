@@ -10,6 +10,7 @@ import { MessageCustom, ForceRole, ChannelData, Role } from '@serge/custom-types
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import { forces } from '../../../../mocks/forces.mock'
+import { useState } from 'react'
 
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
@@ -468,8 +469,14 @@ const colabResponseMock: MessageCustom[] = [
   }
 ]
 
+
 const Template: Story<Props> = (args) => {
-  return <CoaStatusBoard {...args} />
+  const [messages, setMessages] = useState(args.rfiMessages)
+
+  const onChange = (nextMessages: MessageCustom[]): void => {
+    setMessages(nextMessages)
+  }
+  return <CoaStatusBoard {...args} rfiMessages={messages} onChange={onChange} />
 }
 
 // filter to only show the most recent versions of messages
@@ -502,7 +509,7 @@ CEReleaseManager.args = {
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
-  role: role
+  role: role,
 }
 
 export const CollaborativeResponding = Template.bind({})

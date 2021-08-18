@@ -16,9 +16,23 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
+import { 
+  finalize,
+  closed,
+  requestChanges,
+  endors,
+  assign,
+  claim,
+  editingSubmit,
+  CRCPassign,
+  CRCPclaim,
+  CRCPsubmit,
+  CRRMClose,
+  CRRMRelease,
+  CRRMResponsePending,
+} from './helpers/changers'
 import {
   formEditable,
-  ColEditRelManDocPend,
   ColEditRelManReview,
   ColEditCollPartAssClaim,
   ColEditCollPartEditDoc,
@@ -32,12 +46,66 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
 )
 
-/* Render component */ // onChange,
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpire, isRFIManager, channels, canCollaborate, canReleaseMessages }) => {
+/* Render component */
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChange, isUmpire, isRFIManager, channels, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
+
+  const handleFinalized = (): void => {
+    onChange && onChange(finalize(message))
+  }
+
+  const handleClosed = (): void => {
+    onChange && onChange(closed(message))
+  }
+
+  const handleRequestChanges = (): void => {
+    onChange && onChange(requestChanges(message))
+  }
+
+  const handleEndors = (): void => {
+    onChange && onChange(endors(message))
+  }
+
+  const handleAssign = (): void => {
+    onChange && onChange(assign(message))
+  }
+
+  const handleClaim = (): void => {
+    onChange && onChange(claim(message))
+  }
+
+  const handleEditingSubmit = (): void => {
+    onChange && onChange(editingSubmit(message))
+  }
+
+  const handleCRCPassign = (): void => {
+    onChange && onChange(CRCPassign(message))
+  }
+
+  const handleCRCPclaim = (): void => {
+    onChange && onChange(CRCPclaim(message))
+  }
+
+  const handleCRCPsubmit = (): void => {
+    onChange && onChange(CRCPsubmit(message))
+  }
+
+  const handleCRRMClose = (): void => {
+    onChange && onChange(CRRMClose(message))
+  }
+
+  const handleCRRMRelease = (): void => {
+    onChange && onChange(CRRMRelease(message))
+  }
+
+  const handleCRRMResponsePending = (): void => {
+    onChange && onChange(CRRMResponsePending(message))
+  }
+
+  
 
   const onAnswerChange = (answer: string): void => {
     setAnswer(answer)
@@ -78,51 +146,44 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpi
       }
       <div className={styles.actions}>
         {
-          ColEditRelManDocPend(message, channels, canReleaseMessages) &&
-          <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endors')}>Endors</Button>
-          </>
-        }
-        {
           ColEditRelManReview(message, channels, canReleaseMessages) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Close')}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Finalise')}>Finalise</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Endors')}>Endors</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleEndors}>Endors</Button>
           </>
         }
         {
           ColEditCollPartAssClaim(message, channels, canCollaborate) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Assign')}>Assign</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Claim')}>Claim</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
           </>
         }
         {
           ColEditCollPartEditDoc(message, channels, canCollaborate) &&
-          <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Submit')}>Submit</Button>
+          <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
         }
 
         {
           ColRespRelManReview(message, channels, canReleaseMessages) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Release')}>Release</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Close')}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Request Changes')}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMResponsePending}>Request Changes</Button>
           </>
         }
         {
           ColRespRelManRespPen(message, channels, canCollaborate) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Assign')}>Assign</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Claim')}>Claim</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
           </>
         }
         {
           ColRespRelManEditResp(message, channels, canCollaborate) &&
-          <Button customVariant="form-action" size="small" type="button" onClick={() => console.log('Submit')}>Submit</Button>
+          <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
         }
       </div>
     </div>

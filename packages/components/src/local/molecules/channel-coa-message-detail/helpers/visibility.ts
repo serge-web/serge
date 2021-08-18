@@ -6,12 +6,6 @@ export const formEditable = (message: MessageCustom, _role: ForceRole, _isUmpire
   return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress && _isUmpire && collaboration.owner?.roleId === _role.roleId && _isUmpire
 }
 
-// Collaborative Editing buttons
-export const ColEditRelManDocPend = (message: MessageCustom, channels: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.DocumentPending && !!canReleaseMessages
-}
-
 export const ColEditRelManReview = (message: MessageCustom, channels: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
   const { collaboration } = message.details
   return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && !!canReleaseMessages

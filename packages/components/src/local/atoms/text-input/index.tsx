@@ -7,7 +7,7 @@ import InputContainer from '../input-container'
 /* Import proptypes */
 import { PropTypes } from './types/props'
 
-const useFilledStyle = makeStyles((theme: Theme) =>
+const useFilledStyle = makeStyles<Theme>((theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.common.white,

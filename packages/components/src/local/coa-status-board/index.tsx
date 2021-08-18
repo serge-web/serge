@@ -49,6 +49,15 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     ]
   }, [])
 
+  const handleChange = (nextMessage: MessageCustom): void => {
+    const index = rfiMessages.findIndex(message => message._id === nextMessage._id)
+    if (index !== -1) {
+      const nextMessages = [...rfiMessages]
+      nextMessages[index] = nextMessage
+      onChange(nextMessages)
+    }
+  }
+
   const dataTableProps = {
     columns: [
       'ID',
@@ -100,7 +109,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
-              onChange={onChange}
+              onChange={handleChange}
               channels={channels}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}

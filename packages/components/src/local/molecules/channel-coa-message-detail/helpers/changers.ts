@@ -1,36 +1,161 @@
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { MessageCustom } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
-export const takeOwnership = (message: MessageCustom, role: ForceRole): MessageCustom => {
+export const finalize = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
       collaboration: {
         ...message.details.collaboration,
-        status: CollaborativeMessageStates.InProgress,
-        owner: role
+        status: CollaborativeMessageStates.Finalized,
+        owner: undefined
       }
     }
   }
 }
 
-export const sendForReview = (message: MessageCustom, _role: ForceRole, privMessage: string, response: string): MessageCustom => {
+export const closed = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
-      privateMessage: privMessage,
       collaboration: {
-        status: CollaborativeMessageStates.PendingReview,
-        response: response,
-        owner: _role
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.Closed,
+        owner: undefined
       }
     }
   }
 }
 
-export const release = (message: MessageCustom, _role: ForceRole): MessageCustom => {
+export const requestChanges = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.DocumentPending,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const endors = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.DocumentPending,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const assign = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.EditDocument,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const claim = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.EditDocument,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const editingSubmit = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.PendingReview,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const CRCPassign = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.EditResponse,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const CRCPclaim = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.EditResponse,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const CRCPsubmit = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.PendingReview,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const CRRMClose = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.Closed,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const CRRMRelease = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -44,30 +169,15 @@ export const release = (message: MessageCustom, _role: ForceRole): MessageCustom
   }
 }
 
-export const reject = (message: MessageCustom, _role: ForceRole): MessageCustom => {
+export const CRRMResponsePending = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
       collaboration: {
         ...message.details.collaboration,
-        status: CollaborativeMessageStates.Unallocated,
+        status: CollaborativeMessageStates.ResponsePending,
         owner: undefined
-      }
-    }
-  }
-}
-export const saveDraft = (message: MessageCustom, _role: ForceRole, privMessage: string, response: string): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      privateMessage: privMessage,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.InProgress,
-        response: response,
-        owner: _role
       }
     }
   }
