@@ -13,7 +13,7 @@ import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { MessageChannel, MessageCustom, ForceRole, MessageDetailsFrom } from '@serge/custom-types'
-import { formatTurn } from '../../../../../helpers/build'
+import { formatTurn } from '@serge/helpers'
 
 /* Render component */
 export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire, turnPresentation }: PropTypes) => {
