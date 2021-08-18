@@ -47,7 +47,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChange, isUmpire, isRFIManager, channels, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChange, isUmpire, isRFIManager, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -146,7 +146,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
       }
       <div className={styles.actions}>
         {
-          ColEditRelManReview(message, channels, canReleaseMessages) &&
+          ColEditRelManReview(message, channel, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
@@ -155,19 +155,19 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
           </>
         }
         {
-          ColEditCollPartAssClaim(message, channels, canCollaborate) &&
+          ColEditCollPartAssClaim(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
           </>
         }
         {
-          ColEditCollPartEditDoc(message, channels, canCollaborate) &&
+          ColEditCollPartEditDoc(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
         }
 
         {
-          ColRespRelManReview(message, channels, canReleaseMessages) &&
+          ColRespRelManReview(message, channel, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
@@ -175,14 +175,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
           </>
         }
         {
-          ColRespRelManRespPen(message, channels, canCollaborate) &&
+          ColRespRelManRespPen(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
           </>
         }
         {
-          ColRespRelManEditResp(message, channels, canCollaborate) &&
+          ColRespRelManEditResp(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
         }
       </div>

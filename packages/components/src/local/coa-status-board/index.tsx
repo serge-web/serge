@@ -110,7 +110,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
               role={role}
               isUmpire={isUmpire}
               onChange={handleChange}
-              channels={channels}
+              channel={channels}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
             />

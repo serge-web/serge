@@ -10,5 +10,5 @@ export default interface Props {
   isRFIManager: boolean
   canCollaborate?: boolean
   canReleaseMessages?: boolean
-  channels: ChannelData
+  channel: ChannelData
 }
