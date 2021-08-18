@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
@@ -10,7 +10,6 @@ import { MessageCustom, ForceRole, ChannelData, Role } from '@serge/custom-types
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import { forces } from '@serge/mocks'
-import { useState } from 'react'
 
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
@@ -469,7 +468,6 @@ const colabResponseMock: MessageCustom[] = [
   }
 ]
 
-
 const Template: Story<Props> = (args) => {
   const [messages, setMessages] = useState(args.rfiMessages)
 
@@ -509,7 +507,7 @@ CEReleaseManager.args = {
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
-  role: role,
+  role: role
 }
 
 export const CollaborativeResponding = Template.bind({})

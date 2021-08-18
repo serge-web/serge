@@ -15,7 +15,6 @@ import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, isRFIManager, isUmpire, onChange, role }: Props) => {
-
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)

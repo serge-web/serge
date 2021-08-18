@@ -16,7 +16,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
-import { 
+import {
   finalize,
   closed,
   requestChanges,
@@ -29,7 +29,7 @@ import {
   CRCPsubmit,
   CRRMClose,
   CRRMRelease,
-  CRRMResponsePending,
+  CRRMResponsePending
 } from './helpers/changers'
 import {
   formEditable,
@@ -48,7 +48,6 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChange, isUmpire, isRFIManager, channel, canCollaborate, canReleaseMessages }) => {
-
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -105,8 +104,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
   const handleCRRMResponsePending = (): void => {
     onChange && onChange(CRRMResponsePending(message))
   }
-
-  
 
   const onAnswerChange = (answer: string): void => {
     setAnswer(answer)
