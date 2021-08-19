@@ -6,10 +6,20 @@ import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
 import docs from './README.md'
-import { GameMessagesMockRFI, GameChannels } from '@serge/mocks'
-import { mostRecentOnly } from '@serge/helpers'
+import {
+  // channelDataCollaborativeEditing,
+  channelDataCollaborativeEditingCollaborationParticipant,
+  // channelDataColabEditCollaborativeReleaseManager,
+  // channelDataCollaborativeResponding,
+  // channelDataCollaborativeRespondingCollaborationParticipant,
+  // channelDataCollaborativeRespondingReleaseManager,
+  messageDataCollaborativeEditing,
+  // messageDataCollaborativeResponding,
+  // GameMessagesMockRFI,
+  GameChannels
+} from '@serge/mocks'
+// import { mostRecentOnly } from '@serge/helpers'
 import { MessageCustom, ForceRole } from '@serge/custom-types'
-
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -49,16 +59,16 @@ export default {
 }
 
 // reverse the items
-const messages = GameMessagesMockRFI.reverse()
-const newest = mostRecentOnly(messages)
+// const messages = GameMessagesMockRFI.reverse()
+// const newest = mostRecentOnly(messages)
 
-const unallocated = newest[3] as MessageCustom
-const inProgress = newest[2] as MessageCustom
-const forReview = newest[1] as MessageCustom
-const released = newest[0] as MessageCustom
+// const unallocated = newest[3] as MessageCustom
+// const inProgress = newest[2] as MessageCustom
+// const forReview = newest[1] as MessageCustom
+// const released = newest[0] as MessageCustom
 
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isUmpire, role, message, isRFIManager } = args
+  const { isUmpire, role, message } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
   // we wish to update message state for a new story. We do
@@ -72,7 +82,6 @@ const Template: Story<RFIPropTypes> = (args) => {
   return (
     <ChannelCoaMessageDetail
       message={messageState}
-      isRFIManager={isRFIManager}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
       isUmpire={isUmpire}
@@ -81,34 +90,13 @@ const Template: Story<RFIPropTypes> = (args) => {
   )
 }
 
+const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-control', roleName: 'Game Control' }
 export const Unallocated = Template.bind({})
 Unallocated.args = {
-  message: unallocated,
+  message: messageDataCollaborativeEditing[0],
   isUmpire: true,
-  isRFIManager: true,
-  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'CO' }
-}
-
-export const InProgress = Template.bind({})
-InProgress.args = {
-  message: inProgress,
-  isRFIManager: true,
-  isUmpire: true,
-  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control 2', roleName: 'CO 2' }
-}
-
-export const ForReview = Template.bind({})
-ForReview.args = {
-  message: forReview,
-  isRFIManager: true,
-  isUmpire: true,
-  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control 3', roleName: 'CO 3' }
-}
-
-export const Released = Template.bind({})
-Released.args = {
-  message: released,
-  isRFIManager: true,
-  isUmpire: true,
-  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control 4', roleName: 'CO 4' }
+  canCollaborate: true,
+  canReleaseMessages: false,
+  channel: channelDataCollaborativeEditingCollaborationParticipant,
+  role: role
 }

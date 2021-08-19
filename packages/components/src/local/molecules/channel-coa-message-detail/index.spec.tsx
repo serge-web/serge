@@ -43,7 +43,6 @@ describe('ChannelMessageDetail:', () => {
         role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
         channel={testChannel}
         isUmpire={true}
-        isRFIManager={true}
         message={defMessage}
         onChange={(msg): void => { console.log(msg) }}
       />)

@@ -1,7 +1,7 @@
 import { MessageCustom, ChannelData, ForceRole } from '@serge/custom-types'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
-export const formEditable = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
+export const formEditable = (message: MessageCustom, _role: ForceRole, _isUmpire = false): boolean => {
   const { collaboration } = message.details
   return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress && _isUmpire && collaboration.owner?.roleId === _role.roleId && _isUmpire
 }

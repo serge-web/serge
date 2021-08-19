@@ -192,7 +192,6 @@ it('CoaStatusBoard renders correctly', () => {
     .create(
       <CoaStatusBoard
         role={role}
-        isRFIManager={true}
         isUmpire={true}
         roles={roles}
         channel={testChannel}

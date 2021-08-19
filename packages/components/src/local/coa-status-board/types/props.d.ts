@@ -7,7 +7,7 @@ export default interface Props {
   /** if this player is from the UMPIRE force */
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
-  isRFIManager: boolean
+  // isRFIManager: boolean
   /** role of logged in player */
   role: ForceRole
   /** if this set of participants can take part in collaborative working */

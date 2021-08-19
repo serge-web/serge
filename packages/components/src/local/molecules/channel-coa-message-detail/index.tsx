@@ -32,7 +32,6 @@ import {
   CRRMResponsePending
 } from './helpers/changers'
 import {
-  formEditable,
   ColEditRelManReview,
   ColEditCollPartAssClaim,
   ColEditCollPartEditDoc,
@@ -47,7 +46,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChange, isUmpire, isRFIManager, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -119,7 +118,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
     message.details.privateMessage = privateMsg
   }
 
-  const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
@@ -132,14 +130,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
       { // only show next fields if collaboration details known
         isUmpire &&
         <>
-          <Textarea id={`answer_${message._id}`} disabled={formDisabled} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
-          <Textarea id={`private_message_${message._id}`} disabled={formDisabled} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
       { // show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
-          <Textarea id={`answer_${message._id}`} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
         </>
       }
       <div className={styles.actions}>
