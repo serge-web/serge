@@ -16,7 +16,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
-import { 
+import {
   finalize,
   closed,
   requestChanges,
@@ -29,7 +29,7 @@ import {
   CRCPsubmit,
   CRRMClose,
   CRRMRelease,
-  CRRMResponsePending,
+  CRRMResponsePending
 } from './helpers/changers'
 import {
   formEditable,
@@ -104,8 +104,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, onChan
   const handleCRRMResponsePending = (): void => {
     onChange && onChange(CRRMResponsePending(message))
   }
-
-  
 
   const onAnswerChange = (answer: string): void => {
     setAnswer(answer)
