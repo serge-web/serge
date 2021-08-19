@@ -306,7 +306,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="answer_id_3a"
@@ -314,14 +314,14 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Answer
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="answer_id_3a"
                         onChange={[Function]}
                         value=""
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="private_message_id_3a"
@@ -333,7 +333,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Private Message
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="private_message_id_3a"
                         onChange={[Function]}
                         value=""
@@ -477,7 +477,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="answer_id_4"
@@ -485,14 +485,14 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Answer
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="answer_id_4"
                         onChange={[Function]}
                         value=""
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="private_message_id_4"
@@ -504,7 +504,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Private Message
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="private_message_id_4"
                         onChange={[Function]}
                         value=""
@@ -646,7 +646,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="answer_2020-03-25T15:08:47.540Z"
@@ -654,14 +654,14 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Answer
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="answer_2020-03-25T15:08:47.540Z"
                         onChange={[Function]}
                         value="Game control response to RFI 4"
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="private_message_2020-03-25T15:08:47.540Z"
@@ -673,7 +673,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Private Message
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="private_message_2020-03-25T15:08:47.540Z"
                         onChange={[Function]}
                         value="The private content goes in here"
@@ -815,7 +815,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="answer_2020-03-25T15:08:47.525Z"
@@ -823,14 +823,14 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Answer
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="answer_2020-03-25T15:08:47.525Z"
                         onChange={[Function]}
                         value="Game control response to RFI 4"
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="private_message_2020-03-25T15:08:47.525Z"
@@ -842,7 +842,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Private Message
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="private_message_2020-03-25T15:08:47.525Z"
                         onChange={[Function]}
                         value=""
@@ -984,7 +984,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="answer_2020-03-25T15:08:47.530Z"
@@ -992,14 +992,14 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Answer
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="answer_2020-03-25T15:08:47.530Z"
                         onChange={[Function]}
                         value="Game control response to RFI 4"
                       />
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="private_message_2020-03-25T15:08:47.530Z"
@@ -1011,7 +1011,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Private Message
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="private_message_2020-03-25T15:08:47.530Z"
                         onChange={[Function]}
                         value=""

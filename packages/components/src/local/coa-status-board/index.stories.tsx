@@ -16,7 +16,7 @@ import {
   channelDataCollaborativeRespondingCollaborationParticipant,
   channelDataCollaborativeRespondingReleaseManager,
   messageDataCollaborativeEditing,
-  messageDataCollaborativeResponding,
+  messageDataCollaborativeResponding
 } from '@serge/mocks'
 
 export default {
