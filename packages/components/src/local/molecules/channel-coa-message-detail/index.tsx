@@ -155,8 +155,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-            // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
-            ColEditCollPartAssClaim(message, channel, canCollaborate) &&
+          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
+          ColEditCollPartAssClaim(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
@@ -176,8 +176,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-            // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
-            ColRespRelManRespPen(message, channel, canCollaborate) &&
+          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
+          ColRespRelManRespPen(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
