@@ -76,7 +76,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
       isUmpire={isUmpire}
-      channels={GameChannels[0]}
+      channel={GameChannels[0]}
     />
   )
 }

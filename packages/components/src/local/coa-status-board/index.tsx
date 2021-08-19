@@ -14,20 +14,13 @@ import styles from './styles.module.scss'
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
-  // produce dictionary of channels
-  const channelDict = new Map<string, string>()
-
-  const id = channels.uniqid
-  channelDict.set(id, channels.name)
-
-  const participants = channels.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
+export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, isRFIManager, isUmpire, onChange, role }: Props) => {
+  const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
-    channelDict.get(message.details.channel),
     message.details.from.roleName,
     message.details.from.forceColor,
     message.message.Title,
@@ -86,7 +79,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       }
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, channel, mRole, forceColor, content, status, owner] = row
+      const [id, mRole, forceColor, content, status, owner] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.InProgress]: '#E7740A',
@@ -110,7 +103,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
               role={role}
               isUmpire={isUmpire}
               onChange={handleChange}
-              channels={channels}
+              channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
             />
@@ -118,7 +111,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         ),
         cells: [
           id,
-          channel,
           {
             component: <Badge customBackgroundColor={forceColor} label={mRole} />,
             label: mRole

@@ -41,7 +41,7 @@ describe('ChannelMessageDetail:', () => {
     const tree = renderer
       .create(<ChannelCoaMessageDetail
         role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
-        channels={testChannel}
+        channel={testChannel}
         isUmpire={true}
         isRFIManager={true}
         message={defMessage}

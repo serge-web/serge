@@ -485,7 +485,7 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-c
 export const CollaborativeEditing = Template.bind({})
 CollaborativeEditing.args = {
   roles: roles,
-  channels: colabEdit,
+  channel: colabEdit,
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
@@ -494,7 +494,7 @@ CollaborativeEditing.args = {
 export const CECollaborationParticipant = Template.bind({})
 CECollaborationParticipant.args = {
   roles: roles,
-  channels: CECPchannel,
+  channel: CECPchannel,
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
@@ -503,7 +503,7 @@ CECollaborationParticipant.args = {
 export const CEReleaseManager = Template.bind({})
 CEReleaseManager.args = {
   roles: roles,
-  channels: CERMchannel,
+  channel: CERMchannel,
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
@@ -513,7 +513,7 @@ CEReleaseManager.args = {
 export const CollaborativeResponding = Template.bind({})
 CollaborativeResponding.args = {
   roles: roles,
-  channels: colabResponse,
+  channel: colabResponse,
   rfiMessages: mostColabResponseMock,
   isRFIManager: true,
   isUmpire: true,
@@ -522,7 +522,7 @@ CollaborativeResponding.args = {
 export const CRCollaborationParticipant = Template.bind({})
 CRCollaborationParticipant.args = {
   roles: roles,
-  channels: CRCPchannels,
+  channel: CRCPchannels,
   rfiMessages: mostColabResponseMock,
   isRFIManager: true,
   isUmpire: true,
@@ -531,7 +531,7 @@ CRCollaborationParticipant.args = {
 export const CRReleaseManager = Template.bind({})
 CRReleaseManager.args = {
   roles: roles,
-  channels: CRRMchannels,
+  channel: CRRMchannels,
   rfiMessages: mostColabResponseMock,
   isRFIManager: true,
   isUmpire: true,

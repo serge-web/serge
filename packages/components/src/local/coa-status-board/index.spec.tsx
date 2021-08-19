@@ -195,7 +195,7 @@ it('CoaStatusBoard renders correctly', () => {
         isRFIManager={true}
         isUmpire={true}
         roles={roles}
-        channels={testChannel}
+        channel={testChannel}
         rfiMessages={testMock}
         onChange={onChange}
       />

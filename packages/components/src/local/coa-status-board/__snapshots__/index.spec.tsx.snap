@@ -192,10 +192,6 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
         >
           <div
             className="MuiChip-root makeStyles-root-9 makeStyles-root-12"
@@ -243,7 +239,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
+          colSpan={5}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -367,10 +363,6 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
         >
           <div
             className="MuiChip-root makeStyles-root-9 makeStyles-root-18"
@@ -418,7 +410,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
+          colSpan={5}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -542,10 +534,6 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
         >
           <div
             className="MuiChip-root makeStyles-root-9 makeStyles-root-24"
@@ -591,7 +579,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
+          colSpan={5}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -715,10 +703,6 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
         >
           <div
             className="MuiChip-root makeStyles-root-9 makeStyles-root-30"
@@ -764,7 +748,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
+          colSpan={5}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -888,10 +872,6 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
         >
           <div
             className="MuiChip-root makeStyles-root-9 makeStyles-root-36"
@@ -937,7 +917,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
+          colSpan={5}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
