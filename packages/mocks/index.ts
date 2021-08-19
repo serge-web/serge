@@ -31,3 +31,5 @@ export { default as actionSetLatestWargameMessage } from './action-set-latest-wa
 export { default as actionSetWargameMessages } from './action-set-wargame-messages.mock'
 export { default as actionOpenMessage } from './action-open-message.mock'
 export { default as actionCloseMessage } from './action-close-message.mock'
+export * from './coa-channel-data.mock'
+export * from './coa-messages.mock'
