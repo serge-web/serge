@@ -29,6 +29,7 @@ import {
   CRRMRequestChanges
 } from './helpers/changers'
 import {
+  formEditable,
   ColEditPendingReview,
   ColEditDocumentPending,
   ColEditDocumentBeingEdited,
@@ -129,6 +130,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
+  const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+  const formIsEditable = formEditable(message, testRole)
+
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
@@ -137,11 +141,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
         </span>
       </div>}
-      {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? 
-        <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
-        :
-        <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' label="Request"/>
-      }
+      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
+        disabled={!formIsEditable && editingResponse} label="Request"/>
       { // only show next fields if collaboration details known
         isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ?
         <>
