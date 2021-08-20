@@ -86,7 +86,6 @@ export const submitForReview = (message: MessageCustom, privateMessage: string):
   }
 }
 
-
 export const collabResponseAssign = (message: MessageCustom, owner: ForceRole): MessageCustom => {
   return {
     ...message,

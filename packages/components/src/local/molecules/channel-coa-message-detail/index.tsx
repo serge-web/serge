@@ -53,7 +53,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
 
   // TODO: create real role for current user
-  const testRole : ForceRole = {
+  const testRole: ForceRole = {
     forceName: 'aa',
     forceId: 'bb',
     roleName: 'cc',
@@ -144,15 +144,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
       <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
         disabled={!formIsEditable && editingResponse} label={editingResponse ? 'Request' : 'Message'}/>
       { // only show next fields if collaboration details known
-        isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ?
-        <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!(canCollaborate && collRespPendingDisable)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-        </>
-        :
-        <>
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-        </>
+        isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+          ? <>
+            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!(canCollaborate && collRespPendingDisable)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          </>
+          : <>
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          </>
       }
       { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&

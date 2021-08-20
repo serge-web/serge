@@ -1,7 +1,9 @@
 import { messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
-import { finalize, close, requestChanges, endorse, collabEditAssign, 
-  submitForReview, collabResponseAssign, CRCPsubmit, CRRMRelease, CRRMRequestChanges } from './changers'
+import {
+  finalize, close, requestChanges, endorse, collabEditAssign,
+  submitForReview, collabResponseAssign, CRCPsubmit, CRRMRelease, CRRMRequestChanges
+} from './changers'
 import { ForceRole } from '@serge/custom-types'
 
 const whiteUmpire: ForceRole = {
