@@ -18,18 +18,18 @@ import AssignmentInd from '@material-ui/icons/AssignmentInd'
 /* Import Helpers */
 import {
   finalize,
-  closed,
+  close,
   requestChanges,
-  endors,
+  endorse,
   assign,
   claim,
-  editingSubmit,
+  submitForReview,
   CRCPassign,
   CRCPclaim,
   CRCPsubmit,
   CRRMClose,
   CRRMRelease,
-  CRRMResponsePending
+  CRRMRequestChanges
 } from './helpers/changers'
 import {
   ColEditRelManReview,
@@ -57,7 +57,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleClosed = (): void => {
-    onChange && onChange(closed(message))
+    onChange && onChange(close(message))
   }
 
   const handleRequestChanges = (): void => {
@@ -65,26 +65,30 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleEndors = (): void => {
-    onChange && onChange(endors(message))
+    onChange && onChange(endorse(message))
   }
 
   const handleAssign = (): void => {
+    // TODO: - produce ForceRole for selected user, pass to assign
     onChange && onChange(assign(message))
   }
 
   const handleClaim = (): void => {
+    // TODO: - produce ForceRole for current user, pass to claim
     onChange && onChange(claim(message))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(editingSubmit(message))
+    onChange && onChange(submitForReview(message))
   }
 
   const handleCRCPassign = (): void => {
+    // TODO: - produce ForceRole for selected user, pass to assign
     onChange && onChange(CRCPassign(message))
   }
 
   const handleCRCPclaim = (): void => {
+    // TODO: - produce ForceRole for current user, pass to claim
     onChange && onChange(CRCPclaim(message))
   }
 
@@ -100,8 +104,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     onChange && onChange(CRRMRelease(message))
   }
 
-  const handleCRRMResponsePending = (): void => {
-    onChange && onChange(CRRMResponsePending(message))
+  const handleCRRMRequestChanges = (): void => {
+    onChange && onChange(CRRMRequestChanges(message))
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -127,14 +131,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         </span>
       </div>}
       <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
-      { // only show next fields if collaboration details known
+      { // TODO: only show next fields if collaboration details known
         isUmpire &&
         <>
           <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
           <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
-      { // show answer in read-only form if message released
+      { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
           <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
@@ -151,6 +155,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
+          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
           ColEditCollPartAssClaim(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
@@ -167,10 +172,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMResponsePending}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRequestChanges}>Request Changes</Button>
           </>
         }
         {
+          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
           ColRespRelManRespPen(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
