@@ -20,8 +20,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       },
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
+      privateMessage: 'Private part of RFI 3',
       collaboration: {
-        status: CollaborativeMessageStates.Finalized
+        status: CollaborativeMessageStates.Finalized,
+        response: 'Response to RFI 3'
       }
     },
     message: {
@@ -47,8 +49,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       },
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
+      privateMessage: 'Private part of RFI 1',
       collaboration: {
-        status: CollaborativeMessageStates.Closed
+        status: CollaborativeMessageStates.Closed,
+        response: 'Didn\'t bother responding'
       }
     },
     message: {
