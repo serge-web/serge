@@ -1,11 +1,11 @@
-import { MessageCustom, ForceRole } from '@serge/custom-types'
-import { channelDataCollaborativeEditing, channelDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
-import { CollaborativeMessageStates } from '../../../../../../config/build'
+import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
+import { channelDataCollaborativeEditing, channelDataCollaborativeEditingCollaborationParticipant, channelDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
+import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { deepCopy } from '@serge/helpers'
-import { ColEditPendingReview, formEditable } from './visibility'
+import { ColEditPendingReview, formEditable, userCanSeeCollab } from './visibility'
 
 const whiteUmpire: ForceRole = {
-  forceId: 'white',
+  forceId: 'umpire',
   forceName: 'White',
   roleId: 'w3254',
   roleName: 'umpire'
@@ -16,6 +16,13 @@ const whiteLogs: ForceRole = {
   roleId: 'w2222',
   roleName: 'logs'
 }
+const blueLogs: ForceRole = {
+  forceId: '-blue-',
+  forceName: 'Blue',
+  roleId: 'w2aa2',
+  roleName: 'logs'
+}
+
 const message: MessageCustom = messageDataCollaborativeEditing[0]
 
 const coaChannel = channelDataCollaborativeEditing
@@ -50,6 +57,58 @@ const messageStates: CollaborativeMessageStates[] = [
 console.log(canReleaseMessages && cannotReleaseMessages && rfiChannel)
 
 describe('Visibility tests', () => {
+  it('Can see collaborative working', () => {
+    const channelWithRoles: ChannelData = {
+      collabOptions: {
+        extraColumns: [],
+        mode: 'edit',
+        returnVerbs: ['Endorse', 'Request Changes'],
+        startWithReview: true
+      },
+      format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
+      name: 'New CE',
+      participants: [
+        {
+          canCollaborate: false,
+          canReleaseMessages: false,
+          force: 'Red',
+          forceUniqid: '-red-',
+          roles: ['w2aa2'],
+          subscriptionId: 'oq1j',
+          templates: [
+            { title: 'RFI', _id: 'k16eedkj' }
+          ]
+        },
+        {
+          canCollaborate: true,
+          canReleaseMessages: false,
+          force: 'Blue',
+          forceUniqid: '-blue-',
+          roles: ['w2aa2'],
+          subscriptionId: 'oqoj',
+          templates: [
+            { title: 'RFI', _id: 'k16eedkj' }
+          ]
+        }
+      ],
+      uniqid: 'ks8soryj'
+    }
+
+    // white user in collab channel without collab rights
+    expect(userCanSeeCollab(channelDataCollaborativeEditing, whiteUmpire)).toBeFalsy()
+    // blue user in collab channel without participation
+    expect(userCanSeeCollab(channelDataCollaborativeEditing, blueLogs)).toBeFalsy()
+
+    // white user in collab channel with collab rights
+    expect(userCanSeeCollab(channelDataCollaborativeEditingCollaborationParticipant, whiteUmpire)).toBeTruthy()
+
+    // now channel with discrete roles
+    // white user in collab channel
+    expect(userCanSeeCollab(channelWithRoles, whiteUmpire)).toBeFalsy()
+    // blue user in collab channel
+    expect(userCanSeeCollab(channelWithRoles, blueLogs)).toBeTruthy()
+  })
+
   it('Not editable', () => {
     // start off with empty collab
     expect(messageEmptyCollab.details.collaboration).toBeUndefined()
