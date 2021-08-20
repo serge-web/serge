@@ -35,7 +35,8 @@ import {
   ColEditDocumentBeingEdited,
   ColRespRelManReview,
   ColRespResponsePending,
-  ColRespDocumentBeingEdited
+  ColRespDocumentBeingEdited,
+  userCanSeeCollab
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { ForceRole } from '@serge/custom-types'
@@ -131,7 +132,19 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-  const formIsEditable = formEditable(message, testRole)
+
+  /** can this role see the collaborative working details? */
+  const roleCanSeeCollab = userCanSeeCollab(channel, testRole)
+
+  /** can this role edit the collaborative data */
+  const formIsEditable = roleCanSeeCollab && formEditable(message, testRole)
+
+  // if this document is being edited by the current user
+  const documentBeingEdited = ColEditDocumentBeingEdited(message, channel, canCollaborate)
+
+  const messageEnabled = formIsEditable && editingResponse && canCollaborate
+
+  console.log('perms', isUmpire, formIsEditable, editingResponse, canCollaborate, messageEnabled)
 
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
@@ -142,16 +155,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         </span>
       </div>}
       <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
-        disabled={!formIsEditable && editingResponse} label={editingResponse ? 'Request' : 'Message'}/>
+        disabled={!messageEnabled} label={editingResponse ? 'Request' : 'Message'}/>
       { // only show next fields if collaboration details known
-        isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-          ? <>
-            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
-            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!(canCollaborate && collRespPendingDisable)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          </>
-          : <>
-            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          </>
+        roleCanSeeCollab && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE &&
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
+      }
+      {
+        isUmpire &&
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!documentBeingEdited} theme='dark' label='Private Message' labelFactory={labelFactory}/>
       }
       { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
