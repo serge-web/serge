@@ -15,7 +15,7 @@ export const finalize = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const closed = (message: MessageCustom): MessageCustom => {
+export const close = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -43,7 +43,7 @@ export const requestChanges = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const endors = (message: MessageCustom): MessageCustom => {
+export const endorse = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -85,7 +85,7 @@ export const claim = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const editingSubmit = (message: MessageCustom): MessageCustom => {
+export const submitForReview = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -171,7 +171,7 @@ export const CRRMRelease = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const CRRMResponsePending = (message: MessageCustom): MessageCustom => {
+export const CRRMRequestChanges = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {

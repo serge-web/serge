@@ -18,26 +18,26 @@ import AssignmentInd from '@material-ui/icons/AssignmentInd'
 /* Import Helpers */
 import {
   finalize,
-  closed,
+  close,
   requestChanges,
-  endors,
+  endorse,
   assign,
   claim,
-  editingSubmit,
+  submitForReview,
   CRCPassign,
   CRCPclaim,
   CRCPsubmit,
   CRRMClose,
   CRRMRelease,
-  CRRMResponsePending
+  CRRMRequestChanges
 } from './helpers/changers'
 import {
-  ColEditRelManReview,
-  ColEditCollPartAssClaim,
-  ColEditCollPartEditDoc,
+  ColEditPendingReview,
+  ColEditDocumentPending,
+  ColEditDocumentBeingEdited,
   ColRespRelManReview,
-  ColRespRelManRespPen,
-  ColRespRelManEditResp
+  ColRespResponsePending,
+  ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
@@ -53,15 +53,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const { collaboration } = message.details
   const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
   
-  // console.log('message: ', message)
-  // console.log('channel: ', channel)
-  
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
   }
 
   const handleClosed = (): void => {
-    onChange && onChange(closed(message))
+    onChange && onChange(close(message))
   }
 
   const handleRequestChanges = (): void => {
@@ -69,26 +66,30 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleEndors = (): void => {
-    onChange && onChange(endors(message))
+    onChange && onChange(endorse(message))
   }
 
   const handleAssign = (): void => {
+    // TODO: - produce ForceRole for selected user, pass to assign
     onChange && onChange(assign(message))
   }
 
   const handleClaim = (): void => {
+    // TODO: - produce ForceRole for current user, pass to claim
     onChange && onChange(claim(message))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(editingSubmit(message))
+    onChange && onChange(submitForReview(message))
   }
 
   const handleCRCPassign = (): void => {
+    // TODO: - produce ForceRole for selected user, pass to assign
     onChange && onChange(CRCPassign(message))
   }
 
   const handleCRCPclaim = (): void => {
+    // TODO: - produce ForceRole for current user, pass to claim
     onChange && onChange(CRCPclaim(message))
   }
 
@@ -104,8 +105,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     onChange && onChange(CRRMRelease(message))
   }
 
-  const handleCRRMResponsePending = (): void => {
-    onChange && onChange(CRRMResponsePending(message))
+  const handleCRRMRequestChanges = (): void => {
+    onChange && onChange(CRRMRequestChanges(message))
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -139,10 +140,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ?
         <>
           <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
-          {canCollaborate && collRespPendingDisable ? 
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          :
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled theme='dark' label='Private Message' labelFactory={labelFactory}/>}
+          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!(canCollaborate && collRespPendingDisable)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
         :
         <>
@@ -150,7 +148,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
-      { // show answer in read-only form if message released
+      { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
           <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
@@ -158,7 +156,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
       }
       <div className={styles.actions}>
         {
-          ColEditRelManReview(message, channel, canReleaseMessages) &&
+          ColEditPendingReview(message, channel, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
@@ -167,14 +165,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-          ColEditCollPartAssClaim(message, channel, canCollaborate) &&
+          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
+          ColEditDocumentPending(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
           </>
         }
         {
-          ColEditCollPartEditDoc(message, channel, canCollaborate) &&
+          ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
         }
 
@@ -183,18 +182,19 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMResponsePending}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRequestChanges}>Request Changes</Button>
           </>
         }
         {
-          ColRespRelManRespPen(message, channel, canCollaborate) &&
+          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
+          ColRespResponsePending(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
           </>
         }
         {
-          ColRespRelManEditResp(message, channel, canCollaborate) &&
+          ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
         }
       </div>
