@@ -21,11 +21,9 @@ import {
   close,
   requestChanges,
   endorse,
-  assign,
-  claim,
+  collabEditAssign,
   submitForReview,
-  CRCPassign,
-  CRCPclaim,
+  collabResponseAssign,
   CRCPsubmit,
   CRRMClose,
   CRRMRelease,
@@ -40,6 +38,7 @@ import {
   ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import { ForceRole } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
@@ -52,7 +51,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
   const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
-  
+
+  // TODO: create real role for current user
+  const testRole : ForceRole = {
+    forceName: 'aa',
+    forceId: 'bb',
+    roleName: 'cc',
+    roleId: 'dd'
+  }
+
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
   }
@@ -71,26 +78,26 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleAssign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(assign(message))
+    onChange && onChange(collabEditAssign(message, testRole))
   }
 
   const handleClaim = (): void => {
     // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(claim(message))
+    onChange && onChange(collabEditAssign(message, testRole))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(submitForReview(message))
+    onChange && onChange(submitForReview(message, privateMessage))
   }
 
   const handleCRCPassign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(CRCPassign(message))
+    onChange && onChange(collabResponseAssign(message, testRole))
   }
 
   const handleCRCPclaim = (): void => {
     // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(CRCPclaim(message))
+    onChange && onChange(collabResponseAssign(message, testRole))
   }
 
   const handleCRCPsubmit = (): void => {
