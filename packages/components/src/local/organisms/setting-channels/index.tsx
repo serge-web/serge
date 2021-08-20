@@ -67,8 +67,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
     onSidebarClick && onSidebarClick(_item as ChannelData)
   }
 
-  const handleChangeChannels = (nextChannels: Array<ChannelData>): void => {
-    onChange({ channels: nextChannels })
+  const handleChangeChannels = (nextChannels: Array<ChannelData>, selectedChannel: ChannelData): void => {
+    onChange({ channels: nextChannels, selectedChannel })
   }
 
   const renderAdditionalCells = (channelData: ChannelData): React.ReactNode => {
@@ -94,7 +94,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     const handleChangeChannel = (channel: ChannelData): void => {
       const nextChannels: Array<ChannelData> = [...localChannelUpdates]
       nextChannels[selectedItem] = channel
-      handleChangeChannels(nextChannels)
+      handleChangeChannels(nextChannels, channel)
       setLocalChannelUpdates(nextChannels)
     }
 
@@ -216,11 +216,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }, [channels])
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
+    const createdChannel = createChannel(channels, forces[0], type)
     const nextChannels: ChannelData[] = [
-      createChannel(channels, forces[0], type),
+      createdChannel,
       ...channels
     ]
-    handleChangeChannels(nextChannels)
+    handleChangeChannels(nextChannels, createdChannel)
     setLocalChannelUpdates(nextChannels)
   }
   const handleClose = (event: React.MouseEvent<Document, MouseEvent>): void => {
