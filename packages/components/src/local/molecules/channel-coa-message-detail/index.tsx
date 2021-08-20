@@ -142,7 +142,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         </span>
       </div>}
       <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
-        disabled={!formIsEditable && editingResponse} label="Request"/>
+        disabled={!formIsEditable && editingResponse} label={editingResponse ? 'Request' : 'Message'}/>
       { // only show next fields if collaboration details known
         isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ?
         <>
@@ -151,7 +151,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         </>
         :
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
           <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
