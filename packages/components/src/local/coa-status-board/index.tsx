@@ -42,6 +42,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   }, [])
 
   const handleChange = (nextMessage: MessageCustom): void => {
+    console.log('NEXT MESSAGE: ', nextMessage)
     const index = rfiMessages.findIndex(message => message._id === nextMessage._id)
     if (index !== -1) {
       const nextMessages = [...rfiMessages]

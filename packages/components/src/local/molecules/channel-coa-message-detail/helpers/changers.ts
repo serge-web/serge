@@ -127,14 +127,16 @@ export const CRCPclaim = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const CRCPsubmit = (message: MessageCustom): MessageCustom => {
+export const CRCPsubmit = (message: MessageCustom, answer: string, privateMessage: string): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
+      privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.PendingReview,
+        response: answer,
         owner: undefined
       }
     }

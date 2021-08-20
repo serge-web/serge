@@ -39,7 +39,7 @@ import {
   ColRespRelManRespPen,
   ColRespRelManEditResp
 } from './helpers/visibility'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
@@ -51,7 +51,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
-
+  const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
+  
+  // console.log('message: ', message)
+  // console.log('channel: ', channel)
+  
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
   }
@@ -89,7 +93,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleCRCPsubmit = (): void => {
-    onChange && onChange(CRCPsubmit(message))
+    onChange && onChange(CRCPsubmit(message, answer, privateMessage))
   }
 
   const handleCRRMClose = (): void => {
@@ -126,9 +130,21 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
         </span>
       </div>}
-      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+      {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? 
+        <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+        :
+        <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' label="Request"/>
+      }
       { // only show next fields if collaboration details known
-        isUmpire &&
+        isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ?
+        <>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
+          {canCollaborate && collRespPendingDisable ? 
+          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          :
+          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled theme='dark' label='Private Message' labelFactory={labelFactory}/>}
+        </>
+        :
         <>
           <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
           <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
