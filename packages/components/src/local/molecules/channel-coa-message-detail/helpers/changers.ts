@@ -117,20 +117,6 @@ export const CRCPsubmit = (message: MessageCustom, answer: string, privateMessag
   }
 }
 
-export const CRRMClose = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.Closed,
-        owner: undefined
-      }
-    }
-  }
-}
-
 export const CRRMRelease = (message: MessageCustom): MessageCustom => {
   return {
     ...message,

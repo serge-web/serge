@@ -1,7 +1,7 @@
 import { messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
 import { finalize, close, requestChanges, endorse, collabEditAssign, 
-  submitForReview, collabResponseAssign, CRCPsubmit, CRRMClose, CRRMRelease, CRRMRequestChanges } from './changers'
+  submitForReview, collabResponseAssign, CRCPsubmit, CRRMRelease, CRRMRequestChanges } from './changers'
 import { ForceRole } from '@serge/custom-types'
 
 const whiteUmpire: ForceRole = {
@@ -26,7 +26,6 @@ describe('Changer tests', () => {
     expect(requestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.DocumentPending)
     expect(endorse(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.DocumentPending)
 
-    expect(CRRMClose(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Closed)
     expect(CRRMRelease(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Released)
     expect(CRRMRequestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.ResponsePending)
 

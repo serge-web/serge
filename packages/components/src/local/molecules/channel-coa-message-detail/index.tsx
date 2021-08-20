@@ -25,7 +25,6 @@ import {
   submitForReview,
   collabResponseAssign,
   CRCPsubmit,
-  CRRMClose,
   CRRMRelease,
   CRRMRequestChanges
 } from './helpers/changers'
@@ -105,7 +104,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleCRRMClose = (): void => {
-    onChange && onChange(CRRMClose(message))
+    onChange && onChange(close(message))
   }
 
   const handleCRRMRelease = (): void => {
