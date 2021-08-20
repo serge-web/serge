@@ -1,6 +1,10 @@
 import { MessageCustom, ChannelData, ForceRole } from '@serge/custom-types'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
+/** shortcut constants to make code more legible */
+const cEdit = SpecialChannelTypes.CHANNEL_COLLAB_EDIT
+const cResponse = SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+
 /**
  * @param message the message we're looking at
  * @param state the state we're checking for
@@ -26,7 +30,7 @@ const isThisRole = (message: MessageCustom, role: ForceRole): boolean => {
  * @param role the role we're checking for
  * @returns is this channel the type we're looking for
  */
-const isThisChannelType = (channel: ChannelData, channelType: SpecialChannelTypes): boolean => {
+const isThisChannel = (channel: ChannelData, channelType: SpecialChannelTypes): boolean => {
   return channel.format === channelType
 }
 
@@ -34,33 +38,28 @@ export const formEditable = (message: MessageCustom, _role: ForceRole): boolean 
   return isThisState(message, CollaborativeMessageStates.InProgress) && isThisRole(message, _role)
 }
 
-export const ColEditRelManReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return isThisChannelType(channel, SpecialChannelTypes.CHANNEL_COLLAB_EDIT) && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && !!canReleaseMessages
+// Collaborative Editing buttons
+export const ColEditPendingReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+  return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.PendingReview) && !!canReleaseMessages
 }
 
-export const ColEditCollPartAssClaim = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.DocumentPending && !!canCollaborate
+export const ColEditDocumentPending = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.DocumentPending) && !!canCollaborate
 }
 
-export const ColEditCollPartEditDoc = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && !!canCollaborate
+export const ColEditDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.EditDocument) && !!canCollaborate
 }
 
 // Collaborative Responding buttons
 export const ColRespRelManReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && !!canReleaseMessages
+  return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.PendingReview) && !!canReleaseMessages
 }
 
-export const ColRespRelManRespPen = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.ResponsePending && !!canCollaborate
+export const ColRespResponsePending = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.ResponsePending) && !!canCollaborate
 }
 
-export const ColRespRelManEditResp = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
-  const { collaboration } = message.details
-  return channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditResponse && !!canCollaborate
+export const ColRespDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.EditResponse) && !!canCollaborate
 }
