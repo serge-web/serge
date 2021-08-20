@@ -32,12 +32,12 @@ import {
   CRRMRequestChanges
 } from './helpers/changers'
 import {
-  ColEditRelManReview,
-  ColEditCollPartAssClaim,
-  ColEditCollPartEditDoc,
+  ColEditPendingReview,
+  ColEditDocumentPending,
+  ColEditDocumentBeingEdited,
   ColRespRelManReview,
-  ColRespRelManRespPen,
-  ColRespRelManEditResp
+  ColRespResponsePending,
+  ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates } from '@serge/config'
 
@@ -146,7 +146,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
       }
       <div className={styles.actions}>
         {
-          ColEditRelManReview(message, channel, canReleaseMessages) &&
+          ColEditPendingReview(message, channel, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
@@ -156,14 +156,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         }
         {
           // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
-          ColEditCollPartAssClaim(message, channel, canCollaborate) &&
+          ColEditDocumentPending(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
           </>
         }
         {
-          ColEditCollPartEditDoc(message, channel, canCollaborate) &&
+          ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
         }
 
@@ -177,14 +177,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         }
         {
           // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
-          ColRespRelManRespPen(message, channel, canCollaborate) &&
+          ColRespResponsePending(message, channel, canCollaborate) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
           </>
         }
         {
-          ColRespRelManEditResp(message, channel, canCollaborate) &&
+          ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
         }
       </div>
