@@ -71,7 +71,7 @@ export const Button: React.FC<Props> = ({ customColor, icon, children, customVar
       {...props}
       {...icon && { startIcon: iconsMap[icon] }}
     >
-      { children }
+      {children}
     </MaterialButton>
   )
 }

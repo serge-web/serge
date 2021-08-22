@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropdownList component: renders correctly 1`] = `
+<div
+  className="MuiFormControl-root makeStyles-margin-1"
+>
+  <div
+    className="MuiInputBase-root MuiInput-root makeStyles-dropdownInput-2 MuiInputBase-formControl MuiInput-formControl"
+    onClick={[Function]}
+  >
+    <select
+      aria-invalid={false}
+      className="MuiNativeSelect-root MuiNativeSelect-select MuiInputBase-input MuiInput-input"
+      disabled={false}
+      onAnimationStart={[Function]}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      required={false}
+      value="1"
+    >
+      <option
+        disabled={true}
+        selected={true}
+        value="0"
+      >
+        Select Item
+      </option>
+      <option
+        value="1"
+      >
+        Item 1
+      </option>
+      <option
+        value="2"
+      >
+        Item 2
+      </option>
+      <option
+        value="3"
+      >
+        Item 3
+      </option>
+    </select>
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root MuiNativeSelect-icon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M7 10l5 5 5-5z"
+      />
+    </svg>
+  </div>
+</div>
+`;

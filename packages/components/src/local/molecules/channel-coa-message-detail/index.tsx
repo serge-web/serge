@@ -9,6 +9,7 @@ import styles from './styles.module.scss'
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
+import AssignMessage from '../../atoms/assign-message'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,7 +25,7 @@ import {
   assign,
   claim,
   submitForReview,
-  CRCPassign,
+  // CRCPassign,
   CRCPclaim,
   CRCPsubmit,
   CRRMClose,
@@ -42,15 +43,16 @@ import {
 import { CollaborativeMessageStates } from '@serge/config'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
-  <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
+  <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages, role }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
+  // const [candidate, setCandidate] = useState<string>('')
 
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
@@ -82,9 +84,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     onChange && onChange(submitForReview(message))
   }
 
-  const handleCRCPassign = (): void => {
+  const handleCRCPassign = (roleItem: string): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(CRCPassign(message))
+    // onChange && onChange(CRCPassign(message))
+    console.log('=>', roleItem, channel, role)
   }
 
   const handleCRCPclaim = (): void => {
@@ -122,26 +125,30 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
+  // const onDropdownChange = (item: any): void => {
+  //   setCandidate(item.target.value)
+  // }
+
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
       {collaboration && isUmpire && <div className={styles.assigned}>
         <span className={styles.inset}>
-          <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
+          <AssignmentInd color="action" fontSize="large" /><Badge size="medium" type="charcoal" label={assignLabel} />
         </span>
       </div>}
-      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request" />
       { // TODO: only show next fields if collaboration details known
         isUmpire &&
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer" />
+          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory} />
         </>
       }
       { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer" />
         </>
       }
       <div className={styles.actions}>
@@ -179,7 +186,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
           ColRespResponsePending(message, channel, canCollaborate) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
+            {/* <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button> */}
+            <AssignMessage
+              options={['Game Control', 'CO', 'Blue 1']}
+              onClick={handleCRCPassign}
+            />
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
           </>
         }
