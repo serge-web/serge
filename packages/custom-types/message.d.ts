@@ -140,7 +140,7 @@ export interface MessageCustom extends CoreMessage {
   isOpen: boolean
   hasBeenRead: boolean
   gameTurn?: number,
-  feedback?: boolean,
+  feedback?: string,
   infoType?: boolean,
 }
 

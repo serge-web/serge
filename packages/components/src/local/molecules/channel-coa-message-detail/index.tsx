@@ -9,6 +9,7 @@ import styles from './styles.module.scss'
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
+import DialogModal from '../../atoms/dialog'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -42,15 +43,19 @@ import {
 import { CollaborativeMessageStates } from '@serge/config'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
-  <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
+  <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
+
+type PendingFncExecution = typeof endorse | typeof requestChanges
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
+  const [open, setOpenDialog] = useState<boolean>(false)
   const { collaboration } = message.details
+  let pendingFncExecution: PendingFncExecution
 
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
@@ -61,11 +66,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleRequestChanges = (): void => {
-    onChange && onChange(requestChanges(message))
+    setOpenDialog(true)
+    pendingFncExecution = requestChanges
   }
 
   const handleEndors = (): void => {
-    onChange && onChange(endorse(message))
+    setOpenDialog(true)
+    pendingFncExecution = endorse
   }
 
   const handleAssign = (): void => {
@@ -122,26 +129,43 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
+  const onModalClose = (): void => {
+    setOpenDialog(false)
+  }
+
+  const onModalSave = (feedback: string): void => {
+    message.feedback = feedback
+    onChange && pendingFncExecution && onChange(pendingFncExecution(message))
+    setOpenDialog(false)
+  }
+
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
+      <DialogModal
+        title="Feedback"
+        value={message.feedback}
+        open={open}
+        onClose={onModalClose}
+        onSave={onModalSave}
+      />
       {collaboration && isUmpire && <div className={styles.assigned}>
         <span className={styles.inset}>
-          <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
+          <AssignmentInd color="action" fontSize="large" /><Badge size="medium" type="charcoal" label={assignLabel} />
         </span>
       </div>}
-      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request" />
       { // TODO: only show next fields if collaboration details known
         isUmpire &&
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer" />
+          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory} />
         </>
       }
       { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer" />
         </>
       }
       <div className={styles.actions}>

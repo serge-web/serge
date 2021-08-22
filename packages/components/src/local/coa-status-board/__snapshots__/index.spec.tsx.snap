@@ -261,6 +261,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -432,6 +433,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -601,6 +603,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -770,6 +773,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -939,6 +943,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
