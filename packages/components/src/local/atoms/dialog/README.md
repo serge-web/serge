@@ -7,7 +7,7 @@ Dialog component is extension of Material UI Button
 
 ## Code example
 
-```
+```tsx
 <DialogModal
   title="Feedback"
   value="Testing"
