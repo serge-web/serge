@@ -134,7 +134,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
-
   const onModalClose = (): void => {
     setOpenDialog(false)
   }
