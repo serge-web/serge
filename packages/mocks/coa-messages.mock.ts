@@ -108,8 +108,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
-        status: CollaborativeMessageStates.EditResponse,
-        response: 'Game control response to RFI 4'
+        status: CollaborativeMessageStates.EditDocument
       }
     },
     message: {
@@ -194,7 +193,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
-        status: CollaborativeMessageStates.EditResponse
+        status: CollaborativeMessageStates.EditResponse,
+        response: 'Game control response to RFI 4'
       }
     },
     message: {

@@ -18,14 +18,19 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
 
-  const data = rfiMessages.map(message => [
-    message.message.Reference || message._id,
-    message.details.from.roleName,
-    message.details.from.forceColor,
-    message.message.Title,
-    message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-    message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
-  ])
+  const data = rfiMessages.map(message => {
+    const collab = message.details.collaboration
+    const owner = collab && collab.owner && collab.owner.roleName || 'Pending'
+    const res = [
+      message.message.Reference || message._id,
+      message.details.from.roleName,
+      message.details.from.forceColor,
+      message.message.Title,
+      message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
+      owner
+    ]
+    return res
+  })
 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [

@@ -130,12 +130,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   // if this document is being edited by the current user
   const documentBeingEdited = ColEditDocumentBeingEdited(message, channel, canCollaborate) || ColRespDocumentBeingEdited(message, channel, canCollaborate)
 
-  const messageEnabled = formIsEditable && editingResponse && canCollaborate
+ // const messageEnabled = formIsEditable && editingResponse && canCollaborate
+
+ // console.log('perms', messageEnabled, formIsEditable, editingResponse)
 
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
+  console.log('collab', collaboration)
   return (
     <div className={styles.main}>
-      {collaboration && isUmpire && <div className={styles.assigned}>
+      {collaboration && roleCanSeeCollab && <div className={styles.assigned}>
         <span className={styles.inset}>
           <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
         </span>
@@ -145,10 +148,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
             disabled label={'Request'}/>
           { roleCanSeeCollab &&
-            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!ColRespDocumentBeingEdited(message, channel, canCollaborate) } theme='dark' label="Answer"/>
+            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!formIsEditable } theme='dark' label="Answer"/>
           }
         </> : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
-          disabled={!messageEnabled} label={'Message'}/>
+          disabled={!formIsEditable} label={'Message'}/>
       }
       {
         isUmpire &&
