@@ -46,7 +46,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
 
-type PendingFncExecution = typeof endorse | typeof requestChanges
+type ActionType = 'endorse' | 'requestChanges'
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
@@ -54,8 +54,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [open, setOpenDialog] = useState<boolean>(false)
+  const [actionType, setActionType] = useState<ActionType>('endorse')
   const { collaboration } = message.details
-  let pendingFncExecution: PendingFncExecution
 
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
@@ -67,12 +67,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleRequestChanges = (): void => {
     setOpenDialog(true)
-    pendingFncExecution = requestChanges
+    setActionType('requestChanges')
   }
 
   const handleEndors = (): void => {
     setOpenDialog(true)
-    pendingFncExecution = endorse
+    setActionType('endorse')
   }
 
   const handleAssign = (): void => {
@@ -143,7 +143,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
       feedback
     }
 
-    onChange && pendingFncExecution && onChange(pendingFncExecution(message))
+    const func = actionType === 'endorse' ? endorse : requestChanges
+    onChange && onChange(func(message))
     setOpenDialog(false)
   }
 
@@ -152,7 +153,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     <div className={styles.main}>
       <DialogModal
         title="Feedback"
-        value={message.message.feedback && message.message.feedback[0].feedback}
+        value={message.message.feedback && message.message.feedback.feedback}
         open={open}
         onClose={onModalClose}
         onSave={onModalSave}
