@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Import component files
-import EditableRow from './index'
+import EditableRow, { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM } from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Item } from './types/props'
@@ -23,6 +23,7 @@ export default {
 const items: Array<Item> = [
   {
     title: 'Column 1',
+    type: EDITABLE_SELECT_ITEM,
     active: [0],
     uniqid: 'col1',
     options: [
@@ -33,6 +34,7 @@ const items: Array<Item> = [
   },
   {
     title: 'Column 2',
+    type: EDITABLE_SELECT_ITEM,
     active: [0],
     uniqid: 'col2',
     multiple: true,
@@ -44,6 +46,12 @@ const items: Array<Item> = [
       { name: 'Option 5', uniqid: 'op5' },
       { name: 'Option 6', uniqid: 'op6' }
     ]
+  },
+  {
+    title: 'Switch',
+    type: EDITABLE_SWITCH_ITEM,
+    active: true,
+    uniqid: 'col3'
   }
 ]
 

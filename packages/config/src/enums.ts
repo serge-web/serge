@@ -66,7 +66,13 @@ export enum CollaborativeMessageStates {
   /**
    * Collaborative editing cancelled
    */
-  Rejected = 'Rejected'
+  Rejected = 'Rejected',
+  Finalized = 'Finalized',
+  Closed = 'Closed',
+  DocumentPending = 'Document Pending',
+  EditDocument = 'Edit Document',
+  EditResponse = 'Edit Response',
+  ResponsePending = 'Response Pending',
 }
 
 /** the commands that can be appled to a collaborative message

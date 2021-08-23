@@ -7,7 +7,7 @@ import TextInput from '../../atoms/text-input'
 import Props, { ActionPayload, Action } from './types/props'
 import { CollaborativeMessageStates } from '@serge/config'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   rfiForm: {
     background: theme.palette.primary.main,
     padding: '10px'

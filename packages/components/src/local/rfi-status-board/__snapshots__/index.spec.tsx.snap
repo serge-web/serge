@@ -273,558 +273,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label makeStyles-label"
             >
-              Unallocated
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              = Unallocated =
-            </span>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRowCollapsible"
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
-        >
-          <div
-            className="MuiCollapse-container MuiCollapse-hidden"
-            style={
-              Object {
-                "minHeight": "0px",
-              }
-            }
-          >
-            <div
-              className="MuiCollapse-wrapper"
-            >
-              <div
-                className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="question_2020-03-25T15:08:47.525Z"
-                      >
-                        Request
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="question_2020-03-25T15:08:47.525Z"
-                        onChange={[Function]}
-                        value="[message empty]"
-                      />
-                    </div>
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="answer_2020-03-25T15:08:47.525Z"
-                      >
-                        Answer
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="answer_2020-03-25T15:08:47.525Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_2020-03-25T15:08:47.525Z"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_2020-03-25T15:08:47.525Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
-        onClick={[Function]}
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          2020-03-25T15:08:47.530Z
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          Channel 16
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              CO
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              Unallocated
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              = Unallocated =
-            </span>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRowCollapsible"
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
-        >
-          <div
-            className="MuiCollapse-container MuiCollapse-hidden"
-            style={
-              Object {
-                "minHeight": "0px",
-              }
-            }
-          >
-            <div
-              className="MuiCollapse-wrapper"
-            >
-              <div
-                className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="question_2020-03-25T15:08:47.530Z"
-                      >
-                        Request
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="question_2020-03-25T15:08:47.530Z"
-                        onChange={[Function]}
-                        value="[message empty]"
-                      />
-                    </div>
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="answer_2020-03-25T15:08:47.530Z"
-                      >
-                        Answer
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="answer_2020-03-25T15:08:47.530Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_2020-03-25T15:08:47.530Z"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_2020-03-25T15:08:47.530Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
-        onClick={[Function]}
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          2020-03-25T15:08:47.540Z
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          Channel 16
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              Game Control
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        />
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              Unallocated
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              = Unallocated =
-            </span>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRowCollapsible"
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
-        >
-          <div
-            className="MuiCollapse-container MuiCollapse-hidden"
-            style={
-              Object {
-                "minHeight": "0px",
-              }
-            }
-          >
-            <div
-              className="MuiCollapse-wrapper"
-            >
-              <div
-                className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="question_2020-03-25T15:08:47.540Z"
-                      >
-                        Request
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="question_2020-03-25T15:08:47.540Z"
-                        onChange={[Function]}
-                        value="[message empty]"
-                      />
-                    </div>
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="answer_2020-03-25T15:08:47.540Z"
-                      >
-                        Answer
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="answer_2020-03-25T15:08:47.540Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_2020-03-25T15:08:47.540Z"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_2020-03-25T15:08:47.540Z"
-                        onChange={[Function]}
-                        value="The private content goes in here"
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
-        onClick={[Function]}
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          Blue-1
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          Blue RFI
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              CO
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          RFI 1 from Blue
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              Unallocated
+              In progress
             </span>
           </div>
         </td>
@@ -907,6 +356,618 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                       className="main theme-dark disabled"
                     >
                       <label
+                        htmlFor="question_2020-03-25T15:08:47.525Z"
+                      >
+                        Request
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="question_2020-03-25T15:08:47.525Z"
+                        onChange={[Function]}
+                        value="[message empty]"
+                      />
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="answer_2020-03-25T15:08:47.525Z"
+                      >
+                        Answer
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="answer_2020-03-25T15:08:47.525Z"
+                        onChange={[Function]}
+                        value="Game control response to RFI 4"
+                      />
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_2020-03-25T15:08:47.525Z"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_2020-03-25T15:08:47.525Z"
+                        onChange={[Function]}
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="actions"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          2020-03-25T15:08:47.530Z
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Channel 16
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              Pending review
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              = Unallocated =
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-container MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              >
+                <div
+                  className="rfi-form"
+                >
+                  <div
+                    className="main"
+                  >
+                    <div
+                      className="assigned"
+                    >
+                      <span
+                        className="inset"
+                      >
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeLarge"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+                          />
+                        </svg>
+                        <div
+                          className="MuiChip-root makeStyles-root makeStyles-root"
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                        >
+                          <span
+                            className="MuiChip-label makeStyles-label makeStyles-label"
+                          >
+                            Not assigned
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="question_2020-03-25T15:08:47.530Z"
+                      >
+                        Request
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="question_2020-03-25T15:08:47.530Z"
+                        onChange={[Function]}
+                        value="[message empty]"
+                      />
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="answer_2020-03-25T15:08:47.530Z"
+                      >
+                        Answer
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="answer_2020-03-25T15:08:47.530Z"
+                        onChange={[Function]}
+                        value="Game control response to RFI 4"
+                      />
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_2020-03-25T15:08:47.530Z"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_2020-03-25T15:08:47.530Z"
+                        onChange={[Function]}
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="actions"
+                    >
+                      <button
+                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                        disabled={false}
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex={0}
+                        type="button"
+                      >
+                        <span
+                          className="MuiButton-label"
+                        >
+                          Reject
+                        </span>
+                      </button>
+                      <button
+                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                        disabled={false}
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex={0}
+                        type="button"
+                      >
+                        <span
+                          className="MuiButton-label"
+                        >
+                          Release
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          2020-03-25T15:08:47.540Z
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Channel 16
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              Game Control
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              Rejected
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              = Unallocated =
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-container MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              >
+                <div
+                  className="rfi-form"
+                >
+                  <div
+                    className="main"
+                  >
+                    <div
+                      className="assigned"
+                    >
+                      <span
+                        className="inset"
+                      >
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeLarge"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+                          />
+                        </svg>
+                        <div
+                          className="MuiChip-root makeStyles-root makeStyles-root"
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                        >
+                          <span
+                            className="MuiChip-label makeStyles-label makeStyles-label"
+                          >
+                            Not assigned
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="question_2020-03-25T15:08:47.540Z"
+                      >
+                        Request
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="question_2020-03-25T15:08:47.540Z"
+                        onChange={[Function]}
+                        value="[message empty]"
+                      />
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="answer_2020-03-25T15:08:47.540Z"
+                      >
+                        Answer
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="answer_2020-03-25T15:08:47.540Z"
+                        onChange={[Function]}
+                        value="Game control response to RFI 4"
+                      />
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_2020-03-25T15:08:47.540Z"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_2020-03-25T15:08:47.540Z"
+                        onChange={[Function]}
+                        value="The private content goes in here"
+                      />
+                    </div>
+                    <div
+                      className="actions"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Blue-1
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Blue RFI
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          RFI 1 from Blue
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              Released
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              = Unallocated =
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-container MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              >
+                <div
+                  className="rfi-form"
+                >
+                  <div
+                    className="main"
+                  >
+                    <div
+                      className="assigned"
+                    >
+                      <span
+                        className="inset"
+                      >
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeLarge"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+                          />
+                        </svg>
+                        <div
+                          className="MuiChip-root makeStyles-root makeStyles-root"
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                        >
+                          <span
+                            className="MuiChip-label makeStyles-label makeStyles-label"
+                          >
+                            Released
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
                         htmlFor="question_id_1"
                       >
                         Request
@@ -954,32 +1015,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -1252,7 +1288,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label makeStyles-label"
             >
-              Unallocated
+              Document Pending
             </span>
           </div>
         </td>
@@ -1382,32 +1418,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -2076,7 +2087,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label makeStyles-label"
             >
-              Unallocated
+              Released
             </span>
           </div>
         </td>
@@ -2150,7 +2161,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           <span
                             className="MuiChip-label makeStyles-label makeStyles-label"
                           >
-                            Not assigned
+                            Released
                           </span>
                         </div>
                       </span>
@@ -2206,32 +2217,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root makeStyles-root MuiButton-contained makeStyles-contained makeStyles-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Take Ownership
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>

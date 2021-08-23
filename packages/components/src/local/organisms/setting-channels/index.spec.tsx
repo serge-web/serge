@@ -14,7 +14,7 @@ describe('SettingChannels component:', () => {
         channels={WargameExportedMock.data.channels.channels || []}
         forces={WargameExportedMock.data.forces.forces}
         onChange={onChange}
-        messages={MessageTemplatesMock}
+        messageTemplates={MessageTemplatesMock}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()
