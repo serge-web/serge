@@ -40,12 +40,13 @@ import {
   userCanSeeCollab
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import { FeedbackItem } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
 
-type ActionType = 'endorse' | 'requestChanges'
+type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
@@ -53,7 +54,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [open, setOpenDialog] = useState<boolean>(false)
-  const [actionType, setActionType] = useState<ActionType>('endorse')
+  const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
+
+  const [actionType, setActionType] = useState<ActionType>('edit-endorse')
+
   const { collaboration } = message.details
 
   const handleFinalized = (): void => {
@@ -65,13 +69,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleRequestChanges = (): void => {
+    setDialogTitle('Request Changes')
     setOpenDialog(true)
-    setActionType('requestChanges')
+    setActionType('edit-requestChanges')
   }
 
   const handleEndors = (): void => {
+    setDialogTitle('Endorse document')
     setOpenDialog(true)
-    setActionType('endorse')
+    setActionType('edit-endorse')
   }
 
   const handleAssign = (): void => {
@@ -109,7 +115,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleCRRMRequestChanges = (): void => {
-    onChange && onChange(CRRMRequestChanges(message))
+    setDialogTitle('Request Changes')
+    setOpenDialog(true)
+    setActionType('respond-requestChanges')
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -126,6 +134,44 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
+
+  const onModalClose = (): void => {
+    setOpenDialog(false)
+  }
+
+  const onModalSave = (feedback: string): void => {
+    // put message into feedback item
+    const feedbackItem: FeedbackItem =
+    {
+      fromId: role.roleId,
+      fromName: role.roleName,
+      date: new Date().toISOString(),
+      feedback
+    }
+    if (message.details.collaboration) {
+      if (!message.details.collaboration.feedback) {
+        // create empty array, if necessary
+        message.details.collaboration.feedback = []
+      }
+      message.details.collaboration.feedback.push(feedbackItem)
+    }
+    // sort out which handler to call
+    let func
+    switch (actionType) {
+      case 'edit-endorse':
+        func = endorse
+        break
+      case 'edit-requestChanges':
+        func = requestChanges
+        break
+      case 'respond-requestChanges':
+        func = CRRMRequestChanges
+        break
+    }
+    onChange && func && onChange(func(message))
+    setOpenDialog(false)
+  }
+
   const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
   /** can this role see the collaborative working details? */
@@ -137,30 +183,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
 
-  const onModalClose = (): void => {
-    setOpenDialog(false)
-  }
-
-  const onModalSave = (feedback: string): void => {
-    const { from } = message.details
-    message.feedback = !!feedback
-    message.message.feedback = {
-      fromId: from.roleId,
-      fromName: from.roleName,
-      date: new Date().toISOString(),
-      feedback
-    }
-
-    const func = actionType === 'endorse' ? endorse : requestChanges
-    onChange && onChange(func(message))
-    setOpenDialog(false)
-  }
-
   return (
     <div className={styles.main}>
       <DialogModal
-        title="Feedback"
-        value={message.message.feedback && message.message.feedback.feedback}
+        title={dialogTitle}
+        value={''}
         open={open}
         onClose={onModalClose}
         onSave={onModalSave}
