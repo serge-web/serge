@@ -52,9 +52,10 @@ export enum CollaborativeMessageStates {
    */
   Unallocated = 'Unallocated',
   /**
-   * message with owner
+   * non collab-editing (e.g. RFI) document being edited
+   * //TODO: remove this when we retire RFI status board.
    */
-  InProgress = 'In progress',
+   InProgress = 'In progress',
   /**
    * owner finished editing, waiting for review
    */
@@ -70,7 +71,13 @@ export enum CollaborativeMessageStates {
   Finalized = 'Finalized',
   Closed = 'Closed',
   DocumentPending = 'Document Pending',
+  /**
+   * Collab Edit message being edited
+   */
   EditDocument = 'Edit Document',
+  /**
+   * Collab response being edited
+   */
   EditResponse = 'Edit Response',
   ResponsePending = 'Response Pending',
 }
