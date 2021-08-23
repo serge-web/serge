@@ -185,7 +185,7 @@ const roles = [
 ]
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
-const onChange = () => console.log()
+const onChange = (): void => console.log()
 
 it('CoaStatusBoard renders correctly', () => {
   const tree = renderer

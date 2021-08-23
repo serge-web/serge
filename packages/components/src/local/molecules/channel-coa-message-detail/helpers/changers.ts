@@ -1,4 +1,4 @@
-import { FeedbackItem, MessageCustom } from '@serge/custom-types'
+import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
 export const finalize = (message: MessageCustom): MessageCustom => {
@@ -79,7 +79,10 @@ export const endorse = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const assign = (message: MessageCustom): MessageCustom => {
+export const collabEditAssign = (
+  message: MessageCustom,
+  owner: ForceRole
+): MessageCustom => {
   return {
     ...message,
     details: {
@@ -87,31 +90,21 @@ export const assign = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.EditDocument,
-        owner: undefined
+        owner: owner
       }
     }
   }
 }
 
-export const claim = (message: MessageCustom): MessageCustom => {
+export const submitForReview = (
+  message: MessageCustom,
+  privateMessage: string
+): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.EditDocument,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const submitForReview = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
+      privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.PendingReview,
@@ -121,7 +114,10 @@ export const submitForReview = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const CRCPassign = (message: MessageCustom): MessageCustom => {
+export const collabResponseAssign = (
+  message: MessageCustom,
+  owner: ForceRole
+): MessageCustom => {
   return {
     ...message,
     details: {
@@ -129,48 +125,26 @@ export const CRCPassign = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.EditResponse,
-        owner: undefined
+        owner: owner
       }
     }
   }
 }
 
-export const CRCPclaim = (message: MessageCustom): MessageCustom => {
+export const CRCPsubmit = (
+  message: MessageCustom,
+  answer: string,
+  privateMessage: string
+): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.EditResponse,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const CRCPsubmit = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
+      privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.PendingReview,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const CRRMClose = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.Closed,
+        response: answer,
         owner: undefined
       }
     }

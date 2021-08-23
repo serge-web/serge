@@ -22,25 +22,24 @@ import {
   close,
   requestChanges,
   endorse,
-  assign,
-  claim,
+  collabEditAssign,
   submitForReview,
-  CRCPassign,
-  CRCPclaim,
+  collabResponseAssign,
   CRCPsubmit,
-  CRRMClose,
   CRRMRelease,
   CRRMRequestChanges
 } from './helpers/changers'
 import {
+  formEditable,
   ColEditPendingReview,
   ColEditDocumentPending,
   ColEditDocumentBeingEdited,
-  ColRespRelManReview,
+  ColRespPendingReview,
   ColRespResponsePending,
-  ColRespDocumentBeingEdited
+  ColRespDocumentBeingEdited,
+  userCanSeeCollab
 } from './helpers/visibility'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -49,7 +48,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 type ActionType = 'endorse' | 'requestChanges'
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -77,34 +76,32 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleAssign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(assign(message))
+    onChange && onChange(collabEditAssign(message, role))
   }
 
   const handleClaim = (): void => {
-    // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(claim(message))
+    onChange && onChange(collabEditAssign(message, role))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(submitForReview(message))
+    onChange && onChange(submitForReview(message, privateMessage))
   }
 
   const handleCRCPassign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(CRCPassign(message))
+    onChange && onChange(collabResponseAssign(message, role))
   }
 
   const handleCRCPclaim = (): void => {
-    // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(CRCPclaim(message))
+    onChange && onChange(collabResponseAssign(message, role))
   }
 
   const handleCRCPsubmit = (): void => {
-    onChange && onChange(CRCPsubmit(message))
+    onChange && onChange(CRCPsubmit(message, answer, privateMessage))
   }
 
   const handleCRRMClose = (): void => {
-    onChange && onChange(CRRMClose(message))
+    onChange && onChange(close(message))
   }
 
   const handleCRRMRelease = (): void => {
@@ -129,6 +126,17 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
+  const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+
+  /** can this role see the collaborative working details? */
+  const roleCanSeeCollab = userCanSeeCollab(channel, role)
+
+  /** can this role edit the collaborative data */
+  const formIsEditable = roleCanSeeCollab && formEditable(message, role)
+
+  /** value of owner, of `unassigned` */
+  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
+
   const onModalClose = (): void => {
     setOpenDialog(false)
   }
@@ -148,7 +156,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(false)
   }
 
-  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
       <DialogModal
@@ -158,23 +165,28 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         onClose={onModalClose}
         onSave={onModalSave}
       />
-      {collaboration && isUmpire && <div className={styles.assigned}>
+      {collaboration && roleCanSeeCollab && <div className={styles.assigned}>
         <span className={styles.inset}>
           <AssignmentInd color="action" fontSize="large" /><Badge size="medium" type="charcoal" label={assignLabel} />
         </span>
       </div>}
-      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request" />
-      { // TODO: only show next fields if collaboration details known
-        isUmpire &&
-        <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer" />
-          <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory} />
-        </>
+      {editingResponse
+        ? <>
+          <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
+            disabled label={'Request'} />
+          {roleCanSeeCollab &&
+            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!formIsEditable} theme='dark' label="Answer" />
+          }
+        </> : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
+          disabled={!formIsEditable} label={'Message'} />
       }
-      { // TODO: show answer in read-only form if message released
-        !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
+      {
+        isUmpire &&
+        <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!formIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory} />
+      }
+      {!isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer" />
+          <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
         </>
       }
       <div className={styles.actions}>
@@ -196,12 +208,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-          ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
+          formIsEditable && ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
         }
 
         {
-          ColRespRelManReview(message, channel, canReleaseMessages) &&
+          ColRespPendingReview(message, channel, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
@@ -217,7 +229,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-          ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
+          formIsEditable && ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
         }
       </div>

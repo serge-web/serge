@@ -175,7 +175,7 @@ const gameMessagesWithCollab: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.InProgress,
+        status: CollaborativeMessageStates.EditResponse,
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name}
       }
     },
@@ -203,7 +203,7 @@ const gameMessagesWithCollab: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.InProgress,
+        status: CollaborativeMessageStates.EditResponse,
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
       }
     },
@@ -286,7 +286,7 @@ const gameMessagesWithCollab: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.InProgress,
+        status: CollaborativeMessageStates.EditResponse,
         owner: { forceId: forces[0].uniqid, forceName: forces[0].name, roleId: whiteGC.roleId, roleName: whiteGC.name }
       }
     },
