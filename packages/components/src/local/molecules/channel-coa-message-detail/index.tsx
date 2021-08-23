@@ -181,7 +181,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-          ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
+          formIsEditable && ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
         }
 
@@ -202,7 +202,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           </>
         }
         {
-          ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
+          formIsEditable && ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
           <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
         }
       </div>
