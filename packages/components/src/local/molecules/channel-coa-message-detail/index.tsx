@@ -134,7 +134,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const onModalSave = (feedback: string): void => {
-    message.feedback = feedback
+    const { from } = message.details
+    message.feedback = !!feedback
+    message.message.feedback = {
+      fromId: from.roleId,
+      fromName: from.roleName,
+      date: new Date().toISOString(),
+      feedback
+    }
+
     onChange && pendingFncExecution && onChange(pendingFncExecution(message))
     setOpenDialog(false)
   }
@@ -144,7 +152,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     <div className={styles.main}>
       <DialogModal
         title="Feedback"
-        value={message.feedback}
+        value={message.message.feedback && message.message.feedback[0].feedback}
         open={open}
         onClose={onModalClose}
         onSave={onModalSave}

@@ -88,6 +88,7 @@ export interface MessageStructure {
   [property: string]: any
   title?: string
   content?: string
+  feedback?: FeedbackItem
 }
 
 export interface CoreMessage {
@@ -140,7 +141,7 @@ export interface MessageCustom extends CoreMessage {
   isOpen: boolean
   hasBeenRead: boolean
   gameTurn?: number,
-  feedback?: string,
+  feedback?: boolean,
   infoType?: boolean,
 }
 

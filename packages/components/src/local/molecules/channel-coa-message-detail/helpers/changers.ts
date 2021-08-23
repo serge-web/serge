@@ -1,4 +1,4 @@
-import { MessageCustom } from '@serge/custom-types'
+import { FeedbackItem, MessageCustom } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
 export const finalize = (message: MessageCustom): MessageCustom => {
@@ -29,7 +29,25 @@ export const close = (message: MessageCustom): MessageCustom => {
   }
 }
 
+const processMessageFeedback = (message: MessageCustom): FeedbackItem[] => {
+  const feedback = message.message.feedback
+  const collaboration = message.details.collaboration
+  if (feedback) {
+    if (collaboration) {
+      const feedbackItems = collaboration.feedback || []
+      feedbackItems.push(feedback)
+      return feedbackItems
+    } else {
+      return [feedback]
+    }
+  }
+
+  return []
+}
+
 export const requestChanges = (message: MessageCustom): MessageCustom => {
+  const feedback = processMessageFeedback(message)
+
   return {
     ...message,
     details: {
@@ -37,13 +55,16 @@ export const requestChanges = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.DocumentPending,
-        owner: undefined
+        owner: undefined,
+        feedback
       }
     }
   }
 }
 
 export const endorse = (message: MessageCustom): MessageCustom => {
+  const feedback = processMessageFeedback(message)
+
   return {
     ...message,
     details: {
@@ -51,7 +72,8 @@ export const endorse = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.DocumentPending,
-        owner: undefined
+        owner: undefined,
+        feedback
       }
     }
   }
