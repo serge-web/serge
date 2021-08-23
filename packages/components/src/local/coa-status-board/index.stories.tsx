@@ -18,7 +18,6 @@ import {
   messageDataCollaborativeEditing,
   messageDataCollaborativeResponding
 } from '@serge/mocks'
-import { isIfStatement } from 'typescript'
 import { CollaborativeMessageStates } from '../../../../config/build'
 
 export default {

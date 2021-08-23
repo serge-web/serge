@@ -148,7 +148,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           disabled={!formIsEditable} label={'Message'}/>
       }
       {
-        isUmpire && 
+        isUmpire &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!formIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory}/>
       }
       { !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&

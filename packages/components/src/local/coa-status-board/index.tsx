@@ -20,7 +20,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
 
   const data = rfiMessages.map(message => {
     const collab = message.details.collaboration
-    const owner = collab && collab.owner && collab.owner.roleName || 'Pending'
+    const owner = (collab && collab.owner && collab.owner.roleName) || 'Pending'
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
