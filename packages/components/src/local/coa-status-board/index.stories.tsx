@@ -69,67 +69,74 @@ const Template: Story<Props> = (args) => {
 
 // filter to only show the most recent versions of messages
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-control', roleName: 'Game Control' }
-const role2: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'not-game-control', roleName: 'Game Control' }
+const roleNotGC: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'not-game-control', roleName: 'Game Control' }
+const roleNotUmpire: ForceRole = { forceId: 'red', forceName: 'Red', roleId: 'not-game-control', roleName: 'CO' }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
 const mostColabEditMock = mostColabEditMockRaw.map((message: MessageCustom): MessageCustom => {
   const collab = message.details.collaboration
-  if(collab) {
-    if(collab.status === CollaborativeMessageStates.EditDocument ||
-      collab.status === CollaborativeMessageStates.EditResponse)
-      {
-        // make the sample user the owner of this doc
-        collab.owner = role
-      }
+  if (collab) {
+    if (collab.status === CollaborativeMessageStates.EditDocument ||
+      collab.status === CollaborativeMessageStates.EditResponse) {
+      // make the sample user the owner of this doc
+      collab.owner = role
+    }
   }
   return message
-}) 
+})
 
 const mostColabResponseMockRaw = mostRecentOnly(messageDataCollaborativeResponding) as MessageCustom[]
 const mostColabResponseMock = mostColabResponseMockRaw.map((message: MessageCustom): MessageCustom => {
   const collab = message.details.collaboration
-  if(collab) {
-    if(collab.status === CollaborativeMessageStates.EditDocument ||
-      collab.status === CollaborativeMessageStates.EditResponse)
-      {
-        // make the sample user the owner of this doc
-        collab.owner = role
-      }
+  if (collab) {
+    if (collab.status === CollaborativeMessageStates.EditDocument ||
+      collab.status === CollaborativeMessageStates.EditResponse) {
+      // make the sample user the owner of this doc
+      collab.owner = role
+    }
   }
   return message
-}) 
+})
 
-export const CollaborativeEditing = Template.bind({})
-CollaborativeEditing.args = {
+export const CollabEditEditing = Template.bind({})
+CollabEditEditing.args = {
   roles: roles,
   channel: channelDataCollaborativeEditing,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: role
 }
-export const CECollaborationParticipantOwner = Template.bind({})
-CECollaborationParticipantOwner.args = {
+export const CollabEditParticipantOwner = Template.bind({})
+CollabEditParticipantOwner.args = {
   roles: roles,
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: role
 }
-export const CECollaborationParticipantNotOwner = Template.bind({})
-CECollaborationParticipantNotOwner.args = {
+export const CollabEditParticipantNotOwner = Template.bind({})
+CollabEditParticipantNotOwner.args = {
   roles: roles,
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role2
+  role: roleNotGC
 }
-export const CEReleaseManager = Template.bind({})
-CEReleaseManager.args = {
+export const CollabEditReleaseManager = Template.bind({})
+CollabEditReleaseManager.args = {
   roles: roles,
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: role
+}
+export const CollabEditNotUmpire = Template.bind({})
+CollabEditNotUmpire.args = {
+  roles: roles,
+  channel: channelDataColabEditCollaborativeReleaseManager,
+  rfiMessages: mostColabEditMock,
+  isUmpire: false,
+  role: roleNotUmpire
 }
 
 export const CollaborativeResponding = Template.bind({})
@@ -140,28 +147,37 @@ CollaborativeResponding.args = {
   isUmpire: true,
   role: role
 }
-export const CRCollaborationParticipantOwner = Template.bind({})
-CRCollaborationParticipantOwner.args = {
+export const CollabResponseParticipantOwner = Template.bind({})
+CollabResponseParticipantOwner.args = {
   roles: roles,
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
   role: role
 }
-export const CRCollaborationParticipantNotOwner = Template.bind({})
-CRCollaborationParticipantNotOwner.args = {
+export const CollabResponseParticipantNotOwner = Template.bind({})
+CollabResponseParticipantNotOwner.args = {
   roles: roles,
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role2
+  role: roleNotGC
 }
 
-export const CRReleaseManager = Template.bind({})
-CRReleaseManager.args = {
+export const CollabResponseReleaseManager = Template.bind({})
+CollabResponseReleaseManager.args = {
   roles: roles,
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
   role: role
+}
+
+export const CollabResponseNotUmpire = Template.bind({})
+CollabResponseNotUmpire.args = {
+  roles: roles,
+  channel: channelDataCollaborativeRespondingReleaseManager,
+  rfiMessages: mostColabResponseMock,
+  isUmpire: false,
+  role: roleNotUmpire
 }

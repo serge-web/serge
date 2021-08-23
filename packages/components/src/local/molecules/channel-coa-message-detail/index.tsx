@@ -127,15 +127,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   /** can this role edit the collaborative data */
   const formIsEditable = roleCanSeeCollab && formEditable(message, role)
 
-  // if this document is being edited by the current user
-  const documentBeingEdited = ColEditDocumentBeingEdited(message, channel, canCollaborate) || ColRespDocumentBeingEdited(message, channel, canCollaborate)
-
- // const messageEnabled = formIsEditable && editingResponse && canCollaborate
-
- // console.log('perms', messageEnabled, formIsEditable, editingResponse)
-
+  /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
-  console.log('collab', collaboration)
+
   return (
     <div className={styles.main}>
       {collaboration && roleCanSeeCollab && <div className={styles.assigned}>
@@ -154,8 +148,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           disabled={!formIsEditable} label={'Message'}/>
       }
       {
-        isUmpire &&
-            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!documentBeingEdited} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+        isUmpire && 
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!formIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory}/>
       }
       { !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
