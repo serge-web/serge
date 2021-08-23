@@ -88,7 +88,6 @@ export interface MessageStructure {
   [property: string]: any
   title?: string
   content?: string
-  feedback?: FeedbackItem
 }
 
 export interface CoreMessage {
