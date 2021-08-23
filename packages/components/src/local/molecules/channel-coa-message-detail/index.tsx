@@ -73,7 +73,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleClaim = (): void => {
-    // TODO: - produce ForceRole for current user, pass to claim
     onChange && onChange(collabEditAssign(message, role))
   }
 
@@ -87,7 +86,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleCRCPclaim = (): void => {
-    // TODO: - produce ForceRole for current user, pass to claim
     onChange && onChange(collabResponseAssign(message, role))
   }
 
@@ -156,8 +154,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         isUmpire &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!documentBeingEdited} theme='dark' label='Private Message' labelFactory={labelFactory}/>
       }
-      { // TODO: show answer in read-only form if message released
-        !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
+      { !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
           <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
         </>

@@ -27,13 +27,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
     message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
   ])
 
-  // const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
-  //   return [
-  //     ...filters,
-  //     channelDict.get(message.details.channel)
-  //   ]
-  // }, [])
-
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
@@ -53,10 +46,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   const dataTableProps = {
     columns: [
       'ID',
-      // {
-      //   filters: [...new Set(filtersChannel)],
-      //   label: 'Channel'
-      // },
       {
         filters: [...new Set(filtersRoles)],
         label: 'From'
@@ -88,9 +77,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
         [CollaborativeMessageStates.EditResponse]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
         [CollaborativeMessageStates.EditDocument]: '#ffc107'
-        // [CollaborativeMessageStates.Finalized]: '',
-        // [CollaborativeMessageStates.DocumentPending]: '',
-        // [CollaborativeMessageStates.ResponsePending]: '',
       }
 
       // TODO: can we reduce the message detail processing when the control is collapsed?
