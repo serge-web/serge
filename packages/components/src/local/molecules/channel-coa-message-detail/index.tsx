@@ -33,33 +33,23 @@ import {
   ColEditPendingReview,
   ColEditDocumentPending,
   ColEditDocumentBeingEdited,
-  ColRespRelManReview,
+  ColRespPendingReview,
   ColRespResponsePending,
   ColRespDocumentBeingEdited,
   userCanSeeCollab
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { ForceRole } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
 )
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
-  const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
-
-  // TODO: create real role for current user
-  const testRole: ForceRole = {
-    forceName: 'aa',
-    forceId: 'bb',
-    roleName: 'cc',
-    roleId: 'dd'
-  }
 
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
@@ -79,12 +69,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleAssign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabEditAssign(message, testRole))
+    onChange && onChange(collabEditAssign(message, role))
   }
 
   const handleClaim = (): void => {
     // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(collabEditAssign(message, testRole))
+    onChange && onChange(collabEditAssign(message, role))
   }
 
   const handleEditingSubmit = (): void => {
@@ -93,12 +83,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleCRCPassign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabResponseAssign(message, testRole))
+    onChange && onChange(collabResponseAssign(message, role))
   }
 
   const handleCRCPclaim = (): void => {
     // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(collabResponseAssign(message, testRole))
+    onChange && onChange(collabResponseAssign(message, role))
   }
 
   const handleCRCPsubmit = (): void => {
@@ -134,17 +124,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
   /** can this role see the collaborative working details? */
-  const roleCanSeeCollab = userCanSeeCollab(channel, testRole)
+  const roleCanSeeCollab = userCanSeeCollab(channel, role)
 
   /** can this role edit the collaborative data */
-  const formIsEditable = roleCanSeeCollab && formEditable(message, testRole)
+  const formIsEditable = roleCanSeeCollab && formEditable(message, role)
 
   // if this document is being edited by the current user
-  const documentBeingEdited = ColEditDocumentBeingEdited(message, channel, canCollaborate)
+  const documentBeingEdited = ColEditDocumentBeingEdited(message, channel, canCollaborate) || ColRespDocumentBeingEdited(message, channel, canCollaborate)
 
   const messageEnabled = formIsEditable && editingResponse && canCollaborate
-
-  console.log('perms', isUmpire, formIsEditable, editingResponse, canCollaborate, messageEnabled)
 
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
@@ -154,11 +142,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
         </span>
       </div>}
-      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
-        disabled={!messageEnabled} label={editingResponse ? 'Request' : 'Message'}/>
-      { // only show next fields if collaboration details known
-        roleCanSeeCollab && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE &&
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
+      { editingResponse
+        ? <>
+          <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
+            disabled label={'Request'}/>
+          { roleCanSeeCollab &&
+            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!ColRespDocumentBeingEdited(message, channel, canCollaborate) } theme='dark' label="Answer"/>
+          }
+        </> : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
+          disabled={!messageEnabled} label={'Message'}/>
       }
       {
         isUmpire &&
@@ -167,7 +159,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
       { // TODO: show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
         </>
       }
       <div className={styles.actions}>
@@ -194,7 +186,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         }
 
         {
-          ColRespRelManReview(message, channel, canReleaseMessages) &&
+          ColRespPendingReview(message, channel, canReleaseMessages) &&
           <>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>

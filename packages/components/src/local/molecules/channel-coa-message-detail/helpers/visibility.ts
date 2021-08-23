@@ -56,7 +56,8 @@ export const userCanSeeCollab = (_channel: ChannelData, _role: ForceRole): boole
 }
 
 export const formEditable = (message: MessageCustom, role: ForceRole): boolean => {
-  return isThisState(message, CollaborativeMessageStates.InProgress) && isThisRole(message, role)
+  const beingEdited = isThisState(message, CollaborativeMessageStates.EditResponse) || isThisState(message, CollaborativeMessageStates.EditDocument)
+  return beingEdited && isThisRole(message, role)
 }
 
 // Collaborative Editing buttons
@@ -73,7 +74,7 @@ export const ColEditDocumentBeingEdited = (message: MessageCustom, channel: Chan
 }
 
 // Collaborative Responding buttons
-export const ColRespRelManReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+export const ColRespPendingReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
   return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.PendingReview) && !!canReleaseMessages
 }
 

@@ -2,7 +2,7 @@ import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 import { channelDataCollaborativeEditing, channelDataCollaborativeEditingCollaborationParticipant, channelDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { deepCopy } from '@serge/helpers'
-import { ColEditPendingReview, formEditable, userCanSeeCollab } from './visibility'
+import { ColEditPendingReview, ColRespPendingReview, formEditable, userCanSeeCollab } from './visibility'
 
 const whiteUmpire: ForceRole = {
   forceId: 'umpire',
@@ -42,7 +42,6 @@ const cannotReleaseMessages = false
 
 const messageStates: CollaborativeMessageStates[] = [
   CollaborativeMessageStates.Unallocated,
-  CollaborativeMessageStates.InProgress,
   CollaborativeMessageStates.PendingReview,
   CollaborativeMessageStates.Released,
   CollaborativeMessageStates.Rejected,
@@ -53,8 +52,6 @@ const messageStates: CollaborativeMessageStates[] = [
   CollaborativeMessageStates.EditResponse,
   CollaborativeMessageStates.ResponsePending
 ]
-
-console.log(canReleaseMessages && cannotReleaseMessages && rfiChannel)
 
 describe('Visibility tests', () => {
   it('Can see collaborative working', () => {
@@ -121,14 +118,15 @@ describe('Visibility tests', () => {
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
       // first the non-editable states
-      const nonProgressStates = messageStates.filter((state) => state !== CollaborativeMessageStates.InProgress)
-      nonProgressStates.forEach(state => {
+      const nonProgressStates = messageStates.filter((state) => state !== CollaborativeMessageStates.EditResponse)
+      const nonProgressStates2 = nonProgressStates.filter((state) => state !== CollaborativeMessageStates.EditDocument)
+      nonProgressStates2.forEach(state => {
         collabStatus.status = state
         expect(formEditable(messageOwnedByUmpire, whiteUmpire)).toEqual(false)
       })
 
       // now the in progress one
-      collabStatus.status = CollaborativeMessageStates.InProgress
+      collabStatus.status = CollaborativeMessageStates.EditResponse
       expect(formEditable(messageOwnedByUmpire, whiteUmpire)).toEqual(true)
     }
   })
@@ -136,7 +134,7 @@ describe('Visibility tests', () => {
     const collabStatus = messageOwnedByUmpire.details.collaboration
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
-      collabStatus.status = CollaborativeMessageStates.InProgress
+      collabStatus.status = CollaborativeMessageStates.EditResponse
       // owner not current role
       collabStatus.owner = whiteLogs
       expect(formEditable(messageOwnedByUmpire, whiteUmpire)).toEqual(false)
@@ -150,8 +148,9 @@ describe('Visibility tests', () => {
     const collabStatus = message.details.collaboration
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
+      collabStatus.status = CollaborativeMessageStates.EditDocument
       // in wrong state
-      expect(collabStatus.status).toEqual(CollaborativeMessageStates.InProgress)
+      expect(collabStatus.status).toEqual(CollaborativeMessageStates.EditDocument)
       expect(ColEditPendingReview(message, coaChannel, canReleaseMessages)).toBeFalsy()
 
       // user doesn't have permission
@@ -160,6 +159,24 @@ describe('Visibility tests', () => {
       // make correct status
       collabStatus.status = CollaborativeMessageStates.PendingReview
       expect(ColEditPendingReview(message, coaChannel, canReleaseMessages)).toBeTruthy()
+    }
+  })
+  it('collab response review stage ', () => {
+    const message = deepCopy(messageOwnedByUmpire)
+    const collabStatus = message.details.collaboration
+    expect(collabStatus).toBeTruthy()
+    if (collabStatus) {
+      collabStatus.status = CollaborativeMessageStates.EditResponse
+      // in wrong state
+      expect(collabStatus.status).toEqual(CollaborativeMessageStates.EditResponse)
+      expect(ColRespPendingReview(message, rfiChannel, canReleaseMessages)).toBeFalsy()
+
+      // user doesn't have permission
+      expect(ColRespPendingReview(message, rfiChannel, cannotReleaseMessages)).toBeFalsy()
+
+      // make correct status
+      collabStatus.status = CollaborativeMessageStates.PendingReview
+      expect(ColRespPendingReview(message, rfiChannel, canReleaseMessages)).toBeTruthy()
     }
   })
 })

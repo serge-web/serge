@@ -65,7 +65,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
       {
         filters: [
           CollaborativeMessageStates.Unallocated,
-          CollaborativeMessageStates.InProgress,
+          CollaborativeMessageStates.EditDocument,
+          CollaborativeMessageStates.EditResponse,
           CollaborativeMessageStates.PendingReview,
           CollaborativeMessageStates.Released,
           CollaborativeMessageStates.Rejected
@@ -81,7 +82,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
       const [id, mRole, forceColor, content, status, owner] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
-        [CollaborativeMessageStates.InProgress]: '#E7740A',
         [CollaborativeMessageStates.PendingReview]: '#434343',
         [CollaborativeMessageStates.Released]: '#007219',
         [CollaborativeMessageStates.Rejected]: '#434343',
