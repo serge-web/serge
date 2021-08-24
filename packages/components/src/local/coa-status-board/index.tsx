@@ -21,7 +21,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
 
   // see if this role can create a new message in this channel (non-zero templates array)
   const templates: any[] = newTemplates(channel, role)
-  console.log(templates)
 
   const data = rfiMessages.map(message => {
     const collab = message.details.collaboration
@@ -125,7 +124,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   }
 
   return (
-    <DataTable {...dataTableProps} />
+    <>
+      <DataTable {...dataTableProps} />
+      {
+        templates && templates.length &&
+        // <NewMessage/> in here
+        <p>[New message selector here]</p>
+      }
+    </>
   )
 }
 
