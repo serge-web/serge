@@ -70,7 +70,7 @@ export enum CollaborativeMessageStates {
   Rejected = 'Rejected',
   Finalized = 'Finalized',
   Closed = 'Closed',
-  DocumentPending = 'Document Pending',
+  DocumentPending = 'Document Unallocated',
   /**
    * Collab Edit message being edited
    */
@@ -79,7 +79,7 @@ export enum CollaborativeMessageStates {
    * Collab response being edited
    */
   EditResponse = 'Edit Response',
-  ResponsePending = 'Response Pending',
+  ResponsePending = 'Response Unallocated',
 }
 
 /** the commands that can be appled to a collaborative message

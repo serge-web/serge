@@ -81,7 +81,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
         [CollaborativeMessageStates.Rejected]: '#434343',
         [CollaborativeMessageStates.EditResponse]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.EditDocument]: '#ffc107'
+        [CollaborativeMessageStates.EditDocument]: '#ffc107',
+        [CollaborativeMessageStates.DocumentPending]: '#0366d6',
+        [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
 
       // TODO: can we reduce the message detail processing when the control is collapsed?
