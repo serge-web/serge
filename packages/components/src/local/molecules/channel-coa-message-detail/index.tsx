@@ -55,6 +55,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
+  const [placeHolder, setPlaceHolder] = useState<string>('')
 
   const [actionType, setActionType] = useState<ActionType>('edit-endorse')
 
@@ -70,14 +71,16 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleRequestChanges = (): void => {
     setDialogTitle('Request Changes')
-    setOpenDialog(true)
     setActionType('edit-requestChanges')
+    setPlaceHolder('Enter request changes...')
+    setOpenDialog(true)
   }
 
   const handleEndors = (): void => {
     setDialogTitle('Endorse document')
-    setOpenDialog(true)
     setActionType('edit-endorse')
+    setPlaceHolder('Enter endorse changes...')
+    setOpenDialog(true)
   }
 
   const handleAssign = (): void => {
@@ -116,8 +119,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleCRRMRequestChanges = (): void => {
     setDialogTitle('Request Changes')
-    setOpenDialog(true)
     setActionType('respond-requestChanges')
+    setPlaceHolder('Enter request changes...')
+    setOpenDialog(true)
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -190,6 +194,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         open={open}
         onClose={onModalClose}
         onSave={onModalSave}
+        placeholder={placeHolder}
       />
       {collaboration && roleCanSeeCollab && <div className={styles.assigned}>
         <span className={styles.inset}>

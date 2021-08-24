@@ -18,13 +18,14 @@ const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
       margin: 0,
-      padding: theme.spacing(2)
+      padding: theme.spacing(2),
+      backgroundColor: theme.palette.secondary.main,
+      color: 'white'
     },
     closeButton: {
       position: 'absolute',
       right: theme.spacing(1),
-      top: theme.spacing(1),
-      color: theme.palette.grey[500]
+      top: theme.spacing(1)
     }
   })
 
@@ -57,12 +58,13 @@ const DialogContent = withStyles((theme: Theme) => ({
 const DialogActions = withStyles((theme: Theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
   }
 }))(MuiDialogActions)
 
 /* Render component */
-export const DialogModal: React.FC<Props> = ({ title, value = '', open, onSave, onClose }: Props) => {
+export const DialogModal: React.FC<Props> = ({ title, value = '', open, onSave, onClose, placeholder }: Props) => {
   const [text, setText] = useState<string>(value)
   const handleClose = (): void => {
     onClose && onClose()
@@ -83,13 +85,13 @@ export const DialogModal: React.FC<Props> = ({ title, value = '', open, onSave, 
           {title}
         </DialogTitle>
         <DialogContent dividers>
-          <Textarea value={text} onChange={onTextChange} />
+          <Textarea value={text} onChange={onTextChange} placeholder={placeholder} />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button onClick={handleClose} style={{ color: 'white' }}>
             Cancel
           </Button>
-          <Button autoFocus onClick={handleSave} color="primary">
+          <Button autoFocus onClick={handleSave} style={{ color: 'white' }}>
             Send
           </Button>
         </DialogActions>
