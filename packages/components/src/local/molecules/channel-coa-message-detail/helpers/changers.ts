@@ -57,7 +57,10 @@ export const endorse = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const collabEditAssign = (message: MessageCustom, owner: ForceRole): MessageCustom => {
+export const collabEditAssign = (
+  message: MessageCustom,
+  owner: ForceRole
+): MessageCustom => {
   return {
     ...message,
     details: {
@@ -71,7 +74,10 @@ export const collabEditAssign = (message: MessageCustom, owner: ForceRole): Mess
   }
 }
 
-export const submitForReview = (message: MessageCustom, privateMessage: string): MessageCustom => {
+export const submitForReview = (
+  message: MessageCustom,
+  privateMessage: string
+): MessageCustom => {
   return {
     ...message,
     details: {
@@ -86,7 +92,10 @@ export const submitForReview = (message: MessageCustom, privateMessage: string):
   }
 }
 
-export const collabResponseAssign = (message: MessageCustom, owner: ForceRole): MessageCustom => {
+export const collabResponseAssign = (
+  message: MessageCustom,
+  owner: ForceRole
+): MessageCustom => {
   return {
     ...message,
     details: {
@@ -100,7 +109,11 @@ export const collabResponseAssign = (message: MessageCustom, owner: ForceRole): 
   }
 }
 
-export const CRCPsubmit = (message: MessageCustom, answer: string, privateMessage: string): MessageCustom => {
+export const CRCPsubmit = (
+  message: MessageCustom,
+  answer: string,
+  privateMessage: string
+): MessageCustom => {
   return {
     ...message,
     details: {
