@@ -1288,7 +1288,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label makeStyles-label"
             >
-              Document Unallocated
+              Document Pending
             </span>
           </div>
         </td>
