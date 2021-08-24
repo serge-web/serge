@@ -72,14 +72,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const handleRequestChanges = (): void => {
     setDialogTitle('Request Changes')
     setActionType('edit-requestChanges')
-    setPlaceHolder('Enter request changes...')
+    setPlaceHolder('Enter requested changes...')
     setOpenDialog(true)
   }
 
-  const handleEndors = (): void => {
+  const handleEndorse = (): void => {
     setDialogTitle('Endorse document')
     setActionType('edit-endorse')
-    setPlaceHolder('Enter endorse changes...')
+    setPlaceHolder('Endorsement comment (optional)')
     setOpenDialog(true)
   }
 
@@ -120,7 +120,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const handleCRRMRequestChanges = (): void => {
     setDialogTitle('Request Changes')
     setActionType('respond-requestChanges')
-    setPlaceHolder('Enter request changes...')
+    setPlaceHolder('Enter requested changes...')
     setOpenDialog(true)
   }
 
@@ -227,7 +227,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
             <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
             <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleEndors}>Endorse</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
           </>
         }
         {
