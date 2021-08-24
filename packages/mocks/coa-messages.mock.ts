@@ -171,8 +171,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-3',
-      Request: 'RFI 3 request goes in here',
-      Title: 'RFI 3 from Blue'
+      Title: 'RFI 3 from Blue',
+      RFI: "Content of RFI",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _id: 'id_3a',
     _rev: '2',
@@ -199,8 +202,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'RED-1',
-      Request: 'RFI 1 request from red goes in here',
-      Title: 'RFI 1 from RED'
+      Title: 'RFI 1 from RED',
+      RFI: "Content of RFI Red-1",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _rev: '1',
     _id: 'id_4',
@@ -247,7 +253,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
@@ -256,8 +262,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Red-2',
-      content: 'message from Red',
-      Title: 'RFI 2 from Red'
+      Title: 'RFI 2 from Red',
+      RFI: "Content of RFI-2",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
@@ -275,7 +284,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.Released,
@@ -284,8 +293,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-2',
-      content: 'Message from Blue',
-      Title: 'COA 2 from Blue'
+      Title: 'COA 2 from Blue',
+      RFI: "Content of RFI from Blue (2)",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
