@@ -11,16 +11,12 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
-import { newTemplates } from './helpers/new-templates'
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, isUmpire, onChange, role }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
-
-  // see if this role can create a new message in this channel (non-zero templates array)
-  const templates: any[] = newTemplates(channel, role)
 
   const data = rfiMessages.map(message => {
     const collab = message.details.collaboration
@@ -124,14 +120,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   }
 
   return (
-    <>
-      <DataTable {...dataTableProps} />
-      {
-        templates && templates.length &&
-        // <NewMessage/> in here
-        <p>[New message selector here]</p>
-      }
-    </>
+    <DataTable {...dataTableProps} />
   )
 }
 
