@@ -29,9 +29,8 @@ const particip1: Participant = deepCopy(channelWithMultiParticipation.participan
 particip1.roles = ['w2222']
 particip1.subscriptionId = 'asdfbv'
 channelWithMultiParticipation.participants.push(particip1)
-const particip2: Participant = { ...channelWithMultiParticipation.participants[0], force: 'Delta', forceUniqid: 'charlie'}
+const particip2: Participant = { ...channelWithMultiParticipation.participants[0], force: 'Delta', forceUniqid: 'charlie' }
 channelWithMultiParticipation.participants.push(particip2)
-
 
 describe('Templates for user', () => {
   it('By force', () => {
@@ -76,5 +75,4 @@ describe('Templates for user', () => {
     expect(newTemplates(channelWithMultiParticipation, whiteLogs).length).toEqual(1)
     expect(newTemplates(channelWithMultiParticipation, whiteLogs)[0].title).toEqual('RFI')
   })
-
 })
