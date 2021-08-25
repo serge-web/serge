@@ -4,6 +4,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
 <div
   className="main"
 >
+  <div />
   <div
     className="assigned"
   >
@@ -39,7 +40,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     <label
       htmlFor="question_2020-03-25T15:08:47.525Z"
     >
-      Request
+      Message
     </label>
     <textarea
       disabled={true}
@@ -49,22 +50,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     />
   </div>
   <div
-    className="main theme-dark"
-  >
-    <label
-      htmlFor="answer_2020-03-25T15:08:47.525Z"
-    >
-      Answer
-    </label>
-    <textarea
-      disabled={false}
-      id="answer_2020-03-25T15:08:47.525Z"
-      onChange={[Function]}
-      value="Game control response to RFI 4"
-    />
-  </div>
-  <div
-    className="main theme-dark"
+    className="main theme-dark disabled"
   >
     <label
       htmlFor="private_message_2020-03-25T15:08:47.525Z"
@@ -76,7 +62,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
       Private Message
     </label>
     <textarea
-      disabled={false}
+      disabled={true}
       id="private_message_2020-03-25T15:08:47.525Z"
       onChange={[Function]}
       value=""

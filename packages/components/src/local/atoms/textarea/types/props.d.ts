@@ -9,4 +9,5 @@ export default interface PropTypes {
   labelFactory?: (inputid: string, label: string) => React.ReactNode
   rows?: number
   id?: string
+  placeholder?: string
 }

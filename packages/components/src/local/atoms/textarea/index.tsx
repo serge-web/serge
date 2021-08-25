@@ -12,7 +12,18 @@ const labelFactoryDefault = (inputid: string, label: string): React.ReactNode =>
   <label htmlFor={inputid}>{label}</label>
 )
 
-const Textarea: React.FC<PropTypes> = ({ value, onChange, label, disabled, rows, theme = TEXTAREA_LIGHT, labelFactory = labelFactoryDefault, id }) => {
+const Textarea: React.FC<PropTypes> = (
+  {
+    value,
+    onChange,
+    label,
+    disabled,
+    rows,
+    theme = TEXTAREA_LIGHT,
+    labelFactory = labelFactoryDefault,
+    id,
+    placeholder
+  }) => {
   const [inputid] = useState<string>(id || uniqid.time())
 
   const handeChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -22,7 +33,14 @@ const Textarea: React.FC<PropTypes> = ({ value, onChange, label, disabled, rows,
   return (
     <div className={cn(styles.main, styles[`theme-${theme}`], !!disabled && styles.disabled)}>
       {label && labelFactory(inputid, label)}
-      <textarea disabled={!!disabled} id={inputid} onChange={handeChange} value={value} rows={rows} />
+      <textarea
+        disabled={!!disabled}
+        id={inputid}
+        onChange={handeChange}
+        value={value}
+        rows={rows}
+        placeholder={placeholder}
+      />
     </div>
   )
 }
