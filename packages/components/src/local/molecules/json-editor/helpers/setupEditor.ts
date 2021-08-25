@@ -22,7 +22,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
       [disableEditJson]: true,
       [disableProperties]: true
     }) as Editor
-    !disabled ? newEditor.disable() : newEditor.enable()
+    disabled ? newEditor.disable() : newEditor.enable()
     return newEditor
   }
 

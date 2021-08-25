@@ -100,7 +100,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleEditingSubmit = (): void => {
-    console.log('new', newMsg)
     onChange && onChange(submitForReview(message, newMsg, privateMessage))
   }
 
@@ -202,7 +201,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
             messageTemplates={MessageTemplatesMock}
             message={message}
             getJsonEditorValue={getJsonEditorValue}
-            disabled={editDoc}
+            disabled={!editDoc}
           />
           <div className={styles.actions}>
             {
