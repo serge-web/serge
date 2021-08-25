@@ -204,7 +204,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
             disabled={!editDoc}
           />
           {
-            isUmpire && 
+            isUmpire &&
               <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
           <div className={styles.actions}>

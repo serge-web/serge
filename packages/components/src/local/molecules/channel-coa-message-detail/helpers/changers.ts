@@ -92,8 +92,8 @@ export const submitForReview = (message: MessageCustom, newMsg: {[property: stri
   return {
     ...message,
     message: {
-      ... message.message,
-      ... newMsg
+      ...message.message,
+      ...newMsg
     },
     details: {
       ...message.details,
