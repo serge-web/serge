@@ -177,12 +177,6 @@ const testMock: MessageCustom[] = [
   }
 ]
 
-const roles = [
-  'Game Control',
-  'Logistics',
-  'Air',
-  'Land'
-]
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
 const onChange = (): void => console.log()
@@ -193,7 +187,6 @@ it('CoaStatusBoard renders correctly', () => {
       <CoaStatusBoard
         role={role}
         isUmpire={true}
-        roles={roles}
         channel={testChannel}
         rfiMessages={testMock}
         onChange={onChange}

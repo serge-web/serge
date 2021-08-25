@@ -1,7 +1,6 @@
 import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 export default interface Props {
   rfiMessages: MessageCustom[]
-  roles: string[]
   channel: ChannelData
   onChange: (nextMessages: MessageCustom[]) => void
   /** if this player is from the UMPIRE force */
