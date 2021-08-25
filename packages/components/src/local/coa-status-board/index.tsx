@@ -18,7 +18,6 @@ const formatRole = (role: ForceRole) => {
   return role.forceName + '-' + role.roleName
 }
 
-
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire, onChange, role }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
@@ -27,7 +26,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire
 
   // collate list of message owners
   const listofOwners = rfiMessages.reduce((filters: any[], message) => {
-    if(message.details.collaboration && message.details.collaboration.owner) {
+    if (message.details.collaboration && message.details.collaboration.owner) {
       return [
         ...filters,
         formatRole(message.details.collaboration.owner)
@@ -58,8 +57,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire
     ]
     return res
   })
-
-
 
   const handleChange = (nextMessage: MessageCustom): void => {
     const index = rfiMessages.findIndex(message => message._id === nextMessage._id)
