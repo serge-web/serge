@@ -25,6 +25,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     setEditor(nextEditor)
 
     if (nextEditor) {
+      nextEditor.setValue(message.message)
       nextEditor.on('change', () => {
         handleChange(nextEditor.getValue())
       })
