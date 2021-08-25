@@ -10,13 +10,17 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     editor = null
   }
 
+  const disableCollapse = 'disable_collapse'
+  const disableEditJson = 'disable_edit_json'
+  const disableProperties = 'disable_properties'
+
   if (schema && schema.type) {
     const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',
-      disable_collapse: true,
-      disable_edit_json: true,
-      disable_properties: true,
+      [disableCollapse]: true,
+      [disableEditJson]: true,
+      [disableProperties]: true
     }) as Editor
     !disabled ? newEditor.disable() : newEditor.enable()
     return newEditor

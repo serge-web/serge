@@ -3,8 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import JsonEditor from './index'
 
-import {MessageTemplatesMock, messageDataCollaborativeEditing} from '@serge/mocks'
-
+import { MessageTemplatesMock, messageDataCollaborativeEditing } from '@serge/mocks'
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {

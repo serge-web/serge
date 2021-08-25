@@ -40,8 +40,8 @@ import {
   ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import {MessageTemplatesMock} from '@serge/mocks'
-import JsonEditor from "../json-editor"
+import { MessageTemplatesMock } from '@serge/mocks'
+import JsonEditor from '../json-editor'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
@@ -56,7 +56,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const { collaboration } = message.details
   const editDoc = (typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && ColEditDocumentBeingEdited(message, channel, canCollaborate))
   const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
-  
+
   const getJsonEditorValue = (val: {[property: string]: any}) => {
     setNewMsg(val)
   }
@@ -178,8 +178,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           }
           {
             channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-            ? <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
-            : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' label="Request"/>
+              ? <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+              : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' label="Request"/>
           }
           { // only show next fields if collaboration details known
             isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE

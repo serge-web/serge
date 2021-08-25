@@ -1,12 +1,12 @@
 import React from 'react'
 
 // Import component files
-import JsonEditor from "./index";
+import JsonEditor from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import {MessageTemplatesMock, messageDataCollaborativeEditing} from '@serge/mocks'
+import { MessageTemplatesMock, messageDataCollaborativeEditing } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

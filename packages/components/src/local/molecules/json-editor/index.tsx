@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 /* Import Stylesheet */
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
 import Props from './types/props'
@@ -16,7 +16,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   const schema = messageTemplates.find(msg => msg.title === message.details.messageType)
   if (!schema) return <p>Schema not found</p>
 
-  const handleChange = (value: {[property: string]: any} ) => {
+  const handleChange = (value: {[property: string]: any}) => {
     getJsonEditorValue && getJsonEditorValue(value)
   }
 
@@ -40,7 +40,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     }
   }, [])
 
-  return(
+  return (
     <div ref={jsonEditorRef} />
   )
 }
