@@ -91,7 +91,10 @@ export const claim = (message: MessageCustom): MessageCustom => {
 export const submitForReview = (message: MessageCustom, newMsg: {[property: string]: any}, privateMessage: string): MessageCustom => {
   return {
     ...message,
-    message: newMsg,
+    message: {
+      ... message.message,
+      ... newMsg
+    },
     details: {
       ...message.details,
       privateMessage: privateMessage,
