@@ -7,6 +7,25 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   <div />
   <div />
   <div
+    className="main theme-dark disabled"
+  >
+    <label
+      htmlFor="private_message_2020-03-25T15:08:47.525Z"
+    >
+      <svg
+        className="svg-inline--fa fa-user-secret"
+      />
+       
+      Private Message
+    </label>
+    <textarea
+      disabled={true}
+      id="private_message_2020-03-25T15:08:47.525Z"
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <div
     className="actions"
   />
 </div>

@@ -223,7 +223,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-15"
             >
-              Response Pending
+              Response Unallocated
             </span>
           </div>
         </td>
@@ -277,6 +277,25 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                     <p>
                       Schema not found
                     </p>
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_id_3a"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_id_3a"
+                        onChange={[Function]}
+                        value=""
+                      />
+                    </div>
                     <div
                       className="actions"
                     />
@@ -387,6 +406,25 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       Schema not found
                     </p>
                     <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_id_4"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_id_4"
+                        onChange={[Function]}
+                        value=""
+                      />
+                    </div>
+                    <div
                       className="actions"
                     />
                   </div>
@@ -491,6 +529,25 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   >
                     <div />
                     <div />
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_2020-03-25T15:08:47.540Z"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_2020-03-25T15:08:47.540Z"
+                        onChange={[Function]}
+                        value="The private content goes in here"
+                      />
+                    </div>
                     <div
                       className="actions"
                     />
@@ -597,6 +654,25 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                     <div />
                     <div />
                     <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_2020-03-25T15:08:47.525Z"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_2020-03-25T15:08:47.525Z"
+                        onChange={[Function]}
+                        value=""
+                      />
+                    </div>
+                    <div
                       className="actions"
                     />
                   </div>
@@ -701,6 +777,25 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   >
                     <div />
                     <div />
+                    <div
+                      className="main theme-dark disabled"
+                    >
+                      <label
+                        htmlFor="private_message_2020-03-25T15:08:47.530Z"
+                      >
+                        <svg
+                          className="svg-inline--fa fa-user-secret"
+                        />
+                         
+                        Private Message
+                      </label>
+                      <textarea
+                        disabled={true}
+                        id="private_message_2020-03-25T15:08:47.530Z"
+                        onChange={[Function]}
+                        value=""
+                      />
+                    </div>
                     <div
                       className="actions"
                     />
