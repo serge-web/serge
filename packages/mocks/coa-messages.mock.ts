@@ -105,7 +105,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'COA',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         status: CollaborativeMessageStates.EditDocument
@@ -113,8 +113,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Red-2',
-      content: 'message from Red',
-      Title: 'RFI 2 from Red'
+      Title: 'COA2 from Red'
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
@@ -141,8 +140,9 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-2',
-      content: 'Message from Blue',
-      Title: 'COA 2 from Blue'
+      Title: 'the title of the link for Blue-2',
+      URL: 'http://something.com',
+      content: 'Message from Blue'
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
