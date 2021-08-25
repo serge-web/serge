@@ -18,21 +18,19 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
 
-  const data = rfiMessages.map(message => [
-    message.message.Reference || message._id,
-    message.details.from.roleName,
-    message.details.from.forceColor,
-    message.message.Title,
-    message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-    message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
-  ])
-
-  // const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
-  //   return [
-  //     ...filters,
-  //     channelDict.get(message.details.channel)
-  //   ]
-  // }, [])
+  const data = rfiMessages.map(message => {
+    const collab = message.details.collaboration
+    const owner = (collab && collab.owner && collab.owner.roleName) || 'Pending'
+    const res = [
+      message.message.Reference || message._id,
+      message.details.from.roleName,
+      message.details.from.forceColor,
+      message.message.Title,
+      message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
+      owner
+    ]
+    return res
+  })
 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
@@ -53,10 +51,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
   const dataTableProps = {
     columns: [
       'ID',
-      // {
-      //   filters: [...new Set(filtersChannel)],
-      //   label: 'Channel'
-      // },
       {
         filters: [...new Set(filtersRoles)],
         label: 'From'
@@ -65,7 +59,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
       {
         filters: [
           CollaborativeMessageStates.Unallocated,
-          CollaborativeMessageStates.InProgress,
+          CollaborativeMessageStates.EditDocument,
+          CollaborativeMessageStates.EditResponse,
           CollaborativeMessageStates.PendingReview,
           CollaborativeMessageStates.Released,
           CollaborativeMessageStates.Rejected
@@ -81,18 +76,17 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
       const [id, mRole, forceColor, content, status, owner] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
-        [CollaborativeMessageStates.InProgress]: '#E7740A',
         [CollaborativeMessageStates.PendingReview]: '#434343',
         [CollaborativeMessageStates.Released]: '#007219',
         [CollaborativeMessageStates.Rejected]: '#434343',
         [CollaborativeMessageStates.EditResponse]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.EditDocument]: '#ffc107'
-        // [CollaborativeMessageStates.Finalized]: '',
-        // [CollaborativeMessageStates.DocumentPending]: '',
-        // [CollaborativeMessageStates.ResponsePending]: '',
+        [CollaborativeMessageStates.EditDocument]: '#ffc107',
+        [CollaborativeMessageStates.DocumentPending]: '#0366d6',
+        [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
 
+      // TODO: can we reduce the message detail processing when the control is collapsed?
       return {
         collapsible: (
           <div className={styles['rfi-form']}>

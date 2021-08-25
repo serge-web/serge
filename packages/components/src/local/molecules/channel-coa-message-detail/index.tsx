@@ -9,6 +9,7 @@ import styles from './styles.module.scss'
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
+import DialogModal from '../../atoms/dialog'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,13 +22,10 @@ import {
   close,
   requestChanges,
   endorse,
-  assign,
-  claim,
+  collabEditAssign,
   submitForReview,
-  CRCPassign,
-  CRCPclaim,
+  collabResponseAssign,
   CRCPsubmit,
-  CRRMClose,
   CRRMRelease,
   CRRMRequestChanges
 } from './helpers/changers'
@@ -35,24 +33,33 @@ import {
   ColEditPendingReview,
   ColEditDocumentPending,
   ColEditDocumentBeingEdited,
-  ColRespRelManReview,
+  ColRespPendingReview,
   ColRespResponsePending,
   ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { MessageTemplatesMock } from '@serge/mocks'
 import JsonEditor from '../json-editor'
+import { FeedbackItem } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
-  <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
+  <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
 
+type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
+
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
+  const [open, setOpenDialog] = useState<boolean>(false)
+  const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
+  const [placeHolder, setPlaceHolder] = useState<string>('')
+
+  const [actionType, setActionType] = useState<ActionType>('edit-endorse')
+
   const { collaboration } = message.details
   const editDoc = (typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && ColEditDocumentBeingEdited(message, channel, canCollaborate))
   const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
@@ -70,35 +77,40 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleRequestChanges = (): void => {
-    onChange && onChange(requestChanges(message))
+    setDialogTitle('Request Changes')
+    setActionType('edit-requestChanges')
+    setPlaceHolder('Enter requested changes...')
+    setOpenDialog(true)
   }
 
-  const handleEndors = (): void => {
-    onChange && onChange(endorse(message))
+  const handleEndorse = (): void => {
+    setDialogTitle('Endorse document')
+    setActionType('edit-endorse')
+    setPlaceHolder('Endorsement comment (optional)')
+    setOpenDialog(true)
   }
 
   const handleAssign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(assign(message))
+    onChange && onChange(collabEditAssign(message, role))
   }
 
   const handleClaim = (): void => {
-    // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(claim(message))
+    onChange && onChange(collabEditAssign(message, role))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(submitForReview(message, newMsg))
+    console.log('new', newMsg)
+    onChange && onChange(submitForReview(message, newMsg, privateMessage))
   }
 
   const handleCRCPassign = (): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(CRCPassign(message))
+    onChange && onChange(collabResponseAssign(message, role))
   }
 
   const handleCRCPclaim = (): void => {
-    // TODO: - produce ForceRole for current user, pass to claim
-    onChange && onChange(CRCPclaim(message))
+    onChange && onChange(collabResponseAssign(message, role))
   }
 
   const handleCRCPsubmit = (): void => {
@@ -106,7 +118,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleCRRMClose = (): void => {
-    onChange && onChange(CRRMClose(message))
+    onChange && onChange(close(message))
   }
 
   const handleCRRMRelease = (): void => {
@@ -114,7 +126,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleCRRMRequestChanges = (): void => {
-    onChange && onChange(CRRMRequestChanges(message))
+    setDialogTitle('Request Changes')
+    setActionType('respond-requestChanges')
+    setPlaceHolder('Enter requested changes...')
+    setOpenDialog(true)
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -131,10 +146,56 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     message.details.privateMessage = privateMsg
   }
 
+  const onModalClose = (): void => {
+    setOpenDialog(false)
+  }
+
+  const onModalSave = (feedback: string): void => {
+    // put message into feedback item
+    const feedbackItem: FeedbackItem =
+    {
+      fromId: role.roleId,
+      fromName: role.roleName,
+      date: new Date().toISOString(),
+      feedback
+    }
+    if (message.details.collaboration) {
+      if (!message.details.collaboration.feedback) {
+        // create empty array, if necessary
+        message.details.collaboration.feedback = []
+      }
+      message.details.collaboration.feedback.push(feedbackItem)
+    }
+    // sort out which handler to call
+    let func
+    switch (actionType) {
+      case 'edit-endorse':
+        func = endorse
+        break
+      case 'edit-requestChanges':
+        func = requestChanges
+        break
+      case 'respond-requestChanges':
+        func = CRRMRequestChanges
+        break
+    }
+    onChange && func && onChange(func(message))
+    setOpenDialog(false)
+  }
+
+  /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
 
   return (
     <div className={styles.main}>
+      <DialogModal
+        title={dialogTitle}
+        value={''}
+        open={open}
+        onClose={onModalClose}
+        onSave={onModalSave}
+        placeholder={placeHolder}
+      />
       {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ? (
         <>
           <JsonEditor
@@ -150,7 +211,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
                 <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleEndors}>Endorse</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
               </>
             }
             {
@@ -200,7 +261,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           }
           <div className={styles.actions}>
             {
-              ColRespRelManReview(message, channel, canReleaseMessages) &&
+              ColRespPendingReview(message, channel, canReleaseMessages) &&
               <>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>

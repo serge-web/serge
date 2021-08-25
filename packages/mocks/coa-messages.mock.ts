@@ -20,8 +20,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       },
       messageType: 'Message',
       timestamp: '2020-10-13T08:54:21.119Z',
+      privateMessage: 'Private part of RFI 3',
       collaboration: {
-        status: CollaborativeMessageStates.Finalized
+        status: CollaborativeMessageStates.Finalized,
+        response: 'Response to RFI 3'
       }
     },
     message: {
@@ -47,8 +49,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       },
       messageType: 'Laydown',
       timestamp: '2020-10-13T08:55:21.119Z',
+      privateMessage: 'Private part of RFI 1',
       collaboration: {
-        status: CollaborativeMessageStates.Closed
+        status: CollaborativeMessageStates.Closed,
+        response: 'Didn\'t bother responding'
       }
     },
     message: {
@@ -81,7 +85,9 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       }
     },
     message: {
-      content: 'Message from White, with Private content'
+      Reference: 'White-2',
+      content: 'Message from White, with Private content',
+      Title: 'COA from White'
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
@@ -102,12 +108,13 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
-        status: CollaborativeMessageStates.EditDocument,
-        response: 'Game control response to RFI 4'
+        status: CollaborativeMessageStates.EditDocument
       }
     },
     message: {
-      content: 'message from Red'
+      Reference: 'Red-2',
+      content: 'message from Red',
+      Title: 'RFI 2 from Red'
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
@@ -117,7 +124,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: 'ks8soryj',
+      channel: 'channel-ks8soryj',
       from: {
         force: 'Blue',
         forceColor: '#00F',
@@ -129,11 +136,13 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.DocumentPending,
-        response: 'Game control response to RFI 4'
+        response: 'Game control response to Blue-2'
       }
     },
     message: {
-      content: 'Message from Blue'
+      Reference: 'Blue-2',
+      content: 'Message from Blue',
+      Title: 'COA 2 from Blue'
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
@@ -184,7 +193,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
-        status: CollaborativeMessageStates.EditResponse
+        status: CollaborativeMessageStates.EditResponse,
+        response: 'Game control response to RFI 4'
       }
     },
     message: {
@@ -217,7 +227,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       }
     },
     message: {
-      content: 'Message from White, with Private content'
+      Reference: 'White-2',
+      content: 'Message from White, with Private content',
+      Title: 'COA from White'
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
@@ -243,7 +255,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       }
     },
     message: {
-      content: 'message from Red'
+      Reference: 'Red-2',
+      content: 'message from Red',
+      Title: 'RFI 2 from Red'
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
@@ -253,7 +267,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: 'channel-k63pjit0',
+      channel: 'channel-ks8soryj',
       from: {
         force: 'Blue',
         forceColor: '#00F',
@@ -265,11 +279,13 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.Released,
-        response: 'Game control response to RFI 4'
+        response: 'Game control response to Blue-2'
       }
     },
     message: {
-      content: 'Message from Blue'
+      Reference: 'Blue-2',
+      content: 'Message from Blue',
+      Title: 'COA 2 from Blue'
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',

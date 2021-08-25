@@ -1,4 +1,4 @@
-import { MessageCustom, ChannelData, ForceRole } from '@serge/custom-types'
+import { MessageCustom, ChannelData, ForceRole, Participant } from '@serge/custom-types'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
 /** shortcut constants to make code more legible */
@@ -34,8 +34,30 @@ const isThisChannel = (channel: ChannelData, channelType: SpecialChannelTypes): 
   return channel.format === channelType
 }
 
-export const formEditable = (message: MessageCustom, _role: ForceRole): boolean => {
-  return isThisState(message, CollaborativeMessageStates.InProgress) && isThisRole(message, _role)
+/** whether this user can see the collaborative aspects of this channel */
+export const userCanSeeCollab = (_channel: ChannelData, _role: ForceRole): boolean => {
+  const parts = _channel.participants
+  return !!parts.find((part: Participant) => {
+    // is this our force?
+    if (part.forceUniqid === _role.forceId) {
+      // does this participant collaborate?
+      if (part.canCollaborate) {
+        // it could be me :-)
+        if (part.roles && part.roles.length) {
+          return part.roles.find((role: string) => role === _role.roleId)
+        } else {
+          // no discrete roles specified, go for it
+          return true
+        }
+      }
+    }
+    return false
+  })
+}
+
+export const formEditable = (message: MessageCustom, role: ForceRole): boolean => {
+  const beingEdited = isThisState(message, CollaborativeMessageStates.EditResponse) || isThisState(message, CollaborativeMessageStates.EditDocument)
+  return beingEdited && isThisRole(message, role)
 }
 
 // Collaborative Editing buttons
@@ -52,7 +74,7 @@ export const ColEditDocumentBeingEdited = (message: MessageCustom, channel: Chan
 }
 
 // Collaborative Responding buttons
-export const ColRespRelManReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+export const ColRespPendingReview = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
   return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.PendingReview) && !!canReleaseMessages
 }
 
