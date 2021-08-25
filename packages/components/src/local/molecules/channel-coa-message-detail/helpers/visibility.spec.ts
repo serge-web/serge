@@ -1,6 +1,6 @@
 import { MessageCustom, ForceRole } from '@serge/custom-types'
 import { channelDataCollaborativeEditing, channelDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
-import { CollaborativeMessageStates } from '../../../../../../config/build'
+import { CollaborativeMessageStates } from '@serge/config'
 import { deepCopy } from '@serge/helpers'
 import { ColEditPendingReview, formEditable } from './visibility'
 
