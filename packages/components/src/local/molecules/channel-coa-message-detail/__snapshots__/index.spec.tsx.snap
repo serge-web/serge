@@ -34,7 +34,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     </span>
   </div>
   <div
-    className="main theme-dark disabled"
+    className="main theme-dark"
   >
     <label
       htmlFor="question_2020-03-25T15:08:47.525Z"
@@ -42,7 +42,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
       Request
     </label>
     <textarea
-      disabled={true}
+      disabled={false}
       id="question_2020-03-25T15:08:47.525Z"
       onChange={[Function]}
       value="[message empty]"

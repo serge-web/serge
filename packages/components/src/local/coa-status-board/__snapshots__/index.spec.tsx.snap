@@ -291,7 +291,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       </span>
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="question_id_3a"
@@ -299,7 +299,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Request
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="question_id_3a"
                         onChange={[Function]}
                         value="RFI 3 request goes in here"
@@ -462,7 +462,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       </span>
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="question_id_4"
@@ -470,7 +470,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Request
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="question_id_4"
                         onChange={[Function]}
                         value="RFI 1 request from red goes in here"
@@ -631,7 +631,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       </span>
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="question_2020-03-25T15:08:47.540Z"
@@ -639,7 +639,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Request
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="question_2020-03-25T15:08:47.540Z"
                         onChange={[Function]}
                         value="[message empty]"
@@ -800,7 +800,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       </span>
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="question_2020-03-25T15:08:47.525Z"
@@ -808,7 +808,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Request
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="question_2020-03-25T15:08:47.525Z"
                         onChange={[Function]}
                         value="[message empty]"
@@ -969,7 +969,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                       </span>
                     </div>
                     <div
-                      className="main theme-dark disabled"
+                      className="main theme-dark"
                     >
                       <label
                         htmlFor="question_2020-03-25T15:08:47.530Z"
@@ -977,7 +977,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                         Request
                       </label>
                       <textarea
-                        disabled={true}
+                        disabled={false}
                         id="question_2020-03-25T15:08:47.530Z"
                         onChange={[Function]}
                         value="[message empty]"

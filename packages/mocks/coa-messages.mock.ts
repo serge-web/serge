@@ -18,7 +18,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
+      messageType: 'Message',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.Finalized
@@ -45,7 +45,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
+      messageType: 'Laydown',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.Closed
@@ -125,7 +125,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'Link',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.DocumentPending,

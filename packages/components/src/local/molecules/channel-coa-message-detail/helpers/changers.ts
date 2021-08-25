@@ -85,11 +85,12 @@ export const claim = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const submitForReview = (message: MessageCustom): MessageCustom => {
+export const submitForReview = (message: MessageCustom, newMsg: {[property: string]: any}): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
+      ...newMsg,
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.PendingReview,
