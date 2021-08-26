@@ -12,6 +12,7 @@ import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 import { ForceRole } from '@serge/custom-types'
+import getAssignees from './helpers/assignees'
 
 /** helper to provide legible version of force & role */
 const formatRole = (role: ForceRole) => {
@@ -19,10 +20,12 @@ const formatRole = (role: ForceRole) => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channel, isUmpire, onChange, role }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channel, isUmpire, onChange, role, forces }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
+
+  const assignees = getAssignees(participants, forces)
 
   // collate list of message owners
   const listofOwners = rfiMessages.reduce((filters: any[], message) => {
@@ -118,6 +121,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
+              assignees={assignees}
             />
           </div>
         ),

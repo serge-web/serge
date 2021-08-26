@@ -12,4 +12,6 @@ export default interface Props {
   canReleaseMessages?: boolean
   channel: ChannelData
   templates: TemplateBody[]
+  /** people that a document in this channel can be assigned to */
+  assignees?: ForceRole[]
 }

@@ -186,6 +186,7 @@ it('CoaStatusBoard renders correctly', () => {
     .create(
       <CoaStatusBoard
         templates={MessageTemplatesMock}
+        forces={forces}
         role={role}
         isUmpire={true}
         channel={testChannel}

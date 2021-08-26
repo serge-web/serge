@@ -1,4 +1,4 @@
-import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData, ForceData } from '@serge/custom-types'
 export default interface Props {
   rfiMessages: MessageCustom[]
   channel: ChannelData
@@ -14,4 +14,6 @@ export default interface Props {
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
   templates: TemplateBody[]
+  /** list of forces */
+  forces: ForceData[]
 }

@@ -10,6 +10,7 @@ import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
 import DialogModal from '../../atoms/dialog'
+import SplitButton from '../../atoms/split-button'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -39,7 +40,7 @@ import {
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { FeedbackItem } from '@serge/custom-types'
+import { Participant, FeedbackItem, ForceRole, ChannelData } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -47,8 +48,44 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 
 type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
 
+/** for the specified channel, provide a list of people who
+ * can have documents assigned to them
+ */
+const getCandidates = (channel: ChannelData, assignees: ForceRole[]): string[] => {
+  const { participants } = channel
+  return participants.reduce((candidates: string[], participant: Participant): any => {
+    if (participant.canCollaborate) {
+      const { force, roles } = participant
+      if (!roles.length) {
+        // add the force name and all roles of that force
+        assignees.forEach((assignee: ForceRole) => {
+          const { forceName, roleName } = assignee
+          candidates.push(`${forceName} - ${roleName}`)
+        })
+      } else {
+        // add force name and role item in roles array
+        roles.forEach((role: string) => {
+          candidates.push(`${force} - ${role}`)
+        })
+      }
+    }
+    return candidates
+  }, [])
+}
+
+/** from the provided force & role, produce a ForceRole object */
+const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): ForceRole => {
+  const match = assignees.find((role: ForceRole) => {
+    return role.forceName === force && role.roleName === rolename
+  })
+  if (match) {
+    return match
+  }
+  throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
+}
+
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
@@ -56,6 +93,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
+  const [assignBtnLabel] = useState<string>('Assign to')
 
   const [actionType, setActionType] = useState<ActionType>('edit-endorse')
 
@@ -89,9 +127,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     setOpenDialog(true)
   }
 
-  const handleAssign = (): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabEditAssign(message, role))
+  const handleAssign = (selection: string): void => {
+    // unpack the fields
+    const fields = selection.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabEditAssign(message, assignee))
   }
 
   const handleClaim = (): void => {
@@ -102,9 +143,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     onChange && onChange(submitForReview(message, newMsg, privateMessage))
   }
 
-  const handleCRCPassign = (): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabResponseAssign(message, role))
+  const handleCRCPassign = (selection: string): void => {
+    // unpack the fields
+    const fields = selection.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabResponseAssign(message, assignee))
   }
 
   const handleCRCPclaim = (): void => {
@@ -217,10 +261,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
             {
-              // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
               ColEditDocumentPending(message, channel, canCollaborate) &&
               <>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
+                <SplitButton
+                  label={assignBtnLabel}
+                  options={[...getCandidates(channel, assignees)]}
+                  onClick={handleAssign} />
                 <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
               </>
             }
@@ -271,10 +317,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
             {
-              // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
               ColRespResponsePending(message, channel, canCollaborate) &&
               <>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
+                <SplitButton
+                  label={assignBtnLabel}
+                  options={[...getCandidates(channel, assignees)]}
+                  onClick={handleCRCPassign}
+                />
                 <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
               </>
             }
