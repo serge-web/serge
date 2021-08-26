@@ -71,6 +71,16 @@ const getCandidates = (channel: ChannelData, assignees: ForceRole[]): any[] => {
   }, [])
 }
 
+const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): ForceRole => {
+  const match = assignees.find((role: ForceRole) => {
+    return role.forceName === force && role.roleName === rolename
+  })
+  if (match) {
+    return match
+  }
+  throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
+} 
+
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = []}) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
@@ -114,9 +124,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(true)
   }
 
-  const handleAssign = (): void => {
+  const handleAssign = (selection: any): void => {
+    // unpack the fields
+    const selAsStr: string = selection as string
+    const fields = selAsStr.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabEditAssign(message, role))
+    onChange && onChange(collabEditAssign(message, assignee))
   }
 
   const handleClaim = (): void => {
@@ -127,9 +142,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     onChange && onChange(submitForReview(message, newMsg, privateMessage))
   }
 
-  const handleCRCPassign = (): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabResponseAssign(message, role))
+  const handleCRCPassign = (selection: any): void => {
+    // unpack the fields
+    const selAsStr: string = selection as string
+    const fields = selAsStr.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabResponseAssign(message, assignee))
   }
 
   const handleCRCPclaim = (): void => {
