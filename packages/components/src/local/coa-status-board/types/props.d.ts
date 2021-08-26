@@ -1,4 +1,4 @@
-import { MessageCustom, ForceRole, ChannelData, TemplateBodysByKey } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 export default interface Props {
   rfiMessages: MessageCustom[]
   channel: ChannelData

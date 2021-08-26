@@ -5,14 +5,15 @@ import { Story } from '@storybook/react/types-6-0'
 import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
-import { MessageTemplatesMock } from '@serge/mocks'
-import docs from './README.md'
 import {
+  MessageTemplatesMock,
   channelDataCollaborativeEditingCollaborationParticipant,
   messageDataCollaborativeEditing,
   GameChannels,
   GameMessagesMock
 } from '@serge/mocks'
+import docs from './README.md'
+
 import { MessageCustom, ForceRole } from '@serge/custom-types'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
