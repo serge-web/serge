@@ -49,7 +49,10 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 
 type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
 
-const getCandidates = (channel: ChannelData, assignees: ForceRole[]): any[] => {
+/** for the specified channel, provide a list of people who
+ * can have documents assigned to them
+ */
+const getCandidates = (channel: ChannelData, assignees: ForceRole[]): string[] => {
   const { participants } = channel
   return participants.reduce((candidates: string[], participant: Participant): any => {
     if (participant.canCollaborate) {
@@ -71,6 +74,7 @@ const getCandidates = (channel: ChannelData, assignees: ForceRole[]): any[] => {
   }, [])
 }
 
+/** from the provided force & role, produce a ForceRole object */
 const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): ForceRole => {
   const match = assignees.find((role: ForceRole) => {
     return role.forceName === force && role.roleName === rolename
