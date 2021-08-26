@@ -173,7 +173,13 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
-        response: 'Game control response to RFI 444'
+        response: 'Game control response to RFI 444',
+        feedback: [
+          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think about the children`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need more prep time`},
+          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you think about the next bit?`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Good plan`}
+        ]
       }
     },
     message: {
@@ -246,7 +252,13 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       messageType: 'COA',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
-        status: CollaborativeMessageStates.EditDocument
+        status: CollaborativeMessageStates.EditDocument,
+        feedback: [
+          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
+          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you even think about the next bit?`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+        ]
       }
     },
     message: {
@@ -395,7 +407,12 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
-        status: CollaborativeMessageStates.ResponsePending
+        status: CollaborativeMessageStates.ResponsePending,
+        feedback: [
+          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+        ]
       }
     },
     message: {
@@ -458,7 +475,10 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
         status: CollaborativeMessageStates.Closed,
-        response: 'Game control response to RFI 4'
+        response: 'Game control response to RFI 4',
+        feedback: [
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+        ]
       }
     },
     message: {
