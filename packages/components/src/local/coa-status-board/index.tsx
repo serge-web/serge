@@ -12,6 +12,7 @@ import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 import { ForceRole } from '@serge/custom-types'
+import getAssignees from './helpers/assignees'
 
 /** helper to provide legible version of force & role */
 const formatRole = (role: ForceRole) => {
@@ -119,6 +120,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
+              assignees={assignees}
             />
           </div>
         ),
