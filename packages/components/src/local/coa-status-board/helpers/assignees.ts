@@ -6,7 +6,7 @@ const forceFor = (forces: ForceData[], forceId: string): ForceData => {
   if (force) {
     return force
   }
-  throw 'Force not found for:' + forceId
+  throw new Error('Force not found for:' + forceId)
 }
 
 /** convert this `Role` into a `ForceRole` */
@@ -34,7 +34,7 @@ const getRole = (force: ForceData, roleId: string): Role => {
   if (role) {
     return role
   }
-  throw 'Role not found for:' + roleId
+  throw new Error('Role not found for:' + roleId)
 }
 
 /** get a list of the roles in this participant group, if it is
