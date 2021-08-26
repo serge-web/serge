@@ -124,13 +124,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(true)
   }
 
-  const handleAssign = (selection: any): void => {
+  const handleAssign = (selection: string): void => {
     // unpack the fields
-    const selAsStr: string = selection as string
-    const fields = selAsStr.split(' - ')
+    const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    // TODO: - produce ForceRole for selected user, pass to assign
     onChange && onChange(collabEditAssign(message, assignee))
   }
 
@@ -142,10 +140,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     onChange && onChange(submitForReview(message, newMsg, privateMessage))
   }
 
-  const handleCRCPassign = (selection: any): void => {
+  const handleCRCPassign = (selection: string): void => {
     // unpack the fields
-    const selAsStr: string = selection as string
-    const fields = selAsStr.split(' - ')
+    const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
     onChange && onChange(collabResponseAssign(message, assignee))
