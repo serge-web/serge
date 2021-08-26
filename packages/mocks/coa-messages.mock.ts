@@ -453,7 +453,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'Chat',
+      messageType: 'RFI',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -464,7 +464,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     message: {
       Reference: 'White-2',
       content: 'Message from White, with Private content',
-      Title: 'COA from White'
+      Title: "Duck food",
+      RFI: "But where do we get the duck food from?",
+      Priority: "Medium",
+      FAO: "SME – Logs & Med",
+      ResponseRequiredBy: "NLT 1600"
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
