@@ -35,7 +35,7 @@ exports[`DropdownList component: renders correctly 1`] = `
         >
           Assign
            
-          Game Control
+          ...
         </span>
       </button>
       <button
