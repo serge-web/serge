@@ -28,7 +28,7 @@ const useButtonStyle = makeStyles((theme: Theme) =>
   })
 )
 
-export const AssignMessage: React.FC<Props> = ({ options = [], onClick }: Props) => {
+export const AssignButtonMessage: React.FC<Props> = ({ options = [], onClick }: Props) => {
   const gridStyles = useButtonStyle()
   const [open, setOpen] = useState<boolean>(false)
   const anchorRef = useRef<any>(null)
@@ -109,4 +109,4 @@ export const AssignMessage: React.FC<Props> = ({ options = [], onClick }: Props)
   )
 }
 
-export default AssignMessage
+export default AssignButtonMessage

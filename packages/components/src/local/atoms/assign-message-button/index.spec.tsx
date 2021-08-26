@@ -3,14 +3,19 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import AssignMessage from './index'
+import AssignButtonMessage from './index'
+
+const onChange = (): void => {
+  console.log('On Change Clicked')
+}
 
 describe('DropdownList component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <AssignMessage
+        <AssignButtonMessage
           options={['Game Control', 'CO', 'Blue 1']}
+          onClick={onChange}
         />
       )
       .toJSON()

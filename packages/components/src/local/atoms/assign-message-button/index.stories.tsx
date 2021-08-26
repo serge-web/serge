@@ -1,10 +1,10 @@
 // Import component files
-import AssignMessage from './index'
+import AssignButtonMessage from './index'
 import docs from './README.md'
 
 export default {
   title: 'local/atoms/DropdownList',
-  component: AssignMessage,
+  component: AssignButtonMessage,
   decorators: [],
   parameters: {
     readme: {

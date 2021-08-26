@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Participant, FeedbackItem } from '@serge/custom-types'
 /* Import Types */
 import Props from './types/props'
 
@@ -9,7 +10,7 @@ import styles from './styles.module.scss'
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
-import AssignMessage from '../../atoms/assign-message'
+import AssignButtonMessage from '../../atoms/assign-message-button'
 import DialogModal from '../../atoms/dialog'
 
 /* Import Icons */
@@ -41,7 +42,6 @@ import {
   userCanSeeCollab
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { FeedbackItem } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -61,7 +61,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [actionType, setActionType] = useState<ActionType>('edit-endorse')
 
   const { collaboration } = message.details
-  // const [candidate, setCandidate] = useState<string>('')
 
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
@@ -100,7 +99,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
 
   const handleCRCPassign = (roleItem: string): void => {
     // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabResponseAssign(message, role))
+    // onChange && onChange(collabResponseAssign(message, role))
+    console.log('=>', roleItem)
   }
 
   const handleCRCPclaim = (): void => {
@@ -175,6 +175,25 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     }
     onChange && func && onChange(func(message))
     setOpenDialog(false)
+  }
+
+  const getCandidates = (): any[] => {
+    const { participants } = channel
+    return participants.reduce((candidates: string[], participant: Participant): any => {
+      if (participant.canCollaborate) {
+        const { force, roles } = participant
+        if (!roles.length) {
+          // add the force name and all roles of that force
+          candidates.push('force name - role name')
+        } else {
+          // add force name and role item in roles array
+          roles.forEach((role: string) => {
+            candidates.push(`${force} - ${role}`)
+          })
+        }
+      }
+      return candidates
+    }, [])
   }
 
   const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
@@ -258,8 +277,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           ColRespResponsePending(message, channel, canCollaborate) &&
           <>
             {/* <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button> */}
-            <AssignMessage
-              options={['Game Control', 'CO', 'Blue 1']}
+            <AssignButtonMessage
+              options={[...getCandidates()]}
               onClick={handleCRCPassign}
             />
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
