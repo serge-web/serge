@@ -28,7 +28,7 @@ const useButtonStyle = makeStyles((theme: Theme) =>
   })
 )
 
-export const AssignButtonMessage: React.FC<Props> = ({ options = [], onClick }: Props) => {
+export const SplitButton: React.FC<Props> = ({ label, options = [], onClick }: Props) => {
   const gridStyles = useButtonStyle()
   const [open, setOpen] = useState<boolean>(false)
   const anchorRef = useRef<any>(null)
@@ -65,7 +65,7 @@ export const AssignButtonMessage: React.FC<Props> = ({ options = [], onClick }: 
           ref={anchorRef}
           aria-label="split button"
         >
-          <Button onClick={handleClick}>Assign {options[selectedIndex]}</Button>
+          <Button onClick={handleClick}>{label} {options[selectedIndex]}</Button>
           <Button
             color="primary"
             size="small"
@@ -109,4 +109,4 @@ export const AssignButtonMessage: React.FC<Props> = ({ options = [], onClick }: 
   )
 }
 
-export default AssignButtonMessage
+export default SplitButton

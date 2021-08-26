@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
-import AssignButtonMessage from '../../atoms/assign-message-button'
+import SplitButton from '../../atoms/split-button'
 import DialogModal from '../../atoms/dialog'
 
 /* Import Icons */
@@ -57,6 +57,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
+  const [assignBtnLabel] = useState<string>('Assign to')
 
   const [actionType, setActionType] = useState<ActionType>('edit-endorse')
 
@@ -277,7 +278,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           ColRespResponsePending(message, channel, canCollaborate) &&
           <>
             {/* <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button> */}
-            <AssignButtonMessage
+            <SplitButton
+              label={assignBtnLabel}
               options={[...getCandidates()]}
               onClick={handleCRCPassign}
             />

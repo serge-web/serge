@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import AssignButtonMessage from './index'
+import SplitButton from './index'
 
 const onChange = (): void => {
   console.log('On Change Clicked')
@@ -13,7 +13,8 @@ describe('DropdownList component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <AssignButtonMessage
+        <SplitButton
+          label="Assign"
           options={['Game Control', 'CO', 'Blue 1']}
           onClick={onChange}
         />
