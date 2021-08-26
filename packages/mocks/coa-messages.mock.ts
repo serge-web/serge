@@ -18,9 +18,9 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
+      messageType: 'COA',
       timestamp: '2020-10-13T08:54:21.119Z',
-      privateMessage: 'Private part of RFI 3',
+      privateMessage: 'Private part of COA 3',
       collaboration: {
         status: CollaborativeMessageStates.Finalized,
         response: 'Response to RFI 3'
@@ -28,8 +28,54 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-3',
-      Request: 'RFI 3 request goes in here',
-      Title: 'RFI 3 from Blue'
+      NAME: "Blue-3 Trusted Taipir",
+      LOCATION: {
+        region: "Europe",
+        Europe: "United Kingdom"
+      },
+      PRESCRIPTED: true,
+      VISIBILITY: "Overt",
+      COA_SUPPORTS_AS: true,
+      TARGET: "kdjg;sd lfjk s;lfkgj ",
+      STRAT_COMMS: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_TURN: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      TARGET_CENTRE_OF_GRAVITY: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_TURN: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      EFFECTS_AND_ACTIONS: "kdjg;sd lfjk s;lfkgj ",
+      SEQUENCING_AND_PHASES: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_UNDERSTANDING: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_REACTION_COUNTER_ACTION: {
+        ADVERSARY_MLCOA: "kdjg;sd lfjk s;lfkgj ",
+        MLCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj ",
+        ADVERSARY_MDCOA: "kdjg;sd lfjk s;lfkgj ",
+        MDCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj "
+      },
+      ORBAT: [
+        {
+          FEName: "Tank",
+          Readiness: "Level-1",
+          Number: 12,
+          StartDate: "20/08/2021",
+          EndDate: "20/08/2021"
+        }
+      ],
+      TIMINGS: {
+        START_PLANNING: "20/08/2021",
+        START_DEPLOYMENT: "20/08/2021",
+        START_OPERATION: "20/08/2021",
+        END_OPERATION: "20/08/2021",
+        END_RECOVERY: "20/08/2021"
+      },
+      CONTINUES_INTO_NEXT_TURN: true,
+      DEPENDENCIES: "kdjg;sd lfjk s;lfkgj ",
+      AdjudicationSupport: [
+        "Influence",
+        "Logistics"
+      ],
+      PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
+      INSIGHT: "kdjg;sd lfjk s;lfkgj "
     },
     _id: 'id_3a',
     _rev: '2',
@@ -47,7 +93,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
+      messageType: 'COA',
       timestamp: '2020-10-13T08:55:21.119Z',
       privateMessage: 'Private part of RFI 1',
       collaboration: {
@@ -57,8 +103,54 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'RED-1',
-      Request: 'RFI 1 request from red goes in here',
-      Title: 'RFI 1 from RED'
+      NAME: "Red-1 COA",
+      LOCATION: {
+        region: "Europe",
+        Europe: "United Kingdom"
+      },
+      PRESCRIPTED: true,
+      VISIBILITY: "Overt",
+      COA_SUPPORTS_AS: true,
+      TARGET: "kdjg;sd lfjk s;lfkgj ",
+      STRAT_COMMS: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_TURN: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      TARGET_CENTRE_OF_GRAVITY: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_TURN: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      EFFECTS_AND_ACTIONS: "kdjg;sd lfjk s;lfkgj ",
+      SEQUENCING_AND_PHASES: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_UNDERSTANDING: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_REACTION_COUNTER_ACTION: {
+        ADVERSARY_MLCOA: "kdjg;sd lfjk s;lfkgj ",
+        MLCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj ",
+        ADVERSARY_MDCOA: "kdjg;sd lfjk s;lfkgj ",
+        MDCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj "
+      },
+      ORBAT: [
+        {
+          FEName: "Tank",
+          Readiness: "Level-1",
+          Number: 12,
+          StartDate: "20/08/2021",
+          EndDate: "20/08/2021"
+        }
+      ],
+      TIMINGS: {
+        START_PLANNING: "20/08/2021",
+        START_DEPLOYMENT: "20/08/2021",
+        START_OPERATION: "20/08/2021",
+        END_OPERATION: "20/08/2021",
+        END_RECOVERY: "20/08/2021"
+      },
+      CONTINUES_INTO_NEXT_TURN: true,
+      DEPENDENCIES: "kdjg;sd lfjk s;lfkgj ",
+      AdjudicationSupport: [
+        "Influence",
+        "Logistics"
+      ],
+      PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
+      INSIGHT: "kdjg;sd lfjk s;lfkgj "
     },
     _rev: '1',
     _id: 'id_4',
@@ -76,7 +168,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'Chat',
+      messageType: 'COA',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -86,8 +178,54 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'White-2',
-      content: 'Message from White, with Private content',
-      Title: 'COA from White'
+      NAME: "White-2 COA",
+      LOCATION: {
+        region: "Europe",
+        Europe: "United Kingdom"
+      },
+      PRESCRIPTED: true,
+      VISIBILITY: "Overt",
+      COA_SUPPORTS_AS: true,
+      TARGET: "kdjg;sd lfjk s;lfkgj ",
+      STRAT_COMMS: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_TURN: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      TARGET_CENTRE_OF_GRAVITY: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_TURN: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      EFFECTS_AND_ACTIONS: "kdjg;sd lfjk s;lfkgj ",
+      SEQUENCING_AND_PHASES: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_UNDERSTANDING: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_REACTION_COUNTER_ACTION: {
+        ADVERSARY_MLCOA: "kdjg;sd lfjk s;lfkgj ",
+        MLCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj ",
+        ADVERSARY_MDCOA: "kdjg;sd lfjk s;lfkgj ",
+        MDCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj "
+      },
+      ORBAT: [
+        {
+          FEName: "Tank",
+          Readiness: "Level-1",
+          Number: 12,
+          StartDate: "20/08/2021",
+          EndDate: "20/08/2021"
+        }
+      ],
+      TIMINGS: {
+        START_PLANNING: "20/08/2021",
+        START_DEPLOYMENT: "20/08/2021",
+        START_OPERATION: "20/08/2021",
+        END_OPERATION: "20/08/2021",
+        END_RECOVERY: "20/08/2021"
+      },
+      CONTINUES_INTO_NEXT_TURN: true,
+      DEPENDENCIES: "kdjg;sd lfjk s;lfkgj ",
+      AdjudicationSupport: [
+        "Influence",
+        "Logistics"
+      ],
+      PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
+      INSIGHT: "kdjg;sd lfjk s;lfkgj "
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
@@ -105,7 +243,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'COA',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         status: CollaborativeMessageStates.EditDocument
@@ -113,9 +251,54 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Red-2',
-      content: 'message from Red',
-      Title: 'RFI 2 from Red'
-    },
+      NAME: "Red 2 COA",
+      LOCATION: {
+        region: "Europe",
+        Europe: "United Kingdom"
+      },
+      PRESCRIPTED: true,
+      VISIBILITY: "Overt",
+      COA_SUPPORTS_AS: true,
+      TARGET: "kdjg;sd lfjk s;lfkgj ",
+      STRAT_COMMS: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_TURN: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      TARGET_CENTRE_OF_GRAVITY: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_TURN: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      EFFECTS_AND_ACTIONS: "kdjg;sd lfjk s;lfkgj ",
+      SEQUENCING_AND_PHASES: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_UNDERSTANDING: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_REACTION_COUNTER_ACTION: {
+        ADVERSARY_MLCOA: "kdjg;sd lfjk s;lfkgj ",
+        MLCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj ",
+        ADVERSARY_MDCOA: "kdjg;sd lfjk s;lfkgj ",
+        MDCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj "
+      },
+      ORBAT: [
+        {
+          FEName: "Tank",
+          Readiness: "Level-1",
+          Number: 12,
+          StartDate: "20/08/2021",
+          EndDate: "20/08/2021"
+        }
+      ],
+      TIMINGS: {
+        START_PLANNING: "20/08/2021",
+        START_DEPLOYMENT: "20/08/2021",
+        START_OPERATION: "20/08/2021",
+        END_OPERATION: "20/08/2021",
+        END_RECOVERY: "20/08/2021"
+      },
+      CONTINUES_INTO_NEXT_TURN: true,
+      DEPENDENCIES: "kdjg;sd lfjk s;lfkgj ",
+      AdjudicationSupport: [
+        "Influence",
+        "Logistics"
+      ],
+      PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
+      INSIGHT: "kdjg;sd lfjk s;lfkgj "    },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
     hasBeenRead: false,
@@ -132,7 +315,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'COA',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.DocumentPending,
@@ -141,8 +324,54 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-2',
-      content: 'Message from Blue',
-      Title: 'COA 2 from Blue'
+      NAME: "Blue 2 COA",
+      LOCATION: {
+        region: "Europe",
+        Europe: "United Kingdom"
+      },
+      PRESCRIPTED: true,
+      VISIBILITY: "Overt",
+      COA_SUPPORTS_AS: true,
+      TARGET: "kdjg;sd lfjk s;lfkgj ",
+      STRAT_COMMS: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_TURN: "kdjg;sd lfjk s;lfkgj ",
+      OBJECTIVES_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      TARGET_CENTRE_OF_GRAVITY: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_TURN: "kdjg;sd lfjk s;lfkgj ",
+      DESIRED_ENDSTATE_OVERALL: "kdjg;sd lfjk s;lfkgj ",
+      EFFECTS_AND_ACTIONS: "kdjg;sd lfjk s;lfkgj ",
+      SEQUENCING_AND_PHASES: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_UNDERSTANDING: "kdjg;sd lfjk s;lfkgj ",
+      ADVERSARY_REACTION_COUNTER_ACTION: {
+        ADVERSARY_MLCOA: "kdjg;sd lfjk s;lfkgj ",
+        MLCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj ",
+        ADVERSARY_MDCOA: "kdjg;sd lfjk s;lfkgj ",
+        MDCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj "
+      },
+      ORBAT: [
+        {
+          FEName: "Tank",
+          Readiness: "Level-1",
+          Number: 12,
+          StartDate: "20/08/2021",
+          EndDate: "20/08/2021"
+        }
+      ],
+      TIMINGS: {
+        START_PLANNING: "20/08/2021",
+        START_DEPLOYMENT: "20/08/2021",
+        START_OPERATION: "20/08/2021",
+        END_OPERATION: "20/08/2021",
+        END_RECOVERY: "20/08/2021"
+      },
+      CONTINUES_INTO_NEXT_TURN: true,
+      DEPENDENCIES: "kdjg;sd lfjk s;lfkgj ",
+      AdjudicationSupport: [
+        "Influence",
+        "Logistics"
+      ],
+      PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
+      INSIGHT: "kdjg;sd lfjk s;lfkgj "
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
@@ -171,8 +400,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-3',
-      Request: 'RFI 3 request goes in here',
-      Title: 'RFI 3 from Blue'
+      Title: 'RFI 3 from Blue',
+      RFI: "Content of RFI",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _id: 'id_3a',
     _rev: '2',
@@ -199,8 +431,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'RED-1',
-      Request: 'RFI 1 request from red goes in here',
-      Title: 'RFI 1 from RED'
+      Title: 'RFI 1 from RED',
+      RFI: "Content of RFI Red-1",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _rev: '1',
     _id: 'id_4',
@@ -218,7 +453,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'Chat',
+      messageType: 'RFI',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -229,7 +464,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     message: {
       Reference: 'White-2',
       content: 'Message from White, with Private content',
-      Title: 'COA from White'
+      Title: "Duck food",
+      RFI: "But where do we get the duck food from?",
+      Priority: "Medium",
+      FAO: "SME – Logs & Med",
+      ResponseRequiredBy: "NLT 1600"
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
@@ -247,7 +486,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
@@ -256,8 +495,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Red-2',
-      content: 'message from Red',
-      Title: 'RFI 2 from Red'
+      Title: 'RFI 2 from Red',
+      RFI: "Content of RFI-2",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
@@ -275,7 +517,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
+      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.Released,
@@ -284,8 +526,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-2',
-      content: 'Message from Blue',
-      Title: 'COA 2 from Blue'
+      Title: 'COA 2 from Blue',
+      RFI: "Content of RFI from Blue (2)",
+      Priority: "High",
+      FAO: "J2",
+      ResponseRequiredBy: "Within an hour"
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
