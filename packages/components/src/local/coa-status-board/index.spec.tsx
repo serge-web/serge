@@ -185,6 +185,7 @@ it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CoaStatusBoard
+        forces={forces}
         role={role}
         isUmpire={true}
         channel={testChannel}

@@ -16,7 +16,8 @@ import {
   channelDataCollaborativeRespondingCollaborationParticipant,
   channelDataCollaborativeRespondingReleaseManager,
   messageDataCollaborativeEditing,
-  messageDataCollaborativeResponding
+  messageDataCollaborativeResponding,
+  forces
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '../../../../config/build'
 
@@ -56,7 +57,7 @@ const Template: Story<Props> = (args) => {
   const onChange = (nextMessages: MessageCustom[]): void => {
     setMessages(nextMessages)
   }
-  return <CoaStatusBoard {...args} rfiMessages={messages} onChange={onChange} />
+  return <CoaStatusBoard {...args} forces={forces} rfiMessages={messages} onChange={onChange} />
 }
 
 // filter to only show the most recent versions of messages

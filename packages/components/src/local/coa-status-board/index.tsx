@@ -19,10 +19,12 @@ const formatRole = (role: ForceRole) => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire, onChange, role }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire, onChange, role, forces }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
+
+  const assignees = getAssignees(participants, forces)
 
   // collate list of message owners
   const listofOwners = rfiMessages.reduce((filters: any[], message) => {
