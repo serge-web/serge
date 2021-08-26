@@ -1,7 +1,7 @@
 import { ForceData, ForceRole, Participant, Role } from '@serge/custom-types'
 
 /** find this force */
-const forceFor = (forces: ForceData[], forceId: string) => {
+const forceFor = (forces: ForceData[], forceId: string): ForceData => {
   const force = forces.find((force: ForceData) => force.uniqid === forceId)
   if (force) {
     return force
@@ -44,7 +44,7 @@ const getRole = (force: ForceData, roleId: string): Role => {
 const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRole[] => {
   const res: ForceRole[] = []
   participants.forEach((part: Participant) => {
-    if(part.canCollaborate) {
+    if (part.canCollaborate) {
       const force = forceFor(forces, part.forceUniqid)
       if (part.roles && part.roles.length) {
         const matches: ForceRole[] = part.roles.map((roleId: string) => {
@@ -54,7 +54,7 @@ const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRo
       } else {
         // all roles for this force
         res.push(...allRolesFor(force))
-      }  
+      }
     }
   })
   return res

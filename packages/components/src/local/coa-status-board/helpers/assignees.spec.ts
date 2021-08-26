@@ -105,4 +105,5 @@ describe('Determine assignees for channel', () => {
     expect(res1[2].roleId).toEqual('rkrlw445e')
     expect(res1[3].roleId).toEqual('rkrlw6f5emms')
     expect(res1[3].forceName).toEqual('Blue')
-  })})
+  })
+})
