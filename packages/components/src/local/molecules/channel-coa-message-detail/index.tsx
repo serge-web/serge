@@ -57,7 +57,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
-  const [assignBtnLabel] = useState<string>('Assign to')
+  const [assignBtnLabel] = useState<string>('Assign to >')
 
   const [actionType, setActionType] = useState<ActionType>('edit-endorse')
 

@@ -7,7 +7,7 @@ export type Props = {
   /**
    * options lists
    */
-  options: any[]
+  options: string[]
 
   /**
    * callback function

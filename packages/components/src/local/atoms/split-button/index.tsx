@@ -32,9 +32,12 @@ export const SplitButton: React.FC<Props> = ({ label, options = [], onClick }: P
   const gridStyles = useButtonStyle()
   const [open, setOpen] = useState<boolean>(false)
   const anchorRef = useRef<any>(null)
-  const [selectedIndex, setSelectedIndex] = useState<number>(0)
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1)
 
   const handleClick = (): void => {
+    if (selectedIndex === -1) {
+      return
+    }
     onClick && onClick(options[selectedIndex])
   }
 
