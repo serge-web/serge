@@ -223,7 +223,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-15"
             >
-              Response Pending
+              Response Unallocated
             </span>
           </div>
         </td>
@@ -273,6 +273,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -441,6 +442,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -607,6 +609,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -773,6 +776,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
@@ -939,6 +943,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                   <div
                     className="main"
                   >
+                    <div />
                     <div
                       className="assigned"
                     >
