@@ -5,20 +5,15 @@ import { Story } from '@storybook/react/types-6-0'
 import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
-import docs from './README.md'
 import {
-  // channelDataCollaborativeEditing,
+  MessageTemplatesMock,
   channelDataCollaborativeEditingCollaborationParticipant,
-  // channelDataColabEditCollaborativeReleaseManager,
-  // channelDataCollaborativeResponding,
-  // channelDataCollaborativeRespondingCollaborationParticipant,
-  // channelDataCollaborativeRespondingReleaseManager,
   messageDataCollaborativeEditing,
-  // messageDataCollaborativeResponding,
-  // GameMessagesMockRFI,
-  GameChannels
+  GameChannels,
+  GameMessagesMock
 } from '@serge/mocks'
-// import { mostRecentOnly } from '@serge/helpers'
+import docs from './README.md'
+
 import { MessageCustom, ForceRole } from '@serge/custom-types'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -58,15 +53,6 @@ export default {
   }
 }
 
-// reverse the items
-// const messages = GameMessagesMockRFI.reverse()
-// const newest = mostRecentOnly(messages)
-
-// const unallocated = newest[3] as MessageCustom
-// const inProgress = newest[2] as MessageCustom
-// const forReview = newest[1] as MessageCustom
-// const released = newest[0] as MessageCustom
-
 const Template: Story<RFIPropTypes> = (args) => {
   const { isUmpire, role, message } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
@@ -81,6 +67,7 @@ const Template: Story<RFIPropTypes> = (args) => {
 
   return (
     <ChannelCoaMessageDetail
+      templates={MessageTemplatesMock}
       message={messageState}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
@@ -94,6 +81,16 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-c
 export const Unallocated = Template.bind({})
 Unallocated.args = {
   message: messageDataCollaborativeEditing[0],
+  isUmpire: true,
+  canCollaborate: true,
+  canReleaseMessages: false,
+  channel: channelDataCollaborativeEditingCollaborationParticipant,
+  role: role
+}
+
+export const CusomtMessage = Template.bind({})
+CusomtMessage.args = {
+  message: GameMessagesMock[0] as MessageCustom,
   isUmpire: true,
   canCollaborate: true,
   canReleaseMessages: false,

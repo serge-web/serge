@@ -4,7 +4,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { forces } from '@serge/mocks'
+import { forces, MessageTemplatesMock } from '@serge/mocks'
 import CoaStatusBoard from './index'
 
 /* Import mock data */
@@ -177,12 +177,6 @@ const testMock: MessageCustom[] = [
   }
 ]
 
-const roles = [
-  'Game Control',
-  'Logistics',
-  'Air',
-  'Land'
-]
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
 const onChange = (): void => console.log()
@@ -191,9 +185,10 @@ it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CoaStatusBoard
+        templates={MessageTemplatesMock}
+        forces={forces}
         role={role}
         isUmpire={true}
-        roles={roles}
         channel={testChannel}
         rfiMessages={testMock}
         onChange={onChange}

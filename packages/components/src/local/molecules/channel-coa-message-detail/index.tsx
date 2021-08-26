@@ -10,6 +10,7 @@ import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import Badge from '../../atoms/badge'
 import DialogModal from '../../atoms/dialog'
+import SplitButton from '../../atoms/split-button'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,17 +31,16 @@ import {
   CRRMRequestChanges
 } from './helpers/changers'
 import {
-  formEditable,
   ColEditPendingReview,
   ColEditDocumentPending,
   ColEditDocumentBeingEdited,
   ColRespPendingReview,
   ColRespResponsePending,
-  ColRespDocumentBeingEdited,
-  userCanSeeCollab
+  ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { FeedbackItem } from '@serge/custom-types'
+import JsonEditor from '../json-editor'
+import { Participant, FeedbackItem, ForceRole, ChannelData } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -48,18 +48,62 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 
 type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
 
+/** for the specified channel, provide a list of people who
+ * can have documents assigned to them
+ */
+const getCandidates = (channel: ChannelData, assignees: ForceRole[]): string[] => {
+  const { participants } = channel
+  return participants.reduce((candidates: string[], participant: Participant): any => {
+    if (participant.canCollaborate) {
+      const { force, roles } = participant
+      if (!roles.length) {
+        // add the force name and all roles of that force
+        assignees.forEach((assignee: ForceRole) => {
+          const { forceName, roleName } = assignee
+          candidates.push(`${forceName} - ${roleName}`)
+        })
+      } else {
+        // add force name and role item in roles array
+        roles.forEach((role: string) => {
+          candidates.push(`${force} - ${role}`)
+        })
+      }
+    }
+    return candidates
+  }, [])
+}
+
+/** from the provided force & role, produce a ForceRole object */
+const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): ForceRole => {
+  const match = assignees.find((role: ForceRole) => {
+    return role.forceName === force && role.roleName === rolename
+  })
+  if (match) {
+    return match
+  }
+  throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
+}
+
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
+  const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
+  const [assignBtnLabel] = useState<string>('Assign to')
 
   const [actionType, setActionType] = useState<ActionType>('edit-endorse')
 
   const { collaboration } = message.details
+  const editDoc = (typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && ColEditDocumentBeingEdited(message, channel, canCollaborate))
+  const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
+
+  const getJsonEditorValue = (val: {[property: string]: any}) => {
+    setNewMsg(val)
+  }
 
   const handleFinalized = (): void => {
     onChange && onChange(finalize(message))
@@ -83,9 +127,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(true)
   }
 
-  const handleAssign = (): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabEditAssign(message, role))
+  const handleAssign = (selection: string): void => {
+    // unpack the fields
+    const fields = selection.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabEditAssign(message, assignee))
   }
 
   const handleClaim = (): void => {
@@ -93,12 +140,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(submitForReview(message, privateMessage))
+    onChange && onChange(submitForReview(message, newMsg, privateMessage))
   }
 
-  const handleCRCPassign = (): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabResponseAssign(message, role))
+  const handleCRCPassign = (selection: string): void => {
+    // unpack the fields
+    const fields = selection.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabResponseAssign(message, assignee))
   }
 
   const handleCRCPclaim = (): void => {
@@ -175,14 +225,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(false)
   }
 
-  const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-
-  /** can this role see the collaborative working details? */
-  const roleCanSeeCollab = userCanSeeCollab(channel, role)
-
-  /** can this role edit the collaborative data */
-  const formIsEditable = roleCanSeeCollab && formEditable(message, role)
-
   /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
 
@@ -196,74 +238,102 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         onSave={onModalSave}
         placeholder={placeHolder}
       />
-      {collaboration && roleCanSeeCollab && <div className={styles.assigned}>
-        <span className={styles.inset}>
-          <AssignmentInd color="action" fontSize="large" /><Badge size="medium" type="charcoal" label={assignLabel} />
-        </span>
-      </div>}
-      {editingResponse
-        ? <>
-          <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
-            disabled label={'Request'} />
-          {roleCanSeeCollab &&
-            <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!formIsEditable} theme='dark' label="Answer" />
-          }
-        </> : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark'
-          disabled={!formIsEditable} label={'Message'} />
-      }
-      {
-        isUmpire &&
-        <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!formIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory} />
-      }
-      {!isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
+      {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ? (
         <>
-          <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
+          <JsonEditor
+            messageTemplates={templates}
+            message={message}
+            getJsonEditorValue={getJsonEditorValue}
+            disabled={!editDoc}
+          />
+          {
+            isUmpire &&
+              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          }
+          <div className={styles.actions}>
+            {
+              ColEditPendingReview(message, channel, canReleaseMessages) &&
+              <>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
+              </>
+            }
+            {
+              ColEditDocumentPending(message, channel, canCollaborate) &&
+              <>
+                <SplitButton
+                  label={assignBtnLabel}
+                  options={[...getCandidates(channel, assignees)]}
+                  onClick={handleAssign} />
+                <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
+              </>
+            }
+            {
+              ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
+            }
+          </div>
         </>
-      }
-      <div className={styles.actions}>
-        {
-          ColEditPendingReview(message, channel, canReleaseMessages) &&
-          <>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
-          </>
-        }
-        {
-          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
-          ColEditDocumentPending(message, channel, canCollaborate) &&
-          <>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
-          </>
-        }
-        {
-          formIsEditable && ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
-          <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
-        }
-
-        {
-          ColRespPendingReview(message, channel, canReleaseMessages) &&
-          <>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRequestChanges}>Request Changes</Button>
-          </>
-        }
-        {
-          // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
-          ColRespResponsePending(message, channel, canCollaborate) &&
-          <>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
-          </>
-        }
-        {
-          formIsEditable && ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
-          <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
-        }
-      </div>
+      ) : (
+        <>
+          {
+            collaboration && isUmpire && <div className={styles.assigned}>
+              <span className={styles.inset}>
+                <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
+              </span>
+            </div>
+          }
+          {
+            channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+              ? <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+              : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' label="Request"/>
+          }
+          { // only show next fields if collaboration details known
+            isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+              ? <>
+                <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
+                <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!(canCollaborate && collRespPendingDisable)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+              </>
+              : <>
+                <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
+                <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+              </>
+          }
+          { // TODO: show answer in read-only form if message released
+            !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
+            <>
+              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+            </>
+          }
+          <div className={styles.actions}>
+            {
+              ColRespPendingReview(message, channel, canReleaseMessages) &&
+              <>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRequestChanges}>Request Changes</Button>
+              </>
+            }
+            {
+              ColRespResponsePending(message, channel, canCollaborate) &&
+              <>
+                <SplitButton
+                  label={assignBtnLabel}
+                  options={[...getCandidates(channel, assignees)]}
+                  onClick={handleCRCPassign}
+                />
+                <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
+              </>
+            }
+            {
+              ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
+            }
+          </div>
+        </>
+      )}
     </div>
   )
 }

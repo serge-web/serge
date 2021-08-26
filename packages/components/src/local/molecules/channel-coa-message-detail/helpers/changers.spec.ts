@@ -14,7 +14,8 @@ const whiteUmpire: ForceRole = {
 }
 
 const response = 'response text'
-const privMsg = 'Private message text'
+const privMsg = 'The private content goes in here'
+const privMsg2 = 'The other private content goes in here'
 
 const messages = messageDataCollaborativeEditing
 const pendingReview = messages[2]
@@ -48,10 +49,25 @@ describe('Changer tests', () => {
     expect(res3.details.collaboration?.status).toEqual(CollaborativeMessageStates.EditResponse)
     expect(res3.details.collaboration?.owner).toEqual(whiteUmpire)
 
-    const res5 = submitForReview(pendingReview, privMsg)
+    // create a mock message object, like those we get from json-editor
+    const msgTxt = 'message content'
+    const newMessage = {
+      content: msgTxt
+    }
+
+    // check it doesn't have our content already
+    expect(pendingReview.message.content).not.toEqual(msgTxt)
+    expect(pendingReview.details.privateMessage).not.toEqual(privMsg2)
+
+    // now submit new message
+    const res5 = submitForReview(pendingReview, newMessage, privMsg2)
     expect(res5.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)
     expect(res5.details.collaboration?.owner).toEqual(undefined)
-    expect(res5.details.privateMessage).toEqual(privMsg)
+    expect(res5.details.privateMessage).toEqual(privMsg2)
+    expect(res5.message).toBeTruthy()
+    expect(res5.message.content).toBeTruthy()
+    expect(typeof res5.message).toEqual('object')
+    expect(res5.message.content).toEqual(msgTxt)
 
     const res6 = CRCPsubmit(pendingReview, response, privMsg)
     expect(res6.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)

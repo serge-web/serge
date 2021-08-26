@@ -1,7 +1,6 @@
-import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData, ForceData } from '@serge/custom-types'
 export default interface Props {
   rfiMessages: MessageCustom[]
-  roles: string[]
   channel: ChannelData
   onChange: (nextMessages: MessageCustom[]) => void
   /** if this player is from the UMPIRE force */
@@ -14,4 +13,7 @@ export default interface Props {
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
+  templates: TemplateBody[]
+  /** list of forces */
+  forces: ForceData[]
 }

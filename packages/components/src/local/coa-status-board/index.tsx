@@ -11,16 +11,45 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
+import { ForceRole } from '@serge/custom-types'
+import getAssignees from './helpers/assignees'
+
+/** helper to provide legible version of force & role */
+const formatRole = (role: ForceRole) => {
+  return role.forceName + '-' + role.roleName
+}
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, isUmpire, onChange, role }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channel, isUmpire, onChange, role, forces }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
 
+  const assignees = getAssignees(participants, forces)
+
+  // collate list of message owners
+  const listofOwners = rfiMessages.reduce((filters: any[], message) => {
+    if (message.details.collaboration && message.details.collaboration.owner) {
+      return [
+        ...filters,
+        formatRole(message.details.collaboration.owner)
+      ]
+    } else {
+      return filters
+    }
+  }, [])
+
+  // collate list of sources (From) for messages
+  const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
+    return [
+      ...filters,
+      message.details.from.roleName
+    ]
+  }, [])
+
   const data = rfiMessages.map(message => {
     const collab = message.details.collaboration
-    const owner = (collab && collab.owner && collab.owner.roleName) || 'Pending'
+    const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
@@ -31,13 +60,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
     ]
     return res
   })
-
-  const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
-    return [
-      ...filters,
-      message.details.from.roleName
-    ]
-  }, [])
 
   const handleChange = (nextMessage: MessageCustom): void => {
     const index = rfiMessages.findIndex(message => message._id === nextMessage._id)
@@ -68,7 +90,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
         label: 'Status'
       },
       {
-        filters: roles,
+        filters: listofOwners,
         label: 'Owner'
       }
     ],
@@ -91,6 +113,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
         collapsible: (
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
+              templates={templates}
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
@@ -98,6 +121,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
+              assignees={assignees}
             />
           </div>
         ),

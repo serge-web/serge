@@ -93,7 +93,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'COA',
+      messageType: 'Laydown',
       timestamp: '2020-10-13T08:55:21.119Z',
       privateMessage: 'Private part of RFI 1',
       collaboration: {

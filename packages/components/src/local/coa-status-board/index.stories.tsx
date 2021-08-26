@@ -16,9 +16,11 @@ import {
   channelDataCollaborativeRespondingCollaborationParticipant,
   channelDataCollaborativeRespondingReleaseManager,
   messageDataCollaborativeEditing,
-  messageDataCollaborativeResponding
+  messageDataCollaborativeResponding,
+  MessageTemplatesMock,
+  forces
 } from '@serge/mocks'
-import { CollaborativeMessageStates } from '../../../../config/build'
+import { CollaborativeMessageStates } from '@serge/config'
 
 export default {
   title: 'local/CoaStatusBoard',
@@ -50,20 +52,13 @@ export default {
   }
 }
 
-const roles = [
-  'Game Control',
-  'Logistics',
-  'Air',
-  'Land'
-]
-
 const Template: Story<Props> = (args) => {
   const [messages, setMessages] = useState(args.rfiMessages)
 
   const onChange = (nextMessages: MessageCustom[]): void => {
     setMessages(nextMessages)
   }
-  return <CoaStatusBoard {...args} rfiMessages={messages} onChange={onChange} />
+  return <CoaStatusBoard {...args} forces={forces} rfiMessages={messages} onChange={onChange} />
 }
 
 // filter to only show the most recent versions of messages
@@ -99,84 +94,84 @@ const mostColabResponseMock = mostColabResponseMockRaw.map((message: MessageCust
 
 export const CollabEditEditing = Template.bind({})
 CollabEditEditing.args = {
-  roles: roles,
   channel: channelDataCollaborativeEditing,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabEditParticipantOwner = Template.bind({})
 CollabEditParticipantOwner.args = {
-  roles: roles,
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabEditParticipantNotOwner = Template.bind({})
 CollabEditParticipantNotOwner.args = {
-  roles: roles,
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: roleNotGC
+  role: roleNotGC,
+  templates: MessageTemplatesMock
 }
 export const CollabEditReleaseManager = Template.bind({})
 CollabEditReleaseManager.args = {
-  roles: roles,
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabEditNotUmpire = Template.bind({})
 CollabEditNotUmpire.args = {
-  roles: roles,
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: false,
-  role: roleNotUmpire
+  role: roleNotUmpire,
+  templates: MessageTemplatesMock
 }
 
 export const CollaborativeResponding = Template.bind({})
 CollaborativeResponding.args = {
-  roles: roles,
   channel: channelDataCollaborativeResponding,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabResponseParticipantOwner = Template.bind({})
 CollabResponseParticipantOwner.args = {
-  roles: roles,
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabResponseParticipantNotOwner = Template.bind({})
 CollabResponseParticipantNotOwner.args = {
-  roles: roles,
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: roleNotGC
+  role: roleNotGC,
+  templates: MessageTemplatesMock
 }
 
 export const CollabResponseReleaseManager = Template.bind({})
 CollabResponseReleaseManager.args = {
-  roles: roles,
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 
 export const CollabResponseNotUmpire = Template.bind({})
 CollabResponseNotUmpire.args = {
-  roles: roles,
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: false,
-  role: roleNotUmpire
+  role: roleNotUmpire,
+  templates: MessageTemplatesMock
 }

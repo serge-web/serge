@@ -74,12 +74,27 @@ export const collabEditAssign = (
   }
 }
 
-export const submitForReview = (
-  message: MessageCustom,
-  privateMessage: string
-): MessageCustom => {
+export const claim = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.EditDocument,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const submitForReview = (message: MessageCustom, newMsg: {[property: string]: any}, privateMessage: string): MessageCustom => {
+  return {
+    ...message,
+    message: {
+      ...message.message,
+      ...newMsg
+    },
     details: {
       ...message.details,
       privateMessage: privateMessage,
