@@ -41,7 +41,10 @@ const getRole = (force: ForceData, roleId: string): Role => {
  * tagged with `can collaborate`.
  * If no roles are specified, include all roles
  */
-const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRole[] => {
+const getAssignees = (
+  participants: Participant[],
+  forces: ForceData[]
+): ForceRole[] => {
   const res: ForceRole[] = []
   participants.forEach((part: Participant) => {
     if (part.canCollaborate) {

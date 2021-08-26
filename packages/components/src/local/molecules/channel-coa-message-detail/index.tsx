@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Participant, FeedbackItem } from '@serge/custom-types'
+import { Participant, FeedbackItem, ForceRole } from '@serge/custom-types'
 /* Import Types */
 import Props from './types/props'
 
@@ -50,7 +50,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -185,7 +185,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
         const { force, roles } = participant
         if (!roles.length) {
           // add the force name and all roles of that force
-          candidates.push('force name - role name')
+          assignees.forEach((assignee: ForceRole) => {
+            const { forceName, roleName } = assignee
+            candidates.push(`${forceName} - ${roleName}`)
+          })
         } else {
           // add force name and role item in roles array
           roles.forEach((role: string) => {
@@ -277,7 +280,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
           ColRespResponsePending(message, channel, canCollaborate) &&
           <>
-            {/* <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPassign}>Assign</Button> */}
             <SplitButton
               label={assignBtnLabel}
               options={[...getCandidates()]}

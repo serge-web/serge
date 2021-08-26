@@ -1,4 +1,9 @@
-import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
+import {
+  MessageCustom,
+  ForceRole,
+  ForceData,
+  ChannelData
+} from '@serge/custom-types'
 export default interface Props {
   rfiMessages: MessageCustom[]
   roles: string[]
@@ -14,4 +19,6 @@ export default interface Props {
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
+  /** list of the roles in this participant group */
+  forces?: ForceData[]
 }

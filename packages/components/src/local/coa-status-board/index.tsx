@@ -11,9 +11,10 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
+import getAssignees from './helpers/assignees'
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, isUmpire, onChange, role }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, isUmpire, onChange, role, forces }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
@@ -47,6 +48,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
       onChange(nextMessages)
     }
   }
+
+  const assignees = getAssignees(participants, forces || [])
 
   const dataTableProps = {
     columns: [
@@ -98,6 +101,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channel, i
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
+              assignees={assignees}
             />
           </div>
         ),

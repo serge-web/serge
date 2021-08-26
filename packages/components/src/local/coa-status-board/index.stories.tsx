@@ -5,7 +5,7 @@ import { Story } from '@storybook/react/types-6-0'
 import CoaStatusBoard from './index'
 import docs from './README.md'
 
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ForceData } from '@serge/custom-types'
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
@@ -57,6 +57,34 @@ const roles = [
   'Land'
 ]
 
+const forces: ForceData[] = [
+  {
+    uniqid: 'umpire',
+    name: 'White',
+    color: '#fff',
+    overview: '',
+    dirty: false,
+    iconURL: '',
+    roles: [
+      {
+        name: 'Game Control',
+        roleId: 'game-control',
+        isGameControl: true,
+        isInsightViewer: false,
+        isObserver: false
+      },
+      {
+        name: 'CO',
+        roleId: 'not-game-control',
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false
+      }
+    ],
+    umpire: true
+  }
+]
+
 const Template: Story<Props> = (args) => {
   const [messages, setMessages] = useState(args.rfiMessages)
 
@@ -103,7 +131,8 @@ CollabEditEditing.args = {
   channel: channelDataCollaborativeEditing,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  forces: forces
 }
 export const CollabEditParticipantOwner = Template.bind({})
 CollabEditParticipantOwner.args = {
@@ -111,7 +140,8 @@ CollabEditParticipantOwner.args = {
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  forces: forces
 }
 export const CollabEditParticipantNotOwner = Template.bind({})
 CollabEditParticipantNotOwner.args = {
@@ -119,7 +149,8 @@ CollabEditParticipantNotOwner.args = {
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: roleNotGC
+  role: roleNotGC,
+  forces: forces
 }
 export const CollabEditReleaseManager = Template.bind({})
 CollabEditReleaseManager.args = {
@@ -127,7 +158,8 @@ CollabEditReleaseManager.args = {
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  forces: forces
 }
 export const CollabEditNotUmpire = Template.bind({})
 CollabEditNotUmpire.args = {
@@ -135,7 +167,8 @@ CollabEditNotUmpire.args = {
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: false,
-  role: roleNotUmpire
+  role: roleNotUmpire,
+  forces: forces
 }
 
 export const CollaborativeResponding = Template.bind({})
@@ -144,7 +177,8 @@ CollaborativeResponding.args = {
   channel: channelDataCollaborativeResponding,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  forces: forces
 }
 export const CollabResponseParticipantOwner = Template.bind({})
 CollabResponseParticipantOwner.args = {
@@ -152,7 +186,8 @@ CollabResponseParticipantOwner.args = {
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  forces: forces
 }
 export const CollabResponseParticipantNotOwner = Template.bind({})
 CollabResponseParticipantNotOwner.args = {
@@ -160,7 +195,8 @@ CollabResponseParticipantNotOwner.args = {
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: roleNotGC
+  role: roleNotGC,
+  forces: forces
 }
 
 export const CollabResponseReleaseManager = Template.bind({})
@@ -169,7 +205,8 @@ CollabResponseReleaseManager.args = {
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  forces: forces
 }
 
 export const CollabResponseNotUmpire = Template.bind({})
@@ -178,5 +215,6 @@ CollabResponseNotUmpire.args = {
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: false,
-  role: roleNotUmpire
+  role: roleNotUmpire,
+  forces: forces
 }

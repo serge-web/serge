@@ -11,4 +11,5 @@ export default interface Props {
   canCollaborate?: boolean
   canReleaseMessages?: boolean
   channel: ChannelData
+  assignees?: ForceRole[]
 }
