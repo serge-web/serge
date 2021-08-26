@@ -7,7 +7,7 @@ AssignButtonMessage component is extension of Material UI Select
 
 ## Code example
 
-```
+```tsx
 <AssignButtonMessage
   options={['option 1', 'option 2']}
   onClick={onChange}
