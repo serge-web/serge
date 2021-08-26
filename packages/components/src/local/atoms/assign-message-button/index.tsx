@@ -38,7 +38,7 @@ export const AssignButtonMessage: React.FC<Props> = ({ options = [], onClick }: 
     onClick && onClick(options[selectedIndex])
   }
 
-  const handleMenuItemClick = (_: any, index: number): void => {
+  const handleMenuItemClick = (index: number): void => {
     setSelectedIndex(index)
     setOpen(false)
   }
@@ -93,7 +93,7 @@ export const AssignButtonMessage: React.FC<Props> = ({ options = [], onClick }: 
                       <MenuItem
                         key={option}
                         selected={index === selectedIndex}
-                        onClick={(event): void => handleMenuItemClick(event, index)}
+                        onClick={(): void => handleMenuItemClick(index)}
                       >
                         {option}
                       </MenuItem>
