@@ -41,7 +41,7 @@ import {
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { MessageTemplatesMock } from '@serge/mocks'
 import JsonEditor from '../json-editor'
-import { Participant, FeedbackItem, ForceRole, ChannelData  } from '@serge/custom-types'
+import { Participant, FeedbackItem, ForceRole, ChannelData } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -79,10 +79,10 @@ const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): 
     return match
   }
   throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
-} 
+}
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = []}) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
@@ -260,7 +260,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
             {
               ColEditDocumentPending(message, channel, canCollaborate) &&
               <>
-               <SplitButton
+                <SplitButton
                   label={assignBtnLabel}
                   options={[...getCandidates(channel, assignees)]}
                   onClick={handleAssign} />
