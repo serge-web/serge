@@ -42,12 +42,49 @@ import {
   userCanSeeCollab
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import ChannelData from '@serge/custom-types/channel-ui'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
 
 type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
+
+/** for the specified channel, provide a list of people who
+ * can have documents assigned to them
+ */
+const getCandidates = (channel: ChannelData, assignees: ForceRole[]): string[] => {
+  const { participants } = channel
+  return participants.reduce((candidates: string[], participant: Participant): any => {
+    if (participant.canCollaborate) {
+      const { force, roles } = participant
+      if (!roles.length) {
+        // add the force name and all roles of that force
+        assignees.forEach((assignee: ForceRole) => {
+          const { forceName, roleName } = assignee
+          candidates.push(`${forceName} - ${roleName}`)
+        })
+      } else {
+        // add force name and role item in roles array
+        roles.forEach((role: string) => {
+          candidates.push(`${force} - ${role}`)
+        })
+      }
+    }
+    return candidates
+  }, [])
+}
+
+/** from the provided force & role, produce a ForceRole object */
+const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): ForceRole => {
+  const match = assignees.find((role: ForceRole) => {
+    return role.forceName === force && role.roleName === rolename
+  })
+  if (match) {
+    return match
+  }
+  throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
+}
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
@@ -85,9 +122,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(true)
   }
 
-  const handleAssign = (): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    onChange && onChange(collabEditAssign(message, role))
+  const handleAssign = (selection: string): void => {
+    // unpack the fields
+    const fields = selection.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabEditAssign(message, assignee))
   }
 
   const handleClaim = (): void => {
@@ -98,10 +138,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     onChange && onChange(submitForReview(message, privateMessage))
   }
 
-  const handleCRCPassign = (roleItem: string): void => {
-    // TODO: - produce ForceRole for selected user, pass to assign
-    // onChange && onChange(collabResponseAssign(message, role))
-    console.log('=>', roleItem)
+  const handleCRCPassign = (selection: string): void => {
+    // unpack the fields
+    const fields = selection.split(' - ')
+    // find the matching role
+    const assignee = roleFromName(fields[0], fields[1], assignees)
+    onChange && onChange(collabEditAssign(message, assignee))
   }
 
   const handleCRCPclaim = (): void => {
@@ -178,28 +220,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
     setOpenDialog(false)
   }
 
-  const getCandidates = (): any[] => {
-    const { participants } = channel
-    return participants.reduce((candidates: string[], participant: Participant): any => {
-      if (participant.canCollaborate) {
-        const { force, roles } = participant
-        if (!roles.length) {
-          // add the force name and all roles of that force
-          assignees.forEach((assignee: ForceRole) => {
-            const { forceName, roleName } = assignee
-            candidates.push(`${forceName} - ${roleName}`)
-          })
-        } else {
-          // add force name and role item in roles array
-          roles.forEach((role: string) => {
-            candidates.push(`${force} - ${role}`)
-          })
-        }
-      }
-      return candidates
-    }, [])
-  }
-
   const editingResponse = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
   /** can this role see the collaborative working details? */
@@ -259,7 +279,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           // TODO: replace assign button with Split Button https://material-ui.com/components/button-group/#split-button
           ColEditDocumentPending(message, channel, canCollaborate) &&
           <>
-            <Button customVariant="form-action" size="small" type="button" onClick={handleAssign}>Assign</Button>
+            <SplitButton
+              label={assignBtnLabel}
+              options={[...getCandidates(channel, assignees)]}
+              onClick={handleAssign} />
             <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
           </>
         }
@@ -282,7 +305,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
           <>
             <SplitButton
               label={assignBtnLabel}
-              options={[...getCandidates()]}
+              options={[...getCandidates(channel, assignees)]}
               onClick={handleCRCPassign}
             />
             <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
