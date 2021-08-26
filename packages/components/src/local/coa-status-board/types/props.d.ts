@@ -19,6 +19,6 @@ export default interface Props {
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
-  /** list of the roles in this participant group */
+  /** list of forces */
   forces?: ForceData[]
 }

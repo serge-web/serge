@@ -197,6 +197,7 @@ it('CoaStatusBoard renders correctly', () => {
         channel={testChannel}
         rfiMessages={testMock}
         onChange={onChange}
+        forces={forces}
       />
     )
     .toJSON()
