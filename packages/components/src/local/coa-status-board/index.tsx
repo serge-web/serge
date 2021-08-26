@@ -19,7 +19,7 @@ const formatRole = (role: ForceRole) => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire, onChange, role }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channel, isUmpire, onChange, role }: Props) => {
   const participants = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
@@ -110,6 +110,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, channel, isUmpire
         collapsible: (
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
+              templates={templates}
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}

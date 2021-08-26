@@ -1,4 +1,4 @@
-import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData, TemplateBody } from '@serge/custom-types'
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
@@ -11,4 +11,5 @@ export default interface Props {
   canCollaborate?: boolean
   canReleaseMessages?: boolean
   channel: ChannelData
+  templates: TemplateBody[]
 }

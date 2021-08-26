@@ -16,9 +16,10 @@ import {
   channelDataCollaborativeRespondingCollaborationParticipant,
   channelDataCollaborativeRespondingReleaseManager,
   messageDataCollaborativeEditing,
-  messageDataCollaborativeResponding
+  messageDataCollaborativeResponding,
+  MessageTemplatesMock
 } from '@serge/mocks'
-import { CollaborativeMessageStates } from '../../../../config/build'
+import { CollaborativeMessageStates } from '@serge/config'
 
 export default {
   title: 'local/CoaStatusBoard',
@@ -95,35 +96,40 @@ CollabEditEditing.args = {
   channel: channelDataCollaborativeEditing,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabEditParticipantOwner = Template.bind({})
 CollabEditParticipantOwner.args = {
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabEditParticipantNotOwner = Template.bind({})
 CollabEditParticipantNotOwner.args = {
   channel: channelDataCollaborativeEditingCollaborationParticipant,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: roleNotGC
+  role: roleNotGC,
+  templates: MessageTemplatesMock
 }
 export const CollabEditReleaseManager = Template.bind({})
 CollabEditReleaseManager.args = {
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabEditNotUmpire = Template.bind({})
 CollabEditNotUmpire.args = {
   channel: channelDataColabEditCollaborativeReleaseManager,
   rfiMessages: mostColabEditMock,
   isUmpire: false,
-  role: roleNotUmpire
+  role: roleNotUmpire,
+  templates: MessageTemplatesMock
 }
 
 export const CollaborativeResponding = Template.bind({})
@@ -131,21 +137,24 @@ CollaborativeResponding.args = {
   channel: channelDataCollaborativeResponding,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabResponseParticipantOwner = Template.bind({})
 CollabResponseParticipantOwner.args = {
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 export const CollabResponseParticipantNotOwner = Template.bind({})
 CollabResponseParticipantNotOwner.args = {
   channel: channelDataCollaborativeRespondingCollaborationParticipant,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: roleNotGC
+  role: roleNotGC,
+  templates: MessageTemplatesMock
 }
 
 export const CollabResponseReleaseManager = Template.bind({})
@@ -153,7 +162,8 @@ CollabResponseReleaseManager.args = {
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
-  role: role
+  role: role,
+  templates: MessageTemplatesMock
 }
 
 export const CollabResponseNotUmpire = Template.bind({})
@@ -161,5 +171,6 @@ CollabResponseNotUmpire.args = {
   channel: channelDataCollaborativeRespondingReleaseManager,
   rfiMessages: mostColabResponseMock,
   isUmpire: false,
-  role: roleNotUmpire
+  role: roleNotUmpire,
+  templates: MessageTemplatesMock
 }

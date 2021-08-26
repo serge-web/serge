@@ -5,6 +5,7 @@ import { Story } from '@storybook/react/types-6-0'
 import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
+import { MessageTemplatesMock } from '@serge/mocks'
 import docs from './README.md'
 import {
   channelDataCollaborativeEditingCollaborationParticipant,
@@ -14,8 +15,6 @@ import {
 } from '@serge/mocks'
 import { MessageCustom, ForceRole } from '@serge/custom-types'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
-
-console.log('messageDataCollaborativeEditing: ', messageDataCollaborativeEditing)
 
 export default {
   title: 'local/molecules/ChannelCoaMessageDetail',
@@ -67,6 +66,7 @@ const Template: Story<RFIPropTypes> = (args) => {
 
   return (
     <ChannelCoaMessageDetail
+      templates={MessageTemplatesMock}
       message={messageState}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}

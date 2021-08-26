@@ -38,7 +38,6 @@ import {
   ColRespDocumentBeingEdited
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { MessageTemplatesMock } from '@serge/mocks'
 import JsonEditor from '../json-editor'
 import { FeedbackItem } from '@serge/custom-types'
 
@@ -49,7 +48,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
@@ -198,7 +197,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, is
       {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ? (
         <>
           <JsonEditor
-            messageTemplates={MessageTemplatesMock}
+            messageTemplates={templates}
             message={message}
             getJsonEditorValue={getJsonEditorValue}
             disabled={!editDoc}
