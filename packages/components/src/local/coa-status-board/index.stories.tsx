@@ -12,7 +12,7 @@ import {
   channelCollaborativeEditing,
   channelCollaborativeResponding,
   MessageTemplatesMock,
-  forces,
+  collabForces,
   blueCollaborator,
   blueReleaseManager,
   whiteCollaborator,
@@ -60,7 +60,7 @@ const Template: Story<Props> = (args) => {
   const onChange = (nextMessages: MessageCustom[]): void => {
     setMessages(nextMessages)
   }
-  return <CoaStatusBoard {...args} forces={forces} rfiMessages={messages} onChange={onChange} />
+  return <CoaStatusBoard {...args} forces={collabForces} rfiMessages={messages} onChange={onChange} />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]

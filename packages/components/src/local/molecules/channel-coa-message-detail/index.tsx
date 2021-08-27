@@ -37,11 +37,12 @@ import {
   ColRespResponsePending,
   ColRespDocumentBeingEdited,
   ColResponseClosed,
-  ColEditClosed
+  ColEditClosed,
+  formEditable
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { Participant, FeedbackItem, ForceRole, ChannelData } from '@serge/custom-types'
+import { FeedbackItem, ForceRole } from '@serge/custom-types'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -58,26 +59,10 @@ enum DialogStates {
 /** for the specified channel, provide a list of people who
  * can have documents assigned to them
  */
-const getCandidates = (channel: ChannelData, assignees: ForceRole[]): string[] => {
-  const { participants } = channel
-  return participants.reduce((candidates: string[], participant: Participant): any => {
-    if (participant.canCollaborate) {
-      const { force, roles } = participant
-      if (!roles.length) {
-        // add the force name and all roles of that force
-        assignees.forEach((assignee: ForceRole) => {
-          const { forceName, roleName } = assignee
-          candidates.push(`${forceName} - ${roleName}`)
-        })
-      } else {
-        // add force name and role item in roles array
-        roles.forEach((role: string) => {
-          candidates.push(`${force} - ${role}`)
-        })
-      }
-    }
-    return candidates
-  }, [])
+const getCandidates = (assignees: ForceRole[]): string[] => {
+  return assignees.map((assignee: ForceRole) => 
+    `${assignee.forceName} - ${assignee.roleName}` 
+  )
 }
 
 /** from the provided force & role, produce a ForceRole object */
@@ -106,8 +91,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate)
   const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate)
 
+  const isEditor = formEditable(message, role)
+
   const { collaboration } = message.details
   const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
+
+  const candidates = getCandidates(assignees)
 
   const getJsonEditorValue = (val: {[property: string]: any}) => {
     setNewMsg(val)
@@ -293,7 +282,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               <>
                 <SplitButton
                   label={assignBtnLabel}
-                  options={[...getCandidates(channel, assignees)]}
+                  options={[...candidates]}
                   onClick={handleAssign} />
                 <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
               </>
@@ -328,7 +317,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             disabled={true}
           />
           {
-            (canCollaborate || canReleaseMessages) && !responseIsReleased
+            isEditor && !responseIsReleased
               ? <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
               : <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
           }
@@ -356,7 +345,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               <>
                 <SplitButton
                   label={assignBtnLabel}
-                  options={[...getCandidates(channel, assignees)]}
+                  options={[...candidates]}
                   onClick={handleResponseAssign}
                 />
                 <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClaim}>Claim</Button>
