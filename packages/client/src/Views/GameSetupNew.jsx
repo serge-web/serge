@@ -190,7 +190,7 @@ const AdminGameSetup = () => {
       const template = forceTemplate
       template.name = id
       template.uniqid = id
-
+      template.roles.map(role => role.roleId = `p${uniqid.time()}`)
       await dispatch(saveForce(currentWargame, id, template, id))
     }
   }

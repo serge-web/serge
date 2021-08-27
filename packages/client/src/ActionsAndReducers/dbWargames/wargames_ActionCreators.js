@@ -5,6 +5,7 @@ import _ from 'lodash'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { DEFAULT_SERVER, forceTemplate } from '../../consts'
+import { isUniquePasscode } from '@serge/helpers'
 
 export const setCurrentTab = (tab) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -276,6 +277,12 @@ export const saveForce = (dbName, newName, newData, oldName) => {
     if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
       const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
       newData.iconURL = savedIconURL.path
+    }
+    
+    const forces = await wargamesApi.getWargameForces(dbName)
+    if (isUniquePasscode(newData, forces)) {
+      dispatch(addNotification('Duplicate password in force roles.', 'warning'))
+      return
     }
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 

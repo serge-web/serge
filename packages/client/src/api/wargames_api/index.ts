@@ -414,6 +414,15 @@ export const saveForces = (dbName: string, newData: ForceData[]) => {
   })
 }
 
+export const getWargameForces = (dbName: string) => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces
+    return forces
+  })
+}
+
 export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
