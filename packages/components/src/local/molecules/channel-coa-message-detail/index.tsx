@@ -19,15 +19,15 @@ import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
 import {
-  finalize,
+  editFinalise,
   close,
-  requestChanges,
-  collabEditAssign,
-  submitForReview,
-  collabResponseAssign,
-  CRCPsubmit,
-  CRRMRelease,
-  CRRMRequestChanges
+  editRequestChanges,
+  editAssign,
+  editSubmit,
+  responseAssign,
+  responseSubmit,
+  responseRelease,
+  responseRequestChanges
 } from './helpers/changers'
 import {
   ColEditPendingReview,
@@ -50,8 +50,8 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 enum DialogStates {
   editEndorse,
   editRequestChanges,
-  responseRequestChanges,
   editReopen,
+  responseRequestChanges,
   responseReopen
 }
 
@@ -113,7 +113,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleFinalized = (): void => {
-    onChange && onChange(finalize(message))
+    onChange && onChange(editFinalise(message))
   }
 
   const handleClosed = (): void => {
@@ -146,49 +146,49 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    onChange && onChange(collabEditAssign(message, assignee))
+    onChange && onChange(editAssign(message, assignee))
   }
 
   const handleClaim = (): void => {
-    onChange && onChange(collabEditAssign(message, role))
+    onChange && onChange(editAssign(message, role))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(submitForReview(message, newMsg, privateMessage))
+    onChange && onChange(editSubmit(message, newMsg, privateMessage))
   }
 
-  const handleCRCPassign = (selection: string): void => {
+  const handleResponseAssign = (selection: string): void => {
     // unpack the fields
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    onChange && onChange(collabResponseAssign(message, assignee))
+    onChange && onChange(responseAssign(message, assignee))
   }
 
-  const handleCRCPclaim = (): void => {
-    onChange && onChange(collabResponseAssign(message, role))
+  const handleResponseClaim = (): void => {
+    onChange && onChange(responseAssign(message, role))
   }
 
-  const handleCRCPsubmit = (): void => {
-    onChange && onChange(CRCPsubmit(message, answer, privateMessage))
+  const handleResponseSubmit = (): void => {
+    onChange && onChange(responseSubmit(message, answer, privateMessage))
   }
 
-  const handleCRCReopen = (): void => {
+  const handleResponseReopen = (): void => {
     setDialogTitle('Reopen response')
     setActionType(DialogStates.responseReopen)
     setPlaceHolder('Reason for reopening')
     setOpenDialog(true)
   }
 
-  const handleCRRMClose = (): void => {
+  const handleResponseClose = (): void => {
     onChange && onChange(close(message))
   }
 
-  const handleCRRMRelease = (): void => {
-    onChange && onChange(CRRMRelease(message))
+  const handleResponseRelease = (): void => {
+    onChange && onChange(responseRelease(message))
   }
 
-  const handleCRRMRequestChanges = (): void => {
+  const handleResponseRequestChanges = (): void => {
     setDialogTitle('Request changes in response')
     setActionType(DialogStates.responseRequestChanges)
     setPlaceHolder('Enter requested changes...')
@@ -233,19 +233,19 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     let func
     switch (actionType) {
       case DialogStates.editEndorse:
-        func = requestChanges
+        func = editRequestChanges
         break
       case DialogStates.editRequestChanges:
-        func = requestChanges
+        func = editRequestChanges
         break
       case DialogStates.responseRequestChanges:
-        func = CRRMRequestChanges
+        func = responseRequestChanges
         break
       case DialogStates.editReopen:
-        func = requestChanges
+        func = editRequestChanges
         break
       case DialogStates.responseReopen:
-        func = CRRMRequestChanges
+        func = responseRequestChanges
         break
         }
     onChange && func && onChange(func(message))
@@ -335,7 +335,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
               </>
           }
-          { // TODO: show answer in read-only form if message released
+          { 
             !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
             <>
               <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
@@ -345,15 +345,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             {
               ColResponseClosed(message, channel, canReleaseMessages) &&
               <>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleCRCReopen}>Reopen</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseReopen}>Reopen</Button>
               </>
             }
             {
               ColRespPendingReview(message, channel, canReleaseMessages) &&
               <>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRelease}>Release</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMClose}>Close</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleCRRMRequestChanges}>Request Changes</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseRelease}>Release</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClose}>Close</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseRequestChanges}>Request Changes</Button>
               </>
             }
             {
@@ -362,14 +362,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <SplitButton
                   label={assignBtnLabel}
                   options={[...getCandidates(channel, assignees)]}
-                  onClick={handleCRCPassign}
+                  onClick={handleResponseAssign}
                 />
-                <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPclaim}>Claim</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClaim}>Claim</Button>
               </>
             }
             {
               ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
-              <Button customVariant="form-action" size="small" type="button" onClick={handleCRCPsubmit}>Submit</Button>
+              <Button customVariant="form-action" size="small" type="button" onClick={handleResponseSubmit}>Submit</Button>
             }
           </div>
         </>
