@@ -93,7 +93,6 @@ const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): 
 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
-  const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -104,19 +103,21 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const [actionType, setActionType] = useState<DialogStates>(DialogStates.editEndorse)
 
-  const { collaboration } = message.details
-  const editDoc = (typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && ColEditDocumentBeingEdited(message, channel, canCollaborate))
-  const collRespPendingDisable = channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && message.details.collaboration?.status === CollaborativeMessageStates.EditResponse
+  const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate)
+  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate)
 
+  const { collaboration } = message.details
+  const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
+  
   const getJsonEditorValue = (val: {[property: string]: any}) => {
     setNewMsg(val)
   }
 
-  const handleFinalized = (): void => {
+  const handleEditFinalise = (): void => {
     onChange && onChange(editFinalise(message))
   }
 
-  const handleClosed = (): void => {
+  const handleEditClose = (): void => {
     onChange && onChange(close(message))
   }
 
@@ -281,8 +282,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             {
               ColEditPendingReview(message, channel, canReleaseMessages) &&
               <>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleClosed}>Close</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleFinalized}>Finalise</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleEditClose}>Close</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleEditFinalise}>Finalise</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
               </>
@@ -313,33 +314,29 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       ) : (
         <>
           {
-            collaboration && isUmpire && <div className={styles.assigned}>
+            collaboration && 
+            <div className={styles.assigned}>
               <span className={styles.inset}>
                 <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
               </span>
             </div>
           }
+          // for an RFI we show the RFI form as read-only
+          <JsonEditor
+            messageTemplates={templates}
+            message={message}
+            getJsonEditorValue={getJsonEditorValue}
+            disabled={true}
+          />
           {
-            channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-              ? <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
-              : <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' label="Request"/>
+            (canCollaborate || canReleaseMessages) && !responseIsReleased ?
+              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
+              : 
+              <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
           }
-          { // only show next fields if collaboration details known
-            isUmpire && channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-              ? <>
-                <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!collRespPendingDisable} theme='dark' label="Answer"/>
-                <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!(canCollaborate && collRespPendingDisable)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-              </>
-              : <>
-                <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
-                <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-              </>
-          }
-          { 
-            !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
-            <>
-              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
-            </>
+          { // only show private field for umpire force(s)
+            isUmpire && 
+              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
           <div className={styles.actions}>
             {
