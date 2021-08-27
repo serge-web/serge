@@ -25,6 +25,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
+import { isUniquePasscode } from '@serge/helpers'
 
 /**
  * TODOS:
@@ -102,6 +103,7 @@ const AdminGameSetup = () => {
   }
 
   const handleFormChange = changes => {
+
     dispatch(setGameData(changes))
   }
 
@@ -122,6 +124,11 @@ const AdminGameSetup = () => {
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
+    if (isUniquePasscode(newForceData, forces.forces)) {
+      dispatch(addNotification('Duplicate password in force roles.', 'warning'))
+      return
+    }
+    
     if (typeof forceName === 'string' && forceName.length > 0) {
       if (!isUniqueForceName(newForceData)) return
       const selectedForce = forces.selectedForce.name
@@ -191,6 +198,10 @@ const AdminGameSetup = () => {
       template.name = id
       template.uniqid = id
       template.roles.map(role => role.roleId = `p${uniqid.time()}`)
+      if (isUniquePasscode(template, forces.forces)) {
+        dispatch(addNotification('Duplicate password in force roles.', 'warning'))
+        return
+      }
       await dispatch(saveForce(currentWargame, id, template, id))
     }
   }

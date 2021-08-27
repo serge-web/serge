@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import uniqid from 'uniqid'
 /* Import proptypes */
 import { Role } from '../types/props'
 import PropTypes from './types/props'
@@ -20,6 +19,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 import PasswordView from '../../../molecules/password-view'
+import { getUniquePasscode } from '@serge/helpers'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -35,7 +35,7 @@ const MobileSwitch = withStyles({
   track: {}
 })(Switch)
 
-export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
+export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces }) => {
   const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
@@ -98,7 +98,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
-      roleId: uniqid.time('r'),
+      roleId: getUniquePasscode(forces),
       name: 'New Role',
       canSubmitPlans: false,
       isGameControl: false,
@@ -106,6 +106,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
       isRFIManager: false,
       isObserver: false
     }]
+    
     handleChangeForce({ ...data, roles: roles })
   }
 
