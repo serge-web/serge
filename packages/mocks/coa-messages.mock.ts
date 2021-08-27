@@ -28,7 +28,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-3',
-      NAME: "Blue-3 Trusted Taipir",
+      Title: "Blue-3 Trusted Taipir",
       LOCATION: {
         region: "Europe",
         Europe: "United Kingdom"
@@ -93,7 +93,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'Laydown',
+      messageType: 'COA',
       timestamp: '2020-10-13T08:55:21.119Z',
       privateMessage: 'Private part of RFI 1',
       collaboration: {
@@ -103,7 +103,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'RED-1',
-      NAME: "Red-1 COA",
+      Title: "Red-1 COA",
       LOCATION: {
         region: "Europe",
         Europe: "United Kingdom"
@@ -184,7 +184,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'White-2',
-      NAME: "White-2 COA",
+      Title: "White-2 COA",
       LOCATION: {
         region: "Europe",
         Europe: "United Kingdom"
@@ -263,7 +263,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Red-2',
-      NAME: "Red 2 COA",
+      Title: "Red 2 COA",
       LOCATION: {
         region: "Europe",
         Europe: "United Kingdom"
@@ -336,7 +336,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-2',
-      NAME: "Blue 2 COA",
+      Title: "Blue 2 COA",
       LOCATION: {
         region: "Europe",
         Europe: "United Kingdom"
