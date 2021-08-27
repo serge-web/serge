@@ -22,15 +22,12 @@ import {
   finalize,
   close,
   requestChanges,
-  endorse,
   collabEditAssign,
   submitForReview,
   collabResponseAssign,
   CRCPsubmit,
   CRRMRelease,
-  CRRMRequestChanges,
-  reopen,
-  CRRMReopen
+  CRRMRequestChanges
 } from './helpers/changers'
 import {
   ColEditPendingReview,
@@ -236,7 +233,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     let func
     switch (actionType) {
       case DialogStates.editEndorse:
-        func = endorse
+        func = requestChanges
         break
       case DialogStates.editRequestChanges:
         func = requestChanges
@@ -245,10 +242,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
         func = CRRMRequestChanges
         break
       case DialogStates.editReopen:
-        func = reopen
+        func = requestChanges
         break
       case DialogStates.responseReopen:
-        func = CRRMReopen
+        func = CRRMRequestChanges
         break
         }
     onChange && func && onChange(func(message))

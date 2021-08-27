@@ -29,35 +29,7 @@ export const close = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const reopen = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.DocumentPending,
-        owner: undefined
-      }
-    }
-  }
-}
-
 export const requestChanges = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.DocumentPending,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const endorse = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -88,7 +60,8 @@ export const collabEditAssign = (
   }
 }
 
-export const claim = (message: MessageCustom): MessageCustom => {
+export const claim = (message: MessageCustom,
+  owner: ForceRole): MessageCustom => {
   return {
     ...message,
     details: {
@@ -96,7 +69,7 @@ export const claim = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.EditDocument,
-        owner: undefined
+        owner: owner
       }
     }
   }
@@ -173,20 +146,6 @@ export const CRRMRelease = (message: MessageCustom): MessageCustom => {
 }
 
 export const CRRMRequestChanges = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.ResponsePending,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const CRRMReopen = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
