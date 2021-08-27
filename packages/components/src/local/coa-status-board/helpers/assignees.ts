@@ -61,8 +61,8 @@ const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRo
   })
   // lastly, remove duplicates
   const deDupe = uniqBy(res, function (e) {
-    return e.roleId;
-  });
+    return e.roleId
+  })
   return deDupe
 }
 

@@ -60,8 +60,8 @@ enum DialogStates {
  * can have documents assigned to them
  */
 const getCandidates = (assignees: ForceRole[]): string[] => {
-  return assignees.map((assignee: ForceRole) => 
-    `${assignee.forceName} - ${assignee.roleName}` 
+  return assignees.map((assignee: ForceRole) =>
+    `${assignee.forceName} - ${assignee.roleName}`
   )
 }
 

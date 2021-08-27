@@ -125,7 +125,6 @@ CollaborativeResponseParticipateWhite.args = {
   templates: MessageTemplatesMock
 }
 
-
 export const CollaborativeResponseParticipateExcon = Template.bind({})
 CollaborativeResponseParticipateExcon.args = {
   channel: channelCollaborativeResponding,
