@@ -108,7 +108,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const { collaboration } = message.details
   const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
-  
+
   const getJsonEditorValue = (val: {[property: string]: any}) => {
     setNewMsg(val)
   }
@@ -248,7 +248,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       case DialogStates.responseReopen:
         func = responseRequestChanges
         break
-        }
+    }
     onChange && func && onChange(func(message))
     setOpenDialog(false)
   }
@@ -314,14 +314,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       ) : (
         <>
           {
-            collaboration && 
+            collaboration &&
             <div className={styles.assigned}>
               <span className={styles.inset}>
                 <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
               </span>
             </div>
           }
-          // for an RFI we show the RFI form as read-only
           <JsonEditor
             messageTemplates={templates}
             message={message}
@@ -329,13 +328,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             disabled={true}
           />
           {
-            (canCollaborate || canReleaseMessages) && !responseIsReleased ?
-              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
-              : 
-              <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+            (canCollaborate || canReleaseMessages) && !responseIsReleased
+              ? <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
+              : <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
           }
           { // only show private field for umpire force(s)
-            isUmpire && 
+            isUmpire &&
               <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
           <div className={styles.actions}>
