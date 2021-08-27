@@ -62,7 +62,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
           CollaborativeMessageStates.InProgress,
           CollaborativeMessageStates.PendingReview,
           CollaborativeMessageStates.Released,
-          CollaborativeMessageStates.Rejected
+          CollaborativeMessageStates.Closed
         ],
         label: 'Status'
       },
@@ -78,7 +78,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         [CollaborativeMessageStates.InProgress]: '#E7740A',
         [CollaborativeMessageStates.PendingReview]: '#434343',
         [CollaborativeMessageStates.Released]: '#007219',
-        [CollaborativeMessageStates.Rejected]: '#434343'
+        [CollaborativeMessageStates.Closed]: '#434343'
       }
 
       return {

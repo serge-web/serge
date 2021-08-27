@@ -581,20 +581,79 @@ const messageTemplatesMock: TemplateBody[] = [
   },
   {
     lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Request for Information',
+    title: 'RFI',
     details: {
-      type: 'object',
+      format: "grid",
       properties: {
-        Addressee: {
-          type: 'string'
+        Reference: {
+          readonly: "readonly",
+          title: "Reference (sys generated)",
+          options: {
+            grid_columns: 4
+          },
+          type: "string"
         },
-        Request: {
-          type: 'string',
-          format: 'textarea'
+        Title: {
+          format: "text",
+          options: {
+            grid_columns: 8
+          },
+          title: "Title",
+          type: "string"
+        },
+        RFI: {
+          format: "textarea",
+          options: {
+            grid_columns: 12
+          },
+          title: "RFI",
+          type: "string"
+        },
+        Priority: {
+          enum: [
+            "High",
+            "Medium",
+            "Low"
+          ],
+          title: "Priority",
+          type: "string"
+        },
+        FAO: {
+          enum: [
+            "J2",
+            "SME – CEMA",
+            "SME – Space",
+            "SME – Logs & Med",
+            "SME – IO",
+            "SME – White",
+            "Actor – White",
+            "Actor – Red",
+            "Other"
+          ],
+          title: "FAO",
+          type: "string"
+        },
+        ResponseRequiredBy: {
+          enum: [
+            "Within an hour",
+            "NLT 1300",
+            "NLT 1600",
+            "Not urgent"
+          ],
+          title: "Response required by",
+          type: "string"
         }
       },
-      title: 'Request for Information',
-      format: 'grid'
+      required: [
+        "Reference",
+        "Title",
+        "FAO",
+        "RFI",
+        "Priority",
+        "ResponseRequiredBy"
+      ],
+      title: "RFI",
+      type: "object"
     },
     completed: false,
     _id: 'k16eedkj',

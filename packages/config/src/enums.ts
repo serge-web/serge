@@ -65,10 +65,12 @@ export enum CollaborativeMessageStates {
    */
   Released = 'Released',
   /**
-   * Collaborative editing cancelled
+   * approved and finalised
    */
-  Rejected = 'Rejected',
   Finalized = 'Finalized',
+  /** 
+   * document cancelled 
+   */
   Closed = 'Closed',
   DocumentPending = 'Document Unallocated',
   /**
