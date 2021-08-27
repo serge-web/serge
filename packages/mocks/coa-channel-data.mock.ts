@@ -1,8 +1,15 @@
-import { ChannelData, ForceRole } from '@serge/custom-types'
+import { ChannelData, ForceData, ForceRole } from '@serge/custom-types'
 import { SpecialChannelTypes } from '@serge/config'
+import { forces } from '.'
+import { deepCopy } from '@serge/helpers'
+ 
+export const collabForces: ForceData[] = deepCopy(forces)
+collabForces[0].roles[1].name = 'Manager'
+collabForces[1].roles[0].name = 'Senior'
+collabForces[2].name = 'EXCON'
 
 export const blueCollaborator: ForceRole = { forceId: 'Blue', forceName: 'Blue', roleId: 'rkrlw6f5emms', roleName: 'Comms' }
-export const blueReleaseManager: ForceRole = { forceId: 'Blue', forceName: 'Blue', roleId: 'rkrlw445e', roleName: 'CO' }
+export const blueReleaseManager: ForceRole = { forceId: 'Blue', forceName: 'Blue', roleId: 'rkrlw445e', roleName: 'Senior' }
 
 export const channelCollaborativeEditing: ChannelData = {
   collabOptions: {
@@ -43,7 +50,7 @@ export const channelCollaborativeEditing: ChannelData = {
 export const blueAuthor: ForceRole = { forceId: 'Blue', forceName: 'Blue', roleId: 'rkrlw6f5emms', roleName: 'Comms' }
 export const whiteCollaborator: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'rkrlasdd5f', roleName: 'Manager' }
 export const whiteReleaseMgr: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'rkrlw6f5f', roleName: 'Game Control' }
-export const exconCollaborator: ForceRole = { forceId: 'Red', forceName: 'Red', roleId: 'rkrlss55f5e', roleName: 'Logs' }
+export const exconCollaborator: ForceRole = { forceId: 'red', forceName: 'EXCON', roleId: 'rkrlss55f5e', roleName: 'Logs' }
 
 export const channelCollaborativeResponding: ChannelData = {
   collabOptions: {
@@ -70,7 +77,7 @@ export const channelCollaborativeResponding: ChannelData = {
       canCollaborate: true,
       canReleaseMessages: false,
       force: 'EXCON',
-      forceUniqid: 'excon',
+      forceUniqid: 'Red',
       roles: [],
       subscriptionId: 'jvrn2',
       templates: [
