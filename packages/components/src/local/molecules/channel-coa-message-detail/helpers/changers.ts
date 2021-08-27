@@ -29,6 +29,20 @@ export const close = (message: MessageCustom): MessageCustom => {
   }
 }
 
+export const reopen = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.DocumentPending,
+        owner: undefined
+      }
+    }
+  }
+}
+
 export const requestChanges = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
@@ -159,6 +173,20 @@ export const CRRMRelease = (message: MessageCustom): MessageCustom => {
 }
 
 export const CRRMRequestChanges = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.ResponsePending,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const CRRMReopen = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {

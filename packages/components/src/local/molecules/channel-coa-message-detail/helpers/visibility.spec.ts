@@ -44,7 +44,6 @@ const messageStates: CollaborativeMessageStates[] = [
   CollaborativeMessageStates.Unallocated,
   CollaborativeMessageStates.PendingReview,
   CollaborativeMessageStates.Released,
-  CollaborativeMessageStates.Rejected,
   CollaborativeMessageStates.Finalized,
   CollaborativeMessageStates.Closed,
   CollaborativeMessageStates.DocumentPending,

@@ -2,7 +2,7 @@ import { messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
 import {
   finalize, close, requestChanges, endorse, collabEditAssign,
-  submitForReview, collabResponseAssign, CRCPsubmit, CRRMRelease, CRRMRequestChanges
+  submitForReview, collabResponseAssign, CRCPsubmit, CRRMRelease, CRRMRequestChanges, reopen, CRRMReopen
 } from './changers'
 import { ForceRole } from '@serge/custom-types'
 
@@ -28,9 +28,11 @@ describe('Changer tests', () => {
     expect(close(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Closed)
     expect(requestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.DocumentPending)
     expect(endorse(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.DocumentPending)
+    expect(reopen(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.DocumentPending)
 
     expect(CRRMRelease(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Released)
     expect(CRRMRequestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.ResponsePending)
+    expect(CRRMReopen(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.ResponsePending)
 
     // check original status unchanged
     expect(pendingReview.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)

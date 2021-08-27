@@ -28,7 +28,9 @@ import {
   collabResponseAssign,
   CRCPsubmit,
   CRRMRelease,
-  CRRMRequestChanges
+  CRRMRequestChanges,
+  reopen,
+  CRRMReopen
 } from './helpers/changers'
 import {
   ColEditPendingReview,
@@ -36,7 +38,9 @@ import {
   ColEditDocumentBeingEdited,
   ColRespPendingReview,
   ColRespResponsePending,
-  ColRespDocumentBeingEdited
+  ColRespDocumentBeingEdited,
+  ColResponseClosed,
+  ColEditClosed
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import JsonEditor from '../json-editor'
@@ -46,7 +50,13 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
 
-type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'
+enum DialogStates {
+  editEndorse,
+  editRequestChanges,
+  responseRequestChanges,
+  editReopen,
+  responseReopen
+}
 
 /** for the specified channel, provide a list of people who
  * can have documents assigned to them
@@ -95,7 +105,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const [placeHolder, setPlaceHolder] = useState<string>('')
   const [assignBtnLabel] = useState<string>('Assign to')
 
-  const [actionType, setActionType] = useState<ActionType>('edit-endorse')
+  const [actionType, setActionType] = useState<DialogStates>(DialogStates.editEndorse)
 
   const { collaboration } = message.details
   const editDoc = (typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && ColEditDocumentBeingEdited(message, channel, canCollaborate))
@@ -114,22 +124,22 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleRequestChanges = (): void => {
-    setDialogTitle('Request Changes')
-    setActionType('edit-requestChanges')
+    setDialogTitle('Request changes to document')
+    setActionType(DialogStates.editRequestChanges)
     setPlaceHolder('Enter requested changes...')
     setOpenDialog(true)
   }
 
   const handleEndorse = (): void => {
     setDialogTitle('Endorse document')
-    setActionType('edit-endorse')
+    setActionType(DialogStates.editEndorse)
     setPlaceHolder('Endorsement comment (optional)')
     setOpenDialog(true)
   }
 
   const handleReopen = (): void => {
-    setDialogTitle('Reopen document document')
-    setActionType('edit-endorse')
+    setDialogTitle('Reopen document')
+    setActionType(DialogStates.editReopen)
     setPlaceHolder('Reason for reopening')
     setOpenDialog(true)
   }
@@ -166,6 +176,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     onChange && onChange(CRCPsubmit(message, answer, privateMessage))
   }
 
+  const handleCRCReopen = (): void => {
+    setDialogTitle('Reopen response')
+    setActionType(DialogStates.responseReopen)
+    setPlaceHolder('Reason for reopening')
+    setOpenDialog(true)
+  }
+
   const handleCRRMClose = (): void => {
     onChange && onChange(close(message))
   }
@@ -175,8 +192,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleCRRMRequestChanges = (): void => {
-    setDialogTitle('Request Changes')
-    setActionType('respond-requestChanges')
+    setDialogTitle('Request changes in response')
+    setActionType(DialogStates.responseRequestChanges)
     setPlaceHolder('Enter requested changes...')
     setOpenDialog(true)
   }
@@ -218,16 +235,22 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     // sort out which handler to call
     let func
     switch (actionType) {
-      case 'edit-endorse':
+      case DialogStates.editEndorse:
         func = endorse
         break
-      case 'edit-requestChanges':
+      case DialogStates.editRequestChanges:
         func = requestChanges
         break
-      case 'respond-requestChanges':
+      case DialogStates.responseRequestChanges:
         func = CRRMRequestChanges
         break
-    }
+      case DialogStates.editReopen:
+        func = reopen
+        break
+      case DialogStates.responseReopen:
+        func = CRRMReopen
+        break
+        }
     onChange && func && onChange(func(message))
     setOpenDialog(false)
   }
@@ -281,6 +304,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
             }
+            {
+              ColEditClosed(message, channel, canReleaseMessages) &&
+              <>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
+              </>
+            }
+
           </div>
         </>
       ) : (
@@ -315,6 +345,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             </>
           }
           <div className={styles.actions}>
+            {
+              ColResponseClosed(message, channel, canReleaseMessages) &&
+              <>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleCRCReopen}>Reopen</Button>
+              </>
+            }
             {
               ColRespPendingReview(message, channel, canReleaseMessages) &&
               <>
