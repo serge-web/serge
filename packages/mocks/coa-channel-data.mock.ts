@@ -1,9 +1,9 @@
 import { ChannelData, ForceData, ForceRole } from '@serge/custom-types'
 import { SpecialChannelTypes } from '@serge/config'
 import { forces } from '.'
-import { deepCopy } from '@serge/helpers'
+import { cloneDeep } from 'lodash'
  
-export const collabForces: ForceData[] = deepCopy(forces)
+export const collabForces: ForceData[] = cloneDeep(forces)
 collabForces[0].roles[1].name = 'Manager'
 collabForces[1].roles[0].name = 'Senior'
 collabForces[2].name = 'EXCON'
