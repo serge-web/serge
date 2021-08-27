@@ -233,9 +233,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                     className="main"
                   >
                     <div />
-                    <p>
-                      Schema not found
-                    </p>
+                    <div />
                     <div
                       className="main theme-dark disabled"
                     >
@@ -361,9 +359,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
                     className="main"
                   >
                     <div />
-                    <p>
-                      Schema not found
-                    </p>
+                    <div />
                     <div
                       className="main theme-dark disabled"
                     >
