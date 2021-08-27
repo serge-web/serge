@@ -84,8 +84,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
           CollaborativeMessageStates.EditDocument,
           CollaborativeMessageStates.EditResponse,
           CollaborativeMessageStates.PendingReview,
-          CollaborativeMessageStates.Released,
-          CollaborativeMessageStates.Rejected
+          CollaborativeMessageStates.Released
         ],
         label: 'Status'
       },
@@ -99,8 +98,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
+        [CollaborativeMessageStates.Finalized]: '#007219',
         [CollaborativeMessageStates.Released]: '#007219',
-        [CollaborativeMessageStates.Rejected]: '#434343',
         [CollaborativeMessageStates.EditResponse]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
         [CollaborativeMessageStates.EditDocument]: '#ffc107',

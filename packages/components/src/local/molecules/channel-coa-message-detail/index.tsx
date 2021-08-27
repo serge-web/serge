@@ -127,6 +127,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     setOpenDialog(true)
   }
 
+  const handleReopen = (): void => {
+    setDialogTitle('Reopen document document')
+    setActionType('edit-endorse')
+    setPlaceHolder('Reason for reopening')
+    setOpenDialog(true)
+  }
+
   const handleAssign = (selection: string): void => {
     // unpack the fields
     const fields = selection.split(' - ')

@@ -215,7 +215,7 @@ class CollaborationController {
           break
         }
         case CollaborativeMessageCommands.Close: {
-          res.details.collaboration.status = CollaborativeMessageStates.Rejected
+          res.details.collaboration.status = CollaborativeMessageStates.Closed
           break
         }
         case CollaborativeMessageCommands.Release: {
@@ -273,7 +273,7 @@ class CollaborationController {
       case CollaborativeMessageStates.Released: {
         return this.canRelease() ? [CollaborativeMessageCommands.ReOpen] : []
       }
-      case CollaborativeMessageStates.Rejected: {
+      case CollaborativeMessageStates.Closed: {
         return this.canRelease() ? [CollaborativeMessageCommands.ReOpen] : []
       }
       default: {

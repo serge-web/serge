@@ -183,7 +183,7 @@ it('shows blue CO COA commands', () => {
   expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual(['Endorse', 'Request Changes', CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
+  expect(controller.commandsFor(CollaborativeMessageStates.Closed, '')).toEqual([CollaborativeMessageCommands.ReOpen])
 })
 
 it('shows blue other COA commands', () => {
@@ -193,7 +193,7 @@ it('shows blue other COA commands', () => {
   expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.commandsFor(CollaborativeMessageStates.Closed, '')).toEqual([])
 })
 
 it('shows blue CO RFI commands', () => {
@@ -203,7 +203,7 @@ it('shows blue CO RFI commands', () => {
   expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.commandsFor(CollaborativeMessageStates.Closed, '')).toEqual([])
 })
 
 it('shows white CO COA commands', () => {
@@ -213,7 +213,7 @@ it('shows white CO COA commands', () => {
   expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.commandsFor(CollaborativeMessageStates.Closed, '')).toEqual([])
 })
 
 it('shows white CO RFI commands', () => {
@@ -223,7 +223,7 @@ it('shows white CO RFI commands', () => {
   expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.commandsFor(CollaborativeMessageStates.Closed, '')).toEqual([])
 })
 
 it('shows white RFI Mgr RFI commands', () => {
@@ -234,7 +234,7 @@ it('shows white RFI Mgr RFI commands', () => {
   expect(rfi.collabOptions?.returnVerbs).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release, CollaborativeMessageCommands.RequestChanges])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
+  expect(controller.commandsFor(CollaborativeMessageStates.Closed, '')).toEqual([CollaborativeMessageCommands.ReOpen])
 })
 
 // //////////////////
@@ -356,7 +356,7 @@ it('apply command to COA messages', () => {
   const msg12 = controller.applyCommandTo(msg11, CollaborativeMessageCommands.Close, undefined, undefined)
   expect(msg12.details.collaboration).toBeTruthy()
   if (msg12.details.collaboration) {
-    expect(msg12.details.collaboration.status).toEqual(CollaborativeMessageStates.Rejected)
+    expect(msg12.details.collaboration.status).toEqual(CollaborativeMessageStates.Closed)
   }
 })
 
@@ -434,6 +434,6 @@ it('apply command to RFI messages', () => {
   const msg14 = controller.applyCommandTo(msg13, CollaborativeMessageCommands.Close, undefined, undefined)
   expect(msg14.details.collaboration).toBeTruthy()
   if (msg14.details.collaboration) {
-    expect(msg14.details.collaboration.status).toEqual(CollaborativeMessageStates.Rejected)
+    expect(msg14.details.collaboration.status).toEqual(CollaborativeMessageStates.Closed)
   }
 })
