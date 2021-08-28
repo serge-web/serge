@@ -1,29 +1,32 @@
 import { ForceData } from "@serge/custom-types"
 import _ from "lodash"
 
-const isUniquePasscode = (newData: ForceData, forces: ForceData[]): boolean => {
-  // unique password check in same force
-  const roleIds = newData.roles.map(role => role.roleId)
-  const isUniqueRolePassword = roleIds.some((role, index) => {
-    return roleIds.indexOf(role) !== index
-  })
-  // duplicate password found in same force, first correction require in same force
-  if (isUniqueRolePassword) return true
+
+const isUniquePasscode = (newData: ForceData, forces: ForceData[]): string[] => {
+  
+  let dupRoleNames = _.chain(newData.roles)
+    .groupBy("roleId")
+    .map((output) => ({ roles: _.map(output, role => role.name) }))
+    .filter(output => output.roles.length > 1)
+    .flatMap(output => output.roles)
+    .value()
 
   const newForces = _.reduce(
     forces,
-    (result, force) => {
+    (output, force) => {
       force.roles.forEach(role => {
-        (result || (result = [])).push({
+        (output || (output = [])).push({
           uniqid: force.uniqid,
-          roleId: role.roleId
+          roleId: role.roleId,
+          name: role.name
         })
       })
-      return result
+      return output
     },
-    Array<{ uniqid: string, roleId: string}>()
+    Array<{ uniqid: string, roleId: string, name: string}>()
   )
 
+  
   // unique password check in multiple force
   for (const force of newForces) {
     for (const role of newData.roles) {
@@ -32,11 +35,12 @@ const isUniquePasscode = (newData: ForceData, forces: ForceData[]): boolean => {
         newData.uniqid !== force.uniqid &&
         role.roleId === force.roleId
       ) {
-        return true
+        dupRoleNames.push(role.name)
       }
     }
   }
-  return false
+
+  return _.uniq(dupRoleNames)
 }
 
 export default isUniquePasscode

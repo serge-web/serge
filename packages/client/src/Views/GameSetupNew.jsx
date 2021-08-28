@@ -124,8 +124,9 @@ const AdminGameSetup = () => {
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
-    if (isUniquePasscode(newForceData, forces.forces)) {
-      dispatch(addNotification('Duplicate password in force roles.', 'warning'))
+    const dupRoleNames = isUniquePasscode(newForceData, forces.forces)
+    if (dupRoleNames.length > 0) {
+      dispatch(addNotification(`Duplicate passcode in force role ${_.join(dupRoleNames)}`, 'warning'))
       return
     }
     
@@ -198,8 +199,10 @@ const AdminGameSetup = () => {
       template.name = id
       template.uniqid = id
       template.roles.map(role => role.roleId = `p${uniqid.time()}`)
-      if (isUniquePasscode(template, forces.forces)) {
-        dispatch(addNotification('Duplicate password in force roles.', 'warning'))
+      
+      const dupRoleNames = isUniquePasscode(template, forces.forces)
+      if (dupRoleNames.length > 0) {
+        dispatch(addNotification(`Duplicate passcode in force role ${_.join(dupRoleNames)}`, 'warning'))
         return
       }
       await dispatch(saveForce(currentWargame, id, template, id))
