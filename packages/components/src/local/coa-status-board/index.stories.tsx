@@ -17,7 +17,7 @@ import {
   channelDataCollaborativeRespondingReleaseManager,
   messageDataCollaborativeEditing,
   messageDataCollaborativeResponding,
-  MessageTemplatesMock,
+  MessageTemplatesMockByKey,
   forces
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
@@ -98,7 +98,7 @@ CollabEditEditing.args = {
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: role,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 export const CollabEditParticipantOwner = Template.bind({})
 CollabEditParticipantOwner.args = {
@@ -106,7 +106,7 @@ CollabEditParticipantOwner.args = {
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: role,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 export const CollabEditParticipantNotOwner = Template.bind({})
 CollabEditParticipantNotOwner.args = {
@@ -114,7 +114,7 @@ CollabEditParticipantNotOwner.args = {
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: roleNotGC,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 export const CollabEditReleaseManager = Template.bind({})
 CollabEditReleaseManager.args = {
@@ -122,7 +122,7 @@ CollabEditReleaseManager.args = {
   rfiMessages: mostColabEditMock,
   isUmpire: true,
   role: role,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 export const CollabEditNotUmpire = Template.bind({})
 CollabEditNotUmpire.args = {
@@ -130,7 +130,7 @@ CollabEditNotUmpire.args = {
   rfiMessages: mostColabEditMock,
   isUmpire: false,
   role: roleNotUmpire,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 
 export const CollaborativeResponding = Template.bind({})
@@ -139,7 +139,7 @@ CollaborativeResponding.args = {
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
   role: role,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 export const CollabResponseParticipantOwner = Template.bind({})
 CollabResponseParticipantOwner.args = {
@@ -147,7 +147,7 @@ CollabResponseParticipantOwner.args = {
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
   role: role,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 export const CollabResponseParticipantNotOwner = Template.bind({})
 CollabResponseParticipantNotOwner.args = {
@@ -155,7 +155,7 @@ CollabResponseParticipantNotOwner.args = {
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
   role: roleNotGC,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 
 export const CollabResponseReleaseManager = Template.bind({})
@@ -164,7 +164,7 @@ CollabResponseReleaseManager.args = {
   rfiMessages: mostColabResponseMock,
   isUmpire: true,
   role: role,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }
 
 export const CollabResponseNotUmpire = Template.bind({})
@@ -173,5 +173,5 @@ CollabResponseNotUmpire.args = {
   rfiMessages: mostColabResponseMock,
   isUmpire: false,
   role: roleNotUmpire,
-  templates: MessageTemplatesMock
+  templates: MessageTemplatesMockByKey
 }

@@ -6,7 +6,7 @@ import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
 import {
-  MessageTemplatesMock,
+  MessageTemplatesMockByKey,
   channelDataCollaborativeEditingCollaborationParticipant,
   messageDataCollaborativeEditing,
   GameChannels,
@@ -67,7 +67,7 @@ const Template: Story<RFIPropTypes> = (args) => {
 
   return (
     <ChannelCoaMessageDetail
-      templates={MessageTemplatesMock}
+      templates={MessageTemplatesMockByKey}
       message={messageState}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
