@@ -15,7 +15,7 @@ export default interface PropTypes extends ForcesInChannelProps {
   /**
    * handle unread message
    */
-  onUnread?: () => void
+  onUnread?: (message: MessageCustom) => void
 
   /** force for player
    *

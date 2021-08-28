@@ -1,6 +1,7 @@
 import Participant from './participant'
 import { MessageChannel } from './message'
 import { TemplateBody } from './template'
+import { SpecialChannelTypes } from '@serge/config'
 
 /** description of channel, as used in game UI */
 export default interface ChannelData {
@@ -15,4 +16,5 @@ export default interface ChannelData {
   // don't store them in the database
   forceIcons?: Array<any>
   forceColors?: Array<string>
+  format?: SpecialChannelTypes
 }

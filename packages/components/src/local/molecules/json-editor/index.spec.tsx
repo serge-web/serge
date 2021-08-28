@@ -3,13 +3,13 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import JsonEditor from './index'
 
-import { MessageTemplatesMock, messageDataCollaborativeEditing } from '@serge/mocks'
+import { MessageTemplatesMockByKey, messageDataCollaborativeEditing } from '@serge/mocks'
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(<JsonEditor
-        messageTemplates={MessageTemplatesMock}
+        messageTemplates={MessageTemplatesMockByKey}
         message={messageDataCollaborativeEditing[2]}
         disabled={true}
       />)

@@ -11,13 +11,14 @@ import {
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { CoaStatusBoard } from "@serge/components";
 import '@serge/themes/App.scss'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { selectedForce, selectedRole } = state
+  const { selectedForce, selectedRole, selectedRoleName } = state
   const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
@@ -54,7 +55,22 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      <ChannelMessagesList
+      <CoaStatusBoard
+        templates={state.allTemplatesByKey}
+        rfiMessages={state.rfiMessages}
+        role={{
+          forceId: selectedForce.uniqid, 
+          forceName: selectedForce.name,
+          roleId: selectedRole, 
+          roleName: selectedRoleName
+        }}
+        forces={state.allForces}
+        isUmpire={true}
+        channel={state.channels[channelId]}
+        onChange={() => {}}
+      />
+
+      {colors && colors.length === 888 && <ChannelMessagesList
         messages={state.channels[channelId].messages || []}
         onRead={handleOpenMessage}
         onUnread={handleUnreadMessage}
@@ -67,7 +83,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         icons={icons || []}
         colors={colors || []}
         onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
-      />
+      />}
       {
         state.channels[channelId].observing === false &&
         <NewMessage

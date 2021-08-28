@@ -4,7 +4,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { forces, MessageTemplatesMock } from '@serge/mocks'
+import { forces, MessageTemplatesMockByKey } from '@serge/mocks'
 import CoaStatusBoard from './index'
 
 /* Import mock data */
@@ -185,7 +185,7 @@ it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CoaStatusBoard
-        templates={MessageTemplatesMock}
+        templates={MessageTemplatesMockByKey}
         forces={forces}
         role={role}
         isUmpire={true}
