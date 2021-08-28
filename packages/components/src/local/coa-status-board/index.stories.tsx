@@ -5,20 +5,22 @@ import { Story } from '@storybook/react/types-6-0'
 import CoaStatusBoard from './index'
 import docs from './README.md'
 
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { MessageCustom } from '@serge/custom-types'
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
-  channelDataCollaborativeEditing,
-  channelDataCollaborativeEditingCollaborationParticipant,
-  channelDataColabEditCollaborativeReleaseManager,
-  channelDataCollaborativeResponding,
-  channelDataCollaborativeRespondingCollaborationParticipant,
-  channelDataCollaborativeRespondingReleaseManager,
-  messageDataCollaborativeEditing,
-  messageDataCollaborativeResponding,
+  channelCollaborativeEditing,
+  channelCollaborativeResponding,
   MessageTemplatesMockByKey,
-  forces
+  collabForces,
+  blueCollaborator,
+  blueReleaseManager,
+  whiteCollaborator,
+  exconCollaborator,
+  whiteReleaseMgr,
+  blueAuthor,
+  messageDataCollaborativeResponding,
+  messageDataCollaborativeEditing
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
 
@@ -58,13 +60,8 @@ const Template: Story<Props> = (args) => {
   const onChange = (nextMessages: MessageCustom[]): void => {
     setMessages(nextMessages)
   }
-  return <CoaStatusBoard {...args} forces={forces} rfiMessages={messages} onChange={onChange} />
+  return <CoaStatusBoard {...args} forces={collabForces} rfiMessages={messages} onChange={onChange} />
 }
-
-// filter to only show the most recent versions of messages
-const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-control', roleName: 'Game Control' }
-const roleNotGC: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'not-game-control', roleName: 'Game Control' }
-const roleNotUmpire: ForceRole = { forceId: 'red', forceName: 'Red', roleId: 'not-game-control', roleName: 'CO' }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
 const mostColabEditMock = mostColabEditMockRaw.map((message: MessageCustom): MessageCustom => {
@@ -73,7 +70,7 @@ const mostColabEditMock = mostColabEditMockRaw.map((message: MessageCustom): Mes
     if (collab.status === CollaborativeMessageStates.EditDocument ||
       collab.status === CollaborativeMessageStates.EditResponse) {
       // make the sample user the owner of this doc
-      collab.owner = role
+      collab.owner = blueCollaborator
     }
   }
   return message
@@ -86,92 +83,62 @@ const mostColabResponseMock = mostColabResponseMockRaw.map((message: MessageCust
     if (collab.status === CollaborativeMessageStates.EditDocument ||
       collab.status === CollaborativeMessageStates.EditResponse) {
       // make the sample user the owner of this doc
-      collab.owner = role
+      collab.owner = exconCollaborator
     }
   }
   return message
 })
 
-export const CollabEditEditing = Template.bind({})
-CollabEditEditing.args = {
-  channel: channelDataCollaborativeEditing,
-  rfiMessages: mostColabEditMock,
-  isUmpire: true,
-  role: role,
-  templates: MessageTemplatesMockByKey
-}
-export const CollabEditParticipantOwner = Template.bind({})
-CollabEditParticipantOwner.args = {
-  channel: channelDataCollaborativeEditingCollaborationParticipant,
-  rfiMessages: mostColabEditMock,
-  isUmpire: true,
-  role: role,
-  templates: MessageTemplatesMockByKey
-}
-export const CollabEditParticipantNotOwner = Template.bind({})
-CollabEditParticipantNotOwner.args = {
-  channel: channelDataCollaborativeEditingCollaborationParticipant,
-  rfiMessages: mostColabEditMock,
-  isUmpire: true,
-  role: roleNotGC,
-  templates: MessageTemplatesMockByKey
-}
-export const CollabEditReleaseManager = Template.bind({})
-CollabEditReleaseManager.args = {
-  channel: channelDataColabEditCollaborativeReleaseManager,
-  rfiMessages: mostColabEditMock,
-  isUmpire: true,
-  role: role,
-  templates: MessageTemplatesMockByKey
-}
-export const CollabEditNotUmpire = Template.bind({})
-CollabEditNotUmpire.args = {
-  channel: channelDataColabEditCollaborativeReleaseManager,
+export const CollaborativeEditEditor = Template.bind({})
+CollaborativeEditEditor.args = {
+  channel: channelCollaborativeEditing,
   rfiMessages: mostColabEditMock,
   isUmpire: false,
-  role: roleNotUmpire,
+  role: blueCollaborator,
   templates: MessageTemplatesMockByKey
 }
 
-export const CollaborativeResponding = Template.bind({})
-CollaborativeResponding.args = {
-  channel: channelDataCollaborativeResponding,
-  rfiMessages: mostColabResponseMock,
-  isUmpire: true,
-  role: role,
-  templates: MessageTemplatesMockByKey
-}
-export const CollabResponseParticipantOwner = Template.bind({})
-CollabResponseParticipantOwner.args = {
-  channel: channelDataCollaborativeRespondingCollaborationParticipant,
-  rfiMessages: mostColabResponseMock,
-  isUmpire: true,
-  role: role,
-  templates: MessageTemplatesMockByKey
-}
-export const CollabResponseParticipantNotOwner = Template.bind({})
-CollabResponseParticipantNotOwner.args = {
-  channel: channelDataCollaborativeRespondingCollaborationParticipant,
-  rfiMessages: mostColabResponseMock,
-  isUmpire: true,
-  role: roleNotGC,
-  templates: MessageTemplatesMockByKey
-}
-
-export const CollabResponseReleaseManager = Template.bind({})
-CollabResponseReleaseManager.args = {
-  channel: channelDataCollaborativeRespondingReleaseManager,
-  rfiMessages: mostColabResponseMock,
-  isUmpire: true,
-  role: role,
-  templates: MessageTemplatesMockByKey
-}
-
-export const CollabResponseNotUmpire = Template.bind({})
-CollabResponseNotUmpire.args = {
-  channel: channelDataCollaborativeRespondingReleaseManager,
-  rfiMessages: mostColabResponseMock,
+export const CollaborativeEditReleaseManager = Template.bind({})
+CollaborativeEditReleaseManager.args = {
+  channel: channelCollaborativeEditing,
+  rfiMessages: mostColabEditMock,
   isUmpire: false,
-  role: roleNotUmpire,
+  role: blueReleaseManager,
+  templates: MessageTemplatesMockByKey
+}
+
+export const CollaborativeResponseSubmit = Template.bind({})
+CollaborativeResponseSubmit.args = {
+  channel: channelCollaborativeResponding,
+  rfiMessages: mostColabResponseMock,
+  isUmpire: true,
+  role: blueAuthor,
+  templates: MessageTemplatesMockByKey
+}
+
+export const CollaborativeResponseParticipateWhite = Template.bind({})
+CollaborativeResponseParticipateWhite.args = {
+  channel: channelCollaborativeResponding,
+  rfiMessages: mostColabResponseMock,
+  isUmpire: true,
+  role: whiteCollaborator,
+  templates: MessageTemplatesMockByKey
+}
+
+export const CollaborativeResponseParticipateExcon = Template.bind({})
+CollaborativeResponseParticipateExcon.args = {
+  channel: channelCollaborativeResponding,
+  rfiMessages: mostColabResponseMock,
+  isUmpire: true,
+  role: exconCollaborator,
+  templates: MessageTemplatesMockByKey
+}
+
+export const CollaborativeResponseRelease = Template.bind({})
+CollaborativeResponseRelease.args = {
+  channel: channelCollaborativeResponding,
+  rfiMessages: mostColabResponseMock,
+  isUmpire: true,
+  role: whiteReleaseMgr,
   templates: MessageTemplatesMockByKey
 }

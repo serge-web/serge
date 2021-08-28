@@ -7,7 +7,7 @@ import RFIPropTypes from './types/props'
 
 import {
   MessageTemplatesMockByKey,
-  channelDataCollaborativeEditingCollaborationParticipant,
+  channelCollaborativeEditing,
   messageDataCollaborativeEditing,
   GameChannels,
   GameMessagesMock
@@ -84,16 +84,16 @@ Unallocated.args = {
   isUmpire: true,
   canCollaborate: true,
   canReleaseMessages: false,
-  channel: channelDataCollaborativeEditingCollaborationParticipant,
+  channel: channelCollaborativeEditing,
   role: role
 }
 
-export const CusomtMessage = Template.bind({})
-CusomtMessage.args = {
+export const CustomMessage = Template.bind({})
+CustomMessage.args = {
   message: GameMessagesMock[0] as MessageCustom,
   isUmpire: true,
   canCollaborate: true,
   canReleaseMessages: false,
-  channel: channelDataCollaborativeEditingCollaborationParticipant,
+  channel: channelCollaborativeEditing,
   role: role
 }

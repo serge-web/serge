@@ -318,7 +318,6 @@ export const Mapping: React.FC<PropTypes> = ({
         newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
       }
       if (newGrid) {
-        console.log('cells created', newGrid.length)
         setGridCells(newGrid)
       }
     }

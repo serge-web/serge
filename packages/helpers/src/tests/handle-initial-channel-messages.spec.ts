@@ -93,7 +93,7 @@ describe('handle new message into RFI channel', () => {
     const collab: CollaborationDetails = {
       ...msg.details.collaboration,
       response: RESPONSE,
-      status: CollaborativeMessageStates.Rejected
+      status: CollaborativeMessageStates.Closed
     }
     const payload2: MessageChannel = {
       ...msg,

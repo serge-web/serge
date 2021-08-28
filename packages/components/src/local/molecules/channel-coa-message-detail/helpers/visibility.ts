@@ -69,6 +69,12 @@ export const ColEditDocumentPending = (message: MessageCustom, channel: ChannelD
   return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.DocumentPending) && !!canCollaborate
 }
 
+export const ColEditClosed = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+  const inClosedState = isThisState(message, CollaborativeMessageStates.Closed) ||
+  isThisState(message, CollaborativeMessageStates.Finalized)
+  return isThisChannel(channel, cEdit) && inClosedState && !!canReleaseMessages
+}
+
 export const ColEditDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
   return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.EditDocument) && !!canCollaborate
 }
@@ -84,4 +90,10 @@ export const ColRespResponsePending = (message: MessageCustom, channel: ChannelD
 
 export const ColRespDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
   return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.EditResponse) && !!canCollaborate
+}
+
+export const ColResponseClosed = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+  const inClosedState = isThisState(message, CollaborativeMessageStates.Closed) ||
+  isThisState(message, CollaborativeMessageStates.Released)
+  return isThisChannel(channel, cResponse) && inClosedState && !!canReleaseMessages
 }

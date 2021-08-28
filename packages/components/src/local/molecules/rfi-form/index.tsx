@@ -113,7 +113,7 @@ export const RfiForm: React.FC<Props> = (props) => {
   }
   const requestCompleteStatuses = [
     CollaborativeMessageStates.Released,
-    CollaborativeMessageStates.Rejected
+    CollaborativeMessageStates.Closed
   ]
   const requestIsCompleted =
     message.details.collaboration?.status &&
