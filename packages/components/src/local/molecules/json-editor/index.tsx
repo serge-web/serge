@@ -17,8 +17,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
     (key): TemplateBody => messageTemplates[key]
   ).find(msg => msg.title === message.details.messageType)
-  if (!schema) return <p>Schema not found</p>
-
+  
   if (!schema) {
     const styles = {
       color: '#f00',

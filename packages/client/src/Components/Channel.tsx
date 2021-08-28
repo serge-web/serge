@@ -12,6 +12,7 @@ import {
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
 import { CoaStatusBoard } from "@serge/components";
+import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
@@ -55,35 +56,37 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      <CoaStatusBoard
-        templates={state.allTemplatesByKey}
-        rfiMessages={state.rfiMessages}
-        role={{
-          forceId: selectedForce.uniqid, 
-          forceName: selectedForce.name,
-          roleId: selectedRole, 
-          roleName: selectedRoleName
-        }}
-        forces={state.allForces}
-        isUmpire={true}
-        channel={state.channels[channelId]}
-        onChange={() => {}}
-      />
-
-      {colors && colors.length === 888 && <ChannelMessagesList
-        messages={state.channels[channelId].messages || []}
-        onRead={handleOpenMessage}
-        onUnread={handleUnreadMessage}
-        turnPresentation={state.turnPresentation}
-        role={selectedRole}
-        isRFIManager={state.isRFIManager}
-        isUmpire={!!isUmpire}
-        onChange={handleChange}
-        playerForceId={selectedForce.uniqid}
-        icons={icons || []}
-        colors={colors || []}
-        onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
-      />}
+      {state.channels[channelId].format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || state.channels[channelId].format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
+        <CoaStatusBoard
+          templates={state.allTemplatesByKey}
+          rfiMessages={state.rfiMessages}
+          role={{
+            forceId: selectedForce.uniqid, 
+            forceName: selectedForce.name,
+            roleId: selectedRole, 
+            roleName: selectedRoleName
+          }}
+          forces={state.allForces}
+          isUmpire={true}
+          channel={state.channels[channelId]}
+          onChange={() => {}}
+        />
+      ) : (
+        <ChannelMessagesList
+          messages={state.channels[channelId].messages || []}
+          onRead={handleOpenMessage}
+          onUnread={handleUnreadMessage}
+          turnPresentation={state.turnPresentation}
+          role={selectedRole}
+          isRFIManager={state.isRFIManager}
+          isUmpire={!!isUmpire}
+          onChange={handleChange}
+          playerForceId={selectedForce.uniqid}
+          icons={icons || []}
+          colors={colors || []}
+          onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
+        />
+      )}
       {
         state.channels[channelId].observing === false &&
         <NewMessage
