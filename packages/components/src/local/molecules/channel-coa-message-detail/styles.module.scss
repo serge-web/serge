@@ -24,3 +24,40 @@
   justify-content: flex-end;
   margin-bottom: 5px;
 }
+
+.feedbackHeader {
+  color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.feedbackIcon {
+  font-weight: 500;
+  font-size: 30px;
+  min-width: 25px;
+  max-width: 25px;
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.feedbackTitle {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 7px;
+  line-height: 22px;
+}
+
+.feedbackItem {
+  background-color: #54667c;
+  border-radius: 5px;
+}
+
+.feedbackContent {
+  color: white;
+  margin: -10px 0 5px 25px;
+  padding-bottom: 10px;
+}

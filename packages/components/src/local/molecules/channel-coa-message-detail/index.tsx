@@ -43,6 +43,7 @@ import {
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole } from '@serge/custom-types'
+import Collapsible from '../../helper-elements/collapsible'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -79,7 +80,7 @@ const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
-  const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
+  const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
@@ -98,7 +99,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const candidates = getCandidates(assignees)
 
-  const getJsonEditorValue = (val: {[property: string]: any}) => {
+  const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
   }
 
@@ -219,6 +220,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       }
       message.details.collaboration.feedback.push(feedbackItem)
     }
+
     // sort out which handler to call
     let func
     switch (actionType) {
@@ -242,8 +244,31 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     setOpenDialog(false)
   }
 
+  const CollapsibleHeader = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
+    const handleOnExpand = (): void => {
+      onExpand(!collapsed)
+    }
+    return (
+      <div className={styles.feedbackHeader} onClick={handleOnExpand}>
+        <span className={styles.feedbackIcon}>{collapsed ? '+' : '-'}</span>{feedback[0].feedback}
+      </div>
+    )
+  }
+
+  const CollapsibleContent = ({ collapsed, feedback }: any): React.ReactElement => {
+    return (
+      <div className={styles.feedbackContent}>
+        {!collapsed && feedback.map((item: FeedbackItem, key: number) => {
+          if (key > 0) return (<div key={key}>{item.feedback}</div>)
+          else return null
+        })}
+      </div>
+    )
+  }
+
   /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
+  const feedback = message.details.collaboration?.feedback
 
   return (
     <div className={styles.main}>
@@ -265,7 +290,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             isUmpire &&
-              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+            <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
           <div className={styles.actions}>
             {
@@ -306,7 +331,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             collaboration &&
             <div className={styles.assigned}>
               <span className={styles.inset}>
-                <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
+                <AssignmentInd color="action" fontSize="large" /><Badge size="medium" type="charcoal" label={assignLabel} />
               </span>
             </div>
           }
@@ -318,13 +343,25 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             isEditor && !responseIsReleased
-              ? <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
-              : <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+              ? <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer" />
+              : <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
           }
           { // only show private field for umpire force(s)
             isUmpire &&
-              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
+          {feedback && feedback.length && (
+            <div>
+              <div className={styles.feedbackTitle}>Feedback</div>
+              <div className={styles.feedbackItem}>
+                <Collapsible
+                  header={<CollapsibleHeader feedback={feedback} />}
+                  content={<CollapsibleContent feedback={feedback} />}
+                />
+              </div>
+            </div>)
+          }
+
           <div className={styles.actions}>
             {
               ColResponseClosed(message, channel, canReleaseMessages) &&
