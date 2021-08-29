@@ -249,15 +249,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       onExpand(!collapsed)
     }
     return (
-      <div className={styles.feedbackHeader} onClick={handleOnExpand}>
-        <span className={styles.feedbackIcon}>{collapsed ? '+' : '-'}</span>{feedback[0].feedback}
+      <div className={styles['feedback-header']} onClick={handleOnExpand}>
+        <span className={styles['feedback-icon']}>{collapsed ? '+' : '-'}</span>{feedback[0].feedback}
       </div>
     )
   }
 
   const CollapsibleContent = ({ collapsed, feedback }: any): React.ReactElement => {
     return (
-      <div className={styles.feedbackContent}>
+      <div className={styles['feedback-content']}>
         {!collapsed && feedback.map((item: FeedbackItem, key: number) => {
           if (key > 0) return (<div key={key}>{item.feedback}</div>)
           else return null
@@ -352,8 +352,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           }
           {feedback && feedback.length && (
             <div>
-              <div className={styles.feedbackTitle}>Feedback</div>
-              <div className={styles.feedbackItem}>
+              <div className={styles['feedback-title']}>Feedback</div>
+              <div className={styles['feedback-item']}>
                 <Collapsible
                   header={<CollapsibleHeader feedback={feedback} />}
                   content={<CollapsibleContent feedback={feedback} />}

@@ -25,14 +25,14 @@
   margin-bottom: 5px;
 }
 
-.feedbackHeader {
+.feedback-header{
   color: white;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.feedbackIcon {
+.feedback-icon {
   font-weight: 500;
   font-size: 30px;
   min-width: 25px;
@@ -43,7 +43,7 @@
   cursor: pointer;
 }
 
-.feedbackTitle {
+.feedback-title {
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -51,12 +51,12 @@
   line-height: 22px;
 }
 
-.feedbackItem {
+.feedback-item {
   background-color: #54667c;
   border-radius: 5px;
 }
 
-.feedbackContent {
+.feedback-content {
   color: white;
   margin: -10px 0 5px 25px;
   padding-bottom: 10px;
