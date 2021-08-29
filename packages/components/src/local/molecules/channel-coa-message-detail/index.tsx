@@ -350,7 +350,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             isUmpire &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
-          {feedback && feedback.length && (
+          {feedback && feedback.length > 0 && (
             <div>
               <div className={styles['feedback-title']}>Feedback</div>
               <div className={styles['feedback-item']}>
