@@ -50,13 +50,15 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const data = messages.map(message => {
     const collab = message.details.collaboration
     const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
+    const myDocument = owner && owner === formatRole(role)
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
       message.details.from.forceColor,
       message.message.Title,
       message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-      owner
+      owner,
+      myDocument
     ]
     return res
   })
@@ -85,7 +87,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       }
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, mRole, forceColor, content, status, owner] = row
+      const [id, mRole, forceColor, content, status, owner, myDocument] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -97,6 +99,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.DocumentPending]: '#0366d6',
         [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
+
 
       return {
         collapsible: (
@@ -126,7 +129,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner} /> : null,
+            component: owner ? <Badge customBackgroundColor={myDocument ? "#bb4343" :"#434343"} customSize={myDocument && "large"}  label={owner} /> : null,
             label: owner
           }
         ]
