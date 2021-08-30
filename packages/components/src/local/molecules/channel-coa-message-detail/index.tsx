@@ -399,7 +399,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             isUmpire && (privateMessage || editResponse) &&
               <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
-          
+
         </>
       )}
     </div>
