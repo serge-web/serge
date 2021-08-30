@@ -323,10 +323,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
             {
-              editDoc &&
-              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
-            }
-            {
               ColEditClosed(message, channel, canReleaseMessages) &&
               <>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
@@ -346,7 +342,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             isUmpire && (privateMessage || editDoc) &&
               <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
-        </>
+          <div className={styles.actions}>
+            {
+              editDoc &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
+            }
+          </div>        </>
       ) : (
         <>
           <div className={styles.actions}>
@@ -375,10 +376,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClaim}>Claim</Button>
               </>
             }
-            {
-              editResponse &&
-              <Button customVariant="form-action" size="small" type="button" onClick={handleResponseSubmit}>Submit</Button>
-            }
           </div>
           {
             feedbackBlock
@@ -399,7 +396,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             isUmpire && (privateMessage || editResponse) &&
               <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
-
+          <div className={styles.actions}>
+            {
+              editResponse &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleResponseSubmit}>Submit</Button>
+            }
+          </div>
         </>
       )}
     </div>
