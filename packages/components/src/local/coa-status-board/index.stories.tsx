@@ -57,8 +57,9 @@ export default {
 const Template: Story<Props> = (args) => {
   const [messages, setMessages] = useState(args.messages)
 
-  const onChange = (nextMessages: MessageCustom[]): void => {
-    setMessages(nextMessages)
+  const onChange = (nextMessage: MessageCustom): void => {
+    const newMessages = [ nextMessage, ...messages]
+    setMessages(newMessages)
   }
   return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} />
 }

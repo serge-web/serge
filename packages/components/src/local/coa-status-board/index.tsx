@@ -62,12 +62,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   })
 
   const handleChange = (nextMessage: MessageCustom): void => {
-    const index = messages.findIndex(message => message._id === nextMessage._id)
-    if (index !== -1) {
-      const nextMessages = [...messages]
-      nextMessages[index] = nextMessage
-      onChange(nextMessages)
-    }
+    onChange(nextMessage)
+    // const index = messages.findIndex(message => message._id === nextMessage._id)
+    // console.log('handle change', index, nextMessage._id, nextMessage, messages[0])
+    // if (index !== -1) {
+    //   const nextMessages = [...messages]
+    //   nextMessages[index] = nextMessage
+    //   onChange(nextMessages)
+    // }
   }
 
   const dataTableProps = {
