@@ -4,6 +4,7 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
+import moment from 'moment'
 
 /* Import Components */
 import Textarea from '../../atoms/textarea'
@@ -250,7 +251,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     }
     return (
       <div className={styles['feedback-header']} onClick={handleOnExpand}>
-        <span className={styles['feedback-icon']}>{collapsed ? '+' : '-'}</span>{feedback[0].feedback}
+        <span className={styles['feedback-icon']}>{collapsed ? '+' : '-'}</span>
+        {moment(feedback[0].date).format('YYYY-MM-DD HH:mm')} [{feedback[0].fromName}] {feedback[0].feedback}
       </div>
     )
   }
@@ -259,7 +261,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     return (
       <div className={styles['feedback-content']}>
         {!collapsed && feedback.map((item: FeedbackItem, key: number) => {
-          if (key > 0) return (<div key={key}>{item.feedback}</div>)
+          if (key > 0) return (<div key={key}>{moment(item.date).format('YYYY-MM-DD HH:mm')} [{item.fromName}] {item.feedback}</div>)
           else return null
         })}
       </div>
