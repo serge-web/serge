@@ -53,10 +53,11 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
+  const channelFormat = state.channels[channelId].format
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      {state.channels[channelId].format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || state.channels[channelId].format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
+      {channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
         <CoaStatusBoard
           templates={state.allTemplatesByKey}
           rfiMessages={state.channels[channelId].messages}
