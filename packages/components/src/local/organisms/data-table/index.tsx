@@ -142,7 +142,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                         <TableRow className={classes.tableRowCollapsible}>
                           <TableCell colSpan={cells.length}>
                             <Collapse in={rowIndex === expandedRow}>
-                              { collapsible }
+                              { rowIndex === expandedRow && collapsible }
                             </Collapse>
                           </TableCell>
                         </TableRow>
