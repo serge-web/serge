@@ -58,14 +58,13 @@ const Template: Story<Props> = (args) => {
   const [messages, setMessages] = useState(args.messages)
 
   const onChange = (nextMessage: MessageCustom): void => {
-
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
-    const dropOldCopies = messages.filter((msg:MessageCustom) => {
+    const dropOldCopies = messages.filter((msg: MessageCustom) => {
       return nextMessage.message.Reference === undefined || msg.message.Reference !== nextMessage.message.Reference
     })
 
-    const newMessages = [ nextMessage, ...dropOldCopies]
+    const newMessages = [nextMessage, ...dropOldCopies]
     setMessages(newMessages)
   }
   return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} />
