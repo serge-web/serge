@@ -47,7 +47,6 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   const handleChange = (nextMsg: MessageCustom): void => {
-    console.log('sending modified message', nextMsg)
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
   }
 
