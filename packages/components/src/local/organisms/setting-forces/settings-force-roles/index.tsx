@@ -106,7 +106,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
       isRFIManager: false,
       isObserver: false
     }]
-    
+
     handleChangeForce({ ...data, roles: roles })
   }
 
