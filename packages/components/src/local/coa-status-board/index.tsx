@@ -61,17 +61,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     return res
   })
 
-  const handleChange = (nextMessage: MessageCustom): void => {
-    onChange(nextMessage)
-    // const index = messages.findIndex(message => message._id === nextMessage._id)
-    // console.log('handle change', index, nextMessage._id, nextMessage, messages[0])
-    // if (index !== -1) {
-    //   const nextMessages = [...messages]
-    //   nextMessages[index] = nextMessage
-    //   onChange(nextMessages)
-    // }
-  }
-
   const dataTableProps = {
     columns: [
       'ID',
@@ -117,7 +106,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
               message={(messages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
-              onChange={handleChange}
+              onChange={onChange}
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
