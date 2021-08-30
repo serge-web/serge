@@ -109,7 +109,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
 
-      // TODO: can we reduce the message detail processing when the control is collapsed?
       return {
         collapsible: (
           <div className={styles['rfi-form']}>
