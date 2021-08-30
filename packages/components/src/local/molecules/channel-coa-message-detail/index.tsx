@@ -241,7 +241,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     onChange && func && onChange(func(message))
     setOpenDialog(false)
   }
-
+  
   /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
@@ -318,8 +318,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           {
             responseIsReleased
               ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
-              : isEditor &&
-              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
+              : (canCollaborate || canReleaseMessages) &&
+              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
           }
           { // only show private field for umpire force(s)
             isUmpire &&
