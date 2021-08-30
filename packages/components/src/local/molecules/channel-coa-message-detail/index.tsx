@@ -244,9 +244,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const formatFeedback = (feedback: FeedbackItem): string => {
-    return moment(feedback.date).format('YYYY-MM-DD HH:mm') 
-      + ' [' + feedback.fromName + '] ' 
-      + feedback.feedback
+    return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
+      ' [' + feedback.fromName + '] ' +
+      feedback.feedback
   }
 
   const CollapsibleHeader = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
@@ -289,7 +289,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
         />
       </div>
     </div>)
-  
 
   return (
     <div className={styles.main}>
@@ -303,19 +302,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       />
       {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ? (
         <>
-          <JsonEditor
-            messageTemplates={templates}
-            message={message}
-            getJsonEditorValue={getJsonEditorValue}
-            disabled={!editDoc}
-          />
-          {
-            isUmpire && (privateMessage || editDoc) &&
-              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          }
-          {
-            feedbackBlock
-          }
           <div className={styles.actions}>
             {
               ColEditPendingReview(message, channel, canReleaseMessages) &&
@@ -347,28 +333,22 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
           </div>
-        </>
-      ) : (
-        <>
+          {
+            feedbackBlock
+          }
           <JsonEditor
             messageTemplates={templates}
             message={message}
             getJsonEditorValue={getJsonEditorValue}
-            disabled={true}
+            disabled={!editDoc}
           />
           {
-            responseIsReleased
-              ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
-              : (canCollaborate || canReleaseMessages) &&
-              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
+            isUmpire && (privateMessage || editDoc) &&
+              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
-          { // only show private field for umpire force(s)
-            isUmpire && (privateMessage || editResponse) &&
-              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          }
-          {
-            feedbackBlock
-          }
+        </>
+      ) : (
+        <>
           <div className={styles.actions}>
             {
               ColResponseClosed(message, channel, canReleaseMessages) &&
@@ -400,6 +380,26 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               <Button customVariant="form-action" size="small" type="button" onClick={handleResponseSubmit}>Submit</Button>
             }
           </div>
+          {
+            feedbackBlock
+          }
+          <JsonEditor
+            messageTemplates={templates}
+            message={message}
+            getJsonEditorValue={getJsonEditorValue}
+            disabled={true}
+          />
+          {
+            responseIsReleased
+              ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+              : (canCollaborate || canReleaseMessages) &&
+              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
+          }
+          { // only show private field for umpire force(s)
+            isUmpire && (privateMessage || editResponse) &&
+              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          }
+          
         </>
       )}
     </div>
