@@ -79,11 +79,11 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
     }
   }
   const onToggleRow = (rowIndex: any): void => {
-    if(expandedRows.includes(rowIndex)) {
+    if (expandedRows.includes(rowIndex)) {
       // remove it
-      setExpandedRows(expandedRows.filter((val:number) => val !== rowIndex))
+      setExpandedRows(expandedRows.filter((val: number) => val !== rowIndex))
     } else {
-      setExpandedRows( [rowIndex, ...expandedRows] )
+      setExpandedRows([rowIndex, ...expandedRows])
     }
   }
   const rows = useMemo(() => {
