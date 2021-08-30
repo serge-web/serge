@@ -100,7 +100,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
 
-
       return {
         collapsible: (
           <div className={styles['rfi-form']}>
@@ -129,7 +128,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor={myDocument ? "#bb4343" :"#434343"} customSize={myDocument && "large"}  label={owner} /> : null,
+            component: owner ? <Badge customBackgroundColor={myDocument ? '#bb4343' : '#434343'} customSize={myDocument && 'large'} label={owner} /> : null,
             label: owner
           }
         ]
