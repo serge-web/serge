@@ -58,10 +58,6 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          <svg
-            className="svg-inline--fa fa-plus"
-          />
-           
           Row 1 Cell 1
         </td>
         <td
