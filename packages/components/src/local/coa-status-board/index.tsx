@@ -47,10 +47,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     ]
   }, [])
 
+  /** cache the formatted version of my role */
+  const myRoleFormatted = formatRole(role)
+
   const data = messages.map(message => {
     const collab = message.details.collaboration
     const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
-    const myDocument = owner === formatRole(role)
+    const myDocument = owner === myRoleFormatted
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
