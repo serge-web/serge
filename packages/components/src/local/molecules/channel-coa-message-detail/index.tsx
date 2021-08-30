@@ -8,14 +8,12 @@ import styles from './styles.module.scss'
 /* Import Components */
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
-import Badge from '../../atoms/badge'
 import DialogModal from '../../atoms/dialog'
 import SplitButton from '../../atoms/split-button'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
 import {
