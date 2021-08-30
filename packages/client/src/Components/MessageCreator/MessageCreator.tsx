@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
+import { SpecialChannelTypes, CollaborativeMessageStates } from "@serge/config";
 import Props from './types'
 
 // @ts-ignore
@@ -37,6 +38,17 @@ const MessageCreator: React.FC<Props> = (props) => {
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
+    }
+    const currentChannelFormat = state.channels[props.curChannel].format || null
+
+    if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
+      details.collaboration = {
+        status: CollaborativeMessageStates.PendingReview,
+      }
+    } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
+      details.collaboration = {
+        status: CollaborativeMessageStates.ResponsePending,
+      }
     }
 
     if (props.privateMessage && privateMessageRef.current) {

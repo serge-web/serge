@@ -6,7 +6,7 @@ import ChannelCoaMessageDetail from './index'
 import { ChannelData } from '@serge/custom-types'
 import { SpecialChannelTypes } from '@serge/config'
 
-import { GameMessagesMockRFI, MessageTemplatesMock } from '@serge/mocks'
+import { GameMessagesMockRFI, MessageTemplatesMockByKey } from '@serge/mocks'
 
 const [defMessage] = GameMessagesMockRFI
 
@@ -40,7 +40,7 @@ describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(<ChannelCoaMessageDetail
-        templates={MessageTemplatesMock}
+        templates={MessageTemplatesMockByKey}
         role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
         channel={testChannel}
         isUmpire={true}

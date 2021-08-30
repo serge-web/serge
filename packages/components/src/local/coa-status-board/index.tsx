@@ -15,12 +15,12 @@ import { ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
 
 /** helper to provide legible version of force & role */
-const formatRole = (role: ForceRole) => {
+const formatRole = (role: ForceRole): string => {
   return role.forceName + '-' + role.roleName
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channel, isUmpire, onChange, role, forces }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
@@ -28,7 +28,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
   const assignees = getAssignees(channel.participants, forces)
 
   // collate list of message owners
-  const listofOwners = rfiMessages.reduce((filters: any[], message) => {
+  const listofOwners = messages.reduce((filters: any[], message) => {
     if (message.details.collaboration && message.details.collaboration.owner) {
       return [
         ...filters,
@@ -40,35 +40,31 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
   }, [])
 
   // collate list of sources (From) for messages
-  const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
+  const filtersRoles = messages.reduce((filters: any[], message) => {
     return [
       ...filters,
       message.details.from.roleName
     ]
   }, [])
 
-  const data = rfiMessages.map(message => {
+  /** cache the formatted version of my role */
+  const myRoleFormatted = formatRole(role)
+
+  const data = messages.map(message => {
     const collab = message.details.collaboration
     const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
+    const myDocument = owner === myRoleFormatted
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
       message.details.from.forceColor,
       message.message.Title,
       message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-      owner
+      owner,
+      myDocument
     ]
     return res
   })
-
-  const handleChange = (nextMessage: MessageCustom): void => {
-    const index = rfiMessages.findIndex(message => message._id === nextMessage._id)
-    if (index !== -1) {
-      const nextMessages = [...rfiMessages]
-      nextMessages[index] = nextMessage
-      onChange(nextMessages)
-    }
-  }
 
   const dataTableProps = {
     columns: [
@@ -94,7 +90,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
       }
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, mRole, forceColor, content, status, owner] = row
+      const [id, mRole, forceColor, content, status, owner, myDocument] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -107,16 +103,15 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
         [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
 
-      // TODO: can we reduce the message detail processing when the control is collapsed?
       return {
         collapsible: (
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
               templates={templates}
-              message={(rfiMessages[rowIndex] as MessageCustom)}
+              message={(messages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
-              onChange={handleChange}
+              onChange={onChange}
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
@@ -136,7 +131,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner} /> : null,
+            component: owner ? <Badge customBackgroundColor={myDocument ? '#bb4343' : '#434343'} customSize={myDocument && 'large'} label={owner} /> : null,
             label: owner
           }
         ]

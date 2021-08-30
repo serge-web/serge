@@ -6,7 +6,7 @@ import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import { MessageTemplatesMock, messageDataCollaborativeEditing } from '@serge/mocks'
+import { MessageTemplatesMockByKey, messageDataCollaborativeEditing } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -24,7 +24,7 @@ export default {
 
 export const Default: React.FC = () => {
   return (
-    <JsonEditor message={messageDataCollaborativeEditing[2]} messageTemplates={MessageTemplatesMock} disabled={true} />
+    <JsonEditor message={messageDataCollaborativeEditing[2]} messageTemplates={MessageTemplatesMockByKey} disabled={true} />
   )
 }
 

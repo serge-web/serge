@@ -217,12 +217,13 @@ export const handleAllInitialChannelMessages = (
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
-        participants: [],
+        participants: channel.participants,
         forceIcons,
         forceColors,
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
-        observing: observing
+        observing: observing,
+        format: channel.format
       }
 
       // TODO: use channel uniqid
