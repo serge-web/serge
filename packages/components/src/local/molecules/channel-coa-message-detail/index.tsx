@@ -88,8 +88,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const [actionType, setActionType] = useState<DialogStates>(DialogStates.editEndorse)
 
-  const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate)
-  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate)
+  const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
+  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
 
   const isEditor = formEditable(message, role)
 
@@ -287,7 +287,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
             {
-              ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
+              editDoc &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
             }
             {
@@ -352,7 +352,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
             {
-              ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
+              editResponse &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleResponseSubmit}>Submit</Button>
             }
           </div>

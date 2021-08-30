@@ -75,8 +75,8 @@ export const ColEditClosed = (message: MessageCustom, channel: ChannelData, canR
   return isThisChannel(channel, cEdit) && inClosedState && !!canReleaseMessages
 }
 
-export const ColEditDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
-  return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.EditDocument) && !!canCollaborate
+export const ColEditDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined, role: ForceRole): boolean => {
+  return isThisChannel(channel, cEdit) && isThisState(message, CollaborativeMessageStates.EditDocument) && !!canCollaborate && isThisRole(message, role)
 }
 
 // Collaborative Responding buttons
@@ -88,8 +88,8 @@ export const ColRespResponsePending = (message: MessageCustom, channel: ChannelD
   return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.ResponsePending) && !!canCollaborate
 }
 
-export const ColRespDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined): boolean => {
-  return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.EditResponse) && !!canCollaborate
+export const ColRespDocumentBeingEdited = (message: MessageCustom, channel: ChannelData, canCollaborate: boolean | undefined, role: ForceRole): boolean => {
+  return isThisChannel(channel, cResponse) && isThisState(message, CollaborativeMessageStates.EditResponse) && !!canCollaborate && isThisRole(message, role)
 }
 
 export const ColResponseClosed = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
