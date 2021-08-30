@@ -245,7 +245,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const formatFeedback = (feedback: FeedbackItem): string => {
     return moment(feedback.date).format('YYYY-MM-DD HH:mm') 
-      + ' [' + [feedback.fromName + '] ' 
+      + ' [' + feedback.fromName + '] ' 
       + feedback.feedback
   }
 
