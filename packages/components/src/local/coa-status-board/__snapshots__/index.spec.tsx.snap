@@ -225,40 +225,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             >
               <div
                 className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div />
-                    <div />
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_id_3a"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_id_3a"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    />
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
         </td>
@@ -351,40 +318,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             >
               <div
                 className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div />
-                    <div />
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_id_4"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_id_4"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    />
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
         </td>
@@ -475,40 +409,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             >
               <div
                 className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div />
-                    <div />
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_2020-03-25T15:08:47.540Z"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_2020-03-25T15:08:47.540Z"
-                        onChange={[Function]}
-                        value="The private content goes in here"
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    />
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
         </td>
@@ -599,40 +500,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             >
               <div
                 className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div />
-                    <div />
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_2020-03-25T15:08:47.525Z"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_2020-03-25T15:08:47.525Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    />
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
         </td>
@@ -723,40 +591,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             >
               <div
                 className="MuiCollapse-wrapperInner"
-              >
-                <div
-                  className="rfi-form"
-                >
-                  <div
-                    className="main"
-                  >
-                    <div />
-                    <div />
-                    <div
-                      className="main theme-dark disabled"
-                    >
-                      <label
-                        htmlFor="private_message_2020-03-25T15:08:47.530Z"
-                      >
-                        <svg
-                          className="svg-inline--fa fa-user-secret"
-                        />
-                         
-                        Private Message
-                      </label>
-                      <textarea
-                        disabled={true}
-                        id="private_message_2020-03-25T15:08:47.530Z"
-                        onChange={[Function]}
-                        value=""
-                      />
-                    </div>
-                    <div
-                      className="actions"
-                    />
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
         </td>
