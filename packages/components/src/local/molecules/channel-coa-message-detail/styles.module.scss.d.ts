@@ -3,6 +3,11 @@
 interface CssExports {
   'actions': string;
   'assigned': string;
+  'feedback-content': string;
+  'feedback-header': string;
+  'feedback-icon': string;
+  'feedback-item': string;
+  'feedback-title': string;
   'inset': string;
   'main': string;
 }
