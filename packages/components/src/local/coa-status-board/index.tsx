@@ -50,7 +50,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const data = messages.map(message => {
     const collab = message.details.collaboration
     const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
-    const myDocument = owner && owner === formatRole(role)
+    const myDocument = owner === formatRole(role)
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
