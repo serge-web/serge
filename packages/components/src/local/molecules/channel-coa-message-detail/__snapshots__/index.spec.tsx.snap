@@ -9,5 +9,9 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     className="actions"
   />
   <div />
+  <div
+    className="actions"
+  />
+          
 </div>
 `;
