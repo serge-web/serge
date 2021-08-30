@@ -28,7 +28,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     return <span style={styles} >Schema not found for {message.details.messageType}</span>
   }
 
-  const handleChange = (value: {[property: string]: any}) => {
+  const handleChange = (value: {[property: string]: any}): void => {
     getJsonEditorValue && getJsonEditorValue(value)
   }
 
@@ -43,7 +43,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       })
     }
 
-    return () => {
+    return (): void => {
       if (nextEditor) {
         nextEditor.off('change', () => {
           handleChange(nextEditor.getValue())

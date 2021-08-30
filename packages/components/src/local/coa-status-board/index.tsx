@@ -15,7 +15,7 @@ import { ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
 
 /** helper to provide legible version of force & role */
-const formatRole = (role: ForceRole) => {
+const formatRole = (role: ForceRole): string => {
   return role.forceName + '-' + role.roleName
 }
 
