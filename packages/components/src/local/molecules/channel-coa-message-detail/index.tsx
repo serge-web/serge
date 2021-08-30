@@ -241,7 +241,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     onChange && func && onChange(func(message))
     setOpenDialog(false)
   }
-  
+
   /** value of owner, of `unassigned` */
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
@@ -296,7 +296,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
               </>
             }
-
           </div>
         </>
       ) : (
