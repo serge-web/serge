@@ -242,8 +242,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     setOpenDialog(false)
   }
 
-  /** value of owner, of `unassigned` */
-  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
       <DialogModal
@@ -263,7 +261,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             disabled={!editDoc}
           />
           {
-            isUmpire &&
+            isUmpire && (privateMessage || editDoc) &&
               <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
           <div className={styles.actions}>
@@ -300,14 +298,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
         </>
       ) : (
         <>
-          {
-            collaboration &&
-            <div className={styles.assigned}>
-              <span className={styles.inset}>
-                <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
-              </span>
-            </div>
-          }
           <JsonEditor
             messageTemplates={templates}
             message={message}
@@ -321,7 +311,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
           }
           { // only show private field for umpire force(s)
-            isUmpire &&
+            isUmpire && (privateMessage || editResponse) &&
               <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
           <div className={styles.actions}>
