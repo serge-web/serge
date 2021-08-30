@@ -134,7 +134,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                       tableCells.map((cell: RowDataType, index: number) => {
                         return (
                           <TableCell key={Math.random()}>
-                            { index === 0 &&
+                            { index === 0 && collapsible &&
                             <>
                               <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
                             </>
