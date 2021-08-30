@@ -67,7 +67,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
             roleName: selectedRoleName
           }}
           forces={state.allForces}
-          isUmpire={true}
+          isUmpire={!!isUmpire}
           channel={state.channels[channelId]}
           onChange={() => {}}
         />
