@@ -1,5 +1,5 @@
 import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
-import { channelDataCollaborativeEditing, channelDataCollaborativeEditingCollaborationParticipant, channelDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
+import { channelCollaborativeEditing, channelCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { deepCopy } from '@serge/helpers'
 import { ColEditPendingReview, ColRespPendingReview, formEditable, userCanSeeCollab } from './visibility'
@@ -25,8 +25,8 @@ const blueLogs: ForceRole = {
 
 const message: MessageCustom = messageDataCollaborativeEditing[0]
 
-const coaChannel = channelDataCollaborativeEditing
-const rfiChannel = channelDataCollaborativeResponding
+const coaChannel = channelCollaborativeEditing
+const rfiChannel = channelCollaborativeResponding
 
 const messageEmptyCollab = deepCopy(message)
 messageEmptyCollab.details.collaboration = undefined
@@ -44,7 +44,6 @@ const messageStates: CollaborativeMessageStates[] = [
   CollaborativeMessageStates.Unallocated,
   CollaborativeMessageStates.PendingReview,
   CollaborativeMessageStates.Released,
-  CollaborativeMessageStates.Rejected,
   CollaborativeMessageStates.Finalized,
   CollaborativeMessageStates.Closed,
   CollaborativeMessageStates.DocumentPending,
@@ -92,12 +91,12 @@ describe('Visibility tests', () => {
     }
 
     // white user in collab channel without collab rights
-    expect(userCanSeeCollab(channelDataCollaborativeEditing, whiteUmpire)).toBeFalsy()
+    expect(userCanSeeCollab(coaChannel, whiteUmpire)).toBeFalsy()
     // blue user in collab channel without participation
-    expect(userCanSeeCollab(channelDataCollaborativeEditing, blueLogs)).toBeFalsy()
+    expect(userCanSeeCollab(coaChannel, blueLogs)).toBeFalsy()
 
     // white user in collab channel with collab rights
-    expect(userCanSeeCollab(channelDataCollaborativeEditingCollaborationParticipant, whiteUmpire)).toBeTruthy()
+    expect(userCanSeeCollab(rfiChannel, whiteUmpire)).toBeTruthy()
 
     // now channel with discrete roles
     // white user in collab channel

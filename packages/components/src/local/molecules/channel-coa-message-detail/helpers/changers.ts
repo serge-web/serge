@@ -1,7 +1,7 @@
 import { ForceRole, MessageCustom } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
-export const finalize = (message: MessageCustom): MessageCustom => {
+export const editFinalise = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -29,7 +29,7 @@ export const close = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const requestChanges = (message: MessageCustom): MessageCustom => {
+export const editRequestChanges = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -43,21 +43,7 @@ export const requestChanges = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const endorse = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.DocumentPending,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const collabEditAssign = (
+export const editAssign = (
   message: MessageCustom,
   owner: ForceRole
 ): MessageCustom => {
@@ -74,21 +60,7 @@ export const collabEditAssign = (
   }
 }
 
-export const claim = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.EditDocument,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const submitForReview = (message: MessageCustom, newMsg: {[property: string]: any}, privateMessage: string): MessageCustom => {
+export const editSubmit = (message: MessageCustom, newMsg: {[property: string]: any}, privateMessage: string): MessageCustom => {
   return {
     ...message,
     message: {
@@ -107,7 +79,7 @@ export const submitForReview = (message: MessageCustom, newMsg: {[property: stri
   }
 }
 
-export const collabResponseAssign = (
+export const responseAssign = (
   message: MessageCustom,
   owner: ForceRole
 ): MessageCustom => {
@@ -124,7 +96,7 @@ export const collabResponseAssign = (
   }
 }
 
-export const CRCPsubmit = (
+export const responseSubmit = (
   message: MessageCustom,
   answer: string,
   privateMessage: string
@@ -144,7 +116,7 @@ export const CRCPsubmit = (
   }
 }
 
-export const CRRMRelease = (message: MessageCustom): MessageCustom => {
+export const responseRelease = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -158,7 +130,7 @@ export const CRRMRelease = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const CRRMRequestChanges = (message: MessageCustom): MessageCustom => {
+export const responseRequestChanges = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {

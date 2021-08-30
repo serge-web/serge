@@ -696,7 +696,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label makeStyles-label"
             >
-              Rejected
+              Closed
             </span>
           </div>
         </td>

@@ -14,7 +14,16 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   const jsonEditorRef = useRef(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const schema = messageTemplates.find(msg => msg.title === message.details.messageType)
-  if (!schema) return <p>Schema not found</p>
+
+  if (!schema) {
+    const styles = {
+      color: '#f00',
+      background: '#ff0',
+      padding: '20px',
+      fontSize: '16px'
+    }
+    return <span style={styles} >Schema not found for {message.details.messageType}</span>
+  }
 
   const handleChange = (value: {[property: string]: any}) => {
     getJsonEditorValue && getJsonEditorValue(value)

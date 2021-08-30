@@ -79,7 +79,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       privateMessage: "The private content goes in here",
       timestamp: "2020-10-13T08:52:40.930Z",
       collaboration: {
-        status: CollaborativeMessageStates.Rejected,
+        status: CollaborativeMessageStates.Closed,
         response: "Game control response to RFI 4"
       },
     },

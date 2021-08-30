@@ -1,4 +1,5 @@
 import { ForceData, ForceRole, Participant, Role } from '@serge/custom-types'
+import { uniqBy } from 'lodash'
 
 /** find this force */
 const forceFor = (forces: ForceData[], forceId: string): ForceData => {
@@ -52,12 +53,17 @@ const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRo
         })
         res.push(...matches)
       } else {
+        const allRoles = allRolesFor(force)
         // all roles for this force
-        res.push(...allRolesFor(force))
+        res.push(...allRoles)
       }
     }
   })
-  return res
+  // lastly, remove duplicates
+  const deDupe = uniqBy(res, function (e) {
+    return e.roleId
+  })
+  return deDupe
 }
 
 export default getAssignees
