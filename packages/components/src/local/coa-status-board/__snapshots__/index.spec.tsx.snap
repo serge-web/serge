@@ -146,6 +146,10 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
           Blue-3
         </td>
         <td
@@ -239,6 +243,10 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
           RED-1
         </td>
         <td
@@ -332,6 +340,10 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
           2020-03-25T15:08:47.540Z
         </td>
         <td
@@ -423,6 +435,10 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
           2020-03-25T15:08:47.525Z
         </td>
         <td
@@ -514,6 +530,10 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
           2020-03-25T15:08:47.530Z
         </td>
         <td
