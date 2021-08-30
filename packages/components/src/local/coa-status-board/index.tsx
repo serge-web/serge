@@ -20,7 +20,7 @@ const formatRole = (role: ForceRole) => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channel, isUmpire, onChange, role, forces }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
@@ -28,7 +28,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
   const assignees = getAssignees(channel.participants, forces)
 
   // collate list of message owners
-  const listofOwners = rfiMessages.reduce((filters: any[], message) => {
+  const listofOwners = messages.reduce((filters: any[], message) => {
     if (message.details.collaboration && message.details.collaboration.owner) {
       return [
         ...filters,
@@ -40,14 +40,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
   }, [])
 
   // collate list of sources (From) for messages
-  const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
+  const filtersRoles = messages.reduce((filters: any[], message) => {
     return [
       ...filters,
       message.details.from.roleName
     ]
   }, [])
 
-  const data = rfiMessages.map(message => {
+  const data = messages.map(message => {
     const collab = message.details.collaboration
     const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
     const res = [
@@ -62,9 +62,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
   })
 
   const handleChange = (nextMessage: MessageCustom): void => {
-    const index = rfiMessages.findIndex(message => message._id === nextMessage._id)
+    const index = messages.findIndex(message => message._id === nextMessage._id)
     if (index !== -1) {
-      const nextMessages = [...rfiMessages]
+      const nextMessages = [...messages]
       nextMessages[index] = nextMessage
       onChange(nextMessages)
     }
@@ -113,7 +113,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, rfiMessages, channe
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
               templates={templates}
-              message={(rfiMessages[rowIndex] as MessageCustom)}
+              message={(messages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
               onChange={handleChange}

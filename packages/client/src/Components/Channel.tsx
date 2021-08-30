@@ -60,7 +60,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
       {channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
         <CoaStatusBoard
           templates={state.allTemplatesByKey}
-          rfiMessages={state.channels[channelId].messages}
+          messages={state.channels[channelId].messages}
           role={{
             forceId: selectedForce.uniqid, 
             forceName: selectedForce.name,

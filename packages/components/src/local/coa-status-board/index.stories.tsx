@@ -55,12 +55,12 @@ export default {
 }
 
 const Template: Story<Props> = (args) => {
-  const [messages, setMessages] = useState(args.rfiMessages)
+  const [messages, setMessages] = useState(args.messages)
 
   const onChange = (nextMessages: MessageCustom[]): void => {
     setMessages(nextMessages)
   }
-  return <CoaStatusBoard {...args} forces={collabForces} rfiMessages={messages} onChange={onChange} />
+  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
@@ -92,7 +92,7 @@ const mostColabResponseMock = mostColabResponseMockRaw.map((message: MessageCust
 export const CollaborativeEditEditor = Template.bind({})
 CollaborativeEditEditor.args = {
   channel: channelCollaborativeEditing,
-  rfiMessages: mostColabEditMock,
+  messages: mostColabEditMock,
   isUmpire: false,
   role: blueCollaborator,
   templates: MessageTemplatesMockByKey
@@ -101,7 +101,7 @@ CollaborativeEditEditor.args = {
 export const CollaborativeEditReleaseManager = Template.bind({})
 CollaborativeEditReleaseManager.args = {
   channel: channelCollaborativeEditing,
-  rfiMessages: mostColabEditMock,
+  messages: mostColabEditMock,
   isUmpire: false,
   role: blueReleaseManager,
   templates: MessageTemplatesMockByKey
@@ -110,7 +110,7 @@ CollaborativeEditReleaseManager.args = {
 export const CollaborativeResponseSubmit = Template.bind({})
 CollaborativeResponseSubmit.args = {
   channel: channelCollaborativeResponding,
-  rfiMessages: mostColabResponseMock,
+  messages: mostColabResponseMock,
   isUmpire: true,
   role: blueAuthor,
   templates: MessageTemplatesMockByKey
@@ -119,7 +119,7 @@ CollaborativeResponseSubmit.args = {
 export const CollaborativeResponseParticipateWhite = Template.bind({})
 CollaborativeResponseParticipateWhite.args = {
   channel: channelCollaborativeResponding,
-  rfiMessages: mostColabResponseMock,
+  messages: mostColabResponseMock,
   isUmpire: true,
   role: whiteCollaborator,
   templates: MessageTemplatesMockByKey
@@ -128,7 +128,7 @@ CollaborativeResponseParticipateWhite.args = {
 export const CollaborativeResponseParticipateExcon = Template.bind({})
 CollaborativeResponseParticipateExcon.args = {
   channel: channelCollaborativeResponding,
-  rfiMessages: mostColabResponseMock,
+  messages: mostColabResponseMock,
   isUmpire: true,
   role: exconCollaborator,
   templates: MessageTemplatesMockByKey
@@ -137,7 +137,7 @@ CollaborativeResponseParticipateExcon.args = {
 export const CollaborativeResponseRelease = Template.bind({})
 CollaborativeResponseRelease.args = {
   channel: channelCollaborativeResponding,
-  rfiMessages: mostColabResponseMock,
+  messages: mostColabResponseMock,
   isUmpire: true,
   role: whiteReleaseMgr,
   templates: MessageTemplatesMockByKey
