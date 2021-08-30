@@ -70,7 +70,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
           forces={state.allForces}
           isUmpire={!!isUmpire}
           channel={state.channels[channelId]}
-          onChange={() => {}}
+          onChange={handleChange}
         />
       ) : (
         <ChannelMessagesList
