@@ -50,18 +50,18 @@ export const createMessageExportItem = ({ currentWargame, exportMessagelist = []
   return createExportItem({ type: EXPORT_ITEM_MESSAGES, title, wargame: currentWargame, data })
 }
 
-const keysSimplyfy = (row: FlatMessage): FlatMessage => {
+const keysSimplify = (row: FlatMessage): FlatMessage => {
   const newRow: FlatMessage = {}
   for (const key of Object.keys(row)) {
     const subkeys: string[] = key.split('.')
     // if (typeof mainKey === undefined) mainKey = ''
-    const newKey = keysSimplyfyGetNewKey(subkeys)
+    const newKey = keysSimplifyGetNewKey(subkeys)
     newRow[newKey.join(' ')] = row[key]
   }
   return newRow
 }
 
-const keysSimplyfyGetNewKey = (subkeys: string[]): string[] => {
+const keysSimplifyGetNewKey = (subkeys: string[]): string[] => {
   const newKey = []
   for (var i = 0; i < subkeys.length; i++) {
     if (subkeys[i].replace(/\s/g,"") !== "") {
@@ -117,7 +117,7 @@ const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message
         msg.details.channel = channelTitles[msg.details.channel]
       }
     }
-    const flatMsg: FlatMessage = keysSimplyfy(flatten<Message, FlatMessage>(msg))
+    const flatMsg: FlatMessage = keysSimplify(flatten<Message, FlatMessage>(msg))
     const objectKeys = Object.keys(flatMsg)
     for (const key of objectKeys) {
       // check if fields/titles have no current key then add
