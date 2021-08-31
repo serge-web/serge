@@ -4,7 +4,6 @@ import _ from "lodash"
 const isUniquePasscode = (newData: ForceData, forces: ForceData[]): Array<{}> => {
   // create final forces data which will update in database
   let forcesData = _.map(forces, force => force.uniqid === newData.uniqid ? newData : force)
-  let dupForceRoleNames = []
   
   //extract require data from forces
   const extForces = _.reduce(
@@ -23,7 +22,7 @@ const isUniquePasscode = (newData: ForceData, forces: ForceData[]): Array<{}> =>
   )
   
   // check duplicate passcode in every force
-  dupForceRoleNames = _.chain(extForces)
+  const dupForceRoleNames = _.chain(extForces)
     .groupBy("roleId")
     .map((output) => ({ roles: output }))
     .filter(output => output.roles.length > 1)
