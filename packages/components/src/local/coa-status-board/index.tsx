@@ -103,22 +103,29 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.ResponsePending]: '#0366d6'
       }
 
-      return {
-        collapsible: (
+      const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
+        return (
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
               templates={templates}
               message={(messages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
-              onChange={onChange}
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
               assignees={assignees}
+              onChange={(newMeesage: MessageCustom): void => {
+                onChange && onChange(newMeesage)
+                typeof onChangeCallback === 'function' && onChangeCallback()
+              }}
             />
           </div>
-        ),
+        )
+      }
+
+      return {
+        collapsible,
         cells: [
           id,
           {
