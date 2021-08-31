@@ -23,7 +23,7 @@ const isUniquePasscode = (newData: ForceData, forces: ForceData[]): Array<{}> =>
   
   // check duplicate passcode in every force
   const dupForceRoleNames = _.chain(extForces)
-    .groupBy("roleId")
+    .groupBy('roleId')
     .map((output) => ({ roles: output }))
     .filter(output => output.roles.length > 1)
     .flatMap(output => output.roles)
