@@ -50,7 +50,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   const initialPlatformType: PlatformType = platformType || newPlatformType
   const [localPlatformType, setLocalPlatformType] = useState(initialPlatformType)
-  const [selectedItem, setSelectedItem] = useState(0)
+  const [selectedItem, setSelectedItem] = useState(-1)
 
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(localPlatformType.platformTypes.findIndex(item => item === _item))
