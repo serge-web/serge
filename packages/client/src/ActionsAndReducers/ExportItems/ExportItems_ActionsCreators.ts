@@ -54,26 +54,22 @@ const keysSimplyfy = (row: FlatMessage): FlatMessage => {
   const newRow: FlatMessage = {}
   for (const key of Object.keys(row)) {
     const subkeys: string[] = key.split('.')
-    let mainKey: string = subkeys[subkeys.length - 1]
     // if (typeof mainKey === undefined) mainKey = ''
-    const newKey = keysSimplyfyGetNewKey(subkeys, mainKey)
+    const newKey = keysSimplyfyGetNewKey(subkeys)
     newRow[newKey.join(' ')] = row[key]
   }
   return newRow
 }
 
-const keysSimplyfyGetNewKey = (subkeys: string[], mainKey: string): string[] => {
+const keysSimplyfyGetNewKey = (subkeys: string[]): string[] => {
   const newKey = []
-  for (var i = 1; i < subkeys.length; i++) {
+  for (var i = 0; i < subkeys.length; i++) {
     if (subkeys[i].replace(/\s/g,"") !== "") {
       // note: this used to be the format string, but the keys were being duplicated
       // we also dropped the leading EXPORT_ITEM_MESSAGES key
       // newKey.push(`${subkeys[i - 1] || EXPORT_ITEM_MESSAGES}_${subkeys[i]}`)
-      newKey.push(`${subkeys[i - 1]}`)
+      newKey.push(`${subkeys[i]}`)
     }
-  }
-  if (mainKey) {
-    newKey.push(mainKey)
   }
   return newKey
 }
