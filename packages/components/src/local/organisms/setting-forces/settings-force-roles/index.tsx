@@ -98,7 +98,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
-      roleId: getUniquePasscode(forces),
+      roleId: getUniquePasscode(forces, "r"),
       name: 'New Role',
       canSubmitPlans: false,
       isGameControl: false,

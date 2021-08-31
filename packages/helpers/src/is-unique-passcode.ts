@@ -1,46 +1,36 @@
 import { ForceData } from "@serge/custom-types"
 import _ from "lodash"
 
-
-const isUniquePasscode = (newData: ForceData, forces: ForceData[]): string[] => {
+const isUniquePasscode = (newData: ForceData, forces: ForceData[]): Array<{}> => {
+  // create final forces data which will update in database
+  let forcesData = _.map(forces, force => force.uniqid === newData.uniqid ? newData : force)
+  let dupForceRoleNames = []
   
-  let dupRoleNames = _.chain(newData.roles)
-    .groupBy("roleId")
-    .map((output) => ({ roles: _.map(output, role => role.name) }))
-    .filter(output => output.roles.length > 1)
-    .flatMap(output => output.roles)
-    .value()
-
-  const newForces = _.reduce(
-    forces,
+  //extract require data from forces
+  const extForces = _.reduce(
+    forcesData,
     (output, force) => {
       force.roles.forEach(role => {
         (output || (output = [])).push({
-          uniqid: force.uniqid,
+          forceName: force.name,
           roleId: role.roleId,
-          name: role.name
+          roleName: role.name
         })
       })
       return output
     },
-    Array<{ uniqid: string, roleId: string, name: string}>()
+    Array<{ forceName:string, roleId: string, roleName: string}>()
   )
-
   
-  // unique password check in multiple force
-  for (const force of newForces) {
-    for (const role of newData.roles) {
-      // compare password stored in database and new update of password
-      if (
-        newData.uniqid !== force.uniqid &&
-        role.roleId === force.roleId
-      ) {
-        dupRoleNames.push(role.name)
-      }
-    }
-  }
+  // check duplicate passcode in every force
+  dupForceRoleNames = _.chain(extForces)
+    .groupBy("roleId")
+    .map((output) => ({ roles: output }))
+    .filter(output => output.roles.length > 1)
+    .flatMap(output => output.roles)
+    .value()
 
-  return _.uniq(dupRoleNames)
+  return _.uniqBy(dupForceRoleNames, output => [output.forceName, output.roleName].join())
 }
 
 export default isUniquePasscode
