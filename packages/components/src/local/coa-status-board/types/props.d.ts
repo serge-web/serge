@@ -1,8 +1,8 @@
-import { MessageCustom, ForceRole, ChannelData, ForceData } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData, ForceData, TemplateBodysByKey } from '@serge/custom-types'
 export default interface Props {
-  rfiMessages: MessageCustom[]
+  messages: MessageCustom[]
   channel: ChannelData
-  onChange: (nextMessages: MessageCustom[]) => void
+  onChange: (nextMessage: MessageCustom) => void
   /** if this player is from the UMPIRE force */
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
@@ -13,7 +13,7 @@ export default interface Props {
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
-  templates: TemplateBody[]
+  templates: TemplateBodysByKey
   /** list of forces */
   forces: ForceData[]
 }

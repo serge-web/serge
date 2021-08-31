@@ -8,6 +8,8 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Collapse from '@material-ui/core/Collapse'
 import TableHeadCell from '../../atoms/table-head-cell'
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Types */
 import Props, { RowDataType, RowWithCollapsibleType } from './types/props'
@@ -58,7 +60,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
-  const [expandedRow, setExpandedRow] = useState(-1)
+  const [expandedRows, setExpandedRows] = useState<Array<number>>([])
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
     if (filters.includes(filter)) {
@@ -77,7 +79,12 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
     }
   }
   const onToggleRow = (rowIndex: any): void => {
-    setExpandedRow(rowIndex === expandedRow ? -1 : rowIndex)
+    if (expandedRows.includes(rowIndex)) {
+      // remove it
+      setExpandedRows(expandedRows.filter((val: number) => val !== rowIndex))
+    } else {
+      setExpandedRows([rowIndex, ...expandedRows])
+    }
   }
   const rows = useMemo(() => {
     let localData = [...data]
@@ -116,6 +123,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
               // ideally we'll use the contents of cell zero (message-id). If we can't
               // just use the row count
               const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
+              const isExpanded = expandedRows.includes(rowIndex)
               return (
                 <React.Fragment key={Math.random()}>
                   <TableRow
@@ -123,9 +131,14 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                     onClick={(): void => collapsible && onToggleRow(rowIndex)}
                   >
                     {
-                      tableCells.map((cell: RowDataType) => {
+                      tableCells.map((cell: RowDataType, index: number) => {
                         return (
                           <TableCell key={Math.random()}>
+                            { index === 0 && collapsible &&
+                            <>
+                              <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                            </>
+                            }
                             {
                               typeof cell !== 'string' && cell?.component !== undefined
                                 ? cell.component
@@ -141,8 +154,8 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                       ? (
                         <TableRow className={classes.tableRowCollapsible}>
                           <TableCell colSpan={cells.length}>
-                            <Collapse in={rowIndex === expandedRow}>
-                              { collapsible }
+                            <Collapse in={isExpanded}>
+                              { isExpanded && collapsible }
                             </Collapse>
                           </TableCell>
                         </TableRow>

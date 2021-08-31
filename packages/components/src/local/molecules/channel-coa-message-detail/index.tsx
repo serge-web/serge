@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 /* Import Types */
 import Props from './types/props'
 
@@ -8,14 +9,12 @@ import styles from './styles.module.scss'
 /* Import Components */
 import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
-import Badge from '../../atoms/badge'
 import DialogModal from '../../atoms/dialog'
 import SplitButton from '../../atoms/split-button'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
 import {
@@ -43,6 +42,7 @@ import {
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole } from '@serge/custom-types'
+import Collapsible from '../../helper-elements/collapsible'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -79,7 +79,7 @@ const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): 
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
-  const [newMsg, setNewMsg] = useState<{[property: string]: any}>({})
+  const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [open, setOpenDialog] = useState<boolean>(false)
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
@@ -88,8 +88,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const [actionType, setActionType] = useState<DialogStates>(DialogStates.editEndorse)
 
-  const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate)
-  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate)
+  const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
+  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
 
   const isEditor = formEditable(message, role)
 
@@ -98,7 +98,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const candidates = getCandidates(assignees)
 
-  const getJsonEditorValue = (val: {[property: string]: any}) => {
+  const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
   }
 
@@ -219,6 +219,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       }
       message.details.collaboration.feedback.push(feedbackItem)
     }
+
     // sort out which handler to call
     let func
     switch (actionType) {
@@ -242,8 +243,52 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     setOpenDialog(false)
   }
 
+  const formatFeedback = (feedback: FeedbackItem): string => {
+    return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
+      ' [' + feedback.fromName + '] ' +
+      feedback.feedback
+  }
+
+  const CollapsibleHeader = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
+    const multipleFeedback = feedback.length > 1
+    const handleOnExpand = (): void => {
+      multipleFeedback && onExpand(!collapsed)
+    }
+    return (
+      <div className={styles['feedback-header']} onClick={handleOnExpand}>
+        <span className={styles['feedback-icon']}>{multipleFeedback && (collapsed ? '+' : '-')}</span>
+        {formatFeedback(feedback[feedback.length - 1])}
+      </div>
+    )
+  }
+
+  const CollapsibleContent = ({ collapsed, feedback }: any): React.ReactElement => {
+    // put in reverse chronological order
+    const descending = feedback.slice().reverse()
+    return (
+      <div className={styles['feedback-content']}>
+        {!collapsed && descending.map((item: FeedbackItem, key: number) => {
+          if (key > 0) return (<div key={key}>{formatFeedback(item)}</div>)
+          else return null
+        })}
+      </div>
+    )
+  }
+
   /** value of owner, of `unassigned` */
-  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
+  const feedback = message.details.collaboration?.feedback
+
+  // create a single feedback block - we use it in either message type
+  const feedbackBlock = (canCollaborate || canReleaseMessages || isUmpire) && feedback && feedback.length > 0 && (
+    <div>
+      <div className={styles['feedback-title']}>Feedback</div>
+      <div className={styles['feedback-item']}>
+        <Collapsible
+          header={<CollapsibleHeader feedback={feedback} />}
+          content={<CollapsibleContent feedback={feedback} />}
+        />
+      </div>
+    </div>)
 
   return (
     <div className={styles.main}>
@@ -257,16 +302,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       />
       {channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ? (
         <>
-          <JsonEditor
-            messageTemplates={templates}
-            message={message}
-            getJsonEditorValue={getJsonEditorValue}
-            disabled={!editDoc}
-          />
-          {
-            isUmpire &&
-              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          }
           <div className={styles.actions}>
             {
               ColEditPendingReview(message, channel, canReleaseMessages) &&
@@ -288,43 +323,33 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               </>
             }
             {
-              ColEditDocumentBeingEdited(message, channel, canCollaborate) &&
-              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
-            }
-            {
               ColEditClosed(message, channel, canReleaseMessages) &&
               <>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
               </>
             }
-
           </div>
-        </>
-      ) : (
-        <>
           {
-            collaboration &&
-            <div className={styles.assigned}>
-              <span className={styles.inset}>
-                <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
-              </span>
-            </div>
+            feedbackBlock
           }
           <JsonEditor
             messageTemplates={templates}
             message={message}
             getJsonEditorValue={getJsonEditorValue}
-            disabled={true}
+            disabled={!editDoc}
           />
           {
-            isEditor && !responseIsReleased
-              ? <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!editResponse} theme='dark' label="Answer"/>
-              : <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+            isUmpire && (privateMessage || editDoc) &&
+              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
           }
-          { // only show private field for umpire force(s)
-            isUmpire &&
-              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
-          }
+          <div className={styles.actions}>
+            {
+              editDoc &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
+            }
+          </div>        </>
+      ) : (
+        <>
           <div className={styles.actions}>
             {
               ColResponseClosed(message, channel, canReleaseMessages) &&
@@ -351,8 +376,29 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClaim}>Claim</Button>
               </>
             }
+          </div>
+          {
+            feedbackBlock
+          }
+          <JsonEditor
+            messageTemplates={templates}
+            message={message}
+            getJsonEditorValue={getJsonEditorValue}
+            disabled={true}
+          />
+          {
+            responseIsReleased
+              ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+              : (canCollaborate || canReleaseMessages) &&
+              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
+          }
+          { // only show private field for umpire force(s)
+            isUmpire && (privateMessage || editResponse) &&
+              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          }
+          <div className={styles.actions}>
             {
-              ColRespDocumentBeingEdited(message, channel, canCollaborate) &&
+              editResponse &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleResponseSubmit}>Submit</Button>
             }
           </div>
