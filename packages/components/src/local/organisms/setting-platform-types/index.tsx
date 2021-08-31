@@ -259,7 +259,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           onClick={handleSwitch}
           onCreate={handleCreatePlatformType}
           title='Create'
-          selectedItem={localPlatformType.platformTypes[selectedItem].name}
+          selectedItem={selectedItem >= 0 ? localPlatformType.platformTypes[selectedItem].name : undefined}
           filterKey="name"
         />
       </LeftSide>
