@@ -56,7 +56,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
-        lastUpdated: "2020-03-25T15:08:47.540Z",
+        lastUpdated: '2020-03-25T15:08:47.540Z',
         status: CollaborativeMessageStates.ResponsePending
       }
     },
@@ -84,7 +84,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
-        lastUpdated: "2020-03-25T15:08:47.540Z",
+        lastUpdated: '2020-03-25T15:08:47.540Z',
         status: CollaborativeMessageStates.EditResponse
       }
     },
@@ -113,7 +113,7 @@ const testMock: MessageCustom[] = [
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
-        lastUpdated: "2020-03-25T15:08:47.540Z",
+        lastUpdated: '2020-03-25T15:08:47.540Z',
         status: CollaborativeMessageStates.Closed,
         response: 'Game control response to RFI 4'
       }
@@ -140,7 +140,7 @@ const testMock: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
-        lastUpdated: "2020-03-25T15:08:47.540Z",
+        lastUpdated: '2020-03-25T15:08:47.540Z',
         status: CollaborativeMessageStates.PendingReview,
         response: 'Game control response to RFI 4'
       }
@@ -167,7 +167,7 @@ const testMock: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
-        lastUpdated: "2020-03-25T15:08:47.540Z",
+        lastUpdated: '2020-03-25T15:08:47.540Z',
         status: CollaborativeMessageStates.Released,
         response: 'Game control response to RFI 4'
       }

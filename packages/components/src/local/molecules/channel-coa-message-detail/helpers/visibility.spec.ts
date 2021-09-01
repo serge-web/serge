@@ -33,6 +33,7 @@ messageEmptyCollab.details.collaboration = undefined
 
 const messageOwnedByUmpire = deepCopy(message)
 messageOwnedByUmpire.details.collaboration = {
+  lastUpdated: "2020-03-25T15:08:47.540Z",
   status: CollaborativeMessageStates.PendingReview,
   owner: whiteUmpire
 }
