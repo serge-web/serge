@@ -27,6 +27,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:52:04.394Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
     },
@@ -53,6 +54,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:52:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
     },
@@ -80,6 +82,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:52:40.930Z",
       collaboration: {
         status: CollaborativeMessageStates.Closed,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
     },
@@ -105,6 +108,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:52:21.119Z",
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released
       }
     },
@@ -132,6 +136,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Unallocated
       }
     },
@@ -159,6 +164,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.DocumentPending
       }
     },
@@ -187,6 +193,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
       }
     },
@@ -215,6 +222,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueCO.roleId, roleName: blueCO.name }
       }
     },
@@ -243,6 +251,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         response: 'RFI 3 response from White Logistics',
       }
     },
@@ -270,6 +279,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released
       }
     },
@@ -298,6 +308,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[0].uniqid, forceName: forces[0].name, roleId: whiteGC.roleId, roleName: whiteGC.name }
       }
     },
@@ -326,6 +337,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4",
       }
     },
@@ -354,6 +366,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.Released,
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
       privateMessage: "The private content goes in here"
