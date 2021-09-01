@@ -6,6 +6,7 @@ import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { forces, MessageTemplatesMockByKey } from '@serge/mocks'
 import CoaStatusBoard from './index'
+import moment from 'moment'
 
 /* Import mock data */
 // import { GameChannels } from '@serge/mocks'
@@ -56,7 +57,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
-        lastUpdated: '2020-03-25T15:08:47.540Z',
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.ResponsePending
       }
     },
@@ -84,7 +85,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
-        lastUpdated: '2020-03-25T15:08:47.540Z',
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.EditResponse
       }
     },
@@ -113,7 +114,7 @@ const testMock: MessageCustom[] = [
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
-        lastUpdated: '2020-03-25T15:08:47.540Z',
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Closed,
         response: 'Game control response to RFI 4'
       }
@@ -140,7 +141,7 @@ const testMock: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
-        lastUpdated: '2020-03-25T15:08:47.540Z',
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         response: 'Game control response to RFI 4'
       }
@@ -167,7 +168,7 @@ const testMock: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
-        lastUpdated: '2020-03-25T15:08:47.540Z',
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Released,
         response: 'Game control response to RFI 4'
       }
