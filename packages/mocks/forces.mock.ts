@@ -1273,6 +1273,14 @@ export const forces: ForceData[] = [
         isInsightViewer: false,
         isObserver: false,
         name: 'CO'
+      },
+      {
+        roleId: 'rkrlss55f5e',
+        isGameControl: false,
+        canSubmitPlans: true,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Game Control'
       }
     ],
     umpire: false,

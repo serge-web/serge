@@ -25,6 +25,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
+import { findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
 
 /**
  * TODOS:
@@ -102,6 +103,7 @@ const AdminGameSetup = () => {
   }
 
   const handleFormChange = changes => {
+
     dispatch(setGameData(changes))
   }
 
@@ -122,6 +124,12 @@ const AdminGameSetup = () => {
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
+    const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
+    if (dupForceRoleNames.length > 0) {
+      dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+      return
+    }
+    
     if (typeof forceName === 'string' && forceName.length > 0) {
       if (!isUniqueForceName(newForceData)) return
       const selectedForce = forces.selectedForce.name
@@ -190,7 +198,7 @@ const AdminGameSetup = () => {
       const template = forceTemplate
       template.name = id
       template.uniqid = id
-
+      template.roles.map(role => role.roleId = getUniquePasscode(forces.forces, "p"))
       await dispatch(saveForce(currentWargame, id, template, id))
     }
   }
