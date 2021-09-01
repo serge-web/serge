@@ -22,6 +22,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:54:21.119Z',
       privateMessage: 'Private part of COA 3',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Finalized,
         response: 'Response to RFI 3'
       }
@@ -97,6 +98,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:55:21.119Z',
       privateMessage: 'Private part of RFI 1',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
         response: 'Didn\'t bother responding'
       }
@@ -172,6 +174,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
         response: 'Game control response to RFI 444',
         feedback: [
@@ -252,6 +255,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       messageType: 'COA',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.EditDocument,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
@@ -330,6 +334,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       messageType: 'COA',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.DocumentPending,
         response: 'Game control response to Blue-2'
       }
@@ -407,6 +412,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.ResponsePending,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
@@ -442,6 +448,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.EditResponse,
         response: 'Game control response to RFI 4'
       }
@@ -474,6 +481,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
         response: 'Game control response to RFI 4',
         feedback: [
@@ -509,6 +517,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
         response: 'Game control response to RFI 4'
       }
@@ -540,6 +549,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
+        lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released,
         response: 'Game control response to Blue-2'
       }
