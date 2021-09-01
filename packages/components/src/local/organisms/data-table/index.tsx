@@ -10,6 +10,7 @@ import Collapse from '@material-ui/core/Collapse'
 import TableHeadCell from '../../atoms/table-head-cell'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import cx from 'classnames'
 
 /* Import Types */
 import Props, { RowDataType, RowWithCollapsibleType } from './types/props'
@@ -127,14 +128,14 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
               return (
                 <React.Fragment key={Math.random()}>
                   <TableRow
-                    className={`${classes.tableRow} ${collapsible ? classes.tableRowCollapsibleTrigger : ''}`}
-                    onClick={(): void => collapsible && onToggleRow(rowIndex)}
+                    className={cx(classes.tableRow, classes.tableRowCollapsibleTrigger)}
+                    onClick={(): void => onToggleRow(rowIndex)}
                   >
                     {
                       tableCells.map((cell: RowDataType, index: number) => {
                         return (
                           <TableCell key={Math.random()}>
-                            { index === 0 && collapsible &&
+                            { index === 0 &&
                             <>
                               <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
                             </>
@@ -149,19 +150,13 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                       })
                     }
                   </TableRow>
-                  {
-                    collapsible
-                      ? (
-                        <TableRow className={classes.tableRowCollapsible}>
-                          <TableCell colSpan={cells.length}>
-                            <Collapse in={isExpanded}>
-                              { isExpanded && collapsible }
-                            </Collapse>
-                          </TableCell>
-                        </TableRow>
-                      )
-                      : null
-                  }
+                  <TableRow className={classes.tableRowCollapsible}>
+                    <TableCell colSpan={cells.length}>
+                      <Collapse in={isExpanded}>
+                        {isExpanded && collapsible((): void => { onToggleRow(rowIndex) })}
+                      </Collapse>
+                    </TableCell>
+                  </TableRow>
                 </React.Fragment>
               )
             })
