@@ -33,6 +33,36 @@ const getForceColors = (forces: ForceData[]): ForceColor[] => {
   })
 }
 
+const getListOfOwners = (messages: MessageCustom[]): string[] => {
+  const roles = messages.reduce((filters: string[], message) => {
+    const collab = message.details.collaboration
+    if (collab && collab.owner) {
+      return [
+        ...filters,
+        formatRole(collab.owner)
+      ]
+    } else {
+      return filters
+    }
+  }, [])
+  // just the unique sources
+  return [... new Set(roles)]
+}
+
+const getListOfSources = (messages: MessageCustom[]): string[] => {
+  return messages.reduce((filters: any[], message) => {
+    if (!message.details.from) {
+      console.warn(message, 'message have no from.roleName')
+      return filters
+    }
+    return [
+      ...filters,
+      message.details.from.roleName
+    ]
+  }, [])
+}
+
+
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
@@ -51,28 +81,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }, [forces])
 
   // collate list of message owners
-  const listofOwners = messages.reduce((filters: any[], message) => {
-    if (message.details.collaboration && message.details.collaboration.owner) {
-      return [
-        ...filters,
-        formatRole(message.details.collaboration.owner)
-      ]
-    } else {
-      return filters
-    }
-  }, [])
+  const listofOwners = getListOfOwners(messages)
 
   // collate list of sources (From) for messages
-  const filtersRoles = messages.reduce((filters: any[], message) => {
-    if (!message.details.from) {
-      console.warn(message, 'message have no from.roleName')
-      return filters
-    }
-    return [
-      ...filters,
-      message.details.from.roleName
-    ]
-  }, [])
+  const filtersRoles = getListOfSources(messages)
 
   /** cache the formatted version of my role */
   const myRoleFormatted = formatRole(role)
@@ -80,7 +92,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const data = messages.map(message => {
     const collab = message.details.collaboration
     const ownerRole = (collab && collab.owner) || undefined
-    const ownerName = (ownerRole && ownerRole.roleName) || undefined
+    // const ownerName = (ownerRole && ownerRole.roleName) || undefined
     const ownerForce = ownerRole && forceColors.find((fCol: ForceColor) => fCol.uniqid === ownerRole.forceId)
     const ownerColor = (ownerForce && ownerForce.color) || '#f00'
     // generate the owner of this document
@@ -94,7 +106,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       message.details.from.forceColor,
       message.message.Title,
       collab ? collab.status : 'Unallocated',
-      ownerName,
+      ownerComposite,
       ownerColor,
       myDocument,
       lastUpdated
