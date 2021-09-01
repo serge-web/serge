@@ -93,17 +93,18 @@ it('Check non-duplicate force role passcode', () => {
   expect(res).toHaveLength(0)
 })
 
-it('Check duplicate force role passcode', () => {
+it('Check multiple duplicate passcodes', () => {
   const res = isUniquePasscode(selectedForceRevised, allForces)
   expect(res).toHaveLength(4)
+  expect(res[0].roleId).toEqual(res[1].roleId)
+  expect(res[2].roleId).toEqual(res[3].roleId)
 })
 
-it('Check duplicate force role passcode legacy wargame', () => {
+it('Check duplicate passcode between new force and rest of forces', () => {
   const res = isUniquePasscode(selectedForce, allForces)
   expect(res).toHaveLength(2)
-})
-
-it('Check duplicate force role passcode legacy wargame duplicate roleId not matched', () => {
-  const res = isUniquePasscode(selectedForce, allForces)
-  expect(res[0].roleId === 'rkrlss55f5e').toBeTruthy()
+  expect(res[0].roleId).toEqual('rkrlss55f5e')
+  expect(res[1].roleId).toEqual('rkrlss55f5e')
+  expect(res[0].roleName).toEqual('Logs')
+  expect(res[1].roleName).toEqual('Game Control')
 })
