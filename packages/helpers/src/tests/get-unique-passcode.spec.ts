@@ -11,6 +11,6 @@ it('Check force role unique passcode', () => {
 })
 
 it('Check force role unique passcode return value', () => {
-    const res = getUniquePasscode(allForces, 'R')
-    expect(res).toBeTruthy()
-  })
+  const res = getUniquePasscode(allForces, 'R')
+  expect(res).toBeTruthy()
+})
