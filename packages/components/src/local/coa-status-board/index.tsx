@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
@@ -36,12 +36,21 @@ const getForceColors = (forces: ForceData[]): ForceColor[] => {
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
+  const [forceColors, setForceColors] = useState<ForceColor[]>([])
+  const [assignees, setAssignees] = useState<ForceRole[]>([])
+
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
 
-  const assignees = getAssignees(channel.participants, forces)
-  const forceColors: ForceColor[] = getForceColors(forces)
+  useEffect(() => {
+    setAssignees(getAssignees(channel.participants, forces))
+  }, [channel, forces])
+
+
+  useEffect(() => {
+    setForceColors(getForceColors(forces))
+  }, [forces])
 
   // collate list of message owners
   const listofOwners = messages.reduce((filters: any[], message) => {
@@ -117,7 +126,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         filters: listofOwners,
         label: 'Owner'
       },
-      'Last updated'
+      'Updated'
     ],
     data: data.map((row, rowIndex): any => {
       const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated] = row
