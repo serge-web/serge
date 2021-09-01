@@ -15,8 +15,7 @@ import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
 import moment from 'moment'
 
-/** data for a message that is being
- * collaboarively edited
+/** combine force id and color
  */
  export interface ForceColor {
    uniqid: string
