@@ -130,7 +130,11 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
-        />
+        >
+          <span>
+            Owner
+          </span>
+        </th>
       </tr>
     </thead>
     <tbody
