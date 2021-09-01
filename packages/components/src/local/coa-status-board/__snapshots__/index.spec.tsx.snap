@@ -135,6 +135,15 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             Owner
           </span>
         </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <span>
+            Updated
+          </span>
+        </th>
       </tr>
     </thead>
     <tbody
@@ -197,18 +206,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
         >
-          <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-16"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-17"
-            >
-              Pending
-            </span>
-          </div>
+          a few seconds ago
         </td>
       </tr>
       <tr
@@ -218,7 +221,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={5}
+          colSpan={6}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -258,12 +261,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-18"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-16"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-19"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-17"
             >
               CO
             </span>
@@ -280,12 +283,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-20"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-18"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-21"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-19"
             >
               Edit Response
             </span>
@@ -294,18 +297,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
         >
-          <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-22"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-23"
-            >
-              Pending
-            </span>
-          </div>
+          a few seconds ago
         </td>
       </tr>
       <tr
@@ -315,7 +312,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={5}
+          colSpan={6}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -355,12 +352,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-24"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-20"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-25"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-21"
             >
               Game Control
             </span>
@@ -375,12 +372,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-26"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-22"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-27"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-23"
             >
               Closed
             </span>
@@ -389,18 +386,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
         >
-          <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-28"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-29"
-            >
-              Pending
-            </span>
-          </div>
+          a few seconds ago
         </td>
       </tr>
       <tr
@@ -410,7 +401,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={5}
+          colSpan={6}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -450,12 +441,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-30"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-24"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-31"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-25"
             >
               CO
             </span>
@@ -470,12 +461,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-32"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-26"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-33"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-27"
             >
               Pending review
             </span>
@@ -484,18 +475,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
         >
-          <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-34"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-35"
-            >
-              Pending
-            </span>
-          </div>
+          a few seconds ago
         </td>
       </tr>
       <tr
@@ -505,7 +490,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={5}
+          colSpan={6}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"
@@ -545,12 +530,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-36"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-28"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-37"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-29"
             >
               CO
             </span>
@@ -565,12 +550,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-38"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-30"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-39"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-31"
             >
               Released
             </span>
@@ -579,18 +564,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
         >
-          <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-40"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-41"
-            >
-              Pending
-            </span>
-          </div>
+          a few seconds ago
         </td>
       </tr>
       <tr
@@ -600,7 +579,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-          colSpan={5}
+          colSpan={6}
         >
           <div
             className="MuiCollapse-container MuiCollapse-hidden"

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
@@ -11,21 +11,44 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
-import { ForceRole } from '@serge/custom-types'
+import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
+import moment from 'moment'
+
+/** combine force id and color
+ */
+export interface ForceColor {
+   uniqid: string
+   color: string
+}
 
 /** helper to provide legible version of force & role */
 const formatRole = (role: ForceRole): string => {
   return role.forceName + '-' + role.roleName
 }
 
+const getForceColors = (forces: ForceData[]): ForceColor[] => {
+  return forces.map((force: ForceData) => {
+    return { uniqid: force.uniqid, color: force.color }
+  })
+}
+
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
+  const [forceColors, setForceColors] = useState<ForceColor[]>([])
+  const [assignees, setAssignees] = useState<ForceRole[]>([])
+
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
 
-  const assignees = getAssignees(channel.participants, forces)
+  useEffect(() => {
+    setAssignees(getAssignees(channel.participants, forces))
+  }, [channel, forces])
+
+  useEffect(() => {
+    setForceColors(getForceColors(forces))
+  }, [forces])
 
   // collate list of message owners
   const listofOwners = messages.reduce((filters: any[], message) => {
@@ -56,16 +79,25 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   const data = messages.map(message => {
     const collab = message.details.collaboration
-    const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
-    const myDocument = owner === myRoleFormatted
+    const ownerRole = (collab && collab.owner) || undefined
+    const ownerName = (ownerRole && ownerRole.roleName) || undefined
+    const ownerForce = ownerRole && forceColors.find((fCol: ForceColor) => fCol.uniqid === ownerRole.forceId)
+    const ownerColor = (ownerForce && ownerForce.color) || '#f00'
+    // generate the owner of this document
+    const ownerComposite = (ownerRole && formatRole(ownerRole)) || undefined
+    // am I the owner?
+    const myDocument = ownerComposite === myRoleFormatted
+    const lastUpdated = collab ? moment(collab.lastUpdated).fromNow() : 'Pending'
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
       message.details.from.forceColor,
       message.message.Title,
-      message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-      owner,
-      myDocument
+      collab ? collab.status : 'Unallocated',
+      ownerName,
+      ownerColor,
+      myDocument,
+      lastUpdated
     ]
     return res
   })
@@ -91,10 +123,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       {
         filters: listofOwners,
         label: 'Owner'
-      }
+      },
+      'Updated'
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, mRole, forceColor, content, status, owner, myDocument] = row
+      const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -138,13 +171,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
           },
           content,
           {
-            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status} />,
+            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor={myDocument ? '#bb4343' : '#434343'} customSize={myDocument && 'large'} label={owner} /> : null,
-            label: owner
-          }
+            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={ownerName} /> : null,
+            label: ownerName
+          },
+          lastUpdated
         ]
       }
     })
