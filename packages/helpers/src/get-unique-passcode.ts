@@ -1,6 +1,6 @@
-import { ForceData } from "@serge/custom-types"
-import _ from "lodash"
-import uniqid from "uniqid"
+import { ForceData } from '@serge/custom-types'
+import _ from 'lodash'
+import uniqid from 'uniqid'
 
 const getUniquePasscode = (forces: ForceData[], passcodePrefix:string): string => {
   let uniquePasscode = uniqid.time(passcodePrefix)

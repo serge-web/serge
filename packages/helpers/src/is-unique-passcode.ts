@@ -1,7 +1,7 @@
-import { ForceData } from "@serge/custom-types"
-import _ from "lodash"
+import { ForceData } from '@serge/custom-types'
+import _ from 'lodash'
 
-const isUniquePasscode = (newData: ForceData, forces: ForceData[]): Array<{}> => {
+const isUniquePasscode = (newData: ForceData, forces: ForceData[]): Array<{ forceName?:string, roleId?: string, roleName?: string }> => {
   // create final forces data which will update in database
   let forcesData = _.map(forces, force => force.uniqid === newData.uniqid ? newData : force)
   
