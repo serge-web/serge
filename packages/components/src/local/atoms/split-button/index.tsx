@@ -84,7 +84,7 @@ export const SplitButton: React.FC<Props> = ({ label, options = [], onClick }: P
             <ArrowDropDownIcon />
           </Button>
         </ButtonGroup>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className={styles['popper']}>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className={styles.popper}>
           {({ TransitionProps, placement }): ReactElement => (
             <Grow
               {...TransitionProps}
