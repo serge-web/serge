@@ -24,6 +24,7 @@ export const Default: React.FC = () => {
   return <RolesAccordion
     data={data}
     handleChangeForce={(nextData): void => setData(nextData)}
+    forces={forcesMock}
   />
 }
 
