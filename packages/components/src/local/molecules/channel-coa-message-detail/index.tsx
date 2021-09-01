@@ -106,10 +106,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
    * in message
    */
   const handleChange = (msg: MessageCustom): void => {
-    const collab = msg.details.collaboration
-    if (collab) {
-      collab.lastUpdated = moment(new Date(), moment.ISO_8601).format()
-    }
     onChange && onChange(msg)
   }
 
