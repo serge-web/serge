@@ -81,18 +81,25 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         [CollaborativeMessageStates.Closed]: '#434343'
       }
 
-      return {
-        collapsible: (
+      const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
+        return (
           <div className={styles['rfi-form']}>
             <ChannelRfiMessageDetail
               isRFIManager={isRFIManager}
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
-              onChange={onChange}
+              onChange={(newMeesage: MessageCustom): void => {
+                onChange && onChange(newMeesage)
+                typeof onChangeCallback === 'function' && onChangeCallback()
+              }}
             />
           </div>
-        ),
+        )
+      }
+
+      return {
+        collapsible,
         cells: [
           id,
           channel,
