@@ -46,7 +46,7 @@ const getListOfOwners = (messages: MessageCustom[]): string[] => {
     }
   }, [])
   // just the unique sources
-  return [... new Set(roles)]
+  return [...new Set(roles)]
 }
 
 const getListOfSources = (messages: MessageCustom[]): string[] => {
@@ -61,7 +61,6 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
     ]
   }, [])
 }
-
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
