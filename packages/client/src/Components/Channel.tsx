@@ -56,37 +56,39 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      {channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
-        <CoaStatusBoard
-          templates={state.allTemplatesByKey}
-          messages={state.channels[channelId].messages}
-          role={{
-            forceId: selectedForce.uniqid, 
-            forceName: selectedForce.name,
-            roleId: selectedRole, 
-            roleName: selectedRoleName
-          }}
-          forces={state.allForces}
-          isUmpire={!!isUmpire}
-          channel={state.channels[channelId]}
-          onChange={handleChange}
-        />
-      ) : (
-        <ChannelMessagesList
-          messages={state.channels[channelId].messages || []}
-          onRead={handleOpenMessage}
-          onUnread={handleUnreadMessage}
-          turnPresentation={state.turnPresentation}
-          role={selectedRole}
-          isRFIManager={state.isRFIManager}
-          isUmpire={!!isUmpire}
-          onChange={handleChange}
-          playerForceId={selectedForce.uniqid}
-          icons={icons || []}
-          colors={colors || []}
-          onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
-        />
-      )}
+      <div className='flexlayout__scrollbox'>
+        {channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
+          <CoaStatusBoard
+            templates={state.allTemplatesByKey}
+            messages={state.channels[channelId].messages}
+            role={{
+              forceId: selectedForce.uniqid, 
+              forceName: selectedForce.name,
+              roleId: selectedRole, 
+              roleName: selectedRoleName
+            }}
+            forces={state.allForces}
+            isUmpire={!!isUmpire}
+            channel={state.channels[channelId]}
+            onChange={handleChange}
+          />
+        ) : (
+          <ChannelMessagesList
+            messages={state.channels[channelId].messages || []}
+            onRead={handleOpenMessage}
+            onUnread={handleUnreadMessage}
+            turnPresentation={state.turnPresentation}
+            role={selectedRole}
+            isRFIManager={state.isRFIManager}
+            isUmpire={!!isUmpire}
+            onChange={handleChange}
+            playerForceId={selectedForce.uniqid}
+            icons={icons || []}
+            colors={colors || []}
+            onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
+          />
+        )}
+      </div>
       {
         state.channels[channelId].observing === false &&
         <NewMessage

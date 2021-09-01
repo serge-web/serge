@@ -41,6 +41,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   // collate list of sources (From) for messages
   const filtersRoles = messages.reduce((filters: any[], message) => {
+    if (!message.details.from) {
+      console.warn(message, 'message have no from.roleName');
+      return filters
+    }
     return [
       ...filters,
       message.details.from.roleName
