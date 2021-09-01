@@ -35,6 +35,10 @@ select {
   min-width: 250px;
   padding: 5px;
 
+  .message-editor & {
+    background-color: $background-field !important;
+  }
+  
   .new-message-creator & {
     border: 2px solid $primary-color;
   }
