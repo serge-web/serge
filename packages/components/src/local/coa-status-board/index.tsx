@@ -17,7 +17,7 @@ import moment from 'moment'
 
 /** combine force id and color
  */
- export interface ForceColor {
+export interface ForceColor {
    uniqid: string
    color: string
 }
@@ -28,9 +28,9 @@ const formatRole = (role: ForceRole): string => {
 }
 
 const getForceColors = (forces: ForceData[]): ForceColor[] => {
-  return forces.map((force: ForceData) => { 
-    return {uniqid: force.uniqid, color: force.color}
-   })
+  return forces.map((force: ForceData) => {
+    return { uniqid: force.uniqid, color: force.color }
+  })
 }
 
 /* Render component */
@@ -45,7 +45,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   useEffect(() => {
     setAssignees(getAssignees(channel.participants, forces))
   }, [channel, forces])
-
 
   useEffect(() => {
     setForceColors(getForceColors(forces))
@@ -80,10 +79,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   const data = messages.map(message => {
     const collab = message.details.collaboration
-    const ownerRole = collab && collab.owner || undefined
+    const ownerRole = (collab && collab.owner) || undefined
     const ownerName = (ownerRole && ownerRole.roleName) || undefined
-    const ownerForce = ownerRole && forceColors.find((fCol:ForceColor) => fCol.uniqid === ownerRole.forceId)
-    const ownerColor =  ownerForce && ownerForce.color || '#f00'
+    const ownerForce = ownerRole && forceColors.find((fCol: ForceColor) => fCol.uniqid === ownerRole.forceId)
+    const ownerColor = (ownerForce && ownerForce.color) || '#f00'
     // generate the owner of this document
     const ownerComposite = (ownerRole && formatRole(ownerRole)) || undefined
     // am I the owner?
