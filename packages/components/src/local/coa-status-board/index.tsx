@@ -11,13 +11,27 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
-import { ForceRole } from '@serge/custom-types'
+import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
 import moment from 'moment'
+
+/** data for a message that is being
+ * collaboarively edited
+ */
+ export interface ForceColor {
+   uniqid: string
+   color: string
+}
 
 /** helper to provide legible version of force & role */
 const formatRole = (role: ForceRole): string => {
   return role.forceName + '-' + role.roleName
+}
+
+const getForceColors = (forces: ForceData[]): ForceColor[] => {
+  return forces.map((force: ForceData) => { 
+    return {uniqid: force.uniqid, color: force.color}
+   })
 }
 
 /* Render component */
@@ -27,6 +41,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
 
   const assignees = getAssignees(channel.participants, forces)
+  const forceColors: ForceColor[] = getForceColors(forces)
 
   // collate list of message owners
   const listofOwners = messages.reduce((filters: any[], message) => {
@@ -57,8 +72,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   const data = messages.map(message => {
     const collab = message.details.collaboration
-    const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
-    const myDocument = owner === myRoleFormatted
+    const ownerRole = collab && collab.owner || undefined
+    const ownerName = (ownerRole && ownerRole.roleName) || undefined
+    const ownerForce = ownerRole && forceColors.find((fCol:ForceColor) => fCol.uniqid === ownerRole.forceId)
+    const ownerColor =  ownerForce && ownerForce.color || '#f00'
+    // generate the owner of this document
+    const ownerComposite = (ownerRole && formatRole(ownerRole)) || undefined
+    // am I the owner?
+    const myDocument = ownerComposite === myRoleFormatted
     const lastUpdated = collab ? moment(collab.lastUpdated).fromNow() : 'Pending'
     const res = [
       message.message.Reference || message._id,
@@ -66,7 +87,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       message.details.from.forceColor,
       message.message.Title,
       collab ? collab.status : 'Unallocated',
-      owner,
+      ownerName,
+      ownerColor,
       myDocument,
       lastUpdated
     ]
@@ -98,7 +120,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       'Last updated'
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, mRole, forceColor, content, status, owner, myDocument, lastUpdated] = row
+      const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -146,8 +168,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor={myDocument ? '#bb4343' : '#434343'} customSize={myDocument && 'large'} label={owner} /> : null,
-            label: owner
+            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={ownerName} /> : null,
+            label: ownerName
           },
           lastUpdated
         ]
