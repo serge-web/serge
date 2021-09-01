@@ -57,7 +57,11 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
   switch (true) {
     case typeof content === 'string':
       return <span>{ content }</span>
-    case contentFilter.filters.length > 0:
+    // just show label if there are zero or one filters.  No
+    // need to filter if there is only one item :-)
+    case contentFilter.filters && contentFilter.filters.length <= 1:
+      return <span>{ contentFilter.label }</span>
+    case contentFilter.filters.length > 1:
       return (
         <>
           <Button
