@@ -13,6 +13,7 @@ import styles from './styles.module.scss'
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 import { ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
+import moment from 'moment'
 
 /** helper to provide legible version of force & role */
 const formatRole = (role: ForceRole): string => {
@@ -58,14 +59,16 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     const collab = message.details.collaboration
     const owner = (collab && collab.owner && formatRole(collab.owner)) || 'Pending'
     const myDocument = owner === myRoleFormatted
+    const lastUpdated = collab ? moment(collab.lastUpdated).fromNow() : 'Pending'
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
       message.details.from.forceColor,
       message.message.Title,
-      message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
+      collab ? collab.status : 'Unallocated',
       owner,
-      myDocument
+      myDocument,
+      lastUpdated
     ]
     return res
   })
@@ -91,10 +94,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       {
         filters: listofOwners,
         label: 'Owner'
-      }
+      },
+      'Last updated'
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, mRole, forceColor, content, status, owner, myDocument] = row
+      const [id, mRole, forceColor, content, status, owner, myDocument, lastUpdated] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -138,13 +142,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
           },
           content,
           {
-            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status} />,
+            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
             label: status
           },
           {
             component: owner ? <Badge customBackgroundColor={myDocument ? '#bb4343' : '#434343'} customSize={myDocument && 'large'} label={owner} /> : null,
             label: owner
-          }
+          },
+          lastUpdated
         ]
       }
     })
