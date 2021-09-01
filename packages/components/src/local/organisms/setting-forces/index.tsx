@@ -122,6 +122,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             <RolesAccordion
               data={data}
               handleChangeForce={handleChangeForce}
+              forces={forcesData}
             />
 
             <AssetsAccordion
