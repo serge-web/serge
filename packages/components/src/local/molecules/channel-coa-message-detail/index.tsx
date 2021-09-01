@@ -41,7 +41,7 @@ import {
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { FeedbackItem, ForceRole } from '@serge/custom-types'
+import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
@@ -102,12 +102,23 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     setNewMsg(val)
   }
 
+  /** local change handler. Updates `lastUpdated` value
+   * in message
+   */
+  const handleChange = (msg: MessageCustom): void => {
+    const collab = msg.details.collaboration
+    if (collab) {
+      collab.lastUpdated = moment(new Date(), moment.ISO_8601).format()
+    }
+    onChange && onChange(msg)
+  }
+
   const handleEditFinalise = (): void => {
-    onChange && onChange(editFinalise(message))
+    handleChange(editFinalise(message))
   }
 
   const handleEditClose = (): void => {
-    onChange && onChange(close(message))
+    handleChange(close(message))
   }
 
   const handleRequestChanges = (): void => {
@@ -136,15 +147,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    onChange && onChange(editAssign(message, assignee))
+    handleChange(editAssign(message, assignee))
   }
 
   const handleClaim = (): void => {
-    onChange && onChange(editAssign(message, role))
+    handleChange(editAssign(message, role))
   }
 
   const handleEditingSubmit = (): void => {
-    onChange && onChange(editSubmit(message, newMsg, privateMessage))
+    handleChange(editSubmit(message, newMsg, privateMessage))
   }
 
   const handleResponseAssign = (selection: string): void => {
@@ -152,15 +163,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    onChange && onChange(responseAssign(message, assignee))
+    handleChange(responseAssign(message, assignee))
   }
 
   const handleResponseClaim = (): void => {
-    onChange && onChange(responseAssign(message, role))
+    handleChange(responseAssign(message, role))
   }
 
   const handleResponseSubmit = (): void => {
-    onChange && onChange(responseSubmit(message, answer, privateMessage))
+    handleChange(responseSubmit(message, answer, privateMessage))
   }
 
   const handleResponseReopen = (): void => {
@@ -171,11 +182,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleResponseClose = (): void => {
-    onChange && onChange(close(message))
+    handleChange(close(message))
   }
 
   const handleResponseRelease = (): void => {
-    onChange && onChange(responseRelease(message))
+    handleChange(responseRelease(message))
   }
 
   const handleResponseRequestChanges = (): void => {
@@ -239,7 +250,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
         func = responseRequestChanges
         break
     }
-    onChange && func && onChange(func(message))
+    handleChange(func(message))
     setOpenDialog(false)
   }
 

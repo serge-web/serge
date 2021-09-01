@@ -120,6 +120,10 @@ export interface CollaborationDetails {
    * Message status
    */
    status: CollaborativeMessageStates
+   /** date-time when the last change 
+    * was made to this message
+    */
+   lastUpdated: string
    /**
     * Current message owner
     */
