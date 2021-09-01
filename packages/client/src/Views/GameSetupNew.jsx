@@ -25,7 +25,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
-import { isUniquePasscode, getUniquePasscode } from '@serge/helpers'
+import { findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
 
 /**
  * TODOS:
@@ -124,7 +124,7 @@ const AdminGameSetup = () => {
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
-    const dupForceRoleNames = isUniquePasscode(newForceData, forces.forces)
+    const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
     if (dupForceRoleNames.length > 0) {
       dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
       return
