@@ -1,8 +1,8 @@
 import { messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
 import {
-  editFinalise, close, editRequestChanges, editAssign,
-  editSubmit, responseAssign, responseSubmit, responseRelease, responseRequestChanges
+  editFinalise, close, requestChanges,
+  editSubmit, assign, responseSubmit, responseRelease
 } from './changers'
 import { ForceRole } from '@serge/custom-types'
 
@@ -26,10 +26,9 @@ describe('Changer tests', () => {
     expect(pendingReview.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)
     expect(editFinalise(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Finalized)
     expect(close(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Closed)
-    expect(editRequestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Pending)
+    expect(requestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Pending)
 
     expect(responseRelease(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Released)
-    expect(responseRequestChanges(pendingReview).details.collaboration?.status).toEqual(CollaborativeMessageStates.Pending)
 
     // check original status unchanged
     expect(pendingReview.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)
@@ -40,13 +39,9 @@ describe('Changer tests', () => {
 
     expect(pendingReview.details.collaboration?.owner).toEqual(undefined)
 
-    const res1 = editAssign(pendingReview, whiteUmpire)
+    const res1 = assign(pendingReview, whiteUmpire)
     expect(res1.details.collaboration?.status).toEqual(CollaborativeMessageStates.BeingEdited)
     expect(res1.details.collaboration?.owner).toEqual(whiteUmpire)
-
-    const res3 = responseAssign(pendingReview, whiteUmpire)
-    expect(res3.details.collaboration?.status).toEqual(CollaborativeMessageStates.BeingEdited)
-    expect(res3.details.collaboration?.owner).toEqual(whiteUmpire)
 
     // create a mock message object, like those we get from json-editor
     const msgTxt = 'message content'
