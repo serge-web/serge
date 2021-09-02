@@ -57,11 +57,10 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const messages =  channelMessages ? channelMessages as MessageCustom[] : []
   const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
+  const templates = state.channels[channelId].templates || []
   // if this is a collab working channel, strip out any chat templates - since we only use structured messages
   // in collab working channels
-  const templates = state.channels[channelId].templates || []
   const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
-  console.log('trimmed', trimmedTemplates)
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
