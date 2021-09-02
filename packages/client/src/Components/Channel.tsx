@@ -98,7 +98,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         )}
       </div>
       {
-        state.channels[channelId].observing === false && trimmedTemplates.length &&
+        state.channels[channelId].observing === false && trimmedTemplates.length > 0 &&
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
