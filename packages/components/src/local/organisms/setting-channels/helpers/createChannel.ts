@@ -1,6 +1,6 @@
 import { ChannelData, ForceData, Participant } from '@serge/custom-types'
 import uniqid from 'uniqid'
-import { SpecialChannelTypes } from '@serge/config'
+import { SpecialChannelTypes, SpecialChannelColumns } from '@serge/config'
 import { generateSubscriptionId } from './createParticipant'
 import { CollabOptions } from '@serge/custom-types/channel-data'
 
@@ -47,7 +47,6 @@ const createChannel = (
       // add participant to channel
       participants.push(participant)
       // define collabOptions for channel based on SpecialChannelType
-      const extraColumns: string[] = []
       const returnVerbs: string[] = []
       if (format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
         returnVerbs.push('Endorse')
@@ -56,7 +55,7 @@ const createChannel = (
           mode: 'edit',
           returnVerbs,
           startWithReview: true,
-          extraColumns
+          extraColumns: [SpecialChannelColumns]
         }
       } else {
         collabOptions = {
