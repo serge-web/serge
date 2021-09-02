@@ -14,6 +14,9 @@ import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
 import moment from 'moment'
+import getColumns from './helpers/get-columns'
+import { SpecialChannelColumns } from '../../../../config/build/enums'
+import { capitalize } from 'lodash'
 
 /** combine force id and color
  */
@@ -102,6 +105,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     // am I the owner?
     const myDocument = ownerComposite === myRoleFormatted
     const lastUpdated = collab ? moment(collab.lastUpdated).fromNow() : 'Pending'
+
     const res = [
       message.message.Reference || message._id,
       message.details.from.roleName,
@@ -113,35 +117,51 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       myDocument,
       lastUpdated
     ]
+
+    // see if there are any other columns required
+    if (channel.collabOptions && channel.collabOptions.extraColumns) {
+      const newCols = getColumns(message, channel.collabOptions.extraColumns)
+      res.push(newCols)
+    }
+
     return res
   })
 
+  const columnHeaders = [
+    'ID',
+    {
+      filters: [...new Set(filtersRoles)],
+      label: 'From'
+    },
+    'Title',
+    {
+      filters: [
+        CollaborativeMessageStates.Unallocated,
+        CollaborativeMessageStates.BeingEdited,
+        CollaborativeMessageStates.BeingEdited,
+        CollaborativeMessageStates.PendingReview,
+        CollaborativeMessageStates.Released
+      ],
+      label: 'Status'
+    },
+    {
+      filters: listofOwners,
+      label: 'Owner'
+    },
+    'Updated'
+  ]
+
+  if (channel.collabOptions && channel.collabOptions.extraColumns) {
+    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string => {
+      return capitalize(col)
+    })
+    columnHeaders.push(...newCols)
+  }
+
   const dataTableProps = {
-    columns: [
-      'ID',
-      {
-        filters: [...new Set(filtersRoles)],
-        label: 'From'
-      },
-      'Title',
-      {
-        filters: [
-          CollaborativeMessageStates.Unallocated,
-          CollaborativeMessageStates.BeingEdited,
-          CollaborativeMessageStates.BeingEdited,
-          CollaborativeMessageStates.PendingReview,
-          CollaborativeMessageStates.Released
-        ],
-        label: 'Status'
-      },
-      {
-        filters: listofOwners,
-        label: 'Owner'
-      },
-      'Updated'
-    ],
+    columns: columnHeaders,
     data: data.map((row, rowIndex): any => {
-      const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated] = row
+      const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated, extraCols] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -175,25 +195,32 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         )
       }
 
+      const cells = [
+        id,
+        {
+          component: <Badge customBackgroundColor={forceColor} label={mRole} />,
+          label: mRole
+        },
+        content,
+        {
+          component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
+          label: status
+        },
+        {
+          component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
+          label: ownerName
+        },
+        lastUpdated
+      ]
+
+      // extra cols?
+      if (extraCols) {
+        cells.push(...extraCols)
+      }
+
       return {
         collapsible,
-        cells: [
-          id,
-          {
-            component: <Badge customBackgroundColor={forceColor} label={mRole} />,
-            label: mRole
-          },
-          content,
-          {
-            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
-            label: status
-          },
-          {
-            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
-            label: ownerName
-          },
-          lastUpdated
-        ]
+        cells: cells
       }
     })
   }
