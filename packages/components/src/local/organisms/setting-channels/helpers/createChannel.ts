@@ -55,7 +55,7 @@ const createChannel = (
           mode: 'edit',
           returnVerbs,
           startWithReview: true,
-          extraColumns: [SpecialChannelColumns]
+          extraColumns: [SpecialChannelColumns.LOCATION]
         }
       } else {
         collabOptions = {
