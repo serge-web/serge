@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
 
 /* Import Types */
 import Props from './types/props'
@@ -15,7 +15,6 @@ import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
 import moment from 'moment'
 import getColumns from './helpers/get-columns'
-import { SpecialChannelColumns } from '../../../../config/build/enums'
 import { capitalize } from 'lodash'
 
 /** combine force id and color

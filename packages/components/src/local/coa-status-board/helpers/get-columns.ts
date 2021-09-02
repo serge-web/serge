@@ -6,7 +6,7 @@ const compressData = (message: any): string[] => {
     const items = message[prop]
     const matches = items.map((item: any) => {
       return Object.keys(item).map((prop2) => {
-        return '' + prop + ' - ' + item[prop2]
+        return '' + prop + '-' + item[prop2]
       })
     })
     return matches
