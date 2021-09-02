@@ -26,14 +26,14 @@ const runServer = (
   const localDB = new PouchDB('message_types')
 
   const nextDb = new PouchDB('message_types.sqlite')
-  
+
   localDB.replicate.to(nextDb).on('complete', function () {
     console.log('yay, we\'re done!');
   }).on('error', function (err) {
     console.log('boo, something went wrong!');
   });
   // end replicate database
-  return 
+  return
   */
   const fs = require('fs')
 
