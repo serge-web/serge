@@ -21,6 +21,20 @@ const runServer = (
     .plugin(require('pouchdb-replication'))
     .defaults(pouchOptions)
 
+  /*
+  // replicate database
+  const localDB = new PouchDB('message_types')
+
+  const nextDb = new PouchDB('message_types.sqlite')
+
+  localDB.replicate.to(nextDb).on('complete', function () {
+    console.log('yay, we\'re done!');
+  }).on('error', function (err) {
+    console.log('boo, something went wrong!');
+  });
+  // end replicate database
+  return
+  */
   const fs = require('fs')
 
   onAppInitListeningAddons.forEach(addon => {

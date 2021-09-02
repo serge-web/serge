@@ -5,7 +5,7 @@ export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
 
 export const MSG_STORE = 'messages'
-export const MSG_TYPE_STORE = 'message_types'
+export const MSG_TYPE_STORE = 'message_types.sqlite'
 export const SERGE_INFO = 'serge_info'
 export const CHAT_CHANNEL_ID = 'game-admin'
 
@@ -66,6 +66,9 @@ export const EXPORT_ITEM_FORCES = 'forces'
 // names of special channels
 export const CHANNEL_RFI_STATUS = 'rfis'
 export const CHANNEL_MAPPING = 'mapping'
+
+// Chat template ID
+export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
