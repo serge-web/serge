@@ -4,7 +4,7 @@ import PouchDB from 'pouchdb'
 import {
   databasePath,
   MSG_TYPE_STORE
-} from '../consts'
+} from '@serge/config'
 
 import machineryFailure from '../Schemas/machinery_failure.json'
 import weatherForecast from '../Schemas/weather_forecase.json'
