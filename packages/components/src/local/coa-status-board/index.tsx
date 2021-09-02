@@ -215,7 +215,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
       // extra cols?
       if (extraCols) {
-        cells.push(...extraCols)
+        const cols: string[][] = extraCols
+        const newCols = cols.map((entries: string[]) => {
+          return entries.map((entry: string) => {
+            // todo: try to return a `Badge` like above for each country
+            return entry + ' '
+          })
+        })
+        cells.push(...newCols)
       }
 
       return {
