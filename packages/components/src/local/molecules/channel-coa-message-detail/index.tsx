@@ -348,7 +348,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           {
             responseIsReleased
               ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
-              : (canCollaborate || canReleaseMessages) &&
+              : (canCollaborate || canReleaseMessages || isUmpire) &&
               <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
           }
           { // only show private field for umpire force(s)
