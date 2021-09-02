@@ -5,7 +5,7 @@ export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
 
 export const MSG_STORE = 'messages'
-export const MSG_TYPE_STORE = 'message_types.sqlite'
+export const MSG_TYPE_STORE = 'message_types'
 export const SERGE_INFO = 'serge_info'
 export const CHAT_CHANNEL_ID = 'game-admin'
 
