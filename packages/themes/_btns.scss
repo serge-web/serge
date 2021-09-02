@@ -219,6 +219,13 @@ button {
       rgba(163, 56, 56, 0.986)
     );
     margin: 0 20px;
+    padding:0 !important;
+    color:#e9ecef !important;
+  }
+
+  &--send-message {
+    padding:0.5px !important;
+    color:#e9ecef !important;
   }
 
   &--secondary {
