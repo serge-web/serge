@@ -10,7 +10,7 @@ import {
   markUnread
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom, TemplateBody } from '@serge/custom-types'
 import { CoaStatusBoard } from "@serge/components";
 import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
@@ -55,10 +55,17 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const channelFormat = state.channels[channelId].format
   const channelMessages = state.channels[channelId].messages 
   const messages =  channelMessages ? channelMessages as MessageCustom[] : []
+  const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+
+  const templates = state.channels[channelId].templates || []
+  // if this is a collab working channel, strip out any chat templates - since we only use structured messages
+  // in collab working channels
+  const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
+
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox'>
-        {channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
+        { isCollabWorking ? (
           <CoaStatusBoard
             templates={state.allTemplatesByKey}
             messages={messages}
@@ -91,13 +98,13 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         )}
       </div>
       {
-        state.channels[channelId].observing === false &&
+        state.channels[channelId].observing === false && trimmedTemplates.length > 0 &&
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
           generateNextReference={generateNextReference}
           privateMessage={!!selectedForce.umpire}
-          templates={state.channels[channelId].templates || []}
+          templates={trimmedTemplates}
         />
       }
     </div>
