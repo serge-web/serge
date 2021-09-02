@@ -165,7 +165,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates.DocumentPending
+        status: CollaborativeMessageStates.Pending
       }
     },
     message: {

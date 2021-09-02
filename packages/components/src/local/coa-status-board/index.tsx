@@ -71,6 +71,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
 
+  // whether this user should see metadata about the message being edited
+  const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
+
   useEffect(() => {
     setAssignees(getAssignees(channel.participants, forces))
   }, [channel, forces])
@@ -124,8 +127,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       {
         filters: [
           CollaborativeMessageStates.Unallocated,
-          CollaborativeMessageStates.EditDocument,
-          CollaborativeMessageStates.EditResponse,
+          CollaborativeMessageStates.BeingEdited,
+          CollaborativeMessageStates.BeingEdited,
           CollaborativeMessageStates.PendingReview,
           CollaborativeMessageStates.Released
         ],
@@ -144,11 +147,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.PendingReview]: '#434343',
         [CollaborativeMessageStates.Finalized]: '#007219',
         [CollaborativeMessageStates.Released]: '#007219',
-        [CollaborativeMessageStates.EditResponse]: '#ffc107',
+        [CollaborativeMessageStates.BeingEdited]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.EditDocument]: '#ffc107',
-        [CollaborativeMessageStates.DocumentPending]: '#0366d6',
-        [CollaborativeMessageStates.ResponsePending]: '#0366d6'
+        [CollaborativeMessageStates.BeingEdited]: '#ffc107',
+        [CollaborativeMessageStates.Pending]: '#0366d6',
+        [CollaborativeMessageStates.Pending]: '#0366d6'
       }
 
       const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
@@ -186,7 +189,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
             label: status
           },
           {
-            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={ownerName} /> : null,
+            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
             label: ownerName
           },
           lastUpdated

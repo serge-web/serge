@@ -20,13 +20,11 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import {
   editFinalise,
   close,
-  editRequestChanges,
-  editAssign,
+  requestChanges,
+  assign,
   editSubmit,
-  responseAssign,
   responseSubmit,
-  responseRelease,
-  responseRequestChanges
+  responseRelease
 } from './helpers/changers'
 import {
   ColEditPendingReview,
@@ -47,14 +45,6 @@ import Collapsible from '../../helper-elements/collapsible'
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
 )
-
-enum DialogStates {
-  editEndorse,
-  editRequestChanges,
-  editReopen,
-  responseRequestChanges,
-  responseReopen
-}
 
 /** for the specified channel, provide a list of people who
  * can have documents assigned to them
@@ -85,8 +75,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
   const [assignBtnLabel] = useState<string>('Assign to')
-
-  const [actionType, setActionType] = useState<DialogStates>(DialogStates.editEndorse)
 
   const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
   const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
@@ -119,23 +107,28 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const handleRequestChanges = (): void => {
     setDialogTitle('Request changes to document')
-    setActionType(DialogStates.editRequestChanges)
     setPlaceHolder('Enter requested changes...')
     setOpenDialog(true)
   }
 
   const handleEndorse = (): void => {
     setDialogTitle('Endorse document')
-    setActionType(DialogStates.editEndorse)
     setPlaceHolder('Endorsement comment (optional)')
     setOpenDialog(true)
   }
 
   const handleReopen = (): void => {
     setDialogTitle('Reopen document')
-    setActionType(DialogStates.editReopen)
     setPlaceHolder('Reason for reopening')
     setOpenDialog(true)
+  }
+
+  const handleClaim = (): void => {
+    handleChange(assign(message, role))
+  }
+
+  const handleEditingSubmit = (): void => {
+    handleChange(editSubmit(message, newMsg, privateMessage))
   }
 
   const handleAssign = (selection: string): void => {
@@ -143,27 +136,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    handleChange(editAssign(message, assignee))
-  }
-
-  const handleClaim = (): void => {
-    handleChange(editAssign(message, role))
-  }
-
-  const handleEditingSubmit = (): void => {
-    handleChange(editSubmit(message, newMsg, privateMessage))
-  }
-
-  const handleResponseAssign = (selection: string): void => {
-    // unpack the fields
-    const fields = selection.split(' - ')
-    // find the matching role
-    const assignee = roleFromName(fields[0], fields[1], assignees)
-    handleChange(responseAssign(message, assignee))
-  }
-
-  const handleResponseClaim = (): void => {
-    handleChange(responseAssign(message, role))
+    handleChange(assign(message, assignee))
   }
 
   const handleResponseSubmit = (): void => {
@@ -172,7 +145,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const handleResponseReopen = (): void => {
     setDialogTitle('Reopen response')
-    setActionType(DialogStates.responseReopen)
     setPlaceHolder('Reason for reopening')
     setOpenDialog(true)
   }
@@ -187,7 +159,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const handleResponseRequestChanges = (): void => {
     setDialogTitle('Request changes in response')
-    setActionType(DialogStates.responseRequestChanges)
     setPlaceHolder('Enter requested changes...')
     setOpenDialog(true)
   }
@@ -227,26 +198,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       message.details.collaboration.feedback.push(feedbackItem)
     }
 
-    // sort out which handler to call
-    let func
-    switch (actionType) {
-      case DialogStates.editEndorse:
-        func = editRequestChanges
-        break
-      case DialogStates.editRequestChanges:
-        func = editRequestChanges
-        break
-      case DialogStates.responseRequestChanges:
-        func = responseRequestChanges
-        break
-      case DialogStates.editReopen:
-        func = editRequestChanges
-        break
-      case DialogStates.responseReopen:
-        func = responseRequestChanges
-        break
-    }
-    handleChange(func(message))
+    handleChange(requestChanges(message))
     setOpenDialog(false)
   }
 
@@ -378,9 +330,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <SplitButton
                   label={assignBtnLabel}
                   options={[...candidates]}
-                  onClick={handleResponseAssign}
+                  onClick={handleAssign}
                 />
-                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClaim}>Claim</Button>
+                <Button customVariant="form-action" size="small" type="button" onClick={handleClaim}>Claim</Button>
               </>
             }
           </div>

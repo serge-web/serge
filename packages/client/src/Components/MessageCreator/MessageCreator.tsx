@@ -48,7 +48,7 @@ const MessageCreator: React.FC<Props> = (props) => {
       }
     } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
       details.collaboration = {
-        status: CollaborativeMessageStates.ResponsePending,
+        status: CollaborativeMessageStates.Pending,
         lastUpdated: moment(new Date(), moment.ISO_8601).format()
       }
     }
@@ -234,7 +234,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         <button name='cancel' className='btn btn-action btn-action--form btn-action--cancel' onClick={props.onCancel}>
             <span>Cancel</span>
         </button>
-        <button name='send' className='btn btn-action btn-action--form' onClick={sendMessage}>
+        <button name='send' className='btn btn-action btn-action--form btn-action--send-message' onClick={sendMessage}>
           <span>Send Message</span>
         </button>
       </div>

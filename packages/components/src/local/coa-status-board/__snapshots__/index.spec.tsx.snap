@@ -199,7 +199,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-15"
             >
-              Response Unallocated
+              Unallocated
             </span>
           </div>
         </td>
@@ -290,7 +290,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-19"
             >
-              Edit Response
+              Being edited
             </span>
           </div>
         </td>
