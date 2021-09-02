@@ -40,7 +40,7 @@ export const editRequestChanges = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.DocumentPending,
+        status: CollaborativeMessageStates.Pending,
         owner: undefined
       }
     }
@@ -58,7 +58,7 @@ export const editAssign = (
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.EditDocument,
+        status: CollaborativeMessageStates.BeingEdited,
         owner: owner
       }
     }
@@ -96,7 +96,7 @@ export const responseAssign = (
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.EditResponse,
+        status: CollaborativeMessageStates.BeingEdited,
         owner: owner
       }
     }
@@ -147,7 +147,7 @@ export const responseRequestChanges = (message: MessageCustom): MessageCustom =>
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.ResponsePending,
+        status: CollaborativeMessageStates.Pending,
         owner: undefined
       }
     }

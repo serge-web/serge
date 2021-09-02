@@ -48,7 +48,7 @@ const MessageCreator: React.FC<Props> = (props) => {
       }
     } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
       details.collaboration = {
-        status: CollaborativeMessageStates.ResponsePending,
+        status: CollaborativeMessageStates.Pending,
         lastUpdated: moment(new Date(), moment.ISO_8601).format()
       }
     }

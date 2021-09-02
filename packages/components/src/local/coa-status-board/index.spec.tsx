@@ -58,7 +58,7 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.ResponsePending
+        status: CollaborativeMessageStates.Pending
       }
     },
     message: {
@@ -86,7 +86,7 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.EditResponse
+        status: CollaborativeMessageStates.BeingEdited
       }
     },
     message: {

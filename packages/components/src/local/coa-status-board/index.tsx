@@ -124,8 +124,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       {
         filters: [
           CollaborativeMessageStates.Unallocated,
-          CollaborativeMessageStates.EditDocument,
-          CollaborativeMessageStates.EditResponse,
+          CollaborativeMessageStates.BeingEdited,
+          CollaborativeMessageStates.BeingEdited,
           CollaborativeMessageStates.PendingReview,
           CollaborativeMessageStates.Released
         ],
@@ -144,11 +144,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.PendingReview]: '#434343',
         [CollaborativeMessageStates.Finalized]: '#007219',
         [CollaborativeMessageStates.Released]: '#007219',
-        [CollaborativeMessageStates.EditResponse]: '#ffc107',
+        [CollaborativeMessageStates.BeingEdited]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.EditDocument]: '#ffc107',
-        [CollaborativeMessageStates.DocumentPending]: '#0366d6',
-        [CollaborativeMessageStates.ResponsePending]: '#0366d6'
+        [CollaborativeMessageStates.BeingEdited]: '#ffc107',
+        [CollaborativeMessageStates.Pending]: '#0366d6',
+        [CollaborativeMessageStates.Pending]: '#0366d6'
       }
 
       const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
