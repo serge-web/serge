@@ -17,6 +17,21 @@ export const editFinalise = (message: MessageCustom): MessageCustom => {
   }
 }
 
+export const responseRelease = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Released,
+        owner: undefined
+      }
+    }
+  }
+}
+
 export const close = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
@@ -32,7 +47,7 @@ export const close = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const editRequestChanges = (message: MessageCustom): MessageCustom => {
+export const requestChanges = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
@@ -40,14 +55,14 @@ export const editRequestChanges = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.DocumentPending,
+        status: CollaborativeMessageStates.Pending,
         owner: undefined
       }
     }
   }
 }
 
-export const editAssign = (
+export const assign = (
   message: MessageCustom,
   owner: ForceRole
 ): MessageCustom => {
@@ -58,7 +73,7 @@ export const editAssign = (
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.EditDocument,
+        status: CollaborativeMessageStates.BeingEdited,
         owner: owner
       }
     }
@@ -85,24 +100,6 @@ export const editSubmit = (message: MessageCustom, newMsg: {[property: string]: 
   }
 }
 
-export const responseAssign = (
-  message: MessageCustom,
-  owner: ForceRole
-): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.EditResponse,
-        owner: owner
-      }
-    }
-  }
-}
-
 export const responseSubmit = (
   message: MessageCustom,
   answer: string,
@@ -118,36 +115,6 @@ export const responseSubmit = (
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         response: answer,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const responseRelease = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.Released,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const responseRequestChanges = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.ResponsePending,
         owner: undefined
       }
     }

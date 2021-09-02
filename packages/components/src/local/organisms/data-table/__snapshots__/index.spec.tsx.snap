@@ -387,7 +387,7 @@ exports[`DataTable component: renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-23"
             >
-              Document Unallocated
+              Unallocated
             </span>
           </div>
         </td>
