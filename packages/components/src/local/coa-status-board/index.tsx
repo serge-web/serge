@@ -71,6 +71,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
 
+  // whether this user should see metadata about the message being edited
+  const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
+
   useEffect(() => {
     setAssignees(getAssignees(channel.participants, forces))
   }, [channel, forces])
@@ -186,7 +189,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
             label: status
           },
           {
-            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={ownerName} /> : null,
+            component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
             label: ownerName
           },
           lastUpdated
