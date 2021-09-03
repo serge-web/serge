@@ -7,6 +7,9 @@ import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
 import { MessageTemplatesMockByKey, messageDataCollaborativeEditing } from '@serge/mocks'
+import { Story } from '@storybook/react/types-6-0'
+
+import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -19,21 +22,23 @@ export default {
       // Show readme before story
       content: docs
     }
-  }
-}
-
-export const Default: React.FC = () => {
-  return (
-    <JsonEditor message={messageDataCollaborativeEditing[2]} messageTemplates={MessageTemplatesMockByKey} disabled={true} />
-  )
-}
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-Default.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
+  },
+  argTypes: {
+    disabled: {
+      name: 'disabled',
+      defaultValue: false,
+      control: { type: 'boolean' }
     }
   }
 }
+
+const Template: Story<Props> = ({ message, messageTemplates, disabled }) => <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} />
+export const Default = Template.bind({})
+
+const defArgs: Props = {
+  message: messageDataCollaborativeEditing[1],
+  messageTemplates: MessageTemplatesMockByKey,
+  disabled: false
+}
+
+Default.args = defArgs

@@ -49,7 +49,7 @@ import {
   ListenNewMessageType,
   WargameRevision
 } from './types.d'
-import { hiddenPrefix} from '@serge/config'
+import { hiddenPrefix } from '@serge/config'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -72,7 +72,8 @@ const getNameFromPath = (dbPath: string): string => {
 }
 
 // get database object by :name key
-const getWargameDbByName = (name: string): ApiWargameDbObject => {  
+const getWargameDbByName = (name: string): ApiWargameDbObject => {
+  name = name.replace(hiddenPrefix, '')
   const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject

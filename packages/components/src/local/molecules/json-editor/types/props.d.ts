@@ -5,5 +5,5 @@ export default interface Props {
   getJsonEditorValue?: (value: {[property: string]: any}) => void
   message: MessageCustom
   messageTemplates: TemplateBodysByKey
-  disabled: boolean
+  disabled?: boolean
 }

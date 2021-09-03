@@ -10,7 +10,7 @@ import { Editor, TemplateBody } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled }) => {
+export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false }) => {
   const jsonEditorRef = useRef(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const schema = Object.keys(messageTemplates).map(
@@ -33,8 +33,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   useEffect(() => {
-    const nextEditor = setupEditor(editor, schema.details, jsonEditorRef, disabled)
-    setEditor(nextEditor)
+    const nextEditor = setupEditor(editor, schema.details, jsonEditorRef)
 
     if (nextEditor) {
       nextEditor.setValue(message.message)
@@ -42,6 +41,8 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
         handleChange(nextEditor.getValue())
       })
     }
+
+    setEditor(nextEditor)
 
     return (): void => {
       if (nextEditor) {
@@ -52,6 +53,16 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (editor) {
+      if (disabled) {
+        editor.disable()
+      } else {
+        editor.enable()
+      }
+    }
+  }, [disabled, editor])
 
   return (
     <div ref={jsonEditorRef} />
