@@ -33,11 +33,14 @@ const InsightsModal: React.FC = () => {
     sendFeedbackMessage(state.currentWargame, from, message, currentTurn)(dispatch)
   }
 
+  const handleClose = () => {
+    dispatch(closeModal())
+  }
 
   return (
-    <ModalWrapper>
+    <ModalWrapper onBackgroundClick={handleClose}>
       <InsightForm
-        onCancel={(): void => dispatch(closeModal())}
+        onCancel={handleClose}
         onSend={handleSend}
         darkMode
       />
