@@ -15,13 +15,13 @@
   background: $admin-color;
   border-radius: 2px;
   color: #fff;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
-  height: auto;
+  height: auto !important;
   margin: auto;
   max-width: 60%;
-  position: relative;
-  width: auto;
+  position: relative !important;
+  width: auto !important;
 
   .sketch-picker {
     box-shadow: none !important;
