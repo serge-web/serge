@@ -105,15 +105,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     handleChange(close(message))
   }
 
-  const handleRequestChanges = (): void => {
-    setDialogTitle('Request changes to document')
-    setPlaceHolder('Enter requested changes...')
-    setOpenDialog(true)
-  }
-
-  const handleEndorse = (): void => {
-    setDialogTitle('Endorse document')
-    setPlaceHolder('Endorsement comment (optional)')
+  const handleRequestChanges = (name: string): void => {
+    setDialogTitle(name)
+    setPlaceHolder(name + '...')
     setOpenDialog(true)
   }
 
@@ -237,6 +231,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   /** value of owner, of `unassigned` */
   const feedback = message.details.collaboration?.feedback
 
+  const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
+  feedbackVerbs.push('Request changes')
+  console.log('verbs', feedbackVerbs)
+
   // create a single feedback block - we use it in either message type
   const feedbackBlock = (canCollaborate || canReleaseMessages || isUmpire) && feedback && feedback.length > 0 && (
     <div>
@@ -267,8 +265,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               <>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEditClose}>Close</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEditFinalise}>Finalise</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
+                {
+                  feedbackVerbs.map((item:string) => {
+                    return <Button customVariant="form-action" size="small" type="button" onClick={(): void => handleRequestChanges(item)}>{item}</Button>
+                  })
+                }
               </>
             }
             {
