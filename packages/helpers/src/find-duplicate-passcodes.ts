@@ -12,11 +12,12 @@ const findDuplicatePasscodes = (newData: ForceData, forces: ForceData[]): Array<
   const forcesData = _.map(forces, force => force.uniqid === newData.uniqid ? newData : force)
 
   // create flat list of data objects to check
-  const extForces = _.reduce(
+  interface ExtForces { forceName: string, roleId: string, roleName: string }
+  const extForces: ExtForces[] = _.reduce(
     forcesData,
-    (output, force) => {
+    (output: ExtForces[] = [], force) => {
       force.roles.forEach(role => {
-        (output || (output = [])).push({
+        output.push({
           forceName: force.name,
           roleId: role.roleId,
           roleName: role.name
@@ -24,7 +25,7 @@ const findDuplicatePasscodes = (newData: ForceData, forces: ForceData[]): Array<
       })
       return output
     },
-    Array<{ forceName:string, roleId: string, roleName: string}>()
+    []
   )
 
   // check duplicate passcode in every force
