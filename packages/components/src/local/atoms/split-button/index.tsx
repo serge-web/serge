@@ -14,6 +14,9 @@ import MenuList from '@material-ui/core/MenuList'
 /* Import Types */
 import { Props } from './types/props'
 
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+
 /* Render component */
 const useButtonStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,7 +84,7 @@ export const SplitButton: React.FC<Props> = ({ label, options = [], onClick }: P
             <ArrowDropDownIcon />
           </Button>
         </ButtonGroup>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className={styles.popper}>
           {({ TransitionProps, placement }): ReactElement => (
             <Grow
               {...TransitionProps}

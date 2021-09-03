@@ -76,6 +76,7 @@ newest[0].message.Request = longStr
 newest[0].details.privateMessage = longStr
 newest[0].details.collaboration = {
   status: CollaborativeMessageStates.Released,
+  lastUpdated: '2020-03-25T15:08:47.540Z',
   response: longStr + longStr
 }
 

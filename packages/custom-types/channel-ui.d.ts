@@ -2,6 +2,7 @@ import Participant from './participant'
 import { MessageChannel } from './message'
 import { TemplateBody } from './template'
 import { SpecialChannelTypes } from '@serge/config'
+import { CollabOptions } from './channel-data'
 
 /** description of channel, as used in game UI */
 export default interface ChannelData {
@@ -17,4 +18,5 @@ export default interface ChannelData {
   forceIcons?: Array<any>
   forceColors?: Array<string>
   format?: SpecialChannelTypes
+  collabOptions? : CollabOptions
 }

@@ -125,6 +125,17 @@
   }
 }
 
+.flexlayout {
+  &__tab > div {
+    height: 100%;
+  }
+
+  &__scrollbox {
+    height: calc(100% - 40px);
+    overflow: auto;
+  }
+}
+
 #root {
   .flexlayout__layout:not(.flexlayout__layout--undo-transparent),
   .flex-content--welcome,

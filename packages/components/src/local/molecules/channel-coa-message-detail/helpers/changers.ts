@@ -1,5 +1,6 @@
 import { ForceRole, MessageCustom } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
+import moment from 'moment'
 
 export const editFinalise = (message: MessageCustom): MessageCustom => {
   return {
@@ -9,6 +10,22 @@ export const editFinalise = (message: MessageCustom): MessageCustom => {
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.Finalized,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const responseRelease = (message: MessageCustom): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Released,
         owner: undefined
       }
     }
@@ -22,6 +39,7 @@ export const close = (message: MessageCustom): MessageCustom => {
       ...message.details,
       collaboration: {
         ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Closed,
         owner: undefined
       }
@@ -29,21 +47,22 @@ export const close = (message: MessageCustom): MessageCustom => {
   }
 }
 
-export const editRequestChanges = (message: MessageCustom): MessageCustom => {
+export const requestChanges = (message: MessageCustom): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
       collaboration: {
         ...message.details.collaboration,
-        status: CollaborativeMessageStates.DocumentPending,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Pending,
         owner: undefined
       }
     }
   }
 }
 
-export const editAssign = (
+export const assign = (
   message: MessageCustom,
   owner: ForceRole
 ): MessageCustom => {
@@ -53,7 +72,8 @@ export const editAssign = (
       ...message.details,
       collaboration: {
         ...message.details.collaboration,
-        status: CollaborativeMessageStates.EditDocument,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.BeingEdited,
         owner: owner
       }
     }
@@ -72,25 +92,9 @@ export const editSubmit = (message: MessageCustom, newMsg: {[property: string]: 
       privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         owner: undefined
-      }
-    }
-  }
-}
-
-export const responseAssign = (
-  message: MessageCustom,
-  owner: ForceRole
-): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.EditResponse,
-        owner: owner
       }
     }
   }
@@ -108,36 +112,9 @@ export const responseSubmit = (
       privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         response: answer,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const responseRelease = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.Released,
-        owner: undefined
-      }
-    }
-  }
-}
-
-export const responseRequestChanges = (message: MessageCustom): MessageCustom => {
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        status: CollaborativeMessageStates.ResponsePending,
         owner: undefined
       }
     }

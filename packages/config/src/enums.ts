@@ -25,6 +25,11 @@ export enum SpecialChannelTypes {
   CHANNEL_COLLAB_RESPONSE = 'collab-response'
 }
 
+/** types of extra column to be shown in collab editing */
+export enum SpecialChannelColumns {
+  LOCATION = 'location'
+}
+
 /** General terrain type. More relaxed than
  * cell.terrain.  Used for determining 
  * achievable cells
@@ -55,7 +60,7 @@ export enum CollaborativeMessageStates {
    * non collab-editing (e.g. RFI) document being edited
    * //TODO: remove this when we retire RFI status board.
    */
-   InProgress = 'In progress',
+  InProgress = 'In progress',
   /**
    * owner finished editing, waiting for review
    */
@@ -72,16 +77,14 @@ export enum CollaborativeMessageStates {
    * document cancelled 
    */
   Closed = 'Closed',
-  DocumentPending = 'Document Unallocated',
-  /**
-   * Collab Edit message being edited
+  /** 
+   * waiting to be allocated 
    */
-  EditDocument = 'Edit Document',
+  Pending = 'Unallocated',
   /**
-   * Collab response being edited
+   * document/message being edited
    */
-  EditResponse = 'Edit Response',
-  ResponsePending = 'Response Unallocated',
+  BeingEdited = 'Being edited',
 }
 
 /** the commands that can be appled to a collaborative message

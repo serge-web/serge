@@ -1,5 +1,6 @@
 import Participant from './participant'
 import { SpecialChannelTypes } from '@serge/config'
+import { SpecialChannelColumns } from '../config/build/enums'
 
 /** special configuration for collaborative channels */
 export interface CollabOptions {
@@ -10,7 +11,7 @@ export interface CollabOptions {
   /** who original document goes to first */
   startWithReview : boolean,
   /** extra columns to show in status view */
-  extraColumns: Array<string>
+  extraColumns: Array<SpecialChannelColumns>
 }
 
 /** description of channel, as stored in database */

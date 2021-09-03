@@ -67,6 +67,9 @@ export const EXPORT_ITEM_FORCES = 'forces'
 export const CHANNEL_RFI_STATUS = 'rfis'
 export const CHANNEL_MAPPING = 'mapping'
 
+// Chat template ID
+export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
+
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition

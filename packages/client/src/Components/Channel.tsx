@@ -10,7 +10,7 @@ import {
   markUnread
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom, TemplateBody } from '@serge/custom-types'
 import { CoaStatusBoard } from "@serge/components";
 import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
@@ -53,48 +53,58 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
   const channelFormat = state.channels[channelId].format
+  const channelMessages = state.channels[channelId].messages 
+  const messages =  channelMessages ? channelMessages as MessageCustom[] : []
+  const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+
+  const templates = state.channels[channelId].templates || []
+  // if this is a collab working channel, strip out any chat templates - since we only use structured messages
+  // in collab working channels
+  const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      {channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE ? (
-        <CoaStatusBoard
-          templates={state.allTemplatesByKey}
-          messages={state.channels[channelId].messages}
-          role={{
-            forceId: selectedForce.uniqid, 
-            forceName: selectedForce.name,
-            roleId: selectedRole, 
-            roleName: selectedRoleName
-          }}
-          forces={state.allForces}
-          isUmpire={!!isUmpire}
-          channel={state.channels[channelId]}
-          onChange={handleChange}
-        />
-      ) : (
-        <ChannelMessagesList
-          messages={state.channels[channelId].messages || []}
-          onRead={handleOpenMessage}
-          onUnread={handleUnreadMessage}
-          turnPresentation={state.turnPresentation}
-          role={selectedRole}
-          isRFIManager={state.isRFIManager}
-          isUmpire={!!isUmpire}
-          onChange={handleChange}
-          playerForceId={selectedForce.uniqid}
-          icons={icons || []}
-          colors={colors || []}
-          onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
-        />
-      )}
+      <div className='flexlayout__scrollbox'>
+        { isCollabWorking ? (
+          <CoaStatusBoard
+            templates={state.allTemplatesByKey}
+            messages={messages}
+            role={{
+              forceId: selectedForce.uniqid, 
+              forceName: selectedForce.name,
+              roleId: selectedRole, 
+              roleName: selectedRoleName
+            }}
+            forces={state.allForces}
+            isUmpire={!!isUmpire}
+            channel={state.channels[channelId]}
+            onChange={handleChange}
+          />
+        ) : (
+          <ChannelMessagesList
+            messages={state.channels[channelId].messages || []}
+            onRead={handleOpenMessage}
+            onUnread={handleUnreadMessage}
+            turnPresentation={state.turnPresentation}
+            role={selectedRole}
+            isRFIManager={state.isRFIManager}
+            isUmpire={!!isUmpire}
+            onChange={handleChange}
+            playerForceId={selectedForce.uniqid}
+            icons={icons || []}
+            colors={colors || []}
+            onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
+          />
+        )}
+      </div>
       {
-        state.channels[channelId].observing === false &&
+        state.channels[channelId].observing === false && trimmedTemplates.length > 0 &&
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
           generateNextReference={generateNextReference}
           privateMessage={!!selectedForce.umpire}
-          templates={state.channels[channelId].templates || []}
+          templates={trimmedTemplates}
         />
       }
     </div>

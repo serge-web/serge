@@ -33,6 +33,7 @@ messageEmptyCollab.details.collaboration = undefined
 
 const messageOwnedByUmpire = deepCopy(message)
 messageOwnedByUmpire.details.collaboration = {
+  lastUpdated: '2020-03-25T15:08:47.540Z',
   status: CollaborativeMessageStates.PendingReview,
   owner: whiteUmpire
 }
@@ -46,10 +47,10 @@ const messageStates: CollaborativeMessageStates[] = [
   CollaborativeMessageStates.Released,
   CollaborativeMessageStates.Finalized,
   CollaborativeMessageStates.Closed,
-  CollaborativeMessageStates.DocumentPending,
-  CollaborativeMessageStates.EditDocument,
-  CollaborativeMessageStates.EditResponse,
-  CollaborativeMessageStates.ResponsePending
+  CollaborativeMessageStates.Pending,
+  CollaborativeMessageStates.BeingEdited,
+  CollaborativeMessageStates.BeingEdited,
+  CollaborativeMessageStates.Pending
 ]
 
 describe('Visibility tests', () => {
@@ -117,15 +118,15 @@ describe('Visibility tests', () => {
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
       // first the non-editable states
-      const nonProgressStates = messageStates.filter((state) => state !== CollaborativeMessageStates.EditResponse)
-      const nonProgressStates2 = nonProgressStates.filter((state) => state !== CollaborativeMessageStates.EditDocument)
+      const nonProgressStates = messageStates.filter((state) => state !== CollaborativeMessageStates.BeingEdited)
+      const nonProgressStates2 = nonProgressStates.filter((state) => state !== CollaborativeMessageStates.BeingEdited)
       nonProgressStates2.forEach(state => {
         collabStatus.status = state
         expect(formEditable(messageOwnedByUmpire, whiteUmpire)).toEqual(false)
       })
 
       // now the in progress one
-      collabStatus.status = CollaborativeMessageStates.EditResponse
+      collabStatus.status = CollaborativeMessageStates.BeingEdited
       expect(formEditable(messageOwnedByUmpire, whiteUmpire)).toEqual(true)
     }
   })
@@ -133,7 +134,7 @@ describe('Visibility tests', () => {
     const collabStatus = messageOwnedByUmpire.details.collaboration
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
-      collabStatus.status = CollaborativeMessageStates.EditResponse
+      collabStatus.status = CollaborativeMessageStates.BeingEdited
       // owner not current role
       collabStatus.owner = whiteLogs
       expect(formEditable(messageOwnedByUmpire, whiteUmpire)).toEqual(false)
@@ -147,9 +148,9 @@ describe('Visibility tests', () => {
     const collabStatus = message.details.collaboration
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
-      collabStatus.status = CollaborativeMessageStates.EditDocument
+      collabStatus.status = CollaborativeMessageStates.BeingEdited
       // in wrong state
-      expect(collabStatus.status).toEqual(CollaborativeMessageStates.EditDocument)
+      expect(collabStatus.status).toEqual(CollaborativeMessageStates.BeingEdited)
       expect(ColEditPendingReview(message, coaChannel, canReleaseMessages)).toBeFalsy()
 
       // user doesn't have permission
@@ -165,9 +166,9 @@ describe('Visibility tests', () => {
     const collabStatus = message.details.collaboration
     expect(collabStatus).toBeTruthy()
     if (collabStatus) {
-      collabStatus.status = CollaborativeMessageStates.EditResponse
+      collabStatus.status = CollaborativeMessageStates.BeingEdited
       // in wrong state
-      expect(collabStatus.status).toEqual(CollaborativeMessageStates.EditResponse)
+      expect(collabStatus.status).toEqual(CollaborativeMessageStates.BeingEdited)
       expect(ColRespPendingReview(message, rfiChannel, canReleaseMessages)).toBeFalsy()
 
       // user doesn't have permission

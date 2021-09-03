@@ -34,6 +34,8 @@ export {
 export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
 export { default as hexNamed } from './hex-named'
 export { default as isChatChannel } from './is-chat-channel'
+export { default as findDuplicatePasscodes } from './find-duplicate-passcodes'
+export { default as getUniquePasscode } from './get-unique-passcode'
 export { default as isArrayOfObject } from './is-array-of-object'
 export { default as isBoolean } from './is-boolean'
 export { default as isError } from './is-error'

@@ -93,6 +93,7 @@ describe('handle new message into RFI channel', () => {
     const collab: CollaborationDetails = {
       ...msg.details.collaboration,
       response: RESPONSE,
+      lastUpdated: '2020-03-25T15:08:47.540Z',
       status: CollaborativeMessageStates.Closed
     }
     const payload2: MessageChannel = {

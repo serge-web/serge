@@ -1,3 +1,4 @@
+import { CHAT_MESSAGE_TEMPLATE_ID } from '@serge/config'
 import { ChannelData, Participant, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters'
@@ -53,7 +54,7 @@ export const getParticipantStates = (
   allTemplatesByKey: TemplateBodysByKey,
   // TODO: move it to reducer, for future default Message can be changed from admin
   // k16eedkl - Chat template id
-  defaultMessageId = 'k16eedkl'
+  defaultMessageId = CHAT_MESSAGE_TEMPLATE_ID
 ): ParticipantStates => {
   let chosenTemplates: TemplateBody[] = []
   let observing = false
