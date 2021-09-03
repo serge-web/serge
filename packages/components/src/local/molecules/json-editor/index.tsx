@@ -37,6 +37,13 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     setEditor(nextEditor)
 
     if (nextEditor) {
+      const {properties = {}} = schema.details['properties'].LOCATION
+      const keys = Object.keys(properties)
+      for (const key of keys) {
+        if (!message.message.LOCATION[key]) {
+          message.message.LOCATION[key] = properties[key].enum[0]
+        }
+      }
       nextEditor.setValue(message.message)
       nextEditor.on('change', () => {
         handleChange(nextEditor.getValue())
