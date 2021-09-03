@@ -27,9 +27,9 @@ export default {
     disabled: {
       name: 'disabled',
       defaultValue: false,
-      control: { type: 'boolean' },
-    },
-  },
+      control: { type: 'boolean' }
+    }
+  }
 }
 
 const Template: Story<Props> = ({ message, messageTemplates, disabled }) => <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} />
