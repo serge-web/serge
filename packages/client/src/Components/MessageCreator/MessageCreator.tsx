@@ -7,7 +7,7 @@ import { Editor, MessageDetails } from '@serge/custom-types'
 import Props from './types'
 
 // @ts-ignore
-import JSONEditor from '@json-editor/json-editor'
+import { JSONEditor } from '@json-editor/json-editor'
 
 import '@serge/themes/App.scss'
 

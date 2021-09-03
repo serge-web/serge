@@ -1,4 +1,4 @@
-import JSONEditor from '@json-editor/json-editor'
+import { JSONEditor } from '@json-editor/json-editor'
 // -------- Editor class ---------------------------------------------------
 
 // create a JSON Editor, elementId is the id in which to render the editor
