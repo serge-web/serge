@@ -25,6 +25,11 @@ export enum SpecialChannelTypes {
   CHANNEL_COLLAB_RESPONSE = 'collab-response'
 }
 
+/** types of extra column to be shown in collab editing */
+export enum SpecialChannelColumns {
+  LOCATION = 'location'
+}
+
 /** General terrain type. More relaxed than
  * cell.terrain.  Used for determining 
  * achievable cells

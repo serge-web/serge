@@ -223,7 +223,8 @@ export const handleAllInitialChannelMessages = (
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
-        format: channel.format
+        format: channel.format,
+        collabOptions: channel.collabOptions
       }
 
       // TODO: use channel uniqid
