@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { JSONEditor } from '@json-editor/json-editor'
+import JSONEditor from '@json-editor/json-editor'
 import { Button } from "@serge/components";
 import { updateMessage } from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
 import "@serge/themes/App.scss";
