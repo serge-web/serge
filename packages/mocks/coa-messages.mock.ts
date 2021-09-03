@@ -25,7 +25,8 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Finalized,
         response: 'Response to RFI 3'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Blue-3',
@@ -101,7 +102,8 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
         response: 'Didn\'t bother responding'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'RED-1',
@@ -183,7 +185,8 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
           { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you think about the next bit?`},
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Good plan`}
         ]
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'White-2',
@@ -263,7 +266,8 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
           { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you even think about the next bit?`},
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
         ]
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Red-2',
@@ -337,7 +341,8 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Pending,
         response: 'Game control response to Blue-2'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Blue-2',
@@ -419,7 +424,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
         ]
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Blue-3',
@@ -451,7 +457,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.BeingEdited,
         response: 'Game control response to RFI 4'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'RED-1',
@@ -487,7 +494,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         feedback: [
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
         ]
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'White-2',
@@ -520,7 +528,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
         response: 'Game control response to RFI 4'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Red-2',
@@ -552,7 +561,8 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released,
         response: 'Game control response to Blue-2'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Blue-2',

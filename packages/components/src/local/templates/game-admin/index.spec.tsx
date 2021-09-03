@@ -27,7 +27,7 @@ describe('GameAdmin page:', () => {
     moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
-        <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRoleName="CO" selectedRole="u235"/>,
+        <GameAdmin turnNumber={1} wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRoleName="CO" selectedRole="u235"/>,
         { createNodeMock }
       )
       .toJSON()

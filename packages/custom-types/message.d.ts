@@ -72,6 +72,8 @@ export interface MessageDetails {
   messageType: string,
   /** time message sent */
   timestamp: string,
+  /** turn when this message was sent */
+  turnNumber: number
   /** private (umpire-only) component of message, potentially to
    * explain source for answer, or assumptions made
    */

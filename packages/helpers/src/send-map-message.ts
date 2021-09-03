@@ -10,14 +10,13 @@ import { ForceData, MessageMap, Message, MessageDetails, Role } from '@serge/cus
  * @param saveMapMessage callback to actually store message
  */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined,
-  channelID: string, role: Role['roleId'], roleName: Role['name'], currentWargame: string,
+  channelID: string, role: Role['roleId'], roleName: Role['name'], currentWargame: string, turnNumber: number,
   saveMapMessage: {(dbName: string, details: MessageDetails, message: unknown): Promise<Message>}): void => {
   if (force) {
     const { name, color, iconURL } = force
 
-    const details = {
+    const details: MessageDetails = {
       channel: channelID,
-      forceDelta: true, // to indicate it represents a change in forces state
       from: {
         force: name,
         forceColor: color,
@@ -26,7 +25,8 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
         iconURL
       },
       messageType: mType,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      turnNumber: turnNumber
     }
     saveMapMessage(currentWargame, details, message)
   } else {

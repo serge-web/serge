@@ -27,4 +27,4 @@ const force = {
 
 const showMessage = (message: MessageCustom): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
-export const Default: React.FC = () => <MessageCreator from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'} postBack={showMessage} />
+export const Default: React.FC = () => <MessageCreator turnNumber={1} from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'} postBack={showMessage} />

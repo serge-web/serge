@@ -14,6 +14,7 @@ export default (
   messageTypes: MessageTypes,
   currentWargame: string,
   allForces: ForceData[],
+  turnNumber: number,
   dispatch: Dispatch<PlayerUiActionTypes>
 ): boolean => {
   let role: Role | undefined = undefined
@@ -29,7 +30,7 @@ export default (
   }
 
   if (force === undefined || role === undefined) {
-    failedLoginFeedbackMessage(currentWargame, pass);
+    failedLoginFeedbackMessage(currentWargame, pass, turnNumber);
     return false;
   }
 
