@@ -59,7 +59,7 @@ const force = {
 const Template: Story<Props> = (args) => {
   const { selectedForce, isUmpire, userId, forceName, turnPresentation } = args
   return <ChatMessageSetup
-    turnNumber={1} 
+    turnNumber={1}
     isUmpire={isUmpire}
     forceName={forceName}
     userId={userId}

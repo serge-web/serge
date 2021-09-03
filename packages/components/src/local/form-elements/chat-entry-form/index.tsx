@@ -22,7 +22,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
   const timestamp = new Date().toISOString()
 
   const submitForm = (): void => {
-  const post: ChatMessage = {
+    const post: ChatMessage = {
       messageType: CHAT_MESSAGE,
       details: {
         channel: channel,
