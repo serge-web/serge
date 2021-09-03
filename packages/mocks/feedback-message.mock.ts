@@ -18,7 +18,8 @@ export const feedbackMessage1: MessageFeedback = {
       "iconURL": ''
     },
     "messageType": "Chat",
-    "timestamp": "2020-12-06T11:05:12.038Z"
+    "timestamp": "2020-12-06T11:05:12.038Z",
+    turnNumber: 1
   },
   "message": {
     "content": "ds"
@@ -40,7 +41,8 @@ export const feedbackMessage2: MessageFeedback = {
       "iconURL": ''
     },
     "messageType": "Chat",
-    "timestamp": "2020-10-01T01:19:56.492Z"
+    "timestamp": "2020-10-01T01:19:56.492Z",
+    turnNumber: 1
   },
   "message": {
     "content": "Lorem ipsum do lor sit amet"

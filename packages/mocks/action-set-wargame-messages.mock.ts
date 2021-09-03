@@ -21,7 +21,8 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
-        "timestamp": "2020-12-06T11:07:18.374Z"
+        "timestamp": "2020-12-06T11:07:18.374Z",
+        turnNumber: 1
       },
       "message": {
         "content": "My second test mesage bluechat"
@@ -43,7 +44,8 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
-        "timestamp": "2020-12-06T11:07:08.130Z"
+        "timestamp": "2020-12-06T11:07:08.130Z",
+        turnNumber: 1
       },
       "message": {
         "content": "My test mesage bluechat"
@@ -65,7 +67,8 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "PG19 Weekly Orders",
-        "timestamp": "2020-12-06T11:06:51.596Z"
+        "timestamp": "2020-12-06T11:06:51.596Z",
+        turnNumber: 1
       },
       "message": {
         "CommandersIntent": "Commanders Intent\n",
@@ -99,7 +102,8 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
-        "timestamp": "2020-12-06T11:06:19.602Z"
+        "timestamp": "2020-12-06T11:06:19.602Z",
+        turnNumber: 1
       },
       "message": {
         "content": "My Second Test Message"
@@ -121,7 +125,8 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
-        "timestamp": "2020-12-06T11:06:12.434Z"
+        "timestamp": "2020-12-06T11:06:12.434Z",
+        turnNumber: 1
       },
       "message": {
         "content": "My test Message"
@@ -143,7 +148,8 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
-        "timestamp": "2020-12-06T11:05:07.490Z"
+        "timestamp": "2020-12-06T11:05:07.490Z",
+        turnNumber: 1
       },
       "message": {
         "content": "ddaw"

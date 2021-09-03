@@ -25,7 +25,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         roleId: redCO.roleId
       },
       messageType: "Chat",
-      timestamp: "2020-10-13T08:52:04.394Z"
+      timestamp: "2020-10-13T08:52:04.394Z",
+      turnNumber: 1
     },
     message: {
       content: "message from Red"
@@ -47,7 +48,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         roleId: blueCO.roleId
       },
       messageType: "Chat",
-      timestamp: "2020-10-13T08:52:21.119Z"
+      timestamp: "2020-10-13T08:52:21.119Z",
+      turnNumber: 1
     },
     message: {
       content: "Message from Blue"
@@ -70,7 +72,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       },
       messageType: "Chat",
       privateMessage: "The private content goes in here",
-      timestamp: "2020-10-13T08:52:40.930Z"
+      timestamp: "2020-10-13T08:52:40.930Z",
+      turnNumber: 1
     },
     message: {
       content: "Message from White, with Private content"
@@ -96,7 +99,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Unallocated
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-1",
@@ -124,7 +128,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Unallocated
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-2",
@@ -152,7 +157,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Unallocated
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-3",
@@ -181,7 +187,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.BeingEdited,
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name}
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-2",
@@ -210,7 +217,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.BeingEdited,
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-3",
@@ -239,7 +247,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
         response: 'RFI 3 response from White Logistics',
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-3",
@@ -267,7 +276,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Unallocated
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
@@ -296,7 +306,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.BeingEdited,
         owner: { forceId: forces[0].uniqid, forceName: forces[0].name, roleId: whiteGC.roleId, roleName: whiteGC.name }
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
@@ -325,7 +336,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
         response: "Game control response to RFI 4",
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
@@ -355,7 +367,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
         status: CollaborativeMessageStates.Released,
         response: "Game control response to RFI 4"
       },
-      privateMessage: "The private content goes in here"
+      privateMessage: "The private content goes in here",
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
