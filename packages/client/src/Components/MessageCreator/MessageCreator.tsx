@@ -8,7 +8,7 @@ import { SpecialChannelTypes, CollaborativeMessageStates } from "@serge/config";
 import Props from './types'
 
 // @ts-ignore
-import { JSONEditor } from '@json-editor/json-editor'
+import JSONEditor from '@json-editor/json-editor'
 
 import '@serge/themes/App.scss'
 import moment from 'moment'
