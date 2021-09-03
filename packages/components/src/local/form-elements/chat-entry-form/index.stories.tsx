@@ -36,7 +36,7 @@ const showMessage = (message: ChatMessage): void => window.alert(`Your message, 
 
 const Template: Story<ChatPropTypes> = (args) => {
   const { from, role, roleName, isUmpire, channel } = args
-  return <ChatEntryForm from={from} isUmpire={isUmpire} channel={channel} roleName={roleName} role={role} postBack={showMessage} />
+  return <ChatEntryForm turnNumber={1} from={from} isUmpire={isUmpire} channel={channel} roleName={roleName} role={role} postBack={showMessage} />
 }
 
 export const Default = Template

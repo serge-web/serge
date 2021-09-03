@@ -20,7 +20,8 @@ const gameMessages: MessageChannel[] = [
         roleId: redCO.roleId
       },
       messageType: "Chat",
-      timestamp: "2020-10-13T08:52:04.394Z"
+      timestamp: "2020-10-13T08:52:04.394Z",
+      turnNumber: 1
     },
     message: {
       content: "message from Red"
@@ -41,7 +42,8 @@ const gameMessages: MessageChannel[] = [
         roleId: blueCO.roleId
       },
       messageType: "Chat",
-      timestamp: "2020-10-13T08:52:21.119Z"
+      timestamp: "2020-10-13T08:52:21.119Z",
+      turnNumber: 1
     },
     message: {
       content: "Message from Blue"
@@ -63,7 +65,8 @@ const gameMessages: MessageChannel[] = [
         },
         messageType: "Chat",
         privateMessage: "The private content goes in here",
-        timestamp: "2020-10-13T08:52:40.930Z"
+        timestamp: "2020-10-13T08:52:40.930Z",
+        turnNumber: 1
     },
     message: {
         content: "Message from White, with Private content"

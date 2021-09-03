@@ -30,6 +30,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
+      turnNumber: 1
     },
     message: {
       content: "message from Red"
@@ -57,6 +58,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
+      turnNumber: 1
     },
     message: {
       content: "Message from Blue"
@@ -85,6 +87,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
+      turnNumber: 1
     },
     message: {
       content: "Message from White, with Private content"
@@ -110,7 +113,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-1",
@@ -138,7 +142,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Unallocated
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-2",
@@ -166,7 +171,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Pending
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-3",
@@ -195,7 +201,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-2",
@@ -224,7 +231,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueCO.roleId, roleName: blueCO.name }
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-3",
@@ -253,7 +261,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: 'RFI 3 response from White Logistics',
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "Blue-3",
@@ -281,7 +290,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
@@ -310,7 +320,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[0].uniqid, forceName: forces[0].name, roleId: whiteGC.roleId, roleName: whiteGC.name }
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
@@ -339,7 +350,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4",
-      }
+      },
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",
@@ -369,7 +381,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: "Game control response to RFI 4"
       },
-      privateMessage: "The private content goes in here"
+      privateMessage: "The private content goes in here",
+      turnNumber: 1
     },
     message: {
       "Reference": "RED-1",

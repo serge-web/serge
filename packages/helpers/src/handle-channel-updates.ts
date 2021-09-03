@@ -1,4 +1,4 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role, MessageDetailsFrom, CollaborationDetails
@@ -198,8 +198,10 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
+    const isCollab = channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+
     const filterMessages = () => {
-      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED)
+      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
     }
 
     if (isObserver || isParticipant || allRolesIncluded) {

@@ -18,7 +18,8 @@ const message1: ChatMessage = {
     },
     "messageType": "Chat",
     "privateMessage": "Private message here",
-    "timestamp": "2020-03-25T15:08:47.510Z"
+    "timestamp": "2020-03-25T15:08:47.510Z",
+    turnNumber: 1
   },
   "message": {
     "content": "test\n"
@@ -39,7 +40,8 @@ const message2: ChatMessage = {
       "iconURL": "default_img/umpireDefault.png"
     },
     "messageType": "Chat",
-    "timestamp": "2020-03-25T15:08:47.510Z"
+    "timestamp": "2020-03-25T15:08:47.510Z",
+    turnNumber: 1
   },
   "message": {
     "content": "Lorem ipsum do lor sit amet adipiscius elit\n"

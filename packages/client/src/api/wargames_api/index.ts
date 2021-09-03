@@ -589,7 +589,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
   .catch(rejectDefault)
 }
 
-export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, message: string): Promise<MessageFeedback> => {
+export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, turnNumber: number, message: string): Promise<MessageFeedback> => {
   const { db } = getWargameDbByName(dbName)
   const feedback: MessageFeedback = {
     _id: new Date().toISOString(),
@@ -597,7 +597,8 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, me
       channel: 'Feedback',
       from: fromDetails,
       messageType: 'Chat',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      turnNumber: turnNumber
     },
     message: {
       content: message
@@ -622,20 +623,39 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
   return db.put(customMessage).catch(rejectDefault)
 }
 
+
+
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
   // @ts-ignore
 export const postNewMapMessage = (dbName, details, message) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
-  db.put({
+
+  const customMessage: MessageCustom = {
     _id: new Date().toISOString(),
-    details,
     // defined constat for messages, it's not same as message.details.messageType,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
     messageType: details.messageType,
-    message
-  }).catch((err) => {
+    details,
+    message,
+    isOpen: false,
+    hasBeenRead: false
+  }
+
+  // db.put({
+  //   _id: new Date().toISOString(),
+  //   details,
+  //   // defined constat for messages, it's not same as message.details.messageType,
+  //   // ex for all template based messages will be used CUSTOM_MESSAGE Type
+  //   messageType: details.messageType,
+  //   message
+  // }).catch((err) => {
+  //   console.log(err)
+  //   return err
+  // })
+
+  db.put(customMessage).catch((err) => {
     console.log(err)
     return err
   })

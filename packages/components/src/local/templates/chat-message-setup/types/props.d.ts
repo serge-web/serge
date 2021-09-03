@@ -19,4 +19,5 @@ export default interface Props {
   chatChannel: any
   userId: string
   turnPresentation: TurnFormats
+  turnNumber: number
 }

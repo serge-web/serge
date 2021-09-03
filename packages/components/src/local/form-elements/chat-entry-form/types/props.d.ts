@@ -18,4 +18,5 @@ export default interface Props {
    * The method for posting messages out of the component
    */
   postBack?: { (post: ChatMessage): void }
+  turnNumber: number
 }
