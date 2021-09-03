@@ -268,7 +268,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEditFinalise}>Finalise</Button>
                 {
                   feedbackVerbs.map((item: string) => {
-                    return <Button customVariant="form-action" size="small" type="button" onClick={(): void => handleRequestChanges(item)}>{item}</Button>
+                    return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleRequestChanges(item)}>{item}</Button>
                   })
                 }
               </>
