@@ -1,7 +1,7 @@
 import { RefObject } from 'react'
 
 // @ts-ignore
-import { JSONEditor } from '@json-editor/json-editor'
+import JSONEditor from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 
 const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>): Editor | null => {
