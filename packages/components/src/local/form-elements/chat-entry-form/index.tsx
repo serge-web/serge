@@ -14,7 +14,7 @@ import ChatInputText from '../chat-input-text'
 import PrivateChatInputToggle from '../private-chat-input-toggle'
 
 /* Render component */
-export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, roleName, postBack }: Props) => {
+export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, roleName, postBack, turnNumber }: Props) => {
   const [message, setMessage] = useState('')
   const [privateMessage, setPrivateMessage] = useState('')
   const messageEle = useRef<any>(null)
@@ -22,7 +22,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
   const timestamp = new Date().toISOString()
 
   const submitForm = (): void => {
-    const post: ChatMessage = {
+  const post: ChatMessage = {
       messageType: CHAT_MESSAGE,
       details: {
         channel: channel,
@@ -35,7 +35,8 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
         },
         messageType: 'Chat',
         timestamp: timestamp,
-        privateMessage: privateMessage
+        privateMessage: privateMessage,
+        turnNumber: turnNumber
       },
       message: {
         content: message

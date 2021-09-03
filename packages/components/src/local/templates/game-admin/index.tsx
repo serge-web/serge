@@ -15,7 +15,7 @@ import AdminMessagesList from '../../organisms/admin-messages-list'
 import AdminMessageCreator from '../../molecules/admin-message-creator'
 
 /* Render component */
-export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, selectedRoleName, chatChannel }) => {
+export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, selectedRoleName, chatChannel, turnNumber }) => {
   const [messages, setMessages] = useState(chatChannel)
   const [messageList, setMessageList] = useState<Array<MessageChannel>>([])
   const [allMarkedRead, setAllMarkedRead] = useState(false)
@@ -60,7 +60,7 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
 
   return <div>
     <AdminMessagesList force={selectedForce} messages={messageList} markAllAsRead={markAllAsRead} />
-    <AdminMessageCreator from={selectedForce} channel={currentChannel} role={selectedRole} roleName={selectedRoleName} postBack={messageHandler}/>
+    <AdminMessageCreator turnNumber={turnNumber} from={selectedForce} channel={currentChannel} role={selectedRole} roleName={selectedRoleName} postBack={messageHandler}/>
   </div>
 }
 

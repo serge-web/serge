@@ -59,7 +59,8 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Pending
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'Blue-3',
@@ -87,7 +88,8 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.BeingEdited
-      }
+      },
+      turnNumber: 1
     },
     message: {
       Reference: 'RED-1',
@@ -117,7 +119,8 @@ const testMock: MessageCustom[] = [
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Closed,
         response: 'Game control response to RFI 4'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       content: 'Message from White, with Private content'
@@ -144,7 +147,8 @@ const testMock: MessageCustom[] = [
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         response: 'Game control response to RFI 4'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       content: 'message from Red'
@@ -171,7 +175,8 @@ const testMock: MessageCustom[] = [
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Released,
         response: 'Game control response to RFI 4'
-      }
+      },
+      turnNumber: 1
     },
     message: {
       content: 'Message from Blue'

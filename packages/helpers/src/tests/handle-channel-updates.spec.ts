@@ -239,7 +239,8 @@ describe('handle channel update for info message', () => {
         },
         messageType: 'Chat',
         privateMessage: 'The private content goes in here',
-        timestamp: '2020-10-13T08:52:40.930Z'
+        timestamp: '2020-10-13T08:52:40.930Z',
+        turnNumber: 1
       },
       message: {
         content: 'Message from White, with Private content'
