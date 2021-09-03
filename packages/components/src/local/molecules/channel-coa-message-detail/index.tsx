@@ -86,6 +86,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const candidates = getCandidates(assignees)
 
+  // collate list of verbs used for providing feedback
+  const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
+  feedbackVerbs.push('Request changes')
+
   const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
   }
@@ -105,15 +109,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     handleChange(close(message))
   }
 
-  const handleRequestChanges = (): void => {
-    setDialogTitle('Request changes to document')
-    setPlaceHolder('Enter requested changes...')
-    setOpenDialog(true)
-  }
-
-  const handleEndorse = (): void => {
-    setDialogTitle('Endorse document')
-    setPlaceHolder('Endorsement comment (optional)')
+  const handleRequestChanges = (name: string): void => {
+    setDialogTitle(name)
+    setPlaceHolder(name + '...')
     setOpenDialog(true)
   }
 
@@ -182,13 +180,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const onModalSave = (feedback: string): void => {
+    const newFeedback: string = feedbackVerbs.length > 1 ? '[' + dialogTitle + '] - ' + feedback : feedback
     // put message into feedback item
     const feedbackItem: FeedbackItem =
     {
       fromId: role.roleId,
       fromName: role.roleName,
       date: new Date().toISOString(),
-      feedback
+      feedback: newFeedback
     }
     if (message.details.collaboration) {
       if (!message.details.collaboration.feedback) {
@@ -267,8 +266,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               <>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEditClose}>Close</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEditFinalise}>Finalise</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleRequestChanges}>Request Changes</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleEndorse}>Endorse</Button>
+                {
+                  feedbackVerbs.map((item: string) => {
+                    return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleRequestChanges(item)}>{item}</Button>
+                  })
+                }
               </>
             }
             {
