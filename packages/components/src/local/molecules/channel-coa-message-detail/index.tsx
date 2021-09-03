@@ -86,6 +86,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const candidates = getCandidates(assignees)
 
+  // collate list of verbs used for providing feedback
+  const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
+  feedbackVerbs.push('Request changes')
+
   const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
   }
@@ -176,13 +180,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const onModalSave = (feedback: string): void => {
+    const newFeedback: string = feedbackVerbs.length > 1 ? '[' + dialogTitle + '] - ' + feedback : feedback
     // put message into feedback item
     const feedbackItem: FeedbackItem =
     {
       fromId: role.roleId,
       fromName: role.roleName,
       date: new Date().toISOString(),
-      feedback
+      feedback: newFeedback
     }
     if (message.details.collaboration) {
       if (!message.details.collaboration.feedback) {
@@ -230,10 +235,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   /** value of owner, of `unassigned` */
   const feedback = message.details.collaboration?.feedback
-
-  const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
-  feedbackVerbs.push('Request changes')
-  console.log('verbs', feedbackVerbs)
 
   // create a single feedback block - we use it in either message type
   const feedbackBlock = (canCollaborate || canReleaseMessages || isUmpire) && feedback && feedback.length > 0 && (
