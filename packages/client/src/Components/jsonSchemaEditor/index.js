@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import jsonMetaSchema from './data.json'
-import JSONEditor from '@json-editor/json-editor'
+import { JSONEditor } from '@json-editor/json-editor'
 import Editor from './jsonEditor'
 import Preview from './editorPreview'
 import '@fortawesome/fontawesome-free/css/all.css'
