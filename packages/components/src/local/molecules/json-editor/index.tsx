@@ -28,7 +28,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     return <span style={styles} >Schema not found for {message.details.messageType}</span>
   }
 
-  const handleChange = (value: {[property: string]: any}): void => {
+  const handleChange = (value: { [property: string]: any }): void => {
     getJsonEditorValue && getJsonEditorValue(value)
   }
 
@@ -36,7 +36,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     const nextEditor = setupEditor(editor, schema.details, jsonEditorRef)
 
     if (nextEditor) {
-      const {properties = {}} = schema.details['properties'].LOCATION
+      const { properties = {} } = (schema.details as any).properties.LOCATION
       const keys = Object.keys(properties)
       for (const key of keys) {
         if (!message.message.LOCATION[key]) {
