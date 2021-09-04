@@ -12,4 +12,5 @@ export default interface PropTypes {
   selectedRole: Role['roleId']
   selectedRoleName: Role['name']
   chatChannel: any
+  turnNumber: number
 }

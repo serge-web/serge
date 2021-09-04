@@ -21,7 +21,8 @@ const message: ChatMessageType = {
     },
     messageType: 'Chat',
     timestamp: '2020-09-18T05:41:17.349Z',
-    privateMessage: 'Private weather message'
+    privateMessage: 'Private weather message',
+    turnNumber: 1
   },
   _id: '2020-09-18T05:41:17.349Z'
 }

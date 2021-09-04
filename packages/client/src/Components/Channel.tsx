@@ -54,7 +54,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const colors = state.channels[channelId].forceColors
   const channelFormat = state.channels[channelId].format
   const channelMessages = state.channels[channelId].messages 
-  const messages =  channelMessages ? channelMessages as MessageCustom[] : []
+  const messages =  channelMessages ? channelMessages as MessageChannel[] : []
   const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
   const templates = state.channels[channelId].templates || []

@@ -19,7 +19,8 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
         "iconURL": "http://localhost:8080/default_img/forceDefault.png"
       },
       "messageType": "Chat",
-      "timestamp": "2020-12-07T06:38:43.642Z"
+      "timestamp": "2020-12-07T06:38:43.642Z",
+      turnNumber: 1
     },
     "message": {
       "content": "My test message"

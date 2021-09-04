@@ -30,6 +30,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
         },
         messageType: schema.title,
         timestamp: new Date().toISOString(),
+        turnNumber: state.currentTurn
       }
 
       if (editor.getValue().content === '') return

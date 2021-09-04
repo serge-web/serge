@@ -38,6 +38,7 @@ const MessageCreator: React.FC<Props> = (props) => {
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
+      turnNumber: state.currentTurn
     }
     const currentChannelFormat = state.channels[props.curChannel].format || null
 
