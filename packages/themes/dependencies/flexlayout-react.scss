@@ -122,14 +122,14 @@
   float: left;
   vertical-align: top;
   box-sizing: border-box;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 13px;
   text-align: center;
-  color: $link-color;
+  color: #4bf;
   @include typo-secondary;
 }
 
 .flexlayout__tab_button--selected {
+  font-weight: bold;
   color: #ffffff;
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
   border-style: solid;
