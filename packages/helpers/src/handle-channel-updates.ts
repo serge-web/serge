@@ -386,8 +386,11 @@ const handleChannelUpdates = (
         // channel will now exist, get shortcut
         const thisChannel: ChannelUI = res.channels[channelId]
 
+        // check if this is a collab channel, since we don't fire turn markers into collab channels
+        const collabChannel = thisChannel.format && (thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+
         // check if we're missing a turn marker for this turn
-        if (thisChannel.messages) {
+        if (thisChannel.messages && !collabChannel) {
           if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
             // no messages, or no turn marker found, create one
             const message: MessageChannel = clipInfoMEssage(payload, false)
