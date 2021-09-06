@@ -72,7 +72,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         state.channels[channelId].observing === false &&
         <div className="new-message-creator wrap new-message-orderable" ref={chatMessageRef}>
           <div className="chat-message-container">
-            <ChatEntryForm turnNumber={state.currentTurn} from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} postBack={messageHandler} />
+            <ChatEntryForm turnNumber={state.currentTurn} from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} roleName={state.selectedRoleName} postBack={messageHandler} />
           </div>
         </div>
       }
