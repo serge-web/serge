@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import moment from 'moment'
 /* Import Types */
 import Props from './types/props'
@@ -75,6 +75,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
   const [assignBtnLabel] = useState<string>('Assign to')
+  const answerRef = useRef<HTMLElement>(null)
 
   const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
   const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
@@ -89,6 +90,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   // collate list of verbs used for providing feedback
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
+
+  // make the answer's textarea height fit content
+  if (answerRef && answerRef.current) {
+    answerRef.current.style.height = `${answerRef.current.scrollHeight}px`
+  }
 
   const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
@@ -301,7 +307,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             isUmpire && (privateMessage || editDoc) &&
-              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+            <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
           <div className={styles.actions}>
             {
@@ -349,13 +355,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             responseIsReleased
-              ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+              ? <Textarea innerRef={answerRef} id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
               : (canCollaborate || canReleaseMessages || isUmpire) &&
-              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
+              <Textarea innerRef={answerRef} id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
           }
           { // only show private field for umpire force(s)
             isUmpire && (privateMessage || editResponse) &&
-              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
           <div className={styles.actions}>
             {

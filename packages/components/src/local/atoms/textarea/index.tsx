@@ -14,6 +14,7 @@ const labelFactoryDefault = (inputid: string, label: string): React.ReactNode =>
 
 const Textarea: React.FC<PropTypes> = (
   {
+    innerRef,
     value,
     onChange,
     label,
@@ -34,6 +35,7 @@ const Textarea: React.FC<PropTypes> = (
     <div className={cn(styles.main, styles[`theme-${theme}`], !!disabled && styles.disabled)}>
       {label && labelFactory(inputid, label)}
       <textarea
+        ref={innerRef}
         disabled={!!disabled}
         id={inputid}
         onChange={handeChange}

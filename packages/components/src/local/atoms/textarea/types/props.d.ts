@@ -1,6 +1,8 @@
+import { MutableRefObject } from 'react'
 import { TEXTAREA_DARK, TEXTAREA_LIGHT } from '../'
 
 export default interface PropTypes {
+  innerRef?: MutableRefObject
   value: string
   onChange?: (nextValue: string) => void
   label?: string
