@@ -49,7 +49,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
         nextEditor.off('change', () => {
           handleChange(nextEditor.getValue())
         })
-        nextEditor.destroy()
+        // if (nextEditor.options) nextEditor.destroy()
       }
     }
   }, [])
