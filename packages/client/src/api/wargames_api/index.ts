@@ -15,7 +15,8 @@ import {
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
-  SERGE_INFO
+  SERGE_INFO,
+  ERROR_THROTTLE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -99,8 +100,11 @@ export const deleteWargame = (wargamePath: string): void => {
   wargameDbStore.splice(index, 1)
 }
 
-export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): void => {
-  db.changes({
+export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: ListenNewMessageType): void => {
+
+  if (changes) changes.cancel()
+
+  const nextChanges = db.changes({
     since: 'now',
     live: true,
     timeout: false,
@@ -124,11 +128,12 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
       }
     })()
   }).on('error', (err) => {
+    if (timerId) clearTimeout(timerId)
     console.log('error on listen for new message', err)
     // hey, maybe the server is down. introduce a pause
-    // setTimeout((): void => {
-    //   listenNewMessage({ db, name, dispatch })
-    // }, ERROR_THROTTLE)
+    timerId = setTimeout((): void => {
+      listenNewMessage({ db, name, dispatch, timerId, changes: nextChanges })
+    }, ERROR_THROTTLE)
   })
 }
 
