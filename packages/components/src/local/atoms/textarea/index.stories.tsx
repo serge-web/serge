@@ -31,6 +31,13 @@ export const FourRows: React.FC = () => {
   return <Textarea rows={4} value={value} onChange={(nextValue): void => setValue(nextValue)} label='Label'/>
 }
 
+
+export const FixedArea: React.FC = () => {
+  const [longValue, setLongValue] = useState<string>('line 1\nline 2\nline 3\nline 4\n')
+
+  return <Textarea fitContent={true} value={longValue} onChange={(nextValue): void => setLongValue(nextValue)} label='Label'/>
+}
+
 export const WithFactory: React.FC = () => {
   const [value, setValue] = useState<string>('Text')
 
