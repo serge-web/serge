@@ -223,10 +223,8 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const onModalClose = (): void => {
+    setOpenDialog(false)
     expiredStorage.removeItem(dialogOpenStatusKey)
-    setOpenModalStatus({
-      open: false
-    })
   }
 
   const onModalSave = (feedback: string): void => {
@@ -248,9 +246,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     }
 
     handleChange(requestChanges(message))
-    setOpenModalStatus({
-      open: false
-    })
+    setOpenDialog(false)
     expiredStorage.removeItem(dialogOpenStatusKey)
   }
 
