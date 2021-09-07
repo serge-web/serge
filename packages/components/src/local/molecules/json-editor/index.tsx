@@ -32,23 +32,32 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     getJsonEditorValue && getJsonEditorValue(value)
   }
 
+  const genLocalStorageId = (): string => {
+    return `${message._id}_${message.message.Reference}`
+  }
+
   useEffect(() => {
     const nextEditor = setupEditor(editor, schema.details, jsonEditorRef)
 
+    const changeListenter = (): void => {
+      if (nextEditor) {
+        const nexValue = nextEditor.getValue()
+        handleChange(nexValue)
+        localStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+      }
+    }
+
     if (nextEditor) {
-      nextEditor.setValue(message.message)
-      nextEditor.on('change', () => {
-        handleChange(nextEditor.getValue())
-      })
+      const messageJson = localStorage.getItem(genLocalStorageId())
+      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
+      nextEditor.on('change', changeListenter)
     }
 
     setEditor(nextEditor)
 
     return (): void => {
       if (nextEditor) {
-        nextEditor.off('change', () => {
-          handleChange(nextEditor.getValue())
-        })
+        nextEditor.off('change', changeListenter)
         // if (nextEditor.options) nextEditor.destroy()
       }
     }
