@@ -28,12 +28,12 @@ const Textarea: React.FC<PropTypes> = (
   const [inputid] = useState<string>(id || uniqid.time())
   const elmRef = useRef<HTMLTextAreaElement>(null)
 
-  if (fitContent) {
+  setTimeout(() => {
     // make the answer's textarea height fit content
-    if (elmRef && elmRef.current) {
+    if (fitContent && elmRef && elmRef.current) {
       elmRef.current.style.height = `${elmRef.current.scrollHeight}px`
     }
-  }
+  })
 
   const handeChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     if (onChange) onChange(e.target.value)
