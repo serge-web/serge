@@ -141,25 +141,25 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       {
         showTimeRemaining &&
         <div className={styles['turn-info-remaining']}>
-        {phase === PLANNING_PHASE &&
+          {phase === PLANNING_PHASE &&
         <>
           <span className={
             `${styles['time-left']} ${warningStyle} ${endedStyle}`
           }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
           <span className={styles['info-helper']}>Time left</span>
         </>
-        }
-        {phase === ADJUDICATION_PHASE &&
+          }
+          {phase === ADJUDICATION_PHASE &&
         <>
           <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
           <span className={styles['info-helper']}>Elapsed</span>
         </>
-        }
-        {
-          !wargameInitiated &&
+          }
+          {
+            !wargameInitiated &&
           <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME&nbsp;<br/>&nbsp;NOT INITIATED</div>
-        }
-      </div>
+          }
+        </div>
       }
 
     </div>
