@@ -1,6 +1,7 @@
 import { TEXTAREA_DARK, TEXTAREA_LIGHT } from '../'
 
 export default interface PropTypes {
+  fitContent?: boolean
   value: string
   onChange?: (nextValue: string) => void
   label?: string
