@@ -23,6 +23,7 @@ export default interface Props {
 
 export interface DialogModalStatus {
   open: boolean
-  title: string
-  placeHolder: string
+  title?: string
+  placeHolder?: string
+  content?: string
 }
