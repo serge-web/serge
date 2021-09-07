@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 /* Import Types */
-import Props from './types/props'
+import Props, { DialogModalStatus } from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -37,7 +37,7 @@ import {
   ColEditClosed,
   formEditable
 } from './helpers/visibility'
-import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelTypes, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
@@ -66,15 +66,23 @@ const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): 
   throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
 }
 
+const getOpenStatus = (key: string): DialogModalStatus => {
+  return JSON.parse(expiredStorage.getItem(key) || '{}')
+}
+
 /* Render component */
 export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
-  const [open, setOpenDialog] = useState<boolean>(false)
-  const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
-  const [placeHolder, setPlaceHolder] = useState<string>('')
   const [assignBtnLabel] = useState<string>('Assign to')
+
+  const dialogOpenStatusKey = `${message._id}-${role.forceId}-${role.roleId}`
+  const dialogModalStatus = getOpenStatus(dialogOpenStatusKey)
+
+  const [open, setOpenDialog] = useState<boolean>(dialogModalStatus.open)
+  const [dialogTitle, setDialogTitle] = useState<string>(dialogModalStatus.title)
+  const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder)
 
   const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
   const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
@@ -89,6 +97,18 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   // collate list of verbs used for providing feedback
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
+
+  const setDialogModalStatus = (open = false, title = '', placeHolder = 'Feedback'): void => {
+    // store to local storage for using in case the site is reload while modal is opening
+    expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify({
+      open,
+      title,
+      placeHolder
+    }))
+    setDialogTitle(title)
+    setPlaceHolder(placeHolder)
+    setOpenDialog(open)
+  }
 
   const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
@@ -110,15 +130,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleRequestChanges = (name: string): void => {
-    setDialogTitle(name)
-    setPlaceHolder(name + '...')
-    setOpenDialog(true)
+    setDialogModalStatus(true, name, `${name}...`)
   }
 
   const handleReopen = (): void => {
-    setDialogTitle('Reopen document')
-    setPlaceHolder('Reason for reopening')
-    setOpenDialog(true)
+    setDialogModalStatus(true, 'Reopen document', 'Reason for reopening')
   }
 
   const handleClaim = (): void => {
@@ -142,9 +158,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleResponseReopen = (): void => {
-    setDialogTitle('Reopen response')
-    setPlaceHolder('Reason for reopening')
-    setOpenDialog(true)
+    setDialogModalStatus(true, 'Reopen response', 'Reason for reopening')
   }
 
   const handleResponseClose = (): void => {
@@ -156,9 +170,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleResponseRequestChanges = (): void => {
-    setDialogTitle('Request changes in response')
-    setPlaceHolder('Enter requested changes...')
-    setOpenDialog(true)
+    setDialogModalStatus(true, 'Request changes in response', 'Enter requested changes...')
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -176,7 +188,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const onModalClose = (): void => {
-    setOpenDialog(false)
+    setDialogModalStatus(false)
   }
 
   const onModalSave = (feedback: string): void => {
@@ -198,7 +210,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     }
 
     handleChange(requestChanges(message))
-    setOpenDialog(false)
+    setDialogModalStatus(false)
   }
 
   const formatFeedback = (feedback: FeedbackItem): string => {
@@ -301,7 +313,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             isUmpire && (privateMessage || editDoc) &&
-              <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+            <Textarea disabled={!editDoc} id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
           <div className={styles.actions}>
             {
@@ -349,13 +361,13 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             responseIsReleased
-              ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer"/>
+              ? <Textarea id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
               : (canCollaborate || canReleaseMessages || isUmpire) &&
-              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer"/>
+              <Textarea id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
           }
           { // only show private field for umpire force(s)
             isUmpire && (privateMessage || editResponse) &&
-              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
           <div className={styles.actions}>
             {
