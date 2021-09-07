@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
 /* Import Types */
 import Props from './types/props'
@@ -75,7 +75,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')
   const [placeHolder, setPlaceHolder] = useState<string>('')
   const [assignBtnLabel] = useState<string>('Assign to')
-  const answerRef = useRef<HTMLElement>(null)
 
   const editDoc = ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
   const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
@@ -90,11 +89,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   // collate list of verbs used for providing feedback
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
-
-  // make the answer's textarea height fit content
-  if (answerRef && answerRef.current) {
-    answerRef.current.style.height = `${answerRef.current.scrollHeight}px`
-  }
 
   const getJsonEditorValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
@@ -355,9 +349,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           />
           {
             responseIsReleased
-              ? <Textarea innerRef={answerRef} id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
+              ? <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
               : (canCollaborate || canReleaseMessages || isUmpire) &&
-              <Textarea innerRef={answerRef} id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
+              <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
           }
           { // only show private field for umpire force(s)
             isUmpire && (privateMessage || editResponse) &&

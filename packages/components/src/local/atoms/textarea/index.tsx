@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useRef } from 'react'
 import PropTypes from './types/props'
 import uniqid from 'uniqid'
 import cn from 'classnames'
@@ -14,7 +14,7 @@ const labelFactoryDefault = (inputid: string, label: string): React.ReactNode =>
 
 const Textarea: React.FC<PropTypes> = (
   {
-    innerRef,
+    fitContent = false,
     value,
     onChange,
     label,
@@ -26,6 +26,14 @@ const Textarea: React.FC<PropTypes> = (
     placeholder
   }) => {
   const [inputid] = useState<string>(id || uniqid.time())
+  const elmRef = useRef<HTMLTextAreaElement>(null)
+
+  if (fitContent) {
+    // make the answer's textarea height fit content
+    if (elmRef && elmRef.current) {
+      elmRef.current.style.height = `${elmRef.current.scrollHeight}px`
+    }
+  }
 
   const handeChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     if (onChange) onChange(e.target.value)
@@ -35,7 +43,7 @@ const Textarea: React.FC<PropTypes> = (
     <div className={cn(styles.main, styles[`theme-${theme}`], !!disabled && styles.disabled)}>
       {label && labelFactory(inputid, label)}
       <textarea
-        ref={innerRef}
+        ref={elmRef}
         disabled={!!disabled}
         id={inputid}
         onChange={handeChange}
