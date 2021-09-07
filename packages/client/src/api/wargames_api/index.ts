@@ -15,7 +15,8 @@ import {
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
-  SERGE_INFO
+  SERGE_INFO,
+  ERROR_THROTTLE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -99,8 +100,14 @@ export const deleteWargame = (wargamePath: string): void => {
   wargameDbStore.splice(index, 1)
 }
 
-export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): void => {
-  db.changes({
+export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: ListenNewMessageType): void => {
+
+  // if (changes) will works only when we recall listenNewMessage()
+  // it conain old listenter with error, as we need to re-listen changes we need to clean old listener (no double fire)
+  if (changes) changes.cancel()
+
+  // save db.changes listener in to nextChanges const to be able remove it as we don't want to have case when we had a 2 .changes listener
+  const nextChanges = db.changes({
     since: 'now',
     live: true,
     timeout: false,
@@ -124,11 +131,16 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
       }
     })()
   }).on('error', (err) => {
+    // in case if error wil works multiple times we have global `timerId` (function body level)
+    // on every error need to clean `timerId` to keep working timer for last error fire
+    if (timerId) clearTimeout(timerId)
     console.log('error on listen for new message', err)
     // hey, maybe the server is down. introduce a pause
-    // setTimeout((): void => {
-    //   listenNewMessage({ db, name, dispatch })
-    // }, ERROR_THROTTLE)
+    // save timer to have way to stop it when error trigger multiple times
+    timerId = setTimeout((): void => {
+      // set timerId and changes listener for new listenNewMessage() to be able to remove them before new listener creation
+      listenNewMessage({ db, name, dispatch, timerId, changes: nextChanges })
+    }, ERROR_THROTTLE)
   })
 }
 
