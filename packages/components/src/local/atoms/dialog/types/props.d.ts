@@ -20,4 +20,9 @@ export type Props = DialogProps & {
    * on cancel callback
    */
   onClose?: () => void
+
+  /**
+   * on change callback
+   */
+  onValueChange?: (value: string) => void
 }

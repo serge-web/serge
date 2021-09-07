@@ -64,9 +64,10 @@ const DialogActions = withStyles((theme: Theme) => ({
 }))(MuiDialogActions)
 
 /* Render component */
-export const DialogModal: React.FC<Props> = ({ title, value = '', open, onSave, onClose, placeholder }: Props) => {
+export const DialogModal: React.FC<Props> = ({ title, value = '', open, onSave, onClose, onValueChange, placeholder }: Props) => {
   const [text, setText] = useState<string>(value)
   const handleClose = (): void => {
+    setText('')
     onClose && onClose()
   }
 
@@ -76,6 +77,7 @@ export const DialogModal: React.FC<Props> = ({ title, value = '', open, onSave, 
 
   const onTextChange = (data: string): void => {
     setText(data)
+    onValueChange && onValueChange(data)
   }
 
   return (

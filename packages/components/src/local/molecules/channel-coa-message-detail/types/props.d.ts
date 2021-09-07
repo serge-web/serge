@@ -1,4 +1,9 @@
-import { MessageCustom, ForceRole, ChannelData, TemplateBodysByKey } from '@serge/custom-types'
+import {
+  MessageCustom,
+  ForceRole,
+  ChannelData,
+  TemplateBodysByKey
+} from '@serge/custom-types'
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
@@ -14,4 +19,11 @@ export default interface Props {
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]
+}
+
+export interface DialogModalStatus {
+  open: boolean
+  title?: string
+  placeHolder?: string
+  content?: string
 }
