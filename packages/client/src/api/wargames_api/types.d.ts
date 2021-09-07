@@ -7,7 +7,9 @@ export type ApiWargameDb = PouchDB.Database<Message | Wargame>
 export interface ListenNewMessageType {
   db: ApiWargameDb,
   name: string,
-  dispatch: PlayerUiDispatch
+  dispatch: PlayerUiDispatch,
+  timerId?: ReturnType<typeof setTimeout>,
+  changes?: PouchDB.Core.Changes<Wargame | Message>
 }
 
 export type ApiWargameDbObject = { db: ApiWargameDb, name: string }
