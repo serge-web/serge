@@ -66,7 +66,7 @@ const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): 
   throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
 }
 
-const getOpenStatus = (key: string): DialogModalStatus => {
+const getOpenModalStatus = (key: string): DialogModalStatus => {
   return JSON.parse(expiredStorage.getItem(key) || '{}')
 }
 
@@ -78,7 +78,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const [assignBtnLabel] = useState<string>('Assign to')
 
   const dialogOpenStatusKey = `${message._id}-${role.forceId}-${role.roleId}`
-  const dialogModalStatus = getOpenStatus(dialogOpenStatusKey)
+  const dialogModalStatus = getOpenModalStatus(dialogOpenStatusKey)
 
   const [open, setOpenDialog] = useState<boolean>(dialogModalStatus.open)
   const [dialogTitle, setDialogTitle] = useState<string>(dialogModalStatus.title)
@@ -98,7 +98,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
 
-  const setDialogModalStatus = (open = false, title = '', placeHolder = 'Feedback'): void => {
+  const setOpenModalStatus = (open = false, title = '', placeHolder = 'Feedback'): void => {
     // store to local storage for using in case the site is reload while modal is opening
     expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify({
       open,
@@ -130,11 +130,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleRequestChanges = (name: string): void => {
-    setDialogModalStatus(true, name, `${name}...`)
+    setOpenModalStatus(true, name, `${name}...`)
   }
 
   const handleReopen = (): void => {
-    setDialogModalStatus(true, 'Reopen document', 'Reason for reopening')
+    setOpenModalStatus(true, 'Reopen document', 'Reason for reopening')
   }
 
   const handleClaim = (): void => {
@@ -158,7 +158,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleResponseReopen = (): void => {
-    setDialogModalStatus(true, 'Reopen response', 'Reason for reopening')
+    setOpenModalStatus(true, 'Reopen response', 'Reason for reopening')
   }
 
   const handleResponseClose = (): void => {
@@ -170,7 +170,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const handleResponseRequestChanges = (): void => {
-    setDialogModalStatus(true, 'Request changes in response', 'Enter requested changes...')
+    setOpenModalStatus(true, 'Request changes in response', 'Enter requested changes...')
   }
 
   const onAnswerChange = (answer: string): void => {
@@ -188,7 +188,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   }
 
   const onModalClose = (): void => {
-    setDialogModalStatus(false)
+    setOpenModalStatus(false)
   }
 
   const onModalSave = (feedback: string): void => {
@@ -210,7 +210,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     }
 
     handleChange(requestChanges(message))
-    setDialogModalStatus(false)
+    setOpenModalStatus(false)
   }
 
   const formatFeedback = (feedback: FeedbackItem): string => {
