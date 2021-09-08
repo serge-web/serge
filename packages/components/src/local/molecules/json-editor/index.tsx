@@ -8,6 +8,7 @@ import Props from './types/props'
 import { Editor, TemplateBody } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
+import { expiredStorage } from '@serge/config'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
@@ -31,7 +32,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     return <span style={styles} >Schema not found for {message.details.messageType}</span>
   }
 
-  const handleChange = (value: {[property: string]: any}): void => {
+  const handleChange = (value: { [property: string]: any }): void => {
     getJsonEditorValue && getJsonEditorValue(value)
   }
 
@@ -46,7 +47,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        localStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+        expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
       }
     }
 
@@ -76,7 +77,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
-      const messageJson = localStorage.getItem(genLocalStorageId())
+      const messageJson = expiredStorage.getItem(genLocalStorageId())
       nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
       nextEditor.on('change', changeListenter)
     }

@@ -71,7 +71,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -98,6 +98,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   // collate list of verbs used for providing feedback
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
+
+  if (
+    parentRef &&
+    parentRef.current &&
+    parentRef.current.scrollTop !== 0
+  ) {
+    expiredStorage.setItem('scrollPosition', `${parentRef.current.scrollTop}`)
+  }
 
   const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
     // store to local storage for using in case the site is reload while modal is opening
