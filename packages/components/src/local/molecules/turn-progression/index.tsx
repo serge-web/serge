@@ -112,6 +112,10 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   const warningStyle = progressionState.warning ? styles.warning : null
   const endedStyle = progressionState.ended ? styles.ended : null
 
+  // TODO: this should come from the new turn attributes in game overview,
+  // to be implemented in https://github.com/serge-web/serge/issues/954
+  const showTimeRemaining = false
+
   return (
     <div className={classNames([
       styles['flex-content-wrapper'],
@@ -134,26 +138,29 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             : false
         }
       </div>
-      <div className={styles['turn-info-remaining']}>
-        {phase === PLANNING_PHASE &&
+      {
+        showTimeRemaining &&
+        <div className={styles['turn-info-remaining']}>
+          {phase === PLANNING_PHASE &&
         <>
           <span className={
             `${styles['time-left']} ${warningStyle} ${endedStyle}`
           }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
           <span className={styles['info-helper']}>Time left</span>
         </>
-        }
-        {phase === ADJUDICATION_PHASE &&
+          }
+          {phase === ADJUDICATION_PHASE &&
         <>
           <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
           <span className={styles['info-helper']}>Elapsed</span>
         </>
-        }
-        {
-          !wargameInitiated &&
+          }
+          {
+            !wargameInitiated &&
           <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME&nbsp;<br/>&nbsp;NOT INITIATED</div>
-        }
-      </div>
+          }
+        </div>
+      }
 
     </div>
   )
