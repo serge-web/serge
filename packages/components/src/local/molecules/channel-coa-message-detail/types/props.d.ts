@@ -21,7 +21,7 @@ export default interface Props {
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]
 
-  parentRef: RefObject<HTMLDivElement>
+  parentRef?: RefObject<HTMLDivElement>
 }
 
 export interface DialogModalStatus {

@@ -24,5 +24,5 @@ export default interface Props {
   /** list of forces */
   forces: ForceData[]
 
-  parentRef: RefObject<HTMLDivElement>
+  parentRef?: RefObject<HTMLDivElement>
 }
