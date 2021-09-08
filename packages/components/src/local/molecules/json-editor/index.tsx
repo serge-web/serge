@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, memo } from 'react'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -8,6 +8,9 @@ import Props from './types/props'
 import { Editor, TemplateBody } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
+
+// keydown listener should works only for defined tags
+const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false }) => {
@@ -47,6 +50,31 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       }
     }
 
+    // Timer it foo throttle
+    let timerId: ReturnType<typeof setTimeout>
+
+    // Keydown litener
+    const handleKeyDown = ({ target }: KeyboardEvent): void => {
+      // if target not null
+      if (target) {
+        // convert targetElement to HTMLElement
+        const targetElement = target as HTMLElement
+        // if target valid input tag
+        if (keydowListenFor.includes(targetElement.tagName)) {
+          // remove old onChange waiting timers
+          if (timerId) clearTimeout(timerId)
+          // create new timer
+          timerId = setTimeout((): void => {
+            // trigger changes listener after 128ms
+            targetElement.dispatchEvent(new Event('change'))
+          }, 128)
+        }
+      }
+    }
+
+    // add keydown listener to be able to track input changes
+    document.addEventListener('keydown', handleKeyDown)
+
     if (nextEditor) {
       const messageJson = localStorage.getItem(genLocalStorageId())
       nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
@@ -56,9 +84,13 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     setEditor(nextEditor)
 
     return (): void => {
+      // remove timer for unmounted component
+      if (timerId) clearTimeout(timerId)
+      // remove keydown listener for unmounted component
+      document.removeEventListener('keydown', handleKeyDown)
       if (nextEditor) {
+        // remove change listener for unmounted component
         nextEditor.off('change', changeListenter)
-        // if (nextEditor.options) nextEditor.destroy()
       }
     }
   }, [])
@@ -78,4 +110,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   )
 }
 
-export default JsonEditor
+// we don't need to re render it as all logick based on JsonEditor plugin and all changes applaying inside useEffect's
+export default memo(JsonEditor, () => {
+  return false
+})
