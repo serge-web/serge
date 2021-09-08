@@ -12,7 +12,7 @@ import {
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom, TemplateBody } from '@serge/custom-types'
 import { CoaStatusBoard } from "@serge/components";
-import { SpecialChannelTypes } from "@serge/config";
+import { expiredStorage, SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
@@ -53,8 +53,8 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
   const channelFormat = state.channels[channelId].format
-  const channelMessages = state.channels[channelId].messages 
-  const messages =  channelMessages ? channelMessages as MessageChannel[] : []
+  const channelMessages = state.channels[channelId].messages
+  const messages = channelMessages ? channelMessages as MessageChannel[] : []
   const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
   const templates = state.channels[channelId].templates || []
@@ -62,17 +62,27 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // in collab working channels
   const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
 
+  setTimeout(() => {
+    const dataTable = document.getElementById(channelId)
+    if (dataTable) {
+      const scrollTop = expiredStorage.getItem('scrollPosition')
+      if (!scrollTop) return
+      dataTable.firstElementChild && dataTable.firstElementChild.scrollTo(0, Number(scrollTop))
+      // expiredStorage.removeItem('scrollPosition')
+    }
+  }, 1000)
+
   return (
-    <div className={channelTabClass} data-channel-id={channelId}>
+    <div className={channelTabClass} data-channel-id={channelId} id={channelId}>
       <div className='flexlayout__scrollbox'>
-        { isCollabWorking ? (
+        {isCollabWorking ? (
           <CoaStatusBoard
             templates={state.allTemplatesByKey}
             messages={messages}
             role={{
-              forceId: selectedForce.uniqid, 
+              forceId: selectedForce.uniqid,
               forceName: selectedForce.name,
-              roleId: selectedRole, 
+              roleId: selectedRole,
               roleName: selectedRoleName
             }}
             forces={state.allForces}

@@ -8,6 +8,7 @@ import Props from './types/props'
 import { Editor, TemplateBody } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
+import { expiredStorage } from '@serge/config'
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false }) => {
@@ -28,7 +29,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     return <span style={styles} >Schema not found for {message.details.messageType}</span>
   }
 
-  const handleChange = (value: {[property: string]: any}): void => {
+  const handleChange = (value: { [property: string]: any }): void => {
     getJsonEditorValue && getJsonEditorValue(value)
   }
 
@@ -43,12 +44,12 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        localStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+        expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
       }
     }
 
     if (nextEditor) {
-      const messageJson = localStorage.getItem(genLocalStorageId())
+      const messageJson = expiredStorage.getItem(genLocalStorageId())
       nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
       nextEditor.on('change', changeListenter)
     }

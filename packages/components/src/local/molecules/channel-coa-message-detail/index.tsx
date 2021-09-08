@@ -99,6 +99,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
 
+  const dataTable = document.getElementById(channel.uniqid)
+  if (dataTable && dataTable.firstElementChild && dataTable.firstElementChild.scrollTop) {
+    expiredStorage.setItem('scrollPosition', `${dataTable.firstElementChild.scrollTop}`)
+  }
+
   const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
     // store to local storage for using in case the site is reload while modal is opening
     const currentModalStatus = getOpenModalStatus(dialogOpenStatusKey)
