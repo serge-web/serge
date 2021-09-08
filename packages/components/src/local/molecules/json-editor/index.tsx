@@ -67,6 +67,8 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
           // create new timer
           timerId = setTimeout((): void => {
             // trigger changes listener after 128ms
+            // TODO: Event is not defined
+            // @ts-ignore
             targetElement.dispatchEvent(new Event('change'))
           }, 128)
         }
