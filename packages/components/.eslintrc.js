@@ -42,6 +42,7 @@ module.exports = {
     'jest': true
   },
   "globals": {
-    "FileReader": "readonly"
+    "FileReader": "readonly",
+    "Event": "readonly"
   }
 }
