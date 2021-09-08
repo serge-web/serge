@@ -1,4 +1,11 @@
-import { MessageCustom, ForceRole, ChannelData, ForceData, TemplateBodysByKey } from '@serge/custom-types'
+import {
+  MessageCustom,
+  ForceRole,
+  ChannelData,
+  ForceData,
+  TemplateBodysByKey
+} from '@serge/custom-types'
+import { RefObject } from 'react'
 export default interface Props {
   messages: MessageCustom[]
   channel: ChannelData
@@ -16,4 +23,6 @@ export default interface Props {
   templates: TemplateBodysByKey
   /** list of forces */
   forces: ForceData[]
+
+  parentRef: RefObject<HTMLDivElement>
 }

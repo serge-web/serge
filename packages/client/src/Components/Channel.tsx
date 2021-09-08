@@ -14,10 +14,12 @@ import { MessageChannel, MessageCustom, TemplateBody } from '@serge/custom-types
 import { CoaStatusBoard } from "@serge/components";
 import { expiredStorage, SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
+import { useRef } from 'react'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
+  const scrollBoxRef = useRef<HTMLDivElement>(null)
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole, selectedRoleName } = state
   const isUmpire = selectedForce && selectedForce.umpire
@@ -63,18 +65,16 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
 
   setTimeout(() => {
-    const dataTable = document.getElementById(channelId)
-    if (dataTable) {
-      const scrollTop = expiredStorage.getItem('scrollPosition')
-      if (!scrollTop) return
-      dataTable.firstElementChild && dataTable.firstElementChild.scrollTo(0, Number(scrollTop))
+    const scrollTop = expiredStorage.getItem('scrollPosition')
+    if (scrollBoxRef && scrollBoxRef.current && scrollTop) {
+      scrollBoxRef.current.scrollTo(0, Number(scrollTop))
       // expiredStorage.removeItem('scrollPosition')
     }
   }, 1000)
 
   return (
-    <div className={channelTabClass} data-channel-id={channelId} id={channelId}>
-      <div className='flexlayout__scrollbox'>
+    <div className={channelTabClass} data-channel-id={channelId}>
+      <div className='flexlayout__scrollbox' ref={scrollBoxRef}>
         {isCollabWorking ? (
           <CoaStatusBoard
             templates={state.allTemplatesByKey}
@@ -89,6 +89,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
             isUmpire={!!isUmpire}
             channel={state.channels[channelId]}
             onChange={handleChange}
+            parentRef={scrollBoxRef}
           />
         ) : (
           <ChannelMessagesList

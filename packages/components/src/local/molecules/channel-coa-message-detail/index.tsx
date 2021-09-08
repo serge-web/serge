@@ -71,7 +71,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -99,9 +99,12 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
 
-  const dataTable = document.getElementById(channel.uniqid)
-  if (dataTable && dataTable.firstElementChild && dataTable.firstElementChild.scrollTop) {
-    expiredStorage.setItem('scrollPosition', `${dataTable.firstElementChild.scrollTop}`)
+  if (
+    parentRef &&
+    parentRef.current &&
+    parentRef.current.scrollTop !== 0
+  ) {
+    expiredStorage.setItem('scrollPosition', `${parentRef.current.scrollTop}`)
   }
 
   const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {

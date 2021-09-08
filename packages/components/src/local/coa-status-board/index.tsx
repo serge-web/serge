@@ -20,8 +20,8 @@ import { capitalize } from 'lodash'
 /** combine force id and color
  */
 export interface ForceColor {
-   uniqid: string
-   color: string
+  uniqid: string
+  color: string
 }
 
 /** helper to provide legible version of force & role */
@@ -65,7 +65,7 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
   const [assignees, setAssignees] = useState<ForceRole[]>([])
 
@@ -189,6 +189,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
                 onChange && onChange(newMeesage)
                 typeof onChangeCallback === 'function' && onChangeCallback()
               }}
+              parentRef={parentRef}
             />
           </div>
         )
@@ -206,7 +207,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
           label: status
         },
         {
-          component: ownerName ? <Badge customBackgroundColor={ ownerColor } customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
+          component: ownerName ? <Badge customBackgroundColor={ownerColor} customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
           label: ownerName
         },
         lastUpdated
