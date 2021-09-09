@@ -105,7 +105,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
     })
     return localData
   }, [data, filtersGroup])
-  
+
   return (
     <TableContainer>
       <Table className={classes.table}>
@@ -164,7 +164,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                     </TableRow>
                   </React.Fragment>
                 )
-              } 
+              }
               return <div key={rowCount}>Looks like DataTable not developed for ROW_DATA_TYPE</div>
             })
           }
