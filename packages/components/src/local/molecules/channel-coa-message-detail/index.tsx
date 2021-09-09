@@ -71,7 +71,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [], collapseMe }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -137,16 +137,19 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
   /** local change handler. Updates `lastUpdated` value
    * in message
    */
-  const handleChange = (msg: MessageCustom): void => {
+  const handleChange = (msg: MessageCustom, collapse: boolean): void => {
+    // collapse message, if necessary
+    collapse && collapseMe && collapseMe()
+    // fire update
     onChange && onChange(msg)
   }
 
   const handleEditFinalise = (): void => {
-    handleChange(editFinalise(message))
+    handleChange(editFinalise(message), true)
   }
 
   const handleEditClose = (): void => {
-    handleChange(close(message))
+    handleChange(close(message), true)
   }
 
   const handleRequestChanges = (name: string): void => {
@@ -166,11 +169,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
   }
 
   const handleClaim = (): void => {
-    handleChange(assign(message, role))
+    handleChange(assign(message, role), false)
   }
 
   const handleEditingSubmit = (): void => {
-    handleChange(editSubmit(message, newMsg, privateMessage))
+    handleChange(editSubmit(message, newMsg, privateMessage), true)
   }
 
   const handleAssign = (selection: string): void => {
@@ -178,11 +181,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    handleChange(assign(message, assignee))
+    handleChange(assign(message, assignee), true)
   }
 
   const handleResponseSubmit = (): void => {
-    handleChange(responseSubmit(message, answer, privateMessage))
+    handleChange(responseSubmit(message, answer, privateMessage), true)
   }
 
   const handleResponseReopen = (): void => {
@@ -194,11 +197,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
   }
 
   const handleResponseClose = (): void => {
-    handleChange(close(message))
+    handleChange(close(message), true)
   }
 
   const handleResponseRelease = (): void => {
-    handleChange(responseRelease(message))
+    handleChange(responseRelease(message), true)
   }
 
   const handleResponseRequestChanges = (): void => {
@@ -253,7 +256,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
       message.details.collaboration.feedback.push(feedbackItem)
     }
 
-    handleChange(requestChanges(message))
+    handleChange(requestChanges(message), true)
     setOpenDialog(false)
     expiredStorage.removeItem(dialogOpenStatusKey)
   }
