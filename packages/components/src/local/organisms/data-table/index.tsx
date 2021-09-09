@@ -109,7 +109,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
           <TableRow>
             {
               columns.map((column, columnId) => (
-                <TableCell key={Math.random()}>
+                <TableCell key={`column-${columnId}`}>
                   <TableHeadCell filters={filters} onFilter={onFilter} content={column} id={columnId} />
                 </TableCell>
               ))
@@ -118,7 +118,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row, rowCount) => {
+            rows.map((row, rowCount: number) => {
               const { collapsible, cells } = row as unknown as RowWithCollapsibleType
               const tableCells = cells || row
               // ideally we'll use the contents of cell zero (message-id). If we can't
@@ -126,7 +126,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
               const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
               const isExpanded = expandedRows.includes(rowIndex)
               return (
-                <React.Fragment key={Math.random()}>
+                <React.Fragment key={`fragment-${rowCount}`}>
                   <TableRow
                     className={cx(classes.tableRow, classes.tableRowCollapsibleTrigger)}
                     onClick={(): void => onToggleRow(rowIndex)}
@@ -134,7 +134,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                     {
                       tableCells.map((cell: RowDataType, index: number) => {
                         return (
-                          <TableCell key={Math.random()}>
+                          <TableCell key={`cell=${index}`}>
                             { index === 0 &&
                             <>
                               <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
