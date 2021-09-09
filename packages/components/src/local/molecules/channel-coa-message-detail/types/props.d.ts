@@ -22,6 +22,8 @@ export default interface Props {
   assignees?: ForceRole[]
 
   parentRef?: RefObject<HTMLDivElement>
+  /** callback to collapse this item */
+  collapseMe?: () => void
 }
 
 export interface DialogModalStatus {
