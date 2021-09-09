@@ -11,7 +11,8 @@ import styles from './styles.module.scss'
 
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 import { Badge } from '../atoms/badge'
-import { DataTable } from '../organisms/data-table'
+import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
+import DataTableProps, { RowWithCollapsibleType } from '../organisms/data-table/types/props'
 
 /* Render component */
 export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
@@ -44,7 +45,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       message.details.from.roleName
     ]
   }, [])
-  const dataTableProps = {
+  const dataTableProps: DataTableProps = {
     columns: [
       'ID',
       {
@@ -71,7 +72,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         label: 'Owner'
       }
     ],
-    data: data.map((row, rowIndex): any => {
+    data: data.map((row, rowIndex): RowWithCollapsibleType => {
       const [id, channel, mRole, forceColor, content, status, owner] = row
       const statusColors = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
@@ -81,12 +82,15 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         [CollaborativeMessageStates.Closed]: '#434343'
       }
 
-      const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
+      const message = rfiMessages[rowIndex] as MessageCustom | undefined
+      if (typeof message === 'undefined') throw new Error('messages[rowIndex] not found')
+
+      const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
         return (
           <div className={styles['rfi-form']}>
             <ChannelRfiMessageDetail
               isRFIManager={isRFIManager}
-              message={(rfiMessages[rowIndex] as MessageCustom)}
+              message={message}
               role={role}
               isUmpire={isUmpire}
               onChange={(newMeesage: MessageCustom): void => {
@@ -98,7 +102,11 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         )
       }
 
+      const rowKey = `${message._id}-${message.message.Reference}`
+
       return {
+        type: ROW_WITH_COLLAPSIBLE_TYPE,
+        rowKey,
         collapsible,
         cells: [
           id,
