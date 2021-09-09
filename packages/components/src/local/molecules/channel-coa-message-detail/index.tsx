@@ -71,11 +71,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-<<<<<<< HEAD
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [], collapseMe }) => {
-=======
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
->>>>>>> data_table_fixes
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [], collapseMe }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
