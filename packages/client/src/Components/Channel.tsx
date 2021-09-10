@@ -14,7 +14,6 @@ import { MessageChannel, MessageCustom, TemplateBody } from '@serge/custom-types
 import { CoaStatusBoard } from "@serge/components";
 import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
-import { useRef } from 'react'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
