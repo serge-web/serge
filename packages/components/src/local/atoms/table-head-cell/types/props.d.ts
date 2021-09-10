@@ -25,5 +25,5 @@ export default interface Props {
   /**
    * callback sort function
    */
-  onSort?: (column: string) => void
+  onSort?: (columnId: string) => void
 }

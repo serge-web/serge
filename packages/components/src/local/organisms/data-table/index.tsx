@@ -63,25 +63,8 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
   const [expandedRows, setExpandedRows] = useState<Array<number>>([])
+  const [tableRows, setTableRow] = useState<RowType[]>([])
   const [sortUp, setSortDirection] = useState<boolean>(true)
-
-  const rows = useMemo(() => {
-    let localData = [...data]
-    Object.keys(filtersGroup).forEach((id: string) => {
-      const filter = filtersGroup[id]
-      localData = localData.filter(row => {
-        const localDataFilter = (filter as Array<string>)
-        const value = row[id]?.label ||
-          row[id] ||
-          (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
-          (row as unknown as RowWithCollapsibleType).cells[id]
-        return localDataFilter.length === 0 || localDataFilter.includes(value)
-      })
-    })
-    return localData
-  }, [data, filtersGroup])
-
-  const [tableRows, setTableRow] = useState<RowType[]>(rows)
 
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
@@ -108,6 +91,22 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       setExpandedRows([rowIndex, ...expandedRows])
     }
   }
+
+  useMemo(() => {
+    let localData = [...data]
+    Object.keys(filtersGroup).forEach((id: string) => {
+      const filter = filtersGroup[id]
+      localData = localData.filter(row => {
+        const localDataFilter = (filter as Array<string>)
+        const value = row[id]?.label ||
+          row[id] ||
+          (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
+          (row as unknown as RowWithCollapsibleType).cells[id]
+        return localDataFilter.length === 0 || localDataFilter.includes(value)
+      })
+    })
+    setTableRow(localData)
+  }, [data, filtersGroup])
 
   const sortTable = (columnId: string): void => {
     setSortDirection(!sortUp)
