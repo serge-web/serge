@@ -7,7 +7,8 @@ import { MessageCustom } from '@serge/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
 
-import DataTable from './index'
+import DataTable, { ROW_WITH_COLLAPSIBLE_TYPE } from './index'
+import { RowWithCollapsibleType } from './types/props'
 
 const rfiMessages = (GameMessagesMockRFI as MessageCustom[]).filter((message: MessageCustom) => message.details.messageType === 'RFI')
 const newest = mostRecentOnly(rfiMessages) as MessageCustom[]
@@ -60,7 +61,7 @@ const columns = [
   }
 ]
 
-const data = rfiData.map((row: any, rowIndex: any): any => {
+const data = rfiData.map((row: any, rowIndex: any): RowWithCollapsibleType => {
   const [id, channel, role, forceColor, content, status, owner] = row
   const statusColors = {
     Unallocated: '#B10303',
@@ -69,7 +70,9 @@ const data = rfiData.map((row: any, rowIndex: any): any => {
     Released: '#007219'
   }
   return {
-    collapsible: (
+    type: ROW_WITH_COLLAPSIBLE_TYPE,
+    rowKey: 'rowKey' + rowIndex,
+    collapsible: (): React.ReactElement => (
       <RfiForm onSubmit={console.log} onReject={console.log} message={(newest[rowIndex] as MessageCustom)} />
     ),
     cells: [

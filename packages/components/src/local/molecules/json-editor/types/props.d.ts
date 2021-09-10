@@ -6,4 +6,5 @@ export default interface Props {
   message: MessageCustom
   messageTemplates: TemplateBodysByKey
   disabled?: boolean
+  saveEditedMessage?: boolean
 }
