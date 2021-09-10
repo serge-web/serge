@@ -23,6 +23,16 @@ exports[`RfiStatusBoard renders correctly 1`] = `
         >
           <span>
             ID
+            <span
+              onClick={[Function]}
+            >
+              <svg
+                className="svg-inline--fa fa-sort-up"
+              />
+              <svg
+                className="svg-inline--fa fa-sort-down"
+              />
+            </span>
           </span>
         </th>
         <th

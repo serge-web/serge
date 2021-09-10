@@ -1,4 +1,4 @@
-export type ContentFilterType = { filters: Array<string>, label: string }
+export type ContentFilterType = { filters: Array<string>; label: string }
 export default interface Props {
   /**
    * Column index
@@ -16,4 +16,14 @@ export default interface Props {
    * Callback on filter button click event
    */
   onFilter: (id: number, filter: string) => void
+
+  /**
+   * toggle sort
+   */
+  sort?: boolean
+
+  /**
+   * callback sort function
+   */
+  onSort?: (column: string) => void
 }

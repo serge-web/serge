@@ -11,9 +11,10 @@ import TableHeadCell from '../../atoms/table-head-cell'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
+import moment from 'moment'
 
 /* Import Types */
-import Props, { RowDataType, RowWithCollapsibleType } from './types/props'
+import Props, { RowDataType, RowType, RowWithCollapsibleType } from './types/props'
 
 /* Render component */
 const useStyles = makeStyles((theme: Theme) => ({
@@ -62,6 +63,26 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
   const [expandedRows, setExpandedRows] = useState<Array<number>>([])
+  const [sortUp, setSortDirection] = useState<boolean>(true)
+
+  const rows = useMemo(() => {
+    let localData = [...data]
+    Object.keys(filtersGroup).forEach((id: string) => {
+      const filter = filtersGroup[id]
+      localData = localData.filter(row => {
+        const localDataFilter = (filter as Array<string>)
+        const value = row[id]?.label ||
+          row[id] ||
+          (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
+          (row as unknown as RowWithCollapsibleType).cells[id]
+        return localDataFilter.length === 0 || localDataFilter.includes(value)
+      })
+    })
+    return localData
+  }, [data, filtersGroup])
+
+  const [tableRows, setTableRow] = useState<RowType[]>(rows)
+
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
     if (filters.includes(filter)) {
@@ -87,21 +108,20 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       setExpandedRows([rowIndex, ...expandedRows])
     }
   }
-  const rows = useMemo(() => {
-    let localData = [...data]
-    Object.keys(filtersGroup).forEach((id: string) => {
-      const filter = filtersGroup[id]
-      localData = localData.filter(row => {
-        const localDataFilter = (filter as Array<string>)
-        const value = row[id]?.label ||
-          row[id] ||
-          (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
-          (row as unknown as RowWithCollapsibleType).cells[id]
-        return localDataFilter.length === 0 || localDataFilter.includes(value)
-      })
+
+  const sortTable = (columnId: string): void => {
+    setSortDirection(!sortUp)
+    let sortedRows = [...tableRows].sort((a: RowType, b: RowType): number => {
+      const rowOne = a as unknown as RowWithCollapsibleType
+      const rowTwo = b as unknown as RowWithCollapsibleType
+      return rowOne.cells[columnId] > rowTwo.cells[columnId] ? 1 : -1
     })
-    return localData
-  }, [data, filtersGroup])
+    if (!sortUp) {
+      sortedRows = sortedRows.reverse()
+    }
+    setTableRow(sortedRows)
+  }
+
   return (
     <TableContainer>
       <Table className={classes.table}>
@@ -110,7 +130,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
             {
               columns.map((column, columnId) => (
                 <TableCell key={Math.random()}>
-                  <TableHeadCell filters={filters} onFilter={onFilter} content={column} id={columnId} />
+                  <TableHeadCell sort={true} onSort={sortTable} filters={filters} onFilter={onFilter} content={column} id={columnId} />
                 </TableCell>
               ))
             }
@@ -118,7 +138,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row, rowCount) => {
+            tableRows.map((row, rowCount) => {
               const { collapsible, cells } = row as unknown as RowWithCollapsibleType
               const tableCells = cells || row
               // ideally we'll use the contents of cell zero (message-id). If we can't
@@ -135,15 +155,15 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                       tableCells.map((cell: RowDataType, index: number) => {
                         return (
                           <TableCell key={Math.random()}>
-                            { index === 0 &&
-                            <>
-                              <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
-                            </>
+                            {index === 0 &&
+                              <>
+                                <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                              </>
                             }
                             {
                               typeof cell !== 'string' && cell?.component !== undefined
                                 ? cell.component
-                                : cell
+                                : columns[index] === 'Updated' && cell !== 'Pending' ? moment(`${cell}`).fromNow() : cell
                             }
                           </TableCell>
                         )
