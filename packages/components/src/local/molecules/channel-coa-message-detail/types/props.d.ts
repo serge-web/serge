@@ -4,7 +4,7 @@ import {
   ChannelData,
   TemplateBodysByKey
 } from '@serge/custom-types'
-import { RefObject } from 'react'
+
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
@@ -20,8 +20,6 @@ export default interface Props {
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]
-
-  parentRef?: RefObject<HTMLDivElement>
 }
 
 export interface DialogModalStatus {

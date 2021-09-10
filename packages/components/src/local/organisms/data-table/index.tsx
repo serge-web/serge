@@ -13,7 +13,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
 
 /* Import Types */
-import Props, { RowDataType, RowWithCollapsibleType } from './types/props'
+import Props, { RowDataType, RowWithCollapsibleType, RowType } from './types/props'
+
+export const ROW_DATA_TYPE = 'RowDataType'
+export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'
 
 /* Render component */
 const useStyles = makeStyles((theme: Theme) => ({
@@ -102,6 +105,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
     })
     return localData
   }, [data, filtersGroup])
+
   return (
     <TableContainer>
       <Table className={classes.table}>
@@ -109,7 +113,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
           <TableRow>
             {
               columns.map((column, columnId) => (
-                <TableCell key={Math.random()}>
+                <TableCell key={`column-${columnId}`}>
                   <TableHeadCell filters={filters} onFilter={onFilter} content={column} id={columnId} />
                 </TableCell>
               ))
@@ -118,47 +122,50 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row, rowCount) => {
-              const { collapsible, cells } = row as unknown as RowWithCollapsibleType
-              const tableCells = cells || row
-              // ideally we'll use the contents of cell zero (message-id). If we can't
-              // just use the row count
-              const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
-              const isExpanded = expandedRows.includes(rowIndex)
-              return (
-                <React.Fragment key={Math.random()}>
-                  <TableRow
-                    className={cx(classes.tableRow, classes.tableRowCollapsibleTrigger)}
-                    onClick={(): void => onToggleRow(rowIndex)}
-                  >
-                    {
-                      tableCells.map((cell: RowDataType, index: number) => {
-                        return (
-                          <TableCell key={Math.random()}>
-                            { index === 0 &&
-                            <>
-                              <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
-                            </>
-                            }
-                            {
-                              typeof cell !== 'string' && cell?.component !== undefined
-                                ? cell.component
-                                : cell
-                            }
-                          </TableCell>
-                        )
-                      })
-                    }
-                  </TableRow>
-                  <TableRow className={classes.tableRowCollapsible}>
-                    <TableCell colSpan={cells.length}>
-                      <Collapse in={isExpanded}>
-                        {isExpanded && collapsible((): void => { onToggleRow(rowIndex) })}
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
-                </React.Fragment>
-              )
+            rows.map((row: RowType, rowCount: number) => {
+              if (row.type === ROW_WITH_COLLAPSIBLE_TYPE) {
+                const { collapsible, cells, rowKey } = row
+                const tableCells = cells || row
+                // ideally we'll use the contents of cell zero (message-id). If we can't
+                // just use the row count
+                const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
+                const isExpanded = expandedRows.includes(rowIndex)
+                return (
+                  <React.Fragment key={rowKey}>
+                    <TableRow
+                      className={cx(classes.tableRow, classes.tableRowCollapsibleTrigger)}
+                      onClick={(): void => onToggleRow(rowIndex)}
+                    >
+                      {
+                        tableCells.map((cell: RowDataType, index: number) => {
+                          return (
+                            <TableCell key={`cell=${index}`}>
+                              { index === 0 &&
+                              <>
+                                <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                              </>
+                              }
+                              {
+                                typeof cell !== 'string' && cell?.component !== undefined
+                                  ? cell.component
+                                  : cell
+                              }
+                            </TableCell>
+                          )
+                        })
+                      }
+                    </TableRow>
+                    <TableRow className={classes.tableRowCollapsible}>
+                      <TableCell colSpan={cells.length}>
+                        <Collapse in={isExpanded}>
+                          {isExpanded && collapsible((): void => { onToggleRow(rowIndex) })}
+                        </Collapse>
+                      </TableCell>
+                    </TableRow>
+                  </React.Fragment>
+                )
+              }
+              return <div key={rowCount}>Looks like DataTable not developed for ROW_DATA_TYPE</div>
             })
           }
         </TableBody>
