@@ -60,9 +60,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '& .card-body > div > div': {
       padding: '0.20rem'
-    },
-    '& .btn-group > button:disabled': {
-      display: 'none'
     }
   },
   tableRowCollapsibleTrigger: {
