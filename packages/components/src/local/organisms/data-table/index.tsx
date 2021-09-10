@@ -5,7 +5,7 @@ import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
+import TableCell, { SortDirection } from '@material-ui/core/TableCell'
 import Collapse from '@material-ui/core/Collapse'
 import TableHeadCell from '../../atoms/table-head-cell'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +14,7 @@ import cx from 'classnames'
 import moment from 'moment'
 
 /* Import Types */
-import Props, { RowDataType, RowType, RowWithCollapsibleType, RowType } from './types/props'
+import Props, { RowDataType, RowType, RowWithCollapsibleType } from './types/props'
 
 export const ROW_DATA_TYPE = 'RowDataType'
 export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'
@@ -67,7 +67,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
   const [filtersGroup, setFiltersGroup] = useState({})
   const [expandedRows, setExpandedRows] = useState<Array<number>>([])
   const [tableRows, setTableRow] = useState<RowType[]>([])
-  const [sortUp, setSortDirection] = useState<boolean>(true)
+  const [sortingColId, setSortingColId] = useState<number>(0)
 
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
@@ -111,16 +111,16 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
     setTableRow(localData)
   }, [data, filtersGroup])
 
-  const sortTable = (columnId: string): void => {
-    setSortDirection(!sortUp)
+  const sortTable = (columnId = 0, sortDirection: SortDirection): void => {
     let sortedRows = [...tableRows].sort((a: RowType, b: RowType): number => {
       const rowOne = a as unknown as RowWithCollapsibleType
       const rowTwo = b as unknown as RowWithCollapsibleType
       return rowOne.cells[columnId] > rowTwo.cells[columnId] ? 1 : -1
     })
-    if (!sortUp) {
+    if (sortDirection === 'desc') {
       sortedRows = sortedRows.reverse()
     }
+    setSortingColId(columnId)
     setTableRow(sortedRows)
   }
 
@@ -132,7 +132,15 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
             {
               columns.map((column, columnId) => (
                 <TableCell key={`column-${columnId}`}>
-                  <TableHeadCell filters={filters} onFilter={onFilter} content={column} id={columnId} />
+                  <TableHeadCell
+                    sort={true}
+                    sortingColId={sortingColId}
+                    onSort={sortTable}
+                    filters={filters}
+                    onFilter={onFilter}
+                    content={column}
+                    id={columnId}
+                  />
                 </TableCell>
               ))
             }
@@ -140,7 +148,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row: RowType, rowCount: number) => {
+            tableRows.map((row: RowType, rowCount: number) => {
               if (row.type === ROW_WITH_COLLAPSIBLE_TYPE) {
                 const { collapsible, cells, rowKey } = row
                 const tableCells = cells || row
@@ -158,15 +166,15 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                         tableCells.map((cell: RowDataType, index: number) => {
                           return (
                             <TableCell key={`cell=${index}`}>
-                              { index === 0 &&
-                              <>
-                                <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
-                              </>
+                              {index === 0 &&
+                                <>
+                                  <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                                </>
                               }
                               {
                                 typeof cell !== 'string' && cell?.component !== undefined
                                   ? cell.component
-                                  : cell
+                                  : columns[index] === 'Updated' ? moment(`${cell}`).fromNow() : cell
                               }
                             </TableCell>
                           )

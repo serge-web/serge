@@ -21,7 +21,9 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort-11"
+          >
             ID
             <span
               onClick={[Function]}
@@ -86,7 +88,9 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort-11"
+          >
             Title
           </span>
         </th>
@@ -150,7 +154,9 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort-11"
+          >
             Updated
             <span
               onClick={[Function]}
@@ -190,12 +196,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-14"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-15"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-15"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-16"
             >
               CO
             </span>
@@ -212,12 +218,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-16"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-17"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-17"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-18"
             >
               Unallocated
             </span>
@@ -281,12 +287,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-18"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-19"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-19"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-20"
             >
               CO
             </span>
@@ -303,12 +309,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-20"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-21"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-21"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-22"
             >
               Being edited
             </span>
@@ -372,12 +378,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-22"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-23"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-23"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-24"
             >
               Game Control
             </span>
@@ -392,12 +398,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-24"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-25"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-25"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-26"
             >
               Closed
             </span>
@@ -461,12 +467,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-26"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-27"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-27"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-28"
             >
               CO
             </span>
@@ -481,12 +487,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-28"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-29"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-29"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-30"
             >
               Pending review
             </span>
@@ -550,12 +556,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-30"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-31"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-31"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-32"
             >
               CO
             </span>
@@ -570,12 +576,12 @@ exports[`CoaStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-32"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-33"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-33"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-34"
             >
               Released
             </span>

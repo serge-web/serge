@@ -21,7 +21,9 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort"
+          >
             ID
             <span
               onClick={[Function]}
@@ -132,7 +134,9 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort"
+          >
             Title
           </span>
         </th>

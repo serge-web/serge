@@ -1,4 +1,4 @@
-import React, { useRef, useState, ReactElement } from 'react'
+import React, { useRef, useState, ReactElement, useMemo } from 'react'
 
 /* Import Types */
 import Props, { ContentFilterType } from './types/props'
@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import CheckIcon from '@material-ui/icons/Check'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import { SortDirection } from '@material-ui/core'
 
 /* Render component */
 const useStyles = makeStyles((theme: Theme) => ({
@@ -49,6 +50,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: '5px',
     marginTop: '7px',
     cursor: 'pointer'
+  },
+  headerSort: {
+    display: 'inline-flex'
   }
 }))
 const FilterIcon = (): React.ReactElement => (
@@ -58,30 +62,50 @@ const FilterIcon = (): React.ReactElement => (
 )
 export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
   const [open, setOpen] = useState<boolean>(false)
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const buttonRef = useRef(null)
-  const { content, id, filters, onFilter, sort, onSort } = props
+  const { content, id, filters, onFilter, sort, onSort, sortingColId } = props
   const contentFilter = content as ContentFilterType
   const classes = useStyles()
+
   const onToggle = (): void => {
     setOpen(!open)
   }
+
   const handleOnFilter = (filter: string): void => {
     onToggle()
     onFilter(id, filter)
   }
-  const toggleSort = (column: string): void => {
-    onSort && onSort(column)
+
+  const toggleSort = (columnId: number, sortDirection: SortDirection): void => {
+    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    onSort && onSort(columnId, sortDirection)
   }
+
+  /** auto sort the table data on the first time if the prop sort = true */
+  useMemo(() => {
+    setTimeout(() => {
+      sort && toggleSort(0, sortDirection)
+    })
+  }, [sort])
 
   switch (true) {
     case typeof content === 'string':
       return (
-        <span>
+        <span className={classes.headerSort}>
           {content}
           {sort && ['ID', 'Updated'].includes(`${content}`) &&
-            <span onClick={(): void => toggleSort(`${id}`)}>
-              <FontAwesomeIcon className={classes.sortIconUp} icon={faSortUp} />
-              <FontAwesomeIcon className={classes.sortIconDown} icon={faSortDown} />
+            <span onClick={(): void => toggleSort(id, sortDirection)}>
+              <FontAwesomeIcon
+                className={classes.sortIconUp}
+                style={{ color: (sortDirection === 'desc' && sortingColId === id) ? 'white' : 'grey' }}
+                icon={faSortUp}
+              />
+              <FontAwesomeIcon
+                className={classes.sortIconDown}
+                style={{ color: (sortDirection === 'asc' && sortingColId === id) ? 'white' : 'grey' }}
+                icon={faSortDown}
+              />
             </span>
           }
         </span>

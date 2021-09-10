@@ -1,4 +1,9 @@
-export type ContentFilterType = { filters: Array<string>; label: string }
+import { SortDirection } from '@material-ui/core'
+
+export type ContentFilterType = {
+  filters: Array<string>
+  label: string
+}
 export default interface Props {
   /**
    * Column index
@@ -25,5 +30,8 @@ export default interface Props {
   /**
    * callback sort function
    */
-  onSort?: (columnId: string) => void
+  onSort?: (columnId: number, sortDirection: SortDirection) => void
+
+  /** sorting column id */
+  sortingColId?: number
 }

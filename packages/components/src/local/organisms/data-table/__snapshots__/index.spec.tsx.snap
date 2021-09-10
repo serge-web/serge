@@ -21,7 +21,9 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort-11"
+          >
             ID
             <span
               onClick={[Function]}
@@ -95,7 +97,9 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-head"
           scope="col"
         >
-          <span>
+          <span
+            className="makeStyles-headerSort-11"
+          >
             Title
           </span>
         </th>
@@ -186,12 +190,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-14"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-15"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-15"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-16"
             >
               CO
             </span>
@@ -208,12 +212,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-16"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-17"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-17"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-18"
             >
               Released
             </span>
@@ -277,12 +281,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-18"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-19"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-19"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-20"
             >
               CO
             </span>
@@ -299,12 +303,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-20"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-21"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-21"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-22"
             >
               Unallocated
             </span>
@@ -368,12 +372,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-22"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-23"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-23"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-24"
             >
               CO
             </span>
@@ -390,12 +394,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-24"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-25"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-25"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-26"
             >
               Unallocated
             </span>
@@ -459,12 +463,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-26"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-27"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-27"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-28"
             >
               CO
             </span>
@@ -481,12 +485,12 @@ exports[`DataTable component: renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-11 makeStyles-root-28"
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-29"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-13 makeStyles-label-29"
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-30"
             >
               Released
             </span>
