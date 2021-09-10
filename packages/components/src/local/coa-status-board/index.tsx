@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { DataTable } from '../organisms/data-table'
+import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
+import DataTableProps, { Column, RowWithCollapsibleType } from '../organisms/data-table/types/props'
 
 /* Import Types */
 import Props from './types/props'
@@ -64,7 +65,7 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
   const [assignees, setAssignees] = useState<ForceRole[]>([])
 
@@ -125,7 +126,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
     return res
   })
 
-  const columnHeaders = [
+  const columnHeaders: Column[] = [
     'ID',
     {
       filters: [...new Set(filtersRoles)],
@@ -156,9 +157,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
     columnHeaders.push(...newCols)
   }
 
-  const dataTableProps = {
+  const dataTableProps: DataTableProps = {
     columns: columnHeaders,
-    data: data.map((row, rowIndex): any => {
+    data: data.map((row, rowIndex): RowWithCollapsibleType => {
       const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated, extraCols] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
@@ -172,12 +173,15 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
         [CollaborativeMessageStates.Pending]: '#0366d6'
       }
 
-      const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
+      const message = messages[rowIndex] as MessageCustom | undefined
+      if (typeof message === 'undefined') throw new Error('messages[rowIndex] not found')
+
+      const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
         return (
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
               templates={templates}
-              message={(messages[rowIndex] as MessageCustom)}
+              message={message}
               role={role}
               isUmpire={isUmpire}
               channel={channel}
@@ -188,7 +192,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
                 onChange && onChange(newMeesage)
                 typeof onChangeCallback === 'function' && onChangeCallback()
               }}
-              parentRef={parentRef}
             />
           </div>
         )
@@ -224,7 +227,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
         cells.push(...newCols)
       }
 
+      const rowKey = `${message._id}-${message.message.Reference}`
+
       return {
+        type: ROW_WITH_COLLAPSIBLE_TYPE,
+        rowKey,
         collapsible,
         cells: cells
       }

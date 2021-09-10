@@ -14,7 +14,7 @@ import { expiredStorage } from '@serge/config'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false }) => {
+export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false }) => {
   const jsonEditorRef = useRef(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const schema = Object.keys(messageTemplates).map(
@@ -47,7 +47,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+        if (saveEditedMessage) expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
       }
     }
 
@@ -77,7 +77,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
-      const messageJson = expiredStorage.getItem(genLocalStorageId())
+      const messageJson = saveEditedMessage ? expiredStorage.getItem(genLocalStorageId()) : null
       nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
       nextEditor.on('change', changeListenter)
     }
