@@ -20,13 +20,8 @@ export default interface Props {
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]
-<<<<<<< HEAD
-
-  parentRef?: RefObject<HTMLDivElement>
   /** callback to collapse this item */
   collapseMe?: () => void
-=======
->>>>>>> data_table_fixes
 }
 
 export interface DialogModalStatus {
