@@ -342,6 +342,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
                 <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
               </>
             }
+            {
+              editDoc &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
+            }
           </div>
           {
             feedbackBlock
