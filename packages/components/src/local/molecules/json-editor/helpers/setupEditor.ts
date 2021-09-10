@@ -24,9 +24,9 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
       [disableCollapse]: true,
       [disableEditJson]: true,
       [disableProperties]: true,
-      [disableArrayReOrder]: jsonEditorConfig.disable_array_reorder ? jsonEditorConfig.disable_array_reorder : false,
-      [disableArrayAdd]: jsonEditorConfig.disable_array_add ? jsonEditorConfig.disable_array_add : false,
-      [disableArrayDelete]: jsonEditorConfig.disable_array_delete ? jsonEditorConfig.disable_array_delete : false,
+      [disableArrayReOrder]: jsonEditorConfig.disableArrayReOrder ? jsonEditorConfig.disableArrayReOrder : false,
+      [disableArrayAdd]: jsonEditorConfig.disableArrayAdd ? jsonEditorConfig.disableArrayAdd : false,
+      [disableArrayDelete]: jsonEditorConfig.disableArrayDelete ? jsonEditorConfig.disableArrayDelete : false
     }) as Editor
     return newEditor
   }

@@ -41,9 +41,9 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   useEffect(() => {
-    const jsonEditorConfig = disabled ? { disable_array_reorder: true, disable_array_add: true, disable_array_delete: true } : { disable_array_reorder: false, disable_array_add: false, disable_array_delete: false }
+    const jsonEditorConfig = disabled ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true } : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
     const nextEditor = setupEditor(editor, schema.details, jsonEditorRef, jsonEditorConfig)
-    
+
     const changeListenter = (): void => {
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
