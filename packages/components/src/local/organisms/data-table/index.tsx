@@ -60,6 +60,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '& .card-body > div > div': {
       padding: '0.20rem'
+    },
+    '& .edt-disable .card.card-body.bg-light > div > div > h3': {
+      display: 'none'
+    },
+    '& .edt-enable .card.card-body.bg-light > div > div > h3 > span': {
+      display: 'none'
     }
   },
   tableRowCollapsibleTrigger: {
