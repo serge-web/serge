@@ -191,6 +191,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
               assignees={assignees}
               onChange={(newMeesage: MessageCustom): void => {
                 onChange && onChange(newMeesage)
+              }}
+              collapseMe={(): void => {
                 typeof onChangeCallback === 'function' && onChangeCallback()
               }}
             />
