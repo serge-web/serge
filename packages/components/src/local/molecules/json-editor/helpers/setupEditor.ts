@@ -4,7 +4,11 @@ import { RefObject } from 'react'
 import JSONEditor from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>): Editor | null => {
+const setupEditor = (
+  editor: Editor | null,
+  schema: any,
+  ref: RefObject<HTMLDivElement>
+): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null

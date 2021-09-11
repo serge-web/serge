@@ -14,13 +14,34 @@ import { expiredStorage } from '@serge/config'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false }) => {
+export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true }) => {
   const jsonEditorRef = useRef(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const schema = Object.keys(messageTemplates).map(
     // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
     (key): TemplateBody => messageTemplates[key]
-  ).find(msg => msg.title === message.details.messageType)
+  ).find(msg => {
+    if (msg.title === message.details.messageType) {
+      // only exppand if this prop value is true
+      if (expandHeight) {
+        /**
+         * Option `expand_height` in (https://github.com/json-editor/json-editor#editor-options) will fix our issue
+         * Solution: update the schema by looping through each textarea item, adding the `expand_height` option
+         */
+        const { properties } = msg.details as any
+        for (const key of Object.keys(properties)) {
+          if (properties[key].format === 'textarea') {
+            properties[key].options = {
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              expand_height: true
+            }
+          }
+        }
+      }
+      return true
+    }
+    return false
+  })
 
   if (!schema) {
     const styles = {
