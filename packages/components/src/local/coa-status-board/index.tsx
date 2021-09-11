@@ -158,6 +158,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const dataTableProps: DataTableProps = {
+    sort: true,
     columns: columnHeaders,
     data: data.map((row, rowIndex): RowWithCollapsibleType => {
       const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated, extraCols] = row

@@ -25,16 +25,6 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             className="makeStyles-headerSort"
           >
             ID
-            <span
-              onClick={[Function]}
-            >
-              <svg
-                className="svg-inline--fa fa-sort-up"
-              />
-              <svg
-                className="svg-inline--fa fa-sort-down"
-              />
-            </span>
           </span>
         </th>
         <th
@@ -760,6 +750,107 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
+          Blue-2
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Blue RFI
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          RFI 2 from Blue
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            >
+              In progress
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root makeStyles-root"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label makeStyles-label"
+            />
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-container MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              />
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
           Blue-3
         </td>
         <td
@@ -820,107 +911,6 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             >
               = Unallocated =
             </span>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRowCollapsible"
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-          colSpan={6}
-        >
-          <div
-            className="MuiCollapse-container MuiCollapse-hidden"
-            style={
-              Object {
-                "minHeight": "0px",
-              }
-            }
-          >
-            <div
-              className="MuiCollapse-wrapper"
-            >
-              <div
-                className="MuiCollapse-wrapperInner"
-              />
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root makeStyles-tableRow makeStyles-tableRowCollapsibleTrigger"
-        onClick={[Function]}
-        role={null}
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <svg
-            className="svg-inline--fa fa-plus"
-          />
-           
-          Blue-2
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          Blue RFI
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              CO
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          RFI 2 from Blue
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            >
-              In progress
-            </span>
-          </div>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body"
-        >
-          <div
-            className="MuiChip-root makeStyles-root makeStyles-root"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label makeStyles-label"
-            />
           </div>
         </td>
       </tr>

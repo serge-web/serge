@@ -1,4 +1,4 @@
-import React, { useRef, useState, ReactElement, useMemo } from 'react'
+import React, { useRef, useState, ReactElement } from 'react'
 
 /* Import Types */
 import Props, { ContentFilterType } from './types/props'
@@ -62,9 +62,8 @@ const FilterIcon = (): React.ReactElement => (
 )
 export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
   const [open, setOpen] = useState<boolean>(false)
-  const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const buttonRef = useRef(null)
-  const { content, id, filters, onFilter, sort, onSort, sortingColId } = props
+  const { content, id, filters, onFilter, sort, onSort, sortingColId, sortDirection = 'asc' } = props
   const contentFilter = content as ContentFilterType
   const classes = useStyles()
 
@@ -78,16 +77,8 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
   }
 
   const toggleSort = (columnId: number, sortDirection: SortDirection): void => {
-    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
     onSort && onSort(columnId, sortDirection)
   }
-
-  /** auto sort the table data on the first time if the prop sort = true */
-  useMemo(() => {
-    setTimeout(() => {
-      sort && toggleSort(0, sortDirection)
-    })
-  }, [sort])
 
   switch (true) {
     case typeof content === 'string':
@@ -98,12 +89,12 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
             <span onClick={(): void => toggleSort(id, sortDirection)}>
               <FontAwesomeIcon
                 className={classes.sortIconUp}
-                style={{ color: (sortDirection === 'desc' && sortingColId === id) ? 'white' : 'grey' }}
+                style={{ color: (sortDirection === 'asc' && sortingColId === id) ? 'white' : 'grey' }}
                 icon={faSortUp}
               />
               <FontAwesomeIcon
                 className={classes.sortIconDown}
-                style={{ color: (sortDirection === 'asc' && sortingColId === id) ? 'white' : 'grey' }}
+                style={{ color: (sortDirection === 'desc' && sortingColId === id) ? 'white' : 'grey' }}
                 icon={faSortDown}
               />
             </span>

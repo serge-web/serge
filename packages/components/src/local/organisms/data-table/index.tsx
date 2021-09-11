@@ -61,13 +61,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer'
   }
 }))
-export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
+export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
   const [expandedRows, setExpandedRows] = useState<Array<number>>([])
   const [tableRows, setTableRow] = useState<RowType[]>([])
   const [sortingColId, setSortingColId] = useState<number>(0)
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
 
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
@@ -95,6 +96,38 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
     }
   }
 
+  const sortFn = (rows: RowType[], columnId = 0, sortWithCurentDirection = true): RowType[] => {
+    let sortedRows = [...rows].sort((a: RowType, b: RowType): number => {
+      const rowOne = a as unknown as RowWithCollapsibleType
+      const rowTwo = b as unknown as RowWithCollapsibleType
+      const cellValueOne = '' + rowOne.cells[columnId]
+      const cellValueTwo = '' + rowTwo.cells[columnId]
+      /**
+       * Using localeCompare for string comparison, by passing the numeric: true option, it will smartly recognize numbers:
+       * `Blue-1`  < `Blue-2`
+       * `Blue-10` > `Blue-2`
+       */
+      return cellValueOne.localeCompare(cellValueTwo, undefined, { numeric: true, sensitivity: 'base' })
+    })
+
+    /** we should keep the current sort direction when receving the new message */
+    if (sortWithCurentDirection && sortDirection === 'desc') {
+      sortedRows = sortedRows.reverse()
+    }
+
+    return sortedRows
+  }
+
+  const sortTable = (columnId = 0, direction: SortDirection): void => {
+    let sortedRows = sortFn(tableRows, columnId, false)
+    if (direction === 'asc') {
+      sortedRows = sortedRows.reverse()
+    }
+    setSortDirection(direction === 'asc' ? 'desc' : 'asc')
+    setSortingColId(columnId)
+    setTableRow(sortedRows)
+  }
+
   useMemo(() => {
     let localData = [...data]
     Object.keys(filtersGroup).forEach((id: string) => {
@@ -108,21 +141,8 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         return localDataFilter.length === 0 || localDataFilter.includes(value)
       })
     })
-    setTableRow(localData)
+    setTableRow(sortFn(localData))
   }, [data, filtersGroup])
-
-  const sortTable = (columnId = 0, sortDirection: SortDirection): void => {
-    let sortedRows = [...tableRows].sort((a: RowType, b: RowType): number => {
-      const rowOne = a as unknown as RowWithCollapsibleType
-      const rowTwo = b as unknown as RowWithCollapsibleType
-      return rowOne.cells[columnId] > rowTwo.cells[columnId] ? 1 : -1
-    })
-    if (sortDirection === 'desc') {
-      sortedRows = sortedRows.reverse()
-    }
-    setSortingColId(columnId)
-    setTableRow(sortedRows)
-  }
 
   return (
     <TableContainer>
@@ -133,7 +153,8 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
               columns.map((column, columnId) => (
                 <TableCell key={`column-${columnId}`}>
                   <TableHeadCell
-                    sort={true}
+                    sort={sort}
+                    sortDirection={sortDirection}
                     sortingColId={sortingColId}
                     onSort={sortTable}
                     filters={filters}

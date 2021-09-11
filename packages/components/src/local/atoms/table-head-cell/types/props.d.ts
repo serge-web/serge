@@ -34,4 +34,7 @@ export default interface Props {
 
   /** sorting column id */
   sortingColId?: number
+
+  /** sort direction */
+  sortDirection?: SortDirection
 }

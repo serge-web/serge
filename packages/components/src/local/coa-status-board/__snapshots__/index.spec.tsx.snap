@@ -189,7 +189,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          Blue-3
+          2020-03-25T15:08:47.525Z
         </td>
         <td
           aria-sort={null}
@@ -210,9 +210,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        >
-          RFI 3 from Blue
-        </td>
+        />
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -225,7 +223,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-14 makeStyles-label-18"
             >
-              Unallocated
+              Pending review
             </span>
           </div>
         </td>
@@ -280,7 +278,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          RED-1
+          2020-03-25T15:08:47.530Z
         </td>
         <td
           aria-sort={null}
@@ -301,9 +299,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        >
-          RFI 1 from RED
-        </td>
+        />
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -316,7 +312,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-14 makeStyles-label-22"
             >
-              Being edited
+              Released
             </span>
           </div>
         </td>
@@ -460,7 +456,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          2020-03-25T15:08:47.525Z
+          Blue-3
         </td>
         <td
           aria-sort={null}
@@ -481,7 +477,9 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
+        >
+          RFI 3 from Blue
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -494,7 +492,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-14 makeStyles-label-30"
             >
-              Pending review
+              Unallocated
             </span>
           </div>
         </td>
@@ -549,7 +547,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          2020-03-25T15:08:47.530Z
+          RED-1
         </td>
         <td
           aria-sort={null}
@@ -570,7 +568,9 @@ exports[`CoaStatusBoard renders correctly 1`] = `
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
-        />
+        >
+          RFI 1 from RED
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -583,7 +583,7 @@ exports[`CoaStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-14 makeStyles-label-34"
             >
-              Released
+              Being edited
             </span>
           </div>
         </td>
