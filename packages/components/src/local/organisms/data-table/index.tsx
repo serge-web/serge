@@ -141,7 +141,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
         return localDataFilter.length === 0 || localDataFilter.includes(value)
       })
     })
-    setTableRow(sortFn(localData))
+    setTableRow(sortFn(localData, sortingColId))
   }, [data, filtersGroup])
 
   return (
