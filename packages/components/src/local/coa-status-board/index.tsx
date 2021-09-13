@@ -14,7 +14,6 @@ import styles from './styles.module.scss'
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
-import moment from 'moment'
 import getColumns from './helpers/get-columns'
 import { capitalize } from 'lodash'
 
@@ -104,7 +103,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     const ownerComposite = (ownerRole && formatRole(ownerRole)) || undefined
     // am I the owner?
     const myDocument = ownerComposite === myRoleFormatted
-    const lastUpdated = collab ? moment(collab.lastUpdated).fromNow() : 'Pending'
+    const lastUpdated = collab ? collab.lastUpdated : 'Pending'
 
     const res = [
       message.message.Reference || message._id,
@@ -159,6 +158,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const dataTableProps: DataTableProps = {
+    sort: true,
     columns: columnHeaders,
     data: data.map((row, rowIndex): RowWithCollapsibleType => {
       const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated, extraCols] = row

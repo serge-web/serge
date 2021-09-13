@@ -17,7 +17,12 @@ export interface RowWithCollapsibleType {
   cells: Array<RowDataType>
 }
 
-export type Column = string | { filters: Array<string>, label: string }
+export type Column =
+  | string
+  | {
+      filters: Array<string>
+      label: string
+    }
 export type RowType = RowDataType | RowWithCollapsibleType
 
 export default interface Props {
@@ -29,4 +34,7 @@ export default interface Props {
    * List of data
    */
   data: RowType[]
+
+  /** toggle table sort */
+  sort?: boolean
 }
