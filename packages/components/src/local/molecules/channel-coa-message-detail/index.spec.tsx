@@ -42,6 +42,7 @@ describe('ChannelMessageDetail:', () => {
       .create(<ChannelCoaMessageDetail
         templates={MessageTemplatesMockByKey}
         role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
+        canUnClaimMessages={true}
         channel={testChannel}
         isUmpire={true}
         message={defMessage}
