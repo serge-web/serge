@@ -22,4 +22,6 @@ export default interface PropTypes extends ForcesInChannelProps {
   chatContainerHeight?: number
 
   turnPresentation?: TurnFormats
+
+  observing?: boolean
 }
