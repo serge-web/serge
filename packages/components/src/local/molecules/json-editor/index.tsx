@@ -108,7 +108,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }, [disabled, editor])
 
   return (
-    <div className={disabled ? 'edt-disable': 'edt-enable'} ref={jsonEditorRef} />
+    <div className={disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
   )
 }
 
