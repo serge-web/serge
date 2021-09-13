@@ -14,8 +14,8 @@ import { expiredStorage } from '@serge/config'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false }) => {
-  const jsonEditorRef = useRef(null)
+export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true }) => {
+  const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const schema = Object.keys(messageTemplates).map(
     // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
@@ -85,6 +85,14 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
 
     setEditor(nextEditor)
 
+    // handle textarea height to fit its content
+    if (expandHeight && jsonEditorRef.current) {
+      const textareaElms = jsonEditorRef.current.querySelectorAll<HTMLTextAreaElement>('[data-schemaformat="textarea"]')
+      for (const textareaElm of Array.from(textareaElms)) {
+        textareaElm.style.height = `${textareaElm.scrollHeight + 5}px`
+      }
+    }
+
     return (): void => {
       // remove timer for unmounted component
       if (timerId) clearTimeout(timerId)
@@ -108,7 +116,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }, [disabled, editor])
 
   return (
-    <div className={disabled ? 'edt-disable': 'edt-enable'} ref={jsonEditorRef} />
+    <div className={disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
   )
 }
 
