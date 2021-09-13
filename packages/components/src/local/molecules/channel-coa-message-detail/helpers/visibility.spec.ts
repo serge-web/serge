@@ -2,7 +2,7 @@ import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 import { channelCollaborativeEditing, channelCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { deepCopy } from '@serge/helpers'
-import { ColEditPendingReview, ColRespPendingReview, formEditable, userCanSeeCollab } from './visibility'
+import { ColDocumentBeingEditedByOther, ColEditPendingReview, ColRespPendingReview, formEditable, userCanSeeCollab } from './visibility'
 
 const whiteUmpire: ForceRole = {
   forceId: 'umpire',
@@ -40,6 +40,9 @@ messageOwnedByUmpire.details.collaboration = {
 
 const canReleaseMessages = true
 const cannotReleaseMessages = false
+
+const canUnClaimMessages = true
+const cannotUnClaimMessages = false
 
 const messageStates: CollaborativeMessageStates[] = [
   CollaborativeMessageStates.Unallocated,
@@ -177,6 +180,24 @@ describe('Visibility tests', () => {
       // make correct status
       collabStatus.status = CollaborativeMessageStates.PendingReview
       expect(ColRespPendingReview(message, rfiChannel, canReleaseMessages)).toBeTruthy()
+    }
+  })
+  it('collab unclaim ', () => {
+    const message = deepCopy(messageOwnedByUmpire)
+    const collabStatus = message.details.collaboration
+    expect(collabStatus).toBeTruthy()
+    if (collabStatus) {
+      collabStatus.status = CollaborativeMessageStates.Finalized
+      // in wrong state
+      expect(collabStatus.status).toEqual(CollaborativeMessageStates.Finalized)
+      expect(ColDocumentBeingEditedByOther(message, canUnClaimMessages)).toBeFalsy()
+
+      // user doesn't have permission
+      expect(ColDocumentBeingEditedByOther(message, cannotUnClaimMessages)).toBeFalsy()
+
+      // make correct status
+      collabStatus.status = CollaborativeMessageStates.BeingEdited
+      expect(ColDocumentBeingEditedByOther(message, canUnClaimMessages)).toBeTruthy()
     }
   })
 })
