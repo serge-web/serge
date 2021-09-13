@@ -54,6 +54,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     '& .MuiTableCell-body': {
       padding: 0,
       borderBottom: 'none'
+    },
+    '& .card,.card-body,.bg-light,.row': {
+      padding: '0.10rem'
+    },
+    '& .card-body > div > div': {
+      padding: '0.20rem'
+    },
+    '& .edt-disable .card.card-body.bg-light > div > div > h3': {
+      display: 'none'
+    },
+    '& .edt-enable .card.card-body.bg-light > div > div > h3 > span': {
+      display: 'none'
     }
   },
   tableRowCollapsibleTrigger: {

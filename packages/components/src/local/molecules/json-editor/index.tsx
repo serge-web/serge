@@ -41,7 +41,8 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   useEffect(() => {
-    const nextEditor = setupEditor(editor, schema.details, jsonEditorRef)
+    const jsonEditorConfig = disabled ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true } : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
+    const nextEditor = setupEditor(editor, schema.details, jsonEditorRef, jsonEditorConfig)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -115,7 +116,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }, [disabled, editor])
 
   return (
-    <div ref={jsonEditorRef} />
+    <div className={disabled ? 'edt-disable': 'edt-enable'} ref={jsonEditorRef} />
   )
 }
 
