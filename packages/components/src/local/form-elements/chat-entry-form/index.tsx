@@ -56,7 +56,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
         onMessageChange={setMessage}
         postBack={submitForm}
       />
-      { isUmpire &&
+      {isUmpire &&
         <Box mt={1}>
           <PrivateChatInputToggle
             postBack={(message): void => setPrivateMessage(message)}

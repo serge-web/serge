@@ -61,10 +61,11 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // if this is a collab working channel, strip out any chat templates - since we only use structured messages
   // in collab working channels
   const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
+  const observing = !!state.channels[channelId].observing
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      <div className='flexlayout__scrollbox'>
+      <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         {isCollabWorking ? (
           <CoaStatusBoard
             templates={state.allTemplatesByKey}
@@ -98,7 +99,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         )}
       </div>
       {
-        state.channels[channelId].observing === false && trimmedTemplates.length > 0 &&
+        !observing && trimmedTemplates.length > 0 &&
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}

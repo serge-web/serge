@@ -5,15 +5,16 @@ import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
+import TableCell, { SortDirection } from '@material-ui/core/TableCell'
 import Collapse from '@material-ui/core/Collapse'
 import TableHeadCell from '../../atoms/table-head-cell'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
+import moment from 'moment'
 
 /* Import Types */
-import Props, { RowDataType, RowWithCollapsibleType, RowType } from './types/props'
+import Props, { RowDataType, RowType, RowWithCollapsibleType } from './types/props'
 
 export const ROW_DATA_TYPE = 'RowDataType'
 export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'
@@ -72,11 +73,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer'
   }
 }))
-export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
+export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
   const [expandedRows, setExpandedRows] = useState<Array<number>>([])
+  const [tableRows, setTableRow] = useState<RowType[]>([])
+  const [sortingColId, setSortingColId] = useState<number>(0)
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
+
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
     if (filters.includes(filter)) {
@@ -102,7 +107,40 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       setExpandedRows([rowIndex, ...expandedRows])
     }
   }
-  const rows = useMemo(() => {
+
+  const sortFn = (rows: RowType[], columnId = 0, sortWithCurentDirection = true): RowType[] => {
+    let sortedRows = [...rows].sort((a: RowType, b: RowType): number => {
+      const rowOne = a as unknown as RowWithCollapsibleType
+      const rowTwo = b as unknown as RowWithCollapsibleType
+      const cellValueOne = '' + rowOne.cells[columnId]
+      const cellValueTwo = '' + rowTwo.cells[columnId]
+      /**
+       * Using localeCompare for string comparison, by passing the numeric: true option, it will smartly recognize numbers:
+       * `Blue-1`  < `Blue-2`
+       * `Blue-10` > `Blue-2`
+       */
+      return cellValueOne.localeCompare(cellValueTwo, undefined, { numeric: true, sensitivity: 'base' })
+    })
+
+    /** we should keep the current sort direction when receving the new message */
+    if (sortWithCurentDirection && sortDirection === 'desc') {
+      sortedRows = sortedRows.reverse()
+    }
+
+    return sortedRows
+  }
+
+  const sortTable = (columnId = 0, direction: SortDirection): void => {
+    let sortedRows = sortFn(tableRows, columnId, false)
+    if (direction === 'asc') {
+      sortedRows = sortedRows.reverse()
+    }
+    setSortDirection(direction === 'asc' ? 'desc' : 'asc')
+    setSortingColId(columnId)
+    setTableRow(sortedRows)
+  }
+
+  useMemo(() => {
     let localData = [...data]
     Object.keys(filtersGroup).forEach((id: string) => {
       const filter = filtersGroup[id]
@@ -115,7 +153,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         return localDataFilter.length === 0 || localDataFilter.includes(value)
       })
     })
-    return localData
+    setTableRow(sortFn(localData, sortingColId))
   }, [data, filtersGroup])
 
   return (
@@ -126,7 +164,16 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
             {
               columns.map((column, columnId) => (
                 <TableCell key={`column-${columnId}`}>
-                  <TableHeadCell filters={filters} onFilter={onFilter} content={column} id={columnId} />
+                  <TableHeadCell
+                    sort={sort}
+                    sortDirection={sortDirection}
+                    sortingColId={sortingColId}
+                    onSort={sortTable}
+                    filters={filters}
+                    onFilter={onFilter}
+                    content={column}
+                    id={columnId}
+                  />
                 </TableCell>
               ))
             }
@@ -134,7 +181,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row: RowType, rowCount: number) => {
+            tableRows.map((row: RowType, rowCount: number) => {
               if (row.type === ROW_WITH_COLLAPSIBLE_TYPE) {
                 const { collapsible, cells, rowKey } = row
                 const tableCells = cells || row
@@ -152,15 +199,15 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                         tableCells.map((cell: RowDataType, index: number) => {
                           return (
                             <TableCell key={`cell=${index}`}>
-                              { index === 0 &&
-                              <>
-                                <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
-                              </>
+                              {index === 0 &&
+                                <>
+                                  <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                                </>
                               }
                               {
                                 typeof cell !== 'string' && cell?.component !== undefined
                                   ? cell.component
-                                  : cell
+                                  : columns[index] === 'Updated' ? moment(`${cell}`).fromNow() : cell
                               }
                             </TableCell>
                           )
