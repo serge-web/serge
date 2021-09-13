@@ -89,7 +89,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     if (expandHeight && jsonEditorRef.current) {
       const textareaElms = jsonEditorRef.current.querySelectorAll<HTMLTextAreaElement>('[data-schemaformat="textarea"]')
       for (const textareaElm of Array.from(textareaElms)) {
-        textareaElm.style.height = `${textareaElm.scrollHeight}px`
+        textareaElm.style.height = `${textareaElm.scrollHeight + 5}px`
       }
     }
 
@@ -116,7 +116,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }, [disabled, editor])
 
   return (
-    <div className={disabled ? 'edt-disable': 'edt-enable'} ref={jsonEditorRef} />
+    <div className={disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
   )
 }
 
