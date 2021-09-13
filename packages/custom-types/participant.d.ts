@@ -17,4 +17,6 @@ export default interface Participant {
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
+  /** can un-claim messages */
+  canUnClaimMessages?: boolean
 }

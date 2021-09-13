@@ -15,7 +15,10 @@ export default interface Props {
   /** if this player has "RFI Manager" attribute in their role */
   // isRFIManager: boolean
   canCollaborate?: boolean
+  /** if this player can release messages */
   canReleaseMessages?: boolean
+  /** if this player can retrieve claimed messages */
+  canUnClaimMessages: boolean
   channel: ChannelData
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
