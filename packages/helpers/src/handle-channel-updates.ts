@@ -10,7 +10,7 @@ import mostRecentOnly from './most-recent-only'
 import getRoleFromName from './get-role-from-name'
 
 /** a message has been received. Put it into the correct channel */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
   if (channel === CHAT_CHANNEL_ID) {
     data.chatChannel.messages.unshift(deepCopy(payload))
   } else if (data.channels[channel]) {
@@ -59,10 +59,6 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     data.rfiMessages.unshift(deepCopy(payload))
     // rfiMessages = rfiMessages.filter((message) => message.message.Reference !== payload.message.Reference)
   }
-  // lastly, sort out the message number
-  data.nextMsgReference = selectedForceName && payload.messageType === CUSTOM_MESSAGE
-    ? refNumberFor(payload.message && payload.message.Reference, data.nextMsgReference, selectedForceName)
-    : data.nextMsgReference
 }
 
 // this method was an unnecessary duplicate of clipInfoMEssage
@@ -128,31 +124,6 @@ export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClippe
   }
 }
 
-/** helper function, to return the next reference number for this force
- * @param {string} msgRef this message reference
- * @param {number} string the current counter
- * @param {string} selectedForceName the selected force
- */
-export const refNumberFor = (msgRef: string | undefined, current: number, selectedForceName?: string): number => {
-  if (msgRef !== undefined) {
-    // see if it starts with this force
-    if (selectedForceName && msgRef.startsWith(selectedForceName)) {
-      // strip out the force name
-      const remainder = msgRef.substr(selectedForceName.length, msgRef.length - selectedForceName.length)
-      // strip out the number
-      const parts = remainder.split('-')
-      // check the first match is zero length, that prevents `blue-1` matching `blue-10`
-      if (parts.length === 2 && parts[0].length === 0) {
-        const number = +parts[1] + 1
-        return Math.max(number, current)
-      } else {
-        return current
-      }
-    }
-  }
-  return current
-}
-
 export const handleAllInitialChannelMessages = (
   payload: Array<MessageInfoType | MessageCustom>,
   currentWargame: string,
@@ -165,14 +136,12 @@ export const handleAllInitialChannelMessages = (
   allTemplatesByKey: TemplateBodysByKey
 ): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-  let nextMsgReference = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
     if (message.messageType === INFO_MESSAGE) {
       return clipInfoMEssage(message, hasBeenRead)
     } else {
-      nextMsgReference = refNumberFor(message.message && message.message.Reference, nextMsgReference, selectedForce?.name)
       return {
         ...message,
         hasBeenRead: hasBeenRead,
@@ -283,8 +252,7 @@ export const handleAllInitialChannelMessages = (
       ...chatChannel,
       messages: chatMessages
     },
-    rfiMessages: rfiMessagesCustom,
-    nextMsgReference: nextMsgReference
+    rfiMessages: rfiMessagesCustom
   }
 }
 
@@ -293,7 +261,6 @@ const handleChannelUpdates = (
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
   rfiMessages: MessageCustom[],
-  nextMsgReference: number,
   selectedForce: ForceData | undefined,
   allChannels: ChannelData[],
   selectedRole: Role['roleId'],
@@ -303,8 +270,7 @@ const handleChannelUpdates = (
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
-    rfiMessages: deepCopy(rfiMessages),
-    nextMsgReference: nextMsgReference
+    rfiMessages: deepCopy(rfiMessages)
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
@@ -413,7 +379,7 @@ const handleChannelUpdates = (
       delete res.channels[key]
     }
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload, selectedForce?.name)
+    handleNonInfoMessage(res, payload.details.channel, payload)
   }
 
   return res

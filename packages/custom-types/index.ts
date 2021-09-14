@@ -40,7 +40,8 @@ export { default as Message,
          // All template based messages
          MessageCustom,
          MessageChannel,
-         ChatMessage
+         ChatMessage,
+         MessageCounter
        } from './message.d'
 export { default as Participant, ParticipantTemplate } from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'

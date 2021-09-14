@@ -23,10 +23,6 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const generateNextReference = (): number => {
-    return state.nextMsgReference
-  }
-
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
     if (state.channels[channelId].messages!.length === 0) {
@@ -104,7 +100,6 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
-          generateNextReference={generateNextReference}
           privateMessage={!!selectedForce.umpire}
           templates={trimmedTemplates}
         />
