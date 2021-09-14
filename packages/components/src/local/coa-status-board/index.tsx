@@ -64,6 +64,30 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
   }, [])
 }
 
+const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): string[] => {
+  return messages.reduce((filters: any[], message) => {
+    if (!message.message[columnName]) {
+      console.warn(message, `message have no field ${columnName}`)
+      return filters
+    }
+
+    let fields: any
+    const fieldData = []
+    switch (columnName) {
+      case 'LOCATION':
+        fields = message.message[columnName].LOCATION
+        for (const key of Object.keys(fields)) {
+          const location = fields[key].map((item: any) => `${key}-${item.Country}`)
+          fieldData.push(location)
+        }
+        filters.push(fieldData.join(' '))
+        return filters
+      default:
+        return filters
+    }
+  }, [])
+}
+
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
@@ -90,6 +114,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   // collate list of sources (From) for messages
   const filtersRoles = getListOfSources(messages)
+
+  // collate list of extra column LOCATION for messages
+  const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
 
   /** cache the formatted version of my role */
   const myRoleFormatted = formatRole(role)
@@ -152,7 +179,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   ]
 
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
-    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string => {
+    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {
+      if (col === 'location') {
+        return {
+          filters: [...new Set(filtersLocations)],
+          label: capitalize(col)
+        }
+      }
       return capitalize(col)
     })
     columnHeaders.push(...newCols)

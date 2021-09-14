@@ -99,6 +99,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
       })
     }
   }
+
   const onToggleRow = (rowIndex: any): void => {
     if (expandedRows.includes(rowIndex)) {
       // remove it
@@ -140,6 +141,14 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
     setTableRow(sortedRows)
   }
 
+  const matches = (src: string[], dest: string | string[]): boolean => {
+    if (Array.isArray(dest)) {
+      const newDest = dest.map((item: string) => item.trim())
+      return src.includes(newDest.join(' '))
+    }
+    return src.includes(dest)
+  }
+
   useMemo(() => {
     let localData = [...data]
     Object.keys(filtersGroup).forEach((id: string) => {
@@ -150,7 +159,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
           row[id] ||
           (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
           (row as unknown as RowWithCollapsibleType).cells[id]
-        return localDataFilter.length === 0 || localDataFilter.includes(value)
+        return localDataFilter.length === 0 || matches(localDataFilter, value)
       })
     })
     setTableRow(sortFn(localData, sortingColId))
