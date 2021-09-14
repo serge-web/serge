@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { DataTable } from '../organisms/data-table'
+import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
+import DataTableProps, { Column, RowWithCollapsibleType } from '../organisms/data-table/types/props'
 
 /* Import Types */
 import Props from './types/props'
@@ -13,7 +14,6 @@ import styles from './styles.module.scss'
 import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 import { ForceData, ForceRole } from '@serge/custom-types'
 import getAssignees from './helpers/assignees'
-import moment from 'moment'
 import getColumns from './helpers/get-columns'
 import { capitalize } from 'lodash'
 
@@ -65,13 +65,14 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
   const [assignees, setAssignees] = useState<ForceRole[]>([])
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
+  const canUnClaimMessages = !!myParticipations.find(p => p.canUnClaimMessages)
 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
@@ -103,7 +104,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
     const ownerComposite = (ownerRole && formatRole(ownerRole)) || undefined
     // am I the owner?
     const myDocument = ownerComposite === myRoleFormatted
-    const lastUpdated = collab ? moment(collab.lastUpdated).fromNow() : 'Pending'
+    const lastUpdated = collab ? collab.lastUpdated : 'Pending'
 
     const res = [
       message.message.Reference || message._id,
@@ -126,7 +127,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
     return res
   })
 
-  const columnHeaders = [
+  const columnHeaders: Column[] = [
     'ID',
     {
       filters: [...new Set(filtersRoles)],
@@ -157,9 +158,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
     columnHeaders.push(...newCols)
   }
 
-  const dataTableProps = {
+  const dataTableProps: DataTableProps = {
+    sort: true,
     columns: columnHeaders,
-    data: data.map((row, rowIndex): any => {
+    data: data.map((row, rowIndex): RowWithCollapsibleType => {
       const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated, extraCols] = row
       const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
@@ -173,23 +175,29 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
         [CollaborativeMessageStates.Pending]: '#0366d6'
       }
 
-      const collapsible = (onChangeCallback?: () => void): React.ReactNode => {
+      const message = messages[rowIndex] as MessageCustom | undefined
+      if (typeof message === 'undefined') throw new Error('messages[rowIndex] not found')
+
+      const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
         return (
           <div className={styles['rfi-form']}>
             <ChannelCoaMessageDetail
               templates={templates}
-              message={(messages[rowIndex] as MessageCustom)}
+              message={message}
               role={role}
               isUmpire={isUmpire}
               channel={channel}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
+              canUnClaimMessages={canUnClaimMessages}
               assignees={assignees}
               onChange={(newMeesage: MessageCustom): void => {
                 onChange && onChange(newMeesage)
+              }}
+              collapseMe={(): void => {
                 typeof onChangeCallback === 'function' && onChangeCallback()
               }}
-              parentRef={parentRef}
+              gameDate={gameDate}
             />
           </div>
         )
@@ -225,7 +233,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ parentRef, templates, messages
         cells.push(...newCols)
       }
 
+      const rowKey = `${message._id}-${message.message.Reference}`
+
       return {
+        type: ROW_WITH_COLLAPSIBLE_TYPE,
+        rowKey,
         collapsible,
         cells: cells
       }

@@ -3,9 +3,8 @@ import preval from 'preval.macro'
 import { HeartbeatChecker } from '@serge/components'
 import { connect } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { UMPIRE_FORCE } from '../consts'
+import { UMPIRE_FORCE, SERVER_PING_INTERVAL } from '../consts'
 import { pingServer as pingServerApi } from '../api/wargames_api'
-import { SERVER_PING_INTERVAL } from '../consts'
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 
@@ -56,7 +55,7 @@ const Version = ({ showNotification, notifications, hideNotification }) => {
     const timerId = setInterval(() => {
       pingServer()
     }, SERVER_PING_INTERVAL)
-    
+
     return () => {
       clearInterval(timerId)
     }

@@ -35,7 +35,8 @@ import {
   ColRespDocumentBeingEdited,
   ColResponseClosed,
   ColEditClosed,
-  formEditable
+  formEditable,
+  ColDocumentBeingEditedByOther
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
@@ -71,7 +72,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, canUnClaimMessages, assignees = [], collapseMe, gameDate }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -98,14 +99,6 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
   // collate list of verbs used for providing feedback
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
   feedbackVerbs.push('Request changes')
-
-  if (
-    parentRef &&
-    parentRef.current &&
-    parentRef.current.scrollTop !== 0
-  ) {
-    expiredStorage.setItem('scrollPosition', `${parentRef.current.scrollTop}`)
-  }
 
   const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
     // store to local storage for using in case the site is reload while modal is opening
@@ -137,16 +130,19 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
   /** local change handler. Updates `lastUpdated` value
    * in message
    */
-  const handleChange = (msg: MessageCustom): void => {
+  const handleChange = (msg: MessageCustom, collapse: boolean): void => {
+    // collapse message, if necessary
+    collapse && collapseMe && collapseMe()
+    // fire update
     onChange && onChange(msg)
   }
 
   const handleEditFinalise = (): void => {
-    handleChange(editFinalise(message))
+    handleChange(editFinalise(message), true)
   }
 
   const handleEditClose = (): void => {
-    handleChange(close(message))
+    handleChange(close(message), true)
   }
 
   const handleRequestChanges = (name: string): void => {
@@ -165,12 +161,20 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
     })
   }
 
+  const handleUnClaim = (): void => {
+    setOpenModalStatus({
+      open: true,
+      title: 'Un-claim document',
+      placeHolder: 'Reason for un-claiming document'
+    })
+  }
+
   const handleClaim = (): void => {
-    handleChange(assign(message, role))
+    handleChange(assign(message, role), false)
   }
 
   const handleEditingSubmit = (): void => {
-    handleChange(editSubmit(message, newMsg, privateMessage))
+    handleChange(editSubmit(message, newMsg, privateMessage), true)
   }
 
   const handleAssign = (selection: string): void => {
@@ -178,11 +182,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
     const fields = selection.split(' - ')
     // find the matching role
     const assignee = roleFromName(fields[0], fields[1], assignees)
-    handleChange(assign(message, assignee))
+    handleChange(assign(message, assignee), true)
   }
 
   const handleResponseSubmit = (): void => {
-    handleChange(responseSubmit(message, answer, privateMessage))
+    handleChange(responseSubmit(message, answer, privateMessage), true)
   }
 
   const handleResponseReopen = (): void => {
@@ -194,11 +198,11 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
   }
 
   const handleResponseClose = (): void => {
-    handleChange(close(message))
+    handleChange(close(message), true)
   }
 
   const handleResponseRelease = (): void => {
-    handleChange(responseRelease(message))
+    handleChange(responseRelease(message), true)
   }
 
   const handleResponseRequestChanges = (): void => {
@@ -253,7 +257,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
       message.details.collaboration.feedback.push(feedbackItem)
     }
 
-    handleChange(requestChanges(message))
+    handleChange(requestChanges(message), true)
     setOpenDialog(false)
     expiredStorage.removeItem(dialogOpenStatusKey)
   }
@@ -347,6 +351,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
                 <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
               </>
             }
+            {
+              editDoc &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
+            }
+            {
+              ColDocumentBeingEditedByOther(message, canUnClaimMessages) &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleUnClaim}>Un-Claim</Button>
+            }
           </div>
           {
             feedbackBlock
@@ -356,6 +368,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
             message={message}
             getJsonEditorValue={getJsonEditorValue}
             disabled={!editDoc}
+            gameDate={gameDate}
           />
           {
             isUmpire && (privateMessage || editDoc) &&
@@ -404,6 +417,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
             message={message}
             getJsonEditorValue={getJsonEditorValue}
             disabled={true}
+            gameDate={gameDate}
           />
           {
             responseIsReleased
@@ -414,6 +428,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ parentRef, templates,
           { // only show private field for umpire force(s)
             isUmpire && (privateMessage || editResponse) &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
+          }
+          {
+            ColDocumentBeingEditedByOther(message, canUnClaimMessages) &&
+            <Button customVariant="form-action" size="small" type="button" onClick={handleUnClaim}>Un-Claim</Button>
           }
           <div className={styles.actions}>
             {

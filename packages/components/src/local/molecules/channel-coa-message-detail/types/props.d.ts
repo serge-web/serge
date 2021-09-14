@@ -4,7 +4,7 @@ import {
   ChannelData,
   TemplateBodysByKey
 } from '@serge/custom-types'
-import { RefObject } from 'react'
+
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
@@ -15,13 +15,18 @@ export default interface Props {
   /** if this player has "RFI Manager" attribute in their role */
   // isRFIManager: boolean
   canCollaborate?: boolean
+  /** if this player can release messages */
   canReleaseMessages?: boolean
+  /** if this player can retrieve claimed messages */
+  canUnClaimMessages: boolean
   channel: ChannelData
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]
-
-  parentRef?: RefObject<HTMLDivElement>
+  /** callback to collapse this item */
+  collapseMe?: () => void
+  /** current game time, used for initialising date-time controls */
+  gameDate: string
 }
 
 export interface DialogModalStatus {
