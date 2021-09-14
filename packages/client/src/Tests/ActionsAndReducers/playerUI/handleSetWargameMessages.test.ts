@@ -9,7 +9,6 @@ const playerUi: PlayerUi = {
   "isGameControl": true,
   "isRFIManager": false,
   "rfiMessages": [],
-  "nextMsgReference": 0,
   "selectedForce": {
     "name": "Blue",
     "uniqid": "force-k16fdykj",

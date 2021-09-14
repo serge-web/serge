@@ -13,7 +13,8 @@ import {
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
   DELETE_PLATFORM,
-  CollaborativeMessageStates
+  CollaborativeMessageStates,
+  COUNTER_MESSAGE
 } from '@serge/config'
 
 import Perception from './perception'
@@ -157,6 +158,21 @@ export interface MessageCustom extends CoreMessage {
   infoType?: boolean,
 }
 
+/** 
+ * instance of CounterMEssage for COA and RFI
+ */
+ export interface MessageCounter {
+  messageType: typeof COUNTER_MESSAGE,
+  /** unique id (PouchDB for this document) */
+  readonly _id: string
+  /** PouchDB revision for this document */
+  _rev?: string
+  /** Force name used for Reference counter prefix **/
+  readonly force: string
+  /** Reference Counter **/
+  counter: number
+}
+
 export interface ChatMessage extends CoreMessage {
   messageType: typeof CHAT_MESSAGE,
   message: MessageStructure
@@ -270,6 +286,7 @@ type Message = MessageCustom |
                MessageFeedback |
                MessageInfoTypeClipped |
                MessageMap |
-               MessageInfoType
+               MessageInfoType |
+               MessageCounter
 
 export default Message

@@ -5,6 +5,7 @@ import {
   databasePath,
   MSG_STORE
 } from '../consts'
+import { COUNTER_MESSAGE } from '@serge/config'
 
 var db = new PouchDB(databasePath + MSG_STORE)
 
@@ -72,8 +73,14 @@ export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
     db.allDocs({ include_docs: true, descending: true })
       .then((res) => {
-        let results = res.rows.map((a) => a.doc)
-        results = results.filter((a) => !a.hasOwnProperty('_deleted') && a.hasOwnProperty('details'))
+        const results = res.rows.reduce((messages, { doc }) => {
+          if (
+            doc.messageType !== COUNTER_MESSAGE && 
+            doc.hasOwnProperty('_deleted') && 
+            doc.hasOwnProperty('details')
+          ) messages.push(doc)
+          return messages
+        }, [])
         resolve(results)
       })
       .catch((err) => {
