@@ -7,7 +7,7 @@ import '@serge/themes/App.scss'
 import { usePrevious } from '@serge/helpers'
 
 const NewMessage = props => {
-  const { templates, curChannel, privateMessage, orderableChannel, generateNextReference } = props
+  const { templates, curChannel, privateMessage, orderableChannel } = props
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
   const tab = useRef(null)
@@ -69,7 +69,6 @@ const NewMessage = props => {
           schema={selectedSchema}
           curChannel={curChannel}
           privateMessage={privateMessage}
-          generateNextReference={generateNextReference}
           onMessageSend={onMessageSend}
           onCancel={onCancel}
         />
@@ -83,9 +82,5 @@ NewMessage.propTypes = {
   orderableChannel: PropTypes.bool,
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
-  privateMessage: PropTypes.bool.isRequired,
-  /**
-   * helper function, to generate a new reference for the indicated force
-   */
-  generateNextReference: PropTypes.func
+  privateMessage: PropTypes.bool.isRequired
 }

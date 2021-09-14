@@ -76,6 +76,4 @@ export default interface PlayerUi {
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */
   isRFIManager: boolean
-  /** next ref number for RFI messages for this force */
-  nextMsgReference: number
 }
