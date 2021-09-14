@@ -55,7 +55,6 @@ export const getCounterDoc = (forceName: string, db: ApiWargameDb): Promise<Mess
               console.log(error)
             }
           })
-        resolve(message as MessageCounter)
       } else {
         // wrong doc type
         console.error('Wrong type message', doc)
