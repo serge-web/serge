@@ -143,6 +143,9 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
 
   const matches = (src: string[], dest: string | string[]): boolean => {
     if (Array.isArray(dest)) {
+      if (Array.isArray(src[0]) && src[0][0] === '[Empty]' && !dest.length) {
+        return true
+      }
       const newDest = dest.map((item: string) => item.trim())
       return src.includes(newDest.join(' '))
     }

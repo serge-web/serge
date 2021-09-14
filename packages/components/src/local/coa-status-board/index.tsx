@@ -77,8 +77,13 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
       case 'LOCATION':
         fields = message.message[columnName].LOCATION
         for (const key of Object.keys(fields)) {
-          const location = fields[key].map((item: any) => `${key}-${item.Country}`)
-          fieldData.push(location)
+          if (!fields[key].length) {
+            filters.push(['[Empty]'])
+            return filters
+          } else {
+            const location = fields[key].map((item: any) => `${key}-${item.Country}`)
+            fieldData.push(location)
+          }
         }
         filters.push(fieldData.join(' '))
         return filters
