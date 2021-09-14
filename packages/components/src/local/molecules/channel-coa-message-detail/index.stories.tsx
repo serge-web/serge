@@ -10,7 +10,8 @@ import {
   channelCollaborativeEditing,
   messageDataCollaborativeEditing,
   GameChannels,
-  GameMessagesMock
+  GameMessagesMock,
+  WargameMock
 } from '@serge/mocks'
 import docs from './README.md'
 
@@ -74,6 +75,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       canUnClaimMessages={true}
       isUmpire={isUmpire}
       channel={GameChannels[0]}
+      gameDate={WargameMock.data.overview.gameDate}
     />
   )
 }

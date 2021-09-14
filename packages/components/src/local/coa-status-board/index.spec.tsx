@@ -4,7 +4,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { forces, MessageTemplatesMockByKey } from '@serge/mocks'
+import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CoaStatusBoard from './index'
 import moment from 'moment'
 
@@ -203,6 +203,7 @@ it('CoaStatusBoard renders correctly', () => {
         channel={testChannel}
         messages={testMock}
         onChange={onChange}
+        gameDate={WargameMock.data.overview.gameDate}
       />
     )
     .toJSON()

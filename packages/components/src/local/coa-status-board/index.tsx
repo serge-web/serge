@@ -65,7 +65,7 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
   const [assignees, setAssignees] = useState<ForceRole[]>([])
 
@@ -197,6 +197,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
               collapseMe={(): void => {
                 typeof onChangeCallback === 'function' && onChangeCallback()
               }}
+              gameDate={gameDate}
             />
           </div>
         )

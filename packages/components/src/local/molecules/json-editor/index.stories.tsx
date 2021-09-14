@@ -6,7 +6,7 @@ import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import { MessageTemplatesMockByKey, messageDataCollaborativeEditing } from '@serge/mocks'
+import { MessageTemplatesMockByKey, messageDataCollaborativeEditing, WargameMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import Props from './types/props'
@@ -32,13 +32,14 @@ export default {
   }
 }
 
-const Template: Story<Props> = ({ message, messageTemplates, disabled }) => <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} />
+const Template: Story<Props> = ({ message, messageTemplates, disabled }) => <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
 export const Default = Template.bind({})
 
 const defArgs: Props = {
   message: messageDataCollaborativeEditing[1],
   messageTemplates: MessageTemplatesMockByKey,
-  disabled: false
+  disabled: false,
+  gameDate: WargameMock.data.overview.gameDate
 }
 
 Default.args = defArgs
