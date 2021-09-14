@@ -185,7 +185,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
     const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {
-      if (col === 'location') {
+      if (col === SpecialChannelColumns.LOCATION) {
         return {
           filters: [...new Set(filtersLocations)],
           label: capitalize(col)
