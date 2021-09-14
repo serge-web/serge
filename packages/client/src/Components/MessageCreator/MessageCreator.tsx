@@ -9,7 +9,7 @@ import Props from './types'
 
 // @ts-ignore
 import JSONEditor from '@json-editor/json-editor'
-
+import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import moment from 'moment'
 import flatpickr from 'flatpickr'
@@ -103,53 +103,6 @@ const MessageCreator: React.FC<Props> = (props) => {
   }, [props])
 
   /**
-   * helper function to render default Datetime or Date or Time props of json
-   */
-  const configCommonProps = (prop: any) => {
-    switch (prop.format) {
-      case "datetime-local":
-        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "time_24hr": true,
-          "dateFormat":"d/m/Y H:i",
-        }}
-        return prop
-      case "date":
-        prop.default = moment(gameDate).format("DD/MM/YYYY")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "dateFormat":"d/m/Y",
-        }}
-        return prop
-      case "time":
-        prop.default = moment(gameDate).format("HH:mm")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "time_24hr": true,
-          "dateFormat":"H:i",
-        }}
-        return prop
-      default:
-        return prop
-    }
-  }
-
-  /**
-   * Render Default datetime entries in template of json for type datetime-local
-   */
-  const configDateTimeLocal = (schema: any) => {
-    if(!schema || !schema.properties){
-      return
-    }
-    Object.keys(schema.properties).forEach(key => {
-      let prop = schema.properties[key]
-      prop = configCommonProps(prop)
-      configDateTimeLocal(prop.items || prop)
-    });
-  }
-
-  /**
    * helper function to for validation Datetime or Date or Time props of json
    */
   const configCommonValidation = (schema: { format: string }, value: string, path: any) => {
@@ -208,10 +161,9 @@ const MessageCreator: React.FC<Props> = (props) => {
     })
   }
 
-
   const createEditor = (schema: any) => {
-    configDateTimeLocal(schema)
     configDateTimeCustomValidation()
+    schema = configDateTimeLocal(schema, gameDate)
     
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,

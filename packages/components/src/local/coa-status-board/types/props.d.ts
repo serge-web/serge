@@ -23,4 +23,5 @@ export default interface Props {
   templates: TemplateBodysByKey
   /** list of forces */
   forces: ForceData[]
+  gameDate: string
 }

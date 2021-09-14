@@ -71,7 +71,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [], collapseMe }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [], collapseMe, gameDate }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -355,6 +355,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             message={message}
             getJsonEditorValue={getJsonEditorValue}
             disabled={!editDoc}
+            gameDate={gameDate}
           />
           {
             isUmpire && (privateMessage || editDoc) &&
@@ -403,6 +404,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             message={message}
             getJsonEditorValue={getJsonEditorValue}
             disabled={true}
+            gameDate={gameDate}
           />
           {
             responseIsReleased

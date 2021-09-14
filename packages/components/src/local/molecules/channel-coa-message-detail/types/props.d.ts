@@ -22,6 +22,7 @@ export default interface Props {
   assignees?: ForceRole[]
   /** callback to collapse this item */
   collapseMe?: () => void
+  gameDate: string
 }
 
 export interface DialogModalStatus {

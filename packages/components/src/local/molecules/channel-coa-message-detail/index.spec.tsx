@@ -6,7 +6,7 @@ import ChannelCoaMessageDetail from './index'
 import { ChannelData } from '@serge/custom-types'
 import { SpecialChannelTypes } from '@serge/config'
 
-import { GameMessagesMockRFI, MessageTemplatesMockByKey } from '@serge/mocks'
+import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 
 const [defMessage] = GameMessagesMockRFI
 
@@ -46,6 +46,7 @@ describe('ChannelMessageDetail:', () => {
         isUmpire={true}
         message={defMessage}
         onChange={(msg): void => { console.log(msg) }}
+        gameDate={WargameMock.data.overview.gameDate}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

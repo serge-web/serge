@@ -22,4 +22,5 @@ export default interface Props {
    * in read view (disabled) make textarea items tall enough to view all contents
    */
   expandHeight?: boolean
+  gameDate: string
 }
