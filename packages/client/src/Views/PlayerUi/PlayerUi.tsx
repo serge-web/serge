@@ -31,7 +31,8 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     currentWargame,
     selectedForce,
     selectedRole,
-    wargameTitle
+    wargameTitle,
+    currentTurn
   } = usePlayerUiState()
   
   const dispatch = usePlayerUiDispatch()
@@ -83,7 +84,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
       wargameIsInvalid()
       return;
     }
-    const check = checkPassword(pass, messageTypes, currentWargame, allForces, dispatch)
+    const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, dispatch)
     if (check) {
       const currentUrl = new URL(document.location!.href)
       const byPassParams = {

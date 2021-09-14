@@ -14,7 +14,8 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  TurnFormats
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
@@ -43,6 +44,7 @@ export const initialState: PlayerUi = {
   canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
+  turnPresentation: TurnFormats.Natural,
   phase: '',
   gameDate: '',
   gameTurnTime: 0,
@@ -77,6 +79,7 @@ export const initialState: PlayerUi = {
   nextMsgReference: 1
 }
 
+
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
@@ -86,6 +89,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
       newState.currentTurn = action.payload.gameTurn
+      newState.turnPresentation = action.payload.data.overview.turnPresentation
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated

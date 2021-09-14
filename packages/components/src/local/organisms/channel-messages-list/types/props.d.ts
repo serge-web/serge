@@ -15,12 +15,15 @@ export default interface PropTypes extends ForcesInChannelProps {
   /**
    * handle unread message
    */
-  onUnread?: () => void
+  onUnread?: (message: MessageCustom) => void
 
   /** force for player
    *
    */
   playerForceId: string
+
+  /** how to render the game turn  */
+  turnPresentation?: TurnFormats
 
   isUmpire: boolean
   isRFIManager: boolean

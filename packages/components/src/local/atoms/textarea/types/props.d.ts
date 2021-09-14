@@ -1,6 +1,7 @@
 import { TEXTAREA_DARK, TEXTAREA_LIGHT } from '../'
 
 export default interface PropTypes {
+  fitContent?: boolean
   value: string
   onChange?: (nextValue: string) => void
   label?: string
@@ -9,4 +10,5 @@ export default interface PropTypes {
   labelFactory?: (inputid: string, label: string) => React.ReactNode
   rows?: number
   id?: string
+  placeholder?: string
 }

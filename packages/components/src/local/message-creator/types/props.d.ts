@@ -18,4 +18,5 @@ export default interface Props {
    * The method for posting messages out of the component
    */
   postBack?: {(value: MessageCustom): void}
+  turnNumber: number
 }

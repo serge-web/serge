@@ -7,7 +7,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRoleName, byPassUrl, onIconClick }: Props) =>
+export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRoleName, byPassUrl, onIconClick }) =>
   <div className={styles['role-info']} data-tour='role-info-step' style={{ backgroundColor: force.color }}>
     {
       byPassUrl

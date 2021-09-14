@@ -1,4 +1,4 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role, MessageDetailsFrom, CollaborationDetails
@@ -198,8 +198,10 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
+    const isCollab = channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+
     const filterMessages = () => {
-      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED)
+      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
     }
 
     if (isObserver || isParticipant || allRolesIncluded) {
@@ -217,12 +219,14 @@ export const handleAllInitialChannelMessages = (
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
-        participants: [],
+        participants: channel.participants,
         forceIcons,
         forceColors,
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
-        observing: observing
+        observing: observing,
+        format: channel.format,
+        collabOptions: channel.collabOptions
       }
 
       // TODO: use channel uniqid
@@ -263,7 +267,7 @@ export const handleAllInitialChannelMessages = (
         if (collabAny.owner && typeof collabAny.owner === 'string') {
           // yes - update data model
           const collab: CollaborationDetails | undefined = custom.details.collaboration
-          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner}
+          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner }
         }
       }
 
@@ -382,8 +386,11 @@ const handleChannelUpdates = (
         // channel will now exist, get shortcut
         const thisChannel: ChannelUI = res.channels[channelId]
 
+        // check if this is a collab channel, since we don't fire turn markers into collab channels
+        const collabChannel = thisChannel.format && (thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+
         // check if we're missing a turn marker for this turn
-        if (thisChannel.messages) {
+        if (thisChannel.messages && !collabChannel) {
           if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
             // no messages, or no turn marker found, create one
             const message: MessageChannel = clipInfoMEssage(payload, false)

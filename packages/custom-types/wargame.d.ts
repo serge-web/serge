@@ -1,7 +1,7 @@
 import WargameList from './wargame-list'
 import WargameData from './wargame-data'
 import Message from './message'
-import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE, PLANNING_PHASE, TurnFormats } from '@serge/config'
 
 export default interface Wargame {
   _id: string,
@@ -9,6 +9,8 @@ export default interface Wargame {
   name: string,
   phase: typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE ,
   gameTurn: number,
+  /** format for displaying turn number */
+  turnPresentation?: TurnFormats,
   turnEndTime?: string,
   adjudicationStartTime?: string,
   isLoading: boolean,

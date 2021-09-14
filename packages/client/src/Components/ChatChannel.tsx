@@ -40,9 +40,9 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         const forcesInChannelHeight = 25;
         const margins = 15;
         setChatContainerHeight(
-          parseInt(height) + 
-          tabHeight + 
-          forcesInChannelHeight + 
+          parseInt(height) +
+          tabHeight +
+          forcesInChannelHeight +
           margins
         );
       });
@@ -56,22 +56,25 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const icons = state.channels[channelId].forceIcons || []
   const colors = state.channels[channelId].forceColors || []
   const isUmpire = state.selectedForce && state.selectedForce.umpire
+  const observing = !!state.channels[channelId].observing
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChatMessagesList
         messages={state.channels[channelId].messages}
+        turnPresentation={state.turnPresentation}
         playerForce={selectedForce.name}
         isUmpire={!!isUmpire}
         icons={icons}
         colors={colors}
         chatContainerHeight={chatContainerHeight}
+        observing={observing}
       />
       {
-        state.channels[channelId].observing === false &&
+        !observing &&
         <div className="new-message-creator wrap new-message-orderable" ref={chatMessageRef}>
           <div className="chat-message-container">
-            <ChatEntryForm from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} postBack={messageHandler} />
+            <ChatEntryForm turnNumber={state.currentTurn} from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} roleName={state.selectedRoleName} postBack={messageHandler} />
           </div>
         </div>
       }

@@ -15,7 +15,8 @@ import {
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
-  SERGE_INFO
+  SERGE_INFO,
+  ERROR_THROTTLE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -74,7 +75,8 @@ const getNameFromPath = (dbPath: string): string => {
 }
 
 // get database object by :name key
-const getWargameDbByName = (name: string): ApiWargameDbObject => {  
+const getWargameDbByName = (name: string): ApiWargameDbObject => {
+  name = name.replace(hiddenPrefix, '')
   const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
@@ -100,8 +102,14 @@ export const deleteWargame = (wargamePath: string): void => {
   wargameDbStore.splice(index, 1)
 }
 
-export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): void => {
-  db.changes({
+export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: ListenNewMessageType): void => {
+
+  // if (changes) will works only when we recall listenNewMessage()
+  // it conain old listenter with error, as we need to re-listen changes we need to clean old listener (no double fire)
+  if (changes) changes.cancel()
+
+  // save db.changes listener in to nextChanges const to be able remove it as we don't want to have case when we had a 2 .changes listener
+  const nextChanges = db.changes({
     since: 'now',
     live: true,
     timeout: false,
@@ -125,11 +133,16 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
       }
     })()
   }).on('error', (err) => {
+    // in case if error wil works multiple times we have global `timerId` (function body level)
+    // on every error need to clean `timerId` to keep working timer for last error fire
+    if (timerId) clearTimeout(timerId)
     console.log('error on listen for new message', err)
     // hey, maybe the server is down. introduce a pause
-    // setTimeout((): void => {
-    //   listenNewMessage({ db, name, dispatch })
-    // }, ERROR_THROTTLE)
+    // save timer to have way to stop it when error trigger multiple times
+    timerId = setTimeout((): void => {
+      // set timerId and changes listener for new listenNewMessage() to be able to remove them before new listener creation
+      listenNewMessage({ db, name, dispatch, timerId, changes: nextChanges })
+    }, ERROR_THROTTLE)
   })
 }
 
@@ -187,7 +200,7 @@ export const populateWargame = (): Promise<Wargame> => {
 
 export const clearWargames = (): void => {
   fetch(serverPath + 'clearAll').then(() => {
-    window.location.reload(true)
+    window.location.reload()
   })
 }
 
@@ -600,7 +613,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
   .catch(rejectDefault)
 }
 
-export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, message: string): Promise<MessageFeedback> => {
+export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, turnNumber: number, message: string): Promise<MessageFeedback> => {
   const { db } = getWargameDbByName(dbName)
   const feedback: MessageFeedback = {
     _id: new Date().toISOString(),
@@ -608,7 +621,8 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, me
       channel: 'Feedback',
       from: fromDetails,
       messageType: 'Chat',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      turnNumber: turnNumber
     },
     message: {
       content: message
@@ -633,20 +647,39 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
   return db.put(customMessage).catch(rejectDefault)
 }
 
+
+
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
   // @ts-ignore
 export const postNewMapMessage = (dbName, details, message) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
-  db.put({
+
+  const customMessage: MessageCustom = {
     _id: new Date().toISOString(),
-    details,
     // defined constat for messages, it's not same as message.details.messageType,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
     messageType: details.messageType,
-    message
-  }).catch((err) => {
+    details,
+    message,
+    isOpen: false,
+    hasBeenRead: false
+  }
+
+  // db.put({
+  //   _id: new Date().toISOString(),
+  //   details,
+  //   // defined constat for messages, it's not same as message.details.messageType,
+  //   // ex for all template based messages will be used CUSTOM_MESSAGE Type
+  //   messageType: details.messageType,
+  //   message
+  // }).catch((err) => {
+  //   console.log(err)
+  //   return err
+  // })
+
+  db.put(customMessage).catch((err) => {
     console.log(err)
     return err
   })

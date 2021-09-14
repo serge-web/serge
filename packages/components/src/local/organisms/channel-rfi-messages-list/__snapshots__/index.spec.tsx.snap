@@ -168,7 +168,11 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                   <div
                     className="badges"
                   >
-                    
+                    <div
+                      className="badge orange"
+                    >
+                      IN PROGRESS
+                    </div>
                   </div>
                 </div>
               </div>
@@ -182,6 +186,35 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
             <div
               className="main"
             >
+              <div
+                className="assigned"
+              >
+                <span
+                  className="inset"
+                >
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeLarge"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+                    />
+                  </svg>
+                  <div
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-16"
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                  >
+                    <span
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-17"
+                    >
+                      Not assigned
+                    </span>
+                  </div>
+                </span>
+              </div>
               <div
                 className="main theme-dark disabled"
               >
@@ -209,7 +242,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                   disabled={true}
                   id="answer_2020-03-25T15:08:47.525Z"
                   onChange={[Function]}
-                  value=""
+                  value="Game control response to RFI 4"
                 />
               </div>
               <div
@@ -233,39 +266,14 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
               </div>
               <div
                 className="actions"
-              >
-                <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-18 MuiButton-contained makeStyles-contained-17 makeStyles-contained-19 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="button"
-                >
-                  <span
-                    className="MuiButton-label"
-                  >
-                    Take Ownership
-                  </span>
-                </button>
-              </div>
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-20"
+      className="MuiBox-root MuiBox-root-18"
     >
       <div
         className="message-list-wrapper"
@@ -316,12 +324,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 >
                   <h2>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-21"
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-19"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-22"
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-20"
                       />
                     </div>
                      
@@ -348,6 +356,17 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       08:52
                     </span>
                     <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-21 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-22 MuiChip-labelSmall"
+                      >
+                        CO
+                      </span>
+                    </div>
+                    <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-23 MuiChip-sizeSmall makeStyles-sizeSmall-6"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
@@ -355,7 +374,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-24 MuiChip-labelSmall"
                       >
-                        CO
+                        Chat
                       </span>
                     </div>
                     <div
@@ -366,17 +385,6 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-26 MuiChip-labelSmall"
                       >
-                        Chat
-                      </span>
-                    </div>
-                    <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-27 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-28 MuiChip-labelSmall"
-                      >
                         Unread
                       </span>
                     </div>
@@ -384,7 +392,11 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                   <div
                     className="badges"
                   >
-                    
+                    <div
+                      className="badge gray"
+                    >
+                      PENDING REVIEW
+                    </div>
                   </div>
                 </div>
               </div>
@@ -398,6 +410,35 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
             <div
               className="main"
             >
+              <div
+                className="assigned"
+              >
+                <span
+                  className="inset"
+                >
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeLarge"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+                    />
+                  </svg>
+                  <div
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-27"
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                  >
+                    <span
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-28"
+                    >
+                      Not assigned
+                    </span>
+                  </div>
+                </span>
+              </div>
               <div
                 className="main theme-dark disabled"
               >
@@ -425,7 +466,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                   disabled={true}
                   id="answer_2020-03-25T15:08:47.530Z"
                   onChange={[Function]}
-                  value=""
+                  value="Game control response to RFI 4"
                 />
               </div>
               <div
@@ -451,7 +492,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 className="actions"
               >
                 <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-29 MuiButton-contained makeStyles-contained-17 makeStyles-contained-30 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                  className="MuiButtonBase-root MuiButton-root makeStyles-root-29 makeStyles-root-31 MuiButton-contained makeStyles-contained-30 makeStyles-contained-32 MuiButton-containedSizeSmall MuiButton-sizeSmall"
                   disabled={false}
                   onBlur={[Function]}
                   onClick={[Function]}
@@ -471,7 +512,31 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                   <span
                     className="MuiButton-label"
                   >
-                    Take Ownership
+                    Reject
+                  </span>
+                </button>
+                <button
+                  className="MuiButtonBase-root MuiButton-root makeStyles-root-29 makeStyles-root-33 MuiButton-contained makeStyles-contained-30 makeStyles-contained-34 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label"
+                  >
+                    Release
                   </span>
                 </button>
               </div>
@@ -481,7 +546,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-31"
+      className="MuiBox-root MuiBox-root-35"
     >
       <div
         className="message-list-wrapper"
@@ -532,12 +597,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 >
                   <h2>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-32"
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-36"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-33"
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-37"
                       />
                     </div>
                      
@@ -564,34 +629,34 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       08:52
                     </span>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-34 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-35 MuiChip-labelSmall"
-                      >
-                        CO
-                      </span>
-                    </div>
-                    <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-36 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-37 MuiChip-labelSmall"
-                      >
-                        Chat
-                      </span>
-                    </div>
-                    <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-38 MuiChip-sizeSmall makeStyles-sizeSmall-6"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-39 MuiChip-labelSmall"
+                      >
+                        CO
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-40 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-41 MuiChip-labelSmall"
+                      >
+                        Chat
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-42 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-43 MuiChip-labelSmall"
                       >
                         Unread
                       </span>
@@ -614,6 +679,35 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
             <div
               className="main"
             >
+              <div
+                className="assigned"
+              >
+                <span
+                  className="inset"
+                >
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root MuiSvgIcon-colorAction MuiSvgIcon-fontSizeLarge"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+                    />
+                  </svg>
+                  <div
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-44"
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                  >
+                    <span
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-45"
+                    >
+                      Not assigned
+                    </span>
+                  </div>
+                </span>
+              </div>
               <div
                 className="main theme-dark disabled"
               >
@@ -641,7 +735,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                   disabled={true}
                   id="answer_2020-03-25T15:08:47.540Z"
                   onChange={[Function]}
-                  value=""
+                  value="Game control response to RFI 4"
                 />
               </div>
               <div
@@ -665,39 +759,14 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
               </div>
               <div
                 className="actions"
-              >
-                <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-40 MuiButton-contained makeStyles-contained-17 makeStyles-contained-41 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="button"
-                >
-                  <span
-                    className="MuiButton-label"
-                  >
-                    Take Ownership
-                  </span>
-                </button>
-              </div>
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-42"
+      className="MuiBox-root MuiBox-root-46"
     >
       <div
         className="message-list-wrapper"
@@ -748,12 +817,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 >
                   <h2>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-43"
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-47"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-44"
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-48"
                       >
                         Blue-1
                       </span>
@@ -768,7 +837,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       className="status"
                     >
                       <p>
-                        PENDING
+                        ANSWERED
                       </p>
                     </div>
                   </div>
@@ -783,34 +852,34 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       08:52
                     </span>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-45 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-46 MuiChip-labelSmall"
-                      >
-                        CO
-                      </span>
-                    </div>
-                    <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-47 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-48 MuiChip-labelSmall"
-                      >
-                        RFI
-                      </span>
-                    </div>
-                    <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-49 MuiChip-sizeSmall makeStyles-sizeSmall-6"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-50 MuiChip-labelSmall"
+                      >
+                        CO
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-51 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-52 MuiChip-labelSmall"
+                      >
+                        RFI
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-53 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-54 MuiChip-labelSmall"
                       >
                         Unread
                       </span>
@@ -820,9 +889,9 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     className="badges"
                   >
                     <div
-                      className="badge red"
+                      className="badge green"
                     >
-                      UNALLOCATED
+                      RELEASED
                     </div>
                   </div>
                 </div>
@@ -854,14 +923,14 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     />
                   </svg>
                   <div
-                    className="MuiChip-root makeStyles-root-5 makeStyles-root-51"
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-55"
                     onKeyDown={[Function]}
                     onKeyUp={[Function]}
                   >
                     <span
-                      className="MuiChip-label makeStyles-label-7 makeStyles-label-52"
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-56"
                     >
-                      Not assigned
+                      Released
                     </span>
                   </div>
                 </span>
@@ -917,39 +986,14 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
               </div>
               <div
                 className="actions"
-              >
-                <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-53 MuiButton-contained makeStyles-contained-17 makeStyles-contained-54 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="button"
-                >
-                  <span
-                    className="MuiButton-label"
-                  >
-                    Take Ownership
-                  </span>
-                </button>
-              </div>
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-55"
+      className="MuiBox-root MuiBox-root-57"
     >
       <div
         className="message-list-wrapper"
@@ -1000,12 +1044,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 >
                   <h2>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-56"
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-58"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-57"
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-59"
                       >
                         Blue-2
                       </span>
@@ -1035,17 +1079,6 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       08:53
                     </span>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-58 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-59 MuiChip-labelSmall"
-                      >
-                        CO
-                      </span>
-                    </div>
-                    <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-60 MuiChip-sizeSmall makeStyles-sizeSmall-6"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
@@ -1053,7 +1086,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-61 MuiChip-labelSmall"
                       >
-                        RFI
+                        CO
                       </span>
                     </div>
                     <div
@@ -1063,6 +1096,17 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     >
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-63 MuiChip-labelSmall"
+                      >
+                        RFI
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-64 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-65 MuiChip-labelSmall"
                       >
                         Unread
                       </span>
@@ -1106,12 +1150,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     />
                   </svg>
                   <div
-                    className="MuiChip-root makeStyles-root-5 makeStyles-root-64"
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-66"
                     onKeyDown={[Function]}
                     onKeyUp={[Function]}
                   >
                     <span
-                      className="MuiChip-label makeStyles-label-7 makeStyles-label-65"
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-67"
                     >
                       Not assigned
                     </span>
@@ -1171,7 +1215,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 className="actions"
               >
                 <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-66 MuiButton-contained makeStyles-contained-17 makeStyles-contained-67 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                  className="MuiButtonBase-root MuiButton-root makeStyles-root-29 makeStyles-root-68 MuiButton-contained makeStyles-contained-30 makeStyles-contained-69 MuiButton-containedSizeSmall MuiButton-sizeSmall"
                   disabled={false}
                   onBlur={[Function]}
                   onClick={[Function]}
@@ -1201,7 +1245,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-68"
+      className="MuiBox-root MuiBox-root-70"
     >
       <div
         className="message-list-wrapper"
@@ -1252,12 +1296,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 >
                   <h2>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-69"
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-71"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-70"
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-72"
                       >
                         Blue-3
                       </span>
@@ -1287,17 +1331,6 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       08:54
                     </span>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-71 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-72 MuiChip-labelSmall"
-                      >
-                        CO
-                      </span>
-                    </div>
-                    <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-73 MuiChip-sizeSmall makeStyles-sizeSmall-6"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
@@ -1305,7 +1338,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-74 MuiChip-labelSmall"
                       >
-                        RFI
+                        CO
                       </span>
                     </div>
                     <div
@@ -1315,6 +1348,17 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     >
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-76 MuiChip-labelSmall"
+                      >
+                        RFI
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-77 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-78 MuiChip-labelSmall"
                       >
                         Unread
                       </span>
@@ -1358,12 +1402,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     />
                   </svg>
                   <div
-                    className="MuiChip-root makeStyles-root-5 makeStyles-root-77"
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-79"
                     onKeyDown={[Function]}
                     onKeyUp={[Function]}
                   >
                     <span
-                      className="MuiChip-label makeStyles-label-7 makeStyles-label-78"
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-80"
                     >
                       Not assigned
                     </span>
@@ -1423,7 +1467,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 className="actions"
               >
                 <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-79 MuiButton-contained makeStyles-contained-17 makeStyles-contained-80 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                  className="MuiButtonBase-root MuiButton-root makeStyles-root-29 makeStyles-root-81 MuiButton-contained makeStyles-contained-30 makeStyles-contained-82 MuiButton-containedSizeSmall MuiButton-sizeSmall"
                   disabled={false}
                   onBlur={[Function]}
                   onClick={[Function]}
@@ -1453,7 +1497,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-81"
+      className="MuiBox-root MuiBox-root-83"
     >
       <div
         className="message-list-wrapper"
@@ -1504,12 +1548,12 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                 >
                   <h2>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-82"
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-84"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
                     >
                       <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-83"
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-85"
                       >
                         RED-1
                       </span>
@@ -1524,7 +1568,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       className="status"
                     >
                       <p>
-                        PENDING
+                        ANSWERED
                       </p>
                     </div>
                   </div>
@@ -1539,17 +1583,6 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       08:55
                     </span>
                     <div
-                      className="MuiChip-root makeStyles-root-5 makeStyles-root-84 MuiChip-sizeSmall makeStyles-sizeSmall-6"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                    >
-                      <span
-                        className="MuiChip-label makeStyles-label-7 makeStyles-label-85 MuiChip-labelSmall"
-                      >
-                        CO
-                      </span>
-                    </div>
-                    <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-86 MuiChip-sizeSmall makeStyles-sizeSmall-6"
                       onKeyDown={[Function]}
                       onKeyUp={[Function]}
@@ -1557,7 +1590,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-87 MuiChip-labelSmall"
                       >
-                        RFI
+                        CO
                       </span>
                     </div>
                     <div
@@ -1568,6 +1601,17 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-89 MuiChip-labelSmall"
                       >
+                        RFI
+                      </span>
+                    </div>
+                    <div
+                      className="MuiChip-root makeStyles-root-5 makeStyles-root-90 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                    >
+                      <span
+                        className="MuiChip-label makeStyles-label-7 makeStyles-label-91 MuiChip-labelSmall"
+                      >
                         Unread
                       </span>
                     </div>
@@ -1576,9 +1620,9 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     className="badges"
                   >
                     <div
-                      className="badge red"
+                      className="badge green"
                     >
-                      UNALLOCATED
+                      RELEASED
                     </div>
                   </div>
                 </div>
@@ -1610,14 +1654,14 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     />
                   </svg>
                   <div
-                    className="MuiChip-root makeStyles-root-5 makeStyles-root-90"
+                    className="MuiChip-root makeStyles-root-5 makeStyles-root-92"
                     onKeyDown={[Function]}
                     onKeyUp={[Function]}
                   >
                     <span
-                      className="MuiChip-label makeStyles-label-7 makeStyles-label-91"
+                      className="MuiChip-label makeStyles-label-7 makeStyles-label-93"
                     >
-                      Not assigned
+                      Released
                     </span>
                   </div>
                 </span>
@@ -1673,32 +1717,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
               </div>
               <div
                 className="actions"
-              >
-                <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-16 makeStyles-root-92 MuiButton-contained makeStyles-contained-17 makeStyles-contained-93 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="button"
-                >
-                  <span
-                    className="MuiButton-label"
-                  >
-                    Take Ownership
-                  </span>
-                </button>
-              </div>
+              />
             </div>
           </div>
         </div>

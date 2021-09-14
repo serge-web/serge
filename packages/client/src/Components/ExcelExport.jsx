@@ -37,14 +37,6 @@ const ExcelExport = ({ exp, index }) => {
       <a
         href={hreflink}
         className='link link--secondary'
-        onClick={e => generateFile('xls')}
-        id={ids.xls}
-      >
-        <FontAwesomeIcon icon={faFileDownload}/>Download .xls
-      </a>
-      <a
-        href={hreflink}
-        className='link link--secondary'
         onClick={e => generateFile('xlsx')}
         id={ids.xlsx}
       >

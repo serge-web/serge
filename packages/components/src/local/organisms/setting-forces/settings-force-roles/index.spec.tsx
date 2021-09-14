@@ -15,6 +15,7 @@ describe('RolesAccordion component:', () => {
         <RolesAccordion
           data={forces[0]}
           handleChangeForce={handleChange}
+          forces={forces}
         />,
         { createNodeMock: () => document.createElement('textarea') }
       )

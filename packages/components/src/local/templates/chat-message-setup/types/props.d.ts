@@ -18,4 +18,6 @@ export default interface Props {
   isUmpire: boolean
   chatChannel: any
   userId: string
+  turnPresentation: TurnFormats
+  turnNumber: number
 }

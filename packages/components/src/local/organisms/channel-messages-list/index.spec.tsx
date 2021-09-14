@@ -28,7 +28,8 @@ describe('ChannelMessagesList component: ', () => {
           roleId: 'u345'
         },
         messageType: 'Chat',
-        timestamp: '2020-10-13T08:52:04.394Z'
+        timestamp: '2020-10-13T08:52:04.394Z',
+        turnNumber: 1
       },
       message: {
         content: 'message from Red'

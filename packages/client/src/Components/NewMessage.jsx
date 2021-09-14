@@ -22,7 +22,7 @@ const NewMessage = props => {
 
   const allTemplates = (templates.length && templates[0] && templates.map(mapTemplateToDropdown)) || []
 
-  const classes = `new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
+  const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
   useEffect(() => {
     setSelectedSchema(null)

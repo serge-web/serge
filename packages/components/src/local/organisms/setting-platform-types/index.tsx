@@ -50,7 +50,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   const initialPlatformType: PlatformType = platformType || newPlatformType
   const [localPlatformType, setLocalPlatformType] = useState(initialPlatformType)
-  const [selectedItem, setSelectedItem] = useState(0)
+  const [selectedItem, setSelectedItem] = useState(-1)
 
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(localPlatformType.platformTypes.findIndex(item => item === _item))
@@ -259,7 +259,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           onClick={handleSwitch}
           onCreate={handleCreatePlatformType}
           title='Create'
-          selectedItem={localPlatformType.platformTypes[selectedItem].name}
+          selectedItem={selectedItem >= 0 ? localPlatformType.platformTypes[selectedItem].name : undefined}
           filterKey="name"
         />
       </LeftSide>

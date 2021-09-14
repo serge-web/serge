@@ -12,6 +12,9 @@ import Paper from '@material-ui/core/Paper'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import MenuItem from '@material-ui/core/MenuItem'
 import CheckIcon from '@material-ui/icons/Check'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import { SortDirection } from '@material-ui/core'
 
 /* Render component */
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,30 +37,75 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginLeft: '10px',
       color: theme.palette[`${'primary'}`]?.main
     }
+  },
+  sortIconUp: {
+    position: 'absolute',
+    color: 'white',
+    marginLeft: '5px',
+    marginTop: '7px',
+    cursor: 'pointer'
+  },
+  sortIconDown: {
+    color: 'white',
+    marginLeft: '5px',
+    marginTop: '7px',
+    cursor: 'pointer'
+  },
+  headerSort: {
+    display: 'inline-flex'
   }
 }))
 const FilterIcon = (): React.ReactElement => (
   <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z" fill="white"/>
+    <path d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z" fill="white" />
   </svg>
 )
 export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
   const [open, setOpen] = useState<boolean>(false)
   const buttonRef = useRef(null)
-  const { content, id, filters, onFilter } = props
+  const { content, id, filters, onFilter, sort, onSort, sortingColId, sortDirection = 'asc' } = props
   const contentFilter = content as ContentFilterType
   const classes = useStyles()
+
   const onToggle = (): void => {
     setOpen(!open)
   }
+
   const handleOnFilter = (filter: string): void => {
     onToggle()
     onFilter(id, filter)
   }
+
+  const toggleSort = (columnId: number, sortDirection: SortDirection): void => {
+    onSort && onSort(columnId, sortDirection)
+  }
+
   switch (true) {
     case typeof content === 'string':
-      return <span>{ content }</span>
-    case contentFilter.filters.length > 0:
+      return (
+        <span className={classes.headerSort}>
+          {content}
+          {sort && ['ID', 'Updated'].includes(`${content}`) &&
+            <span onClick={(): void => toggleSort(id, sortDirection)}>
+              <FontAwesomeIcon
+                className={classes.sortIconUp}
+                style={{ color: (sortDirection === 'asc' && sortingColId === id) ? 'white' : 'grey' }}
+                icon={faSortUp}
+              />
+              <FontAwesomeIcon
+                className={classes.sortIconDown}
+                style={{ color: (sortDirection === 'desc' && sortingColId === id) ? 'white' : 'grey' }}
+                icon={faSortDown}
+              />
+            </span>
+          }
+        </span>
+      )
+    // just show label if there are zero or one filters.  No
+    // need to filter if there is only one item :-)
+    case contentFilter.filters && contentFilter.filters.length <= 1:
+      return <span>{contentFilter.label}</span>
+    case contentFilter.filters.length > 1:
       return (
         <>
           <Button
@@ -67,7 +115,7 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
             endIcon={<FilterIcon />}
             size="small"
           >
-            { contentFilter.label }
+            {contentFilter.label}
           </Button>
           <Popper open={open} anchorEl={buttonRef.current} role={undefined} transition disablePortal>
             {({ TransitionProps, placement }): ReactElement => (
@@ -85,7 +133,7 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
                             key={filter}
                             onClick={(): void => handleOnFilter(filter)}
                           >
-                            <span>{ filter }</span>
+                            <span>{filter}</span>
                             {
                               filters.includes(filter)
                                 ? <CheckIcon />

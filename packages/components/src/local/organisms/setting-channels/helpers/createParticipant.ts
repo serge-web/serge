@@ -4,9 +4,11 @@ import { ForceData } from '@serge/custom-types'
 import defaultParticipant from './defaultParticipant'
 import rowToParticipant from './rowToParticipant'
 
+export const generateSubscriptionId = (): string => Math.random().toString(36).substring(8)
+
 export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>): Participant => {
   return {
     ...rowToParticipant(templatesOptions, forces, nextItems, defaultParticipant),
-    subscriptionId: Math.random().toString(36).substring(8)
+    subscriptionId: generateSubscriptionId()
   }
 }

@@ -96,7 +96,7 @@ export const GameSetup: React.FC<Props> = ({
               onDuplicate={onDuplicateChannel}
               forces={forces}
               selectedChannel={selectedChannel}
-              messages={messageTemplates}
+              messageTemplates={messageTemplates}
             />
           )
         }

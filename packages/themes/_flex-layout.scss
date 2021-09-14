@@ -44,6 +44,7 @@
       width: 100%;
 
       .btn-action--primary {
+        color: $white;
         margin-top: 16px;
       }
 
@@ -121,6 +122,16 @@
         margin-top: 0;
       }
     }
+  }
+}
+
+.flexlayout {
+  &__tab > div {
+    height: 100%;
+  }
+
+  &__scrollbox {
+    overflow: auto;
   }
 }
 

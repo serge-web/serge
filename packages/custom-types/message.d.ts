@@ -72,6 +72,8 @@ export interface MessageDetails {
   messageType: string,
   /** time message sent */
   timestamp: string,
+  /** turn when this message was sent */
+  turnNumber: number
   /** private (umpire-only) component of message, potentially to
    * explain source for answer, or assumptions made
    */
@@ -120,6 +122,10 @@ export interface CollaborationDetails {
    * Message status
    */
    status: CollaborativeMessageStates
+   /** date-time when the last change 
+    * was made to this message
+    */
+   lastUpdated: string
    /**
     * Current message owner
     */
@@ -137,10 +143,17 @@ export interface CollaborationDetails {
 export interface MessageCustom extends CoreMessage {
   messageType: typeof CUSTOM_MESSAGE,
   message: MessageStructure,
+  /** whether this message is open/expanded on the current client */
   isOpen: boolean
+  /** whether this message has been read on the current client */
   hasBeenRead: boolean
+  /** the game turn when this was sent */
   gameTurn?: number,
+  /** whether this represents an item of insight/feedback */
   feedback?: boolean,
+  /** whether this is a change in game state (rather than a new message),
+   * normally `false` for messages like this
+   */
   infoType?: boolean,
 }
 

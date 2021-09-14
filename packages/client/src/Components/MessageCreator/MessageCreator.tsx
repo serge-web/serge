@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
+import { SpecialChannelTypes, CollaborativeMessageStates } from "@serge/config";
 import Props from './types'
 
 // @ts-ignore
 import JSONEditor from '@json-editor/json-editor'
-
+import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import moment from 'moment'
 import flatpickr from 'flatpickr'
@@ -37,6 +38,20 @@ const MessageCreator: React.FC<Props> = (props) => {
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
+      turnNumber: state.currentTurn
+    }
+    const currentChannelFormat = state.channels[props.curChannel].format || null
+
+    if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
+      details.collaboration = {
+        status: CollaborativeMessageStates.PendingReview,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format()
+      }
+    } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
+      details.collaboration = {
+        status: CollaborativeMessageStates.Pending,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format()
+      }
     }
 
     if (props.privateMessage && privateMessageRef.current) {
@@ -86,53 +101,6 @@ const MessageCreator: React.FC<Props> = (props) => {
       destroyEditor(editor)
     }
   }, [props])
-
-  /**
-   * helper function to render default Datetime or Date or Time props of json
-   */
-  const configCommonProps = (prop: any) => {
-    switch (prop.format) {
-      case "datetime-local":
-        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "time_24hr": true,
-          "dateFormat":"d/m/Y H:i",
-        }}
-        return prop
-      case "date":
-        prop.default = moment(gameDate).format("DD/MM/YYYY")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "dateFormat":"d/m/Y",
-        }}
-        return prop
-      case "time":
-        prop.default = moment(gameDate).format("HH:mm")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "time_24hr": true,
-          "dateFormat":"H:i",
-        }}
-        return prop
-      default:
-        return prop
-    }
-  }
-
-  /**
-   * Render Default datetime entries in template of json for type datetime-local
-   */
-  const configDateTimeLocal = (schema: any) => {
-    if(!schema || !schema.properties){
-      return
-    }
-    Object.keys(schema.properties).forEach(key => {
-      let prop = schema.properties[key]
-      prop = configCommonProps(prop)
-      configDateTimeLocal(prop.items || prop)
-    });
-  }
 
   /**
    * helper function to for validation Datetime or Date or Time props of json
@@ -193,10 +161,9 @@ const MessageCreator: React.FC<Props> = (props) => {
     })
   }
 
-
   const createEditor = (schema: any) => {
-    configDateTimeLocal(schema)
     configDateTimeCustomValidation()
+    schema = configDateTimeLocal(schema, gameDate)
     
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
@@ -220,7 +187,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         <button name='cancel' className='btn btn-action btn-action--form btn-action--cancel' onClick={props.onCancel}>
             <span>Cancel</span>
         </button>
-        <button name='send' className='btn btn-action btn-action--form' onClick={sendMessage}>
+        <button name='send' className='btn btn-action btn-action--form btn-action--send-message' onClick={sendMessage}>
           <span>Send Message</span>
         </button>
       </div>

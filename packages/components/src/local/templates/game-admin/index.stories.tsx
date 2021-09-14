@@ -26,5 +26,5 @@ const force = {
 }
 
 export const Default: React.FC = () => (
-  <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRoleName="Game Control" selectedRole="r234" />
+  <GameAdmin turnNumber={1} wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRoleName="Game Control" selectedRole="r234" />
 )

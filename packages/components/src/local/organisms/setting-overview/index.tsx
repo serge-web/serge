@@ -13,14 +13,20 @@ import PropTypes, { WargameOverview } from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
+/* Import const */
+import { TurnFormats } from '@serge/config'
+
 /* Import Components */
 import MaskedInput from 'react-maskedinput'
 import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
 import { usePrevious, isObjectEquivalent } from '@serge/helpers'
 import Button from '../../atoms/button'
+import Select from '@material-ui/core/Select'
+import FormControl from '@material-ui/core/FormControl'
 import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
 import { GameTurnLength } from '@serge/custom-types'
+import MenuItem from '@material-ui/core/MenuItem'
 
 /* Render component */
 export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
@@ -31,6 +37,18 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     realtimeTurnTime: 0,
     timeWarning: 0
   })
+  const options = [TurnFormats.Natural, TurnFormats.TurnPairNumbers, TurnFormats.TurnPairLetters]
+
+  const handleCreate = (buttonText?: TurnFormats): void => {
+    const updateTurnPresentation = { ...overview, turnPresentation: buttonText }
+    setOverview(updateTurnPresentation)
+    setDirty(updateTurnPresentation)
+  }
+  const handleMenuItemClick = (
+    event: any
+  ): void => {
+    handleCreate(event.target.value || TurnFormats.Natural)
+  }
 
   const updateStartTime = (date: any): void => {
     const updates = { ...overview, gameDate: date[0].getTime() }
@@ -238,6 +256,31 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
               />
             </div>
           </div>
+          <div className={styles.group}>
+            <label className={styles.label}>
+              Turn Type
+            </label>
+            <div>
+              <FormControl className={styles.formcontrol}>
+                <Select
+                  labelId="turn-type-select-label"
+                  id="turn-type-select"
+                  value={overview.turnPresentation ? overview.turnPresentation : TurnFormats.Natural}
+                  onChange={handleMenuItemClick}
+                >
+                  {options.map((option) => (
+                    <MenuItem
+                      key={option}
+                      value={option}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+
           <div className={styles.hidden}><Input/></div>
           <div>
             <FormControlLabel

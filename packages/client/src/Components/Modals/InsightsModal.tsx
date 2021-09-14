@@ -13,7 +13,7 @@ import '@serge/themes/App.scss'
 const InsightsModal: React.FC = () => {
 
   const state = usePlayerUiState()
-  const { selectedForce } = state
+  const { selectedForce, currentTurn } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const dispatch = usePlayerUiDispatch()
   if (!state.modalOpened) return <></>
@@ -30,14 +30,17 @@ const InsightsModal: React.FC = () => {
       name
     }
 
-    sendFeedbackMessage(state.currentWargame, from, message)(dispatch)
+    sendFeedbackMessage(state.currentWargame, from, message, currentTurn)(dispatch)
   }
 
+  const handleClose = () => {
+    dispatch(closeModal())
+  }
 
   return (
-    <ModalWrapper>
+    <ModalWrapper onBackgroundClick={handleClose}>
       <InsightForm
-        onCancel={(): void => dispatch(closeModal())}
+        onCancel={handleClose}
         onSend={handleSend}
         darkMode
       />

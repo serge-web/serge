@@ -13,9 +13,10 @@ import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { MessageChannel, MessageCustom, ForceRole, MessageDetailsFrom } from '@serge/custom-types'
+import { formatTurn } from '@serge/helpers'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire, turnPresentation }: PropTypes) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -27,7 +28,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             if (props.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${props.gameTurn}-turnmarker-${key}`}>
-                  <p className={styles['turn-marker']}>Turn {props.gameTurn}</p>
+                  <p className={styles['turn-marker']}>Turn { formatTurn(props.gameTurn, turnPresentation) }</p>
                 </Box>
               )
             }

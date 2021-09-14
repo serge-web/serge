@@ -2,9 +2,9 @@ import { ChannelData, ForceData, TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
   channels: Array<ChannelData>
-  messages: Array<TemplateBody>
+  messageTemplates: Array<TemplateBody>
   forces: Array<ForceData>
-  onChange: (updates: { channels: Array<ChannelData> }) => void
+  onChange: (updates: { channels: Array<ChannelData>, selectedChannel: ChannelData }) => void
   onSave?: (channel: ChannelData) => void
   onSidebarClick?: (selectedChannel: ChannelData) => void
   onCreate?: (buttonText: string | undefined) => void

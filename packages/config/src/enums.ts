@@ -25,6 +25,11 @@ export enum SpecialChannelTypes {
   CHANNEL_COLLAB_RESPONSE = 'collab-response'
 }
 
+/** types of extra column to be shown in collab editing */
+export enum SpecialChannelColumns {
+  LOCATION = 'location'
+}
+
 /** General terrain type. More relaxed than
  * cell.terrain.  Used for determining 
  * achievable cells
@@ -52,7 +57,8 @@ export enum CollaborativeMessageStates {
    */
   Unallocated = 'Unallocated',
   /**
-   * message with owner
+   * non collab-editing (e.g. RFI) document being edited
+   * //TODO: remove this when we retire RFI status board.
    */
   InProgress = 'In progress',
   /**
@@ -64,9 +70,21 @@ export enum CollaborativeMessageStates {
    */
   Released = 'Released',
   /**
-   * Collaborative editing cancelled
+   * approved and finalised
    */
-  Rejected = 'Rejected'
+  Finalized = 'Finalized',
+  /** 
+   * document cancelled 
+   */
+  Closed = 'Closed',
+  /** 
+   * waiting to be allocated 
+   */
+  Pending = 'Unallocated',
+  /**
+   * document/message being edited
+   */
+  BeingEdited = 'Being edited',
 }
 
 /** the commands that can be appled to a collaborative message
@@ -78,6 +96,16 @@ export enum CollaborativeMessageStates {
   Close = 'Close',
   Release = 'Release',
   RequestChanges = 'Request changes'
+}
+
+/** the ways in which turn numbers may be displayed */
+export enum TurnFormats {
+  // 0, 1, 2, 3
+  Natural = 'Natural',
+  // 0.1, 0.2, 1.1, 1.2
+  TurnPairNumbers = 'Turn-Pair-Numbers',
+  // 0.a, 0.b, 1.a, 1.b
+  TurnPairLetters = 'Turn-Pair-Letters'
 }
 
 /** the phases of an asset that is
