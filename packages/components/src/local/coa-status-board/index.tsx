@@ -77,16 +77,11 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
       case 'LOCATION':
         fields = message.message[columnName].LOCATION
         for (const key of Object.keys(fields)) {
-          if (!fields[key].length) {
-            filters.push(['[Empty]'])
-            return filters
-          } else {
-            const location = fields[key].map((item: any) => `${key}-${item.Country}`)
-            fieldData.push(location)
-          }
+          const location = fields[key].map((item: any) => `${key}-${item.Country}`)
+          fieldData.push(...location)
         }
-        filters.push(fieldData.join(' '))
-        return filters
+        filters.push(fieldData.join(' ').trim() || '[Empty]')
+        return filters.sort((a, b) => a > b ? 1 : -1)
       default:
         return filters
     }
@@ -187,7 +182,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {
       if (col === SpecialChannelColumns.LOCATION) {
         return {
-          filters: [...new Set(filtersLocations)],
+          filters: filtersLocations,
           label: capitalize(col)
         }
       }
