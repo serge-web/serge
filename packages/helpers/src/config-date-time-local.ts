@@ -1,5 +1,4 @@
 import moment from 'moment'
-import _ from 'lodash'
 import deepCopy from './deep-copy'
 
 /**
@@ -44,17 +43,17 @@ const configCommonProps = (prop: any, gameDate: string) => {
 /**
  * Render Default datetime entries in template of json for type datetime-local
  */
-const configDateTimeLocal = (nschema: any, gameDate: string) => {
+const configDateTimeLocal = (schema: any, gameDate: string) => {
   //debugger
-  if (!nschema || !nschema.properties) {
-    return nschema
+  if (!schema || !schema.properties) {
+    return schema
   }
   // deep copy of schema
-  const modSchema = deepCopy(nschema)
+  const modSchema = deepCopy(schema)
   modSchema.properties = {}
 
-  Object.keys(nschema.properties).forEach(key => {
-    let prop = nschema.properties[key]
+  Object.keys(schema.properties).forEach(key => {
+    let prop = schema.properties[key]
     prop = configCommonProps(prop, gameDate)
     // recursive check on props
     const recProp = configDateTimeLocal(prop.items || prop, gameDate)
