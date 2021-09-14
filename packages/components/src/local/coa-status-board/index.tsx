@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import DataTableProps, { Column, RowWithCollapsibleType } from '../organisms/data-table/types/props'
 
 /* Import Types */
@@ -79,9 +79,9 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
           const location = fields[key].map((item: any) => `${key}-${item.Country}`)
           fieldData.push(...location)
         }
-        const newItems: string[] = fieldData.length ? fieldData : ['Empty']
+        const newItems: string[] = fieldData.length ? fieldData : [EMPTY_CELL]
         filters.push(...newItems)
-        return filters.sort((a, b) => a === 'Empty' ? -1 : a - b)
+        return filters.sort((a, b) => a === EMPTY_CELL ? -1 : a - b)
       }
       default:
         return filters
