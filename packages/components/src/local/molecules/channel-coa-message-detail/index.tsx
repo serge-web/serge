@@ -35,7 +35,8 @@ import {
   ColRespDocumentBeingEdited,
   ColResponseClosed,
   ColEditClosed,
-  formEditable
+  formEditable,
+  ColDocumentBeingEditedByOther
 } from './helpers/visibility'
 import { CollaborativeMessageStates, SpecialChannelTypes, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
@@ -71,7 +72,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [], collapseMe, gameDate }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, canUnClaimMessages, assignees = [], collapseMe, gameDate }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -157,6 +158,14 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
       open: true,
       title: 'Reopen document',
       placeHolder: 'Reason for reopening'
+    })
+  }
+
+  const handleUnClaim = (): void => {
+    setOpenModalStatus({
+      open: true,
+      title: 'Un-claim document',
+      placeHolder: 'Reason for un-claiming document'
     })
   }
 
@@ -346,6 +355,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               editDoc &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
             }
+            {
+              ColDocumentBeingEditedByOther(message, canUnClaimMessages) &&
+              <Button customVariant="form-action" size="small" type="button" onClick={handleUnClaim}>Un-Claim</Button>
+            }
           </div>
           {
             feedbackBlock
@@ -415,6 +428,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           { // only show private field for umpire force(s)
             isUmpire && (privateMessage || editResponse) &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
+          }
+          {
+            ColDocumentBeingEditedByOther(message, canUnClaimMessages) &&
+            <Button customVariant="form-action" size="small" type="button" onClick={handleUnClaim}>Un-Claim</Button>
           }
           <div className={styles.actions}>
             {
