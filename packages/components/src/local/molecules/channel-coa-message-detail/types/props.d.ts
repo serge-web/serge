@@ -25,6 +25,7 @@ export default interface Props {
   assignees?: ForceRole[]
   /** callback to collapse this item */
   collapseMe?: () => void
+  /** current game time, used for initialising date-time controls */
   gameDate: string
 }
 

@@ -23,5 +23,6 @@ export default interface Props {
   templates: TemplateBodysByKey
   /** list of forces */
   forces: ForceData[]
+  /** current game time, used for initialising date-time controls */
   gameDate: string
 }
