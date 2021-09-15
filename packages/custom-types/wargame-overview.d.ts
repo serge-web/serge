@@ -1,4 +1,5 @@
 import MappingConstraints from "./mapping-constraints";
+import { GameTurnLength } from "./turn-length";
 import { TurnFormats } from "@serge/config"
 
 export default interface WargameOverview {
@@ -9,7 +10,7 @@ export default interface WargameOverview {
   /** form for displaying turn number */
   turnPresentation?: TurnFormats,
   /** how far game time moves forward on each step */
-  gameTurnTime: number,
+  gameTurnTime: GameTurnLength,
   /** the time allowed for player planning */
   realtimeTurnTime: number,
   /** when to display "not much time remaining" warning */

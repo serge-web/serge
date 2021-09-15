@@ -6,6 +6,7 @@ import ChannelUI from './channel-ui'
 import MappingConstraints from './mapping-constraints'
 import { TemplateBodysByKey } from './message-types'
 import Role from './role'
+import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
 
 export interface PlayerUiChannels {
@@ -29,7 +30,7 @@ export default interface PlayerUi {
   turnPresentation?: TurnFormats,
   phase: string,
   gameDate: string,
-  gameTurnTime: number,
+  gameTurnTime: GameTurnLength,
   realtimeTurnTime: number,
   turnEndTime: string,
   /**
