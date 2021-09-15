@@ -154,11 +154,15 @@ export const SortableList: React.FC<PropTypes> = ({
                   <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
                     {value}
                   </div>
-                  <FontAwesomeIcon
-                    className={styles['delete-btn']}
-                    icon={faTrash}
-                    onClick={(): void => handleRemove(key)}
-                  />
+                  {
+                    typeof item === 'object' && item.isGameControl
+                      ? '' 
+                      : <FontAwesomeIcon
+                        className={styles['delete-btn']}
+                        icon={faTrash}
+                        onClick={(): void => handleRemove(key)}
+                      />
+                  }
                 </div>
             }
             {renderItemSection && renderItemSection(item, key)}

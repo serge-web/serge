@@ -11,7 +11,7 @@ import cx from 'classnames'
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown, faEye, faComments, faDirections, faBookReader } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faEye, faComments, faDirections, faBookReader, faChessKing } from '@fortawesome/free-solid-svg-icons'
 import SortableList, { Item as SortableListItem } from '../../../molecules/sortable-list'
 import FormGroup from '../../../atoms/form-group-shadow'
 import Accordion from '@material-ui/core/Accordion'
@@ -51,6 +51,16 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
             handleChangeRole({ ...roleItem, roleId })
           }}/>
           {key === 0 && <div className={styles['role-title']}>Password</div>}
+        </div>
+        <div className={styles['role-item']}>
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isGameControl} onChange={(): void => {
+            handleChangeRole({ ...roleItem, isGameControl: !roleItem.isGameControl })
+          }} />
+          {key === 0 && <div
+            title='Game Control'
+            className={cx(styles['role-title'], styles['title-center'])}>
+            <FontAwesomeIcon icon={faChessKing} />
+          </div>}
         </div>
         <div className={styles['role-item']}>
           <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isObserver} onChange={(): void => {

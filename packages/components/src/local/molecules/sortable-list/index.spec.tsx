@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer'
 import SortableList from './index'
 
 import { Item } from './types/props'
-const items: Array<Item> = [{ name: 'list item 1' }, { name: 'list item 2' }]
+const items: Array<Item> = [{ name: 'list item 1', isGameControl: false }, { name: 'list item 2', isGameControl: false }]
 
 it('sortable-list renders correctly', () => {
   const tree = renderer
