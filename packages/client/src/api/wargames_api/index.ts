@@ -16,7 +16,8 @@ import {
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
   SERGE_INFO,
-  ERROR_THROTTLE
+  ERROR_THROTTLE,
+  COUNTER_MESSAGE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -53,6 +54,7 @@ import {
 } from './types.d'
 import { hiddenPrefix} from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
+import { checkReference } from '../messages_helper'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -127,6 +129,8 @@ export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: Liste
 
       if (doc.messageType === FEEDBACK_MESSAGE) {
         dispatch(setLatestFeedbackMessage(doc))
+      } else if (doc.messageType === COUNTER_MESSAGE) {
+        return
       } else {
         // @ts-ignore: TODO: check this case
         dispatch(setLatestWargameMessage(doc))
@@ -644,7 +648,10 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     isOpen: false,
     hasBeenRead: false
   }
-  return db.put(customMessage).catch(rejectDefault)
+  
+  return checkReference(customMessage, db).then((customMessageUpdated) => {
+    return db.put(customMessageUpdated).catch(rejectDefault)
+  })
 }
 
 
@@ -707,7 +714,10 @@ export const postNewMapMessage = (dbName, details, message) => {
 export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs<Message>({ include_docs: true, descending: true })
-    .then((res): Message[] => res.rows.map(a => a.doc as Message))
+    .then((res): Message[] => res.rows.reduce((messages: Message[], { doc }): Message[] => {
+      if(doc && doc.messageType !== COUNTER_MESSAGE) messages.push(doc)
+      return messages
+    }, []))
     .catch(() => {
       throw new Error('Serge disconnected')
     })

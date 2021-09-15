@@ -75,8 +75,7 @@ export const initialState: PlayerUi = {
   showAccessCodes: false,
   rfiMessages: [],
   isInsightViewer: false,
-  isRFIManager: false,
-  nextMsgReference: 1
+  isRFIManager: false
 }
 
 
@@ -156,7 +155,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
-      newState.nextMsgReference = changedLatestState.nextMsgReference
       newState.rfiMessages = changedLatestState.rfiMessages
       break
 
@@ -165,7 +163,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
       newState.rfiMessages = changedAllMesagesState.rfiMessages
-      newState.nextMsgReference = changedAllMesagesState.nextMsgReference
       break
 
     case OPEN_MESSAGE:

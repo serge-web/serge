@@ -50,6 +50,9 @@ export const CHAT_MESSAGE = 'ChatMessage'
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
+// series of constants used for `messageType` when using Counter message for COA and RFI messages
+export const COUNTER_MESSAGE = 'CounterMessage'
+
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
@@ -69,6 +72,9 @@ export const CHANNEL_MAPPING = 'mapping'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
+
+// value to use in DataTable filters for value not present
+export const EMPTY_CELL = '[Empty]'
 
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
