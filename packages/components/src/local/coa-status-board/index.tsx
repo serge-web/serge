@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import DataTableProps, { Column, RowWithCollapsibleType } from '../organisms/data-table/types/props'
 
 /* Import Types */
@@ -64,6 +64,33 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
   }, [])
 }
 
+const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): string[] => {
+  const values = messages.reduce((filters: any[], message) => {
+    if (!message.message[columnName]) {
+      console.warn(message, `message have no field ${columnName}`)
+      return filters
+    }
+    let fields: any
+    switch (columnName) {
+      case 'LOCATION': {
+        const fieldData = []
+        fields = message.message[columnName].LOCATION
+        for (const key of Object.keys(fields)) {
+          const location = fields[key].map((item: any) => `${key}-${item.Country}`)
+          fieldData.push(...location)
+        }
+        const newItems: string[] = fieldData.length ? fieldData : [EMPTY_CELL]
+        filters.push(...newItems)
+        return filters.sort((a, b) => a === EMPTY_CELL ? -1 : a - b)
+      }
+      default:
+        return filters
+    }
+  }, [])
+  // de-dupe & return
+  return [...new Set(values)]
+}
+
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate }: Props) => {
   const [forceColors, setForceColors] = useState<ForceColor[]>([])
@@ -90,6 +117,9 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   // collate list of sources (From) for messages
   const filtersRoles = getListOfSources(messages)
+
+  // collate list of extra column LOCATION for messages
+  const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
 
   /** cache the formatted version of my role */
   const myRoleFormatted = formatRole(role)
@@ -152,7 +182,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   ]
 
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
-    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string => {
+    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {
+      if (col === SpecialChannelColumns.LOCATION) {
+        return {
+          filters: filtersLocations,
+          label: capitalize(col)
+        }
+      }
       return capitalize(col)
     })
     columnHeaders.push(...newCols)

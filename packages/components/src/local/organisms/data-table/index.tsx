@@ -15,6 +15,7 @@ import moment from 'moment'
 
 /* Import Types */
 import Props, { RowDataType, RowType, RowWithCollapsibleType } from './types/props'
+import { EMPTY_CELL } from '@serge/config'
 
 export const ROW_DATA_TYPE = 'RowDataType'
 export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'
@@ -99,6 +100,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
       })
     }
   }
+
   const onToggleRow = (rowIndex: any): void => {
     if (expandedRows.includes(rowIndex)) {
       // remove it
@@ -140,6 +142,14 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
     setTableRow(sortedRows)
   }
 
+  const matches = (src: string[], dest: string | string[]): boolean => {
+    if (Array.isArray(dest)) {
+      const destStr = dest.map(item => item.trim()).join(' ') || EMPTY_CELL
+      return src.some(item => destStr.includes(item))
+    }
+    return src.includes(dest)
+  }
+
   useMemo(() => {
     let localData = [...data]
     Object.keys(filtersGroup).forEach((id: string) => {
@@ -150,7 +160,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
           row[id] ||
           (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
           (row as unknown as RowWithCollapsibleType).cells[id]
-        return localDataFilter.length === 0 || localDataFilter.includes(value)
+        return localDataFilter.length === 0 || matches(localDataFilter, value)
       })
     })
     setTableRow(sortFn(localData, sortingColId))
