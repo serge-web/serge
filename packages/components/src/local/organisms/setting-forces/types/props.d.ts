@@ -14,6 +14,8 @@ export default interface PropTypes {
   iconUploadUrl?: string
   platformTypes?: PlatformTypeData[]
   routes?: Route[]
+  /** If this role is `Game Control` - a role which cannot be deleted */
+  onRoleDelete?: (role: Role) => void
 }
 
 export { ForceData, Role } from '@serge/custom-types'

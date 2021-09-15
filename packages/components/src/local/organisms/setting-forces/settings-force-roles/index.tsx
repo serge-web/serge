@@ -35,7 +35,7 @@ const MobileSwitch = withStyles({
   track: {}
 })(Switch)
 
-export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces }) => {
+export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces, onRoleDelete }) => {
   const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
@@ -143,6 +143,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
                 renderItemSection={renderRoleFields}
                 items={data.roles}
                 title='Add Role'
+                onRoleDelete={onRoleDelete}
               />
             </FormGroup>
           </div>

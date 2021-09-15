@@ -2,8 +2,6 @@ import { ReactNode, ReactText } from 'react'
 
 export interface ItemObject {
   name: string
-  /** If this role is `Game Control` - a role which cannot be deleted */
-  isGameControl?: boolean
   uniqid?: string | number
   [property: string]: any
 }
@@ -35,4 +33,6 @@ export default interface PropTypes {
   sortable?: 'manual' | 'auto'
   required?: boolean
   valueOnEmpty?: ReactText
+  /** If this role is `Game Control` - a role which cannot be deleted */
+  onRoleDelete?: (role: Role) => void
 }
