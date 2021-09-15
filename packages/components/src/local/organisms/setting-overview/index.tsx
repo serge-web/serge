@@ -25,6 +25,7 @@ import Select from '@material-ui/core/Select'
 import FormControl from '@material-ui/core/FormControl'
 import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
+import { GameTurnLength } from '@serge/custom-types'
 import MenuItem from '@material-ui/core/MenuItem'
 
 /* Render component */
@@ -128,6 +129,21 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     }
   }, [initialOverview])
 
+  const genTurnLength = (turnTime: GameTurnLength): string => {
+    switch (typeof turnTime) {
+      case 'number' :
+        return millisecondsToDDHHMMSS(turnTime as number)
+      default: {
+        // // ok, it's an object, handle it
+        // if(turnTime instanceof MilliTurns) {
+        //   const milliTurn: MilliTurns = turnTime
+        //   return millisecondsToDDHHMMSS(turnTime.millis)
+        // }
+        return '1'
+      }
+    }
+  }
+
   /**
    * this component work perfectly, but
    * we have an issue with the snapshot testing: Flatpickr.setDate is not a fucntion
@@ -199,7 +215,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(overview.gameTurnTime)}
+                value={genTurnLength(overview.gameTurnTime)}
                 onBlur={replacePrevTime}
               />}
             </div>
