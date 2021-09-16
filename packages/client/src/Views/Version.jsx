@@ -70,9 +70,8 @@ const Version = ({ showNotification, notifications, hideNotification }) => {
           className="heartbeat-checker"
         />
       </li>
-      <li>App:<span>{process.env.REACT_APP_NAME}</span></li>
-      <li>Version:<span>{process.env.REACT_APP_VERSION}</span></li>
-      <li>Build:<span>{appBuildDate}</span></li>
+      <li>V:<span>{process.env.REACT_APP_VERSION}</span></li>
+      <li><span>{appBuildDate}</span></li>
     </ul>
   )
 }
