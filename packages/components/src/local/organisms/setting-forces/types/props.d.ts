@@ -15,7 +15,7 @@ export default interface PropTypes {
   platformTypes?: PlatformTypeData[]
   routes?: Route[]
   /** If this role is `Game Control` - a role which cannot be deleted */
-  onRoleDelete?: (role: Role) => void
+  onDeleteGameControl?: (role: Role) => void
 }
 
 export { ForceData, Role } from '@serge/custom-types'

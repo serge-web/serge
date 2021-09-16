@@ -34,5 +34,5 @@ export default interface PropTypes {
   required?: boolean
   valueOnEmpty?: ReactText
   /** If this role is `Game Control` - a role which cannot be deleted */
-  onRoleDelete?: (role: Role) => void
+  onDeleteGameControl?: (role: Role) => void
 }

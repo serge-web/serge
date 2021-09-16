@@ -42,7 +42,7 @@ export const GameSetup: React.FC<Props> = ({
   onSaveGameTitle,
   onWargameInitiate,
   iconUploadUrl,
-  onRoleDelete
+  onDeleteGameControl
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
 
@@ -82,7 +82,7 @@ export const GameSetup: React.FC<Props> = ({
               onDelete={onDeleteForce}
               selectedForce={selectedForce}
               platformTypes={platformTypes?.platformTypes}
-              onRoleDelete={onRoleDelete}
+              onDeleteGameControl={onDeleteGameControl}
             />
           )
         }

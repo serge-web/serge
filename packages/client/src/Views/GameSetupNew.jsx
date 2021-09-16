@@ -107,8 +107,8 @@ const AdminGameSetup = () => {
     dispatch(setGameData(changes))
   }
 
-  const handleRoleDelete = delRole => {
-    dispatch(addNotification(`Role ${delRole.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
+  const handleDeleteGameControl = role => {
+    dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
   }
 
   const handleSaveOverview = overview => {
@@ -318,7 +318,7 @@ const AdminGameSetup = () => {
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
-      onRoleDelete={handleRoleDelete}
+      onDeleteGameControl={handleDeleteGameControl}
     />
   )
 }
