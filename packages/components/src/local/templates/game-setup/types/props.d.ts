@@ -99,6 +99,8 @@ export default interface Props extends AdminLayoutProps {
    */
   iconUploadUrl?: string
   onPressBack?: (e) => void
-  /** If this role is `Game Control` - a role which cannot be deleted */
+  /**
+   * Handler for when user tries to delete role with Game Control privileges
+   */
   onDeleteGameControl?: (role: Role) => void
 }

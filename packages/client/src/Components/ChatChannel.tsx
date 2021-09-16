@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill';
 import { ChatMessagesList, ChatEntryForm } from '@serge/components'
 import { ChatMessage } from '@serge/custom-types'
-import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { markAllAsRead, saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
   getAllWargameMessages
@@ -30,6 +30,11 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const messageHandler = (post: ChatMessage): void => {
     saveMessage(state.currentWargame, post.details, post.message)()
+  }
+
+
+  const markAllAsReadLocal = (): void => {
+    dispatch(markAllAsRead(channelId))
   }
 
   useEffect(() => {
@@ -62,6 +67,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChatMessagesList
         messages={state.channels[channelId].messages}
+        onMarkAllAsRead={markAllAsReadLocal}
         turnPresentation={state.turnPresentation}
         playerForce={selectedForce.name}
         isUmpire={!!isUmpire}
