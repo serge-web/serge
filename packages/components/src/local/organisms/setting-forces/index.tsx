@@ -30,7 +30,8 @@ export const SettingForces: React.FC<PropTypes> = ({
   iconUploadUrl,
   selectedForce,
   platformTypes = [],
-  routes
+  routes,
+  onDeleteGameControl
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
@@ -123,6 +124,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               data={data}
               handleChangeForce={handleChangeForce}
               forces={forcesData}
+              onDeleteGameControl={onDeleteGameControl}
             />
 
             <AssetsAccordion

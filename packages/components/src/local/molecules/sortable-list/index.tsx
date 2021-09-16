@@ -27,7 +27,8 @@ export const SortableList: React.FC<PropTypes> = ({
   renderItemSection,
   required = false,
   valueOnEmpty,
-  remove
+  remove,
+  onDeleteGameControl
 }) => {
   const [active, setActive] = useState<string | number>('')
   const [itemsSaved] = useState<Array<Item>>(items)
@@ -65,6 +66,15 @@ export const SortableList: React.FC<PropTypes> = ({
 
   const handleRemove = (key: number): void => {
     const newItems = [...items]
+    const role = newItems[key]
+    if (typeof role === 'object') {
+      if (role.isGameControl) {
+        if (typeof onDeleteGameControl === 'function') {
+          onDeleteGameControl(role)
+          return
+        }
+      }
+    }
     newItems.splice(key, 1)
     handleChange(newItems)
   }
