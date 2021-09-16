@@ -7,6 +7,8 @@ import { UMPIRE_FORCE, SERVER_PING_INTERVAL } from '../consts'
 import { pingServer as pingServerApi } from '../api/wargames_api'
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
+// trim off the seconds
+const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length-3)
 
 const mapStateToProps = ({ notifications }) => ({ notifications })
 
@@ -71,7 +73,7 @@ const Version = ({ showNotification, notifications, hideNotification }) => {
         />
       </li>
       <li>V:<span>{process.env.REACT_APP_VERSION}</span></li>
-      <li><span>{appBuildDate}</span></li>
+      <li><span>{trimmedAppBuildDate}</span></li>
     </ul>
   )
 }
