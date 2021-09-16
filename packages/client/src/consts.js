@@ -165,7 +165,7 @@ export const dbDefaultSettings = {
     forces: {
       name: 'Forces',
       forces: [umpireForceTemplate],
-      selectedForce: '',
+      selectedForce: umpireForceTemplate,
       complete: false,
       dirty: false
     },
