@@ -65,7 +65,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         {isCollabWorking ? (
           <CoaStatusBoard
             templates={state.allTemplatesByKey}
-            messages={messages}
+            messages={messages as MessageCustom[]}
             role={{
               forceId: selectedForce.uniqid,
               forceName: selectedForce.name,
