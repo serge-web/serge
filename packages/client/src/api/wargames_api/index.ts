@@ -42,7 +42,8 @@ import {
   MessageDetails,
   MessageFeedback,
   MessageStructure,
-  MessageCustom
+  MessageCustom,
+  GameTurnLength
 } from '@serge/custom-types'
 
 import {
@@ -51,7 +52,8 @@ import {
   ListenNewMessageType,
   WargameRevision
 } from './types.d'
-import { hiddenPrefix } from '@serge/config'
+import { hiddenPrefix} from '@serge/config'
+import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
 
 const wargameDbStore: ApiWargameDbObject[] = []
@@ -202,7 +204,7 @@ export const populateWargame = (): Promise<Wargame> => {
 
 export const clearWargames = (): void => {
   fetch(serverPath + 'clearAll').then(() => {
-    window.location.reload(true)
+    window.location.reload()
   })
 }
 
@@ -595,8 +597,18 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
         break
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
-        res.gameTurn += 1        
-        res.data.overview.gameDate = moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
+        res.gameTurn += 1
+
+        // const gameTurn = res.data.overview.gameTurnTime as number
+        // res.data.overview.gameDate = moment(res.data.overview.gameDate).add(gameTurn, 'ms').format('YYYY-MM-DDTHH:mm')
+
+        const gameDate: string = res.data.overview.gameDate
+        const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
+//        const twoM: MonthTurns = { unit: 'months', months: 2 }
+        console.log('inc', gameDate, gameTurn)
+        const newTime: number = incrementGameTime(gameDate, gameTurn)
+        res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
+        console.log('inc 2', newTime, res.data.overview.gameDate)
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
         break
     }
