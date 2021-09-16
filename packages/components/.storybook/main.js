@@ -8,9 +8,8 @@ module.exports = {
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 
   webpackFinal: async config => {
-    const { optimization, performance } = config
     config.optimization = {
-      ...optimization,
+      ...config.optimization,
       minimize: true,
       minimizer: [
         new TerserPlugin({
@@ -18,13 +17,13 @@ module.exports = {
         })
       ],
       splitChunks: {
-        ...optimization.splitChunks,
+        ...config.optimization.splitChunks,
         minSize: 30 * 1024,
         maxSize: maxAssetSize // tells webpack to try to split chunks bigger than maxSize bytes into smaller parts. Parts will be at least minSize
       }
     }
     config.performance = {
-      ...performance,
+      ...config.performance,
       maxAssetSize
     }
     /**
