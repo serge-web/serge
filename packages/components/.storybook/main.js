@@ -8,7 +8,7 @@ module.exports = {
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 
   webpackFinal: async config => {
-    const { optimization = {}, performance = {} } = config
+    const { optimization, performance } = config
     config.optimization = {
       ...optimization,
       minimize: true,
