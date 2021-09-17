@@ -74,7 +74,7 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
     switch (columnName) {
       case 'LOCATION': {
         const fieldData = []
-        fields = message.message[columnName].LOCATION
+        fields = message.message[columnName]
         for (const key of Object.keys(fields)) {
           const location = fields[key].map((item: any) => `${key}-${item.Country}`)
           fieldData.push(...location)
