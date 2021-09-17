@@ -167,7 +167,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       filters: [
         CollaborativeMessageStates.Unallocated,
         CollaborativeMessageStates.BeingEdited,
-        CollaborativeMessageStates.BeingEdited,
         CollaborativeMessageStates.PendingReview,
         CollaborativeMessageStates.Released
       ],
