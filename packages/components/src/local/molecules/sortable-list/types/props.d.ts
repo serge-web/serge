@@ -33,4 +33,6 @@ export default interface PropTypes {
   sortable?: 'manual' | 'auto'
   required?: boolean
   valueOnEmpty?: ReactText
+  /** Handler for when user tries to delete role with Game Control privileges */
+  onDeleteGameControl?: (role: Role) => void
 }
