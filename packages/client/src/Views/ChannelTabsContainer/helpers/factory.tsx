@@ -21,7 +21,6 @@ import RfiStatusBoardChannel from '../../../Components/RfiStatusBoardChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
 import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../../../consts'
-import { Input } from '@material-ui/core'
 
 type Factory = (node: TabNode) => React.ReactNode
 
