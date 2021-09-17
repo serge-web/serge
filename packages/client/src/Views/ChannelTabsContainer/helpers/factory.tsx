@@ -102,6 +102,10 @@ const factory = (state: PlayerUi): Factory => {
   return (node: TabNode): React.ReactNode => {
 
     const canRenderContent = (channelData?: ChannelData): boolean => {
+      // always render the special channels, since the user may have
+      // a partially completed form/document in it - we don't want to
+      // lose that content.  Note: there _Shouldn't_ be a performance
+      // hit, since the content in those channels won't be changing
       if (channelData && channelData.format) {
         return true
       }
