@@ -156,7 +156,7 @@ const factory = (state: PlayerUi): Factory => {
       return renderMap(node.getId())
     } else if (channelName === CHANNEL_RFI_STATUS) {
       return <RfiStatusBoardChannel />
-    } else if(matchedChannel && matchedChannel.length && channelDefinition) {
+    } else if(matchedChannel.length && channelDefinition) {
         // find out if channel just contains chat template
         return isChatChannel(channelDefinition) ? 
           <ChatChannel channelId={matchedChannel[0]} /> 
