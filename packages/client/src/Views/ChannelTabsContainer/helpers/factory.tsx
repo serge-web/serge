@@ -101,7 +101,12 @@ const factory = (state: PlayerUi): Factory => {
 
   return (node: TabNode): React.ReactNode => {
 
-    const canRenderContent = (channelData?: ChannelData): boolean => {
+    /** helper to determine if the specified channel should be rendered */
+    const renderThisChannel = (channelData?: ChannelData): boolean => {
+      // always render the special channels, since the user may have
+      // a partially completed form/document in it - we don't want to
+      // lose that content.  Note: there _Shouldn't_ be a performance
+      // hit, since the content in those channels won't be changing
       if (channelData && channelData.format) {
         return true
       }
@@ -146,7 +151,7 @@ const factory = (state: PlayerUi): Factory => {
     if (_.isEmpty(state.channels)) return
 
     const matchedChannel = findChannelByName(state.channels, node.getName())
-    if (!matchedChannel || !canRenderContent(matchedChannel[1])) {
+    if (!matchedChannel || !renderThisChannel(matchedChannel[1])) {
       return null
     }
     const channelName = node.getName().toLowerCase()
