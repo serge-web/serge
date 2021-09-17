@@ -23,8 +23,8 @@ const getColumns = (message: MessageCustom, columns: SpecialChannelColumns[]): s
   const res = columns.map((column: SpecialChannelColumns): string[] => {
     switch (column) {
       case SpecialChannelColumns.LOCATION: {
-        if (msg.LOCATION && msg.LOCATION.LOCATION) {
-          return compressData(msg.LOCATION.LOCATION)
+        if (msg.LOCATION) {
+          return compressData(msg.LOCATION)
         } else {
           return ['Note: LOCATION field not found']
         }
