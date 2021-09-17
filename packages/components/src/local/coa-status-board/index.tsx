@@ -67,14 +67,15 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
 const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): string[] => {
   const values = messages.reduce((filters: any[], message) => {
     if (!message.message[columnName]) {
-      console.warn(message, `message have no field ${columnName}`)
+      // no, don't make this warning. Some messages don't have all columns
+      // console.warn(message, `message have no field ${columnName}`)
       return filters
     }
     let fields: any
     switch (columnName) {
       case 'LOCATION': {
         const fieldData = []
-        fields = message.message[columnName].LOCATION
+        fields = message.message[columnName]
         for (const key of Object.keys(fields)) {
           const location = fields[key].map((item: any) => `${key}-${item.Country}`)
           fieldData.push(...location)
