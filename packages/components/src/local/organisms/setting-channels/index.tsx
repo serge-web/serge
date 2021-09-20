@@ -265,8 +265,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
                   <MenuItem disabled>Special channels</MenuItem>
-                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB_EDIT)} >Collab Edit</MenuItem>
-                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)} >Collab Responce</MenuItem>
+                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB_EDIT)} >Collab' Edit</MenuItem>
+                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)} >Collab' Response</MenuItem>
                   <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem>
                 </MenuList>
               </ClickAwayListener>
