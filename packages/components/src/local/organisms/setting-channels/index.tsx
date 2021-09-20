@@ -81,6 +81,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         <>
           <TableCell align="center">Participate</TableCell>
           <TableCell align="center">Release</TableCell>
+          <TableCell align="center">UnClaim</TableCell>
         </>
       )
     }
