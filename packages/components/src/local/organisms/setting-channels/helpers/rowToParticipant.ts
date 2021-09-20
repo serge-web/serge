@@ -20,15 +20,17 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     return { _id, title }
   }) : []
   // init defaul values
-  let { canCollaborate, canReleaseMessages } = participant
+  let { canCollaborate, canReleaseMessages, canUnClaimMessages } = participant
 
   // find participate and release items from EditableRow items
   const participate = nextItems.find(item => (item.uniqid === 'participate')) as SwitchItem | undefined
   const release = nextItems.find(item => (item.uniqid === 'release')) as SwitchItem | undefined
+  const unclaim = nextItems.find(item => (item.uniqid === 'unclaim')) as SwitchItem | undefined
 
   // check if item not undefined then we changin init value to new one
   if (typeof participate !== 'undefined') canCollaborate = participate.active
   if (typeof release !== 'undefined') canReleaseMessages = release.active
+  if (typeof unclaim !== 'undefined') canUnClaimMessages = unclaim.active
 
   // return converted participant
   return {
@@ -38,6 +40,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     roles,
     templates,
     canCollaborate,
-    canReleaseMessages
+    canReleaseMessages,
+    canUnClaimMessages
   }
 }
