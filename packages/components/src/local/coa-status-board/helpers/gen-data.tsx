@@ -9,6 +9,7 @@ import { Badge } from '../../atoms/badge'
 import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
 import { CollaborativeMessageStates } from '@serge/config'
 import getAssignees from './assignees'
+import getKey from './get-key'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
@@ -23,11 +24,9 @@ const statusColors: { [property: string]: string } = {
   [CollaborativeMessageStates.PendingReview]: '#434343',
   [CollaborativeMessageStates.Finalized]: '#007219',
   [CollaborativeMessageStates.Released]: '#007219',
-  [CollaborativeMessageStates.BeingEdited]: '#ffc107',
   [CollaborativeMessageStates.Closed]: '#ff0000',
   [CollaborativeMessageStates.BeingEdited]: '#ffc107',
   [CollaborativeMessageStates.Pending]: '#0366d6',
-  [CollaborativeMessageStates.Pending]: '#0366d6'
 }
 
 
@@ -72,7 +71,8 @@ export const genData = (
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
 
-    const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, message._id)
+    const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages)
+    const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
     
     if (!isReaded) unreadMessagesCount++
 
@@ -80,7 +80,7 @@ export const genData = (
 
       // if expanded && message haven't readed status set it as readed
       const handleRead = () => {
-        setMessageState(currentWargame, role.forceName, role.roleName, message._id)
+        setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
         handleOpenCollapsible()
       }
 
@@ -111,7 +111,7 @@ export const genData = (
     }
 
     const cells = [
-      message.message.Reference,
+      message.message.Reference || message._id,
       {
         component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
         label: message.details.from.roleName

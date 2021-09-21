@@ -6,9 +6,11 @@ import { Column } from '../organisms/data-table/types/props'
 import { capitalize } from 'lodash'
 import { Button } from '@material-ui/core'
 import { formatRole, genData } from './helpers/gen-data'
+import getKey from './helpers/get-key'
 
 /* Import Types */
 import Props from './types/props'
+import { setMessageState } from '@serge/helpers'
 
 /** combine force id and color
  */
@@ -81,7 +83,7 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
-  const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: 0 })
+  const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
   const updateUreanMessagesCount = (nextUnreadCount: number) => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
@@ -104,7 +106,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const handleUpdateUnreadCount = (nexCount?: number): boolean => {
     const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
     const shouldBeUpdated = unreadCount.count !== count
-    console.log(unreadCount, count);
     
     if (shouldBeUpdated) {
       onMessageRead && onMessageRead(count)
@@ -145,7 +146,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       filters: [
         CollaborativeMessageStates.Unallocated,
         CollaborativeMessageStates.BeingEdited,
-        CollaborativeMessageStates.BeingEdited,
         CollaborativeMessageStates.PendingReview,
         CollaborativeMessageStates.Released
       ],
@@ -171,9 +171,17 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     columnHeaders.push(...newCols)
   }
 
+  const handleMarkAllAsRead = () => {
+    for (const message of messages) {
+      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages)
+      setMessageState(currentWargame, role.forceName, role.roleName, key)
+    }
+    handleUpdateUnreadCount(0)
+  }
+
   return (
     <>
-      <Button>Marik All As Read</Button>
+      <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
       <DataTable sort={true} columns={columnHeaders} data={data} />
     </>
   )
