@@ -124,6 +124,11 @@ export const SortableList: React.FC<PropTypes> = ({
           }
         }
       }
+      
+      if (!newValue) {
+        newValue = "New Role" 
+      }
+      
       const newItems: Array<Item> = [...items]
       if (typeof item === 'object') {
         if (newItems[key] && item.name) {
