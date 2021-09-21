@@ -61,8 +61,8 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
           // get default value for switcher
           active: nextParticipant.canReleaseMessages
         })
-         // init row item for unclaim switch
-         additionalFields.push({
+        // init row item for unclaim switch
+        additionalFields.push({
           type: EDITABLE_SWITCH_ITEM,
           uniqid: 'unclaim',
           // get default value for switcher
