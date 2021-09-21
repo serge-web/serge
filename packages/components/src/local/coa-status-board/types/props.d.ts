@@ -7,6 +7,7 @@ import {
 } from '@serge/custom-types'
 
 export default interface Props {
+  currentWargame: string,
   messages: MessageCustom[]
   channel: ChannelData
   onChange: (nextMessage: MessageCustom) => void
@@ -25,4 +26,6 @@ export default interface Props {
   forces: ForceData[]
   /** current game time, used for initialising date-time controls */
   gameDate: string
+  /** fires on change message status to readed **/
+  onMessageRead?: (unreadedLeft: number) => void
 }

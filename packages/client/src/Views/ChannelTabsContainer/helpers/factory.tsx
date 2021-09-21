@@ -44,7 +44,11 @@ const phaseFor = (phase: string): Phase => {
   return phase === 'planning' ? Phase.Planning : Phase.Adjudication
 }
 
-const factory = (state: PlayerUi): Factory => {
+type OnMessageCountChange = (unreadMessageForChannel: {
+  [property: string]: number
+}) => void
+
+const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints: MappingConstraints = state.mappingConstaints || {
@@ -144,7 +148,10 @@ const factory = (state: PlayerUi): Factory => {
       if (isOnlyMap) {
         return renderMap('map')
       } else {
-        return <Channel channelId={channelsArray[0][0]} />
+        const channelId = channelsArray[0][0] as string
+        return <Channel channelId={channelId} onMessageRead={(unreadCount): void => { 
+          onMessageCountChange && onMessageCountChange({ [channelId]: unreadCount })
+        }} />
       }
     } else {
       const matchedChannel = findChannelByName(state.channels, node.getName())
@@ -158,7 +165,9 @@ const factory = (state: PlayerUi): Factory => {
           // find out if channel just contains chat template
           return isChatChannel(channelDefinition) ? 
             <ChatChannel channelId={matchedChannel[0]} /> 
-          : <Channel channelId={matchedChannel[0]} />
+          : <Channel channelId={matchedChannel[0]} onMessageRead={(unreadCount): void => { 
+            onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
+          }} />
       }
     }
   }
