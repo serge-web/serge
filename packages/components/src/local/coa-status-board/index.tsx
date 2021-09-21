@@ -57,24 +57,30 @@ const getListOfSources = (messages: MessageCustom[]): string[] => {
       console.warn(message, 'message have no from.roleName')
       return filters
     }
-    return [
-      ...filters,
-      message.details.from.roleName
-    ]
+    return [...new Set([...filters, message.details.from.roleName])]
+  }, [])
+}
+
+const getListOfStatus = (messages: MessageCustom[]): string[] => {
+  return messages.reduce((filters: any[], message) => {
+    if (!message.details.collaboration) {
+      console.warn(message, 'message have no collaboration.status')
+      return filters
+    }
+    return [...new Set([...filters, message.details.collaboration.status])]
   }, [])
 }
 
 const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): string[] => {
   const values = messages.reduce((filters: any[], message) => {
     if (!message.message[columnName]) {
-      console.warn(message, `message have no field ${columnName}`)
       return filters
     }
     let fields: any
     switch (columnName) {
       case 'LOCATION': {
         const fieldData = []
-        fields = message.message[columnName].LOCATION
+        fields = message.message[columnName]
         for (const key of Object.keys(fields)) {
           const location = fields[key].map((item: any) => `${key}-${item.Country}`)
           fieldData.push(...location)
@@ -113,10 +119,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }, [forces])
 
   // collate list of message owners
-  const listofOwners = getListOfOwners(messages)
+  const filtersOwners = getListOfOwners(messages)
 
   // collate list of sources (From) for messages
   const filtersRoles = getListOfSources(messages)
+
+  // collate list of sources (Status) for messages
+  const filtersStatus = getListOfStatus(messages)
 
   // collate list of extra column LOCATION for messages
   const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
@@ -160,22 +169,16 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const columnHeaders: Column[] = [
     'ID',
     {
-      filters: [...new Set(filtersRoles)],
+      filters: filtersRoles,
       label: 'From'
     },
     'Title',
     {
-      filters: [
-        CollaborativeMessageStates.Unallocated,
-        CollaborativeMessageStates.BeingEdited,
-        CollaborativeMessageStates.BeingEdited,
-        CollaborativeMessageStates.PendingReview,
-        CollaborativeMessageStates.Released
-      ],
+      filters: filtersStatus,
       label: 'Status'
     },
     {
-      filters: listofOwners,
+      filters: filtersOwners,
       label: 'Owner'
     },
     'Updated'
@@ -206,8 +209,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         [CollaborativeMessageStates.Released]: '#007219',
         [CollaborativeMessageStates.BeingEdited]: '#ffc107',
         [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.BeingEdited]: '#ffc107',
-        [CollaborativeMessageStates.Pending]: '#0366d6',
         [CollaborativeMessageStates.Pending]: '#0366d6'
       }
 
