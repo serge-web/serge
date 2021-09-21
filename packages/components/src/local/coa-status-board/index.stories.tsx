@@ -68,11 +68,11 @@ const Template: Story<Props> = (args) => {
     setMessages(newMessages)
   }
 
-  const handleReadMessage = (unreadCount: number) => {
-    console.log('unread mesages left: ' + unreadCount);
+  const handleReadMessage = (unreadCount: number): void => {
+    console.log('unread mesages left: ' + unreadCount)
   }
 
-  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} onMessageRead={handleReadMessage} currentWargame='wargame' />
+  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} onMessageRead={handleReadMessage} currentWargame='wargame-test' />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
@@ -84,7 +84,7 @@ const mostColabEditMock = mostColabEditMockRaw.map((message: MessageCustom): Mes
       collab.owner = blueCollaborator
     }
   }
-  return message 
+  return message
 })
 
 const mostColabResponseMockRaw = mostRecentOnly(messageDataCollaborativeResponding) as MessageCustom[]

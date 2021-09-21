@@ -1,8 +1,8 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData } from "@serge/custom-types"
-import { isMessageReaded, setMessageState } from "@serge/helpers"
-import { RowWithCollapsibleType } from '../../organisms/data-table/types/props' 
-import { ForceColor } from ".."
+import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData } from '@serge/custom-types'
+import { isMessageReaded, setMessageState } from '@serge/helpers'
+import { RowWithCollapsibleType } from '../../organisms/data-table/types/props'
+import { ForceColor } from '..'
 import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
 import getColumns from './get-columns'
 import { Badge } from '../../atoms/badge'
@@ -10,12 +10,13 @@ import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
 import { CollaborativeMessageStates } from '@serge/config'
 import getAssignees from './assignees'
 import getKey from './get-key'
+import cx from 'classnames'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
 
 /** helper to provide legible version of force & role */
-export const formatRole = (role: ForceRole ): string => {
+export const formatRole = (role: ForceRole): string => {
   return role.forceName + '-' + role.roleName
 }
 
@@ -26,12 +27,11 @@ const statusColors: { [property: string]: string } = {
   [CollaborativeMessageStates.Released]: '#007219',
   [CollaborativeMessageStates.Closed]: '#ff0000',
   [CollaborativeMessageStates.BeingEdited]: '#ffc107',
-  [CollaborativeMessageStates.Pending]: '#0366d6',
+  [CollaborativeMessageStates.Pending]: '#0366d6'
 }
 
-
 interface GenData {
-  data: RowWithCollapsibleType[],
+  data: RowWithCollapsibleType[]
   unreadMessagesCount: number
 }
 
@@ -60,9 +60,7 @@ export const genData = (
     const ownerRole = (collab && collab.owner) || undefined
 
     const ownerForce: ForceData | undefined = ownerRole && forces.find((force: ForceColor) => force.uniqid === ownerRole.forceId)
-    if (typeof ownerForce === 'undefined') {
-      'Message ovner force not found'
-    }
+
     const ownerColor: string = ownerForce ? ownerForce.color : '#f00'
     // generate the owner of this document
     const ownerComposite: string | undefined = ownerRole ? formatRole(ownerRole) : undefined
@@ -73,13 +71,12 @@ export const genData = (
 
     const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages)
     const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
-    
+
     if (!isReaded) unreadMessagesCount++
 
     const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
-
       // if expanded && message haven't readed status set it as readed
-      const handleRead = () => {
+      const handleRead = (): void => {
         setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
         handleOpenCollapsible()
       }
@@ -111,7 +108,10 @@ export const genData = (
     }
 
     const cells = [
-      message.message.Reference || message._id,
+      {
+        component: <><div className={cx(styles.badge, isReaded && styles['badge-opened'])} />{message.message.Reference || message._id}</>,
+        label: message.message.Reference || message._id
+      },
       {
         component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
         label: message.details.from.roleName

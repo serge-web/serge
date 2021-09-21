@@ -37,4 +37,7 @@ export default interface Props {
 
   /** toggle table sort */
   sort?: boolean
+
+  /** no display expand icon */
+  noExpand?: boolean
 }

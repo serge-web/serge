@@ -7,7 +7,7 @@ import {
 } from '@serge/custom-types'
 
 export default interface Props {
-  currentWargame: string,
+  currentWargame: string
   messages: MessageCustom[]
   channel: ChannelData
   onChange: (nextMessage: MessageCustom) => void

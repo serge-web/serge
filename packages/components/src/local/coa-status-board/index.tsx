@@ -7,10 +7,10 @@ import { capitalize } from 'lodash'
 import { Button } from '@material-ui/core'
 import { formatRole, genData } from './helpers/gen-data'
 import getKey from './helpers/get-key'
+import { setMessageState } from '@serge/helpers'
 
 /* Import Types */
 import Props from './types/props'
-import { setMessageState } from '@serge/helpers'
 
 /** combine force id and color
  */
@@ -59,7 +59,7 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
       case 'LOCATION': {
         const fieldData = []
         const fields: { [property: string]: string } | undefined = message.message[columnName]
-        
+
         if (typeof fields !== 'undefined') {
           for (const key of Object.keys(fields)) {
             // const location = fields[key].map((item: any) => `${key}-${item.Country}`)
@@ -69,8 +69,8 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
           filters.push(...newItems)
           return filters.sort((a, b) => a === EMPTY_CELL ? -1 : a - b)
         } else {
-          console.warn('LOCATION undefined');
-          return filters 
+          console.warn('LOCATION undefined')
+          return filters
         }
       }
       default:
@@ -106,7 +106,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const handleUpdateUnreadCount = (nexCount?: number): boolean => {
     const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
     const shouldBeUpdated = unreadCount.count !== count
-    
+
     if (shouldBeUpdated) {
       onMessageRead && onMessageRead(count)
       updateUreanMessagesCount(count)
@@ -131,7 +131,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     handleUpdateUnreadCount
   )
 
-  if(handleUpdateUnreadCount(unreadMessagesCount)) {
+  if (handleUpdateUnreadCount(unreadMessagesCount)) {
     return <></>
   }
 
@@ -182,7 +182,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   return (
     <>
       <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
-      <DataTable sort={true} columns={columnHeaders} data={data} />
+      <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
     </>
   )
 }

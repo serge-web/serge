@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer'
   }
 }))
-export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
+export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = false }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
@@ -211,7 +211,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
                             <TableCell key={`cell=${index}`}>
                               {index === 0 &&
                                 <>
-                                  <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                                  {!noExpand && <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />}&nbsp;
                                 </>
                               }
                               {

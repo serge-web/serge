@@ -193,8 +193,8 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game c
 const onChange = (): void => console.log()
 
 it('CoaStatusBoard renders correctly', () => {
-  const handleReadMessage = (unreadCount: number) => {
-    console.log('unread mesages left: ' + unreadCount);
+  const handleReadMessage = (unreadCount: number): void => {
+    console.log('unread mesages left: ' + unreadCount)
   }
 
   const tree = renderer
