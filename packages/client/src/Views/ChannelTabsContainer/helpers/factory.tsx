@@ -163,7 +163,9 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
     if (channelName === CHANNEL_MAPPING) {
       return renderMap(node.getId())
     } else if (channelName === CHANNEL_RFI_STATUS) {
-      return <RfiStatusBoardChannel />
+      return <RfiStatusBoardChannel onMessageRead={(unreadCount): void => { 
+        onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
+      }}/>
     } else if (matchedChannel.length && channelDefinition) {
         // find out if channel just contains chat template
         return isChatChannel(channelDefinition) ? 

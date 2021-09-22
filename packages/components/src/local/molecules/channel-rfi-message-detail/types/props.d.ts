@@ -7,5 +7,9 @@ export default interface Props {
   /** if this player is from the UMPIRE force */
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
-  isRFIManager: boolean
+  isRFIManager: boolean,
+  /** trigger on collapse */
+  onRead?: () => void
+  /** if message status readed */
+  isReaded?: boolean
 }

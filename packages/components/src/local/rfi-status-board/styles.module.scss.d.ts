@@ -3,6 +3,7 @@
 interface CssExports {
   'badge': string;
   'badge-opened': string;
+  'btn': string;
   'rfi-form': string;
 }
 export const cssExports: CssExports;
