@@ -11,6 +11,8 @@ import { CollaborativeMessageStates } from '@serge/config'
 import getAssignees from './assignees'
 import getKey from './get-key'
 import cx from 'classnames'
+import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
@@ -109,7 +111,8 @@ export const genData = (
 
     const cells = [
       {
-        component: <><div className={cx(styles.badge, isReaded && styles['badge-opened'])} />{message.message.Reference || message._id}</>,
+        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'}icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
+          {message.message.Reference || message._id}</>,
         label: message.message.Reference || message._id
       },
       {
