@@ -49,12 +49,15 @@ export const genData = (
   canUnClaimMessages: boolean,
   gameDate: string,
   isCollaborating: boolean,
+  isObserver: boolean,
   onChange: (msg: MessageCustom) => void,
   handleOpenCollapsible: () => void
 ): GenData => {
   let unreadMessagesCount = 0
 
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
+
+  const isCollabEditChannel = channel.collabOptions && channel.collabOptions.mode === "edit"
 
   const data: RowWithCollapsibleType[] = messages.map((message): RowWithCollapsibleType => {
     const collab = message.details.collaboration
@@ -70,7 +73,12 @@ export const genData = (
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
 
-    const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages)
+    // flag for if we tell original sender of RFI that it has been responded to
+    const isFinalised = status === CollaborativeMessageStates.Closed ||
+      status === CollaborativeMessageStates.Finalized ||
+      status === CollaborativeMessageStates.Released
+
+    const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isObserver)
     const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
 
     if (!isReaded) unreadMessagesCount++
