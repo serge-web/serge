@@ -12,7 +12,8 @@ import styles from './styles.module.scss'
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 import { Badge } from '../atoms/badge'
 import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
-import DataTableProps, { RowWithCollapsibleType } from '../organisms/data-table/types/props'
+import DataTableProps, { RowWithCollapsibleType } from '../organisms/data-table/types/props';
+import cx from 'classnames'
 
 /* Render component */
 export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
@@ -109,7 +110,10 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         rowKey,
         collapsible,
         cells: [
-          id,
+          {
+            component: <><div className={cx(styles.badge, message.hasBeenRead && styles['badge-opened'])} />{id}</>,
+            label:  id
+          },
           channel,
           {
             component: <Badge customBackgroundColor={forceColor} label={mRole} />,
@@ -130,7 +134,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   }
 
   return (
-    <DataTable {...dataTableProps} />
+    <DataTable {...dataTableProps} noExpand />
   )
 }
 
