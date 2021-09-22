@@ -145,7 +145,7 @@ export const SettingForces: React.FC<PropTypes> = ({
       <LeftSide>
         <EditableList
           items={initialForces}
-          selectedItem={forcesData[selectedItem].uniqid}
+          selectedItem={forcesData[selectedItem]?.uniqid}
           filterKey="uniqid"
           onClick={handleSwitch}
           onCreate={onCreate}
