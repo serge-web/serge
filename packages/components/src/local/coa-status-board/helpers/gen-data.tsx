@@ -10,7 +10,6 @@ import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
 import { CollaborativeMessageStates } from '@serge/config'
 import getAssignees from './assignees'
 import getKey from './get-key'
-import cx from 'classnames'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

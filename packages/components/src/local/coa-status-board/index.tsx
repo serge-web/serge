@@ -87,7 +87,7 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
-  const updateUreanMessagesCount = (nextUnreadCount: number) => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
+  const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
