@@ -133,6 +133,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     canUnClaimMessages,
     gameDate,
     isCollaborating,
+    isUmpire,
     onChange,
     handleUpdateUnreadCount
   )
