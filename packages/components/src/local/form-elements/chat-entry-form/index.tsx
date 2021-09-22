@@ -23,7 +23,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
 
   const submitForm = (): void => {
     if (message === '') return
-    
+
     const post: ChatMessage = {
       messageType: CHAT_MESSAGE,
       details: {
