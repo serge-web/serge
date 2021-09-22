@@ -12,6 +12,9 @@ import { setMessageState } from '@serge/helpers'
 /* Import Types */
 import Props from './types/props'
 
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+
 /** combine force id and color
  */
 export interface ForceColor {
@@ -171,7 +174,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     columnHeaders.push(...newCols)
   }
 
-  const handleMarkAllAsRead = () => {
+  const handleMarkAllAsRead = (): void => {
     for (const message of messages) {
       const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages)
       setMessageState(currentWargame, role.forceName, role.roleName, key)
@@ -181,7 +184,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   return (
     <>
-      <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
+      <div className={styles['btn']}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
       <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
     </>
   )

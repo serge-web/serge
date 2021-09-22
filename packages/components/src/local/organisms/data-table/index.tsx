@@ -78,7 +78,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
-  const [expandedRows, setExpandedRows] = useState<Array<number>>([])
+  const [expandedRows, setExpandedRows] = useState<Array<string>>([])
   const [tableRows, setTableRow] = useState<RowType[]>([])
   const [sortingColId, setSortingColId] = useState<number>(0)
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
@@ -101,10 +101,16 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     }
   }
 
-  const onToggleRow = (rowIndex: any): void => {
+  type RowItemData = string | number | {
+    label: string | number
+    [property: string]: any
+  }
+
+
+  const onToggleRow = (rowIndex: string): void => {
     if (expandedRows.includes(rowIndex)) {
       // remove it
-      setExpandedRows(expandedRows.filter((val: number) => val !== rowIndex))
+      setExpandedRows(expandedRows.filter((val) => val !== rowIndex))
     } else {
       setExpandedRows([rowIndex, ...expandedRows])
     }
@@ -140,6 +146,15 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     setSortDirection(direction === 'asc' ? 'desc' : 'asc')
     setSortingColId(columnId)
     setTableRow(sortedRows)
+  }
+  const rowItemDataToString = (data: RowItemData): string  => {
+    if (typeof data === 'string') {      
+      return data
+    } else if (typeof data === 'number') {
+      return data + ''
+    } else {
+      return `${data.label}`
+    }
   }
 
   const matches = (src: string[], dest: string | string[]): boolean => {
@@ -197,8 +212,10 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                 const tableCells = cells || row
                 // ideally we'll use the contents of cell zero (message-id). If we can't
                 // just use the row count
-                const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
+                const rowIndexMixed: RowItemData = (tableCells.length && tableCells[0]) || rowCount
+                const rowIndex: string = rowItemDataToString(rowIndexMixed);
                 const isExpanded = expandedRows.includes(rowIndex)
+                
                 return (
                   <React.Fragment key={rowKey}>
                     <TableRow

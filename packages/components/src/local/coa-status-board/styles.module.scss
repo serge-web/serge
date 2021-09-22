@@ -17,3 +17,17 @@
 .badge-opened {
   background-color: rgb(131, 133, 133);
 }
+
+.btn{
+  span{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  button{
+    color:#3ef1ea;
+    &:hover{
+      color:white;
+    }
+  }
+}
