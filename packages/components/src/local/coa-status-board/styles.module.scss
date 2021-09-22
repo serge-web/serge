@@ -18,16 +18,16 @@
   background-color: rgb(131, 133, 133);
 }
 
-.btn{
-  span{
+.btn {
+  span {
     width: 100%;
     display: flex;
     justify-content: flex-end;
   }
-  button{
-    color:#3ef1ea;
-    &:hover{
-      color:white;
+  button {
+    color: #3ef1ea;
+    &:hover {
+      color: #fff;
     }
   }
 }

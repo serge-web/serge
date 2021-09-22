@@ -182,7 +182,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   return (
     <>
-      <div className={styles['btn']}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
+      <div className={styles.btn}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
       <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
     </>
   )

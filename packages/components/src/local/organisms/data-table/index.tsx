@@ -106,7 +106,6 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     [property: string]: any
   }
 
-
   const onToggleRow = (rowIndex: string): void => {
     if (expandedRows.includes(rowIndex)) {
       // remove it
@@ -147,8 +146,8 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     setSortingColId(columnId)
     setTableRow(sortedRows)
   }
-  const rowItemDataToString = (data: RowItemData): string  => {
-    if (typeof data === 'string') {      
+  const rowItemDataToString = (data: RowItemData): string => {
+    if (typeof data === 'string') {
       return data
     } else if (typeof data === 'number') {
       return data + ''
@@ -213,9 +212,9 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                 // ideally we'll use the contents of cell zero (message-id). If we can't
                 // just use the row count
                 const rowIndexMixed: RowItemData = (tableCells.length && tableCells[0]) || rowCount
-                const rowIndex: string = rowItemDataToString(rowIndexMixed);
+                const rowIndex: string = rowItemDataToString(rowIndexMixed)
                 const isExpanded = expandedRows.includes(rowIndex)
-                
+
                 return (
                   <React.Fragment key={rowKey}>
                     <TableRow
