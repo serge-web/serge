@@ -22,6 +22,8 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
   const timestamp = new Date().toISOString()
 
   const submitForm = (): void => {
+    if (message === '') return
+    
     const post: ChatMessage = {
       messageType: CHAT_MESSAGE,
       details: {
@@ -45,7 +47,9 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
     }
     postBack && postBack(post)
     messageEle.current.clear()
+    setMessage('')
     privateMessageEle && privateMessageEle.current && privateMessageEle.current.clear()
+    setPrivateMessage('')
   }
 
   return (
