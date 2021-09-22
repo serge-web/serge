@@ -42,7 +42,8 @@ const createChannel = (
         templates: [{ _id: 'k16eedkj', title: 'RFI' }],
         subscriptionId: generateSubscriptionId(),
         canCollaborate: false,
-        canReleaseMessages: false
+        canReleaseMessages: false,
+        canUnClaimMessages: false
       }
       // add participant to channel
       participants.push(participant)

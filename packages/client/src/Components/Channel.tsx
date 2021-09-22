@@ -67,7 +67,7 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
             currentWargame={state.currentWargame}
             onMessageRead={onMessageRead}
             templates={state.allTemplatesByKey}
-            messages={messages}
+            messages={messages as MessageCustom[]}
             role={{
               forceId: selectedForce.uniqid,
               forceName: selectedForce.name,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData } from '@serge/custom-types'
 import { FORCE_LAYDOWN, 
   PERCEPTION_OF_CONTACT, 
   STATE_OF_WORLD, 
@@ -105,7 +105,18 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
 
   return (node: TabNode): React.ReactNode => {
 
-    if (!node.isVisible()) return null
+    /** helper to determine if the specified channel should be rendered */
+    const renderThisChannel = (channelData?: ChannelData): boolean => {
+      // always render the special channels, since the user may have
+      // a partially completed form/document in it - we don't want to
+      // lose that content.  Note: there _Shouldn't_ be a performance
+      // hit, since the content in those channels won't be changing
+      if (channelData && channelData.format) {
+        return true
+      }
+      return node.isVisible()
+    }
+
     // sort out if role can submit orders
     const role: Role = findRole(state.selectedRole, state.selectedForce)
     const canSubmitOrders: boolean = !!role.canSubmitPlans
@@ -142,33 +153,24 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
     </Mapping>
 
     if (_.isEmpty(state.channels)) return
-    const channelsArray = Object.entries(state.channels)
-    if (channelsArray.length === 1) {
-      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === CHANNEL_MAPPING)
-      if (isOnlyMap) {
-        return renderMap('map')
-      } else {
-        const channelId = channelsArray[0][0] as string
-        return <Channel channelId={channelId} onMessageRead={(unreadCount): void => { 
-          onMessageCountChange && onMessageCountChange({ [channelId]: unreadCount })
+
+    const matchedChannel = findChannelByName(state.channels, node.getName())
+    if (!matchedChannel || !renderThisChannel(matchedChannel[1])) {
+      return null
+    }
+    const channelName = node.getName().toLowerCase()
+    const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
+    if (channelName === CHANNEL_MAPPING) {
+      return renderMap(node.getId())
+    } else if (channelName === CHANNEL_RFI_STATUS) {
+      return <RfiStatusBoardChannel />
+    } else if (matchedChannel.length && channelDefinition) {
+        // find out if channel just contains chat template
+        return isChatChannel(channelDefinition) ? 
+          <ChatChannel channelId={matchedChannel[0]} /> 
+        : <Channel channelId={matchedChannel[0]} onMessageRead={(unreadCount): void => { 
+          onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
         }} />
-      }
-    } else {
-      const matchedChannel = findChannelByName(state.channels, node.getName())
-      const channelName = node.getName().toLowerCase()
-      const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-      if (channelName === CHANNEL_MAPPING) {
-        return renderMap(node.getId())
-      } else if (channelName === CHANNEL_RFI_STATUS) {
-        return <RfiStatusBoardChannel />
-      } else if(matchedChannel && matchedChannel.length && channelDefinition) {
-          // find out if channel just contains chat template
-          return isChatChannel(channelDefinition) ? 
-            <ChatChannel channelId={matchedChannel[0]} /> 
-          : <Channel channelId={matchedChannel[0]} onMessageRead={(unreadCount): void => { 
-            onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
-          }} />
-      }
     }
   }
 }
