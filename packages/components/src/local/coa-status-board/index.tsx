@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
+import { EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import { Column } from '../organisms/data-table/types/props'
 import { capitalize } from 'lodash'
 import { Button } from '@material-ui/core'
@@ -63,15 +63,18 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
     if (!message.message[columnName]) {
       return filters
     }
-
+    let fields: any
     switch (columnName) {
       case 'LOCATION': {
         const fieldData = []
-        const fields = message.message[columnName]
+        fields = message.message[columnName]
         for (const key of Object.keys(fields)) {
           const location = fields[key].map((item: any) => `${key}-${item.Country}`)
           fieldData.push(...location)
         }
+        const newItems: string[] = fieldData.length ? fieldData : [EMPTY_CELL]
+        filters.push(...newItems)
+        return filters.sort((a, b) => a === EMPTY_CELL ? -1 : a - b)
       }
       default:
         return filters
