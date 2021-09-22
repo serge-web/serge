@@ -217,9 +217,10 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
              
-            <div
-              className="badge"
+            <svg
+              className="svg-inline--fa fa-envelope"
             />
+             
             Blue-3
           </td>
           <td
@@ -308,9 +309,10 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
              
-            <div
-              className="badge"
+            <svg
+              className="svg-inline--fa fa-envelope"
             />
+             
             RED-1
           </td>
           <td
@@ -399,9 +401,10 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
              
-            <div
-              className="badge"
+            <svg
+              className="svg-inline--fa fa-envelope"
             />
+             
             2020-03-25T15:08:47.540Z
           </td>
           <td
@@ -488,9 +491,10 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
              
-            <div
-              className="badge"
+            <svg
+              className="svg-inline--fa fa-envelope"
             />
+             
             2020-03-25T15:08:47.525Z
           </td>
           <td
@@ -577,9 +581,10 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
              
-            <div
-              className="badge"
+            <svg
+              className="svg-inline--fa fa-envelope"
             />
+             
             2020-03-25T15:08:47.530Z
           </td>
           <td
