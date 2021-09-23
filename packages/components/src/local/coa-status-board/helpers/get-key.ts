@@ -14,7 +14,6 @@ const getKey = (message: MessageCustom, canCollaborate: boolean, canReleaseMessa
   canUnClaimMessages: boolean, isFinalisedResponse: boolean, isCollabEdit: boolean, isObserver: boolean): string => {
   const useId = canCollaborate || canReleaseMessages || canUnClaimMessages || isObserver || isCollabEdit
   const res = useId ? message._id : message.message.Reference + (isFinalisedResponse ? '-finalised' : '')
-  console.log('key', res, canCollaborate, canReleaseMessages, canUnClaimMessages, useId, message, message.message.Reference, isFinalisedResponse)
   return res
 }
 
