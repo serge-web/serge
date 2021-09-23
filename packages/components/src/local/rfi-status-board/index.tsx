@@ -138,7 +138,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         )
       }
 
-      const rowKey = `${message._id}-${message.message.Reference}`
+      const rowKey = `${message.message.Reference}`
 
       return {
         type: ROW_WITH_COLLAPSIBLE_TYPE,
