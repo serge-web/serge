@@ -119,14 +119,22 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     let sortedRows = [...rows].sort((a: RowType, b: RowType): number => {
       const rowOne = a as unknown as RowWithCollapsibleType
       const rowTwo = b as unknown as RowWithCollapsibleType
-      const cellValueOne = '' + rowOne.cells[columnId]
-      const cellValueTwo = '' + rowTwo.cells[columnId]
-      /**
-       * Using localeCompare for string comparison, by passing the numeric: true option, it will smartly recognize numbers:
-       * `Blue-1`  < `Blue-2`
-       * `Blue-10` > `Blue-2`
-       */
-      return cellValueOne.localeCompare(cellValueTwo, undefined, { numeric: true, sensitivity: 'base' })
+      const cellOne = rowOne.cells[columnId]
+      const cellTwo = rowTwo.cells[columnId]
+      let cellOneValue: string = ''
+      let cellTwoValue: string = ''
+      if (typeof (cellOne) === 'object' && cellOne.label) {
+        cellOneValue = cellOne.label
+        cellTwoValue = cellTwo.label
+        /**
+         * Using localeCompare for string comparison, by passing the numeric: true option, it will smartly recognize numbers:
+         * `Blue-1`  < `Blue-2`
+         * `Blue-10` > `Blue-2`
+         */
+        return cellOneValue.localeCompare(cellTwoValue, undefined, { numeric: true, sensitivity: 'base' })
+      } else {
+        throw new Error('Sort fn cannot handle this cell type' + cellOne)
+      }
     })
 
     /** we should keep the current sort direction when receving the new message */
@@ -139,6 +147,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
 
   const sortTable = (columnId = 0, direction: SortDirection): void => {
     let sortedRows = sortFn(tableRows, columnId, false)
+    console.log('sort', tableRows, columnId, sortedRows)
     if (direction === 'asc') {
       sortedRows = sortedRows.reverse()
     }
