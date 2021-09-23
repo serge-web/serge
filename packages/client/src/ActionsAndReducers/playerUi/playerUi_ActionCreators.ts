@@ -160,7 +160,23 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
   return async (): Promise<void> => {
-    await wargamesApi.postNewMessage(dbName, details, message)
+    const bulkSubmit = false
+    if(bulkSubmit) {
+      const msg1 = message as any
+      const title = msg1.Title
+      for(let i=0;i<200;i++) {
+        const time = details.timestamp
+        const trimmedTime = details.timestamp.substr(0, details.timestamp.length-4)
+        const newTime = trimmedTime + (100 + i) + `Z`
+        details.timestamp = newTime
+        const msg = message as any
+        msg.Title = title + '-' + i
+        msg.Reference = `Blue_c-` + i
+        await wargamesApi.postNewMessage(dbName, details, message)
+      }
+    } else {
+      await wargamesApi.postNewMessage(dbName, details, message)
+    }
   }
 }
 
