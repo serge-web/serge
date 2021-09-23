@@ -108,3 +108,6 @@ export const serverPath = (
 export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
+
+// default name for role name
+export const NEW_ROLE = 'New Role'

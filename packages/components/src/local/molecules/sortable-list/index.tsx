@@ -15,6 +15,9 @@ import { ReactSortable } from 'react-sortablejs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy, faTimes, faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons'
 
+/* Import Globals */
+import { NEW_ROLE } from '@serge/config'
+
 /* Render component */
 export const SortableList: React.FC<PropTypes> = ({
   onClick,
@@ -126,7 +129,7 @@ export const SortableList: React.FC<PropTypes> = ({
       }
       
       if (!newValue) {
-        newValue = "New Role" 
+        newValue = NEW_ROLE 
       }
       
       const newItems: Array<Item> = [...items]

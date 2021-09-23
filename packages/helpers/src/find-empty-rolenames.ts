@@ -1,3 +1,4 @@
+import { NEW_ROLE } from '@serge/config'
 import { ForceData } from '@serge/custom-types'
 import _ from 'lodash'
 
@@ -18,7 +19,7 @@ const findEmptyRolenames = (newData: ForceData, forces: ForceData[]): Array<{ fo
     (output: ExtForces[] = [], force) => {
       force.roles.forEach(role => {
         const empRole = role.name ? role.name : ""
-        if (empRole === "" || empRole === "New Role") {
+        if (empRole === "" || empRole === NEW_ROLE) {
           output.push({
             forceName: force.name,
             roleName: empRole

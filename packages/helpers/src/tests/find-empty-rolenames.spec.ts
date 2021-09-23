@@ -1,6 +1,7 @@
 import { forces } from '@serge/mocks'
 import { ForceData } from '@serge/custom-types'
 import { findEmptyRolenames } from '..'
+import { NEW_ROLE } from '@serge/config'
 
 const selectedForceRevised: ForceData = {
   ...forces[1],
@@ -37,7 +38,7 @@ const selectedForceRevisedNew: ForceData = {
     },
     {
       roleId: 'rkrl55f5edb',
-      name: 'New Role',
+      name: NEW_ROLE,
       canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
