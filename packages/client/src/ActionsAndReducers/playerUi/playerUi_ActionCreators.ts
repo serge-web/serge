@@ -165,13 +165,17 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
       const msg1 = message as any
       const title = msg1.Title
       for(let i=0;i<200;i++) {
+        // timestamps can be used for ids, so ensure timestamps are unique.
         const time = details.timestamp
         const trimmedTime = details.timestamp.substr(0, details.timestamp.length-4)
         const newTime = trimmedTime + (100 + i) + `Z`
         details.timestamp = newTime
         const msg = message as any
+        // create unique title
         msg.Title = title + '-' + i
+        // create unique message reference
         msg.Reference = `Blue_c-` + i
+        // actually post the message
         await wargamesApi.postNewMessage(dbName, details, message)
       }
     } else {
