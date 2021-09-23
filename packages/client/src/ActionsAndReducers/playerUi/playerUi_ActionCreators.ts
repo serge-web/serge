@@ -167,7 +167,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
       for(let i=0;i<200;i++) {
         // timestamps can be used for ids, so ensure timestamps are unique.
         const time = details.timestamp
-        const trimmedTime = details.timestamp.substr(0, details.timestamp.length-4)
+        const trimmedTime = time.substr(0, time.length-4)
         const newTime = trimmedTime + (100 + i) + `Z`
         details.timestamp = newTime
         const msg = message as any
