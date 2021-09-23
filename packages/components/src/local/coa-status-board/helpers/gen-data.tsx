@@ -57,7 +57,7 @@ export const genData = (
 
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
 
-  const isCollabEditChannel = channel.collabOptions && channel.collabOptions.mode === "edit"
+  const isCollabEditChannel = channel.collabOptions && channel.collabOptions.mode === 'edit'
 
   const data: RowWithCollapsibleType[] = messages.map((message): RowWithCollapsibleType => {
     const collab = message.details.collaboration

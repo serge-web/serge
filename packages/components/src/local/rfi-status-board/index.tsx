@@ -22,7 +22,6 @@ const getKey = (message: MessageCustom, isRfiManager: boolean): string => {
   return isRfiManager ? message._id + '-' + message.message.Reference : message._id
 }
 
-
 /* Render component */
 export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role, onMessageRead, currentWargame }: Props) => {
   // produce dictionary of channels
@@ -68,7 +67,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       message.details.from.roleName
     ]
   }, [])
-  
+
   let unreadMessagesCount = 0
   const dataTableProps: DataTableProps = {
     columns: [
@@ -113,7 +112,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       const messageStateKey = getKey(message, isRFIManager)
       const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
       if (!isReaded) unreadMessagesCount++
-      
+
       const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
         // if expanded && message haven't readed status set it as readed
         const handleRead = (): void => {
