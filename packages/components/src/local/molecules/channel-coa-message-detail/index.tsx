@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 /* Import Types */
 import Props, { DialogModalStatus } from './types/props'
@@ -72,7 +72,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, canUnClaimMessages, assignees = [], collapseMe, gameDate }) => {
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, canUnClaimMessages, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -95,6 +95,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
   const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
 
   const candidates = getCandidates(assignees)
+
+  useEffect(() => {
+    if (onRead && isReaded === false) onRead()
+  }, [])
 
   // collate list of verbs used for providing feedback
   const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
@@ -273,9 +277,15 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     const handleOnExpand = (): void => {
       multipleFeedback && onExpand(!collapsed)
     }
+
+    const rebderReadIcon = (): React.ReactNode => {
+      return <>
+        {multipleFeedback && (collapsed ? '+' : '-')}
+      </>
+    }
     return (
       <div className={styles['feedback-header']} onClick={handleOnExpand}>
-        <span className={styles['feedback-icon']}>{multipleFeedback && (collapsed ? '+' : '-')}</span>
+        <span className={styles['feedback-icon']}>{rebderReadIcon()}</span>
         {formatFeedback(feedback[feedback.length - 1])}
       </div>
     )

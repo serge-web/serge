@@ -44,7 +44,11 @@ const phaseFor = (phase: string): Phase => {
   return phase === 'planning' ? Phase.Planning : Phase.Adjudication
 }
 
-const factory = (state: PlayerUi): Factory => {
+type OnMessageCountChange = (unreadMessageForChannel: {
+  [property: string]: number
+}) => void
+
+const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints: MappingConstraints = state.mappingConstaints || {
@@ -159,12 +163,16 @@ const factory = (state: PlayerUi): Factory => {
     if (channelName === CHANNEL_MAPPING) {
       return renderMap(node.getId())
     } else if (channelName === CHANNEL_RFI_STATUS) {
-      return <RfiStatusBoardChannel />
-    } else if(matchedChannel.length && channelDefinition) {
+      return <RfiStatusBoardChannel onMessageRead={(unreadCount): void => { 
+        onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
+      }}/>
+    } else if (matchedChannel.length && channelDefinition) {
         // find out if channel just contains chat template
         return isChatChannel(channelDefinition) ? 
           <ChatChannel channelId={matchedChannel[0]} /> 
-        : <Channel channelId={matchedChannel[0]} />
+        : <Channel channelId={matchedChannel[0]} onMessageRead={(unreadCount): void => { 
+          onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
+        }} />
     }
   }
 }

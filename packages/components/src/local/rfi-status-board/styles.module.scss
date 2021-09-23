@@ -4,3 +4,30 @@
   background-color: $background-action-head;
   padding: 10px;
 }
+
+.badge {
+  background-color: #69c;
+  border-radius: 555px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+}
+
+.badge-opened {
+  background-color: rgb(131, 133, 133);
+}
+
+.btn {
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    color: #3ef1ea;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

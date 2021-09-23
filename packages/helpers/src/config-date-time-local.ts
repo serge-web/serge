@@ -44,7 +44,7 @@ const configCommonProps = (prop: any, gameDate: string) => {
  * Render Default datetime entries in template of json for type datetime-local
  */
 const configDateTimeLocal = (schema: any, gameDate: string) => {
-  //debugger
+  // debugger
   if (!schema || !schema.properties) {
     return schema
   }
