@@ -57,7 +57,7 @@ export const genData = (
 
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
 
-  const isCollabEditChannel = channel.collabOptions && channel.collabOptions.mode === 'edit'
+  const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
 
   const data: RowWithCollapsibleType[] = messages.map((message): RowWithCollapsibleType => {
     const collab = message.details.collaboration
@@ -151,7 +151,7 @@ export const genData = (
       cells.push(...newCols)
     }
 
-    const rowKey = `${message._id}-${message.message.Reference}`
+    const rowKey = `${message.message.Reference}`
 
     return {
       type: ROW_WITH_COLLAPSIBLE_TYPE,
