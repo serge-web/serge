@@ -145,6 +145,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
                 items={data.roles}
                 title='Add Role'
                 onDeleteGameControl={onDeleteGameControl}
+                valueOnEmpty={NEW_ROLE}
               />
             </FormGroup>
           </div>
