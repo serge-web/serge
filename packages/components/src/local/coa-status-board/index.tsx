@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { MessageCustom } from '@serge/custom-types/message'
-import { EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import { Column } from '../organisms/data-table/types/props'
 import { capitalize } from 'lodash'
 import { Button } from '@material-ui/core'
@@ -175,7 +175,15 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   const handleMarkAllAsRead = (): void => {
     for (const message of messages) {
-      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages)
+
+      // flag for if we tell original sender of RFI that it has been responded to
+      const collab = message.details.collaboration
+      const status = collab && collab.status
+      const isFinalised = status === CollaborativeMessageStates.Closed ||
+        status === CollaborativeMessageStates.Finalized ||
+        status === CollaborativeMessageStates.Released
+      const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
+      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isUmpire)
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
     handleUpdateUnreadCount(0)
