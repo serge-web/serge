@@ -137,8 +137,8 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
        * `Blue-1`  < `Blue-2`
        * `Blue-10` > `Blue-2`
        */
-        return cellOneValue.localeCompare(cellTwoValue, undefined, { numeric: true, sensitivity: 'base' })
-      })
+      return cellOneValue.localeCompare(cellTwoValue, undefined, { numeric: true, sensitivity: 'base' })
+    })
 
     /** we should keep the current sort direction when receving the new message */
     if (sortWithCurentDirection && sortDirection === 'desc') {
