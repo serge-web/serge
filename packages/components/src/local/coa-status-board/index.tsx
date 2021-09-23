@@ -175,7 +175,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   const handleMarkAllAsRead = (): void => {
     for (const message of messages) {
-
       // flag for if we tell original sender of RFI that it has been responded to
       const collab = message.details.collaboration
       const status = collab && collab.status
