@@ -4,7 +4,7 @@ import { usePlayerUiState } from '../Store/PlayerUi'
 import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { ForceRole, MessageCustom } from '@serge/custom-types'
 
-const RfiStatusBoardChannel = () => {
+const RfiStatusBoardChannel = ({ onMessageRead }: { onMessageRead: (unreadCount: number) => void }) => {
 
   const state = usePlayerUiState()
   const { selectedForce, selectedRoleName, selectedRole } = state
@@ -26,6 +26,8 @@ const RfiStatusBoardChannel = () => {
 
   return (
     <RfiStatusBoard
+      currentWargame={state.currentWargame}
+      onMessageRead={onMessageRead}
       rfiMessages={state.rfiMessages}
       roles={roles}
       channels={state.allChannels}

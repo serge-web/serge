@@ -4,3 +4,17 @@
   background-color: $background-action-head;
   padding: 10px;
 }
+
+.btn {
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    color: #3ef1ea;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

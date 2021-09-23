@@ -74,11 +74,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer'
   }
 }))
-export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
+export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = false }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
-  const [expandedRows, setExpandedRows] = useState<Array<number>>([])
+  const [expandedRows, setExpandedRows] = useState<Array<string>>([])
   const [tableRows, setTableRow] = useState<RowType[]>([])
   const [sortingColId, setSortingColId] = useState<number>(0)
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
@@ -101,10 +101,15 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
     }
   }
 
-  const onToggleRow = (rowIndex: any): void => {
+  type RowItemData = string | number | {
+    label: string | number
+    [property: string]: any
+  }
+
+  const onToggleRow = (rowIndex: string): void => {
     if (expandedRows.includes(rowIndex)) {
       // remove it
-      setExpandedRows(expandedRows.filter((val: number) => val !== rowIndex))
+      setExpandedRows(expandedRows.filter((val) => val !== rowIndex))
     } else {
       setExpandedRows([rowIndex, ...expandedRows])
     }
@@ -114,14 +119,25 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
     let sortedRows = [...rows].sort((a: RowType, b: RowType): number => {
       const rowOne = a as unknown as RowWithCollapsibleType
       const rowTwo = b as unknown as RowWithCollapsibleType
-      const cellValueOne = '' + rowOne.cells[columnId]
-      const cellValueTwo = '' + rowTwo.cells[columnId]
+      const cellOne = rowOne.cells[columnId]
+      const cellTwo = rowTwo.cells[columnId]
+      let cellOneValue = ''
+      let cellTwoValue = ''
+      if (typeof (cellOne) === 'object' && cellOne.label) {
+        cellOneValue = cellOne.label
+        cellTwoValue = cellTwo.label
+      } else if (typeof (cellOne) === 'string') {
+        cellOneValue = cellOne
+        cellTwoValue = cellTwo as unknown as string
+      } else {
+        throw new Error('Sort fn cannot handle this cell type' + cellOne)
+      }
       /**
        * Using localeCompare for string comparison, by passing the numeric: true option, it will smartly recognize numbers:
        * `Blue-1`  < `Blue-2`
        * `Blue-10` > `Blue-2`
        */
-      return cellValueOne.localeCompare(cellValueTwo, undefined, { numeric: true, sensitivity: 'base' })
+      return cellOneValue.localeCompare(cellTwoValue, undefined, { numeric: true, sensitivity: 'base' })
     })
 
     /** we should keep the current sort direction when receving the new message */
@@ -140,6 +156,15 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
     setSortDirection(direction === 'asc' ? 'desc' : 'asc')
     setSortingColId(columnId)
     setTableRow(sortedRows)
+  }
+  const rowItemDataToString = (data: RowItemData): string => {
+    if (typeof data === 'string') {
+      return data
+    } else if (typeof data === 'number') {
+      return data + ''
+    } else {
+      return `${data.label}`
+    }
   }
 
   const matches = (src: string[], dest: string | string[]): boolean => {
@@ -197,8 +222,10 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
                 const tableCells = cells || row
                 // ideally we'll use the contents of cell zero (message-id). If we can't
                 // just use the row count
-                const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
+                const rowIndexMixed: RowItemData = (tableCells.length && tableCells[0]) || rowCount
+                const rowIndex: string = rowItemDataToString(rowIndexMixed)
                 const isExpanded = expandedRows.includes(rowIndex)
+
                 return (
                   <React.Fragment key={rowKey}>
                     <TableRow
@@ -211,7 +238,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort }: Props) => {
                             <TableCell key={`cell=${index}`}>
                               {index === 0 &&
                                 <>
-                                  <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />&nbsp;
+                                  {!noExpand && <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />}&nbsp;
                                 </>
                               }
                               {

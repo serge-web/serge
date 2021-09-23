@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
 import { ChannelData } from '@serge/custom-types'
+import { Button } from '@material-ui/core'
 
 /* Import Types */
 import Props from './types/props'
@@ -13,10 +14,31 @@ import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 import { Badge } from '../atoms/badge'
 import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
 import DataTableProps, { RowWithCollapsibleType } from '../organisms/data-table/types/props'
+import { isMessageReaded, setMessageState } from '@serge/helpers'
+import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const getKey = (message: MessageCustom, isRfiManager: boolean): string => {
+  return isRfiManager ? message._id + '-' + message.message.Reference : message._id
+}
 
 /* Render component */
-export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
+export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role, onMessageRead, currentWargame }: Props) => {
   // produce dictionary of channels
+  const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
+  const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
+
+  const handleUpdateUnreadCount = (nexCount?: number): boolean => {
+    const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
+    const shouldBeUpdated = unreadCount.count !== count
+
+    if (shouldBeUpdated) {
+      onMessageRead && onMessageRead(count)
+      updateUreanMessagesCount(count)
+    }
+    return shouldBeUpdated
+  }
+
   const channelDict = new Map<string, string>()
   channels.forEach((channel: ChannelData) => {
     const id = channel.uniqid
@@ -45,6 +67,8 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       message.details.from.roleName
     ]
   }, [])
+
+  let unreadMessagesCount = 0
   const dataTableProps: DataTableProps = {
     columns: [
       'ID',
@@ -85,10 +109,22 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       const message = rfiMessages[rowIndex] as MessageCustom | undefined
       if (typeof message === 'undefined') throw new Error('messages[rowIndex] not found')
 
+      const messageStateKey = getKey(message, isRFIManager)
+      const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
+      if (!isReaded) unreadMessagesCount++
+
       const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
+        // if expanded && message haven't readed status set it as readed
+        const handleRead = (): void => {
+          setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
+          handleUpdateUnreadCount()
+        }
+
         return (
           <div className={styles['rfi-form']}>
             <ChannelRfiMessageDetail
+              isReaded={isReaded}
+              onRead={handleRead}
               isRFIManager={isRFIManager}
               message={message}
               role={role}
@@ -102,14 +138,17 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         )
       }
 
-      const rowKey = `${message._id}-${message.message.Reference}`
+      const rowKey = `${message.message.Reference}`
 
       return {
         type: ROW_WITH_COLLAPSIBLE_TYPE,
         rowKey,
         collapsible,
         cells: [
-          id,
+          {
+            component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{id}</>,
+            label: id
+          },
           channel,
           {
             component: <Badge customBackgroundColor={forceColor} label={mRole} />,
@@ -129,8 +168,23 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     })
   }
 
+  if (handleUpdateUnreadCount(unreadMessagesCount)) {
+    return <></>
+  }
+
+  const handleMarkAllAsRead = (): void => {
+    for (const message of rfiMessages) {
+      const key = getKey(message, isRFIManager)
+      setMessageState(currentWargame, role.forceName, role.roleName, key)
+    }
+    handleUpdateUnreadCount(0)
+  }
+
   return (
-    <DataTable {...dataTableProps} />
+    <>
+      <div className={styles.btn}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
+      <DataTable {...dataTableProps} noExpand />
+    </>
   )
 }
 

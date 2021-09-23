@@ -26,6 +26,7 @@ it('RfiStatusBoard renders correctly', () => {
     .create(
       <StylesProvider generateClassName={generateClassName}>
         <RfiStatusBoard
+          currentWargame='wargame-test'
           role={role}
           isRFIManager={true}
           isUmpire={true}

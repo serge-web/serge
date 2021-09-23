@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { DataTable, ROW_WITH_COLLAPSIBLE_TYPE } from '../organisms/data-table'
-import { Badge } from '../atoms/badge'
+import React, { useState } from 'react'
+import { DataTable } from '../organisms/data-table'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
-import DataTableProps, { Column, RowWithCollapsibleType } from '../organisms/data-table/types/props'
+import { Column } from '../organisms/data-table/types/props'
+import { capitalize } from 'lodash'
+import { Button } from '@material-ui/core'
+import { formatRole, genData } from './helpers/gen-data'
+import getKey from './helpers/get-key'
+import { setMessageState } from '@serge/helpers'
 
 /* Import Types */
 import Props from './types/props'
@@ -11,28 +15,11 @@ import Props from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
-import { ForceData, ForceRole } from '@serge/custom-types'
-import getAssignees from './helpers/assignees'
-import getColumns from './helpers/get-columns'
-import { capitalize } from 'lodash'
-
 /** combine force id and color
  */
 export interface ForceColor {
   uniqid: string
   color: string
-}
-
-/** helper to provide legible version of force & role */
-const formatRole = (role: ForceRole): string => {
-  return role.forceName + '-' + role.roleName
-}
-
-const getForceColors = (forces: ForceData[]): ForceColor[] => {
-  return forces.map((force: ForceData) => {
-    return { uniqid: force.uniqid, color: force.color }
-  })
 }
 
 const getListOfOwners = (messages: MessageCustom[]): string[] => {
@@ -98,9 +85,9 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate }: Props) => {
-  const [forceColors, setForceColors] = useState<ForceColor[]>([])
-  const [assignees, setAssignees] = useState<ForceRole[]>([])
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
+  const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
+  const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
@@ -109,14 +96,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
-
-  useEffect(() => {
-    setAssignees(getAssignees(channel.participants, forces))
-  }, [channel, forces])
-
-  useEffect(() => {
-    setForceColors(getForceColors(forces))
-  }, [forces])
 
   // collate list of message owners
   const filtersOwners = getListOfOwners(messages)
@@ -130,41 +109,38 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // collate list of extra column LOCATION for messages
   const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
 
-  /** cache the formatted version of my role */
-  const myRoleFormatted = formatRole(role)
+  const handleUpdateUnreadCount = (nexCount?: number): boolean => {
+    const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
+    const shouldBeUpdated = unreadCount.count !== count
 
-  const data = messages.map(message => {
-    const collab = message.details.collaboration
-    const ownerRole = (collab && collab.owner) || undefined
-    // const ownerName = (ownerRole && ownerRole.roleName) || undefined
-    const ownerForce = ownerRole && forceColors.find((fCol: ForceColor) => fCol.uniqid === ownerRole.forceId)
-    const ownerColor = (ownerForce && ownerForce.color) || '#f00'
-    // generate the owner of this document
-    const ownerComposite = (ownerRole && formatRole(ownerRole)) || undefined
-    // am I the owner?
-    const myDocument = ownerComposite === myRoleFormatted
-    const lastUpdated = collab ? collab.lastUpdated : 'Pending'
-
-    const res = [
-      message.message.Reference || message._id,
-      message.details.from.roleName,
-      message.details.from.forceColor,
-      message.message.Title,
-      collab ? collab.status : 'Unallocated',
-      ownerComposite,
-      ownerColor,
-      myDocument,
-      lastUpdated
-    ]
-
-    // see if there are any other columns required
-    if (channel.collabOptions && channel.collabOptions.extraColumns) {
-      const newCols = getColumns(message, channel.collabOptions.extraColumns)
-      res.push(newCols)
+    if (shouldBeUpdated) {
+      onMessageRead && onMessageRead(count)
+      updateUreanMessagesCount(count)
     }
+    return shouldBeUpdated
+  }
 
-    return res
-  })
+  const { data, unreadMessagesCount } = genData(
+    messages,
+    forces,
+    role,
+    currentWargame,
+    templates,
+    isUmpire,
+    channel,
+    canCollaborate,
+    canReleaseMessages,
+    canUnClaimMessages,
+    gameDate,
+    isCollaborating,
+    isUmpire,
+    onChange,
+    handleUpdateUnreadCount
+  )
+
+  if (handleUpdateUnreadCount(unreadMessagesCount)) {
+    return <></>
+  }
 
   const columnHeaders: Column[] = [
     'ID',
@@ -197,92 +173,26 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     columnHeaders.push(...newCols)
   }
 
-  const dataTableProps: DataTableProps = {
-    sort: true,
-    columns: columnHeaders,
-    data: data.map((row, rowIndex): RowWithCollapsibleType => {
-      const [id, mRole, forceColor, content, status, ownerName, ownerColor, myDocument, lastUpdated, extraCols] = row
-      const statusColors: { [property: string]: string } = {
-        [CollaborativeMessageStates.Unallocated]: '#B10303',
-        [CollaborativeMessageStates.PendingReview]: '#434343',
-        [CollaborativeMessageStates.Finalized]: '#007219',
-        [CollaborativeMessageStates.Released]: '#007219',
-        [CollaborativeMessageStates.BeingEdited]: '#ffc107',
-        [CollaborativeMessageStates.Closed]: '#ff0000',
-        [CollaborativeMessageStates.Pending]: '#0366d6'
-      }
-
-      const message = messages[rowIndex] as MessageCustom | undefined
-      if (typeof message === 'undefined') throw new Error('messages[rowIndex] not found')
-
-      const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
-        return (
-          <div className={styles['rfi-form']}>
-            <ChannelCoaMessageDetail
-              templates={templates}
-              message={message}
-              role={role}
-              isUmpire={isUmpire}
-              channel={channel}
-              canCollaborate={canCollaborate}
-              canReleaseMessages={canReleaseMessages}
-              canUnClaimMessages={canUnClaimMessages}
-              assignees={assignees}
-              onChange={(newMeesage: MessageCustom): void => {
-                onChange && onChange(newMeesage)
-              }}
-              collapseMe={(): void => {
-                typeof onChangeCallback === 'function' && onChangeCallback()
-              }}
-              gameDate={gameDate}
-            />
-          </div>
-        )
-      }
-
-      const cells = [
-        id,
-        {
-          component: <Badge customBackgroundColor={forceColor} label={mRole} />,
-          label: mRole
-        },
-        content,
-        {
-          component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
-          label: status
-        },
-        {
-          component: ownerName ? <Badge customBackgroundColor={ownerColor} customSize={myDocument && 'large'} label={isCollaborating && ownerName} /> : null,
-          label: ownerName
-        },
-        lastUpdated
-      ]
-
-      // extra cols?
-      if (extraCols) {
-        const cols: string[][] = extraCols
-        const newCols = cols.map((entries: string[]) => {
-          return entries.map((entry: string) => {
-            // todo: try to return a `Badge` like above for each country
-            return entry + ' '
-          })
-        })
-        cells.push(...newCols)
-      }
-
-      const rowKey = `${message._id}-${message.message.Reference}`
-
-      return {
-        type: ROW_WITH_COLLAPSIBLE_TYPE,
-        rowKey,
-        collapsible,
-        cells: cells
-      }
-    })
+  const handleMarkAllAsRead = (): void => {
+    for (const message of messages) {
+      // flag for if we tell original sender of RFI that it has been responded to
+      const collab = message.details.collaboration
+      const status = collab && collab.status
+      const isFinalised = status === CollaborativeMessageStates.Closed ||
+        status === CollaborativeMessageStates.Finalized ||
+        status === CollaborativeMessageStates.Released
+      const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
+      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isUmpire)
+      setMessageState(currentWargame, role.forceName, role.roleName, key)
+    }
+    handleUpdateUnreadCount(0)
   }
 
   return (
-    <DataTable {...dataTableProps} />
+    <>
+      <div className={styles.btn}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
+      <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
+    </>
   )
 }
 

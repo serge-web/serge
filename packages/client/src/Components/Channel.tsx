@@ -15,7 +15,7 @@ import { CoaStatusBoard } from "@serge/components";
 import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
 
-const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
+const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void }> = ({ channelId, onMessageRead }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
@@ -64,6 +64,8 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         {isCollabWorking ? (
           <CoaStatusBoard
+            currentWargame={state.currentWargame}
+            onMessageRead={onMessageRead}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={{
