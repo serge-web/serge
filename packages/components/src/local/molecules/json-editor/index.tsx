@@ -42,9 +42,9 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   const initEditor = (): () => void => {
-    const jsonEditorConfig = disabled ? 
-      { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true } : 
-      { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
+    const jsonEditorConfig = disabled
+      ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
+      : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
     const modSchema = configDateTimeLocal(schema.details, gameDate)
     const nextEditor = setupEditor(editor, modSchema, jsonEditorRef, jsonEditorConfig)
 
