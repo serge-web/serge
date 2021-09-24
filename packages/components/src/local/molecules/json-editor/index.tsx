@@ -15,7 +15,7 @@ import { configDateTimeLocal } from '@serge/helpers'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate }) => {
+export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const schema = Object.keys(messageTemplates).map(
@@ -41,8 +41,10 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
     return `${message._id}_${message.message.Reference}`
   }
 
-  useEffect(() => {
-    const jsonEditorConfig = disabled ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true } : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
+  const initEditor = (): () => void => {
+    const jsonEditorConfig = disabled ? 
+      { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true } : 
+      { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
     const modSchema = configDateTimeLocal(schema.details, gameDate)
     const nextEditor = setupEditor(editor, modSchema, jsonEditorRef, jsonEditorConfig)
 
@@ -105,7 +107,12 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
         nextEditor.off('change', changeListenter)
       }
     }
-  }, [])
+  }
+
+  useEffect(() => {
+    if (editor) editor.destroy()
+    return initEditor()
+  }, [disableArrayToolsWithEditor && disabled])
 
   useEffect(() => {
     if (editor) {
@@ -115,7 +122,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
         editor.enable()
       }
     }
-  }, [disabled, editor])
+  }, [editor])
 
   return (
     <div className={disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
