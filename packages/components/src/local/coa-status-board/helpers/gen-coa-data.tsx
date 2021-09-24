@@ -1,17 +1,14 @@
 import React from 'react'
 import { MessageCustom, ForceData, ForceRole} from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
-import DataTableProps,{ RowWithCollapsibleType } from '../../organisms/data-table/types/props'
+import { RowWithCollapsibleType } from '../../organisms/data-table/types/props'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
-import getColumns from './get-columns'
-import { Badge } from '../../atoms/badge'
+
 import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
 import { CollaborativeMessageStates,EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import { getKeyCOA } from './get-key'
-import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Column } from '../../organisms/data-table/types/props'
 import { capitalize } from 'lodash'
 
@@ -19,21 +16,13 @@ import { capitalize } from 'lodash'
 import styles from '../styles.module.scss'
 import { PropsCOA } from '../types/props'
 import getCoaPermissions from './get-coa-perrmisions'
-import { statusColors } from './status-colors'
+import { GenData } from '../types/props'
+import { genColumnDataCoa } from './gen-column-data'
+import { genCellsDataCoa } from './gen-cells.data'
 
 /** helper to provide legible version of force & role */
 export const formatRole = (role: ForceRole): string => {
   return role.forceName + '-' + role.roleName
-}
-
-
-// todo move to in js file
-
-
-
-interface GenData {
-  dataTableProps: DataTableProps
-  unreadMessagesCount: number
 }
 
 export const genCOAData = (
@@ -109,40 +98,7 @@ export const genCOAData = (
       )
     }
 
-    const cells = [
-      {
-        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'}icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
-          {message.message.Reference || message._id}</>,
-        label: message.message.Reference || message._id
-      },
-      {
-        component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
-        label: message.details.from.roleName
-      },
-      message.message.Title,
-      {
-        component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
-        label: status
-      },
-      {
-        component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && ownerColor} /> : null,
-        label: ownerComposite
-      },
-      lastUpdated
-    ]
-
-    // extra cols?
-    if (channel.collabOptions && channel.collabOptions.extraColumns) {
-      const extraCols = getColumns(message, channel.collabOptions.extraColumns)
-      const cols: string[][] = extraCols
-      const newCols = cols.map((entries: string[]) => {
-        return entries.map((entry: string) => {
-          // todo: try to return a `Badge` like above for each country
-          return entry + ' '
-        })
-      })
-      cells.push(...newCols)
-    }
+    const cells = genCellsDataCoa(channel, isReaded, message, ownerComposite, ownerColor, myDocument, isCollaborating, lastUpdated, status)
 
     const rowKey = `${message.message.Reference}`
 
@@ -229,23 +185,7 @@ export const genCOAData = (
   // collate list of extra column LOCATION for messages
   const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
 
-  const columnHeaders: Column[] = [
-    'ID',
-    {
-      filters: filtersRoles,
-      label: 'From'
-    },
-    'Title',
-    {
-      filters: filtersStatus,
-      label: 'Status'
-    },
-    {
-      filters: filtersOwners,
-      label: 'Owner'
-    },
-    'Updated'
-  ]
+  const columnHeaders=genColumnDataCoa(filtersOwners,filtersRoles,filtersStatus)
 
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
     const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {

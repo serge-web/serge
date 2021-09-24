@@ -44,6 +44,9 @@ export const CoaStatusBoard: React.FC<Props> = (props: Props) => {
     genCOAData(props, handleUpdateUnreadCount) :
     genRFIData(props, handleUpdateUnreadCount)
 
+  console.log(dataTableProps, 'dataTableProps');
+  
+
   if (handleUpdateUnreadCount(unreadMessagesCount)) {
     return <></>
   }

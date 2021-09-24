@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
-import CoaStatusBoard, { TYPE_COA } from './index'
+import CoaStatusBoard, { TYPE_COA, TYPE_RFI } from './index'
 import docs from './README.md'
 
 import { ForceRole, MessageCustom } from '@serge/custom-types'
@@ -25,7 +25,6 @@ import {
   GameChannels
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
-import { RfiStatusBoard } from '../rfi-status-board/index'
 
 export default {
   title: 'local/CoaStatusBoard',
@@ -170,8 +169,8 @@ const roles = [
   'Land'
 ]
 
-const template: Story<PropsRFI> = (args) => {
-  return <RfiStatusBoard {...args} currentWargame='wargame-test' />
+const template: Story<PropsRFI> = (args: PropsRFI) => {
+  return <CoaStatusBoard {...args} currentWargame='wargame-test' />
 }
 
 // filter to only show the most recent versions of messages
@@ -185,5 +184,7 @@ Demonstration.args = {
   rfiMessages: mostRecentMessages,
   isRFIManager: true,
   isUmpire: true,
-  role: role
+  role: role,
+  currentWargame: 'test',
+  type: TYPE_RFI
 }

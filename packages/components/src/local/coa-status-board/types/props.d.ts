@@ -5,6 +5,7 @@ import {
   ForceData,
   TemplateBodysByKey
 } from '@serge/custom-types'
+import DataTableProps from '../../organisms/data-table/types/props'
 
 import { TYPE_COA, TYPE_RFI } from '..'
 
@@ -54,3 +55,8 @@ export interface PropsCOA {
 type Props = PropsCOA | PropsRFI
 
 export default Props
+
+export interface GenData {
+  dataTableProps: DataTableProps
+  unreadMessagesCount: number
+}
