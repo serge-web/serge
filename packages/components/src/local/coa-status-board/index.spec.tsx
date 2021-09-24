@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
-import CoaStatusBoard from './index'
+import CoaStatusBoard, { TYPE_COA } from './index'
 import moment from 'moment'
 
 /* Import mock data */
@@ -200,7 +200,8 @@ it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CoaStatusBoard
-        currentWargame=''
+        type={TYPE_COA}
+        currentWargame='wargame-test'
         templates={MessageTemplatesMockByKey}
         forces={forces}
         role={role}

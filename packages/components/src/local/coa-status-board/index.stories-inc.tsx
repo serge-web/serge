@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
-import CoaStatusBoard from './index'
+import CoaStatusBoard, { TYPE_COA } from './index'
 import docs from './README.md'
 
-import { MessageCustom } from '@serge/custom-types'
-import Props from './types/props'
+import { ForceRole, MessageCustom } from '@serge/custom-types'
+import { PropsCOA, PropsRFI } from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
   channelCollaborativeEditing,
@@ -20,9 +20,12 @@ import {
   whiteReleaseMgr,
   blueAuthor,
   messageDataCollaborativeResponding,
-  messageDataCollaborativeEditing
+  messageDataCollaborativeEditing,
+  GameMessagesMockRFI,
+  GameChannels
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
+import { RfiStatusBoard } from '../rfi-status-board/index'
 
 export default {
   title: 'local/CoaStatusBoard',
@@ -54,7 +57,7 @@ export default {
   }
 }
 
-const Template: Story<Props> = (args) => {
+const Template: Story<PropsCOA> = (args) => {
   const [messages, setMessages] = useState(args.messages)
 
   const onChange = (nextMessage: MessageCustom): void => {
@@ -72,7 +75,14 @@ const Template: Story<Props> = (args) => {
     console.log('unread mesages left: ' + unreadCount)
   }
 
-  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} onMessageRead={handleReadMessage} currentWargame='wargame-test' />
+  return <CoaStatusBoard 
+    {...args} 
+    forces={collabForces} 
+    messages={messages} 
+    onChange={onChange} 
+    onMessageRead={handleReadMessage}
+    currentWargame='wargame-test'
+    type={TYPE_COA} />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
@@ -151,4 +161,29 @@ CollaborativeResponseRelease.args = {
   isUmpire: true,
   role: whiteReleaseMgr,
   templates: MessageTemplatesMockByKey
+}
+
+const roles = [
+  'Game Control',
+  'Logistics',
+  'Air',
+  'Land'
+]
+
+const template: Story<PropsRFI> = (args) => {
+  return <RfiStatusBoard {...args} currentWargame='wargame-test' />
+}
+
+// filter to only show the most recent versions of messages
+const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
+const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
+
+export const Demonstration = template.bind({})
+Demonstration.args = {
+  roles: roles,
+  channels: GameChannels,
+  rfiMessages: mostRecentMessages,
+  isRFIManager: true,
+  isUmpire: true,
+  role: role
 }
