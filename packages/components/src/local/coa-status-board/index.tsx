@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { Button } from '@material-ui/core'
-import { genRFIData } from './helpers/gen-rfi-data'
 import { genCOAData } from './helpers/gen-coa-data'
 
 /* Import Types */
@@ -17,9 +16,6 @@ export interface ForceColor {
   uniqid: string
   color: string
 }
-
-export const TYPE_COA = 'CoaStatusBoard'
-export const TYPE_RFI = 'RFIStatusBoard'
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = (props: Props) => {
@@ -39,9 +35,7 @@ export const CoaStatusBoard: React.FC<Props> = (props: Props) => {
     return shouldBeUpdated
   }
 
-  const { dataTableProps, unreadMessagesCount } = props.type === TYPE_COA
-    ? genCOAData(props, handleUpdateUnreadCount)
-    : genRFIData(props, handleUpdateUnreadCount)
+  const { dataTableProps, unreadMessagesCount } = genCOAData(props, handleUpdateUnreadCount)
 
   if (handleUpdateUnreadCount(unreadMessagesCount)) {
     return <></>

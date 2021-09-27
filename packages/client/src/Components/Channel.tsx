@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import NewMessage from './NewMessage'
-import { ChannelMessagesList, TYPE_COA } from '@serge/components'
+import { ChannelMessagesList } from '@serge/components'
 import {
   getAllWargameMessages,
   openMessage,
@@ -64,7 +64,6 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         {isCollabWorking ? (
           <CoaStatusBoard
-          type={TYPE_COA}
             currentWargame={state.currentWargame}
             onMessageRead={onMessageRead}
             templates={state.allTemplatesByKey}

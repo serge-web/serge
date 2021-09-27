@@ -15,7 +15,7 @@ const generateId = (isReaded: boolean, message: MessageCustom): RowDataType => {
   return {
     type: ROW_DATA_TYPE,
     rowkey: 'id',
-    component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'}icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp; {message.message.Reference || message._id}</>,
+    component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp; {message.message.Reference || message._id}</>,
     label: message.message.Reference || message._id
   }
 }
@@ -39,31 +39,6 @@ const genRoleStatusTitleCells = (message: MessageCustom, status: string): RowDat
       rowkey: 'status',
       component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status} />,
       label: status
-    }
-  ]
-}
-
-export const genCellsDataRfi = (
-  isReaded: boolean,
-  message: MessageCustom,
-  channelDict: Map<string, string>,
-  status: string,
-  owner = ''
-): RowDataType[] => {
-  return [
-    generateId(isReaded, message),
-    {
-      type: ROW_DATA_TYPE,
-      rowkey: 'channel',
-      component: null,
-      label: channelDict.get(message.details.channel) || ''
-    },
-    ...genRoleStatusTitleCells(message, status),
-    {
-      type: ROW_DATA_TYPE,
-      rowkey: 'owner',
-      component: <Badge customBackgroundColor="#434343" label={owner || '= Unallocated ='} />,
-      label: owner || ''
     }
   ]
 }

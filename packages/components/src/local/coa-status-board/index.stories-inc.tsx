@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
-import CoaStatusBoard, { TYPE_COA, TYPE_RFI } from './index'
+import CoaStatusBoard from './index'
 import docs from './README.md'
 
-import { ForceRole, MessageCustom } from '@serge/custom-types'
-import { PropsCOA, PropsRFI } from './types/props'
+import { MessageCustom } from '@serge/custom-types'
 import { mostRecentOnly } from '@serge/helpers'
 import {
   channelCollaborativeEditing,
@@ -20,11 +19,10 @@ import {
   whiteReleaseMgr,
   blueAuthor,
   messageDataCollaborativeResponding,
-  messageDataCollaborativeEditing,
-  GameMessagesMockRFI,
-  GameChannels
+  messageDataCollaborativeEditing
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
+import {Props} from './types/props'
 
 export default {
   title: 'local/CoaStatusBoard',
@@ -56,7 +54,7 @@ export default {
   }
 }
 
-const Template: Story<PropsCOA> = (args) => {
+const Template: Story<Props> = (args) => {
   const [messages, setMessages] = useState(args.messages)
 
   const onChange = (nextMessage: MessageCustom): void => {
@@ -81,7 +79,7 @@ const Template: Story<PropsCOA> = (args) => {
     onChange={onChange}
     onMessageRead={handleReadMessage}
     currentWargame='wargame-test'
-    type={TYPE_COA} />
+     />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
@@ -160,31 +158,4 @@ CollaborativeResponseRelease.args = {
   isUmpire: true,
   role: whiteReleaseMgr,
   templates: MessageTemplatesMockByKey
-}
-
-const roles = [
-  'Game Control',
-  'Logistics',
-  'Air',
-  'Land'
-]
-
-const template: Story<PropsRFI> = (args: PropsRFI) => {
-  return <CoaStatusBoard {...args} currentWargame='wargame-test' />
-}
-
-// filter to only show the most recent versions of messages
-const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
-const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
-
-export const Demonstration = template.bind({})
-Demonstration.args = {
-  roles: roles,
-  channels: GameChannels,
-  rfiMessages: mostRecentMessages,
-  isRFIManager: true,
-  isUmpire: true,
-  role: role,
-  currentWargame: 'test',
-  type: TYPE_RFI
 }

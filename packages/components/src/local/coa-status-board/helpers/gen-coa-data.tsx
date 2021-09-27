@@ -14,7 +14,7 @@ import { capitalize } from 'lodash'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
-import { PropsCOA, GenData } from '../types/props'
+import { GenData, Props } from '../types/props'
 import getCoaPermissions from './get-coa-perrmisions'
 
 import { genColumnDataCoa } from './gen-column-data'
@@ -26,7 +26,7 @@ export const formatRole = (role: ForceRole): string => {
 }
 
 export const genCOAData = (
-  props: PropsCOA,
+  props: Props,
   handleOpenCollapsible: () => void
 ): GenData => {
   let unreadMessagesCount = 0
