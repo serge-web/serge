@@ -67,7 +67,12 @@ const Template: Story<Props> = (args) => {
     const newMessages = [nextMessage, ...dropOldCopies]
     setMessages(newMessages)
   }
-  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} />
+
+  const handleReadMessage = (unreadCount: number): void => {
+    console.log('unread mesages left: ' + unreadCount)
+  }
+
+  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} onMessageRead={handleReadMessage} currentWargame='wargame-test' />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]

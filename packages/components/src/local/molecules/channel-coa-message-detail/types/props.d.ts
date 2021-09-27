@@ -27,6 +27,10 @@ export default interface Props {
   collapseMe?: () => void
   /** current game time, used for initialising date-time controls */
   gameDate: string
+  /** trigger on collapse */
+  onRead?: () => void
+  /** if message status readed */
+  isReaded?: boolean
 }
 
 export interface DialogModalStatus {

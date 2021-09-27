@@ -193,9 +193,14 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game c
 const onChange = (): void => console.log()
 
 it('CoaStatusBoard renders correctly', () => {
+  const handleReadMessage = (unreadCount: number): void => {
+    console.log('unread mesages left: ' + unreadCount)
+  }
+
   const tree = renderer
     .create(
       <CoaStatusBoard
+        currentWargame=''
         templates={MessageTemplatesMockByKey}
         forces={forces}
         role={role}
@@ -204,6 +209,7 @@ it('CoaStatusBoard renders correctly', () => {
         messages={testMock}
         onChange={onChange}
         gameDate={WargameMock.data.overview.gameDate}
+        onMessageRead={handleReadMessage}
       />
     )
     .toJSON()

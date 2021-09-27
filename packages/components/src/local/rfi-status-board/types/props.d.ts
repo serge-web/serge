@@ -11,4 +11,7 @@ export default interface Props {
   /** role of logged in player
    */
   role: ForceRole
+  /** fires on change message status to readed **/
+  onMessageRead?: (unreadedLeft: number) => void
+  currentWargame: string
 }

@@ -32,8 +32,16 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Reference: 'Blue-3',
       Title: "Blue-3 Trusted Taipir",
       LOCATION: {
-        region: "Europe",
-        Europe: "United Kingdom"
+        Asia: [
+            {
+                "Country": "India"
+            }
+        ],
+        Europe: [
+            {
+                "Country": "France"
+            }
+        ]
       },
       PRESCRIPTED: true,
       VISIBILITY: "Overt",
@@ -109,8 +117,16 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Reference: 'RED-1',
       Title: "Red-1 COA",
       LOCATION: {
-        region: "Europe",
-        Europe: "United Kingdom"
+        Asia: [
+            {
+                "Country": "India"
+            }
+        ],
+        Europe: [
+            {
+                "Country": "France"
+            }
+        ]
       },
       PRESCRIPTED: true,
       VISIBILITY: "Overt",
@@ -192,8 +208,16 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Reference: 'White-2',
       Title: "White-2 COA",
       LOCATION: {
-        region: "Europe",
-        Europe: "United Kingdom"
+        Asia: [
+            {
+                "Country": "India"
+            }
+        ],
+        Europe: [
+            {
+                "Country": "France"
+            }
+        ]
       },
       PRESCRIPTED: true,
       VISIBILITY: "Overt",
@@ -273,8 +297,6 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Reference: 'Red-2',
       Title: "Red 2 COA",
       LOCATION: {
-        region: "Europe",
-        Europe: "United Kingdom"
       },
       PRESCRIPTED: true,
       VISIBILITY: "Overt",
@@ -348,8 +370,11 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Reference: 'Blue-2',
       Title: "Blue 2 COA",
       LOCATION: {
-        region: "Europe",
-        Europe: "United Kingdom"
+        Europe: [
+            {
+                "Country": "France"
+            }
+        ]
       },
       PRESCRIPTED: true,
       VISIBILITY: "Overt",
