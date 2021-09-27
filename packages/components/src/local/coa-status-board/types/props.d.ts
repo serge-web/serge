@@ -5,9 +5,8 @@ import {
   ForceData,
   TemplateBodysByKey
 } from '@serge/custom-types'
-import DataTableProps from '../../organisms/data-table/types/props'
 
-export interface Props {
+export default interface Props {
   currentWargame: string
   messages: MessageCustom[]
   channel: ChannelData
@@ -29,9 +28,4 @@ export interface Props {
   gameDate: string
   /** fires on change message status to readed **/
   onMessageRead?: (unreadedLeft: number) => void
-}
-
-export interface GenData {
-  dataTableProps: DataTableProps
-  unreadMessagesCount: number
 }

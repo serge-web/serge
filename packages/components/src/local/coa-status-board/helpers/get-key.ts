@@ -10,9 +10,11 @@ import { MessageCustom } from '@serge/custom-types'
  * @param isCollabEdit if this is a collab response channel
  * @param isObserver if this role is an observer, and should see all updates as new messages
  */
-export const getKeyCOA = (message: MessageCustom, canCollaborate: boolean, canReleaseMessages: boolean,
+const getKey = (message: MessageCustom, canCollaborate: boolean, canReleaseMessages: boolean,
   canUnClaimMessages: boolean, isFinalisedResponse: boolean, isCollabEdit: boolean, isObserver: boolean): string => {
   const useId = canCollaborate || canReleaseMessages || canUnClaimMessages || isObserver || isCollabEdit
   const res = useId ? message._id : message.message.Reference + (isFinalisedResponse ? '-finalised' : '')
   return res
 }
+
+export default getKey

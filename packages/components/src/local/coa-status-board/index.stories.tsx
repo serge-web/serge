@@ -22,7 +22,7 @@ import {
   messageDataCollaborativeEditing
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
-import { Props } from './types/props'
+import Props from './types/props'
 
 export default {
   title: 'local/CoaStatusBoard',

@@ -159,8 +159,22 @@ exports[`DataTable component: renders correctly 1`] = `
         onClick={[Function]}
         role={null}
       >
-        Wrong type
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_1
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          channel-BlueRFI
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -177,7 +191,12 @@ exports[`DataTable component: renders correctly 1`] = `
             </span>
           </div>
         </td>
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          RFI 1 from Blue
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -231,8 +250,22 @@ exports[`DataTable component: renders correctly 1`] = `
         onClick={[Function]}
         role={null}
       >
-        Wrong type
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_2
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          channel-BlueRFI
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -249,7 +282,12 @@ exports[`DataTable component: renders correctly 1`] = `
             </span>
           </div>
         </td>
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          RFI 2 from Blue
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -303,8 +341,22 @@ exports[`DataTable component: renders correctly 1`] = `
         onClick={[Function]}
         role={null}
       >
-        Wrong type
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_3
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          channel-BlueRFI
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -321,7 +373,12 @@ exports[`DataTable component: renders correctly 1`] = `
             </span>
           </div>
         </td>
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          RFI 3 from Blue
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -375,8 +432,22 @@ exports[`DataTable component: renders correctly 1`] = `
         onClick={[Function]}
         role={null}
       >
-        Wrong type
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_4
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Red RFI
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
@@ -393,7 +464,12 @@ exports[`DataTable component: renders correctly 1`] = `
             </span>
           </div>
         </td>
-        Wrong type
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          RFI 1 from RED
+        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
