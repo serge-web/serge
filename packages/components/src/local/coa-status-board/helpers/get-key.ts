@@ -16,4 +16,3 @@ export const getKeyCOA = (message: MessageCustom, canCollaborate: boolean, canRe
   const res = useId ? message._id : message.message.Reference + (isFinalisedResponse ? '-finalised' : '')
   return res
 }
-

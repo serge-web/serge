@@ -32,15 +32,15 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
               )
             }
             const msg: MessageCustom = props
-              return (
-                <Box mb={2} mr={2} key={key}>
-                  <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor}
-                    roleName={msg.details.from.roleName} role={msg.details.from.roleId} onRead={onRead} onUnread={onUnread} message={props} />
-                </Box>
-              )
-            }
+            return (
+              <Box mb={2} mr={2} key={key}>
+                <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor}
+                  roleName={msg.details.from.roleName} role={msg.details.from.roleId} onRead={onRead} onUnread={onUnread} message={props} />
+              </Box>
+            )
+          }
           )
-    })
+        })
       </Box>
     </div>
   )

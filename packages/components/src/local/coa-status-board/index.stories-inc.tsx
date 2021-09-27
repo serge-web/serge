@@ -22,7 +22,7 @@ import {
   messageDataCollaborativeEditing
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
-import {Props} from './types/props'
+import { Props } from './types/props'
 
 export default {
   title: 'local/CoaStatusBoard',
@@ -79,7 +79,7 @@ const Template: Story<Props> = (args) => {
     onChange={onChange}
     onMessageRead={handleReadMessage}
     currentWargame='wargame-test'
-     />
+  />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]
