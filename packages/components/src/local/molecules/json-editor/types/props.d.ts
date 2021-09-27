@@ -24,4 +24,6 @@ export default interface Props {
   expandHeight?: boolean
   /** current game time, used for initialising date-time controls */
   gameDate: string
+  /** disable/enable Array tools with form */
+  disableArrayToolsWithEditor?: boolean
 }
