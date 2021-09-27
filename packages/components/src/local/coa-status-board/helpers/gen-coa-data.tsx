@@ -1,22 +1,22 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole} from '@serge/custom-types'
+import { MessageCustom, ForceData, ForceRole } from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
-import { RowWithCollapsibleType } from '../../organisms/data-table/types/props'
+import { RowWithCollapsibleType, Column } from '../../organisms/data-table/types/props'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
 
 import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
-import { CollaborativeMessageStates,EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import { getKeyCOA } from './get-key'
-import { Column } from '../../organisms/data-table/types/props'
+
 import { capitalize } from 'lodash'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
-import { PropsCOA } from '../types/props'
+import { PropsCOA, GenData } from '../types/props'
 import getCoaPermissions from './get-coa-perrmisions'
-import { GenData } from '../types/props'
+
 import { genColumnDataCoa } from './gen-column-data'
 import { genCellsDataCoa } from './gen-cells.data'
 
@@ -34,7 +34,7 @@ export const genCOAData = (
   const { messages, forces, role, currentWargame, templates, isUmpire, channel, gameDate, onChange } = props
   const isObserver = isUmpire
   const { canCollaborate, canReleaseMessages, canUnClaimMessages } = getCoaPermissions(channel, role)
-   // whether this user should see metadata about the message being edited
+  // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
@@ -125,7 +125,7 @@ export const genCOAData = (
     // just the unique sources
     return [...new Set(roles)]
   }
-  
+
   const getListOfSources = (messages: MessageCustom[]): string[] => {
     return messages.reduce((filters: any[], message) => {
       if (!message.details.from) {
@@ -135,7 +135,7 @@ export const genCOAData = (
       return [...new Set([...filters, message.details.from.roleName])]
     }, [])
   }
-  
+
   const getListOfStatus = (messages: MessageCustom[]): string[] => {
     return messages.reduce((filters: any[], message) => {
       if (!message.details.collaboration) {
@@ -145,7 +145,7 @@ export const genCOAData = (
       return [...new Set([...filters, message.details.collaboration.status])]
     }, [])
   }
-  
+
   const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): string[] => {
     const values = messages.reduce((filters: any[], message) => {
       if (!message.message[columnName]) {
@@ -172,7 +172,6 @@ export const genCOAData = (
     return [...new Set(values)]
   }
 
-  
   // collate list of message owners
   const filtersOwners = getListOfOwners(messages)
 
@@ -185,7 +184,7 @@ export const genCOAData = (
   // collate list of extra column LOCATION for messages
   const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
 
-  const columnHeaders=genColumnDataCoa(filtersOwners,filtersRoles,filtersStatus)
+  const columnHeaders = genColumnDataCoa(filtersOwners, filtersRoles, filtersStatus)
 
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
     const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {
@@ -200,10 +199,12 @@ export const genCOAData = (
     columnHeaders.push(...newCols)
   }
 
-  return { dataTableProps: {
-    data,
-    sort: true,
-    columns: columnHeaders
-  }, unreadMessagesCount }
+  return {
+    dataTableProps: {
+      data,
+      sort: true,
+      columns: columnHeaders
+    },
+    unreadMessagesCount
+  }
 }
-

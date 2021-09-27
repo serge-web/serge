@@ -1,8 +1,8 @@
 import React from 'react'
-import { RfiStatusBoard } from '@serge/components'
 import { usePlayerUiState } from '../Store/PlayerUi'
 import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { ForceRole, MessageCustom } from '@serge/custom-types'
+import { CoaStatusBoard, TYPE_RFI } from '@serge/components'
 
 const RfiStatusBoardChannel = ({ onMessageRead }: { onMessageRead: (unreadCount: number) => void }) => {
 
@@ -25,7 +25,8 @@ const RfiStatusBoardChannel = ({ onMessageRead }: { onMessageRead: (unreadCount:
   }
 
   return (
-    <RfiStatusBoard
+    <CoaStatusBoard
+      type={TYPE_RFI}
       currentWargame={state.currentWargame}
       onMessageRead={onMessageRead}
       rfiMessages={state.rfiMessages}

@@ -1,12 +1,12 @@
 import { ChannelData, ForceRole } from '@serge/custom-types'
 
 export interface COAPermissions {
-  canCollaborate: boolean,
-  canReleaseMessages: boolean,
-  canUnClaimMessages: boolean,
+  canCollaborate: boolean
+  canReleaseMessages: boolean
+  canUnClaimMessages: boolean
 }
 
-export const getCoaPermissions = (channel: ChannelData, role: ForceRole) => {
+export const getCoaPermissions = (channel: ChannelData, role: ForceRole): COAPermissions => {
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)

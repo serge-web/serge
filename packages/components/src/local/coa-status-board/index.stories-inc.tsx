@@ -74,11 +74,11 @@ const Template: Story<PropsCOA> = (args) => {
     console.log('unread mesages left: ' + unreadCount)
   }
 
-  return <CoaStatusBoard 
-    {...args} 
-    forces={collabForces} 
-    messages={messages} 
-    onChange={onChange} 
+  return <CoaStatusBoard
+    {...args}
+    forces={collabForces}
+    messages={messages}
+    onChange={onChange}
     onMessageRead={handleReadMessage}
     currentWargame='wargame-test'
     type={TYPE_COA} />

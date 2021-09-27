@@ -1,11 +1,11 @@
 import { setMessageState } from '@serge/helpers'
-import { getKeyCOA,getKeyRFI } from './get-key'
-import Props, { PropsCOA, PropsRFI } from '../types/props'
+import { getKeyCOA, getKeyRFI } from './get-key'
+import { PropsCOA, PropsRFI, Props } from '../types/props'
 import { CollaborativeMessageStates } from '@serge/config'
 import { TYPE_COA } from '..'
 import { COAPermissions, getCoaPermissions } from './get-coa-perrmisions'
 
-const handleSetAllAsReadCOA = (props: PropsCOA, {canCollaborate, canReleaseMessages, canUnClaimMessages}: COAPermissions): void => {
+const handleSetAllAsReadCOA = (props: PropsCOA, { canCollaborate, canReleaseMessages, canUnClaimMessages }: COAPermissions): void => {
   for (const message of props.messages) {
     // flag for if we tell original sender of RFI that it has been responded to
     const collab = message.details.collaboration
@@ -25,8 +25,8 @@ const handleSetAllAsReadRFI = ({ rfiMessages, isRFIManager, currentWargame, role
   }
 }
 
-export const handleSetAllAsRead=(props:Props, handleUpdateUnreadCount:(nexCount?: number) => boolean): void => {
-  if(props.type===TYPE_COA) {
+export const handleSetAllAsRead = (props: Props, handleUpdateUnreadCount: (nexCount?: number) => boolean): void => {
+  if (props.type === TYPE_COA) {
     const permissions = getCoaPermissions(props.channel, props.role)
     handleSetAllAsReadCOA(props, permissions)
   } else {

@@ -20,4 +20,3 @@ export const getKeyCOA = (message: MessageCustom, canCollaborate: boolean, canRe
 export const getKeyRFI = (message: MessageCustom, isRfiManager: boolean): string => {
   return isRfiManager ? message._id + '-' + message.message.Reference : message._id
 }
-

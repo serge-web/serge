@@ -2,8 +2,7 @@ import { CollaborativeMessageStates } from '@serge/config'
 import { MessageCustom } from '@serge/custom-types'
 import { Column } from 'src/local/organisms/data-table/types/props'
 
-export const genColumnDataRfi=(channelDict: Map<string, string>, messages: MessageCustom[], roles:string[]) => {
-
+export const genColumnDataRfi = (channelDict: Map<string, string>, messages: MessageCustom[], roles: string[]): Column[] => {
   const filtersChannel = []
   const filtersRoles = []
 
@@ -12,7 +11,6 @@ export const genColumnDataRfi=(channelDict: Map<string, string>, messages: Messa
     if (typeof channelId === 'string') filtersChannel.push(channelId)
     filtersRoles.push(message.details.from.roleName)
   }
-
 
   const columnHeaders = [
     'ID',
@@ -39,29 +37,27 @@ export const genColumnDataRfi=(channelDict: Map<string, string>, messages: Messa
       filters: roles,
       label: 'Owner'
     }
-]
-return columnHeaders
+  ]
+  return columnHeaders
 }
 
-export const genColumnDataCoa=(filtersOwners: string[],filtersRoles:string[],filtersStatus:string[])=>{
-
-      
+export const genColumnDataCoa = (filtersOwners: string[], filtersRoles: string[], filtersStatus: string[]): Column[] => {
   const columnHeaders: Column[] = [
-      'ID',
-      {
-        filters: filtersRoles,
-        label: 'From'
-      },
-      'Title',
-      {
-        filters: filtersStatus,
-        label: 'Status'
-      },
-      {
-        filters: filtersOwners,
-        label: 'Owner'
-      },
-      'Updated'
-    ]
-    return columnHeaders
+    'ID',
+    {
+      filters: filtersRoles,
+      label: 'From'
+    },
+    'Title',
+    {
+      filters: filtersStatus,
+      label: 'Status'
+    },
+    {
+      filters: filtersOwners,
+      label: 'Owner'
+    },
+    'Updated'
+  ]
+  return columnHeaders
 }

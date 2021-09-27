@@ -1,4 +1,4 @@
-import { CollaborativeMessageStates } from "@serge/config";
+import { CollaborativeMessageStates } from '@serge/config'
 
 interface StatusColors {
   [property: string]: string

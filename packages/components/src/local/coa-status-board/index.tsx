@@ -5,7 +5,7 @@ import { genRFIData } from './helpers/gen-rfi-data'
 import { genCOAData } from './helpers/gen-coa-data'
 
 /* Import Types */
-import Props from './types/props'
+import { Props } from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -23,7 +23,6 @@ export const TYPE_RFI = 'RFIStatusBoard'
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = (props: Props) => {
-
   const { onMessageRead } = props
 
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
@@ -40,12 +39,9 @@ export const CoaStatusBoard: React.FC<Props> = (props: Props) => {
     return shouldBeUpdated
   }
 
-  const { dataTableProps, unreadMessagesCount } = props.type === TYPE_COA ?
-    genCOAData(props, handleUpdateUnreadCount) :
-    genRFIData(props, handleUpdateUnreadCount)
-
-  console.log(dataTableProps, 'dataTableProps');
-  
+  const { dataTableProps, unreadMessagesCount } = props.type === TYPE_COA
+    ? genCOAData(props, handleUpdateUnreadCount)
+    : genRFIData(props, handleUpdateUnreadCount)
 
   if (handleUpdateUnreadCount(unreadMessagesCount)) {
     return <></>

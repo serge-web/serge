@@ -11,7 +11,7 @@ import ChannelData from '@serge/custom-types/channel-ui'
 import getColumns from './get-columns'
 import moment from 'moment'
 
-const generateId = (isReaded:boolean,message:MessageCustom): RowDataType => {
+const generateId = (isReaded: boolean, message: MessageCustom): RowDataType => {
   return {
     type: ROW_DATA_TYPE,
     rowkey: 'id',
@@ -20,7 +20,7 @@ const generateId = (isReaded:boolean,message:MessageCustom): RowDataType => {
   }
 }
 
-const genRoleStatusTitleCells = (message:MessageCustom, status:string): RowDataType[] => {
+const genRoleStatusTitleCells = (message: MessageCustom, status: string): RowDataType[] => {
   return [
     {
       type: ROW_DATA_TYPE,
@@ -32,7 +32,7 @@ const genRoleStatusTitleCells = (message:MessageCustom, status:string): RowDataT
       label: message.message.Title,
       component: null,
       type: ROW_DATA_TYPE,
-      rowkey: 'message-title',
+      rowkey: 'message-title'
     },
     {
       type: ROW_DATA_TYPE,
@@ -48,7 +48,7 @@ export const genCellsDataRfi = (
   message: MessageCustom,
   channelDict: Map<string, string>,
   status: string,
-  owner: string = '',
+  owner = ''
 ): RowDataType[] => {
   return [
     generateId(isReaded, message),
@@ -62,7 +62,7 @@ export const genCellsDataRfi = (
     {
       type: ROW_DATA_TYPE,
       rowkey: 'owner',
-      component: <Badge customBackgroundColor="#434343" label={owner ? owner : '= Unallocated ='} />,
+      component: <Badge customBackgroundColor="#434343" label={owner || '= Unallocated ='} />,
       label: owner || ''
     }
   ]
@@ -72,13 +72,13 @@ export const genCellsDataCoa = (
   channel: ChannelData,
   isReaded: boolean,
   message: MessageCustom,
-  ownerComposite: string = '',
+  ownerComposite = '',
   ownerColor: string,
   myDocument: boolean,
   isCollaborating: boolean,
   lastUpdated: string,
-  status: CollaborativeMessageStates | "Unallocated"
-) => {
+  status: CollaborativeMessageStates | 'Unallocated'
+): RowDataType[] => {
   const cells: RowDataType[] = [
     generateId(isReaded, message),
     ...genRoleStatusTitleCells(message, status),
@@ -98,7 +98,7 @@ export const genCellsDataCoa = (
 
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
     const extraCols = getColumns(message, channel.collabOptions.extraColumns)
-    
+
     const cols: string[][] = extraCols
     const newCols: RowDataType[] = cols.map((entries: string[], index: number) => {
       const res = entries.map((entry: string) => {

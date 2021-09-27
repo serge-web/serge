@@ -10,7 +10,7 @@ import DataTableProps from '../../organisms/data-table/types/props'
 import { TYPE_COA, TYPE_RFI } from '..'
 
 export interface PropsRFI {
-  type: typeof TYPE_RFI,
+  type: typeof TYPE_RFI
   rfiMessages: MessageCustom[]
   roles: string[]
   channels: Array<ChannelData>
@@ -28,7 +28,7 @@ export interface PropsRFI {
 }
 
 export interface PropsCOA {
-  type: typeof TYPE_COA,
+  type: typeof TYPE_COA
   currentWargame: string
   messages: MessageCustom[]
   channel: ChannelData
@@ -52,9 +52,7 @@ export interface PropsCOA {
   onMessageRead?: (unreadedLeft: number) => void
 }
 
-type Props = PropsCOA | PropsRFI
-
-export default Props
+export type Props = PropsCOA | PropsRFI
 
 export interface GenData {
   dataTableProps: DataTableProps

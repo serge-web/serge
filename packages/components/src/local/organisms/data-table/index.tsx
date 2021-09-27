@@ -234,7 +234,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                       {
                         tableCells.map((cell: RowDataType, index: number) => {
                           if (typeof cell !== 'object') {
-                            console.log(cell);
+                            console.log(cell)
                             return 'Wrong type'
                           }
                           const { label, component } = cell
