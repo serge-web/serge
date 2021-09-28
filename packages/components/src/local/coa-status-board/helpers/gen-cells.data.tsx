@@ -11,17 +11,24 @@ import ChannelData from '@serge/custom-types/channel-ui'
 import getColumns from './get-columns'
 import moment from 'moment'
 
-const generateId = (isReaded: boolean, message: MessageCustom): RowDataType => {
-  return {
-    type: ROW_DATA_TYPE,
-    rowkey: 'id',
-    component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp; {message.message.Reference || message._id}</>,
-    label: message.message.Reference || message._id
-  }
-}
-
-const genRoleStatusTitleCells = (message: MessageCustom, status: string): RowDataType[] => {
-  return [
+export const genCellsDataCoa = (
+  channel: ChannelData,
+  isReaded: boolean,
+  message: MessageCustom,
+  ownerComposite = '',
+  ownerColor: string,
+  myDocument: boolean,
+  isCollaborating: boolean,
+  lastUpdated: string,
+  status: CollaborativeMessageStates | 'Unallocated'
+): RowDataType[] => {
+  const cells: RowDataType[] = [
+    {
+      type: ROW_DATA_TYPE,
+      rowkey: 'id',
+      component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp; {message.message.Reference || message._id}</>,
+      label: message.message.Reference || message._id
+    },
     {
       type: ROW_DATA_TYPE,
       rowkey: 'from-roleName',
@@ -39,24 +46,7 @@ const genRoleStatusTitleCells = (message: MessageCustom, status: string): RowDat
       rowkey: 'status',
       component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status} />,
       label: status
-    }
-  ]
-}
-
-export const genCellsDataCoa = (
-  channel: ChannelData,
-  isReaded: boolean,
-  message: MessageCustom,
-  ownerComposite = '',
-  ownerColor: string,
-  myDocument: boolean,
-  isCollaborating: boolean,
-  lastUpdated: string,
-  status: CollaborativeMessageStates | 'Unallocated'
-): RowDataType[] => {
-  const cells: RowDataType[] = [
-    generateId(isReaded, message),
-    ...genRoleStatusTitleCells(message, status),
+    },
     {
       type: ROW_DATA_TYPE,
       rowkey: 'channel',
