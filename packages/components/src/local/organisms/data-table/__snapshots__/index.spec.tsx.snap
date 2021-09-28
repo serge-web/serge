@@ -195,7 +195,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          #00F
+          RFI 1 from Blue
         </td>
         <td
           aria-sort={null}
@@ -288,7 +288,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          #00F
+          RFI 2 from Blue
         </td>
         <td
           aria-sort={null}
@@ -381,7 +381,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          #00F
+          RFI 3 from Blue
         </td>
         <td
           aria-sort={null}
@@ -474,7 +474,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          #F00
+          RFI 1 from RED
         </td>
         <td
           aria-sort={null}
