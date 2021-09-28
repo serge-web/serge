@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { DataTable } from '../organisms/data-table'
 import { Button } from '@material-ui/core'
-import { genCOAData } from './helpers/gen-coa-data'
+import { genCOAData } from './helpers/gen-data'
 
 /* Import Types */
 import { Props } from './types/props'
