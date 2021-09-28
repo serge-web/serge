@@ -144,7 +144,7 @@ export const genData = (
       const cols: string[][] = extraCols
       const newCols = cols.map((entries: string[]) => {
         return entries.map((entry: string) => {
-          // todo: try to return a `Badge` like above for each country
+          // todo: try to return a `Badge` like above for each country   
           return entry + ' '
         })
       })
