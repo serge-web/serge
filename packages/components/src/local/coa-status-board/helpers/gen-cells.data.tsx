@@ -23,7 +23,6 @@ export const genCellsDataCoa = (
   status: CollaborativeMessageStates | 'Unallocated'
 
 ): RowDataType[] => {
-  console.log(message)
   const cells: RowDataType[] = [
     {
       type: ROW_DATA_TYPE,
