@@ -275,12 +275,7 @@ Array [
              
             2020-03-25T15:08:47.525Z
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Channel 16
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -297,10 +292,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -377,12 +369,7 @@ Array [
              
             2020-03-25T15:08:47.530Z
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Channel 16
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -399,10 +386,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -479,12 +463,7 @@ Array [
              
             2020-03-25T15:08:47.540Z
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Channel 16
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -501,10 +480,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -581,12 +557,7 @@ Array [
              
             Blue-1
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Blue RFI
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -603,12 +574,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from Blue
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -685,12 +651,7 @@ Array [
              
             Blue-2
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Blue RFI
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -707,12 +668,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 2 from Blue
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -789,12 +745,7 @@ Array [
              
             Blue-2
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Blue RFI
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -811,12 +762,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 2 from Blue
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -891,12 +837,7 @@ Array [
              
             Blue-3
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Blue RFI
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -913,12 +854,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 3 from Blue
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -995,12 +931,7 @@ Array [
              
             Blue-3
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Blue RFI
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1017,12 +948,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 3 from Blue
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1097,12 +1023,7 @@ Array [
              
             Blue-3
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Blue RFI
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1119,12 +1040,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 3 from Blue
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1201,10 +1117,7 @@ Array [
              
             RED-1
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1221,12 +1134,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from RED
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1303,10 +1211,7 @@ Array [
              
             RED-1
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1323,12 +1228,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from RED
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1403,10 +1303,7 @@ Array [
              
             RED-1
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1423,12 +1320,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from RED
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1505,10 +1397,7 @@ Array [
              
             RED-1
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -1525,12 +1414,7 @@ Array [
               </span>
             </div>
           </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from RED
-          </td>
+          Wrong type
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"

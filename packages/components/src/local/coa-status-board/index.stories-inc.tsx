@@ -6,7 +6,7 @@ import CoaStatusBoard from './index'
 import docs from './README.md'
 
 import { MessageCustom } from '@serge/custom-types'
-import Props from './types/props'
+import { Props } from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
   channelCollaborativeEditing,

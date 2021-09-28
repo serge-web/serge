@@ -11,7 +11,6 @@ import TableHeadCell from '../../atoms/table-head-cell'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import cx from 'classnames'
-import moment from 'moment'
 
 /* Import Types */
 import Props, { RowDataType, RowType, RowWithCollapsibleType } from './types/props'
@@ -234,6 +233,11 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                     >
                       {
                         tableCells.map((cell: RowDataType, index: number) => {
+                          if (typeof cell !== 'object') {
+                            console.log(cell)
+                            return 'Wrong type'
+                          }
+                          const { label, component } = cell
                           return (
                             <TableCell key={`cell=${index}`}>
                               {index === 0 &&
@@ -241,11 +245,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                                   {!noExpand && <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} />}&nbsp;
                                 </>
                               }
-                              {
-                                typeof cell !== 'string' && cell?.component !== undefined
-                                  ? cell.component
-                                  : columns[index] === 'Updated' ? moment(`${cell}`).fromNow() : cell
-                              }
+                              { component || label }
                             </TableCell>
                           )
                         })
