@@ -20,8 +20,8 @@ export const genCellsDataCoa = (
   myDocument: boolean,
   isCollaborating: boolean,
   lastUpdated: string,
-  status: CollaborativeMessageStates | 'Unallocated',
-  
+  status: CollaborativeMessageStates | 'Unallocated'
+
 ): RowDataType[] => {
   console.log(message)
   const cells: RowDataType[] = [
@@ -52,7 +52,7 @@ export const genCellsDataCoa = (
     {
       type: ROW_DATA_TYPE,
       rowkey: 'channel',
-      component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating &&  message.details.collaboration?.owner?.roleName} /> : null,
+      component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && message.details.collaboration?.owner?.roleName} /> : null,
       label: ''
     },
     {
