@@ -242,7 +242,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -334,7 +336,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -426,7 +430,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"

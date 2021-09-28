@@ -46,34 +46,34 @@ const data: RowWithCollapsibleType[] = newest.map((message, rowIndex) => {
         rowkey: 'id',
         type: ROW_DATA_TYPE,
         component: null,
-        label: messageItem._id
+        label: `${messageItem._id}`
       },
       {
         rowkey: 'channel',
         type: ROW_DATA_TYPE,
         component: null,
-        label: messageItem.details.channel
+        label: `${messageItem.details.channel}`
       },
       {
         rowkey: 'roleName',
         type: ROW_DATA_TYPE,
         component: <Badge customBackgroundColor={messageItem.details.from.forceColor} label={messageItem.details.from.roleName}/>,
-        label: messageItem.details.from.roleName
+        label: `${messageItem.details.from.roleName}`
       },
       {
         rowkey: 'Title',
         type: ROW_DATA_TYPE,
         component: null,
-        label: messageItem.message.Title
+        label: `${messageItem.message.Title}`
       },
       {
-        rowkey: 'status',
+        rowkey: 'Status',
         type: ROW_DATA_TYPE,
         component: <Badge customBackgroundColor={messageItem.details.collaboration?.status ? statusColors[messageItem.details.collaboration?.status] : '#434343'} customSize="large" label={messageItem.details.collaboration?.status}/>,
         label: `${messageItem.details.collaboration?.status}`
       },
       {
-        rowkey: 'owner',
+        rowkey: 'Owner',
         type: ROW_DATA_TYPE,
         component: messageItem.details.collaboration?.owner ? <Badge customBackgroundColor="#434343" label={messageItem.details.collaboration?.owner}/> : null,
         label: `${messageItem.details.collaboration?.owner}`

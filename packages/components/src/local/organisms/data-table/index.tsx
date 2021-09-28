@@ -237,7 +237,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                             console.log(cell)
                             return 'Wrong type'
                           }
-                          const { label, component } = cell
+                          const { label = '', component } = cell
                           return (
                             <TableCell key={`cell=${index}`}>
                               {index === 0 &&
