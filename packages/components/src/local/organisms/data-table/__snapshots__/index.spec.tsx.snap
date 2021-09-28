@@ -167,13 +167,13 @@ exports[`DataTable component: renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          id_1
+          id_1message
         </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          channel-BlueRFI
+          channel-BlueRFIchannel
         </td>
         <td
           aria-sort={null}
@@ -195,7 +195,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          RFI 1 from Blue
+          RFI 1 from Bluetitle
         </td>
         <td
           aria-sort={null}
@@ -217,7 +217,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          undefinedowner
         </td>
       </tr>
       <tr
@@ -260,13 +260,13 @@ exports[`DataTable component: renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          id_2
+          id_2message
         </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          channel-BlueRFI
+          channel-BlueRFIchannel
         </td>
         <td
           aria-sort={null}
@@ -288,7 +288,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          RFI 2 from Blue
+          RFI 2 from Bluetitle
         </td>
         <td
           aria-sort={null}
@@ -310,7 +310,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          undefinedowner
         </td>
       </tr>
       <tr
@@ -353,13 +353,13 @@ exports[`DataTable component: renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          id_3
+          id_3message
         </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          channel-BlueRFI
+          channel-BlueRFIchannel
         </td>
         <td
           aria-sort={null}
@@ -381,7 +381,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          RFI 3 from Blue
+          RFI 3 from Bluetitle
         </td>
         <td
           aria-sort={null}
@@ -403,7 +403,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          undefinedowner
         </td>
       </tr>
       <tr
@@ -446,13 +446,13 @@ exports[`DataTable component: renders correctly 1`] = `
             className="svg-inline--fa fa-plus"
           />
            
-          id_4
+          id_4message
         </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          Red RFI
+          Red RFIchannel
         </td>
         <td
           aria-sort={null}
@@ -474,7 +474,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          RFI 1 from RED
+          RFI 1 from REDtitle
         </td>
         <td
           aria-sort={null}
@@ -496,7 +496,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          undefinedowner
         </td>
       </tr>
       <tr

@@ -46,25 +46,25 @@ const data: RowWithCollapsibleType[] = newest.map((message, rowIndex) => {
         rowkey: 'id',
         type: ROW_DATA_TYPE,
         component: null,
-        label: `${messageItem._id}`
+        label: messageItem._id
       },
       {
         rowkey: 'channel',
         type: ROW_DATA_TYPE,
         component: null,
-        label: `${messageItem.details.channel}`
+        label: messageItem.details.channel
       },
       {
         rowkey: 'roleName',
         type: ROW_DATA_TYPE,
         component: <Badge customBackgroundColor={messageItem.details.from.forceColor} label={messageItem.details.from.roleName}/>,
-        label: `${messageItem.details.from.roleName}`
+        label: messageItem.details.from.roleName
       },
       {
         rowkey: 'Title',
         type: ROW_DATA_TYPE,
         component: null,
-        label: `${messageItem.message.Title}`
+        label: messageItem.message.Title
       },
       {
         rowkey: 'Status',
