@@ -108,7 +108,7 @@
 .out-of-game-feed {
   background: #fff;
   color: #000;
-  max-width: 340px;
+  max-width: calc(340px * 0.75); // reduce game admin width to 25%
 
   .flexlayout__layout {
     display: flex;
