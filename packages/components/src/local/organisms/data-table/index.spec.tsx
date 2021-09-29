@@ -75,8 +75,8 @@ const data: RowWithCollapsibleType[] = newest.map((message, rowIndex) => {
       {
         rowkey: 'Owner',
         type: ROW_DATA_TYPE,
-        component: messageItem.details.collaboration?.owner ? <Badge customBackgroundColor="#434343" label={messageItem.details.collaboration?.owner}/> : null,
-        label: `${messageItem.details.collaboration?.owner}`
+        component: messageItem.details.collaboration?.owner ? <Badge customBackgroundColor="#434343" label={messageItem.details.collaboration?.owner.roleName} /> : null,
+        label: ''
       }
     ]
   }

@@ -98,6 +98,8 @@ const data: RowWithCollapsibleType[] = newest.map((message, rowIndex) => {
       messageItem.details.collaboration?.owner
   ]
 
+  console.log(message)
+
   rfiData.push(row)
 
   const statusColors = {
@@ -146,8 +148,8 @@ const data: RowWithCollapsibleType[] = newest.map((message, rowIndex) => {
       {
         rowkey: 'owner',
         type: ROW_DATA_TYPE,
-        component: messageItem.details.collaboration?.owner ? <Badge customBackgroundColor="#434343" label={messageItem.details.collaboration?.owner}/> : null,
-        label: `${messageItem.details.collaboration?.owner}`
+        component: messageItem.details.collaboration?.owner ? <Badge customBackgroundColor="#434343" label={messageItem.details.collaboration?.owner.roleName} /> : null,
+        label: ''
       }
     ]
   }

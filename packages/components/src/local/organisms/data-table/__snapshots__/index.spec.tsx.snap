@@ -217,7 +217,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          
         </td>
       </tr>
       <tr
@@ -310,7 +310,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          
         </td>
       </tr>
       <tr
@@ -403,7 +403,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          
         </td>
       </tr>
       <tr
@@ -496,7 +496,7 @@ exports[`DataTable component: renders correctly 1`] = `
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body"
         >
-          undefined
+          
         </td>
       </tr>
       <tr
