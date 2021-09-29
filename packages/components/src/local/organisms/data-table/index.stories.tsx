@@ -98,8 +98,6 @@ const data: RowWithCollapsibleType[] = newest.map((message, rowIndex) => {
       messageItem.details.collaboration?.owner
   ]
 
-  console.log(message)
-
   rfiData.push(row)
 
   const statusColors = {
