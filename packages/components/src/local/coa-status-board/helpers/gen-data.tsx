@@ -133,7 +133,7 @@ export const genData = (
       },
       {
         component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && ownerComposite} /> : null,
-        label: ''
+        label: ownerComposite
       },
       lastUpdated
     ]
