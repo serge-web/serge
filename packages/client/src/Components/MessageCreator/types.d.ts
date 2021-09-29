@@ -3,6 +3,6 @@ interface Props {
   curChannel: string,
   privateMessage: string
   onMessageSend?: (e: any) => void
-  onCancel?: () => void
+  onCancel?: (e: any) => void
 }
 export default Props
