@@ -8,4 +8,8 @@ export default interface Props {
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
   isRFIManager: boolean
+  /** trigger on collapse */
+  onRead?: () => void
+  /** if message status readed */
+  isReaded?: boolean
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 /* Import Types */
 import Props from './types/props'
 
@@ -25,11 +25,15 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelRFIMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelRFIMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager, onRead, isReaded = false }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
+
+  useEffect(() => {
+    if (onRead && isReaded === false) onRead()
+  }, [])
 
   const handleSendForReview = (): void => {
     onChange && onChange(sendForReview(message, role, privateMessage, answer))
