@@ -15,7 +15,7 @@ export const genCellsDataCoa = (
   channel: ChannelData,
   isReaded: boolean,
   message: MessageCustom,
-  ownerComposite = '',
+  ownerComposite='',
   ownerColor: string,
   myDocument: boolean,
   isCollaborating: boolean,
@@ -23,6 +23,7 @@ export const genCellsDataCoa = (
   status: CollaborativeMessageStates | 'Unallocated'
 
 ): RowDataType[] => {
+  
   const cells: RowDataType[] = [
     {
       type: ROW_DATA_TYPE,
@@ -52,7 +53,7 @@ export const genCellsDataCoa = (
       type: ROW_DATA_TYPE,
       rowkey: 'channel',
       component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && message.details.collaboration?.owner?.roleName} /> : null,
-      label: ''
+      label: ownerComposite
     },
     {
       type: ROW_DATA_TYPE,

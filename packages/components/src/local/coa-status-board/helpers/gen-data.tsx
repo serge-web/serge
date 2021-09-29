@@ -113,7 +113,7 @@ export const genCOAData = (
   const getListOfOwners = (messages: MessageCustom[]): string[] => {
     const roles = messages.reduce((filters: string[], message) => {
       const collab = message.details.collaboration
-      if (collab && collab.owner) {
+      if (collab && collab.owner?.roleName) {
         return [
           ...filters,
           formatRole(collab.owner)
