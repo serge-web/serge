@@ -5,6 +5,12 @@
   border-radius: $radius;
 }
 
+.ReactModal__Overlay {
+  &--after-open {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
 .serge-logo {
   display: block;
   height: auto;
