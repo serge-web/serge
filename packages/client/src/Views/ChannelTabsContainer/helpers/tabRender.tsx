@@ -3,7 +3,7 @@ import { PlayerUi } from '@serge/custom-types'
 import _ from 'lodash'
 import findChannelByName from './findChannelByName'
 
-const tabRender = (state: PlayerUi): (node: TabNode) => void => {
+const tabRender = (state: PlayerUi, unreadStore: {[property: string]: number}): (node: TabNode) => void => {
   return (node: TabNode): void => {
     setTimeout(() => {
       const tabLayout = document.getElementsByClassName('flexlayout__layout')[0]
@@ -94,9 +94,13 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined
 
       if (channel !== undefined) {
-        const className = !channel.unreadMessageCount ?
-          '' : channel.unreadMessageCount < 9 ?
-            `unread-${channel.unreadMessageCount}` : 'unread-9plus'
+        const unreadMessageCount: number | undefined = typeof unreadStore[channel.uniqid] === 'undefined' ? channel.unreadMessageCount : unreadStore[channel.uniqid]
+        let className: string = ''
+        
+        if (typeof unreadMessageCount === 'number' && unreadMessageCount > 0) {
+          className = unreadMessageCount < 9 ? `unread-${unreadMessageCount}` : 'unread-9plus'
+        }
+
         setTimeout(() => {
           setUnreadClassName(className)
           addMenuItemMsgCount(className)

@@ -48,7 +48,7 @@ const roles = [
 ]
 
 const Template: Story<Props> = (args) => {
-  return <RfiStatusBoard {...args} />
+  return <RfiStatusBoard {...args} currentWargame='wargame-test' />
 }
 
 // filter to only show the most recent versions of messages

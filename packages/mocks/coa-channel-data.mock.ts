@@ -1,5 +1,5 @@
 import { ChannelData, ForceData, ForceRole } from '@serge/custom-types'
-import { SpecialChannelTypes } from '@serge/config'
+import { SpecialChannelColumns, SpecialChannelTypes } from '@serge/config'
 import { forces } from '.'
 import { cloneDeep } from 'lodash'
  
@@ -13,7 +13,7 @@ export const blueReleaseManager: ForceRole = { forceId: 'Blue', forceName: 'Blue
 
 export const channelCollaborativeEditing: ChannelData = {
   collabOptions: {
-    extraColumns: [],
+    extraColumns: [SpecialChannelColumns.LOCATION],
     mode: 'edit',
     returnVerbs: ['Endorse', 'Request Changes'],
     startWithReview: true
