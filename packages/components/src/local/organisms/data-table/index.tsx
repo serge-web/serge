@@ -19,7 +19,10 @@ import { EMPTY_CELL } from '@serge/config'
 
 export const ROW_DATA_TYPE = 'RowDataType'
 export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'
-
+export type TableCell = {
+  component: any
+  label: string
+}
 /* Render component */
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -74,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer'
   }
 }))
+
 export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = false }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
@@ -167,18 +171,30 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     }
   }
 
-  const matches = (src: string[], dest: string | string[]): boolean => {
+  const matches = (src: string[], dest: string | string[] | TableCell): boolean => {
     if (Array.isArray(dest)) {
       const destStr = dest.map(item => item.trim()).join(' ') || EMPTY_CELL
       return src.some(item => destStr.includes(item))
+    } else if (typeof dest === 'string') {
+      return src.includes(dest)
     }
-    return src.includes(dest)
+    return !dest.component && !dest.label && src.includes(EMPTY_CELL)
+  }
+
+  const updateFilter = (oldFilter: string[], currentFilter: string[]): string[] => {
+    return oldFilter.reduce((result: string[], filter: string) => {
+      if (currentFilter.includes(filter)) {
+        result.push(filter)
+      }
+      return result
+    }, [])
   }
 
   useMemo(() => {
     let localData = [...data]
     Object.keys(filtersGroup).forEach((id: string) => {
-      const filter = filtersGroup[id]
+      /** the column filters list has changed but the current filtersGroup still keep the invalid value, should update this */
+      const filter = updateFilter(filtersGroup[id] as string[], columns[id].filters)
       localData = localData.filter(row => {
         const localDataFilter = (filter as Array<string>)
         const value = row[id]?.label ||
@@ -189,7 +205,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
       })
     })
     setTableRow(sortFn(localData, sortingColId))
-  }, [data, filtersGroup])
+  }, [data, filtersGroup, columns])
 
   return (
     <TableContainer>
