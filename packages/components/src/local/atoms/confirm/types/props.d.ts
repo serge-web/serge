@@ -1,6 +1,6 @@
 export type Props = {
   isOpen: boolean
   message: string
-  onConfirm: () => void
+  onConfirm: (e: any) => void
   onCancel: () => void
 }

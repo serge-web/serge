@@ -17,13 +17,13 @@ import flatpickr from 'flatpickr'
 import _ from 'lodash'
 flatpickr(".calendar")
 
-const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, onMessageSend, onCancel }) => {
+const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, onMessageSend, onCancel, confirmCancel }) => {
 
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
-  const [isOpen, setOpen] = useState<boolean>(false)
+  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const state = usePlayerUiState()
   const { selectedForce, gameDate } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
@@ -72,16 +72,20 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     onMessageSend && onMessageSend(e)
   }
 
-  const openConfirmPopup = (): void => {
-    setOpen(true)
+  const openConfirmPopup = (e: any): void => {
+    if(confirmCancel) {
+      setConfirmIsOpen(true)
+    } else {
+      onCancel && onCancel(e)
+    }
   }
 
   const onPopupCancel = (): void => {
-    setOpen(false)
+    setConfirmIsOpen(false)
   }
 
   const onPopupConfirm = (e: any): void => {
-    setOpen(false)
+    setConfirmIsOpen(false)
     onCancel && onCancel(e)
   }
 
@@ -183,7 +187,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
   return (
     <>
       <Confirm
-        isOpen={isOpen}
+        isOpen={confirmIsOpen}
         message="Are you sure you wish to cancel this message?"
         onCancel={onPopupCancel}
         onConfirm={onPopupConfirm}
