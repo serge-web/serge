@@ -25,14 +25,10 @@ export interface ForceColor {
 const getListOfOwners = (messages: MessageCustom[]): string[] => {
   const roles = messages.reduce((filters: string[], message) => {
     const collab = message.details.collaboration
-    if (collab && collab.owner) {
-      return [
-        ...filters,
-        formatRole(collab.owner)
-      ]
-    } else {
-      return filters
-    }
+    return [
+      ...filters,
+      collab && collab.owner ? formatRole(collab.owner) : EMPTY_CELL // allow filter by empty value
+    ]
   }, [])
   // just the unique sources
   return [...new Set(roles)]
