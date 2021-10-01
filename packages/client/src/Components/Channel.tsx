@@ -23,9 +23,11 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
   const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
+  const channel = state.channels[channelId]
+
   useEffect(() => {
-    const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
-    if (state.channels[channelId].messages!.length === 0) {
+    const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')
+    if (channel.messages!.length === 0) {
       getAllWargameMessages(state.currentWargame)(dispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
@@ -46,18 +48,22 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
   }
 
-  const icons = state.channels[channelId].forceIcons
-  const colors = state.channels[channelId].forceColors
-  const channelFormat = state.channels[channelId].format
-  const channelMessages = state.channels[channelId].messages
+  const icons = channel.forceIcons
+  const colors = channel.forceColors
+  const channelFormat = channel.format
+  const channelMessages = channel.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
   const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
 
-  const templates = state.channels[channelId].templates || []
+  const templates = channel.templates || []
   // if this is a collab working channel, strip out any chat templates - since we only use structured messages
   // in collab working channels
   const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
-  const observing = !!state.channels[channelId].observing
+  const observing = !!channel.observing
+
+  // determine if this is a collaborative editing channel, since we require the user
+  // to confirm cancelling a new message
+  const isCollabEdit = isCollabWorking && channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT)
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
@@ -102,6 +108,7 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
+          confirmCancel={isCollabEdit}
           privateMessage={!!selectedForce.umpire}
           templates={trimmedTemplates}
         />
