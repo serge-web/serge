@@ -85,6 +85,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
   const [showArchive, setShowArchive] = useState<boolean>(false)
   const [filteredMsg, setFilteredMsg] = useState<MessageCustom[]>(messages)
+
+  if (messages.length !== filteredMsg.length) {
+    setFilteredMsg(messages)
+  }
   const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
