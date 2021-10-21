@@ -5,6 +5,21 @@
   padding: 10px;
 }
 
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.checkbox {
+  margin-left: 0 !important;
+  margin-bottom: 0.2rem !important;
+
+  span {
+    color: #3ef1ea;
+  }
+}
+
 .btn {
   span {
     width: 100%;

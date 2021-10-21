@@ -4,7 +4,7 @@ import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import { Column } from '../organisms/data-table/types/props'
 import { capitalize } from 'lodash'
-import { Button } from '@material-ui/core'
+import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
 import { formatRole, genData } from './helpers/gen-data'
 import getKey from './helpers/get-key'
 import { setMessageState } from '@serge/helpers'
@@ -83,6 +83,8 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
+  const [showArchive, setShowArchive] = useState<boolean>(false)
+  const [filteredMsg, setFilteredMsg] = useState<MessageCustom[]>(messages)
   const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
@@ -94,16 +96,16 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
   // collate list of message owners
-  const filtersOwners = getListOfOwners(messages)
+  const filtersOwners = getListOfOwners(filteredMsg)
 
   // collate list of sources (From) for messages
-  const filtersRoles = getListOfSources(messages)
+  const filtersRoles = getListOfSources(filteredMsg)
 
   // collate list of sources (Status) for messages
-  const filtersStatus = getListOfStatus(messages)
+  const filtersStatus = getListOfStatus(filteredMsg)
 
   // collate list of extra column LOCATION for messages
-  const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
+  const filtersLocations = getListOfExtraColumn(filteredMsg, 'LOCATION')
 
   const handleUpdateUnreadCount = (nexCount?: number): boolean => {
     const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
@@ -117,7 +119,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const { data, unreadMessagesCount } = genData(
-    messages,
+    filteredMsg,
     forces,
     role,
     currentWargame,
@@ -184,9 +186,35 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     handleUpdateUnreadCount(0)
   }
 
+  const handleArchive = (): void => {
+    if (!showArchive) {
+      const filterdMsg = filteredMsg.filter(msg => msg.details.archive)
+      setFilteredMsg(filterdMsg)
+    } else {
+      setFilteredMsg(messages)
+    }
+    setShowArchive(!showArchive)
+  }
+
   return (
     <>
-      <div className={styles.btn}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
+      <div className={styles.actions}>
+        <div className={styles.btn}>
+          <span>
+            <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
+          </span>
+        </div>
+        <FormControlLabel
+          className={styles.checkbox}
+          label="Display archive"
+          control={
+            <Checkbox
+              onChange={handleArchive}
+              checked={showArchive}
+            />
+          }
+        />
+      </div>
       <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
     </>
   )

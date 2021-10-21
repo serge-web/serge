@@ -3,14 +3,45 @@
 exports[`CoaStatusBoard renders correctly 1`] = `
 Array [
   <div
-    className="btn"
+    className="actions"
   >
-    <span>
-      <button
-        className="MuiButtonBase-root MuiButton-root MuiButton-text"
-        disabled={false}
+    <div
+      className="btn"
+    >
+      <span>
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-text"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Mark All As Read
+          </span>
+        </button>
+      </span>
+    </div>
+    <label
+      className="MuiFormControlLabel-root checkbox"
+    >
+      <span
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
-        onClick={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -21,26 +52,46 @@ Array [
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
+        tabIndex={null}
       >
         <span
-          className="MuiButton-label"
+          className="MuiIconButton-label"
         >
-          Mark All As Read
+          <input
+            checked={false}
+            className="PrivateSwitchBase-input-4"
+            data-indeterminate={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+            />
+          </svg>
         </span>
-      </button>
-    </span>
+      </span>
+      <span
+        className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+      >
+        Display archive
+      </span>
+    </label>
   </div>,
   <div
     className="MuiTableContainer-root"
   >
     <table
-      className="MuiTable-root makeStyles-table-1"
+      className="MuiTable-root makeStyles-table-5"
       role={null}
     >
       <thead
-        className="MuiTableHead-root makeStyles-tableHead-2"
+        className="MuiTableHead-root makeStyles-tableHead-6"
         role={null}
       >
         <tr
@@ -53,7 +104,7 @@ Array [
             scope="col"
           >
             <span
-              className="makeStyles-headerSort-11"
+              className="makeStyles-headerSort-15"
             >
               ID
               <span
@@ -74,7 +125,7 @@ Array [
             scope="col"
           >
             <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-7 MuiButton-textSizeSmall MuiButton-sizeSmall"
+              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-11 MuiButton-textSizeSmall MuiButton-sizeSmall"
               disabled={false}
               onBlur={[Function]}
               onClick={[Function]}
@@ -120,7 +171,7 @@ Array [
             scope="col"
           >
             <span
-              className="makeStyles-headerSort-11"
+              className="makeStyles-headerSort-15"
             >
               Title
             </span>
@@ -131,7 +182,7 @@ Array [
             scope="col"
           >
             <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-7 MuiButton-textSizeSmall MuiButton-sizeSmall"
+              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-11 MuiButton-textSizeSmall MuiButton-sizeSmall"
               disabled={false}
               onBlur={[Function]}
               onClick={[Function]}
@@ -186,7 +237,7 @@ Array [
             scope="col"
           >
             <span
-              className="makeStyles-headerSort-11"
+              className="makeStyles-headerSort-15"
             >
               Updated
               <span
@@ -204,11 +255,11 @@ Array [
         </tr>
       </thead>
       <tbody
-        className="MuiTableBody-root makeStyles-tableBody-3"
+        className="MuiTableBody-root makeStyles-tableBody-7"
         role={null}
       >
         <tr
-          className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
           onClick={[Function]}
           role={null}
         >
@@ -228,12 +279,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-15"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-19"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-16"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-20"
               >
                 CO
               </span>
@@ -248,12 +299,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-17"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-21"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-18"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-22"
               >
                 Pending review
               </span>
@@ -271,7 +322,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
           role={null}
         >
           <td
@@ -298,7 +349,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
           onClick={[Function]}
           role={null}
         >
@@ -318,12 +369,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-19"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-23"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-20"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-24"
               >
                 CO
               </span>
@@ -338,12 +389,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-21"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-25"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-22"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-26"
               >
                 Released
               </span>
@@ -361,7 +412,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
           role={null}
         >
           <td
@@ -388,7 +439,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
           onClick={[Function]}
           role={null}
         >
@@ -408,12 +459,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-23"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-27"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-24"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-28"
               >
                 Game Control
               </span>
@@ -428,12 +479,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-25"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-29"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-26"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-30"
               >
                 Closed
               </span>
@@ -451,7 +502,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
           role={null}
         >
           <td
@@ -478,7 +529,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
           onClick={[Function]}
           role={null}
         >
@@ -498,12 +549,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-27"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-31"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-28"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-32"
               >
                 CO
               </span>
@@ -520,12 +571,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-29"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-33"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-30"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-34"
               >
                 Unallocated
               </span>
@@ -543,7 +594,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
           role={null}
         >
           <td
@@ -570,7 +621,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
           onClick={[Function]}
           role={null}
         >
@@ -590,12 +641,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-31"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-35"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-32"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-36"
               >
                 CO
               </span>
@@ -612,12 +663,12 @@ Array [
             className="MuiTableCell-root MuiTableCell-body"
           >
             <div
-              className="MuiChip-root makeStyles-root-12 makeStyles-root-33"
+              className="MuiChip-root makeStyles-root-16 makeStyles-root-37"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
               <span
-                className="MuiChip-label makeStyles-label-14 makeStyles-label-34"
+                className="MuiChip-label makeStyles-label-18 makeStyles-label-38"
               >
                 Being edited
               </span>
@@ -635,7 +686,7 @@ Array [
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
           role={null}
         >
           <td
