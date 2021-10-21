@@ -7,7 +7,7 @@ import '@serge/themes/App.scss'
 import { usePrevious } from '@serge/helpers'
 
 const NewMessage = props => {
-  const { templates, curChannel, privateMessage, orderableChannel, confirmCancel } = props
+  const { templates, curChannel, privateMessage, orderableChannel, confirmCancel, onMessageAdded } = props
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
   const tab = useRef(null)
@@ -35,6 +35,7 @@ const NewMessage = props => {
   }, [templates, prevTemplates])
 
   const onMessageSend = (e) => {
+    onMessageAdded()
     setTimeout(() => {
       tab.current.handleTriggerClick(e)
     }, 0)
@@ -85,5 +86,6 @@ NewMessage.propTypes = {
   confirmCancel: PropTypes.bool,
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
-  privateMessage: PropTypes.bool.isRequired
+  privateMessage: PropTypes.bool.isRequired,
+  onMessageAdded: PropTypes.func
 }
