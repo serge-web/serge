@@ -367,6 +367,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     messageType: CUSTOM_MESSAGE,
     details: {
         channel: "Red RFI",
+        archived: true,
         from: {
           force: "Red",
           forceColor: "#F00",
