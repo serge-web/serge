@@ -84,7 +84,7 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
-  const [showArchive, setShowArchive] = useState<boolean>(false)
+  const [showArchived, setShowArchived] = useState<boolean>(false)
 
   const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
@@ -97,7 +97,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
   // (optionally) include archived messages
-  const filteredDoc = filteredMessages(messages, showArchive)
+  const filteredDoc = filteredMessages(messages, showArchived)
 
   // collate list of message owners
   const filtersOwners = getListOfOwners(filteredDoc)
@@ -191,27 +191,27 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const handleArchiveDoc = (): void => {
-    setShowArchive(!showArchive)
+    setShowArchived(!showArchived)
   }
 
   return (
     <>
       <div className={styles.actions}>
+        <FormControlLabel
+          className={styles.checkbox}
+          label="Show archived"
+          control={
+            <Checkbox
+              onChange={handleArchiveDoc}
+              checked={!!showArchived}
+            />
+          }
+        />
         <div className={styles.btn}>
           <span>
             <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
           </span>
         </div>
-        <FormControlLabel
-          className={styles.checkbox}
-          label="Display archive"
-          control={
-            <Checkbox
-              onChange={handleArchiveDoc}
-              checked={!!showArchive}
-            />
-          }
-        />
       </div>
       <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
     </>
