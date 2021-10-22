@@ -81,9 +81,8 @@ export interface MessageDetails {
   privateMessage?: string,
   /** data related to RFI (Request for Information) */
   rfi?: RFIData
-
-  /** is archive msg */
-  archive?: boolean
+  /** if this message has been archived */
+  archived?: boolean
 }
 
 export interface MessageStructure {
