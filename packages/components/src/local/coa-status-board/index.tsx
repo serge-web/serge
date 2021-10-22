@@ -14,6 +14,7 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
+import filteredMessages from './helpers/filteredMessages'
 
 /** combine force id and color
  */
@@ -95,10 +96,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
-  let filteredDoc = messages.slice()
-  if (showArchive) {
-    filteredDoc = messages.filter(msg => msg.details.archive)
-  }
+  // (optionally) include archived messages
+  const filteredDoc = filteredMessages(messages, showArchive)
 
   // collate list of message owners
   const filtersOwners = getListOfOwners(filteredDoc)
