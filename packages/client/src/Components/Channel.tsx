@@ -19,7 +19,6 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-
   const { selectedForce, selectedRole, selectedRoleName, gameDate } = state
   const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
