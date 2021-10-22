@@ -574,6 +574,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     messageType: CUSTOM_MESSAGE,
     details: {
       channel: 'channel-ks8soryj',
+      archived: true,
       from: {
         force: 'Blue',
         forceColor: '#00F',
