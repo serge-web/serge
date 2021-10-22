@@ -19,7 +19,6 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const [needUpdateMsg, setUpdateMsgFlag] = useState<boolean>(false)
 
   const { selectedForce, selectedRole, selectedRoleName, gameDate } = state
   const isUmpire = selectedForce && selectedForce.umpire
@@ -67,27 +66,6 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
   // to confirm cancelling a new message
   const isCollabEdit = isCollabWorking && channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT)
 
-  const [filteredMsg, setFilteredMsg] = useState<MessageCustom[]>(messages as MessageCustom[])
-
-  if (needUpdateMsg && filteredMsg.length !== messages.length) {
-    setUpdateMsgFlag(false)
-    setFilteredMsg(messages as MessageCustom[])
-  }
-
-  const onAddNewMsg = (): void => {
-    setUpdateMsgFlag(true)
-  }
-
-  const displayArchiveDoc = (show: boolean): void => {
-    const allMsg = messages as MessageCustom[]
-    if (!show) {
-      const activeMsg = allMsg.filter(msg => !msg.details.archive)
-      setFilteredMsg(activeMsg)
-    } else {
-      setFilteredMsg(allMsg)
-    }
-  }
-
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
@@ -96,7 +74,7 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
             currentWargame={state.currentWargame}
             onMessageRead={onMessageRead}
             templates={state.allTemplatesByKey}
-            messages={filteredMsg}
+            messages={messages as MessageCustom[]}
             role={{
               forceId: selectedForce.uniqid,
               forceName: selectedForce.name,
@@ -108,7 +86,6 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
             channel={state.channels[channelId]}
             onChange={handleChange}
             gameDate={gameDate}
-            displayArchiveDoc={displayArchiveDoc}
           />
         ) : (
           <ChannelMessagesList
@@ -130,7 +107,6 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
       {
         !observing && trimmedTemplates.length > 0 &&
         <NewMessage
-          onMessageAdded={onAddNewMsg}
           orderableChannel={true}
           curChannel={channelId}
           confirmCancel={isCollabEdit}

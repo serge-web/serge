@@ -28,6 +28,4 @@ export default interface Props {
   gameDate: string
   /** fires on change message status to readed **/
   onMessageRead?: (unreadedLeft: number) => void
-  /** display archive message */
-  displayArchiveDoc?: (show: boolean) => void
 }

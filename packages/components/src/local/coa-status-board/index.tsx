@@ -81,7 +81,7 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame, displayArchiveDoc }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
   const [showArchive, setShowArchive] = useState<boolean>(false)
 
@@ -95,17 +95,22 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
+  let filteredDoc = messages.slice()
+  if (showArchive) {
+    filteredDoc = messages.filter(msg => msg.details.archive)
+  }
+
   // collate list of message owners
-  const filtersOwners = getListOfOwners(messages)
+  const filtersOwners = getListOfOwners(filteredDoc)
 
   // collate list of sources (From) for messages
-  const filtersRoles = getListOfSources(messages)
+  const filtersRoles = getListOfSources(filteredDoc)
 
   // collate list of sources (Status) for messages
-  const filtersStatus = getListOfStatus(messages)
+  const filtersStatus = getListOfStatus(filteredDoc)
 
   // collate list of extra column LOCATION for messages
-  const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
+  const filtersLocations = getListOfExtraColumn(filteredDoc, 'LOCATION')
 
   const handleUpdateUnreadCount = (nexCount?: number): boolean => {
     const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
@@ -119,7 +124,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const { data, unreadMessagesCount } = genData(
-    messages,
+    filteredDoc,
     forces,
     role,
     currentWargame,
@@ -172,7 +177,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const handleMarkAllAsRead = (): void => {
-    for (const message of messages) {
+    for (const message of filteredDoc) {
       // flag for if we tell original sender of RFI that it has been responded to
       const collab = message.details.collaboration
       const status = collab && collab.status
@@ -187,7 +192,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const handleArchiveDoc = (): void => {
-    displayArchiveDoc && displayArchiveDoc(!showArchive)
     setShowArchive(!showArchive)
   }
 
