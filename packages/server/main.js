@@ -29,6 +29,7 @@ server(
       'https://serge-dev.herokuapp.com',
       'https://serge-review-trial-test-*.herokuapp.com',
       'http://localhost:3000',
+      'http://localhost:4000',
       'http://localhost:8080',
       'http://localhost:6611',
       'http://localhost:8000'

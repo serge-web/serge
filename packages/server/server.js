@@ -11,6 +11,7 @@ const runServer = (
 ) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
+  const bodyParser = require('body-parser')
   const path = require('path')
   const uniqid = require('uniqid')
 
@@ -37,6 +38,19 @@ const runServer = (
   */
   const fs = require('fs')
 
+  const { Server } = require('socket.io')
+
+  const io = new Server(4000, { cors: { origin: '*' } })
+
+  const {
+    DocumentStore,
+    GetCollectionStatisticsOperation,
+    CreateDatabaseOperation,
+    GetStatisticsOperation,
+    DatabaseRecord,
+    GetDatabaseNamesOperation
+  } = require('ravendb')
+
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)
   })
@@ -50,9 +64,155 @@ const runServer = (
   app.use(cors(corsOptions))
   app.use('/db', require('express-pouchdb')(PouchDB))
 
-  app.get('/allDbs', (req, res) => {
-    PouchDB.allDbs().then(dbs => {
-      res.send(dbs)
+  const rdbPrefix = '/ravendb'
+
+  app.use(express.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
+
+  // init store
+  const store = new DocumentStore('http://localhost:4040/')
+  store.initialize()
+
+  // changesListener
+  const initChangesListener = (dbName) => {
+    const subscription = store.changes(dbName)
+    subscription.forAllDocuments().on('data', change => {
+      io.emit('changes', change)
+    });
+  }
+
+
+  // check if database not exists then create it and add changes listener
+  const ensureDatabaseExists = (store, dbName) => {
+    return new Promise((resolve, reject) => {
+      if (!dbName) {
+         reject("Value cannot be null or whitespace." + dbName)
+      }
+
+      store.maintenance
+        .forDatabase(dbName)
+        .send(new GetStatisticsOperation())
+          .then(() => { resolve() })
+          .catch(() => {
+            const database = { databaseName: dbName }
+            store.maintenance.server
+              .send(new CreateDatabaseOperation(database))
+              .then(() => {
+                initChangesListener(dbName)
+                resolve()
+              })
+              .catch(err => {
+                console.log(err);
+                reject(err)
+              })
+          })
+    })
+  }
+
+  // get att databases and init listener for them
+  const operation = new GetDatabaseNamesOperation(0, 1000);
+  store.maintenance.server.send(operation).then((wargames) => {
+    for (const wargame of wargames) {
+      initChangesListener(wargame)
+    }
+  })
+
+  // update an document
+  app.put(rdbPrefix + '/:wargame', async (req, res) => {
+
+    const databaseName = req.params.wargame
+
+    ensureDatabaseExists(store, databaseName).then(() => {
+      const id = `${req.body._id}`
+      const putData = {
+        '@metadata': {
+          '@collection': `${id}`
+        },
+        ...req.body
+      }
+      const session = store.openSession(databaseName)
+      session.load(id).then(async (result) => {
+        // TODO: use more productive metods
+        if (result) {
+          await session.delete(id)
+          await session.saveChanges()
+          await session.store(putData, id)
+          session.saveChanges()
+          res.send({msg: 'updated', data: putData})
+        } else {
+          await session.store(putData, id)
+          session.saveChanges()
+          res.send({msg: 'created', data: putData})
+        }
+      })
+    }).catch((err) => {
+      res.status(500).send(err)
+    })
+  })
+
+  // get all wargame names
+  app.get(rdbPrefix, async (req, res) => {
+    const operation = new GetDatabaseNamesOperation(0, 1000);
+    store.maintenance.server.send(operation).then((items) => {
+      res.send({ msg: 'ok', data: items || [] })
+    }).catch((err) => {
+      res.status(404).send({
+        msg: 'Something went wrong on docs load ',
+        data: err
+      })
+    })
+  })
+
+  // get all documents for wargame
+  app.get(rdbPrefix + '/:wargame', async (req, res) => {
+    const databaseName = `${req.params.wargame}`
+
+    if (!databaseName) {
+      res.status(404).send({msg: 'Wrong Wargame Name', data: null})
+    }
+
+    ensureDatabaseExists(store, databaseName).then(() => {
+      const session = store.openSession(databaseName)
+      session.query({}).all().then((items) => {
+        res.send({ msg: 'ok', data: items || [] })
+      }).catch((err) => {
+        res.status(404).send({
+          msg: 'Something went wrong on docs load ',
+          data: err
+        })
+      })
+    }).catch((err) => {
+      res.status(500).send(err)
+    })
+  })
+
+  // get document for wargame
+  app.get(rdbPrefix + '/:wargame/:id', async (req, res) => {
+    const databaseName = `${req.params.wargame}`
+    const id = `${req.params.id}`
+
+    if (!id || !databaseName) {
+      res.status(404).send({msg: 'Wrong Id or Wargame', data: null})
+    }
+
+    ensureDatabaseExists(store, databaseName).then(() => {
+      const session = store.openSession(databaseName)
+      session.load(id).then((data) => {
+        if (data) {
+          res.send({ msg: 'ok', data })
+        } else {
+          res.status(404).send({ msg: `Doc with id: "${id}" not found`, data })
+        }
+      }).catch((err) => {
+        res.status(404).send({
+          msg: 'Something went wrong on doc load ',
+          data: err
+        })
+      })
+      // const queryAll = await session.query({}).all()
+      // res.send(queryAll)
+    }).catch((err) => {
+      res.status(500).send(err)
     })
   })
 
@@ -162,8 +322,8 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
-    require('child_process').exec(start + ' ' + `http://localhost:${port}`)
+    // const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    // require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }
 
