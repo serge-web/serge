@@ -1,7 +1,6 @@
 import uniqid from 'uniqid'
 import _ from 'lodash'
 import moment from 'moment'
-import PouchDB from 'pouchdb'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
@@ -55,6 +54,7 @@ import {
 import { hiddenPrefix} from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
+import DbProvider, { getAllDocs } from '../db'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -62,7 +62,7 @@ const wargameDbStore: ApiWargameDbObject[] = []
 // in database utility tools
 const dbSuffix = '.sqlite'
 
-const rejectDefault = (err: any): any => {
+const rejectDefault = (err: string): any => {
   console.log(err)
   return err
 }
@@ -79,7 +79,7 @@ const getNameFromPath = (dbPath: string): string => {
 // get database object by :name key
 const getWargameDbByName = (name: string): ApiWargameDbObject => {
   name = name.replace(hiddenPrefix, '')
-  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
+  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix || databasePath + item.name + dbSuffix === name)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
 }
@@ -104,21 +104,10 @@ export const deleteWargame = (wargamePath: string): void => {
   wargameDbStore.splice(index, 1)
 }
 
-export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: ListenNewMessageType): void => {
+export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
 
-  // if (changes) will works only when we recall listenNewMessage()
-  // it conain old listenter with error, as we need to re-listen changes we need to clean old listener (no double fire)
-  if (changes) changes.cancel()
-
-  // save db.changes listener in to nextChanges const to be able remove it as we don't want to have case when we had a 2 .changes listener
-  const nextChanges = db.changes({
-    since: 'now',
-    live: true,
-    timeout: false,
-    heartbeat: false,
-    include_docs: true
-  }).on('change', (res) => {
-    const doc = res.doc as Message
+  db.changes((msg) => {
+    const doc = msg as Message
     (async () => {
       if (doc === undefined) return
       if (doc.messageType === INFO_MESSAGE) {
@@ -136,17 +125,6 @@ export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: Liste
         dispatch(setLatestWargameMessage(doc))
       }
     })()
-  }).on('error', (err) => {
-    // in case if error wil works multiple times we have global `timerId` (function body level)
-    // on every error need to clean `timerId` to keep working timer for last error fire
-    if (timerId) clearTimeout(timerId)
-    console.log('error on listen for new message', err)
-    // hey, maybe the server is down. introduce a pause
-    // save timer to have way to stop it when error trigger multiple times
-    timerId = setTimeout((): void => {
-      // set timerId and changes listener for new listenNewMessage() to be able to remove them before new listener creation
-      listenNewMessage({ db, name, dispatch, timerId, changes: nextChanges })
-    }, ERROR_THROTTLE)
   })
 }
 
@@ -156,9 +134,9 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (): Promise<any> => {
+export const pingServer = (): Promise<string> => {
   return fetch(serverPath + 'healthcheck')
-  .then((response: Response): Promise<any> => response.json())
+  .then((response: Response): Promise<string> => response.json())
   .then((data: any) => {
     return data.status
   })
@@ -166,40 +144,41 @@ export const pingServer = (): Promise<any> => {
     console.log(err)
     return "NOT_OK"
   })
-} 
+}
 
 export const populateWargame = (): Promise<Wargame> => {
-  return fetch(serverPath + 'allDbs')
-    .then((response: Response): Promise<string[]> => response.json())
-    .then((dbs: string[]) => {
-      const wargameNames: string[] = wargameDbStore.map((db) => db.name)      
-      const toCreateDiff: string[] = _.difference(dbs, wargameNames)
-      const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
+  // @ts-ignore
+  return getAllDocs().then((dbs: string[]) => {
+    const wargameNames: string[] = wargameDbStore.map((db) => db.name)
+    const toCreateDiff: string[] = _.difference(dbs, wargameNames)
+    const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
+    
+    toCreate.forEach(name => {
+      const db = new DbProvider(databasePath + name)
+      db.setMaxListeners(MAX_LISTENERS)
+      wargameDbStore.unshift({ name, db })
+    })
 
-      toCreate.forEach(name => {
-        const db: ApiWargameDb = new PouchDB(databasePath + name)
-        db.setMaxListeners(MAX_LISTENERS)
-        wargameDbStore.unshift({ name, db })
-      })
-
-      const promises: (Promise<Wargame>)[] = wargameDbStore.map(({ name, db }) => {
-        return getLatestWargameRevision(name).then((res) => ({
+    const promises: (Promise<Wargame>)[] = wargameDbStore.map(({ name, db }) => {
+      return getLatestWargameRevision(name).then((res) => {
+        return ({
           name: db.name,
           title: res.wargameTitle,
           initiated: res.wargameInitiated,
           shortName: res.name
         })
-        ).catch((err) => {
-          console.log(err)
-          return err
-        })
+      }
+      ).catch((err) => {
+        console.log(err)
+        return err
       })
-      return Promise.all(promises)
     })
-    .catch((err) => {
-      console.log(err)
-      return err
-    })
+    return Promise.all(promises)
+  })
+  .catch((err:string) => {
+    console.log(err)
+    return err
+  })
 }
 
 export const clearWargames = (): void => {
@@ -224,13 +203,12 @@ export const saveIcon = (file) => {
     },
     body: file
   })
-    // @ts-ignore
     .then((res) => res.json())
 }
 
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
-  const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
+  const db = new DbProvider(databasePath + name + dbSuffix)
 
   db.setMaxListeners(15)
   addWargameDbStore({ name: name + dbSuffix, db })
@@ -242,8 +220,8 @@ export const createWargame = (): Promise<Wargame> => {
   return new Promise((resolve, reject) => {
     db.put(settings)
     .then(() => {
-      db.get<Promise<Wargame>>(dbDefaultSettings._id).then((res) => {
-        resolve(res)
+      db.get(dbDefaultSettings._id).then((res) => {
+        resolve(res as Wargame)
       }).catch((err) => {
         reject(err)
       })
@@ -277,7 +255,7 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName: string = getNameFromPath(dbPath)
   return getAllMessages(dbName).then((messages) => {
     return getLatestWargameRevision(dbName).then((game) => ({
-      ...game, exportMessagelist: messages 
+      ...game, exportMessagelist: messages
     }))
   })
 }
@@ -322,20 +300,19 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: 
   if (nextWargame.wargameInitiated && revisionCheck) {
     return createLatestWargameRevision(dbName, nextWargame)
   }
-  
+
   // Latest wargame cannot be a MessageInfoType if wargameInitiated === false
   const infoTypeWargame = nextWargame as MessageInfoType
   if (infoTypeWargame.messageType === INFO_MESSAGE && revisionCheck) {
     console.warn('Saving wargame cannot be a MessageInfoType. Trying to save MessageInfoType as WargameSettings')
   }
-  
+
   return db.put({
     ...nextWargame,
     _id: dbDefaultSettings._id,
-    
     turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format(),
   }).then(() => {
-    return db.get<Wargame>(dbDefaultSettings._id)
+    return db.get(dbDefaultSettings._id) as Promise<Wargame>
   })
 }
 
@@ -496,7 +473,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
 
   const newDbName = `wargame-${uniqId}`
   return db.get(dbDefaultSettings._id).then((res) => {
-    const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
+    const newDb = new DbProvider(databasePath + newDbName + dbSuffix)
     const wargame = res as Wargame
     return updateWargameByDb({
       ...wargame,
@@ -511,18 +488,18 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   })
 }
 
-export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {  
+export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
-  const newDbName = `wargame-${uniqId}`
-  const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
-  
-  return db.replicate.to(newDb).then((): Promise<Wargame> => {
+  const newDbName = databasePath + `wargame-${uniqId}` + dbSuffix
+
+  return db.replicate(newDbName).then((newDb): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
     // get default wargame
     return getWargameLocalFromName(dbName)
   }).then((res) => {
+    const newDb = getWargameDbByName(newDbName).db
     const wargame = {
       ...res,
       _rev: undefined,
@@ -648,7 +625,7 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     isOpen: false,
     hasBeenRead: false
   }
-  
+
   return checkReference(customMessage, db).then((customMessageUpdated) => {
     return db.put(customMessageUpdated).catch(rejectDefault)
   })
@@ -713,17 +690,14 @@ export const postNewMapMessage = (dbName, details, message) => {
 
 export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
-  return db.allDocs<Message>({ include_docs: true, descending: true })
-    .then((res): Message[] => res.rows.reduce((messages: Message[], { doc }): Message[] => {
-      if(doc && doc.messageType !== COUNTER_MESSAGE) messages.push(doc)
-      return messages
-    }, []))
+  const include_docs = true, descending = true
+  return db.allDocs(include_docs, descending)
     .catch(() => {
       throw new Error('Serge disconnected')
     })
 }
 
-export const getAllWargames = (): Promise<WargameRevision[]> => {  
+export const getAllWargames = (): Promise<WargameRevision[]> => {
   const promises = wargameDbStore.map<Promise<WargameRevision>>((game) => {
     return getLatestWargameRevision(game.name)
       .then(({ wargameTitle, wargameInitiated, name }) => {

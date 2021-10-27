@@ -30,7 +30,7 @@ export const getCounterDoc = (forceName: string, db: ApiWargameDb): Promise<Mess
   // create new promise
   return new Promise<MessageCounter>((resolve) => {
     // try to get counter document by id based on force name
-    db.get<Promise<Message>>(getCounterMessageId(forceName)).then((doc) => {
+    db.get(getCounterMessageId(forceName)).then((doc) => {
       // counter doc found. let's check type to be sure that was a MessageCounter
       const message = doc as Message
       if (message.messageType === COUNTER_MESSAGE) {

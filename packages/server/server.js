@@ -44,11 +44,10 @@ const runServer = (
 
   const {
     DocumentStore,
-    GetCollectionStatisticsOperation,
     CreateDatabaseOperation,
     GetStatisticsOperation,
-    DatabaseRecord,
-    GetDatabaseNamesOperation
+    GetDatabaseNamesOperation,
+    DeleteDatabasesOperation
   } = require('ravendb')
 
   onAppInitListeningAddons.forEach(addon => {
@@ -76,35 +75,40 @@ const runServer = (
   // changesListener
   const initChangesListener = (dbName) => {
     const subscription = store.changes(dbName)
-    subscription.forAllDocuments().on('data', change => {
-      io.emit('changes', change)
-    });
+    subscription.forAllDocuments().on('data', async change => {
+      const session = store.openSession(dbName)
+      const loadData = await session.load(change.id)
+      io.emit('changes', loadData)
+    })
   }
 
-
   // check if database not exists then create it and add changes listener
-  const ensureDatabaseExists = (store, dbName) => {
+  const ensureDatabaseExists = (store, dbName, createIfNotExists = false) => {
     return new Promise((resolve, reject) => {
       if (!dbName) {
-         reject("Value cannot be null or whitespace." + dbName)
+        reject("Value cannot be null or whitespace." + dbName)
       }
 
       store.maintenance
         .forDatabase(dbName)
         .send(new GetStatisticsOperation())
           .then(() => { resolve() })
-          .catch(() => {
-            const database = { databaseName: dbName }
-            store.maintenance.server
-              .send(new CreateDatabaseOperation(database))
-              .then(() => {
-                initChangesListener(dbName)
-                resolve()
-              })
-              .catch(err => {
-                console.log(err);
-                reject(err)
-              })
+          .catch((err) => {
+            if (createIfNotExists) {
+              const database = { databaseName: dbName }
+              store.maintenance.server
+                .send(new CreateDatabaseOperation(database))
+                .then(() => {
+                  initChangesListener(dbName)
+                  resolve()
+                })
+                .catch(err => {
+                  console.log(err)
+                  reject(err)
+                })
+            } else {
+              reject(err)
+            }
           })
     })
   }
@@ -119,10 +123,9 @@ const runServer = (
 
   // update an document
   app.put(rdbPrefix + '/:wargame', async (req, res) => {
-
     const databaseName = req.params.wargame
 
-    ensureDatabaseExists(store, databaseName).then(() => {
+    ensureDatabaseExists(store, databaseName, true).then(() => {
       const id = `${req.body._id}`
       const putData = {
         '@metadata': {
@@ -131,7 +134,7 @@ const runServer = (
         ...req.body
       }
       const session = store.openSession(databaseName)
-      session.load(id).then(async (result) => {
+      session.load(id).then(async result => {
         // TODO: use more productive metods
         if (result) {
           await session.delete(id)
@@ -150,6 +153,46 @@ const runServer = (
     })
   })
 
+  app.get(rdbPrefix + 'replicate/:replicate/:dbname', async(req, res) => {
+
+    const replicateData = req.params.replicate // new db name
+    const dbName = req.params.dbname // copy data from 
+
+    ensureDatabaseExists(store, replicateData, true).then(async () => {
+      const session = store.openSession(dbName)
+      const loadDataForReplicate = await session.query({}).all()
+      const sessionForNewData = store.openSession(replicateData)
+      const messages = loadDataForReplicate.map(async message => {
+        const id = message._id
+        message.wargameTitle = replicateData
+        message.name = replicateData
+        const putData = {
+          '@metadata': {
+            '@collection': `${id}`
+          },
+          ...message
+        }
+        await sessionForNewData.store(putData, id)
+        await sessionForNewData.saveChanges()
+        return putData
+      })
+
+      res.send({ msg: 'ok', data: messages })
+
+    }).catch((err) => {
+      res.status(500).send(err)
+    })
+  })
+
+  app.delete(rdbPrefix + '/delete/:dbName', async(req, res) => {
+    const dbName = req.params.dbName
+    await store.maintenance.server.send(new DeleteDatabasesOperation({ databaseNames: [dbName] , hardDelete: true })).then((data) => {
+      res.send('Deleted db' + data)
+    }).catch((err) => {
+      res.status(404).send(err)
+    })
+  })
+
   // get all wargame names
   app.get(rdbPrefix, async (req, res) => {
     const operation = new GetDatabaseNamesOperation(0, 1000);
@@ -165,6 +208,7 @@ const runServer = (
 
   // get all documents for wargame
   app.get(rdbPrefix + '/:wargame', async (req, res) => {
+    
     const databaseName = `${req.params.wargame}`
 
     if (!databaseName) {
@@ -187,9 +231,13 @@ const runServer = (
   })
 
   // get document for wargame
-  app.get(rdbPrefix + '/:wargame/:id', async (req, res) => {
+  app.get(rdbPrefix + '/:wargame/:id/:idp2', async (req, res) => {
     const databaseName = `${req.params.wargame}`
-    const id = `${req.params.id}`
+    let id = `${req.params.id}`
+
+    if (req.params.idp2) {
+      id += '/' + req.params.idp2
+    }
 
     if (!id || !databaseName) {
       res.status(404).send({msg: 'Wrong Id or Wargame', data: null})
@@ -209,8 +257,6 @@ const runServer = (
           data: err
         })
       })
-      // const queryAll = await session.query({}).all()
-      // res.send(queryAll)
     }).catch((err) => {
       res.status(500).send(err)
     })
