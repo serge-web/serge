@@ -269,7 +269,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
                     </TableRow>
                     <TableRow className={classes.tableRowCollapsible}>
                       <TableCell colSpan={cells.length}>
-                        <Collapse in={isExpanded}>
+                        <Collapse in={isExpanded} enter={false} exit={false}>
                           {isExpanded && collapsible((): void => { onToggleRow(rowIndex) })}
                         </Collapse>
                       </TableCell>
