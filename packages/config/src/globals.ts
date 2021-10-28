@@ -108,3 +108,14 @@ export const serverPath = (
 export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
+
+// PouchDb paths
+export const allDbs = 'allDbs'
+
+// RavenDb paths
+export const rdbPrefix = 'ravendb/'
+export const socketPath = 'http://localhost:4000'
+export const replicate = 'replicate/'
+export const deletePath = 'delete/'
+export const dbSuffix = '.sqlite'
+export const localSettings = '_local/settings'

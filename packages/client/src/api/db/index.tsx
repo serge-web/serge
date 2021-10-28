@@ -1,8 +1,21 @@
-import { COUNTER_MESSAGE, ERROR_THROTTLE, serverPath } from '@serge/config'
+import { 
+  COUNTER_MESSAGE,
+  ERROR_THROTTLE,
+  serverPath,
+  databasePath,
+  rdbPrefix,
+  socketPath,
+  replicate,
+  deletePath,
+  dbSuffix,
+  localSettings,
+  allDbs
+ } from '@serge/config'
 import { Message, Wargame } from '@serge/custom-types'
 import PouchDB from 'pouchdb'
 import { ProviderTypeType, ProviderRavenDB, ProviderPouchDB } from './types'
 import { io } from "socket.io-client"
+
 export const POUCH_DB = 'pouchdb'
 export const RAVEN_DB = 'ravendb'
 const defaultProvider = RAVEN_DB
@@ -86,7 +99,7 @@ export class DbProvider implements DbProviderInterface {
         }, ERROR_THROTTLE)
       })
     } else if (this.provider.type === RAVEN_DB) {
-      const socket = io('http://localhost:4000')
+      const socket = io(socketPath)
        socket.on('changes', data => {
         const doc = data as Message | Wargame
         listener(doc)
@@ -104,7 +117,7 @@ export class DbProvider implements DbProviderInterface {
     if (this.provider.type === POUCH_DB) {
       this.provider.db.destroy()
     } else if(RAVEN_DB) {
-      fetch(serverPath + 'ravendb/delete/' + this.getDbName(), {
+      fetch(serverPath + rdbPrefix + deletePath + this.getDbName(), {
         method: 'DELETE'
       })
     }
@@ -120,7 +133,7 @@ export class DbProvider implements DbProviderInterface {
           reject(err)
         })
       } else if (this.provider.type === RAVEN_DB) {
-        fetch(serverPath + 'ravendb/' + this.getDbName() + '/' + query)
+        fetch(serverPath + rdbPrefix + this.getDbName() + '/' + query)
           .then(res => res.json() as Promise<RavenFetchData>)
           .then(({ msg, data }) => { 
             if (msg === 'ok') resolve(data)
@@ -137,7 +150,7 @@ export class DbProvider implements DbProviderInterface {
   }
 
   private getDbNameFromUrl(url: string): string {
-    return url.replace('.sqlite', '').replace('http://localhost:8080/db/', '')
+    return url.replace(dbSuffix, '').replace(databasePath, '')
   }
 
   put (doc: Wargame | Message): Promise<Wargame | Message> {
@@ -150,7 +163,7 @@ export class DbProvider implements DbProviderInterface {
             reject(err)
           })
       } else if (this.provider.type === RAVEN_DB) {
-        fetch(serverPath + 'ravendb/' + this.getDbName(), {
+        fetch(serverPath + rdbPrefix + this.getDbName(), {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -180,7 +193,7 @@ export class DbProvider implements DbProviderInterface {
             reject(err)
           })
       } else if (this.provider.type === RAVEN_DB) {
-        fetch(serverPath + 'ravendb/' + this.getDbName())
+        fetch(serverPath + rdbPrefix + this.getDbName())
           .then(res => res.json() as Promise<RavenFetchDataArray>)
           .then((res) => {
             const { msg, data } = res
@@ -188,7 +201,7 @@ export class DbProvider implements DbProviderInterface {
               const messages = data.reduce((messages: Message[], row): Message[] => {
                 const doc = row as Message
                 // @ts-ignore
-                const isNotSystem = doc._id !== '_local/settings'
+                const isNotSystem = doc._id !== localSettings
                 if (typeof doc === 'object' && doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
                 return messages
               }, [])
@@ -213,7 +226,7 @@ export class DbProvider implements DbProviderInterface {
         })
       } else if (this.provider.type === RAVEN_DB) {
         const replacedNewDbName = newDbName.slice(newDbName.indexOf('wargame'))
-        fetch(serverPath + `ravendb/replicate/${this.getDbNameFromUrl(replacedNewDbName)}/${this.getDbName()}`)
+        fetch(serverPath + rdbPrefix + replicate + `${this.getDbNameFromUrl(replacedNewDbName)}/${this.getDbName()}`)
           .then(() => {
             resolve(new DbProvider(newDbName, RAVEN_DB))
           })
@@ -229,9 +242,9 @@ export class DbProvider implements DbProviderInterface {
 
 export const getAllDocs = (provider: ProviderTypeType = defaultProvider): Promise<string[]> => {
   if(provider === RAVEN_DB){
-    return fetch(serverPath + 'ravendb').then(res => res.json()).then(res => (res.data || []) as string[])
+    return fetch(serverPath + rdbPrefix).then(res => res.json()).then(res => (res.data || []) as string[])
   } else if (provider === POUCH_DB) {
-    return fetch(serverPath + 'allDbs').then(res => res.json())
+    return fetch(serverPath + allDbs).then(res => res.json())
   } else {
     throw new Error('Wrong provider ' + provider)
   }

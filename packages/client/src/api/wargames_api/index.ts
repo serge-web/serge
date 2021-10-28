@@ -15,8 +15,8 @@ import {
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
   SERGE_INFO,
-  ERROR_THROTTLE,
-  COUNTER_MESSAGE
+  COUNTER_MESSAGE,
+  dbSuffix
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -60,7 +60,6 @@ const wargameDbStore: ApiWargameDbObject[] = []
 
 // give database documents a suffix, so they're easier to open
 // in database utility tools
-const dbSuffix = '.sqlite'
 
 const rejectDefault = (err: string): any => {
   console.log(err)
