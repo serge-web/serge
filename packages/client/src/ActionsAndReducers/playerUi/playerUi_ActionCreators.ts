@@ -164,6 +164,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     if(bulkSubmit) {
       const msg1 = message as any
       const title = msg1.Title
+      const randomId = Math.floor(Math.random() * 100)
       for(let i=0;i<200;i++) {
         // timestamps can be used for ids, so ensure timestamps are unique.
         const time = details.timestamp
@@ -174,7 +175,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
         // create unique title
         msg.Title = title + '-' + i
         // create unique message reference
-        msg.Reference = `Blue_c-` + i
+        msg.Reference = `Blue_c-` + randomId + '-' + i 
         // actually post the message
         await wargamesApi.postNewMessage(dbName, details, message)
       }
