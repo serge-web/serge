@@ -57,6 +57,8 @@ const runServer = (
   require('pouchdb-all-dbs')(PouchDB)
   const cors = require('cors')
   const app = express()
+  const listeners = {}
+  let addListenersQueue = []
 
   const clientBuildPath = '../client/build'
 
@@ -74,36 +76,45 @@ const runServer = (
 
   // changesListener
   const initChangesListener = (dbName) => {
-    const subscription = store.changes(dbName)
-    subscription.forAllDocuments().on('data', async change => {
+    listeners[dbName] = store.changes(dbName)
+    listeners[dbName].forAllDocuments().on('data', async change => {
       const session = store.openSession(dbName)
       const loadData = await session.load(change.id)
       io.emit('changes', loadData)
     })
   }
 
+  // check listeners queue to add a new listenr
+  setInterval(() => {
+    if (addListenersQueue.length) {
+      for (const dbName of addListenersQueue) {
+        initChangesListener(dbName)
+      }
+      addListenersQueue = []
+    }
+  }, 5000)
+
   // check if database not exists then create it and add changes listener
   const ensureDatabaseExists = (store, dbName, createIfNotExists = false) => {
     return new Promise((resolve, reject) => {
       if (!dbName) {
-        reject(new Error('Value cannot be null or whitespace.' + dbName))
+        return reject(new Error('Value cannot be null or whitespace.' + dbName))
       }
 
       store.maintenance
         .forDatabase(dbName)
         .send(new GetStatisticsOperation())
-        .then(() => { resolve() })
+        .then(() => resolve())
         .catch((err) => {
           if (createIfNotExists) {
             const database = { databaseName: dbName }
             store.maintenance.server
               .send(new CreateDatabaseOperation(database))
               .then(() => {
-                initChangesListener(dbName)
+                addListenersQueue.push(dbName)
                 resolve()
               })
               .catch(err => {
-                console.log(err)
                 reject(err)
               })
           } else {
@@ -113,7 +124,7 @@ const runServer = (
     })
   }
 
-  // get att databases and init listener for them
+  // get all databases and init listener for them
   const operation = new GetDatabaseNamesOperation(0, 1000)
   store.maintenance.server.send(operation).then((wargames) => {
     for (const wargame of wargames) {
@@ -121,10 +132,9 @@ const runServer = (
     }
   })
 
-  app.put(rdbPrefix + '/:wargame', async (req, res) => {
+  app.put(rdbPrefix + '/:wargame', (req, res) => {
     const databaseName = req.params.wargame
-
-    ensureDatabaseExists(store, databaseName, true).then(async () => {
+    ensureDatabaseExists(store, databaseName, true).then(() => {
       const id = `${req.body._id}`
       const putData = {
         '@metadata': {
@@ -132,25 +142,32 @@ const runServer = (
         },
         ...req.body
       }
+
       const session = store.openSession(databaseName)
-      session.load(id).then(async result => {
+      session.load(id).then(result => {
         if (result) {
           // update an document
           for (const keys in req.body) {
             result[keys] = req.body[keys]
-            await session.saveChanges()
+            session.saveChanges().catch(err => {
+              res.status(400).send(err)
+            })
           }
           res.send({ msg: 'updated', data: putData })
         } else {
           // create an document
-          await session.store(putData, id)
-          session.saveChanges()
-          res.send({ msg: 'created', data: putData })
+          session.store(putData, id).then(() => {
+            session.saveChanges().then(() => {
+              res.send({ msg: 'created', data: putData })
+            }).catch(err => {
+              res.status(400).send(err)
+            })
+          }).catch(err => {
+            res.status(400).send(err)
+          })
         }
-      })
-    }).catch((err) => {
-      res.status(500).send(err)
-    })
+      }).catch((err) => { res.status(404).send(err) })
+    }).catch((err) => { res.status(500).send(err) })
   })
 
   app.get(rdbPrefix + 'replicate/:replicate/:dbname', async (req, res) => {
@@ -163,8 +180,6 @@ const runServer = (
       const sessionForNewData = store.openSession(replicateData)
       const messages = loadDataForReplicate.map(async message => {
         const id = message._id
-        message.wargameTitle = replicateData
-        message.name = replicateData
         const putData = {
           '@metadata': {
             '@collection': `${id}`
@@ -175,20 +190,17 @@ const runServer = (
         await sessionForNewData.saveChanges()
         return putData
       })
-
       res.send({ msg: 'ok', data: messages })
-    }).catch((err) => {
-      res.status(500).send(err)
-    })
+    }).catch((err) => res.status(500).send(err))
   })
 
-  app.delete(rdbPrefix + '/delete/:dbName', async (req, res) => {
+  app.delete(rdbPrefix + '/delete/:dbName', (req, res) => {
     const dbName = req.params.dbName
-    await store.maintenance.server.send(new DeleteDatabasesOperation({ databaseNames: [dbName], hardDelete: true })).then((data) => {
-      res.send('Deleted db' + data)
-    }).catch((err) => {
-      res.status(404).send(err)
-    })
+    listeners[dbName] = store.changes(dbName)
+    listeners[dbName].dispose()
+    store.maintenance.server.send(new DeleteDatabasesOperation({ databaseNames: [dbName] }))
+      .then(() => res.send('Deleted db ' + dbName))
+      .catch((err) => res.status(400).send(err))
   })
 
   // get all wargame names

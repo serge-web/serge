@@ -78,7 +78,7 @@ const getNameFromPath = (dbPath: string): string => {
 // get database object by :name key
 const getWargameDbByName = (name: string): ApiWargameDbObject => {
   name = name.replace(hiddenPrefix, '')
-  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix || databasePath + item.name + dbSuffix === name)
+  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
 }
@@ -207,10 +207,10 @@ export const saveIcon = (file) => {
 
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
-  const db = new DbProvider(databasePath + name + dbSuffix)
+  const db = new DbProvider(databasePath + name)
 
   db.setMaxListeners(15)
-  addWargameDbStore({ name: name + dbSuffix, db })
+  addWargameDbStore({ name: name, db })
 
   // TODo: update dbDefaultSettings to valid wargame json
   // @ts-ignore
@@ -251,7 +251,7 @@ export const editWargame = (dbPath: string): Promise<Wargame> => (
 )
 
 export const exportWargame = (dbPath: string): Promise<Wargame> => {
-  const dbName: string = getNameFromPath(dbPath)
+  const dbName = getNameFromPath(dbPath)
   return getAllMessages(dbName).then((messages) => {
     return getLatestWargameRevision(dbName).then((game) => ({
       ...game, exportMessagelist: messages
@@ -471,8 +471,8 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const uniqId = uniqid.time()
 
   const newDbName = `wargame-${uniqId}`
+  const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName + dbSuffix)
   return db.get(dbDefaultSettings._id).then((res) => {
-    const newDb = new DbProvider(databasePath + newDbName + dbSuffix)
     const wargame = res as Wargame
     return updateWargameByDb({
       ...wargame,
@@ -491,10 +491,11 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const dbName = getNameFromPath(dbPath)
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
-  const newDbName = databasePath + `wargame-${uniqId}` + dbSuffix
+  const newDbName = `wargame-${uniqId}`
+  const newDb = new DbProvider(databasePath + newDbName)
 
-  return db.replicate(newDbName).then((newDb): Promise<Wargame> => {
-    addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
+  return db.replicate(newDbName).then((): Promise<Wargame> => {
+    addWargameDbStore({ name: newDbName, db: newDb })
     // get default wargame
     return getWargameLocalFromName(dbName)
   }).then((res) => {

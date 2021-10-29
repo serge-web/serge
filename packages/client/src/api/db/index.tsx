@@ -18,7 +18,7 @@ import { io } from "socket.io-client"
 
 export const POUCH_DB = 'pouchdb'
 export const RAVEN_DB = 'ravendb'
-const defaultProvider = RAVEN_DB
+const defaultProvider = RAVEN_DB // change value to POUCH_DB or RAVEN_DB
 
 export const availableProviders: ProviderTypeType[] = [POUCH_DB, RAVEN_DB]
 
@@ -30,7 +30,7 @@ export interface DbProviderInterface {
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
   allDocs: (include_docs: boolean, descending: boolean) => Promise<Message[]>
   replicate: (newDb: string) => Promise<DbProvider>
-  name: string,
+  name: string
 }
 
 interface RavenFetchData {
@@ -100,8 +100,9 @@ export class DbProvider implements DbProviderInterface {
       })
     } else if (this.provider.type === RAVEN_DB) {
       const socket = io(socketPath)
-       socket.on('changes', data => {
+      socket.on('changes', data => {
         const doc = data as Message | Wargame
+        if (data.messageType.toLowerCase().indexOf('message'))
         listener(doc)
       })
     }
@@ -169,7 +170,7 @@ export class DbProvider implements DbProviderInterface {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(doc)
-        }).then(() => resolve(doc))
+        }).then((res) => resolve(res.json()))
       } else {
         reject('type is undefined')
       }
@@ -225,12 +226,11 @@ export class DbProvider implements DbProviderInterface {
           reject(err)
         })
       } else if (this.provider.type === RAVEN_DB) {
-        const replacedNewDbName = newDbName.slice(newDbName.indexOf('wargame'))
-        fetch(serverPath + rdbPrefix + replicate + `${this.getDbNameFromUrl(replacedNewDbName)}/${this.getDbName()}`)
+        fetch(serverPath + rdbPrefix + replicate + `${this.getDbNameFromUrl(newDbName)}/${this.getDbName()}`)
           .then(() => {
             resolve(new DbProvider(newDbName, RAVEN_DB))
           })
-          .catch((err:string) => {
+          .catch((err: string) => {
             reject(err)
           })
       } else {
