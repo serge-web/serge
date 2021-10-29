@@ -13,6 +13,7 @@ const runServer = (
   const express = require('express')
   const path = require('path')
   const uniqid = require('uniqid')
+  require('dotenv').config()
 
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
@@ -83,10 +84,11 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck', (req, res) => {
+  app.get('/health_check', (req, res) => {
     res.status(200).send({
       status: 'OK',
-      uptime: process.uptime()
+      uptime: process.uptime(),
+      version: process.env.REACT_APP_VERSION
     })
   })
 
@@ -98,9 +100,14 @@ const runServer = (
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
-  app.use('/saveIcon', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' }))
+  app.use(
+    '/saveIcon',
+    express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
+  )
   app.post('/saveIcon', (req, res) => {
-    const imageName = `${uniqid.time('icon-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
+    const imageName = `${uniqid.time('icon-')}.${
+      req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'
+    }`
     const image = `${imgDir}/${imageName}`
     let imagePath = `${req.headers.host}/getIcon/${imageName}`
     if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
@@ -162,7 +169,12 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    const start =
+      process.platform === 'darwin'
+        ? 'open'
+        : process.platform === 'win32'
+          ? 'start'
+          : 'xdg-open'
     require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }
