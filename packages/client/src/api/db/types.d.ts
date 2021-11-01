@@ -4,6 +4,17 @@ import  RavenDB  from 'ravendb'
 import { Socket } from "socket.io-client"
 import { POUCH_DB, RAVEN_DB } from "."
 
+export interface DbProviderInterface {
+  changes: (listener: (doc: Message | Wargame) => void) => void
+  setMaxListeners: (maxListeners: number) => void
+  destroy: () => void
+  get: (query: string) => Promise<Wargame | Message>
+  put: (doc: Wargame | Message) => Promise<Wargame | Message>
+  allDocs: (include_docs: boolean, descending: boolean) => Promise<Message[]>
+  replicate: (newDb: string) => Promise<DbProvider>
+  name: string
+}
+
 export interface ProviderPouchDB {
   type: typeof POUCH_DB,
   db: PouchDB.Database<Message | Wargame>

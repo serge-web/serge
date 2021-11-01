@@ -1,8 +1,8 @@
 import { PlayerUiDispatch, PlayerUiActionTypes } from './player-ui-actions'
 import { Message, Wargame } from '@serge/custom-types'
 import PouchDB from 'pouchdb'
-import { ProviderPouchDB } from '../db/types'
-import DbProvider, { DbProviderInterface } from '../db'
+import { ProviderPouchDB, DbProviderInterface } from '../db/types'
+import DbProvider from '../db'
 
 export type ApiWargameDb = DbProviderInterface
 

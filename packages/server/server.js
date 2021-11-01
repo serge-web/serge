@@ -58,7 +58,7 @@ const runServer = (
   const cors = require('cors')
   const app = express()
   const listeners = {}
-  // let addListenersQueue = []
+  let addListenersQueue = []
 
   const clientBuildPath = '../client/build'
 
@@ -84,6 +84,18 @@ const runServer = (
     })
   }
 
+  // check listeners queue to add a new listenr
+  setInterval(() => {
+    if (addListenersQueue.length) {
+      console.log('Adding listeners for:', addListenersQueue)
+      for (const dbName of addListenersQueue) {
+        initChangesListener(dbName)
+      }
+      addListenersQueue = []
+      console.log('Listeners added, items left in queue:', addListenersQueue)
+    }
+  }, 5000)
+
   // check if database not exists then create it and add changes listener
   const ensureDatabaseExists = (store, dbName, createIfNotExists = false) => {
     return new Promise((resolve, reject) => {
@@ -101,6 +113,7 @@ const runServer = (
             store.maintenance.server
               .send(new CreateDatabaseOperation(database))
               .then(() => {
+                addListenersQueue.push(dbName)
                 resolve()
               })
               .catch(err => {
