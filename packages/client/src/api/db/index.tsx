@@ -20,8 +20,6 @@ export const POUCH_DB = 'pouchdb'
 export const RAVEN_DB = 'ravendb'
 const defaultProvider = RAVEN_DB // change value to POUCH_DB or RAVEN_DB
 
-export const availableProviders: ProviderTypeType[] = [POUCH_DB, RAVEN_DB]
-
 export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
   setMaxListeners: (maxListeners: number) => void

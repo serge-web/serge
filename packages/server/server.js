@@ -58,7 +58,7 @@ const runServer = (
   const cors = require('cors')
   const app = express()
   const listeners = {}
-  let addListenersQueue = []
+  // let addListenersQueue = []
 
   const clientBuildPath = '../client/build'
 
@@ -84,16 +84,6 @@ const runServer = (
     })
   }
 
-  // check listeners queue to add a new listenr
-  setInterval(() => {
-    if (addListenersQueue.length) {
-      for (const dbName of addListenersQueue) {
-        initChangesListener(dbName)
-      }
-      addListenersQueue = []
-    }
-  }, 5000)
-
   // check if database not exists then create it and add changes listener
   const ensureDatabaseExists = (store, dbName, createIfNotExists = false) => {
     return new Promise((resolve, reject) => {
@@ -111,7 +101,6 @@ const runServer = (
             store.maintenance.server
               .send(new CreateDatabaseOperation(database))
               .then(() => {
-                addListenersQueue.push(dbName)
                 resolve()
               })
               .catch(err => {
@@ -135,12 +124,24 @@ const runServer = (
   app.put(rdbPrefix + '/:wargame', (req, res) => {
     const databaseName = req.params.wargame
     ensureDatabaseExists(store, databaseName, true).then(() => {
-      const id = `${req.body._id}`
-      const putData = {
-        '@metadata': {
-          '@collection': `${id}`
-        },
-        ...req.body
+      const id = req.body._id
+      const messageType = req.body.messageType
+      let putData = {}
+
+      if (!messageType) {
+        putData = {
+          '@metadata': {
+            '@collection': `${id}`
+          },
+          ...req.body
+        }
+      } else {
+        putData = {
+          '@metadata': {
+            '@collection': `${messageType}`
+          },
+          ...req.body
+        }
       }
 
       const session = store.openSession(databaseName)
