@@ -71,7 +71,21 @@ const runServer = (
   app.use(bodyParser.urlencoded({ extended: true }))
 
   // init store
-  const store = new DocumentStore('http://localhost:4040/')
+  const ravenURL = process.env.RAVEN_URL
+  const certPath = process.env.CERT_PATH
+  const certPassword = process.env.CERT_PASSWORD
+
+  const authOptions = {
+    certificate: fs.readFileSync(certPath),
+    type: 'pfx',
+    password: certPassword
+  }
+  // remote or local raven db?
+  const remoteRaven = true
+  const store = remoteRaven
+    ? new DocumentStore(ravenURL, 'ravendb', authOptions)
+    : new DocumentStore('http://localhost:4040/')
+
   store.initialize()
 
   // changesListener
