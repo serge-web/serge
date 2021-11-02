@@ -4,7 +4,7 @@ import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
 import { Column } from '../organisms/data-table/types/props'
 import { capitalize } from 'lodash'
-import { Button } from '@material-ui/core'
+import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
 import { formatRole, genData } from './helpers/gen-data'
 import getKey from './helpers/get-key'
 import { setMessageState } from '@serge/helpers'
@@ -14,6 +14,7 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
+import filteredMessages from './helpers/filteredMessages'
 
 /** combine force id and color
  */
@@ -83,6 +84,8 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
+  const [showArchived, setShowArchived] = useState<boolean>(false)
+
   const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
@@ -93,17 +96,20 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
+  // (optionally) include archived messages
+  const filteredDoc = filteredMessages(messages, showArchived)
+
   // collate list of message owners
-  const filtersOwners = getListOfOwners(messages)
+  const filtersOwners = getListOfOwners(filteredDoc)
 
   // collate list of sources (From) for messages
-  const filtersRoles = getListOfSources(messages)
+  const filtersRoles = getListOfSources(filteredDoc)
 
   // collate list of sources (Status) for messages
-  const filtersStatus = getListOfStatus(messages)
+  const filtersStatus = getListOfStatus(filteredDoc)
 
   // collate list of extra column LOCATION for messages
-  const filtersLocations = getListOfExtraColumn(messages, 'LOCATION')
+  const filtersLocations = getListOfExtraColumn(filteredDoc, 'LOCATION')
 
   const handleUpdateUnreadCount = (nexCount?: number): boolean => {
     const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
@@ -117,7 +123,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const { data, unreadMessagesCount } = genData(
-    messages,
+    filteredDoc,
     forces,
     role,
     currentWargame,
@@ -170,7 +176,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const handleMarkAllAsRead = (): void => {
-    for (const message of messages) {
+    for (const message of filteredDoc) {
       // flag for if we tell original sender of RFI that it has been responded to
       const collab = message.details.collaboration
       const status = collab && collab.status
@@ -184,9 +190,29 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     handleUpdateUnreadCount(0)
   }
 
+  const handleArchiveDoc = (): void => {
+    setShowArchived(!showArchived)
+  }
+
   return (
     <>
-      <div className={styles.btn}><span><Button onClick={handleMarkAllAsRead}>Mark All As Read</Button></span></div>
+      <div className={styles.actions}>
+        <FormControlLabel
+          className={styles.checkbox}
+          label="Show archived"
+          control={
+            <Checkbox
+              onChange={handleArchiveDoc}
+              checked={!!showArchived}
+            />
+          }
+        />
+        <div className={styles.btn}>
+          <span>
+            <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
+          </span>
+        </div>
+      </div>
       <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
     </>
   )
