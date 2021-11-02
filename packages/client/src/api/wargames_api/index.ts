@@ -1,5 +1,5 @@
 import uniqid from 'uniqid'
-import _ from 'lodash'
+import _, { last } from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
@@ -240,8 +240,22 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
-    const latestWargame: MessageInfoType | undefined = messages.find(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType
-    if (latestWargame !== undefined) return latestWargame as Wargame
+    let lastDate: number = 0
+    let infiMessageIndex: number = -1
+    for (let index = 0; index < messages.length; index++) {
+      const message = messages[index];
+      if (message.messageType === INFO_MESSAGE) {
+        const nextDate = + new Date(message._id)
+        if (nextDate > lastDate) {
+          lastDate = nextDate;
+          infiMessageIndex = index
+        }
+      }
+    }
+
+    const infoMessages: MessageInfoType[] = messages.filter(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType[]
+    console.log(messages, 'TEST')
+    if (infiMessageIndex !== -1) return messages[infiMessageIndex] as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
 }

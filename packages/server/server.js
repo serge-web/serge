@@ -1,3 +1,6 @@
+require('dotenv').config({ path: './.env.local' })
+require('dotenv').config({ path: './.env' })
+
 const runServer = (
   eventEmmiterMaxListeners,
   pouchOptions,
@@ -70,30 +73,36 @@ const runServer = (
   app.use(express.json())
   app.use(bodyParser.urlencoded({ extended: true }))
 
+  console.log(process.env.RAVEN_URL)
   // init store
+  // default RAVEN_URL is defined in .env file use .env.local to override it
   const ravenURL = process.env.RAVEN_URL
+  // use .env.local to define CERT_PATH and CERT_PASSWORD
   const certPath = process.env.CERT_PATH
   const certPassword = process.env.CERT_PASSWORD
 
-  const authOptions = {
+  // if we have CERT_PATH then we need to define authorization options
+  const authOptions = certPath ? {
     certificate: fs.readFileSync(certPath),
     type: 'pfx',
-    password: certPassword
-  }
-  // remote or local raven db?
-  const remoteRaven = true
-  const store = remoteRaven
-    ? new DocumentStore(ravenURL, 'ravendb', authOptions)
-    : new DocumentStore('http://localhost:4040/')
+    password: certPassword || ''
+  } : undefined
 
+  // we don't need a default selected database bcos we need to work with multiple databases so default database is null
+  const store = new DocumentStore(ravenURL, null, authOptions)
   store.initialize()
 
   // changesListener
   const initChangesListener = (dbName) => {
+    // saving listener
     listeners[dbName] = store.changes(dbName)
+    // adding subscription for listener
     listeners[dbName].forAllDocuments().on('data', async change => {
+      // connectiong to the db
       const session = store.openSession(dbName)
+      // get changed doc
       const loadData = await session.load(change.id)
+      // send it to client
       io.emit('changes', loadData)
     })
   }
@@ -105,6 +114,7 @@ const runServer = (
       for (const dbName of addListenersQueue) {
         initChangesListener(dbName)
       }
+      // clean queue
       addListenersQueue = []
       console.log('Listeners added, items left in queue:', addListenersQueue)
     }
@@ -113,21 +123,25 @@ const runServer = (
   // check if database not exists then create it and add changes listener
   const ensureDatabaseExists = (store, dbName, createIfNotExists = false) => {
     return new Promise((resolve, reject) => {
+      // dbName required
       if (!dbName) {
         return reject(new Error('Value cannot be null or whitespace.' + dbName))
       }
 
+      // checking if database exists
       store.maintenance
         .forDatabase(dbName)
         .send(new GetStatisticsOperation())
-        .then(() => resolve())
-        .catch((err) => {
-          if (createIfNotExists) {
+        .then(() => resolve()) // database exists
+        .catch((err) => { // database not found
+          if (createIfNotExists) { // do we need to create database?
+            // creating database object
             const database = { databaseName: dbName }
+            // creating new database
             store.maintenance.server
               .send(new CreateDatabaseOperation(database))
-              .then(() => {
-                addListenersQueue.push(dbName)
+              .then(() => { // database created successfully
+                addListenersQueue.push(dbName) // add on change listeners
                 resolve()
               })
               .catch(err => {
