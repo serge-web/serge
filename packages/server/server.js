@@ -1,6 +1,3 @@
-require('dotenv').config({ path: './.env.local' })
-require('dotenv').config({ path: './.env' })
-
 const runServer = (
   eventEmmiterMaxListeners,
   pouchOptions,
@@ -73,10 +70,9 @@ const runServer = (
   app.use(express.json())
   app.use(bodyParser.urlencoded({ extended: true }))
 
-  console.log(process.env.RAVEN_URL)
   // init store
   // default RAVEN_URL is defined in .env file use .env.local to override it
-  const ravenURL = process.env.RAVEN_URL
+  const ravenURL = process.env.RAVEN_URL || 'http://localhost:4040/'
   // use .env.local to define CERT_PATH and CERT_PASSWORD
   const certPath = process.env.CERT_PATH
   const certPassword = process.env.CERT_PASSWORD
@@ -132,7 +128,7 @@ const runServer = (
       store.maintenance
         .forDatabase(dbName)
         .send(new GetStatisticsOperation())
-        .then(() => resolve()) // database exists
+        .then(() => resolve(false)) // database exists
         .catch((err) => { // database not found
           if (createIfNotExists) { // do we need to create database?
             // creating database object
@@ -142,7 +138,7 @@ const runServer = (
               .send(new CreateDatabaseOperation(database))
               .then(() => { // database created successfully
                 addListenersQueue.push(dbName) // add on change listeners
-                resolve()
+                resolve(true)
               })
               .catch(err => {
                 reject(err)
@@ -212,28 +208,27 @@ const runServer = (
     }).catch((err) => { res.status(500).send(err) })
   })
 
-  app.get(rdbPrefix + 'replicate/:replicate/:dbname', async (req, res) => {
-    const replicateData = req.params.replicate // new db name
-    const dbName = req.params.dbname // copy data from
-
-    ensureDatabaseExists(store, replicateData, true).then(async () => {
-      const session = store.openSession(dbName)
-      const loadDataForReplicate = await session.query({}).all()
-      const sessionForNewData = store.openSession(replicateData)
-      const messages = loadDataForReplicate.map(async message => {
-        const id = message._id
-        const putData = {
-          '@metadata': {
-            '@collection': `${id}`
-          },
-          ...message
+  app.get(rdbPrefix + '/replicate/:replicate/:dbname', (req, res) => {
+    const newDatabase = req.params.replicate // new db name
+    const existingDatabase = req.params.dbname // copy data from
+    ensureDatabaseExists(store, existingDatabase).then(() => {
+      ensureDatabaseExists(store, newDatabase, true).then((isNewDatabase) => {
+        if (!isNewDatabase) {
+          res.status(500).send({ msg: `replication error: "${newDatabase}": already exsits`, data: {} })
+          return
         }
-        await sessionForNewData.store(putData, id)
-        await sessionForNewData.saveChanges()
-        return putData
-      })
-      res.send({ msg: 'ok', data: messages })
-    }).catch((err) => res.status(500).send(err))
+        const session = store.openSession(existingDatabase)
+        session
+          .query({})
+          .all()
+          .then(async (messages) => {
+            const inserOperation = store.bulkInsert(newDatabase)
+            for (const message of messages) await inserOperation.store(message)
+            res.send({ msg: 'ok', data: messages })
+          })
+          .catch((err) => res.status(500).send({ msg: `error on load data from ${existingDatabase}`, data: err }))
+      }).catch((err) => res.status(500).send({ msg: `error on ${newDatabase} database creation`, data: err }))
+    }).catch((err) => res.status(500).send({ msg: `${existingDatabase} not exists`, data: err }))
   })
 
   app.delete(rdbPrefix + '/delete/:dbName', (req, res) => {
