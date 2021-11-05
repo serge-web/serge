@@ -114,7 +114,7 @@ const ravenDb = (app) => {
         // update an document
           for (const keys in req.body) {
             result[keys] = req.body[keys]
-            session.saveChanges().catch(err => res.status(400).send({ msg:'Error in save changes', data: err }))
+            session.saveChanges().catch(err => res.status(400).send({ msg: 'Error in save changes', data: err }))
           }
           res.send({ msg: 'updated', data: putData })
         } else {
@@ -122,8 +122,8 @@ const ravenDb = (app) => {
           session.store(putData, id).then(() => {
             session.saveChanges().then(() => {
               res.send({ msg: 'created', data: putData })
-            }).catch(err => res.status(400).send({ msg:'Error in save data', data: err }))
-          }).catch(err => res.status(400).send({ msg:'Error on put', data: err }))
+            }).catch(err => res.status(400).send({ msg: 'Error in save data', data: err }))
+          }).catch(err => res.status(400).send({ msg: 'Error on put', data: err }))
         }
       }).catch((err) => res.status(404).send(err))
     }).catch((err) => res.status(500).send(err))
@@ -159,19 +159,19 @@ const ravenDb = (app) => {
     listeners[dbName].dispose()
     store.maintenance.server.send(new DeleteDatabasesOperation({ databaseNames: [dbName] }))
       .then(() => res.send('Deleted db ' + dbName))
-      .catch((err) => res.status(400).send({ msg:'Error on delete db', data: err }))
+      .catch((err) => res.status(400).send({ msg: 'Error on delete db', data: err }))
   })
 
   app.delete('/clearAll', async (req, res) => {
     const allDbs = await store.maintenance.server.send(operation)
-      .catch((err) => res.status(400).send({ msg:'Error on load all dbs', data: err }))
+      .catch((err) => res.status(400).send({ msg: 'Error on load all dbs', data: err }))
     Object.keys(listeners).forEach(dbName => {
       listeners[dbName] = store.changes(dbName)
       listeners[dbName].dispose()
     })
     store.maintenance.server.send(new DeleteDatabasesOperation({ databaseNames: allDbs }))
       .then(() => res.send('Deleted all dbs'))
-      .catch((err) => res.status(400).send({ msg:'Error on clear all dbs', data: err }))
+      .catch((err) => res.status(400).send({ msg: 'Error on clear all dbs', data: err }))
   })
 
   // get all wargame names
@@ -194,7 +194,7 @@ const ravenDb = (app) => {
       const session = store.openSession(databaseName)
       session.query({}).all().then((items) => {
         const localSettings = '_local/settings'
-        const messages = items.reduce((messages, doc ) => {
+        const messages = items.reduce((messages, doc) => {
           const isNotSystem = doc._id !== localSettings
           if (doc.messageType !== 'CounterMessage' && isNotSystem) messages.push(doc)
           return messages
@@ -203,7 +203,7 @@ const ravenDb = (app) => {
       }).catch((err) => {
         res.status(404).send({ msg: 'Something went wrong on docs load ', data: err })
       })
-    }).catch((err) => res.status(500).send({ msg:'Error on load db', data: err }))
+    }).catch((err) => res.status(500).send({ msg: 'Error on load db', data: err }))
   })
 
   // get document for wargame
@@ -228,7 +228,7 @@ const ravenDb = (app) => {
           res.status(404).send({ msg: `Doc with id: "${id}" not found`, data })
         }
       }).catch((err) => res.status(404).send({ msg: 'Something went wrong on doc load ', data: err }))
-    }).catch((err) => res.status(500).send({ msg:'Error on load db', data: err }))
+    }).catch((err) => res.status(500).send({ msg: 'Error on load db', data: err }))
   })
 }
 
