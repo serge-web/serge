@@ -1,5 +1,5 @@
 import uniqid from 'uniqid'
-import _, { last } from 'lodash'
+import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
@@ -13,9 +13,10 @@ import {
   MSG_TYPE_STORE,
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
-  MAX_LISTENERS,
   SERGE_INFO,
   COUNTER_MESSAGE,
+  clearAll,
+  allDocs,
   dbSuffix
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
@@ -54,7 +55,7 @@ import {
 import { hiddenPrefix} from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
-import DbProvider, { getAllDocs } from '../db'
+import DbProvider from '../db'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -145,16 +146,14 @@ export const pingServer = (): Promise<string> => {
   })
 }
 
-export const populateWargame = (): Promise<Wargame> => {
-  // @ts-ignore
-  return getAllDocs().then((dbs: string[]) => {
+export const populateWargame = (): Promise<string | Wargame[]> => {
+   return fetch(serverPath + allDocs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
     
     toCreate.forEach(name => {
       const db = new DbProvider(databasePath + name)
-      db.setMaxListeners(MAX_LISTENERS)
       wargameDbStore.unshift({ name, db })
     })
 
@@ -181,7 +180,7 @@ export const populateWargame = (): Promise<Wargame> => {
 }
 
 export const clearWargames = (): void => {
-  fetch(serverPath + 'clearAll').then(() => {
+  fetch(serverPath + clearAll, { method: 'DELETE' }).then(() => {
     window.location.reload()
   })
 }
@@ -209,8 +208,7 @@ export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
 
-  db.setMaxListeners(15)
-  addWargameDbStore({ name: name, db })
+  addWargameDbStore({ name: name , db })
 
   // TODo: update dbDefaultSettings to valid wargame json
   // @ts-ignore
@@ -253,7 +251,7 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
       }
     }
 
-    const infoMessages: MessageInfoType[] = messages.filter(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType[]
+    messages.filter(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType[]
     if (infoMessageIndex !== -1) return messages[infoMessageIndex] as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
@@ -484,7 +482,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const uniqId = uniqid.time()
 
   const newDbName = `wargame-${uniqId}`
-  const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName + dbSuffix)
+  const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName)
   return db.get(dbDefaultSettings._id).then((res) => {
     const wargame = res as Wargame
     return updateWargameByDb({
@@ -494,7 +492,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
       wargameTitle: `${wargame.wargameTitle}-${uniqId}`,
       wargameInitiated: false
     }, newDbName, undefined, newDb).then(() => {
-      addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
+      addWargameDbStore({ name: newDbName, db: newDb })
       return getAllWargames()
     }).catch(rejectDefault)
   })

@@ -159,12 +159,7 @@ export const createNewWargameDB = () => {
 }
 
 export const clearWargames = () => {
-  return async (dispatch) => {
-    await wargamesApi.clearWargames()
-
-    const wargames = await wargamesApi.getAllWargames()
-    dispatch(saveAllWargameNames(wargames))
-  }
+    wargamesApi.clearWargames()
 }
 
 export const deleteWargame = (name) => {

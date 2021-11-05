@@ -1,12 +1,8 @@
 import { Message, Wargame } from "@serge/custom-types"
-import PouchDB from 'pouchdb'
-import  RavenDB  from 'ravendb'
 import { Socket } from "socket.io-client"
-import { POUCH_DB, RAVEN_DB } from "."
 
 export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
-  setMaxListeners: (maxListeners: number) => void
   destroy: () => void
   get: (query: string) => Promise<Wargame | Message>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
@@ -15,18 +11,9 @@ export interface DbProviderInterface {
   name: string
 }
 
-export interface ProviderPouchDB {
-  type: typeof POUCH_DB,
-  db: PouchDB.Database<Message | Wargame>
+export interface ProviderDbInterface {
+  db: DbProviderInterface.Socket<Message | Wargame>
 }
-
-export interface ProviderRavenDB {
-  type: typeof RAVEN_DB,
-  db: RavenDB.Socket<Message | Wargame>
-}
-
-export type ProviderTypeType = typeof POUCH_DB | typeof RAVEN_DB
-export type ProviderType = ProviderPouchDB | ProviderRavenDB
 
 interface DbProviderInterfaceChangesOptions {
   live?: boolean
@@ -39,6 +26,15 @@ export interface ChangesResponseChange<Content extends {}> {
   changes: Array<{ rev: string }>;
   deleted?: boolean;
   wargame?: Wargame | Message;
+}
+
+export interface FetchData {
+  msg: string,
+  data: Wargame | Message
+}
+export interface FetchDataArray {
+  msg: string,
+  data: (Wargame | Message)[]
 }
 
 /*

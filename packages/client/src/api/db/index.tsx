@@ -1,60 +1,101 @@
 import { 
+  COUNTER_MESSAGE,
   serverPath,
-  rdbPrefix,
-  allDbs
- } from '@serge/config'
+  databasePath,
+  socketPath,
+  replicate,
+  deletePath,
+  localSettings
+} from '@serge/config'
 import { Message, Wargame } from '@serge/custom-types'
-import { ProviderTypeType, DbProviderInterface } from './types'
-import PouchDbProvider from './pouchdb'
-import RavenDbProvider from './ravendb'
-
-export const POUCH_DB = 'pouchdb'
-export const RAVEN_DB = 'ravendb'
-const defaultProvider = RAVEN_DB // change value to POUCH_DB or RAVEN_DB
+import { io } from "socket.io-client"
+import {
+   ProviderDbInterface,
+   DbProviderInterface,
+    FetchData, 
+    FetchDataArray
+   } from './types'
 
 export class DbProvider implements DbProviderInterface {
 
-  private provider: DbProviderInterface
+  private provider: ProviderDbInterface
   name: string
 
-  // define methods witch ones should extends from db providers
-  get: (query: string) => Promise<Wargame | Message>
-  put: (doc: Wargame | Message) => Promise<Wargame | Message>
-  allDocs: (include_docs: boolean, descending: boolean) => Promise<Message[]>
-  changes: (listener: (doc: Wargame | Message) => void) => void
-  destroy: () => void
-  replicate: (newDb: string) => Promise<any>
-  setMaxListeners: (maxListeners: number) => void
-
-  constructor (databasePath: string, provider: ProviderTypeType = defaultProvider) {
-    if (provider === POUCH_DB) {
-      this.provider = new PouchDbProvider(databasePath)
-      this.name = this.provider.name
-    } else if (provider === RAVEN_DB) {
-      this.provider = new RavenDbProvider(databasePath)
-      this.name = databasePath
-    } else {
-      throw new TypeError('Wrong provider type')
+  constructor (databasePath: string) {
+    this.provider = {
+      db: databasePath
     }
-
-    // extend methods
-    this.changes = this.provider.changes.bind(this.provider)
-    this.setMaxListeners = this.provider.setMaxListeners.bind(this.provider)
-    this.destroy = this.provider.destroy.bind(this.provider)
-    this.get = this.provider.get.bind(this.provider)
-    this.put = this.provider.put.bind(this.provider)
-    this.allDocs = this.provider.allDocs.bind(this.provider)
-    this.replicate = this.provider.replicate.bind(this.provider)
+    this.name = databasePath
   }
-}
 
-export const getAllDocs = (provider: ProviderTypeType = defaultProvider): Promise<string[]> => {
-  if (provider === RAVEN_DB) {
-    return fetch(serverPath + rdbPrefix).then(res => res.json()).then(res => (res.data || []) as string[])
-  } else if (provider === POUCH_DB) {
-    return fetch(serverPath + allDbs).then(res => res.json())
-  } else {
-    throw new Error('Wrong provider ' + provider)
+  changes (listener: (doc: Message | Wargame) => void): void  {
+    const socket = io(socketPath)
+    socket.on('changes', data => {
+      const doc = data as Message | Wargame
+      if (data.messageType.toLowerCase().indexOf('message')) listener(doc)
+    })
+  }
+
+  destroy(): void {
+    fetch(serverPath + deletePath + this.getDbName(), {
+      method: 'DELETE'
+    })
+  }
+
+  get (query: string): Promise<Wargame | Message> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + query)
+        .then(res => res.json() as Promise<FetchData>)
+        .then(({ msg, data }) => { 
+          if (msg === 'ok') resolve(data)
+          else reject({ msg: msg, status: 404 })
+        })
+    })
+  }
+
+  private getDbName(): string {
+    return this.getDbNameFromUrl(this.provider.db)
+  }
+
+  private getDbNameFromUrl(url: string): string {
+    return url.replace(databasePath, '')
+  }
+
+  put (doc: Wargame | Message): Promise<Wargame | Message> {  
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName(), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(doc)
+      }).then((res) => resolve(res.json()))
+    })
+  }
+
+  allDocs (): Promise<Message[]> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName())
+        .then(res => res.json() as Promise<FetchDataArray>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') {                        
+            resolve(data as Message[])
+          } else reject(msg)
+        })
+      })
+  }
+
+  replicate(newDbName: string): Promise<DbProvider> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbName)}/${this.getDbName()}`)
+        .then(() => {
+          resolve(new DbProvider(newDbName))
+        })
+        .catch((err: string) => {
+          reject(err)
+        })
+    })
   }
 }
 

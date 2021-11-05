@@ -1,0 +1,138 @@
+const { Server } = require('socket.io')
+const io = new Server(4000, { cors: { origin: '*' } })
+const listeners = {}
+let addListenersQueue = []
+
+const pouchDb = (app, pouchOptions) => {
+  const PouchDB = require('pouchdb-core')
+    .plugin(require('pouchdb-adapter-node-websql'))
+    .plugin(require('pouchdb-adapter-http'))
+    .plugin(require('pouchdb-mapreduce'))
+    .plugin(require('pouchdb-replication'))
+    .defaults(pouchOptions)
+  require('pouchdb-all-dbs')(PouchDB)
+
+  app.use('/db', require('express-pouchdb')(PouchDB))
+
+  // changesListener
+  const initChangesListener = (dbName) => {
+    const db = new PouchDB(dbName, pouchOptions)
+    // saving listener
+    listeners[dbName] = db.changes({
+      since: 'now',
+      live: true,
+      timeout: false,
+      heartbeat: false,
+      include_docs: true
+    }).on('change', (result) => {
+      db.get(result.id)
+        .then((data) => {
+          io.emit('changes', data)
+        }).catch(err => console.log('Error in get', err))
+    }).catch(err => console.log('Error on change data', err))
+  }
+
+  // check listeners queue to add a new listenr
+  setInterval(() => {
+    if (addListenersQueue.length) {
+      for (const dbName of addListenersQueue) {
+        initChangesListener(dbName)
+      }
+      // clean queue
+      addListenersQueue = []
+    }
+  }, 5000)
+
+  PouchDB.allDbs().then(dbs => {
+    dbs.forEach(db => initChangesListener(db))
+  }).catch(err => console.log('Error on load alldbs', err))
+
+  app.put('/:wargame', (req, res) => {
+    const databaseName = req.params.wargame
+    const db = new PouchDB(databaseName, pouchOptions)
+    const putData = req.body
+    if (!listeners[databaseName]) {
+      addListenersQueue.push(databaseName)
+    }
+    db.put(putData)
+      .then(() => {
+        res.send(putData)
+      }).catch(err => res.status(400).send(`Error in put ${err}`))
+  })
+
+  app.get('/replicate/:replicate/:dbname', (req, res) => {
+    const newDbName = req.params.replicate // new db name
+    const newDb = new PouchDB(newDbName, pouchOptions)
+    const existingDatabase = req.params.dbname // copy data from
+    newDb.replicate.from(existingDatabase).then(() => {
+      res.send('Replicated')
+    }).catch(err => res.status(400).send({ msg: 'Error on replication', data: err }))
+  })
+
+  app.delete('/delete/:dbName', (req, res) => {
+    const dbName = req.params.dbName
+    const db = new PouchDB(dbName, pouchOptions)
+    db.destroy().then(() => {
+      res.send({ msg: 'ok', data: dbName })
+    }).catch((err) => res.status(400).send({ msg: 'error', data: err }))
+  })
+
+  app.delete('/clearAll', (req, res) => {
+    PouchDB.resetAllDbs()
+      .then(() => res.send())
+      .catch(err => res.status(500).send(`Error on clearAll ${err}`))
+  })
+
+  // get all wargame names
+  app.get('/allDocs', async (req, res) => {
+    PouchDB.allDbs()
+      .then(dbs => res.send({ msg: 'ok', data: dbs || [] }))
+      .catch(err => res.status(400).send({ msg: 'Error in load all docs', data: err }))
+  })
+
+  // get all documents for wargame
+  app.get('/:wargame', async (req, res) => {
+    const databaseName = `${req.params.wargame}`
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+    db.allDocs({ include_docs: true, attachments: true })
+      .then(result => {
+        const localSettings = '_local/settings'
+
+        const messages = result.rows.reduce((messages, { doc }) => {
+          const isNotSystem = doc._id !== localSettings
+          if (doc.messageType !== 'CounterMessage' && isNotSystem) messages.push(doc)
+          return messages
+        }, [])
+        res.send({ msg: 'ok', data: messages })
+      }).catch(err => res.status(400).send({ msg: 'error on load all docs', data: err }))
+  })
+
+  // get document for wargame
+  app.get('/:wargame/:id/:idp2', (req, res) => {
+    const databaseName = `${req.params.wargame}`
+    const db = new PouchDB(databaseName, pouchOptions)
+    let id = `${req.params.id}`
+
+    if (req.params.idp2) {
+      id += '/' + req.params.idp2
+    }
+
+    if (!id || !databaseName) {
+      res.status(404).send({ msg: 'Wrong Id or Wargame', data: null })
+    }
+
+    db.get(id)
+      .then(data => res.send({ msg: 'ok', data }))
+      .catch(err => res.status(400).send({
+        msg: 'Something went wrong on doc load',
+        data: err
+      }))
+  })
+}
+
+module.exports = pouchDb
