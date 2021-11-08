@@ -190,7 +190,7 @@ const ravenDb = (app) => {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
     }
 
-    ensureDatabaseExists(store, databaseName).then(() => {
+    ensureDatabaseExists(store, databaseName, true).then(() => {
       const session = store.openSession(databaseName)
       session.query({}).all().then((items) => {
         const localSettings = '_local/settings'

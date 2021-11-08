@@ -1,11 +1,9 @@
 import { 
-  COUNTER_MESSAGE,
   serverPath,
   databasePath,
   socketPath,
   replicate,
-  deletePath,
-  localSettings
+  deletePath
 } from '@serge/config'
 import { Message, Wargame } from '@serge/custom-types'
 import { io } from "socket.io-client"

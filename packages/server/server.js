@@ -79,7 +79,7 @@ const runServer = (
     const pouchDb = require('./pouchdb')
     pouchDb(app, pouchOptions)
   } else {
-    return TypeError('Wrong provider name', provider)
+    return TypeError(`Wrong provider name ${provider}`)
   }
 
   app.get('/cells/:filename', (req, res) => {

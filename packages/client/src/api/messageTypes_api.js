@@ -22,7 +22,7 @@ export const populateDb = () => {
   const promises = []
 
   return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true }).then(entries => {
+    db.allDocs().then(entries => {
       if (entries.length === 0) {
         var machine = {
           _id: uniqid.time(),
@@ -242,7 +242,7 @@ export const deleteMessageFromDb = (id) => {
 
 export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true })
+    db.allDocs()
       .then((res) => {
         resolve(res)
       })
