@@ -10,8 +10,8 @@ import { io } from "socket.io-client"
 import {
    ProviderDbInterface,
    DbProviderInterface,
-    FetchData, 
-    FetchDataArray
+   FetchData,
+   FetchDataArray
    } from './types'
 
 export class DbProvider implements DbProviderInterface {
@@ -26,11 +26,11 @@ export class DbProvider implements DbProviderInterface {
     this.name = databasePath
   }
 
-  changes (listener: (doc: Message | Wargame) => void): void  {
+  changes (listener: (doc: Message) => void): void  {
     const socket = io(socketPath)
     socket.on('changes', data => {
-      const doc = data as Message | Wargame
-      if (data.messageType.toLowerCase().indexOf('message')) listener(doc)
+      const doc = data as Message
+        listener(doc)
     })
   }
 
@@ -77,9 +77,8 @@ export class DbProvider implements DbProviderInterface {
         .then(res => res.json() as Promise<FetchDataArray>)
         .then((res) => {
           const { msg, data } = res
-          if (msg === 'ok') {                        
-            resolve(data as Message[])
-          } else reject(msg)
+          if (msg === 'ok') resolve(data as Message[])
+          else reject(msg)
         })
       })
   }
@@ -87,12 +86,8 @@ export class DbProvider implements DbProviderInterface {
   replicate(newDbName: string): Promise<DbProvider> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbName)}/${this.getDbName()}`)
-        .then(() => {
-          resolve(new DbProvider(newDbName))
-        })
-        .catch((err: string) => {
-          reject(err)
-        })
+        .then(() => resolve(new DbProvider(newDbName)))
+        .catch((err: string) => reject(err))
     })
   }
 }

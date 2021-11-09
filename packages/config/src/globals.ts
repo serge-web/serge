@@ -109,7 +109,7 @@ export const hiddenPrefix = '_#_'
 export const dbSuffix = '.sqlite'
 
 export const clearAll = 'clearAll'
-export const allDocs = 'allDocs'
+export const allDbs = 'allDbs'
 export const socketPath = 'http://localhost:4000'
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'

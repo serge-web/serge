@@ -21,7 +21,8 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   const schema = Object.keys(messageTemplates).map(
     // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
     (key): TemplateBody => messageTemplates[key]
-  ).find(msg => msg.title === message.details.messageType)
+    // @ts-ignore
+  ).find(msg => msg.details.title === message.details.messageType)
 
   if (!schema) {
     const styles = {
@@ -38,7 +39,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   const genLocalStorageId = (): string => {
-    return `${message._id}_${message.message.Reference}`
+    return `${message._id}_${message.message.title}`
   }
 
   const initEditor = (): () => void => {

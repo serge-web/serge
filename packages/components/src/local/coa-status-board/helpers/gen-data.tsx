@@ -118,15 +118,15 @@ export const genData = (
 
     const cells = [
       {
-        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'}icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
-          {message.message.Reference || message._id}</>,
-        label: message.message.Reference || message._id
+        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
+          {message._id}</>,
+        label: message._id
       },
       {
         component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
         label: message.details.from.roleName
       },
-      message.message.Title,
+      message.message.title as any,
       {
         component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
         label: status
@@ -151,7 +151,7 @@ export const genData = (
       cells.push(...newCols)
     }
 
-    const rowKey = `${message.message.Reference}`
+    const rowKey = `${message._id}`
 
     return {
       type: ROW_WITH_COLLAPSIBLE_TYPE,

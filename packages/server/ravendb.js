@@ -1,9 +1,7 @@
 const fs = require('fs')
 const listeners = {}
 let addListenersQueue = []
-const { Server } = require('socket.io')
-
-const io = new Server(4000, { cors: { origin: '*' } })
+const { localSettings, COUNTER_MESSAGE } = require('./consts')
 
 const {
   DocumentStore,
@@ -13,7 +11,7 @@ const {
   DeleteDatabasesOperation
 } = require('ravendb')
 
-const ravenDb = (app) => {
+const ravenDb = (app, io) => {
   // init store
   const ravenURL = process.env.RAVEN_URL || 'http://localhost:4040/'
   const certPath = process.env.CERT_PATH
@@ -100,10 +98,10 @@ const ravenDb = (app) => {
     const databaseName = req.params.wargame
     ensureDatabaseExists(store, databaseName, true).then(() => {
       const id = req.body._id
-      const messageType = req.body.messageType
+      const messageType = req.body.details?.messageType || req.body.details?.title
       const putData = {
         '@metadata': {
-          '@collection': !messageType ? `${id}` : `${messageType}`
+          '@collection': messageType ? `${messageType}` : `${id}`
         },
         ...req.body
       }
@@ -139,16 +137,12 @@ const ravenDb = (app) => {
           return
         }
         const session = store.openSession(existingDatabase)
-        session
-          .query({})
-          .all()
-          .then(async (messages) => {
-            const insertOperation = store.openSession(newDatabase)
-            for (const message of messages) await insertOperation.store(message)
-            await insertOperation.saveChanges()
-            res.send({ msg: 'ok', data: messages })
-          })
-          .catch((err) => res.status(500).send({ msg: `error on load data from ${existingDatabase}`, data: err }))
+        session.query({}).all().then(async (messages) => {
+          const insertOperation = store.openSession(newDatabase)
+          for (const message of messages) await insertOperation.store(message)
+          await insertOperation.saveChanges()
+          res.send({ msg: 'ok', data: messages })
+        }).catch((err) => res.status(500).send({ msg: `error on load data from ${existingDatabase}`, data: err }))
       }).catch((err) => res.status(500).send({ msg: `error on ${newDatabase} database creation`, data: err }))
     }).catch((err) => res.status(500).send({ msg: `${existingDatabase} not exists`, data: err }))
   })
@@ -175,11 +169,11 @@ const ravenDb = (app) => {
   })
 
   // get all wargame names
-  app.get('/allDocs', async (req, res) => {
+  app.get('/allDbs', async (req, res) => {
     const operation = new GetDatabaseNamesOperation(0, 1000)
     store.maintenance.server.send(operation).then((items) => {
       res.send({ msg: 'ok', data: items || [] })
-    }).catch((err) => res.status(404).send({ msg: 'Something went wrong on docs load ', data: err }))
+    }).catch((err) => res.status(404).send({ msg: 'Something went wrong on all dbs load ', data: err }))
   })
 
   // get all documents for wargame
@@ -193,10 +187,9 @@ const ravenDb = (app) => {
     ensureDatabaseExists(store, databaseName, true).then(() => {
       const session = store.openSession(databaseName)
       session.query({}).all().then((items) => {
-        const localSettings = '_local/settings'
         const messages = items.reduce((messages, doc) => {
           const isNotSystem = doc._id !== localSettings
-          if (doc.messageType !== 'CounterMessage' && isNotSystem) messages.push(doc)
+          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])
         res.send({ msg: 'ok', data: messages })

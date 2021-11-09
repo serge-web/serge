@@ -15,11 +15,6 @@ export interface ProviderDbInterface {
   db: DbProviderInterface.Socket<Message | Wargame>
 }
 
-interface DbProviderInterfaceChangesOptions {
-  live?: boolean
-}
-
-
 export interface ChangesResponseChange<Content extends {}> {
   id: string;
   seq: number | string;

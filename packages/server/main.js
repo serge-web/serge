@@ -20,7 +20,6 @@ addons.forEach(addonId => {
 })
 
 server(
-  82, // event emmiter max listeners
   { prefix: 'db/', adapter: 'websql' }, // PouchDb Options
   {
     // cors options

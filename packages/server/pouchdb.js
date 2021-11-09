@@ -1,9 +1,8 @@
-const { Server } = require('socket.io')
-const io = new Server(4000, { cors: { origin: '*' } })
 const listeners = {}
 let addListenersQueue = []
+const { localSettings, COUNTER_MESSAGE } = require('./consts')
 
-const pouchDb = (app, pouchOptions) => {
+const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
     .plugin(require('pouchdb-adapter-http'))
@@ -84,10 +83,10 @@ const pouchDb = (app, pouchOptions) => {
   })
 
   // get all wargame names
-  app.get('/allDocs', async (req, res) => {
+  app.get('/allDbs', async (req, res) => {
     PouchDB.allDbs()
       .then(dbs => res.send({ msg: 'ok', data: dbs || [] }))
-      .catch(err => res.status(400).send({ msg: 'Error in load all docs', data: err }))
+      .catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
   })
 
   // get all documents for wargame
@@ -101,11 +100,9 @@ const pouchDb = (app, pouchOptions) => {
     const db = new PouchDB(databaseName, pouchOptions)
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
-        const localSettings = '_local/settings'
-
         const messages = result.rows.reduce((messages, { doc }) => {
           const isNotSystem = doc._id !== localSettings
-          if (doc.messageType !== 'CounterMessage' && isNotSystem) messages.push(doc)
+          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])
         res.send({ msg: 'ok', data: messages })

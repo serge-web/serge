@@ -50,7 +50,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     channelDict.get(message.details.channel),
     message.details.from.roleName,
     message.details.from.forceColor,
-    message.message.Title,
+    message.message.title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
     message.details.collaboration && message.details.collaboration.owner ? message.details.collaboration.owner.roleName : undefined
   ])

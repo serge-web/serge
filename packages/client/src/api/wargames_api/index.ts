@@ -16,7 +16,7 @@ import {
   SERGE_INFO,
   COUNTER_MESSAGE,
   clearAll,
-  allDocs,
+  allDbs,
   dbSuffix
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
@@ -147,7 +147,7 @@ export const pingServer = (): Promise<string> => {
 }
 
 export const populateWargame = (): Promise<string | Wargame[]> => {
-   return fetch(serverPath + allDocs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
+   return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')

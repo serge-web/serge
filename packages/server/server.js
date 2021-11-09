@@ -1,5 +1,4 @@
 const runServer = (
-  eventEmmiterMaxListeners,
   pouchOptions,
   corsOptions,
   imgDir,
@@ -9,7 +8,6 @@ const runServer = (
   onAppInitListeningAddons,
   onAppStartListeningAddons
 ) => {
-  require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
   const bodyParser = require('body-parser')
   const path = require('path')
@@ -30,13 +28,10 @@ const runServer = (
   return
   */
   const fs = require('fs')
-
-  onAppInitListeningAddons.forEach(addon => {
-    addon.run(app)
-  })
-
   const cors = require('cors')
   const app = express()
+  const { Server } = require('socket.io')
+  const io = new Server(4000, { cors: { origin: '*' } })
 
   app.use(express.json())
   app.use(bodyParser.urlencoded({ extended: true }))
@@ -66,21 +61,6 @@ const runServer = (
       uptime: process.uptime()
     })
   })
-
-  const POUCH_DB = 'POUCH_DB'
-  const RAVEN_DB = 'RAVEN_DB'
-
-  const provider = RAVEN_DB // change provider type to POUCH_DB or RAVEN_DB
-
-  if (provider === RAVEN_DB) {
-    const ravenDb = require('./ravendb')
-    ravenDb(app)
-  } else if (provider === POUCH_DB) {
-    const pouchDb = require('./pouchdb')
-    pouchDb(app, pouchOptions)
-  } else {
-    return TypeError(`Wrong provider name ${provider}`)
-  }
 
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
@@ -145,6 +125,25 @@ const runServer = (
   app.use('/img/*', file404Error)
   app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
+
+  const POUCH_DB = 'POUCH_DB'
+  const RAVEN_DB = 'RAVEN_DB'
+
+  const provider = RAVEN_DB // change provider type to POUCH_DB or RAVEN_DB
+
+  if (provider === RAVEN_DB) {
+    const ravenDb = require('./ravendb')
+    ravenDb(app, io)
+  } else if (provider === POUCH_DB) {
+    const pouchDb = require('./pouchdb')
+    pouchDb(app, io, pouchOptions)
+  } else {
+    return TypeError(`Wrong provider name ${provider}`)
+  }
+
+  onAppInitListeningAddons.forEach(addon => {
+    addon.run(app)
+  })
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))
