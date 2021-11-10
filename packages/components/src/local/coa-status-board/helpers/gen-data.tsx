@@ -126,7 +126,7 @@ export const genData = (
         component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
         label: message.details.from.roleName
       },
-      message.message.title as any,
+      message.message.title || message.message.Title || message.details.messageType,
       {
         component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
         label: status

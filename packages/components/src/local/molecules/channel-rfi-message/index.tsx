@@ -49,7 +49,7 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
         <CollapsibleHeader>
           <div className={styles.header}>
             <div className={styles.row}>
-              <h2><Badge type="charcoal" size="medium" label={message.message.Reference} /> {message.message.title}</h2>
+              <h2><Badge type="charcoal" size="medium" label={message.message.Reference} /> {message.message.Title}</h2>
               <div className={styles['rfi-info']}>
                 <div className={styles.status}>
                   <p>{message.details.collaboration && message.details.collaboration.status === CollaborativeMessageStates.Released ? 'ANSWERED' : 'PENDING'}</p>

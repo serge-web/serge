@@ -92,7 +92,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               <div
                 className="message-title"
               >
-                message from Red
+                Chat
               </div>
               <div
                 className="MuiBox-root MuiBox-root-5"

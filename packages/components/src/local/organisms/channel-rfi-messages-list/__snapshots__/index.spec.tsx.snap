@@ -828,6 +828,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       </span>
                     </div>
                      
+                    RFI 1 from Blue
                   </h2>
                   <div
                     className="rfi-info"
@@ -1054,6 +1055,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       </span>
                     </div>
                      
+                    RFI 2 from Blue
                   </h2>
                   <div
                     className="rfi-info"
@@ -1305,6 +1307,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       </span>
                     </div>
                      
+                    RFI 3 from Blue
                   </h2>
                   <div
                     className="rfi-info"
@@ -1556,6 +1559,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       </span>
                     </div>
                      
+                    RFI 1 from RED
                   </h2>
                   <div
                     className="rfi-info"

@@ -1,7 +1,7 @@
 import { MessageCustom } from '@serge/custom-types'
 export default function messageTitleFor (message: MessageCustom): string {
-  if (message.message.title) {
-    return message.message.title
+  if (message.message.title || message.message.Title || message.details.messageType) {
+    return message.message.title || message.message.Title || message.details.messageType
   } else if (message.message.content) {
     // yes, we have content (probably chat) use it
     return message.message.content

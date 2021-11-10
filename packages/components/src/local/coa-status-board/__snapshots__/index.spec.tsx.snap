@@ -293,7 +293,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            Chat
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -383,7 +385,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            Chat
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -473,7 +477,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            Chat
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -563,7 +569,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            RFI 3 from Blue
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -653,7 +661,9 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          />
+          >
+            RFI 1 from RED
+          </td>
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
