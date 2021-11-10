@@ -19,7 +19,7 @@ exports[`RFIForm component: renders correctly 1`] = `
           <div
             className="MuiBox-root MuiBox-root-19 input-label"
           >
-            Request for Information
+            RFI 2 from Blue
           </div>
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -33,7 +33,7 @@ exports[`RFIForm component: renders correctly 1`] = `
                 autoFocus={false}
                 className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                 disabled={true}
-                name="request-for-information"
+                name="rfi-2-from-blue"
                 onAnimationStart={[Function]}
                 onBlur={[Function]}
                 onChange={[Function]}

@@ -39,7 +39,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   const genLocalStorageId = (): string => {
-    return `${message._id}_${message.message.title}`
+    return `${message._id}_${message.message.Reference || message.message.title}`
   }
 
   const initEditor = (): () => void => {

@@ -548,7 +548,7 @@ Array [
               className="svg-inline--fa fa-envelope"
             />
              
-            id_3a
+            Blue-3
           </td>
           <td
             aria-sort={null}
@@ -640,7 +640,7 @@ Array [
               className="svg-inline--fa fa-envelope"
             />
              
-            id_4
+            RED-1
           </td>
           <td
             aria-sort={null}

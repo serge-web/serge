@@ -119,8 +119,8 @@ export const genData = (
     const cells = [
       {
         component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
-          {message._id}</>,
-        label: message._id
+        {message.message.Reference || message._id}</>,
+        label: message.message.Reference || message._id
       },
       {
         component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
@@ -151,7 +151,7 @@ export const genData = (
       cells.push(...newCols)
     }
 
-    const rowKey = `${message._id}`
+    const rowKey = `${message.message.Reference || message._id}`
 
     return {
       type: ROW_WITH_COLLAPSIBLE_TYPE,

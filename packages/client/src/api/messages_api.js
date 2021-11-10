@@ -69,7 +69,7 @@ export const duplicateMessageInDb = (id) => {
 
 export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true })
+    db.allDocs()
       .then((res) => resolve(res))
       .catch((err) => {
         reject(err)

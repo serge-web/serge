@@ -126,7 +126,7 @@ export const RfiForm: React.FC<Props> = (props) => {
           <Box className={classes.formWrapper}>
             <TextInput
               fullWidth
-              label={ message.message.title || 'Request for Information' }
+              label={ message.message.Title || 'Request for Information' }
               value={ message.message.Request }
               labelColor="common.white"
               labelSize={12}
