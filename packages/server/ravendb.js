@@ -98,7 +98,7 @@ const ravenDb = (app, io) => {
     const databaseName = req.params.wargame
     ensureDatabaseExists(store, databaseName, true).then(() => {
       const id = req.body._id
-      const messageType = req.body.details?.messageType || req.body.details?.title
+      const messageType = req.body.details?.messageType || req.body.title
       const putData = {
         '@metadata': {
           '@collection': messageType ? `${messageType}` : `${id}`

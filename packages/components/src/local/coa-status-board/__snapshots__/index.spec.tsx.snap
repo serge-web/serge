@@ -542,7 +542,7 @@ Array [
               className="svg-inline--fa fa-envelope"
             />
              
-            Blue-3
+            id_3a
           </td>
           <td
             aria-sort={null}
@@ -563,9 +563,7 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 3 from Blue
-          </td>
+          />
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
@@ -634,7 +632,7 @@ Array [
               className="svg-inline--fa fa-envelope"
             />
              
-            RED-1
+            id_4
           </td>
           <td
             aria-sort={null}
@@ -655,9 +653,7 @@ Array [
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from RED
-          </td>
+          />
           <td
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body"
