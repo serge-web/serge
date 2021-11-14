@@ -5,6 +5,16 @@ import {
   ForceData,
   TemplateBodysByKey
 } from '@serge/custom-types'
+import React from 'react'
+
+export type Collapsible = (cb?: (() => void) | undefined) => React.ReactElement
+export type Row = { [x: string], collapsible?: Collapsible }
+export type Column = {
+  name: string
+  selector: (row: Row2) => any
+  sortable: boolean
+  sortFunction?: (rowA: Row, rowB: Row) => number
+}
 
 export default interface Props {
   currentWargame: string

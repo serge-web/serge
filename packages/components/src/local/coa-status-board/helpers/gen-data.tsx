@@ -1,13 +1,10 @@
 import React from 'react'
 import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData } from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
-import { RowWithCollapsibleType } from '../../organisms/data-table/types/props'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
-import getColumns from './get-columns'
 import { Badge } from '../../atoms/badge'
-import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import getKey from './get-key'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
@@ -15,6 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
+import { Column, Row } from '../types/props'
+import { capitalize } from 'lodash'
+import moment from 'moment'
 
 /** helper to provide legible version of force & role */
 export const formatRole = (role: ForceRole): string => {
@@ -32,7 +32,8 @@ const statusColors: { [property: string]: string } = {
 }
 
 interface GenData {
-  data: RowWithCollapsibleType[]
+  rows: Row[]
+  columns: Column[]
   unreadMessagesCount: number
 }
 
@@ -58,8 +59,9 @@ export const genData = (
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
 
   const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
+  let columns: Column[] = []
 
-  const data: RowWithCollapsibleType[] = messages.map((message): RowWithCollapsibleType => {
+  const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
     const ownerRole = (collab && collab.owner) || undefined
 
@@ -116,52 +118,75 @@ export const genData = (
       )
     }
 
-    const cells = [
+    const sortCol = (str1: string, str2: string): number => {
+      const a = str1.toLowerCase()
+      const b = str2.toLowerCase()
+
+      return a > b ? 1 : -1
+    }
+
+    columns = [
       {
-        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'}icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
-          {message.message.Reference || message._id}</>,
-        label: message.message.Reference || message._id
+        name: 'ID',
+        selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
+        sortable: true,
+        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id)
       },
       {
-        component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
-        label: message.details.from.roleName
-      },
-      message.message.Title,
-      {
-        component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
-        label: status
+        name: 'From',
+        selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={message.details.from.forceColor} label={row.from} />),
+        sortable: true,
+        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from)
       },
       {
-        component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && ownerComposite} /> : null,
-        label: ownerComposite
+        name: 'Title',
+        selector: (row: Row): string => row.title,
+        sortable: true
       },
-      lastUpdated
+      {
+        name: 'Status',
+        selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.status ? statusColors[status] : '#434343'} label={row.status} />),
+        sortable: true,
+        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status)
+      },
+      {
+        name: 'Owner',
+        selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && row.owner} /> : null,
+        sortable: true,
+        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner)
+      },
+      {
+        name: 'Updated',
+        selector: (row: Row): string => row.updated,
+        sortable: true
+      }
     ]
 
-    // extra cols?
     if (channel.collabOptions && channel.collabOptions.extraColumns) {
-      const extraCols = getColumns(message, channel.collabOptions.extraColumns)
-      const cols: string[][] = extraCols
-      const newCols = cols.map((entries: string[]) => {
-        return entries.map((entry: string) => {
-          // todo: try to return a `Badge` like above for each country
-          return entry + ' '
-        })
+      const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): Column => {
+        return {
+          name: capitalize(col),
+          selector: (row: Row): string => row[col],
+          sortable: true
+        }
       })
-      cells.push(...newCols)
+      columns.push(...newCols)
     }
 
-    const rowKey = `${message.message.Reference}`
-
-    return {
-      type: ROW_WITH_COLLAPSIBLE_TYPE,
-      rowKey,
-      collapsible,
-      cells: cells
+    const row: Row = {
+      id: message.message.Reference || message._id,
+      from: message.details.from.roleName,
+      tille: message.message.Title,
+      status: status,
+      owner: ownerComposite,
+      updated: moment(lastUpdated).fromNow(),
+      collapsible
     }
+
+    return row
   })
 
-  return { data, unreadMessagesCount }
+  return { rows, columns, unreadMessagesCount }
 }
 
 export default genData
