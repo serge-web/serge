@@ -49,7 +49,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     return shouldBeUpdated
   }
 
-  const { rows, columns, unreadMessagesCount } = genData(
+  const { rows, columns, unreadMessagesCount, customStyles } = genData(
     filteredDoc,
     forces,
     role,
@@ -119,6 +119,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
         pagination
         fixedHeader
         expandableRows
+        customStyles={customStyles}
         expandableRowsComponent={ExpandedComponent}
       />
     </>

@@ -10,10 +10,11 @@ import React from 'react'
 export type Collapsible = (cb?: (() => void) | undefined) => React.ReactElement
 export type Row = { [x: string], collapsible?: Collapsible }
 export type Column = {
-  name: string
+  name: string | React.ReactElement
   selector: (row: Row2) => any
   sortable: boolean
   sortFunction?: (rowA: Row, rowB: Row) => number
+  style?: any
 }
 
 export default interface Props {

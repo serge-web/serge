@@ -35,6 +35,7 @@ interface GenData {
   rows: Row[]
   columns: Column[]
   unreadMessagesCount: number
+  customStyles: any
 }
 
 export const genData = (
@@ -59,7 +60,84 @@ export const genData = (
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
 
   const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
-  let columns: Column[] = []
+
+  const sortCol = (str1: string, str2: string): number => {
+    const a = str1.toLowerCase()
+    const b = str2.toLowerCase()
+
+    return a > b ? 1 : -1
+  }
+
+  const customStyles = {
+    headRow: {
+      style: {
+        borderTopStyle: 'solid',
+        borderTopWidth: '1px',
+        borderTopColor: '#3ef1ea',
+        fontWeight: 'bold',
+        fontSize: 'initial',
+        backgroundColor: '#012858',
+        color: 'white'
+      }
+    },
+    headCells: {
+      style: {
+        '&:not(:last-of-type)': {
+          borderRightStyle: 'solid',
+          borderRightWidth: '1px',
+          borderRightColor: 'white'
+        }
+      }
+    }
+  }
+
+  const columns: Column[] = [
+    {
+      name: 'ID',
+      selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={row.isReaded ? '#838585' : '#69c'} icon={row.isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id)
+    },
+    {
+      name: 'From',
+      selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.forceColor} label={row.from} />),
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from)
+    },
+    {
+      name: 'Title',
+      selector: (row: Row): string => row.title,
+      sortable: true
+    },
+    {
+      name: 'Status',
+      selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.status ? statusColors[row.status] : '#434343'} label={row.status} />),
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status)
+    },
+    {
+      name: 'Owner',
+      selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={row.ownerColor} customSize={row.owner ? 'large' : undefined} label={isCollaborating && row.owner} /> : null,
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner)
+    },
+    {
+      name: 'Updated',
+      selector: (row: Row): string => row.updated,
+      sortable: true
+    }
+  ]
+
+  if (channel.collabOptions && channel.collabOptions.extraColumns) {
+    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): Column => {
+      return {
+        name: capitalize(col),
+        selector: (row: Row): string => row[col],
+        sortable: true
+      }
+    })
+    columns.push(...newCols)
+  }
 
   const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
@@ -71,7 +149,7 @@ export const genData = (
     // generate the owner of this document
     const ownerComposite: string | undefined = ownerRole ? formatRole(ownerRole) : undefined
     // am I the owner?
-    const myDocument: boolean = ownerComposite === formatRole(role)
+    // const myDocument: boolean = ownerComposite === formatRole(role)
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
 
@@ -118,61 +196,6 @@ export const genData = (
       )
     }
 
-    const sortCol = (str1: string, str2: string): number => {
-      const a = str1.toLowerCase()
-      const b = str2.toLowerCase()
-
-      return a > b ? 1 : -1
-    }
-
-    columns = [
-      {
-        name: 'ID',
-        selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
-        sortable: true,
-        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id)
-      },
-      {
-        name: 'From',
-        selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={message.details.from.forceColor} label={row.from} />),
-        sortable: true,
-        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from)
-      },
-      {
-        name: 'Title',
-        selector: (row: Row): string => row.title,
-        sortable: true
-      },
-      {
-        name: 'Status',
-        selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.status ? statusColors[status] : '#434343'} label={row.status} />),
-        sortable: true,
-        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status)
-      },
-      {
-        name: 'Owner',
-        selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && row.owner} /> : null,
-        sortable: true,
-        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner)
-      },
-      {
-        name: 'Updated',
-        selector: (row: Row): string => row.updated,
-        sortable: true
-      }
-    ]
-
-    if (channel.collabOptions && channel.collabOptions.extraColumns) {
-      const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): Column => {
-        return {
-          name: capitalize(col),
-          selector: (row: Row): string => row[col],
-          sortable: true
-        }
-      })
-      columns.push(...newCols)
-    }
-
     const row: Row = {
       id: message.message.Reference || message._id,
       from: message.details.from.roleName,
@@ -180,13 +203,16 @@ export const genData = (
       status: status,
       owner: ownerComposite,
       updated: moment(lastUpdated).fromNow(),
-      collapsible
+      collapsible,
+      ownerColor,
+      isReaded,
+      forceColor: message.details.from.forceColor
     }
 
     return row
   })
 
-  return { rows, columns, unreadMessagesCount }
+  return { rows, columns, unreadMessagesCount, customStyles }
 }
 
 export default genData
