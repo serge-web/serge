@@ -109,7 +109,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
           .some((value: any) =>
             value &&
             typeof value === 'string' &&
-            value.toLowerCase().startsWith(searchStr))
+            (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr)))
         )
       setFilterdRows(filteredRows)
     }, 500)
