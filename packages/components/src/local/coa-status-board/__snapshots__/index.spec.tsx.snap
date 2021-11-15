@@ -5,6 +5,31 @@ Array [
   <div
     className="actions"
   >
+    <div
+      className="MuiFormControl-root filter-group"
+    >
+      <svg
+        className="svg-inline--fa fa-search"
+      />
+      <div
+        className="MuiInputBase-root MuiInput-root MuiInput-underline input-filter MuiInputBase-formControl MuiInput-formControl"
+        onClick={[Function]}
+        onInput={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input MuiInput-input"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="filter data"
+          required={false}
+          type="text"
+        />
+      </div>
+    </div>
     <label
       className="MuiFormControlLabel-root checkbox"
     >
