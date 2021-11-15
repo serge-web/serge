@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { CollaborativeMessageStates } from '@serge/config'
-import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
+import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
 import { genData } from './helpers/gen-data'
 import getKey from './helpers/get-key'
 import { setMessageState } from '@serge/helpers'
 import DataTable from 'react-data-table-component'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Types */
 import Props, { Row } from './types/props'
@@ -67,6 +69,8 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     handleUpdateUnreadCount
   )
 
+  const [filteredRows, setFilterdRows] = useState<Row[]>(rows)
+
   if (handleUpdateUnreadCount(unreadMessagesCount)) {
     return <></>
   }
@@ -94,9 +98,30 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     return data.collapsible()
   }
 
+  let doFilter: any
+  const filterTable = (e: any): void => {
+    clearTimeout(doFilter)
+    const searchStr = e.target.value
+    doFilter = setTimeout(() => {
+      const filteredRows = rows
+        .filter((row: Row) => Object
+          .values(row)
+          .some((value: any) =>
+            value &&
+            typeof value === 'string' &&
+            value.toLowerCase().startsWith(searchStr))
+        )
+      setFilterdRows(filteredRows)
+    }, 500)
+  }
+
   return (
     <>
       <div className={styles.actions}>
+        <FormControl className={styles['filter-group']}>
+          <FontAwesomeIcon icon={faSearch} className={styles['filter-icon']} />
+          <Input placeholder="filter data" className={styles['input-filter']} onInput={filterTable} />
+        </FormControl>
         <FormControlLabel
           className={styles.checkbox}
           label="Show archived"
@@ -115,7 +140,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       </div>
       <DataTable
         columns={columns}
-        data={rows}
+        data={filteredRows}
         pagination
         fixedHeader
         expandableRows

@@ -11,6 +11,18 @@
   align-items: center;
 }
 
+.filter-icon {
+  position: absolute;
+  margin-top: 10px;
+  color: '#3ef1ea'
+}
+
+.input-filter {
+  color: white !important;
+  width: 250px;
+  padding-left: 20px;
+}
+
 .checkbox {
   margin-left: 0 !important;
   margin-bottom: 0.2rem !important;
