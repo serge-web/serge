@@ -131,15 +131,30 @@ const runServer = (
 
   const provider = RAVEN_DB // change provider type to POUCH_DB or RAVEN_DB
 
-  if (provider === RAVEN_DB) {
+  if (provider == RAVEN_DB) {
     const ravenDb = require('./ravendb')
     ravenDb(app, io)
-  } else if (provider === POUCH_DB) {
+  } else if (provider == POUCH_DB) {
     const pouchDb = require('./pouchdb')
     pouchDb(app, io, pouchOptions)
   } else {
-    return TypeError(`Wrong provider name ${provider}`)
-  }
+  app.put('/:wargame', (req, res) => {
+    res.send([])
+  })
+  // get all wargame names
+  app.get('/allDbs', async (req, res) => {
+   res.send([])
+  })
+
+  // get all documents for wargame
+  app.get('/:wargame', async (req, res) => {
+    res.send({ msg: 'ok' , data: [] })
+  })
+
+  app.get('/:wargame/:id/:idp2', (req, res) => {
+    res.send({ msg: 'ok', data: { title: 'Database not found' }})
+  })
+}
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)

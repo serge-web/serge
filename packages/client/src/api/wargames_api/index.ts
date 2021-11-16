@@ -16,8 +16,7 @@ import {
   SERGE_INFO,
   COUNTER_MESSAGE,
   clearAll,
-  allDbs,
-  dbSuffix
+  allDbs
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -79,7 +78,7 @@ const getNameFromPath = (dbPath: string): string => {
 // get database object by :name key
 const getWargameDbByName = (name: string): ApiWargameDbObject => {
   name = name.replace(hiddenPrefix, '')
-  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
+  const dbObject = wargameDbStore.find((item) => item.name === name)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
 }
@@ -165,15 +164,13 @@ export const populateWargame = (): Promise<string | Wargame[]> => {
           initiated: res.wargameInitiated,
           shortName: res.name
         })
-      }
-      ).catch((err) => {
+      }).catch((err) => {
         console.log(err)
         return err
       })
     })
     return Promise.all(promises)
-  })
-  .catch((err:string) => {
+  }).catch((err: string) => {
     console.log(err)
     return err
   })
@@ -187,8 +184,7 @@ export const clearWargames = (): void => {
 
 
 export const getIpAddress = (): Promise<{ ip: string }> => {
-  return fetch(serverPath + 'getIp')
-    .then<{ ip: string }>((res) => res.json())
+  return fetch(serverPath + 'getIp').then<{ ip: string }>((res) => res.json())
 }
 
 // TODO: Need to check component "ImageDropzone" it returns file with Any type
@@ -200,23 +196,20 @@ export const saveIcon = (file) => {
       'Content-Type': 'image/png',
     },
     body: file
-  })
-    .then((res) => res.json())
+  }).then((res) => res.json())
 }
 
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
-
-  addWargameDbStore({ name: name , db })
+  addWargameDbStore({ name: name, db })
 
   // TODo: update dbDefaultSettings to valid wargame json
   // @ts-ignore
   const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
   return new Promise((resolve, reject) => {
-    db.put(settings)
-    .then(() => {
+    db.put(settings).then(() => {
       db.get(dbDefaultSettings._id).then((res) => {
         resolve(res as Wargame)
       }).catch((err) => {
@@ -299,7 +292,6 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     return err
   })
 }
-
 
 const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
@@ -510,7 +502,6 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
     // get default wargame
     return getWargameLocalFromName(dbName)
   }).then((res) => {
-    const newDb = getWargameDbByName(newDbName).db
     const wargame = {
       ...res,
       _rev: undefined,
@@ -601,8 +592,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
         break
     }
     return createLatestWargameRevision(dbName, res)
-  })
-  .catch(rejectDefault)
+  }).catch(rejectDefault)
 }
 
 export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, turnNumber: number, message: string): Promise<MessageFeedback> => {
@@ -626,8 +616,9 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 
 export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
+  const id = details.timestamp ? details.timestamp : new Date().toISOString()
   const customMessage: MessageCustom = {
-    _id: new Date().toISOString(),
+    _id: id,
     // defined constat for messages, it's not same as message.details.messageType,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
     messageType: CUSTOM_MESSAGE,
@@ -641,8 +632,6 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     return db.put(customMessageUpdated).catch(rejectDefault)
   })
 }
-
-
 
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
@@ -688,11 +677,9 @@ export const postNewMapMessage = (dbName, details, message) => {
         res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces)
         // store the new verison
         return createLatestWargameRevision(dbName, res)
-      })
-      .then((res) => {
+      }).then((res) => {
         resolve(res)
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err)
         reject(err)
       })
@@ -701,9 +688,7 @@ export const postNewMapMessage = (dbName, details, message) => {
 
 export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
-  const include_docs = true, descending = true
-  return db.allDocs(include_docs, descending)
-    .catch(() => {
+  return db.allDocs().catch(() => {
       throw new Error('Serge disconnected')
     })
 }

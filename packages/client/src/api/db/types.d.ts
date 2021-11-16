@@ -6,7 +6,7 @@ export interface DbProviderInterface {
   destroy: () => void
   get: (query: string) => Promise<Wargame | Message>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
-  allDocs: (include_docs: boolean, descending: boolean) => Promise<Message[]>
+  allDocs: () => Promise<Message[]>
   replicate: (newDb: string) => Promise<DbProvider>
   name: string
 }

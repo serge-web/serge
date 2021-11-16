@@ -1,6 +1,6 @@
 const listeners = {}
 let addListenersQueue = []
-const { localSettings, COUNTER_MESSAGE } = require('./consts')
+const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('./consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -46,30 +46,50 @@ const pouchDb = (app, io, pouchOptions) => {
     dbs.forEach(db => initChangesListener(db))
   }).catch(err => console.log('Error on load alldbs', err))
 
+  const checkSqliteExists = (dbName) => {
+    return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
+  }
+
+  const deleteSqliteExists = (db) => {
+    const dbList = db.map(dbName => dbName.replace(dbSuffix, ''))
+    return dbList
+  }
+
+  const retryUntilWritten = (db, doc, res) => {
+    return db.get(doc._id).then((origDoc) => {
+      doc._rev = origDoc._rev;
+      return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc}));
+    }).catch((err) => {
+      if (err.status === 409) {
+        return retryUntilWritten(doc);
+      } else { // new doc
+        return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc}));
+      }
+    });
+  }
+
   app.put('/:wargame', (req, res) => {
-    const databaseName = req.params.wargame
+    const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
+
     if (!listeners[databaseName]) {
       addListenersQueue.push(databaseName)
     }
-    db.put(putData)
-      .then(() => {
-        res.send(putData)
-      }).catch(err => res.status(400).send(`Error in put ${err}`))
+    retryUntilWritten(db, putData, res)
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
-    const newDbName = req.params.replicate // new db name
+    const newDbName = checkSqliteExists(req.params.replicate) // new db name
     const newDb = new PouchDB(newDbName, pouchOptions)
-    const existingDatabase = req.params.dbname // copy data from
+    const existingDatabase = checkSqliteExists(req.params.dbname) // copy data from
     newDb.replicate.from(existingDatabase).then(() => {
       res.send('Replicated')
     }).catch(err => res.status(400).send({ msg: 'Error on replication', data: err }))
   })
 
   app.delete('/delete/:dbName', (req, res) => {
-    const dbName = req.params.dbName
+    const dbName = checkSqliteExists(req.params.dbName)
     const db = new PouchDB(dbName, pouchOptions)
     db.destroy().then(() => {
       res.send({ msg: 'ok', data: dbName })
@@ -85,13 +105,13 @@ const pouchDb = (app, io, pouchOptions) => {
   // get all wargame names
   app.get('/allDbs', async (req, res) => {
     PouchDB.allDbs()
-      .then(dbs => res.send({ msg: 'ok', data: dbs || [] }))
+      .then(dbs => res.send({ msg: 'ok', data: deleteSqliteExists(dbs) || [] }))
       .catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
   })
 
   // get all documents for wargame
   app.get('/:wargame', async (req, res) => {
-    const databaseName = `${req.params.wargame}`
+    const databaseName =  checkSqliteExists(req.params.wargame)
 
     if (!databaseName) {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
@@ -111,7 +131,7 @@ const pouchDb = (app, io, pouchOptions) => {
 
   // get document for wargame
   app.get('/:wargame/:id/:idp2', (req, res) => {
-    const databaseName = `${req.params.wargame}`
+    const databaseName =  checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     let id = `${req.params.id}`
 
