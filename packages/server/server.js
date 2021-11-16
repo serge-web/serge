@@ -131,10 +131,10 @@ const runServer = (
 
   const provider = RAVEN_DB // change provider type to POUCH_DB or RAVEN_DB
 
-  if (provider == RAVEN_DB) {
+  if (provider === RAVEN_DB) {
     const ravenDb = require('./ravendb')
     ravenDb(app, io)
-  } else if (provider == POUCH_DB) {
+  } else if (provider === POUCH_DB) {
     const pouchDb = require('./pouchdb')
     pouchDb(app, io, pouchOptions)
   } else {
