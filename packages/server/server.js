@@ -138,23 +138,23 @@ const runServer = (
     const pouchDb = require('./pouchdb')
     pouchDb(app, io, pouchOptions)
   } else {
-  app.put('/:wargame', (req, res) => {
-    res.send([])
-  })
-  // get all wargame names
-  app.get('/allDbs', async (req, res) => {
-   res.send([])
-  })
+    app.put('/:wargame', (req, res) => {
+      res.send([])
+    })
+    // get all wargame names
+    app.get('/allDbs', async (req, res) => {
+      res.send([])
+    })
 
-  // get all documents for wargame
-  app.get('/:wargame', async (req, res) => {
-    res.send({ msg: 'ok' , data: [] })
-  })
+    // get all documents for wargame
+    app.get('/:wargame', async (req, res) => {
+      res.send({ msg: 'ok', data: [] })
+    })
 
-  app.get('/:wargame/:id/:idp2', (req, res) => {
-    res.send({ msg: 'ok', data: { title: 'Database not found' }})
-  })
-}
+    app.get('/:wargame/:id/:idp2', (req, res) => {
+      res.send({ msg: 'ok', data: { title: 'Database not found' } })
+    })
+  }
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)

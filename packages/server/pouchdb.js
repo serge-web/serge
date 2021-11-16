@@ -57,15 +57,15 @@ const pouchDb = (app, io, pouchOptions) => {
 
   const retryUntilWritten = (db, doc, res) => {
     return db.get(doc._id).then((origDoc) => {
-      doc._rev = origDoc._rev;
-      return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc}));
+      doc._rev = origDoc._rev
+      return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc }))
     }).catch((err) => {
       if (err.status === 409) {
-        return retryUntilWritten(doc);
+        return retryUntilWritten(doc)
       } else { // new doc
-        return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc}));
+        return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
       }
-    });
+    })
   }
 
   app.put('/:wargame', (req, res) => {
@@ -111,7 +111,7 @@ const pouchDb = (app, io, pouchOptions) => {
 
   // get all documents for wargame
   app.get('/:wargame', async (req, res) => {
-    const databaseName =  checkSqliteExists(req.params.wargame)
+    const databaseName = checkSqliteExists(req.params.wargame)
 
     if (!databaseName) {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
@@ -131,7 +131,7 @@ const pouchDb = (app, io, pouchOptions) => {
 
   // get document for wargame
   app.get('/:wargame/:id/:idp2', (req, res) => {
-    const databaseName =  checkSqliteExists(req.params.wargame)
+    const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     let id = `${req.params.id}`
 
