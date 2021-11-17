@@ -53,7 +53,7 @@ export const genData = (
   isCollaborating: boolean,
   isObserver: boolean,
   onChange: (msg: MessageCustom) => void,
-  handleOpenCollapsible: () => void
+  onMessageRead?: (count: number) => void
 ): GenData => {
   let unreadMessagesCount = 0
 
@@ -167,7 +167,7 @@ export const genData = (
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
         setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
-        handleOpenCollapsible()
+        // onMessageRead && onMessageRead(unreadMessagesCount - 1)
       }
 
       return (

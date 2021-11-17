@@ -24,10 +24,9 @@ export interface ForceColor {
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
-  const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
   const [showArchived, setShowArchived] = useState<boolean>(false)
-
-  const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
+  const [filteredRows, setFilterdRows] = useState<Row[]>([])
+  const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
@@ -40,18 +39,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)
 
-  const handleUpdateUnreadCount = (nexCount?: number): boolean => {
-    const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
-    const shouldBeUpdated = unreadCount.count !== count
-
-    if (shouldBeUpdated) {
-      onMessageRead && onMessageRead(count)
-      updateUreanMessagesCount(count)
-    }
-    return shouldBeUpdated
-  }
-
-  const { rows, columns, unreadMessagesCount, customStyles } = genData(
+  const { rows, columns, customStyles } = genData(
     filteredDoc,
     forces,
     role,
@@ -66,13 +54,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     isCollaborating,
     isUmpire,
     onChange,
-    handleUpdateUnreadCount
+    onMessageRead // <= fix issue here, load infinite
   )
 
-  const [filteredRows, setFilterdRows] = useState<Row[]>(rows)
-
-  if (handleUpdateUnreadCount(unreadMessagesCount)) {
-    return <></>
+  if (!inFilterMode && filteredRows.length !== rows.length) {
+    setFilterdRows(rows)
   }
 
   const handleMarkAllAsRead = (): void => {
@@ -87,7 +73,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isUmpire)
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
-    handleUpdateUnreadCount(0)
+    onMessageRead && onMessageRead(0)
   }
 
   const handleArchiveDoc = (): void => {
@@ -102,6 +88,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const filterTable = (e: any): void => {
     clearTimeout(doFilter)
     const searchStr = e.target.value
+    setFilterMode(searchStr !== '')
     doFilter = setTimeout(() => {
       const filteredRows = rows
         .filter((row: Row) => Object
