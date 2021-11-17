@@ -50,24 +50,6 @@ const pouchDb = (app, io, pouchOptions) => {
     return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
   }
 
-  const deleteSqliteExists = (db) => {
-    const dbList = db.map(dbName => dbName.replace(dbSuffix, ''))
-    return dbList
-  }
-
-  const retryUntilWritten = (db, doc, res) => {
-    return db.get(doc._id).then((origDoc) => {
-      doc._rev = origDoc._rev
-      return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc }))
-    }).catch((err) => {
-      if (err.status === 409) {
-        return retryUntilWritten(doc)
-      } else { // new doc
-        return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
-      }
-    })
-  }
-
   app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
@@ -76,7 +58,20 @@ const pouchDb = (app, io, pouchOptions) => {
     if (!listeners[databaseName]) {
       addListenersQueue.push(databaseName)
     }
-    retryUntilWritten(db, putData, res)
+
+    const retryUntilWritten = (db, doc) => {
+      return db.get(doc._id).then((origDoc) => {
+        doc._rev = origDoc._rev
+        return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc }))
+      }).catch((err) => {
+        if (err.status === 409) {
+          return retryUntilWritten(doc)
+        } else { // new doc
+          return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
+        }
+      })
+    }
+    retryUntilWritten(db, putData)
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
@@ -104,9 +99,10 @@ const pouchDb = (app, io, pouchOptions) => {
 
   // get all wargame names
   app.get('/allDbs', async (req, res) => {
-    PouchDB.allDbs()
-      .then(dbs => res.send({ msg: 'ok', data: deleteSqliteExists(dbs) || [] }))
-      .catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
+    PouchDB.allDbs().then(dbs => {
+        const dbList = dbs.map(dbName => dbName.replace(dbSuffix, ''))
+        res.send({ msg: 'ok', data: dbList || [] })
+      }).catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
   })
 
   // get all documents for wargame

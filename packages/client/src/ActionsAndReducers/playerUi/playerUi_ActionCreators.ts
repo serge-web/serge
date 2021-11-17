@@ -162,18 +162,16 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   return async (): Promise<void> => {
       const msg1 = message as any
       const title = msg1.Title
-        // timestamps can be used for ids, so ensure timestamps are unique.
-        const time = details.timestamp
-        const trimmedTime = time.substr(0, time.length-4)
-        // const newTime = trimmedTime + (100 + i) + `Z`
-        details.timestamp = time
-        const msg = message as any
-        // create unique title
-        msg.Title = title
-        // create unique message reference
-        msg.Reference = details.from.force + '-' + trimmedTime
-        // actually post the message
-        await wargamesApi.postNewMessage(dbName, details, message)
+      // timestamps can be used for ids, so ensure timestamps are unique.
+      const time = details.timestamp
+      details.timestamp = time
+      const msg = message as any
+      // create unique title
+      msg.Title = title
+      // default value for counter
+      msg.counter = 1
+      // actually post the message
+      await wargamesApi.postNewMessage(dbName, details, message)
   }
 }
 

@@ -53,7 +53,6 @@ import {
 } from './types.d'
 import { hiddenPrefix} from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
-import { checkReference } from '../messages_helper'
 import DbProvider from '../db'
 
 const wargameDbStore: ApiWargameDbObject[] = []
@@ -614,8 +613,22 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
   return db.put(feedback).catch(rejectDefault)
 }
 
-export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
+export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
+
+  const counterExist = await db.allDocs().then(res => {
+    const counters: number[] = []
+    res.forEach((message: any) => counters.push(message.message.counter))
+    const existId = res.find((message: any) => message._id  === details.timestamp)
+    return [Math.max(...counters), existId]
+  })
+
+  const [counter, existId] = counterExist
+
+  // @ts-ignore
+  counter as number >= message.counter && !existId ? message.counter += counter : existId ? message.counter = existId.message.counter : message.counter 
+  message.Reference = details.from.force + '-' + message.counter
+
   const id = details.timestamp ? details.timestamp : new Date().toISOString()
   const customMessage: MessageCustom = {
     _id: id,
@@ -628,9 +641,7 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     hasBeenRead: false
   }
 
-  return checkReference(customMessage, db).then((customMessageUpdated) => {
-    return db.put(customMessageUpdated).catch(rejectDefault)
-  })
+  return db.put(customMessage).catch(rejectDefault)
 }
 
 // Copied from postNewMessage cgange and add new logic for Mapping
@@ -703,8 +714,7 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
           initiated: wargameInitiated,
           shortName: name
         }
-      })
-      .catch(rejectDefault)
+      }).catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
 }
