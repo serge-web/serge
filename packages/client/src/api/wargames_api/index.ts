@@ -615,11 +615,13 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
+  // default value for message counter
+  message.counter = 1
 
   const counterExist = await db.allDocs().then(res => {
-    const counters: number[] = []
-    res.forEach((message: any) => counters.push(message.message.counter))
+    const counters = res.map((message: any) => message.message.counter)
     const existId = res.find((message: any) => message._id  === details.timestamp)
+
     return [Math.max(...counters), existId]
   })
 

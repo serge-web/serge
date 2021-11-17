@@ -63,9 +63,9 @@ const pouchDb = (app, io, pouchOptions) => {
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
         return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc }))
-      }).catch((err) => {
+      }).catch(err => {
         if (err.status === 409) {
-          return retryUntilWritten(doc)
+          return retryUntilWritten(db, doc)
         } else { // new doc
           return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
         }

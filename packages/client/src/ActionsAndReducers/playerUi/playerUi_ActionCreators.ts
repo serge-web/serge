@@ -160,16 +160,6 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
   return async (): Promise<void> => {
-      const msg1 = message as any
-      const title = msg1.Title
-      // timestamps can be used for ids, so ensure timestamps are unique.
-      const time = details.timestamp
-      details.timestamp = time
-      const msg = message as any
-      // create unique title
-      msg.Title = title
-      // default value for counter
-      msg.counter = 1
       // actually post the message
       await wargamesApi.postNewMessage(dbName, details, message)
   }
