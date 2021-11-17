@@ -204,7 +204,7 @@ export const genData = (
       collapsible,
       ownerColor,
       isReaded,
-      forceColor: message.details.from.forceColor,
+      forceColor: message.details.from.forceColor
     }
 
     return row

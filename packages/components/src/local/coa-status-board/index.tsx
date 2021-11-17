@@ -53,7 +53,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     gameDate,
     isCollaborating,
     isUmpire,
-    onChange,
+    onChange
   )
 
   if (!inFilterMode && filteredRows.length !== rows.length) {
