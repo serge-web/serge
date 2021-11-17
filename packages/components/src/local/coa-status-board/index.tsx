@@ -54,7 +54,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     isCollaborating,
     isUmpire,
     onChange,
-    onMessageRead // <= fix issue here, load infinite
   )
 
   if (!inFilterMode && filteredRows.length !== rows.length) {
@@ -81,6 +80,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const ExpandedComponent = ({ data }: Row): React.ReactElement => {
+    // if (!data.isReaded) {
+    //   // update unread msg count here
+    //   onMessageRead && onMessageRead(0)
+    //   data.isReaded = true
+    // }
     return data.collapsible()
   }
 
@@ -128,11 +132,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       <DataTable
         columns={columns}
         data={filteredRows}
-        pagination
         fixedHeader
         expandableRows
         customStyles={customStyles}
         expandableRowsComponent={ExpandedComponent}
+        expandOnRowClicked={true}
+        defaultSortAsc={true}
+        persistTableHead={true}
       />
     </>
   )

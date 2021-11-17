@@ -329,7 +329,7 @@ Array [
           role="rowgroup"
         >
           <div
-            className="sc-iwsKbI kEREDR rdt_TableRow"
+            className="sc-iwsKbI joYMLE rdt_TableRow"
             id="row-Blue-3"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -504,7 +504,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI kEREDR rdt_TableRow"
+            className="sc-iwsKbI joYMLE rdt_TableRow"
             id="row-RED-1"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -679,7 +679,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI kEREDR rdt_TableRow"
+            className="sc-iwsKbI joYMLE rdt_TableRow"
             id="row-2020-03-25T15:08:47.540Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -854,7 +854,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI kEREDR rdt_TableRow"
+            className="sc-iwsKbI joYMLE rdt_TableRow"
             id="row-2020-03-25T15:08:47.525Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -1029,7 +1029,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI kEREDR rdt_TableRow"
+            className="sc-iwsKbI joYMLE rdt_TableRow"
             id="row-2020-03-25T15:08:47.530Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -1206,180 +1206,6 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
-  <div>
-    <nav
-      className="sc-hSdWYo gffxzj rdt_Pagination"
-    >
-      <span
-        className="sc-jWBwVP sc-cMljjf jmVaaR"
-      >
-        Rows per page:
-      </span>
-      <div
-        className="sc-iAyFgw jygXwu"
-      >
-        <select
-          aria-label="Rows per page:"
-          className="sc-kkGfuU bFMcgW"
-          defaultValue={10}
-          onChange={[Function]}
-        >
-          <option
-            value={10}
-          >
-            10
-          </option>
-          <option
-            value={15}
-          >
-            15
-          </option>
-          <option
-            value={20}
-          >
-            20
-          </option>
-          <option
-            value={25}
-          >
-            25
-          </option>
-          <option
-            value={30}
-          >
-            30
-          </option>
-        </select>
-        <svg
-          height="24"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7 10l5 5 5-5z"
-          />
-          <path
-            d="M0 0h24v24H0z"
-            fill="none"
-          />
-        </svg>
-      </div>
-      <span
-        className="sc-jWBwVP sc-brqgnP iuhpgH"
-      >
-        1-5 of 5
-      </span>
-      <div
-        className="sc-cvbbAY fzXxGw"
-      >
-        <button
-          aria-disabled={true}
-          aria-label="First Page"
-          className="sc-eHgmQL jxvJXu"
-          disabled={true}
-          id="pagination-first-page"
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            height="24"
-            role="presentation"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"
-            />
-            <path
-              d="M24 24H0V0h24v24z"
-              fill="none"
-            />
-          </svg>
-        </button>
-        <button
-          aria-disabled={true}
-          aria-label="Previous Page"
-          className="sc-eHgmQL jxvJXu"
-          disabled={true}
-          id="pagination-previous-page"
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            height="24"
-            role="presentation"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </button>
-        <button
-          aria-disabled={true}
-          aria-label="Next Page"
-          className="sc-eHgmQL jxvJXu"
-          disabled={true}
-          id="pagination-next-page"
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            height="24"
-            role="presentation"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </button>
-        <button
-          aria-disabled={true}
-          aria-label="Last Page"
-          className="sc-eHgmQL jxvJXu"
-          disabled={true}
-          id="pagination-last-page"
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            height="24"
-            role="presentation"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
-            />
-            <path
-              d="M0 0h24v24H0V0z"
-              fill="none"
-            />
-          </svg>
-        </button>
-      </div>
-    </nav>
   </div>,
 ]
 `;

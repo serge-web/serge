@@ -52,8 +52,7 @@ export const genData = (
   gameDate: string,
   isCollaborating: boolean,
   isObserver: boolean,
-  onChange: (msg: MessageCustom) => void,
-  onMessageRead?: (count: number) => void
+  onChange: (msg: MessageCustom) => void
 ): GenData => {
   let unreadMessagesCount = 0
 
@@ -167,7 +166,6 @@ export const genData = (
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
         setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
-        // onMessageRead && onMessageRead(unreadMessagesCount - 1)
       }
 
       return (
@@ -206,7 +204,7 @@ export const genData = (
       collapsible,
       ownerColor,
       isReaded,
-      forceColor: message.details.from.forceColor
+      forceColor: message.details.from.forceColor,
     }
 
     return row
