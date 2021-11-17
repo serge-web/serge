@@ -116,7 +116,7 @@ export const genData = (
     },
     {
       name: 'Owner',
-      selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={row.ownerColor} customSize={row.owner ? 'large' : undefined} label={isCollaborating && row.owner} /> : null,
+      selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={row.ownerColor} customSize={'large'} label={isCollaborating && row.owner} /> : null,
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner)
     },
