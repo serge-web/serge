@@ -129,32 +129,35 @@ const runServer = (
   const POUCH_DB = 'POUCH_DB'
   const RAVEN_DB = 'RAVEN_DB'
 
-  const provider = RAVEN_DB // change provider type to POUCH_DB or RAVEN_DB
+  const providerInterface = (provider = '') => {
+    if (provider === RAVEN_DB) {
+      const ravenDb = require('./providers/ravendb')
+      ravenDb(app, io)
+    } else if (provider === POUCH_DB) {
+      const pouchDb = require('./providers/pouchdb')
+      pouchDb(app, io, pouchOptions)
+    } else {
+      app.put('/:wargame', (req, res) => {
+        res.send([])
+      })
 
-  if (provider === RAVEN_DB) {
-    const ravenDb = require('./ravendb')
-    ravenDb(app, io)
-  } else if (provider === POUCH_DB) {
-    const pouchDb = require('./pouchdb')
-    pouchDb(app, io, pouchOptions)
-  } else {
-    app.put('/:wargame', (req, res) => {
-      res.send([])
-    })
-    // get all wargame names
-    app.get('/allDbs', async (req, res) => {
-      res.send([])
-    })
+      // get all wargame names
+      app.get('/allDbs', async (req, res) => {
+        res.send([])
+      })
 
-    // get all documents for wargame
-    app.get('/:wargame', async (req, res) => {
-      res.send({ msg: 'ok', data: [] })
-    })
+      // get all documents for wargame
+      app.get('/:wargame', async (req, res) => {
+        res.send({ msg: 'ok', data: [] })
+      })
 
-    app.get('/:wargame/:id/:idp2', (req, res) => {
-      res.send({ msg: 'ok', data: { title: 'Database not found' } })
-    })
+      app.get('/:wargame/:id/:idp2', (req, res) => {
+        res.send({ msg: 'ok', data: { title: 'Database not found' } })
+      })
+    }
   }
+
+  providerInterface(POUCH_DB) // change provider type to POUCH_DB or RAVEN_DB
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)

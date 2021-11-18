@@ -1,6 +1,6 @@
 const listeners = {}
 let addListenersQueue = []
-const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('./consts')
+const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -100,9 +100,9 @@ const pouchDb = (app, io, pouchOptions) => {
   // get all wargame names
   app.get('/allDbs', async (req, res) => {
     PouchDB.allDbs().then(dbs => {
-        const dbList = dbs.map(dbName => dbName.replace(dbSuffix, ''))
-        res.send({ msg: 'ok', data: dbList || [] })
-      }).catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
+      const dbList = dbs.map(dbName => dbName.replace(dbSuffix, ''))
+      res.send({ msg: 'ok', data: dbList || [] })
+    }).catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
   })
 
   // get all documents for wargame

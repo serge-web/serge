@@ -618,17 +618,18 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
   // default value for message counter
   message.counter = 1
 
-  const counterExist = await db.allDocs().then(res => {
-    const counters = res.map((message: any) => message.message.counter)
-    const existId = res.find((message: any) => message._id  === details.timestamp)
+  const counterIdExist = await db.allDocs().then((res: Message[]) => {
+    const counters = res.map((message) => message['message'].counter)
+    const existId = res.find((message) => message['_id']  === details.timestamp)
 
     return [Math.max(...counters), existId]
   })
 
-  const [counter, existId] = counterExist
+  const [counter, existId] = counterIdExist
 
-  // @ts-ignore
-  counter as number >= message.counter && !existId ? message.counter += counter : existId ? message.counter = existId.message.counter : message.counter 
+  const counterExist = existId ? existId['message'].counter : message.counter
+
+  counter as number >= message.counter && !existId ? message.counter += counter : message.counter = counterExist
   message.Reference = details.from.force + '-' + message.counter
 
   const id = details.timestamp ? details.timestamp : new Date().toISOString()

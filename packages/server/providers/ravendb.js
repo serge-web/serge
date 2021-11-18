@@ -1,7 +1,7 @@
 const fs = require('fs')
 const listeners = {}
 let addListenersQueue = []
-const { localSettings, COUNTER_MESSAGE } = require('./consts')
+const { localSettings, COUNTER_MESSAGE } = require('../consts')
 
 const {
   DocumentStore,
