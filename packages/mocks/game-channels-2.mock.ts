@@ -6,7 +6,7 @@ import { InitialStates } from "@serge/custom-types"
 const whiteRFI: Role = forces[0].roles[1]
 const blueCO: Role = forces[1].roles[0]
 
-const GameChannels: Array<ChannelFormat> = [
+const GameChannels2: Array<ChannelFormat> = [
   {
     channelType: CHANNEL_CUSTOM,
     name: "Channel 16",
