@@ -9,8 +9,8 @@ export interface Participant {
   force: string,
   readonly forceUniqid: string,
   // specific set of roles that participate in this channel (or empty for all roles)
-  roles: Array<Role['roleId']>,
-  subscriptionId: string,
+  roles: Array<Role['roleId']>
+  subscriptionId: string
   icon?: any // TODO: Check it
   /** if this set of participants can take part in collaborative working */
   canCollaborate?: boolean
@@ -29,6 +29,7 @@ interface CoreParticipant {
   // specific set of roles that participate in this channel (or empty for all roles)
   roles: Array<Role['roleId']>,
   subscriptionId: string,
+  icon?: any
 }
 
 /** participation in standard channels */
@@ -45,6 +46,7 @@ export interface ParticipantChat extends CoreParticipant {
  */
  export enum CollaborativePermission {
    /** can */
+   CannotCollaborate,
    CanEdit,
    CanSubmitForReview,
    CanApprove,

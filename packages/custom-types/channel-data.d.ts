@@ -1,4 +1,4 @@
-import { Participant, ParticipantCustom, ParticipantCollab, ParticipantChat } from './participant'
+import { Participant, ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate } from './participant'
 import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING } from '@serge/config'
 import { SpecialChannelColumns } from '../config/build/enums'
 
@@ -17,7 +17,7 @@ export interface CollabOptions {
 
 /** description of channel, as stored in database */
 // @deprecate to be deleted
-export default interface ChannelData {
+export interface ChannelData {
   /** unique id for this channel */
   readonly uniqid: string,
   /** name of this channel */
@@ -72,5 +72,14 @@ export interface ChannelCollab extends ChannelCore {
   initialState : InitialStates
   /** extra columns to show in status view */
   extraColumns: Array<SpecialChannelColumns>
+  /** type for new document */
+  newMessageTemplate: ParticipantTemplate
+  /** type for response document */
+  responseTemplate?: ParticipantTemplate
 }
+
+/** union of the assorted channel types */
+export type ChannelFormat = ChannelChat |
+  ChannelCustom |
+  ChannelCollab
 

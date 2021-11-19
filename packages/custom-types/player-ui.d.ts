@@ -1,4 +1,4 @@
-import ChannelData from './channel-data'
+import { ChannelData } from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel, MessageCustom } from './message'
