@@ -1,4 +1,4 @@
-import Participant from './participant'
+import { Participant } from './participant'
 import { MessageChannel } from './message'
 import { TemplateBody } from './template'
 import { SpecialChannelTypes } from '@serge/config'
