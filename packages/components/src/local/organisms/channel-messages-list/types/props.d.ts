@@ -26,8 +26,6 @@ export default interface PropTypes extends ForcesInChannelProps {
   turnPresentation?: TurnFormats
 
   isUmpire: boolean
-  isRFIManager: boolean
   role: Role['name']
-  onChange?: (nextMessage: MessageCustom) => void
 
 }
