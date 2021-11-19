@@ -7,7 +7,7 @@ import '@serge/themes/App.scss'
 import { usePrevious } from '@serge/helpers'
 
 const NewMessage = props => {
-  const { templates, curChannel, privateMessage, orderableChannel } = props
+  const { templates, curChannel, privateMessage, orderableChannel, confirmCancel } = props
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
   const tab = useRef(null)
@@ -68,6 +68,7 @@ const NewMessage = props => {
         <MessageCreator
           schema={selectedSchema}
           curChannel={curChannel}
+          confirmCancel={!!confirmCancel}
           privateMessage={privateMessage}
           onMessageSend={onMessageSend}
           onCancel={onCancel}
@@ -80,6 +81,8 @@ export default NewMessage
 
 NewMessage.propTypes = {
   orderableChannel: PropTypes.bool,
+  // whether user has to confirm cancelling a new document
+  confirmCancel: PropTypes.bool,
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
   privateMessage: PropTypes.bool.isRequired

@@ -3,8 +3,9 @@ import { SpecialChannelTypes } from '@serge/config'
 import { SpecialChannelColumns } from '../config/build/enums'
 
 /** special configuration for collaborative channels */
-export interface CollabOptions {
+export interface CollabOptions {  
   /** edit mode */
+  // TODO: drop this, we use channel.format
   mode: 'edit' | 'response',
   /** verbs for returning for edit */
   returnVerbs: Array<string>,

@@ -5,6 +5,12 @@
   border-radius: $radius;
 }
 
+.ReactModal__Overlay {
+  &--after-open {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
 .serge-logo {
   display: block;
   height: auto;
@@ -108,7 +114,7 @@
 .out-of-game-feed {
   background: #fff;
   color: #000;
-  max-width: 340px;
+  max-width: 255px;
 
   .flexlayout__layout {
     display: flex;

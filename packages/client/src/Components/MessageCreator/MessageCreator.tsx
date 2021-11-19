@@ -5,6 +5,7 @@ import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCr
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
 import { SpecialChannelTypes, CollaborativeMessageStates } from "@serge/config";
+import { Confirm } from '@serge/components'
 import Props from './types'
 
 // @ts-ignore
@@ -16,19 +17,20 @@ import flatpickr from 'flatpickr'
 import _ from 'lodash'
 flatpickr(".calendar")
 
-const MessageCreator: React.FC<Props> = (props) => {
+const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, onMessageSend, onCancel, confirmCancel }) => {
 
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
   const privateMessageRef = createRef<HTMLTextAreaElement>()
-  const [selectedSchema, setSelectedSchema] = useState<any>(props.schema)
+  const [selectedSchema, setSelectedSchema] = useState<any>(schema)
+  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const state = usePlayerUiState()
   const { selectedForce, gameDate } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  
+
   const sendMessage = (e: any): void => {
     const details: MessageDetails = {
-      channel: props.curChannel,
+      channel: curChannel,
       from: {
         force: selectedForce.name,
         forceColor: selectedForce.color,
@@ -40,7 +42,7 @@ const MessageCreator: React.FC<Props> = (props) => {
       timestamp: new Date().toISOString(),
       turnNumber: state.currentTurn
     }
-    const currentChannelFormat = state.channels[props.curChannel].format || null
+    const currentChannelFormat = state.channels[curChannel].format || null
 
     if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
       details.collaboration = {
@@ -54,7 +56,7 @@ const MessageCreator: React.FC<Props> = (props) => {
       }
     }
 
-    if (props.privateMessage && privateMessageRef.current) {
+    if (privateMessage && privateMessageRef.current) {
       details.privateMessage = privateMessageRef.current.value
       privateMessageRef.current.value = ''
     }
@@ -67,7 +69,24 @@ const MessageCreator: React.FC<Props> = (props) => {
     saveMessage(state.currentWargame, details, message)()
     editor.destroy()
     createEditor(selectedSchema)
-    props.onMessageSend && props.onMessageSend(e)
+    onMessageSend && onMessageSend(e)
+  }
+
+  const openConfirmPopup = (e: any): void => {
+    if(confirmCancel) {
+      setConfirmIsOpen(true)
+    } else {
+      onCancel && onCancel(e)
+    }
+  }
+
+  const onPopupCancel = (): void => {
+    setConfirmIsOpen(false)
+  }
+
+  const onPopupConfirm = (e: any): void => {
+    setConfirmIsOpen(false)
+    onCancel && onCancel(e)
   }
 
   const destroyEditor = (editorObject: Editor | null): void => {
@@ -75,23 +94,23 @@ const MessageCreator: React.FC<Props> = (props) => {
   }
 
   useEffect(() => {
-    if (!props.schema) {
+    if (!schema) {
       destroyEditor(editor)
     }
-    if (props.schema && (!selectedSchema || selectedSchema.title !== props.schema.title)) {
+    if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       destroyEditor(editor)
-      setSelectedSchema(props.schema)
+      setSelectedSchema(schema)
     }
 
-    if (props.schema && props.schema.type) {
+    if (schema && schema.type) {
       if (editor && (editor.ready || !editor.destroyed)) return
-      createEditor(props.schema)
+      createEditor(schema)
     }
 
     return (): void => {
       destroyEditor(editor)
     }
-  }, [props])
+  }, [schema])
 
   /**
    * helper function to for validation Datetime or Date or Time props of json
@@ -101,19 +120,19 @@ const MessageCreator: React.FC<Props> = (props) => {
     let defaultFieldName = ''
     switch (schema.format) {
       case "datetime-local":
-        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
+        if (value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
           format = "DD/MM/YYYY HH:MM"
           defaultFieldName = "Datetime"
         }
         break
       case "date":
-        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
+        if (value == "" || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
           format = "DD/MM/YYYY"
           defaultFieldName = "Date"
         }
         break
       case "time":
-        if(value == "" || !/^(\d{2}:\d{2})?$/.test(value)) {
+        if (value == "" || !/^(\d{2}:\d{2})?$/.test(value)) {
           format = "HH:MM"
           defaultFieldName = "Time"
         }
@@ -142,10 +161,10 @@ const MessageCreator: React.FC<Props> = (props) => {
   const configDateTimeCustomValidation = () => {
     // multiple message type will repeat custom validators, reinitialize it for every instance
     JSONEditor.defaults.custom_validators = []
-    JSONEditor.defaults.custom_validators.push(function(schema: { format: string }, value: string, path: any) {
+    JSONEditor.defaults.custom_validators.push(function (schema: { format: string }, value: string, path: any) {
       let errors = []
       let customValidationErrors = configCommonValidation(schema, value, path)
-      if(!_.isEmpty(customValidationErrors)) {
+      if (!_.isEmpty(customValidationErrors)) {
         errors.push(customValidationErrors)
       }
       return errors
@@ -155,7 +174,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   const createEditor = (schema: any) => {
     configDateTimeCustomValidation()
     schema = configDateTimeLocal(schema, gameDate)
-    
+
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
       theme: 'bootstrap4',
@@ -167,22 +186,28 @@ const MessageCreator: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div className='form-group message-creator' ref={editorPreviewRef}/>
-      {props.privateMessage && <div className='flex-content form-group'>
+      <Confirm
+        isOpen={confirmIsOpen}
+        message="Are you sure you wish to cancel this message?"
+        onCancel={onPopupCancel}
+        onConfirm={onPopupConfirm}
+      />
+      <div className='form-group message-creator' ref={editorPreviewRef} />
+      {privateMessage && <div className='flex-content form-group'>
         <label htmlFor='' className='material-label' id='private-message-input-label'>
-          <FontAwesomeIcon size='2x' icon={faUserSecret}/>Private message
+          <FontAwesomeIcon size='2x' icon={faUserSecret} />Private message
         </label>
         <textarea id='private-message-input' className='form-control' ref={privateMessageRef} />
       </div>}
       <div className='form-group'>
-        <button name='cancel' className='btn btn-action btn-action--form btn-action--cancel' onClick={props.onCancel}>
-            <span>Cancel</span>
+        <button name='cancel' className='btn btn-action btn-action--form btn-action--cancel' onClick={openConfirmPopup}>
+          <span>Cancel</span>
         </button>
         <button name='send' className='btn btn-action btn-action--form btn-action--send-message' onClick={sendMessage}>
           <span>Send Message</span>
         </button>
       </div>
-      
+
     </>
   )
 }

@@ -14,21 +14,9 @@ import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
 import styles from './styles.module.scss'
 
 import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phase } from '@serge/config'
+import { Confirm } from '@serge/components'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
-import Modal from 'react-modal'
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    width: '30%',
-    height: '20%',
-    minHeight: '140px',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-}
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
@@ -232,24 +220,18 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
-          { secondaryButtonLabel &&
+          {secondaryButtonLabel &&
             <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>
           }
           <Button disabled={plansSubmitted || plannedRoutesPending()} onClick={onConfirm}>{submitTitle}</Button>
         </div>
       }
-
-      <Modal
+      <Confirm
         isOpen={modalIsOpen}
-        onRequestClose={onNo}
-        style={customStyles}
-      >
-        <div>Are you sure you wish to <strong>{submitTitle}</strong>?</div>
-        <div className={styles.action}>
-          <Button onClick={onYes}>Yes</Button>
-          <Button onClick={onNo}>No</Button>
-        </div>
-      </Modal>
+        message={`Are you sure you wish to ${submitTitle}?`}
+        onCancel={onNo}
+        onConfirm={onYes}
+      />
     </div>
   </>
 }

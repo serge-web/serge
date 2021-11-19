@@ -45,3 +45,4 @@ export { default as ChatMessageSetup } from './local/templates/chat-message-setu
 export { default as ChatEntryForm } from './local/form-elements/chat-entry-form'
 export { default as CoaStatusBoard } from './local/coa-status-board'
 export { default as HeartbeatChecker } from './local/atoms/heartbeat-checker'
+export { default as Confirm } from './local/atoms/confirm'

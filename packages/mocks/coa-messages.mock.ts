@@ -11,6 +11,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     messageType: CUSTOM_MESSAGE,
     details: {
       channel: 'channel-BlueRFI',
+      archived: true,
       from: {
         force: 'Blue',
         forceColor: '#00F',
@@ -453,7 +454,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       turnNumber: 1
     },
     message: {
-      Reference: 'Blue-3',
+      Reference: 'Blue-3a',
       Title: 'RFI 3 from Blue',
       RFI: "Content of RFI",
       Priority: "High",
@@ -573,6 +574,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     messageType: CUSTOM_MESSAGE,
     details: {
       channel: 'channel-ks8soryj',
+      archived: true,
       from: {
         force: 'Blue',
         forceColor: '#00F',

@@ -6,6 +6,7 @@ import CoaStatusBoard from './index'
 import docs from './README.md'
 
 import { MessageCustom } from '@serge/custom-types'
+import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
   channelCollaborativeEditing,
@@ -22,8 +23,6 @@ import {
   messageDataCollaborativeEditing
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
-import Props from './types/props'
-
 export default {
   title: 'local/CoaStatusBoard',
   component: CoaStatusBoard,
