@@ -157,7 +157,7 @@ const runServer = (
     }
   }
 
-  providerInterface(POUCH_DB) // change provider type to POUCH_DB or RAVEN_DB
+  providerInterface(RAVEN_DB) // change provider type to POUCH_DB or RAVEN_DB
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)

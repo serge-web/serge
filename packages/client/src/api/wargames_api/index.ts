@@ -613,25 +613,38 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
   return db.put(feedback).catch(rejectDefault)
 }
 
+const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails) => {
+  return new Promise(async(resolve): Promise<void> => {
+    if(message.details.messageType !== 'Chat') {
+      // default value for message counter
+      message.message.counter = 1
+
+      const counterIdExist = await db.allDocs().then(res => {
+        const counters = res.reduce((messages: number[], message) => {
+          if(message['details'].from.force === details.from.force && message['message'].counter) messages.push(message['message'].counter)
+            return messages
+        },[])
+        const existId = res.find(message => message['_id'] === details.timestamp)
+
+        return [Math.max(...counters), existId]
+      })
+
+      const [counter, existId] = counterIdExist
+
+      const counterExist = existId ? existId['message'].counter : message.message.counter
+
+      counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
+      message.message.Reference = [message.details.from.force, message.message.counter].join('-')
+
+      resolve(message)
+    } else {
+      resolve(message)
+    }
+  })
+}
+
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
-  // default value for message counter
-  message.counter = 1
-
-  const counterIdExist = await db.allDocs().then((res: Message[]) => {
-    const counters = res.map((message) => message['message'].counter)
-    const existId = res.find((message) => message['_id']  === details.timestamp)
-
-    return [Math.max(...counters), existId]
-  })
-
-  const [counter, existId] = counterIdExist
-
-  const counterExist = existId ? existId['message'].counter : message.counter
-
-  counter as number >= message.counter && !existId ? message.counter += counter : message.counter = counterExist
-  message.Reference = details.from.force + '-' + message.counter
-
   const id = details.timestamp ? details.timestamp : new Date().toISOString()
   const customMessage: MessageCustom = {
     _id: id,
@@ -644,7 +657,10 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
     hasBeenRead: false
   }
 
-  return db.put(customMessage).catch(rejectDefault)
+  return checkReference(customMessage, db, details).then(messageUpdated => {
+    // @ts-ignore
+    return db.put(messageUpdated).catch(rejectDefault)
+  })
 }
 
 // Copied from postNewMessage cgange and add new logic for Mapping
