@@ -81,11 +81,9 @@ export const genData = (
     },
     headCells: {
       style: {
-        '&:not(:last-of-type)': {
-          borderRightStyle: 'solid',
-          borderRightWidth: '1px',
-          borderRightColor: 'white'
-        }
+        borderLeftStyle: 'solid',
+        borderLeftWidth: '1px',
+        borderRightColor: 'white'
       }
     }
   }
@@ -95,35 +93,42 @@ export const genData = (
       name: 'ID',
       selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={row.isReaded ? '#838585' : '#69c'} icon={row.isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
       sortable: true,
-      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id)
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id),
+      center: true,
     },
     {
       name: 'From',
       selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.forceColor} label={row.from} />),
       sortable: true,
-      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from)
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from),
+      center: true
     },
     {
       name: 'Title',
       selector: (row: Row): string => row.title,
-      sortable: true
+      sortable: true,
+      center: true
     },
     {
       name: 'Status',
       selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.status ? statusColors[row.status] : '#434343'} label={row.status} />),
       sortable: true,
-      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status)
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status),
+      center: true,
+      grow: 1.2
     },
     {
       name: 'Owner',
       selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={row.ownerColor} customSize={'large'} label={isCollaborating && row.owner} /> : null,
       sortable: true,
-      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner)
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner),
+      center: true
     },
     {
       name: 'Updated',
       selector: (row: Row): string => row.updated,
-      sortable: true
+      sortable: true,
+      center: true
     }
   ]
 
