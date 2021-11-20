@@ -108,3 +108,7 @@ export const serverPath = (
 export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
+export const SERVER_PING_STATUS = {
+  SUCCEED: 'OK',
+  FAILED: 'NOT_OK'
+}

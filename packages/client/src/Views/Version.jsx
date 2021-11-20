@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { UMPIRE_FORCE, SERVER_PING_INTERVAL } from '../consts'
 import { pingServer as pingServerApi } from '../api/wargames_api'
+import { SERVER_PING_STATUS } from '@serge/config'
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 // trim off the seconds
@@ -30,7 +31,7 @@ const Version = ({ showNotification, notifications, hideNotification }) => {
   useEffect(() => {
     // check for previous heartbeat notification
     const prevNotification = notifications.filter(i => i.subType === 'HeartbeatAlert')
-    if (serverStatus === 'NOT_OK') {
+    if (serverStatus === SERVER_PING_STATUS.FAILED) {
       if (prevNotification.length === 0) {
         showNotification(isUmpire ? 'Server down' : 'Check connection - please check with admin')
       }

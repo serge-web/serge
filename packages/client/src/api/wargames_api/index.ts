@@ -21,7 +21,7 @@ import {
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
-import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE, SERVER_PING_STATUS } from '@serge/config'
 
 import {
   setLatestFeedbackMessage,
@@ -162,13 +162,13 @@ export const pingServer = (): Promise<any> => {
     .then((data: any) => {
       // check the version returned from the server with the current client version
       if (!data.version || data.version !== process.env.REACT_APP_VERSION) {
-        return "NOT_OK"
+        return SERVER_PING_STATUS.FAILED
       }
       return data.status
     })
     .catch((err) => {
       console.log(err)
-      return "NOT_OK"
+      return SERVER_PING_STATUS.FAILED
     })
 }
 
