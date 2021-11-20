@@ -82,11 +82,8 @@ const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): st
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
-  const [unreadCount, setUnreadCount] = useState<{ count: number }>({ count: -1 })
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, onMarkAllAsRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
-
-  const updateUreanMessagesCount = (nextUnreadCount: number): void => setUnreadCount(Object.assign({}, unreadCount, { count: nextUnreadCount }))
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
@@ -111,18 +108,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // collate list of extra column LOCATION for messages
   const filtersLocations = getListOfExtraColumn(filteredDoc, 'LOCATION')
 
-  const handleUpdateUnreadCount = (nexCount?: number): boolean => {
-    const count = typeof nexCount === 'undefined' ? unreadCount.count - 1 : nexCount
-    const shouldBeUpdated = unreadCount.count !== count
-
-    if (shouldBeUpdated) {
-      onMessageRead && onMessageRead(count)
-      updateUreanMessagesCount(count)
-    }
-    return shouldBeUpdated
+  const handleUpdateUnreadCount = (message: MessageCustom): void => {
+    onMessageRead && onMessageRead(message)
   }
 
-  const { data, unreadMessagesCount } = genData(
+  const { data } = genData(
     filteredDoc,
     forces,
     role,
@@ -139,10 +129,6 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     onChange,
     handleUpdateUnreadCount
   )
-
-  if (handleUpdateUnreadCount(unreadMessagesCount)) {
-    return <></>
-  }
 
   const columnHeaders: Column[] = [
     'ID',
@@ -187,7 +173,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isUmpire)
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
-    handleUpdateUnreadCount(0)
+    onMarkAllAsRead && onMarkAllAsRead()
   }
 
   const handleArchiveDoc = (): void => {

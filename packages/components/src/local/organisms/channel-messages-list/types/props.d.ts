@@ -10,7 +10,7 @@ export default interface PropTypes extends ForcesInChannelProps {
   /**
    * Callback on expanding message item
    */
-  onRead?: { (message: MessageCustom): void }
+  onRead?: { (message: MessageCustom, count?: number): void }
 
   /**
    * handle unread message

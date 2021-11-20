@@ -51,7 +51,7 @@ export const genData = (
   isCollaborating: boolean,
   isObserver: boolean,
   onChange: (msg: MessageCustom) => void,
-  handleOpenCollapsible: () => void
+  handleOpenCollapsible: (msg: MessageCustom) => void
 ): GenData => {
   let unreadMessagesCount = 0
 
@@ -87,7 +87,7 @@ export const genData = (
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
         setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
-        handleOpenCollapsible()
+        handleOpenCollapsible(message)
       }
 
       return (
@@ -118,7 +118,7 @@ export const genData = (
 
     const cells = [
       {
-        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'}icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
+        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
           {message.message.Reference || message._id}</>,
         label: message.message.Reference || message._id
       },
