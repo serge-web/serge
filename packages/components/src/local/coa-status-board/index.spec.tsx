@@ -200,7 +200,7 @@ it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CoaStatusBoard
-        currentWargame=''
+        currentWargame='wargame-test'
         templates={MessageTemplatesMockByKey}
         forces={forces}
         role={role}

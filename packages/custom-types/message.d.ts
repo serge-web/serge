@@ -81,6 +81,8 @@ export interface MessageDetails {
   privateMessage?: string,
   /** data related to RFI (Request for Information) */
   rfi?: RFIData
+  /** if this message has been archived */
+  archived?: boolean
 }
 
 export interface MessageStructure {
@@ -122,23 +124,23 @@ export interface CollaborationDetails {
   /**
    * Message status
    */
-   status: CollaborativeMessageStates
-   /** date-time when the last change 
-    * was made to this message
-    */
-   lastUpdated: string
-   /**
-    * Current message owner
-    */
-   owner?: ForceRole
-   /**
-    * response to message, only used in RFIs
-    */
-   response?: string
-   /** 
-    * feedback on last version
-    */
-   feedback?: Array<FeedbackItem>
+  status: CollaborativeMessageStates
+  /** date-time when the last change 
+   * was made to this message
+   */
+  lastUpdated: string
+  /**
+   * Current message owner
+   */
+  owner?: ForceRole
+  /**
+   * response to message, only used in RFIs
+   */
+  response?: string
+  /** 
+   * feedback on last version
+   */
+  feedback?: Array<FeedbackItem>
 }
 
 export interface MessageCustom extends CoreMessage {
@@ -161,7 +163,7 @@ export interface MessageCustom extends CoreMessage {
 /** 
  * instance of CounterMEssage for COA and RFI
  */
- export interface MessageCounter {
+export interface MessageCounter {
   messageType: typeof COUNTER_MESSAGE,
   /** unique id (PouchDB for this document) */
   readonly _id: string
@@ -211,7 +213,7 @@ export interface MessageInfoTypeClipped {
 
 export interface MessageForceLaydown {
   messageType: typeof FORCE_LAYDOWN,
-  readonly updates: Array<{uniqid: string, position: string}>
+  readonly updates: Array<{ uniqid: string, position: string }>
 }
 export interface MessagePerceptionOfContact {
   messageType: typeof PERCEPTION_OF_CONTACT,
@@ -268,25 +270,25 @@ export interface MessageStateOfWorld {
 }
 
 export type MessageMap = MessageForceLaydown |
-                         MessagePerceptionOfContact |
-                         MessageVisibilityChanges |
-                         MessageSubmitPlans |
-                         MessageStateOfWorld |
-                         MessageCreateTaskGroup |
-                         MessageLeaveTaskGroup | 
-                         MessageHostPlatform |
-                         MessageDeletePlatform
+  MessagePerceptionOfContact |
+  MessageVisibilityChanges |
+  MessageSubmitPlans |
+  MessageStateOfWorld |
+  MessageCreateTaskGroup |
+  MessageLeaveTaskGroup |
+  MessageHostPlatform |
+  MessageDeletePlatform
 
 
 export type MessageChannel = MessageInfoTypeClipped |
-                             MessageCustom
+  MessageCustom
 
 type Message = MessageCustom |
-               ChatMessage |
-               MessageFeedback |
-               MessageInfoTypeClipped |
-               MessageMap |
-               MessageInfoType |
-               MessageCounter
+  ChatMessage |
+  MessageFeedback |
+  MessageInfoTypeClipped |
+  MessageMap |
+  MessageInfoType |
+  MessageCounter
 
 export default Message
