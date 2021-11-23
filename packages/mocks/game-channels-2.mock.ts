@@ -90,4 +90,4 @@ const GameChannels2: Array<ChannelFormat> = [
   },
 ]
 
-export default GameChannels
+export default GameChannels2

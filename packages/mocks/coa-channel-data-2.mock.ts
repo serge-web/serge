@@ -1,5 +1,5 @@
-import { ChannelCollab, ChannelFormat, CollaborativePermission, ForceData, ForceRole, InitialStates } from '@serge/custom-types'
-import { SpecialChannelColumns, SpecialChannelTypes } from '@serge/config'
+import { ChannelCollab, CollaborativePermission, ForceData, ForceRole, InitialStates } from '@serge/custom-types'
+import { SpecialChannelColumns } from '@serge/config'
 import { CHANNEL_COLLAB } from '@serge/config'
 import { forces } from '.'
 import { cloneDeep } from 'lodash'
@@ -51,6 +51,7 @@ export const whiteReleaseMgr: ForceRole = { forceId: 'umpire', forceName: 'White
 export const exconCollaborator: ForceRole = { forceId: 'red', forceName: 'EXCON', roleId: 'rkrlss55f5e', roleName: 'Logs' }
 
 export const channelCollaborativeResponding: ChannelCollab = {
+  channelType: CHANNEL_COLLAB,
   name: 'New CR',
   extraColumns: [],
   initialState: InitialStates.UNALLOCATED,
