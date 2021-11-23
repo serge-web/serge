@@ -79,6 +79,6 @@ export interface ChannelCollab extends ChannelCore {
 }
 
 /** union of the assorted channel types */
-export type ChannelFormat = ChannelChat |
+export type ChannelTypes = ChannelChat |
   ChannelCustom |
   ChannelCollab
