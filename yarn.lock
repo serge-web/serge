@@ -22243,6 +22243,13 @@ react-colorful@^5.0.1:
   resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.1.0.tgz#45c8044d80bc0e7ee08dc78c760e6694f3745ca2"
   integrity sha512-ZXKcQbSuuHaN5tOHORI+G9/tXsGxk/6qlAbfETfZILwwWwngyJiyYRhUJjI+Esk71BhhQRdj0v7cFHDnD95jtQ==
 
+react-data-table-component@7.4.5:
+  version "7.4.5"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-7.4.5.tgz#c7f90b967efad976ccabcf56dc7dc56a0fbca949"
+  integrity sha512-CnEbnnBuOj1twqbzZfdztIwgUMzt4k3MkikVWiTe1O6uf93sOoYAkKABJYYg1sWwcA3fI2Tuo6aq3XYE9Hscog==
+  dependencies:
+    deepmerge "^4.2.2"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
