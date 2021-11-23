@@ -31,14 +31,14 @@ const statusColors: { [property: string]: string } = {
   [CollaborativeMessageStates.Pending]: '#0366d6'
 }
 
-interface GenData {
+interface GenData2 {
   rows: Row[]
   columns: Column[]
   unreadMessagesCount: number
   customStyles: any
 }
 
-export const genData = (
+export const genData2 = (
   messages: MessageCustom[],
   forces: ForceData[],
   role: ForceRole,
@@ -53,7 +53,7 @@ export const genData = (
   isCollaborating: boolean,
   isObserver: boolean,
   onChange: (msg: MessageCustom) => void
-): GenData => {
+): GenData2 => {
   let unreadMessagesCount = 0
 
   const assignees: ForceRole[] = getAssignees(channel.participants, forces)
@@ -218,4 +218,4 @@ export const genData = (
   return { rows, columns, unreadMessagesCount, customStyles }
 }
 
-export default genData
+export default genData2

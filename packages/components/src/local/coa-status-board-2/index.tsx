@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CollaborativeMessageStates } from '@serge/config'
 import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
-import { genData } from './helpers/gen-data'
+import { genData2 } from './helpers/gen-data'
 import getKey from './helpers/get-key'
 import { setMessageState } from '@serge/helpers'
 import DataTable from 'react-data-table-component'
@@ -23,7 +23,7 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
+export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
@@ -39,7 +39,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)
 
-  const { rows, columns, customStyles } = genData(
+  const { rows, columns, customStyles } = genData2(
     filteredDoc,
     forces,
     role,
@@ -144,4 +144,4 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   )
 }
 
-export default CoaStatusBoard
+export default CoaStatusBoard2
