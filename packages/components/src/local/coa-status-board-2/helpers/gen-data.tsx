@@ -2,7 +2,7 @@ import React from 'react'
 import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData } from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
 import { ForceColor } from '..'
-import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
+import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
 import { Badge } from '../../atoms/badge'
 import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
@@ -94,7 +94,7 @@ export const genData2 = (
       selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={row.isReaded ? '#838585' : '#69c'} icon={row.isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id),
-      center: true,
+      center: true
     },
     {
       name: 'From',
@@ -175,7 +175,7 @@ export const genData2 = (
 
       return (
         <div className={styles['rfi-form']}>
-          <ChannelCoaMessageDetail
+          <ChannelCoaMessageDetail2
             isReaded={isReaded}
             onRead={handleRead}
             templates={templates}
