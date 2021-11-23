@@ -131,7 +131,7 @@ Array [
               className="sc-bxivhb sc-hMqMXs jDROVB"
             />
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU djnLQg rdt_TableCol"
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
               data-column-id={1}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
@@ -163,7 +163,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU djnLQg rdt_TableCol"
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
               data-column-id={2}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
@@ -195,7 +195,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU djnLQg rdt_TableCol"
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
               data-column-id={3}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
@@ -227,7 +227,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU djnLQg rdt_TableCol"
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU bXBEFh rdt_TableCol"
               data-column-id={4}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
@@ -259,7 +259,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU djnLQg rdt_TableCol"
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
               data-column-id={5}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
@@ -291,7 +291,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU djnLQg rdt_TableCol"
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
               data-column-id={6}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
@@ -369,7 +369,7 @@ Array [
               </button>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-Blue-3"
@@ -392,7 +392,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-Blue-3"
@@ -421,7 +421,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-Blue-3"
@@ -438,7 +438,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
               id="cell-4-Blue-3"
@@ -467,7 +467,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-Blue-3"
@@ -484,7 +484,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-Blue-3"
@@ -544,7 +544,7 @@ Array [
               </button>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-RED-1"
@@ -567,7 +567,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-RED-1"
@@ -596,7 +596,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-RED-1"
@@ -613,7 +613,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
               id="cell-4-RED-1"
@@ -642,7 +642,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-RED-1"
@@ -659,7 +659,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-RED-1"
@@ -719,7 +719,7 @@ Array [
               </button>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-2020-03-25T15:08:47.540Z"
@@ -742,7 +742,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-2020-03-25T15:08:47.540Z"
@@ -771,7 +771,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-2020-03-25T15:08:47.540Z"
@@ -788,7 +788,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
               id="cell-4-2020-03-25T15:08:47.540Z"
@@ -817,7 +817,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-2020-03-25T15:08:47.540Z"
@@ -834,7 +834,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-2020-03-25T15:08:47.540Z"
@@ -894,7 +894,7 @@ Array [
               </button>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-2020-03-25T15:08:47.525Z"
@@ -917,7 +917,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-2020-03-25T15:08:47.525Z"
@@ -946,7 +946,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-2020-03-25T15:08:47.525Z"
@@ -963,7 +963,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
               id="cell-4-2020-03-25T15:08:47.525Z"
@@ -992,7 +992,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-2020-03-25T15:08:47.525Z"
@@ -1009,7 +1009,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-2020-03-25T15:08:47.525Z"
@@ -1069,7 +1069,7 @@ Array [
               </button>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-2020-03-25T15:08:47.530Z"
@@ -1092,7 +1092,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-2020-03-25T15:08:47.530Z"
@@ -1121,7 +1121,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-2020-03-25T15:08:47.530Z"
@@ -1138,7 +1138,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
               id="cell-4-2020-03-25T15:08:47.530Z"
@@ -1167,7 +1167,7 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-2020-03-25T15:08:47.530Z"
@@ -1184,7 +1184,7 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ccwXBw rdt_TableCell"
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-2020-03-25T15:08:47.530Z"
