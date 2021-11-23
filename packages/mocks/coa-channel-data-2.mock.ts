@@ -50,7 +50,7 @@ export const whiteCollaborator: ForceRole = { forceId: 'umpire', forceName: 'Whi
 export const whiteReleaseMgr: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'rkrlw6f5f', roleName: 'Game Control' }
 export const exconCollaborator: ForceRole = { forceId: 'red', forceName: 'EXCON', roleId: 'rkrlss55f5e', roleName: 'Logs' }
 
-export const channelCollaborativeResponding: ChannelCollab = {
+export const channelCollaborativeResponding2: ChannelCollab = {
   channelType: CHANNEL_COLLAB,
   name: 'New CR',
   extraColumns: [],
