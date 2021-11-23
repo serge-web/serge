@@ -1,6 +1,6 @@
-# Coa Status Board 2 documentation
+# Coa Status Board documentation
 
-This is an example readme file for the 'Coa Status Board 2' component.
+This is an example readme file for the 'Coa Status Board' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'Coa Status Board 2' component.
 
 ### ES6 Import
 ```js
-import CoaStatusBoard2 from './coa-status-board-2'
+import CoaStatusBoard from './coa-status-board'
 ```
 
 ### CommonJS
 
 ```js
-const CoaStatusBoard2 = require('./coa-status-board-2')
+const CoaStatusBoard = require('./coa-status-board')
