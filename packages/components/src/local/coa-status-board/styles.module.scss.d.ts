@@ -4,9 +4,9 @@ interface CssExports {
   'actions': string;
   'btn': string;
   'checkbox': string;
-  'rfi-form': string;
-  'input-filter': string;
   'filter-icon': string;
+  'input-filter': string;
+  'rfi-form': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
