@@ -31,6 +31,12 @@ export enum Phase {
   CanUnClaim
 }
 
+/** the initial state for new messages in a collab edit channel */
+export enum InitialStates {
+  PENDING_REVIEW,
+  UNALLOCATED
+}
+
 /** types of special channel */
 export enum SpecialChannelTypes {
   CHANNEL_MAPPING = 'mapping',

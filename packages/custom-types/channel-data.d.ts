@@ -1,6 +1,5 @@
 import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate } from './participant'
-import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING } from '@serge/config'
-import { SpecialChannelColumns } from '../config/build/enums'
+import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
 
 /** special configuration for collaborative channels */
 export interface CollabOptions {  
@@ -50,11 +49,6 @@ export interface ChannelCustom extends ChannelCore {
   channelType: typeof CHANNEL_CUSTOM
   /** list of participants for this channel */
   participants: Array<ParticipantCustom>
-}
-
-export enum InitialStates {
-  PENDING_REVIEW,
-  UNALLOCATED
 }
 
 /** description of collaborative editing channel */

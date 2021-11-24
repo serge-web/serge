@@ -2,8 +2,8 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { ForceRole, MessageCustom, Role, ChannelData, ChannelCollab, InitialStates } from '@serge/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes, CHANNEL_COLLAB, CollaborativePermission } from '@serge/config'
+import { ForceRole, MessageCustom, Role, ChannelData, ChannelCollab } from '@serge/custom-types'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes, CHANNEL_COLLAB, InitialStates, CollaborativePermission } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CoaStatusBoard2 from './index'
 import moment from 'moment'

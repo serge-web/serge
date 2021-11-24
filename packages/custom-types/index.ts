@@ -3,7 +3,7 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as ChannelData, ChannelCollab, InitialStates, ChannelTypes } from './channel-data.d'
+export { default as ChannelData, ChannelCollab, ChannelTypes } from './channel-data.d'
 export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
