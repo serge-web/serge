@@ -40,7 +40,6 @@ export const channelCollaborativeEditing2: ChannelCollab = {
       subscriptionId: 'oqoj2'
     }
   ],
-
   uniqid: 'ks8soryj'
 }
 

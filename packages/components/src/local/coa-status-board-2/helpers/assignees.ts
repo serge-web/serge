@@ -1,4 +1,5 @@
-import { ForceData, ForceRole, Participant, Role } from '@serge/custom-types'
+import { CollaborativePermission } from '@serge/config'
+import { ForceData, ForceRole, ParticipantCollab, Role } from '@serge/custom-types'
 import { uniqBy } from 'lodash'
 
 /** find this force */
@@ -42,10 +43,10 @@ const getRole = (force: ForceData, roleId: string): Role => {
  * tagged with `can collaborate`.
  * If no roles are specified, include all roles
  */
-const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRole[] => {
+const getAssignees = (participants: ParticipantCollab[], forces: ForceData[]): ForceRole[] => {
   const res: ForceRole[] = []
-  participants.forEach((part: Participant) => {
-    if (part.canCollaborate) {
+  participants.forEach((part: ParticipantCollab) => {
+    if (part.permission > CollaborativePermission.CannotCollaborate) {
       const force = forceFor(forces, part.forceUniqid)
       if (part.roles && part.roles.length) {
         const matches: ForceRole[] = part.roles.map((roleId: string) => {

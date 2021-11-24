@@ -29,17 +29,10 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
-  const myParticipations2: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
-  const canCollaborate2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanEdit)
-  const canReleaseMessages2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanRelease)
-  const canUnClaimMessages2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanUnClaim)
-
-  const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
-  const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
-  const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
-  const canUnClaimMessages = !!myParticipations.find(p => p.canUnClaimMessages)
-
-  console.log('permissions', myParticipations2, canCollaborate, canCollaborate2, canReleaseMessages, canReleaseMessages2, canUnClaimMessages, canUnClaimMessages2)
+  const myParticipations: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
+  const canCollaborate = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanEdit)
+  const canReleaseMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanRelease)
+  const canUnClaimMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanUnClaim)
 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
@@ -55,6 +48,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
     templates,
     isUmpire,
     channel,
+    channelColb,
     canCollaborate,
     canReleaseMessages,
     canUnClaimMessages,

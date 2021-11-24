@@ -1,5 +1,5 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData } from '@serge/custom-types'
+import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData, ChannelCollab } from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
@@ -46,6 +46,7 @@ export const genData2 = (
   templates: TemplateBodysByKey,
   isUmpire: boolean,
   channel: ChannelData,
+  channelColb: ChannelCollab,
   canCollaborate: boolean,
   canReleaseMessages: boolean,
   canUnClaimMessages: boolean,
@@ -56,7 +57,7 @@ export const genData2 = (
 ): GenData2 => {
   let unreadMessagesCount = 0
 
-  const assignees: ForceRole[] = getAssignees(channel.participants, forces)
+  const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
 
   const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
 
@@ -132,8 +133,8 @@ export const genData2 = (
     }
   ]
 
-  if (channel.collabOptions && channel.collabOptions.extraColumns) {
-    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): Column => {
+  if (channelColb.extraColumns) {
+    const newCols = channelColb.extraColumns.map((col: SpecialChannelColumns): Column => {
       return {
         name: capitalize(col),
         selector: (row: Row): string => row[col],

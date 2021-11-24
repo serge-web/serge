@@ -1,73 +1,64 @@
-import { Participant } from '@serge/custom-types'
+
+import { ParticipantCollab } from '@serge/custom-types'
+import { CollaborativePermission,  } from '@serge/config'
 import getAssignees from './assignees'
 import { forces } from '@serge/mocks'
 
-const namedWhite: Participant[] = [
+const namedWhite: ParticipantCollab[] = [
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    canCreate: true,
+    viewUnreleasedVersions: true,
+    permission: CollaborativePermission.CanRelease,
     force: 'White',
     forceUniqid: 'umpire',
     roles: ['rkrlw6f5f'],
-    subscriptionId: 'jvrn',
-    templates: [
-      { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    subscriptionId: 'jvrn'
   }
 ]
 
-const allWhiteCollaborate: Participant[] = [
+const allWhiteCollaborate: ParticipantCollab[] = [
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    canCreate: true,
+    viewUnreleasedVersions: true,
+    permission: CollaborativePermission.CanRelease,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
-    subscriptionId: 'jvrn',
-    templates: [
-      { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    subscriptionId: 'jvrn'
   }
 ]
 
-const allWhiteNonCollab: Participant[] = [
+const allWhiteNonCollab: ParticipantCollab[] = [
   {
-    canCollaborate: false,
-    canReleaseMessages: true,
+    canCreate: false,
+    viewUnreleasedVersions: true,
+    permission: CollaborativePermission.CanRelease,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
-    subscriptionId: 'jvrn',
-    templates: [
-      { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    subscriptionId: 'jvrn'
   }
 ]
 
-const multiPart: Participant[] = [
+const multiPart: ParticipantCollab[] = [
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    canCreate: true,
+    viewUnreleasedVersions: true,
+    permission: CollaborativePermission.CanRelease,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
-    subscriptionId: 'jvrn',
-    templates: [
-      { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    subscriptionId: 'jvrn'
   },
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    canCreate: true,
+    viewUnreleasedVersions: true,
+    permission: CollaborativePermission.CanRelease,
     force: 'Blue',
     forceUniqid: 'Blue',
     roles: [],
-    subscriptionId: 'jvrn',
-    templates: [
-      { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    subscriptionId: 'jvrn'
   }
-
 ]
 
 describe('Determine assignees for channel', () => {
