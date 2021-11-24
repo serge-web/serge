@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission } from '@serge/config'
 import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
 import { genData2 } from './helpers/gen-data'
 import getKey from './helpers/get-key'
@@ -15,7 +15,6 @@ import Props, { Row } from './types/props'
 import styles from './styles.module.scss'
 import filteredMessages from './helpers/filteredMessages'
 import { ParticipantCollab } from '@serge/custom-types'
-import { CollaborativePermission } from '@serge/config'
 
 /** combine force id and color
  */
@@ -30,18 +29,17 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
-
   const myParticipations2: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanEdit)
-  // const canReleaseMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanRelease)
-  // const canUnClaimMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanUnClaim)
-
-  console.log('debug4', channelColb, canCollaborate2)
+  const canReleaseMessages2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanRelease)
+  const canUnClaimMessages2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanUnClaim)
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
   const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
   const canUnClaimMessages = !!myParticipations.find(p => p.canUnClaimMessages)
+
+  console.log('permissions', myParticipations2, canCollaborate, canCollaborate2, canReleaseMessages, canReleaseMessages2, canUnClaimMessages, canUnClaimMessages2)
 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire

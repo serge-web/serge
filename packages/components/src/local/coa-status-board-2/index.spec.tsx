@@ -48,13 +48,13 @@ const testChannelColb: ChannelCollab = {
   extraColumns: [],
   releaseVerbs: [],
   initialState: InitialStates.UNALLOCATED,
-  newMessageTemplate:{ title: 'COA', _id: 'k16eedkj' },
+  newMessageTemplate: { title: 'COA', _id: 'k16eedkj' },
   name: 'Collab Editing',
   participants: [
     {
       canCreate: true,
-      viewUnreleasedVersions: true, 
-      permission: CollaborativePermission.CanSubmitForReview, 
+      viewUnreleasedVersions: true,
+      permission: CollaborativePermission.CanSubmitForReview,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
@@ -62,8 +62,8 @@ const testChannelColb: ChannelCollab = {
     },
     {
       canCreate: true,
-      viewUnreleasedVersions: true, 
-      permission: CollaborativePermission.CanRelease, 
+      viewUnreleasedVersions: true,
+      permission: CollaborativePermission.CanRelease,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [blueCO.roleId],
