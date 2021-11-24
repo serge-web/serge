@@ -13,10 +13,10 @@ export const blueReleaseManager2: ForceRole = { forceId: 'Blue', forceName: 'Blu
 
 export const channelCollaborativeEditing2: ChannelCollab = {
   channelType: CHANNEL_COLLAB,
-  requestChangesVerbs: [],
-  approveVerbs: [],
+  requestChangesVerbs: ['Alpha', 'Papa'],
+  approveVerbs: ['Approve'],
   extraColumns: [],
-  releaseVerbs: [],
+  releaseVerbs: ['Finalise'],
   initialState: InitialStates.UNALLOCATED,
   newMessageTemplate:{ title: 'COA', _id: 'k16eedkj' },
   name: 'Collab Editing',

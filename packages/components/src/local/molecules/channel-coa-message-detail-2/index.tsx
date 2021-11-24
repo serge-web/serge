@@ -78,8 +78,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [assignBtnLabel] = useState<string>('Assign to')
 
-  console.log('channel colb', channelColb)
-
   const dialogOpenStatusKey = `${message._id}-${role.forceId}-${role.roleId}`
   const dialogModalStatus = getOpenModalStatus(dialogOpenStatusKey)
 
@@ -103,8 +101,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   }, [])
 
   // collate list of verbs used for providing feedback
-  const feedbackVerbs: string[] = (channel.collabOptions && [...channel.collabOptions.returnVerbs]) || []
-  feedbackVerbs.push('Request changes')
+  const requestChangeVerbs: string[] = channelColb.requestChangesVerbs
+  const approveVerbs: string[] = channelColb.approveVerbs
+  const releaseVerbs: string[] = channelColb.releaseVerbs
 
   const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
     // store to local storage for using in case the site is reload while modal is opening
@@ -211,6 +210,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     handleChange(responseRelease(message), true)
   }
 
+  const handleApprove = (verb: string): void => {
+    console.log('handle approve', verb)
+  }
+
   const handleResponseRequestChanges = (): void => {
     setOpenModalStatus({
       open: true,
@@ -246,7 +249,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   }
 
   const onModalSave = (feedback: string): void => {
-    const newFeedback: string = feedbackVerbs.length > 1 ? '[' + dialogTitle + '] - ' + feedback : feedback
+    const newFeedback: string = requestChangeVerbs.length > 1 ? '[' + dialogTitle + '] - ' + feedback : feedback
     // put message into feedback item
     const feedbackItem: FeedbackItem =
     {
@@ -321,6 +324,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       </div>
     </div>)
 
+  console.log('request', requestChangeVerbs, 'approve', approveVerbs, 'release', releaseVerbs)
+
   return (
     <div className={styles.main}>
       <DialogModal
@@ -339,9 +344,18 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               ColEditPendingReview(message, channel, canReleaseMessages) &&
               <>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleEditClose}>Close</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleEditFinalise}>Finalise</Button>
                 {
-                  feedbackVerbs.map((item: string) => {
+                  releaseVerbs.map((item: string) => {
+                    return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditFinalise()}>{item}</Button>
+                  })
+                }
+                {
+                  approveVerbs.map((item: string) => {
+                    return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleApprove(item)}>{item}</Button>
+                  })
+                }
+                {
+                  requestChangeVerbs.map((item: string) => {
                     return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleRequestChanges(item)}>{item}</Button>
                   })
                 }
@@ -404,9 +418,17 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             {
               ColRespPendingReview(message, channel, canReleaseMessages) &&
               <>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseRelease}>Release</Button>
+                {
+                  releaseVerbs.map((item: string) => {
+                    return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleResponseRelease()}>{item}</Button>
+                  })
+                }
                 <Button customVariant="form-action" size="small" type="button" onClick={handleResponseClose}>Close</Button>
-                <Button customVariant="form-action" size="small" type="button" onClick={handleResponseRequestChanges}>Request Changes</Button>
+                {
+                  requestChangeVerbs.map((item: string) => {
+                    return <Button key={item} customVariant="form-action" size="small" type="button" onClick={(): void => handleResponseRequestChanges()}>{item}</Button>
+                  })
+                }
               </>
             }
             {
