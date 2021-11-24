@@ -72,11 +72,13 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, canUnClaimMessages, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
+export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channel, channelColb, canCollaborate, canReleaseMessages, canUnClaimMessages, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [assignBtnLabel] = useState<string>('Assign to')
+
+  console.log('channel colb', channelColb)
 
   const dialogOpenStatusKey = `${message._id}-${role.forceId}-${role.roleId}`
   const dialogModalStatus = getOpenModalStatus(dialogOpenStatusKey)

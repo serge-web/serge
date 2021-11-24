@@ -59,8 +59,6 @@ export const genData2 = (
 
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
 
-  const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
-
   const sortCol = (str1: string, str2: string): number => {
     const a = str1.toLowerCase()
     const b = str2.toLowerCase()
@@ -163,7 +161,7 @@ export const genData2 = (
       status === CollaborativeMessageStates.Finalized ||
       status === CollaborativeMessageStates.Released
 
-    const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isObserver)
+    const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isObserver)
     const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
 
     if (!isReaded) unreadMessagesCount++
@@ -184,6 +182,7 @@ export const genData2 = (
             role={role}
             isUmpire={isUmpire}
             channel={channel}
+            channelColb={channelColb}
             canCollaborate={canCollaborate}
             canReleaseMessages={canReleaseMessages}
             canUnClaimMessages={canUnClaimMessages}

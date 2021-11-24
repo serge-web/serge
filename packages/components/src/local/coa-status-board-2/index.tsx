@@ -70,8 +70,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
       const isFinalised = status === CollaborativeMessageStates.Closed ||
         status === CollaborativeMessageStates.Finalized ||
         status === CollaborativeMessageStates.Released
-      const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
-      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isUmpire)
+      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isUmpire)
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
     onMessageRead && onMessageRead(0)

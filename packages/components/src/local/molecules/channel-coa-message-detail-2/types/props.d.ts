@@ -2,6 +2,7 @@ import {
   MessageCustom,
   ForceRole,
   ChannelData,
+  ChannelCollab,
   TemplateBodysByKey
 } from '@serge/custom-types'
 
@@ -20,6 +21,7 @@ export default interface Props {
   /** if this player can retrieve claimed messages */
   canUnClaimMessages: boolean
   channel: ChannelData
+  channelColb: ChannelCollab
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]

@@ -10,12 +10,13 @@ import {
   channelCollaborativeEditing,
   messageDataCollaborativeEditing,
   GameChannels,
+  GameChannels2,
   GameMessagesMock,
   WargameMock
 } from '@serge/mocks'
 import docs from './README.md'
 
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelCollab } from '@serge/custom-types'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -66,6 +67,8 @@ const Template: Story<RFIPropTypes> = (args) => {
     setMessageState(message)
   }
 
+  const collabChannel = GameChannels2[3] as ChannelCollab
+
   return (
     <ChannelCoaMessageDetail2
       templates={MessageTemplatesMockByKey}
@@ -75,6 +78,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       canUnClaimMessages={true}
       isUmpire={isUmpire}
       channel={GameChannels[0]}
+      channelColb={collabChannel}
       gameDate={WargameMock.data.overview.gameDate}
     />
   )

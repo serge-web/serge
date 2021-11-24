@@ -1,7 +1,6 @@
-import { ChannelTypes, CollaborativePermission, Role } from "@serge/custom-types"
-import { CHANNEL_CUSTOM, CHANNEL_COLLAB } from '@serge/config'
+import { ChannelTypes, Role } from "@serge/custom-types"
+import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CollaborativePermission, InitialStates } from '@serge/config'
 import { forces } from './forces.mock'
-import { InitialStates } from "@serge/custom-types"
 
 const whiteRFI: Role = forces[0].roles[1]
 const blueCO: Role = forces[1].roles[0]

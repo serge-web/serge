@@ -2,6 +2,7 @@ import {
   MessageCustom,
   ForceRole,
   ChannelData,
+  ChannelCollab,
   ForceData,
   TemplateBodysByKey
 } from '@serge/custom-types'
