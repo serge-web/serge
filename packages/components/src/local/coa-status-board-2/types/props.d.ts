@@ -19,6 +19,7 @@ export default interface Props {
   currentWargame: string
   messages: MessageCustom[]
   channel: ChannelData
+  channelColb: ChannelCollab
   onChange: (nextMessage: MessageCustom) => void
   /** if this player is from the UMPIRE force */
   isUmpire: boolean

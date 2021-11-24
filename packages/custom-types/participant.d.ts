@@ -1,4 +1,5 @@
 import Role from './role'
+import { CollaborativePermission } from '@serge/config' 
 
 export interface ParticipantTemplate {
   _id: string,
@@ -41,19 +42,6 @@ export interface ParticipantCustom extends CoreParticipant {
 /** participation in chat channels */
 export interface ParticipantChat extends CoreParticipant {
 }
-
-/** increasing permissions in a collaborative editing channel
- */
- export enum CollaborativePermission {
-   /** can */
-   CannotCollaborate,
-   CanEdit,
-   CanSubmitForReview,
-   CanApprove,
-   CanRelease,
-   CanUnClaim
-}
-
 
 /** participation in collaborative editing channels */
 export interface ParticipantCollab extends CoreParticipant {

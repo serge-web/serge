@@ -14,6 +14,8 @@ import Props, { Row } from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import filteredMessages from './helpers/filteredMessages'
+import { ParticipantCollab } from '@serge/custom-types'
+import { CollaborativePermission } from '@serge/config'
 
 /** combine force id and color
  */
@@ -23,10 +25,18 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
+export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel, channelColb, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
+
+
+  const myParticipations2: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
+  const canCollaborate2 = !!myParticipations2.find(p => p.permission >= CollaborativePermission.CanEdit)
+  // const canReleaseMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanRelease)
+  // const canUnClaimMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanUnClaim)
+
+  console.log('debug4', channelColb, canCollaborate2)
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)

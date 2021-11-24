@@ -9,6 +9,8 @@ import { MessageCustom } from '@serge/custom-types'
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
+  channelCollaborativeEditing,
+  channelCollaborativeResponding,
   channelCollaborativeEditing2,
   channelCollaborativeResponding2,
   MessageTemplatesMockByKey,
@@ -107,7 +109,8 @@ const mostColabResponseMock = mostColabResponseMockRaw.map((message: MessageCust
 
 export const CollaborativeEditEditor = Template.bind({})
 CollaborativeEditEditor.args = {
-  channel: channelCollaborativeEditing2,
+  channel: channelCollaborativeEditing,
+  channelColb: channelCollaborativeEditing2,
   messages: mostColabEditMock,
   isUmpire: false,
   role: blueCollaborator2,
@@ -116,7 +119,8 @@ CollaborativeEditEditor.args = {
 
 export const CollaborativeEditReleaseManager = Template.bind({})
 CollaborativeEditReleaseManager.args = {
-  channel: channelCollaborativeEditing2,
+  channel: channelCollaborativeEditing,
+  channelColb: channelCollaborativeEditing2,
   messages: mostColabEditMock,
   isUmpire: false,
   role: blueReleaseManager2,
@@ -125,7 +129,8 @@ CollaborativeEditReleaseManager.args = {
 
 export const CollaborativeResponseSubmit = Template.bind({})
 CollaborativeResponseSubmit.args = {
-  channel: channelCollaborativeResponding2,
+  channel: channelCollaborativeResponding,
+  channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
   isUmpire: true,
   role: blueAuthor2,
@@ -134,7 +139,8 @@ CollaborativeResponseSubmit.args = {
 
 export const CollaborativeResponseParticipateWhite = Template.bind({})
 CollaborativeResponseParticipateWhite.args = {
-  channel: channelCollaborativeResponding2,
+  channel: channelCollaborativeResponding,
+  channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
   isUmpire: true,
   role: whiteCollaborator2,
@@ -143,7 +149,8 @@ CollaborativeResponseParticipateWhite.args = {
 
 export const CollaborativeResponseParticipateExcon = Template.bind({})
 CollaborativeResponseParticipateExcon.args = {
-  channel: channelCollaborativeResponding2,
+  channel: channelCollaborativeResponding,
+  channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
   isUmpire: true,
   role: exconCollaborator2,
@@ -152,7 +159,8 @@ CollaborativeResponseParticipateExcon.args = {
 
 export const CollaborativeResponseRelease = Template.bind({})
 CollaborativeResponseRelease.args = {
-  channel: channelCollaborativeResponding2,
+  channel: channelCollaborativeResponding,
+  channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
   isUmpire: true,
   role: whiteReleaseMgr2,

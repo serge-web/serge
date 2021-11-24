@@ -18,6 +18,19 @@ export enum Phase {
   GULF = 'Gulf'
 }
 
+
+/** increasing permissions in a collaborative editing channel
+ */
+ export enum CollaborativePermission {
+  /** can */
+  CannotCollaborate,
+  CanEdit,
+  CanSubmitForReview,
+  CanApprove,
+  CanRelease,
+  CanUnClaim
+}
+
 /** types of special channel */
 export enum SpecialChannelTypes {
   CHANNEL_MAPPING = 'mapping',

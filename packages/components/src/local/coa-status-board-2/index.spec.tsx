@@ -2,8 +2,8 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import { ForceRole, MessageCustom, Role, ChannelData, ChannelCollab, InitialStates } from '@serge/custom-types'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes, CHANNEL_COLLAB, CollaborativePermission } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CoaStatusBoard2 from './index'
 import moment from 'moment'
@@ -36,6 +36,38 @@ const testChannel: ChannelData = {
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
       ]
+    }
+  ],
+  uniqid: 'ks8soryj'
+}
+
+const testChannelColb: ChannelCollab = {
+  channelType: CHANNEL_COLLAB,
+  requestChangesVerbs: [],
+  approveVerbs: [],
+  extraColumns: [],
+  releaseVerbs: [],
+  initialState: InitialStates.UNALLOCATED,
+  newMessageTemplate:{ title: 'COA', _id: 'k16eedkj' },
+  name: 'Collab Editing',
+  participants: [
+    {
+      canCreate: true,
+      viewUnreleasedVersions: true, 
+      permission: CollaborativePermission.CanSubmitForReview, 
+      force: 'Blue',
+      forceUniqid: 'Blue',
+      roles: [],
+      subscriptionId: 'oqoj'
+    },
+    {
+      canCreate: true,
+      viewUnreleasedVersions: true, 
+      permission: CollaborativePermission.CanRelease, 
+      force: 'Blue',
+      forceUniqid: 'Blue',
+      roles: [blueCO.roleId],
+      subscriptionId: 'oqoj2'
     }
   ],
   uniqid: 'ks8soryj'
@@ -206,6 +238,7 @@ it('CoaStatusBoard renders correctly', () => {
         role={role}
         isUmpire={true}
         channel={testChannel}
+        channelColb={testChannelColb}
         messages={testMock}
         onChange={onChange}
         gameDate={WargameMock.data.overview.gameDate}
