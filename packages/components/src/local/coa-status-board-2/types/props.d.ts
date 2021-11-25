@@ -1,7 +1,6 @@
 import {
   MessageCustom,
   ForceRole,
-  ChannelData,
   ChannelCollab,
   ForceData,
   TemplateBodysByKey
