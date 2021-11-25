@@ -23,7 +23,7 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   actions[States.Closed] = []
 
   // finally populate handlers
-  actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Claim', 'Assign'] }]
+  actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Assign', 'Claim'] }]
   actions[States.InProgress][Permission.CanEdit] = [{ handler: handlers.save, verbs: ['Save'] }]
   actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: ['Save'] }]
   actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: ['Release'] }]
@@ -32,6 +32,7 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   actions[States.PendingReview][Permission.CanApprove] = [{ handler: handlers.requestChanges, verbs: requestChangesVerbs }, { handler: handlers.approve, verbs: approveVerbs }]
   actions[States.PendingReview][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }, { handler: handlers.discard, verbs: ['Discard'] }]
   actions[States.Released][Permission.CanRelease] = [{ handler: handlers.reopen, verbs: ['Re-open'] }]
+  actions[States.Closed][Permission.CanRelease] = [{ handler: handlers.reopen, verbs: ['Re-open'] }]
   return actions
 }
 
