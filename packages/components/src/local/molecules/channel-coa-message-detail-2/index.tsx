@@ -260,7 +260,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
           {
             actions.map((action: Action) => {
               const verbs = action.verbs
-              return verbs.map((verb: string)=> {
+              return verbs.map((verb: string) => {
                 return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}</Button>
               })
             })

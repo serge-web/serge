@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelData, ChannelCollab } from '@serge/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes, CHANNEL_COLLAB, InitialStates, CollaborativePermission } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes, CHANNEL_COLLAB, InitialStates, CollaborativePermission, CollaborativeMessageStates2 } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CoaStatusBoard2 from './index'
 import moment from 'moment'
@@ -15,7 +15,7 @@ const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
 const redCO: Role = forces[2].roles[0]
 
-/* TODO: test data */
+/* test data */
 const testChannel: ChannelData = {
   collabOptions: {
     extraColumns: [],
@@ -73,7 +73,7 @@ const testChannelColb: ChannelCollab = {
   uniqid: 'ks8soryj'
 }
 
-/* TODO: test data */
+/* test data */
 const testMock: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
@@ -90,7 +90,8 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.Pending
+        status: CollaborativeMessageStates.Pending,
+        status2: CollaborativeMessageStates2.Unallocated
       },
       turnNumber: 1
     },
@@ -119,7 +120,8 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.BeingEdited
+        status: CollaborativeMessageStates.BeingEdited,
+        status2: CollaborativeMessageStates2.InProgress
       },
       turnNumber: 1
     },
@@ -150,6 +152,7 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Closed,
+        status2: CollaborativeMessageStates2.Closed,
         response: 'Game control response to RFI 4'
       },
       turnNumber: 1
@@ -178,6 +181,7 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
+        status2: CollaborativeMessageStates2.PendingReview,
         response: 'Game control response to RFI 4'
       },
       turnNumber: 1
@@ -206,6 +210,7 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Released,
+        status2: CollaborativeMessageStates2.Released,
         response: 'Game control response to RFI 4'
       },
       turnNumber: 1
