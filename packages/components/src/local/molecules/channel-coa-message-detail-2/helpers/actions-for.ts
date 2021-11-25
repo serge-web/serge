@@ -4,6 +4,8 @@ import * as handlers from './handlers'
 export interface Action {
   /** the verb being used */
   readonly verbs: string[]
+  /** if this action requires feedback */
+  readonly feedback?: boolean
   /** the handler for this action */
   readonly handler: handlers.CoreFunc | handlers.ClaimFunc
 }
@@ -25,14 +27,14 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   // finally populate handlers
   actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Assign', 'Claim'] }]
   actions[States.InProgress][Permission.CanEdit] = [{ handler: handlers.save, verbs: ['Save'] }]
-  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: ['Save'] }]
-  actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: ['Release'] }]
-  actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, verbs: ['Unclaim'] }]
+  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: ['Submit for review'] }]
+  actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }]
+  actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, feedback:true, verbs: ['Unclaim'] }]
   actions[States.PendingReview][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Claim'] }]
-  actions[States.PendingReview][Permission.CanApprove] = [{ handler: handlers.requestChanges, verbs: requestChangesVerbs }, { handler: handlers.approve, verbs: approveVerbs }]
-  actions[States.PendingReview][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }, { handler: handlers.discard, verbs: ['Discard'] }]
-  actions[States.Released][Permission.CanRelease] = [{ handler: handlers.reopen, verbs: ['Re-open'] }]
-  actions[States.Closed][Permission.CanRelease] = [{ handler: handlers.reopen, verbs: ['Re-open'] }]
+  actions[States.PendingReview][Permission.CanApprove] = [{ handler: handlers.requestChanges, feedback:true, verbs: requestChangesVerbs }, { handler: handlers.approve, verbs: approveVerbs }]
+  actions[States.PendingReview][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }, { handler: handlers.discard, feedback:true, verbs: ['Discard'] }]
+  actions[States.Released][Permission.CanRelease] = [{ handler: handlers.reopen, feedback:true, verbs: ['Re-open'] }]
+  actions[States.Closed][Permission.CanRelease] = [{ handler: handlers.reopen, feedback:true, verbs: ['Re-open'] }]
   return actions
 }
 

@@ -18,7 +18,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { FeedbackItem , ForceRole , MessageCustom } from '@serge/custom-types'
+import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
 import { Action, actionsFor, ActionTable, createActionTable } from './helpers/actions-for'
 
@@ -59,6 +59,7 @@ const requestChanges = (msg: MessageCustom): MessageCustom => {
 export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
   //  const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
+  const [candidates, setCandidates] = useState<Array<string>>([])
   //  const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [actionTable, setActionTable] = useState<ActionTable | undefined>(undefined)
 
@@ -76,6 +77,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   useEffect(() => {
     setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs))
   }, [channelColb])
+
+  /**
+   * sort out the candidates for the task
+   */
+  useEffect(() => {
+    setCandidates(getCandidates(assignees))
+  }, [assignees])
+
   false && console.log('action table', actionTable, newMsg && labelFactory, assignees)
 
   const editDoc = true // ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
@@ -86,14 +95,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   //  const { collaboration } = message.details
   //  const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
 
-  const candidates = getCandidates(assignees)
-
   useEffect(() => {
     if (onRead && isReaded === false) onRead()
   }, [])
-
-  // collate list of verbs used for providing feedback
-  const requestChangeVerbs: string[] = channelColb.requestChangesVerbs
 
   const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
     // store to local storage for using in case the site is reload while modal is opening
@@ -145,7 +149,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   }
 
   const onModalSave = (feedback: string): void => {
-    const newFeedback: string = requestChangeVerbs.length > 1 ? '[' + dialogTitle + '] - ' + feedback : feedback
+    const newFeedback: string = '[' + dialogTitle + '] - ' + feedback
     // put message into feedback item
     const feedbackItem: FeedbackItem =
     {
@@ -205,7 +209,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     )
   }
 
-  /** value of owner, of `unassigned` */
+  /** any feedback in the message */
   const feedback = message.details.collaboration?.feedback
 
   // create a single feedback block - we use it in either message type
@@ -229,10 +233,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   // reverse the actions, so the lowest permission is on the right
   const reverseActions = actions.reverse()
 
-  console.log('detail', actions, permission, CollaborativePermission.CanRelease, message.details.collaboration?.status2)
-
-
-
   return (
     <div className={styles.main}>
       <DialogModal
@@ -251,10 +251,11 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               const verbs = action.verbs
               return verbs.map((verb: string) => {
                 // check for "special" verbs
-                if(verb === 'Assign') {
+                if (verb === 'Assign') {
                   return <SplitButton label={'Assign'} options={[...candidates]} onClick={(): void => action.handler('a', verb)} />
                 } else {
-                  return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}</Button>
+                  const requiresFeedback = !!action.feedback
+                  return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}{requiresFeedback && '*'}</Button>
                 }
               })
             })
