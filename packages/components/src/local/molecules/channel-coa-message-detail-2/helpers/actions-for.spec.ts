@@ -30,5 +30,9 @@ describe('Action table & actions', () => {
 
     const canReleaseWithFinalised = actionsFor(table, States.Released, Permission.CanRelease)
     expect(canReleaseWithFinalised.length).toEqual(1) // doesn't have permission to do anything
+
+    const canReleaseWithPending = actionsFor(table, States.PendingReview, Permission.CanApprove)
+    console.log(canReleaseWithPending)
+    expect(canReleaseWithPending.length).toEqual(3) // could be approve, request changes or claim
   })
 })
