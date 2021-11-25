@@ -30,8 +30,8 @@ const allWhiteCollaborate: ParticipantCollab[] = [
 
 const allWhiteNonCollab: ParticipantCollab[] = [
   {
-    canCreate: false,
-    viewUnreleasedVersions: true,
+    canCreate: true,
+    viewUnreleasedVersions: false,
     permission: CollaborativePermission.CannotCollaborate,
     force: 'White',
     forceUniqid: 'umpire',

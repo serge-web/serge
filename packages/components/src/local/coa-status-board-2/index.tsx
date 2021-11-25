@@ -28,9 +28,12 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelC
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
-  const myParticipations: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
-  // find my highest permission
-  const permission: CollaborativePermission = myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission
+  const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
+  // participations relate to me if they contain no roles, or if they contain my role
+  const myParticipations = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
+
+  // find my highest permission (or take no permission)
+  const permission: CollaborativePermission = myParticipations.length ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : CollaborativePermission.CannotCollaborate
 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)

@@ -199,7 +199,7 @@ const testMock: MessageCustom[] = [
   }
 ]
 
-const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
+const role: ForceRole = { forceId: 'White', forceName: 'White', roleId: blueCO.roleId, roleName: blueCO.name }
 
 const onChange = (): void => console.log()
 
