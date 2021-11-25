@@ -23,7 +23,7 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelColb, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
+export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
@@ -31,6 +31,12 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelC
   const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
   // participations relate to me if they contain no roles, or if they contain my role
   const myParticipations = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
+
+  // if we're not an umpire, we'll need some participations
+  if (myParticipations.length === 0 && !isObserver) {
+    // ok, should not be here
+    throw new Error('Should not be in this channel')
+  }
 
   // find my highest permission (or take no permission)
   const permission: CollaborativePermission = myParticipations.length ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : CollaborativePermission.CannotCollaborate
@@ -44,6 +50,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelC
     role,
     currentWargame,
     templates,
+    isObserver,
     isUmpire,
     channelColb,
     permission,

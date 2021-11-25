@@ -44,6 +44,7 @@ describe('ChannelMessageDetail:', () => {
         permission={CollaborativePermission.CanEdit}
         channelColb={testChannel2}
         isUmpire={true}
+        isObserver={true}
         message={defMessage}
         onChange={(msg): void => { console.log(msg) }}
         gameDate={WargameMock.data.overview.gameDate}

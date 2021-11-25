@@ -20,8 +20,10 @@ export default interface Props {
   messages: MessageCustom[]
   channelColb: ChannelCollab
   onChange: (nextMessage: MessageCustom) => void
-  /** if this player is from the UMPIRE force */
+  /** if this player is from an umpire force (and can see private messages) */
   isUmpire: boolean
+  /** if this player is an Observer, with read only access to messages */
+  isObserver: boolean
   /** role of logged in player */
   role: ForceRole
   templates: TemplateBodysByKey

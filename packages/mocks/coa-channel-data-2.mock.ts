@@ -19,7 +19,7 @@ export const channelCollaborativeEditing2: ChannelCollab = {
   releaseVerbs: ['Finalize 2'],
   initialState: InitialStates.UNALLOCATED,
   newMessageTemplate:{ title: 'COA', _id: 'k16eedkj' },
-  name: 'Collab Editing',
+  name: 'Collab Editing 1',
   participants: [
     {
       canCreate: true,
@@ -56,7 +56,7 @@ export const channelCollaborativeResponding2: ChannelCollab = {
   releaseVerbs: ['Release 2'],
   extraColumns: [],
   initialState: InitialStates.UNALLOCATED,
-  name: 'New CR',
+  name: 'Collab responding 1',
   newMessageTemplate: { title: 'RFI', _id: 'k16eedkj' },
   responseTemplate: { title: 'Chat', _id: 'idchat' },
   participants: [
@@ -96,9 +96,6 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       roles: [whiteReleaseMgr2.roleId],
       subscriptionId: 'jvrn4'
     }
-
-
-
   ],
   uniqid: 'ks8sztkw'
 }

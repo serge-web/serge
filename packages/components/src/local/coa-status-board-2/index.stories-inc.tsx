@@ -41,6 +41,12 @@ export default {
     }
   },
   argTypes: {
+    isUmpire: {
+      description: 'if player is from an umpire force'
+    },
+    isObserver: {
+      description: 'if player is marked as an observer'
+    },
     roles: {
       description: 'Player Roles'
     },
@@ -54,6 +60,7 @@ export default {
 }
 
 const Template: Story<Props> = (args) => {
+  const { isObserver, isUmpire } = args
   const [messages, setMessages] = useState(args.messages)
 
   const onChange = (nextMessage: MessageCustom): void => {
@@ -75,6 +82,8 @@ const Template: Story<Props> = (args) => {
     {...args}
     forces={collabForces}
     messages={messages}
+    isUmpire={isUmpire}
+    isObserver={isObserver}
     onChange={onChange}
     onMessageRead={handleReadMessage}
     currentWargame='wargame-test'
@@ -109,7 +118,8 @@ export const CollaborativeEditEditor = Template.bind({})
 CollaborativeEditEditor.args = {
   channelColb: channelCollaborativeEditing2,
   messages: mostColabEditMock,
-  isUmpire: false,
+  isObserver: false,
+  isUmpire: true,
   role: blueCollaborator2,
   templates: MessageTemplatesMockByKey
 }
@@ -118,8 +128,19 @@ export const CollaborativeEditReleaseManager = Template.bind({})
 CollaborativeEditReleaseManager.args = {
   channelColb: channelCollaborativeEditing2,
   messages: mostColabEditMock,
+  isObserver: false,
   isUmpire: false,
   role: blueReleaseManager2,
+  templates: MessageTemplatesMockByKey
+}
+
+export const CollaborativeEditNomMemberObserver = Template.bind({})
+CollaborativeEditNomMemberObserver.args = {
+  channelColb: channelCollaborativeEditing2,
+  messages: mostColabEditMock,
+  isObserver: true,
+  isUmpire: false,
+  role: whiteCollaborator2,
   templates: MessageTemplatesMockByKey
 }
 
@@ -127,7 +148,8 @@ export const CollaborativeResponseSubmit = Template.bind({})
 CollaborativeResponseSubmit.args = {
   channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
-  isUmpire: true,
+  isObserver: true,
+  isUmpire: false,
   role: blueAuthor2,
   templates: MessageTemplatesMockByKey
 }
@@ -136,7 +158,8 @@ export const CollaborativeResponseParticipateWhite = Template.bind({})
 CollaborativeResponseParticipateWhite.args = {
   channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
-  isUmpire: true,
+  isObserver: true,
+  isUmpire: false,
   role: whiteCollaborator2,
   templates: MessageTemplatesMockByKey
 }
@@ -145,7 +168,8 @@ export const CollaborativeResponseParticipateExcon = Template.bind({})
 CollaborativeResponseParticipateExcon.args = {
   channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
-  isUmpire: true,
+  isObserver: true,
+  isUmpire: false,
   role: exconCollaborator2,
   templates: MessageTemplatesMockByKey
 }
@@ -154,7 +178,8 @@ export const CollaborativeResponseRelease = Template.bind({})
 CollaborativeResponseRelease.args = {
   channelColb: channelCollaborativeResponding2,
   messages: mostColabResponseMock,
-  isUmpire: true,
+  isObserver: true,
+  isUmpire: false,
   role: whiteReleaseMgr2,
   templates: MessageTemplatesMockByKey
 }

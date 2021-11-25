@@ -43,6 +43,7 @@ export const genData2 = (
   role: ForceRole,
   currentWargame: string,
   templates: TemplateBodysByKey,
+  isObserver: boolean,
   isUmpire: boolean,
   channelColb: ChannelCollab,
   permission: CollaborativePermission,
@@ -170,6 +171,7 @@ export const genData2 = (
             templates={templates}
             message={message}
             role={role}
+            isObserver={isObserver}
             isUmpire={isUmpire}
             channelColb={channelColb}
             permission={permission}

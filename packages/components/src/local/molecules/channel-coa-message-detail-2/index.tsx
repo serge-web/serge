@@ -7,7 +7,7 @@ import Props, { DialogModalStatus } from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Components */
-// import Textarea from '../../atoms/textarea'
+import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import DialogModal from '../../atoms/dialog'
 import SplitButton from '../../atoms/split-button'
@@ -56,11 +56,11 @@ const requestChanges = (msg: MessageCustom): MessageCustom => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, onChange, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
+export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
   //  const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
-  //  const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
+  const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const [actionTable, setActionTable] = useState<ActionTable | undefined>(undefined)
 
   const dialogOpenStatusKey = `${message._id}-${role.forceId}-${role.roleId}`
@@ -85,7 +85,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     setCandidates(getCandidates(assignees))
   }, [assignees])
 
-  false && console.log('action table', actionTable, newMsg && labelFactory, assignees)
+  false && console.log('action table', actionTable, newMsg && labelFactory, assignees, setPrivateMessage)
 
   const editDoc = true // ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
   //  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
@@ -171,6 +171,12 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     expiredStorage.removeItem(dialogOpenStatusKey)
   }
 
+  const onPrivateMsgChange = (privateMsg: string): void => {
+    setPrivateMessage(privateMsg)
+    // the private msg needs to be stored temporarily in the message object to avoid being lost on rerendering
+    message.details.privateMessage = privateMsg
+  }
+
   const formatFeedback = (feedback: FeedbackItem): string => {
     return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
       ' [' + feedback.fromName + '] ' +
@@ -213,7 +219,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   const feedback = message.details.collaboration?.feedback
 
   // create a single feedback block - we use it in either message type
-  const feedbackBlock = (permission > CollaborativePermission.CannotCollaborate || isUmpire) && feedback && feedback.length > 0 && (
+  const feedbackBlock = (permission > CollaborativePermission.CannotCollaborate || isObserver) && feedback && feedback.length > 0 && (
     <div>
       <div className={styles['feedback-title']}>Feedback</div>
       <div className={styles['feedback-item']}>
@@ -281,13 +287,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         {/* {
             responseIsReleased
               ? <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
-              : (canCollaborate || canReleaseMessages || isUmpire) &&
+              : (canCollaborate || canReleaseMessages || isObserver) &&
               <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
           } */}
-        {/* { // only show private field for umpire force(s)
-            isUmpire && (privateMessage || editResponse) &&
-            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} disabled={!editResponse} theme='dark' label='Private Message' labelFactory={labelFactory} />
-          } */}
+        { // only show private field for umpire force(s)
+          (isUmpire || isObserver) && privateMessage &&
+            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
+              disabled={true} theme='dark' label='Private Message' labelFactory={labelFactory} />
+        }
       </>
     </div>
   )

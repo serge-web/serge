@@ -33,7 +33,7 @@ export default {
     }
   },
   argTypes: {
-    isUmpire: {
+    isObserver: {
       description: 'Player is from umpire force',
       control: 'boolean'
     },
@@ -55,7 +55,7 @@ export default {
 }
 
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isUmpire, role, message } = args
+  const { isObserver, role, message, isUmpire } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
   // we wish to update message state for a new story. We do
@@ -75,6 +75,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
       permission={CollaborativePermission.CanEdit}
+      isObserver={isObserver}
       isUmpire={isUmpire}
       channelColb={collabChannel}
       gameDate={WargameMock.data.overview.gameDate}
@@ -86,6 +87,7 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-c
 export const Unallocated = Template.bind({})
 Unallocated.args = {
   message: messageDataCollaborativeEditing[0],
+  isObserver: true,
   isUmpire: true,
   role: role
 }
@@ -93,6 +95,7 @@ Unallocated.args = {
 export const CustomMessage = Template.bind({})
 CustomMessage.args = {
   message: GameMessagesMock[0] as MessageCustom,
+  isObserver: true,
   isUmpire: true,
   role: role
 }

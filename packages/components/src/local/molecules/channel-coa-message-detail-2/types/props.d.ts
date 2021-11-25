@@ -11,8 +11,10 @@ export default interface Props {
   message: MessageCustom
   /** role of logged in player */
   role: ForceRole
-  /** if this player is from the UMPIRE force */
+  /** if this player is from an umpire force (and can see private messages) */
   isUmpire: boolean
+  /** if this player is an observer (and has read-only access to channels) */
+  isObserver: boolean
   /** definition of this channel */
   channelColb: ChannelCollab
   /** permission for this role in this channel */
