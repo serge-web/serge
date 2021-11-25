@@ -1,12 +1,11 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData, ChannelCollab } from '@serge/custom-types'
+import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
 import { Badge } from '../../atoms/badge'
 import { CollaborativeMessageStates, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
-import getKey from './get-key'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -45,20 +44,15 @@ export const genData2 = (
   currentWargame: string,
   templates: TemplateBodysByKey,
   isUmpire: boolean,
-  channel: ChannelData,
   channelColb: ChannelCollab,
   permission: CollaborativePermission,
-  canCollaborate: boolean,
-  canReleaseMessages: boolean,
-  canUnClaimMessages: boolean,
   gameDate: string,
-  isCollaborating: boolean,
-  isObserver: boolean,
   onChange: (msg: MessageCustom) => void
 ): GenData2 => {
   let unreadMessagesCount = 0
 
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
+  const isCollaborating = permission > CollaborativePermission.CannotCollaborate
 
   const sortCol = (str1: string, str2: string): number => {
     const a = str1.toLowerCase()
@@ -157,12 +151,7 @@ export const genData2 = (
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
 
-    // flag for if we tell original sender of RFI that it has been responded to
-    const isFinalised = status === CollaborativeMessageStates.Closed ||
-      status === CollaborativeMessageStates.Finalized ||
-      status === CollaborativeMessageStates.Released
-
-    const messageStateKey = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isObserver)
+    const messageStateKey = message._id
     const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
 
     if (!isReaded) unreadMessagesCount++
@@ -182,12 +171,8 @@ export const genData2 = (
             message={message}
             role={role}
             isUmpire={isUmpire}
-            channel={channel}
             channelColb={channelColb}
             permission={permission}
-            canCollaborate={canCollaborate}
-            canReleaseMessages={canReleaseMessages}
-            canUnClaimMessages={canUnClaimMessages}
             assignees={assignees}
             onChange={(newMeesage: MessageCustom): void => {
               onChange && onChange(newMeesage)

@@ -7,9 +7,7 @@ import RFIPropTypes from './types/props'
 
 import {
   MessageTemplatesMockByKey,
-  channelCollaborativeEditing,
   messageDataCollaborativeEditing,
-  GameChannels,
   GameChannels2,
   GameMessagesMock,
   WargameMock
@@ -77,9 +75,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
       permission={CollaborativePermission.CanEdit}
-      canUnClaimMessages={true}
       isUmpire={isUmpire}
-      channel={GameChannels[0]}
       channelColb={collabChannel}
       gameDate={WargameMock.data.overview.gameDate}
     />
@@ -91,9 +87,6 @@ export const Unallocated = Template.bind({})
 Unallocated.args = {
   message: messageDataCollaborativeEditing[0],
   isUmpire: true,
-  canCollaborate: true,
-  canReleaseMessages: false,
-  channel: channelCollaborativeEditing,
   role: role
 }
 
@@ -101,8 +94,5 @@ export const CustomMessage = Template.bind({})
 CustomMessage.args = {
   message: GameMessagesMock[0] as MessageCustom,
   isUmpire: true,
-  canCollaborate: true,
-  canReleaseMessages: false,
-  channel: channelCollaborativeEditing,
   role: role
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { CollaborativeMessageStates, CollaborativePermission } from '@serge/config'
+import { CollaborativePermission } from '@serge/config'
 import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
 import { genData2 } from './helpers/gen-data'
-import getKey from './helpers/get-key'
 import { setMessageState } from '@serge/helpers'
 import DataTable from 'react-data-table-component'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -24,7 +23,7 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel, channelColb, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
+export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelColb, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
@@ -32,13 +31,6 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
   const myParticipations: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   // find my highest permission
   const permission: CollaborativePermission = myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission
-  console.log('max permission:', permission)
-  const canCollaborate = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanEdit)
-  const canReleaseMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanRelease)
-  const canUnClaimMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanUnClaim)
-
-  // whether this user should see metadata about the message being edited
-  const isCollaborating = canCollaborate || canReleaseMessages || isUmpire
 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)
@@ -50,15 +42,9 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
     currentWargame,
     templates,
     isUmpire,
-    channel,
     channelColb,
     permission,
-    canCollaborate,
-    canReleaseMessages,
-    canUnClaimMessages,
     gameDate,
-    isCollaborating,
-    isUmpire,
     onChange
   )
 
@@ -69,12 +55,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
   const handleMarkAllAsRead = (): void => {
     for (const message of filteredDoc) {
       // flag for if we tell original sender of RFI that it has been responded to
-      const collab = message.details.collaboration
-      const status = collab && collab.status
-      const isFinalised = status === CollaborativeMessageStates.Closed ||
-        status === CollaborativeMessageStates.Finalized ||
-        status === CollaborativeMessageStates.Released
-      const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isUmpire)
+      const key = message._id
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
     onMessageRead && onMessageRead(0)

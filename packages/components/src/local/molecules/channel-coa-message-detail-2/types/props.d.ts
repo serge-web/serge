@@ -2,7 +2,6 @@ import { CollaborativePermission } from '@serge/config'
 import {
   MessageCustom,
   ForceRole,
-  ChannelData,
   ChannelCollab,
   TemplateBodysByKey
 } from '@serge/custom-types'
@@ -14,14 +13,7 @@ export default interface Props {
   role: ForceRole
   /** if this player is from the UMPIRE force */
   isUmpire: boolean
-  /** if this player has "RFI Manager" attribute in their role */
-  // isRFIManager: boolean
-  canCollaborate?: boolean
-  /** if this player can release messages */
-  canReleaseMessages?: boolean
-  /** if this player can retrieve claimed messages */
-  canUnClaimMessages: boolean
-  channel: ChannelData
+  /** definition of this channel */
   channelColb: ChannelCollab
   /** permission for this role in this channel */
   permission: CollaborativePermission
