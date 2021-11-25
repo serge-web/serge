@@ -32,7 +32,7 @@ const allWhiteNonCollab: ParticipantCollab[] = [
   {
     canCreate: false,
     viewUnreleasedVersions: true,
-    permission: CollaborativePermission.CanRelease,
+    permission: CollaborativePermission.CannotCollaborate,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
