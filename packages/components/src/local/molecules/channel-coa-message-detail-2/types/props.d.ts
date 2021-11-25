@@ -1,3 +1,4 @@
+import { CollaborativePermission } from '@serge/config';
 import {
   MessageCustom,
   ForceRole,
@@ -22,6 +23,9 @@ export default interface Props {
   canUnClaimMessages: boolean
   channel: ChannelData
   channelColb: ChannelCollab
+  /** permission for this role in this channel */
+  permission: CollaborativePermission
+  /** template definitions */
   templates: TemplateBodysByKey
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]

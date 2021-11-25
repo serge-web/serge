@@ -14,6 +14,7 @@ import {
   HOST_PLATFORM,
   DELETE_PLATFORM,
   CollaborativeMessageStates,
+  CollaborativeMessageStates2,
   COUNTER_MESSAGE
 } from '@serge/config'
 
@@ -125,7 +126,11 @@ export interface CollaborationDetails {
    * Message status
    */
   status: CollaborativeMessageStates
-  /** date-time when the last change 
+  /**
+   * (new) Message status
+   */
+  status2?: CollaborativeMessageStates2
+   /** date-time when the last change 
    * was made to this message
    */
   lastUpdated: string

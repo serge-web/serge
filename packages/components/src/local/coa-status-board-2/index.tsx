@@ -30,6 +30,9 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
   const myParticipations: ParticipantCollab[] = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
+  // find my highest permission
+  const permission: CollaborativePermission = myParticipations.reduce((a, b)=> a.permission > b.permission ? a : b).permission
+  console.log('max permission:', permission)
   const canCollaborate = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanEdit)
   const canReleaseMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanRelease)
   const canUnClaimMessages = !!myParticipations.find(p => p.permission >= CollaborativePermission.CanUnClaim)
@@ -49,6 +52,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channel,
     isUmpire,
     channel,
     channelColb,
+    permission,
     canCollaborate,
     canReleaseMessages,
     canUnClaimMessages,

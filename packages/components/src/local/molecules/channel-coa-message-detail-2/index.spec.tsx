@@ -67,6 +67,7 @@ describe('ChannelMessageDetail:', () => {
         templates={MessageTemplatesMockByKey}
         role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
         canUnClaimMessages={true}
+        permission={CollaborativePermission.CanEdit}
         channel={testChannel}
         channelColb={testChannel2}
         isUmpire={true}

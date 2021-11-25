@@ -17,6 +17,7 @@ import {
 import docs from './README.md'
 
 import { MessageCustom, ForceRole, ChannelCollab } from '@serge/custom-types'
+import { CollaborativePermission } from '@serge/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -75,6 +76,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       message={messageState}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
+      permission={CollaborativePermission.CanEdit}
       canUnClaimMessages={true}
       isUmpire={isUmpire}
       channel={GameChannels[0]}

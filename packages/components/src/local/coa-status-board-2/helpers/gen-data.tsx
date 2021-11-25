@@ -4,7 +4,7 @@ import { isMessageReaded, setMessageState } from '@serge/helpers'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
 import { Badge } from '../../atoms/badge'
-import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import getKey from './get-key'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
@@ -47,6 +47,7 @@ export const genData2 = (
   isUmpire: boolean,
   channel: ChannelData,
   channelColb: ChannelCollab,
+  permission: CollaborativePermission,
   canCollaborate: boolean,
   canReleaseMessages: boolean,
   canUnClaimMessages: boolean,
@@ -183,6 +184,7 @@ export const genData2 = (
             isUmpire={isUmpire}
             channel={channel}
             channelColb={channelColb}
+            permission={permission}
             canCollaborate={canCollaborate}
             canReleaseMessages={canReleaseMessages}
             canUnClaimMessages={canUnClaimMessages}
