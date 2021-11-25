@@ -13,10 +13,10 @@ export const blueReleaseManager2: ForceRole = { forceId: 'Blue', forceName: 'Blu
 
 export const channelCollaborativeEditing2: ChannelCollab = {
   channelType: CHANNEL_COLLAB,
-  requestChangesVerbs: ['Request 1', 'Request 2'],
+  requestChangesVerbs: ['Request 1', 'Endorse 1'],
   approveVerbs: ['Approve 1'],
   extraColumns: [],
-  releaseVerbs: ['Release 1'],
+  releaseVerbs: ['Finalize 2'],
   initialState: InitialStates.UNALLOCATED,
   newMessageTemplate:{ title: 'COA', _id: 'k16eedkj' },
   name: 'Collab Editing',
@@ -51,10 +51,10 @@ export const whiteReleaseMgr2: ForceRole = { forceId: 'umpire', forceName: 'Whit
 
 export const channelCollaborativeResponding2: ChannelCollab = {
   channelType: CHANNEL_COLLAB,
-  requestChangesVerbs: [],
-  approveVerbs: [],
+  requestChangesVerbs: ['Request 2'],
+  approveVerbs: ['Approve 2'],
+  releaseVerbs: ['Release 2'],
   extraColumns: [],
-  releaseVerbs: [],
   initialState: InitialStates.UNALLOCATED,
   name: 'New CR',
   newMessageTemplate: { title: 'RFI', _id: 'k16eedkj' },
