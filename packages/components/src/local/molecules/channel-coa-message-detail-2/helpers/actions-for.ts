@@ -29,12 +29,12 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   actions[States.InProgress][Permission.CanEdit] = [{ handler: handlers.save, verbs: ['Save'] }]
   actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: ['Submit for review'] }]
   actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }]
-  actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, feedback:true, verbs: ['Unclaim'] }]
+  actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, feedback: true, verbs: ['Unclaim'] }]
   actions[States.PendingReview][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Claim'] }]
-  actions[States.PendingReview][Permission.CanApprove] = [{ handler: handlers.requestChanges, feedback:true, verbs: requestChangesVerbs }, { handler: handlers.approve, verbs: approveVerbs }]
-  actions[States.PendingReview][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }, { handler: handlers.discard, feedback:true, verbs: ['Discard'] }]
-  actions[States.Released][Permission.CanRelease] = [{ handler: handlers.reopen, feedback:true, verbs: ['Re-open'] }]
-  actions[States.Closed][Permission.CanRelease] = [{ handler: handlers.reopen, feedback:true, verbs: ['Re-open'] }]
+  actions[States.PendingReview][Permission.CanApprove] = [{ handler: handlers.requestChanges, feedback: true, verbs: requestChangesVerbs }, { handler: handlers.approve, verbs: approveVerbs }]
+  actions[States.PendingReview][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }, { handler: handlers.discard, feedback: true, verbs: ['Discard'] }]
+  actions[States.Released][Permission.CanRelease] = [{ handler: handlers.reopen, feedback: true, verbs: ['Re-open'] }]
+  actions[States.Closed][Permission.CanRelease] = [{ handler: handlers.reopen, feedback: true, verbs: ['Re-open'] }]
   return actions
 }
 
