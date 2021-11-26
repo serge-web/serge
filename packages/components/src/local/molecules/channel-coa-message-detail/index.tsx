@@ -375,7 +375,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           }
           <JsonEditor
             messageTemplates={templates}
-            message={message}
+            messageContent={message.message}
+            template={message.messageType}
+            messageId={`${message._id}_${message.message.Reference}`}
             getJsonEditorValue={getJsonEditorValue}
             disabled={!editDoc}
             gameDate={gameDate}
@@ -424,7 +426,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           }
           <JsonEditor
             messageTemplates={templates}
-            message={message}
+            messageContent={message.message}
+            template={message.messageType}
+            messageId={`${message._id}_${message.message.Reference}`}
             getJsonEditorValue={getJsonEditorValue}
             disabled={true}
             gameDate={gameDate}

@@ -15,13 +15,14 @@ import { configDateTimeLocal } from '@serge/helpers'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, template, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
+
   const schema = Object.keys(messageTemplates).map(
     // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
     (key): TemplateBody => messageTemplates[key]
-  ).find(msg => msg.title === message.details.messageType)
+  ).find(msg => msg.title === template)
 
   if (!schema) {
     const styles = {
@@ -30,7 +31,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       padding: '20px',
       fontSize: '16px'
     }
-    return <span style={styles} >Schema not found for {message.details.messageType}</span>
+    return <span style={styles} >Schema not found for {template}</span>
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
@@ -38,7 +39,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
   }
 
   const genLocalStorageId = (): string => {
-    return `${message._id}_${message.message.Reference}`
+    return messageId
   }
 
   const initEditor = (): () => void => {
@@ -83,7 +84,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
 
     if (nextEditor) {
       const messageJson = saveEditedMessage ? expiredStorage.getItem(genLocalStorageId()) : null
-      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
+      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
       nextEditor.on('change', changeListenter)
     }
 
