@@ -15,7 +15,7 @@ import {
 import docs from './README.md'
 
 import { MessageCustom, ForceRole, ChannelCollab } from '@serge/custom-types'
-import { CollaborativePermission } from '@serge/config'
+import { CollaborativeMessageStates2, CollaborativePermission } from '@serge/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -34,11 +34,11 @@ export default {
   },
   argTypes: {
     isObserver: {
-      description: 'Player is from umpire force',
+      description: 'Player is marked as observer',
       control: 'boolean'
     },
-    isRFIManager: {
-      description: 'Player role has RFI Manager attribute',
+    isUmpire: {
+      description: 'Player is from umpire force, so can see private fields',
       control: 'boolean'
     },
     role: {
@@ -50,12 +50,27 @@ export default {
           'Logistics'
         ]
       }
+    },
+    permission: {
+      options: [CollaborativePermission.CannotCollaborate, CollaborativePermission.CanEdit, CollaborativePermission.CanSubmitForReview, CollaborativePermission.CanApprove,
+        CollaborativePermission.CanRelease],
+      control: { type: 'radio' } // Automatically inferred when 'options' is defined
+    },
+    state: {
+      options: [ CollaborativeMessageStates2.Unallocated, CollaborativeMessageStates2.InProgress,
+        CollaborativeMessageStates2.PendingReview, CollaborativeMessageStates2.Released, CollaborativeMessageStates2.Closed],
+      control: { type: 'radio' } // Automatically inferred when 'options' is defined
     }
   }
 }
 
+const listAssignees: ForceRole[] = [
+  { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
+  { forceId: 'f-1', forceName: 'Red', roleId: 'R3455', roleName: 'Logs' }
+]
+
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isObserver, role, message, isUmpire } = args
+  const { isObserver, role, message, isUmpire, permission } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
   // we wish to update message state for a new story. We do
@@ -67,16 +82,19 @@ const Template: Story<RFIPropTypes> = (args) => {
   }
 
   const collabChannel = GameChannels2[3] as ChannelCollab
+  const state = messageState.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
 
   return (
     <ChannelCoaMessageDetail2
       templates={MessageTemplatesMockByKey}
       message={messageState}
+      state={state}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
-      permission={CollaborativePermission.CanEdit}
+      permission={permission}
       isObserver={isObserver}
       isUmpire={isUmpire}
+      assignees={listAssignees}
       channelColb={collabChannel}
       gameDate={WargameMock.data.overview.gameDate}
     />
@@ -87,15 +105,11 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-c
 export const Unallocated = Template.bind({})
 Unallocated.args = {
   message: messageDataCollaborativeEditing[0],
-  isObserver: true,
-  isUmpire: true,
   role: role
 }
 
 export const CustomMessage = Template.bind({})
 CustomMessage.args = {
   message: GameMessagesMock[0] as MessageCustom,
-  isObserver: true,
-  isUmpire: true,
   role: role
 }
