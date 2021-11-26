@@ -24,6 +24,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       privateMessage: 'Private part of COA 3',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
+        owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
         status: CollaborativeMessageStates.Finalized,
         status2: CollaborativeMessageStates2.Released,
         response: 'Response to RFI 3'
@@ -32,7 +33,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-3',
-      Title: "Blue-3 Trusted Taipir",
+      Title: "Blue-3 Trusted Taipir, owned by Red Comms",
       LOCATION: {
         Asia: [
             {
@@ -447,9 +448,11 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       },
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
+      privateMessage: 'The private element of the response',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Pending,
+        owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
         status2: CollaborativeMessageStates2.Unallocated,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},

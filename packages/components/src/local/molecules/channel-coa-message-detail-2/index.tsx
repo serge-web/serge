@@ -16,7 +16,7 @@ import SplitButton from '../../atoms/split-button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
-import { CollaborativePermission, expiredStorage } from '@serge/config'
+import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
@@ -71,234 +71,260 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
 
-  /**
-   * create the actions table for this user/channel
-   */
-  useEffect(() => {
-    setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs))
-  }, [channelColb])
+  if (message.details.collaboration === undefined) {
+    return <></>
+  } else {
+    const collab = message.details.collaboration
+    const isResponse = !!channelColb.responseTemplate
+    const docBeingEdited = state === CollaborativeMessageStates2.InProgress
+    const roleIsOwner = collab.owner && collab.owner.roleId === role.roleId
+    const collabIsEditable = docBeingEdited && roleIsOwner
 
-  /**
-   * sort out the candidates for the task
-   */
-  useEffect(() => {
-    setCandidates(getCandidates(assignees))
-  }, [assignees])
+    /**
+     * create the actions table for this user/channel
+     */
+    useEffect(() => {
+      setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs))
+    }, [channelColb])
 
-  false && console.log('action table', actionTable, newMsg && labelFactory, assignees, setPrivateMessage)
+    /**
+     * sort out the candidates for the task
+     */
+    useEffect(() => {
+      setCandidates(getCandidates(assignees))
+    }, [assignees])
 
-  const editDoc = true // ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
-  //  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
+    false && console.log('action table', actionTable, newMsg && labelFactory, assignees, setPrivateMessage)
 
-  //  const isEditor = formEditable(message, role)
+    //  const editDoc = true // ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
+    //  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
 
-  //  const { collaboration } = message.details
-  //  const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
+    //  const isEditor = formEditable(message, role)
 
-  useEffect(() => {
-    if (onRead && isReaded === false) onRead()
-  }, [])
+    //  const { collaboration } = message.details
+    //  const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
 
-  const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
-    // store to local storage for using in case the site is reload while modal is opening
-    const currentModalStatus = getOpenModalStatus(dialogOpenStatusKey)
+    useEffect(() => {
+      if (onRead && isReaded === false) onRead()
+    }, [])
 
-    currentModalStatus.open = open
-    setOpenDialog(open)
+    const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
+      // store to local storage for using in case the site is reload while modal is opening
+      const currentModalStatus = getOpenModalStatus(dialogOpenStatusKey)
 
-    if (title) {
-      currentModalStatus.title = title
-      setDialogTitle(title)
-    }
+      currentModalStatus.open = open
+      setOpenDialog(open)
 
-    if (placeHolder) {
-      currentModalStatus.placeHolder = placeHolder
-      setPlaceHolder(placeHolder)
-    }
-
-    currentModalStatus.content = content
-    setModalContent(content)
-
-    expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify(currentModalStatus))
-  }
-
-  const getJsonEditorValue = (val: { [property: string]: any }): void => {
-    setNewMsg(val)
-  }
-
-  /** local change handler. Updates `lastUpdated` value
-   * in message
-   */
-  const handleChange = (msg: MessageCustom, collapse: boolean): void => {
-    // collapse message, if necessary
-    collapse && collapseMe && collapseMe()
-    // fire update
-    onChange && onChange(msg)
-  }
-
-  const onModalValueChange = (content: string): void => {
-    setOpenModalStatus({
-      open: true,
-      content
-    })
-  }
-
-  const onModalClose = (): void => {
-    setOpenDialog(false)
-    expiredStorage.removeItem(dialogOpenStatusKey)
-  }
-
-  const onModalSave = (feedback: string): void => {
-    const newFeedback: string = '[' + dialogTitle + '] - ' + feedback
-    // put message into feedback item
-    const feedbackItem: FeedbackItem =
-    {
-      fromId: role.roleId,
-      fromName: role.roleName,
-      date: new Date().toISOString(),
-      feedback: newFeedback
-    }
-    if (message.details.collaboration) {
-      if (!message.details.collaboration.feedback) {
-        // create empty array, if necessary
-        message.details.collaboration.feedback = []
+      if (title) {
+        currentModalStatus.title = title
+        setDialogTitle(title)
       }
-      message.details.collaboration.feedback.push(feedbackItem)
+
+      if (placeHolder) {
+        currentModalStatus.placeHolder = placeHolder
+        setPlaceHolder(placeHolder)
+      }
+
+      currentModalStatus.content = content
+      setModalContent(content)
+
+      expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify(currentModalStatus))
     }
 
-    handleChange(requestChanges(message), true)
-    setOpenDialog(false)
-    expiredStorage.removeItem(dialogOpenStatusKey)
-  }
-
-  const onPrivateMsgChange = (privateMsg: string): void => {
-    setPrivateMessage(privateMsg)
-    // the private msg needs to be stored temporarily in the message object to avoid being lost on rerendering
-    message.details.privateMessage = privateMsg
-  }
-
-  const formatFeedback = (feedback: FeedbackItem): string => {
-    return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
-      ' [' + feedback.fromName + '] ' +
-      feedback.feedback
-  }
-
-  const CollapsibleHeader = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
-    const multipleFeedback = feedback.length > 1
-    const handleOnExpand = (): void => {
-      multipleFeedback && onExpand(!collapsed)
+    const getJsonEditorValue = (val: { [property: string]: any }): void => {
+      setNewMsg(val)
     }
 
-    const rebderReadIcon = (): React.ReactNode => {
-      return <>
-        {multipleFeedback && (collapsed ? '+' : '-')}
-      </>
+    /** local change handler. Updates `lastUpdated` value
+     * in message
+     */
+    const handleChange = (msg: MessageCustom, collapse: boolean): void => {
+      // collapse message, if necessary
+      collapse && collapseMe && collapseMe()
+      // fire update
+      onChange && onChange(msg)
     }
-    return (
-      <div className={styles['feedback-header']} onClick={handleOnExpand}>
-        <span className={styles['feedback-icon']}>{rebderReadIcon()}</span>
-        {formatFeedback(feedback[feedback.length - 1])}
-      </div>
-    )
-  }
 
-  const CollapsibleContent = ({ collapsed, feedback }: any): React.ReactElement => {
-    // put in reverse chronological order
-    const descending = feedback.slice().reverse()
-    return (
-      <div className={styles['feedback-content']}>
-        {!collapsed && descending.map((item: FeedbackItem, key: number) => {
-          if (key > 0) return (<div key={key}>{formatFeedback(item)}</div>)
-          else return null
-        })}
-      </div>
-    )
-  }
+    const onModalValueChange = (content: string): void => {
+      setOpenModalStatus({
+        open: true,
+        content
+      })
+    }
 
-  /** any feedback in the message */
-  const feedback = message.details.collaboration?.feedback
+    const onModalClose = (): void => {
+      setOpenDialog(false)
+      expiredStorage.removeItem(dialogOpenStatusKey)
+    }
 
-  // create a single feedback block - we use it in either message type
-  const feedbackBlock = (permission > CollaborativePermission.CannotCollaborate || isObserver) && feedback && feedback.length > 0 && (
-    <div>
-      <div className={styles['feedback-title']}>Feedback</div>
-      <div className={styles['feedback-item']}>
-        <Collapsible
-          header={<CollapsibleHeader feedback={feedback} />}
-          content={<CollapsibleContent feedback={feedback} />}
-        />
-      </div>
-    </div>)
-
-  if (!message.details.collaboration) {
-    console.error('Message doesnt have collaboration block')
-  }
-
-  const haveData = state !== undefined && permission !== undefined
-  const actions = (actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
-
-  // reverse the actions, so the lowest permission is on the right
-  const reverseActions = actions.reverse()
-
-  return (
-    <div className={styles.main}>
-      <DialogModal
-        title={dialogTitle}
-        value={content}
-        open={open}
-        onClose={onModalClose}
-        onSave={onModalSave}
-        onValueChange={onModalValueChange}
-        placeholder={placeHolder}
-      />
-      <>
-        <div className={styles.actions}>
-          {
-            reverseActions.map((action: Action) => {
-              const verbs = action.verbs
-              return verbs.map((verb: string) => {
-                // check for "special" verbs
-                if (verb === 'Assign') {
-                  return <SplitButton label={'Assign'} options={[...candidates]} onClick={(): void => action.handler('a', verb)} />
-                } else {
-                  const requiresFeedback = !!action.feedback
-                  return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}{requiresFeedback && '*'}</Button>
-                }
-              })
-            })
-          }
-        </div>
-        {
-          feedbackBlock
+    const onModalSave = (feedback: string): void => {
+      const newFeedback: string = '[' + dialogTitle + '] - ' + feedback
+      // put message into feedback item
+      const feedbackItem: FeedbackItem =
+      {
+        fromId: role.roleId,
+        fromName: role.roleName,
+        date: new Date().toISOString(),
+        feedback: newFeedback
+      }
+      if (message.details.collaboration) {
+        if (!message.details.collaboration.feedback) {
+          // create empty array, if necessary
+          message.details.collaboration.feedback = []
         }
-        <JsonEditor
-          messageTemplates={templates}
-          message={message}
-          getJsonEditorValue={getJsonEditorValue}
-          disabled={!editDoc}
-          gameDate={gameDate}
+        message.details.collaboration.feedback.push(feedbackItem)
+      }
+
+      handleChange(requestChanges(message), true)
+      setOpenDialog(false)
+      expiredStorage.removeItem(dialogOpenStatusKey)
+    }
+
+    const onPrivateMsgChange = (privateMsg: string): void => {
+      setPrivateMessage(privateMsg)
+      // the private msg needs to be stored temporarily in the message object to avoid being lost on rerendering
+      message.details.privateMessage = privateMsg
+    }
+
+    const formatFeedback = (feedback: FeedbackItem): string => {
+      return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
+        ' [' + feedback.fromName + '] ' +
+        feedback.feedback
+    }
+
+    const CollapsibleHeader = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
+      const multipleFeedback = feedback.length > 1
+      const handleOnExpand = (): void => {
+        multipleFeedback && onExpand(!collapsed)
+      }
+
+      const rebderReadIcon = (): React.ReactNode => {
+        return <>
+          {multipleFeedback && (collapsed ? '+' : '-')}
+        </>
+      }
+      return (
+        <div className={styles['feedback-header']} onClick={handleOnExpand}>
+          <span className={styles['feedback-icon']}>{rebderReadIcon()}</span>
+          {formatFeedback(feedback[feedback.length - 1])}
+        </div>
+      )
+    }
+
+    const CollapsibleContent = ({ collapsed, feedback }: any): React.ReactElement => {
+      // put in reverse chronological order
+      const descending = feedback.slice().reverse()
+      return (
+        <div className={styles['feedback-content']}>
+          {!collapsed && descending.map((item: FeedbackItem, key: number) => {
+            if (key > 0) return (<div key={key}>{formatFeedback(item)}</div>)
+            else return null
+          })}
+        </div>
+      )
+    }
+
+    /** any feedback in the message */
+    const feedback = message.details.collaboration?.feedback
+
+    // create a single feedback block - we use it in either message type
+    const feedbackBlock = (permission > CollaborativePermission.CannotCollaborate || isObserver) && feedback && feedback.length > 0 && (
+      <div>
+        <div className={styles['feedback-title']}>Feedback</div>
+        <div className={styles['feedback-item']}>
+          <Collapsible
+            header={<CollapsibleHeader feedback={feedback} />}
+            content={<CollapsibleContent feedback={feedback} />}
+          />
+        </div>
+      </div>)
+
+    if (!message.details.collaboration) {
+      console.error('Message doesnt have collaboration block')
+    }
+
+    const haveData = state !== undefined && permission !== undefined
+    const actions = (actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
+
+    // reverse the actions, so the lowest permission is on the right
+    const reverseActions = actions.reverse()
+
+    return (
+      <div className={styles.main}>
+        <DialogModal
+          title={dialogTitle}
+          value={content}
+          open={open}
+          onClose={onModalClose}
+          onSave={onModalSave}
+          onValueChange={onModalValueChange}
+          placeholder={placeHolder}
         />
-        {/* <JsonEditor
+        <>
+          <div className={styles.actions}>
+            {
+              reverseActions.map((action: Action) => {
+                const verbs = action.verbs
+                return verbs.map((verb: string) => {
+                  // check for "special" verbs
+                  if (verb === 'Assign') {
+                    return <SplitButton label={'Assign'} options={[...candidates]} onClick={(): void => action.handler('a', verb)} />
+                  } else {
+                    const requiresFeedback = !!action.feedback
+                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}{requiresFeedback && '*'}</Button>
+                  }
+                })
+              })
+            }
+          </div>
+          {
+            feedbackBlock
+          }
+          {
+            isResponse && <> <JsonEditor
+              messageTemplates={templates}
+              message={message}
+              getJsonEditorValue={getJsonEditorValue}
+              disabled={true}
+              gameDate={gameDate}
+            /><JsonEditor
+              messageTemplates={templates}
+              message={message}
+              getJsonEditorValue={getJsonEditorValue}
+              disabled={false}
+              gameDate={gameDate}
+            /></>
+          }
+          {!isResponse && <JsonEditor
+            messageTemplates={templates}
+            message={message}
+            getJsonEditorValue={getJsonEditorValue}
+            disabled={!collabIsEditable}
+            gameDate={gameDate} />
+
+          }
+          {/* <JsonEditor
             messageTemplates={templates}
             message={message}
             getJsonEditorValue={getJsonEditorValue}
             disabled={true}
             gameDate={gameDate}
           /> */}
-        {/* {
+          {/* {
             responseIsReleased
               ? <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
               : (canCollaborate || canReleaseMessages || isObserver) &&
               <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
           } */}
-        { // only show private field for umpire force(s)
-          (isUmpire || isObserver) && privateMessage &&
+          { // only show private field for umpire force(s)
+            (isUmpire || isObserver) && privateMessage &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
               disabled={true} theme='dark' label='Private Message' labelFactory={labelFactory} />
-        }
-      </>
-    </div>
-  )
+          }
+        </>
+      </div>
+    )
+  }
 }
 
 export default ChannelCoaMessageDetail2
