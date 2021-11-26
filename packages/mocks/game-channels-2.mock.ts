@@ -67,9 +67,9 @@ const GameChannels2: Array<ChannelTypes> = [
   {
     channelType: CHANNEL_COLLAB,
     name: "Blue COA",
-    requestChangesVerbs: ['Endorse', 'Request Changes'],
-    approveVerbs: [],
-    releaseVerbs: [],
+    requestChangesVerbs: ['Request b', 'Endorse b'],
+    approveVerbs: ['Approve b'],
+    releaseVerbs: ['Release b'],
     initialState: InitialStates.PENDING_REVIEW,
     extraColumns: [],
     newMessageTemplate:{

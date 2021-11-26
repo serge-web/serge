@@ -9,8 +9,8 @@ import {
   MessageTemplatesMockByKey,
   messageDataCollaborativeEditing,
   GameChannels2,
-  GameMessagesMock,
-  WargameMock
+  WargameMock,
+  messageDataCollaborativeResponding
 } from '@serge/mocks'
 import docs from './README.md'
 
@@ -74,7 +74,7 @@ const listAssignees: ForceRole[] = [
 ]
 
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isObserver, role, message, isUmpire, permission, state } = args
+  const { isObserver, role, message, isUmpire, permission, state, channelColb } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
   // we wish to update message state for a new story. We do
@@ -84,8 +84,6 @@ const Template: Story<RFIPropTypes> = (args) => {
     setRoleState(role)
     setMessageState(message)
   }
-
-  const collabChannel = GameChannels2[3] as ChannelCollab
 
   console.log('story', state, permission)
 
@@ -100,21 +98,23 @@ const Template: Story<RFIPropTypes> = (args) => {
       isObserver={isObserver}
       isUmpire={isUmpire}
       assignees={listAssignees}
-      channelColb={collabChannel}
+      channelColb={channelColb}
       gameDate={WargameMock.data.overview.gameDate}
     />
   )
 }
 
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-control', roleName: 'Game Control' }
-export const Unallocated = Template.bind({})
-Unallocated.args = {
+export const CollaborativeEdit = Template.bind({})
+CollaborativeEdit.args = {
   message: messageDataCollaborativeEditing[0],
+  channelColb: GameChannels2[4]as ChannelCollab,
   role: role
 }
 
-export const CustomMessage = Template.bind({})
-CustomMessage.args = {
-  message: GameMessagesMock[0] as MessageCustom,
+export const CollaborativeResponse = Template.bind({})
+CollaborativeResponse.args = {
+  message: messageDataCollaborativeResponding[0],
+  channelColb: GameChannels2[3]as ChannelCollab,
   role: role
 }
