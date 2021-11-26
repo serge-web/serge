@@ -9,7 +9,8 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     className="actions"
   />
   <div
-    className="edt-enable"
+    className="edt-disable"
   />
+  
 </div>
 `;

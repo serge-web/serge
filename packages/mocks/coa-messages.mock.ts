@@ -464,7 +464,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     message: {
       Reference: 'Blue-3a',
-      Title: 'RFI 3 from Blue',
+      Title: 'RFI 3 from Blue, owned by Red Comms',
       RFI: "Content of RFI",
       Priority: "High",
       FAO: "J2",

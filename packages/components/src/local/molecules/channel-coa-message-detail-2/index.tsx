@@ -78,7 +78,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     const isResponse = !!channelColb.responseTemplate
     const docBeingEdited = state === CollaborativeMessageStates2.InProgress
     const roleIsOwner = collab.owner && collab.owner.roleId === role.roleId
-    const collabIsEditable = docBeingEdited && roleIsOwner
+    const formIsEditable = docBeingEdited && roleIsOwner
 
     /**
      * create the actions table for this user/channel
@@ -287,11 +287,11 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               getJsonEditorValue={getJsonEditorValue}
               disabled={true}
               gameDate={gameDate}
-            /><JsonEditor
+            /><JsonEditor /* TODO: change JsonEditor so we can pass id of template as prop. We need to for response template */
               messageTemplates={templates}
               message={message}
               getJsonEditorValue={getJsonEditorValue}
-              disabled={false}
+              disabled={!formIsEditable}
               gameDate={gameDate}
             /></>
           }
@@ -299,9 +299,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             messageTemplates={templates}
             message={message}
             getJsonEditorValue={getJsonEditorValue}
-            disabled={!collabIsEditable}
+            disabled={!formIsEditable}
             gameDate={gameDate} />
-
           }
           {/* <JsonEditor
             messageTemplates={templates}
@@ -321,6 +320,23 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
               disabled={true} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
+          <div className={styles.actions}>
+            {
+              reverseActions.map((action: Action) => {
+                const verbs = action.verbs
+                return verbs.map((verb: string) => {
+                  // check for "special" verbs
+                  if (verb === 'Assign') {
+                    return <SplitButton label={'Assign'} options={[...candidates]} onClick={(): void => action.handler('a', verb)} />
+                  } else {
+                    const requiresFeedback = !!action.feedback
+                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}{requiresFeedback && '*'}</Button>
+                  }
+                })
+              })
+            }
+          </div>
+
         </>
       </div>
     )
