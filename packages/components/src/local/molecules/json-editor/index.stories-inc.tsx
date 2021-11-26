@@ -37,7 +37,7 @@ const storeNewValue = (value: { [property: string]: any }) => {
 
 const Template: Story<Props> = ({ messageTemplates, disabled, template, messageContent, messageId }) => {
   return (
-    <JsonEditor messageId={messageId} template={template} messageContent={messageContent} 
+    <JsonEditor messageId={messageId} template={template} messageContent={messageContent}
       messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate}
       storeNewValue={storeNewValue} />
   )

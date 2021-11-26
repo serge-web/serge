@@ -2,8 +2,8 @@ import { MessageCustom, MessageStructure, TemplateBodysByKey } from '@serge/cust
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
-  /** 
-   * handler for any text change 
+  /**
+   * handler for any text change
    */
   storeNewValue?: (value: { [property: string]: any }) => void
   /**

@@ -378,7 +378,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             messageContent={message.message}
             template={message.messageType}
             messageId={`${message._id}_${message.message.Reference}`}
-            onChange={storeNewValue}
+            storeNewValue={storeNewValue}
             disabled={!editDoc}
             gameDate={gameDate}
           />
@@ -391,7 +391,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               editDoc &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
             }
-          </div>        </>
+          </div></>
       ) : (
         <>
           <div className={styles.actions}>
