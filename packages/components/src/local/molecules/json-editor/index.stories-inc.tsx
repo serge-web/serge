@@ -32,10 +32,9 @@ export default {
   }
 }
 
-
 const Template: Story<Props> = ({ messageTemplates, disabled, template, messageContent, messageId }) => {
   return (
-  <JsonEditor messageId={messageId} template={template} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />  
+    <JsonEditor messageId={messageId} template={template} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
   )
 }
 
@@ -45,7 +44,7 @@ export const Standard = Template.bind({})
 Standard.args = {
   messageContent: testMessage.message,
   messageId: `${testMessage._id}_${testMessage.message.Reference}`,
-  template:  messageDataCollaborativeResponding[0].details.messageType,
+  template: messageDataCollaborativeResponding[0].details.messageType,
   messageTemplates: MessageTemplatesMockByKey,
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate

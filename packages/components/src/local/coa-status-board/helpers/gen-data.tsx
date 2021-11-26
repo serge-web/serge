@@ -94,7 +94,7 @@ export const genData = (
       selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={row.isReaded ? '#838585' : '#69c'} icon={row.isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id),
-      center: true,
+      center: true
     },
     {
       name: 'From',
