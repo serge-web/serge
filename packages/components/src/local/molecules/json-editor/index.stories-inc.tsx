@@ -32,7 +32,12 @@ export default {
   }
 }
 
-const Template: Story<Props> = ({ message, messageTemplates, disabled }) => <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
+const Template: Story<Props> = ({ message, messageTemplates, disabled }) => {
+  return (
+    <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
+  )
+}
+
 export const Default = Template.bind({})
 
 const defArgs: Props = {

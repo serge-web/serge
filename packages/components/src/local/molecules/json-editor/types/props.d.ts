@@ -1,9 +1,17 @@
-import { MessageCustom, TemplateBodysByKey } from '@serge/custom-types'
+import { MessageCustom, MessageStructure, TemplateBodysByKey } from '@serge/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   getJsonEditorValue?: (value: { [property: string]: any }) => void
   message: MessageCustom
+  /** 
+   * content of message
+   */
+  messageContent: MessageStructure
+  /**
+   * template
+   */
+  template: string
   /**
    * dictionary of templates, indexed by template name
    */
