@@ -15,7 +15,7 @@ import { configDateTimeLocal } from '@serge/helpers'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, template, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, template, storeNewValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
@@ -35,7 +35,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
-    getJsonEditorValue && getJsonEditorValue(value)
+    storeNewValue && storeNewValue(value)
   }
 
   const genLocalStorageId = (): string => {
