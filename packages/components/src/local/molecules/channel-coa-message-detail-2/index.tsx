@@ -16,7 +16,7 @@ import SplitButton from '../../atoms/split-button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
-import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
+import { CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
@@ -56,7 +56,7 @@ const requestChanges = (msg: MessageCustom): MessageCustom => {
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
+export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, state, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
   //  const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
@@ -233,9 +233,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   if (!message.details.collaboration) {
     console.error('Message doesnt have collaboration block')
   }
-  const messageState = (message.details.collaboration && message.details.collaboration.status2) || CollaborativeMessageStates2.Unallocated
 
-  const actions = actionTable ? actionsFor(actionTable, messageState, permission) : []
+  const actions = actionTable ? actionsFor(actionTable, state, permission) : []
   // reverse the actions, so the lowest permission is on the right
   const reverseActions = actions.reverse()
 

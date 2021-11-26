@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import ChannelCoaMessageDetail2 from './index'
 
 import { ChannelCollab } from '@serge/custom-types'
-import { InitialStates, CHANNEL_COLLAB, CollaborativePermission } from '@serge/config'
+import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates2 } from '@serge/config'
 
 import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 
@@ -35,6 +35,8 @@ const testChannel2: ChannelCollab = {
   uniqid: 'ks8soryj'
 }
 
+const state = defMessage.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
+
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
@@ -46,6 +48,7 @@ describe('ChannelMessageDetail:', () => {
         isUmpire={true}
         isObserver={true}
         message={defMessage}
+        state={state}
         onChange={(msg): void => { console.log(msg) }}
         gameDate={WargameMock.data.overview.gameDate}
       />)

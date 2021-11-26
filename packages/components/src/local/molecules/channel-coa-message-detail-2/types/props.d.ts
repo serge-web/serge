@@ -1,4 +1,4 @@
-import { CollaborativePermission } from '@serge/config'
+import { CollaborativeMessageStates2, CollaborativePermission } from '@serge/config'
 import {
   MessageCustom,
   ForceRole,
@@ -9,6 +9,8 @@ import {
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
+  /** current state of this message */
+  state: CollaborativeMessageStates2
   /** role of logged in player */
   role: ForceRole
   /** if this player is from an umpire force (and can see private messages) */

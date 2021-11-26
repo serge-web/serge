@@ -4,7 +4,7 @@ import { isMessageReaded, setMessageState } from '@serge/helpers'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
 import { Badge } from '../../atoms/badge'
-import { CollaborativeMessageStates, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativeMessageStates2, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -157,6 +157,8 @@ export const genData2 = (
 
     if (!isReaded) unreadMessagesCount++
 
+    const messageState = message.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
+
     const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
@@ -170,6 +172,7 @@ export const genData2 = (
             onRead={handleRead}
             templates={templates}
             message={message}
+            state={messageState}
             role={role}
             isObserver={isObserver}
             isUmpire={isUmpire}
