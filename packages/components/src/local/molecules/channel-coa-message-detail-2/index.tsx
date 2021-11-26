@@ -234,7 +234,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     console.error('Message doesnt have collaboration block')
   }
 
-  const actions = actionTable ? actionsFor(actionTable, state, permission) : []
+  const haveData = state !== undefined && permission !== undefined
+  const actions = (actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
+
   // reverse the actions, so the lowest permission is on the right
   const reverseActions = actions.reverse()
 

@@ -52,14 +52,18 @@ export default {
       }
     },
     permission: {
-      options: [CollaborativePermission.CannotCollaborate, CollaborativePermission.CanEdit, CollaborativePermission.CanSubmitForReview, CollaborativePermission.CanApprove,
-        CollaborativePermission.CanRelease],
-      control: { type: 'radio' } // Automatically inferred when 'options' is defined
+      defaultValue: CollaborativePermission.CanEdit,
+      options: [CollaborativePermission.CannotCollaborate, CollaborativePermission.CanEdit, CollaborativePermission.CanSubmitForReview,
+        CollaborativePermission.CanApprove, CollaborativePermission.CanRelease, CollaborativePermission.CanUnClaim],
+      control: {type: 'radio',labels: ['CannotCollaborate', 'CanEdit', 'CanSubmitForReview',
+        'CanApprove', 'CanRelease', 'CanUnClaim']}
     },
     state: {
-      options: [ CollaborativeMessageStates2.Unallocated, CollaborativeMessageStates2.InProgress,
+      defaultValue: CollaborativeMessageStates2.InProgress,
+      options: [CollaborativeMessageStates2.Unallocated, CollaborativeMessageStates2.InProgress,
         CollaborativeMessageStates2.PendingReview, CollaborativeMessageStates2.Released, CollaborativeMessageStates2.Closed],
-      control: { type: 'radio' } // Automatically inferred when 'options' is defined
+      amapping: CollaborativeMessageStates2,
+      control: { type: 'radio' }
     }
   }
 }
@@ -70,7 +74,7 @@ const listAssignees: ForceRole[] = [
 ]
 
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isObserver, role, message, isUmpire, permission } = args
+  const { isObserver, role, message, isUmpire, permission, state } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
   // we wish to update message state for a new story. We do
@@ -82,7 +86,8 @@ const Template: Story<RFIPropTypes> = (args) => {
   }
 
   const collabChannel = GameChannels2[3] as ChannelCollab
-  const state = messageState.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
+
+  console.log('story', state, permission)
 
   return (
     <ChannelCoaMessageDetail2

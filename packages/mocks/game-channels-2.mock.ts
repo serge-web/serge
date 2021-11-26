@@ -36,9 +36,9 @@ const GameChannels2: Array<ChannelTypes> = [
   {
     channelType: CHANNEL_COLLAB,
     name: "Blue RFI",
-    requestChangesVerbs: [],
-    approveVerbs: [],
-    releaseVerbs: [],
+    requestChangesVerbs: ['Request a'],
+    approveVerbs: ['Approve a'],
+    releaseVerbs: ['Release a'],
     initialState: InitialStates.UNALLOCATED,
     extraColumns: [],
     newMessageTemplate:
