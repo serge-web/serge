@@ -15,7 +15,7 @@ export default interface Props {
    */
   messageId: string
   /**
-   * template
+   * template ID
    */
   template: string
   /**

@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
 import Props from './types/props'
-import { Editor, TemplateBody } from '@serge/custom-types'
+import { Editor } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
 import { expiredStorage } from '@serge/config'
@@ -19,10 +19,9 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  const schema = Object.keys(messageTemplates).map(
-    // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
-    (key): TemplateBody => messageTemplates[key]
-  ).find(msg => msg.title === template)
+  const schema = messageTemplates[template]
+
+  console.log('templates', template, messageTemplates, schema)
 
   if (!schema) {
     const styles = {

@@ -283,22 +283,28 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
           {
             isResponse && <> <JsonEditor
               messageTemplates={templates}
-              message={message}
-              getJsonEditorValue={getJsonEditorValue}
+              messageContent={message.message}
+              messageId={`${message._id}_${message.message.Reference}`}
+              template={channelColb.newMessageTemplate._id}
+              storeNewValue={getJsonEditorValue}
               disabled={true}
               gameDate={gameDate}
-            /><JsonEditor /* TODO: change JsonEditor so we can pass id of template as prop. We need to for response template */
+            /><JsonEditor
               messageTemplates={templates}
-              message={message}
-              getJsonEditorValue={getJsonEditorValue}
+              messageId={`${message._id}_${message.message.Reference}`}
+              messageContent={message.response || {}}
+              template={channelColb.responseTemplate?._id || ''}
+              storeNewValue={getJsonEditorValue}
               disabled={!formIsEditable}
               gameDate={gameDate}
             /></>
           }
           {!isResponse && <JsonEditor
             messageTemplates={templates}
-            message={message}
-            getJsonEditorValue={getJsonEditorValue}
+            template={channelColb.newMessageTemplate._id}
+            messageId={`${message._id}_${message.message.Reference}`}
+            messageContent={message.message}
+            storeNewValue={getJsonEditorValue}
             disabled={!formIsEditable}
             gameDate={gameDate} />
           }

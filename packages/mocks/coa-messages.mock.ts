@@ -462,6 +462,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       },
       turnNumber: 1
     },
+    response: {
+      content: 'Response to Blue-3a'
+    },
     message: {
       Reference: 'Blue-3a',
       Title: 'RFI 3 from Blue, owned by Red Comms',
