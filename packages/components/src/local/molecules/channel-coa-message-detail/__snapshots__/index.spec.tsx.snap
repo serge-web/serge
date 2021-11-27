@@ -24,6 +24,5 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   <div
     className="actions"
   />
-          
 </div>
 `;
