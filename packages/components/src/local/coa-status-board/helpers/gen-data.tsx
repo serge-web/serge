@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
-import { Column, Row } from '../types/props'
+import { Column, ExtraCellProps, Row } from '../types/props'
 import { capitalize } from 'lodash'
 import moment from 'moment'
 
@@ -88,6 +88,12 @@ export const genData = (
     }
   }
 
+  const ExtraCellComponent = ({ row, name }: ExtraCellProps) => (
+    <div style={{ wordWrap: 'break-word' }}>
+      {row[name]}
+    </div>
+  )
+
   const columns: Column[] = [
     {
       name: 'ID',
@@ -139,7 +145,7 @@ export const genData = (
         name: capitalize(col),
         selector: (row: Row): string => row[col],
         sortable: true,
-        center: true,
+        cell: (row: Row) => <ExtraCellComponent row={row} name={col.toLowerCase()} />,
       }
     })
     extraCols.push(...newCols)
