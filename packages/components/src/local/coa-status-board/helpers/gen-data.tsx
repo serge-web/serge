@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
-import { Column, Row } from '../types/props'
+import { Column, ExtraCellProps, Row } from '../types/props'
 import { capitalize } from 'lodash'
 import moment from 'moment'
 
@@ -88,6 +88,12 @@ export const genData = (
     }
   }
 
+  const ExtraCellComponent = ({ row, name }: ExtraCellProps) => (
+    <div style={{ wordWrap: 'break-word' }}>
+      {row[name]}
+    </div>
+  )
+
   const columns: Column[] = [
     {
       name: 'ID',
@@ -132,16 +138,19 @@ export const genData = (
     }
   ]
 
+  const extraCols: Column[] = []
   if (channel.collabOptions && channel.collabOptions.extraColumns) {
     const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): Column => {
       return {
         name: capitalize(col),
         selector: (row: Row): string => row[col],
-        sortable: true
+        sortable: true,
+        cell: (row: Row) => <ExtraCellComponent row={row} name={col.toLowerCase()} />,
       }
     })
-    columns.push(...newCols)
+    extraCols.push(...newCols)
   }
+  columns.push(...extraCols)
 
   const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
@@ -211,6 +220,20 @@ export const genData = (
       isReaded,
       forceColor: message.details.from.forceColor
     }
+
+    extraCols.forEach((col: Column) => {
+      const colName = (col.name as string || '').toUpperCase()
+      const cellData: string[] = []
+      if (colName === 'LOCATION') {
+        const rawData = message.message[colName]
+        Object.keys(rawData).forEach((key: string) => {
+          Object.keys(rawData[key]).forEach((childKey: string) => {
+            cellData.push(`${key}-${rawData[key][childKey]['Country']}`)
+          })
+        })
+      }
+      row[colName.toLowerCase()] = cellData.join(', ')
+    })
 
     return row
   })
