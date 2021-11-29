@@ -21,8 +21,6 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
 
   const schema = messageTemplates[template]
 
-  console.log('templates', template, messageTemplates, schema)
-
   if (!schema) {
     const styles = {
       color: '#f00',

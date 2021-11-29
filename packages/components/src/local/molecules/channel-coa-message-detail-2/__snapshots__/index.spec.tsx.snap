@@ -12,5 +12,8 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     className="edt-disable"
   />
   
+  <div
+    className="actions"
+  />
 </div>
 `;

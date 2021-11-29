@@ -32,10 +32,9 @@ export default {
   }
 }
 
-
 const Template: Story<Props> = ({ messageTemplates, messageId, disabled, template, messageContent }) => {
   return (
-  <JsonEditor template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />  
+    <JsonEditor template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
   )
 }
 

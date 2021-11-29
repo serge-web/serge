@@ -52,7 +52,8 @@ export default {
       options: [CollaborativePermission.CannotCollaborate, CollaborativePermission.CanEdit, CollaborativePermission.CanSubmitForReview,
         CollaborativePermission.CanApprove, CollaborativePermission.CanRelease, CollaborativePermission.CanUnClaim],
       control: {
-        type: 'radio', labels: ['CannotCollaborate', 'CanEdit', 'CanSubmitForReview',
+        type: 'radio',
+        labels: ['CannotCollaborate', 'CanEdit', 'CanSubmitForReview',
           'CanApprove', 'CanRelease', 'CanUnClaim']
       }
     },
