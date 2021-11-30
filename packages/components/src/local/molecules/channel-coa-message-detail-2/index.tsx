@@ -213,14 +213,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         multipleFeedback && onExpand(!collapsed)
       }
 
-      const rebderReadIcon = (): React.ReactNode => {
+      const renderReadIcon = (): React.ReactNode => {
         return <>
           {multipleFeedback && (collapsed ? '+' : '-')}
         </>
       }
       return (
         <div className={styles['feedback-header']} onClick={handleOnExpand}>
-          <span className={styles['feedback-icon']}>{rebderReadIcon()}</span>
+          <span className={styles['feedback-icon']}>{renderReadIcon()}</span>
           {formatFeedback(feedback[feedback.length - 1])}
         </div>
       )
