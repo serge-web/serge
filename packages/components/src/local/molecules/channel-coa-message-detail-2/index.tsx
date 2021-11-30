@@ -161,16 +161,17 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       expiredStorage.removeItem(dialogOpenStatusKey)
     }
 
-    const onModalSave = (feedback: string): void => {
-      console.log('modal save', feedback)
-      const newFeedback: string = '[' + dialogTitle + '] - ' + feedback
+    const injectFeedback = (message: MessageCustom, verb: string, feedback: string): MessageCustom => {
+      const verbStr = '[' + verb + '] '
+      const withFeedback = verbStr + feedback || ''
       // put message into feedback item
       const feedbackItem: FeedbackItem =
       {
         fromId: role.roleId,
         fromName: role.roleName,
+        fromForce: role.forceName,
         date: new Date().toISOString(),
-        feedback: newFeedback
+        feedback: withFeedback
       }
       if (message.details.collaboration) {
         if (!message.details.collaboration.feedback) {
@@ -179,10 +180,16 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         }
         message.details.collaboration.feedback.push(feedbackItem)
       }
+      return message
+
+    }
+
+    const onModalSave = (feedback: string): void => {
+      const msgWithFeedback = injectFeedback(message, dialogTitle, feedback)
 
       if(modalHandler) {
-        console.log('about to call modal handler for', message)
-        modalHandler(message)
+        console.log('about to call modal handler for', msgWithFeedback)
+        modalHandler(msgWithFeedback)
       }
       setOpenDialog(false)
       expiredStorage.removeItem(dialogOpenStatusKey)
@@ -196,7 +203,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
     const formatFeedback = (feedback: FeedbackItem): string => {
       return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
-        ' [' + feedback.fromName + '] ' +
+        ' [' + feedback.fromForce + '-' + feedback.fromName + '] ' +
         feedback.feedback
     }
 
@@ -237,9 +244,11 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       // get the force role
       // transform message
       const newMsg = handler(assigneeVal, role, verb, message)
+      console.log('claim', selection, assignee)
+      const msgWithFeedback = injectFeedback(newMsg, verb, selection ? ' to ' + selection : '')
+      console.log('claim - ', verb, message, msgWithFeedback)
       // now send it
-      console.log('claim - ', verb, message, newMsg)
-      handleChange(newMsg, false)
+      handleChange(msgWithFeedback, false)
     }
 
     const handleVerb = (requiresFeedback: boolean, role: ForceRole, verb: string, handler: CoreFunc): void => {
@@ -247,8 +256,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         const quickHandler = (messageWithFeedback: MessageCustom): void => {
           if (messageWithFeedback) {
             const newMsg =  handler(role, verb, messageWithFeedback)
-            handleChange(newMsg, true)
-            console.log('feedback - ', verb, message, newMsg)
+            const msgWithFeedback = injectFeedback(newMsg, verb, '')
+            console.log('feedback - ', verb, message, msgWithFeedback)
+            // now send it
+            handleChange(msgWithFeedback, true)
           }
         }
         setModalHandler(quickHandler)
@@ -259,8 +270,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         })
       } else {
         const newMsg = handler(role, verb, message)
-        console.log('no feedback - ', verb, message, newMsg)
-        handleChange(newMsg, false)
+        const msgWithFeedback = injectFeedback(newMsg, verb, '')
+        console.log('feedback - ', verb, message, msgWithFeedback)
+        // now send it
+        handleChange(msgWithFeedback, true)
       }
     }
 
@@ -313,9 +326,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         }
       })
     })
-
-    console.log('dialog', openDialog, modalHandler)
-
 
     return (
       <div className={styles.main}>

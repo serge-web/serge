@@ -22,7 +22,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Role from './role'
-import { ForceRole, StateOfWorld } from '.'
+import { Force, ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
 
 
@@ -111,7 +111,8 @@ export interface CoreMessage {
 export interface FeedbackItem {
   /** who the feedback is from */
   readonly fromId: Role['roleId']
-  readonly fromName: Role['roleId']
+  readonly fromName: Role['name']
+  readonly fromForce?: Force['name'] // TODO: make it compulsory
   /** when the feedback was provided */
   readonly date: string
   /** the feedback */
