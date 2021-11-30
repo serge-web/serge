@@ -127,7 +127,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify(currentModalStatus))
   }
 
-  const getJsonEditorValue = (val: { [property: string]: any }): void => {
+  const storeNewValue = (val: { [property: string]: any }): void => {
     setNewMsg(val)
   }
 
@@ -375,8 +375,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           }
           <JsonEditor
             messageTemplates={templates}
-            message={message}
-            getJsonEditorValue={getJsonEditorValue}
+            messageContent={message.message}
+            template={message.messageType}
+            messageId={`${message._id}_${message.message.Reference}`}
+            storeNewValue={storeNewValue}
             disabled={!editDoc}
             gameDate={gameDate}
           />
@@ -389,7 +391,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
               editDoc &&
               <Button customVariant="form-action" size="small" type="button" onClick={handleEditingSubmit}>Submit</Button>
             }
-          </div>        </>
+          </div></>
       ) : (
         <>
           <div className={styles.actions}>
@@ -424,8 +426,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           }
           <JsonEditor
             messageTemplates={templates}
-            message={message}
-            getJsonEditorValue={getJsonEditorValue}
+            messageContent={message.message}
+            template={message.messageType}
+            messageId={`${message._id}_${message.message.Reference}`}
+            onChange={storeNewValue}
             disabled={true}
             gameDate={gameDate}
           />

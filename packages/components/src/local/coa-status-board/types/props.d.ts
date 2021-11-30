@@ -5,7 +5,19 @@ import {
   ForceData,
   TemplateBodysByKey
 } from '@serge/custom-types'
+import React from 'react'
+import { TableColumnBase } from 'react-data-table-component/dist/src/DataTable/types'
 
+export type Collapsible = (cb?: (() => void) | undefined) => React.ReactElement
+export type Row = { [x: string], collapsible?: Collapsible }
+export type Column = TableColumn<T> & {
+  selector: (row: Row) => any
+  sortFunction?: (rowA: Row, rowB: Row) => number
+}
+export type ExtraCellProps = {
+  row: Row
+  name: string
+}
 export default interface Props {
   currentWargame: string
   messages: MessageCustom[]

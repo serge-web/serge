@@ -1,13 +1,10 @@
 import React from 'react'
 import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelData } from '@serge/custom-types'
 import { isMessageReaded, setMessageState } from '@serge/helpers'
-import { RowWithCollapsibleType } from '../../organisms/data-table/types/props'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
-import getColumns from './get-columns'
 import { Badge } from '../../atoms/badge'
-import { ROW_WITH_COLLAPSIBLE_TYPE } from '../../organisms/data-table'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import getKey from './get-key'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
@@ -15,6 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
+import { Column, ExtraCellProps, Row } from '../types/props'
+import { capitalize } from 'lodash'
+import moment from 'moment'
 
 /** helper to provide legible version of force & role */
 export const formatRole = (role: ForceRole): string => {
@@ -32,8 +32,10 @@ const statusColors: { [property: string]: string } = {
 }
 
 interface GenData {
-  data: RowWithCollapsibleType[]
+  rows: Row[]
+  columns: Column[]
   unreadMessagesCount: number
+  customStyles: any
 }
 
 export const genData = (
@@ -50,8 +52,7 @@ export const genData = (
   gameDate: string,
   isCollaborating: boolean,
   isObserver: boolean,
-  onChange: (msg: MessageCustom) => void,
-  handleOpenCollapsible: (msg: MessageCustom) => void
+  onChange: (msg: MessageCustom) => void
 ): GenData => {
   let unreadMessagesCount = 0
 
@@ -59,7 +60,99 @@ export const genData = (
 
   const isCollabEditChannel = !!channel.collabOptions && channel.collabOptions.mode === 'edit'
 
-  const data: RowWithCollapsibleType[] = messages.map((message): RowWithCollapsibleType => {
+  const sortCol = (str1: string, str2: string): number => {
+    const a = str1.toLowerCase()
+    const b = str2.toLowerCase()
+
+    return a > b ? 1 : -1
+  }
+
+  const customStyles = {
+    headRow: {
+      style: {
+        borderTopStyle: 'solid',
+        borderTopWidth: '1px',
+        borderTopColor: '#3ef1ea',
+        fontWeight: 'bold',
+        fontSize: 'initial',
+        backgroundColor: '#012858',
+        color: 'white'
+      }
+    },
+    headCells: {
+      style: {
+        borderLeftStyle: 'solid',
+        borderLeftWidth: '1px',
+        borderRightColor: 'white'
+      }
+    }
+  }
+
+  const ExtraCellComponent = ({ row, name }: ExtraCellProps) => (
+    <div style={{ wordWrap: 'break-word' }}>
+      {row[name]}
+    </div>
+  )
+
+  const columns: Column[] = [
+    {
+      name: 'ID',
+      selector: (row: Row): React.ReactElement => (<><FontAwesomeIcon color={row.isReaded ? '#838585' : '#69c'} icon={row.isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;{row.id}</>),
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.id, rowB.id),
+      center: true
+    },
+    {
+      name: 'From',
+      selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.forceColor} label={row.from} />),
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from),
+      center: true
+    },
+    {
+      name: 'Title',
+      selector: (row: Row): string => row.title,
+      sortable: true,
+      center: true
+    },
+    {
+      name: 'Status',
+      selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.status ? statusColors[row.status] : '#434343'} label={row.status} />),
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status),
+      center: true,
+      grow: 1.2
+    },
+    {
+      name: 'Owner',
+      selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={row.ownerColor} customSize={'large'} label={isCollaborating && row.owner} /> : null,
+      sortable: true,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner),
+      center: true
+    },
+    {
+      name: 'Updated',
+      selector: (row: Row): string => row.updated,
+      sortable: true,
+      center: true
+    }
+  ]
+
+  const extraCols: Column[] = []
+  if (channel.collabOptions && channel.collabOptions.extraColumns) {
+    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): Column => {
+      return {
+        name: capitalize(col),
+        selector: (row: Row): string => row[col],
+        sortable: true,
+        cell: (row: Row) => <ExtraCellComponent row={row} name={col.toLowerCase()} />,
+      }
+    })
+    extraCols.push(...newCols)
+  }
+  columns.push(...extraCols)
+
+  const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
     const ownerRole = (collab && collab.owner) || undefined
 
@@ -69,7 +162,7 @@ export const genData = (
     // generate the owner of this document
     const ownerComposite: string | undefined = ownerRole ? formatRole(ownerRole) : undefined
     // am I the owner?
-    const myDocument: boolean = ownerComposite === formatRole(role)
+    // const myDocument: boolean = ownerComposite === formatRole(role)
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
 
@@ -87,7 +180,6 @@ export const genData = (
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
         setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
-        handleOpenCollapsible(message)
       }
 
       return (
@@ -116,52 +208,37 @@ export const genData = (
       )
     }
 
-    const cells = [
-      {
-        component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
-          {message.message.Reference || message._id}</>,
-        label: message.message.Reference || message._id
-      },
-      {
-        component: <Badge customBackgroundColor={message.details.from.forceColor} label={message.details.from.roleName} />,
-        label: message.details.from.roleName
-      },
-      message.message.Title,
-      {
-        component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} label={status} />,
-        label: status
-      },
-      {
-        component: ownerComposite ? <Badge customBackgroundColor={ownerColor} customSize={myDocument ? 'large' : undefined} label={isCollaborating && ownerComposite} /> : null,
-        label: ownerComposite
-      },
-      lastUpdated
-    ]
-
-    // extra cols?
-    if (channel.collabOptions && channel.collabOptions.extraColumns) {
-      const extraCols = getColumns(message, channel.collabOptions.extraColumns)
-      const cols: string[][] = extraCols
-      const newCols = cols.map((entries: string[]) => {
-        return entries.map((entry: string) => {
-          // todo: try to return a `Badge` like above for each country
-          return entry + ' '
-        })
-      })
-      cells.push(...newCols)
-    }
-
-    const rowKey = `${message.message.Reference}`
-
-    return {
-      type: ROW_WITH_COLLAPSIBLE_TYPE,
-      rowKey,
+    const row: Row = {
+      id: message.message.Reference || message._id,
+      from: message.details.from.roleName,
+      tille: message.message.Title,
+      status: status,
+      owner: ownerComposite,
+      updated: moment(lastUpdated).fromNow(),
       collapsible,
-      cells: cells
+      ownerColor,
+      isReaded,
+      forceColor: message.details.from.forceColor
     }
+
+    extraCols.forEach((col: Column) => {
+      const colName = (col.name as string || '').toUpperCase()
+      const cellData: string[] = []
+      if (colName === 'LOCATION') {
+        const rawData = message.message[colName]
+        Object.keys(rawData).forEach((key: string) => {
+          Object.keys(rawData[key]).forEach((childKey: string) => {
+            cellData.push(`${key}-${rawData[key][childKey]['Country']}`)
+          })
+        })
+      }
+      row[colName.toLowerCase()] = cellData.join(', ')
+    })
+
+    return row
   })
 
-  return { data, unreadMessagesCount }
+  return { rows, columns, unreadMessagesCount, customStyles }
 }
 
 export default genData

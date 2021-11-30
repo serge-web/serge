@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { DataTable } from '../organisms/data-table'
-import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates, EMPTY_CELL, SpecialChannelColumns } from '@serge/config'
-import { Column } from '../organisms/data-table/types/props'
-import { capitalize } from 'lodash'
-import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
-import { formatRole, genData } from './helpers/gen-data'
+import { CollaborativeMessageStates } from '@serge/config'
+import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
+import { genData } from './helpers/gen-data'
 import getKey from './helpers/get-key'
 import { setMessageState } from '@serge/helpers'
+import DataTable from 'react-data-table-component'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Types */
-import Props from './types/props'
+import Props, { Row } from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -23,67 +22,11 @@ export interface ForceColor {
   color: string
 }
 
-const getListOfOwners = (messages: MessageCustom[]): string[] => {
-  const roles = messages.reduce((filters: string[], message) => {
-    const collab = message.details.collaboration
-    return [
-      ...filters,
-      collab && collab.owner ? formatRole(collab.owner) : EMPTY_CELL // allow filter by empty value
-    ]
-  }, [])
-  // just the unique sources
-  return [...new Set(roles)]
-}
-
-const getListOfSources = (messages: MessageCustom[]): string[] => {
-  return messages.reduce((filters: any[], message) => {
-    if (!message.details.from) {
-      console.warn(message, 'message have no from.roleName')
-      return filters
-    }
-    return [...new Set([...filters, message.details.from.roleName])]
-  }, [])
-}
-
-const getListOfStatus = (messages: MessageCustom[]): string[] => {
-  return messages.reduce((filters: any[], message) => {
-    if (!message.details.collaboration) {
-      console.warn(message, 'message have no collaboration.status')
-      return filters
-    }
-    return [...new Set([...filters, message.details.collaboration.status])]
-  }, [])
-}
-
-const getListOfExtraColumn = (messages: MessageCustom[], columnName: string): string[] => {
-  const values = messages.reduce((filters: any[], message) => {
-    if (!message.message[columnName]) {
-      return filters
-    }
-    let fields: any
-    switch (columnName) {
-      case 'LOCATION': {
-        const fieldData = []
-        fields = message.message[columnName]
-        for (const key of Object.keys(fields)) {
-          const location = fields[key].map((item: any) => `${key}-${item.Country}`)
-          fieldData.push(...location)
-        }
-        const newItems: string[] = fieldData.length ? fieldData : [EMPTY_CELL]
-        filters.push(...newItems)
-        return filters.sort((a, b) => a === EMPTY_CELL ? -1 : a - b)
-      }
-      default:
-        return filters
-    }
-  }, [])
-  // de-dupe & return
-  return [...new Set(values)]
-}
-
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, onMarkAllAsRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
+  const [filteredRows, setFilterdRows] = useState<Row[]>([])
+  const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
   const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
@@ -96,23 +39,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)
 
-  // collate list of message owners
-  const filtersOwners = getListOfOwners(filteredDoc)
-
-  // collate list of sources (From) for messages
-  const filtersRoles = getListOfSources(filteredDoc)
-
-  // collate list of sources (Status) for messages
-  const filtersStatus = getListOfStatus(filteredDoc)
-
-  // collate list of extra column LOCATION for messages
-  const filtersLocations = getListOfExtraColumn(filteredDoc, 'LOCATION')
-
-  const handleUpdateUnreadCount = (message: MessageCustom): void => {
-    onMessageRead && onMessageRead(message)
-  }
-
-  const { data } = genData(
+  const { rows, columns, customStyles } = genData(
     filteredDoc,
     forces,
     role,
@@ -126,39 +53,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     gameDate,
     isCollaborating,
     isUmpire,
-    onChange,
-    handleUpdateUnreadCount
+    onChange
   )
 
-  const columnHeaders: Column[] = [
-    'ID',
-    {
-      filters: filtersRoles,
-      label: 'From'
-    },
-    'Title',
-    {
-      filters: filtersStatus,
-      label: 'Status'
-    },
-    {
-      filters: filtersOwners,
-      label: 'Owner'
-    },
-    'Updated'
-  ]
-
-  if (channel.collabOptions && channel.collabOptions.extraColumns) {
-    const newCols = channel.collabOptions.extraColumns.map((col: SpecialChannelColumns): string | Column => {
-      if (col === SpecialChannelColumns.LOCATION) {
-        return {
-          filters: filtersLocations,
-          label: capitalize(col)
-        }
-      }
-      return capitalize(col)
-    })
-    columnHeaders.push(...newCols)
+  if (!inFilterMode && filteredRows.length !== rows.length) {
+    setFilterdRows(rows)
   }
 
   const handleMarkAllAsRead = (): void => {
@@ -180,9 +79,41 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
     setShowArchived(!showArchived)
   }
 
+  const ExpandedComponent = ({ data }: Row): React.ReactElement => {
+    // if (!data.isReaded) {
+    //   // update unread msg count here
+    //   onMessageRead && onMessageRead(0)
+    //   data.isReaded = true
+    // }
+    console.log('=> data: ', data)
+    return data.collapsible()
+  }
+
+  let doFilter: any
+  const filterTable = (e: any): void => {
+    clearTimeout(doFilter)
+    const searchStr = e.target.value
+    setFilterMode(searchStr !== '')
+    doFilter = setTimeout(() => {
+      const filteredRows = rows
+        .filter((row: Row) => Object
+          .values(row)
+          .some((value: any) =>
+            value &&
+            typeof value === 'string' &&
+            (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr)))
+        )
+      setFilterdRows(filteredRows)
+    }, 500)
+  }
+
   return (
     <>
       <div className={styles.actions}>
+        <FormControl className={styles['filter-group']}>
+          <FontAwesomeIcon icon={faSearch} className={styles['filter-icon']} />
+          <Input placeholder="filter data" className={styles['input-filter']} onInput={filterTable} />
+        </FormControl>
         <FormControlLabel
           className={styles.checkbox}
           label="Show archived"
@@ -199,7 +130,17 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
           </span>
         </div>
       </div>
-      <DataTable sort={true} columns={columnHeaders} data={data} noExpand />
+      <DataTable
+        columns={columns}
+        data={filteredRows}
+        fixedHeader
+        expandableRows
+        customStyles={customStyles}
+        expandableRowsComponent={ExpandedComponent}
+        expandOnRowClicked={true}
+        defaultSortAsc={true}
+        persistTableHead={true}
+      />
     </>
   )
 }
