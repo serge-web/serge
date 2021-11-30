@@ -181,13 +181,12 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         message.details.collaboration.feedback.push(feedbackItem)
       }
       return message
-
     }
 
     const onModalSave = (feedback: string): void => {
       const msgWithFeedback = injectFeedback(message, dialogTitle, feedback)
 
-      if(modalHandler) {
+      if (modalHandler) {
         console.log('about to call modal handler for', msgWithFeedback)
         modalHandler(msgWithFeedback)
       }
@@ -252,10 +251,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     }
 
     const handleVerb = (requiresFeedback: boolean, role: ForceRole, verb: string, handler: CoreFunc): void => {
-      if(requiresFeedback) {
+      if (requiresFeedback) {
         const quickHandler = (messageWithFeedback: MessageCustom): void => {
           if (messageWithFeedback) {
-            const newMsg =  handler(role, verb, messageWithFeedback)
+            const newMsg = handler(role, verb, messageWithFeedback)
             const msgWithFeedback = injectFeedback(newMsg, verb, '')
             console.log('feedback - ', verb, message, msgWithFeedback)
             // now send it
@@ -266,7 +265,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         setOpenModalStatus({
           open: true,
           title: verb,
-          placeHolder: `${name}...`,
+          placeHolder: `${name}...`
         })
       } else {
         const newMsg = handler(role, verb, message)
