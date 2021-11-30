@@ -80,12 +80,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const ExpandedComponent = ({ data }: Row): React.ReactElement => {
-    // if (!data.isReaded) {
-    //   // update unread msg count here
-    //   onMessageRead && onMessageRead(0)
-    //   data.isReaded = true
-    // }
-    console.log('=> data: ', data)
+    if (!data.isReaded) {
+      const message = messages.filter(msg => msg._id === data.id)
+      message.length && onMessageRead && onMessageRead(message[0])
+      data.isReaded = true
+    }
     return data.collapsible()
   }
 
