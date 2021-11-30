@@ -112,7 +112,7 @@ export interface FeedbackItem {
   /** who the feedback is from */
   readonly fromId: Role['roleId']
   readonly fromName: Role['name']
-  readonly fromForce?: Force['name'] // TODO: make it compulsory
+  readonly fromForce: Force['name']
   /** when the feedback was provided */
   readonly date: string
   /** the feedback */

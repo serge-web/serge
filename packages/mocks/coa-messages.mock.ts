@@ -201,10 +201,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         status2: CollaborativeMessageStates2.PendingReview,
         response: 'Game control response to RFI 444',
         feedback: [
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think about the children`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need more prep time`},
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you think about the next bit?`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Good plan`}
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date:`2020-10-13T08:55:21.119Z`, feedback: `Please think about the children`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date:`2020-10-12T07:25:21.119Z`, feedback: `Need more prep time`},
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date:`2020-10-11T09:64:21.119Z`, feedback: `What did you think about the next bit?`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Good plan`}
         ]
       },
       turnNumber: 1
@@ -291,10 +291,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         status: CollaborativeMessageStates.BeingEdited,
         status2: CollaborativeMessageStates2.InProgress,
         feedback: [
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you even think about the next bit?`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red' , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red' , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red' , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you even think about the next bit?`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red' , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
         ]
       },
       turnNumber: 1
@@ -455,9 +455,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
         status2: CollaborativeMessageStates2.Unallocated,
         feedback: [
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red' , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red' , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red' , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
         ]
       },
       turnNumber: 1
@@ -532,7 +532,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         status2: CollaborativeMessageStates2.Closed,
         response: 'Game control response to RFI 4',
         feedback: [
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red' , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
         ]
       },
       turnNumber: 1

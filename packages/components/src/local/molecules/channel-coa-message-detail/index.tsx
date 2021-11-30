@@ -250,6 +250,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     {
       fromId: role.roleId,
       fromName: role.roleName,
+      fromForce: role.forceName,
       date: new Date().toISOString(),
       feedback: newFeedback
     }
