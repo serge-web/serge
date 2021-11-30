@@ -84,10 +84,21 @@ export const submitForReview: SubmitFunc = (_role: ForceRole, _verb: string, mes
   }
 }
 
-export const unclaim: CoreFunc = (_role: ForceRole, _verb: string, _message: MessageCustom): MessageCustom => {
+export const unclaim: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - claim')
-  return _message
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Pending,
+        owner: undefined
+      }
+    }
+  }
 }
 
 export const requestChanges: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
@@ -108,10 +119,22 @@ export const requestChanges: CoreFunc = (_role: ForceRole, _verb: string, messag
   }
 }
 
-export const approve: CoreFunc = (_role: ForceRole, _verb: string, _message: MessageCustom): MessageCustom => {
+export const approve: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - approve')
-  return _message
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.PendingReview,
+        owner: undefined
+      }
+    }
+  }
+
 }
 
 export const discard: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
