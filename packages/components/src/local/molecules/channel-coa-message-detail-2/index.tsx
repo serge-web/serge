@@ -21,6 +21,7 @@ import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
 import { Action, actionsFor, ActionTable, createActionTable } from './helpers/actions-for'
+import { ClaimFunc, CoreFunc } from './helpers/handlers'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -224,6 +225,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       )
     }
 
+    const handleClaim = (assignee: string, roleId: string, verb: string, handler: ClaimFunc): void => {
+      handler(assignee, roleId, verb)
+    }
+
+    const handleVerb = (roleId: string, verb: string, handler: CoreFunc): void => {
+      handler(roleId, verb)
+    }
+
     /** any feedback in the message */
     const feedback = message.details.collaboration?.feedback
 
@@ -275,10 +284,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
                 return verbs.map((verb: string) => {
                   // check for "special" verbs
                   if (verb === 'Assign') {
-                    return <SplitButton label={'Assign'} options={[...candidates]} onClick={(): void => action.handler('a', verb)} />
+                    return <SplitButton label={'Assign'} options={[...candidates]} onClick={(item: string): void => handleClaim(item, role.roleId, verb, action.handler)} />
+                  } else if (verb === 'Edit') {
+                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(role.roleId, role.roleId, verb, action.handler)}>{verb}</Button>
                   } else {
                     const requiresFeedback = !!action.feedback
-                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}{requiresFeedback && '*'}</Button>
+                    // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
+                    const coreHandler = action.handler as unknown as CoreFunc
+                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(role.roleId, verb, coreHandler)}>{verb}{requiresFeedback && '*'}</Button>
                   }
                 })
               })
@@ -334,16 +347,20 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               disabled={true} theme='dark' label='Private Message' labelFactory={labelFactory} />
           }
           <div className={styles.actions}>
-            {
+          {
               reverseActions.map((action: Action) => {
                 const verbs = action.verbs
                 return verbs.map((verb: string) => {
                   // check for "special" verbs
                   if (verb === 'Assign') {
-                    return <SplitButton label={'Assign'} options={[...candidates]} onClick={(): void => action.handler('a', verb)} />
+                    return <SplitButton label={'Assign'} options={[...candidates]} onClick={(item: string): void => handleClaim(item, role.roleId, verb, action.handler)} />
+                  } else if (verb === 'Edit') {
+                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(role.roleId, role.roleId, verb, action.handler)}>{verb}</Button>
                   } else {
                     const requiresFeedback = !!action.feedback
-                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => action.handler('a', verb)}>{verb}{requiresFeedback && '*'}</Button>
+                    // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
+                    const coreHandler = action.handler as unknown as CoreFunc
+                    return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(role.roleId, verb, coreHandler)}>{verb}{requiresFeedback && '*'}</Button>
                   }
                 })
               })

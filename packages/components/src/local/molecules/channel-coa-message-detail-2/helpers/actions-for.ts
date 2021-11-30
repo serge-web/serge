@@ -7,7 +7,7 @@ export interface Action {
   /** if this action requires feedback */
   readonly feedback?: boolean
   /** the handler for this action */
-  readonly handler: handlers.CoreFunc | handlers.ClaimFunc
+  readonly handler: handlers.ActionHandler
 }
 
 type ActionList = Array<Action>
