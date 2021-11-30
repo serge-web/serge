@@ -85,7 +85,7 @@ const Template: Story<RFIPropTypes> = (args) => {
     setMessageState(message)
   }
   if (roleObs && roleState) {
-    return (roleObs &&
+    return (
       <ChannelCoaMessageDetail2
         templates={MessageTemplatesMockByKey}
         message={messageState}
