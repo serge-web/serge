@@ -55,11 +55,6 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
   return JSON.parse(expiredStorage.getItem(key) || '{}')
 }
 
-const requestChanges = (msg: MessageCustom): MessageCustom => {
-  console.log('dummy request changes handler')
-  return msg
-}
-
 /* Render component */
 export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, state, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
   //  const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
@@ -71,10 +66,12 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   const dialogOpenStatusKey = `${message._id}-${role.forceId}-${role.roleId}`
   const dialogModalStatus = getOpenModalStatus(dialogOpenStatusKey)
 
-  const [open, setOpenDialog] = useState<boolean>(dialogModalStatus.open || false)
+  const [openDialog, setOpenDialog] = useState<boolean>(dialogModalStatus.open || false)
   const [dialogTitle, setDialogTitle] = useState<string>(dialogModalStatus.title || '')
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
+
+  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void} | undefined>()
 
   if (message.details.collaboration === undefined) {
     return <></>
@@ -120,6 +117,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       currentModalStatus.open = open
       setOpenDialog(open)
 
+      ' dialog told to open'
+
       if (title) {
         currentModalStatus.title = title
         setDialogTitle(title)
@@ -163,6 +162,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     }
 
     const onModalSave = (feedback: string): void => {
+      console.log('modal save', feedback)
       const newFeedback: string = '[' + dialogTitle + '] - ' + feedback
       // put message into feedback item
       const feedbackItem: FeedbackItem =
@@ -180,7 +180,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         message.details.collaboration.feedback.push(feedbackItem)
       }
 
-      handleChange(requestChanges(message), true)
+      if(modalHandler) {
+        console.log('about to call modal handler for', message)
+        modalHandler(message)
+      }
       setOpenDialog(false)
       expiredStorage.removeItem(dialogOpenStatusKey)
     }
@@ -236,14 +239,28 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       const newMsg = handler(assigneeVal, role, verb, message)
       // now send it
       console.log('claim - ', verb, message, newMsg)
+      handleChange(newMsg, false)
     }
 
     const handleVerb = (requiresFeedback: boolean, role: ForceRole, verb: string, handler: CoreFunc): void => {
       if(requiresFeedback) {
-        console.log('gather feedback')
+        const quickHandler = (messageWithFeedback: MessageCustom): void => {
+          if (messageWithFeedback) {
+            const newMsg =  handler(role, verb, messageWithFeedback)
+            handleChange(newMsg, true)
+            console.log('feedback - ', verb, message, newMsg)
+          }
+        }
+        setModalHandler(quickHandler)
+        setOpenModalStatus({
+          open: true,
+          title: verb,
+          placeHolder: `${name}...`,
+        })
       } else {
         const newMsg = handler(role, verb, message)
-        console.log('verb - ', verb, message, newMsg)
+        console.log('no feedback - ', verb, message, newMsg)
+        handleChange(newMsg, false)
       }
     }
 
@@ -297,13 +314,15 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       })
     })
 
+    console.log('dialog', openDialog, modalHandler)
+
 
     return (
       <div className={styles.main}>
         <DialogModal
           title={dialogTitle}
           value={content}
-          open={open}
+          open={openDialog}
           onClose={onModalClose}
           onSave={onModalSave}
           onValueChange={onModalValueChange}
