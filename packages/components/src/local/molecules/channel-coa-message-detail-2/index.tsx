@@ -244,7 +244,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     }
 
     const haveData = state !== undefined && permission !== undefined
-    const actions = (actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
+
+    // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
+    const inProgress = state === CollaborativeMessageStates2.InProgress
+    const saveOrSubmit = (permission === CollaborativePermission.CanEdit) || (permission === CollaborativePermission.CanSubmitForReview)
+    const isOwner = role.roleId === message.details.collaboration.owner?.roleId
+    const showActions = inProgress && saveOrSubmit ? isOwner : true
+
+    const actions = (showActions && actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
 
     // reverse the actions, so the lowest permission is on the right
     const reverseActions = actions.reverse()
