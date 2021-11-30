@@ -1,65 +1,138 @@
-import { MessageCustom } from "@serge/custom-types"
+import { CollaborativeMessageStates, CollaborativeMessageStates2 } from "@serge/config"
+import { ForceRole, MessageCustom } from "@serge/custom-types"
+import moment from "moment"
 
 export interface CoreFunc {
-  (roleId: string, verb: string, _message: MessageCustom): MessageCustom
+  (_role: ForceRole, verb: string, _message: MessageCustom): MessageCustom
+}
+
+export interface SubmitFunc {
+  (_role: ForceRole, verb: string, _message: MessageCustom,
+    newMsg: { [property: string]: any }, privateMessage: string): MessageCustom
 }
 
 export interface ClaimFunc {
-  (assignee: string, roleId: string, verb: string, _message: MessageCustom): MessageCustom
+  (assignee: ForceRole, roleId: ForceRole, verb: string, _message: MessageCustom): MessageCustom
 }
 
 export type ActionHandler = CoreFunc | ClaimFunc
 
 
-export const edit: ClaimFunc = (_assignee: string, _roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const edit: ClaimFunc = (assignee: ForceRole, _role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
   // to be implemented
-  console.log('handler - edit, assign to', _assignee)
-  return _message
+  console.log('handler - edit, assign to', assignee)
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.BeingEdited,
+        status2: CollaborativeMessageStates2.InProgress,
+        owner: assignee
+      }
+    }
+  }
 }
 
-export const save: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const save: CoreFunc = (_role: ForceRole, _verb: string, _message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - save')
   return _message
 }
 
-export const release: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const release: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - release')
-  return _message
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.Finalized,
+        status2: CollaborativeMessageStates2.Released,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        owner: undefined
+      }
+    }
+  }
 }
 
-export const submitForReview: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const submitForReview: SubmitFunc = (_role: ForceRole, _verb: string, message: MessageCustom,
+  newMsg: { [property: string]: any }, privateMessage: string): MessageCustom => {
   // to be implemented
   console.log('handler - submit')
-  return _message
+  return {
+    ...message,
+    message: {
+      ...message.message,
+      ...newMsg
+    },
+    details: {
+      ...message.details,
+      privateMessage: privateMessage,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.PendingReview,
+        status2: CollaborativeMessageStates2.PendingReview,
+        owner: undefined
+      }
+    }
+  }
 }
 
-export const unclaim: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const unclaim: CoreFunc = (_role: ForceRole, _verb: string, _message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - claim')
   return _message
 }
 
-export const requestChanges: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const requestChanges: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - request changes')
-  return _message
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Pending,
+        status2: CollaborativeMessageStates2.Unallocated,
+        owner: undefined
+      }
+    }
+  }
 }
 
-export const approve: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const approve: CoreFunc = (_role: ForceRole, _verb: string, _message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - approve')
   return _message
 }
 
-export const discard: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const discard: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - discard')
-  return _message
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Closed,
+        status2: CollaborativeMessageStates2.Closed,
+        owner: undefined
+      }
+    }
+  }
 }
 
-export const reopen: CoreFunc = (_roleId: string, _verb: string, _message: MessageCustom): MessageCustom => {
+export const reopen: CoreFunc = (_role: ForceRole, _verb: string, _message: MessageCustom): MessageCustom => {
   // to be implemented
   console.log('handler - reopen')
   return _message

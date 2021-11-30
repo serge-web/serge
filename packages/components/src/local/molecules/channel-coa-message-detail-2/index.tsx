@@ -36,16 +36,20 @@ const getCandidates = (assignees: ForceRole[]): string[] => {
   )
 }
 
-// /** from the provided force & role, produce a ForceRole object */
-// const roleFromName = (force: string, rolename: string, assignees: ForceRole[]): ForceRole => {
-//   const match = assignees.find((role: ForceRole) => {
-//     return role.forceName === force && role.roleName === rolename
-//   })
-//   if (match) {
-//     return match
-//   }
-//   throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
-// }
+/** from the provided force & role, produce a ForceRole object */
+const roleFromName = (selection: string, assignees: ForceRole[]): ForceRole => {
+  // unpack the fields
+  const fields = selection.split(' - ')
+  const force = fields[0]
+  const rolename = fields[1]
+  const match = assignees.find((role: ForceRole) => {
+    return role.forceName === force && role.roleName === rolename
+  })
+  if (match) {
+    return match
+  }
+  throw new Error('Failed to find role for force:' + force + ' role:' + rolename)
+}
 
 const getOpenModalStatus = (key: string): DialogModalStatus => {
   return JSON.parse(expiredStorage.getItem(key) || '{}')
@@ -225,18 +229,20 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       )
     }
 
-    const handleClaim = (assignee: string, roleId: string, verb: string, handler: ClaimFunc): void => {
+    const handleClaim = (selection: string | undefined, assignee: ForceRole | undefined, role: ForceRole, verb: string, handler: ClaimFunc): void => {
+      const assigneeVal = selection ? roleFromName(selection, assignees) : assignee as ForceRole
+      // get the force role
       // transform message
-      const newMsg = handler(assignee, roleId, verb, message)
+      const newMsg = handler(assigneeVal, role, verb, message)
       // now send it
       console.log('claim - ', verb, message, newMsg)
     }
 
-    const handleVerb = (requiresFeedback: boolean, roleId: string, verb: string, handler: CoreFunc): void => {
+    const handleVerb = (requiresFeedback: boolean, role: ForceRole, verb: string, handler: CoreFunc): void => {
       if(requiresFeedback) {
         console.log('gather feedback')
       } else {
-        const newMsg = handler(roleId, verb, message)
+        const newMsg = handler(role, verb, message)
         console.log('verb - ', verb, message, newMsg)
       }
     }
@@ -278,15 +284,15 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         // check for "special" verbs
         if (verb === ASSIGN_MESSAGE) {
           // technically the handler could be `core` or `claim`. We know it's `claim`, so cast it.
-          return <SplitButton label={'Assign'} options={[...candidates]} onClick={(item: string): void => handleClaim(item, role.roleId, verb, action.handler as ClaimFunc)} />
+          return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, action.handler as ClaimFunc)} />
         } else if (verb === CLAIM_MESSAGE) {
           // technically the handler could be `core` or `claim`. We know it's `claim`, so cast it.
-          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(role.roleId, role.roleId, verb, action.handler as ClaimFunc)}>{verb}</Button>
+          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, action.handler as ClaimFunc)}>{verb}</Button>
         } else {
           const requiresFeedback = !!action.feedback
           // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
           const coreHandler = action.handler as unknown as CoreFunc
-          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role.roleId, verb, coreHandler)}>{verb}{requiresFeedback && '*'}</Button>
+          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, coreHandler)}>{verb}{requiresFeedback && '*'}</Button>
         }
       })
     })
