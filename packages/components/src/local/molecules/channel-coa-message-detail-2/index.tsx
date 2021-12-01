@@ -274,7 +274,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         setOpenModalStatus({
           open: true,
           title: verb,
-          placeHolder: `${verb}...`
+          placeHolder: `Reason for ${verb}...`
         })
       } else {
         const newMsg = handler(role, verb, message)
