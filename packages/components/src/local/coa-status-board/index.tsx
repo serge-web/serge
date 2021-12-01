@@ -23,7 +23,7 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, currentWargame }: Props) => {
+export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, isUmpire, onChange, role, forces, gameDate, onMessageRead, onMarkAllAsRead, currentWargame }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
@@ -72,7 +72,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
       const key = getKey(message, canCollaborate, canReleaseMessages, canUnClaimMessages, isFinalised, isCollabEditChannel, isUmpire)
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
-    onMessageRead && onMessageRead(0)
+    onMarkAllAsRead && onMarkAllAsRead()
   }
 
   const handleArchiveDoc = (): void => {
@@ -80,11 +80,11 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   }
 
   const ExpandedComponent = ({ data }: Row): React.ReactElement => {
-    // if (!data.isReaded) {
-    //   // update unread msg count here
-    //   onMessageRead && onMessageRead(0)
-    //   data.isReaded = true
-    // }
+    if (!data.isReaded) {
+      const message = messages.filter(msg => msg._id === data.id)
+      message.length && onMessageRead && onMessageRead(message[0])
+      data.isReaded = true
+    }
     return data.collapsible()
   }
 

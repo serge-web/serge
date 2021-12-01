@@ -209,7 +209,7 @@ export const genData = (
     }
 
     const row: Row = {
-      id: message.message.Reference || message._id,
+      id: message._id || message.message.Reference,
       from: message.details.from.roleName,
       tille: message.message.Title,
       status: status,

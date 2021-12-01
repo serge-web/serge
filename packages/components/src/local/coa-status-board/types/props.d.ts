@@ -39,5 +39,8 @@ export default interface Props {
   /** current game time, used for initialising date-time controls */
   gameDate: string
   /** fires on change message status to readed **/
-  onMessageRead?: (unreadedLeft: number) => void
+  onMessageRead?: (message: MessageCustom) => void
+
+  /** mark all message as read */
+  onMarkAllAsRead?: () => void
 }

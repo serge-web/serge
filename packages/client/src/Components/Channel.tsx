@@ -15,7 +15,7 @@ import { CoaStatusBoard } from "@serge/components";
 import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
 
-const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void }> = ({ channelId, onMessageRead }) => {
+const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
@@ -35,6 +35,10 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
 
   const handleOpenMessage = (message: MessageChannel): void => {
     dispatch(openMessage(channelId, message))
+  }
+
+  const markAllMsgAsRead = (): void => {
+    dispatch(markAllAsRead(channelId))
   }
 
   const handleUnreadMessage = (message: MessageChannel): void => {
@@ -71,7 +75,8 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
         {isCollabWorking ? (
           <CoaStatusBoard
             currentWargame={state.currentWargame}
-            onMessageRead={onMessageRead}
+            onMessageRead={handleOpenMessage}
+            onMarkAllAsRead={markAllMsgAsRead}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={{
