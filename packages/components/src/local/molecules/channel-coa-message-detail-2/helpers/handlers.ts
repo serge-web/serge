@@ -100,7 +100,7 @@ export const unclaim: CoreFunc = (_role: ForceRole, _verb: string, message: Mess
       collaboration: {
         ...message.details.collaboration,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.Pending,
+        status: CollaborativeMessageStates.Unallocated,
         owner: undefined
       }
     }
