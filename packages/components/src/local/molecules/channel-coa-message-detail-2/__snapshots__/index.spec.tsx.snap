@@ -5,6 +5,12 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   className="main"
 >
   <div />
+  <div>
+    Unallocated
+    -
+    -
+    CO
+  </div>
   <div
     className="actions"
   />

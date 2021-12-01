@@ -18,6 +18,10 @@ export default interface Props {
    * template ID
    */
   template: string
+  /** 
+   * title to display above the form 
+   */
+  title?: string
   /**
    * dictionary of templates, indexed by template name
    */

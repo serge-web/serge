@@ -15,7 +15,7 @@ import { configDateTimeLocal } from '@serge/helpers'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, template, storeNewValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, title, template, storeNewValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
@@ -44,7 +44,11 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
     const modSchema = configDateTimeLocal(schema.details, gameDate)
-    const nextEditor = setupEditor(editor, modSchema, jsonEditorRef, jsonEditorConfig)
+
+    // if a title was supplied, replace the title in the schema
+    const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema
+
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig)
 
     const changeListenter = (): void => {
       if (nextEditor) {

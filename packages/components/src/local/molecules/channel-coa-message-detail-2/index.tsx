@@ -379,6 +379,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               template={channelColb.responseTemplate?._id || ''}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}
+              title={'Response'}
               gameDate={gameDate}
             /></>
           }
@@ -391,30 +392,16 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             disabled={!formIsEditable}
             gameDate={gameDate} />
           }
-          {/* <JsonEditor
-            messageTemplates={templates}
-            message={message}
-            getJsonEditorValue={getJsonEditorValue}
-            disabled={true}
-            gameDate={gameDate}
-          /> */}
-          {/* {
-            responseIsReleased
-              ? <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} disabled theme='dark' label="Answer" />
-              : (canCollaborate || canReleaseMessages || isObserver) &&
-              <Textarea fitContent={true} id={`answer_${message._id}`} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} disabled={!isEditor} theme='dark' label="Answer" />
-          } */}
           { // only show private field for umpire force(s)
-            (isUmpire || isObserver) && privateMessage &&
+            (isUmpire || isObserver) && 
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
-              disabled={true} theme='dark' label='Private Message' labelFactory={labelFactory} />
+              disabled={state !== CollaborativeMessageStates2.InProgress || !isUmpire} label='Private Message' labelFactory={labelFactory} />
           }
           <div key='lower' className={styles.actions}>
             {
               actionButtons
             }
           </div>
-
         </>
       </div>
     )
