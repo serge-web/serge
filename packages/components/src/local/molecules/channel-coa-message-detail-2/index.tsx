@@ -225,7 +225,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     const handleEditingSubmit = (role: ForceRole, verb: string, handler: SubmitFunc): void => {
       // different handling depending upon if it's a response that's being sent
       const updatedPart = isResponse ? answer : newMsg
-      console.log('handle submit', isResponse, updatedPart)
       const changed = handler(role, verb, message, updatedPart, privateMessage)
       const withFeedback = injectFeedback(changed, verb, '', role)
       handleChange(withFeedback, true)
@@ -315,21 +314,19 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     const actionButtons = reverseActions.map((action: Action) => {
       const verbs = action.verbs
       return verbs.map((verb: string) => {
-        // check for "special" verbs
-        if (verb === ASSIGN_MESSAGE) {
-          // technically the handler could be `core` or `claim`. We know it's `claim`, so cast it.
-          return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, action.handler as ClaimFunc)} />
-        } else if (verb === CLAIM_MESSAGE) {
-          // technically the handler could be `core` or `claim`. We know it's `claim`, so cast it.
-          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, action.handler as ClaimFunc)}>{verb}</Button>
-        } else if (verb === SAVE_MESSAGE || verb === SUBMIT_FOR_REVIEW) {
-          // technically the handler could be `core` or `claim`. We know it's `submit`, so cast it.
-          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, action.handler as SubmitFunc)}>{verb}</Button>
-        } else {
-          const requiresFeedback = !!action.feedback
-          // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
-          const coreHandler = action.handler as unknown as CoreFunc
-          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, coreHandler)}>{verb}{requiresFeedback && '*'}</Button>
+        switch(verb) {
+          case ASSIGN_MESSAGE:
+            return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, action.handler as ClaimFunc)} />
+          case CLAIM_MESSAGE: 
+            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, action.handler as ClaimFunc)}>{verb}</Button>
+          case SAVE_MESSAGE: 
+          case SUBMIT_FOR_REVIEW: 
+            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, action.handler as SubmitFunc)}>{verb}</Button>
+          default: {
+            const requiresFeedback = !!action.feedback
+            // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
+            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, action.handler as CoreFunc)}>{verb}{requiresFeedback && '*'}</Button>  
+          }
         }
       })
     })
@@ -345,7 +342,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             onSave={onModalSave}
             onValueChange={onModalValueChange}
             placeholder={placeHolder}
-          /><div>{state}-{collaboration.owner?.roleName}-{role.roleName}</div>
+          /><div>DEBUG, to be deleted: State:<i>{state}</i> Owner:<i>{collaboration.owner?.roleName || 'unallocated'}</i> Current:<i>{role.roleName}</i></div>
           <>
             <div key='upper' className={styles.actions}>
               {
