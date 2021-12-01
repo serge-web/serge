@@ -95,7 +95,7 @@ const ExpandedFeedbackList = ({ collapsed, feedback }: any): React.ReactElement 
 
 const injectFeedback = (message: MessageCustom, verb: string, feedback: string, role: ForceRole): MessageCustom => {
   const verbStr = '[' + verb + '] '
-  const withFeedback = verbStr + feedback || ''
+  const withFeedback = verbStr + (feedback || '')
   // put message into feedback item
   const feedbackItem: FeedbackItem =
   {
