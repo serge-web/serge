@@ -73,6 +73,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
   const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void} | undefined>()
 
+  const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
+
   if (message.details.collaboration === undefined) {
     return <></>
   } else {
@@ -96,8 +98,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       setCandidates(getCandidates(assignees))
     }, [assignees])
 
-    false && console.log('action table', actionTable, newMsg && labelFactory, assignees, setPrivateMessage)
-
     //  const editDoc = true // ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
     //  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
 
@@ -110,30 +110,32 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       if (onRead && isReaded === false) onRead()
     }, [])
 
-    const setOpenModalStatus = ({ open, title, content = '', placeHolder }: DialogModalStatus): void => {
-      // store to local storage for using in case the site is reload while modal is opening
-      const currentModalStatus = getOpenModalStatus(dialogOpenStatusKey)
-
-      currentModalStatus.open = open
-      setOpenDialog(open)
-
-      ' dialog told to open'
-
-      if (title) {
-        currentModalStatus.title = title
-        setDialogTitle(title)
+    useEffect(() => {
+      if(openModalStatus) {
+        const { open, title, content = '', placeHolder } = openModalStatus
+        // store to local storage for using in case the site is reload while modal is opening
+        const currentModalStatus = getOpenModalStatus(dialogOpenStatusKey)
+  
+        currentModalStatus.open = open
+        setOpenDialog(open)
+  
+        if (title) {
+          currentModalStatus.title = title
+          setDialogTitle(title)
+        }
+  
+        if (placeHolder) {
+          currentModalStatus.placeHolder = placeHolder
+          setPlaceHolder(placeHolder)
+        }
+  
+        currentModalStatus.content = content
+        setModalContent(content)
+  
+        expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify(currentModalStatus))
       }
-
-      if (placeHolder) {
-        currentModalStatus.placeHolder = placeHolder
-        setPlaceHolder(placeHolder)
-      }
-
-      currentModalStatus.content = content
-      setModalContent(content)
-
-      expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify(currentModalStatus))
-    }
+    }, [openModalStatus])
+ 
 
     const getJsonEditorValue = (val: { [property: string]: any }): void => {
       setNewMsg(val)
@@ -187,8 +189,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       const msgWithFeedback = injectFeedback(message, dialogTitle, feedback)
 
       if (modalHandler) {
-        console.log('about to call modal handler for', msgWithFeedback)
         modalHandler(msgWithFeedback)
+        // clear the modal handler
+        setModalHandler(undefined)
       }
       setOpenDialog(false)
       expiredStorage.removeItem(dialogOpenStatusKey)
@@ -243,9 +246,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       // get the force role
       // transform message
       const newMsg = handler(assigneeVal, role, verb, message)
-      console.log('claim', selection, assignee)
       const msgWithFeedback = injectFeedback(newMsg, verb, selection ? ' to ' + selection : '')
-      console.log('claim - ', verb, message, msgWithFeedback)
       // now send it
       handleChange(msgWithFeedback, false)
     }
@@ -255,13 +256,13 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         const quickHandler = (messageWithFeedback: MessageCustom): void => {
           if (messageWithFeedback) {
             const newMsg = handler(role, verb, messageWithFeedback)
-            const msgWithFeedback = injectFeedback(newMsg, verb, '')
-            console.log('feedback - ', verb, message, msgWithFeedback)
             // now send it
-            handleChange(msgWithFeedback, true)
+            handleChange(newMsg, true)
           }
         }
-        setModalHandler(quickHandler)
+        // note: it took hours to learn about the following use of function in state.
+        // the answer came from here: https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
+        setModalHandler(() => quickHandler)
         setOpenModalStatus({
           open: true,
           title: verb,
@@ -270,7 +271,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       } else {
         const newMsg = handler(role, verb, message)
         const msgWithFeedback = injectFeedback(newMsg, verb, '')
-        console.log('feedback - ', verb, message, msgWithFeedback)
         // now send it
         handleChange(msgWithFeedback, true)
       }
@@ -336,7 +336,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
           onSave={onModalSave}
           onValueChange={onModalValueChange}
           placeholder={placeHolder}
-        />
+        /><div>{state}-{message.details.collaboration.owner?.roleName}-{role.roleName}</div>
         <>
           <div key='upper' className={styles.actions}>
             {
