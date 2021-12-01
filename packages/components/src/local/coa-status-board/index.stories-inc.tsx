@@ -67,8 +67,8 @@ const Template: Story<Props> = (args) => {
     setMessages(newMessages)
   }
 
-  const handleReadMessage = (unreadCount: number): void => {
-    console.log('unread mesages left: ' + unreadCount)
+  const handleReadMessage = (message: MessageCustom): void => {
+    console.log('message read: ' + message)
   }
 
   return <CoaStatusBoard
