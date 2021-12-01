@@ -210,8 +210,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       setNewMsg(val)
     }
 
-    /** local change handler. Updates `lastUpdated` value
-     * in message
+    /** Submit new message, and collapse panel, if necessary
      */
     const handleChange = (msg: MessageCustom, collapse: boolean): void => {
       // collapse message, if necessary
