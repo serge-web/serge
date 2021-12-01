@@ -85,19 +85,16 @@ const Template: Story<RFIPropTypes> = (args) => {
   useEffect(() => {
     if (roleObs !== roleState) {
       setRoleState(roleObs)
-//      setMessageState(message)
     }
   }, [role])
 
   useEffect(() => {
     if (messageState.details.collaboration && messageState.details.collaboration.status2) {
-      console.log('updating messageState to', messageState.details.collaboration.status2)
       setMsgStatus(messageState.details.collaboration.status2)
     }
   }, [messageState])
 
   useEffect(() => {
-    console.log('new state is', state)
     setMsgStatus(state)
   }, [state])
 
