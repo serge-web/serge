@@ -75,12 +75,12 @@ export const saveResponse: SubmitFunc = (_role: ForceRole, _verb: string, messag
   response: { [property: string]: any }, privateMessage: string): MessageCustom => {
   return {
     ...message,
-    response: response,
     details: {
       ...message.details,
       privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
+        response2: response,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Unallocated,
         status2: CollaborativeMessageStates2.Unallocated,
@@ -94,12 +94,12 @@ export const submitResponse: SubmitFunc = (_role: ForceRole, _verb: string, mess
   response: { [property: string]: any }, privateMessage: string): MessageCustom => {
   return {
     ...message,
-    response: response,
     details: {
       ...message.details,
       privateMessage: privateMessage,
       collaboration: {
         ...message.details.collaboration,
+        response2: response,
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         status2: CollaborativeMessageStates2.PendingReview,

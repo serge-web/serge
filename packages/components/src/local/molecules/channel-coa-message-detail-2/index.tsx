@@ -117,7 +117,7 @@ const injectFeedback = (message: MessageCustom, verb: string, feedback: string, 
 
 /* Render component */
 export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, state, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
-  const [answer, setAnswer] = useState<{ [property: string]: any }>(message.details.collaboration && message.details.collaboration.response2 || {})
+  const [answer, setAnswer] = useState<{ [property: string]: any }>((message.details.collaboration && message.details.collaboration.response2) || {})
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -369,7 +369,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             { isResponse && canSeeResponse && <JsonEditor
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
-              messageContent={message.response || {}}
+              messageContent={collaboration.response2 || {}}
               template={channelColb.responseTemplate?._id || ''}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}

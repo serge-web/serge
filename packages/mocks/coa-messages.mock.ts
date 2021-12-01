@@ -451,6 +451,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:54:21.119Z',
       privateMessage: 'The private element of the response',
       collaboration: {
+        response2: {
+          content: 'Response to Blue-3a'
+        },
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Pending,
         owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
@@ -462,9 +465,6 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         ]
       },
       turnNumber: 1
-    },
-    response: {
-      content: 'Response to Blue-3a'
     },
     message: {
       Reference: 'Blue-3a',
