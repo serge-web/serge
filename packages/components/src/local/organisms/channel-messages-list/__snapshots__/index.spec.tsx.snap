@@ -144,7 +144,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         </div>
       </div>
     </div>
-    )
   </div>
 </div>
 `;
