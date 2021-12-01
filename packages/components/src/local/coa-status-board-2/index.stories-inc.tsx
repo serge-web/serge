@@ -74,10 +74,9 @@ const Template: Story<Props> = (args) => {
     setMessages(newMessages)
   }
 
-  const handleReadMessage = (unreadCount: number): void => {
-    console.log('unread mesages left: ' + unreadCount)
+  const handleReadMessage = (message: MessageCustom): void => {
+    console.log('message red: ' + message)
   }
-
   return <CoaStatusBoard2
     {...args}
     forces={collabForces}
