@@ -139,6 +139,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
   if (collaboration !== undefined) {
     const isResponse = !!channelColb.responseTemplate
+    const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates2.Released || isObserver
+
     const docBeingEdited = state === CollaborativeMessageStates2.InProgress
     const roleIsOwner = collaboration.owner && collaboration.owner.roleId === role.roleId
     const formIsEditable = docBeingEdited && roleIsOwner
@@ -156,13 +158,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     useEffect(() => {
       setCandidates(getCandidates(assignees))
     }, [assignees])
-
-    //  const editDoc = true // ColEditDocumentBeingEdited(message, channel, canCollaborate, role)
-    //  const editResponse = ColRespDocumentBeingEdited(message, channel, canCollaborate, role)
-
-    //  const isEditor = formEditable(message, role)
-
-    //  const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
 
     useEffect(() => {
       if (onRead && isReaded === false) onRead()
@@ -196,18 +191,15 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
  
 
     const newMessageHandler = (val: { [property: string]: any }): void => {
-      console.log('new message handler')
       setNewMsg(val)
     }
 
     const responseHandler = (val: { [property: string]: any }): void => {
-      console.log('new response handler')
       setAnswer(val)
     }
 
-    const notHappeningHandler = (val: { [property: string]: any }): void => {
-      console.log('not happening handler')
-      setNewMsg(val)
+    const notHappeningHandler = (_val: { [property: string]: any }): void => {
+      // ignore
     }
 
     /** Submit new message, and collapse panel, if necessary
@@ -253,6 +245,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     }
 
     const onPrivateMsgChange = (privateMsg: string): void => {
+      console.log('new private message', privateMsg)
       setPrivateMessage(privateMsg)
       // the private msg needs to be stored temporarily in the message object to avoid being lost on rerendering
       message.details.privateMessage = privateMsg
@@ -343,6 +336,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     })
 
     return (
+      <>
       <div className={styles.main}>
         <DialogModal
           title={dialogTitle}
@@ -363,7 +357,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             feedbackBlock
           }
           {
-            isResponse && <> <JsonEditor
+            isResponse && <JsonEditor
               messageTemplates={templates}
               messageContent={message.message}
               messageId={`${message._id}_${message.message.Reference}`}
@@ -371,7 +365,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               storeNewValue={notHappeningHandler}
               disabled={true}
               gameDate={gameDate}
-            /><JsonEditor
+            />
+          }
+          { isResponse && canSeeResponse && <JsonEditor
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.response || {}}
@@ -380,7 +376,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               disabled={!formIsEditable}
               title={'Response'}
               gameDate={gameDate}
-            /></>
+            />
           }
           {!isResponse && <JsonEditor
             messageTemplates={templates}
@@ -403,6 +399,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
           </div>
         </>
       </div>
+      </>
     )
   } else {
   return <></>
