@@ -211,7 +211,7 @@ export const genData = (
     const row: Row = {
       id: message._id || message.message.Reference,
       from: message.details.from.roleName,
-      tille: message.message.Title,
+      title: message.message.Title,
       status: status,
       owner: ownerComposite,
       updated: moment(lastUpdated).fromNow(),
