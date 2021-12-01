@@ -145,7 +145,7 @@ export const genData = (
         name: capitalize(col),
         selector: (row: Row): string => row[col],
         sortable: true,
-        cell: (row: Row): React.ReactElement  => <ExtraCellComponent row={row} name={col.toLowerCase()} />
+        cell: (row: Row): React.ReactElement => <ExtraCellComponent row={row} name={col.toLowerCase()} />
       }
     })
     extraCols.push(...newCols)

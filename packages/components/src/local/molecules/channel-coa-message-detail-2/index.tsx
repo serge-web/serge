@@ -274,7 +274,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         setOpenModalStatus({
           open: true,
           title: verb,
-          placeHolder: `${name}...`
+          placeHolder: `${verb}...`
         })
       } else {
         const newMsg = handler(role, verb, message)
@@ -314,18 +314,18 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     const actionButtons = reverseActions.map((action: Action) => {
       const verbs = action.verbs
       return verbs.map((verb: string) => {
-        switch(verb) {
+        switch (verb) {
           case ASSIGN_MESSAGE:
             return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, action.handler as ClaimFunc)} />
-          case CLAIM_MESSAGE: 
+          case CLAIM_MESSAGE:
             return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, action.handler as ClaimFunc)}>{verb}</Button>
-          case SAVE_MESSAGE: 
-          case SUBMIT_FOR_REVIEW: 
+          case SAVE_MESSAGE:
+          case SUBMIT_FOR_REVIEW:
             return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, action.handler as SubmitFunc)}>{verb}</Button>
           default: {
             const requiresFeedback = !!action.feedback
             // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
-            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, action.handler as CoreFunc)}>{verb}{requiresFeedback && '*'}</Button>  
+            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, action.handler as CoreFunc)}>{verb}{requiresFeedback && '*'}</Button>
           }
         }
       })
