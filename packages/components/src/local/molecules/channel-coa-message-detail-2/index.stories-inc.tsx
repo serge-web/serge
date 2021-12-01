@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
@@ -75,21 +75,38 @@ const Template: Story<RFIPropTypes> = (args) => {
   const { isObserver, message, isUmpire, permission, state, channelColb, role } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
+  const [msgStatus, setMsgStatus] = useState<CollaborativeMessageStates2>(state || CollaborativeMessageStates2.Unallocated)
   const roleStr = role as unknown as string
   // we wish to update message state for a new story. We do
   // this by tracking the role, since each story has
   // a new role.
+
   const roleObs = roles.find((roleO: ForceRole) => roleO.roleName === roleStr)
-  if (roleObs !== roleState) {
-    setRoleState(roleObs)
-    setMessageState(message)
-  }
+  useEffect(() => {
+    if (roleObs !== roleState) {
+      setRoleState(roleObs)
+//      setMessageState(message)
+    }
+  }, [role])
+
+  useEffect(() => {
+    if (messageState.details.collaboration && messageState.details.collaboration.status2) {
+      console.log('updating messageState to', messageState.details.collaboration.status2)
+      setMsgStatus(messageState.details.collaboration.status2)
+    }
+  }, [messageState])
+
+  useEffect(() => {
+    console.log('new state is', state)
+    setMsgStatus(state)
+  }, [state])
+
   if (roleObs && roleState) {
     return (
       <ChannelCoaMessageDetail2
         templates={MessageTemplatesMockByKey}
         message={messageState}
-        state={state}
+        state={msgStatus}
         onChange={(nextMessage): void => setMessageState(nextMessage)}
         role={roleState}
         permission={permission}
