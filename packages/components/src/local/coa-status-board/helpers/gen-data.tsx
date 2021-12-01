@@ -88,7 +88,7 @@ export const genData = (
     }
   }
 
-  const ExtraCellComponent = ({ row, name }: ExtraCellProps) => (
+  const ExtraCellComponent = ({ row, name }: ExtraCellProps): React.ReactElement => (
     <div style={{ wordWrap: 'break-word' }}>
       {row[name]}
     </div>
@@ -145,7 +145,7 @@ export const genData = (
         name: capitalize(col),
         selector: (row: Row): string => row[col],
         sortable: true,
-        cell: (row: Row) => <ExtraCellComponent row={row} name={col.toLowerCase()} />,
+        cell: (row: Row): React.ReactElement => <ExtraCellComponent row={row} name={col.toLowerCase()} />
       }
     })
     extraCols.push(...newCols)
@@ -228,7 +228,7 @@ export const genData = (
         const rawData = message.message[colName]
         Object.keys(rawData).forEach((key: string) => {
           Object.keys(rawData[key]).forEach((childKey: string) => {
-            cellData.push(`${key}-${rawData[key][childKey]['Country']}`)
+            cellData.push(`${key}-${rawData[key][childKey].Country}`)
           })
         })
       }

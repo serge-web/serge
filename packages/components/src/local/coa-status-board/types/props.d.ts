@@ -6,7 +6,6 @@ import {
   TemplateBodysByKey
 } from '@serge/custom-types'
 import React from 'react'
-import { TableColumnBase } from 'react-data-table-component/dist/src/DataTable/types'
 
 export type Collapsible = (cb?: (() => void) | undefined) => React.ReactElement
 export type Row = { [x: string], collapsible?: Collapsible }
