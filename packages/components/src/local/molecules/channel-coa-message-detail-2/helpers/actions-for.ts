@@ -12,6 +12,8 @@ export interface Action {
 
 export const ASSIGN_MESSAGE = 'Assign'
 export const CLAIM_MESSAGE = 'Claim'
+export const SAVE_MESSAGE = 'Save'
+export const SUBMIT_FOR_REVIEW = 'Submit for review'
 
 type ActionList = Array<Action>
 export type ActionTable = Array<Array<ActionList>>
@@ -29,8 +31,8 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
 
   // finally populate handlers
   actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: [ASSIGN_MESSAGE, CLAIM_MESSAGE] }]
-  actions[States.InProgress][Permission.CanEdit] = [{ handler: handlers.save, verbs: ['Save'] }]
-  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: ['Submit for review'] }]
+  actions[States.InProgress][Permission.CanEdit] = [{ handler: handlers.save, verbs: [SAVE_MESSAGE] }]
+  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: [SUBMIT_FOR_REVIEW] }]
   actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }]
   actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, feedback: true, verbs: ['Unclaim'] }]
   actions[States.PendingReview][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Claim'] }]

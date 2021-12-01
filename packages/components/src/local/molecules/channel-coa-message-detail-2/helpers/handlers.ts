@@ -15,10 +15,9 @@ export interface ClaimFunc {
   (assignee: ForceRole, roleId: ForceRole, verb: string, _message: MessageCustom): MessageCustom
 }
 
-export type ActionHandler = CoreFunc | ClaimFunc
+export type ActionHandler = CoreFunc | ClaimFunc | SubmitFunc
 
 export const edit: ClaimFunc = (assignee: ForceRole, _role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - edit, assign to', assignee)
   return {
     ...message,
     details: {
@@ -34,25 +33,7 @@ export const edit: ClaimFunc = (assignee: ForceRole, _role: ForceRole, _verb: st
   }
 }
 
-export const save: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - save')
-  return {
-    ...message,
-    details: {
-      ...message.details,
-      collaboration: {
-        ...message.details.collaboration,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status: CollaborativeMessageStates.Unallocated,
-        status2: CollaborativeMessageStates2.Unallocated,
-        owner: undefined
-      }
-    }
-  }
-}
-
 export const release: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - release')
   return {
     ...message,
     details: {
@@ -68,9 +49,30 @@ export const release: CoreFunc = (_role: ForceRole, _verb: string, message: Mess
   }
 }
 
+export const save: SubmitFunc = (_role: ForceRole, _verb: string, message: MessageCustom,
+  newMsg: { [property: string]: any }, privateMessage: string): MessageCustom => {
+  return {
+    ...message,
+    message: {
+      ...message.message,
+      ...newMsg
+    },
+    details: {
+      ...message.details,
+      privateMessage: privateMessage,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Unallocated,
+        status2: CollaborativeMessageStates2.Unallocated,
+        owner: undefined
+      }
+    }
+  }
+}
+
 export const submitForReview: SubmitFunc = (_role: ForceRole, _verb: string, message: MessageCustom,
   newMsg: { [property: string]: any }, privateMessage: string): MessageCustom => {
-  console.log('handler - submit')
   return {
     ...message,
     message: {
@@ -92,7 +94,6 @@ export const submitForReview: SubmitFunc = (_role: ForceRole, _verb: string, mes
 }
 
 export const unclaim: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - claim')
   return {
     ...message,
     details: {
@@ -108,7 +109,6 @@ export const unclaim: CoreFunc = (_role: ForceRole, _verb: string, message: Mess
 }
 
 export const requestChanges: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - request changes')
   return {
     ...message,
     details: {
@@ -125,7 +125,6 @@ export const requestChanges: CoreFunc = (_role: ForceRole, _verb: string, messag
 }
 
 export const approve: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - approve')
   return {
     ...message,
     details: {
@@ -141,7 +140,6 @@ export const approve: CoreFunc = (_role: ForceRole, _verb: string, message: Mess
 }
 
 export const discard: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - discard')
   return {
     ...message,
     details: {
@@ -158,7 +156,6 @@ export const discard: CoreFunc = (_role: ForceRole, _verb: string, message: Mess
 }
 
 export const reopen: CoreFunc = (_role: ForceRole, _verb: string, message: MessageCustom): MessageCustom => {
-  console.log('handler - reopen')
   return {
     ...message,
     details: {
