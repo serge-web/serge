@@ -31,7 +31,7 @@ export default {
     }
   }
 }
-const storeNewValue = (value: { [property: string]: any }) => {
+const storeNewValue = (value: { [property: string]: any }): void => {
   console.log('store data', value)
 }
 
