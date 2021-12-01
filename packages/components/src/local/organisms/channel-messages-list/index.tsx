@@ -27,7 +27,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             if (props.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${props.gameTurn}-turnmarker-${key}`}>
-                  <p className={styles['turn-marker']}>Turn { formatTurn(props.gameTurn, turnPresentation) }</p>
+                  <p className={styles['turn-marker']}>Turn {formatTurn(props.gameTurn, turnPresentation)}</p>
                 </Box>
               )
             }
@@ -38,9 +38,8 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
                   roleName={msg.details.from.roleName} role={msg.details.from.roleId} onRead={onRead} onUnread={onUnread} message={props} />
               </Box>
             )
-          }
-          )
-        })
+          })
+        }
       </Box>
     </div>
   )
