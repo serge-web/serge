@@ -204,8 +204,8 @@ const role: ForceRole = { forceId: 'White', forceName: 'White', roleId: blueCO.r
 const onChange = (): void => console.log()
 
 it('CoaStatusBoard renders correctly', () => {
-  const handleReadMessage = (unreadCount: number): void => {
-    console.log('unread mesages left: ' + unreadCount)
+  const handleReadMessage = (message: MessageCustom): void => {
+    console.log('message red: ' + message)
   }
 
   const tree = renderer
