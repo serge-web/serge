@@ -18,8 +18,8 @@ export default interface Props {
    * template ID
    */
   template: string
-  /** 
-   * title to display above the form 
+  /**
+   * title to display above the form
    */
   title?: string
   /**

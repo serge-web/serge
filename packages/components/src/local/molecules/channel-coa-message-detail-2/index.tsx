@@ -164,31 +164,30 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     }, [])
 
     useEffect(() => {
-      if(openModalStatus) {
+      if (openModalStatus) {
         const { open, title, content = '', placeHolder } = openModalStatus
         // store to local storage for using in case the site is reload while modal is opening
         const currentModalStatus = getOpenModalStatus(dialogOpenStatusKey)
-  
+
         currentModalStatus.open = open
         setOpenDialog(open)
-  
+
         if (title) {
           currentModalStatus.title = title
           setDialogTitle(title)
         }
-  
+
         if (placeHolder) {
           currentModalStatus.placeHolder = placeHolder
           setPlaceHolder(placeHolder)
         }
-  
+
         currentModalStatus.content = content
         setModalContent(content)
-  
+
         expiredStorage.setItem(dialogOpenStatusKey, JSON.stringify(currentModalStatus))
       }
     }, [openModalStatus])
- 
 
     const newMessageHandler = (val: { [property: string]: any }): void => {
       setNewMsg(val)
@@ -337,37 +336,37 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
     return (
       <>
-      <div className={styles.main}>
-        <DialogModal
-          title={dialogTitle}
-          value={content}
-          open={openDialog}
-          onClose={onModalClose}
-          onSave={onModalSave}
-          onValueChange={onModalValueChange}
-          placeholder={placeHolder}
-        /><div>{state}-{collaboration.owner?.roleName}-{role.roleName}</div>
-        <>
-          <div key='upper' className={styles.actions}>
+        <div className={styles.main}>
+          <DialogModal
+            title={dialogTitle}
+            value={content}
+            open={openDialog}
+            onClose={onModalClose}
+            onSave={onModalSave}
+            onValueChange={onModalValueChange}
+            placeholder={placeHolder}
+          /><div>{state}-{collaboration.owner?.roleName}-{role.roleName}</div>
+          <>
+            <div key='upper' className={styles.actions}>
+              {
+                actionButtons
+              }
+            </div>
             {
-              actionButtons
+              feedbackBlock
             }
-          </div>
-          {
-            feedbackBlock
-          }
-          {
-            isResponse && <JsonEditor
-              messageTemplates={templates}
-              messageContent={message.message}
-              messageId={`${message._id}_${message.message.Reference}`}
-              template={channelColb.newMessageTemplate._id}
-              storeNewValue={notHappeningHandler}
-              disabled={true}
-              gameDate={gameDate}
-            />
-          }
-          { isResponse && canSeeResponse && <JsonEditor
+            {
+              isResponse && <JsonEditor
+                messageTemplates={templates}
+                messageContent={message.message}
+                messageId={`${message._id}_${message.message.Reference}`}
+                template={channelColb.newMessageTemplate._id}
+                storeNewValue={notHappeningHandler}
+                disabled={true}
+                gameDate={gameDate}
+              />
+            }
+            { isResponse && canSeeResponse && <JsonEditor
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.response || {}}
@@ -377,32 +376,32 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               title={'Response'}
               gameDate={gameDate}
             />
-          }
-          {!isResponse && <JsonEditor
-            messageTemplates={templates}
-            template={channelColb.newMessageTemplate._id}
-            messageId={`${message._id}_${message.message.Reference}`}
-            messageContent={message.message}
-            storeNewValue={newMessageHandler}
-            disabled={!formIsEditable}
-            gameDate={gameDate} />
-          }
-          { // only show private field for umpire force(s)
-            (isUmpire || isObserver) && 
+            }
+            {!isResponse && <JsonEditor
+              messageTemplates={templates}
+              template={channelColb.newMessageTemplate._id}
+              messageId={`${message._id}_${message.message.Reference}`}
+              messageContent={message.message}
+              storeNewValue={newMessageHandler}
+              disabled={!formIsEditable}
+              gameDate={gameDate} />
+            }
+            { // only show private field for umpire force(s)
+              (isUmpire || isObserver) &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
               disabled={state !== CollaborativeMessageStates2.InProgress || !isUmpire} label='Private Message' labelFactory={labelFactory} />
-          }
-          <div key='lower' className={styles.actions}>
-            {
-              actionButtons
             }
-          </div>
-        </>
-      </div>
+            <div key='lower' className={styles.actions}>
+              {
+                actionButtons
+              }
+            </div>
+          </>
+        </div>
       </>
     )
   } else {
-  return <></>
+    return <></>
   }
 }
 
