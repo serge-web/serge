@@ -435,7 +435,9 @@ Array [
             >
               <div
                 data-tag="allowRowEvents"
-              />
+              >
+                RFI 3 from Blue
+              </div>
             </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
@@ -610,7 +612,9 @@ Array [
             >
               <div
                 data-tag="allowRowEvents"
-              />
+              >
+                RFI 1 from RED
+              </div>
             </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
