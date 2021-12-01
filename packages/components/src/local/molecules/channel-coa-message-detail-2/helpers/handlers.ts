@@ -71,6 +71,44 @@ export const save: SubmitFunc = (_role: ForceRole, _verb: string, message: Messa
   }
 }
 
+export const saveResponse: SubmitFunc = (_role: ForceRole, _verb: string, message: MessageCustom,
+  response: { [property: string]: any }, privateMessage: string): MessageCustom => {
+  return {
+    ...message,
+    response: response,
+    details: {
+      ...message.details,
+      privateMessage: privateMessage,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.Unallocated,
+        status2: CollaborativeMessageStates2.Unallocated,
+        owner: undefined
+      }
+    }
+  }
+}
+
+export const submitResponse: SubmitFunc = (_role: ForceRole, _verb: string, message: MessageCustom,
+  response: { [property: string]: any }, privateMessage: string): MessageCustom => {
+  return {
+    ...message,
+    response: response,
+    details: {
+      ...message.details,
+      privateMessage: privateMessage,
+      collaboration: {
+        ...message.details.collaboration,
+        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        status: CollaborativeMessageStates.PendingReview,
+        status2: CollaborativeMessageStates2.PendingReview,
+        owner: undefined
+      }
+    }
+  }
+}
+
 export const submitForReview: SubmitFunc = (_role: ForceRole, _verb: string, message: MessageCustom,
   newMsg: { [property: string]: any }, privateMessage: string): MessageCustom => {
   return {

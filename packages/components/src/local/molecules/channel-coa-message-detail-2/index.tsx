@@ -20,8 +20,8 @@ import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } 
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
-import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, CLAIM_MESSAGE, createActionTable } from './helpers/actions-for'
-import { ClaimFunc, CoreFunc } from './helpers/handlers'
+import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, CLAIM_MESSAGE, createActionTable, SAVE_MESSAGE, SUBMIT_FOR_REVIEW } from './helpers/actions-for'
+import { ClaimFunc, CoreFunc, SubmitFunc } from './helpers/handlers'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -55,9 +55,69 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
   return JSON.parse(expiredStorage.getItem(key) || '{}')
 }
 
+const formatFeedback = (feedback: FeedbackItem): string => {
+  return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
+    ' [' + feedback.fromForce + '-' + feedback.fromName + '] ' +
+    feedback.feedback
+}
+
+const CollapsedFeedbackList = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
+  const multipleFeedback = feedback.length > 1
+  const handleOnExpand = (): void => {
+    multipleFeedback && onExpand(!collapsed)
+  }
+
+  const renderReadIcon = (): React.ReactNode => {
+    return <>
+      {multipleFeedback && (collapsed ? '+' : '-')}
+    </>
+  }
+  return (
+    <div className={styles['feedback-header']} onClick={handleOnExpand}>
+      <span className={styles['feedback-icon']}>{renderReadIcon()}</span>
+      {formatFeedback(feedback[feedback.length - 1])}
+    </div>
+  )
+}
+
+const ExpandedFeedbackList = ({ collapsed, feedback }: any): React.ReactElement => {
+  // put in reverse chronological order
+  const descending = feedback.slice().reverse()
+  return (
+    <div className={styles['feedback-content']}>
+      {!collapsed && descending.map((item: FeedbackItem, key: number) => {
+        if (key > 0) return (<div key={key}>{formatFeedback(item)}</div>)
+        else return null
+      })}
+    </div>
+  )
+}
+
+const injectFeedback = (message: MessageCustom, verb: string, feedback: string, role: ForceRole): MessageCustom => {
+  const verbStr = '[' + verb + '] '
+  const withFeedback = verbStr + feedback || ''
+  // put message into feedback item
+  const feedbackItem: FeedbackItem =
+  {
+    fromId: role.roleId,
+    fromName: role.roleName,
+    fromForce: role.forceName,
+    date: new Date().toISOString(),
+    feedback: withFeedback
+  }
+  if (message.details.collaboration) {
+    if (!message.details.collaboration.feedback) {
+      // create empty array, if necessary
+      message.details.collaboration.feedback = []
+    }
+    message.details.collaboration.feedback.push(feedbackItem)
+  }
+  return message
+}
+
 /* Render component */
 export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, state, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
-  //  const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
+  const [answer, setAnswer] = useState<{ [property: string]: any }>(message.details.collaboration && message.details.collaboration.response2 || {})
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -75,20 +135,19 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
-  if (message.details.collaboration === undefined) {
-    return <></>
-  } else {
-    const collab = message.details.collaboration
+  const { collaboration } = message.details
+
+  if (collaboration !== undefined) {
     const isResponse = !!channelColb.responseTemplate
     const docBeingEdited = state === CollaborativeMessageStates2.InProgress
-    const roleIsOwner = collab.owner && collab.owner.roleId === role.roleId
+    const roleIsOwner = collaboration.owner && collaboration.owner.roleId === role.roleId
     const formIsEditable = docBeingEdited && roleIsOwner
 
     /**
      * create the actions table for this user/channel
      */
     useEffect(() => {
-      setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs))
+      setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs, isResponse))
     }, [channelColb])
 
     /**
@@ -103,7 +162,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
     //  const isEditor = formEditable(message, role)
 
-    //  const { collaboration } = message.details
     //  const responseIsReleased = collaboration && collaboration.status === CollaborativeMessageStates.Released
 
     useEffect(() => {
@@ -137,7 +195,18 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
     }, [openModalStatus])
  
 
-    const getJsonEditorValue = (val: { [property: string]: any }): void => {
+    const newMessageHandler = (val: { [property: string]: any }): void => {
+      console.log('new message handler')
+      setNewMsg(val)
+    }
+
+    const responseHandler = (val: { [property: string]: any }): void => {
+      console.log('new response handler')
+      setAnswer(val)
+    }
+
+    const notHappeningHandler = (val: { [property: string]: any }): void => {
+      console.log('not happening handler')
       setNewMsg(val)
     }
 
@@ -163,30 +232,17 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       expiredStorage.removeItem(dialogOpenStatusKey)
     }
 
-    const injectFeedback = (message: MessageCustom, verb: string, feedback: string): MessageCustom => {
-      const verbStr = '[' + verb + '] '
-      const withFeedback = verbStr + feedback || ''
-      // put message into feedback item
-      const feedbackItem: FeedbackItem =
-      {
-        fromId: role.roleId,
-        fromName: role.roleName,
-        fromForce: role.forceName,
-        date: new Date().toISOString(),
-        feedback: withFeedback
-      }
-      if (message.details.collaboration) {
-        if (!message.details.collaboration.feedback) {
-          // create empty array, if necessary
-          message.details.collaboration.feedback = []
-        }
-        message.details.collaboration.feedback.push(feedbackItem)
-      }
-      return message
+    const handleEditingSubmit = (role: ForceRole, verb: string, handler: SubmitFunc): void => {
+      // different handling depending upon if it's a response that's being sent
+      const updatedPart = isResponse ? answer : newMsg
+      console.log('handle submit', isResponse, updatedPart)
+      const changed = handler(role, verb, message, updatedPart, privateMessage)
+      const withFeedback = injectFeedback(changed, verb, '', role)
+      handleChange(withFeedback, true)
     }
 
     const onModalSave = (feedback: string): void => {
-      const msgWithFeedback = injectFeedback(message, dialogTitle, feedback)
+      const msgWithFeedback = injectFeedback(message, dialogTitle, feedback, role)
 
       if (modalHandler) {
         modalHandler(msgWithFeedback)
@@ -203,50 +259,12 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       message.details.privateMessage = privateMsg
     }
 
-    const formatFeedback = (feedback: FeedbackItem): string => {
-      return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
-        ' [' + feedback.fromForce + '-' + feedback.fromName + '] ' +
-        feedback.feedback
-    }
-
-    const CollapsibleHeader = ({ onExpand, collapsed, feedback }: any): React.ReactElement => {
-      const multipleFeedback = feedback.length > 1
-      const handleOnExpand = (): void => {
-        multipleFeedback && onExpand(!collapsed)
-      }
-
-      const renderReadIcon = (): React.ReactNode => {
-        return <>
-          {multipleFeedback && (collapsed ? '+' : '-')}
-        </>
-      }
-      return (
-        <div className={styles['feedback-header']} onClick={handleOnExpand}>
-          <span className={styles['feedback-icon']}>{renderReadIcon()}</span>
-          {formatFeedback(feedback[feedback.length - 1])}
-        </div>
-      )
-    }
-
-    const CollapsibleContent = ({ collapsed, feedback }: any): React.ReactElement => {
-      // put in reverse chronological order
-      const descending = feedback.slice().reverse()
-      return (
-        <div className={styles['feedback-content']}>
-          {!collapsed && descending.map((item: FeedbackItem, key: number) => {
-            if (key > 0) return (<div key={key}>{formatFeedback(item)}</div>)
-            else return null
-          })}
-        </div>
-      )
-    }
-
     const handleClaim = (selection: string | undefined, assignee: ForceRole | undefined, role: ForceRole, verb: string, handler: ClaimFunc): void => {
       const assigneeVal = selection ? roleFromName(selection, assignees) : assignee as ForceRole
       // get the force role
       // transform message
       const newMsg = handler(assigneeVal, role, verb, message)
-      const msgWithFeedback = injectFeedback(newMsg, verb, selection ? ' to ' + selection : '')
+      const msgWithFeedback = injectFeedback(newMsg, verb, selection ? ' to ' + selection : '', role)
       // now send it
       handleChange(msgWithFeedback, false)
     }
@@ -270,14 +288,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         })
       } else {
         const newMsg = handler(role, verb, message)
-        const msgWithFeedback = injectFeedback(newMsg, verb, '')
+        const msgWithFeedback = injectFeedback(newMsg, verb, '', role)
         // now send it
         handleChange(msgWithFeedback, true)
       }
     }
 
     /** any feedback in the message */
-    const feedback = message.details.collaboration?.feedback
+    const feedback = collaboration.feedback
 
     // create a single feedback block - we use it in either message type
     const feedbackBlock = (permission > CollaborativePermission.CannotCollaborate || isObserver) && feedback && feedback.length > 0 && (
@@ -285,22 +303,18 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         <div className={styles['feedback-title']}>Feedback</div>
         <div className={styles['feedback-item']}>
           <Collapsible
-            header={<CollapsibleHeader feedback={feedback} />}
-            content={<CollapsibleContent feedback={feedback} />}
+            header={<CollapsedFeedbackList feedback={feedback} />}
+            content={<ExpandedFeedbackList feedback={feedback} />}
           />
         </div>
       </div>)
-
-    if (!message.details.collaboration) {
-      console.error('Message doesnt have collaboration block')
-    }
 
     const haveData = state !== undefined && permission !== undefined
 
     // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
     const inProgress = state === CollaborativeMessageStates2.InProgress
     const saveOrSubmit = (permission === CollaborativePermission.CanEdit) || (permission === CollaborativePermission.CanSubmitForReview)
-    const isOwner = role.roleId === message.details.collaboration.owner?.roleId
+    const isOwner = role.roleId === collaboration.owner?.roleId
     const showActions = inProgress && saveOrSubmit ? isOwner : true
 
     const actions = (showActions && actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
@@ -317,6 +331,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         } else if (verb === CLAIM_MESSAGE) {
           // technically the handler could be `core` or `claim`. We know it's `claim`, so cast it.
           return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, action.handler as ClaimFunc)}>{verb}</Button>
+        } else if (verb === SAVE_MESSAGE || verb === SUBMIT_FOR_REVIEW) {
+          // technically the handler could be `core` or `claim`. We know it's `submit`, so cast it.
+          return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, action.handler as SubmitFunc)}>{verb}</Button>
         } else {
           const requiresFeedback = !!action.feedback
           // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
@@ -336,7 +353,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
           onSave={onModalSave}
           onValueChange={onModalValueChange}
           placeholder={placeHolder}
-        /><div>{state}-{message.details.collaboration.owner?.roleName}-{role.roleName}</div>
+        /><div>{state}-{collaboration.owner?.roleName}-{role.roleName}</div>
         <>
           <div key='upper' className={styles.actions}>
             {
@@ -352,7 +369,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               messageContent={message.message}
               messageId={`${message._id}_${message.message.Reference}`}
               template={channelColb.newMessageTemplate._id}
-              storeNewValue={getJsonEditorValue}
+              storeNewValue={notHappeningHandler}
               disabled={true}
               gameDate={gameDate}
             /><JsonEditor
@@ -360,7 +377,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.response || {}}
               template={channelColb.responseTemplate?._id || ''}
-              storeNewValue={getJsonEditorValue}
+              storeNewValue={responseHandler}
               disabled={!formIsEditable}
               gameDate={gameDate}
             /></>
@@ -370,7 +387,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             template={channelColb.newMessageTemplate._id}
             messageId={`${message._id}_${message.message.Reference}`}
             messageContent={message.message}
-            storeNewValue={getJsonEditorValue}
+            storeNewValue={newMessageHandler}
             disabled={!formIsEditable}
             gameDate={gameDate} />
           }
@@ -401,6 +418,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         </>
       </div>
     )
+  } else {
+  return <></>
   }
 }
 

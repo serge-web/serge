@@ -18,7 +18,7 @@ export const SUBMIT_FOR_REVIEW = 'Submit for review'
 type ActionList = Array<Action>
 export type ActionTable = Array<Array<ActionList>>
 
-export const createActionTable = (approveVerbs: string[], requestChangesVerbs: string[], releaseVerbs: string[]): ActionTable => {
+export const createActionTable = (approveVerbs: string[], requestChangesVerbs: string[], releaseVerbs: string[], isResponse: boolean): ActionTable => {
   // whole structure
   const actions: ActionTable = []
 
@@ -29,10 +29,13 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   actions[States.Released] = []
   actions[States.Closed] = []
 
+  const submitHandler = isResponse ? handlers.submitResponse : handlers.submitForReview
+  const saveHandler = isResponse ? handlers.saveResponse : handlers.submitResponse
+
   // finally populate handlers
   actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: [ASSIGN_MESSAGE, CLAIM_MESSAGE] }]
-  actions[States.InProgress][Permission.CanEdit] = [{ handler: handlers.save, verbs: [SAVE_MESSAGE] }]
-  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: handlers.submitForReview, verbs: [SUBMIT_FOR_REVIEW] }]
+  actions[States.InProgress][Permission.CanEdit] = [{ handler: saveHandler, verbs: [SAVE_MESSAGE] }]
+  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: submitHandler, verbs: [SUBMIT_FOR_REVIEW] }]
   actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }]
   actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, feedback: true, verbs: ['Unclaim'] }]
   actions[States.PendingReview][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Claim'] }]

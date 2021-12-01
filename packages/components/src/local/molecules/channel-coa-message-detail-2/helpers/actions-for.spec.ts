@@ -3,7 +3,7 @@ import { createActionTable, actionsFor, ActionTable } from './actions-for'
 
 describe('Action table & actions', () => {
   it('Table generation', () => {
-    const table: ActionTable = createActionTable(['Approve1'], ['Request1', 'Endorse1'], ['Finalise'])
+    const table: ActionTable = createActionTable(['Approve1'], ['Request1', 'Endorse1'], ['Finalise'], true)
     expect(table[States.Unallocated]).toBeTruthy()
     expect(table[States.Unallocated].length).toEqual(2) // we have handler in second slot
     expect(table[States.Unallocated][0]).toBeFalsy() // empty first slot
@@ -14,7 +14,7 @@ describe('Action table & actions', () => {
   })
 
   it('Retrieve actions', () => {
-    const table: ActionTable = createActionTable(['Approve1'], ['Request1', 'Endorse1'], ['Finalise'])
+    const table: ActionTable = createActionTable(['Approve1'], ['Request1', 'Endorse1'], ['Finalise'], true)
     // initial state
     const canSaveBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit)
     expect(canSaveBeingEdited).toBeTruthy()

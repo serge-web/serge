@@ -143,7 +143,11 @@ export interface CollaborationDetails {
    * response to message, only used in RFIs
    */
   response?: string
-  /** 
+  /**
+   * structured response to message
+   */
+  response2?: MessageStructure
+   /** 
    * feedback on last version
    */
   feedback?: Array<FeedbackItem>
