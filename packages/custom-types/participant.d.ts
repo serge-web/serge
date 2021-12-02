@@ -43,6 +43,12 @@ export interface ParticipantCustom extends CoreParticipant {
 export interface ParticipantChat extends CoreParticipant {
 }
 
+
+/** participation in mapping channels */
+export interface ParticipantMapping extends CoreParticipant {
+  // TODO: add properties such as `can submit orders` or `can adjudicate`
+}
+
 /** participation in collaborative editing channels */
 export interface ParticipantCollab extends CoreParticipant {
   // partipant can create new documents in this channel

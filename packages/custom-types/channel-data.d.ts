@@ -1,4 +1,4 @@
-import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate } from './participant'
+import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
 import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
 
 /** special configuration for collaborative channels */
@@ -37,11 +37,18 @@ export interface ChannelCore {
   name: string
 }
 
-/** description of standard channel, sending custom messages */
+/** description of chat channel */
 export interface ChannelChat extends ChannelCore {
   channelType: typeof CHANNEL_CHAT
   /** list of participants for this channel */
   participants: Array<ParticipantChat>
+}
+
+/** description of mapping channel */
+export interface ChannelMapping extends ChannelCore {
+  channelType: typeof CHANNEL_MAPPING
+  /** list of participants for this channel */
+  participants: Array<ParticipantMapping>
 }
 
 /** description of standard channel, sending custom messages */
@@ -75,4 +82,5 @@ export interface ChannelCollab extends ChannelCore {
 /** union of the assorted channel types */
 export type ChannelTypes = ChannelChat |
   ChannelCustom |
-  ChannelCollab
+  ChannelCollab | 
+  ChannelMapping
