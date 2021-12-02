@@ -71,7 +71,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-4 makeStyles-label-8 MuiChip-labelSmall"
             >
-              Chat
+              idchat
             </span>
           </div>
           <div
