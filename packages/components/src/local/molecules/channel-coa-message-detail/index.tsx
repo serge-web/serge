@@ -377,7 +377,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           <JsonEditor
             messageTemplates={templates}
             messageContent={message.message}
-            template={message.messageType}
+            template={message.details.messageType}
             messageId={`${message._id}_${message.message.Reference}`}
             storeNewValue={storeNewValue}
             disabled={!editDoc}
@@ -428,7 +428,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
           <JsonEditor
             messageTemplates={templates}
             messageContent={message.message}
-            template={message.messageType}
+            template={message.details.messageType}
             messageId={`${message._id}_${message.message.Reference}`}
             onChange={storeNewValue}
             disabled={true}

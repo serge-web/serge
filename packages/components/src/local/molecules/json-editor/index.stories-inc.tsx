@@ -31,10 +31,13 @@ export default {
     }
   }
 }
+const storeNewValue = (value: { [property: string]: any }): void => {
+  console.log('store data', value)
+}
 
 const Template: Story<Props> = ({ messageTemplates, messageId, disabled, template, messageContent }) => {
   return (
-    <JsonEditor template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
+    <JsonEditor storeNewValue={storeNewValue} template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
   )
 }
 
