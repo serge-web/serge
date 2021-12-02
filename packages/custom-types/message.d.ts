@@ -14,6 +14,7 @@ import {
   HOST_PLATFORM,
   DELETE_PLATFORM,
   CollaborativeMessageStates,
+  CollaborativeMessageStates2,
   COUNTER_MESSAGE
 } from '@serge/config'
 
@@ -21,7 +22,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Role from './role'
-import { ForceRole, StateOfWorld } from '.'
+import { Force, ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
 
 
@@ -110,7 +111,8 @@ export interface CoreMessage {
 export interface FeedbackItem {
   /** who the feedback is from */
   readonly fromId: Role['roleId']
-  readonly fromName: Role['roleId']
+  readonly fromName: Role['name']
+  readonly fromForce: Force['name']
   /** when the feedback was provided */
   readonly date: string
   /** the feedback */
@@ -125,7 +127,11 @@ export interface CollaborationDetails {
    * Message status
    */
   status: CollaborativeMessageStates
-  /** date-time when the last change 
+  /**
+   * (new) Message status
+   */
+  status2?: CollaborativeMessageStates2
+   /** date-time when the last change 
    * was made to this message
    */
   lastUpdated: string
@@ -137,7 +143,11 @@ export interface CollaborationDetails {
    * response to message, only used in RFIs
    */
   response?: string
-  /** 
+  /**
+   * structured response to message
+   */
+  response2?: MessageStructure
+   /** 
    * feedback on last version
    */
   feedback?: Array<FeedbackItem>
@@ -145,6 +155,7 @@ export interface CollaborationDetails {
 
 export interface MessageCustom extends CoreMessage {
   messageType: typeof CUSTOM_MESSAGE,
+  /** the strutured message */
   message: MessageStructure,
   /** whether this message is open/expanded on the current client */
   isOpen: boolean

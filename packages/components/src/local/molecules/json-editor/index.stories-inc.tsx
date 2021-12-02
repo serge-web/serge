@@ -6,7 +6,7 @@ import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import { MessageTemplatesMockByKey, WargameMock, messageDataCollaborativeResponding } from '@serge/mocks'
+import { MessageTemplatesMockByKey, WargameMock, messageDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import Props from './types/props'
@@ -35,33 +35,27 @@ const storeNewValue = (value: { [property: string]: any }): void => {
   console.log('store data', value)
 }
 
-const Template: Story<Props> = ({ messageTemplates, disabled, template, messageContent, messageId }) => {
+const Template: Story<Props> = ({ messageTemplates, messageId, disabled, template, messageContent }) => {
   return (
-    <JsonEditor messageId={messageId} template={template} messageContent={messageContent}
-      messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate}
-      storeNewValue={storeNewValue} />
+    <JsonEditor storeNewValue={storeNewValue} template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
   )
 }
 
-const testMessage = messageDataCollaborativeResponding[0]
-
 export const Standard = Template.bind({})
 Standard.args = {
-  messageContent: testMessage.message,
-  messageId: `${testMessage._id}_${testMessage.message.Reference}`,
-  template: messageDataCollaborativeResponding[0].details.messageType,
+  messageContent: messageDataCollaborativeEditing[0].message,
   messageTemplates: MessageTemplatesMockByKey,
+  messageId: 'id_1',
+  template: 'k16eedkk',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
 export const Response = Template.bind({})
 Response.args = {
-  template: 'Chat',
-  messageContent: {
-    content: 'Last message. turn 2 started!'
-  },
-  messageId: Date(),
+  template: 'k16eedkj',
+  messageContent: messageDataCollaborativeResponding[0].message,
+  messageId: 'id_2ß',
   messageTemplates: MessageTemplatesMockByKey,
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
