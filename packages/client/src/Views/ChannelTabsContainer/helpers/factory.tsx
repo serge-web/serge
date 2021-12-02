@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData, ChannelTypes } from '@serge/custom-types'
 import {
   FORCE_LAYDOWN,
   PERCEPTION_OF_CONTACT,
@@ -10,7 +10,11 @@ import {
   SUBMIT_PLANS,
   DELETE_PLATFORM,
   VISIBILITY_CHANGES,
-  Phase
+  CHANNEL_MAPPING,
+  Phase,
+  CHANNEL_COLLAB,
+  CHANNEL_CUSTOM,
+  CHANNEL_CHAT
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -21,7 +25,7 @@ import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
-import { CHANNEL_MAPPING } from '../../../consts'
+import Channel2 from '../../../Components/Channel2'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -161,14 +165,34 @@ const factory = (state: PlayerUi): Factory => {
     }
     const channelName = node.getName().toLowerCase()
     const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-    if (channelName === CHANNEL_MAPPING) {
-      return renderMap(node.getId())
-    } else if (matchedChannel.length && channelDefinition) {
-      // find out if channel just contains chat template
-      return isChatChannel(channelDefinition) ?
-        <ChatChannel channelId={matchedChannel[0]} />
-        : <Channel channelId={matchedChannel[0]} />
+
+    // sort out if it's a modern channel
+    const v3Channel = channelDefinition as ChannelTypes
+    const isV3 = !!v3Channel.channelType
+    console.log('factory', channelName, isV3)
+    if(isV3) {
+      switch(v3Channel.channelType) {
+        case CHANNEL_COLLAB:
+          return <Channel2 channelId={matchedChannel[0]} />
+        case CHANNEL_CUSTOM:
+        case CHANNEL_CHAT:
+        //  return <ChatChannel2 channelId={matchedChannel[0]} />
+        case CHANNEL_MAPPING:
+        //  return <MAPPING2 channelId={matchedChannel[0]} />
+        default:
+          console.warn('not yet handling', v3Channel.channelType)
+      }
+    } else {
+      if (channelName === CHANNEL_MAPPING) {
+        return renderMap(node.getId())
+      } else if (matchedChannel.length && channelDefinition) {
+        // find out if channel just contains chat template
+        return isChatChannel(channelDefinition) ?
+          <ChatChannel channelId={matchedChannel[0]} />
+          : <Channel channelId={matchedChannel[0]} />
+      }  
     }
+
   }
 }
 
