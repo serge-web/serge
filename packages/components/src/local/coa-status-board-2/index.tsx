@@ -23,7 +23,9 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces, gameDate, onMessageRead, onMarkAllAsRead, currentWargame }: Props) => {
+export const CoaStatusBoard2: React.FC<Props> = ({ templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces, 
+  gameDate, onMessageRead, onMarkAllAsRead, currentWargame }: Props) => {
+
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
