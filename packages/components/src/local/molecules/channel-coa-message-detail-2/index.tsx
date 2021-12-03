@@ -127,6 +127,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       <div></div>
     )
   }
+
   const channelCollab = channelGeneric as ChannelCollab
 
   const [answer, setAnswer] = useState<{ [property: string]: any }>((message.details.collaboration && message.details.collaboration.response2) || {})
@@ -149,7 +150,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
   const { collaboration } = message.details
 
-  if (collaboration !== undefined) {
+  if (collaboration === undefined) {
+    console.warn('not rendering message, collaborative details missing')
+  } else {
     const isResponse = !!channelCollab.responseTemplate
     const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates2.Released || isObserver
 
