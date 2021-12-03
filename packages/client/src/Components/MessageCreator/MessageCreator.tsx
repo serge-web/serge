@@ -3,8 +3,8 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
-import { Editor, MessageDetails } from '@serge/custom-types'
-import { SpecialChannelTypes, CollaborativeMessageStates } from "@serge/config";
+import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
+import { SpecialChannelTypes, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates2 } from "@serge/config";
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -55,6 +55,26 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
         lastUpdated: moment(new Date(), moment.ISO_8601).format()
       }
     }
+
+    // see if it's v3 collab
+    const channelUI = state.channels[curChannel] as ChannelUI
+    if(channelUI.v3Channel) {
+      const channelTypes = channelUI.v3Channel
+      if(channelTypes.channelType === CHANNEL_COLLAB) {
+        // populate the metadata
+        const channelCollab = channelTypes as ChannelCollab
+        
+        // ok, brand new message
+        const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
+        const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
+        details.collaboration = {
+          status: initial,
+          status2: initial2,
+          lastUpdated: details.timestamp
+        }
+      }
+    }
+
 
     if (privateMessage && privateMessageRef.current) {
       details.privateMessage = privateMessageRef.current.value
