@@ -169,7 +169,6 @@ const factory = (state: PlayerUi): Factory => {
     // sort out if it's a modern channel
     const v3Channel = channelDefinition as ChannelTypes
     const isV3 = !!v3Channel.channelType
-    console.log('factory', channelName, isV3)
     if(isV3) {
       switch(v3Channel.channelType) {
         case CHANNEL_COLLAB:

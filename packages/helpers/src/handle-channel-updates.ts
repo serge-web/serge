@@ -185,6 +185,7 @@ export const handleAllInitialChannelMessages = (
 
       const messages = filterMessages()
       const v3Channel = channel as ChannelTypes
+      // grow the existing channel definition to include the new UI-focussed entries
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
@@ -197,10 +198,10 @@ export const handleAllInitialChannelMessages = (
         observing: observing,
         format: channel.format,
         channelType: v3Channel.channelType || CHANNEL_CUSTOM,
+        v3Channel: v3Channel.channelType ? v3Channel : undefined, // if there's a channel type, it's v3, so store it
         collabOptions: channel.collabOptions
       }
 
-      // TODO: use channel uniqid
       channels[channel.uniqid] = newChannel
     }
   })

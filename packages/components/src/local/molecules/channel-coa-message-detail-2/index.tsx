@@ -16,9 +16,9 @@ import SplitButton from '../../atoms/split-button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
-import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativeMessageStates2, CollaborativePermission, expiredStorage, InitialStates } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
+import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
 import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, CLAIM_MESSAGE, createActionTable, SAVE_MESSAGE, SUBMIT_FOR_REVIEW } from './helpers/actions-for'
 import { ClaimFunc, CoreFunc, SubmitFunc } from './helpers/handlers'
@@ -117,6 +117,19 @@ const injectFeedback = (message: MessageCustom, verb: string, feedback: string, 
 
 /* Render component */
 export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, state, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
+
+  // note: channelColb may be a ChannelUI, rather than ChannelCollab
+  const channAsUI = channelColb as unknown as ChannelUI
+  console.log('channel', channelColb.channelType)
+  const channelGeneric: ChannelTypes | undefined = channAsUI.v3Channel
+  if(!channelGeneric) {
+    console.warn("don't have v3 channel details")
+    return (
+      <div></div>
+    )
+  }
+  const channelCollab = channelGeneric as ChannelCollab
+
   const [answer, setAnswer] = useState<{ [property: string]: any }>((message.details.collaboration && message.details.collaboration.response2) || {})
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
@@ -135,10 +148,22 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
+  // do we need to inject collab details?
+  if(!message.details.collaboration) {
+    // ok, brand new message
+    const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
+    const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
+    message.details.collaboration = {
+      status: initial,
+      status2: initial2,
+      lastUpdated: message.details.timestamp
+    }
+  }
+
   const { collaboration } = message.details
 
   if (collaboration !== undefined) {
-    const isResponse = !!channelColb.responseTemplate
+    const isResponse = !!channelCollab.responseTemplate
     const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates2.Released || isObserver
 
     const docBeingEdited = state === CollaborativeMessageStates2.InProgress
@@ -149,8 +174,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
      * create the actions table for this user/channel
      */
     useEffect(() => {
-      setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs, isResponse))
-    }, [channelColb])
+      setActionTable(createActionTable(channelCollab.approveVerbs, channelCollab.requestChangesVerbs, channelCollab.releaseVerbs, isResponse))
+    }, [channelCollab])
 
     /**
      * sort out the candidates for the task
@@ -331,6 +356,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
       })
     })
 
+    console.log('message detail', channelCollab)
+
     return (
       <>
         <div className={styles.main}>
@@ -357,7 +384,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
                 messageTemplates={templates}
                 messageContent={message.message}
                 messageId={`${message._id}_${message.message.Reference}`}
-                template={channelColb.newMessageTemplate._id}
+                template={channelCollab.newMessageTemplate._id}
                 storeNewValue={notHappeningHandler}
                 disabled={true}
                 gameDate={gameDate}
@@ -367,7 +394,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={collaboration.response2 || {}}
-              template={channelColb.responseTemplate?._id || ''}
+              template={channelCollab.responseTemplate?._id || ''}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}
               title={'Response'}
@@ -376,7 +403,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             }
             {!isResponse && <JsonEditor
               messageTemplates={templates}
-              template={channelColb.newMessageTemplate._id}
+              template={channelCollab.newMessageTemplate._id}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.message}
               storeNewValue={newMessageHandler}
