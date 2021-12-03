@@ -16,7 +16,7 @@ import SplitButton from '../../atoms/split-button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
-import { CollaborativeMessageStates, CollaborativeMessageStates2, CollaborativePermission, expiredStorage, InitialStates } from '@serge/config'
+import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
@@ -147,18 +147,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
   const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void} | undefined>()
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
-
-  // do we need to inject collab details?
-  if(!message.details.collaboration) {
-    // ok, brand new message
-    const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
-    const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
-    message.details.collaboration = {
-      status: initial,
-      status2: initial2,
-      lastUpdated: message.details.timestamp
-    }
-  }
 
   const { collaboration } = message.details
 
