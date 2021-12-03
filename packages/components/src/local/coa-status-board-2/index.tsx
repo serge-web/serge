@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CollaborativePermission } from '@serge/config'
 import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
 import { genData2 } from './helpers/gen-data'
@@ -30,6 +30,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
+  const [searchString, setSearchString] = useState<string | undefined>(undefined)
 
   const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
   // participations relate to me if they contain no roles, or if they contain my role
@@ -61,6 +62,10 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     onChange
   )
 
+  useEffect(() => {
+    applyFilter(searchString || '')
+  }, [messages])
+
   if (!inFilterMode && filteredRows.length !== rows.length) {
     setFilterdRows(rows)
   }
@@ -87,21 +92,26 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     return data.collapsible()
   }
 
+  const applyFilter = (searchStr: string) => {
+    const filteredRows = rows
+    .filter((row: Row) => Object
+      .values(row)
+      .some((value: any) =>
+        value &&
+        typeof value === 'string' &&
+        (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr)))
+    )
+    setFilterdRows(filteredRows)
+  }
+
   let doFilter: any
   const filterTable = (e: any): void => {
     clearTimeout(doFilter)
     const searchStr = e.target.value
+    setSearchString(searchStr)
     setFilterMode(searchStr !== '')
     doFilter = setTimeout(() => {
-      const filteredRows = rows
-        .filter((row: Row) => Object
-          .values(row)
-          .some((value: any) =>
-            value &&
-            typeof value === 'string' &&
-            (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr)))
-        )
-      setFilterdRows(filteredRows)
+      applyFilter(searchStr)
     }, 500)
   }
 
