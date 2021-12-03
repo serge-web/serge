@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import NewMessage from './NewMessage'
-import { ChannelMessagesList } from '@serge/components'
 import {
   getAllWargameMessages,
   openMessage,

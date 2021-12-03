@@ -75,6 +75,5 @@ export const actionsFor = (actionTable: ActionTable, state: States, permission: 
   // note: the '+1' in the following line needed to be added when we moved from StoryBook to Serge
   const correctedPermission = typeof(permission) === 'string' ? permissionFor(permission) + 1 : permission
   const actions = forState.filter((_element: any, index: number) => index <= correctedPermission)
-  console.log('actions for', actions, state, permission, correctedPermission, forState)
   return actions.flat()
 }
