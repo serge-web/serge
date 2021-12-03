@@ -63,6 +63,8 @@ export const CoaStatusBoard2: React.FC<Props> = ({
   )
 
   useEffect(() => {
+    // if the list of messages has changed, we need to re-run the filter, which
+    // updates the filteredMessages object that gets rendered
     applyFilter(searchString || '')
   }, [messages])
 
