@@ -46,34 +46,8 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   return actions
 }
 
-/** utility function to get permission value from the string representation of a permission */
-const permissionFor = (permission: Readonly<string>): Permission => {
-  switch (permission) {
-    case 'CannotCollaborate':
-      return Permission.CannotCollaborate
-    case 'CanEdit':
-      return Permission.CanEdit
-    case 'CanSubmitForReview':
-      return Permission.CanSubmitForReview
-    case 'CanApprove':
-      return Permission.CanApprove
-    case 'CanRelease':
-      return Permission.CanRelease
-    case 'CanUnClaim':
-      return Permission.CanUnClaim
-    default: {
-      console.error('Failed to match permission string for', permission)
-      return Permission.CannotCollaborate
-    }
-  }
-}
-
 export const actionsFor = (actionTable: ActionTable, state: States, permission: Permission): Action[] => {
   const forState: ActionList = actionTable[state]
-  // the permission parameter may be the string representation of the permission - since that's more legible
-  // when viewing the JSON for a saved channel
-  // note: the '+1' in the following line needed to be added when we moved from StoryBook to Serge
-  const correctedPermission = typeof(permission) === 'string' ? permissionFor(permission) + 1 : permission
-  const actions = forState.filter((_element: any, index: number) => index <= correctedPermission)
+  const actions = forState.filter((_element: any, index: number) => index <= permission)
   return actions.flat()
 }
