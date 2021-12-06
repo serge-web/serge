@@ -53,7 +53,7 @@ export const genData2 = (
   let unreadMessagesCount = 0
 
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
-  const isCollaborating = permission > CollaborativePermission.CannotCollaborate
+  const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
   const sortCol = (str1: string, str2: string): number => {
     const a = str1.toLowerCase()
