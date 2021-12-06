@@ -8,14 +8,14 @@ import DbProvider from './db'
 
 const LOCAL_DOC = '_local/settings'
 
-var sergeInfoDb = new DbProvider(databasePath + SERGE_INFO)
+var db = new DbProvider(databasePath + SERGE_INFO)
 
-sergeInfoDb.get(LOCAL_DOC)
+db.get(LOCAL_DOC)
   .then((data) => {
     if (!data.status) {
       return {}
     } else {
-      return LOCAL_DOC.put({
+      return db.put({
         _id: LOCAL_DOC,
         ...defaultGameInfo
       })
@@ -23,7 +23,7 @@ sergeInfoDb.get(LOCAL_DOC)
   })
 
 export const getGameInformation = () => {
-  return LOCAL_DOC.get(LOCAL_DOC)
+  return db.get(LOCAL_DOC)
     .then((res) => {
       delete res._id
       delete res._rev
@@ -33,9 +33,9 @@ export const getGameInformation = () => {
 
 export const saveGameInformation = ({ title, description, imageUrl }) => {
   return new Promise((resolve, reject) => {
-    LOCAL_DOC.get(LOCAL_DOC)
+    db.get(LOCAL_DOC)
       .then((res) => {
-        return LOCAL_DOC.put({
+        return db.put({
           _id: res._id,
           _rev: res._rev,
           title: title !== undefined ? title : res.title,
@@ -44,7 +44,7 @@ export const saveGameInformation = ({ title, description, imageUrl }) => {
         })
       })
       .then(() => {
-        return LOCAL_DOC.get(LOCAL_DOC)
+        return db.get(LOCAL_DOC)
       })
       .then((res) => {
         delete res._id

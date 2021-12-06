@@ -119,7 +119,7 @@ export const genData = (
     const cells = [
       {
         component: <><FontAwesomeIcon color={isReaded ? '#838585' : '#69c'} icon={isReaded ? faEnvelopeOpen : faEnvelope} />&nbsp;
-        {message.message.Reference || message._id}</>,
+          {message.message.Reference || message._id}</>,
         label: message.message.Reference || message._id
       },
       {
