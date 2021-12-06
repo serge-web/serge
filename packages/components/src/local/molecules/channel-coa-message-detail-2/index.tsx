@@ -321,9 +321,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
 
     // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
     const inProgress = state === CollaborativeMessageStates2.InProgress
-    const saveOrSubmit = (permission === CollaborativePermission.CanEdit) || (permission === CollaborativePermission.CanSubmitForReview)
+    const saveOrSubmit = permission >= CollaborativePermission.CanEdit
     const isOwner = role.roleId === collaboration.owner?.roleId
-    const showActions = inProgress && saveOrSubmit ? isOwner : true
+    const showActions = (inProgress && saveOrSubmit) ? isOwner : true
+    const privateIsEditable = inProgress && saveOrSubmit && isOwner
 
     const actions = (showActions && actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
 
@@ -404,7 +405,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
             { // only show private field for umpire force(s)
               (isUmpire || isObserver) &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
-              disabled={state !== CollaborativeMessageStates2.InProgress || !isUmpire} label='Private Message' labelFactory={labelFactory} />
+              disabled={!privateIsEditable} label='Private Message' labelFactory={labelFactory} />
             }
             <div key='lower' className={styles.actions}>
               {
