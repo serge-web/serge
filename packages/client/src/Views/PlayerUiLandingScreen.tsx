@@ -4,11 +4,18 @@ import lineBreak from '../Helpers/splitNewLineBreak'
 import { ADMIN_ROUTE, STORYBOOK_ROUTE } from '../consts'
 import { faUserCog, faPencilRuler } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from './PlayerUi/types'
+import { localSettings } from '@serge/config'
+import { sergeInfoDb } from '../api/sergeInfo_api'
 
 interface Props { gameInfo: GameInfo, enterSerge: () => void }
 
-const PlayerUiLandingScreen: React.FC<Props> = ({ gameInfo, enterSerge }) => (
-  <div className="flex-content-wrapper flex-content-wrapper--welcome">
+const PlayerUiLandingScreen: React.FC<Props> = ({ gameInfo, enterSerge }) => {
+
+  const [title,setTitle] = React.useState('')
+
+  sergeInfoDb.get(localSettings).then((res) => setTitle(res['title'] || 'Database not found'))
+
+  return <div className="flex-content-wrapper flex-content-wrapper--welcome">
     <div className="flex-content flex-content--welcome">
       <div className="flex-content--center contain-welcome-screen position-relative">
         <div className="welcome-logo">
@@ -25,13 +32,13 @@ const PlayerUiLandingScreen: React.FC<Props> = ({ gameInfo, enterSerge }) => (
           </a>
         </div>
         <div className="welcome-desc">
-          <h1>{gameInfo.title}</h1>
+          <h1>{title}</h1>
           {lineBreak(gameInfo.description)}
           <button name="play" className="btn btn-action btn-action--primary" onClick={enterSerge}>Play</button>
         </div>
       </div>
     </div>
   </div>
-)
+}
 
 export default PlayerUiLandingScreen

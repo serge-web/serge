@@ -1,4 +1,16 @@
 const fs = require('fs')
+const dotenv = require('dotenv')
+
+let { RAVEN_URL, CERT_PATH, CERT_PASSWORD } = process.env
+
+dotenv.config()
+dotenv.config({ path: '.env.local' })
+
+// if not exist
+if (!RAVEN_URL || !CERT_PATH || !CERT_PASSWORD) {
+  ({ RAVEN_URL, CERT_PATH, CERT_PASSWORD } = process.env)
+}
+
 const listeners = {}
 let addListenersQueue = []
 const { localSettings, COUNTER_MESSAGE } = require('../consts')
@@ -12,25 +24,20 @@ const {
 } = require('ravendb')
 
 const ravenDb = (app, io) => {
-  // init store
-  const ravenURL = process.env.RAVEN_URL || 'http://localhost:4040/'
-  const certPath = process.env.CERT_PATH
-  const certPassword = process.env.CERT_PASSWORD
-
   // if we have CERT_PATH then we need to define authorization options
-  const authOptions = certPath ? {
-    certificate: fs.readFileSync(certPath),
+  const authOptions = CERT_PATH ? {
+    certificate: fs.readFileSync(CERT_PATH),
     type: 'pfx',
-    password: certPassword || ''
+    password: CERT_PASSWORD || ''
   } : undefined
 
   // we don't need a default selected database bcos we need to work with multiple databases so default database is null
-  const store = new DocumentStore(ravenURL, null, authOptions)
+  const store = new DocumentStore(RAVEN_URL, null, authOptions)
   store.initialize()
 
   // changesListener
   const initChangesListener = (dbName) => {
-  // saving listener
+    // saving listener
     listeners[dbName] = store.changes(dbName)
     // adding subscription for listener
     listeners[dbName].forAllDocuments().on('data', async change => {
@@ -77,11 +84,8 @@ const ravenDb = (app, io) => {
               .then(() => { // database created successfully
                 addListenersQueue.push(dbName) // add on change listeners
                 resolve(true)
-              })
-              .catch(err => reject(err))
-          } else {
-            reject(err)
-          }
+              }).catch(err => reject(err))
+          } else resolve(err)
         })
     })
   }
@@ -124,7 +128,7 @@ const ravenDb = (app, io) => {
           }).catch(err => res.status(400).send({ msg: 'Error on put', data: err }))
         }
       }).catch((err) => res.status(404).send(err))
-    }).catch((err) => res.status(500).send(err))
+    }).catch(() => res.send([]))
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
@@ -173,7 +177,7 @@ const ravenDb = (app, io) => {
     const operation = new GetDatabaseNamesOperation(0, 1000)
     store.maintenance.server.send(operation).then((items) => {
       res.send({ msg: 'ok', data: items || [] })
-    }).catch((err) => res.status(404).send({ msg: 'Something went wrong on all dbs load ', data: err }))
+    }).catch(() => res.send([]))
   })
 
   // get all documents for wargame
@@ -193,10 +197,10 @@ const ravenDb = (app, io) => {
           return messages
         }, [])
         res.send({ msg: 'ok', data: messages })
-      }).catch((err) => {
-        res.status(404).send({ msg: 'Something went wrong on docs load ', data: err })
+      }).catch(() => {
+        res.send([])
       })
-    }).catch((err) => res.status(500).send({ msg: 'Error on load db', data: err }))
+    }).catch(() => res.send([]))
   })
 
   // get document for wargame
@@ -215,13 +219,9 @@ const ravenDb = (app, io) => {
     ensureDatabaseExists(store, databaseName).then(() => {
       const session = store.openSession(databaseName)
       session.load(id).then((data) => {
-        if (data) {
-          res.send({ msg: 'ok', data })
-        } else {
-          res.status(404).send({ msg: `Doc with id: "${id}" not found`, data })
-        }
-      }).catch((err) => res.status(404).send({ msg: 'Something went wrong on doc load ', data: err }))
-    }).catch((err) => res.status(500).send({ msg: 'Error on load db', data: err }))
+        res.send({ msg: 'ok', data: data || [] })
+      }).catch(() => res.send([]))
+    }).catch(() => res.send())
   })
 }
 

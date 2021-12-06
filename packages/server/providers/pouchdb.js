@@ -102,7 +102,7 @@ const pouchDb = (app, io, pouchOptions) => {
     PouchDB.allDbs().then(dbs => {
       const dbList = dbs.map(dbName => dbName.replace(dbSuffix, ''))
       res.send({ msg: 'ok', data: dbList || [] })
-    }).catch(err => res.status(400).send({ msg: 'Something went wrong on all dbs load ', data: err }))
+    }).catch(() => res.send([]))
   })
 
   // get all documents for wargame
@@ -122,7 +122,7 @@ const pouchDb = (app, io, pouchOptions) => {
           return messages
         }, [])
         res.send({ msg: 'ok', data: messages })
-      }).catch(err => res.status(400).send({ msg: 'error on load all docs', data: err }))
+      }).catch(() => res.send([]))
   })
 
   // get document for wargame
@@ -140,11 +140,8 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     db.get(id)
-      .then(data => res.send({ msg: 'ok', data }))
-      .catch(err => res.status(400).send({
-        msg: 'Something went wrong on doc load',
-        data: err
-      }))
+      .then(data => res.send({ msg: 'ok', data: data || [] }))
+      .catch(() => res.send([]))
   })
 }
 

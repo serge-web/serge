@@ -40,13 +40,13 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  get (query: string): Promise<Wargame | Message> {
+  get (query: string): Promise<Wargame | Message | { status: number }> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
-        .then(({ msg, data }) => { 
+        .then(({ msg, data }) => {
           if (msg === 'ok') resolve(data)
-          else reject({ msg: msg, status: 404 })
+          else resolve({ status: 404 })
         })
     })
   }

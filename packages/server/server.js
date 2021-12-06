@@ -136,24 +136,6 @@ const runServer = (
     } else if (provider === POUCH_DB) {
       const pouchDb = require('./providers/pouchdb')
       pouchDb(app, io, pouchOptions)
-    } else {
-      app.put('/:wargame', (req, res) => {
-        res.send([])
-      })
-
-      // get all wargame names
-      app.get('/allDbs', async (req, res) => {
-        res.send([])
-      })
-
-      // get all documents for wargame
-      app.get('/:wargame', async (req, res) => {
-        res.send({ msg: 'ok', data: [] })
-      })
-
-      app.get('/:wargame/:id/:idp2', (req, res) => {
-        res.send({ msg: 'ok', data: { title: 'Database not found' } })
-      })
     }
   }
 

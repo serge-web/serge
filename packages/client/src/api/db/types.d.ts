@@ -4,7 +4,7 @@ import { Socket } from "socket.io-client"
 export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
   destroy: () => void
-  get: (query: string) => Promise<Wargame | Message>
+  get: (query: string) => Promise<Wargame | Message | { status: number }>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
   allDocs: () => Promise<Message[]>
   replicate: (newDb: string) => Promise<DbProvider>
@@ -25,7 +25,8 @@ export interface ChangesResponseChange<Content extends {}> {
 
 export interface FetchData {
   msg: string,
-  data: Wargame | Message
+  data: Wargame | Message,
+  status: number
 }
 export interface FetchDataArray {
   msg: string,

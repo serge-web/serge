@@ -5,24 +5,24 @@ import {
 } from '../consts'
 import { fetch } from 'whatwg-fetch'
 import DbProvider from './db'
+import { localSettings } from '@serge/config'
 
-const LOCAL_DOC = '_local/settings'
+export const sergeInfoDb = new DbProvider(databasePath + SERGE_INFO)
 
-var db = new DbProvider(databasePath + SERGE_INFO)
-
-db.get(LOCAL_DOC)
-  .then(() => {})
-  .catch((err) => {
-    if (err.status === 404) {
-      db.put({
-        _id: LOCAL_DOC,
+sergeInfoDb.get(localSettings)
+  .then((data) => {
+    if (!data.status) {
+      return {}
+    } else {
+      return sergeInfoDb.put({
+        _id: localSettings,
         ...defaultGameInfo
       })
     }
   })
 
 export const getGameInformation = () => {
-  return db.get(LOCAL_DOC)
+  return sergeInfoDb.get(localSettings)
     .then((res) => {
       delete res._id
       delete res._rev
@@ -32,9 +32,9 @@ export const getGameInformation = () => {
 
 export const saveGameInformation = ({ title, description, imageUrl }) => {
   return new Promise((resolve, reject) => {
-    db.get(LOCAL_DOC)
+    sergeInfoDb.get(localSettings)
       .then((res) => {
-        return db.put({
+        return sergeInfoDb.put({
           _id: res._id,
           _rev: res._rev,
           title: title !== undefined ? title : res.title,
@@ -43,7 +43,7 @@ export const saveGameInformation = ({ title, description, imageUrl }) => {
         })
       })
       .then(() => {
-        return db.get(LOCAL_DOC)
+        return sergeInfoDb.get(localSettings)
       })
       .then((res) => {
         delete res._id
@@ -62,6 +62,5 @@ export const saveLogo = (file) => {
     method: 'POST',
     'Content-Type': 'image/png',
     body: file
-  })
-    .then((res) => res.json())
+  }).then((res) => res.json())
 }

@@ -8,6 +8,7 @@
     "@serge/client": "^0.3.0",
     "adm-zip": "^0.4.13",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.16.4",
     "express-pouchdb": "^4.1.0",
     "ip": "^1.1.5",
