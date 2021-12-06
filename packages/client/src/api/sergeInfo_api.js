@@ -5,24 +5,25 @@ import {
 } from '../consts'
 import { fetch } from 'whatwg-fetch'
 import DbProvider from './db'
-import { localSettings } from '@serge/config'
 
-export const sergeInfoDb = new DbProvider(databasePath + SERGE_INFO)
+const LOCAL_DOC = '_local/settings'
 
-sergeInfoDb.get(localSettings)
+var sergeInfoDb = new DbProvider(databasePath + SERGE_INFO)
+
+sergeInfoDb.get(LOCAL_DOC)
   .then((data) => {
     if (!data.status) {
       return {}
     } else {
-      return sergeInfoDb.put({
-        _id: localSettings,
+      return LOCAL_DOC.put({
+        _id: LOCAL_DOC,
         ...defaultGameInfo
       })
     }
   })
 
 export const getGameInformation = () => {
-  return sergeInfoDb.get(localSettings)
+  return LOCAL_DOC.get(LOCAL_DOC)
     .then((res) => {
       delete res._id
       delete res._rev
@@ -32,9 +33,9 @@ export const getGameInformation = () => {
 
 export const saveGameInformation = ({ title, description, imageUrl }) => {
   return new Promise((resolve, reject) => {
-    sergeInfoDb.get(localSettings)
+    LOCAL_DOC.get(LOCAL_DOC)
       .then((res) => {
-        return sergeInfoDb.put({
+        return LOCAL_DOC.put({
           _id: res._id,
           _rev: res._rev,
           title: title !== undefined ? title : res.title,
@@ -43,7 +44,7 @@ export const saveGameInformation = ({ title, description, imageUrl }) => {
         })
       })
       .then(() => {
-        return sergeInfoDb.get(localSettings)
+        return LOCAL_DOC.get(LOCAL_DOC)
       })
       .then((res) => {
         delete res._id
