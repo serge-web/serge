@@ -94,15 +94,14 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     return data.collapsible()
   }
 
-  const applyFilter = (searchStr: string) => {
+  const applyFilter = (searchStr: string): void => {
     const filteredRows = rows
-    .filter((row: Row) => Object
-      .values(row)
-      .some((value: any) =>
-        value &&
-        typeof value === 'string' &&
-        (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr)))
-    )
+      .filter((row: Row) => Object
+        .values(row)
+        .some((value: any) =>
+          value &&
+          typeof value === 'string' &&
+          (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr))))
     setFilterdRows(filteredRows)
   }
 

@@ -92,6 +92,7 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
             }}
             forces={state.allForces}
             isUmpire={!!isUmpire}
+            isObserver={observing}
             channelColb={v3Channel as ChannelCollab}
             onChange={handleChange}
             gameDate={gameDate}
