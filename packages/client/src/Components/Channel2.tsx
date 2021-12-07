@@ -9,9 +9,9 @@ import {
   markUnread
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
-import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab, TemplateBody } from '@serge/custom-types'
+import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
 import { CoaStatusBoard2 } from "@serge/components";
-import { CHANNEL_COLLAB, SpecialChannelTypes } from "@serge/config";
+import { CHANNEL_COLLAB } from "@serge/config";
 import '@serge/themes/App.scss'
 
 const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
@@ -47,7 +47,7 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(markAllAsRead(channelId))
   }
 
-  const handleUnreadMessage = (message: MessageChannel): void => {
+  const _handleUnreadMessage = (message: MessageChannel): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
@@ -58,12 +58,8 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
   }
 
-  const icons = channel.forceIcons
-  const colors = channel.forceColors
-  const channelFormat = channel.format
   const channelMessages = channel.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
-  const isLegacyCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
   
   //
   const role = {
@@ -78,12 +74,9 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
   // can I create messages in the channel?
   const canCreateMessages = isParticipating.filter((p: ParticipantCollab) => (p.canCreate)).length > 0
 
-  const templates = channel.templates || []
   const allTemplates = state.allTemplatesByKey
   const newMessageTemplate = allTemplates[v3Channel.newMessageTemplate._id]
-  // if this is a collab working channel, strip out any chat templates - since we only use structured messages
-  // in collab working channels
- // const trimmedTemplates = isLegacyCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
+
   const trimmedTemplates = [newMessageTemplate]
 
   const observing = !!channel.observing
@@ -111,7 +104,7 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
         )}
       </div>
       {
-        !observing && canCreateMessages && trimmedTemplates.length > 0 &&
+        canCreateMessages &&
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
