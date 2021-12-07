@@ -133,7 +133,6 @@ export const genData2 = (
     )
   }
 
-
   if (channelColb.extraColumns) {
     const newCols = channelColb.extraColumns.map((col: SpecialChannelColumns): Column => {
       return {
