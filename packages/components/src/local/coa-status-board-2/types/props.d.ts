@@ -33,6 +33,8 @@ export default interface Props {
   gameDate: string
   /** fires on change message status to readed **/
   onMessageRead?: (message: MessageCustom) => void
+  /** fires when player marks message as unread **/
+  handleUnreadMessage?: (message: MessageCustom) => void
   /** mark all message as read */
   onMarkAllAsRead?: () => void
 }

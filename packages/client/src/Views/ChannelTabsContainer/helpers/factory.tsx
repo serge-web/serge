@@ -188,7 +188,7 @@ const factory = (state: PlayerUi): Factory => {
     } else {
       if (channelName === CHANNEL_MAPPING) {
         return renderMap(node.getId())
-      } else if (matchedChannel.length && channelDefinition) {
+      } else if (matchedChannel.length) {
         // find out if channel just contains chat template
         return isChatChannel(channelDefinition) ?
           <ChatChannel channelId={matchedChannel[0]} />

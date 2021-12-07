@@ -58,9 +58,6 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const channelMessages = channel.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
   const isLegacyCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-  const isV3CollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-  
-
   const templates = channel.templates || []
   // if this is a collab working channel, strip out any chat templates - since we only use structured messages
   // in collab working channels

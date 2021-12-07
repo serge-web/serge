@@ -47,7 +47,7 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(markAllAsRead(channelId))
   }
 
-  const _handleUnreadMessage = (message: MessageChannel): void => {
+  const handleUnreadMessage = (message: MessageChannel): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
@@ -91,6 +91,7 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
             currentWargame={state.currentWargame}
             onMessageRead={handleOpenMessage}
             onMarkAllAsRead={markAllMsgAsRead}
+            onUnread={handleUnreadMessage}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={role}
