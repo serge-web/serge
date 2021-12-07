@@ -16,22 +16,42 @@ describe('Action table & actions', () => {
   it('Retrieve actions', () => {
     const table: ActionTable = createActionTable(['Approve1'], ['Request1', 'Endorse1'], ['Finalise'], true)
     // initial state
-    const canSaveBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit)
-    expect(canSaveBeingEdited).toBeTruthy()
-    expect(canSaveBeingEdited.length).toEqual(1)
-    expect(canSaveBeingEdited[0].verbs.length).toEqual(1)
-    expect(canSaveBeingEdited[0].verbs[0]).toEqual('Save')
-    expect(canSaveBeingEdited[0].handler).toBeTruthy()
-    const releaseBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit)
-    expect(releaseBeingEdited).toEqual(canSaveBeingEdited)
+    const isOwner = true
+    const notOwner = false
+    const ownerCanSaveBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit, isOwner)
+    expect(ownerCanSaveBeingEdited).toBeTruthy()
+    expect(ownerCanSaveBeingEdited.length).toEqual(1)
+    expect(ownerCanSaveBeingEdited[0].verbs.length).toEqual(1)
+    expect(ownerCanSaveBeingEdited[0].verbs[0]).toEqual('Save')
+    expect(ownerCanSaveBeingEdited[0].handler).toBeTruthy()
 
-    const canEditWithFinalised = actionsFor(table, States.Released, Permission.CanEdit)
+    const ownerUnClaimBeingEdited = actionsFor(table, States.InProgress, Permission.CanUnClaim, isOwner)
+    expect(ownerUnClaimBeingEdited).toBeTruthy()
+    expect(ownerUnClaimBeingEdited.length).toEqual(4)
+    expect(ownerUnClaimBeingEdited[0].verbs.length).toEqual(1)
+    expect(ownerUnClaimBeingEdited[0].verbs[0]).toEqual('Save')
+    expect(ownerUnClaimBeingEdited[3].verbs[0]).toEqual('Unclaim')
+    expect(ownerUnClaimBeingEdited[0].handler).toBeTruthy()
+
+
+    const notOwnerCannotSaveBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit, notOwner)
+    expect(notOwnerCannotSaveBeingEdited).toBeTruthy()
+    expect(notOwnerCannotSaveBeingEdited.length).toEqual(0)
+
+    const notOwnerCanUnclaim = actionsFor(table, States.InProgress, Permission.CanUnClaim, notOwner)
+    expect(notOwnerCanUnclaim).toBeTruthy()
+    expect(notOwnerCanUnclaim.length).toEqual(1)
+
+    const releaseBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit, isOwner)
+    expect(releaseBeingEdited).toEqual(ownerCanSaveBeingEdited)
+
+    const canEditWithFinalised = actionsFor(table, States.Released, Permission.CanEdit, isOwner)
     expect(canEditWithFinalised.length).toEqual(0) // doesn't have permission to do anything
 
-    const canReleaseWithFinalised = actionsFor(table, States.Released, Permission.CanRelease)
+    const canReleaseWithFinalised = actionsFor(table, States.Released, Permission.CanRelease, isOwner)
     expect(canReleaseWithFinalised.length).toEqual(1) // doesn't have permission to do anything
 
-    const canReleaseWithPending = actionsFor(table, States.PendingReview, Permission.CanApprove)
+    const canReleaseWithPending = actionsFor(table, States.PendingReview, Permission.CanApprove, isOwner)
     expect(canReleaseWithPending.length).toEqual(3) // could be approve, request changes or claim
   })
 })
