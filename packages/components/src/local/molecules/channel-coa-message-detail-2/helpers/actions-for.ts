@@ -48,20 +48,19 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
 
 export const actionsFor = (actionTable: ActionTable, state: States, permission: Permission, isOwner?: boolean): Action[] => {
   const forState: ActionList = actionTable[state]
-  if(state === States.InProgress) {
+  if (state === States.InProgress) {
     // special handling. We only offer save/submit if it's the owner
-    if(isOwner) {
+    if (isOwner) {
       const actions = forState.filter((_element: any, index: number) => index <= permission)
       return actions.flat()
-    } else if(permission === Permission.CanUnClaim) {
+    } else if (permission === Permission.CanUnClaim) {
       const actions = forState.filter((_element: any, index: number) => index === Permission.CanUnClaim)
       return actions.flat()
     } else {
       return []
     }
-
   } else {
     const actions = forState.filter((_element: any, index: number) => index <= permission)
-    return actions.flat()  
+    return actions.flat()
   }
 }
