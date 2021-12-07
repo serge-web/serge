@@ -90,10 +90,6 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const isCollabEdit = v3Channel.channelType === CHANNEL_COLLAB
 
-  if(channel.name === 'Blue RFI 2') [
-    console.log('in channel 2', channel, isCollabEdit, v3Channel)
-  ]
-
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
