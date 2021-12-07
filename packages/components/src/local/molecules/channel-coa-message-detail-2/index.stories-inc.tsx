@@ -16,7 +16,7 @@ import docs from './README.md'
 
 import { MessageCustom, ForceRole, ChannelCollab } from '@serge/custom-types'
 import { CollaborativeMessageStates2, CollaborativePermission } from '@serge/config'
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: 'auto' }}>{storyFn()}</div>
 
 const roles: ForceRole[] = [
   { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },

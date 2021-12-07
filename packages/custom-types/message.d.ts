@@ -126,6 +126,7 @@ export interface CollaborationDetails {
   /**
    * Message status
    */
+  // TODO: delete this property
   status: CollaborativeMessageStates
   /**
    * (new) Message status

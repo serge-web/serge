@@ -33,8 +33,8 @@ export enum Phase {
 
 /** the initial state for new messages in a collab edit channel */
 export enum InitialStates {
-  PENDING_REVIEW,
-  UNALLOCATED
+  PENDING_REVIEW = 'PENDING_REVIEW',
+  UNALLOCATED = 'UNALLOCATED'
 }
 
 /** types of special channel */

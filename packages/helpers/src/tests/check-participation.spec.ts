@@ -1,4 +1,4 @@
-import { deepCopy, checkParticipantStates, getParticipantStates } from '../'
+import { deepCopy, checkLegacyParticipantStates, getParticipantStates } from '../'
 import { ChannelData, Participant, Role, TemplateBodysByKey } from '@serge/custom-types'
 import { forces } from '@serge/mocks'
 
@@ -76,38 +76,44 @@ it('Check umpire in channel', () => {
   const selForce = 'umpire'
   const selRole = gameControl.name
   const isObserver = false
-  const res = checkParticipantStates(allForcesChannel, selForce, selRole, isObserver)
+  const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, isObserver)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
+  expect(res.templatesIDs).toBeTruthy()
+  expect(res.templatesIDs.length).toEqual(0)
   expect(res.allRolesIncluded).toBeTruthy()
-  expect(res.participatingRoles).toEqual([allForcesChannel.participants[0]])
 })
 
 it('Check member force in named role in channel', () => {
   const selForce = 'Red'
   const selRole = redLogs.roleId
-  const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
+  const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
+  expect(res.templatesIDs).toBeTruthy()
+  expect(res.templatesIDs.length).toEqual(2)
   expect(res.allRolesIncluded).toBeFalsy()
-  expect(res.participatingRoles).toEqual([allForcesChannel.participants[1]])
 })
 
 it('Check non-member force in named role in channel', () => {
   const selForce = 'Red'
   const selRole = 'rkrlw6f5m'
-  const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
+  const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
+  expect(res.templatesIDs).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
+  expect(res.templatesIDs.length).toEqual(0)
   expect(res.allRolesIncluded).toBeFalsy()
 })
 
 it('Check non-member force in named role in channel where no roles named', () => {
   const selForce = 'Blue'
   const selRole = 'rkrlw6f5n'
-  const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
+  const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
+  expect(res.templatesIDs).toBeTruthy()
+  expect(res.templatesIDs.length).toEqual(0)
   expect(res.allRolesIncluded).toBeTruthy()
 })
 
@@ -117,8 +123,9 @@ it('Check missing force not in channel', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'Blue')
   const selForce = 'Blue'
   const selRole = gameControl.roleId
-  const res = checkParticipantStates(newChannel, selForce, selRole, false)
+  const res = checkLegacyParticipantStates(newChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
+  expect(res.templatesIDs).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
 })
 
@@ -128,10 +135,10 @@ it('Check missing force in channel if observer', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
   const selRole = gameControl.roleId
-  const res = checkParticipantStates(newChannel, selForce, selRole, true)
+  const res = checkLegacyParticipantStates(newChannel, selForce, selRole, true)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
-  expect(res.participatingRoles.length > 0).toBeFalsy()
+  expect(res.templatesIDs).toBeTruthy()
   expect(res.allRolesIncluded).toBeFalsy()
 })
 
@@ -159,7 +166,6 @@ it('Check states for role who is registered', () => {
   expect(states.isParticipant).toBeTruthy()
   expect(states.observing).toBeFalsy() // since member is participant
   expect(states.templates.length).toEqual(2)
-  expect(states.allRolesIncluded).toBeFalsy()
 })
 
 it('Check states for role who is not registered', () => {
@@ -173,7 +179,6 @@ it('Check states for role who is not registered', () => {
   expect(states.isParticipant).toBeFalsy()
   expect(states.observing).toBeFalsy() // since member is participant
   expect(states.templates.length).toEqual(0)
-  expect(states.allRolesIncluded).toBeFalsy()
 })
 
 it('Check states for role in force with all members', () => {
@@ -187,7 +192,6 @@ it('Check states for role in force with all members', () => {
   expect(states.isParticipant).toBeTruthy()
   expect(states.observing).toBeFalsy() // since member is participant
   expect(states.templates.length).toEqual(1) // since it should return chat template
-  expect(states.allRolesIncluded).toEqual(newChannel.participants[1])
 })
 
 it('Check states for role in force with all members, but with no chat templates provided', () => {
@@ -201,5 +205,4 @@ it('Check states for role in force with all members, but with no chat templates 
   expect(states.isParticipant).toBeTruthy()
   expect(states.observing).toBeFalsy() // since member is participant
   expect(states.templates.length).toEqual(0) // since chat template missing
-  expect(states.allRolesIncluded).toEqual(newChannel.participants[1])
 })

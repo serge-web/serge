@@ -18,7 +18,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
+import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
 import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, CLAIM_MESSAGE, createActionTable, SAVE_MESSAGE, SUBMIT_FOR_REVIEW } from './helpers/actions-for'
 import { ClaimFunc, CoreFunc, SubmitFunc } from './helpers/handlers'
@@ -116,7 +116,22 @@ const injectFeedback = (message: MessageCustom, verb: string, feedback: string, 
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, state, onChange, isObserver, isUmpire, role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded }) => {
+export const ChannelCoaMessageDetail2: React.FC<Props> = ({
+  templates, message, state, onChange, isObserver, isUmpire,
+  role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded
+}) => {
+  // note: channelColb may be a ChannelUI, rather than ChannelCollab
+  const channAsUI = channelColb as unknown as ChannelUI
+  const channelGeneric: ChannelTypes | undefined = channAsUI.v3Channel || channelColb
+  if (!channelGeneric) {
+    console.warn("don't have v3 channel details")
+    return (
+      <div></div>
+    )
+  }
+
+  const channelCollab = channelGeneric as ChannelCollab
+
   const [answer, setAnswer] = useState<{ [property: string]: any }>((message.details.collaboration && message.details.collaboration.response2) || {})
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
@@ -137,8 +152,11 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
   const { collaboration } = message.details
 
-  if (collaboration !== undefined) {
-    const isResponse = !!channelColb.responseTemplate
+  if (collaboration === undefined) {
+    console.warn('not rendering message, collaborative details missing')
+    return <></>
+  } else {
+    const isResponse = !!channelCollab.responseTemplate
     const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates2.Released || isObserver
 
     const docBeingEdited = state === CollaborativeMessageStates2.InProgress
@@ -149,8 +167,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
      * create the actions table for this user/channel
      */
     useEffect(() => {
-      setActionTable(createActionTable(channelColb.approveVerbs, channelColb.requestChangesVerbs, channelColb.releaseVerbs, isResponse))
-    }, [channelColb])
+      setActionTable(createActionTable(channelCollab.approveVerbs, channelCollab.requestChangesVerbs, channelCollab.releaseVerbs, isResponse))
+    }, [channelCollab])
 
     /**
      * sort out the candidates for the task
@@ -303,9 +321,10 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
 
     // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
     const inProgress = state === CollaborativeMessageStates2.InProgress
-    const saveOrSubmit = (permission === CollaborativePermission.CanEdit) || (permission === CollaborativePermission.CanSubmitForReview)
+    const saveOrSubmit = permission >= CollaborativePermission.CanEdit
     const isOwner = role.roleId === collaboration.owner?.roleId
-    const showActions = inProgress && saveOrSubmit ? isOwner : true
+    const showActions = (inProgress && saveOrSubmit) ? isOwner : true
+    const privateIsEditable = inProgress && saveOrSubmit && isOwner
 
     const actions = (showActions && actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
 
@@ -357,7 +376,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
                 messageTemplates={templates}
                 messageContent={message.message}
                 messageId={`${message._id}_${message.message.Reference}`}
-                template={channelColb.newMessageTemplate._id}
+                template={channelCollab.newMessageTemplate._id}
                 storeNewValue={notHappeningHandler}
                 disabled={true}
                 gameDate={gameDate}
@@ -367,7 +386,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={collaboration.response2 || {}}
-              template={channelColb.responseTemplate?._id || ''}
+              template={channelCollab.responseTemplate?._id || ''}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}
               title={'Response'}
@@ -376,7 +395,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             }
             {!isResponse && <JsonEditor
               messageTemplates={templates}
-              template={channelColb.newMessageTemplate._id}
+              template={channelCollab.newMessageTemplate._id}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.message}
               storeNewValue={newMessageHandler}
@@ -386,7 +405,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
             { // only show private field for umpire force(s)
               (isUmpire || isObserver) &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
-              disabled={state !== CollaborativeMessageStates2.InProgress || !isUmpire} label='Private Message' labelFactory={labelFactory} />
+              disabled={!privateIsEditable} label='Private Message' labelFactory={labelFactory} />
             }
             <div key='lower' className={styles.actions}>
               {
@@ -397,8 +416,6 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({ templates, message, 
         </div>
       </>
     )
-  } else {
-    return <></>
   }
 }
 

@@ -54,7 +54,8 @@ export {
   matchedForceFilter
 } from './participant-filters'
 export {
-  checkParticipantStates,
+  checkLegacyParticipantStates,
+  checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
 export { default as plannedRouteFor } from './planned-route-for'

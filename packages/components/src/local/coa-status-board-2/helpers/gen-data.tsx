@@ -53,7 +53,7 @@ export const genData2 = (
   let unreadMessagesCount = 0
 
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
-  const isCollaborating = permission > CollaborativePermission.CannotCollaborate
+  const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
   const sortCol = (str1: string, str2: string): number => {
     const a = str1.toLowerCase()
@@ -113,19 +113,25 @@ export const genData2 = (
       grow: 1.2
     },
     {
-      name: 'Owner',
-      selector: (row: Row): React.ReactElement | null => row.owner ? <Badge customBackgroundColor={row.ownerColor} customSize={'large'} label={isCollaborating && row.owner} /> : null,
-      sortable: true,
-      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner),
-      center: true
-    },
-    {
       name: 'Updated',
       selector: (row: Row): string => row.updated,
       sortable: true,
       center: true
     }
   ]
+
+  // only show the owner column if the player can collaborate in the channel
+  if (isCollaborating) {
+    columns.push(
+      {
+        name: 'Owner',
+        selector: (row: Row): React.ReactElement | null => (row.owner && isCollaborating) ? <Badge customBackgroundColor={row.ownerColor} customSize={'large'} label={row.owner} /> : null,
+        sortable: true,
+        sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.owner, rowB.owner),
+        center: true
+      }
+    )
+  }
 
   if (channelColb.extraColumns) {
     const newCols = channelColb.extraColumns.map((col: SpecialChannelColumns): Column => {
