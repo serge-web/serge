@@ -323,10 +323,9 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
     const inProgress = state === CollaborativeMessageStates2.InProgress
     const saveOrSubmit = permission >= CollaborativePermission.CanEdit
     const isOwner = role.roleId === collaboration.owner?.roleId
-    const showActions = (inProgress && saveOrSubmit) ? isOwner : true
     const privateIsEditable = inProgress && saveOrSubmit && isOwner
 
-    const actions = (showActions && actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission) : []
+    const actions = (actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission, isOwner) : []
 
     // reverse the actions, so the lowest permission is on the right
     const reverseActions = actions.reverse()
