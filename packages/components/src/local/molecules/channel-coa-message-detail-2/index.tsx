@@ -404,7 +404,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
             { // only show private field for umpire force(s)
               (isUmpire || isObserver) &&
             <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
-              disabled={!privateIsEditable} label='Private Message' labelFactory={labelFactory} />
+              disabled={!privateIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory} />
             }
             <div key='lower' className={styles.actions}>
               {
