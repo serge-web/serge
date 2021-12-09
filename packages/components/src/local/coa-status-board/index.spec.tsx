@@ -193,14 +193,14 @@ const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game c
 const onChange = (): void => console.log()
 
 it('CoaStatusBoard renders correctly', () => {
-  const handleReadMessage = (unreadCount: number): void => {
-    console.log('unread mesages left: ' + unreadCount)
+  const handleReadMessage = (message: MessageCustom): void => {
+    console.log('message read: ' + message)
   }
 
   const tree = renderer
     .create(
       <CoaStatusBoard
-        currentWargame=''
+        currentWargame='wargame-test'
         templates={MessageTemplatesMockByKey}
         forces={forces}
         role={role}

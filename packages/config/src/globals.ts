@@ -68,6 +68,11 @@ export const EXPORT_ITEM_FORCES = 'forces'
 export const CHANNEL_RFI_STATUS = 'rfis'
 export const CHANNEL_MAPPING = 'mapping'
 
+// types of channel
+export const CHANNEL_CHAT = 'ChannelChat'
+export const CHANNEL_CUSTOM = 'ChannelCustom'
+export const CHANNEL_COLLAB = 'ChannelCollab'
+
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 

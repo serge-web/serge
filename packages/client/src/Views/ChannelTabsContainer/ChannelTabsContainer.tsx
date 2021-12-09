@@ -20,14 +20,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  const [unreadedMessages, setUnreadedMessages] = useState<UnreadCounter>({})
 
-  const handleUnreadMessagesCountChange = (nextCount: UnreadCounter): void => {
-    setUnreadedMessages({
-      ...unreadedMessages,
-      ...nextCount
-    })
-  }
 
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
   const setDefaultModel = () => {
@@ -108,8 +101,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
           ? (
             <FlexLayout.Layout
               model={model}
-              factory={factory(state, handleUnreadMessagesCountChange)}
-              onRenderTab={tabRender(state, unreadedMessages)}
+              factory={factory(state)}
+              onRenderTab={tabRender(state)}
               onModelChange={() => {
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}

@@ -5,6 +5,31 @@ Array [
   <div
     className="actions"
   >
+    <div
+      className="MuiFormControl-root filter-group"
+    >
+      <svg
+        className="svg-inline--fa fa-search"
+      />
+      <div
+        className="MuiInputBase-root MuiInput-root MuiInput-underline input-filter MuiInputBase-formControl MuiInput-formControl"
+        onClick={[Function]}
+        onInput={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input MuiInput-input"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="filter data"
+          required={false}
+          type="text"
+        />
+      </div>
+    </div>
     <label
       className="MuiFormControlLabel-root checkbox"
     >
@@ -84,642 +109,1107 @@ Array [
     </div>
   </div>,
   <div
-    className="MuiTableContainer-root"
+    className="sc-ckVGcZ boOxDU"
   >
-    <table
-      className="MuiTable-root makeStyles-table-5"
-      role={null}
+    <div
+      className="sc-eNQAEJ kUevjB"
     >
-      <thead
-        className="MuiTableHead-root makeStyles-tableHead-6"
-        role={null}
+      <div
+        className="sc-bdVaJa QqzfF rdt_Table"
+        disabled={false}
+        role="table"
       >
-        <tr
-          className="MuiTableRow-root MuiTableRow-head"
-          role={null}
+        <div
+          className="sc-bwzfXH gZOhQP rdt_TableHead"
+          role="rowgroup"
         >
-          <th
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head"
-            scope="col"
+          <div
+            className="sc-htpNat evnGOm rdt_TableHeadRow"
+            role="row"
           >
-            <span
-              className="makeStyles-headerSort-15"
-            >
-              ID
-              <span
-                onClick={[Function]}
-              >
-                <svg
-                  className="svg-inline--fa fa-sort-up"
-                />
-                <svg
-                  className="svg-inline--fa fa-sort-down"
-                />
-              </span>
-            </span>
-          </th>
-          <th
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head"
-            scope="col"
-          >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-11 MuiButton-textSizeSmall MuiButton-sizeSmall"
-              disabled={false}
-              onBlur={[Function]}
-              onClick={[Function]}
+            <div
+              className="sc-bxivhb sc-hMqMXs jDROVB"
+            />
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={1}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
               onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
+              onDragOver={[Function]}
+              onDragStart={[Function]}
             >
-              <span
-                className="MuiButton-label"
-              >
-                From
-                <span
-                  className="MuiButton-endIcon MuiButton-iconSizeSmall"
-                >
-                  <svg
-                    fill="none"
-                    height="30"
-                    viewBox="0 0 28 30"
-                    width="28"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </button>
-          </th>
-          <th
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head"
-            scope="col"
-          >
-            <span
-              className="makeStyles-headerSort-15"
-            >
-              Title
-            </span>
-          </th>
-          <th
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head"
-            scope="col"
-          >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-11 MuiButton-textSizeSmall MuiButton-sizeSmall"
-              disabled={false}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
-            >
-              <span
-                className="MuiButton-label"
-              >
-                Status
-                <span
-                  className="MuiButton-endIcon MuiButton-iconSizeSmall"
-                >
-                  <svg
-                    fill="none"
-                    height="30"
-                    viewBox="0 0 28 30"
-                    width="28"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </button>
-          </th>
-          <th
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head"
-            scope="col"
-          >
-            <span>
-              Owner
-            </span>
-          </th>
-          <th
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-head"
-            scope="col"
-          >
-            <span
-              className="makeStyles-headerSort-15"
-            >
-              Updated
-              <span
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={1}
+                data-sort-id={1}
+                disabled={false}
                 onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={1}
+                >
+                  ID
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={2}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={2}
+                data-sort-id={2}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={2}
+                >
+                  From
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={3}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={3}
+                data-sort-id={3}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={3}
+                >
+                  Title
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU bXBEFh rdt_TableCol"
+              data-column-id={4}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={4}
+                data-sort-id={4}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={4}
+                >
+                  Status
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={5}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={5}
+                data-sort-id={5}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={5}
+                >
+                  Owner
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={6}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={6}
+                data-sort-id={6}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={6}
+                >
+                  Updated
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-dxgOiQ kriIxi rdt_TableBody"
+          role="rowgroup"
+        >
+          <div
+            className="sc-iwsKbI joYMLE rdt_TableRow"
+            id="row-id_3a"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-htoDjs UsBSV"
+              onClick={[Function]}
+            >
+              <button
+                aria-disabled={false}
+                aria-label="Expand Row"
+                className="sc-gzVnrw eURjsc"
+                data-testid="expander-button-id_3a"
+                disabled={false}
+                onClick={[Function]}
+                role="button"
+                type="button"
               >
                 <svg
-                  className="svg-inline--fa fa-sort-up"
-                />
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                  />
+                  <path
+                    d="M0-.25h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-id_3a"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
                 <svg
-                  className="svg-inline--fa fa-sort-down"
+                  className="svg-inline--fa fa-envelope"
                 />
-              </span>
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        className="MuiTableBody-root makeStyles-tableBody-7"
-        role={null}
-      >
-        <tr
-          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
-          onClick={[Function]}
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-             
-            <svg
-              className="svg-inline--fa fa-envelope"
-            />
-             
-            2020-03-25T15:08:47.525Z
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-19"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-20"
-              >
-                CO
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Chat
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-21"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-22"
-              >
-                Pending review
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            a few seconds ago
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-            colSpan={6}
-          >
-            <div
-              className="MuiCollapse-container MuiCollapse-hidden"
-              style={
-                Object {
-                  "minHeight": "0px",
-                }
-              }
-            >
-              <div
-                className="MuiCollapse-wrapper"
-              >
-                <div
-                  className="MuiCollapse-wrapperInner"
-                />
+                 
+                id_3a
               </div>
             </div>
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
-          onClick={[Function]}
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-             
-            <svg
-              className="svg-inline--fa fa-envelope"
-            />
-             
-            2020-03-25T15:08:47.530Z
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
             <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-23"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-24"
-              >
-                CO
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Chat
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-25"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-26"
-              >
-                Released
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            a few seconds ago
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-            colSpan={6}
-          >
-            <div
-              className="MuiCollapse-container MuiCollapse-hidden"
-              style={
-                Object {
-                  "minHeight": "0px",
-                }
-              }
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-id_3a"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
             >
               <div
-                className="MuiCollapse-wrapper"
+                data-tag="allowRowEvents"
               >
                 <div
-                  className="MuiCollapse-wrapperInner"
-                />
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-8"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-9"
+                  >
+                    CO
+                  </span>
+                </div>
               </div>
             </div>
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
-          onClick={[Function]}
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-             
-            <svg
-              className="svg-inline--fa fa-envelope"
-            />
-             
-            2020-03-25T15:08:47.540Z
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
             <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-27"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-28"
-              >
-                Game Control
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            Chat
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-29"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-30"
-              >
-                Closed
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            a few seconds ago
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-            colSpan={6}
-          >
-            <div
-              className="MuiCollapse-container MuiCollapse-hidden"
-              style={
-                Object {
-                  "minHeight": "0px",
-                }
-              }
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-id_3a"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
             >
               <div
-                className="MuiCollapse-wrapper"
+                data-tag="allowRowEvents"
               >
-                <div
-                  className="MuiCollapse-wrapperInner"
-                />
+                RFI 3 from Blue
               </div>
             </div>
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
-          onClick={[Function]}
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-             
-            <svg
-              className="svg-inline--fa fa-envelope"
-            />
-             
-            Blue-3
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
             <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-31"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-32"
-              >
-                CO
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 3 from Blue
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-33"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-34"
-              >
-                Unallocated
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            a few seconds ago
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-            colSpan={6}
-          >
-            <div
-              className="MuiCollapse-container MuiCollapse-hidden"
-              style={
-                Object {
-                  "minHeight": "0px",
-                }
-              }
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-id_3a"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
             >
               <div
-                className="MuiCollapse-wrapper"
+                data-tag="allowRowEvents"
               >
                 <div
-                  className="MuiCollapse-wrapperInner"
-                />
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-10"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-11"
+                  >
+                    Unallocated
+                  </span>
+                </div>
               </div>
             </div>
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRow-8 makeStyles-tableRowCollapsibleTrigger-10"
-          onClick={[Function]}
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-             
-            <svg
-              className="svg-inline--fa fa-envelope"
-            />
-             
-            RED-1
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
             <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-35"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-36"
-              >
-                CO
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            RFI 1 from RED
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            <div
-              className="MuiChip-root makeStyles-root-16 makeStyles-root-37"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label makeStyles-label-18 makeStyles-label-38"
-              >
-                Being edited
-              </span>
-            </div>
-          </td>
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          />
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-          >
-            a few seconds ago
-          </td>
-        </tr>
-        <tr
-          className="MuiTableRow-root makeStyles-tableRowCollapsible-9"
-          role={null}
-        >
-          <td
-            aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-body"
-            colSpan={6}
-          >
-            <div
-              className="MuiCollapse-container MuiCollapse-hidden"
-              style={
-                Object {
-                  "minHeight": "0px",
-                }
-              }
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-id_3a"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
             >
               <div
-                className="MuiCollapse-wrapper"
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-id_3a"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
               >
-                <div
-                  className="MuiCollapse-wrapperInner"
-                />
+                a few seconds ago
               </div>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+          <div
+            className="sc-iwsKbI joYMLE rdt_TableRow"
+            id="row-id_4"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-htoDjs UsBSV"
+              onClick={[Function]}
+            >
+              <button
+                aria-disabled={false}
+                aria-label="Expand Row"
+                className="sc-gzVnrw eURjsc"
+                data-testid="expander-button-id_4"
+                disabled={false}
+                onClick={[Function]}
+                role="button"
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                  />
+                  <path
+                    d="M0-.25h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-id_4"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                id_4
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-id_4"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-12"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-13"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-id_4"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                RFI 1 from RED
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-id_4"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-14"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-15"
+                  >
+                    Being edited
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-id_4"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-id_4"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI joYMLE rdt_TableRow"
+            id="row-2020-03-25T15:08:47.540Z"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-htoDjs UsBSV"
+              onClick={[Function]}
+            >
+              <button
+                aria-disabled={false}
+                aria-label="Expand Row"
+                className="sc-gzVnrw eURjsc"
+                data-testid="expander-button-2020-03-25T15:08:47.540Z"
+                disabled={false}
+                onClick={[Function]}
+                role="button"
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                  />
+                  <path
+                    d="M0-.25h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                2020-03-25T15:08:47.540Z
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-16"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-17"
+                  >
+                    Game Control
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-18"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-19"
+                  >
+                    Closed
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI joYMLE rdt_TableRow"
+            id="row-2020-03-25T15:08:47.525Z"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-htoDjs UsBSV"
+              onClick={[Function]}
+            >
+              <button
+                aria-disabled={false}
+                aria-label="Expand Row"
+                className="sc-gzVnrw eURjsc"
+                data-testid="expander-button-2020-03-25T15:08:47.525Z"
+                disabled={false}
+                onClick={[Function]}
+                role="button"
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                  />
+                  <path
+                    d="M0-.25h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                2020-03-25T15:08:47.525Z
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-20"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-21"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-22"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-23"
+                  >
+                    Pending review
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI joYMLE rdt_TableRow"
+            id="row-2020-03-25T15:08:47.530Z"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-htoDjs UsBSV"
+              onClick={[Function]}
+            >
+              <button
+                aria-disabled={false}
+                aria-label="Expand Row"
+                className="sc-gzVnrw eURjsc"
+                data-testid="expander-button-2020-03-25T15:08:47.530Z"
+                disabled={false}
+                onClick={[Function]}
+                role="button"
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                  />
+                  <path
+                    d="M0-.25h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                2020-03-25T15:08:47.530Z
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-24"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-25"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-26"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-27"
+                  >
+                    Released
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>,
 ]
 `;

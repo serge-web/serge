@@ -1,7 +1,7 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes, CHANNEL_CUSTOM } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role, MessageDetailsFrom, CollaborationDetails
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role, MessageDetailsFrom, CollaborationDetails, ChannelTypes
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -93,6 +93,7 @@ const createNewChannel = (channelId: string): ChannelUI => {
     uniqid: channelId,
     participants: [],
     name: 'channelName',
+    channelType: CHANNEL_CUSTOM,
     templates: [],
     forceIcons: [],
     forceColors: [],
@@ -162,7 +163,6 @@ export const handleAllInitialChannelMessages = (
   allChannels.forEach((channel: ChannelData) => {
     const {
       isParticipant,
-      allRolesIncluded,
       observing,
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
@@ -173,7 +173,7 @@ export const handleAllInitialChannelMessages = (
       return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
     }
 
-    if (isObserver || isParticipant || allRolesIncluded) {
+    if (isObserver || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
       const forceColors: string[] = []
@@ -184,6 +184,8 @@ export const handleAllInitialChannelMessages = (
       }
 
       const messages = filterMessages()
+      const v3Channel = channel as ChannelTypes
+      // grow the existing channel definition to include the new UI-focussed entries
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
@@ -195,10 +197,11 @@ export const handleAllInitialChannelMessages = (
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
         format: channel.format,
+        channelType: v3Channel.channelType || CHANNEL_CUSTOM,
+        v3Channel: v3Channel.channelType ? v3Channel : undefined, // if there's a channel type, it's v3, so store it
         collabOptions: channel.collabOptions
       }
 
-      // TODO: use channel uniqid
       channels[channel.uniqid] = newChannel
     }
   })
@@ -292,7 +295,6 @@ const handleChannelUpdates = (
 
       const {
         isParticipant,
-        allRolesIncluded,
         observing,
         templates
       } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
@@ -306,7 +308,7 @@ const handleChannelUpdates = (
         delete res.channels[channelId]
       } else {
         // see if there is a channel for this id
-        if (isParticipant || allRolesIncluded || observing) {
+        if (isParticipant || observing) {
           // does this channel exist?
           if (!res.channels[channelId]) {
             // create and store it

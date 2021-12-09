@@ -32,5 +32,5 @@ export const setMessageState = (currentWargame: string, selectedForce: string, s
 
 export const removeMessageState = (currentWargame: string, selectedForce: string, selectedRole: string, uniqKey: string): void => {
   const key = getMessageStateKey(currentWargame, selectedForce, selectedRole, uniqKey)
-  setMessageStateByKey(key)
+  removeMessageStateByKey(key)
 }

@@ -5,7 +5,18 @@ import {
   ForceData,
   TemplateBodysByKey
 } from '@serge/custom-types'
+import React from 'react'
 
+export type Collapsible = (cb?: (() => void) | undefined) => React.ReactElement
+export type Row = { [x: string], collapsible?: Collapsible }
+export type Column = TableColumn<T> & {
+  selector: (row: Row) => any
+  sortFunction?: (rowA: Row, rowB: Row) => number
+}
+export type ExtraCellProps = {
+  row: Row
+  name: string
+}
 export default interface Props {
   currentWargame: string
   messages: MessageCustom[]
@@ -27,5 +38,8 @@ export default interface Props {
   /** current game time, used for initialising date-time controls */
   gameDate: string
   /** fires on change message status to readed **/
-  onMessageRead?: (unreadedLeft: number) => void
+  onMessageRead?: (message: MessageCustom) => void
+
+  /** mark all message as read */
+  onMarkAllAsRead?: () => void
 }

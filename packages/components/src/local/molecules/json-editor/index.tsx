@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
 import Props from './types/props'
-import { Editor, TemplateBody } from '@serge/custom-types'
+import { Editor } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
 import { expiredStorage } from '@serge/config'
@@ -15,14 +15,11 @@ import { configDateTimeLocal } from '@serge/helpers'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJsonEditorValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, title, template, storeNewValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
-  const schema = Object.keys(messageTemplates).map(
-    // TODO: Switch this part to use id instead of messageType find, currently we have no messageTypeId inside of message
-    (key): TemplateBody => messageTemplates[key]
-    // @ts-ignore
-  ).find(msg => msg.details.title === message.details.messageType)
+
+  const schema = messageTemplates[template]
 
   if (!schema) {
     const styles = {
@@ -31,15 +28,15 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       padding: '20px',
       fontSize: '16px'
     }
-    return <span style={styles} >Schema not found for {message.details.messageType}</span>
+    return <span style={styles} >Schema not found for {template}</span>
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
-    getJsonEditorValue && getJsonEditorValue(value)
+    storeNewValue && storeNewValue(value)
   }
 
   const genLocalStorageId = (): string => {
-    return `${message._id}_${message.message.Reference || message.message.title}`
+    return messageId
   }
 
   const initEditor = (): () => void => {
@@ -47,7 +44,11 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
     const modSchema = configDateTimeLocal(schema.details, gameDate)
-    const nextEditor = setupEditor(editor, modSchema, jsonEditorRef, jsonEditorConfig)
+
+    // if a title was supplied, replace the title in the schema
+    const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema
+
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -84,7 +85,7 @@ export const JsonEditor: React.FC<Props> = ({ message, messageTemplates, getJson
 
     if (nextEditor) {
       const messageJson = saveEditedMessage ? expiredStorage.getItem(genLocalStorageId()) : null
-      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : message.message)
+      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
       nextEditor.on('change', changeListenter)
     }
 
