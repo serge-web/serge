@@ -1,0 +1,6 @@
+{
+  "ServerUrl": "http://127.0.0.1:0",
+  "Setup.Mode": "Initial",
+  "DataDir": "RavenData",
+  "License.Eula.Accepted": true
+}

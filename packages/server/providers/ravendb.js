@@ -1,5 +1,6 @@
 const fs = require('fs')
 const dotenv = require('dotenv')
+const path = require('path')
 
 let { RAVEN_URL, CERT_PATH, CERT_PASSWORD } = process.env
 
@@ -9,6 +10,13 @@ dotenv.config({ path: '.env.local' })
 // if not exist
 if (!RAVEN_URL || !CERT_PATH || !CERT_PASSWORD) {
   ({ RAVEN_URL, CERT_PATH, CERT_PASSWORD } = process.env)
+}
+
+const architecture = require('os').arch()
+
+// if OS is windows run db at server start
+if (architecture === 'x86' || architecture === 'x64') {
+  require('child_process').spawn('powershell.exe', [path.join(__dirname, `../localDbs/RavenDB-windows-${architecture}/run.ps1`)])
 }
 
 const listeners = {}

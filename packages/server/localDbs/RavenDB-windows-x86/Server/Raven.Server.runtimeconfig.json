@@ -1,0 +1,21 @@
+{
+  "runtimeOptions": {
+    "tfm": "net5.0",
+    "includedFrameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "5.0.12"
+      },
+      {
+        "name": "Microsoft.AspNetCore.App",
+        "version": "5.0.12"
+      }
+    ],
+    "configProperties": {
+      "System.GC.Concurrent": false,
+      "System.GC.Server": false,
+      "System.GC.RetainVM": false,
+      "System.Reflection.Metadata.MetadataUpdater.IsSupported": false
+    }
+  }
+}
