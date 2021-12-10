@@ -133,6 +133,7 @@ export const genData2 = (
     )
   }
 
+  const extraCols: Column[] = []
   if (channelColb.extraColumns) {
     const newCols = channelColb.extraColumns.map((col: SpecialChannelColumns): Column => {
       return {
@@ -141,8 +142,9 @@ export const genData2 = (
         sortable: true
       }
     })
-    columns.push(...newCols)
+    extraCols.push(...newCols)
   }
+  columns.push(...extraCols)
 
   const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
@@ -209,6 +211,20 @@ export const genData2 = (
       isReaded,
       forceColor: message.details.from.forceColor
     }
+
+    extraCols.forEach((col: Column) => {
+      const colName = (col.name as string || '').toUpperCase()
+      const cellData: string[] = []
+      if (colName === 'LOCATION') {
+        const rawData = message.message[colName]
+        Object.keys(rawData).forEach((key: string) => {
+          Object.keys(rawData[key]).forEach((childKey: string) => {
+            cellData.push(`${key}-${rawData[key][childKey].Country}`)
+          })
+        })
+      }
+      row[colName.toLowerCase()] = cellData.join(', ')
+    })
 
     return row
   })
