@@ -278,6 +278,20 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
     }
 
     const handleVerb = (requiresFeedback: boolean, role: ForceRole, verb: string, handler: CoreFunc): void => {
+      // is message currently being edited?
+      if(state === CollaborativeMessageStates2.InProgress){
+        // ok, special handling. If message is being released, we do actually need to store the
+        // current version of the edit, too.
+        if(isResponse) {
+          // store the answer
+          if(message.details.collaboration) {
+            message.details.collaboration.response2 = answer
+          }
+        } else {
+          message.message = newMsg
+        }
+      }
+
       if (requiresFeedback) {
         const quickHandler = (messageWithFeedback: MessageCustom): void => {
           if (messageWithFeedback) {
@@ -360,7 +374,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
             onSave={onModalSave}
             onValueChange={onModalValueChange}
             placeholder={placeHolder}
-          /><div>DEBUG, to be deleted: State:<i>{state}</i> Owner:<i>{collaboration.owner?.roleName || 'unallocated'}</i> Current:<i>{role.roleName}</i></div>
+          />
           <>
             <div key='upper' className={styles.actions}>
               {
