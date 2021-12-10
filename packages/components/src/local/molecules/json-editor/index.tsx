@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
 import Props from './types/props'
-import { Editor } from '@serge/custom-types'
+import { Editor, TemplateBody } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
 import { expiredStorage } from '@serge/config'
@@ -19,7 +19,10 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  const schema = messageTemplates[template]
+  const schema = Object.keys(messageTemplates).map(
+    (key): TemplateBody => messageTemplates[key]
+    // @ts-ignore
+  ).find(msg => msg.details.title === template)
 
   if (!schema) {
     const styles = {

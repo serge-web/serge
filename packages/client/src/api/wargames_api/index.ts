@@ -106,7 +106,6 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
 
   db.changes((msg) => {
     const doc = msg as Message
-    (async () => {
       if (doc === undefined) return
       if (doc.messageType === INFO_MESSAGE) {
         dispatch(setCurrentWargame(doc as Wargame))
@@ -122,7 +121,6 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
         // @ts-ignore: TODO: check this case
         dispatch(setLatestWargameMessage(doc))
       }
-    })()
   })
 }
 

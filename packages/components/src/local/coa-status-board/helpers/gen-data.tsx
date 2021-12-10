@@ -209,9 +209,9 @@ export const genData = (
     }
 
     const row: Row = {
-      id: message._id || message.message.Reference,
+      id: message.message.Reference || message._id,
       from: message.details.from.roleName,
-      title: message.message.Title,
+      title: message.message.Title || message.message.title || message.details.messageType,
       status: status,
       owner: ownerComposite,
       updated: moment(lastUpdated).fromNow(),

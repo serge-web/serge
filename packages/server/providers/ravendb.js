@@ -2,21 +2,29 @@ const fs = require('fs')
 const dotenv = require('dotenv')
 const path = require('path')
 
-let { RAVEN_URL, CERT_PATH, CERT_PASSWORD } = process.env
+let ravenUrl = process.env.RAVEN_URL
+let certPath = process.env.CERT_PATH
+let certPassword = process.env.CERT_PASSWORD
 
 dotenv.config()
 dotenv.config({ path: '.env.local' })
 
-// if not exist
-if (!RAVEN_URL || !CERT_PATH || !CERT_PASSWORD) {
-  ({ RAVEN_URL, CERT_PATH, CERT_PASSWORD } = process.env)
+// if not exists and have data in env
+if (!ravenUrl && process.env.RAVEN_URL) {
+  ravenUrl = process.env.RAVEN_URL
+  certPath = process.env.CERT_PATH
+  certPassword = process.env.CERT_PASSWORD
 }
 
-const architecture = require('os').arch()
+// if not exists anyway
+if (!ravenUrl) {
+  ravenUrl = 'http://localhost:4040/'
+  const architecture = require('os').arch()
 
-// if OS is windows run db at server start
-if (architecture === 'x86' || architecture === 'x64') {
-  require('child_process').spawn('powershell.exe', [path.join(__dirname, `../localDbs/RavenDB-windows-${architecture}/run.ps1`)])
+  // if OS is windows run db at server start
+  if (architecture === 'x86' || architecture === 'x64') {
+    require('child_process').spawn('powershell.exe', [path.join(__dirname, `../localDbs/RavenDB-windows-${architecture}/run.ps1`)])
+  }
 }
 
 const listeners = {}
@@ -33,23 +41,24 @@ const {
 
 const ravenDb = (app, io) => {
   // if we have CERT_PATH then we need to define authorization options
-  const authOptions = CERT_PATH ? {
-    certificate: fs.readFileSync(CERT_PATH),
+  const authOptions = certPath ? {
+    certificate: fs.readFileSync(certPath),
     type: 'pfx',
-    password: CERT_PASSWORD || ''
+    password: certPassword
   } : undefined
 
   // we don't need a default selected database bcos we need to work with multiple databases so default database is null
-  const store = new DocumentStore(RAVEN_URL, null, authOptions)
+  const store = new DocumentStore(ravenUrl, null, authOptions)
   store.initialize()
 
   // changesListener
   const initChangesListener = (dbName) => {
+    // get all databases and init listener for them
     // saving listener
     listeners[dbName] = store.changes(dbName)
     // adding subscription for listener
     listeners[dbName].forAllDocuments().on('data', async change => {
-    // connectiong to the db
+      // connectiong to the db
       const session = store.openSession(dbName)
       // get changed doc
       const loadData = await session.load(change.id)
@@ -72,7 +81,7 @@ const ravenDb = (app, io) => {
   // check if database not exists then create it and add changes listener
   const ensureDatabaseExists = (store, dbName, createIfNotExists = false) => {
     return new Promise((resolve, reject) => {
-    // dbName required
+      // dbName required
       if (!dbName) {
         return reject(new Error('Value cannot be null or whitespace.' + dbName))
       }
@@ -84,7 +93,7 @@ const ravenDb = (app, io) => {
         .then(() => resolve(false)) // database exists
         .catch((err) => { // database not found
           if (createIfNotExists) { // do we need to create database?
-          // creating database object
+            // creating database object
             const database = { databaseName: dbName }
             // creating new database
             store.maintenance.server
@@ -98,13 +107,15 @@ const ravenDb = (app, io) => {
     })
   }
 
-  // get all databases and init listener for them
-  const operation = new GetDatabaseNamesOperation(0, 1000)
-  store.maintenance.server.send(operation).then((wargames) => {
-    for (const wargame of wargames) {
-      initChangesListener(wargame)
-    }
-  })
+  setTimeout(() => {
+    // get all databases and init listener for them
+    const operation = new GetDatabaseNamesOperation(0, 1000)
+    store.maintenance.server.send(operation).then((wargames) => {
+      for (const wargame of wargames) {
+        initChangesListener(wargame)
+      }
+    })
+  }, 2000)
 
   app.put('/:wargame', (req, res) => {
     const databaseName = req.params.wargame
@@ -121,14 +132,14 @@ const ravenDb = (app, io) => {
       const session = store.openSession(databaseName)
       session.load(id).then(result => {
         if (result) {
-        // update an document
+          // update an document
           for (const keys in req.body) {
             result[keys] = req.body[keys]
             session.saveChanges().catch(err => res.status(400).send({ msg: 'Error in save changes', data: err }))
           }
           res.send({ msg: 'updated', data: putData })
         } else {
-        // create an document
+          // create an document
           session.store(putData, id).then(() => {
             session.saveChanges().then(() => {
               res.send({ msg: 'created', data: putData })
@@ -169,6 +180,7 @@ const ravenDb = (app, io) => {
   })
 
   app.delete('/clearAll', async (req, res) => {
+    const operation = new GetDatabaseNamesOperation(0, 1000)
     const allDbs = await store.maintenance.server.send(operation)
       .catch((err) => res.status(400).send({ msg: 'Error on load all dbs', data: err }))
     Object.keys(listeners).forEach(dbName => {
