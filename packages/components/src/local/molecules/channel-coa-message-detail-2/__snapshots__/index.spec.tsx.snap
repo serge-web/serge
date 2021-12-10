@@ -22,9 +22,19 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   <div
     className="actions"
   />
-  <div
-    className="edt-disable"
-  />
+  <span
+    style={
+      Object {
+        "background": "#ff0",
+        "color": "#f00",
+        "fontSize": "16px",
+        "padding": "20px",
+      }
+    }
+  >
+    Schema not found for 
+    k16eedkj
+  </span>
   <div
     className="main theme-dark disabled"
   >
