@@ -11,9 +11,6 @@ export interface Action {
 }
 
 export const ASSIGN_MESSAGE = 'Assign'
-export const CLAIM_MESSAGE = 'Claim'
-export const SAVE_MESSAGE = 'Save'
-export const SUBMIT_FOR_REVIEW = 'Submit for review'
 
 type ActionList = Array<Action>
 export type ActionTable = Array<Array<ActionList>>
@@ -31,12 +28,13 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
 
   const submitHandler = isResponse ? handlers.submitResponse : handlers.submitForReview
   const saveHandler = isResponse ? handlers.saveResponse : handlers.save
+  const saveAndReleaseHandler = isResponse ? handlers.saveResponseAndRelease : handlers.saveEditAndRelease
 
   // finally populate handlers
-  actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: [ASSIGN_MESSAGE, CLAIM_MESSAGE] }]
-  actions[States.InProgress][Permission.CanEdit] = [{ handler: saveHandler, verbs: [SAVE_MESSAGE] }]
-  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: submitHandler, verbs: [SUBMIT_FOR_REVIEW] }]
-  actions[States.InProgress][Permission.CanRelease] = [{ handler: handlers.release, verbs: releaseVerbs }, { handler: handlers.discard, feedback: true, verbs: ['Discard'] }]
+  actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: [ASSIGN_MESSAGE, 'Claim'] }]
+  actions[States.InProgress][Permission.CanEdit] = [{ handler: saveHandler, verbs: ['Save'] }]
+  actions[States.InProgress][Permission.CanSubmitForReview] = [{ handler: submitHandler, verbs: ['Submit for review'] }]
+  actions[States.InProgress][Permission.CanRelease] = [{ handler: saveAndReleaseHandler, verbs: releaseVerbs }, { handler: handlers.discard, feedback: true, verbs: ['Discard'] }]
   actions[States.InProgress][Permission.CanUnClaim] = [{ handler: handlers.unclaim, feedback: true, verbs: ['Unclaim'] }]
   actions[States.PendingReview][Permission.CanEdit] = [{ handler: handlers.edit, verbs: ['Claim'] }]
   actions[States.PendingReview][Permission.CanApprove] = [{ handler: handlers.requestChanges, feedback: true, verbs: requestChangesVerbs }, { handler: handlers.approve, verbs: approveVerbs }]
