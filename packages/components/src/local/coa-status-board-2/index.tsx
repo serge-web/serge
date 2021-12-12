@@ -52,14 +52,14 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     filteredDoc,
     forces,
     role,
-    currentWargame,
     templates,
     isObserver,
     isUmpire,
     channelColb,
     permission,
     gameDate,
-    onChange
+    onChange,
+    onMessageRead
   )
 
   useEffect(() => {
@@ -85,13 +85,23 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     setShowArchived(!showArchived)
   }
 
-  const ExpandedComponent = ({ data }: Row): React.ReactElement => {
-    if (!data.isReaded) {
-      const message = messages.filter(msg => msg._id === data.id)
-      message.length && onMessageRead && onMessageRead(message[0])
-      data.isReaded = true
+  const toggleSelectedRow = (cellId: string): void => {
+    /**
+     * react data table does not support API to collapse selected row yes
+     * Solution: try to click on the expanded row to collapse it
+     */
+    const cellElm = document.getElementById(cellId)
+    if (cellElm) {
+      cellElm.click()
     }
-    return data.collapsible()
+  }
+
+  const ExpandedComponent = ({ data }: Row): React.ReactElement => {
+    const message = messages.find(message => message._id === data._id)
+    if (message && message.hasBeenRead && !data.isReaded) {
+      setTimeout(() => toggleSelectedRow(`cell-1-${data.id}`), 200)
+    }
+    return data.collapsible(toggleSelectedRow(`cell-1-${data.id}`))
   }
 
   const applyFilter = (searchStr: string): void => {
@@ -149,6 +159,8 @@ export const CoaStatusBoard2: React.FC<Props> = ({
         expandOnRowClicked={true}
         defaultSortAsc={true}
         persistTableHead={true}
+        expandableRowsHideExpander={true}
+        highlightOnHover={true}
       />
     </>
   )

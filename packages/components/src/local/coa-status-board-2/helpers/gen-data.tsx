@@ -1,6 +1,5 @@
 import React from 'react'
 import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from '@serge/custom-types'
-import { isMessageReaded, setMessageState } from '@serge/helpers'
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
 import { Badge } from '../../atoms/badge'
@@ -33,7 +32,6 @@ const statusColors: { [property: string]: string } = {
 interface GenData2 {
   rows: Row[]
   columns: Column[]
-  unreadMessagesCount: number
   customStyles: any
 }
 
@@ -41,17 +39,15 @@ export const genData2 = (
   messages: MessageCustom[],
   forces: ForceData[],
   role: ForceRole,
-  currentWargame: string,
   templates: TemplateBodysByKey,
   isObserver: boolean,
   isUmpire: boolean,
   channelColb: ChannelCollab,
   permission: CollaborativePermission,
   gameDate: string,
-  onChange: (msg: MessageCustom) => void
+  onChange: (msg: MessageCustom) => void,
+  onMessageRead?: (message: MessageCustom) => void
 ): GenData2 => {
-  let unreadMessagesCount = 0
-
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
   const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
@@ -159,18 +155,13 @@ export const genData2 = (
     // const myDocument: boolean = ownerComposite === formatRole(role)
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
-
-    const messageStateKey = message._id
-    const isReaded = isMessageReaded(currentWargame, role.forceName, role.roleName, messageStateKey)
-
-    if (!isReaded) unreadMessagesCount++
-
+    const isReaded = message.hasBeenRead;
     const messageState = message.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
 
     const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
-        setMessageState(currentWargame, role.forceName, role.roleName, messageStateKey)
+        onMessageRead && onMessageRead(message)
       }
 
       return (
@@ -200,7 +191,8 @@ export const genData2 = (
     }
 
     const row: Row = {
-      id: message.message.Reference || message._id,
+      id: message.message.Reference || message._id, // for showing on the row
+      _id: message._id, // tracking data
       from: message.details.from.roleName,
       title: message.message.Title,
       status: status,
@@ -229,7 +221,7 @@ export const genData2 = (
     return row
   })
 
-  return { rows, columns, unreadMessagesCount, customStyles }
+  return { rows, columns, customStyles }
 }
 
 export default genData2
