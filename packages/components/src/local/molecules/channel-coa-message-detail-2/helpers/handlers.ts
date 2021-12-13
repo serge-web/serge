@@ -23,7 +23,7 @@ export interface ClaimFunc {
 }
 
 export interface CoreHandler {
-  handlerType: typeof CORE_HANDLER,
+  handlerType: typeof CORE_HANDLER
   handler: CoreFunc
 }
 
