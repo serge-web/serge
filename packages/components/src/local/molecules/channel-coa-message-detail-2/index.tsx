@@ -332,14 +332,14 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
     const actionButtons = reverseActions.map((action: Action) => {
       const verbs = action.verbs
       return verbs.map((verb: string) => {
-        switch(action.handler.handlerType) {
+        switch (action.handler.handlerType) {
           case SUBMIT_HANDLER: {
             const handler = action.handler.handler as SubmitFunc
             return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, handler)}>{verb}</Button>
           }
           case CLAIM_HANDLER: {
             const handler = action.handler.handler as ClaimFunc
-            if(verb === ASSIGN_MESSAGE) {
+            if (verb === ASSIGN_MESSAGE) {
               return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, handler)} />
             } else {
               return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, handler)}>{verb}</Button>
