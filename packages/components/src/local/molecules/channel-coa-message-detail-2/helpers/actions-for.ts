@@ -30,7 +30,7 @@ export const createActionTable = (approveVerbs: string[], requestChangesVerbs: s
   actions[States.Closed] = []
 
   const submitHandler = isResponse ? handlers.submitResponse : handlers.submitForReview
-  const saveHandler = isResponse ? handlers.saveResponse : handlers.submitResponse
+  const saveHandler = isResponse ? handlers.saveResponse : handlers.save
 
   // finally populate handlers
   actions[States.Unallocated][Permission.CanEdit] = [{ handler: handlers.edit, verbs: [ASSIGN_MESSAGE, CLAIM_MESSAGE] }]
