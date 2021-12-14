@@ -201,6 +201,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       disable_collapse: true,
       disable_edit_json: true,
       disable_properties: true,
+      prompt_before_delete: false
     }))
   }
 
