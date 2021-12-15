@@ -330,7 +330,7 @@ Array [
         >
           <div
             className="sc-iwsKbI joYMLE rdt_TableRow"
-            id="row-id_3a"
+            id="row-Blue-3"
             onClick={[Function]}
             onDoubleClick={[Function]}
             role="row"
@@ -345,7 +345,7 @@ Array [
                 aria-disabled={false}
                 aria-label="Expand Row"
                 className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-id_3a"
+                data-testid="expander-button-Blue-3"
                 disabled={false}
                 onClick={[Function]}
                 role="button"
@@ -372,7 +372,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
-              id="cell-1-id_3a"
+              id="cell-1-Blue-3"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -388,14 +388,14 @@ Array [
                   className="svg-inline--fa fa-envelope"
                 />
                  
-                id_3a
+                Blue-3
               </div>
             </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
-              id="cell-2-id_3a"
+              id="cell-2-Blue-3"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -424,7 +424,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
-              id="cell-3-id_3a"
+              id="cell-3-Blue-3"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -443,7 +443,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
-              id="cell-4-id_3a"
+              id="cell-4-Blue-3"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -472,7 +472,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
-              id="cell-5-id_3a"
+              id="cell-5-Blue-3"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -489,7 +489,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
-              id="cell-6-id_3a"
+              id="cell-6-Blue-3"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -507,7 +507,7 @@ Array [
           </div>
           <div
             className="sc-iwsKbI joYMLE rdt_TableRow"
-            id="row-id_4"
+            id="row-RED-1"
             onClick={[Function]}
             onDoubleClick={[Function]}
             role="row"
@@ -522,7 +522,7 @@ Array [
                 aria-disabled={false}
                 aria-label="Expand Row"
                 className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-id_4"
+                data-testid="expander-button-RED-1"
                 disabled={false}
                 onClick={[Function]}
                 role="button"
@@ -549,7 +549,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
-              id="cell-1-id_4"
+              id="cell-1-RED-1"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -565,14 +565,14 @@ Array [
                   className="svg-inline--fa fa-envelope"
                 />
                  
-                id_4
+                RED-1
               </div>
             </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
-              id="cell-2-id_4"
+              id="cell-2-RED-1"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -601,7 +601,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
-              id="cell-3-id_4"
+              id="cell-3-RED-1"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -620,7 +620,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
-              id="cell-4-id_4"
+              id="cell-4-RED-1"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -649,7 +649,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
-              id="cell-5-id_4"
+              id="cell-5-RED-1"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -666,7 +666,7 @@ Array [
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
-              id="cell-6-id_4"
+              id="cell-6-RED-1"
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
