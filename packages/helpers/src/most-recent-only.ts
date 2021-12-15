@@ -9,6 +9,10 @@ const getIDs = (message: MessageChannel): string => {
   if (message.messageType === INFO_MESSAGE_CLIPPED || message.infoType === true) {
     res = '' + message.gameTurn
   } else {
+    if(!message) {
+      console.log('message missing:', message)
+      return new Date().toString()
+    }
     const msg = message.message
     if (msg.Reference !== undefined) {
       res = msg.Reference

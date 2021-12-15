@@ -19,7 +19,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  const schema = messageTemplates[template]
+  const schema = messageTemplates[template] || Object.values(messageTemplates).find((item: any) => item.title === template)
 
   if (!schema) {
     const styles = {
