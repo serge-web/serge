@@ -13,6 +13,8 @@ const runServer = (
   const path = require('path')
   const uniqid = require('uniqid')
 
+  const readlineSync = require('readline-sync')
+
   /*
   // replicate database
   const localDB = new PouchDB('message_types')
@@ -129,6 +131,11 @@ const runServer = (
   const POUCH_DB = 'POUCH_DB'
   const RAVEN_DB = 'RAVEN_DB'
 
+  const chooseDbTerminal = () => {
+    const terminalResult = process.argv[2] ? process.argv[2] : readlineSync.question(`Choose db "${RAVEN_DB}" or "${POUCH_DB}" `)
+    providerInterface(terminalResult)
+  }
+
   const providerInterface = (provider = '') => {
     if (provider === RAVEN_DB) {
       const ravenDb = require('./providers/ravendb')
@@ -136,10 +143,12 @@ const runServer = (
     } else if (provider === POUCH_DB) {
       const pouchDb = require('./providers/pouchdb')
       pouchDb(app, io, pouchOptions)
+    } else {
+      chooseDbTerminal()
     }
   }
 
-  providerInterface(RAVEN_DB) // change provider type to POUCH_DB or RAVEN_DB
+  chooseDbTerminal()
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)
@@ -153,8 +162,8 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    // const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
-    // require('child_process').exec(start + ' ' + `http://localhost:${port}`)
+    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }
 

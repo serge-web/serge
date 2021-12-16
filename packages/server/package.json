@@ -21,6 +21,7 @@
     "pouchdb-mapreduce": "^7.0.0",
     "pouchdb-replication": "^7.0.0",
     "ravendb": "^5.0.3",
+    "readline-sync": "^1.4.10",
     "socket.io": "^4.3.1",
     "sqlite3": "^4.1.0",
     "uniqid": "^5.0.3",
@@ -43,6 +44,8 @@
   "scripts": {
     "dev": "nodemon main.js",
     "start": "node main.js",
+    "ravendb": "node main.js RAVEN_DB",
+    "pouchdb": "node main.js POUCH_DB",
     "lint": "eslint --fix **/*.js"
   }
 }

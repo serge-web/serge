@@ -21,9 +21,15 @@ if (!ravenUrl) {
   ravenUrl = 'http://localhost:4040/'
   const architecture = require('os').arch()
 
+  const executableRavenUrl = 'serge/localDbs/'
+
   // if OS is windows run db at server start
   if (architecture === 'x86' || architecture === 'x64') {
-    require('child_process').spawn('powershell.exe', [path.join(__dirname, `../localDbs/RavenDB-windows-${architecture}/run.ps1`)])
+    if (fs.existsSync(executableRavenUrl)) {
+      require('child_process').spawn('powershell.exe', [`${executableRavenUrl}/RavenDB-windows-${architecture}/run.ps1`])
+    } else {
+      require('child_process').spawn('powershell.exe', [path.join(__dirname, `../localDbs/RavenDB-windows-${architecture}/run.ps1`)])
+    }
   }
 }
 
