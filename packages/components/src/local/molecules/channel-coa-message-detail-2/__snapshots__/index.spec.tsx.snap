@@ -5,20 +5,6 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   className="main"
 >
   <div />
-  <div>
-    DEBUG, to be deleted: State:
-    <i>
-      Unallocated
-    </i>
-     Owner:
-    <i>
-      unallocated
-    </i>
-     Current:
-    <i>
-      CO
-    </i>
-  </div>
   <div
     className="actions"
   />
