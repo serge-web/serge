@@ -85,24 +85,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     setShowArchived(!showArchived)
   }
 
-  const toggleSelectedRow = (cellId: string): void => {
-    /**
-     * react data table does not support API to collapse selected row yes
-     * Solution: try to click on the expanded row to collapse it
-     */
-    const cellElm = document.getElementById(cellId)
-    if (cellElm) {
-      cellElm.click()
-    }
-  }
-
-  const ExpandedComponent = ({ data }: Row): React.ReactElement => {
-    const message = messages.find(message => message._id === data._id)
-    if (message && message.hasBeenRead && !data.isReaded) {
-      setTimeout(() => toggleSelectedRow(`cell-1-${data.id}`), 200)
-    }
-    return data.collapsible(toggleSelectedRow(`cell-1-${data.id}`))
-  }
+  const ExpandedComponent = ({ data }: Row): React.ReactElement => data.collapsible()
 
   const applyFilter = (searchStr: string): void => {
     const filteredRows = rows

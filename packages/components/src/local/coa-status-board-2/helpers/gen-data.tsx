@@ -155,13 +155,25 @@ export const genData2 = (
     // const myDocument: boolean = ownerComposite === formatRole(role)
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
-    const isReaded = message.hasBeenRead;
+    const isReaded = message.hasBeenRead
     const messageState = message.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
 
-    const collapsible = (onChangeCallback?: () => void): React.ReactElement => {
+    const collapsible = (): React.ReactElement => {
       // if expanded && message haven't readed status set it as readed
       const handleRead = (): void => {
         onMessageRead && onMessageRead(message)
+      }
+
+      const collapseMe = (msg: MessageCustom): void => {
+        /**
+         * cause the react data table does not support any api to collapse selected row.
+         * solution: click on this row to collapse it.
+         */
+        const cellId = `cell-1-${msg.message.Reference}`
+        const cellElm = document.getElementById(cellId)
+        if (cellElm) {
+          cellElm.click()
+        }
       }
 
       return (
@@ -181,9 +193,7 @@ export const genData2 = (
             onChange={(newMeesage: MessageCustom): void => {
               onChange && onChange(newMeesage)
             }}
-            collapseMe={(): void => {
-              typeof onChangeCallback === 'function' && onChangeCallback()
-            }}
+            collapseMe={collapseMe}
             gameDate={gameDate}
           />
         </div>

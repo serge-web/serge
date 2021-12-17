@@ -146,7 +146,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
 
-  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void} | undefined>()
+  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void } | undefined>()
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
@@ -223,7 +223,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
      */
     const handleChange = (msg: MessageCustom, collapse: boolean): void => {
       // collapse message, if necessary
-      collapse && collapseMe && collapseMe()
+      collapse && collapseMe && collapseMe(msg)
       // fire update
       onChange && onChange(msg)
     }
@@ -386,7 +386,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
                 gameDate={gameDate}
               />
             }
-            { isResponse && canSeeResponse && <JsonEditor
+            {isResponse && canSeeResponse && <JsonEditor
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={collaboration.response2 || {}}
@@ -408,8 +408,8 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
             }
             { // only show private field for umpire force(s)
               (isUmpire || isObserver) &&
-            <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
-              disabled={!privateIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory} />
+              <Textarea id={`private_message_${message._id}`} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)}
+                disabled={!privateIsEditable} theme='dark' label='Private Message' labelFactory={labelFactory} />
             }
             <div key='lower' className={styles.actions}>
               {
