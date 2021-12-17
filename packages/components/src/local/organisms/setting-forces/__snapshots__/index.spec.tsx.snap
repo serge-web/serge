@@ -79,7 +79,7 @@ exports[`SettingForces component: renders correctly 1`] = `
           className="col"
         >
           <section
-            className="input-container disable-offset"
+            className="input-container disable-offset underline"
           >
             <div
               className="MuiFormControl-root MuiTextField-root"
@@ -127,6 +127,11 @@ exports[`SettingForces component: renders correctly 1`] = `
         </div>
         <div
           className="col"
+          style={
+            Object {
+              "textDecoration": "underline",
+            }
+          }
         >
           <div
             className="main"
