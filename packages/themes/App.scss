@@ -63,6 +63,11 @@
   }
 }
 
+.underline {
+  border-bottom: 1px solid black;
+  margin-right: 20px;
+}
+
 .loading {
   display: flex;
   flex-direction: column;
