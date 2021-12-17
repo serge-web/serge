@@ -97,13 +97,6 @@ export const SettingForces: React.FC<PropTypes> = ({
           </div>
           <div className={styles.actions}>
             <Button
-              icon="delete"
-              /* todo: should call onDelete handler on next line */
-              onClick={(): void => { console.log('onDelete') }}
-            >
-              Delete
-            </Button>
-            <Button
               color="primary"
               onClick={(): void => { if (onSave) onSave(forcesData) }}
               data-qa-type="save"
