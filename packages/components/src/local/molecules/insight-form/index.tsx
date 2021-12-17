@@ -31,7 +31,7 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend, darkMode }: Pro
     <div className={styles['insight-form']}>
       <div className={styles['insight-title']}>
         <ModeComment fontSize="large" />
-        <h3>Insights</h3>
+        <h3>Feedback</h3>
       </div>
       <p>Use this form to give private feedback on the game itself.</p>
       <p>Comments are only visible to the Game Controller. No other player has access to the comments you post here.</p>

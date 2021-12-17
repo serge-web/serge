@@ -20,8 +20,8 @@ import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } 
 import JsonEditor from '../json-editor'
 import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
-import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, CLAIM_MESSAGE, createActionTable, SAVE_MESSAGE, SUBMIT_FOR_REVIEW } from './helpers/actions-for'
-import { ClaimFunc, CoreFunc, SubmitFunc } from './helpers/handlers'
+import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, createActionTable } from './helpers/actions-for'
+import { ClaimFunc, CLAIM_HANDLER, CoreFunc, CORE_HANDLER, SubmitFunc, SUBMIT_HANDLER } from './helpers/handlers'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -332,18 +332,23 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
     const actionButtons = reverseActions.map((action: Action) => {
       const verbs = action.verbs
       return verbs.map((verb: string) => {
-        switch (verb) {
-          case ASSIGN_MESSAGE:
-            return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, action.handler as ClaimFunc)} />
-          case CLAIM_MESSAGE:
-            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, action.handler as ClaimFunc)}>{verb}</Button>
-          case SAVE_MESSAGE:
-          case SUBMIT_FOR_REVIEW:
-            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, action.handler as SubmitFunc)}>{verb}</Button>
-          default: {
+        switch (action.handler.handlerType) {
+          case SUBMIT_HANDLER: {
+            const handler = action.handler.handler as SubmitFunc
+            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleEditingSubmit(role, verb, handler)}>{verb}</Button>
+          }
+          case CLAIM_HANDLER: {
+            const handler = action.handler.handler as ClaimFunc
+            if (verb === ASSIGN_MESSAGE) {
+              return <SplitButton label={'Assign'} key={verb} options={[...candidates]} onClick={(item: string): void => handleClaim(item, undefined, role, verb, handler)} />
+            } else {
+              return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleClaim(undefined, role, role, verb, handler)}>{verb}</Button>
+            }
+          }
+          case CORE_HANDLER: {
+            const handler = action.handler.handler as CoreFunc
             const requiresFeedback = !!action.feedback
-            // technically the handler could be `core` or `claim`. We know it's `core`, so cast it.
-            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, action.handler as CoreFunc)}>{verb}{requiresFeedback && '*'}</Button>
+            return <Button key={verb} customVariant="form-action" size="small" type="button" onClick={(): void => handleVerb(requiresFeedback, role, verb, handler)}>{verb}{requiresFeedback && '*'}</Button>
           }
         }
       })
@@ -360,7 +365,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
             onSave={onModalSave}
             onValueChange={onModalValueChange}
             placeholder={placeHolder}
-          /><div>DEBUG, to be deleted: State:<i>{state}</i> Owner:<i>{collaboration.owner?.roleName || 'unallocated'}</i> Current:<i>{role.roleName}</i></div>
+          />
           <>
             <div key='upper' className={styles.actions}>
               {
