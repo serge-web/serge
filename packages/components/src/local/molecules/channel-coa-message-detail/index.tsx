@@ -246,6 +246,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
     newMessage.details.timestamp = uniqId
     newMessage.message.Reference = ''
+    newMessage.message.Title = newMessage.message.Title + ' (Dup)'
 
     const db = new PouchDB(databasePath + getDbByQuery() + dbSuffix)
 
