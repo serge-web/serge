@@ -21,7 +21,7 @@ import {
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
-import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE, dbSuffix } from '@serge/config'
 
 import {
   setLatestFeedbackMessage,
@@ -57,10 +57,6 @@ import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
 
 const wargameDbStore: ApiWargameDbObject[] = []
-
-// give database documents a suffix, so they're easier to open
-// in database utility tools
-const dbSuffix = '.sqlite'
 
 const rejectDefault = (err: any): any => {
   console.log(err)

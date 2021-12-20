@@ -38,10 +38,12 @@ import {
   formEditable,
   ColDocumentBeingEditedByOther
 } from './helpers/visibility'
-import { CollaborativeMessageStates, SpecialChannelTypes, expiredStorage } from '@serge/config'
+import { checkReference, ApiWargameDb } from './helpers/messages_helper'
+import { CollaborativeMessageStates, SpecialChannelTypes, expiredStorage, databasePath, dbSuffix } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
+import PouchDB from 'pouchdb'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -217,6 +219,41 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
     })
   }
 
+  const getDbByQuery = (): null => {
+    let result = null
+    let tmp = []
+    window.location.search
+      .substr(1)
+      .split('&')
+      .forEach((item) => {
+        tmp = item.split('=')
+        if (tmp[0] === 'wargame') result = decodeURIComponent(tmp[1])
+      })
+    return result
+  }
+
+  const duplicateMessage = (): Promise<PouchDB.Core.Response> => {
+    const uniqId = new Date().toISOString()
+    const newMessage = {
+      ...message,
+      _id: uniqId,
+      _rev: undefined
+    }
+
+    if (newMessage.details.collaboration?.lastUpdated) {
+      newMessage.details.collaboration.lastUpdated = uniqId
+    }
+
+    newMessage.details.timestamp = uniqId
+    newMessage.message.Reference = ''
+
+    const db = new PouchDB(databasePath + getDbByQuery() + dbSuffix)
+
+    return checkReference(newMessage, db as ApiWargameDb).then(resMessage => {
+      return db.put(resMessage)
+    })
+  }
+
   const onAnswerChange = (answer: string): void => {
     setAnswer(answer)
     // the reply needs to be stored temporarily in the message object to avoid being lost on rerendering
@@ -358,6 +395,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
             {
               ColEditClosed(message, channel, canReleaseMessages) &&
               <>
+                <Button customVariant="form-action" size="small" type="button" onClick={duplicateMessage}>Duplicate</Button>
                 <Button customVariant="form-action" size="small" type="button" onClick={handleReopen}>Reopen</Button>
               </>
             }
