@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, CollaborativeMessageStates2 } from '@serge/config'
 import { MessageCustom, Role } from '@serge/custom-types'
 import { forces } from "./forces.mock";
 
@@ -24,24 +24,26 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       privateMessage: 'Private part of COA 3',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
+        owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
         status: CollaborativeMessageStates.Finalized,
+        status2: CollaborativeMessageStates2.Released,
         response: 'Response to RFI 3'
       },
       turnNumber: 1
     },
     message: {
       Reference: 'Blue-3',
-      Title: "Blue-3 Trusted Taipir",
+      Title: "Blue-3 Trusted Taipir, owned by Red Comms",
       LOCATION: {
         Asia: [
-            {
-                "Country": "India"
-            }
+          {
+            "Country": "India"
+          }
         ],
         Europe: [
-            {
-                "Country": "France"
-            }
+          {
+            "Country": "France"
+          }
         ]
       },
       PRESCRIPTED: true,
@@ -110,6 +112,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
+        status2: CollaborativeMessageStates2.Closed,
         response: 'Didn\'t bother responding'
       },
       turnNumber: 1
@@ -119,14 +122,14 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Title: "Red-1 COA",
       LOCATION: {
         Asia: [
-            {
-                "Country": "India"
-            }
+          {
+            "Country": "India"
+          }
         ],
         Europe: [
-            {
-                "Country": "France"
-            }
+          {
+            "Country": "France"
+          }
         ]
       },
       PRESCRIPTED: true,
@@ -195,12 +198,13 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
+        status2: CollaborativeMessageStates2.PendingReview,
         response: 'Game control response to RFI 444',
         feedback: [
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think about the children`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need more prep time`},
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you think about the next bit?`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Good plan`}
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think about the children` },
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need more prep time` },
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-11T09:64:21.119Z`, feedback: `What did you think about the next bit?` },
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Good plan` }
         ]
       },
       turnNumber: 1
@@ -210,14 +214,14 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Title: "White-2 COA",
       LOCATION: {
         Asia: [
-            {
-                "Country": "India"
-            }
+          {
+            "Country": "India"
+          }
         ],
         Europe: [
-            {
-                "Country": "France"
-            }
+          {
+            "Country": "France"
+          }
         ]
       },
       PRESCRIPTED: true,
@@ -285,11 +289,12 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.BeingEdited,
+        status2: CollaborativeMessageStates2.InProgress,
         feedback: [
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-11T09:64:21.119Z`, feedback: `What did you even think about the next bit?`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children` },
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time` },
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-11T09:64:21.119Z`, feedback: `What did you even think about the next bit?` },
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan` }
         ]
       },
       turnNumber: 1
@@ -341,7 +346,8 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         "Logistics"
       ],
       PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
-      INSIGHT: "kdjg;sd lfjk s;lfkgj "    },
+      INSIGHT: "kdjg;sd lfjk s;lfkgj "
+    },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
     hasBeenRead: false,
@@ -363,6 +369,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Pending,
+        status2: CollaborativeMessageStates2.Unallocated,
         response: 'Game control response to Blue-2'
       },
       turnNumber: 1
@@ -372,9 +379,9 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       Title: "Blue 2 COA",
       LOCATION: {
         Europe: [
-            {
-                "Country": "France"
-            }
+          {
+            "Country": "France"
+          }
         ]
       },
       PRESCRIPTED: true,
@@ -442,20 +449,26 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       },
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
+      privateMessage: 'The private element of the response',
       collaboration: {
+        response2: {
+          content: 'Response to Blue-3a'
+        },
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Pending,
+        owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
+        status2: CollaborativeMessageStates2.Unallocated,
         feedback: [
-          { fromId: `rkrlw6f5f`, fromName: `Game Control` , date:`2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time`},
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+          { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children` },
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time` },
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan` }
         ]
       },
       turnNumber: 1
     },
     message: {
       Reference: 'Blue-3a',
-      Title: 'RFI 3 from Blue',
+      Title: 'RFI 3 from Blue, owned by Red Comms',
       RFI: "Content of RFI",
       Priority: "High",
       FAO: "J2",
@@ -482,6 +495,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.BeingEdited,
+        status2: CollaborativeMessageStates2.InProgress,
         response: 'Game control response to RFI 4'
       },
       turnNumber: 1
@@ -516,9 +530,10 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
+        status2: CollaborativeMessageStates2.Closed,
         response: 'Game control response to RFI 4',
         feedback: [
-          { fromId: `rkrlasdd5f`, fromName: `RFI Manager` , date:`2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan`}
+          { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan` }
         ]
       },
       turnNumber: 1
@@ -553,6 +568,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
+        status2: CollaborativeMessageStates2.PendingReview,
         response: 'Game control response to RFI 4'
       },
       turnNumber: 1
@@ -587,6 +603,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released,
+        status2: CollaborativeMessageStates2.Released,
         response: 'Game control response to Blue-2'
       },
       turnNumber: 1

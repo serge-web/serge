@@ -1,20 +1,20 @@
 import FlexLayout, { TabNode } from 'flexlayout-react'
-import { PlayerUi } from '@serge/custom-types'
+import { ChannelUI, PlayerUi } from '@serge/custom-types'
 import _ from 'lodash'
 import findChannelByName from './findChannelByName'
 
-const tabRender = (state: PlayerUi, unreadStore: {[property: string]: number}): (node: TabNode) => void => {
+const tabRender = (state: PlayerUi): (node: TabNode) => void => {
   return (node: TabNode): void => {
     setTimeout(() => {
       const tabLayout = document.getElementsByClassName('flexlayout__layout')[0]
       const tabSetHeaderElms = tabLayout.getElementsByClassName('flexlayout__tabset')
       const tabSetContentElms = tabLayout.getElementsByClassName('flexlayout__tab')
-      
+
       let maximizedTabIdx = -1
       Array.from(tabSetHeaderElms).forEach((layout, idx) => {
         const style = layout.attributes.getNamedItem('style')
         if (!style) return
-        
+
         if (node.getModel().getMaximizedTabset()) {
           /**
            * If a maximized tabset exists, hide other tabsets that is not the maximized one
@@ -64,7 +64,7 @@ const tabRender = (state: PlayerUi, unreadStore: {[property: string]: number}): 
       })
     })
 
-    let channel: any;
+    let channel: ChannelUI | undefined;
 
     const addMenuItemMsgCount = (className: string) => {
       if (!className) return
@@ -94,9 +94,9 @@ const tabRender = (state: PlayerUi, unreadStore: {[property: string]: number}): 
       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined
 
       if (channel !== undefined) {
-        const unreadMessageCount: number | undefined = typeof unreadStore[channel.uniqid] === 'undefined' ? channel.unreadMessageCount : unreadStore[channel.uniqid]
+        const unreadMessageCount: number | undefined = channel.unreadMessageCount
         let className: string = ''
-        
+
         if (typeof unreadMessageCount === 'number' && unreadMessageCount > 0) {
           className = unreadMessageCount < 9 ? `unread-${unreadMessageCount}` : 'unread-9plus'
         }

@@ -23,7 +23,6 @@ import {
   messageDataCollaborativeEditing
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
-
 export default {
   title: 'local/CoaStatusBoard',
   component: CoaStatusBoard,
@@ -68,11 +67,18 @@ const Template: Story<Props> = (args) => {
     setMessages(newMessages)
   }
 
-  const handleReadMessage = (unreadCount: number): void => {
-    console.log('unread mesages left: ' + unreadCount)
+  const handleReadMessage = (message: MessageCustom): void => {
+    console.log('message read: ' + message)
   }
 
-  return <CoaStatusBoard {...args} forces={collabForces} messages={messages} onChange={onChange} onMessageRead={handleReadMessage} currentWargame='wargame-test' />
+  return <CoaStatusBoard
+    {...args}
+    forces={collabForces}
+    messages={messages}
+    onChange={onChange}
+    onMessageRead={handleReadMessage}
+    currentWargame='wargame-test'
+  />
 }
 
 const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as MessageCustom[]

@@ -47,7 +47,7 @@ const NewMessage = props => {
   }
 
   return (
-    <div className={classes}>
+    <div className={classes} style={{ zIndex: 1 }}>
       <Collapsible
         trigger={'New Message'}
         transitionTime={200}

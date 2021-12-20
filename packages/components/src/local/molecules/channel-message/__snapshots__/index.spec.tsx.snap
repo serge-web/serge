@@ -71,18 +71,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-4 makeStyles-label-8 MuiChip-labelSmall"
             >
-              Chat
-            </span>
-          </div>
-          <div
-            className="MuiChip-root makeStyles-root-2 makeStyles-root-9 MuiChip-sizeSmall makeStyles-sizeSmall-3"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-          >
-            <span
-              className="MuiChip-label makeStyles-label-4 makeStyles-label-10 MuiChip-labelSmall"
-            >
-              Unread
+              idchat
             </span>
           </div>
         </div>

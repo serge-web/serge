@@ -18,6 +18,25 @@ export enum Phase {
   GULF = 'Gulf'
 }
 
+
+/** increasing permissions in a collaborative editing channel
+ */
+ export enum CollaborativePermission {
+  /** can */
+  CannotCollaborate,
+  CanEdit,
+  CanSubmitForReview,
+  CanApprove,
+  CanRelease,
+  CanUnClaim
+}
+
+/** the initial state for new messages in a collab edit channel */
+export enum InitialStates {
+  PENDING_REVIEW = 'PENDING_REVIEW',
+  UNALLOCATED = 'UNALLOCATED'
+}
+
 /** types of special channel */
 export enum SpecialChannelTypes {
   CHANNEL_MAPPING = 'mapping',
@@ -86,6 +105,34 @@ export enum CollaborativeMessageStates {
    */
   BeingEdited = 'Being edited',
 }
+
+/** the phases a v3 collaborative message goes through before
+ * being approved to send
+ */
+ export enum CollaborativeMessageStates2 {
+  /**
+   * message is waiting to be allocated to owner
+   */
+  Unallocated = 'Unallocated',
+  /**
+   * non collab-editing (e.g. RFI) document being edited
+   * //TODO: remove this when we retire RFI status board.
+   */
+  InProgress = 'In progress',
+  /**
+   * owner finished editing, waiting for review
+   */
+  PendingReview = 'Pending review',
+  /**
+   * approved and released
+   */
+  Released = 'Released',
+  /** 
+   * document cancelled 
+   */
+  Closed = 'Closed',
+}
+
 
 /** the commands that can be appled to a collaborative message
  */
