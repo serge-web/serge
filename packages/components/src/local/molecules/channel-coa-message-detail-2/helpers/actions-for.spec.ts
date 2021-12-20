@@ -27,10 +27,11 @@ describe('Action table & actions', () => {
 
     const ownerUnClaimBeingEdited = actionsFor(table, States.InProgress, Permission.CanUnClaim, isOwner)
     expect(ownerUnClaimBeingEdited).toBeTruthy()
-    expect(ownerUnClaimBeingEdited.length).toEqual(4)
+    expect(ownerUnClaimBeingEdited.length).toEqual(5)
     expect(ownerUnClaimBeingEdited[0].verbs.length).toEqual(1)
     expect(ownerUnClaimBeingEdited[0].verbs[0]).toEqual('Save')
-    expect(ownerUnClaimBeingEdited[3].verbs[0]).toEqual('Unclaim')
+    expect(ownerUnClaimBeingEdited[3].verbs[0]).toEqual('Discard')
+    expect(ownerUnClaimBeingEdited[4].verbs[0]).toEqual('Unclaim')
     expect(ownerUnClaimBeingEdited[0].handler).toBeTruthy()
 
     const notOwnerCannotSaveBeingEdited = actionsFor(table, States.InProgress, Permission.CanEdit, notOwner)
