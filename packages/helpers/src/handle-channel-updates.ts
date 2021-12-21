@@ -12,14 +12,14 @@ import getRoleFromName from './get-role-from-name'
 import newestPerRole from './newest-per-role'
 
 /** a message has been received. Put it into the correct channel */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, playerLog: PlayerLog) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
   const sourceRole: string = payload.details.from.roleId
   const logger: PlayerLogInstance = {
     roleId: payload.details.from.roleId,
     lastMessageTitle: payload.details.messageType,
     lastMessageTime: payload.details.timestamp
   }
-  playerLog[sourceRole] = logger
+  data.playerLog[sourceRole] = logger
   if (channel === CHAT_CHANNEL_ID) {
     data.chatChannel.messages.unshift(deepCopy(payload))
   } else if (data.channels[channel]) {
@@ -165,7 +165,6 @@ export const handleAllInitialChannelMessages = (
   const messagesFiltered = mostRecentOnly(messagesReduced)
 
   const playerLog = newestPerRole(payload)
-  console.table(Object.values(playerLog))
 
   const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
@@ -396,10 +395,8 @@ const handleChannelUpdates = (
       delete res.channels[key]
     }
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload, res.playerLog)
+    handleNonInfoMessage(res, payload.details.channel, payload)
   }
-
-  console.table(res.playerLog)
 
   return res
 }
