@@ -1,15 +1,15 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { ForceData, MessageCustom, MessageInfoType, PlayerLog, PlayerLogInstance, Role } from '@serge/custom-types'
+import { ForceData, MessageCustom, MessageInfoType, PlayerLog, PlayerLogInstance, PlayerLogUI, Role } from '@serge/custom-types'
 
-export const logTable = (playerLog: PlayerLog, forces: ForceData[]): Array<Array<string>> => {
-  const res: Array<Array<string>> = []
-  forces.forEach((element: ForceData) => {
-    element.roles.forEach((role: Role) => {
+export const logTable = (playerLog: PlayerLog, forces: ForceData[]): Array<PlayerLogUI> => {
+  const res: Array<PlayerLogUI> = []
+  forces.forEach((force: ForceData) => {
+    force.roles.forEach((role: Role) => {
       const entry = playerLog[role.roleId]
       if (entry) {
-        res.push([element.name, role.name, entry.lastMessageTitle, entry.lastMessageTime])
+        res.push({ force: force.name, forceColor: force.color, iconURL: force.iconURL, role: role.name, title: entry.lastMessageTitle, time: entry.lastMessageTime })
       } else {
-        res.push([element.name, role.name])
+        res.push({ force: force.name, forceColor: force.color, iconURL: force.iconURL, role: role.name })
       }
     })
   })
