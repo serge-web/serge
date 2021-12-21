@@ -26,7 +26,7 @@ export default interface Props {
   /** people that a document in this channel can be assigned to */
   assignees?: ForceRole[]
   /** callback to collapse this item */
-  collapseMe?: () => void
+  collapseMe?: (msg: MessageCustom) => void
   /** current game time, used for initialising date-time controls */
   gameDate: string
   /** trigger on collapse */

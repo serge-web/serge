@@ -44,6 +44,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const handleUnreadMessage = (message: MessageChannel): void => {
     if (message._id) {
       message.hasBeenRead = false
+      message.isOpen = false
     }
     dispatch(markUnread(channelId, message))
   }
