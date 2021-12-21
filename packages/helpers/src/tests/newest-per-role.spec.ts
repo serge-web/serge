@@ -75,5 +75,7 @@ it('neatly collate player log data', () => {
 
   const logRes: Array<Array<string>> = logTable(mostRecent, forces)
   expect(logRes).toBeTruthy()
-  expect(logRes.length).toEqual(1)
+  expect(logRes.length).toEqual(8)
+  const withData = logRes.filter((list: Array<string>) => list.length > 2)
+  expect(withData.length).toEqual(3)
 })
