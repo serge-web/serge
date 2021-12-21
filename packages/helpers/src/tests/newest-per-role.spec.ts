@@ -1,9 +1,9 @@
-import newestPerRole from '../newest-per-role'
-import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock } from '@serge/mocks'
+import newestPerRole, { logTable } from '../newest-per-role'
+import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock, forces } from '@serge/mocks'
 import { MessageChannel, MessageCustom, MessageInfoType } from '@serge/custom-types'
 import { PlayerLog } from '@serge/custom-types/player-log'
 
-it('find newest message across all channels', () => {
+it('find newest message across all roles', () => {
   const payload: Array<MessageChannel> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageChannel>
 
   // check full list present at start
@@ -46,4 +46,34 @@ it('find newest message across all channels', () => {
   expect(secondMatch.roleId).toEqual(secondMessage.details.from.roleId)
   expect(secondMatch.lastMessageTime).toEqual(secondMessage.details.timestamp)
   expect(secondMatch.lastMessageTitle).toEqual(secondMessage.details.messageType)
+})
+
+it('neatly collate player log data', () => {
+  const payload: Array<MessageChannel> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageChannel>
+
+  // check full list present at start
+  expect(payload.length).toEqual(18)
+
+  // reverse the order, since that's how the data arrives
+  const messages = payload.reverse()
+
+  // NOTE: this next block provides a table of the above
+  // NOTE: messages, which is useful if the unit test breaks
+  // const lister: any[] = []
+  // messages.forEach((msg: MessageChannel) => {
+  //   if (msg.messageType === CUSTOM_MESSAGE) {
+  //     const msgC: MessageCustom = msg
+  //     lister.push({ name: msgC.details.from.roleId, mType: msgC.details.messageType, timeS: msgC.details.timestamp })
+  //   } else {
+  //     lister.push({})
+  //   }
+  // })
+  // console.table(lister)
+
+  // use uniqby with our uniqueness operator
+  const mostRecent: PlayerLog = newestPerRole(messages as (MessageCustom | MessageInfoType)[])
+
+  const logRes: Array<Array<string>> = logTable(mostRecent, forces)
+  expect(logRes).toBeTruthy()
+  expect(logRes.length).toEqual(1)
 })

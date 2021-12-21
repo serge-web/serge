@@ -9,7 +9,7 @@ import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
 import getRoleFromName from './get-role-from-name'
-import newestPerRole from './newest-per-role'
+import newestPerRole, { logTable } from './newest-per-role'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
