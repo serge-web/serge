@@ -1,16 +1,25 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes, CHANNEL_CUSTOM } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role, MessageDetailsFrom, CollaborationDetails, ChannelTypes
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
+  Role, MessageDetailsFrom, CollaborationDetails, ChannelTypes, PlayerLogInstance, PlayerLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
 import getRoleFromName from './get-role-from-name'
+import newestPerRole from './newest-per-role'
 
 /** a message has been received. Put it into the correct channel */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, playerLog: PlayerLog) => {
+  const sourceRole: string = payload.details.from.roleId
+  const logger: PlayerLogInstance = {
+    roleId: payload.details.from.roleId,
+    lastMessageTitle: payload.details.messageType,
+    lastMessageTime: payload.details.timestamp
+  }
+  playerLog[sourceRole] = logger
   if (channel === CHAT_CHANNEL_ID) {
     data.chatChannel.messages.unshift(deepCopy(payload))
   } else if (data.channels[channel]) {
@@ -155,6 +164,9 @@ export const handleAllInitialChannelMessages = (
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
 
+  const playerLog = newestPerRole(payload)
+  console.table(Object.values(playerLog))
+
   const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
 
@@ -255,7 +267,8 @@ export const handleAllInitialChannelMessages = (
       ...chatChannel,
       messages: chatMessages
     },
-    rfiMessages: rfiMessagesCustom
+    rfiMessages: rfiMessagesCustom,
+    playerLog: playerLog
   }
 }
 
@@ -269,11 +282,13 @@ const handleChannelUpdates = (
   selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
-  allForces: ForceData[]): SetWargameMessage => {
+  allForces: ForceData[],
+  playerLog: PlayerLog): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
-    rfiMessages: deepCopy(rfiMessages)
+    rfiMessages: deepCopy(rfiMessages),
+    playerLog: deepCopy(playerLog)
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
@@ -381,8 +396,10 @@ const handleChannelUpdates = (
       delete res.channels[key]
     }
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload)
+    handleNonInfoMessage(res, payload.details.channel, payload, res.playerLog)
   }
+
+  console.table(res.playerLog)
 
   return res
 }

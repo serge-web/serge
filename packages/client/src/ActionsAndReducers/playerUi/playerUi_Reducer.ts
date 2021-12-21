@@ -75,7 +75,8 @@ export const initialState: PlayerUi = {
   showAccessCodes: false,
   rfiMessages: [],
   isInsightViewer: false,
-  isRFIManager: false
+  isRFIManager: false,
+  playerLog: {}
 }
 
 
