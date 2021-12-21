@@ -8,6 +8,9 @@ import RouterMain from './Components/Router/RouterMain'
 import Store from './Store/Store'
 import '@serge/themes/App.scss'
 
+/** placeholder. We need to find another way to find the current role */
+const roleId = 'role_' + Math.floor(Math.random() * 100)
+
 class App extends Component {
   componentDidMount () {
     document.title = 'Serge'
@@ -19,7 +22,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <RouterMain />
           <Notifications />
-          <Version />
+          <Version roleId={roleId} />
         </ThemeProvider>
       </Provider>
     )

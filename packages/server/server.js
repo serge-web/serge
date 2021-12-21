@@ -47,6 +47,9 @@ const runServer = (
 
   const clientBuildPath = '../client/build'
 
+  // log of time of receipt of player heartbeat messages
+  const playerLog = {}
+
   app.use(cors(corsOptions))
   app.use('/db', require('express-pouchdb')(PouchDB))
 
@@ -84,6 +87,9 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
+    const role = req.headers['role']
+    playerLog[role] = new Date().toISOString()
+    console.log(JSON.stringify(playerLog))
     res.status(200).send({
       status: 'OK',
       uptime: process.uptime()
