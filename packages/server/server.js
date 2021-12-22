@@ -87,13 +87,25 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
+    const wargame = req.headers.wargame
     const role = req.headers.role
-    playerLog[role] = new Date().toISOString()
-    console.log(JSON.stringify(playerLog))
+    // if we have wargame & role, store the date-time
+    if (wargame && wargame.length && role && role.length) {
+      let wargameLog = playerLog[wargame]
+      if (!wargameLog) {
+        wargameLog = playerLog[wargame] = {}
+      }
+      wargameLog[role] = new Date().toISOString()
+    }
     res.status(200).send({
       status: 'OK',
       uptime: process.uptime()
     })
+  })
+
+  app.get('/playerlog', (req, res) => {
+    const wargame = req.headers.wargame
+    res.status(200).send({ log: playerLog[wargame] })
   })
 
   app.get('/cells/:filename', (req, res) => {
