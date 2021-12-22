@@ -173,6 +173,25 @@ export const pingServer = (wargameId: string, roleId: string): Promise<any> => {
     console.log(err)
     return "NOT_OK"
   })
+}
+
+export const getPlayerLog = (wargameId: string, roleId: string): Promise<any> => {
+  return fetch(serverPath + 'playerlog',{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'wargame': wargameId
+    }
+  })
+  .then((response: Response): Promise<any> => response.json())
+  .then((data: any) => {
+    console.log('data:', data)
+    return data.status
+  })
+  .catch((err) => {
+    console.log(err)
+    return "NOT_OK"
+  })
 } 
 
 export const populateWargame = (): Promise<Wargame> => {
