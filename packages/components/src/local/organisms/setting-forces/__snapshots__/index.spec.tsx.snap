@@ -259,7 +259,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                   </div>
                 </div>
                 <div
-                  className="MuiCollapse-root MuiCollapse-hidden"
+                  className="MuiCollapse-container MuiCollapse-hidden"
                   style={
                     Object {
                       "minHeight": "0px",
@@ -468,7 +468,7 @@ exports[`SettingForces component: renders correctly 1`] = `
               </div>
             </div>
             <div
-              className="MuiCollapse-root MuiCollapse-hidden"
+              className="MuiCollapse-container MuiCollapse-hidden"
               style={
                 Object {
                   "minHeight": "0px",
@@ -1302,7 +1302,7 @@ exports[`SettingForces component: renders correctly 1`] = `
               </div>
             </div>
             <div
-              className="MuiCollapse-root MuiCollapse-hidden"
+              className="MuiCollapse-container MuiCollapse-hidden"
               style={
                 Object {
                   "minHeight": "0px",
