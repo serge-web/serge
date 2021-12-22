@@ -8,9 +8,9 @@ import RouterMain from './Components/Router/RouterMain'
 import Store from './Store/Store'
 import '@serge/themes/App.scss'
 
-/** placeholder. We need to find another way to find the current role */
+/** placeholder. We need to find another way to find the current role & wargame */
 const roleId = 'role_' + Math.floor(Math.random() * 100)
-const wargameId = 'wargame_' + Math.floor(Math.random() * 100)
+const wargameId = 'wargame_12'
 
 class App extends Component {
   componentDidMount () {
