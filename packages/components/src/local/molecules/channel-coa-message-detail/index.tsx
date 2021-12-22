@@ -234,21 +234,36 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const duplicateMessage = (): Promise<PouchDB.Core.Response> => {
     const uniqId = new Date().toISOString()
+
+    // keep untyped version of message, so we can overwrite _id field
     const newMessage = JSON.parse(JSON.stringify(message))
+
+    // create typed instance of message, so we can use type script
+    const messageCustom: MessageCustom = newMessage
 
     newMessage._id = uniqId
     newMessage._rev = undefined
 
-    if (newMessage.details.collaboration?.lastUpdated) {
-      newMessage.details.collaboration.lastUpdated = uniqId
+    // check we have collaboration object
+    if (messageCustom.details.collaboration) {
+      // use new last-updated time
+      messageCustom.details.collaboration.lastUpdated = uniqId
+      // put the message back into the pending pool
+      messageCustom.details.collaboration.status = CollaborativeMessageStates.Pending
+      // clear any feedback
+      messageCustom.details.collaboration.feedback = []
     }
 
-    newMessage.details.timestamp = uniqId
-    newMessage.message.Reference = ''
-    newMessage.message.Title = newMessage.message.Title + ' (Dup)'
+    messageCustom.details.timestamp = uniqId
+    messageCustom.message.Reference = ''
+    messageCustom.message.Title = newMessage.message.Title + ' (Dup)'
 
     const db = new PouchDB(databasePath + getDbByQuery() + dbSuffix)
 
+    // try to collapse this message
+    collapseMe && collapseMe()
+
+    // store new message
     return checkReference(newMessage, db as ApiWargameDb).then(resMessage => db.put(resMessage))
   }
 
