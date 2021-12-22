@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-const Version = ({ showNotification, notifications, hideNotification, roleId }) => {
+const Version = ({ showNotification, notifications, hideNotification, wargameId, roleId }) => {
   const [toggleBeat, setToggleBeat] = useState(false)
   const [serverStatus, setServerStatus] = useState('')
   const [serverPingTime, setServerPingTime] = useState()
@@ -45,9 +45,8 @@ const Version = ({ showNotification, notifications, hideNotification, roleId }) 
     }
   }, [serverStatus, serverPingTime])
 
-  const pingServer = (roleId) => {
-    console.log('pinging for role', roleId)
-    return pingServerApi(roleId).then(res => {
+  const pingServer = (wargameId, roleId) => {
+    return pingServerApi(wargameId, roleId).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -56,7 +55,7 @@ const Version = ({ showNotification, notifications, hideNotification, roleId }) 
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      pingServer(roleId)
+      pingServer(wargameId, roleId)
     }, SERVER_PING_INTERVAL)
 
     return () => {

@@ -10,6 +10,7 @@ import '@serge/themes/App.scss'
 
 /** placeholder. We need to find another way to find the current role */
 const roleId = 'role_' + Math.floor(Math.random() * 100)
+const wargameId = 'wargame_' + Math.floor(Math.random() * 100)
 
 class App extends Component {
   componentDidMount () {
@@ -22,7 +23,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <RouterMain />
           <Notifications />
-          <Version roleId={roleId} />
+          <Version wargameId={wargameId} roleId={roleId} />
         </ThemeProvider>
       </Provider>
     )
