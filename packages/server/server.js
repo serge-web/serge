@@ -87,7 +87,7 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
-    const role = req.headers['role']
+    const role = req.headers.role
     playerLog[role] = new Date().toISOString()
     console.log(JSON.stringify(playerLog))
     res.status(200).send({
