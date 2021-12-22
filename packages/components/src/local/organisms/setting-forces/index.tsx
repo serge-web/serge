@@ -83,6 +83,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               updateState={(target: { value: string }): void => {
                 handleChangeForce({ ...data, name: target.value })
               }}
+              className="underline"
             />
           </div>
           <div className={styles['color-box']}>
@@ -90,7 +91,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               handleChangeForce({ ...data, color: newColor })
             }} />
           </div>
-          <div className={styles.col}>
+          <div className={styles.col} style={{ textDecoration: 'underline' }}>
             <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
               handleChangeForce({ ...data, icon })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
