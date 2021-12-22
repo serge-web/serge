@@ -234,7 +234,7 @@ Array [
             tabIndex={-1}
           />
           <div
-            className="MuiInputAdornment-root MuiInputAdornment-filled MuiInputAdornment-positionEnd"
+            className="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-filled"
           >
             <button
               className="MuiButtonBase-root MuiIconButton-root"
