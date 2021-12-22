@@ -234,11 +234,10 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
   const duplicateMessage = (): Promise<PouchDB.Core.Response> => {
     const uniqId = new Date().toISOString()
-    const newMessage = {
-      ...message,
-      _id: uniqId,
-      _rev: undefined
-    }
+    const newMessage = JSON.parse(JSON.stringify(message))
+
+    newMessage._id = uniqId
+    newMessage._rev = undefined
 
     if (newMessage.details.collaboration?.lastUpdated) {
       newMessage.details.collaboration.lastUpdated = uniqId
@@ -250,9 +249,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ templates, message, o
 
     const db = new PouchDB(databasePath + getDbByQuery() + dbSuffix)
 
-    return checkReference(newMessage, db as ApiWargameDb).then(resMessage => {
-      return db.put(resMessage)
-    })
+    return checkReference(newMessage, db as ApiWargameDb).then(resMessage => db.put(resMessage))
   }
 
   const onAnswerChange = (answer: string): void => {
