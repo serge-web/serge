@@ -52,14 +52,14 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     filteredDoc,
     forces,
     role,
-    currentWargame,
     templates,
     isObserver,
     isUmpire,
     channelColb,
     permission,
     gameDate,
-    onChange
+    onChange,
+    onMessageRead
   )
 
   useEffect(() => {
@@ -85,14 +85,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({
     setShowArchived(!showArchived)
   }
 
-  const ExpandedComponent = ({ data }: Row): React.ReactElement => {
-    if (!data.isReaded) {
-      const message = messages.filter(msg => msg._id === data.id)
-      message.length && onMessageRead && onMessageRead(message[0])
-      data.isReaded = true
-    }
-    return data.collapsible()
-  }
+  const ExpandedComponent = ({ data }: Row): React.ReactElement => data.collapsible()
 
   const applyFilter = (searchStr: string): void => {
     const filteredRows = rows
@@ -149,6 +142,8 @@ export const CoaStatusBoard2: React.FC<Props> = ({
         expandOnRowClicked={true}
         defaultSortAsc={true}
         persistTableHead={true}
+        expandableRowsHideExpander={true}
+        highlightOnHover={true}
       />
     </>
   )

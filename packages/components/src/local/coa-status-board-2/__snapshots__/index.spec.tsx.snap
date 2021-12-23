@@ -128,9 +128,6 @@ Array [
             role="row"
           >
             <div
-              className="sc-bxivhb sc-hMqMXs jDROVB"
-            />
-            <div
               className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
               data-column-id={1}
               onDragEnd={[Function]}
@@ -329,7 +326,7 @@ Array [
           role="rowgroup"
         >
           <div
-            className="sc-iwsKbI joYMLE rdt_TableRow"
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
             id="row-Blue-3"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -337,37 +334,6 @@ Array [
             selected={false}
             style={Object {}}
           >
-            <div
-              className="sc-bxivhb sc-htoDjs UsBSV"
-              onClick={[Function]}
-            >
-              <button
-                aria-disabled={false}
-                aria-label="Expand Row"
-                className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-Blue-3"
-                disabled={false}
-                onClick={[Function]}
-                role="button"
-                type="button"
-              >
-                <svg
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                  />
-                  <path
-                    d="M0-.25h24v24H0z"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
@@ -506,7 +472,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI joYMLE rdt_TableRow"
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
             id="row-RED-1"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -514,37 +480,6 @@ Array [
             selected={false}
             style={Object {}}
           >
-            <div
-              className="sc-bxivhb sc-htoDjs UsBSV"
-              onClick={[Function]}
-            >
-              <button
-                aria-disabled={false}
-                aria-label="Expand Row"
-                className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-RED-1"
-                disabled={false}
-                onClick={[Function]}
-                role="button"
-                type="button"
-              >
-                <svg
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                  />
-                  <path
-                    d="M0-.25h24v24H0z"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
@@ -683,7 +618,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI joYMLE rdt_TableRow"
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
             id="row-2020-03-25T15:08:47.540Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -691,37 +626,6 @@ Array [
             selected={false}
             style={Object {}}
           >
-            <div
-              className="sc-bxivhb sc-htoDjs UsBSV"
-              onClick={[Function]}
-            >
-              <button
-                aria-disabled={false}
-                aria-label="Expand Row"
-                className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-2020-03-25T15:08:47.540Z"
-                disabled={false}
-                onClick={[Function]}
-                role="button"
-                type="button"
-              >
-                <svg
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                  />
-                  <path
-                    d="M0-.25h24v24H0z"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
@@ -858,7 +762,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI joYMLE rdt_TableRow"
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
             id="row-2020-03-25T15:08:47.525Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -866,37 +770,6 @@ Array [
             selected={false}
             style={Object {}}
           >
-            <div
-              className="sc-bxivhb sc-htoDjs UsBSV"
-              onClick={[Function]}
-            >
-              <button
-                aria-disabled={false}
-                aria-label="Expand Row"
-                className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-2020-03-25T15:08:47.525Z"
-                disabled={false}
-                onClick={[Function]}
-                role="button"
-                type="button"
-              >
-                <svg
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                  />
-                  <path
-                    d="M0-.25h24v24H0z"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
@@ -1033,7 +906,7 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI joYMLE rdt_TableRow"
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
             id="row-2020-03-25T15:08:47.530Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
@@ -1041,37 +914,6 @@ Array [
             selected={false}
             style={Object {}}
           >
-            <div
-              className="sc-bxivhb sc-htoDjs UsBSV"
-              onClick={[Function]}
-            >
-              <button
-                aria-disabled={false}
-                aria-label="Expand Row"
-                className="sc-gzVnrw eURjsc"
-                data-testid="expander-button-2020-03-25T15:08:47.530Z"
-                disabled={false}
-                onClick={[Function]}
-                role="button"
-                type="button"
-              >
-                <svg
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                  />
-                  <path
-                    d="M0-.25h24v24H0z"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
             <div
               className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
               data-column-id={1}
