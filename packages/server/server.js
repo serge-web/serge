@@ -12,6 +12,7 @@ const runServer = (
   const bodyParser = require('body-parser')
   const path = require('path')
   const uniqid = require('uniqid')
+  const archiver = require('archiver');
 
   const readlineSync = require('readline-sync')
 
@@ -41,6 +42,19 @@ const runServer = (
   const clientBuildPath = '../client/build'
 
   app.use(cors(corsOptions))
+
+  app.get('/downloadAll', (req, res) => {
+    const output = fs.createWriteStream('all_dbs.zip')
+    const archive = archiver('zip')
+
+    archive.pipe(output)
+    
+    archive.directory(path.join(__dirname, 'db'), false)
+    
+    archive.finalize()
+
+    setTimeout(() => res.download(path.join(__dirname, 'all_dbs.zip')), 500)
+  })
 
   app.get('/deleteDb', (req, res) => {
     fs.unlink('db/' + req.query.db, err => {
