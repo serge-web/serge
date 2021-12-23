@@ -15,6 +15,9 @@ const filteredMessages = (messages: MessageCustom[], showArchived: boolean): Mes
     } else if (msg.details.archived) {
       // archived, don't show it
       return false
+    } else if (!msg.message) {
+      // info message, not contnet
+      return false
     } else {
       // not archived, we can show it
       return true
