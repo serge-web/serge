@@ -12,6 +12,7 @@ import {
   createNewWargameDB,
   populateWargameStore,
   checkAdminAccess,
+  downloadAllWargames
 } from "../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { populateMessageTypesDb } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
 import {setCurrentViewFromURI} from "../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators";
@@ -33,6 +34,10 @@ class GameDesignerInterface extends Component {
       type: 'games'
     }))
   };
+
+  downloadAllData = () => {
+    this.props.dispatch(downloadAllWargames())
+  }
 
   checkPassword = password => {
     this.props.dispatch(checkAdminAccess(password));
@@ -77,6 +82,12 @@ class GameDesignerInterface extends Component {
               color="primary"
             >
               Clear wargames
+            </Button>
+            <Button
+              onClick={() => this.onButtonClick(this.downloadAllData())}
+              color="secondary"
+            >
+              Download all data
             </Button>
           </div>
           <WargameSearchList key="searchlist"
