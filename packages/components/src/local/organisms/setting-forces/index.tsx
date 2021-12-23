@@ -83,6 +83,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               updateState={(target: { value: string }): void => {
                 handleChangeForce({ ...data, name: target.value })
               }}
+              className="underline"
             />
           </div>
           <div className={styles['color-box']}>
@@ -90,19 +91,12 @@ export const SettingForces: React.FC<PropTypes> = ({
               handleChangeForce({ ...data, color: newColor })
             }} />
           </div>
-          <div className={styles.col}>
+          <div className={styles.col} style={{ textDecoration: 'underline' }}>
             <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
               handleChangeForce({ ...data, icon })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
-            <Button
-              icon="delete"
-              /* todo: should call onDelete handler on next line */
-              onClick={(): void => { console.log('onDelete') }}
-            >
-              Delete
-            </Button>
             <Button
               color="primary"
               onClick={(): void => { if (onSave) onSave(forcesData) }}
