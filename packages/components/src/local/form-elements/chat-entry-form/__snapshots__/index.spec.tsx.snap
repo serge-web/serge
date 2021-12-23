@@ -54,7 +54,7 @@ exports[`ChatEntryForm component: renders correctly 1`] = `
           tabIndex={-1}
         />
         <div
-          className="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-filled"
+          className="MuiInputAdornment-root MuiInputAdornment-filled MuiInputAdornment-positionEnd"
         >
           <button
             className="MuiButtonBase-root MuiIconButton-root"
