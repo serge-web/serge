@@ -19,7 +19,7 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
-    newState.allTemplatesByKey, newState.allForces)
+    newState.allTemplatesByKey, newState.allForces, newState.playerLog)
   return res
 }
 

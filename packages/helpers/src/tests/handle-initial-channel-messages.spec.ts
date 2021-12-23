@@ -1,7 +1,7 @@
 import handleChannelUpdates, { handleAllInitialChannelMessages } from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails
+  ChannelData, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerLog
 } from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
@@ -16,6 +16,7 @@ const allChannels: ChannelData[] = GameChannels
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
+const playerLog: PlayerLog = {}
 
 describe('handle initial channel creation', () => {
   it('fire a message into normal channel', () => {
@@ -84,7 +85,7 @@ describe('handle new message into RFI channel', () => {
     }
 
     const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
 
     const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()
@@ -121,7 +122,7 @@ describe('handle new message into RFI channel', () => {
     msg.message.Reference = 'NEW_REFERENCE'
 
     const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
 
     // the number of rfi messages should now have increased
     expect(res2.rfiMessages.length).toEqual(5)
@@ -147,7 +148,7 @@ describe('handle new message into RFI channel', () => {
     msg.message.Reference = 'Blue-6'
 
     const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
 
     // the number of rfi messages should now have increased
     expect(res2.rfiMessages.length).toEqual(5)
