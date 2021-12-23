@@ -58,7 +58,7 @@ export const channelCollaborativeResponding2: ChannelCollab = {
   initialState: InitialStates.UNALLOCATED,
   name: 'Collab responding 1',
   newMessageTemplate: { title: 'RFI', _id: 'k16eedkj' },
-  responseTemplate: { title: 'Chat', _id: 'idchat' },
+  responseTemplate: { title: 'Chat', _id: 'k16eedkl' },
   participants: [
     {
       canCreate: true,
