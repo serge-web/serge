@@ -167,6 +167,15 @@ export const clearWargames = () => {
   }
 }
 
+export const downloadAllWargames = () => {
+  return async(dispatch) => {
+    wargamesApi.downloadAllWargames()
+    
+    const wargames = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(wargames))
+  }
+}
+
 export const deleteWargame = (name) => {
   return async (dispatch) => {
     await wargamesApi.deleteWargame(name)
