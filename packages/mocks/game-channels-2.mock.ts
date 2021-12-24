@@ -49,7 +49,7 @@ const GameChannels2: Array<ChannelTypes> = [
     responseTemplate:
       {
         title: 'Chat', 
-        _id: 'idchat' 
+        _id: 'k16eedkl' 
       },
     participants: [
       // all of white can collaborate, but not release
