@@ -73,7 +73,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
             onChange(finalVal)
           }}
           renderValue={(selected): any => {
-            const selStr = selected as string[];
+            const selStr = selected as string[]
             if (!multiple) {
               return selStr.length ? <Chip
                 size="small"
@@ -81,7 +81,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
                 onDelete={(): void => onDelete && onDelete(selStr)}
                 clickable={true}
                 onMouseDown={(e): void => e.stopPropagation()}
-              /> : null;
+              /> : null
             }
             return selStr.map(id => options?.find(option => option.uniqid === id)?.name).join(', ')
           }}

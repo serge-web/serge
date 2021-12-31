@@ -1,6 +1,5 @@
 import { ChannelData, ForceData, TemplateBody } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
-import { MessagesValues } from '../helpers/genMessageCollabEdit'
 
 export default interface PropTypes {
   channels: Array<ChannelData>

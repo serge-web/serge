@@ -180,61 +180,61 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
     const onMessageTemplateChanged = (value: string[], action: Action): void => {
       if (action === 'add') {
-        messageLocal.messageTemplate = value;
+        messageLocal.messageTemplate = value
       } else if (action === 'delete') {
         const newMsgTpl = messageLocal.messageTemplate.filter(uniqid => !value.includes(uniqid))
-        messageLocal.messageTemplate = newMsgTpl;
+        messageLocal.messageTemplate = newMsgTpl
       }
       setMessageLocal({ ...messageLocal })
     }
 
     const onResponseTemplateChanged = (value: string[], action: Action): void => {
       if (action === 'add') {
-        messageLocal.responseTemplate = value;
+        messageLocal.responseTemplate = value
       } else if (action === 'delete') {
         const rspTpl = messageLocal.responseTemplate.filter(uniqid => !value.includes(uniqid))
-        messageLocal.responseTemplate = rspTpl;
+        messageLocal.responseTemplate = rspTpl
       }
       setMessageLocal({ ...messageLocal })
     }
 
     const onDocumentStatusChanged = (value: string[]): void => {
-      messageLocal.documentStatus = value;
+      messageLocal.documentStatus = value
       setMessageLocal({ ...messageLocal })
     }
 
     const onRequestChanged = (value: string[], action: Action): void => {
       if (action === 'add') {
-        messageLocal.requestChanges = value;
+        messageLocal.requestChanges = value
       } else if (action === 'delete') {
         const reqChanges = messageLocal.requestChanges.filter(uniqid => !value.includes(uniqid))
-        messageLocal.requestChanges = reqChanges;
+        messageLocal.requestChanges = reqChanges
       }
       setMessageLocal({ ...messageLocal })
     }
 
     const onApproveChanged = (value: string[], action: Action): void => {
       if (action === 'add') {
-        messageLocal.approve = value;
+        messageLocal.approve = value
       } else if (action === 'delete') {
         const appove = messageLocal.approve.filter(uniqid => !value.includes(uniqid))
-        messageLocal.approve = appove;
+        messageLocal.approve = appove
       }
       setMessageLocal({ ...messageLocal })
     }
 
     const onReleaseChanged = (value: string[], action: Action): void => {
       if (action === 'add') {
-        messageLocal.release = value;
+        messageLocal.release = value
       } else if (action === 'delete') {
         const release = messageLocal.release.filter(uniqid => !value.includes(uniqid))
-        messageLocal.release = release;
+        messageLocal.release = release
       }
       setMessageLocal({ ...messageLocal })
     }
 
     const onAdditionalDataChanged = (value: string[]): void => {
-      messageLocal.additionalData = value;
+      messageLocal.additionalData = value
       setMessageLocal({ ...messageLocal })
     }
 
