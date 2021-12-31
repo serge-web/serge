@@ -1,5 +1,5 @@
 import Role from './role'
-import { CollaborativePermission } from '@serge/config' 
+import { CollaborativePermission } from '@serge/config'
 
 export interface ParticipantTemplate {
   _id: string,
@@ -13,13 +13,18 @@ export default interface Participant {
   roles: Array<Role['roleId']>
   subscriptionId: string
   templates: ParticipantTemplate[]
-  icon?: any 
+  permissions: number[],
+  icon?: any
   /** if this set of participants can take part in collaborative working */
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
   canReleaseMessages?: boolean
   /** can un-claim messages */
   canUnClaimMessages?: boolean
+  /** can create new message */
+  canCreateNewMessage?: boolean
+  /** can see live updates */
+  canSeeLiveUpdates?: boolean
 }
 
 

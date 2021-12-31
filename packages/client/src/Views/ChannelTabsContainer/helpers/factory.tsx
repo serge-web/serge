@@ -166,15 +166,15 @@ const factory = (state: PlayerUi): Factory => {
     const channelName = node.getName().toLowerCase()
     const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
 
-    if(!channelDefinition) {
+    if (!channelDefinition) {
       throw new Error('Failed to find channel with id:' + node.getName())
     }
 
     // sort out if it's a modern channel
-    const v3Channel = channelDefinition as ChannelTypes
-    const isV3 =  !!v3Channel.channelType
-    if(isV3) {
-      switch(v3Channel.channelType) {
+    const v3Channel = channelDefinition as unknown as ChannelTypes
+    const isV3 = !!v3Channel.channelType
+    if (isV3) {
+      switch (v3Channel.channelType) {
         case CHANNEL_COLLAB:
           return <Channel2 channelId={matchedChannel[0]} />
         case CHANNEL_CUSTOM:
@@ -193,7 +193,7 @@ const factory = (state: PlayerUi): Factory => {
         return isChatChannel(channelDefinition) ?
           <ChatChannel channelId={matchedChannel[0]} />
           : <Channel channelId={matchedChannel[0]} />
-      }  
+      }
     }
 
   }

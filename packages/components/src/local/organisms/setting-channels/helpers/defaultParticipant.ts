@@ -3,5 +3,6 @@ export default {
   forceUniqid: '',
   roles: [],
   subscriptionId: '',
-  templates: []
+  templates: [],
+  permissions: []
 }

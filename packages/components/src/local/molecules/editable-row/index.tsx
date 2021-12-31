@@ -64,7 +64,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
 
     const value: Array<number> = item.active || []
     return mode === 'edit' ? <>
-      <div className={styles['input-box']}>
+      <div className={cx(styles['input-box'], styles.center)}>
         <FormControl>
           {item.title && <InputLabel id={item.uniqid}>{item.title}</InputLabel>}
           <Select
@@ -88,6 +88,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
                           value: value.filter(ait => ait !== activeKey)
                         })
                       }}
+                      onMouseDown={(e): void => e.stopPropagation()}
                     />
                   </div>
                 ))}
@@ -101,7 +102,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
         </FormControl>
       </div>
     </> : <>
-      <div className={styles['input-box']}>
+      <div className={cx(styles['input-box'], styles.center)}>
         {value.length
           ? value.map(itemKey => item.options[itemKey].name).join(', ')
           : item.emptyTitle

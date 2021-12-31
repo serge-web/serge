@@ -1,12 +1,12 @@
 import { Participant } from '../types/props'
-import { Item, Option } from '../../../molecules/editable-row'
+import { Item, Option, EDITABLE_SELECT_ITEM } from '../../../molecules/editable-row'
 import { ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
 
 // Convert table row items to Participant object
-export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: Participant): Participant => {
+export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: Participant, isCollab: boolean): Participant => {
   // get firs 3 table select items
-  const [force, access, template] = nextItems as SelectItem[]
+  const [force, access, templateOrPermission] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
 
   // get selected force(s) if there is no selected forces get first force as selected
   const selectedForce = forces[force.active ? force.active[0] : 0]
@@ -15,22 +15,27 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     selectedForce.roles[key].roleId
   )) : []
   // get selected templates
-  const templates: ParticipantTemplate[] = template.active ? template.active.map((key: number) => {
+  const templates: ParticipantTemplate[] = !isCollab && templateOrPermission.active ? templateOrPermission.active.map((key: number) => {
     const { _id, title } = templatesOptions[key].value as TemplateBody
     return { _id, title }
   }) : []
+  const permissions: number[] = (isCollab && templateOrPermission.active) || []
   // init defaul values
-  let { canCollaborate, canReleaseMessages, canUnClaimMessages } = participant
+  let { canCollaborate, canReleaseMessages, canUnClaimMessages, canCreateNewMessage, canSeeLiveUpdates } = participant
 
   // find participate and release items from EditableRow items
   const participate = nextItems.find(item => (item.uniqid === 'participate')) as SwitchItem | undefined
   const release = nextItems.find(item => (item.uniqid === 'release')) as SwitchItem | undefined
   const unclaim = nextItems.find(item => (item.uniqid === 'unclaim')) as SwitchItem | undefined
+  const createNewMsg = nextItems.find(item => (item.uniqid === 'create_new_message')) as SwitchItem | undefined
+  const seeLiveUpdates = nextItems.find(item => (item.uniqid === 'see_live_updates')) as SwitchItem | undefined
 
   // check if item not undefined then we changin init value to new one
   if (typeof participate !== 'undefined') canCollaborate = participate.active
   if (typeof release !== 'undefined') canReleaseMessages = release.active
   if (typeof unclaim !== 'undefined') canUnClaimMessages = unclaim.active
+  if (typeof createNewMsg !== 'undefined') canCreateNewMessage = createNewMsg.active
+  if (typeof seeLiveUpdates !== 'undefined') canSeeLiveUpdates = seeLiveUpdates.active
 
   // return converted participant
   return {
@@ -38,9 +43,12 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     force: selectedForce.name,
     forceUniqid: selectedForce.uniqid,
     roles,
+    permissions,
     templates,
     canCollaborate,
     canReleaseMessages,
-    canUnClaimMessages
+    canUnClaimMessages,
+    canCreateNewMessage,
+    canSeeLiveUpdates
   }
 }

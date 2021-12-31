@@ -1,4 +1,6 @@
 import { ChannelData, ForceData, TemplateBody } from '@serge/custom-types'
+import { Option } from 'src/local/molecules/editable-row'
+import { MessagesValues } from '../helpers/genMessageCollabEdit'
 
 export default interface PropTypes {
   channels: Array<ChannelData>
@@ -13,4 +15,14 @@ export default interface PropTypes {
   selectedChannel?: ChannelData
 }
 
-export { ChannelData, Channel, ForceData, Role, Participant } from '@serge/custom-types'
+export type MessageGroupProps = {
+  title: string
+  multiple: boolean
+  options?: Option[]
+  onChange: (value: string[]) => void
+  onDelete?: (value: string[]) => void
+  type: string
+  value: string[]
+}
+
+export { ChannelData, ChannelCollab, Channel, ForceData, Role, Participant } from '@serge/custom-types'
