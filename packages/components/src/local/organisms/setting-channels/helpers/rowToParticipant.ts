@@ -4,7 +4,7 @@ import { ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custo
 import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
 
 // Convert table row items to Participant object
-export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: Participant, isCollab: boolean): Participant => {
+export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: Participant, isCollab?: boolean): Participant => {
   // get firs 3 table select items
   const [force, access, templateOrPermission] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
 

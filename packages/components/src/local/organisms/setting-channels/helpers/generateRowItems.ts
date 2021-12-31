@@ -2,7 +2,7 @@ import { Participant } from '../types/props'
 import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'
 import { ChannelData, ForceData } from '@serge/custom-types'
 import { CollaborativePermission, SpecialChannelTypes } from '@serge/config'
-import isCollabChannel from './isCollabChannel'
+import { isCollabChannel } from './messageCollabUtils'
 
 export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextParticipant: Participant, channelData: ChannelData): Array<Item> => {
   const { format, collabOptions } = channelData

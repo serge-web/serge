@@ -13,7 +13,7 @@ export default interface Participant {
   roles: Array<Role['roleId']>
   subscriptionId: string
   templates: ParticipantTemplate[]
-  permissions: number[],
+  permissions?: number[],
   icon?: any
   /** if this set of participants can take part in collaborative working */
   canCollaborate?: boolean

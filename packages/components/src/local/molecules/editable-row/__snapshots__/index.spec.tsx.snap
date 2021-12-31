@@ -6,7 +6,7 @@ exports[`EditableRow renders correctly 1`] = `
     className="td"
   >
     <div
-      className="input-box"
+      className="input-box center"
     >
       <div
         className="MuiFormControl-root"
@@ -64,7 +64,7 @@ exports[`EditableRow renders correctly 1`] = `
     className="td"
   >
     <div
-      className="input-box"
+      className="input-box center"
     >
       <div
         className="MuiFormControl-root"

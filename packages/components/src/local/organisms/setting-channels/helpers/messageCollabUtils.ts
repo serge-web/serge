@@ -1,4 +1,5 @@
-import { ChannelData } from "@serge/custom-types";
+import { CHANNEL_COLLAB } from "@serge/config";
+import { ChannelCollab, ChannelData } from "@serge/custom-types";
 import { MessageGroupType, MessagesValues } from "./genMessageCollabEdit";
 import { getSelectedValue } from "./messageGroupHelpers";
 
@@ -12,4 +13,9 @@ export const getMessagesValues = (isCollab: boolean, selectedChannel?: ChannelDa
     release: isCollab ? getSelectedValue(MessageGroupType.RELEASE, selectedChannel) : [],
     additionalData: isCollab ? getSelectedValue(MessageGroupType.ADDITIONAL_DATA, selectedChannel) : []
   }
+}
+
+export const isCollabChannel = (channelData?: ChannelData): boolean => {
+  if (!channelData) return false
+  return 'channelType' in channelData && (channelData as unknown as ChannelCollab).channelType === CHANNEL_COLLAB
 }
