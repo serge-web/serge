@@ -74,6 +74,9 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           }}
           renderValue={(selected): any => {
             const selStr = selected as string[]
+            if (!selStr || selStr.length === 0) {
+              return 'Add Term Here'
+            }
             if (!multiple) {
               return selStr.length ? <Chip
                 size="small"

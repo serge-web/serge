@@ -29,8 +29,7 @@ import createParticipant from './helpers/createParticipant'
 import defaultParticipant from './helpers/defaultParticipant'
 import generateRowItems from './helpers/generateRowItems'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
-import { getMessagesValues, isCollabChannel } from './helpers/messageCollabUtils'
-import { getSelectedOptions } from './helpers/messageGroupHelpers'
+import { getMessagesValues, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged, getSelectedOptions } from './helpers/messageCollabUtils'
 import rowToParticipant from './helpers/rowToParticipant'
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -62,10 +61,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }))
   const isCollab = isCollabChannel(selectedChannel)
 
+  /** init data for collab panel controls */
   const messagesValues = getMessagesValues(isCollab, selectedChannel)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
 
   useEffect(() => {
+    /** on changes channel, update the message data local */
     setMessageLocal(messagesValues)
   }, [selectedChannel])
 
@@ -111,6 +112,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
         ...data,
         participants: participants
       })
+    }
+
+    const handleUpdateCollabChannel = (messagesLocal: MessagesValues): void => {
+      const localChannelUpdate = localChannelUpdates[selectedItem]
+      const nextChannel = integrateWithLocalChanges(messageTemplatesOptions, localChannelUpdate, messagesLocal)
+      console.log('=> nextChannel: ', nextChannel)
     }
 
     const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant, isCollab: boolean): Array<RowItem> => {
@@ -179,63 +186,45 @@ export const SettingChannels: React.FC<PropTypes> = ({
     }
 
     const onMessageTemplateChanged = (value: string[], action: Action): void => {
-      if (action === 'add') {
-        messageLocal.messageTemplate = value
-      } else if (action === 'delete') {
-        const newMsgTpl = messageLocal.messageTemplate.filter(uniqid => !value.includes(uniqid))
-        messageLocal.messageTemplate = newMsgTpl
-      }
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.MESSAGE_TEMPLATE)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     const onResponseTemplateChanged = (value: string[], action: Action): void => {
-      if (action === 'add') {
-        messageLocal.responseTemplate = value
-      } else if (action === 'delete') {
-        const rspTpl = messageLocal.responseTemplate.filter(uniqid => !value.includes(uniqid))
-        messageLocal.responseTemplate = rspTpl
-      }
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.RESPONSE_TEMPLATE)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     const onDocumentStatusChanged = (value: string[]): void => {
-      messageLocal.documentStatus = value
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, 'add', MessageGroupType.DOCUMENT_STATUS)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     const onRequestChanged = (value: string[], action: Action): void => {
-      if (action === 'add') {
-        messageLocal.requestChanges = value
-      } else if (action === 'delete') {
-        const reqChanges = messageLocal.requestChanges.filter(uniqid => !value.includes(uniqid))
-        messageLocal.requestChanges = reqChanges
-      }
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.REQUEST_CHANGES)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     const onApproveChanged = (value: string[], action: Action): void => {
-      if (action === 'add') {
-        messageLocal.approve = value
-      } else if (action === 'delete') {
-        const appove = messageLocal.approve.filter(uniqid => !value.includes(uniqid))
-        messageLocal.approve = appove
-      }
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.APPROVE)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     const onReleaseChanged = (value: string[], action: Action): void => {
-      if (action === 'add') {
-        messageLocal.release = value
-      } else if (action === 'delete') {
-        const release = messageLocal.release.filter(uniqid => !value.includes(uniqid))
-        messageLocal.release = release
-      }
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.RELEASE)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     const onAdditionalDataChanged = (value: string[]): void => {
-      messageLocal.additionalData = value
-      setMessageLocal({ ...messageLocal })
+      const nextMsgLocal = onMessageValuesChanged(messageLocal, value, 'add', MessageGroupType.ADDITIONAL_DATA)
+      setMessageLocal(nextMsgLocal)
+      handleUpdateCollabChannel(nextMsgLocal);
     }
 
     console.log('============= ', localChannelUpdates[selectedItem])
