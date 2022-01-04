@@ -71,7 +71,7 @@ export type MessageKey = 'messageTemplate' | 'responseTemplate' | 'documentStatu
 const filterOutByUniqId = (nextMsgValue: MessagesValues, value: string[], key: MessageKey): MessagesValues => {
   const nextVal = nextMsgValue[key].filter(uniqid => !value.includes(uniqid))
   nextMsgValue[key] = nextVal
-  return nextMsgValue;
+  return nextMsgValue
 }
 
 const filterInByUniqId = (messageUpdates: MessagesValues, options: Option[], key: MessageKey): ParticipantTemplate => {
@@ -108,39 +108,38 @@ export const onMessageValuesChanged = (messageLocal: MessagesValues, value: stri
         return filterOutByUniqId(nextMessageLocal, value, 'responseTemplate')
       }
       nextMessageLocal.responseTemplate = value
-      return nextMessageLocal;
+      return nextMessageLocal
 
     case MessageGroupType.DOCUMENT_STATUS:
       nextMessageLocal.documentStatus = value
-      return nextMessageLocal;
+      return nextMessageLocal
 
     case MessageGroupType.REQUEST_CHANGES:
       if (action === 'delete') {
         return filterOutByUniqId(nextMessageLocal, value, 'requestChanges')
       }
       nextMessageLocal.requestChanges = value
-      return nextMessageLocal;
-
+      return nextMessageLocal
 
     case MessageGroupType.APPROVE:
       if (action === 'delete') {
         return filterOutByUniqId(nextMessageLocal, value, 'approve')
       }
       nextMessageLocal.approve = value
-      return nextMessageLocal;
+      return nextMessageLocal
 
     case MessageGroupType.RELEASE:
       if (action === 'delete') {
         return filterOutByUniqId(nextMessageLocal, value, 'release')
       }
       nextMessageLocal.release = value
-      return nextMessageLocal;
+      return nextMessageLocal
 
     case MessageGroupType.ADDITIONAL_DATA:
       nextMessageLocal.additionalData = value
-      return nextMessageLocal;
+      return nextMessageLocal
 
     default:
-      return nextMessageLocal;
+      return nextMessageLocal
   }
 }
