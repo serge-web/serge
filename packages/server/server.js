@@ -14,7 +14,7 @@ const runServer = (
   const path = require('path')
   const uniqid = require('uniqid')
   require('dotenv').config()
-  const archiver = require('archiver');
+  const archiver = require('archiver')
 
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
@@ -75,9 +75,9 @@ const runServer = (
     const archive = archiver('zip')
 
     archive.pipe(output)
-    
+
     archive.directory(path.join(__dirname, 'db'), false)
-    
+
     archive.finalize()
 
     setTimeout(() => res.download(path.join(__dirname, 'all_dbs.zip')), 500)
