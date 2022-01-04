@@ -38,14 +38,6 @@ export const AdditionalData = [
   { name: 'Intended Visibility of Adversary', uniqid: '3' }
 ]
 
-export const getMsgRspValue = (channelData?: ChannelData): Option => {
-  const { title = '', _id = '' } = (channelData as unknown as ChannelCollab).responseTemplate || {}
-  return {
-    name: title,
-    uniqid: _id
-  }
-}
-
 export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactElement => {
   const { title, multiple, options, onChange, type, value, onDelete } = props
 
@@ -74,7 +66,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           }}
           renderValue={(selected): any => {
             const selStr = selected as string[]
-            if (!selStr || selStr.length === 0) {
+            if (!selStr || selStr.length === 0 || (selStr.length === 1 && !selStr[0])) {
               return 'Add Term Here'
             }
             if (!multiple) {

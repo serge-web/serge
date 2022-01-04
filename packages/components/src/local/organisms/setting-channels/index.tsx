@@ -117,7 +117,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
     const handleUpdateCollabChannel = (messagesLocal: MessagesValues): void => {
       const localChannelUpdate = localChannelUpdates[selectedItem]
       const nextChannel = integrateWithLocalChanges(messageTemplatesOptions, localChannelUpdate, messagesLocal)
-      console.log('=> nextChannel: ', nextChannel)
+      localChannelUpdates[selectedItem] = nextChannel
+      // handleChangeChannels(localChannelUpdates, nextChannel)
+      // setLocalChannelUpdates(localChannelUpdates)
     }
 
     const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant, isCollab: boolean): Array<RowItem> => {
@@ -188,43 +190,43 @@ export const SettingChannels: React.FC<PropTypes> = ({
     const onMessageTemplateChanged = (value: string[], action: Action): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.MESSAGE_TEMPLATE)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     const onResponseTemplateChanged = (value: string[], action: Action): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.RESPONSE_TEMPLATE)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     const onDocumentStatusChanged = (value: string[]): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, 'add', MessageGroupType.DOCUMENT_STATUS)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     const onRequestChanged = (value: string[], action: Action): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.REQUEST_CHANGES)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     const onApproveChanged = (value: string[], action: Action): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.APPROVE)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     const onReleaseChanged = (value: string[], action: Action): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.RELEASE)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     const onAdditionalDataChanged = (value: string[]): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, 'add', MessageGroupType.ADDITIONAL_DATA)
       setMessageLocal(nextMsgLocal)
-      handleUpdateCollabChannel(nextMsgLocal);
+      handleUpdateCollabChannel(nextMsgLocal)
     }
 
     console.log('============= ', localChannelUpdates[selectedItem])
