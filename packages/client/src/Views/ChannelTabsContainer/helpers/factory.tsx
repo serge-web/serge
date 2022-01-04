@@ -1,15 +1,21 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData } from '@serge/custom-types'
-import { FORCE_LAYDOWN, 
-  PERCEPTION_OF_CONTACT, 
-  STATE_OF_WORLD, 
-  CREATE_TASK_GROUP, 
-  LEAVE_TASK_GROUP, 
-  HOST_PLATFORM, 
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData, ChannelTypes } from '@serge/custom-types'
+import {
+  FORCE_LAYDOWN,
+  PERCEPTION_OF_CONTACT,
+  STATE_OF_WORLD,
+  CREATE_TASK_GROUP,
+  LEAVE_TASK_GROUP,
+  HOST_PLATFORM,
   SUBMIT_PLANS,
   DELETE_PLATFORM,
-  VISIBILITY_CHANGES, 
-  Phase } from '@serge/config'
+  VISIBILITY_CHANGES,
+  CHANNEL_MAPPING,
+  Phase,
+  CHANNEL_COLLAB,
+  CHANNEL_CUSTOM,
+  CHANNEL_CHAT
+} from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -19,15 +25,15 @@ import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
-import { CHANNEL_MAPPING } from '../../../consts'
+import Channel2 from '../../../Components/Channel2'
 
 type Factory = (node: TabNode) => React.ReactNode
 
 /** utility to find the role for this role name */
 const findRole = (roleId: string, forceData: ForceData | undefined): Role => {
-  if(forceData) {
+  if (forceData) {
     const role = forceData.roles.find((role: Role) => role.roleId === roleId)
-    if(role) {
+    if (role) {
       return role
     }
   }
@@ -47,11 +53,11 @@ type OnMessageCountChange = (unreadMessageForChannel: {
   [property: string]: number
 }) => void
 
-const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ): Factory => {
+const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints: MappingConstraints = state.mappingConstaints || {
-    bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
+    bounds: [[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
       url: './gulf_tiles/{z}/{x}/{y}.png',
@@ -69,7 +75,7 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
     if (typeof channelID === 'number') channelID = channelID.toString()
     const turnNumber = state.currentTurn
 
-    switch(form) {
+    switch (form) {
       case FORCE_LAYDOWN:
         sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
         break
@@ -97,8 +103,8 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
       case DELETE_PLATFORM:
         sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
         break
-        default:
-      console.log('Handler not created for', form)
+      default:
+        console.log('Handler not created for', form)
     }
   }
 
@@ -134,21 +140,21 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
     // from a number array to a Leaflet bounds object.
     // Render the map
     const renderMap = (channelid: string) => <Mapping
-        mappingConstraints={mappingConstraints}
-        forces={state.allForces}
-        platforms={state.allPlatformTypes}
-        phase={phaseFor(state.phase)}
-        turnNumber={state.currentTurn}
-        playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
-        canSubmitOrders={canSubmitOrders}
-        channelID = {channelid}
-        mapPostBack={mapPostBack}
-        gameTurnTime={state.gameTurnTime}
-        wargameInitiated={state.wargameInitiated}
-        platformTypesByKey={state.allPlatformTypesByKey}
+      mappingConstraints={mappingConstraints}
+      forces={state.allForces}
+      platforms={state.allPlatformTypes}
+      phase={phaseFor(state.phase)}
+      turnNumber={state.currentTurn}
+      playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
+      canSubmitOrders={canSubmitOrders}
+      channelID={channelid}
+      mapPostBack={mapPostBack}
+      gameTurnTime={state.gameTurnTime}
+      wargameInitiated={state.wargameInitiated}
+      platformTypesByKey={state.allPlatformTypesByKey}
     >
       <Assets />
-      <HexGrid/>
+      <HexGrid />
     </Mapping>
 
     if (_.isEmpty(state.channels)) return
@@ -159,16 +165,37 @@ const factory = (state: PlayerUi, onMessageCountChange?: OnMessageCountChange ):
     }
     const channelName = node.getName().toLowerCase()
     const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-    if (channelName === CHANNEL_MAPPING) {
-      return renderMap(node.getId())
-    } else if (matchedChannel.length && channelDefinition) {
-        // find out if channel just contains chat template
-        return isChatChannel(channelDefinition) ? 
-          <ChatChannel channelId={matchedChannel[0]} /> 
-        : <Channel channelId={matchedChannel[0]} onMessageRead={(unreadCount): void => { 
-          onMessageCountChange && onMessageCountChange({ [matchedChannel[0]]: unreadCount }) 
-        }} />
+
+    if(!channelDefinition) {
+      throw new Error('Failed to find channel with id:' + node.getName())
     }
+
+    // sort out if it's a modern channel
+    const v3Channel = channelDefinition as ChannelTypes
+    const isV3 =  !!v3Channel.channelType
+    if(isV3) {
+      switch(v3Channel.channelType) {
+        case CHANNEL_COLLAB:
+          return <Channel2 channelId={matchedChannel[0]} />
+        case CHANNEL_CUSTOM:
+        case CHANNEL_CHAT:
+        //  return <ChatChannel2 channelId={matchedChannel[0]} />
+        case CHANNEL_MAPPING:
+        //  return <MAPPING2 channelId={matchedChannel[0]} />
+        default:
+          console.warn('not yet handling', v3Channel.channelType)
+      }
+    } else {
+      if (channelName === CHANNEL_MAPPING) {
+        return renderMap(node.getId())
+      } else if (matchedChannel.length) {
+        // find out if channel just contains chat template
+        return isChatChannel(channelDefinition) ?
+          <ChatChannel channelId={matchedChannel[0]} />
+          : <Channel channelId={matchedChannel[0]} />
+      }  
+    }
+
   }
 }
 

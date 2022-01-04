@@ -23,7 +23,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: "default_img/umpireDefault.png",
         roleId: redCO.roleId
       },
-      messageType: "Chat",
+      messageType: "k16eedkl",
       timestamp: "2020-10-13T08:52:04.394Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,

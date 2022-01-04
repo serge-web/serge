@@ -15,7 +15,7 @@ import { CoaStatusBoard } from "@serge/components";
 import { SpecialChannelTypes } from "@serge/config";
 import '@serge/themes/App.scss'
 
-const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void }> = ({ channelId, onMessageRead }) => {
+const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
@@ -37,9 +37,14 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
     dispatch(openMessage(channelId, message))
   }
 
+  const markAllMsgAsRead = (): void => {
+    dispatch(markAllAsRead(channelId))
+  }
+
   const handleUnreadMessage = (message: MessageChannel): void => {
     if (message._id) {
       message.hasBeenRead = false
+      message.isOpen = false
     }
     dispatch(markUnread(channelId, message))
   }
@@ -53,25 +58,25 @@ const Channel: React.FC<{ channelId: string, onMessageRead?: (c: number) => void
   const channelFormat = channel.format
   const channelMessages = channel.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
-  const isCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-
+  const isLegacyCollabWorking = channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
   const templates = channel.templates || []
   // if this is a collab working channel, strip out any chat templates - since we only use structured messages
   // in collab working channels
-  const trimmedTemplates = isCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
+  const trimmedTemplates = isLegacyCollabWorking ? templates.filter((temp: TemplateBody) => temp.title !== 'Chat') : templates
   const observing = !!channel.observing
 
   // determine if this is a collaborative editing channel, since we require the user
   // to confirm cancelling a new message
-  const isCollabEdit = isCollabWorking && channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT)
+  const isCollabEdit = isLegacyCollabWorking && channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT)
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
-        {isCollabWorking ? (
+        {isLegacyCollabWorking ? (
           <CoaStatusBoard
             currentWargame={state.currentWargame}
-            onMessageRead={onMessageRead}
+            onMessageRead={handleOpenMessage}
+            onMarkAllAsRead={markAllMsgAsRead}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={{

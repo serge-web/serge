@@ -48,13 +48,15 @@ export { default as isPerceivedBy, ForceStyle } from './is-perceived-by'
 export { default as isValidUrl } from './is-valid-url'
 export { default as mostRecentOnly } from './most-recent-only'
 export { default as padInteger } from './padInteger'
+export { default as newestPerRole, logTable } from './newest-per-role'
 export {
   matchedForceAndRoleFilter,
   matchedAllRolesFilter,
   matchedForceFilter
 } from './participant-filters'
 export {
-  checkParticipantStates,
+  checkLegacyParticipantStates,
+  checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
 export { default as plannedRouteFor } from './planned-route-for'

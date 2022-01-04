@@ -212,6 +212,10 @@ export const clearWargames = (): void => {
   })
 }
 
+export const downloadAllWargames = (): void => {
+  window.open(serverPath + 'downloadAll')
+}
+
 
 export const getIpAddress = (): Promise<{ ip: string }> => {
   return fetch(serverPath + 'getIp')

@@ -57,6 +57,7 @@ TextInput.propTypes = {
   updateStore: PropTypes.func.isRequired,
   options: PropTypes.object.isRequired,
   autoFocus: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 

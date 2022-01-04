@@ -66,6 +66,7 @@ export const StatusBar: React.FC<PropTypes> = ({
           titleInput={true}
           value={value}
           updateState={handleChange}
+          className="underline"
         />
         {
           dirty
