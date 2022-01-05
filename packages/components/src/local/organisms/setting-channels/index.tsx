@@ -321,7 +321,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <div className={styles['control-groups']}>
                       <MessageGroup
                         title="Request Changes"
-                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onRequestChanged(val, 'add')}
                         onDelete={(val: string[]): void => onRequestChanged(val, 'delete')}
@@ -330,7 +330,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='"Approve"'
-                        options={getSelectedOptions(MessageGroupType.APPROVE, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onApproveChanged(val, 'add')}
                         onDelete={(val: string[]): void => onApproveChanged(val, 'delete')}
@@ -339,7 +339,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='"Release"'
-                        options={getSelectedOptions(MessageGroupType.RELEASE, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onReleaseChanged(val, 'add')}
                         onDelete={(val: string[]): void => onReleaseChanged(val, 'delete')}

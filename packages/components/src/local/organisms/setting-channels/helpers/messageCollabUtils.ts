@@ -2,6 +2,7 @@ import { CHANNEL_COLLAB } from '@serge/config'
 import { ChannelCollab, ChannelData, ParticipantTemplate } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
 import { Action, MessageGroupType, MessagesValues } from './genMessageCollabEdit'
+import uniqBy from 'lodash/uniqBy'
 
 export const getSelectedValue = (type: string, channelData?: ChannelData): string[] => {
   const collabChannel = channelData as unknown as ChannelCollab
@@ -31,18 +32,18 @@ export const getSelectedValue = (type: string, channelData?: ChannelData): strin
   }
 }
 
-export const getSelectedOptions = (type: string, channelData?: ChannelData): Option[] => {
+export const getSelectedOptions = (type: string, messageLocal: MessagesValues, channelData?: ChannelData): Option[] => {
   const collabChannel = channelData as unknown as ChannelCollab
 
   switch (type) {
     case MessageGroupType.REQUEST_CHANGES:
-      return collabChannel.requestChangesVerbs.map(verb => ({ name: verb, uniqid: verb }))
+      return uniqBy([...collabChannel.requestChangesVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: messageLocal.requestChanges[0], uniqid: messageLocal.requestChanges[0] }], 'uniqid')
 
     case MessageGroupType.APPROVE:
-      return collabChannel.approveVerbs.map(verb => ({ name: verb, uniqid: verb }))
+      return uniqBy([...collabChannel.approveVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: messageLocal.requestChanges[0], uniqid: messageLocal.requestChanges[0] }], 'uniqid')
 
     case MessageGroupType.RELEASE:
-      return collabChannel.releaseVerbs.map(verb => ({ name: verb, uniqid: verb }))
+      return uniqBy([...collabChannel.releaseVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: messageLocal.requestChanges[0], uniqid: messageLocal.requestChanges[0] }], 'uniqid')
 
     default:
       return []

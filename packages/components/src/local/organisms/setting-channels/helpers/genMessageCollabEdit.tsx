@@ -1,8 +1,9 @@
-import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select } from '@material-ui/core'
-import React, { ReactNode } from 'react'
+import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
+import React from 'react'
 import { Option } from '../../../molecules/editable-row'
 import styles from '../styles.module.scss'
-import { ChannelCollab, ChannelData, MessageGroupProps } from '../types/props'
+import { MessageGroupProps } from '../types/props'
 
 export type MessagesValues = {
   messageTemplate: string[]
@@ -37,6 +38,8 @@ export const AdditionalData = [
   { name: 'Start of Operation', uniqid: '2' },
   { name: 'Intended Visibility of Adversary', uniqid: '3' }
 ]
+
+const filter = createFilterOptions<Option>()
 
 export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactElement => {
   const { title, multiple, options, onChange, type, value, onDelete } = props
@@ -122,33 +125,53 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
       }
       {
         [MessageGroupType.APPROVE, MessageGroupType.RELEASE, MessageGroupType.REQUEST_CHANGES].includes(type) &&
-        <Select
-          fullWidth
+        <Autocomplete
           value={value}
-          multiple={multiple}
-          displayEmpty
-          onChange={(e): void => onChange([e.target.value as string])}
-          renderValue={(selected): ReactNode => {
-            const selStr = selected as string[]
-            if (!selStr || selStr.length === 0) {
-              return 'Add Term Here'
-            }
-            if (!multiple) {
-              return selStr.length ? <Chip
-                size="small"
-                label={selStr[0]}
-                onDelete={(): void => onDelete && onDelete(selStr)}
-                clickable={true}
-                onMouseDown={(e): void => e.stopPropagation()}
-              /> : null
-            }
-            return selStr.map(id => options?.find(option => option.uniqid === id)?.name).join(', ')
+          onChange={(_, newValue: (string | Option)[]): void => {
+            const finalVal = newValue.map(item => {
+              if (typeof item === 'string') {
+                return item
+              } else {
+                return item.uniqid
+              }
+            })
+            onChange(finalVal)
           }}
-        >
-          {options && options.map((option, idx) => {
-            return <MenuItem key={idx} value={option.uniqid}>{option.name}</MenuItem>
-          })}
-        </Select>
+          multiple
+          options={options || []}
+          freeSolo
+          renderTags={(vals: any, getTagProps): any =>
+            vals.map((val: string, index: number) => (
+              <Chip
+                label={val}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
+          renderInput={(params): any => (
+            <TextField
+              {...params}
+              label="Add Term Here"
+            />
+          )}
+          filterOptions={(opts, params): any => {
+            const filtered = filter(opts, params)
+            const { inputValue } = params
+
+            const isExisting = opts.some((option) => inputValue === option.uniqid)
+            if (inputValue !== '' && !isExisting) {
+              filtered.push({
+                uniqid: inputValue,
+                name: `Add "${inputValue}"`
+              })
+            }
+
+            return filtered.filter(item => !value.includes(item.name))
+          }}
+          getOptionLabel={(option: Option): any => {
+            return (option && option.name) || ''
+          }}
+        />
       }
     </div>
   </div>)
