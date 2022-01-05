@@ -45,7 +45,8 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
     }).filter(active => active !== -1)
   }
 
-  if (isCollabChannel(channelData)) {
+  const collabChannel = isCollabChannel(channelData)
+  if (collabChannel) {
     // init row item for create new message switch
     additionalFields.push({
       type: EDITABLE_SWITCH_ITEM,
@@ -90,7 +91,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
   }
 
   // check special channels
-  if (typeof format !== 'undefined') {
+  if (typeof format !== 'undefined' && !collabChannel) {
     if (typeof collabOptions !== 'undefined') {
       if (
         format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ||

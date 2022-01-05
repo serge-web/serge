@@ -1,4 +1,4 @@
-import { CHANNEL_COLLAB } from '@serge/config'
+import { CHANNEL_COLLAB, InitialStates } from '@serge/config'
 import { ChannelCollab, ChannelData, ParticipantTemplate } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
 import { Action, MessageGroupType, MessagesValues } from './genMessageCollabEdit'
@@ -6,26 +6,34 @@ import uniqBy from 'lodash/uniqBy'
 
 export const getSelectedValue = (type: string, channelData?: ChannelData): string[] => {
   const collabChannel = channelData as unknown as ChannelCollab
+  const {
+    newMessageTemplate = { _id: '' },
+    responseTemplate = { _id: '' },
+    initialState,
+    requestChangesVerbs,
+    approveVerbs,
+    releaseVerbs
+  } = collabChannel
 
   switch (type) {
     case MessageGroupType.MESSAGE_TEMPLATE:
-      return [collabChannel.newMessageTemplate._id]
+      return [newMessageTemplate._id]
 
     case MessageGroupType.RESPONSE_TEMPLATE:
       if (!collabChannel.responseTemplate) return []
-      return [collabChannel.responseTemplate._id]
+      return [responseTemplate._id]
 
     case MessageGroupType.DOCUMENT_STATUS:
-      return [collabChannel.initialState]
+      return [initialState]
 
     case MessageGroupType.REQUEST_CHANGES:
-      return collabChannel.requestChangesVerbs
+      return requestChangesVerbs
 
     case MessageGroupType.APPROVE:
-      return collabChannel.approveVerbs
+      return approveVerbs
 
     case MessageGroupType.RELEASE:
-      return collabChannel.releaseVerbs
+      return releaseVerbs
 
     default:
       return []
@@ -34,16 +42,27 @@ export const getSelectedValue = (type: string, channelData?: ChannelData): strin
 
 export const getSelectedOptions = (type: string, messageLocal: MessagesValues, channelData?: ChannelData): Option[] => {
   const collabChannel = channelData as unknown as ChannelCollab
+  const {
+    requestChangesVerbs = [],
+    approveVerbs = [],
+    releaseVerbs = []
+  } = collabChannel
+
+  const {
+    requestChanges = [],
+    approve = [],
+    release = []
+  } = messageLocal
 
   switch (type) {
     case MessageGroupType.REQUEST_CHANGES:
-      return uniqBy([...collabChannel.requestChangesVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: messageLocal.requestChanges[0], uniqid: messageLocal.requestChanges[0] }], 'uniqid')
+      return uniqBy([...requestChangesVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: requestChanges.length ? requestChanges[0] : '', uniqid: requestChanges.length ? requestChanges[0] : '' }], 'uniqid')
 
     case MessageGroupType.APPROVE:
-      return uniqBy([...collabChannel.approveVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: messageLocal.requestChanges[0], uniqid: messageLocal.requestChanges[0] }], 'uniqid')
+      return uniqBy([...approveVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: approve.length ? approve[0] : '', uniqid: approve.length ? approve[0] : '' }], 'uniqid')
 
     case MessageGroupType.RELEASE:
-      return uniqBy([...collabChannel.releaseVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: messageLocal.requestChanges[0], uniqid: messageLocal.requestChanges[0] }], 'uniqid')
+      return uniqBy([...releaseVerbs.map(verb => ({ name: verb, uniqid: verb })), { name: release.length ? release[0] : '', uniqid: release.length ? release[0] : '' }], 'uniqid')
 
     default:
       return []
@@ -81,6 +100,10 @@ const filterInByUniqId = (messageUpdates: MessagesValues, options: Option[], key
   return { _id: uniqid, title: name }
 }
 
+const getInitialState = (state: string): InitialStates => {
+  if (state === InitialStates.PENDING_REVIEW) return InitialStates.PENDING_REVIEW
+  return InitialStates.UNALLOCATED
+}
 export const integrateWithLocalChanges = (options: Option[], channelData: ChannelData, messageUpdates: MessagesValues): ChannelData => {
   const nextChannel: ChannelCollab = ({ ...channelData }) as unknown as ChannelCollab
 
@@ -89,6 +112,11 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
 
   const resTpl = filterInByUniqId(messageUpdates, options, 'responseTemplate')
   nextChannel.responseTemplate = resTpl
+
+  nextChannel.initialState = getInitialState(messageUpdates.documentStatus[0])
+  nextChannel.requestChangesVerbs = messageUpdates.requestChanges
+  nextChannel.approveVerbs = messageUpdates.approve
+  nextChannel.releaseVerbs = messageUpdates.release
 
   return nextChannel as unknown as ChannelData
 }

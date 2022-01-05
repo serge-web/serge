@@ -14,7 +14,8 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { SpecialChannelTypes } from '@serge/config'
+import { CHANNEL_COLLAB, SpecialChannelTypes } from '@serge/config'
+import { ChannelCollab } from '@serge/custom-types'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -59,16 +60,22 @@ export const SettingChannels: React.FC<PropTypes> = ({
     uniqid: template._id,
     value: template
   }))
-  const isCollab = isCollabChannel(selectedChannel)
+
+  let realSelectedChannel = selectedChannel
+  if (selectedChannel && Object.keys(selectedChannel).length <= 2) {
+    realSelectedChannel = channels.find(channel => channel.uniqid === selectedChannel.uniqid)
+  }
+
+  const isCollab = isCollabChannel(realSelectedChannel)
 
   /** init data for collab panel controls */
-  const messagesValues = getMessagesValues(isCollab, selectedChannel)
+  const messagesValues = getMessagesValues(isCollab, realSelectedChannel)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
 
   useEffect(() => {
     /** on changes channel, update the message data local */
     setMessageLocal(messagesValues)
-  }, [selectedChannel])
+  }, [realSelectedChannel])
 
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
@@ -118,8 +125,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
       const localChannelUpdate = localChannelUpdates[selectedItem]
       const nextChannel = integrateWithLocalChanges(messageTemplatesOptions, localChannelUpdate, messagesLocal)
       localChannelUpdates[selectedItem] = nextChannel
-      // handleChangeChannels(localChannelUpdates, nextChannel)
-      // setLocalChannelUpdates(localChannelUpdates)
+      handleChangeChannels(localChannelUpdates, nextChannel)
+      setLocalChannelUpdates(localChannelUpdates)
     }
 
     const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant, isCollab: boolean): Array<RowItem> => {
@@ -321,7 +328,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <div className={styles['control-groups']}>
                       <MessageGroup
                         title="Request Changes"
-                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, realSelectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onRequestChanged(val, 'add')}
                         onDelete={(val: string[]): void => onRequestChanged(val, 'delete')}
@@ -330,7 +337,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='"Approve"'
-                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, realSelectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onApproveChanged(val, 'add')}
                         onDelete={(val: string[]): void => onApproveChanged(val, 'delete')}
@@ -339,7 +346,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='"Release"'
-                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, realSelectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onReleaseChanged(val, 'add')}
                         onDelete={(val: string[]): void => onReleaseChanged(val, 'delete')}
@@ -395,13 +402,21 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
+    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === realSelectedChannel?.uniqid)
     setSelectedItem(Math.max(selectedChannelId, 0))
     setLocalChannelUpdates(channels)
   }, [channels])
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
-    const createdChannel = createChannel(channels, forces[0], type)
+    let createdChannel = createChannel(channels, forces[0], type)
+    // on createing new channel, set channelType = CHANNEL_COLLAB as default
+    const collabChannel = createdChannel as unknown as ChannelCollab
+    collabChannel.channelType = CHANNEL_COLLAB
+    collabChannel.approveVerbs = []
+    collabChannel.requestChangesVerbs = []
+    collabChannel.releaseVerbs = []
+    createdChannel = collabChannel as unknown as ChannelData
+
     const nextChannels: ChannelData[] = [
       createdChannel,
       ...channels
