@@ -6,6 +6,7 @@ export interface ParticipantTemplate {
   title: string
 }
 
+// TODO: deprecate this interface, so we use type-specific extensions of `CoreParticipant`.
 export default interface Participant {
   force: string
   readonly forceUniqid: string
@@ -13,7 +14,6 @@ export default interface Participant {
   roles: Array<Role['roleId']>
   subscriptionId: string
   templates: ParticipantTemplate[]
-  permissions?: number[],
   icon?: any
 
   // TODO: This next block of permissions are v2, and are to be deleted
@@ -27,12 +27,6 @@ export default interface Participant {
   canCreateNewMessage?: boolean
   /** can see live updates */
   canSeeLiveUpdates?: boolean
-
-  // COLLAB-3 permissions
-  /** can create new messages */
-  canCreate?: boolean
-  /** can view live updates */
-  viewUnreleasedVersions?: boolean
 }
 
 

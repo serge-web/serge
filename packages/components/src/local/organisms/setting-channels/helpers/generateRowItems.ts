@@ -1,6 +1,6 @@
 import { Participant } from '../types/props'
 import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'
-import { ChannelData, ForceData } from '@serge/custom-types'
+import { ChannelData, ForceData, ParticipantCollab } from '@serge/custom-types'
 import { CollaborativePermission, SpecialChannelTypes } from '@serge/config'
 import { isCollabChannel } from './messageCollabUtils'
 
@@ -10,8 +10,6 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
   let forceSelected: Array<number> = [0]
   // init empty roles array
   let roleOptions: Array<Option> = []
-
-  const activePermission: number[] = nextParticipant.permissions || []
 
   // additional table cols for RFI participation toggles
   const additionalFields: Item[] = []
@@ -47,12 +45,16 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
 
   const collabChannel = isCollabChannel(channelData)
   if (collabChannel) {
+    // if this is a collaborative editing channel then the participant
+    // will be of a specific type
+    const collab = nextParticipant as unknown as ParticipantCollab
+    
     // init row item for create new message switch
     additionalFields.push({
       type: EDITABLE_SWITCH_ITEM,
       uniqid: 'create_new_message',
       // get default value for switcher
-      active: !!nextParticipant.canCreate
+      active: !!collab.canCreate
     })
 
     // init row item for see live updates switch
@@ -60,7 +62,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
       type: EDITABLE_SWITCH_ITEM,
       uniqid: 'see_live_updates',
       // get default value for switcher
-      active: !!nextParticipant.viewUnreleasedVersions
+      active: !!collab.viewUnreleasedVersions
     })
 
     const permissionOptions: Option[] = []
@@ -69,6 +71,8 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
         permissionOptions.push({ name: CollaborativePermission[key], uniqid: '' + key })
       }
     })
+
+    const activePermission: number[] = collab.permission ? [collab.permission] : []
 
     // init row item for permission select
     additionalFields.push({
