@@ -90,6 +90,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
     })
   }
 
+  // TODO: this is v2 of Collab-Editing. It should be deleted.
   // check special channels
   if (typeof format !== 'undefined' && !collabChannel) {
     if (typeof collabOptions !== 'undefined') {
