@@ -51,7 +51,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
 
   if (isCollab) {
     const collabP = res as unknown as ParticipantCollab
-    const permissions: number[] = (isCollab && templateOrPermission.active) || []
+    const permissions: number[] = templateOrPermission.active || []
     collabP.permission = permissions[0]
   }
 
