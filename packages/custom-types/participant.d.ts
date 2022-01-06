@@ -15,6 +15,8 @@ export default interface Participant {
   templates: ParticipantTemplate[]
   permissions?: number[],
   icon?: any
+
+  // TODO: This next block of permissions are v2, and are to be deleted
   /** if this set of participants can take part in collaborative working */
   canCollaborate?: boolean
   /** if this set of participants can release collaborative messages */
@@ -25,6 +27,12 @@ export default interface Participant {
   canCreateNewMessage?: boolean
   /** can see live updates */
   canSeeLiveUpdates?: boolean
+
+  // COLLAB-3 permissions
+  /** can create new messages */
+  canCreate?: boolean
+  /** can view live updates */
+  viewUnreleasedVersions?: boolean
 }
 
 

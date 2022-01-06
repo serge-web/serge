@@ -52,7 +52,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
       type: EDITABLE_SWITCH_ITEM,
       uniqid: 'create_new_message',
       // get default value for switcher
-      active: !!nextParticipant.canCreateNewMessage
+      active: !!nextParticipant.canCreate
     })
 
     // init row item for see live updates switch
@@ -60,7 +60,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
       type: EDITABLE_SWITCH_ITEM,
       uniqid: 'see_live_updates',
       // get default value for switcher
-      active: !!nextParticipant.canSeeLiveUpdates
+      active: !!nextParticipant.viewUnreleasedVersions
     })
 
     const permissionOptions: Option[] = []
