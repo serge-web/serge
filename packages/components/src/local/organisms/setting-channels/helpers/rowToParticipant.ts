@@ -1,6 +1,6 @@
 import { Participant } from '../types/props'
 import { Item, Option, EDITABLE_SELECT_ITEM } from '../../../molecules/editable-row'
-import { ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
+import { ForceData, ParticipantCollab, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
 
 // Convert table row items to Participant object
@@ -19,7 +19,6 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     const { _id, title } = templatesOptions[key].value as TemplateBody
     return { _id, title }
   }) : []
-  const permissions: number[] = (isCollab && templateOrPermission.active) || []
   // init defaul values
   let { canCollaborate, canReleaseMessages, canUnClaimMessages, canCreateNewMessage, canSeeLiveUpdates } = participant
 
@@ -37,13 +36,11 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
   if (typeof createNewMsg !== 'undefined') canCreateNewMessage = createNewMsg.active
   if (typeof seeLiveUpdates !== 'undefined') canSeeLiveUpdates = seeLiveUpdates.active
 
-  // return converted participant
-  return {
+  const res = {
     ...participant,
     force: selectedForce.name,
     forceUniqid: selectedForce.uniqid,
     roles,
-    permissions,
     templates,
     canCollaborate,
     canReleaseMessages,
@@ -51,4 +48,13 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     canCreateNewMessage,
     canSeeLiveUpdates
   }
+
+  if (isCollab) {
+    const collabP = res as unknown as ParticipantCollab
+    const permissions: number[] = (isCollab && templateOrPermission.active) || []
+    collabP.permission = permissions[0]
+  }
+
+  // return converted participant
+  return res
 }
