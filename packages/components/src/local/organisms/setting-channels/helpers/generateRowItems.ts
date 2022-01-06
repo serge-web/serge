@@ -48,7 +48,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
     // if this is a collaborative editing channel then the participant
     // will be of a specific type
     const collab = nextParticipant as unknown as ParticipantCollab
-    
+
     // init row item for create new message switch
     additionalFields.push({
       type: EDITABLE_SWITCH_ITEM,
