@@ -186,7 +186,7 @@ const messageTemplatesMock: TemplateBody[] = [
       format: 'grid'
     },
     completed: false,
-    _id: 'idchat',
+    _id: 'k16eedkl',
     _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
   },
   {

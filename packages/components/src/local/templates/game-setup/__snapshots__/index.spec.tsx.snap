@@ -30,7 +30,7 @@ exports[`GameSetup component: renders correctly 1`] = `
           className="input-box item"
         >
           <section
-            className="input-container disable-offset"
+            className="input-container disable-offset underline"
           >
             <div
               className="MuiFormControl-root MuiTextField-root"
