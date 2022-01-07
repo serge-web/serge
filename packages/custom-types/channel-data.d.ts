@@ -35,6 +35,8 @@ export interface ChannelCore {
   readonly uniqid: string
   /** name of this channel */
   name: string
+  /** type - extended by child implementations */
+  channelType: any
 }
 
 /** description of chat channel */
