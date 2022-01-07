@@ -186,6 +186,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
     // render table footer
     const renderTableFooter = (): React.ReactElement => {
+      // generate the correct type of controls for this channel type
+      const items = isCollab ? generateRowItemsCollab(forces, defaultParticipant)
+        : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant)
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset
@@ -193,7 +196,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           return handleChangeRow(nextItems, itKey, defaultParticipant, isCollab)
         }}
         onSave={handleCreateParticipant}
-        items={generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant)}
+        items={items}
         defaultMode='edit'
         actions
       />
