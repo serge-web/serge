@@ -79,7 +79,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setMessageLocal(messagesValues)
   }, [realSelectedChannel])
 
-  const handleChangeChannel = (_item: Item): void => {
+  const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
     onSidebarClick && onSidebarClick(_item as ChannelData)
   }
@@ -495,7 +495,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           items={channels}
           selectedItem={channels[selectedItem] ? channels[selectedItem].uniqid : undefined}
           filterKey="uniqid"
-          onClick={handleChangeChannel}
+          onClick={handleSwitchChannel}
           onDelete={onDelete}
           onDuplicate={onDuplicate}
         />
