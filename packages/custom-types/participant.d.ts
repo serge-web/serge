@@ -23,10 +23,6 @@ export default interface Participant {
   canReleaseMessages?: boolean
   /** can un-claim messages */
   canUnClaimMessages?: boolean
-  /** can create new message */
-  canCreateNewMessage?: boolean
-  /** can see live updates */
-  canSeeLiveUpdates?: boolean
 }
 
 

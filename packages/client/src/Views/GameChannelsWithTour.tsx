@@ -1,7 +1,7 @@
 import React from 'react'
 import GameChannels from './GameChannels/GameChannels'
 import Tour from 'reactour'
-import { usePlayerUiDispatch } from '../Store/PlayerUi'
+import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
@@ -51,8 +51,8 @@ const GameChannelsWithTour: React.FC<Props> = ({ storageKey, tourIsOpen }) => {
       selector: '[data-tour="objectives-step"]',
       content: () => (<div className="close-tour-dialog">
         <span>
-        At any point you can check the objectives assigned to your force by clicking on the 
-        circular icon to the right.
+          At any point you can check the objectives assigned to your force by clicking on the
+          circular icon to the right.
         </span>
         <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
       </div>)

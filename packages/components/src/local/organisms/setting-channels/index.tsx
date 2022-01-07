@@ -15,7 +15,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CHANNEL_COLLAB, SpecialChannelTypes } from '@serge/config'
-import { ChannelCollab } from '@serge/custom-types'
+import { ChannelCollab, ParticipantCollab } from '@serge/custom-types'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -29,9 +29,11 @@ import createChannel from './helpers/createChannel'
 import createParticipant from './helpers/createParticipant'
 import defaultParticipant from './helpers/defaultParticipant'
 import generateRowItems from './helpers/generateRowItems'
+import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
 import { getMessagesValues, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged, getSelectedOptions } from './helpers/messageCollabUtils'
 import rowToParticipant from './helpers/rowToParticipant'
+import rowToParticipantCollab from './helpers/rowToParticipantCollab'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
@@ -135,7 +137,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
         newNextItems[1].active = []
         newNextItems[2].active = []
       }
-      const nextParticipant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant, isCollab)
+      let nextParticipant
+      if (isCollab) {
+        nextParticipant = rowToParticipantCollab(forces, nextItems, participant as unknown as ParticipantCollab)
+        return generateRowItemsCollab(forces, nextParticipant)
+      }
+      nextParticipant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant)
       return generateRowItems(messageTemplatesOptions, forces, nextParticipant, data)
     }
 
@@ -147,14 +154,17 @@ export const SettingChannels: React.FC<PropTypes> = ({
     }
 
     // render table body
-    const renderTableBody = (data: ChannelData): React.ReactElement[] => {
+    const renderTableBody = (data: ChannelData, isCollab: boolean): React.ReactElement[] => {
       if (!data.participants) return [<></>]
-      const isCollab = isCollabChannel(data)
 
       return data.participants.map((participant, participantKey) => {
         const handleSaveRow = (row: Array<RowItem>): void => {
           const nextParticipants = [...data.participants]
-          nextParticipants[participantKey] = rowToParticipant(messageTemplatesOptions, forces, row, participant, isCollab)
+          if (isCollab) {
+            nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as unknown as ParticipantCollab)
+          } else {
+            nextParticipants[participantKey] = rowToParticipant(messageTemplatesOptions, forces, row, participant)
+          }
           handleSaveRows(nextParticipants)
         }
 
@@ -164,6 +174,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
+        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItems(messageTemplatesOptions, forces, participant, data)
+
         return <EditableRow
           onRemove={handleRemoveParticipant}
           key={participant.subscriptionId}
@@ -171,10 +183,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
             return handleChangeRow(nextItems, itKey, participant, isCollab)
           }}
           onSave={handleSaveRow}
-          items={generateRowItems(messageTemplatesOptions, forces, participant, data)}
+          items={items}
           defaultMode='view'
           actions={true}
-
         />
       })
     }
@@ -277,7 +288,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {renderTableBody(data)}
+                      {renderTableBody(data, isCollab)}
                     </TableBody>
                     <TableFooter>
                       {renderTableFooter()}
@@ -371,7 +382,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {renderTableBody(data)}
+                        {renderTableBody(data, isCollab)}
                       </TableBody>
                       <TableFooter>
                         {renderTableFooter()}
