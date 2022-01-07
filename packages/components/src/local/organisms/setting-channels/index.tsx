@@ -368,6 +368,21 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   </div>
 
                   <div className={styles.box}>
+                    <div className={styles.title}>Additional Data</div>
+                    <Divider />
+                    <div className={styles['control-groups']}>
+                      <MessageGroup
+                        title=''
+                        multiple
+                        options={AdditionalData}
+                        onChange={onAdditionalDataChanged}
+                        type={MessageGroupType.ADDITIONAL_DATA}
+                        value={messageLocal.additionalData}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.box}>
                     <div className={styles.title}>Permission</div>
                     <Divider />
                     <Table aria-label="simple table">
@@ -388,21 +403,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         {renderTableFooter()}
                       </TableFooter>
                     </Table>
-                  </div>
-
-                  <div className={styles.box}>
-                    <div className={styles.title}>Additional Data</div>
-                    <Divider />
-                    <div className={styles['control-groups']}>
-                      <MessageGroup
-                        title=''
-                        multiple
-                        options={AdditionalData}
-                        onChange={onAdditionalDataChanged}
-                        type={MessageGroupType.ADDITIONAL_DATA}
-                        value={messageLocal.additionalData}
-                      />
-                    </div>
                   </div>
                 </Paper>
               </FormGroup>}
