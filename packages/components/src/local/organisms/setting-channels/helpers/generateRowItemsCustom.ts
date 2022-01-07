@@ -1,4 +1,4 @@
-import { ChannelData, ForceData } from '@serge/custom-types'
+import { ForceData } from '@serge/custom-types'
 import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
 import { Participant } from '../types/props'
 
