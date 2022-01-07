@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import ChannelCoaMessageDetail2 from './index'
 
 import { ChannelCollab } from '@serge/custom-types'
-import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates2 } from '@serge/config'
+import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates2, PARTICIPANT_COLLAB } from '@serge/config'
 
 import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 
@@ -23,6 +23,7 @@ const testChannel2: ChannelCollab = {
   name: 'Collab Editing',
   participants: [
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanApprove,

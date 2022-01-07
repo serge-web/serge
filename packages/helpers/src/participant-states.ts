@@ -68,7 +68,7 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
   }
 
   const templateIDs = []
-  const participatingRoles: CoreParticipant[] = channel.participants.filter((p: CoreParticipant) => matchedV3ForceAndRoleFilter(p, selectedForce, selectedRole))
+  const participatingRoles: CoreParticipant[] = channelParts.filter((p: CoreParticipant) => matchedV3ForceAndRoleFilter(p, selectedForce, selectedRole))
   switch (channel.channelType) {
     case CHANNEL_COLLAB: {
       const collab = channel as ChannelCollab
@@ -97,7 +97,7 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
   return {
     isParticipant: participatingRoles.length > 0,
     templatesIDs: templateIDs,
-    allRolesIncluded: !!channel.participants.find((p: CoreParticipant) => matchedV3AllRolesFilter(p, selectedForce))
+    allRolesIncluded: !!channelParts.find((p: CoreParticipant) => matchedV3AllRolesFilter(p, selectedForce))
   }
 }
 

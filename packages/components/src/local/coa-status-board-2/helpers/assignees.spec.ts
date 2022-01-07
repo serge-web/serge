@@ -1,11 +1,12 @@
 
 import { ParticipantCollab } from '@serge/custom-types'
-import { CollaborativePermission } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_COLLAB } from '@serge/config'
 import getAssignees from './assignees'
 import { forces } from '@serge/mocks'
 
 const namedWhite: ParticipantCollab[] = [
   {
+    pType: PARTICIPANT_COLLAB,
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
@@ -18,6 +19,7 @@ const namedWhite: ParticipantCollab[] = [
 
 const allWhiteCollaborate: ParticipantCollab[] = [
   {
+    pType: PARTICIPANT_COLLAB,
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
@@ -30,6 +32,7 @@ const allWhiteCollaborate: ParticipantCollab[] = [
 
 const allWhiteNonCollab: ParticipantCollab[] = [
   {
+    pType: PARTICIPANT_COLLAB,
     canCreate: true,
     viewUnreleasedVersions: false,
     permission: CollaborativePermission.CannotCollaborate,
@@ -42,6 +45,7 @@ const allWhiteNonCollab: ParticipantCollab[] = [
 
 const multiPart: ParticipantCollab[] = [
   {
+    pType: PARTICIPANT_COLLAB,
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
@@ -51,6 +55,7 @@ const multiPart: ParticipantCollab[] = [
     subscriptionId: 'jvrn'
   },
   {
+    pType: PARTICIPANT_COLLAB,
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,

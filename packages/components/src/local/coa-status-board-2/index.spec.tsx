@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelCollab } from '@serge/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, CollaborativeMessageStates2 } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, CollaborativeMessageStates2, PARTICIPANT_COLLAB } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CoaStatusBoard2 from './index'
 import moment from 'moment'
@@ -26,6 +26,7 @@ const testChannelColb: ChannelCollab = {
   name: 'Collab Editing',
   participants: [
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanSubmitForReview,
@@ -35,6 +36,7 @@ const testChannelColb: ChannelCollab = {
       subscriptionId: 'oqoj'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanRelease,

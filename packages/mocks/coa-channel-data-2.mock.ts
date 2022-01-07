@@ -1,5 +1,5 @@
 import { ChannelCollab, ForceData, ForceRole } from '@serge/custom-types'
-import { CHANNEL_COLLAB, CollaborativePermission, InitialStates } from '@serge/config'
+import { CHANNEL_COLLAB, CollaborativePermission, InitialStates, PARTICIPANT_COLLAB } from '@serge/config'
 import { forces } from '.'
 import { cloneDeep } from 'lodash'
 
@@ -22,6 +22,7 @@ export const channelCollaborativeEditing2: ChannelCollab = {
   name: 'Collab Editing 1',
   participants: [
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true, 
       permission: CollaborativePermission.CanSubmitForReview, 
@@ -31,6 +32,7 @@ export const channelCollaborativeEditing2: ChannelCollab = {
       subscriptionId: 'oqoj'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true, 
       permission: CollaborativePermission.CanRelease, 
@@ -61,6 +63,7 @@ export const channelCollaborativeResponding2: ChannelCollab = {
   responseTemplate: { title: 'Chat', _id: 'k16eedkl' },
   participants: [
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: false, 
       permission: CollaborativePermission.CannotCollaborate,
@@ -70,6 +73,7 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       subscriptionId: 'jvrn1'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true, 
       permission: CollaborativePermission.CanSubmitForReview,
@@ -79,6 +83,7 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       subscriptionId: 'jvrn2'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true, 
       permission: CollaborativePermission.CanApprove,
@@ -88,6 +93,7 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       subscriptionId: 'jvrn3'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true, 
       permission: CollaborativePermission.CanRelease,
