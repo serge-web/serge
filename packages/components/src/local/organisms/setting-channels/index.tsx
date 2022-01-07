@@ -28,11 +28,11 @@ import EditableRow, { Item as RowItem, Option } from '../../molecules/editable-r
 import createChannel from './helpers/createChannel'
 import createParticipant from './helpers/createParticipant'
 import defaultParticipant from './helpers/defaultParticipant'
-import generateRowItems from './helpers/generateRowItems'
+import generateRowItemsCustom from './helpers/generateRowItemsCustom'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
 import { getMessagesValues, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged, getSelectedOptions } from './helpers/messageCollabUtils'
-import rowToParticipant from './helpers/rowToParticipant'
+import rowToParticipantCustom from './helpers/rowToParticipantCustom'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -79,7 +79,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setMessageLocal(messagesValues)
   }, [realSelectedChannel])
 
-  const handleSwitch = (_item: Item): void => {
+  const handleChangeChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
     onSidebarClick && onSidebarClick(_item as ChannelData)
   }
@@ -142,8 +142,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
         nextParticipant = rowToParticipantCollab(forces, nextItems, participant as unknown as ParticipantCollab)
         return generateRowItemsCollab(forces, nextParticipant)
       }
-      nextParticipant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant)
-      return generateRowItems(messageTemplatesOptions, forces, nextParticipant, data)
+      nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant)
+      return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant, data)
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
@@ -163,7 +163,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           if (isCollab) {
             nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as unknown as ParticipantCollab)
           } else {
-            nextParticipants[participantKey] = rowToParticipant(messageTemplatesOptions, forces, row, participant)
+            nextParticipants[participantKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant)
           }
           handleSaveRows(nextParticipants)
         }
@@ -174,7 +174,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
-        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItems(messageTemplatesOptions, forces, participant, data)
+        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItemsCustom(messageTemplatesOptions, forces, participant, data)
 
         return <EditableRow
           onRemove={handleRemoveParticipant}
@@ -199,7 +199,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           return handleChangeRow(nextItems, itKey, defaultParticipant, isCollab)
         }}
         onSave={handleCreateParticipant}
-        items={generateRowItems(messageTemplatesOptions, forces, defaultParticipant, data)}
+        items={generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant, data)}
         defaultMode='edit'
         actions
       />
@@ -495,7 +495,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           items={channels}
           selectedItem={channels[selectedItem] ? channels[selectedItem].uniqid : undefined}
           filterKey="uniqid"
-          onClick={handleSwitch}
+          onClick={handleChangeChannel}
           onDelete={onDelete}
           onDuplicate={onDuplicate}
         />
