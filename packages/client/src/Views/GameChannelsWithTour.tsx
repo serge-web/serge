@@ -1,7 +1,7 @@
 import React from 'react'
 import GameChannels from './GameChannels/GameChannels'
 import Tour from 'reactour'
-import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
+import { usePlayerUiDispatch } from '../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
