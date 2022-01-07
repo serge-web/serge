@@ -88,26 +88,20 @@ export const SettingChannels: React.FC<PropTypes> = ({
     onChange({ channels: nextChannels, selectedChannel })
   }
 
-  const renderAdditionalCells = (channelData: ChannelData): React.ReactNode => {
-    if (typeof channelData.format === 'undefined') return null
-    if (
-      channelData.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ||
-      channelData.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-    ) {
-      return (
-        <>
-          <TableCell align="center">Participate</TableCell>
-          <TableCell align="center">Release</TableCell>
-          <TableCell align="center">UnClaim</TableCell>
-        </>
-      )
-    }
-    return null
-  }
-
   const renderContent = (): React.ReactNode => {
     if (!localChannelUpdates[selectedItem]) return null
     const data = localChannelUpdates[selectedItem]
+
+    // if it's a v2 collab editing, just return
+    const legacyFormat = realSelectedChannel?.format
+    if (legacyFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || legacyFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
+      console.log('Do not support this channel format. Drop out')
+      return (
+        <div>
+          Legacy format not supported: <b>{legacyFormat}</b>
+        </div>
+      )
+    }
 
     const handleChangeChannel = (channel: ChannelData): void => {
       const nextChannels: Array<ChannelData> = [...localChannelUpdates]
@@ -143,7 +137,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         return generateRowItemsCollab(forces, nextParticipant)
       }
       nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant)
-      return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant, data)
+      return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
@@ -174,7 +168,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
-        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItemsCustom(messageTemplatesOptions, forces, participant, data)
+        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItemsCustom(messageTemplatesOptions, forces, participant)
 
         return <EditableRow
           onRemove={handleRemoveParticipant}
@@ -199,7 +193,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           return handleChangeRow(nextItems, itKey, defaultParticipant, isCollab)
         }}
         onSave={handleCreateParticipant}
-        items={generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant, data)}
+        items={generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant)}
         defaultMode='edit'
         actions
       />
@@ -283,7 +277,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         <TableCell>Force</TableCell>
                         <TableCell align="left">Restrict access to specific roles</TableCell>
                         <TableCell align="left">Templates</TableCell>
-                        {renderAdditionalCells(data)}
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
                     </TableHead>

@@ -1,10 +1,8 @@
-import { SpecialChannelTypes } from '@serge/config'
 import { ChannelData, ForceData } from '@serge/custom-types'
-import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'
+import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
 import { Participant } from '../types/props'
 
-export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextParticipant: Participant, channelData: ChannelData): Array<Item> => {
-  const { format, collabOptions } = channelData
+export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {
   // by default selected force
   let forceSelected: Array<number> = [0]
   // init empty roles array
@@ -50,39 +48,6 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
     uniqid: 'templates',
     type: EDITABLE_SELECT_ITEM
   })
-
-  // TODO: this is v2 of Collab-Editing. It should be deleted.
-  // check special channels
-  if (typeof format !== 'undefined') {
-    if (typeof collabOptions !== 'undefined') {
-      if (
-        format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ||
-        format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-      ) {
-        // init row item for participate switch
-        additionalFields.push({
-          type: EDITABLE_SWITCH_ITEM,
-          uniqid: 'participate',
-          // get default value for switcher
-          active: nextParticipant.canCollaborate
-        })
-        // init row item for release switch
-        additionalFields.push({
-          type: EDITABLE_SWITCH_ITEM,
-          uniqid: 'release',
-          // get default value for switcher
-          active: nextParticipant.canReleaseMessages
-        })
-        // init row item for unclaim switch
-        additionalFields.push({
-          type: EDITABLE_SWITCH_ITEM,
-          uniqid: 'unclaim',
-          // get default value for switcher
-          active: nextParticipant.canUnClaimMessages
-        })
-      }
-    }
-  }
 
   // return row items
   return [
