@@ -1,5 +1,5 @@
 import { ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
-import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
+import { SelectItem } from 'src/local/molecules/editable-row/types/props'
 import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
 import { Participant } from '../types/props'
 
