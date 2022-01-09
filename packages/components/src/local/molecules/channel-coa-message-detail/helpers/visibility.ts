@@ -1,5 +1,6 @@
-import { MessageCustom, ChannelData, ForceRole, Participant } from '@serge/custom-types'
 import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import { ChannelData, ForceRole, MessageCustom } from '@serge/custom-types'
+import { CoreParticipant } from '@serge/custom-types/participant'
 
 /** shortcut constants to make code more legible */
 const cEdit = SpecialChannelTypes.CHANNEL_COLLAB_EDIT
@@ -37,19 +38,19 @@ const isThisChannel = (channel: ChannelData, channelType: SpecialChannelTypes): 
 /** whether this user can see the collaborative aspects of this channel */
 export const userCanSeeCollab = (_channel: ChannelData, _role: ForceRole): boolean => {
   const parts = _channel.participants
-  return !!parts.find((part: Participant) => {
+  return !!parts.find((part: CoreParticipant) => {
     // is this our force?
     if (part.forceUniqid === _role.forceId) {
       // does this participant collaborate?
-      if (part.canCollaborate) {
-        // it could be me :-)
-        if (part.roles && part.roles.length) {
-          return part.roles.find((role: string) => role === _role.roleId)
-        } else {
-          // no discrete roles specified, go for it
-          return true
-        }
+      // if (part.canCollaborate) {
+      //   // it could be me :-)
+      if (part.roles && part.roles.length) {
+        return part.roles.find((role: string) => role === _role.roleId)
+      } else {
+        // no discrete roles specified, go for it
+        return true
       }
+      // }
     }
     return false
   })
@@ -71,7 +72,7 @@ export const ColEditDocumentPending = (message: MessageCustom, channel: ChannelD
 
 export const ColEditClosed = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
   const inClosedState = isThisState(message, CollaborativeMessageStates.Closed) ||
-  isThisState(message, CollaborativeMessageStates.Finalized)
+    isThisState(message, CollaborativeMessageStates.Finalized)
   return isThisChannel(channel, cEdit) && inClosedState && !!canReleaseMessages
 }
 
@@ -98,6 +99,6 @@ export const ColRespDocumentBeingEdited = (message: MessageCustom, channel: Chan
 
 export const ColResponseClosed = (message: MessageCustom, channel: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
   const inClosedState = isThisState(message, CollaborativeMessageStates.Closed) ||
-  isThisState(message, CollaborativeMessageStates.Released)
+    isThisState(message, CollaborativeMessageStates.Released)
   return isThisChannel(channel, cResponse) && inClosedState && !!canReleaseMessages
 }

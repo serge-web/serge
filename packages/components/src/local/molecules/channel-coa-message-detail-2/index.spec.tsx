@@ -26,7 +26,7 @@ const testChannel2: ChannelCollab = {
       pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true,
-      permission: CollaborativePermission.CanApprove,
+      permission: [CollaborativePermission.CanApprove],
       force: 'White',
       forceUniqid: 'umpire',
       roles: [],
@@ -43,7 +43,7 @@ describe('ChannelMessageDetail:', () => {
     const tree = renderer
       .create(<ChannelCoaMessageDetail2
         templates={MessageTemplatesMockByKey}
-        role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
+        role={{ forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' }}
         permission={CollaborativePermission.CanEdit}
         channelColb={testChannel2}
         isUmpire={true}

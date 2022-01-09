@@ -1,9 +1,8 @@
 import { CollaborativePermission } from '@serge/config'
 import { ForceData, ParticipantCollab } from '@serge/custom-types'
 import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'
-import { Participant } from '../types/props'
 
-export default (forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {
+export default (forces: Array<ForceData>, nextParticipant: ParticipantCollab): Array<Item> => {
   // by default selected force
   let forceSelected: Array<number> = [0]
   // init empty roles array
@@ -53,17 +52,15 @@ export default (forces: Array<ForceData>, nextParticipant: Participant): Array<I
   })
 
   const permissionOptions: Option[] = []
-  Object.keys(CollaborativePermission).forEach((key: number | string) => {
+  Object.keys(CollaborativePermission).forEach((key: string) => {
     if (!isNaN(Number(key))) {
       permissionOptions.push({ name: CollaborativePermission[key], uniqid: '' + key })
     }
   })
 
-  const activePermission: number[] = collab.permission ? [collab.permission] : []
-
   // init row item for permission select
   additionalFields.push({
-    active: activePermission,
+    active: collab.permission,
     emptyTitle: 'Edit',
     multiple: false,
     options: permissionOptions,

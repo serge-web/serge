@@ -1,8 +1,8 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHAT_MESSAGE_TEMPLATE_ID } from '@serge/config'
-import { ChannelCollab, ChannelData, ChannelTypes, Participant, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from '@serge/config'
+import { ChannelCollab, ChannelData, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
 import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
-import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter } from './participant-filters'
+import { matchedAllRolesFilter, matchedForceAndRoleFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter } from './participant-filters'
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
@@ -26,7 +26,7 @@ export interface ParticipantStates {
 */
 export const checkLegacyParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: Role['roleId'], isObserver: boolean): CheckParticipantStates => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
+  const participatingForce: CoreParticipant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
   // not a member of this channel, return false answer
   if (!participatingForce && !isObserver) {
     return {
@@ -37,11 +37,13 @@ export const checkLegacyParticipantStates = (channel: ChannelData, selectedForce
   }
 
   // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
-  const participatingRoles: Participant[] = channel.participants.filter(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+  const participatingRoles: CoreParticipant[] = channel.participants.filter(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   const templates: ParticipantTemplate[] = []
   participatingRoles.forEach(role => {
-    const theseTemplates = role.templates
-    templates.push(...theseTemplates)
+    if (role.pType === PARTICIPANT_CUSTOM) {
+      const theseTemplates = (role as ParticipantCustom).templates
+      templates.push(...theseTemplates)
+    }
   })
   // const participatingRole: Participant | undefined = channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   return {
@@ -113,7 +115,7 @@ export const getParticipantStates = (
   const chosenTemplates: TemplateBody[] = []
   let observing = false
   let templates: TemplateBody[] = []
-  const templatesUniqFilter: {[property: string]: boolean} = {}
+  const templatesUniqFilter: { [property: string]: boolean } = {}
   const addTemplate = (template: TemplateBody): void => {
     if (templatesUniqFilter[template.title] !== true) {
       templatesUniqFilter[template.title] = true

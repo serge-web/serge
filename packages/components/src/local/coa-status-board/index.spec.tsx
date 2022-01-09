@@ -1,12 +1,13 @@
 /* global it expect */
 
+import { CollaborativeMessageStates, CUSTOM_MESSAGE, PARTICIPANT_CUSTOM, SpecialChannelTypes } from '@serge/config'
+import { ChannelData, ForceRole, MessageCustom, Role } from '@serge/custom-types'
+import { ParticipantCustom } from '@serge/custom-types/participant'
+import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
+import moment from 'moment'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
-import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CoaStatusBoard from './index'
-import moment from 'moment'
 
 /* Import mock data */
 // import { GameChannels } from '@serge/mocks'
@@ -27,17 +28,18 @@ const testChannel: ChannelData = {
   name: 'New CE',
   participants: [
     {
-      canCollaborate: true,
-      canReleaseMessages: false,
+      // canCollaborate: true,
+      // canReleaseMessages: false,
       force: 'White',
       forceUniqid: 'umpire',
       roles: [],
       subscriptionId: 'oqoj',
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     }
-  ],
+  ] as ParticipantCustom[],
   uniqid: 'ks8soryj'
 }
 

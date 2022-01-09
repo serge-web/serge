@@ -1,8 +1,9 @@
 import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 import { channelCollaborativeEditing, channelCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
-import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
+import { CollaborativeMessageStates, SpecialChannelTypes, PARTICIPANT_CUSTOM } from '@serge/config'
 import { deepCopy } from '@serge/helpers'
 import { ColDocumentBeingEditedByOther, ColEditPendingReview, ColRespPendingReview, formEditable, userCanSeeCollab } from './visibility'
+import { ParticipantCustom } from '@serge/custom-types/participant'
 
 const whiteUmpire: ForceRole = {
   forceId: 'umpire',
@@ -69,28 +70,30 @@ describe('Visibility tests', () => {
       name: 'New CE',
       participants: [
         {
-          canCollaborate: false,
-          canReleaseMessages: false,
+          // canCollaborate: false,
+          // canReleaseMessages: false,
           force: 'Red',
           forceUniqid: '-red-',
           roles: ['w2aa2'],
           subscriptionId: 'oq1j',
           templates: [
             { title: 'RFI', _id: 'k16eedkj' }
-          ]
+          ],
+          pType: PARTICIPANT_CUSTOM
         },
         {
-          canCollaborate: true,
-          canReleaseMessages: false,
+          // canCollaborate: true,
+          // canReleaseMessages: false,
           force: 'Blue',
           forceUniqid: '-blue-',
           roles: ['w2aa2'],
           subscriptionId: 'oqoj',
           templates: [
             { title: 'RFI', _id: 'k16eedkj' }
-          ]
+          ],
+          pType: PARTICIPANT_CUSTOM
         }
-      ],
+      ] as ParticipantCustom[],
       uniqid: 'ks8soryj'
     }
 

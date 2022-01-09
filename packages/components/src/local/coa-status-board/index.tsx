@@ -28,10 +28,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel, 
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
 
-  const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
-  const canCollaborate = !!myParticipations.find(p => p.canCollaborate)
-  const canReleaseMessages = !!myParticipations.find(p => p.canReleaseMessages)
-  const canUnClaimMessages = !!myParticipations.find(p => p.canUnClaimMessages)
+  // const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
+  const canCollaborate = false // !!myParticipations.find(p => p.canCollaborate)
+  const canReleaseMessages = false // !!myParticipations.find(p => p.canReleaseMessages)
+  const canUnClaimMessages = false // !!myParticipations.find(p => p.canUnClaimMessages)
 
   // whether this user should see metadata about the message being edited
   const isCollaborating = canCollaborate || canReleaseMessages || isUmpire

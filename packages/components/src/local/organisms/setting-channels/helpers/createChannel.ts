@@ -1,8 +1,9 @@
-import { ChannelData, ForceData, Participant } from '@serge/custom-types'
-import uniqid from 'uniqid'
-import { SpecialChannelTypes, SpecialChannelColumns } from '@serge/config'
-import { generateSubscriptionId } from './createParticipant'
+import { PARTICIPANT_CUSTOM, SpecialChannelColumns, SpecialChannelTypes } from '@serge/config'
+import { ChannelData, ForceData } from '@serge/custom-types'
 import { CollabOptions } from '@serge/custom-types/channel-data'
+import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
+import uniqid from 'uniqid'
+import { generateSubscriptionId } from './createParticipant'
 
 // Create uniq chanel name
 const generateChannelName = (channels: ChannelData[], key = 1, exclude = -1, defName = 'New Channel'): string => {
@@ -24,7 +25,7 @@ const createChannel = (
   format?: SpecialChannelTypes
 ): ChannelData => {
   // Empty Participant array for standart channels
-  const participants: Participant[] = []
+  const participants: CoreParticipant[] = []
   let collabOptions: CollabOptions | undefined
 
   // IF format given apply Original template based on format
@@ -35,15 +36,16 @@ const createChannel = (
       format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
     ) {
       // create new participant
-      const participant: Participant = {
+      const participant: ParticipantCustom = {
         force: defaultForce.name,
         forceUniqid: defaultForce.uniqid,
         roles: [],
         templates: [{ _id: 'k16eedkj', title: 'RFI' }],
         subscriptionId: generateSubscriptionId(),
-        canCollaborate: false,
-        canReleaseMessages: false,
-        canUnClaimMessages: false
+        pType: PARTICIPANT_CUSTOM
+        // canCollaborate: false,
+        // canReleaseMessages: false,
+        // canUnClaimMessages: false
       }
       // add participant to channel
       participants.push(participant)

@@ -1,7 +1,24 @@
-export default {
+import { PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM } from '@serge/config'
+import { ParticipantCollab } from '@serge/custom-types'
+import { ParticipantCustom } from '@serge/custom-types/participant'
+
+export const defaultCoreParticipant = {
   force: '',
   forceUniqid: '',
   roles: [],
-  subscriptionId: '',
-  templates: []
+  subscriptionId: ''
+}
+
+export const defaultParticipantCustom: ParticipantCustom = {
+  ...defaultCoreParticipant,
+  templates: [],
+  pType: PARTICIPANT_CUSTOM
+}
+
+export const defaultParticipantCollab: ParticipantCollab = {
+  ...defaultCoreParticipant,
+  canCreate: false,
+  viewUnreleasedVersions: false,
+  permission: [0],
+  pType: PARTICIPANT_COLLAB
 }

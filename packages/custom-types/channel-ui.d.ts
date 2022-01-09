@@ -12,14 +12,14 @@ export default interface ChannelData {
   templates?: TemplateBody[],
   messages?: Array<MessageChannel>,
   name: string,
-  participants: Array<Participant>
+  participants: Array<CoreParticipant>
   unreadMessageCount?: number
   // TODO: dynamically retrieve force icons and colors,
   // don't store them in the database
   forceIcons?: Array<any>
   forceColors?: Array<string>
   format?: SpecialChannelTypes
-  collabOptions? : CollabOptions
+  collabOptions?: CollabOptions
   /** one of the v3 channel type constants */
   v3Channel?: ChannelTypes,
   v3participants?: Array<CoreParticipant>

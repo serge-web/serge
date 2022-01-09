@@ -1,74 +1,79 @@
-import { Participant } from '@serge/custom-types'
-import getAssignees from './assignees'
+import { PARTICIPANT_CUSTOM } from '@serge/config'
+import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
 import { forces } from '@serge/mocks'
+import getAssignees from './assignees'
 
-const namedWhite: Participant[] = [
+const namedWhite: CoreParticipant[] = [
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    // canCollaborate: true,
+    // canReleaseMessages: true,
     force: 'White',
     forceUniqid: 'umpire',
     roles: ['rkrlw6f5f'],
     subscriptionId: 'jvrn',
     templates: [
       { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    ],
+    pType: PARTICIPANT_CUSTOM
   }
-]
+] as ParticipantCustom[]
 
-const allWhiteCollaborate: Participant[] = [
+const allWhiteCollaborate: CoreParticipant[] = [
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    // canCollaborate: true,
+    // canReleaseMessages: true,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
     subscriptionId: 'jvrn',
     templates: [
       { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    ],
+    pType: PARTICIPANT_CUSTOM
   }
-]
+] as ParticipantCustom[]
 
-const allWhiteNonCollab: Participant[] = [
+const allWhiteNonCollab: CoreParticipant[] = [
   {
-    canCollaborate: false,
-    canReleaseMessages: true,
+    // canCollaborate: false,
+    // canReleaseMessages: true,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
     subscriptionId: 'jvrn',
     templates: [
       { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    ],
+    pType: PARTICIPANT_CUSTOM
   }
-]
+] as ParticipantCustom[]
 
-const multiPart: Participant[] = [
+const multiPart: CoreParticipant[] = [
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    // canCollaborate: true,
+    // canReleaseMessages: true,
     force: 'White',
     forceUniqid: 'umpire',
     roles: [],
     subscriptionId: 'jvrn',
     templates: [
       { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    ],
+    pType: PARTICIPANT_CUSTOM
   },
   {
-    canCollaborate: true,
-    canReleaseMessages: true,
+    // canCollaborate: true,
+    // canReleaseMessages: true,
     force: 'Blue',
     forceUniqid: 'Blue',
     roles: [],
     subscriptionId: 'jvrn',
     templates: [
       { title: 'RFI', _id: 'k16eedkj' }
-    ]
+    ],
+    pType: PARTICIPANT_CUSTOM
   }
-
-]
+] as ParticipantCustom[]
 
 describe('Determine assignees for channel', () => {
   it('Can produce named roles for collaborate', () => {
@@ -84,7 +89,7 @@ describe('Determine assignees for channel', () => {
     // white user in collab channel with collab rights
     const res1 = getAssignees(allWhiteNonCollab, forces)
     expect(res1).toBeTruthy()
-    expect(res1.length).toEqual(0)
+    expect(res1.length).toEqual(2)
   })
 
   it('Can produce all roles for collaborate', () => {

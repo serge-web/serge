@@ -1,10 +1,10 @@
 import { ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
+import { ParticipantCustom } from '@serge/custom-types/participant'
 import { SelectItem } from 'src/local/molecules/editable-row/types/props'
 import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
-import { Participant } from '../types/props'
 
 // Convert table row items to Participant object
-export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: Participant): Participant => {
+export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: ParticipantCustom): ParticipantCustom => {
   // get firs 3 table select items
   const [force, access, templateOrPermission] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
 
@@ -20,14 +20,11 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
     return { _id, title }
   }) : []
 
-  const res = {
+  return {
     ...participant,
     force: selectedForce.name,
     forceUniqid: selectedForce.uniqid,
     roles,
     templates
   }
-
-  // return converted participant
-  return res
 }

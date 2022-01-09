@@ -2,7 +2,9 @@ import { ChannelData, ForceData, ForceRole } from '@serge/custom-types'
 import { SpecialChannelColumns, SpecialChannelTypes } from '@serge/config'
 import { forces } from '.'
 import { cloneDeep } from 'lodash'
- 
+import { ParticipantCustom } from '@serge/custom-types/participant'
+import { PARTICIPANT_CUSTOM } from '@serge/config'
+
 export const collabForces: ForceData[] = cloneDeep(forces)
 collabForces[0].roles[1].name = 'Manager'
 collabForces[1].roles[0].name = 'Senior'
@@ -22,28 +24,30 @@ export const channelCollaborativeEditing: ChannelData = {
   name: 'Collab Editing',
   participants: [
     {
-      canCollaborate: true,
-      canReleaseMessages: false,
+      // canCollaborate: true,
+      // canReleaseMessages: false,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'oqoj',
       templates: [
         { title: 'COA', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     },
     {
-      canCollaborate: true,
-      canReleaseMessages: true,
+      // canCollaborate: true,
+      // canReleaseMessages: true,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [blueReleaseManager.roleId],
       subscriptionId: 'oqoj2',
       templates: [
         { title: 'COA', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     }
-  ],
+  ] as ParticipantCustom[],
   uniqid: 'ks8soryj'
 }
 
@@ -63,50 +67,53 @@ export const channelCollaborativeResponding: ChannelData = {
   name: 'New CR',
   participants: [
     {
-      canCollaborate: false,
-      canReleaseMessages: false,
+      // canCollaborate: false,
+      // canReleaseMessages: false,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'jvrn1',
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     },
     {
-      canCollaborate: true,
-      canReleaseMessages: false,
+      // canCollaborate: true,
+      // canReleaseMessages: false,
       force: 'EXCON',
       forceUniqid: 'Red',
       roles: [],
       subscriptionId: 'jvrn2',
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     },
     {
-      canCollaborate: true,
-      canReleaseMessages: false,
+      // canCollaborate: true,
+      // canReleaseMessages: false,
       force: 'White',
       forceUniqid: 'umpire',
       roles: [],
       subscriptionId: 'jvrn3',
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     },
     {
-      canCollaborate: true,
-      canReleaseMessages: true,
+      // canCollaborate: true,
+      // canReleaseMessages: true,
       force: 'White',
       forceUniqid: 'umpire',
       roles: [whiteReleaseMgr.roleId],
       subscriptionId: 'jvrn4',
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     }
-
-  ],
+  ] as ParticipantCustom[],
   uniqid: 'ks8sztkw'
 }

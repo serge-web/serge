@@ -11,7 +11,7 @@ const whiteGC: Role = forces[0].roles[0]
 
 const channels: PlayerUiChannels = {}
 const adminMessages: MessageChannel[] = GameMessagesMock
-const chatTemplate = MessageTemplatesMock.find((template:any) => template.name === 'Chat') || { a: 'chat' }
+const chatTemplate = MessageTemplatesMock.find((template: any) => template.name === 'Chat') || { a: 'chat' }
 const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chatTemplate, messages: adminMessages }
 const allForces: ForceData[] = forces
 const whiteForce: ForceData = allForces[0]
@@ -126,8 +126,8 @@ describe('handle channel update for info message', () => {
     const newChannel: ChannelData = {
       name: 'Blue Net 2',
       participants: [
-        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', templates: [] },
-        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', templates: [] }],
+        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: '' },
+        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: '' }],
       uniqid: 'channel-k63pjv111'
     }
     copyChannels.push(newChannel)
@@ -154,8 +154,8 @@ describe('handle channel update for info message', () => {
     const newChannel: ChannelData = {
       name: 'Blue Net 2',
       participants: [
-        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', templates: [] },
-        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', templates: [] }],
+        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: '' },
+        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: '' }],
       uniqid: 'channel-k63pjv111'
     }
     copyChannels.push(newChannel)

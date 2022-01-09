@@ -1,9 +1,9 @@
-import { ForceData, Participant, ParticipantCollab, Role } from '@serge/custom-types'
+import { ForceData, ParticipantCollab, Role } from '@serge/custom-types'
 import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
 import { EDITABLE_SELECT_ITEM, Item } from '../../../molecules/editable-row'
 
 // Convert table row items to Participant object
-export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCollab: ParticipantCollab): Participant => {
+export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCollab: ParticipantCollab): ParticipantCollab => {
   // get firs 3 table select items
   const [force, access, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
 
@@ -25,7 +25,7 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCol
   if (typeof createNewMsg !== 'undefined') canCreate = !!createNewMsg.active
   if (typeof seeLiveUpdates !== 'undefined') viewUnreleasedVersions = !!seeLiveUpdates.active
 
-  const res = {
+  return {
     ...participantCollab,
     force: selectedForce.name,
     forceUniqid: selectedForce.uniqid,
@@ -34,7 +34,4 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCol
     canCreate,
     viewUnreleasedVersions
   }
-
-  // return converted participant
-  return res as unknown as Participant
 }

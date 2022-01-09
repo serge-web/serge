@@ -16,6 +16,7 @@ import TableRow from '@material-ui/core/TableRow'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CHANNEL_COLLAB, SpecialChannelTypes } from '@serge/config'
 import { ChannelCollab, ParticipantCollab } from '@serge/custom-types'
+import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -27,17 +28,17 @@ import EditableRow, { Item as RowItem, Option } from '../../molecules/editable-r
 /* Import Helpers */
 import createChannel from './helpers/createChannel'
 import createParticipant from './helpers/createParticipant'
-import defaultParticipant from './helpers/defaultParticipant'
-import generateRowItemsCustom from './helpers/generateRowItemsCustom'
+import { defaultParticipantCollab, defaultParticipantCustom } from './helpers/defaultParticipant'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
+import generateRowItemsCustom from './helpers/generateRowItemsCustom'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
-import { getMessagesValues, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged, getSelectedOptions } from './helpers/messageCollabUtils'
-import rowToParticipantCustom from './helpers/rowToParticipantCustom'
+import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged } from './helpers/messageCollabUtils'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
+import rowToParticipantCustom from './helpers/rowToParticipantCustom'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
-import PropTypes, { ChannelData, Participant } from './types/props'
+import PropTypes, { ChannelData } from './types/props'
 // import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
@@ -110,7 +111,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setLocalChannelUpdates(nextChannels)
     }
 
-    const handleSaveRows = (participants: Array<Participant>): void => {
+    const handleSaveRows = (participants: Array<CoreParticipant>): void => {
       handleChangeChannel({
         ...data,
         participants: participants
@@ -125,18 +126,18 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setLocalChannelUpdates(localChannelUpdates)
     }
 
-    const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant, isCollab: boolean): Array<RowItem> => {
+    const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: CoreParticipant, isCollab: boolean): Array<RowItem> => {
       const newNextItems = [...nextItems]
       if (itKey === 0) {
         newNextItems[1].active = []
         newNextItems[2].active = []
       }
-      let nextParticipant
+      let nextParticipant: ParticipantCollab | ParticipantCustom
       if (isCollab) {
-        nextParticipant = rowToParticipantCollab(forces, nextItems, participant as unknown as ParticipantCollab)
+        nextParticipant = rowToParticipantCollab(forces, nextItems, participant as ParticipantCollab)
         return generateRowItemsCollab(forces, nextParticipant)
       }
-      nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant)
+      nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant as ParticipantCustom)
       return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
     }
 
@@ -155,9 +156,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
         const handleSaveRow = (row: Array<RowItem>): void => {
           const nextParticipants = [...data.participants]
           if (isCollab) {
-            nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as unknown as ParticipantCollab)
+            nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as ParticipantCollab)
           } else {
-            nextParticipants[participantKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant)
+            nextParticipants[participantKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           }
           handleSaveRows(nextParticipants)
         }
@@ -168,7 +169,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
-        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItemsCustom(messageTemplatesOptions, forces, participant)
+        const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab) : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
         return <EditableRow
           onRemove={handleRemoveParticipant}
@@ -187,13 +188,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
     // render table footer
     const renderTableFooter = (): React.ReactElement => {
       // generate the correct type of controls for this channel type
-      const items = isCollab ? generateRowItemsCollab(forces, defaultParticipant)
-        : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant)
+      const items = isCollab ? generateRowItemsCollab(forces, defaultParticipantCollab)
+        : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipantCustom)
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset
         onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
-          return handleChangeRow(nextItems, itKey, defaultParticipant, isCollab)
+          return handleChangeRow(nextItems, itKey, isCollab ? defaultParticipantCollab : defaultParticipantCustom, isCollab)
         }}
         onSave={handleCreateParticipant}
         items={items}

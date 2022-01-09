@@ -46,7 +46,7 @@ const getRole = (force: ForceData, roleId: string): Role => {
 const getAssignees = (participants: ParticipantCollab[], forces: ForceData[]): ForceRole[] => {
   const res: ForceRole[] = []
   participants.forEach((part: ParticipantCollab) => {
-    if (part.permission > CollaborativePermission.CannotCollaborate) {
+    if (part.permission[0] > CollaborativePermission.CannotCollaborate) {
       const force = forceFor(forces, part.forceUniqid)
       if (part.roles && part.roles.length) {
         const matches: ForceRole[] = part.roles.map((roleId: string) => {

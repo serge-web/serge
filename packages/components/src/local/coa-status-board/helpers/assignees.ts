@@ -1,4 +1,5 @@
-import { ForceData, ForceRole, Participant, Role } from '@serge/custom-types'
+import { ForceData, ForceRole, Role } from '@serge/custom-types'
+import { CoreParticipant } from '@serge/custom-types/participant'
 import { uniqBy } from 'lodash'
 
 /** find this force */
@@ -42,22 +43,22 @@ const getRole = (force: ForceData, roleId: string): Role => {
  * tagged with `can collaborate`.
  * If no roles are specified, include all roles
  */
-const getAssignees = (participants: Participant[], forces: ForceData[]): ForceRole[] => {
+const getAssignees = (participants: CoreParticipant[], forces: ForceData[]): ForceRole[] => {
   const res: ForceRole[] = []
-  participants.forEach((part: Participant) => {
-    if (part.canCollaborate) {
-      const force = forceFor(forces, part.forceUniqid)
-      if (part.roles && part.roles.length) {
-        const matches: ForceRole[] = part.roles.map((roleId: string) => {
-          return roleFor(force, getRole(force, roleId))
-        })
-        res.push(...matches)
-      } else {
-        const allRoles = allRolesFor(force)
-        // all roles for this force
-        res.push(...allRoles)
-      }
+  participants.forEach((part: CoreParticipant) => {
+    // if (part.canCollaborate) {
+    const force = forceFor(forces, part.forceUniqid)
+    if (part.roles && part.roles.length) {
+      const matches: ForceRole[] = part.roles.map((roleId: string) => {
+        return roleFor(force, getRole(force, roleId))
+      })
+      res.push(...matches)
+    } else {
+      const allRoles = allRolesFor(force)
+      // all roles for this force
+      res.push(...allRoles)
     }
+    // }
   })
   // lastly, remove duplicates
   const deDupe = uniqBy(res, function (e) {

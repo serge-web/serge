@@ -4,9 +4,10 @@ import renderer from 'react-test-renderer'
 import ChannelCoaMessageDetail from './index'
 
 import { ChannelData } from '@serge/custom-types'
-import { SpecialChannelTypes } from '@serge/config'
+import { SpecialChannelTypes, PARTICIPANT_CUSTOM } from '@serge/config'
 
 import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
+import { ParticipantCustom } from '@serge/custom-types/participant'
 
 const [defMessage] = GameMessagesMockRFI
 
@@ -22,17 +23,18 @@ const testChannel: ChannelData = {
   name: 'New CE',
   participants: [
     {
-      canCollaborate: true,
-      canReleaseMessages: false,
+      // canCollaborate: true,
+      // canReleaseMessages: false,
       force: 'White',
       forceUniqid: 'umpire',
       roles: [],
       subscriptionId: 'oqoj',
       templates: [
         { title: 'RFI', _id: 'k16eedkj' }
-      ]
+      ],
+      pType: PARTICIPANT_CUSTOM
     }
-  ],
+  ] as ParticipantCustom[],
   uniqid: 'ks8soryj'
 }
 
@@ -41,7 +43,7 @@ describe('ChannelMessageDetail:', () => {
     const tree = renderer
       .create(<ChannelCoaMessageDetail
         templates={MessageTemplatesMockByKey}
-        role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
+        role={{ forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' }}
         canUnClaimMessages={true}
         channel={testChannel}
         isUmpire={true}

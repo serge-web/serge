@@ -43,7 +43,7 @@ export const CoaStatusBoard2: React.FC<Props> = ({
   }
 
   // find my highest permission (or take no permission)
-  const permission: CollaborativePermission = myParticipations.length ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : CollaborativePermission.CannotCollaborate
+  const permission: number[] = myParticipations.length ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : [CollaborativePermission.CannotCollaborate]
 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)

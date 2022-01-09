@@ -1,15 +1,15 @@
-import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
+import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping, CoreParticipant } from './participant'
 import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
 
 /** special configuration for collaborative channels */
-export interface CollabOptions {  
+export interface CollabOptions {
   /** edit mode */
   // TODO: drop this, we use channel.format
   mode: 'edit' | 'response',
   /** verbs for returning for edit */
   returnVerbs: Array<string>,
   /** who original document goes to first */
-  startWithReview : boolean,
+  startWithReview: boolean,
   /** extra columns to show in status view */
   extraColumns: Array<SpecialChannelColumns>
 }
@@ -22,7 +22,7 @@ export default interface ChannelData {
   /** name of this channel */
   name: string,
   /** list of participants for this channel */
-  participants: Array<Participant>
+  participants: Array<CoreParticipant>
   /** special channel types */
   format?: SpecialChannelTypes
   /** special collaborative working options */
@@ -72,7 +72,7 @@ export interface ChannelCollab extends ChannelCore {
   /** verbs for releasing document */
   releaseVerbs: Array<string>
   /** who original document goes to first */
-  initialState : InitialStates
+  initialState: InitialStates
   /** extra columns to show in status view */
   extraColumns: Array<SpecialChannelColumns>
   /** type for new document */
@@ -84,5 +84,5 @@ export interface ChannelCollab extends ChannelCore {
 /** union of the assorted channel types */
 export type ChannelTypes = ChannelChat |
   ChannelCustom |
-  ChannelCollab | 
+  ChannelCollab |
   ChannelMapping
