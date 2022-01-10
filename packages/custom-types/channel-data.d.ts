@@ -76,7 +76,7 @@ export interface ChannelCollab extends ChannelCore {
   /** extra columns to show in status view */
   extraColumns: Array<SpecialChannelColumns>
   /** type for new document */
-  newMessageTemplate: ParticipantTemplate
+  newMessageTemplate: ParticipantTemplate | undefined
   /** type for response document */
   responseTemplate?: ParticipantTemplate
 }
