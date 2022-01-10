@@ -77,7 +77,7 @@ const createChannel = (
         }
         return res
       }
-      case SpecialChannelTypes.CHANNEL_CHAT: 
+      case SpecialChannelTypes.CHANNEL_CHAT:
       default: {
         const participant: ParticipantChat = {
           force: defaultForce.name,

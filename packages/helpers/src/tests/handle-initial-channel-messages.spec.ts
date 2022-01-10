@@ -42,7 +42,7 @@ describe('handle initial channel creation', () => {
     // get the blue RFI channel
     const rfiChan = res.channels['channel-BlueRFI']
     expect(rfiChan).toBeTruthy()
-    expect(rfiChan.messages?.length).toEqual(4) // 3 blue messages, 1 info-type
+    expect(rfiChan.messages?.length).toEqual(5) // 3 blue messages, 2 info-type
 
     // get the pure list of RFI messages
     const rfiMessages = res.rfiMessages
@@ -62,7 +62,7 @@ describe('handle new message into RFI channel', () => {
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
-      expect(newBlue1.messages.length).toEqual(3)
+      expect(newBlue1.messages.length).toEqual(5)
     }
 
     expect(res.rfiMessages.length).toEqual(4)
@@ -91,7 +91,7 @@ describe('handle new message into RFI channel', () => {
     expect(newBlue).toBeTruthy()
     expect(newBlue.messages).toBeTruthy()
     if (newBlue.messages) {
-      expect(newBlue.messages.length).toEqual(3)
+      expect(newBlue.messages.length).toEqual(5) // 3 messages, 2 infotype
       const first = newBlue.messages[0] as MessageCustom
       expect(first.details.collaboration).toBeTruthy()
       if (first.details.collaboration) {
@@ -113,7 +113,7 @@ describe('handle new message into RFI channel', () => {
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
-      expect(newBlue1.messages.length).toEqual(3)
+      expect(newBlue1.messages.length).toEqual(5)
     }
 
     expect(res.rfiMessages.length).toEqual(4)
@@ -139,7 +139,7 @@ describe('handle new message into RFI channel', () => {
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
-      expect(newBlue1.messages.length).toEqual(3)
+      expect(newBlue1.messages.length).toEqual(5)
     }
 
     expect(res.rfiMessages.length).toEqual(4)
