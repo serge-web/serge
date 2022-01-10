@@ -188,7 +188,7 @@ export const genData2 = (
             isObserver={isObserver}
             isUmpire={isUmpire}
             channelColb={channelColb}
-            permission={permission[0]}
+            permission={permission}
             assignees={assignees}
             onChange={(newMeesage: MessageCustom): void => {
               onChange && onChange(newMeesage)
