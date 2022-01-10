@@ -3,7 +3,6 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as ChannelData, ChannelCollab, ChannelTypes } from './channel-data.d'
 export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
@@ -83,3 +82,4 @@ export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export * from './forms.d'
 export * from './global.d'
 export * from './turn-length.d'
+export * from './channel-data.d'

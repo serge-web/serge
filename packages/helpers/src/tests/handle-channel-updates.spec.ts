@@ -1,11 +1,11 @@
 import handleChannelUpdates from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom, Role, PlayerLog
+  ChannelTypes, MessageChannel, MessageInfoTypeClipped, MessageCustom, Role, PlayerLog, ChannelCustom
 } from '@serge/custom-types'
 import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels2, MessageTemplatesMockByKey } from '@serge/mocks'
 import deepCopy from '../deep-copy'
-import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, PARTICIPANT_CUSTOM, CHANNEL_CUSTOM } from '@serge/config'
 
 const whiteGC: Role = forces[0].roles[0]
 
@@ -17,7 +17,7 @@ const allForces: ForceData[] = forces
 const whiteForce: ForceData = allForces[0]
 const blueForce: ForceData = allForces[1]
 const redForce: ForceData = allForces[2]
-const allChannels: ChannelData[] = GameChannels2
+const allChannels: ChannelTypes[] = GameChannels2
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
@@ -34,8 +34,8 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now a channel
-    const copyChannels: ChannelData[] = deepCopy(allChannels)
-    const shortChannels = copyChannels.filter((channel: ChannelData) => channel.uniqid !== 'channel-k53ti36p')
+    const copyChannels: ChannelTypes[] = deepCopy(allChannels)
+    const shortChannels = copyChannels.filter((channel: ChannelTypes) => channel.uniqid !== 'channel-k53ti36p')
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce,
@@ -55,7 +55,7 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now remove us from a channel
-    const copyChannels: ChannelData[] = deepCopy(allChannels)
+    const copyChannels: ChannelTypes[] = deepCopy(allChannels)
     copyChannels[0].participants[2].roles = [whiteGC.roleId]
 
     // regenerate channels
@@ -71,7 +71,7 @@ describe('handle channel update for info message', () => {
     const isObserver = true
 
     // change channel so we're not a member
-    const limWhiteRoles: ChannelData[] = deepCopy(allChannels)
+    const limWhiteRoles: ChannelTypes[] = deepCopy(allChannels)
     limWhiteRoles[0].participants[0].roles = [whiteGC.roleId]
 
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, whiteForce,
@@ -101,7 +101,7 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now remove us from a channel
-    const copyChannels: ChannelData[] = deepCopy(allChannels)
+    const copyChannels: ChannelTypes[] = deepCopy(allChannels)
     copyChannels[0].participants[2].roles = [whiteGC.roleId]
 
     // regenerate channels
@@ -122,12 +122,13 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now add a channel
-    const copyChannels: ChannelData[] = deepCopy(allChannels)
-    const newChannel: ChannelData = {
+    const copyChannels: ChannelTypes[] = deepCopy(allChannels)
+    const newChannel: ChannelCustom = {
+      channelType: CHANNEL_CUSTOM,
       name: 'Blue Net 2',
       participants: [
-        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: '' },
-        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: '' }],
+        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: PARTICIPANT_CUSTOM, templates: [] },
+        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: PARTICIPANT_CUSTOM, templates: [] }],
       uniqid: 'channel-k63pjv111'
     }
     copyChannels.push(newChannel)
@@ -150,12 +151,13 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res.channels).length).toEqual(2)
 
     // ok. now add a channel
-    const copyChannels: ChannelData[] = deepCopy(allChannels)
-    const newChannel: ChannelData = {
+    const copyChannels: ChannelTypes[] = deepCopy(allChannels)
+    const newChannel: ChannelCustom = {
       name: 'Blue Net 2',
+      channelType: CHANNEL_CUSTOM,
       participants: [
-        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: '' },
-        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: '' }],
+        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: PARTICIPANT_CUSTOM, templates: [] },
+        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: PARTICIPANT_CUSTOM, templates: [] }],
       uniqid: 'channel-k63pjv111'
     }
     copyChannels.push(newChannel)

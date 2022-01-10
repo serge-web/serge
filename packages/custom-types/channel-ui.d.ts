@@ -6,7 +6,7 @@ import { CollabOptions } from './channel-data'
 import { ChannelTypes } from '.'
 
 /** description of channel, as used in game UI */
-export default interface ChannelData {
+export default interface ChannelUI {
   readonly uniqid: string,
   observing?: boolean,
   templates?: TemplateBody[],
@@ -18,7 +18,6 @@ export default interface ChannelData {
   // don't store them in the database
   forceIcons?: Array<any>
   forceColors?: Array<string>
-  format?: SpecialChannelTypes
   collabOptions?: CollabOptions
   /** one of the v3 channel type constants */
   v3Channel?: ChannelTypes,

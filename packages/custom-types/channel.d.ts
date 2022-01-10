@@ -1,8 +1,8 @@
-import ChannelData from './channel-data'
+import { ChannelTypes } from './channel-data'
 
 export default interface Channel {
   name: string,
-  channels: Array<ChannelData>,
+  channels: Array<ChannelTypes>,
   selectedChannel: string,
   complete: boolean,
   dirty: boolean

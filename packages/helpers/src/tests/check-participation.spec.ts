@@ -1,4 +1,5 @@
-import { ChannelData, Role, TemplateBodysByKey } from '@serge/custom-types'
+import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from '@serge/config'
+import { ChannelCustom, Role, TemplateBodysByKey } from '@serge/custom-types'
 import { CoreParticipant } from '@serge/custom-types/participant'
 import { forces } from '@serge/mocks'
 import { checkLegacyParticipantStates, deepCopy, getParticipantStates } from '../'
@@ -6,29 +7,33 @@ import { checkLegacyParticipantStates, deepCopy, getParticipantStates } from '..
 const gameControl: Role = forces[0].roles[0]
 const redLogs: Role = forces[2].roles[1]
 
-const allForcesChannel: ChannelData = {
+const allForcesChannel: ChannelCustom = {
   name: 'Channel 16',
+  channelType: CHANNEL_CUSTOM,
   participants: [
     {
       force: 'White',
       forceUniqid: 'umpire',
       roles: [],
       subscriptionId: 'k63pjpfv',
-      pType: ''
+      pType: PARTICIPANT_CUSTOM,
+      templates: []
     },
     {
       force: 'Red',
       forceUniqid: 'Red',
       roles: [redLogs.roleId],
       subscriptionId: 'k63pjsbv',
-      pType: ''
+      pType: PARTICIPANT_CUSTOM,
+      templates: []
     },
     {
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'k63pju7l',
-      pType: ''
+      pType: PARTICIPANT_CUSTOM,
+      templates: []
     }
   ],
   uniqid: 'channel-k63pjit0'
@@ -114,7 +119,7 @@ it('Check non-member force in named role in channel where no roles named', () =>
 
 it('Check missing force not in channel', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'Blue')
   const selForce = 'Blue'
   const selRole = gameControl.roleId
@@ -126,7 +131,7 @@ it('Check missing force not in channel', () => {
 
 it('Check missing force in channel if observer', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
   const selRole = gameControl.roleId
@@ -139,7 +144,7 @@ it('Check missing force in channel if observer', () => {
 
 it('Check states for observer who is not registered', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
   const selRole = gameControl.roleId
@@ -152,7 +157,7 @@ it('Check states for observer who is not registered', () => {
 
 it('Check states for role who is registered', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
   const selRole = redLogs.roleId
@@ -165,7 +170,7 @@ it('Check states for role who is registered', () => {
 
 it('Check states for role who is not registered', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
   const selRole = 'bad_id'
@@ -178,7 +183,7 @@ it('Check states for role who is not registered', () => {
 
 it('Check states for role in force with all members', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
   const selForce = 'Blue'
   const selRole = 'rkrlw6f5n'
@@ -191,7 +196,7 @@ it('Check states for role in force with all members', () => {
 
 it('Check states for role in force with all members, but with no chat templates provided', () => {
   // get rid of the white force mmembership
-  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  const newChannel: ChannelCustom = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
   const selForce = 'Blue'
   const selRole = 'Dragon'

@@ -1,12 +1,12 @@
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
-import { ChannelCollab, ChannelData, ForceData } from '@serge/custom-types'
+import { ChannelCollab, ChannelTypes, ForceData } from '@serge/custom-types'
 import { ChannelChat, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import { CoreParticipant, ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import uniqid from 'uniqid'
 import { generateSubscriptionId } from './createParticipant'
 
 // Create uniq chanel name
-const generateChannelName = (channels: ChannelData[], key = 1, exclude = -1, defName = 'New Channel'): string => {
+const generateChannelName = (channels: ChannelTypes[], key = 1, exclude = -1, defName = 'New Channel'): string => {
   let name: string = defName
   if (key > 1) name += ' ' + key
   const channelWithSameName = channels.find((channel, key) => (name === channel.name && key !== exclude))
@@ -18,7 +18,7 @@ const generateChannelName = (channels: ChannelData[], key = 1, exclude = -1, def
 
 const createChannel = (
   // all channels list, need to create uniq name
-  channels: ChannelData[],
+  channels: ChannelTypes[],
   // for which force we need to create Original Template if format given
   defaultForce: ForceData,
   // On special channel creation

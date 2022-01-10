@@ -14,10 +14,10 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { SpecialChannelTypes } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from '@serge/config'
 import { ParticipantCollab } from '@serge/custom-types'
-import { ChannelCore } from '@serge/custom-types/channel-data'
-import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
+import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
+import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -39,7 +39,7 @@ import rowToParticipantCustom from './helpers/rowToParticipantCustom'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
-import PropTypes, { ChannelData } from './types/props'
+import PropTypes, { ChannelTypes } from './types/props'
 // import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
@@ -83,10 +83,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
-    onSidebarClick && onSidebarClick(_item as ChannelData)
+    onSidebarClick && onSidebarClick(_item as ChannelTypes)
   }
 
-  const handleChangeChannels = (nextChannels: Array<ChannelData>, selectedChannel: ChannelData): void => {
+  const handleChangeChannels = (nextChannels: Array<ChannelTypes>, selectedChannel: ChannelTypes): void => {
     onChange({ channels: nextChannels, selectedChannel })
   }
 
@@ -94,18 +94,48 @@ export const SettingChannels: React.FC<PropTypes> = ({
     if (!localChannelUpdates[selectedItem]) return null
     const data = localChannelUpdates[selectedItem]
 
-    const handleChangeChannel = (channel: ChannelData): void => {
-      const nextChannels: Array<ChannelData> = [...localChannelUpdates]
+    const handleChangeChannel = (channel: ChannelTypes): void => {
+      const nextChannels: Array<ChannelTypes> = [...localChannelUpdates]
       nextChannels[selectedItem] = channel
       handleChangeChannels(nextChannels, channel)
       setLocalChannelUpdates(nextChannels)
     }
 
     const handleSaveRows = (participants: Array<CoreParticipant>): void => {
-      handleChangeChannel({
-        ...data,
-        participants: participants
-      })
+      switch (data.channelType) {
+        case CHANNEL_COLLAB: {
+          const newParts = participants as Array<ParticipantCollab>
+          const collabChannel = data as ChannelCollab
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)
+          break
+        }
+        case CHANNEL_CUSTOM: {
+          const newParts = participants as Array<ParticipantCustom>
+          const collabChannel = data as ChannelCustom
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)  
+          break
+        }
+        case CHANNEL_CHAT: {
+          const newParts = participants as Array<ParticipantChat>
+          const collabChannel = data as ChannelChat
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)  
+          break
+        }
+        case CHANNEL_MAPPING: {
+          const newParts = participants as Array<ParticipantMapping>
+          const collabChannel = data as ChannelMapping
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)  
+          break
+        }
+      }
     }
 
     const handleUpdateCollabChannel = (messagesLocal: MessagesValues): void => {
@@ -139,10 +169,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
     }
 
     // render table body
-    const renderTableBody = (data: ChannelData, isCollab: boolean): React.ReactElement[] => {
+    const renderTableBody = (data: ChannelTypes, isCollab: boolean): React.ReactElement[] => {
       if (!data.participants) return [<></>]
-
-      return data.participants.map((participant, participantKey) => {
+      const dParts: CoreParticipant[] = data.participants
+      return dParts.map((participant, participantKey) => {
         const handleSaveRow = (row: Array<RowItem>): void => {
           const nextParticipants = [...data.participants]
           if (isCollab) {
@@ -407,8 +437,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
-    const channelD = createdChannel as unknown as ChannelData
-    const nextChannels: ChannelData[] = [
+    const channelD = createdChannel as unknown as ChannelTypes
+    const nextChannels: ChannelTypes[] = [
       channelD,
       ...channels
     ]
@@ -490,4 +520,4 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
 export default SettingChannels
 
-export { ChannelData } from './types/props'
+export { ChannelTypes } from './types/props'

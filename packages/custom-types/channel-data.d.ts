@@ -1,5 +1,5 @@
-import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping, CoreParticipant } from './participant'
-import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
+import { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
+import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
 
 /** special configuration for collaborative channels */
 export interface CollabOptions {
@@ -12,21 +12,6 @@ export interface CollabOptions {
   startWithReview: boolean,
   /** extra columns to show in status view */
   extraColumns: Array<SpecialChannelColumns>
-}
-
-/** description of channel, as stored in database */
-// @deprecated to be deleted
-export default interface ChannelData {
-  /** unique id for this channel */
-  readonly uniqid: string,
-  /** name of this channel */
-  name: string,
-  /** list of participants for this channel */
-  participants: Array<CoreParticipant>
-  /** special channel types */
-  format?: SpecialChannelTypes
-  /** special collaborative working options */
-  collabOptions?: CollabOptions
 }
 
 /** description of channel, as stored in database */

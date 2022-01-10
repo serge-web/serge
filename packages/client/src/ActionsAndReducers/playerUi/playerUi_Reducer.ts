@@ -73,7 +73,6 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
-  rfiMessages: [],
   isInsightViewer: false,
   isRFIManager: false,
   playerLog: {}

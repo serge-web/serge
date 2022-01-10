@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData, ChannelTypes } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelTypes, ChannelUI } from '@serge/custom-types'
 import {
   FORCE_LAYDOWN,
   PERCEPTION_OF_CONTACT,
@@ -110,13 +110,16 @@ const factory = (state: PlayerUi): Factory => {
   return (node: TabNode): React.ReactNode => {
 
     /** helper to determine if the specified channel should be rendered */
-    const renderThisChannel = (channelData?: ChannelData): boolean => {
-      // always render the special channels, since the user may have
-      // a partially completed form/document in it - we don't want to
-      // lose that content.  Note: there _Shouldn't_ be a performance
-      // hit, since the content in those channels won't be changing
-      if (channelData && channelData.format) {
-        return true
+    const renderThisChannel = (channelData?: ChannelUI): boolean => {
+      if (channelData) {
+        // always render the special channels, since the user may have
+        // a partially completed form/document in it - we don't want to
+        // lose that content.  Note: there _Shouldn't_ be a performance
+        // hit, since the content in those channels won't be changing
+        const cType = channelData.channelType
+        if(cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING) {
+          return true
+        }
       }
       return node.isVisible()
     }

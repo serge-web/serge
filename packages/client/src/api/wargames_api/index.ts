@@ -37,13 +37,13 @@ import {
   WargameOverview,
   PlatformType,
   ForceData,
-  ChannelData,
   MessageDetailsFrom,
   MessageDetails,
   MessageFeedback,
   MessageStructure,
   MessageCustom,
-  GameTurnLength
+  GameTurnLength,
+  ChannelTypes
 } from '@serge/custom-types'
 
 import {
@@ -371,7 +371,7 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   })
 }
 
-export const saveChannel = (dbName: string, newName: string, newData: ChannelData, oldName: string): Promise<Wargame> => {
+export const saveChannel = (dbName: string, newName: string, newData: ChannelTypes, oldName: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data

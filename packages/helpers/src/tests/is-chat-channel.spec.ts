@@ -1,11 +1,12 @@
 /* global it expect */
-import { PARTICIPANT_CUSTOM } from '@serge/config'
-import { ChannelData } from '@serge/custom-types'
+import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from '@serge/config'
+import { ChannelCustom } from '@serge/custom-types'
 import { ParticipantCustom } from '@serge/custom-types/participant'
 import isChatChannel from '../is-chat-channel'
 /* Import mock data */
 
-const empty: ChannelData = {
+const empty: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
     { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
@@ -15,7 +16,8 @@ const empty: ChannelData = {
   uniqid: 'channel-k63pjit0'
 }
 
-const chat: ChannelData = {
+const chat: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
     { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
@@ -25,7 +27,8 @@ const chat: ChannelData = {
   uniqid: 'channel-k63pjit0'
 }
 
-const mixed: ChannelData = {
+const mixed: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
     { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'Weather', _id: 'weather' }, { title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
@@ -35,7 +38,8 @@ const mixed: ChannelData = {
   uniqid: 'channel-k63pjit0'
 }
 
-const nonChat: ChannelData = {
+const nonChat: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
     { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'RFI', _id: 'rfi' }], pType: PARTICIPANT_CUSTOM },

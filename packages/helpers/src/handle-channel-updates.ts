@@ -1,7 +1,7 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes, CHANNEL_CUSTOM } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_CUSTOM, CHANNEL_COLLAB } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
+  MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
   Role, ChannelTypes, PlayerLogInstance, PlayerLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
@@ -9,6 +9,7 @@ import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
+import { CoreParticipant } from '@serge/custom-types/participant'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
@@ -97,7 +98,7 @@ export const handleAllInitialChannelMessages = (
   currentWargame: string,
   selectedForce: ForceData | undefined,
   selectedRole: Role['roleId'],
-  allChannels: ChannelData[],
+  allChannels: ChannelTypes[],
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
   isObserver: boolean,
@@ -129,14 +130,14 @@ export const handleAllInitialChannelMessages = (
 
   const channels: PlayerUiChannels = {}
 
-  allChannels.forEach((channel: ChannelData) => {
+  allChannels.forEach((channel: ChannelTypes) => {
     const {
       isParticipant,
       observing,
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    const isCollab = channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB)
+    const isCollab = channel.channelType === CHANNEL_COLLAB
 
     const filterMessages = () => {
       return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
@@ -165,10 +166,8 @@ export const handleAllInitialChannelMessages = (
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
-        format: channel.format,
         channelType: v3Channel.channelType || CHANNEL_CUSTOM,
-        v3Channel: v3Channel.channelType ? v3Channel : undefined, // if there's a channel type, it's v3, so store it
-        collabOptions: channel.collabOptions
+        v3Channel: v3Channel.channelType ? v3Channel : undefined // if there's a channel type, it's v3, so store it
       }
 
       channels[channel.uniqid] = newChannel
@@ -190,7 +189,7 @@ const handleChannelUpdates = (
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined,
-  allChannels: ChannelData[],
+  allChannels: ChannelTypes[],
   selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
@@ -212,7 +211,7 @@ const handleChannelUpdates = (
     // this message is a new version of the wargame document
 
     // create any new channels & add to current channel
-    allChannels.forEach((channel: ChannelData) => {
+    allChannels.forEach((channel: ChannelTypes) => {
       if (channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
@@ -260,7 +259,8 @@ const handleChannelUpdates = (
           }
 
           // force icons
-          const forceIcons = channel.participants && channel.participants.map((participant) => {
+          const cParts: CoreParticipant[] = channel.participants
+          const forceIcons = cParts && cParts.map((participant) => {
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.iconURL) || force?.icon
           })
@@ -269,7 +269,7 @@ const handleChannelUpdates = (
           }
 
           // force colors
-          const forceColors = channel.participants && channel.participants.map((participant) => {
+          const forceColors = cParts && cParts.map((participant) => {
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.color) || '#FFF'
           })
@@ -281,7 +281,7 @@ const handleChannelUpdates = (
         const thisChannel: ChannelUI = res.channels[channelId]
 
         // check if this is a collab channel, since we don't fire turn markers into collab channels
-        const collabChannel = thisChannel.format && (thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB)
+        const collabChannel = thisChannel.v3Channel && thisChannel.v3Channel.channelType === CHANNEL_COLLAB
 
         // check if we're missing a turn marker for this turn
         if (thisChannel.messages && !collabChannel) {

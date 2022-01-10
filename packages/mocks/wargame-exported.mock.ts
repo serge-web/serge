@@ -66,6 +66,7 @@ const game: Wargame = {
       channels: [
         {
           name: 'Channel 16',
+          channelType: 'ChannelCustom',
           participants: [
             {
               force: 'White',
@@ -99,6 +100,7 @@ const game: Wargame = {
         },
         {
           name: 'Blue Net',
+          channelType: 'ChannelCustom',
           participants: [
             {
               force: 'White',
@@ -123,6 +125,7 @@ const game: Wargame = {
         },
         {
           name: 'Mapping',
+          channelType: 'ChannelCustom',
           participants: [
             {
               force: 'White',
