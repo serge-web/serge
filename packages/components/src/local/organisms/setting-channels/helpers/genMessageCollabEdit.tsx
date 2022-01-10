@@ -59,7 +59,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
         [MessageGroupType.MESSAGE_TEMPLATE, MessageGroupType.RESPONSE_TEMPLATE].includes(type) &&
         <Select
           fullWidth
-          value={value}
+          value={value.length && value || ''}
           multiple={multiple}
           displayEmpty
           onChange={(e): void => {
