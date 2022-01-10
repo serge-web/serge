@@ -72,8 +72,6 @@ export default interface PlayerUi {
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
-  /** List of RFI messages */
-  rfiMessages: Array<MessageCustom>,
   /** whether logged in user can view insights & feedback */
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */

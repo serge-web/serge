@@ -5,7 +5,6 @@ import {
 } from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
-import deepCopy from '../deep-copy'
 
 const adminMessages: MessageChannel[] = GameMessagesMockRFI
 const chatTemplate = MessageTemplatesMock.find((template: any) => template.name === 'Chat') || { a: 'chat' }
@@ -43,10 +42,6 @@ describe('handle initial channel creation', () => {
     const rfiChan = res.channels['channel-BlueRFI']
     expect(rfiChan).toBeTruthy()
     expect(rfiChan.messages?.length).toEqual(5) // 3 blue messages, 2 info-type
-
-    // get the pure list of RFI messages
-    const rfiMessages = res.rfiMessages
-    expect(rfiMessages.length).toEqual(4)
   })
 })
 
@@ -65,8 +60,6 @@ describe('handle new message into RFI channel', () => {
       expect(newBlue1.messages.length).toEqual(5)
     }
 
-    expect(res.rfiMessages.length).toEqual(4)
-
     const msg = GameMessagesMockRFI[4] as MessageCustom
     const RESPONSE = 'TEST_RESPONSE'
     const collab: CollaborationDetails = {
@@ -84,7 +77,7 @@ describe('handle new message into RFI channel', () => {
       }
     }
 
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
 
     const newBlue = res2.channels['channel-BlueRFI']
@@ -98,59 +91,5 @@ describe('handle new message into RFI channel', () => {
         expect(first.details.collaboration.response).toEqual(RESPONSE)
       }
     }
-
-    expect(res2.rfiMessages.length).toEqual(4)
-  })
-
-  it('fire a new message (with non-numeric) into RFI channel', () => {
-    const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
-
-    // initialise wargame
-    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
-      allForces, chatChannel, isObserver, allTemplates)
-
-    const newBlue1 = res.channels['channel-BlueRFI']
-    expect(newBlue1).toBeTruthy()
-    expect(newBlue1.messages).toBeTruthy()
-    if (newBlue1.messages) {
-      expect(newBlue1.messages.length).toEqual(5)
-    }
-
-    expect(res.rfiMessages.length).toEqual(4)
-
-    const msg = deepCopy(GameMessagesMockRFI[4]) as MessageCustom
-    msg.message.Reference = 'NEW_REFERENCE'
-
-    const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
-
-    // the number of rfi messages should now have increased
-    expect(res2.rfiMessages.length).toEqual(5)
-  })
-
-  it('fire a new message (with numeric) into RFI channel', () => {
-    const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
-
-    // initialise wargame
-    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
-      allForces, chatChannel, isObserver, allTemplates)
-
-    const newBlue1 = res.channels['channel-BlueRFI']
-    expect(newBlue1).toBeTruthy()
-    expect(newBlue1.messages).toBeTruthy()
-    if (newBlue1.messages) {
-      expect(newBlue1.messages.length).toEqual(5)
-    }
-
-    expect(res.rfiMessages.length).toEqual(4)
-
-    const msg = deepCopy(GameMessagesMockRFI[4]) as MessageCustom
-    msg.message.Reference = 'Blue-6'
-
-    const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
-
-    // the number of rfi messages should now have increased
-    expect(res2.rfiMessages.length).toEqual(5)
   })
 })
