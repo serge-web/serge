@@ -40,8 +40,8 @@ export enum InitialStates {
 /** types of special channel */
 export enum SpecialChannelTypes {
   CHANNEL_MAPPING = 'mapping',
-  CHANNEL_COLLAB_EDIT = 'collab-edit',
-  CHANNEL_COLLAB_RESPONSE = 'collab-response'
+  CHANNEL_COLLAB = 'collab',
+  CHANNEL_CHAT = 'chat'
 }
 
 /** types of extra column to be shown in collab editing */

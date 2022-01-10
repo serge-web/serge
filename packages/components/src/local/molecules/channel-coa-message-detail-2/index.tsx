@@ -380,7 +380,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
                 messageTemplates={templates}
                 messageContent={message.message}
                 messageId={`${message._id}_${message.message.Reference}`}
-                template={channelCollab.newMessageTemplate._id}
+                template={channelCollab.newMessageTemplate?._id || ''}
                 storeNewValue={notHappeningHandler}
                 disabled={true}
                 gameDate={gameDate}
@@ -399,7 +399,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
             }
             {!isResponse && <JsonEditor
               messageTemplates={templates}
-              template={channelCollab.newMessageTemplate._id}
+              template={channelCollab.newMessageTemplate?._id || ''}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.message}
               storeNewValue={newMessageHandler}

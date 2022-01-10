@@ -178,7 +178,7 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    const isCollab = channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+    const isCollab = channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB)
 
     const filterMessages = () => {
       return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
@@ -369,7 +369,7 @@ const handleChannelUpdates = (
         const thisChannel: ChannelUI = res.channels[channelId]
 
         // check if this is a collab channel, since we don't fire turn markers into collab channels
-        const collabChannel = thisChannel.format && (thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+        const collabChannel = thisChannel.format && (thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB)
 
         // check if we're missing a turn marker for this turn
         if (thisChannel.messages && !collabChannel) {

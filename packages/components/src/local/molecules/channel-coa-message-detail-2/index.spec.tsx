@@ -12,7 +12,7 @@ const [defMessage] = GameMessagesMockRFI
 
 /* TODO: test data */
 
-const testChannel2: ChannelCollab = {
+const testCollabChannel: ChannelCollab = {
   channelType: CHANNEL_COLLAB,
   requestChangesVerbs: ['Endorse', 'Request Changes'],
   approveVerbs: [],
@@ -45,7 +45,7 @@ describe('ChannelMessageDetail:', () => {
         templates={MessageTemplatesMockByKey}
         role={{ forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' }}
         permission={CollaborativePermission.CanEdit}
-        channelColb={testChannel2}
+        channelColb={testCollabChannel}
         isUmpire={true}
         isObserver={true}
         message={defMessage}

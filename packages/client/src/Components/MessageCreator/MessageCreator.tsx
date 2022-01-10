@@ -42,20 +42,6 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       timestamp: new Date().toISOString(),
       turnNumber: state.currentTurn
     }
-    const currentChannelFormat = state.channels[curChannel].format || null
-
-    if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
-      details.collaboration = {
-        status: CollaborativeMessageStates.PendingReview,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format()
-      }
-    } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
-      details.collaboration = {
-        status: CollaborativeMessageStates.Pending,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format()
-      }
-    }
-
     // see if it's v3 collab
     const channelUI = state.channels[curChannel] as ChannelUI
     if(channelUI.v3Channel) {
@@ -73,6 +59,8 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
           lastUpdated: details.timestamp
         }
       }
+    } else {
+      console.warn('Encountered channel that isnt in V3 format')
     }
 
 

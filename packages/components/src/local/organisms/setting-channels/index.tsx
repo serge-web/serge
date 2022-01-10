@@ -14,8 +14,9 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CHANNEL_COLLAB, SpecialChannelTypes } from '@serge/config'
-import { ChannelCollab, ParticipantCollab } from '@serge/custom-types'
+import { SpecialChannelTypes } from '@serge/config'
+import { ParticipantCollab } from '@serge/custom-types'
+import { ChannelCore } from '@serge/custom-types/channel-data'
 import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
@@ -92,17 +93,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const renderContent = (): React.ReactNode => {
     if (!localChannelUpdates[selectedItem]) return null
     const data = localChannelUpdates[selectedItem]
-
-    // if it's a v2 collab editing, just return
-    const legacyFormat = realSelectedChannel?.format
-    if (legacyFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || legacyFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
-      console.log('Do not support this channel format. Drop out')
-      return (
-        <div>
-          Legacy format not supported: <b>{legacyFormat}</b>
-        </div>
-      )
-    }
 
     const handleChangeChannel = (channel: ChannelData): void => {
       const nextChannels: Array<ChannelData> = [...localChannelUpdates]
@@ -416,20 +406,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }, [channels])
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
-    let createdChannel = createChannel(channels, forces[0], type)
-    // on createing new channel, set channelType = CHANNEL_COLLAB as default
-    const collabChannel = createdChannel as unknown as ChannelCollab
-    collabChannel.channelType = CHANNEL_COLLAB
-    collabChannel.approveVerbs = []
-    collabChannel.requestChangesVerbs = []
-    collabChannel.releaseVerbs = []
-    createdChannel = collabChannel as unknown as ChannelData
-
+    const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
+    const channelD = createdChannel as unknown as ChannelData
     const nextChannels: ChannelData[] = [
-      createdChannel,
+      channelD,
       ...channels
     ]
-    handleChangeChannels(nextChannels, createdChannel)
+    handleChangeChannels(nextChannels, channelD)
     setLocalChannelUpdates(nextChannels)
   }
   const handleClose = (event: React.MouseEvent<Document, MouseEvent>): void => {
@@ -472,8 +455,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
                   <MenuItem disabled>Special channels</MenuItem>
-                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB_EDIT)} >Collab' Edit</MenuItem>
+                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab' Edit</MenuItem>
                   <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem>
+                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

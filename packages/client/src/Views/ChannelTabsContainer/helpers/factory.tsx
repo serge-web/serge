@@ -24,7 +24,7 @@ import _ from 'lodash'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
-import Channel2 from '../../../Components/Channel2'
+import CollabChannel from '../../../Components/CollabChannel'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -175,7 +175,7 @@ const factory = (state: PlayerUi): Factory => {
     if (isV3) {
       switch (v3Channel.channelType) {
         case CHANNEL_COLLAB:
-          return <Channel2 channelId={matchedChannel[0]} />
+          return <CollabChannel channelId={matchedChannel[0]} />
         case CHANNEL_CHAT:
           return <ChatChannel channelId={matchedChannel[0]} />
         case CHANNEL_MAPPING:

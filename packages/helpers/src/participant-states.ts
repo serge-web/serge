@@ -69,12 +69,14 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
     }
   }
 
-  const templateIDs = []
+  const templateIDs: ParticipantTemplate[] = []
   const participatingRoles: CoreParticipant[] = channelParts.filter((p: CoreParticipant) => matchedV3ForceAndRoleFilter(p, selectedForce, selectedRole))
   switch (channel.channelType) {
     case CHANNEL_COLLAB: {
       const collab = channel as ChannelCollab
-      templateIDs.push(collab.newMessageTemplate)
+      if (collab.newMessageTemplate) {
+        templateIDs.push(collab.newMessageTemplate)
+      }
       break
     }
     case CHANNEL_CHAT:

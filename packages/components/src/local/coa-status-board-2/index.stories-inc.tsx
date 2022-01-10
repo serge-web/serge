@@ -12,7 +12,7 @@ import {
   channelCollaborativeEditing2,
   channelCollaborativeResponding2,
   MessageTemplatesMockByKey,
-  collabForces,
+  collabForces2,
   blueCollaborator2,
   blueReleaseManager2,
   whiteCollaborator2,
@@ -79,7 +79,7 @@ const Template: Story<Props> = (args) => {
   }
   return <CoaStatusBoard2
     {...args}
-    forces={collabForces}
+    forces={collabForces2}
     messages={messages}
     isUmpire={isUmpire}
     isObserver={isObserver}

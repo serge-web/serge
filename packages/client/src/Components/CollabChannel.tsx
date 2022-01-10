@@ -14,7 +14,7 @@ import { CoaStatusBoard2 } from "@serge/components";
 import { CHANNEL_COLLAB } from "@serge/config";
 import '@serge/themes/App.scss'
 
-const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
+const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
@@ -75,9 +75,10 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
   const canCreateMessages = isParticipating.filter((p: ParticipantCollab) => (p.canCreate)).length > 0
 
   const allTemplates = state.allTemplatesByKey
-  const newMessageTemplate = allTemplates[v3Channel.newMessageTemplate._id]
-
-  const trimmedTemplates = [newMessageTemplate]
+  if(v3Channel.newMessageTemplate === undefined) {
+    console.warn('Problem - new message template not specified')
+  }
+  const trimmedTemplates = v3Channel.newMessageTemplate ? [allTemplates[v3Channel.newMessageTemplate._id]] : []
 
   const observing = !!channel.observing
 
@@ -118,4 +119,4 @@ const Channel2: React.FC<{ channelId: string }> = ({ channelId }) => {
   )
 }
 
-export default Channel2
+export default CollabChannel

@@ -3,7 +3,7 @@ import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom, Role, PlayerLog
 } from '@serge/custom-types'
-import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels, MessageTemplatesMockByKey } from '@serge/mocks'
+import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels2, MessageTemplatesMockByKey } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
 
@@ -17,7 +17,7 @@ const allForces: ForceData[] = forces
 const whiteForce: ForceData = allForces[0]
 const blueForce: ForceData = allForces[1]
 const redForce: ForceData = allForces[2]
-const allChannels: ChannelData[] = GameChannels
+const allChannels: ChannelData[] = GameChannels2
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey

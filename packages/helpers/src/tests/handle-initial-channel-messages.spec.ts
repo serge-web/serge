@@ -3,7 +3,7 @@ import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
   ChannelData, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerLog
 } from '@serge/custom-types'
-import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
+import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
 import deepCopy from '../deep-copy'
 
@@ -12,7 +12,7 @@ const chatTemplate = MessageTemplatesMock.find((template: any) => template.name 
 const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chatTemplate, messages: adminMessages }
 const allForces: ForceData[] = forces
 const blueForce: ForceData = allForces[1]
-const allChannels: ChannelData[] = GameChannels
+const allChannels: ChannelData[] = GameChannels2
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
