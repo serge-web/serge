@@ -15,7 +15,7 @@ export interface CollabOptions {
 }
 
 /** description of channel, as stored in database */
-// @deprecate to be deleted
+// @deprecated to be deleted
 export default interface ChannelData {
   /** unique id for this channel */
   readonly uniqid: string,
