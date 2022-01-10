@@ -60,7 +60,7 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantCollab): A
 
   // init row item for permission select
   additionalFields.push({
-    active: collab.permission,
+    active: [collab.permission],
     emptyTitle: 'Edit',
     multiple: false,
     options: permissionOptions,

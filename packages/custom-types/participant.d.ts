@@ -64,5 +64,5 @@ export interface ParticipantCollab extends CoreParticipant {
   // participant views un-released documents
   viewUnreleasedVersions: boolean
   // level of access for the participant
-  permission: number[]
+  permission: CollaborativePermission
 } 

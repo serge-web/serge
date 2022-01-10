@@ -1,4 +1,4 @@
-import { PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM } from '@serge/config'
 import { ParticipantCollab } from '@serge/custom-types'
 import { ParticipantCustom } from '@serge/custom-types/participant'
 
@@ -19,6 +19,6 @@ export const defaultParticipantCollab: ParticipantCollab = {
   ...defaultCoreParticipant,
   canCreate: false,
   viewUnreleasedVersions: false,
-  permission: [0],
+  permission: CollaborativePermission.CannotCollaborate,
   pType: PARTICIPANT_COLLAB
 }

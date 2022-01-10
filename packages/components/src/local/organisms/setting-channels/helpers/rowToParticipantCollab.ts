@@ -1,3 +1,4 @@
+import { CollaborativePermission } from '@serge/config'
 import { ForceData, ParticipantCollab, Role } from '@serge/custom-types'
 import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
 import { EDITABLE_SELECT_ITEM, Item } from '../../../molecules/editable-row'
@@ -14,7 +15,7 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCol
     selectedForce.roles[key].roleId
   )) : []
   // get selected templates
-  const permission = permissionsTpls.active || []
+  const permission = permissionsTpls.active ? permissionsTpls.active[0] : CollaborativePermission.CannotCollaborate
 
   // init defaul values
   let { canCreate, viewUnreleasedVersions } = participantCollab

@@ -43,13 +43,13 @@ export const genData2 = (
   isObserver: boolean,
   isUmpire: boolean,
   channelColb: ChannelCollab,
-  permission: number[],
+  permission: CollaborativePermission,
   gameDate: string,
   onChange: (msg: MessageCustom) => void,
   onMessageRead?: (message: MessageCustom) => void
 ): GenData2 => {
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
-  const isCollaborating = permission[0] > CollaborativePermission.CannotCollaborate || isObserver
+  const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
   const sortCol = (str1: string, str2: string): number => {
     const a = str1.toLowerCase()

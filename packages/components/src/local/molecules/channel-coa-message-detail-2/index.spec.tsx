@@ -26,7 +26,7 @@ const testChannel2: ChannelCollab = {
       pType: PARTICIPANT_COLLAB,
       canCreate: true,
       viewUnreleasedVersions: true,
-      permission: [CollaborativePermission.CanApprove],
+      permission: CollaborativePermission.CanApprove,
       force: 'White',
       forceUniqid: 'umpire',
       roles: [],

@@ -53,14 +53,14 @@ const GameChannels2: Array<ChannelTypes> = [
     },
     participants: [
       // all of white can collaborate, but not release
-      { pType: PARTICIPANT_COLLAB, canCreate: false, viewUnreleasedVersions: true, force: "White", permission: [CollaborativePermission.CanApprove], forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pds0d3" },
+      { pType: PARTICIPANT_COLLAB, canCreate: false, viewUnreleasedVersions: true, force: "White", permission: CollaborativePermission.CanApprove, forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pds0d3" },
       // white RFI Mgr can release
       {
-        pType: PARTICIPANT_COLLAB, canCreate: false, viewUnreleasedVersions: true, force: "White", permission: [CollaborativePermission.CanRelease], forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [whiteRFI.roleId], subscriptionId: "k63pk0d3"
+        pType: PARTICIPANT_COLLAB, canCreate: false, viewUnreleasedVersions: true, force: "White", permission: CollaborativePermission.CanRelease, forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [whiteRFI.roleId], subscriptionId: "k63pk0d3"
       },
       // blue force can just send RFO
       {
-        pType: PARTICIPANT_COLLAB, canCreate: true, viewUnreleasedVersions: false, force: "Blue", permission: [CollaborativePermission.CannotCollaborate], forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k62342o6"
+        pType: PARTICIPANT_COLLAB, canCreate: true, viewUnreleasedVersions: false, force: "Blue", permission: CollaborativePermission.CannotCollaborate, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k62342o6"
       }],
     uniqid: "channel-BlueRFI"
   },
@@ -79,11 +79,11 @@ const GameChannels2: Array<ChannelTypes> = [
     participants: [
       // all of blue can collaborate
       {
-        pType: PARTICIPANT_COLLAB, canCreate: true, viewUnreleasedVersions: true, force: "Blue", permission: [CollaborativePermission.CanSubmitForReview], forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o7"
+        pType: PARTICIPANT_COLLAB, canCreate: true, viewUnreleasedVersions: true, force: "Blue", permission: CollaborativePermission.CanSubmitForReview, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o7"
       },
       // Blue CO can release 
       {
-        pType: PARTICIPANT_COLLAB, canCreate: true, viewUnreleasedVersions: true, force: "Blue", permission: [CollaborativePermission.CanRelease], forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [blueCO.roleId], subscriptionId: "k63pk2o7"
+        pType: PARTICIPANT_COLLAB, canCreate: true, viewUnreleasedVersions: true, force: "Blue", permission: CollaborativePermission.CanRelease, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [blueCO.roleId], subscriptionId: "k63pk2o7"
       }],
     uniqid: "channel-BlueCOA"
   }
