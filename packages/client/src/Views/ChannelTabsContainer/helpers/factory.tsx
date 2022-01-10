@@ -21,7 +21,6 @@ import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
-import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
@@ -177,11 +176,11 @@ const factory = (state: PlayerUi): Factory => {
       switch (v3Channel.channelType) {
         case CHANNEL_COLLAB:
           return <Channel2 channelId={matchedChannel[0]} />
-        case CHANNEL_CUSTOM:
         case CHANNEL_CHAT:
-        //  return <ChatChannel2 channelId={matchedChannel[0]} />
+          return <ChatChannel channelId={matchedChannel[0]} />
         case CHANNEL_MAPPING:
-        //  return <MAPPING2 channelId={matchedChannel[0]} />
+          return renderMap(node.getId())
+        case CHANNEL_CUSTOM:
         default:
           console.warn('not yet handling', v3Channel.channelType)
       }
@@ -190,12 +189,13 @@ const factory = (state: PlayerUi): Factory => {
         return renderMap(node.getId())
       } else if (matchedChannel.length) {
         // find out if channel just contains chat template
-        return isChatChannel(channelDefinition) ?
-          <ChatChannel channelId={matchedChannel[0]} />
-          : <Channel channelId={matchedChannel[0]} />
+        if (isChatChannel(channelDefinition)) {
+          return <ChatChannel channelId={matchedChannel[0]} />
+        } else {
+          console.log("Not rendering channel for ", channelDefinition)
+        }
       }
     }
-
   }
 }
 
