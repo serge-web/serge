@@ -2,13 +2,12 @@ import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MES
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, MessageDetailsFrom, CollaborationDetails, ChannelTypes, PlayerLogInstance, PlayerLog
+  Role, ChannelTypes, PlayerLogInstance, PlayerLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
-import getRoleFromName from './get-role-from-name'
 import newestPerRole from './newest-per-role'
 
 /** a message has been received. Put it into the correct channel */
