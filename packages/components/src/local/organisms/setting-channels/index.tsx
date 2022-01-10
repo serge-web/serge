@@ -319,7 +319,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   <div className={styles['control-groups']}>
 
                     <MessageGroup
-                      title="Messages Templates"
+                      title="Message Templates"
                       multiple={false}
                       options={messageTemplatesOptions}
                       onChange={(val: string[]): void => onMessageTemplateChanged(val, 'add')}
@@ -383,11 +383,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   </div>
 
                   <div className={styles.box}>
-                    <div className={styles.title}>Additional Data</div>
-                    <Divider />
                     <div className={styles['control-groups']}>
                       <MessageGroup
-                        title=''
+                        title='Additional data'
                         multiple
                         options={AdditionalData}
                         onChange={onAdditionalDataChanged}
