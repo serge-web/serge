@@ -55,32 +55,6 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
   }
 }
 
-// this method was an unnecessary duplicate of clipInfoMEssage
-// /** create a new turn marker */
-// const createTurnMarker = (turn: number): MessageChannel => {
-//   const res: MessageChannel = {
-//     details: {
-//       from: {
-//         force: 'unset-game-turn-marker',
-//         forceColor: 'unset-game-turn-marker',
-//         role: 'Turn ' + turn,
-//         icon: 'unset-game-turn-marker'
-//       },
-//       messageType: 'Turn ' + turn,
-//       timestamp: new Date().toISOString(),
-//       channel: `infoTypeChannelMarker${uniqId.time()}`
-//     },
-//     infoType: true,
-//     messageType: CUSTOM_MESSAGE,
-//     gameTurn: turn,
-//     isOpen: true,
-//     hasBeenRead: false,
-//     _id: uniqId.time(),
-//     message: {}
-//   }
-//   return res
-// }
-
 /** create a new (empty) channel */
 const createNewChannel = (channelId: string): ChannelUI => {
   const res: ChannelUI = {
@@ -202,56 +176,12 @@ export const handleAllInitialChannelMessages = (
     }
   })
 
-  // also sort out the RFI messages
-  const rfiMessages = messagesFiltered.filter((message: MessageChannel) => {
-    if (message.messageType === CUSTOM_MESSAGE) {
-      const custom = message as MessageCustom
-
-      // TODO: retire this support for legacy code in Autumn 2021
-      // see if this has a legacy role
-      const from: MessageDetailsFrom = custom.details.from
-      const fromAny: any = from
-      if (typeof fromAny.role === 'string') {
-        // ok, it's legacy data now called `roleName`
-        from.roleName = fromAny.role
-        const role = getRoleFromName(allForces, custom.details.from.force, from.roleName)
-        // try to sort out the role id
-        if (role) {
-          from.roleId = role.roleId
-          if (!from.forceId) {
-            // now try to sort the force
-            const force = allForces.find((force: ForceData) => force.name === custom.details.from.force)
-            if (force) {
-              from.forceId = force.uniqid
-            }
-          }
-        }
-      }
-
-      // see if this is a legacy owner
-      // TODO: retire this support in Autumn 2021
-      if (custom.details.collaboration) {
-        const collabAny: any = custom.details.collaboration
-        if (collabAny.owner && typeof collabAny.owner === 'string') {
-          // yes - update data model
-          const collab: CollaborationDetails | undefined = custom.details.collaboration
-          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner }
-        }
-      }
-
-      return custom.details.messageType === 'RFI'
-    }
-    return false
-  })
-  const rfiMessagesCustom = rfiMessages as Array<MessageCustom>
-
   return {
     channels,
     chatChannel: {
       ...chatChannel,
       messages: chatMessages
     },
-    rfiMessages: rfiMessagesCustom,
     playerLog: playerLog
   }
 }
@@ -270,7 +200,6 @@ const handleChannelUpdates = (
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
-    rfiMessages: deepCopy(rfiMessages),
     playerLog: deepCopy(playerLog)
   }
 
