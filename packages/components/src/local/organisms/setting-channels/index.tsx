@@ -116,7 +116,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           const collabChannel = data as ChannelCustom
           const newChannel = { ...collabChannel }
           newChannel.participants = newParts
-          handleChangeChannel(newChannel)  
+          handleChangeChannel(newChannel)
           break
         }
         case CHANNEL_CHAT: {
@@ -124,7 +124,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           const collabChannel = data as ChannelChat
           const newChannel = { ...collabChannel }
           newChannel.participants = newParts
-          handleChangeChannel(newChannel)  
+          handleChangeChannel(newChannel)
           break
         }
         case CHANNEL_MAPPING: {
@@ -132,7 +132,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           const collabChannel = data as ChannelMapping
           const newChannel = { ...collabChannel }
           newChannel.participants = newParts
-          handleChangeChannel(newChannel)  
+          handleChangeChannel(newChannel)
           break
         }
       }
@@ -264,8 +264,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setMessageLocal(nextMsgLocal)
       handleUpdateCollabChannel(nextMsgLocal)
     }
-
-    console.log('============= ', localChannelUpdates[selectedItem])
 
     return (
       <div key={selectedItem}>

@@ -63,6 +63,15 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
     }
 
     const value: Array<number> = item.active || []
+
+    // we need a more robust way of collating read-only list, to handle some `undefined` fields
+    // note: we appear to get the undefined fields because in the rendering process
+    // a custom channel is being rendered as a collab one.  This isn't apparent to the user
+    const readValues = value.length ? value.map(itemKey => {
+      return itemKey !== undefined && item.options[itemKey].name
+    }
+    ).join(', ') : item.emptyTitle
+
     return mode === 'edit' ? <>
       <div className={cx(styles['input-box'], styles.center)}>
         <FormControl>
@@ -103,10 +112,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
       </div>
     </> : <>
       <div className={cx(styles['input-box'], styles.center)}>
-        {value.length
-          ? value.map(itemKey => item.options[itemKey].name).join(', ')
-          : item.emptyTitle
-        }
+        {readValues}
       </div>
     </>
   }
