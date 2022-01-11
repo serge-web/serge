@@ -1,19 +1,6 @@
 import { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
 import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
 
-/** special configuration for collaborative channels */
-export interface CollabOptions {
-  /** edit mode */
-  // TODO: drop this, we use channel.format
-  mode: 'edit' | 'response',
-  /** verbs for returning for edit */
-  returnVerbs: Array<string>,
-  /** who original document goes to first */
-  startWithReview: boolean,
-  /** extra columns to show in status view */
-  extraColumns: Array<SpecialChannelColumns>
-}
-
 /** description of channel, as stored in database */
 export interface ChannelCore {
   /** unique id for this channel */

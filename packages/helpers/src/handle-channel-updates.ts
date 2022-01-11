@@ -59,9 +59,8 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
 const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI => {
   const res: ChannelUI = {
     uniqid: channelId,
-    participants: [],
     name: 'channelName',
-    v3Channel: channel,
+    cData: channel,
     templates: [],
     forceIcons: [],
     forceColors: [],
@@ -154,19 +153,17 @@ export const handleAllInitialChannelMessages = (
       }
 
       const messages = filterMessages()
-      const v3Channel = channel as ChannelTypes
       // grow the existing channel definition to include the new UI-focussed entries
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
-        participants: channel.participants,
         forceIcons,
         forceColors,
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
-        v3Channel: v3Channel
+        cData: channel
       }
 
       channels[channel.uniqid] = newChannel
@@ -280,7 +277,7 @@ const handleChannelUpdates = (
         const thisChannel: ChannelUI = res.channels[channelId]
 
         // check if this is a collab channel, since we don't fire turn markers into collab channels
-        const collabChannel = thisChannel.v3Channel && thisChannel.v3Channel.channelType === CHANNEL_COLLAB
+        const collabChannel = thisChannel.cData && thisChannel.cData.channelType === CHANNEL_COLLAB
 
         // check if we're missing a turn marker for this turn
         if (thisChannel.messages && !collabChannel) {

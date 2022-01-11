@@ -44,8 +44,8 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     }
     // see if it's v3 collab
     const channelUI = state.channels[curChannel] as ChannelUI
-    if(channelUI.v3Channel) {
-      const channelTypes = channelUI.v3Channel
+    if(channelUI.cData) {
+      const channelTypes = channelUI.cData
       if(channelTypes.channelType === CHANNEL_COLLAB) {
         // populate the metadata
         const channelCollab = channelTypes as ChannelCollab

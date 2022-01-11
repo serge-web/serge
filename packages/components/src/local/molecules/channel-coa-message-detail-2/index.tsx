@@ -122,7 +122,7 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
 }) => {
   // note: channelColb may be a ChannelUI, rather than ChannelCollab
   const channAsUI = channelColb as unknown as ChannelUI
-  const channelGeneric: ChannelTypes | undefined = channAsUI.v3Channel || channelColb
+  const channelGeneric: ChannelTypes | undefined = channAsUI.cData || channelColb
   if (!channelGeneric) {
     console.warn("don't have v3 channel details")
     return (

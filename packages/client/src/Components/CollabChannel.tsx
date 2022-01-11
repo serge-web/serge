@@ -22,9 +22,9 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const channel = state.channels[channelId]
-  const v3Channel = channel.v3Channel as unknown as ChannelCollab
-  if(!v3Channel) {
+  const channelUI = state.channels[channelId]
+  const channel = channelUI.cData as ChannelCollab
+  if(!channel) {
     console.warn('failed to receive v3 data')
     return (
       <div/>
@@ -32,8 +32,8 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   useEffect(() => {
-    const channelClassName = v3Channel.name.toLowerCase().replace(/ /g, '-')
-    if (channel.messages!.length === 0) {
+    const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')
+    if (channelUI.messages!.length === 0) {
       getAllWargameMessages(state.currentWargame)(dispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
@@ -58,7 +58,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
   }
 
-  const channelMessages = channel.messages
+  const channelMessages = channelUI.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
   
   //
@@ -68,21 +68,21 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     roleId: selectedRole,
     roleName: selectedRoleName
   }
-  const participationsForMyForce = v3Channel.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
+  const participationsForMyForce = channel.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
   // participations relate to me if they contain no roles, or if they contain my role
   const isParticipating = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
   // can I create messages in the channel?
   const canCreateMessages = isParticipating.filter((p: ParticipantCollab) => (p.canCreate)).length > 0
 
   const allTemplates = state.allTemplatesByKey
-  if(v3Channel.newMessageTemplate === undefined) {
+  if(channel.newMessageTemplate === undefined) {
     console.warn('Problem - new message template not specified')
   }
-  const trimmedTemplates = v3Channel.newMessageTemplate ? [allTemplates[v3Channel.newMessageTemplate._id]] : []
+  const trimmedTemplates = channel.newMessageTemplate ? [allTemplates[channel.newMessageTemplate._id]] : []
 
-  const observing = !!channel.observing
+  const observing = !!channelUI.observing
 
-  const isCollabEdit = v3Channel.channelType === CHANNEL_COLLAB
+  const isCollabEdit = channel.channelType === CHANNEL_COLLAB
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
@@ -99,7 +99,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
             forces={state.allForces}
             isUmpire={!!isUmpire}
             isObserver={observing}
-            channelColb={v3Channel as ChannelCollab}
+            channelColb={channel as ChannelCollab}
             onChange={handleChange}
             gameDate={gameDate}
           />
