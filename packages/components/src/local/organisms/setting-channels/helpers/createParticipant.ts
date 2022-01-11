@@ -13,7 +13,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
   let newPart: CoreParticipant
   switch (channelType) {
     case CHANNEL_CUSTOM:
-      newPart = rowToParticipantCustom(templatesOptions, forces, nextItems, defaultParticipantCustom)      
+      newPart = rowToParticipantCustom(templatesOptions, forces, nextItems, defaultParticipantCustom)
       break
     case CHANNEL_CHAT:
       newPart = rowToParticipantChat(forces, nextItems, defaultParticipantChat)
@@ -22,7 +22,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
       newPart = rowToParticipantCollab(forces, nextItems, defaultParticipantCollab)
       break
     default:
-      console.warn("Warning - channel type not handled", channelType)
+      console.warn('Warning - channel type not handled', channelType)
       newPart = rowToParticipantChat(forces, nextItems, defaultParticipantChat)
   }
   return {

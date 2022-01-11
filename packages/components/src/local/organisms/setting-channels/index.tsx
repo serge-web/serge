@@ -169,18 +169,18 @@ export const SettingChannels: React.FC<PropTypes> = ({
       }
       if (isCustom) {
         nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant as ParticipantCustom)
-        return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)  
+        return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
       }
-      console.warn("Not handled changed row for ", selectedChannel?.name)
+      console.warn('Not handled changed row for ', selectedChannel?.name)
       return []
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
-      if(selectedChannel) {
+      if (selectedChannel) {
         handleSaveRows([
           ...data.participants,
           createParticipant(messageTemplatesOptions, forces, rowItems, selectedChannel.channelType)
-        ])  
+        ])
       } else {
         console.warn('Can`t create new participant, no current channel')
       }
@@ -193,9 +193,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
       return dParts.map((participant, participantKey) => {
         const handleSaveRow = (row: Array<RowItem>): void => {
           const nextParticipants = [...data.participants]
-            nextParticipants[participantKey] = isCollab ? 
-              rowToParticipantCollab(forces, row, participant as ParticipantCollab) : isChat ? rowToParticipantChat(forces, row, participant as ParticipantChat) :
-              rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
+          nextParticipants[participantKey] = isCollab
+            ? rowToParticipantCollab(forces, row, participant as ParticipantCollab) : isChat ? rowToParticipantChat(forces, row, participant as ParticipantChat)
+              : rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           handleSaveRows(nextParticipants)
         }
 
@@ -205,9 +205,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
-        const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab) 
-          : isChat ?  generateRowItemsChat(forces, participant as ParticipantChat) 
-          :  generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
+        const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab)
+          : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
+            : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
         return <EditableRow
           onRemove={handleRemoveParticipant}
@@ -316,7 +316,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       <TableRow>
                         <TableCell>Force</TableCell>
                         <TableCell align="left">Restrict access to specific roles</TableCell>
-                        { isCustom && 
+                        { isCustom &&
                           <TableCell align="left">Templates</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
