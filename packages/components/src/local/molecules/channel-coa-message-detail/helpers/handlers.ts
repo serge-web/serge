@@ -1,4 +1,4 @@
-import { CollaborativeMessageStates, CollaborativeMessageStates2 } from '@serge/config'
+import { CollaborativeMessageStates2 } from '@serge/config'
 import { ForceRole, MessageCustom } from '@serge/custom-types'
 import moment from 'moment'
 

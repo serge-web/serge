@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, CollaborativeMessageStates2 } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates2 } from '@serge/config'
 import { MessageCustom, Role } from '@serge/custom-types'
 import { forces } from "./forces.mock";
 
