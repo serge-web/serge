@@ -1,4 +1,4 @@
-import { CollaborativePermission, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM } from '@serge/config'
 import { ParticipantCollab } from '@serge/custom-types'
 import { ParticipantChat, ParticipantCustom } from '@serge/custom-types/participant'
 
@@ -17,7 +17,7 @@ export const defaultParticipantCustom: ParticipantCustom = {
 
 export const defaultParticipantChat: ParticipantChat = {
   ...defaultCoreParticipant,
-  pType: PARTICIPANT_CUSTOM
+  pType: PARTICIPANT_CHAT
 }
 
 export const defaultParticipantCollab: ParticipantCollab = {
