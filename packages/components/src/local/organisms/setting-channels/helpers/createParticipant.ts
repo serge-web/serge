@@ -23,7 +23,7 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
       break
     default:
       console.warn("Warning - channel type not handled", channelType)
-      newPart = rowToParticipantChat(forces, nextItems, defaultParticipantCollab)
+      newPart = rowToParticipantChat(forces, nextItems, defaultParticipantChat)
   }
   return {
     ...newPart,

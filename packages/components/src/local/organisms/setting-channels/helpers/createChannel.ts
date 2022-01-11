@@ -23,7 +23,7 @@ const createChannel = (
   defaultForce: ForceData,
   // On special channel creation
   format?: SpecialChannelTypes
-): ChannelCore => {
+): ChannelTypes => {
   // Empty Participant array for standart channels
   const participants: CoreParticipant[] = []
 
@@ -95,23 +95,23 @@ const createChannel = (
         return res
       }
     }
-  } else {
-    const participant: ParticipantCustom = {
-      force: defaultForce.name,
-      forceUniqid: defaultForce.uniqid,
-      roles: [],
-      subscriptionId: generateSubscriptionId(),
-      pType: PARTICIPANT_CUSTOM,
-      templates: []
-    }
-    const res: ChannelCustom = {
-      channelType: CHANNEL_CUSTOM,
-      uniqid: uniqid.time(),
-      name: generateChannelName(channels),
-      participants: [participant]
-    }
-    return res
+  } 
+  const participant: ParticipantCustom = {
+    force: defaultForce.name,
+    forceUniqid: defaultForce.uniqid,
+    roles: [],
+    subscriptionId: generateSubscriptionId(),
+    pType: PARTICIPANT_CUSTOM,
+    templates: []
   }
+  const res: ChannelCustom = {
+    channelType: CHANNEL_CUSTOM,
+    uniqid: uniqid.time(),
+    name: generateChannelName(channels),
+    participants: [participant]
+  }
+  return res
+  
 }
 
 export default createChannel
