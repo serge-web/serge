@@ -270,13 +270,6 @@ exports[`SettingChannels component: renders correctly 1`] = `
                       </th>
                       <th
                         aria-sort={null}
-                        className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
-                        scope="col"
-                      >
-                        Templates
-                      </th>
-                      <th
-                        aria-sort={null}
                         className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight"
                         scope="col"
                       >
