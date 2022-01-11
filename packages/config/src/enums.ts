@@ -69,6 +69,7 @@ export enum LaydownTypes {
 
 /** the phases a collaborative message goes through before
  * being approved to send
+ * //TODO: deprecate/delete this interface
  */
 export enum CollaborativeMessageStates {
   /**

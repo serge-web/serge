@@ -10,7 +10,7 @@ import RfiForm from '../../molecules/rfi-form'
 import { MessageCustom } from '@serge/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates2 } from '@serge/config'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -79,7 +79,7 @@ const longStr = 'asdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akj
 newest[0].message.Request = longStr
 newest[0].details.privateMessage = longStr
 newest[0].details.collaboration = {
-  status: CollaborativeMessageStates.Released,
+  status2: CollaborativeMessageStates2.Released,
   lastUpdated: '2020-03-25T15:08:47.540Z',
   response: longStr + longStr
 }

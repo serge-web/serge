@@ -4,7 +4,7 @@ import {
   ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerLog
 } from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
-import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
+import { CHAT_CHANNEL_ID, CollaborativeMessageStates2 } from '@serge/config'
 
 const adminMessages: MessageChannel[] = GameMessagesMockRFI
 const chatTemplate = MessageTemplatesMock.find((template: any) => template.name === 'Chat') || { a: 'chat' }
@@ -66,7 +66,7 @@ describe('handle new message into RFI channel', () => {
       ...msg.details.collaboration,
       response: RESPONSE,
       lastUpdated: '2020-03-25T15:08:47.540Z',
-      status: CollaborativeMessageStates.Closed
+      status2: CollaborativeMessageStates2.Closed
     }
     const payload2: MessageChannel = {
       ...msg,

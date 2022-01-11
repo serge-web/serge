@@ -51,11 +51,9 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       const channelCollab = channel as ChannelCollab
       
       // ok, brand new message
-      const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
-      const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
+      const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
       details.collaboration = {
-        status: initial,
-        status2: initial2,
+        status2: initial,
         lastUpdated: details.timestamp
       }
     }

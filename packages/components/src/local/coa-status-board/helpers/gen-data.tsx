@@ -3,7 +3,7 @@ import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab 
 import { ForceColor } from '..'
 import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
 import { Badge } from '../../atoms/badge'
-import { CollaborativeMessageStates, CollaborativeMessageStates2, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates2, CollaborativeMessageStates2, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,13 +20,11 @@ export const formatRole = (role: ForceRole): string => {
 }
 
 const statusColors: { [property: string]: string } = {
-  [CollaborativeMessageStates.Unallocated]: '#B10303',
-  [CollaborativeMessageStates.PendingReview]: '#434343',
-  [CollaborativeMessageStates.Finalized]: '#007219',
-  [CollaborativeMessageStates.Released]: '#007219',
-  [CollaborativeMessageStates.Closed]: '#ff0000',
-  [CollaborativeMessageStates.BeingEdited]: '#ffc107',
-  [CollaborativeMessageStates.Pending]: '#0366d6'
+  [CollaborativeMessageStates2.Unallocated]: '#B10303',
+  [CollaborativeMessageStates2.PendingReview]: '#434343',
+  [CollaborativeMessageStates2.Released]: '#007219',
+  [CollaborativeMessageStates2.Closed]: '#ff0000',
+  [CollaborativeMessageStates2.InProgress]: '#ffc107'
 }
 
 interface GenData {
@@ -154,7 +152,7 @@ export const genData = (
     // am I the owner?
     // const myDocument: boolean = ownerComposite === formatRole(role)
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
-    const status = collab ? collab.status : 'Unallocated'
+    const status = collab ? collab.status2 : 'Unallocated'
     const isReaded = message.hasBeenRead
     const messageState = message.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
 
