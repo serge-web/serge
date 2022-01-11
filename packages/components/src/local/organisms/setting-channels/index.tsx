@@ -213,8 +213,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
         return <EditableRow
           onRemove={handleRemoveParticipant}
           key={participant.subscriptionId}
-          onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
-            return handleChangeRow(nextItems, itKey, participant)
+          onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
+            return handleChangeRow(nextItems, /* itKey, */ participant)
           }}
           onSave={handleSaveRow}
           items={items}
@@ -232,8 +232,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset
-        onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
-          return handleChangeRow(nextItems, itKey, isCollab ? defaultParticipantCollab : isChat ? defaultParticipantChat : defaultParticipantCustom)
+        onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
+          return handleChangeRow(nextItems, /* itKey, */ isCollab ? defaultParticipantCollab : isChat ? defaultParticipantChat : defaultParticipantCustom)
         }}
         onSave={handleCreateParticipant}
         items={items}

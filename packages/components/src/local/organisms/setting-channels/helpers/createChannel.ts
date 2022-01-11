@@ -1,7 +1,7 @@
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
 import { ChannelCollab, ChannelTypes, ForceData } from '@serge/custom-types'
 import { ChannelChat, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
-import { CoreParticipant, ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
+import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import uniqid from 'uniqid'
 import { generateSubscriptionId } from './createParticipant'
 
@@ -40,9 +40,6 @@ const createChannel = (
           viewUnreleasedVersions: true,
           permission: CollaborativePermission.CannotCollaborate
         }
-        // add participant to channel
-        participants.push(participant)
-
         const res: ChannelCollab = {
           uniqid: uniqid.time(),
           name: generateChannelName(channels),
