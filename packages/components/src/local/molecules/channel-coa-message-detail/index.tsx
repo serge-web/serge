@@ -116,7 +116,7 @@ const injectFeedback = (message: MessageCustom, verb: string, feedback: string, 
 }
 
 /* Render component */
-export const ChannelCoaMessageDetail2: React.FC<Props> = ({
+export const ChannelCoaMessageDetail: React.FC<Props> = ({
   templates, message, state, onChange, isObserver, isUmpire,
   role, channelColb, permission, assignees = [], collapseMe, gameDate, onRead, isReaded
 }) => {
@@ -423,4 +423,4 @@ export const ChannelCoaMessageDetail2: React.FC<Props> = ({
   }
 }
 
-export default ChannelCoaMessageDetail2
+export default ChannelCoaMessageDetail

@@ -23,7 +23,7 @@ export interface ForceColor {
 }
 
 /* Render component */
-export const CoaStatusBoard2: React.FC<Props> = ({
+export const CoaStatusBoard: React.FC<Props> = ({
   templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces,
   gameDate, onMessageRead, onMarkAllAsRead, currentWargame
 }: Props) => {
@@ -149,4 +149,4 @@ export const CoaStatusBoard2: React.FC<Props> = ({
   )
 }
 
-export default CoaStatusBoard2
+export default CoaStatusBoard

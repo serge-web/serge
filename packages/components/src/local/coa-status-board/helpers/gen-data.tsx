@@ -1,7 +1,7 @@
 import React from 'react'
 import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from '@serge/custom-types'
 import { ForceColor } from '..'
-import ChannelCoaMessageDetail2 from '../../molecules/channel-coa-message-detail-2'
+import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
 import { Badge } from '../../atoms/badge'
 import { CollaborativeMessageStates, CollaborativeMessageStates2, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
@@ -29,13 +29,13 @@ const statusColors: { [property: string]: string } = {
   [CollaborativeMessageStates.Pending]: '#0366d6'
 }
 
-interface GenData2 {
+interface GenData {
   rows: Row[]
   columns: Column[]
   customStyles: any
 }
 
-export const genData2 = (
+export const genData = (
   messages: MessageCustom[],
   forces: ForceData[],
   role: ForceRole,
@@ -47,7 +47,7 @@ export const genData2 = (
   gameDate: string,
   onChange: (msg: MessageCustom) => void,
   onMessageRead?: (message: MessageCustom) => void
-): GenData2 => {
+): GenData => {
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
   const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
@@ -178,7 +178,7 @@ export const genData2 = (
 
       return (
         <div className={styles['rfi-form']}>
-          <ChannelCoaMessageDetail2
+          <ChannelCoaMessageDetail
             isReaded={isReaded}
             onRead={handleRead}
             templates={templates}
@@ -234,4 +234,4 @@ export const genData2 = (
   return { rows, columns, customStyles }
 }
 
-export default genData2
+export default genData

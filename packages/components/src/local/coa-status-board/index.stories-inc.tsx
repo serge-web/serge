@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
-import CoaStatusBoard2 from './index'
+import CoaStatusBoard from './index'
 import docs from './README.md'
 
 import { MessageCustom } from '@serge/custom-types'
@@ -24,8 +24,8 @@ import {
 } from '@serge/mocks'
 import { CollaborativeMessageStates } from '@serge/config'
 export default {
-  title: 'local/CoaStatusBoard2',
-  component: CoaStatusBoard2,
+  title: 'local/CoaStatusBoard',
+  component: CoaStatusBoard,
   decorators: [],
   parameters: {
     readme: {
@@ -77,7 +77,7 @@ const Template: Story<Props> = (args) => {
   const handleReadMessage = (message: MessageCustom): void => {
     console.log('message red: ' + message)
   }
-  return <CoaStatusBoard2
+  return <CoaStatusBoard
     {...args}
     forces={collabForces2}
     messages={messages}

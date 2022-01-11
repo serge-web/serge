@@ -10,7 +10,7 @@ import {
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
-import { CoaStatusBoard2 } from "@serge/components";
+import { CoaStatusBoard } from "@serge/components";
 import { CHANNEL_COLLAB } from "@serge/config";
 import '@serge/themes/App.scss'
 
@@ -88,7 +88,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         { isCollabEdit && (
-          <CoaStatusBoard2
+          <CoaStatusBoard
             currentWargame={state.currentWargame}
             onMessageRead={handleOpenMessage}
             onMarkAllAsRead={markAllMsgAsRead}

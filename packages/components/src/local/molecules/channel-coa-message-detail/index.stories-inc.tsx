@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
-import ChannelCoaMessageDetail2 from './index'
+import ChannelCoaMessageDetail from './index'
 import RFIPropTypes from './types/props'
 
 import {
@@ -25,8 +25,8 @@ const roles: ForceRole[] = [
   { forceId: 'umpire', forceName: 'White', roleId: 'logs', roleName: 'Logistics' }]
 
 export default {
-  title: 'local/molecules/ChannelCoaMessageDetail2',
-  component: ChannelCoaMessageDetail2,
+  title: 'local/molecules/ChannelCoaMessageDetail',
+  component: ChannelCoaMessageDetail,
   decorators: [wrapper],
   parameters: {
     readme: {
@@ -100,7 +100,7 @@ const Template: Story<RFIPropTypes> = (args) => {
 
   if (roleObs && roleState) {
     return (
-      <ChannelCoaMessageDetail2
+      <ChannelCoaMessageDetail
         templates={MessageTemplatesMockByKey}
         message={messageState}
         state={msgStatus}
