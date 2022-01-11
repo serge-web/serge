@@ -64,7 +64,7 @@ describe('handle new message into RFI channel', () => {
     const RESPONSE = 'TEST_RESPONSE'
     const collab: CollaborationDetails = {
       ...msg.details.collaboration,
-      response2: {
+      response: {
         content: RESPONSE
       },
       lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -90,7 +90,7 @@ describe('handle new message into RFI channel', () => {
       const first = newBlue.messages[0] as MessageCustom
       expect(first.details.collaboration).toBeTruthy()
       if (first.details.collaboration) {
-        expect(first.details.collaboration.response2?.content).toEqual(RESPONSE)
+        expect(first.details.collaboration.response?.content).toEqual(RESPONSE)
       }
     }
   })

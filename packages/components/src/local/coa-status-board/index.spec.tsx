@@ -126,7 +126,7 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Closed,
-        response2: {
+        response: {
           content: 'Game control response to RFI 4'
         }
       },
@@ -156,7 +156,7 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
-        response2: {
+        response: {
           content:  'Game control response to RFI 4'
         }
       },
@@ -186,7 +186,7 @@ const testMock: MessageCustom[] = [
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Released,
-        response2: {
+        response: {
           content:  'Game control response to RFI 4'
         }
       },

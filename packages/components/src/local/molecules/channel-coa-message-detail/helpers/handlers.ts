@@ -135,7 +135,7 @@ export const saveResponseAndRelease: SubmitHandler = {
         privateMessage: privateMessage,
         collaboration: {
           ...message.details.collaboration,
-          response2: response,
+          response: response,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
           status: CollaborativeMessageStates.Released,
           owner: undefined
@@ -156,7 +156,7 @@ export const saveResponse: SubmitHandler = {
         privateMessage: privateMessage,
         collaboration: {
           ...message.details.collaboration,
-          response2: response,
+          response: response,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
           status: CollaborativeMessageStates.Unallocated,
           owner: undefined
@@ -177,7 +177,7 @@ export const submitResponse: SubmitHandler = {
         privateMessage: privateMessage,
         collaboration: {
           ...message.details.collaboration,
-          response2: response,
+          response: response,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
           status: CollaborativeMessageStates.PendingReview,
           owner: undefined

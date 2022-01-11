@@ -99,7 +99,7 @@ export interface FeedbackItem {
   /** who the feedback is from */
   readonly fromId: Role['roleId']
   readonly fromName: Role['name']
-  readonly fromForce: Force['name']
+  readonly fromForce: ForceData['name']
   /** when the feedback was provided */
   readonly date: string
   /** the feedback */
@@ -125,7 +125,7 @@ export interface CollaborationDetails {
   /**
    * structured response to message
    */
-  response2?: MessageStructure
+  response?: MessageStructure
    /** 
    * feedback on last version
    */

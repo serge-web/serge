@@ -132,7 +132,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({
 
   const channelCollab = channelGeneric as ChannelCollab
 
-  const [answer, setAnswer] = useState<{ [property: string]: any }>((message.details.collaboration && message.details.collaboration.response2) || {})
+  const [answer, setAnswer] = useState<{ [property: string]: any }>((message.details.collaboration && message.details.collaboration.response) || {})
   const [newMsg, setNewMsg] = useState<{ [property: string]: any }>({})
   const [candidates, setCandidates] = useState<Array<string>>([])
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -389,7 +389,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({
             {isResponse && canSeeResponse && <JsonEditor
               messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
-              messageContent={collaboration.response2 || {}}
+              messageContent={collaboration.response || {}}
               template={channelCollab.responseTemplate?._id || ''}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}

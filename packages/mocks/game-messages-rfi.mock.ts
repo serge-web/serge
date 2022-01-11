@@ -28,7 +28,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response2: {
+        response: {
           content:  "Game control response to RFI 4"
         }
       },
@@ -58,7 +58,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response2: {
+        response: {
           content:  "Game control response to RFI 4"
         }
       },
@@ -89,7 +89,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.Closed,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response2: {
+        response: {
           content:  "Game control response to RFI 4"
         }
       },
@@ -266,7 +266,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response2: {
+        response: {
           content:  'RFI 3 response from White Logistics'
         }
       },
@@ -357,7 +357,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response2: {
+        response: {
           content: "Game control response to RFI 4"
         }
       },
@@ -390,7 +390,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.Released,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response2: {
+        response: {
           content:  "Game control response to RFI 4"
         }
       },
