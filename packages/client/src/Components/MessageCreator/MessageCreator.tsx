@@ -12,7 +12,6 @@ import Props from './types'
 import JSONEditor from '@json-editor/json-editor'
 import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
-import moment from 'moment'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
 flatpickr(".calendar")

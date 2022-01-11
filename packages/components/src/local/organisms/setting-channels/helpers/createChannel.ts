@@ -24,9 +24,6 @@ const createChannel = (
   // On special channel creation
   format?: SpecialChannelTypes
 ): ChannelTypes => {
-  // Empty Participant array for standart channels
-  const participants: CoreParticipant[] = []
-
   // IF format given apply Original template based on format
   if (typeof format !== 'undefined') {
     // Create

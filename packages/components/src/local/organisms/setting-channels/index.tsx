@@ -152,7 +152,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setLocalChannelUpdates(localChannelUpdates)
     }
 
-    const handleChangeRow = (nextItems: Array<RowItem>, _itKey: number, participant: CoreParticipant): Array<RowItem> => {
+    const handleChangeRow = (nextItems: Array<RowItem>, /* _itKey: number, */ participant: CoreParticipant): Array<RowItem> => {
       // TODO: this next block was failing, because the [2] item was empty. Find out what the code
       // was doing - and reinstate if necessary
       // const newNextItems = [...nextItems]
