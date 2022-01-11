@@ -157,7 +157,7 @@ const testMock: MessageCustom[] = [
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.PendingReview,
         response: {
-          content:  'Game control response to RFI 4'
+          content: 'Game control response to RFI 4'
         }
       },
       turnNumber: 1
@@ -187,7 +187,7 @@ const testMock: MessageCustom[] = [
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
         status: CollaborativeMessageStates.Released,
         response: {
-          content:  'Game control response to RFI 4'
+          content: 'Game control response to RFI 4'
         }
       },
       turnNumber: 1
