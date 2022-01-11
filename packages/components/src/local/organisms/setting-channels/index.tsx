@@ -75,6 +75,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const isCollab = isCollabChannel(selectedChannel)
   const isChat = selectedChannel && selectedChannel.channelType === CHANNEL_CHAT
   const isCustom = selectedChannel && selectedChannel.channelType === CHANNEL_CUSTOM
+  const channelAsLegacy = selectedChannel as any
+  const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
 
   /** init data for collab panel controls */
   const messagesValues = getMessagesValues(isCollab, selectedChannel)
@@ -282,6 +284,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
       handleUpdateCollabChannel(nextMsgLocal)
     }
 
+    if (isLegacyCollab) {
+      return <div>Legacy channel type. Not rendered.</div>
+    }
+
     return (
       <div key={selectedItem}>
         <div className={styles.row}>
@@ -331,7 +337,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
-
             {isCollab &&
               <FormGroup>
                 <Paper className={styles.pager}>
