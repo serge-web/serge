@@ -158,17 +158,16 @@ export const SettingChannels: React.FC<PropTypes> = ({
       //   newNextItems[1].active = []
       //   newNextItems[2].active = []
       // }
-      let nextParticipant: ParticipantCollab | ParticipantCustom | ParticipantChat
       if (isCollab) {
-        nextParticipant = rowToParticipantCollab(forces, nextItems, participant as ParticipantCollab)
+        const nextParticipant = rowToParticipantCollab(forces, nextItems, participant as ParticipantCollab)
         return generateRowItemsCollab(forces, nextParticipant)
       }
       if (isChat) {
-        nextParticipant = rowToParticipantChat(forces, nextItems, participant as ParticipantChat)
+        const nextParticipant = rowToParticipantChat(forces, nextItems, participant as ParticipantChat)
         return generateRowItemsChat(forces, nextParticipant)
       }
       if (isCustom) {
-        nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant as ParticipantCustom)
+        const nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant as ParticipantCustom)
         return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
       }
       console.warn('Not handled changed row for ', selectedChannel?.name)
@@ -299,7 +298,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               color="secondary"
-              onClick={(): void => { if (onSave) onSave(localChannelUpdates[selectedItem]) }}
+              onClick={(): void => { onSave && onSave(localChannelUpdates[selectedItem]) }}
               data-qa-type="save"
             >
               Save Channel
@@ -373,7 +372,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <Divider />
                     <div className={styles['control-groups']}>
                       <MessageGroup
-                        title="Request Changes"
+                        title='Request Changes'
                         options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onRequestChanged(val, 'add')}
@@ -382,7 +381,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         value={messageLocal.requestChanges}
                       />
                       <MessageGroup
-                        title='"Approve"'
+                        title='Approve'
                         options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onApproveChanged(val, 'add')}
@@ -391,7 +390,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         value={messageLocal.approve}
                       />
                       <MessageGroup
-                        title='"Release"'
+                        title='Release'
                         options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onReleaseChanged(val, 'add')}
