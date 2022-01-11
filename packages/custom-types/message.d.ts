@@ -13,7 +13,6 @@ import {
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
   DELETE_PLATFORM,
-  CollaborativeMessageStates,
   CollaborativeMessageStates2,
   COUNTER_MESSAGE
 } from '@serge/config'
@@ -24,17 +23,6 @@ import Visibility from './visibility'
 import Role from './role'
 import { Force, ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
-
-
-/** additional message detail used for management of RFIs */
-export interface RFIData {
-  // current state
-  status: CollaborativeMessageStates,
-  // id of current owner
-  owner: string,
-  // response to RFI
-  answer: string
-}
 
 export interface MessageDetailsFrom {
   /** name
@@ -80,8 +68,6 @@ export interface MessageDetails {
    * explain source for answer, or assumptions made
    */
   privateMessage?: string,
-  /** data related to RFI (Request for Information) */
-  rfi?: RFIData
   /** if this message has been archived */
   archived?: boolean
 }
@@ -124,9 +110,9 @@ export interface FeedbackItem {
  */
 export interface CollaborationDetails {
   /**
-   * (new) Message status
+   * Message status
    */
-  status2?: CollaborativeMessageStates2
+  status: CollaborativeMessageStates2
    /** date-time when the last change 
    * was made to this message
    */
@@ -135,10 +121,6 @@ export interface CollaborationDetails {
    * Current message owner
    */
   owner?: ForceRole
-  /**
-   * response to message, only used in RFIs
-   */
-  response?: string
   /**
    * structured response to message
    */

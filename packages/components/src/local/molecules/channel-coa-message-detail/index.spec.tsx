@@ -36,7 +36,7 @@ const testCollabChannel: ChannelCollab = {
   uniqid: 'ks8soryj'
 }
 
-const state = defMessage.details.collaboration?.status2 || CollaborativeMessageStates2.Unallocated
+const state = defMessage.details.collaboration?.status || CollaborativeMessageStates2.Unallocated
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {

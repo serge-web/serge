@@ -67,46 +67,6 @@ export enum LaydownTypes {
   Fixed = 'Fixed'
 }
 
-/** the phases a collaborative message goes through before
- * being approved to send
- * //TODO: deprecate/delete this interface
- */
-export enum CollaborativeMessageStates {
-  /**
-   * message is waiting to be allocated to owner
-   */
-  Unallocated = 'Unallocated',
-  /**
-   * non collab-editing (e.g. RFI) document being edited
-   * //TODO: remove this when we retire RFI status board.
-   */
-  InProgress = 'In progress',
-  /**
-   * owner finished editing, waiting for review
-   */
-  PendingReview = 'Pending review',
-  /**
-   * approved and released
-   */
-  Released = 'Released',
-  /**
-   * approved and finalised
-   */
-  Finalized = 'Finalized',
-  /** 
-   * document cancelled 
-   */
-  Closed = 'Closed',
-  /** 
-   * waiting to be allocated 
-   */
-  Pending = 'Unallocated',
-  /**
-   * document/message being edited
-   */
-  BeingEdited = 'Being edited',
-}
-
 /** the phases a v3 collaborative message goes through before
  * being approved to send
  */

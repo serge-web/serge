@@ -66,7 +66,7 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status2: CollaborativeMessageStates2.Unallocated
+        status: CollaborativeMessageStates2.Unallocated
       },
       turnNumber: 1
     },
@@ -95,7 +95,7 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status2: CollaborativeMessageStates2.InProgress
+        status: CollaborativeMessageStates2.InProgress
       },
       turnNumber: 1
     },
@@ -125,8 +125,10 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status2: CollaborativeMessageStates2.Closed,
-        response: 'Game control response to RFI 4'
+        status: CollaborativeMessageStates2.Closed,
+        response2: {
+          content: 'Game control response to RFI 4'
+        }
       },
       turnNumber: 1
     },
@@ -153,8 +155,10 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status2: CollaborativeMessageStates2.PendingReview,
-        response: 'Game control response to RFI 4'
+        status: CollaborativeMessageStates2.PendingReview,
+        response2: {
+          content:  'Game control response to RFI 4'
+        }
       },
       turnNumber: 1
     },
@@ -181,8 +185,10 @@ const testMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-        status2: CollaborativeMessageStates2.Released,
-        response: 'Game control response to RFI 4'
+        status: CollaborativeMessageStates2.Released,
+        response2: {
+          content:  'Game control response to RFI 4'
+        }
       },
       turnNumber: 1
     },

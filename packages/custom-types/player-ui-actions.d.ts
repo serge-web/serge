@@ -25,9 +25,7 @@ import {
   MessageCustom,
   MessageInfoType
 } from '.'
-import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props';
 import { Dispatch } from 'react'
-import { TemplateBody } from './template';
 import { TemplateBodysByKey } from './message-types';
 
 export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>

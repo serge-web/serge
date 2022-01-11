@@ -93,7 +93,7 @@ const mostColabEditMockRaw = mostRecentOnly(messageDataCollaborativeEditing) as 
 const mostColabEditMock = mostColabEditMockRaw.map((message: MessageCustom): MessageCustom => {
   const collab = message.details.collaboration
   if (collab) {
-    if (collab.status2 === CollaborativeMessageStates2.InProgress) {
+    if (collab.status === CollaborativeMessageStates2.InProgress) {
       // make the sample user the owner of this doc
       collab.owner = blueCollaborator2
     }
@@ -105,7 +105,7 @@ const mostColabResponseMockRaw = mostRecentOnly(messageDataCollaborativeRespondi
 const mostColabResponseMock = mostColabResponseMockRaw.map((message: MessageCustom): MessageCustom => {
   const collab = message.details.collaboration
   if (collab) {
-    if (collab.status2 === CollaborativeMessageStates2.InProgress) {
+    if (collab.status === CollaborativeMessageStates2.InProgress) {
       // make the sample user the owner of this doc
       collab.owner = exconCollaborator2
     }

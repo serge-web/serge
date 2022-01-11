@@ -26,9 +26,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "k16eedkl",
       timestamp: "2020-10-13T08:52:04.394Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates2.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response2: {
+          content:  "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -54,9 +56,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.PendingReview,
+        status: CollaborativeMessageStates2.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response2: {
+          content:  "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -83,9 +87,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       privateMessage: "The private content goes in here",
       timestamp: "2020-10-13T08:52:40.930Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.Closed,
+        status: CollaborativeMessageStates2.Closed,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response2: {
+          content:  "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -112,7 +118,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:52:21.119Z",
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status2: CollaborativeMessageStates2.Released
+        status: CollaborativeMessageStates2.Released
       },
       turnNumber: 1
     },
@@ -141,7 +147,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status2: CollaborativeMessageStates2.Unallocated
+        status: CollaborativeMessageStates2.Unallocated
       },
       turnNumber: 1
     },
@@ -170,7 +176,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status2: CollaborativeMessageStates2.Unallocated
+        status: CollaborativeMessageStates2.Unallocated
       },
       turnNumber: 1
     },
@@ -198,7 +204,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates2.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
       },
@@ -228,7 +234,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates2.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueCO.roleId, roleName: blueCO.name }
       },
@@ -258,9 +264,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.PendingReview,
+        status: CollaborativeMessageStates2.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: 'RFI 3 response from White Logistics',
+        response2: {
+          content:  'RFI 3 response from White Logistics'
+        }
       },
       turnNumber: 1
     },
@@ -289,7 +297,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status2: CollaborativeMessageStates2.Released
+        status: CollaborativeMessageStates2.Released
       },
       turnNumber: 1
     },
@@ -317,7 +325,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates2.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: forces[0].uniqid, forceName: forces[0].name, roleId: whiteGC.roleId, roleName: whiteGC.name }
       },
@@ -347,9 +355,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.PendingReview,
+        status: CollaborativeMessageStates2.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4",
+        response2: {
+          content: "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -378,9 +388,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status2: CollaborativeMessageStates2.Released,
+        status: CollaborativeMessageStates2.Released,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response2: {
+          content:  "Game control response to RFI 4"
+        }
       },
       privateMessage: "The private content goes in here",
       turnNumber: 1

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
-import { SpecialChannelTypes, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates2 } from "@serge/config";
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates2 } from "@serge/config";
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -53,7 +53,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       // ok, brand new message
       const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
       details.collaboration = {
-        status2: initial,
+        status: initial,
         lastUpdated: details.timestamp
       }
     }

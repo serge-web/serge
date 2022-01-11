@@ -89,8 +89,8 @@ const Template: Story<RFIPropTypes> = (args) => {
   }, [role])
 
   useEffect(() => {
-    if (messageState.details.collaboration && messageState.details.collaboration.status2) {
-      setMsgStatus(messageState.details.collaboration.status2)
+    if (messageState.details.collaboration && messageState.details.collaboration.status) {
+      setMsgStatus(messageState.details.collaboration.status)
     }
   }, [messageState])
 
