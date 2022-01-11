@@ -1,4 +1,4 @@
-import { CollaborativeMessageStates2 } from '@serge/config'
+import { CollaborativeMessageStates } from '@serge/config'
 import { ForceRole, MessageCustom } from '@serge/custom-types'
 import moment from 'moment'
 
@@ -50,7 +50,7 @@ export const edit: ClaimHandler = {
           collaboration: {
             ...message.details.collaboration,
             lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-            status: CollaborativeMessageStates2.InProgress,
+            status: CollaborativeMessageStates.InProgress,
             owner: assignee
           }
         }
@@ -67,7 +67,7 @@ export const release: CoreHandler = {
         ...message.details,
         collaboration: {
           ...message.details.collaboration,
-          status: CollaborativeMessageStates2.Released,
+          status: CollaborativeMessageStates.Released,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
           owner: undefined
         }
@@ -92,7 +92,7 @@ export const saveEditAndRelease: SubmitHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Released,
+          status: CollaborativeMessageStates.Released,
           owner: undefined
         }
       }
@@ -116,7 +116,7 @@ export const save: SubmitHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Unallocated,
+          status: CollaborativeMessageStates.Unallocated,
           owner: undefined
         }
       }
@@ -137,7 +137,7 @@ export const saveResponseAndRelease: SubmitHandler = {
           ...message.details.collaboration,
           response2: response,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Released,
+          status: CollaborativeMessageStates.Released,
           owner: undefined
         }
       }
@@ -158,7 +158,7 @@ export const saveResponse: SubmitHandler = {
           ...message.details.collaboration,
           response2: response,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Unallocated,
+          status: CollaborativeMessageStates.Unallocated,
           owner: undefined
         }
       }
@@ -179,7 +179,7 @@ export const submitResponse: SubmitHandler = {
           ...message.details.collaboration,
           response2: response,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.PendingReview,
+          status: CollaborativeMessageStates.PendingReview,
           owner: undefined
         }
       }
@@ -203,7 +203,7 @@ export const submitForReview: SubmitHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.PendingReview,
+          status: CollaborativeMessageStates.PendingReview,
           owner: undefined
         }
       }
@@ -221,7 +221,7 @@ export const unclaim: CoreHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Unallocated,
+          status: CollaborativeMessageStates.Unallocated,
           owner: undefined
         }
       }
@@ -239,7 +239,7 @@ export const requestChanges: CoreHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Unallocated,
+          status: CollaborativeMessageStates.Unallocated,
           owner: undefined
         }
       }
@@ -257,7 +257,7 @@ export const approve: CoreHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.PendingReview,
+          status: CollaborativeMessageStates.PendingReview,
           owner: undefined
         }
       }
@@ -275,7 +275,7 @@ export const discard: CoreHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Closed,
+          status: CollaborativeMessageStates.Closed,
           owner: undefined
         }
       }
@@ -293,7 +293,7 @@ export const reopen: CoreHandler = {
         collaboration: {
           ...message.details.collaboration,
           lastUpdated: moment(new Date(), moment.ISO_8601).format(),
-          status: CollaborativeMessageStates2.Unallocated,
+          status: CollaborativeMessageStates.Unallocated,
           owner: undefined
         }
       }

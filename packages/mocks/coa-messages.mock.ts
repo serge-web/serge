@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE, CollaborativeMessageStates2 } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 import { MessageCustom, Role } from '@serge/custom-types'
 import { forces } from "./forces.mock";
 
@@ -25,7 +25,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
-        status: CollaborativeMessageStates2.Released,
+        status: CollaborativeMessageStates.Released,
         response2: {
           content: 'Response to RFI 3'
         }
@@ -112,7 +112,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       privateMessage: 'Private part of RFI 1',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.Closed,
+        status: CollaborativeMessageStates.Closed,
         response2: {
           content:  'Didn\'t bother responding'
         }
@@ -199,7 +199,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.PendingReview,
+        status: CollaborativeMessageStates.PendingReview,
         response2: {
           content: 'Game control response to RFI 444'
         },
@@ -291,7 +291,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates.InProgress,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children` },
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time` },
@@ -370,7 +370,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.Unallocated,
+        status: CollaborativeMessageStates.Unallocated,
         response2: {
           content: 'Game control response to Blue-2'
         }
@@ -459,7 +459,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         },
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
-        status: CollaborativeMessageStates2.Unallocated,
+        status: CollaborativeMessageStates.Unallocated,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children` },
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time` },
@@ -496,7 +496,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates.InProgress,
         response2: {
           content:  'Game control response to RFI 4'
         }
@@ -532,7 +532,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.Closed,
+        status: CollaborativeMessageStates.Closed,
         response2: {
           content:  'Game control response to RFI 4'
         },
@@ -571,7 +571,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.PendingReview,
+        status: CollaborativeMessageStates.PendingReview,
         response2: {
           content:  'Game control response to RFI 4'
         }
@@ -607,7 +607,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates2.Released,
+        status: CollaborativeMessageStates.Released,
         response2: {
           content:  'Game control response to Blue-2'
         }

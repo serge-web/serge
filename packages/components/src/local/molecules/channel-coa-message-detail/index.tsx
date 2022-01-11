@@ -16,7 +16,7 @@ import SplitButton from '../../atoms/split-button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
-import { CollaborativeMessageStates2, CollaborativePermission, expiredStorage } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
 import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
@@ -157,9 +157,9 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({
     return <></>
   } else {
     const isResponse = !!channelCollab.responseTemplate
-    const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates2.Released || isObserver
+    const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates.Released || isObserver
 
-    const docBeingEdited = state === CollaborativeMessageStates2.InProgress
+    const docBeingEdited = state === CollaborativeMessageStates.InProgress
     const roleIsOwner = collaboration.owner && collaboration.owner.roleId === role.roleId
     const formIsEditable = docBeingEdited && roleIsOwner
 
@@ -320,7 +320,7 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({
     const haveData = state !== undefined && permission !== undefined
 
     // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
-    const inProgress = state === CollaborativeMessageStates2.InProgress
+    const inProgress = state === CollaborativeMessageStates.InProgress
     const saveOrSubmit = permission >= CollaborativePermission.CanEdit
     const isOwner = role.roleId === collaboration.owner?.roleId
     const privateIsEditable = inProgress && saveOrSubmit && isOwner

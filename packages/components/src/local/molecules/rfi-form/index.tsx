@@ -5,7 +5,7 @@ import TextInput from '../../atoms/text-input'
 
 /* Import Types */
 import Props, { ActionPayload, Action } from './types/props'
-import { CollaborativeMessageStates2 } from '@serge/config'
+import { CollaborativeMessageStates } from '@serge/config'
 
 const useStyles = makeStyles<Theme>((theme) => ({
   rfiForm: {
@@ -112,8 +112,8 @@ export const RfiForm: React.FC<Props> = (props) => {
     })
   }
   const requestCompleteStatuses = [
-    CollaborativeMessageStates2.Released,
-    CollaborativeMessageStates2.Closed
+    CollaborativeMessageStates.Released,
+    CollaborativeMessageStates.Closed
   ]
   const requestIsCompleted =
     message.details.collaboration?.status &&

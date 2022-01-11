@@ -1,4 +1,4 @@
-import { CollaborativePermission as Permission, CollaborativeMessageStates2 as States } from '@serge/config'
+import { CollaborativePermission as Permission, CollaborativeMessageStates as States } from '@serge/config'
 import { createActionTable, actionsFor, ActionTable } from './actions-for'
 
 describe('Action table & actions', () => {

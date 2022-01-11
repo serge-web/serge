@@ -15,7 +15,7 @@ import {
 import docs from './README.md'
 
 import { MessageCustom, ForceRole, ChannelCollab } from '@serge/custom-types'
-import { CollaborativeMessageStates2, CollaborativePermission } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission } from '@serge/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: 'auto' }}>{storyFn()}</div>
 
 const roles: ForceRole[] = [
@@ -58,9 +58,9 @@ export default {
       }
     },
     state: {
-      defaultValue: CollaborativeMessageStates2.InProgress,
-      options: [CollaborativeMessageStates2.Unallocated, CollaborativeMessageStates2.InProgress,
-        CollaborativeMessageStates2.PendingReview, CollaborativeMessageStates2.Released, CollaborativeMessageStates2.Closed],
+      defaultValue: CollaborativeMessageStates.InProgress,
+      options: [CollaborativeMessageStates.Unallocated, CollaborativeMessageStates.InProgress,
+        CollaborativeMessageStates.PendingReview, CollaborativeMessageStates.Released, CollaborativeMessageStates.Closed],
       control: { type: 'radio' }
     },
     role: {
@@ -75,7 +75,7 @@ const Template: Story<RFIPropTypes> = (args) => {
   const { isObserver, message, isUmpire, permission, state, channelColb, role } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)
-  const [msgStatus, setMsgStatus] = useState<CollaborativeMessageStates2>(state || CollaborativeMessageStates2.Unallocated)
+  const [msgStatus, setMsgStatus] = useState<CollaborativeMessageStates>(state || CollaborativeMessageStates.Unallocated)
   const roleStr = role as unknown as string
   // we wish to update message state for a new story. We do
   // this by tracking the role, since each story has

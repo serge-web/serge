@@ -70,7 +70,7 @@ export enum LaydownTypes {
 /** the phases a v3 collaborative message goes through before
  * being approved to send
  */
- export enum CollaborativeMessageStates2 {
+ export enum CollaborativeMessageStates {
   /**
    * message is waiting to be allocated to owner
    */

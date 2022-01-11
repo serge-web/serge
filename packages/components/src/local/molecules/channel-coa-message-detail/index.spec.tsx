@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import ChannelCoaMessageDetail from './index'
 
 import { ChannelCollab } from '@serge/custom-types'
-import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates2, PARTICIPANT_COLLAB } from '@serge/config'
+import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates, PARTICIPANT_COLLAB } from '@serge/config'
 
 import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 
@@ -36,7 +36,7 @@ const testCollabChannel: ChannelCollab = {
   uniqid: 'ks8soryj'
 }
 
-const state = defMessage.details.collaboration?.status || CollaborativeMessageStates2.Unallocated
+const state = defMessage.details.collaboration?.status || CollaborativeMessageStates.Unallocated
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
