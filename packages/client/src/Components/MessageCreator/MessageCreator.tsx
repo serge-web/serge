@@ -42,27 +42,23 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       timestamp: new Date().toISOString(),
       turnNumber: state.currentTurn
     }
-    // see if it's v3 collab
     const channelUI = state.channels[curChannel] as ChannelUI
-    if(channelUI.cData) {
-      const channelTypes = channelUI.cData
-      if(channelTypes.channelType === CHANNEL_COLLAB) {
-        // populate the metadata
-        const channelCollab = channelTypes as ChannelCollab
-        
-        // ok, brand new message
-        const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
-        const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
-        details.collaboration = {
-          status: initial,
-          status2: initial2,
-          lastUpdated: details.timestamp
-        }
-      }
-    } else {
-      console.warn('Encountered channel that isnt in V3 format')
-    }
+    const channel = channelUI.cData
 
+    // special handling if this is a collab-channel
+    if(channel.channelType === CHANNEL_COLLAB) {
+      // populate the metadata
+      const channelCollab = channel as ChannelCollab
+      
+      // ok, brand new message
+      const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
+      const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
+      details.collaboration = {
+        status: initial,
+        status2: initial2,
+        lastUpdated: details.timestamp
+      }
+    }
 
     if (privateMessage && privateMessageRef.current) {
       details.privateMessage = privateMessageRef.current.value
