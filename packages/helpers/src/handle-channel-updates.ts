@@ -1,4 +1,4 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_CUSTOM, CHANNEL_COLLAB } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
@@ -56,12 +56,12 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
 }
 
 /** create a new (empty) channel */
-const createNewChannel = (channelId: string): ChannelUI => {
+const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI => {
   const res: ChannelUI = {
     uniqid: channelId,
     participants: [],
     name: 'channelName',
-    channelType: CHANNEL_CUSTOM,
+    v3Channel: channel,
     templates: [],
     forceIcons: [],
     forceColors: [],
@@ -166,8 +166,7 @@ export const handleAllInitialChannelMessages = (
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
-        channelType: v3Channel.channelType || CHANNEL_CUSTOM,
-        v3Channel: v3Channel.channelType ? v3Channel : undefined // if there's a channel type, it's v3, so store it
+        v3Channel: v3Channel
       }
 
       channels[channel.uniqid] = newChannel
@@ -237,7 +236,7 @@ const handleChannelUpdates = (
           // does this channel exist?
           if (!res.channels[channelId]) {
             // create and store it
-            res.channels[channelId] = createNewChannel(channel.uniqid)
+            res.channels[channelId] = createNewChannel(channel.uniqid, channel)
           }
 
           // already exists, get shortcut

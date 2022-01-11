@@ -6,28 +6,9 @@ export interface ParticipantTemplate {
   title: string
 }
 
-// TODO: deprecate this interface, so we use type-specific extensions of `CoreParticipant`.
-export default interface Participant {
-  force: string
-  readonly forceUniqid: string
-  // specific set of roles that participate in this channel (or empty for all roles)
-  roles: Array<Role['roleId']>
-  subscriptionId: string
-  templates: ParticipantTemplate[]
-  icon?: any
-
-  // TODO: This next block of permissions are v2, and are to be deleted
-  /** if this set of participants can take part in collaborative working */
-  canCollaborate?: boolean
-  /** if this set of participants can release collaborative messages */
-  canReleaseMessages?: boolean
-  /** can un-claim messages */
-  canUnClaimMessages?: boolean
-}
-
-
 /** core properties for a participant */
-interface CoreParticipant {
+export interface CoreParticipant {
+  // Name of force being referred to
   force: string,
   readonly forceUniqid: string,
   // specific set of roles that participate in this channel (or empty for all roles)

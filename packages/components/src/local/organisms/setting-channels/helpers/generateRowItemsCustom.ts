@@ -1,8 +1,7 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData, ParticipantCustom } from '@serge/custom-types'
 import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
-import { Participant } from '../types/props'
 
-export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {
+export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextParticipant: ParticipantCustom): Array<Item> => {
   // by default selected force
   let forceSelected: Array<number> = [0]
   // init empty roles array
@@ -27,7 +26,8 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
   }
 
   // get selected roles
-  const activeRoles: Array<number> = nextParticipant.roles.map(role => {
+  const partRoles: string[] = nextParticipant.roles
+  const activeRoles: Array<number> = partRoles.map(role => {
     return roleOptions.findIndex(option => option.value.roleId === role)
   }).filter(active => active !== -1)
 

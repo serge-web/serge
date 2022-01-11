@@ -116,7 +116,7 @@ const factory = (state: PlayerUi): Factory => {
         // a partially completed form/document in it - we don't want to
         // lose that content.  Note: there _Shouldn't_ be a performance
         // hit, since the content in those channels won't be changing
-        const cType = channelData.channelType
+        const cType = channelData.v3Channel.channelType
         if(cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING) {
           return true
         }

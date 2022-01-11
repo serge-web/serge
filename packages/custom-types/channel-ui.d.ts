@@ -20,7 +20,6 @@ export default interface ChannelUI {
   forceColors?: Array<string>
   collabOptions?: CollabOptions
   /** one of the v3 channel type constants */
-  v3Channel?: ChannelTypes,
+  v3Channel: ChannelTypes,
   v3participants?: Array<CoreParticipant>
-  channelType: string,
 }

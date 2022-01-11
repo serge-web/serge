@@ -42,7 +42,6 @@ export { default as Message,
          ChatMessage,
          MessageCounter
        } from './message.d'
-export { default as Participant, ParticipantTemplate, ParticipantCollab } from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'
 export { default as PlanMobileAsset } from './plan-mobile-asset'
 export { default as PlannedRoute } from './planned-route.d'
@@ -83,3 +82,4 @@ export * from './forms.d'
 export * from './global.d'
 export * from './turn-length.d'
 export * from './channel-data.d'
+export * from './participant.d'
