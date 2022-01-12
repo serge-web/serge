@@ -1,7 +1,7 @@
 import React from 'react'
 import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from '@serge/custom-types'
 import { ForceColor } from '..'
-import ChannelCoaMessageDetail from '../../molecules/channel-coa-message-detail'
+import CollabMessageDetail from '../../molecules/collab-message-detail'
 import { Badge } from '../../atoms/badge'
 import { CollaborativeMessageStates, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
 import getAssignees from './assignees'
@@ -176,7 +176,7 @@ export const genData = (
 
       return (
         <div className={styles['rfi-form']}>
-          <ChannelCoaMessageDetail
+          <CollabMessageDetail
             isReaded={isReaded}
             onRead={handleRead}
             templates={templates}

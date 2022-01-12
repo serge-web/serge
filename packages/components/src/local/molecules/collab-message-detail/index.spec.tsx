@@ -1,7 +1,7 @@
 /* global it expect */
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ChannelCoaMessageDetail from './index'
+import CollabMessageDetail from './index'
 
 import { ChannelCollab } from '@serge/custom-types'
 import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates, PARTICIPANT_COLLAB } from '@serge/config'
@@ -41,7 +41,7 @@ const state = defMessage.details.collaboration?.status || CollaborativeMessageSt
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
-      .create(<ChannelCoaMessageDetail
+      .create(<CollabMessageDetail
         templates={MessageTemplatesMockByKey}
         role={{ forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' }}
         permission={CollaborativePermission.CanEdit}
