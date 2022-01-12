@@ -156,10 +156,36 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (): Promise<any> => {
-  return fetch(serverPath + 'healthcheck')
+export const pingServer = (wargameId: string, roleId: string): Promise<any> => {
+  return fetch(serverPath + 'healthcheck',{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'role': roleId,
+      'wargame': wargameId
+    }
+  })
   .then((response: Response): Promise<any> => response.json())
   .then((data: any) => {
+    return data.status
+  })
+  .catch((err) => {
+    console.log(err)
+    return "NOT_OK"
+  })
+}
+
+export const getPlayerLog = (wargameId: string, roleId: string): Promise<any> => {
+  return fetch(serverPath + 'playerlog',{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'wargame': wargameId
+    }
+  })
+  .then((response: Response): Promise<any> => response.json())
+  .then((data: any) => {
+    console.log('data:', data)
     return data.status
   })
   .catch((err) => {

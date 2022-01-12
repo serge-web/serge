@@ -8,7 +8,7 @@ import { pingServer as pingServerApi } from '../api/wargames_api'
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 // trim off the seconds
-const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length-3)
+const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
 const mapStateToProps = ({ notifications }) => ({ notifications })
 
@@ -45,8 +45,34 @@ const Version = ({ showNotification, notifications, hideNotification }) => {
     }
   }, [serverStatus, serverPingTime])
 
-  const pingServer = () => {
-    return pingServerApi().then(res => {
+  const getRoleByQuery = () => {
+    let result = null
+    let tmp = []
+    window.location.search
+      .substr(1)
+      .split('&')
+      .forEach((item) => {
+        tmp = item.split('=')
+        if (tmp[0] === 'access') result = decodeURIComponent(tmp[1])
+      })
+    return result
+  }
+
+  const getDbByQuery = () => {
+    let result = null
+    let tmp = []
+    window.location.search
+      .substr(1)
+      .split('&')
+      .forEach((item) => {
+        tmp = item.split('=')
+        if (tmp[0] === 'wargame') result = decodeURIComponent(tmp[1])
+      })
+    return result
+  }
+
+  const pingServer = (wargameId, roleId) => {
+    return pingServerApi(wargameId, roleId).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -55,7 +81,9 @@ const Version = ({ showNotification, notifications, hideNotification }) => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      pingServer()
+      pingServer(getDbByQuery(), getRoleByQuery())
+      console.log('WARGAMEID - ', getDbByQuery())
+      console.log('ROLEID - ', getRoleByQuery())
     }, SERVER_PING_INTERVAL)
 
     return () => {
