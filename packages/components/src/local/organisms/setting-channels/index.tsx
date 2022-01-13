@@ -147,8 +147,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setLocalChannelUpdates(localChannelUpdates)
     }
 
-    const handleChangeRow = (nextItems: Array<RowItem>, _itKey: number, participant: CoreParticipant): Array<RowItem> => {
-      let nextParticipant: ParticipantCollab | ParticipantCustom | ParticipantChat
+    const handleChangeRow = (nextItems: Array<RowItem>, /* _itKey: number, */participant: CoreParticipant): Array<RowItem> => {
       if (isCollab) {
         const nextParticipant = rowToParticipantCollab(forces, nextItems, participant as ParticipantCollab)
         return generateRowItemsCollab(forces, nextParticipant)
