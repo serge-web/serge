@@ -3,7 +3,7 @@ import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
-import { checkUnique } from '@serge/helpers'
+import { checkUnique, findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
 import { channelTemplate, forceTemplate, CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../consts'
 import {
   addNewForce,
@@ -24,8 +24,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
-import { findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
+import { ADMIN_ROUTE, CHANNEL_COLLAB, iconUploaderPath } from '@serge/config'
 
 /**
  * TODOS:
@@ -55,6 +54,11 @@ const AdminGameSetup = () => {
     channels
   } = data
   const tabs = Object.keys(data)
+
+  // filter collab channels
+  const allChannels = channels.channels
+  channels.channels = allChannels.filter(channel => channel.channelType && channel.channelType === CHANNEL_COLLAB)
+
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
@@ -103,7 +107,6 @@ const AdminGameSetup = () => {
   }
 
   const handleFormChange = changes => {
-
     dispatch(setGameData(changes))
   }
 
@@ -202,8 +205,11 @@ const AdminGameSetup = () => {
       const template = forceTemplate
       template.name = id
       template.uniqid = id
-      template.roles.map(role => role.roleId = getUniquePasscode(forces.forces, "p"))
-      await dispatch(saveForce(currentWargame, id, template, id))
+      template.roles.map(role => {
+        role.roleId = getUniquePasscode(forces.forces, 'p')
+        return role
+      })
+      dispatch(saveForce(currentWargame, id, template, id))
     }
   }
 
@@ -288,6 +294,10 @@ const AdminGameSetup = () => {
     }
   }, [currentTab])
 
+  const getSelectedChannel = () => {
+    return channels && channels.channels.find(channel => channel.uniqid === channels.selectedChannel.uniqid)
+  }
+
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -312,7 +322,7 @@ const AdminGameSetup = () => {
       onCreateChannel={onCreateChannel}
       onDeleteChannel={onDeleteChannel}
       onDuplicateChannel={onDuplicateChannel}
-      selectedChannel={channels.selectedChannel}
+      selectedChannel={getSelectedChannel()}
       onSave={onSave}
       messageTemplates={messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
