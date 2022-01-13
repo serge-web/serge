@@ -49,7 +49,7 @@ const runServer = (
   const clientBuildPath = '../client/build'
 
   // log of time of receipt of player heartbeat messages
-  const playerLog = {}
+  const playerLog = []
 
   app.use(cors(corsOptions))
   app.use('/db', require('express-pouchdb')(PouchDB))
@@ -101,26 +101,38 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
-    const wargame = req.headers.wargame
-    const role = req.headers.role
-    // if we have wargame & role, store the date-time
-    if (wargame && wargame.length && role && role.length) {
-      let wargameLog = playerLog[wargame]
-      if (!wargameLog) {
-        wargameLog = playerLog[wargame] = {}
+    const { wargame, role } = req.headers
+    if (!wargame || !role) {
+      return res.status(200).send({
+        status: 'OK',
+        uptime: process.uptime(),
+        playerLog
+      })
+    }
+
+    const existingPlayer = playerLog.filter(
+      player => player.role === role && player.wargame === wargame
+    )
+    if (existingPlayer.length) {
+      existingPlayer[0].updatedAt = new Date().getTime()
+    } else if (wargame && role) {
+      const newPlayer = {
+        wargame,
+        role,
+        updatedAt: new Date().getTime()
       }
-      wargameLog[role] = new Date().toISOString()
+      playerLog.push(newPlayer)
     }
     res.status(200).send({
       status: 'OK',
       uptime: process.uptime(),
-      wargame: wargame,
-      role: role
+      playerLog
     })
   })
 
   app.get('/playerlog', (req, res) => {
     const wargame = req.headers.wargame
+    console.log(wargame)
     res.status(200).send({ log: playerLog[wargame] })
   })
 
@@ -132,9 +144,14 @@ const runServer = (
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
-  app.use('/saveIcon', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' }))
+  app.use(
+    '/saveIcon',
+    express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
+  )
   app.post('/saveIcon', (req, res) => {
-    const imageName = `${uniqid.time('icon-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
+    const imageName = `${uniqid.time('icon-')}.${
+      req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'
+    }`
     const image = `${imgDir}/${imageName}`
     let imagePath = `${req.headers.host}/getIcon/${imageName}`
     if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
@@ -196,7 +213,12 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    const start =
+      process.platform === 'darwin'
+        ? 'open'
+        : process.platform === 'win32'
+          ? 'start'
+          : 'xdg-open'
     require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }
