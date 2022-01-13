@@ -3,7 +3,6 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as ChannelData, ChannelCollab, ChannelTypes } from './channel-data.d'
 export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
@@ -43,7 +42,6 @@ export { default as Message,
          ChatMessage,
          MessageCounter
        } from './message.d'
-export { default as Participant, ParticipantTemplate, ParticipantCollab } from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'
 export { default as PlanMobileAsset } from './plan-mobile-asset'
 export { default as PlannedRoute } from './planned-route.d'
@@ -83,3 +81,5 @@ export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export * from './forms.d'
 export * from './global.d'
 export * from './turn-length.d'
+export * from './channel-data.d'
+export * from './participant.d'

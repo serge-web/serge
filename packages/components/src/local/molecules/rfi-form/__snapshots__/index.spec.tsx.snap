@@ -117,6 +117,7 @@ exports[`RFIForm component: renders correctly 1`] = `
               onFocus={[Function]}
               required={false}
               rows={2}
+              value=""
             />
           </div>
         </div>

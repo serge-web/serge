@@ -133,7 +133,7 @@ const AdminGameSetup = () => {
       dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
       return
     }
-    
+
     if (typeof forceName === 'string' && forceName.length > 0) {
       if (!isUniqueForceName(newForceData)) return
       const selectedForce = forces.selectedForce.name

@@ -75,6 +75,12 @@ export const CHANNEL_CHAT = 'ChannelChat'
 export const CHANNEL_CUSTOM = 'ChannelCustom'
 export const CHANNEL_COLLAB = 'ChannelCollab'
 
+// types of participant
+export const PARTICIPANT_CHAT = 'ParticipantChat'
+export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
+export const PARTICIPANT_COLLAB = 'ParticipantCollab'
+export const PARTICIPANT_MAPPING = 'ParticipantMapping'
+
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 
