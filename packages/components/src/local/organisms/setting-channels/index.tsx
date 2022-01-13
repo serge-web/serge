@@ -14,8 +14,10 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CHANNEL_COLLAB, SpecialChannelTypes } from '@serge/config'
-import { ChannelCollab, ParticipantCollab } from '@serge/custom-types'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from '@serge/config'
+import { ParticipantCollab } from '@serge/custom-types'
+import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
+import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -27,17 +29,19 @@ import EditableRow, { Item as RowItem, Option } from '../../molecules/editable-r
 /* Import Helpers */
 import createChannel from './helpers/createChannel'
 import createParticipant from './helpers/createParticipant'
-import defaultParticipant from './helpers/defaultParticipant'
-import generateRowItemsCustom from './helpers/generateRowItemsCustom'
+import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCustom } from './helpers/defaultParticipant'
+import generateRowItemsChat from './helpers/generateRowItemsChat'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
+import generateRowItemsCustom from './helpers/generateRowItemsCustom'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
-import { getMessagesValues, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged, getSelectedOptions } from './helpers/messageCollabUtils'
-import rowToParticipantCustom from './helpers/rowToParticipantCustom'
+import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged } from './helpers/messageCollabUtils'
+import rowToParticipantChat from './helpers/rowToParticipantChat'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
+import rowToParticipantCustom from './helpers/rowToParticipantCustom'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
-import PropTypes, { ChannelData, Participant } from './types/props'
+import PropTypes, { ChannelTypes } from './types/props'
 // import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
@@ -63,28 +67,32 @@ export const SettingChannels: React.FC<PropTypes> = ({
     value: template
   }))
 
-  let realSelectedChannel = selectedChannel
-  if (selectedChannel && Object.keys(selectedChannel).length <= 2) {
-    realSelectedChannel = channels.find(channel => channel.uniqid === selectedChannel.uniqid)
-  }
+  // let realSelectedChannel = selectedChannel
+  // if (selectedChannel && Object.keys(selectedChannel).length <= 2) {
+  //   realSelectedChannel = channels.find(channel => channel.uniqid === selectedChannel.uniqid)
+  // }
 
-  const isCollab = isCollabChannel(realSelectedChannel)
+  const isCollab = isCollabChannel(selectedChannel)
+  const isChat = selectedChannel && selectedChannel.channelType === CHANNEL_CHAT
+  const isCustom = selectedChannel && selectedChannel.channelType === CHANNEL_CUSTOM
+  const channelAsLegacy = selectedChannel as any
+  const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
 
   /** init data for collab panel controls */
-  const messagesValues = getMessagesValues(isCollab, realSelectedChannel)
+  const messagesValues = getMessagesValues(isCollab, selectedChannel)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
 
   useEffect(() => {
     /** on changes channel, update the message data local */
     setMessageLocal(messagesValues)
-  }, [realSelectedChannel])
+  }, [selectedChannel])
 
   const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
-    onSidebarClick && onSidebarClick(_item as ChannelData)
+    onSidebarClick && onSidebarClick(_item as ChannelTypes)
   }
 
-  const handleChangeChannels = (nextChannels: Array<ChannelData>, selectedChannel: ChannelData): void => {
+  const handleChangeChannels = (nextChannels: Array<ChannelTypes>, selectedChannel: ChannelTypes): void => {
     onChange({ channels: nextChannels, selectedChannel })
   }
 
@@ -92,29 +100,48 @@ export const SettingChannels: React.FC<PropTypes> = ({
     if (!localChannelUpdates[selectedItem]) return null
     const data = localChannelUpdates[selectedItem]
 
-    // if it's a v2 collab editing, just return
-    const legacyFormat = realSelectedChannel?.format
-    if (legacyFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || legacyFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
-      console.log('Do not support this channel format. Drop out')
-      return (
-        <div>
-          Legacy format not supported: <b>{legacyFormat}</b>
-        </div>
-      )
-    }
-
-    const handleChangeChannel = (channel: ChannelData): void => {
-      const nextChannels: Array<ChannelData> = [...localChannelUpdates]
+    const handleChangeChannel = (channel: ChannelTypes): void => {
+      const nextChannels: Array<ChannelTypes> = [...localChannelUpdates]
       nextChannels[selectedItem] = channel
       handleChangeChannels(nextChannels, channel)
       setLocalChannelUpdates(nextChannels)
     }
 
-    const handleSaveRows = (participants: Array<Participant>): void => {
-      handleChangeChannel({
-        ...data,
-        participants: participants
-      })
+    const handleSaveRows = (participants: Array<CoreParticipant>): void => {
+      switch (data.channelType) {
+        case CHANNEL_COLLAB: {
+          const newParts = participants as Array<ParticipantCollab>
+          const collabChannel = data as ChannelCollab
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)
+          break
+        }
+        case CHANNEL_CUSTOM: {
+          const newParts = participants as Array<ParticipantCustom>
+          const collabChannel = data as ChannelCustom
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)
+          break
+        }
+        case CHANNEL_CHAT: {
+          const newParts = participants as Array<ParticipantChat>
+          const collabChannel = data as ChannelChat
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)
+          break
+        }
+        case CHANNEL_MAPPING: {
+          const newParts = participants as Array<ParticipantMapping>
+          const collabChannel = data as ChannelMapping
+          const newChannel = { ...collabChannel }
+          newChannel.participants = newParts
+          handleChangeChannel(newChannel)
+          break
+        }
+      }
     }
 
     const handleUpdateCollabChannel = (messagesLocal: MessagesValues): void => {
@@ -125,40 +152,51 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setLocalChannelUpdates(localChannelUpdates)
     }
 
-    const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant, isCollab: boolean): Array<RowItem> => {
-      const newNextItems = [...nextItems]
-      if (itKey === 0) {
-        newNextItems[1].active = []
-        newNextItems[2].active = []
-      }
-      let nextParticipant
+    const handleChangeRow = (nextItems: Array<RowItem>, /* _itKey: number, */ participant: CoreParticipant): Array<RowItem> => {
+      // TODO: this next block was failing, because the [2] item was empty. Find out what the code
+      // was doing - and reinstate if necessary
+      // const newNextItems = [...nextItems]
+      // if (itKey === 0) {
+      //   newNextItems[1].active = []
+      //   newNextItems[2].active = []
+      // }
       if (isCollab) {
-        nextParticipant = rowToParticipantCollab(forces, nextItems, participant as unknown as ParticipantCollab)
+        const nextParticipant = rowToParticipantCollab(forces, nextItems, participant as ParticipantCollab)
         return generateRowItemsCollab(forces, nextParticipant)
       }
-      nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant)
-      return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
+      if (isChat) {
+        const nextParticipant = rowToParticipantChat(forces, nextItems, participant as ParticipantChat)
+        return generateRowItemsChat(forces, nextParticipant)
+      }
+      if (isCustom) {
+        const nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant as ParticipantCustom)
+        return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
+      }
+      console.warn('Not handled changed row for ', selectedChannel?.name)
+      return []
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
-      handleSaveRows([
-        ...data.participants,
-        createParticipant(messageTemplatesOptions, forces, rowItems)
-      ])
+      if (selectedChannel) {
+        handleSaveRows([
+          ...data.participants,
+          createParticipant(messageTemplatesOptions, forces, rowItems, selectedChannel.channelType)
+        ])
+      } else {
+        console.warn('Can`t create new participant, no current channel')
+      }
     }
 
     // render table body
-    const renderTableBody = (data: ChannelData, isCollab: boolean): React.ReactElement[] => {
+    const renderTableBody = (data: ChannelTypes): React.ReactElement[] => {
       if (!data.participants) return [<></>]
-
-      return data.participants.map((participant, participantKey) => {
+      const dParts: CoreParticipant[] = data.participants
+      return dParts.map((participant, participantKey) => {
         const handleSaveRow = (row: Array<RowItem>): void => {
           const nextParticipants = [...data.participants]
-          if (isCollab) {
-            nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as unknown as ParticipantCollab)
-          } else {
-            nextParticipants[participantKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant)
-          }
+          nextParticipants[participantKey] = isCollab
+            ? rowToParticipantCollab(forces, row, participant as ParticipantCollab) : isChat ? rowToParticipantChat(forces, row, participant as ParticipantChat)
+              : rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           handleSaveRows(nextParticipants)
         }
 
@@ -168,13 +206,15 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
-        const items = isCollab ? generateRowItemsCollab(forces, participant) : generateRowItemsCustom(messageTemplatesOptions, forces, participant)
+        const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab)
+          : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
+            : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
         return <EditableRow
           onRemove={handleRemoveParticipant}
           key={participant.subscriptionId}
-          onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
-            return handleChangeRow(nextItems, itKey, participant, isCollab)
+          onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
+            return handleChangeRow(nextItems, /* itKey, */ participant)
           }}
           onSave={handleSaveRow}
           items={items}
@@ -187,13 +227,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
     // render table footer
     const renderTableFooter = (): React.ReactElement => {
       // generate the correct type of controls for this channel type
-      const items = isCollab ? generateRowItemsCollab(forces, defaultParticipant)
-        : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipant)
+      const items = isCollab ? generateRowItemsCollab(forces, defaultParticipantCollab)
+        : isChat ? generateRowItemsChat(forces, defaultParticipantChat) : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipantCustom)
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset
-        onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
-          return handleChangeRow(nextItems, itKey, defaultParticipant, isCollab)
+        onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
+          return handleChangeRow(nextItems, /* itKey, */ isCollab ? defaultParticipantCollab : isChat ? defaultParticipantChat : defaultParticipantCustom)
         }}
         onSave={handleCreateParticipant}
         items={items}
@@ -244,7 +284,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
       handleUpdateCollabChannel(nextMsgLocal)
     }
 
-    console.log('============= ', localChannelUpdates[selectedItem])
+    if (isLegacyCollab) {
+      return <div>Legacy channel type. Not rendered.</div>
+    }
 
     return (
       <div key={selectedItem}>
@@ -262,7 +304,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               color="secondary"
-              onClick={(): void => { if (onSave) onSave(localChannelUpdates[selectedItem]) }}
+              onClick={(): void => { onSave && onSave(localChannelUpdates[selectedItem]) }}
               data-qa-type="save"
             >
               Save Channel
@@ -279,12 +321,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       <TableRow>
                         <TableCell>Force</TableCell>
                         <TableCell align="left">Restrict access to specific roles</TableCell>
-                        <TableCell align="left">Templates</TableCell>
+                        { isCustom &&
+                          <TableCell align="left">Templates</TableCell>
+                        }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {renderTableBody(data, isCollab)}
+                      {renderTableBody(data)}
                     </TableBody>
                     <TableFooter>
                       {renderTableFooter()}
@@ -293,14 +337,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
-
             {isCollab &&
               <FormGroup>
                 <Paper className={styles.pager}>
                   <div className={styles['control-groups']}>
 
                     <MessageGroup
-                      title="Messages Templates"
+                      title="Message Templates"
                       multiple={false}
                       options={messageTemplatesOptions}
                       onChange={(val: string[]): void => onMessageTemplateChanged(val, 'add')}
@@ -334,8 +377,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <Divider />
                     <div className={styles['control-groups']}>
                       <MessageGroup
-                        title="Request Changes"
-                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, realSelectedChannel)}
+                        title='Request Changes'
+                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onRequestChanged(val, 'add')}
                         onDelete={(val: string[]): void => onRequestChanged(val, 'delete')}
@@ -343,8 +386,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         value={messageLocal.requestChanges}
                       />
                       <MessageGroup
-                        title='"Approve"'
-                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, realSelectedChannel)}
+                        title='Approve'
+                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onApproveChanged(val, 'add')}
                         onDelete={(val: string[]): void => onApproveChanged(val, 'delete')}
@@ -352,8 +395,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         value={messageLocal.approve}
                       />
                       <MessageGroup
-                        title='"Release"'
-                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, realSelectedChannel)}
+                        title='Release'
+                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannel)}
                         multiple={false}
                         onChange={(val: string[]): void => onReleaseChanged(val, 'add')}
                         onDelete={(val: string[]): void => onReleaseChanged(val, 'delete')}
@@ -364,11 +407,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   </div>
 
                   <div className={styles.box}>
-                    <div className={styles.title}>Additional Data</div>
-                    <Divider />
                     <div className={styles['control-groups']}>
                       <MessageGroup
-                        title=''
+                        title='Additional data'
                         multiple
                         options={AdditionalData}
                         onChange={onAdditionalDataChanged}
@@ -393,7 +434,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {renderTableBody(data, isCollab)}
+                        {renderTableBody(data)}
                       </TableBody>
                       <TableFooter>
                         {renderTableFooter()}
@@ -409,26 +450,19 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === realSelectedChannel?.uniqid)
+    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
     setSelectedItem(Math.max(selectedChannelId, 0))
     setLocalChannelUpdates(channels)
   }, [channels])
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
-    let createdChannel = createChannel(channels, forces[0], type)
-    // on createing new channel, set channelType = CHANNEL_COLLAB as default
-    const collabChannel = createdChannel as unknown as ChannelCollab
-    collabChannel.channelType = CHANNEL_COLLAB
-    collabChannel.approveVerbs = []
-    collabChannel.requestChangesVerbs = []
-    collabChannel.releaseVerbs = []
-    createdChannel = collabChannel as unknown as ChannelData
-
-    const nextChannels: ChannelData[] = [
-      createdChannel,
+    const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
+    const channelD = createdChannel as unknown as ChannelTypes
+    const nextChannels: ChannelTypes[] = [
+      channelD,
       ...channels
     ]
-    handleChangeChannels(nextChannels, createdChannel)
+    handleChangeChannels(nextChannels, channelD)
     setLocalChannelUpdates(nextChannels)
   }
   const handleClose = (event: React.MouseEvent<Document, MouseEvent>): void => {
@@ -471,8 +505,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
                   <MenuItem disabled>Special channels</MenuItem>
-                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB_EDIT)} >Collab' Edit</MenuItem>
+                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab' Edit</MenuItem>
                   <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem>
+                  <MenuItem onClick={(): void => handleAddChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>
@@ -505,4 +540,4 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
 export default SettingChannels
 
-export { ChannelData } from './types/props'
+export { ChannelTypes } from './types/props'

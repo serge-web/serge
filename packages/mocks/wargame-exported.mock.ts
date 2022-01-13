@@ -1,5 +1,7 @@
 import { Wargame } from "@serge/custom-types"
 import { LaydownTypes, Phase } from "@serge/config"
+import { ParticipantCustom } from "@serge/custom-types/participant"
+import { PARTICIPANT_CUSTOM } from '@serge/config'
 
 const game: Wargame = {
   _id: 'some_id',
@@ -64,6 +66,7 @@ const game: Wargame = {
       channels: [
         {
           name: 'Channel 16',
+          channelType: 'ChannelCustom',
           participants: [
             {
               force: 'White',
@@ -71,7 +74,8 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pjpfv',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             },
             {
               force: 'Red',
@@ -79,7 +83,8 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pjsbv',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             },
             {
               force: 'Blue',
@@ -87,13 +92,15 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pju7l',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             }
-          ],
+          ] as ParticipantCustom[],
           uniqid: 'channel-k63pjit0'
         },
         {
           name: 'Blue Net',
+          channelType: 'ChannelCustom',
           participants: [
             {
               force: 'White',
@@ -101,7 +108,8 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pk0d3',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             },
             {
               force: 'Blue',
@@ -109,13 +117,15 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pk2o6',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             }
-          ],
+          ] as ParticipantCustom[],
           uniqid: 'channel-k63pjvpb'
         },
         {
           name: 'Mapping',
+          channelType: 'ChannelCustom',
           participants: [
             {
               force: 'White',
@@ -123,7 +133,8 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tifeo',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             },
             {
               force: 'Blue',
@@ -131,7 +142,8 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tij98',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             },
             {
               force: 'Red',
@@ -139,7 +151,8 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tiqdf',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             },
             {
               force: 'Green',
@@ -147,9 +160,10 @@ const game: Wargame = {
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tivj5',
-              templates: []
+              templates: [],
+              pType: PARTICIPANT_CUSTOM
             }
-          ],
+          ] as ParticipantCustom[],
           uniqid: 'channel-k53ti36p'
         }
       ],

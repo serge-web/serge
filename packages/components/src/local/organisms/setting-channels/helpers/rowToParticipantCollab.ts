@@ -1,9 +1,10 @@
-import { ForceData, Participant, ParticipantCollab, Role } from '@serge/custom-types'
+import { CollaborativePermission } from '@serge/config'
+import { ForceData, ParticipantCollab, Role } from '@serge/custom-types'
 import { SelectItem, SwitchItem } from 'src/local/molecules/editable-row/types/props'
 import { EDITABLE_SELECT_ITEM, Item } from '../../../molecules/editable-row'
 
 // Convert table row items to Participant object
-export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCollab: ParticipantCollab): Participant => {
+export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCollab: ParticipantCollab): ParticipantCollab => {
   // get firs 3 table select items
   const [force, access, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
 
@@ -14,7 +15,7 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCol
     selectedForce.roles[key].roleId
   )) : []
   // get selected templates
-  const permission = permissionsTpls.active || []
+  const permission = permissionsTpls.active ? permissionsTpls.active[0] : CollaborativePermission.CannotCollaborate
 
   // init defaul values
   let { canCreate, viewUnreleasedVersions } = participantCollab
@@ -25,7 +26,7 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCol
   if (typeof createNewMsg !== 'undefined') canCreate = !!createNewMsg.active
   if (typeof seeLiveUpdates !== 'undefined') viewUnreleasedVersions = !!seeLiveUpdates.active
 
-  const res = {
+  return {
     ...participantCollab,
     force: selectedForce.name,
     forceUniqid: selectedForce.uniqid,
@@ -34,7 +35,4 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participantCol
     canCreate,
     viewUnreleasedVersions
   }
-
-  // return converted participant
-  return res as unknown as Participant
 }

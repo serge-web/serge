@@ -1,17 +1,17 @@
-import { ChannelData, ForceData, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, ForceData, TemplateBody } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
 
 export default interface PropTypes {
-  channels: Array<ChannelData>
+  channels: Array<ChannelTypes>
   messageTemplates: Array<TemplateBody>
   forces: Array<ForceData>
-  onChange: (updates: { channels: Array<ChannelData>, selectedChannel: ChannelData }) => void
-  onSave?: (channel: ChannelData) => void
-  onSidebarClick?: (selectedChannel: ChannelData) => void
+  onChange: (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }) => void
+  onSave?: (channel: ChannelTypes) => void
+  onSidebarClick?: (selectedChannel: ChannelTypes) => void
   onCreate?: (buttonText: string | undefined) => void
   onDelete?: () => void
   onDuplicate?: () => void
-  selectedChannel?: ChannelData
+  selectedChannel?: ChannelTypes
 }
 
 export type MessageGroupProps = {
@@ -24,4 +24,4 @@ export type MessageGroupProps = {
   value: string[]
 }
 
-export { ChannelData, ChannelCollab, Channel, ForceData, Role, Participant } from '@serge/custom-types'
+export { ChannelTypes, ChannelCollab, Channel, ForceData, Role, Participant } from '@serge/custom-types'

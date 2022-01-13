@@ -1,4 +1,4 @@
-import ChannelData from './channel-data'
+import { ChannelTypes } from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel, MessageCustom } from './message'
@@ -46,7 +46,7 @@ export default interface PlayerUi {
   /** dictionary for set of channels visible to logged in player */
   channels: PlayerUiChannels,
   /** all channels in this wargame */
-  allChannels: Array<ChannelData>,
+  allChannels: Array<ChannelTypes>,
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
   allTemplatesByKey: TemplateBodysByKey,
@@ -72,8 +72,6 @@ export default interface PlayerUi {
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
-  /** List of RFI messages */
-  rfiMessages: Array<MessageCustom>,
   /** whether logged in user can view insights & feedback */
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */

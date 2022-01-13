@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelData, ChannelTypes } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelTypes, ChannelUI } from '@serge/custom-types'
 import {
   FORCE_LAYDOWN,
   PERCEPTION_OF_CONTACT,
@@ -21,11 +21,10 @@ import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
-import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
-import Channel2 from '../../../Components/Channel2'
+import CollabChannel from '../../../Components/CollabChannel'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -111,13 +110,16 @@ const factory = (state: PlayerUi): Factory => {
   return (node: TabNode): React.ReactNode => {
 
     /** helper to determine if the specified channel should be rendered */
-    const renderThisChannel = (channelData?: ChannelData): boolean => {
-      // always render the special channels, since the user may have
-      // a partially completed form/document in it - we don't want to
-      // lose that content.  Note: there _Shouldn't_ be a performance
-      // hit, since the content in those channels won't be changing
-      if (channelData && channelData.format) {
-        return true
+    const renderThisChannel = (channelData?: ChannelUI): boolean => {
+      if (channelData) {
+        // always render the special channels, since the user may have
+        // a partially completed form/document in it - we don't want to
+        // lose that content.  Note: there _Shouldn't_ be a performance
+        // hit, since the content in those channels won't be changing
+        const cType = channelData.cData.channelType
+        if(cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING) {
+          return true
+        }
       }
       return node.isVisible()
     }
@@ -176,12 +178,12 @@ const factory = (state: PlayerUi): Factory => {
     if (isV3) {
       switch (v3Channel.channelType) {
         case CHANNEL_COLLAB:
-          return <Channel2 channelId={matchedChannel[0]} />
-        case CHANNEL_CUSTOM:
+          return <CollabChannel channelId={matchedChannel[0]} />
         case CHANNEL_CHAT:
-        //  return <ChatChannel2 channelId={matchedChannel[0]} />
+          return <ChatChannel channelId={matchedChannel[0]} />
         case CHANNEL_MAPPING:
-        //  return <MAPPING2 channelId={matchedChannel[0]} />
+          return renderMap(node.getId())
+        case CHANNEL_CUSTOM:
         default:
           console.warn('not yet handling', v3Channel.channelType)
       }
@@ -190,12 +192,13 @@ const factory = (state: PlayerUi): Factory => {
         return renderMap(node.getId())
       } else if (matchedChannel.length) {
         // find out if channel just contains chat template
-        return isChatChannel(channelDefinition) ?
-          <ChatChannel channelId={matchedChannel[0]} />
-          : <Channel channelId={matchedChannel[0]} />
+        if (isChatChannel(channelDefinition)) {
+          return <ChatChannel channelId={matchedChannel[0]} />
+        } else {
+          console.log("Not rendering channel for ", channelDefinition)
+        }
       }
     }
-
   }
 }
 

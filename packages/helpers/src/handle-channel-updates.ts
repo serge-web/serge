@@ -1,15 +1,15 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, SpecialChannelTypes, CHANNEL_CUSTOM } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, MessageDetailsFrom, CollaborationDetails, ChannelTypes, PlayerLogInstance, PlayerLog
+  MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
+  Role, ChannelTypes, PlayerLogInstance, PlayerLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
-import getRoleFromName from './get-role-from-name'
 import newestPerRole from './newest-per-role'
+import { CoreParticipant } from '@serge/custom-types/participant'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
@@ -53,56 +53,14 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
   }
-
-  if (payload.details.messageType === 'RFI') {
-    // we need to stick it into the RFI messages, replacing any previous version
-
-    // remove any existing RFI with this reference number. Note: we can't use
-    // filter() array function since it produces a new array, which would
-    // have a new reference, and wouldn't get returned as a parameter
-    data.rfiMessages.forEach((item, idx) => {
-      if (item.message.Reference === payload.message.Reference) {
-        data.rfiMessages.splice(idx, 1)
-      }
-    })
-    data.rfiMessages.unshift(deepCopy(payload))
-    // rfiMessages = rfiMessages.filter((message) => message.message.Reference !== payload.message.Reference)
-  }
 }
 
-// this method was an unnecessary duplicate of clipInfoMEssage
-// /** create a new turn marker */
-// const createTurnMarker = (turn: number): MessageChannel => {
-//   const res: MessageChannel = {
-//     details: {
-//       from: {
-//         force: 'unset-game-turn-marker',
-//         forceColor: 'unset-game-turn-marker',
-//         role: 'Turn ' + turn,
-//         icon: 'unset-game-turn-marker'
-//       },
-//       messageType: 'Turn ' + turn,
-//       timestamp: new Date().toISOString(),
-//       channel: `infoTypeChannelMarker${uniqId.time()}`
-//     },
-//     infoType: true,
-//     messageType: CUSTOM_MESSAGE,
-//     gameTurn: turn,
-//     isOpen: true,
-//     hasBeenRead: false,
-//     _id: uniqId.time(),
-//     message: {}
-//   }
-//   return res
-// }
-
 /** create a new (empty) channel */
-const createNewChannel = (channelId: string): ChannelUI => {
+const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI => {
   const res: ChannelUI = {
     uniqid: channelId,
-    participants: [],
     name: 'channelName',
-    channelType: CHANNEL_CUSTOM,
+    cData: channel,
     templates: [],
     forceIcons: [],
     forceColors: [],
@@ -139,7 +97,7 @@ export const handleAllInitialChannelMessages = (
   currentWargame: string,
   selectedForce: ForceData | undefined,
   selectedRole: Role['roleId'],
-  allChannels: ChannelData[],
+  allChannels: ChannelTypes[],
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
   isObserver: boolean,
@@ -171,14 +129,14 @@ export const handleAllInitialChannelMessages = (
 
   const channels: PlayerUiChannels = {}
 
-  allChannels.forEach((channel: ChannelData) => {
+  allChannels.forEach((channel: ChannelTypes) => {
     const {
       isParticipant,
       observing,
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    const isCollab = channel.format && (channel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || channel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+    const isCollab = channel.channelType === CHANNEL_COLLAB
 
     const filterMessages = () => {
       return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
@@ -195,70 +153,22 @@ export const handleAllInitialChannelMessages = (
       }
 
       const messages = filterMessages()
-      const v3Channel = channel as ChannelTypes
       // grow the existing channel definition to include the new UI-focussed entries
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
-        participants: channel.participants,
         forceIcons,
         forceColors,
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
-        format: channel.format,
-        channelType: v3Channel.channelType || CHANNEL_CUSTOM,
-        v3Channel: v3Channel.channelType ? v3Channel : undefined, // if there's a channel type, it's v3, so store it
-        collabOptions: channel.collabOptions
+        cData: channel
       }
 
       channels[channel.uniqid] = newChannel
     }
   })
-
-  // also sort out the RFI messages
-  const rfiMessages = messagesFiltered.filter((message: MessageChannel) => {
-    if (message.messageType === CUSTOM_MESSAGE) {
-      const custom = message as MessageCustom
-
-      // TODO: retire this support for legacy code in Autumn 2021
-      // see if this has a legacy role
-      const from: MessageDetailsFrom = custom.details.from
-      const fromAny: any = from
-      if (typeof fromAny.role === 'string') {
-        // ok, it's legacy data now called `roleName`
-        from.roleName = fromAny.role
-        const role = getRoleFromName(allForces, custom.details.from.force, from.roleName)
-        // try to sort out the role id
-        if (role) {
-          from.roleId = role.roleId
-          if (!from.forceId) {
-            // now try to sort the force
-            const force = allForces.find((force: ForceData) => force.name === custom.details.from.force)
-            if (force) {
-              from.forceId = force.uniqid
-            }
-          }
-        }
-      }
-
-      // see if this is a legacy owner
-      // TODO: retire this support in Autumn 2021
-      if (custom.details.collaboration) {
-        const collabAny: any = custom.details.collaboration
-        if (collabAny.owner && typeof collabAny.owner === 'string') {
-          // yes - update data model
-          const collab: CollaborationDetails | undefined = custom.details.collaboration
-          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner }
-        }
-      }
-
-      return custom.details.messageType === 'RFI'
-    }
-    return false
-  })
-  const rfiMessagesCustom = rfiMessages as Array<MessageCustom>
 
   return {
     channels,
@@ -266,7 +176,6 @@ export const handleAllInitialChannelMessages = (
       ...chatChannel,
       messages: chatMessages
     },
-    rfiMessages: rfiMessagesCustom,
     playerLog: playerLog
   }
 }
@@ -275,9 +184,8 @@ const handleChannelUpdates = (
   payload: MessageChannel,
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
-  rfiMessages: MessageCustom[],
   selectedForce: ForceData | undefined,
-  allChannels: ChannelData[],
+  allChannels: ChannelTypes[],
   selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
@@ -286,7 +194,6 @@ const handleChannelUpdates = (
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
-    rfiMessages: deepCopy(rfiMessages),
     playerLog: deepCopy(playerLog)
   }
 
@@ -300,7 +207,7 @@ const handleChannelUpdates = (
     // this message is a new version of the wargame document
 
     // create any new channels & add to current channel
-    allChannels.forEach((channel: ChannelData) => {
+    allChannels.forEach((channel: ChannelTypes) => {
       if (channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
@@ -326,7 +233,7 @@ const handleChannelUpdates = (
           // does this channel exist?
           if (!res.channels[channelId]) {
             // create and store it
-            res.channels[channelId] = createNewChannel(channel.uniqid)
+            res.channels[channelId] = createNewChannel(channel.uniqid, channel)
           }
 
           // already exists, get shortcut
@@ -348,7 +255,8 @@ const handleChannelUpdates = (
           }
 
           // force icons
-          const forceIcons = channel.participants && channel.participants.map((participant) => {
+          const cParts: CoreParticipant[] = channel.participants
+          const forceIcons = cParts && cParts.map((participant) => {
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.iconURL) || force?.icon
           })
@@ -357,7 +265,7 @@ const handleChannelUpdates = (
           }
 
           // force colors
-          const forceColors = channel.participants && channel.participants.map((participant) => {
+          const forceColors = cParts && cParts.map((participant) => {
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.color) || '#FFF'
           })
@@ -369,7 +277,7 @@ const handleChannelUpdates = (
         const thisChannel: ChannelUI = res.channels[channelId]
 
         // check if this is a collab channel, since we don't fire turn markers into collab channels
-        const collabChannel = thisChannel.format && (thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT || thisChannel.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE)
+        const collabChannel = thisChannel.cData && thisChannel.cData.channelType === CHANNEL_COLLAB
 
         // check if we're missing a turn marker for this turn
         if (thisChannel.messages && !collabChannel) {

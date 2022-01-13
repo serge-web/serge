@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, CollaborativeMessageStates2 } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 import { MessageCustom, Role } from '@serge/custom-types'
 import { forces } from "./forces.mock";
 
@@ -25,9 +25,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
-        status: CollaborativeMessageStates.Finalized,
-        status2: CollaborativeMessageStates2.Released,
-        response: 'Response to RFI 3'
+        status: CollaborativeMessageStates.Released,
+        response: {
+          content: 'Response to RFI 3'
+        }
       },
       turnNumber: 1
     },
@@ -112,8 +113,9 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
-        status2: CollaborativeMessageStates2.Closed,
-        response: 'Didn\'t bother responding'
+        response: {
+          content:  'Didn\'t bother responding'
+        }
       },
       turnNumber: 1
     },
@@ -198,8 +200,9 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
-        status2: CollaborativeMessageStates2.PendingReview,
-        response: 'Game control response to RFI 444',
+        response: {
+          content: 'Game control response to RFI 444'
+        },
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think about the children` },
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need more prep time` },
@@ -288,8 +291,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates.BeingEdited,
-        status2: CollaborativeMessageStates2.InProgress,
+        status: CollaborativeMessageStates.InProgress,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children` },
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time` },
@@ -368,9 +370,10 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates.Pending,
-        status2: CollaborativeMessageStates2.Unallocated,
-        response: 'Game control response to Blue-2'
+        status: CollaborativeMessageStates.Unallocated,
+        response: {
+          content: 'Game control response to Blue-2'
+        }
       },
       turnNumber: 1
     },
@@ -451,13 +454,12 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:54:21.119Z',
       privateMessage: 'The private element of the response',
       collaboration: {
-        response2: {
+        response: {
           content: 'Response to Blue-3a'
         },
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates.Pending,
         owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
-        status2: CollaborativeMessageStates2.Unallocated,
+        status: CollaborativeMessageStates.Unallocated,
         feedback: [
           { fromId: `rkrlw6f5f`, fromName: `Game Control`, fromForce: 'Red', date: `2020-10-13T08:55:21.119Z`, feedback: `Please think more about the children` },
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-12T07:25:21.119Z`, feedback: `Need even more prep time` },
@@ -494,9 +496,10 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates.BeingEdited,
-        status2: CollaborativeMessageStates2.InProgress,
-        response: 'Game control response to RFI 4'
+        status: CollaborativeMessageStates.InProgress,
+        response: {
+          content:  'Game control response to RFI 4'
+        }
       },
       turnNumber: 1
     },
@@ -530,8 +533,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
-        status2: CollaborativeMessageStates2.Closed,
-        response: 'Game control response to RFI 4',
+        response: {
+          content:  'Game control response to RFI 4'
+        },
         feedback: [
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan` }
         ]
@@ -568,8 +572,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
-        status2: CollaborativeMessageStates2.PendingReview,
-        response: 'Game control response to RFI 4'
+        response: {
+          content:  'Game control response to RFI 4'
+        }
       },
       turnNumber: 1
     },
@@ -603,8 +608,9 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released,
-        status2: CollaborativeMessageStates2.Released,
-        response: 'Game control response to Blue-2'
+        response: {
+          content:  'Game control response to Blue-2'
+        }
       },
       turnNumber: 1
     },

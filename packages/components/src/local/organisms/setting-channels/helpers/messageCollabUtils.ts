@@ -1,10 +1,10 @@
 import { CHANNEL_COLLAB, InitialStates } from '@serge/config'
-import { ChannelCollab, ChannelData, ParticipantTemplate } from '@serge/custom-types'
+import { ChannelCollab, ChannelTypes, ParticipantTemplate } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
 import { Action, MessageGroupType, MessagesValues } from './genMessageCollabEdit'
 import uniqBy from 'lodash/uniqBy'
 
-export const getSelectedValue = (type: string, channelData?: ChannelData): string[] => {
+export const getSelectedValue = (type: string, channelData?: ChannelTypes): string[] => {
   const collabChannel = channelData as unknown as ChannelCollab
   const {
     newMessageTemplate = { _id: '' },
@@ -40,7 +40,7 @@ export const getSelectedValue = (type: string, channelData?: ChannelData): strin
   }
 }
 
-export const getSelectedOptions = (type: string, messageLocal: MessagesValues, channelData?: ChannelData): Option[] => {
+export const getSelectedOptions = (type: string, messageLocal: MessagesValues, channelData?: ChannelTypes): Option[] => {
   const collabChannel = channelData as unknown as ChannelCollab
   const {
     requestChangesVerbs = [],
@@ -69,7 +69,7 @@ export const getSelectedOptions = (type: string, messageLocal: MessagesValues, c
   }
 }
 
-export const getMessagesValues = (isCollab: boolean, selectedChannel?: ChannelData): MessagesValues => {
+export const getMessagesValues = (isCollab: boolean, selectedChannel?: ChannelTypes): MessagesValues => {
   return {
     messageTemplate: isCollab ? getSelectedValue(MessageGroupType.MESSAGE_TEMPLATE, selectedChannel) : [],
     responseTemplate: isCollab ? getSelectedValue(MessageGroupType.RESPONSE_TEMPLATE, selectedChannel) : [],
@@ -81,7 +81,7 @@ export const getMessagesValues = (isCollab: boolean, selectedChannel?: ChannelDa
   }
 }
 
-export const isCollabChannel = (channelData?: ChannelData): boolean => {
+export const isCollabChannel = (channelData?: ChannelTypes): boolean => {
   if (!channelData) return false
   return 'channelType' in channelData && (channelData as unknown as ChannelCollab).channelType === CHANNEL_COLLAB
 }
@@ -104,7 +104,7 @@ const getInitialState = (state: string): InitialStates => {
   if (state === InitialStates.PENDING_REVIEW) return InitialStates.PENDING_REVIEW
   return InitialStates.UNALLOCATED
 }
-export const integrateWithLocalChanges = (options: Option[], channelData: ChannelData, messageUpdates: MessagesValues): ChannelData => {
+export const integrateWithLocalChanges = (options: Option[], channelData: ChannelTypes, messageUpdates: MessagesValues): ChannelTypes => {
   const nextChannel: ChannelCollab = ({ ...channelData }) as unknown as ChannelCollab
 
   const msgTpl = filterInByUniqId(messageUpdates, options, 'messageTemplate')
@@ -118,7 +118,7 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   nextChannel.approveVerbs = messageUpdates.approve
   nextChannel.releaseVerbs = messageUpdates.release
 
-  return nextChannel as unknown as ChannelData
+  return nextChannel as unknown as ChannelTypes
 }
 
 export const onMessageValuesChanged = (messageLocal: MessagesValues, value: string[], action: Action, type: string): MessagesValues => {

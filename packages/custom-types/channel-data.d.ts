@@ -1,33 +1,5 @@
-import Participant, { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
-import { SpecialChannelTypes, CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
-
-/** special configuration for collaborative channels */
-export interface CollabOptions {  
-  /** edit mode */
-  // TODO: drop this, we use channel.format
-  mode: 'edit' | 'response',
-  /** verbs for returning for edit */
-  returnVerbs: Array<string>,
-  /** who original document goes to first */
-  startWithReview : boolean,
-  /** extra columns to show in status view */
-  extraColumns: Array<SpecialChannelColumns>
-}
-
-/** description of channel, as stored in database */
-// @deprecate to be deleted
-export default interface ChannelData {
-  /** unique id for this channel */
-  readonly uniqid: string,
-  /** name of this channel */
-  name: string,
-  /** list of participants for this channel */
-  participants: Array<Participant>
-  /** special channel types */
-  format?: SpecialChannelTypes
-  /** special collaborative working options */
-  collabOptions?: CollabOptions
-}
+import { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
+import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
 
 /** description of channel, as stored in database */
 export interface ChannelCore {
@@ -72,11 +44,11 @@ export interface ChannelCollab extends ChannelCore {
   /** verbs for releasing document */
   releaseVerbs: Array<string>
   /** who original document goes to first */
-  initialState : InitialStates
+  initialState: InitialStates
   /** extra columns to show in status view */
   extraColumns: Array<SpecialChannelColumns>
   /** type for new document */
-  newMessageTemplate: ParticipantTemplate
+  newMessageTemplate: ParticipantTemplate | undefined
   /** type for response document */
   responseTemplate?: ParticipantTemplate
 }
@@ -84,5 +56,5 @@ export interface ChannelCollab extends ChannelCore {
 /** union of the assorted channel types */
 export type ChannelTypes = ChannelChat |
   ChannelCustom |
-  ChannelCollab | 
+  ChannelCollab |
   ChannelMapping
