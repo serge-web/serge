@@ -207,7 +207,7 @@ const AdminGameSetup = () => {
       const template = forceTemplate
       template.name = id
       template.uniqid = id
-      template.roles.map(role => {
+      template.roles.forEach(role => {
         role.roleId = getUniquePasscode(forces.forces, 'p')
       })
       dispatch(saveForce(currentWargame, id, template, id))
