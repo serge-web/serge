@@ -24,7 +24,9 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, CHANNEL_COLLAB, iconUploaderPath } from '@serge/config'
+import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
+
+const LEGACY_CHANNEL = ['collab-edit', 'collab-response']
 
 /**
  * TODOS:
@@ -55,9 +57,9 @@ const AdminGameSetup = () => {
   } = data
   const tabs = Object.keys(data)
 
-  // filter collab channels
+  // filter out all legacy channels
   const allChannels = channels.channels
-  channels.channels = allChannels.filter(channel => channel.channelType && channel.channelType === CHANNEL_COLLAB)
+  channels.channels = allChannels.filter(channel => !channel.format || !LEGACY_CHANNEL.includes(channel.format))
 
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
@@ -207,7 +209,6 @@ const AdminGameSetup = () => {
       template.uniqid = id
       template.roles.map(role => {
         role.roleId = getUniquePasscode(forces.forces, 'p')
-        return role
       })
       dispatch(saveForce(currentWargame, id, template, id))
     }
