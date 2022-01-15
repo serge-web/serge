@@ -112,7 +112,7 @@ const runServer = (
   app.post('/playerlog', (req, res) => {
     const { wargame, role } = req.body
     if (!wargame || !role) {
-      return res.status(200).send({})
+      return res.sendStatus(200)
     }
 
     const existingPlayerIdx = playerLog.findIndex(
@@ -129,7 +129,7 @@ const runServer = (
       playerLog.push(newPlayer)
     }
 
-    return res.status(200)
+    return res.sendStatus(200)
   })
 
   app.get('/playerlog', (_, res) => {
