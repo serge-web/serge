@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { PlayerLogPayload } from '../ActionsAndReducers/PlayerLog/PlayerLog_types'
-import { pingServer as pingServerApi } from '../api/wargames_api'
+import { pingServer as pingServerApi, sendPlayerLog } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
+import { usePlayerUiState } from '../Store/PlayerUi'
 
 type Notification = {
   message: string,
@@ -52,11 +53,8 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
     }
   }, [serverStatus, serverPingTime])
 
-  const pingServer = (playerLog: PlayerLogPayload) => {
-    const { wargame, role } = playerLog
-    console.log('WARGAME - ', wargame)
-    console.log('ROLEID - ', role)
-    return pingServerApi(wargame, role).then(res => {
+  const pingServer = () => {
+    return pingServerApi().then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -65,7 +63,8 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      pingServer(playerLog)
+      pingServer()
+      sendPlayerLog(playerLog)
     }, SERVER_PING_INTERVAL)
 
     return () => {

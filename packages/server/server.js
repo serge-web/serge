@@ -52,6 +52,8 @@ const runServer = (
   const playerLog = []
 
   app.use(cors(corsOptions))
+  app.use(express.json())
+
   app.use('/db', require('express-pouchdb')(PouchDB))
 
   app.get('/allDbs', (req, res) => {
@@ -101,21 +103,24 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
-    const { wargame, role } = req.headers
+    return res.status(200).send({
+      status: 'OK',
+      uptime: process.uptime()
+    })
+  })
+
+  app.post('/playerlog', (req, res) => {
+    const { wargame, role } = req.body
     if (!wargame || !role) {
-      return res.status(200).send({
-        status: 'OK',
-        uptime: process.uptime(),
-        playerLog
-      })
+      return res.status(200).send({})
     }
 
-    const existingPlayer = playerLog.filter(
+    const existingPlayerIdx = playerLog.findIndex(
       player => player.role === role && player.wargame === wargame
     )
-    if (existingPlayer.length) {
-      existingPlayer[0].updatedAt = new Date().getTime()
-    } else if (wargame && role) {
+    if (existingPlayerIdx !== -1) {
+      playerLog[existingPlayerIdx].updatedAt = new Date().getTime()
+    } else {
       const newPlayer = {
         wargame,
         role,
@@ -123,23 +128,25 @@ const runServer = (
       }
       playerLog.push(newPlayer)
     }
-    res.status(200).send({
-      status: 'OK',
-      uptime: process.uptime(),
-      playerLog
-    })
+
+    return res.status(200)
   })
 
-  app.get('/playerlog', (req, res) => {
-    const wargame = req.headers.wargame
-    console.log(wargame)
-    res.status(200).send({ log: playerLog[wargame] })
+  app.get('/playerlog', (_, res) => {
+    res.status(200).send(playerLog)
+  })
+
+  app.get('/playerlog/:wargame', (req, res) => {
+    const wargame = req.params.wargame
+    const selectedWargame = playerLog.find(log => log.wargame === wargame) || {}
+    res.status(200).send(selectedWargame)
   })
 
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
-      res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
-      return
+      return res.sendFile(
+        path.join(process.cwd(), dataDir, req.params.filename)
+      )
     }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })

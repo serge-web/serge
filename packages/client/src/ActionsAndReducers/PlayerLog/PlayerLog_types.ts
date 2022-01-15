@@ -6,5 +6,5 @@ export type PLayerLogAction = {
 export type PlayerLogPayload = {
   wargame: string
   role: string
-  sendAt: number
+  updatedAt?: number
 }

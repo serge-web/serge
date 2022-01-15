@@ -1,0 +1,130 @@
+.modal {
+  position: absolute;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 4px;
+  outline: none;
+  top: 50%;
+  left: 50%;
+  width: 45%;
+  height: 80%;
+  min-height: 450px;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.modalHeader {
+  padding: 10px;
+}
+
+.closeIcon {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 900;
+  font-size: larger;
+  width: 100%;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+.playerLogIcon {
+  margin: -10px 0 0 10px;
+  display: flex;
+  align-items: flex-start;
+
+  svg {
+    color: rgb(00, 00, 00);
+    font-size: 50px;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.titleMain {
+  text-decoration: underline;
+  font-weight: 900;
+  font-size: x-large;
+}
+
+.titleHint {
+  font-size: small;
+}
+
+.content {
+  border: 30px solid rgb(22, 49, 72);
+  border-radius: 100px;
+  margin: 30px 20px 0 20px;
+  height: 75%;
+}
+
+.tableContent {
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 70%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+
+  span {
+    &:nth-child(1) {
+      width: 33%;
+    }
+    &:nth-child(2) {
+      width: 33%;
+    }
+    &:nth-child(3) {
+      width: 34%;
+    }
+  }
+}
+
+.header {
+  border-bottom: 1px solid #000;
+  padding: 2px;
+}
+
+.item {
+  margin-top: 5px;
+
+  span {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    margin: 5px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+
+    &:nth-child(1) {
+      color: rgb(23, 23, 170);
+      font-weight: 700;
+
+      p {
+        margin-top: 15px;
+        margin-right: 5px;
+      }
+    }
+
+    &:nth-child(3) {
+      font-size: 12px;
+      font-style: italic;
+    }
+  }
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+}
