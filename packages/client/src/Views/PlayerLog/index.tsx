@@ -83,19 +83,21 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
               <div className={cx(styles.row, styles.header)}>
                 <span>Role</span>
                 <span>Message</span>
-                <span>Sent At</span>
+                <span>Sent at</span>
               </div>
               {playerLog.length === 0 &&
                 <div className={styles.loader}>
                   <CircularProgress />
                 </div>}
-              {playerLog.map((log, idx) => (
-                <div key={idx} className={cx(styles.row, styles.item)}>
-                  <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
-                  <span>{log.message}</span>
-                  <span>{log.updatedAt}</span>
-                </div>
-              ))}
+              <div className={styles.logContent}>
+                {playerLog.map((log, idx) => (
+                  <div key={idx} className={cx(styles.row, styles.item)}>
+                    <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
+                    <span>{log.message}</span>
+                    <span>{log.updatedAt}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )
         }
