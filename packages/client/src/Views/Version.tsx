@@ -6,7 +6,6 @@ import { addNotification, hideNotification } from '../ActionsAndReducers/Notific
 import { PlayerLogPayload } from '../ActionsAndReducers/PlayerLog/PlayerLog_types'
 import { pingServer as pingServerApi, sendPlayerLog } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
-import { usePlayerUiState } from '../Store/PlayerUi'
 
 type Notification = {
   message: string,
