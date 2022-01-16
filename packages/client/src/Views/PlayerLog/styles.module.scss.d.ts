@@ -16,6 +16,7 @@ interface CssExports {
   'item': string;
   'active': string;
   'inactive': string;
+  'loader': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

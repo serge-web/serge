@@ -1,5 +1,6 @@
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { Tabs } from '@serge/components'
 import cx from 'classnames'
 import moment from 'moment'
@@ -26,9 +27,6 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
   const onTabChanged = (changedTab: string): void => {
     setActivaTab(changedTab)
   }
-
-
-  let getPlaylogInterval: NodeJS.Timeout
 
   useEffect(() => {
     if (isOpen) {
@@ -87,9 +85,13 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
                 <span>Message</span>
                 <span>Sent At</span>
               </div>
+              {playerLog.length === 0 &&
+                <div className={styles.loader}>
+                  <CircularProgress />
+                </div>}
               {playerLog.map((log, idx) => (
                 <div key={idx} className={cx(styles.row, styles.item)}>
-                  <span><p className={cx({ [styles.active]: log.active })}>●</p> {log.roleName}</span>
+                  <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
                   <span>{log.message}</span>
                   <span>{log.updatedAt}</span>
                 </div>
