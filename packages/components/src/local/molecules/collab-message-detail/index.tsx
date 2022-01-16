@@ -146,7 +146,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
 
-  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void } | undefined>()
+  const [modalHandler, setModalHandler] = useState<{ (message: MessageCustom): void } | undefined>()
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
@@ -325,7 +325,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
     const isOwner = role.roleId === collaboration.owner?.roleId
     const privateIsEditable = inProgress && saveOrSubmit && isOwner
 
-    const actions = (actionTable && Object.keys(actionTable).length && haveData) ? actionsFor(actionTable, state, permission, isOwner) : []
+    const actions = (actionTable && actionTable[state] && haveData) ? actionsFor(actionTable, state, permission, isOwner) : []
 
     // reverse the actions, so the lowest permission is on the right
     const reverseActions = actions.reverse()

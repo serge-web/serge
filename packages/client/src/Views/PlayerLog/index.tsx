@@ -28,30 +28,35 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
     setActivaTab(changedTab)
   }
 
+  const fetchPlayerlog = (): void => {
+    getPlayerLogs().then((payload: PlayerLogPayload[]) => {
+      const logDataModal: PlayerLogModal[] = []
+      payload.forEach(log => {
+        for (let i = 0; i < allForces.length; i++) {
+          const role = allForces[i].roles.find(role => role.roleId === log.role)
+          if (role) {
+            logDataModal.push({
+              roleName: role.name,
+              message: 'message', // TODO: get message info
+              updatedAt: moment(log.updatedAt).fromNow(),
+              active: (moment().diff(moment(log.updatedAt)) / 60000) < 1
+            })
+            break;
+          }
+        }
+      })
+      setPlayerLog(logDataModal)
+    })
+  }
+
   useEffect(() => {
     if (isOpen) {
       setLoop(setInterval(() => {
-        getPlayerLogs().then((payload: PlayerLogPayload[]) => {
-          const logDataModal: PlayerLogModal[] = []
-          payload.forEach(log => {
-            for (let i = 0; i < allForces.length; i++) {
-              const role = allForces[i].roles.find(role => role.roleId === log.role)
-              if (role) {
-                logDataModal.push({
-                  roleName: role.name,
-                  message: 'message', // TODO: get message info
-                  updatedAt: moment(log.updatedAt).fromNow(),
-                  active: (moment().diff(moment(log.updatedAt)) / 60000) < 1
-                })
-                break;
-              }
-            }
-          })
-          setPlayerLog(logDataModal)
-        })
+        fetchPlayerlog()
       }, REFRESH_PLAYER_LOG_INTERVAL))
 
     } else {
+      fetchPlayerlog()
       clearInterval(loop)
     }
   }, [isOpen])
