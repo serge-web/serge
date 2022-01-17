@@ -55,14 +55,12 @@
 }
 
 .content {
-  border: 30px solid rgb(22, 49, 72);
-  border-radius: 100px;
   margin: 30px 20px 0 20px;
   height: 75%;
 }
 
 .tableContent {
-  padding: 20px;
+  padding: 0 20px 0 20px;
   max-height: 70%;
 }
 
@@ -75,7 +73,7 @@
 .logContent {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 35vh;
+  height: 42vh;
 }
 
 .row {
@@ -87,9 +85,11 @@
     &:nth-child(1) {
       width: 33%;
     }
+
     &:nth-child(2) {
       width: 33%;
     }
+
     &:nth-child(3) {
       width: 34%;
     }
@@ -129,6 +129,7 @@
     &:nth-child(3) {
       font-size: 12px;
       font-style: italic;
+      margin-right: unset;
     }
   }
 }
@@ -139,4 +140,29 @@
 
 .inactive {
   color: red;
+}
+
+@keyframes rotation{
+  from{
+    transform: rotate(0);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+  
+.refreshIcon {
+  svg {
+    margin-bottom: -40px;
+    font-size: 18px;
+  }
+}
+
+.rotate {
+  svg {
+    animation-name: rotation;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
 }

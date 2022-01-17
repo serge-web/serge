@@ -1,6 +1,7 @@
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import RefreshIcon from '@material-ui/icons/Cached'
 import { Tabs } from '@serge/components'
 import cx from 'classnames'
 import moment from 'moment'
@@ -23,13 +24,16 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
   const [loop, setLoop] = useState<any>();
   const [activeTab, setActivaTab] = useState<string>(playerLogTabs[0])
   const [playerLog, setPlayerLog] = useState<PlayerLogModal[]>([])
+  const [refreshing, setRefreshState] = useState<boolean>(false)
 
   const onTabChanged = (changedTab: string): void => {
     setActivaTab(changedTab)
   }
 
   const fetchPlayerlog = (): void => {
+    setRefreshState(true)
     getPlayerLogs().then((payload: PlayerLogPayload[]) => {
+      setRefreshState(false)
       const logDataModal: PlayerLogModal[] = []
       payload.forEach(log => {
         for (let i = 0; i < allForces.length; i++) {
@@ -85,6 +89,7 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
         {
           activeTab === 'overview' && (
             <div className={styles.tableContent}>
+              <span className={cx({ [styles.refreshIcon]: true, [styles.rotate]: refreshing })}><RefreshIcon /></span>
               <div className={cx(styles.row, styles.header)}>
                 <span>Role</span>
                 <span>Message</span>

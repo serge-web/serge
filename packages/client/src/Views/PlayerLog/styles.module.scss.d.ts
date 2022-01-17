@@ -18,6 +18,8 @@ interface CssExports {
   'inactive': string;
   'loader': string;
   'logContent': string;
+  'refreshIcon': string;
+  'rotate': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
