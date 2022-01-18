@@ -7,7 +7,6 @@ const initialState: PlayerLogPayload = {
 }
 
 export const addPlayerLogReducer = (state = initialState, action: PLayerLogAction) => {
-
   switch (action.type) {
     case ActionConstant.ADD_PLAYER_LOG:
       return action.payload
