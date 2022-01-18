@@ -20,10 +20,10 @@ const playerLogTabs = [
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
 
 const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
-  const { allForces } = usePlayerUiState()
+  const { allForces, playerLog } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
   const [activeTab, setActivaTab] = useState<string>(playerLogTabs[0])
-  const [playerLog, setPlayerLog] = useState<PlayerLogModal[]>([])
+  const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [refreshing, setRefreshState] = useState<boolean>(false)
 
   const onTabChanged = (changedTab: string): void => {
@@ -39,9 +39,10 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
         for (let i = 0; i < allForces.length; i++) {
           const role = allForces[i].roles.find(role => role.roleId === log.role)
           if (role) {
+            const message = (playerLog[role.roleId] && playerLog[role.roleId].lastMessageTitle) || 'N/A'
             logDataModal.push({
               roleName: role.name,
-              message: 'message', // TODO: get message info
+              message,
               updatedAt: moment(log.updatedAt).fromNow(),
               active: (moment().diff(moment(log.updatedAt)) / 60000) < 1
             })
@@ -49,7 +50,7 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
           }
         }
       })
-      setPlayerLog(logDataModal)
+      setPlayerLogData(logDataModal)
     })
   }
 
@@ -95,12 +96,12 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
                 <span>Message</span>
                 <span>Sent at</span>
               </div>
-              {playerLog.length === 0 &&
+              {playerLogData.length === 0 &&
                 <div className={styles.loader}>
                   <CircularProgress />
                 </div>}
               <div className={styles.logContent}>
-                {playerLog.map((log, idx) => (
+                {playerLogData.map((log, idx) => (
                   <div key={idx} className={cx(styles.row, styles.item)}>
                     <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
                     <span>{log.message}</span>
