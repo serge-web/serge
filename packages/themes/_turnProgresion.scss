@@ -16,9 +16,16 @@
     width: fit-content;
   }
 
-  svg {
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  span {
     color: $primary-triad-color;
     cursor: pointer;
+    margin-left: 5px;
   }
 }
 
