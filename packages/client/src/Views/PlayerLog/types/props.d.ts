@@ -4,8 +4,13 @@ export type PLayerLogProps = {
 }
 
 export type PlayerLogModal = {
+  forceName: string
   roleName: string
   message: string
-  updatedAt: string
+  /** time the last message was sent */
+  lastMessage: string
+  /** time the player was last present */
+  lastActive: string
+  /** whether player recently active */
   active: boolean
 }
