@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import RefreshIcon from '@material-ui/icons/Cached'
 import { Tabs } from '@serge/components'
+import { ForceData, PlayerLogInstance, Role } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -12,6 +13,7 @@ import { getPlayerLogs } from '../../api/wargames_api'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import styles from './styles.module.scss'
 import { PlayerLogModal, PLayerLogProps } from './types/props'
+import { uniq } from 'lodash'
 
 const playerLogTabs = [
   'overview'
@@ -19,8 +21,11 @@ const playerLogTabs = [
 
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
 
+// the player must have been active within this threshold to be treated as `ACTIVE`
+const AGE_FOR_ACTIVE_MILLIS = 60000
+
 const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
-  const { allForces, playerLog } = usePlayerUiState()
+  const { allForces, playerLog, currentWargame } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
   const [activeTab, setActivaTab] = useState<string>(playerLogTabs[0])
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
@@ -35,20 +40,29 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
     getPlayerLogs().then((payload: PlayerLogPayload[]) => {
       setRefreshState(false)
       const logDataModal: PlayerLogModal[] = []
-      payload.forEach(log => {
-        for (let i = 0; i < allForces.length; i++) {
-          const role = allForces[i].roles.find(role => role.roleId === log.role)
-          if (role) {
-            const message = (playerLog[role.roleId] && playerLog[role.roleId].lastMessageTitle) || 'N/A'
+      const activityLogsForThisWargame = payload.filter((value:PlayerLogPayload) => value.wargame === currentWargame)
+      const activityRoles = activityLogsForThisWargame.map((value: PlayerLogPayload) => value.role)
+      const messageRoles = Object.values(playerLog).map((value: PlayerLogInstance) => value.roleId)
+      const knownRoles = activityRoles.concat(messageRoles)
+      const uniqueRoles = uniq(knownRoles)
+
+      allForces.forEach((force: ForceData) => {
+        force.roles.forEach((role: Role) => {
+          if(uniqueRoles.includes(role.roleId)) {
+            const activity = activityLogsForThisWargame.find((value: PlayerLogPayload) => value.role === role.roleId)
+            const lastMessage = playerLog[role.roleId]
+            const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
+            const messageTime = lastMessage && lastMessage.lastMessageTime
             logDataModal.push({
+              forceName: force.name,
               roleName: role.name,
               message,
-              updatedAt: moment(log.updatedAt).fromNow(),
-              active: (moment().diff(moment(log.updatedAt)) / 60000) < 1
+              lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
+              lastActive: activity ? moment(activity.updatedAt).fromNow() : 'N/A',
+              active: activity && (moment().diff(moment(activity.updatedAt))) < AGE_FOR_ACTIVE_MILLIS || false
             })
-            break;
           }
-        }
+        })
       })
       setPlayerLogData(logDataModal)
     })
@@ -92,7 +106,9 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
             <div className={styles.tableContent}>
               <span className={cx({ [styles.refreshIcon]: true, [styles.rotate]: refreshing })}><RefreshIcon /></span>
               <div className={cx(styles.row, styles.header)}>
+                <span>Force</span>
                 <span>Role</span>
+                <span>Last Active</span>
                 <span>Message</span>
                 <span>Sent at</span>
               </div>
@@ -103,9 +119,11 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
               <div className={styles.logContent}>
                 {playerLogData.map((log, idx) => (
                   <div key={idx} className={cx(styles.row, styles.item)}>
+                    <span>{log.forceName}</span>
                     <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
+                    <span>{log.lastActive}</span>
                     <span>{log.message}</span>
-                    <span>{log.updatedAt}</span>
+                    <span>{log.lastMessage}</span>
                   </div>
                 ))}
               </div>

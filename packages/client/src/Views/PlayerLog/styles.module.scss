@@ -6,7 +6,7 @@
   outline: none;
   top: 50%;
   left: 50%;
-  width: 45%;
+  width: 900px;
   height: 80%;
   min-height: 450px;
   margin-right: -50%;
@@ -83,15 +83,25 @@
 
   span {
     &:nth-child(1) {
-      width: 33%;
+      width: 20%;
     }
 
     &:nth-child(2) {
-      width: 33%;
+      width: 20%;
     }
 
     &:nth-child(3) {
-      width: 34%;
+      width: 20%;
+      font-size: 12px;
+    }
+
+    &:nth-child(4) {
+      width: 20%;
+    }
+
+    &:nth-child(5) {
+      width: 20%;
+      font-size: 12px;
     }
   }
 }
@@ -117,7 +127,6 @@
     font-weight: 600;
 
     &:nth-child(1) {
-      color: rgb(23, 23, 170);
       font-weight: 700;
 
       p {
@@ -126,11 +135,11 @@
       }
     }
 
-    &:nth-child(3) {
-      font-size: 12px;
-      font-style: italic;
-      margin-right: unset;
-    }
+    // &:nth-child(3) {
+    //   font-size: 12px;
+    //   font-style: italic;
+    //   margin-right: unset;
+    // }
   }
 }
 
