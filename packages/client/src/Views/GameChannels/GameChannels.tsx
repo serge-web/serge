@@ -55,17 +55,19 @@ const GameChannels: React.FC = (): React.ReactElement => {
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
         if (el) window.channelTabsContainer[selectedForce.uniqid] = el
-      }}/>
+      }} />
     </div>
-    <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl})} data-tour="fifth-step">
+    <div className={classNames({ "message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl })} data-tour="fifth-step">
       <div className="flex-content wargame-title">
         <h3>{wargameTitle}</h3>
-        <span onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
-          <strong className="sr-only">Show lesson</strong>
-        </span>
-        <span className="tutorial">
-          <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
-        </span>
+        <div>
+          <span onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
+            <strong className="sr-only">Show lesson</strong>
+          </span>
+          <span className="tutorial">
+            <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
+          </span>
+        </div>
       </div>
       <TurnProgression
         adjudicationStartTime={adjudicationStartTime}
