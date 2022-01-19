@@ -2,7 +2,6 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import RefreshIcon from '@material-ui/icons/Cached'
-import { Tabs } from '@serge/components'
 import { ForceData, PlayerLogInstance, Role } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
@@ -15,10 +14,6 @@ import styles from './styles.module.scss'
 import { PlayerLogModal, PLayerLogProps } from './types/props'
 import { uniq } from 'lodash'
 
-const playerLogTabs = [
-  'overview'
-]
-
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
 
 // the player must have been active within this threshold to be treated as `ACTIVE`
@@ -27,13 +22,8 @@ const AGE_FOR_ACTIVE_MILLIS = 60000
 const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
   const { allForces, playerLog, currentWargame } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
-  const [activeTab, setActivaTab] = useState<string>(playerLogTabs[0])
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [refreshing, setRefreshState] = useState<boolean>(false)
-
-  const onTabChanged = (changedTab: string): void => {
-    setActivaTab(changedTab)
-  }
 
   const fetchPlayerlog = (): void => {
     setRefreshState(true)
@@ -100,36 +90,31 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
         </div>
       </div>
       <div className={styles.content}>
-        <Tabs activeTab={activeTab} onChange={onTabChanged} tabs={playerLogTabs} />
-        {
-          activeTab === 'overview' && (
-            <div className={styles.tableContent}>
-              <span className={cx({ [styles.refreshIcon]: true, [styles.rotate]: refreshing })}><RefreshIcon /></span>
-              <div className={cx(styles.row, styles.header)}>
-                <span>Force</span>
-                <span>Role</span>
-                <span>Last Active</span>
-                <span>Message</span>
-                <span>Sent at</span>
+        <div className={styles.tableContent}>
+          <span className={cx({ [styles.refreshIcon]: true, [styles.rotate]: refreshing })}><RefreshIcon /></span>
+          <div className={cx(styles.row, styles.header)}>
+            <span>Force</span>
+            <span>Role</span>
+            <span>Last Active</span>
+            <span>Message</span>
+            <span>Sent at</span>
+          </div>
+          {playerLogData.length === 0 &&
+            <div className={styles.loader}>
+              <CircularProgress />
+            </div>}
+          <div className={styles.logContent}>
+            {playerLogData.map((log, idx) => (
+              <div key={idx} className={cx(styles.row, styles.item)}>
+                <span>{log.forceName}</span>
+                <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
+                <span>{log.lastActive}</span>
+                <span>{log.message}</span>
+                <span>{log.lastMessage}</span>
               </div>
-              {playerLogData.length === 0 &&
-                <div className={styles.loader}>
-                  <CircularProgress />
-                </div>}
-              <div className={styles.logContent}>
-                {playerLogData.map((log, idx) => (
-                  <div key={idx} className={cx(styles.row, styles.item)}>
-                    <span>{log.forceName}</span>
-                    <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
-                    <span>{log.lastActive}</span>
-                    <span>{log.message}</span>
-                    <span>{log.lastMessage}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )
-        }
+            ))}
+          </div>
+        </div>
       </div>
     </Modal>
   )
