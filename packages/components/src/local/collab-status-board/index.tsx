@@ -6,6 +6,7 @@ import { setMessageState } from '@serge/helpers'
 import DataTable from 'react-data-table-component'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import _ from 'lodash'
 
 /* Import Types */
 import Props, { Row } from './types/props'
@@ -47,7 +48,6 @@ export const CollabStatusBoard: React.FC<Props> = ({
 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)
-
   const { rows, columns, customStyles } = genData(
     filteredDoc,
     forces,
@@ -149,4 +149,10 @@ export const CollabStatusBoard: React.FC<Props> = ({
   )
 }
 
-export default CollabStatusBoard
+export default React.memo(CollabStatusBoard, (prev: Props, next: Props): boolean => {
+  return _.isEqual(prev.messages, next.messages) &&
+        _.isEqual(prev.templates, next.templates) &&
+        _.isEqual(prev.role, next.role) &&
+        _.isEqual(prev.forces, next.forces) &&
+        _.isEqual(prev.channelColb, next.channelColb)
+})
