@@ -146,7 +146,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
 
-  const [modalHandler, setModalHandler] = useState<{ (message: MessageCustom): void } | undefined>()
+  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void } | undefined>()
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
