@@ -1,8 +1,9 @@
 .color-box {
   display: inline-block;
   width: 20px;
-  height: 1rem;
+  height: 20px;
   border: 2px solid #fff;
+  border-radius: 10px;
   /* Show grey if no colour is specified */
   background-color: #ccc;
   vertical-align: middle;
