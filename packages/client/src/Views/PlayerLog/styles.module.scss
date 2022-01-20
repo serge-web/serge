@@ -134,21 +134,23 @@
         margin-right: 2px;
       }
     }
-
-    // &:nth-child(3) {
-    //   font-size: 12px;
-    //   font-style: italic;
-    //   margin-right: unset;
-    // }
   }
 }
 
 .active {
-  color: green;
+  border: 2px solid #555;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
+  background-color: green;
 }
 
 .inactive {
-  color: red;
+  border: 2px solid #555;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
+  background-color: red;
 }
 
 @keyframes rotation{
@@ -174,4 +176,18 @@
     animation-timing-function: linear;
     animation-fill-mode: both;
   }
+}
+
+.role-icon {
+  border: 2px solid #555;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
+}
+
+.roleicon {
+  border: 2px solid #555;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
 }

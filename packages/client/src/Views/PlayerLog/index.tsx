@@ -30,7 +30,7 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
     getPlayerLogs().then((payload: PlayerLogPayload[]) => {
       setRefreshState(false)
       const logDataModal: PlayerLogModal[] = []
-      const activityLogsForThisWargame = payload && payload.length && payload.filter((value:PlayerLogPayload) => value.wargame === currentWargame) || []
+      const activityLogsForThisWargame = payload && payload.length && payload.filter((value: PlayerLogPayload) => value.wargame === currentWargame) || []
       const activityRoles = activityLogsForThisWargame.map((value: PlayerLogPayload) => value.role)
       const messageRoles = Object.values(playerLog).map((value: PlayerLogInstance) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
@@ -38,13 +38,14 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
 
       allForces.forEach((force: ForceData) => {
         force.roles.forEach((role: Role) => {
-          if(uniqueRoles.includes(role.roleId)) {
+          if (uniqueRoles.includes(role.roleId)) {
             const activity = activityLogsForThisWargame.find((value: PlayerLogPayload) => value.role === role.roleId)
             const lastMessage = playerLog[role.roleId]
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
             logDataModal.push({
               forceName: force.name,
+              forceColor: force.color,
               roleName: role.name,
               message,
               lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
@@ -106,8 +107,13 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
           <div className={styles.logContent}>
             {playerLogData.map((log, idx) => (
               <div key={idx} className={cx(styles.row, styles.item)}>
-                <span>{log.forceName}</span>
-                <span><p className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })}>●</p> {log.roleName}</span>
+                <span>
+                  <img key={'force_icon_' + idx} className={styles['role-icon']} alt="" style={{ backgroundColor: log.forceColor }}/>&nbsp;
+                  {log.forceName}
+                </span>
+                <span>
+                <img key={'active_icon_' + idx} className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })} alt=""/>&nbsp;{log.roleName}
+                </span>
                 <span>{log.lastActive}</span>
                 <span>{log.message}</span>
                 <span>{log.lastMessage}</span>

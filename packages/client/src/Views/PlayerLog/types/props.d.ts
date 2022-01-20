@@ -5,6 +5,8 @@ export type PLayerLogProps = {
 
 export type PlayerLogModal = {
   forceName: string
+  /* hex code for force color */
+  forceColor: string
   roleName: string
   message: string
   /** time the last message was sent */
