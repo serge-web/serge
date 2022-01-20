@@ -354,39 +354,30 @@ it('updates payload', () => {
   const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
     allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
 
-  expect(res).toBeTruthy()
-  const channelId = 'channel-k63pjvpb'
-  expect(res.channels[channelId].messages).toBeTruthy()
-  expect(res.channels[channelId].messages?.length).toEqual(1)
-
   const playerLog2 = res.playerLog
   expect(Object.values(playerLog2).length).toEqual(0)
 
-  // send in a new normal channel message
+  // prepare normal channel message
   const payload2: MessageCustom = deepCopy(GameMessagesMock[0])
-  payload2.details.channel = channelId
+
   // replace the message id
   const messageId = 'bongo'
   const payload3 = Object.assign(payload2, { _id: messageId })
 
-  // regenerate channels
+  // check the message is what we're expecting
+  const redCO: Role = forces[2].roles[0]
+  expect(payload2.details.from.roleId).toEqual(redCO.roleId)
+
+  // process new message
   const res2: SetWargameMessage = handleChannelUpdates(payload3, res.channels, chatChannel, blueForce,
     allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
 
+  // check player log gets updated
   const playerLog3 = res2.playerLog
   expect(Object.values(playerLog3).length).toEqual(1)
-  const redCO: Role = forces[2].roles[0]
   const redEntry = playerLog3[redCO.roleId]
   expect(redEntry).toBeTruthy()
   expect(redEntry.roleId).toEqual(redCO.roleId)
-  const genericMessage: any = GameMessagesMock[0] as unknown
-  expect(redEntry.lastMessageTime).toEqual(genericMessage.details.timestamp)
-
-  expect(res2).toBeTruthy()
-  expect(res2.channels[channelId].messages).toBeTruthy()
-  expect(res2.channels[channelId].messages?.length).toEqual(2)
-  const messages = res2.channels[channelId].messages
-  if (messages) {
-    expect(messages[0]._id).toEqual(messageId)
-  }
+  const genericMessage2: any = GameMessagesMock[0] as unknown
+  expect(redEntry.lastMessageTime).toEqual(genericMessage2.details.timestamp)
 })
