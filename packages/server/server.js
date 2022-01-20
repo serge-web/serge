@@ -13,7 +13,7 @@ const runServer = (
   const express = require('express')
   const path = require('path')
   const uniqid = require('uniqid')
-  const archiver = require('archiver');
+  const archiver = require('archiver')
 
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
@@ -48,6 +48,9 @@ const runServer = (
 
   const clientBuildPath = '../client/build'
 
+  // log of time of receipt of player heartbeat messages
+  const playerLog = {}
+
   app.use(cors(corsOptions))
   app.use('/db', require('express-pouchdb')(PouchDB))
 
@@ -74,9 +77,9 @@ const runServer = (
     const archive = archiver('zip')
 
     archive.pipe(output)
-    
+
     archive.directory(path.join(__dirname, 'db'), false)
-    
+
     archive.finalize()
 
     setTimeout(() => res.download(path.join(__dirname, 'all_dbs.zip')), 500)
@@ -98,10 +101,27 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
+    const wargame = req.headers.wargame
+    const role = req.headers.role
+    // if we have wargame & role, store the date-time
+    if (wargame && wargame.length && role && role.length) {
+      let wargameLog = playerLog[wargame]
+      if (!wargameLog) {
+        wargameLog = playerLog[wargame] = {}
+      }
+      wargameLog[role] = new Date().toISOString()
+    }
     res.status(200).send({
       status: 'OK',
-      uptime: process.uptime()
+      uptime: process.uptime(),
+      wargame: wargame,
+      role: role
     })
+  })
+
+  app.get('/playerlog', (req, res) => {
+    const wargame = req.headers.wargame
+    res.status(200).send({ log: playerLog[wargame] })
   })
 
   app.get('/cells/:filename', (req, res) => {

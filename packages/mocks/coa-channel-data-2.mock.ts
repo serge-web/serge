@@ -1,5 +1,5 @@
 import { ChannelCollab, ForceData, ForceRole } from '@serge/custom-types'
-import { CHANNEL_COLLAB, CollaborativePermission, InitialStates } from '@serge/config'
+import { CHANNEL_COLLAB, CollaborativePermission, InitialStates, PARTICIPANT_COLLAB } from '@serge/config'
 import { forces } from '.'
 import { cloneDeep } from 'lodash'
 
@@ -18,22 +18,24 @@ export const channelCollaborativeEditing2: ChannelCollab = {
   extraColumns: [],
   releaseVerbs: ['Finalize 2'],
   initialState: InitialStates.UNALLOCATED,
-  newMessageTemplate:{ title: 'COA', _id: 'k16eedkj' },
+  newMessageTemplate: { title: 'COA', _id: 'k16eedkj' },
   name: 'Collab Editing 1',
   participants: [
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
-      viewUnreleasedVersions: true, 
-      permission: CollaborativePermission.CanSubmitForReview, 
+      viewUnreleasedVersions: true,
+      permission: CollaborativePermission.CanSubmitForReview,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'oqoj'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
-      viewUnreleasedVersions: true, 
-      permission: CollaborativePermission.CanRelease, 
+      viewUnreleasedVersions: true,
+      permission: CollaborativePermission.CanRelease,
       force: 'Blue',
       forceUniqid: 'Blue',
       roles: [blueReleaseManager2.roleId],
@@ -58,11 +60,12 @@ export const channelCollaborativeResponding2: ChannelCollab = {
   initialState: InitialStates.UNALLOCATED,
   name: 'Collab responding 1',
   newMessageTemplate: { title: 'RFI', _id: 'k16eedkj' },
-  responseTemplate: { title: 'Chat', _id: 'idchat' },
+  responseTemplate: { title: 'Chat', _id: 'k16eedkl' },
   participants: [
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
-      viewUnreleasedVersions: false, 
+      viewUnreleasedVersions: false,
       permission: CollaborativePermission.CannotCollaborate,
       force: 'Blue',
       forceUniqid: 'Blue',
@@ -70,8 +73,9 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       subscriptionId: 'jvrn1'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
-      viewUnreleasedVersions: true, 
+      viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanSubmitForReview,
       force: 'EXCON',
       forceUniqid: 'Red',
@@ -79,8 +83,9 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       subscriptionId: 'jvrn2'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
-      viewUnreleasedVersions: true, 
+      viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanApprove,
       force: 'White',
       forceUniqid: 'umpire',
@@ -88,8 +93,9 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       subscriptionId: 'jvrn3'
     },
     {
+      pType: PARTICIPANT_COLLAB,
       canCreate: true,
-      viewUnreleasedVersions: true, 
+      viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanRelease,
       force: 'White',
       forceUniqid: 'umpire',

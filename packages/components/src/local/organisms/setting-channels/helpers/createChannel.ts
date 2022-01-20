@@ -1,11 +1,12 @@
-import { ChannelData, ForceData, Participant } from '@serge/custom-types'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
+import { ChannelCollab, ChannelTypes, ForceData } from '@serge/custom-types'
+import { ChannelChat, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
+import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import uniqid from 'uniqid'
-import { SpecialChannelTypes, SpecialChannelColumns } from '@serge/config'
 import { generateSubscriptionId } from './createParticipant'
-import { CollabOptions } from '@serge/custom-types/channel-data'
 
 // Create uniq chanel name
-const generateChannelName = (channels: ChannelData[], key = 1, exclude = -1, defName = 'New Channel'): string => {
+const generateChannelName = (channels: ChannelTypes[], key = 1, exclude = -1, defName = 'New Channel'): string => {
   let name: string = defName
   if (key > 1) name += ' ' + key
   const channelWithSameName = channels.find((channel, key) => (name === channel.name && key !== exclude))
@@ -17,65 +18,93 @@ const generateChannelName = (channels: ChannelData[], key = 1, exclude = -1, def
 
 const createChannel = (
   // all channels list, need to create uniq name
-  channels: ChannelData[],
+  channels: ChannelTypes[],
   // for which force we need to create Original Template if format given
   defaultForce: ForceData,
   // On special channel creation
   format?: SpecialChannelTypes
-): ChannelData => {
-  // Empty Participant array for standart channels
-  const participants: Participant[] = []
-  let collabOptions: CollabOptions | undefined
-
+): ChannelTypes => {
   // IF format given apply Original template based on format
   if (typeof format !== 'undefined') {
     // Create
-    if (
-      format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ||
-      format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
-    ) {
-      // create new participant
-      const participant: Participant = {
-        force: defaultForce.name,
-        forceUniqid: defaultForce.uniqid,
-        roles: [],
-        templates: [{ _id: 'k16eedkj', title: 'RFI' }],
-        subscriptionId: generateSubscriptionId(),
-        canCollaborate: false,
-        canReleaseMessages: false,
-        canUnClaimMessages: false
+    switch (format) {
+      case SpecialChannelTypes.CHANNEL_COLLAB: {
+        // create new participant
+        const participant: ParticipantCollab = {
+          force: defaultForce.name,
+          forceUniqid: defaultForce.uniqid,
+          roles: [],
+          subscriptionId: generateSubscriptionId(),
+          pType: PARTICIPANT_COLLAB,
+          canCreate: true,
+          viewUnreleasedVersions: true,
+          permission: CollaborativePermission.CannotCollaborate
+        }
+        const res: ChannelCollab = {
+          uniqid: uniqid.time(),
+          name: generateChannelName(channels),
+          channelType: CHANNEL_COLLAB,
+          requestChangesVerbs: ['Request Changes'],
+          approveVerbs: ['Approve'],
+          initialState: InitialStates.PENDING_REVIEW,
+          extraColumns: [],
+          releaseVerbs: ['Release'],
+          newMessageTemplate: undefined,
+          responseTemplate: undefined,
+          participants: [participant]
+        }
+        return res
       }
-      // add participant to channel
-      participants.push(participant)
-      // define collabOptions for channel based on SpecialChannelType
-      const returnVerbs: string[] = []
-      if (format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
-        returnVerbs.push('Endorse')
-        returnVerbs.push('Request Changes')
-        collabOptions = {
-          mode: 'edit',
-          returnVerbs,
-          startWithReview: true,
-          extraColumns: [SpecialChannelColumns.LOCATION]
+      case SpecialChannelTypes.CHANNEL_MAPPING: {
+        const participant: ParticipantMapping = {
+          force: defaultForce.name,
+          forceUniqid: defaultForce.uniqid,
+          roles: [],
+          subscriptionId: generateSubscriptionId(),
+          pType: PARTICIPANT_MAPPING
         }
-      } else {
-        collabOptions = {
-          mode: 'response',
-          returnVerbs,
-          startWithReview: false,
-          extraColumns: []
+        const res: ChannelMapping = {
+          uniqid: uniqid.time(),
+          name: generateChannelName(channels),
+          channelType: CHANNEL_MAPPING,
+          participants: [participant]
         }
+        return res
+      }
+      case SpecialChannelTypes.CHANNEL_CHAT:
+      default: {
+        const participant: ParticipantChat = {
+          force: defaultForce.name,
+          forceUniqid: defaultForce.uniqid,
+          roles: [],
+          subscriptionId: generateSubscriptionId(),
+          pType: PARTICIPANT_CHAT
+        }
+        const res: ChannelChat = {
+          uniqid: uniqid.time(),
+          name: generateChannelName(channels),
+          channelType: CHANNEL_CHAT,
+          participants: [participant]
+        }
+        return res
       }
     }
   }
-
-  return {
+  const participant: ParticipantCustom = {
+    force: defaultForce.name,
+    forceUniqid: defaultForce.uniqid,
+    roles: [],
+    subscriptionId: generateSubscriptionId(),
+    pType: PARTICIPANT_CUSTOM,
+    templates: []
+  }
+  const res: ChannelCustom = {
+    channelType: CHANNEL_CUSTOM,
     uniqid: uniqid.time(),
     name: generateChannelName(channels),
-    participants,
-    format,
-    collabOptions
+    participants: [participant]
   }
+  return res
 }
 
 export default createChannel

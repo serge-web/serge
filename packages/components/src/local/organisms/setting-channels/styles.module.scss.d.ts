@@ -6,6 +6,9 @@ interface CssExports {
   'row': string;
   'section': string;
   'table': string;
+  'pager': string;
+  'box': string;
+  'title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

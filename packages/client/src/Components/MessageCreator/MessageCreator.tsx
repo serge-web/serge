@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
-import { SpecialChannelTypes, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates2 } from "@serge/config";
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from "@serge/config";
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -12,7 +12,6 @@ import Props from './types'
 import JSONEditor from '@json-editor/json-editor'
 import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
-import moment from 'moment'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
 flatpickr(".calendar")
@@ -42,39 +41,21 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       timestamp: new Date().toISOString(),
       turnNumber: state.currentTurn
     }
-    const currentChannelFormat = state.channels[curChannel].format || null
-
-    if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
-      details.collaboration = {
-        status: CollaborativeMessageStates.PendingReview,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format()
-      }
-    } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
-      details.collaboration = {
-        status: CollaborativeMessageStates.Pending,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format()
-      }
-    }
-
-    // see if it's v3 collab
     const channelUI = state.channels[curChannel] as ChannelUI
-    if(channelUI.v3Channel) {
-      const channelTypes = channelUI.v3Channel
-      if(channelTypes.channelType === CHANNEL_COLLAB) {
-        // populate the metadata
-        const channelCollab = channelTypes as ChannelCollab
-        
-        // ok, brand new message
-        const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
-        const initial2 = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates2.PendingReview : CollaborativeMessageStates2.Unallocated
-        details.collaboration = {
-          status: initial,
-          status2: initial2,
-          lastUpdated: details.timestamp
-        }
+    const channel = channelUI.cData
+
+    // special handling if this is a collab-channel
+    if(channel.channelType === CHANNEL_COLLAB) {
+      // populate the metadata
+      const channelCollab = channel as ChannelCollab
+      
+      // ok, brand new message
+      const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
+      details.collaboration = {
+        status: initial,
+        lastUpdated: details.timestamp
       }
     }
-
 
     if (privateMessage && privateMessageRef.current) {
       details.privateMessage = privateMessageRef.current.value

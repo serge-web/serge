@@ -3,7 +3,7 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as ChannelData } from './channel-data'
+export { default as ChannelTypes } from './channel-data'
 export { default as Channel } from './channel'
 export { default as ForceData } from './force-data'
 export { default as Force } from './force'
