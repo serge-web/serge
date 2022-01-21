@@ -28,10 +28,10 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
 
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
     setRefreshState(true)
-    getPlayerActivityLogs().then((payload: PlayerActivity[]) => {
+    getPlayerActivityLogs().then((activityLog: PlayerActivity[]) => {
       setRefreshState(false)
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = payload && payload.length && payload.filter((value: PlayerActivity) => value.wargame === currentWargame) || []
+      const activityLogsForThisWargame = activityLog && activityLog.length && activityLog.filter((value: PlayerActivity) => value.wargame === currentWargame) || []
       const activityRoles = activityLogsForThisWargame.map((value: PlayerActivity) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
