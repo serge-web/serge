@@ -65,7 +65,6 @@ const PlayerLogComponent: React.FC<PLayerLogProps> = ({ isOpen, onClose }): Reac
       setLoop(setInterval(() => {
         fetchPlayerlog(messageLog)
       }, REFRESH_PLAYER_LOG_INTERVAL))
-
     }
   }, [isOpen, messageLog])
 
