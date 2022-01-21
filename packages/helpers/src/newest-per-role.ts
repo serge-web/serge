@@ -1,7 +1,7 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { ForceData, MessageCustom, MessageInfoType, PlayerLog, PlayerLogInstance, PlayerLogUI, Role } from '@serge/custom-types'
+import { ForceData, MessageCustom, MessageInfoType, PlayerMessageLog, PlayerMessage, PlayerLogUI, Role } from '@serge/custom-types'
 
-export const logTable = (playerLog: PlayerLog, forces: ForceData[]): Array<PlayerLogUI> => {
+export const logTable = (playerLog: PlayerMessageLog, forces: ForceData[]): Array<PlayerLogUI> => {
   const res: Array<PlayerLogUI> = []
   forces.forEach((force: ForceData) => {
     force.roles.forEach((role: Role) => {
@@ -18,15 +18,15 @@ export const logTable = (playerLog: PlayerLog, forces: ForceData[]): Array<Playe
 
 /** helper function to find the newest message per role
  */
-const newestPerRole = (messages: Array<MessageInfoType | MessageCustom>): PlayerLog => {
-  const log: PlayerLog = {}
+const newestPerRole = (messages: Array<MessageInfoType | MessageCustom>): PlayerMessageLog => {
+  const log: PlayerMessageLog = {}
   messages.forEach((msg: MessageInfoType | MessageCustom) => {
     if (msg.messageType === CUSTOM_MESSAGE) {
       const msgC: MessageCustom = msg
       const roleId = msgC.details.from.roleId
       const existingInstance = log[roleId]
       if (!existingInstance) {
-        const newI: PlayerLogInstance = {
+        const newI: PlayerMessage = {
           roleId: roleId,
           lastMessageTitle: msgC.details.messageType,
           lastMessageTime: msgC.details.timestamp

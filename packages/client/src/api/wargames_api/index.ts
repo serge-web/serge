@@ -52,9 +52,10 @@ import {
   ListenNewMessageType,
   WargameRevision
 } from './types.d'
-import { hiddenPrefix} from '@serge/config'
+import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
+import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -156,49 +157,77 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (wargameId: string, roleId: string): Promise<any> => {
-  return fetch(serverPath + 'healthcheck',{
+export const pingServer = (): Promise<any> => {
+  return fetch(serverPath + 'healthcheck', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'role': roleId,
-      'wargame': wargameId
     }
   })
-  .then((response: Response): Promise<any> => response.json())
-  .then((data: any) => {
-    return data.status
-  })
-  .catch((err) => {
+    .then((response: Response): Promise<any> => response.json())
+    .then((data: any) => {
+      return data.status
+    })
+    .catch((err) => {
+      console.log(err)
+      return "NOT_OK"
+    })
+}
+
+export const sendPlayerLog = (playerLog: PlayerActivity): Promise<any> => {
+  return fetch(serverPath + 'playerlog', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(playerLog)
+  }).catch((err) => {
     console.log(err)
-    return "NOT_OK"
   })
 }
 
-export const getPlayerLog = (wargameId: string, roleId: string): Promise<any> => {
-  return fetch(serverPath + 'playerlog',{
+export const getPlayerLogs = () => {
+  const url = `${serverPath}playerlog`
+
+  return fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-      'wargame': wargameId
+      'Content-Type': 'application/json'
     }
   })
-  .then((response: Response): Promise<any> => response.json())
-  .then((data: any) => {
-    console.log('data:', data)
-    return data.status
+    .then((response: Response): Promise<any> => response.json())
+    .then((data: any) => {
+      return data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+export const getPlayerLog = (wargameId: string, roleId: string): Promise<any> => {
+  const url = `${serverPath}playerlog/${wargameId}`
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
-  .catch((err) => {
-    console.log(err)
-    return "NOT_OK"
-  })
-} 
+    .then((response: Response): Promise<any> => response.json())
+    .then((data: any) => {
+      console.log('data:', data)
+      return data.status
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 export const populateWargame = (): Promise<Wargame> => {
   return fetch(serverPath + 'allDbs')
     .then((response: Response): Promise<string[]> => response.json())
     .then((dbs: string[]) => {
-      const wargameNames: string[] = wargameDbStore.map((db) => db.name)      
+      const wargameNames: string[] = wargameDbStore.map((db) => db.name)
       const toCreateDiff: string[] = _.difference(dbs, wargameNames)
       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
 
@@ -271,16 +300,16 @@ export const createWargame = (): Promise<Wargame> => {
 
   return new Promise((resolve, reject) => {
     db.put(settings)
-    .then(() => {
-      db.get<Promise<Wargame>>(dbDefaultSettings._id).then((res) => {
-        resolve(res)
+      .then(() => {
+        db.get<Promise<Wargame>>(dbDefaultSettings._id).then((res) => {
+          resolve(res)
+        }).catch((err) => {
+          reject(err)
+        })
       }).catch((err) => {
+        console.log(err)
         reject(err)
       })
-    }).catch((err) => {
-      console.log(err)
-      reject(err)
-    })
   })
 }
 
@@ -307,7 +336,7 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName: string = getNameFromPath(dbPath)
   return getAllMessages(dbName).then((messages) => {
     return getLatestWargameRevision(dbName).then((game) => ({
-      ...game, exportMessagelist: messages 
+      ...game, exportMessagelist: messages
     }))
   })
 }
@@ -324,7 +353,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       wargameInitiated: true
     }
-    return  db.put(initiatedWargame).then(() => initiatedWargame)
+    return db.put(initiatedWargame).then(() => initiatedWargame)
   }).then((wargame) => {
     const messageInfoType: MessageInfoType = {
       ...wargame,
@@ -352,17 +381,17 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: 
   if (nextWargame.wargameInitiated && revisionCheck) {
     return createLatestWargameRevision(dbName, nextWargame)
   }
-  
+
   // Latest wargame cannot be a MessageInfoType if wargameInitiated === false
   const infoTypeWargame = nextWargame as MessageInfoType
   if (infoTypeWargame.messageType === INFO_MESSAGE && revisionCheck) {
     console.warn('Saving wargame cannot be a MessageInfoType. Trying to save MessageInfoType as WargameSettings')
   }
-  
+
   return db.put({
     ...nextWargame,
     _id: dbDefaultSettings._id,
-    
+
     turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format(),
   }).then(() => {
     return db.get<Wargame>(dbDefaultSettings._id)
@@ -459,7 +488,7 @@ export const saveForces = (dbName: string, newData: ForceData[]) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     updatedData.forces.forces = newData
-    return updateWargame({...res, data: updatedData}, dbName)
+    return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
 
@@ -488,7 +517,7 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
 
     updatedData.forces.complete = calcComplete(forceCheck)
 
-    return updateWargame({...res, data: updatedData}, dbName)
+    return updateWargame({ ...res, data: updatedData }, dbName)
     // if (newDoc.wargameInitiated) {
     //   return createLatestWargameRevision(dbName, newDoc) // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
     // } else {
@@ -515,7 +544,7 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
     forces.splice(forceIndex, 1)
     updatedData.forces.forces = forces
     updatedData.channels.complete = calcComplete(forces)
-    return updateWargame({...res, data: updatedData}, dbName)
+    return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
 
@@ -541,13 +570,13 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   })
 }
 
-export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {  
+export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
-  
+
   return db.replicate.to(newDb).then((): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
     // get default wargame
@@ -569,7 +598,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
             name: newDbName,
             wargameTitle: `${res.wargameTitle}-${uniqId}`
           })
-        }).then(() =>  getAllWargames())
+        }).then(() => getAllWargames())
       }
       return getAllWargames()
     }).catch(rejectDefault)
@@ -634,7 +663,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
 
         const gameDate: string = res.data.overview.gameDate
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
-//        const twoM: MonthTurns = { unit: 'months', months: 2 }
+        //        const twoM: MonthTurns = { unit: 'months', months: 2 }
         console.log('inc', gameDate, gameTurn)
         const newTime: number = incrementGameTime(gameDate, gameTurn)
         res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
@@ -644,7 +673,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
     }
     return createLatestWargameRevision(dbName, res)
   })
-  .catch(rejectDefault)
+    .catch(rejectDefault)
 }
 
 export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, turnNumber: number, message: string): Promise<MessageFeedback> => {
@@ -678,7 +707,7 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     isOpen: false,
     hasBeenRead: false
   }
-  
+
   return checkReference(customMessage, db).then((customMessageUpdated) => {
     return db.put(customMessageUpdated).catch(rejectDefault)
   })
@@ -688,7 +717,7 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
 
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
-  // @ts-ignore
+// @ts-ignore
 export const postNewMapMessage = (dbName, details, message) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
@@ -726,7 +755,7 @@ export const postNewMapMessage = (dbName, details, message) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
         // apply the reducer to this wargame
-          // @ts-ignore
+        // @ts-ignore
         res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces)
         // store the new verison
         return createLatestWargameRevision(dbName, res)
@@ -745,7 +774,7 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs<Message>({ include_docs: true, descending: true })
     .then((res): Message[] => res.rows.reduce((messages: Message[], { doc }): Message[] => {
-      if(doc && doc.messageType !== COUNTER_MESSAGE) messages.push(doc)
+      if (doc && doc.messageType !== COUNTER_MESSAGE) messages.push(doc)
       return messages
     }, []))
     .catch(() => {
@@ -753,7 +782,7 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
     })
 }
 
-export const getAllWargames = (): Promise<WargameRevision[]> => {  
+export const getAllWargames = (): Promise<WargameRevision[]> => {
   const promises = wargameDbStore.map<Promise<WargameRevision>>((game) => {
     return getLatestWargameRevision(game.name)
       .then(({ wargameTitle, wargameInitiated, name }) => {
