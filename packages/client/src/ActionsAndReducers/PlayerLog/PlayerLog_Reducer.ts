@@ -1,12 +1,12 @@
 import * as ActionConstant from '@serge/config'
-import { PLayerLogAction, PlayerLogPayload } from './PlayerLog_types'
+import { PlayerLogAction, PlayerActivity } from './PlayerLog_types'
 
-const initialState: PlayerLogPayload = {
+const initialState: PlayerActivity = {
   wargame: '',
   role: ''
 }
 
-export const addPlayerLogReducer = (state = initialState, action: PLayerLogAction) => {
+export const addPlayerLogReducer = (state = initialState, action: PlayerLogAction) => {
   switch (action.type) {
     case ActionConstant.ADD_PLAYER_LOG:
       return action.payload

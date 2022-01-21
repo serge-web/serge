@@ -1,9 +1,10 @@
-export type PLayerLogAction = {
+export type PlayerLogAction = {
   type: string,
-  payload: PlayerLogPayload
+  payload: PlayerActivity
 }
 
-export type PlayerLogPayload = {
+// single record of recent player activity
+export type PlayerActivity = {
   wargame: string
   role: string
   updatedAt?: number

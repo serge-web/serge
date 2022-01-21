@@ -3,7 +3,7 @@ import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { PlayerLogPayload } from '../ActionsAndReducers/PlayerLog/PlayerLog_types'
+import { PlayerActivity } from '../ActionsAndReducers/PlayerLog/PlayerLog_types'
 import { pingServer as pingServerApi, sendPlayerLog } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
@@ -17,14 +17,14 @@ type Notification = {
 
 type VersionProps = {
   notifications: Notification[]
-  playerLog: PlayerLogPayload
+  playerLog: PlayerActivity
 }
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 // trim off the seconds
 const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
-const mapStateToProps = ({ notifications, playerLog }: { notifications: Notification[], playerLog: PlayerLogPayload }) => ({ notifications, playerLog })
+const mapStateToProps = ({ notifications, playerLog }: { notifications: Notification[], playerLog: PlayerActivity }) => ({ notifications, playerLog })
 
 const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   const dispatch = useDispatch()

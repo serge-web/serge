@@ -1,8 +1,10 @@
-export type PLayerLogProps = {
+/** handlers passed to the player log modal popup */
+export type PlayerLogProps = {
   isOpen: boolean
   onClose: () => void
 }
 
+/** collated data to populate the player log modal popup */
 export type PlayerLogModal = {
   forceName: string
   /* hex code for force color */

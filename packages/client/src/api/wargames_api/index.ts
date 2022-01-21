@@ -55,7 +55,7 @@ import {
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
-import { PlayerLogPayload } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
+import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -174,7 +174,7 @@ export const pingServer = (): Promise<any> => {
     })
 }
 
-export const sendPlayerLog = (playerLog: PlayerLogPayload): Promise<any> => {
+export const sendPlayerLog = (playerLog: PlayerActivity): Promise<any> => {
   return fetch(serverPath + 'playerlog', {
     method: 'POST',
     headers: {
