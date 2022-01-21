@@ -186,7 +186,7 @@ export const sendPlayerLog = (playerLog: PlayerActivity): Promise<any> => {
   })
 }
 
-export const getPlayerLogs = () => {
+export const getPlayerActivityLogs = () => {
   const url = `${serverPath}playerlog`
 
   return fetch(url, {
@@ -198,25 +198,6 @@ export const getPlayerLogs = () => {
     .then((response: Response): Promise<any> => response.json())
     .then((data: any) => {
       return data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-
-export const getPlayerLog = (wargameId: string, roleId: string): Promise<any> => {
-  const url = `${serverPath}playerlog/${wargameId}`
-
-  return fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      console.log('data:', data)
-      return data.status
     })
     .catch((err) => {
       console.log(err)
