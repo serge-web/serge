@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, memo } from 'react'
+import React, { useState, useRef, memo, useLayoutEffect } from 'react'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -111,12 +111,12 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (editor) editor.destroy()
     return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (editor) {
       if (disabled) {
         editor.disable()
