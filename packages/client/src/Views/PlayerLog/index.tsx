@@ -2,7 +2,7 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import RefreshIcon from '@material-ui/icons/Cached'
-import { ForceData, PlayerLogInstance, Role } from '@serge/custom-types'
+import { ForceData, PlayerLog, PlayerLogInstance, Role } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -19,20 +19,20 @@ const REFRESH_PLAYER_LOG_INTERVAL = 5000
 // the player must have been active within this threshold to be treated as `ACTIVE`
 const AGE_FOR_ACTIVE_MILLIS = 60000
 
-const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
-  const { allForces, playerLog, currentWargame } = usePlayerUiState()
+const PlayerLogComponent: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
+  const { allForces, playerLog: messageLog, currentWargame } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [refreshing, setRefreshState] = useState<boolean>(false)
 
-  const fetchPlayerlog = (): void => {
+  const fetchPlayerlog = (messageLog: PlayerLog): void => {
     setRefreshState(true)
     getPlayerLogs().then((payload: PlayerLogPayload[]) => {
       setRefreshState(false)
       const logDataModal: PlayerLogModal[] = []
       const activityLogsForThisWargame = payload && payload.length && payload.filter((value: PlayerLogPayload) => value.wargame === currentWargame) || []
       const activityRoles = activityLogsForThisWargame.map((value: PlayerLogPayload) => value.role)
-      const messageRoles = Object.values(playerLog).map((value: PlayerLogInstance) => value.roleId)
+      const messageRoles = Object.values(messageLog).map((value: PlayerLogInstance) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
       const uniqueRoles = uniq(knownRoles)
 
@@ -40,7 +40,7 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
         force.roles.forEach((role: Role) => {
           if (uniqueRoles.includes(role.roleId)) {
             const activity = activityLogsForThisWargame.find((value: PlayerLogPayload) => value.role === role.roleId)
-            const lastMessage = playerLog[role.roleId]
+            const lastMessage = messageLog[role.roleId]
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
             logDataModal.push({
@@ -60,16 +60,14 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
   }
 
   useEffect(() => {
+    clearInterval(loop)
     if (isOpen) {
       setLoop(setInterval(() => {
-        fetchPlayerlog()
+        fetchPlayerlog(messageLog)
       }, REFRESH_PLAYER_LOG_INTERVAL))
 
-    } else {
-      fetchPlayerlog()
-      clearInterval(loop)
     }
-  }, [isOpen])
+  }, [isOpen, messageLog])
 
   return (
     <Modal
@@ -108,11 +106,11 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
             {playerLogData.map((log, idx) => (
               <div key={idx} className={cx(styles.row, styles.item)}>
                 <span>
-                  <img key={'force_icon_' + idx} className={styles['role-icon']} alt="" style={{ backgroundColor: log.forceColor }}/>&nbsp;
+                  <img key={'force_icon_' + idx} className={styles['role-icon']} alt="" style={{ backgroundColor: log.forceColor }} />&nbsp;
                   {log.forceName}
                 </span>
                 <span>
-                <img key={'active_icon_' + idx} className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })} alt=""/>&nbsp;{log.roleName}
+                  <img key={'active_icon_' + idx} className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })} alt="" />&nbsp;{log.roleName}
                 </span>
                 <span>{log.lastActive}</span>
                 <span>{log.message}</span>
@@ -126,4 +124,4 @@ const PlayerLog: React.FC<PLayerLogProps> = ({ isOpen, onClose }): React.ReactEl
   )
 }
 
-export default PlayerLog
+export default PlayerLogComponent
