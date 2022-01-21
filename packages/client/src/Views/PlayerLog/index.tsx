@@ -63,6 +63,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
   useEffect(() => {
     clearInterval(loop)
     if (isOpen) {
+      collatePlayerLogData(playerMessageLog)
       setLoop(setInterval(() => {
         collatePlayerLogData(playerMessageLog)
       }, REFRESH_PLAYER_LOG_INTERVAL))
