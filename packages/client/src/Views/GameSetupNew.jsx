@@ -26,8 +26,6 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
 
-const LEGACY_CHANNEL = ['collab-edit', 'collab-response']
-
 /**
  * TODOS:
  updateWargameTitle
@@ -56,10 +54,6 @@ const AdminGameSetup = () => {
     channels
   } = data
   const tabs = Object.keys(data)
-
-  // filter out all legacy channels
-  const allChannels = channels.channels
-  channels.channels = allChannels.filter(channel => !channel.format || !LEGACY_CHANNEL.includes(channel.format))
 
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
