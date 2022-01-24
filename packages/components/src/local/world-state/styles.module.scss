@@ -32,6 +32,7 @@
   height: 40px;
   position: relative;
   padding: 2px 28px 2px 52px;
+  cursor: pointer;
 }
 .item p {
   padding: 0;
@@ -60,7 +61,6 @@
   border: 4px solid rgba(0, 0, 0, 0);
   box-sizing: border-box;
   box-shadow: none;
-  cursor: pointer;
 }
 
 .item-check {
