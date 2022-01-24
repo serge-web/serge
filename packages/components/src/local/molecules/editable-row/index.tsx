@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react'
+import React, { useState, ReactNode, useEffect } from 'react'
 // import cx from 'classnames'
 
 /* Import proptypes */
@@ -29,6 +29,10 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
   const [backup, setBackup] = useState(items)
   const [itemsLocal, setItemsLocal] = useState(items)
   const [mode, setMode] = useState(defaultMode)
+
+  useEffect(() => {
+    setItemsLocal(items)
+  }, [items])
 
   const switchMode = (): void => {
     setMode(mode === 'view' ? 'edit' : 'view')

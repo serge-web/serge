@@ -1,5 +1,5 @@
 /** an entry in the player log */
-export default interface PlayerLogInstance {
+export default interface PlayerMessage {
   /** role id for this player */
   roleId: string
   /** title of last message received */
@@ -23,4 +23,4 @@ export interface PlayerLogUI {
 /** dictionary of player log entries, indexed
  * by role id
  */
-export type PlayerLog = Record<string, PlayerLogInstance>
+export type PlayerMessageLog = Record<string, PlayerMessage>

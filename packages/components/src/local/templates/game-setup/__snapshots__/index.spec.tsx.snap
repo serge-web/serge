@@ -384,7 +384,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                               </th>
                               <th
                                 aria-sort={null}
-                                className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
+                                className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
                                 scope="col"
                               >
                                 Restrict access to specific roles
