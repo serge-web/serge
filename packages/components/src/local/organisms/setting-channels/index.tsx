@@ -67,11 +67,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
     value: template
   }))
 
-  // let realSelectedChannel = selectedChannel
-  // if (selectedChannel && Object.keys(selectedChannel).length <= 2) {
-  //   realSelectedChannel = channels.find(channel => channel.uniqid === selectedChannel.uniqid)
-  // }
-
   const isCollab = isCollabChannel(selectedChannel)
   const isChat = selectedChannel && selectedChannel.channelType === CHANNEL_CHAT
   const isCustom = selectedChannel && selectedChannel.channelType === CHANNEL_CUSTOM
@@ -152,14 +147,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       setLocalChannelUpdates(localChannelUpdates)
     }
 
-    const handleChangeRow = (nextItems: Array<RowItem>, /* _itKey: number, */ participant: CoreParticipant): Array<RowItem> => {
-      // TODO: this next block was failing, because the [2] item was empty. Find out what the code
-      // was doing - and reinstate if necessary
-      // const newNextItems = [...nextItems]
-      // if (itKey === 0) {
-      //   newNextItems[1].active = []
-      //   newNextItems[2].active = []
-      // }
+    const handleChangeRow = (nextItems: Array<RowItem>, /* _itKey: number, */participant: CoreParticipant): Array<RowItem> => {
       if (isCollab) {
         const nextParticipant = rowToParticipantCollab(forces, nextItems, participant as ParticipantCollab)
         return generateRowItemsCollab(forces, nextParticipant)
@@ -194,9 +182,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
       return dParts.map((participant, participantKey) => {
         const handleSaveRow = (row: Array<RowItem>): void => {
           const nextParticipants = [...data.participants]
-          nextParticipants[participantKey] = isCollab
-            ? rowToParticipantCollab(forces, row, participant as ParticipantCollab) : isChat ? rowToParticipantChat(forces, row, participant as ParticipantChat)
-              : rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
+          if (isCollab) {
+            nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as ParticipantCollab)
+          } else if (isChat) {
+            nextParticipants[participantKey] = rowToParticipantChat(forces, row, participant as ParticipantChat)
+          } else {
+            nextParticipants[participantKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
+          }
+
           handleSaveRows(nextParticipants)
         }
 
@@ -320,9 +313,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="left">Restrict access to specific roles</TableCell>
-                        { isCustom &&
-                          <TableCell align="left">Templates</TableCell>
+                        <TableCell align="center">Restrict access to specific roles</TableCell>
+                        {isCustom &&
+                          <TableCell align="center">Templates</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>

@@ -1,7 +1,7 @@
 import handleChannelUpdates, { handleAllInitialChannelMessages } from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
-  ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerLog
+  ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerMessageLog
 } from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
@@ -15,7 +15,7 @@ const allChannels: ChannelTypes[] = GameChannels2
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
-const playerLog: PlayerLog = {}
+const playerMessageLog: PlayerMessageLog = {}
 
 describe('handle initial channel creation', () => {
   it('fire a message into normal channel', () => {
@@ -80,7 +80,7 @@ describe('handle new message into RFI channel', () => {
     }
 
     const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces, playerLog)
+      allChannels, selectedRole, isObserver, allTemplates, allForces, playerMessageLog)
 
     const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()
