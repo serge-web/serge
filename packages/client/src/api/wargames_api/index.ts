@@ -201,7 +201,6 @@ export const getPlayerActivityLogs = () => {
     })
     .catch((err) => {
       console.log(err)
->>>>>>> develop
     })
 }
 
