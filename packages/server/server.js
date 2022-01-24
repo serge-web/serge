@@ -49,9 +49,11 @@ const runServer = (
   const clientBuildPath = '../client/build'
 
   // log of time of receipt of player heartbeat messages
-  const playerLog = {}
+  const playerLog = []
 
   app.use(cors(corsOptions))
+  app.use(express.json())
+
   app.use('/db', require('express-pouchdb')(PouchDB))
 
   app.get('/allDbs', (req, res) => {
@@ -101,40 +103,62 @@ const runServer = (
   })
 
   app.get('/healthcheck', (req, res) => {
-    const wargame = req.headers.wargame
-    const role = req.headers.role
-    // if we have wargame & role, store the date-time
-    if (wargame && wargame.length && role && role.length) {
-      let wargameLog = playerLog[wargame]
-      if (!wargameLog) {
-        wargameLog = playerLog[wargame] = {}
-      }
-      wargameLog[role] = new Date().toISOString()
-    }
-    res.status(200).send({
+    return res.status(200).send({
       status: 'OK',
-      uptime: process.uptime(),
-      wargame: wargame,
-      role: role
+      uptime: process.uptime()
     })
   })
 
-  app.get('/playerlog', (req, res) => {
-    const wargame = req.headers.wargame
-    res.status(200).send({ log: playerLog[wargame] })
+  app.post('/playerlog', (req, res) => {
+    const { wargame, role } = req.body
+    if (!wargame || !role) {
+      return res.sendStatus(200)
+    }
+
+    const existingPlayerIdx = playerLog.findIndex(
+      player => player.role === role && player.wargame === wargame
+    )
+    if (existingPlayerIdx !== -1) {
+      playerLog[existingPlayerIdx].updatedAt = new Date().getTime()
+    } else {
+      const newPlayer = {
+        wargame,
+        role,
+        updatedAt: new Date().getTime()
+      }
+      playerLog.push(newPlayer)
+    }
+
+    return res.sendStatus(200)
+  })
+
+  app.get('/playerlog', (_, res) => {
+    res.status(200).send(playerLog)
+  })
+
+  app.get('/playerlog/:wargame', (req, res) => {
+    const wargame = req.params.wargame
+    const selectedWargame = playerLog.find(log => log.wargame === wargame) || {}
+    res.status(200).send(selectedWargame)
   })
 
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
-      res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
-      return
+      return res.sendFile(
+        path.join(process.cwd(), dataDir, req.params.filename)
+      )
     }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
-  app.use('/saveIcon', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' }))
+  app.use(
+    '/saveIcon',
+    express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
+  )
   app.post('/saveIcon', (req, res) => {
-    const imageName = `${uniqid.time('icon-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
+    const imageName = `${uniqid.time('icon-')}.${
+      req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'
+    }`
     const image = `${imgDir}/${imageName}`
     let imagePath = `${req.headers.host}/getIcon/${imageName}`
     if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
@@ -196,7 +220,12 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    const start =
+      process.platform === 'darwin'
+        ? 'open'
+        : process.platform === 'win32'
+          ? 'start'
+          : 'xdg-open'
     require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }

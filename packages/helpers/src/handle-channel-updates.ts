@@ -2,7 +2,7 @@ import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MES
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerLogInstance, PlayerLog
+  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -14,12 +14,12 @@ import { CoreParticipant } from '@serge/custom-types/participant'
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
   const sourceRole: string = payload.details.from.roleId
-  const logger: PlayerLogInstance = {
+  const logger: PlayerMessage = {
     roleId: payload.details.from.roleId,
     lastMessageTitle: payload.details.messageType,
     lastMessageTime: payload.details.timestamp
   }
-  data.playerLog[sourceRole] = logger
+  data.playerMessageLog[sourceRole] = logger
   if (channel === CHAT_CHANNEL_ID) {
     data.chatChannel.messages.unshift(deepCopy(payload))
   } else if (data.channels[channel]) {
@@ -176,7 +176,7 @@ export const handleAllInitialChannelMessages = (
       ...chatChannel,
       messages: chatMessages
     },
-    playerLog: playerLog
+    playerMessageLog: playerLog
   }
 }
 
@@ -190,11 +190,11 @@ const handleChannelUpdates = (
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
   allForces: ForceData[],
-  playerLog: PlayerLog): SetWargameMessage => {
+  playerMessageLog: PlayerMessageLog): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
-    playerLog: deepCopy(playerLog)
+    playerMessageLog: deepCopy(playerMessageLog)
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
