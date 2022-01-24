@@ -73,10 +73,9 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
-  rfiMessages: [],
   isInsightViewer: false,
   isRFIManager: false,
-  playerLog: {}
+  playerMessageLog: {}
 }
 
 
@@ -156,16 +155,14 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
-      newState.rfiMessages = changedLatestState.rfiMessages
-      newState.playerLog = changedLatestState.playerLog
+      newState.playerMessageLog = changedLatestState.playerMessageLog
       break
 
     case SET_ALL_MESSAGES:
       const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
-      newState.rfiMessages = changedAllMesagesState.rfiMessages
-      newState.playerLog = changedAllMesagesState.playerLog
+      newState.playerMessageLog = changedAllMesagesState.playerMessageLog
       break
 
     case OPEN_MESSAGE:

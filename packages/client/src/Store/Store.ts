@@ -9,6 +9,7 @@ import { notificationReducer } from '../ActionsAndReducers/Notification/Notifica
 import { loadingDbReducer } from '../ActionsAndReducers/loadingDb_Reducer'
 import { exportItems } from '../ActionsAndReducers/ExportItems/ExportItems_Reducer'
 import { gameInfo } from '../ActionsAndReducers/sergeInfo/sergeInfo_Reducer'
+import { addPlayerLogReducer } from '../ActionsAndReducers/PlayerLog/PlayerLog_Reducer'
 
 import thunk from 'redux-thunk'
 
@@ -26,6 +27,7 @@ export default createStore(combineReducers({
   currentViewURI: currentViewURIReducer,
   currentModal,
   notifications: notificationReducer,
+  playerLog: addPlayerLogReducer,
   wargame: wargamesReducer,
   dbLoading: loadingDbReducer,
   exportItems,

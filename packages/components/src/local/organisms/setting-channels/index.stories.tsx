@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import SettingChannels from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { ChannelData } from './types/props'
+import { ChannelTypes } from './types/props'
 import { WargameExportedMock, MessageTemplatesMock } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -27,13 +27,13 @@ export const Default: React.FC = () => {
   if (WargameExportedMock.data.channels.channels === undefined) {
     return <div/>
   }
-  const [channels, setChannels] = useState<Array<ChannelData>>(WargameExportedMock.data.channels.channels)
+  const [channels, setChannels] = useState<Array<ChannelTypes>>(WargameExportedMock.data.channels.channels)
 
-  const handleChangeChannels = (updates: { channels: Array<ChannelData> }): void => {
+  const handleChangeChannels = (updates: { channels: Array<ChannelTypes> }): void => {
     setChannels(updates.channels)
   }
 
-  const handleOnSave = (updates: ChannelData): void => {
+  const handleOnSave = (updates: ChannelTypes): void => {
     console.log(updates)
   }
 

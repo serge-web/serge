@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import FlexLayout, { Model } from 'flexlayout-react'
-import { ChannelData } from '@serge/custom-types'
+import { ChannelTypes } from '@serge/custom-types'
 import factory from './helpers/factory'
 import computeTabs from './helpers/computeTabs'
 import tabRender from './helpers/tabRender'
@@ -26,7 +26,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
-    const setTabContent = (channel: ChannelData) => ({
+    const setTabContent = (channel: ChannelTypes) => ({
       type: 'tab',
       id: channel.uniqid,
       name: channel.name,

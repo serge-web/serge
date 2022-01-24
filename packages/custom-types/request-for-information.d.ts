@@ -1,4 +1,4 @@
-import { ChannelData, Role } from '.'
+import { ChannelTypes, Role } from '.'
 
 export interface RequestForInformation {
   /**
@@ -8,7 +8,7 @@ export interface RequestForInformation {
   /**
    * Channel name
    */
-  channel: ChannelData['name']
+  channel: ChannelTypes['name']
   /**
    * Role of requester
    */

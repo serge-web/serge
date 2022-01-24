@@ -17,7 +17,8 @@
 }
 
 .section {
-  padding: 12px 0;
+  margin-top: 20px;
+  padding: 0;
 }
 
 .table {
@@ -33,4 +34,48 @@
 .actions {
   position: relative;
   z-index: 2;
+}
+
+.control-groups {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.message-group {
+  display: flex;
+  max-width: 30%;
+  min-width: 30%;
+}
+
+.message-title {
+  max-width: 40%;
+  min-width: 40%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.message-content {
+  max-width: 60%;
+  min-width: 60%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.title {
+  font-weight: 800;
+}
+
+.pager {
+  padding: 20px;
+}
+
+.status-item {
+  margin-bottom: -10px;
 }

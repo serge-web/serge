@@ -37,13 +37,13 @@ import {
   WargameOverview,
   PlatformType,
   ForceData,
-  ChannelData,
   MessageDetailsFrom,
   MessageDetails,
   MessageFeedback,
   MessageStructure,
   MessageCustom,
-  GameTurnLength
+  GameTurnLength,
+  ChannelTypes
 } from '@serge/custom-types'
 
 import {
@@ -55,6 +55,7 @@ import {
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
+import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -157,18 +158,50 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 }
 
 export const pingServer = (): Promise<any> => {
-  return fetch(serverPath + 'health_check')
+  return fetch(serverPath + 'healthcheck', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
     .then((response: Response): Promise<any> => response.json())
     .then((data: any) => {
-      // check the version returned from the server with the current client version
-      if (!data.version || data.version !== process.env.REACT_APP_VERSION) {
-        return SERVER_PING_STATUS.FAILED
-      }
       return data.status
     })
     .catch((err) => {
       console.log(err)
       return SERVER_PING_STATUS.FAILED
+    })
+}
+
+export const sendPlayerLog = (playerLog: PlayerActivity): Promise<any> => {
+  return fetch(serverPath + 'playerlog', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(playerLog)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+export const getPlayerActivityLogs = () => {
+  const url = `${serverPath}playerlog`
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then((response: Response): Promise<any> => response.json())
+    .then((data: any) => {
+      return data
+    })
+    .catch((err) => {
+      console.log(err)
+>>>>>>> develop
     })
 }
 
@@ -375,7 +408,7 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   })
 }
 
-export const saveChannel = (dbName: string, newName: string, newData: ChannelData, oldName: string): Promise<Wargame> => {
+export const saveChannel = (dbName: string, newName: string, newData: ChannelTypes, oldName: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
