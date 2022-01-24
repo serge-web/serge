@@ -13,10 +13,7 @@ const runServer = (
   const express = require('express')
   const path = require('path')
   const uniqid = require('uniqid')
-<<<<<<< HEAD
   require('dotenv').config()
-=======
->>>>>>> develop
   const archiver = require('archiver')
 
   const PouchDB = require('pouchdb-core')
