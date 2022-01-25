@@ -1,14 +1,18 @@
 import { ForceData } from '@serge/custom-types'
-import { LatLng } from 'leaflet'
+import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
   // main
   map?: any
-  // to home control
+  // whether to show home control
   showHome?: boolean
+  // current map centre
   home?: LatLng
-  // zoom control
+  // outer bounds of whole map
+  bounds?: LatLngBounds
+  // whether to show zoom control
   showZoom?: boolean
+  // size of zoom in/out increment
   zoomStepSize?: number
   // view as control
   forces?: ForceData[]
@@ -24,5 +28,4 @@ export default interface PropTypes {
   filterHistoryRoutes?: boolean
   /** callback for toggling History routes */
   setFilterHistoryRoutes?: {(value: boolean): void}
-
 }
