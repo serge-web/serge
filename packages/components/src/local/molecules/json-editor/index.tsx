@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo, useLayoutEffect } from 'react'
+import React, { useState, useRef, useLayoutEffect } from 'react'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,7 +15,7 @@ import { configDateTimeLocal } from '@serge/helpers'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, title, template, storeNewValue, disabled = false, saveEditedMessage = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, title, template, storeNewValue, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
@@ -54,7 +54,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        if (saveEditedMessage) expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+        expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
       }
     }
 
@@ -80,11 +80,25 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       }
     }
 
+    const onClose = ({ target }: any) => {
+      // @ts-ignore
+      const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
+      const targetId = target.getAttribute('id')
+      if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
+        if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
+          expiredStorage.removeItem(genLocalStorageId())
+        }
+      }
+    }
+
+    // add click listener for remove item in local storage
+    document.addEventListener('click', onClose)
+
     // add keydown listener to be able to track input changes
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
-      const messageJson = saveEditedMessage ? expiredStorage.getItem(genLocalStorageId()) : null
+      const messageJson = expiredStorage.getItem(genLocalStorageId())
       nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
       nextEditor.on('change', changeListenter)
     }
@@ -131,7 +145,4 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   )
 }
 
-// we don't need to re render it as all logick based on JsonEditor plugin and all changes applaying inside useEffect's
-export default memo(JsonEditor, () => {
-  return false
-})
+export default JsonEditor
