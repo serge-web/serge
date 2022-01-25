@@ -667,6 +667,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <MapControl
             map = {leafletElement}
             home = {mapCentre}
+            bounds = {mapBounds}
             forces = {playerForce === UMPIRE_FORCE ? forcesState : undefined}
             viewAsCallback = {viewAsCallback}
             viewAsForce = {viewAsForce}

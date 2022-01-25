@@ -5733,6 +5733,11 @@
   resolved "https://registry.yarnpkg.com/@types/pretty-hrtime/-/pretty-hrtime-1.0.0.tgz#c5a2d644a135e988b2932f99737e67b3c62528d0"
   integrity sha512-xl+5r2rcrxdLViAYkkiLMYsoUs3qEyrAnHFyEzYysgRxdVp3WbhysxIvJIxZp9FvZ2CYezh0TaHZorivH+voOQ==
 
+"@types/preval.macro@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/preval.macro/-/preval.macro-3.0.0.tgz#c348162024c8ea22ea3d330d2497a1a21be64e38"
+  integrity sha512-mm7qx+Aj9bhMcK9Y3UHNy6zCQneRj+GBFlCi+cxtx66iLU4yarOupVLrFadlG+Cd4TEsdo4og0REhzUQQ7m3fg==
+
 "@types/prop-types@*", "@types/prop-types@^15.7.3":
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"

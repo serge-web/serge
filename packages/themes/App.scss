@@ -63,6 +63,15 @@
   }
 }
 
+.playerlog {
+  cursor: pointer;
+
+  svg {
+    color: rgb(00, 00, 00);
+    font-size: 20px;
+  }
+}
+
 .underline {
   border-bottom: 1px solid #000;
   margin-right: 20px;

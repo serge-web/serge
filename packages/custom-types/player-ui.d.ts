@@ -8,7 +8,7 @@ import { TemplateBodysByKey } from './message-types'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
-import { PlayerLog } from './player-log'
+import { PlayerMessageLog } from './player-log'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -77,5 +77,5 @@ export default interface PlayerUi {
   /** whether logged in user can release RFIs */
   isRFIManager: boolean
   /** log of recent player messages */
-  playerLog: PlayerLog
+  playerMessageLog: PlayerMessageLog
 }
