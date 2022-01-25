@@ -80,7 +80,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       }
     }
 
-    const onClose = ({ target }: any) => {
+    const handleClick = ({ target }: any) => {
       // @ts-ignore
       const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
       const targetId = target.getAttribute('id')
@@ -92,7 +92,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
     }
 
     // add click listener for remove item in local storage
-    document.addEventListener('click', onClose)
+    document.addEventListener('click', handleClick)
 
     // add keydown listener to be able to track input changes
     document.addEventListener('keydown', handleKeyDown)
