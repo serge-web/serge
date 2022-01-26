@@ -94,7 +94,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
       if (!searchStr) {
         setFilterRows(rows)
       }
-    }, 500, [event.target.value]))
+    }, 500, event.target.value))
   }
 
   return (
