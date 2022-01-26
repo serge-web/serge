@@ -32,7 +32,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on platform type delete button click events
    */
-  onDeletePlatformType: (item: PlatformType) => void
+  onDeletePlatformType?: (item: PlatformType) => void
   /**
    * Callback on forces setting change events
    */
