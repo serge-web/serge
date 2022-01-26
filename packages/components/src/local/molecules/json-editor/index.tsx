@@ -80,18 +80,18 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       }
     }
 
-      const handleClick = ({ target }: any) => {
-        // @ts-ignore
-        const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
-        const targetId = target.getAttribute('id')
-        if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
-          if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
-            expiredStorage.removeItem(genLocalStorageId())
-            // remove click listener for unmounted component
-            document.removeEventListener('click', handleClick)
-          }
+    const handleClick = ({ target }: any) => {
+      // @ts-ignore
+      const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
+      const targetId = target.getAttribute('id')
+      if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
+        if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
+          expiredStorage.removeItem(genLocalStorageId())
+          // remove click listener for unmounted component
+          document.removeEventListener('click', handleClick)
         }
       }
+    }
 
     // add click listener for remove item in local storage
     document.addEventListener('click', handleClick)
