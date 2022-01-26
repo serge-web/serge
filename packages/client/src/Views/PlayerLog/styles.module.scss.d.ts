@@ -5,21 +5,19 @@ interface CssExports {
   'modalHeader': string;
   'closeIcon': string;
   'playerLogIcon': string;
-  'header': string;
   'title': string;
   'titleMain': string;
   'titleHint': string;
   'content': string;
-  'tableContent': string;
-  'row': string;
   'header': string;
-  'item': string;
   'active': string;
   'inactive': string;
-  'loader': string;
   'logContent': string;
-  'refreshIcon': string;
-  'rotate': string;
+  'role-icon': string;
+  'filter-icon': string;
+  'input-filter': string;
+  'filter-group': string;
+  'custom-cell': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
