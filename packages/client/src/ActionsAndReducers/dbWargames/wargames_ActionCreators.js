@@ -267,7 +267,7 @@ export const deletePlatformType = (dbName, platformType) => {
 
     dispatch(setTabSaved())
 
-    dispatch(addNotification('Platform types deleted.', 'success'))
+    dispatch(addNotification(`Platform type '${platformType.name}' deleted.`, 'success'))
   }
 }
 

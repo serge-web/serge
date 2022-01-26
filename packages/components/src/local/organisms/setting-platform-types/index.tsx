@@ -63,6 +63,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleDelete = (item: Item): void => {
+    setSelectedItem(-1)
     onDelete && onDelete(item as PlatformType)
   }
 
