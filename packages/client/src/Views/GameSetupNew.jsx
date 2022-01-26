@@ -19,7 +19,8 @@ import {
   addNewChannel,
   duplicateChannel,
   saveWargameTitle,
-  initiateWargame
+  initiateWargame,
+  deletePlatformType
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -113,6 +114,10 @@ const AdminGameSetup = () => {
   const handleSaveOverview = overview => {
     console.log('currentWargame', currentWargame, overview)
     dispatch(saveSettings(currentWargame, overview))
+  }
+
+  const onDeletePlatformType = platformType => {
+    dispatch(deletePlatformType(currentWargame, platformType))
   }
 
   const handleSavePlatformTypes = platformTypes => {
@@ -308,6 +313,7 @@ const AdminGameSetup = () => {
       channels={channels.channels}
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
+      onDeletePlatformType={onDeletePlatformType}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}

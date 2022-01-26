@@ -259,6 +259,18 @@ export const saveSettings = (dbName, data) => {
   }
 }
 
+export const deletePlatformType = (dbName, platformType) => {
+  return async dispatch => {
+    const wargame = await wargamesApi.deletePlatformType(dbName, platformType)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification('Platform types deleted.', 'success'))
+  }
+}
+
 export const savePlatformTypes = (dbName, data) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.savePlatformTypes(dbName, data)
