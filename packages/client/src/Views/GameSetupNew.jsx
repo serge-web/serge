@@ -121,7 +121,7 @@ const AdminGameSetup = () => {
       data,
       customMessages: {
         title: `Delete '${data.name}'`,
-        message: 'Are you sure you want to permanently delete this asset?'
+        message: 'Are you sure you want to permanently delete this Platform Type?'
       }
     }))
   }
