@@ -11,6 +11,10 @@ const DeleteModal = () => {
   const currentModal = useSelector(state => state.currentModal)
   const wargame = useSelector(state => state.wargame)
 
+  if (!currentModal.data) {
+    return <></>
+  }
+
   const onHideModal = () => {
     dispatch(modalAction.close())
   }
@@ -59,7 +63,7 @@ const DeleteModal = () => {
   return (
     <ModalWrapper>
       <div className="display-text-wrapper">
-        {customMessages ? <h3>{customMessages.title}</h3> : <h3>Delete {currentModal.data && currentModal.data.type}</h3>}
+        {customMessages ? <h3>{customMessages.title}</h3> : <h3>Delete {currentModal.data.type}</h3>}
         {customMessages ? <p>{customMessages.message}</p> : <p>This action is permanent.<br />Are you sure?</p>}
         <div className="buttons">
           <ButtonList buttons={buttons} />
