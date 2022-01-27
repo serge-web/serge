@@ -47,7 +47,6 @@ export const CollabStatusBoard: React.FC<Props> = ({
 
   // (optionally) include archived messages
   const filteredDoc = filteredMessages(messages, showArchived)
-
   const { rows, columns, customStyles } = genData(
     filteredDoc,
     forces,
