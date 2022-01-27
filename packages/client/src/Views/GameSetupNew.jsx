@@ -19,8 +19,7 @@ import {
   addNewChannel,
   duplicateChannel,
   saveWargameTitle,
-  initiateWargame,
-  deletePlatformType
+  initiateWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -117,7 +116,14 @@ const AdminGameSetup = () => {
   }
 
   const onDeletePlatformType = platformType => {
-    dispatch(deletePlatformType(currentWargame, platformType))
+    dispatch(modalAction.open('confirmDelete', {
+      type: 'platformType',
+      data: platformType,
+      customMessages: {
+        title: `Delete '${platformType.name}'`,
+        message: 'Are you sure you want to permanently delete this asset?'
+      }
+    }))
   }
 
   const handleSavePlatformTypes = platformTypes => {
