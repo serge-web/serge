@@ -3,13 +3,17 @@ import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonList } from '@serge/components'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
-import { deleteSelectedForce, deleteSelectedChannel, clearWargames } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { deleteSelectedForce, deleteSelectedChannel, clearWargames, deletePlatformType } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import '@serge/themes/App.scss'
 
 const DeleteModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector(state => state.currentModal)
   const wargame = useSelector(state => state.wargame)
+
+  if (!currentModal.data) {
+    return <></>
+  }
 
   const onHideModal = () => {
     dispatch(modalAction.close())
@@ -33,10 +37,16 @@ const DeleteModal = () => {
       dispatch(clearWargames())
     }
 
+    if (type === 'platformType') {
+      dispatch(deletePlatformType(wargame.currentWargame, data))
+    }
+
     dispatch(modalAction.close())
   }
 
   if (!currentModal.open) return false
+
+  const customMessages = currentModal.data.customMessages
 
   const buttons = [{
     name: 'delete',
@@ -53,8 +63,8 @@ const DeleteModal = () => {
   return (
     <ModalWrapper>
       <div className="display-text-wrapper">
-        <h3>Delete { currentModal.data && currentModal.data.type }</h3>
-        <p>This action is permanent.<br/>Are you sure?</p>
+        {customMessages ? <h3>{customMessages.title}</h3> : <h3>Delete {currentModal.data.type}</h3>}
+        {customMessages ? <p>{customMessages.message}</p> : <p>This action is permanent.<br />Are you sure?</p>}
         <div className="buttons">
           <ButtonList buttons={buttons} />
         </div>

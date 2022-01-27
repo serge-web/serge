@@ -399,6 +399,14 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
   })
 }
 
+export const deletePlatformType = (dbName: string, platformType: PlatformType): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc = deepCopy(res)
+    newDoc.data.platform_types.platformTypes = newDoc.data.platform_types.platformTypes.filter((platform: PlatformType) => platform.name !== platformType.name)
+    return updateWargame(newDoc, dbName)
+  })
+}
+
 export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc = deepCopy(res)

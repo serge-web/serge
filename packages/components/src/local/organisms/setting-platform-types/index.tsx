@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
@@ -39,7 +39,7 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, iconUploadUrl }) => {
+export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
   const newPlatformType: PlatformType = {
     complete: false,
     dirty: false,
@@ -49,11 +49,22 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const initialPlatformType: PlatformType = platformType || newPlatformType
-  const [localPlatformType, setLocalPlatformType] = useState(initialPlatformType)
-  const [selectedItem, setSelectedItem] = useState(-1)
+  const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
+  const [selectedItem, setSelectedItem] = useState<number>(-1)
+
+  useEffect(() => {
+    if (platformType) {
+      setLocalPlatformType(platformType)
+    }
+  }, [platformType])
 
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(localPlatformType.platformTypes.findIndex(item => item === _item))
+  }
+
+  const handleDelete = (item: Item): void => {
+    setSelectedItem(-1)
+    onDelete && onDelete(item as PlatformType)
   }
 
   const handleChangePlatformTypes = (nextPlatformTypes: Array<PlatformTypeData>): void => {
@@ -258,6 +269,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           items={localPlatformType.platformTypes}
           onClick={handleSwitch}
           onCreate={handleCreatePlatformType}
+          onDelete={handleDelete}
           title='Create'
           selectedItem={selectedItem >= 0 ? localPlatformType.platformTypes[selectedItem].name : undefined}
           filterKey="name"
