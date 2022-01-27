@@ -115,12 +115,12 @@ const AdminGameSetup = () => {
     dispatch(saveSettings(currentWargame, overview))
   }
 
-  const onDeletePlatformType = platformType => {
+  const onDeletePlatformType = data => {
     dispatch(modalAction.open('confirmDelete', {
       type: 'platformType',
-      data: platformType,
+      data,
       customMessages: {
-        title: `Delete '${platformType.name}'`,
+        title: `Delete '${data.name}'`,
         message: 'Are you sure you want to permanently delete this asset?'
       }
     }))
