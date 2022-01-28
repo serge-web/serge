@@ -34,15 +34,15 @@ const DeleteModal = () => {
   if (!currentModal.open) return false
 
   const buttons = [{
-    name: 'delete',
-    color: 'primary',
-    onClick: onDeleteMessage,
-    children: 'Delete'
-  }, {
     name: 'cancel',
     color: 'secondary',
     onClick: onHideModal,
     children: 'Cancel'
+  }, {
+    name: 'delete',
+    color: 'primary',
+    onClick: onDeleteMessage,
+    children: 'Delete'
   }]
 
   return (
