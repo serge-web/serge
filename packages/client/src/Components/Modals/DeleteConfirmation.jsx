@@ -49,15 +49,15 @@ const DeleteModal = () => {
   const customMessages = currentModal.data.customMessages
 
   const buttons = [{
-    name: 'delete',
-    color: 'primary',
-    onClick: onDelete,
-    children: 'Delete'
-  }, {
     name: 'cancel',
     color: 'secondary',
     onClick: onHideModal,
     children: 'Cancel'
+  }, {
+    name: 'delete',
+    color: 'primary',
+    onClick: onDelete,
+    children: 'Delete'
   }]
 
   return (
