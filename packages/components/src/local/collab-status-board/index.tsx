@@ -6,9 +6,10 @@ import { setMessageState } from '@serge/helpers'
 import DataTable from 'react-data-table-component'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ColFilter from './helpers/col-filter'
 
 /* Import Types */
-import Props, { Row } from './types/props'
+import Props, { Column, Row } from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -31,6 +32,11 @@ export const CollabStatusBoard: React.FC<Props> = ({
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
   const [inFilterMode, setFilterMode] = useState<boolean>(false)
   const [searchString, setSearchString] = useState<string | undefined>(undefined)
+  const [debounce, setDebound] = useState<any>()
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [filters, setFilters] = useState<string[]>([])
+
+  const open = Boolean(anchorEl)
 
   const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
   // participations relate to me if they contain no roles, or if they contain my role
@@ -61,11 +67,51 @@ export const CollabStatusBoard: React.FC<Props> = ({
     onMessageRead
   )
 
+  const openFilter = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const closeFilter = (): void => {
+    setAnchorEl(null)
+  }
+
   useEffect(() => {
     // if the list of messages has changed, we need to re-run the filter, which
     // updates the filteredMessages object that gets rendered
     applyFilter(searchString || '')
   }, [messages])
+
+  useEffect(() => {
+    // get list renderred table headers in all channel
+    const headers = document.getElementsByClassName('rdt_TableHeadRow')
+    // process one by one
+    for (const header of Array.from(headers)) {
+      if (!(header as any).loaded) {
+        columns.forEach((col, idx) => {
+          if (col.colFilter) {
+            const filterNode = header?.childNodes[idx]
+            const colFilterId = `${channelColb.name}_${col.name}_filter`
+            const filterElm = document.getElementById(colFilterId)
+
+            if (!headers || filterElm) return
+
+            const newFilterElm = document.createElement('div')
+            newFilterElm.innerHTML = `<i id='${colFilterId}' class='fa fa-filter' aria-hidden='true' style='cursor: pointer''></i>`
+            newFilterElm.onclick = (e: any): void => colFilter(col, e)
+            filterNode.appendChild(newFilterElm)
+          }
+        });
+        (header as any).loaded = true
+        break
+      }
+    }
+  }, [rows.length])
+
+  const colFilter = (col: Column, event: any): void => {
+    const colFilters = rows.map(row => row[(col.name || '').toString().toLowerCase()])
+    setFilters(colFilters)
+    openFilter(event)
+  }
 
   if (!inFilterMode && filteredRows.length !== rows.length) {
     setFilterdRows(rows)
@@ -93,19 +139,18 @@ export const CollabStatusBoard: React.FC<Props> = ({
         .some((value: any) =>
           value &&
           typeof value === 'string' &&
-          (value.toLowerCase().startsWith(searchStr) || value.toLowerCase().includes(searchStr))))
+          (value.toLowerCase().includes(searchStr.toLowerCase()))))
     setFilterdRows(filteredRows)
   }
 
-  let doFilter: any
   const filterTable = (e: any): void => {
-    clearTimeout(doFilter)
+    clearTimeout(debounce)
     const searchStr = e.target.value
     setSearchString(searchStr)
-    setFilterMode(searchStr !== '')
-    doFilter = setTimeout(() => {
+    setFilterMode(!!searchStr)
+    setDebound(setTimeout(() => {
       applyFilter(searchStr)
-    }, 500)
+    }, 500))
   }
 
   return (
@@ -131,6 +176,7 @@ export const CollabStatusBoard: React.FC<Props> = ({
           </span>
         </div>
       </div>
+      <ColFilter open={open} onClose={closeFilter} anchorEl={anchorEl} filters={filters} />
       <DataTable
         columns={columns}
         data={filteredRows}

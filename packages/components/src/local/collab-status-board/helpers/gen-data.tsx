@@ -90,13 +90,15 @@ export const genData = (
       selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.forceColor} label={row.from} />),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from),
-      center: true
+      center: true,
+      colFilter: true
     },
     {
       name: 'Title',
       selector: (row: Row): string => row.title,
       sortable: true,
-      center: true
+      center: true,
+      colFilter: true
     },
     {
       name: 'Status',
@@ -104,7 +106,8 @@ export const genData = (
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status),
       center: true,
-      grow: 1.2
+      grow: 1.2,
+      colFilter: true
     },
     {
       name: 'Updated',

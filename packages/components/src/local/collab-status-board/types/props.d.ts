@@ -13,6 +13,7 @@ export type Row = { [x: string], collapsible?: Collapsible }
 export type Column = TableColumnBase & {
   selector: (row: Row2) => any
   sortFunction?: (rowA: Row, rowB: Row) => number
+  colFilter?: boolean
 }
 
 export default interface Props {
