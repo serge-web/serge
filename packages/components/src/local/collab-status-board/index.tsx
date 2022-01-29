@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { CollaborativePermission } from '@serge/config'
-import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
-import { genData } from './helpers/gen-data'
-import { setMessageState } from '@serge/helpers'
-import DataTable from 'react-data-table-component'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ColFilter from './helpers/col-filter'
-
-/* Import Types */
-import Props, { Column, Row } from './types/props'
-
+import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
+import { CollaborativePermission } from '@serge/config'
+import { ParticipantCollab } from '@serge/custom-types'
+import { setMessageState } from '@serge/helpers'
+import { uniqBy } from 'lodash'
+import React, { useEffect, useState } from 'react'
+import DataTable from 'react-data-table-component'
+import ColFilter, { CellFilter, HeaderFiltes } from './helpers/col-filter'
+import filteredMessages from './helpers/filteredMessages'
+import { genData } from './helpers/gen-data'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import filteredMessages from './helpers/filteredMessages'
-import { ParticipantCollab } from '@serge/custom-types'
+/* Import Types */
+import Props, { Row } from './types/props'
 
 /** combine force id and color
  */
@@ -30,11 +29,11 @@ export const CollabStatusBoard: React.FC<Props> = ({
 }: Props) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
-  const [inFilterMode, setFilterMode] = useState<boolean>(false)
   const [searchString, setSearchString] = useState<string | undefined>(undefined)
   const [debounce, setDebound] = useState<any>()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [filters, setFilters] = useState<string[]>([])
+  const [colName, setColName] = useState<string>('')
+  const [filtersByKey, setAllFilters] = useState<HeaderFiltes[]>([])
 
   const open = Boolean(anchorEl)
 
@@ -67,10 +66,6 @@ export const CollabStatusBoard: React.FC<Props> = ({
     onMessageRead
   )
 
-  const openFilter = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    setAnchorEl(event.currentTarget)
-  }
-
   const closeFilter = (): void => {
     setAnchorEl(null)
   }
@@ -81,23 +76,46 @@ export const CollabStatusBoard: React.FC<Props> = ({
     applyFilter(searchString || '')
   }, [messages])
 
+  // ///////////////////////////////////////// //
+  //    INJECT FILTER TO TABLE CELL HEADER     //
+  // ///////////////////////////////////////// //
+
   useEffect(() => {
+    // reset header state if need, in case new message arrived
+    resetLoadedStateIfNeed()
+
     // get list renderred table headers in all channel
     const headers = document.getElementsByClassName('rdt_TableHeadRow')
     // process one by one
+    const allFilter: HeaderFiltes[] = []
     for (const header of Array.from(headers)) {
       if (!(header as any).loaded) {
         columns.forEach((col, idx) => {
           if (col.colFilter) {
+            const colFilters: CellFilter[] = rows.map(row => {
+              return {
+                label: row[(col.name || '').toString().toLowerCase()],
+                checked: false
+              }
+            })
+            // uniq filter by label and sort
+            const uniqFilters = uniqBy(colFilters, 'label').sort((a: CellFilter, b: CellFilter) => a.label > b.label ? 1 : -1)
+            const filter = { key: col.name?.toString() || '', filters: ([{ label: 'All', checked: false }, ...uniqFilters]) }
+            allFilter.push(filter)
+
             const filterNode = header?.childNodes[idx]
             const colFilterId = `${channelColb.name}_${col.name}_filter`
             const filterElm = document.getElementById(colFilterId)
 
             if (!headers || filterElm) return
 
+            // inject filter icon to corresponding cell header and add event for it
             const newFilterElm = document.createElement('div')
             newFilterElm.innerHTML = `<i id='${colFilterId}' class='fa fa-filter' aria-hidden='true' style='cursor: pointer''></i>`
-            newFilterElm.onclick = (e: any): void => colFilter(col, e)
+            newFilterElm.onclick = (e: any): void => {
+              setColName(col.name?.toString() || '')
+              setAnchorEl(e.currentTarget)
+            }
             filterNode.appendChild(newFilterElm)
           }
         });
@@ -105,17 +123,55 @@ export const CollabStatusBoard: React.FC<Props> = ({
         break
       }
     }
+    setAllFilters(allFilter)
   }, [rows.length])
 
-  const colFilter = (col: Column, event: any): void => {
-    const colFilters = rows.map(row => row[(col.name || '').toString().toLowerCase()])
-    setFilters(colFilters)
-    openFilter(event)
+  /**
+   * in case a new message arrived, should update the menu filter
+   */
+  const resetLoadedStateIfNeed = (): void => {
+    const headers = document.getElementsByClassName('rdt_TableHeadRow')
+    const shouldReset = Array.from(headers).every(header => (header as any).loaded)
+    if (shouldReset) {
+      Array.from(headers).forEach(header => {
+        (header as any).loaded = false
+      })
+    }
   }
 
-  if (!inFilterMode && filteredRows.length !== rows.length) {
-    setFilterdRows(rows)
+  const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {
+    return appliedFilter.reduce((result: any[], { col, filter }) => {
+      result.push(...rows.filter(row => {
+        const filterLbl: string[] = filter.map(f => f.label)
+        return filterLbl.includes(row[col])
+      }))
+      return result
+    }, [])
   }
+
+  const onFilterChanged = (headerFiltes: HeaderFiltes[]): void => {
+    const appliedFilter = headerFiltes.reduce((result: { col: string, filter: CellFilter[] }[], headerFilter: HeaderFiltes) => {
+      const { key, filters } = headerFilter
+      const selectedFilter = filters.filter(f => f.checked)
+
+      if (!selectedFilter.length) {
+        return result
+      }
+
+      result.push({ col: key.toLowerCase(), filter: selectedFilter })
+      return result
+    }, [])
+
+    if (appliedFilter.length) {
+      const filteredRows = getFilteredRows(appliedFilter)
+      setFilterdRows(filteredRows)
+    } else {
+      setFilterdRows(rows)
+    }
+    setAllFilters(headerFiltes)
+  }
+
+  // End Inject Filter Section
 
   const handleMarkAllAsRead = (): void => {
     for (const message of filteredDoc) {
@@ -139,7 +195,7 @@ export const CollabStatusBoard: React.FC<Props> = ({
         .some((value: any) =>
           value &&
           typeof value === 'string' &&
-          (value.toLowerCase().includes(searchStr.toLowerCase()))))
+          (value.toLowerCase().includes(searchStr.trim().toLowerCase()))))
     setFilterdRows(filteredRows)
   }
 
@@ -147,7 +203,6 @@ export const CollabStatusBoard: React.FC<Props> = ({
     clearTimeout(debounce)
     const searchStr = e.target.value
     setSearchString(searchStr)
-    setFilterMode(!!searchStr)
     setDebound(setTimeout(() => {
       applyFilter(searchStr)
     }, 500))
@@ -176,7 +231,7 @@ export const CollabStatusBoard: React.FC<Props> = ({
           </span>
         </div>
       </div>
-      <ColFilter open={open} onClose={closeFilter} anchorEl={anchorEl} filters={filters} />
+      <ColFilter open={open} onClose={closeFilter} colName={colName} anchorEl={anchorEl} filters={filtersByKey} onFilterChanged={onFilterChanged} />
       <DataTable
         columns={columns}
         data={filteredRows}

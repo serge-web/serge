@@ -1,13 +1,25 @@
 import { Checkbox, Divider, FormControlLabel, Menu, MenuItem } from '@material-ui/core'
-import React from 'react'
-import { uniq } from 'lodash'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { cloneDeep } from 'lodash'
+import React, { useEffect, useState } from 'react'
 
-export interface ColFilterProps {
+export type CellFilter = {
+  label: string
+  checked: boolean
+}
+
+export type ColFilterProps = {
   open: boolean
   onClose: ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void) | undefined
   anchorEl: HTMLElement | null
-  filters: string[]
+  colName: string
+  filters: HeaderFiltes[]
+  onFilterChanged: (filters: HeaderFiltes[]) => void
+}
+
+export type HeaderFiltes = {
+  key: string
+  filters: CellFilter[]
 }
 
 const useStyles = makeStyles(() =>
@@ -20,12 +32,25 @@ const useStyles = makeStyles(() =>
 )
 
 const ColFilter: React.FC<ColFilterProps> = (props) => {
-  const { onClose, open, anchorEl, filters } = props
+  const { onClose, open, anchorEl, filters, onFilterChanged, colName } = props
   const { menuItem } = useStyles()
+  const [localFilter, setLocalFilter] = useState<CellFilter[]>([])
 
-  const onChange = (e: any): void => {
-    console.log('=> on changed', e.target.value)
+  const onChange = (itemIndex: number, currentState: boolean): void => {
+    const cloneFilters = cloneDeep(filters)
+    const headerFilter = cloneFilters.find(f => f.key === colName)
+    if (headerFilter) {
+      headerFilter.filters[itemIndex].checked = !currentState
+      onFilterChanged(cloneFilters)
+    }
   }
+
+  useEffect(() => {
+    const headerFilter = filters.find(f => f.key === colName)
+    if (headerFilter) {
+      setLocalFilter(headerFilter.filters)
+    }
+  }, [colName, filters])
 
   return (
     <Menu
@@ -34,30 +59,16 @@ const ColFilter: React.FC<ColFilterProps> = (props) => {
       onClose={onClose}
       style={{ marginTop: '50px' }}
     >
-      <MenuItem className={menuItem}>
-        <FormControlLabel
-          label='Select All'
-          control={
-            <Checkbox
-              value="all"
-              onChange={onChange}
-              checked={false}
-            />
-          }
-        />
-        <Divider />
-      </MenuItem>
-      <Divider />
-      {uniq(filters).map((filter, idx) =>
-        <div>
-          <MenuItem key={idx} className={menuItem}>
+      {localFilter.map((filter, idx) =>
+        <div key={`${filter.label}-${idx}`}>
+          <MenuItem className={menuItem}>
             <FormControlLabel
-              label={filter}
+              label={filter.label}
               control={
                 <Checkbox
-                  value={filter}
-                  onChange={onChange}
-                  checked={false}
+                  value={filter.checked}
+                  onChange={(): void => onChange(idx, filter.checked)}
+                  checked={filter.checked}
                 />
               }
             />
