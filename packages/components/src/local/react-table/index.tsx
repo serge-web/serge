@@ -25,22 +25,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     ...restProps
   } = props
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
-  const [debounce, setDebounce] = useState<any>()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [colName, setColName] = useState<string>('')
   const [filtersByKey, setAllFilters] = useState<HeaderFiltes[]>([])
-  const [isSearching, setSearching] = useState<boolean>(false)
 
   const open = Boolean(anchorEl)
-
-  /**
-   * on rows changed, re-redner rows
-   */
-  useEffect(() => {
-    if (rows.length && !isSearching) {
-      setFilterdRows(rows)
-    }
-  }, [rows])
 
   // ///////////////////////////////////////// //
   //    INJECT FILTER TO TABLE CELL HEADER     //
@@ -162,43 +151,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     setAnchorEl(null)
   }
 
-  /**
-   * filter data table by the search string
-   * @param searchStr: string
-   */
-  const applyFilter = (searchStr: string): void => {
-    const filteredRows = rows
-      .filter((row: Row) => Object
-        .values(row)
-        .some((value: any) =>
-          value &&
-          typeof value === 'string' &&
-          (value.toLowerCase().includes(searchStr.trim().toLowerCase()))))
-    setFilterdRows(filteredRows)
-  }
-
-  /**
-   * filter data table by entering the search string
-   * @param e: Input event
-   */
-  const filterTable = (e: any): void => {
-    const searchStr = e.target.value
-    clearTimeout(debounce)
-    setSearching(!!searchStr)
-    setDebounce(setTimeout(() => {
-      applyFilter(searchStr)
-    }, 500))
-  }
-
   const ExpandedComponent = ({ data }: Row): React.ReactElement => data.collapsible()
 
   return (
     <>
       <div className={styles.actions}>
-        <FormControl>
-          <FontAwesomeIcon icon={faSearch} className={cx(styles['filter-icon'], styles[filterTheme])} />
-          <Input placeholder="filter data" className={cx(styles['input-filter'], styles[filterTheme])} onInput={filterTable} />
-        </FormControl>
         {
           !!handleArchiveDoc && <FormControlLabel
             className={styles.checkbox}
