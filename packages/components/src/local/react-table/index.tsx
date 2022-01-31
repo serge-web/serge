@@ -196,7 +196,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
           <Input placeholder="filter data" className={cx(styles['input-filter'], styles[filterTheme])} onInput={filterTable} />
         </FormControl>
         {
-          handleArchiveDoc && <FormControlLabel
+          !!handleArchiveDoc && <FormControlLabel
             className={styles.checkbox}
             label="Show archived"
             control={
@@ -208,7 +208,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
           />
         }
         {
-          handleMarkAllAsRead && <div className={styles.btn}>
+          !!handleMarkAllAsRead && <div className={styles.btn}>
             <span>
               <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
             </span>
