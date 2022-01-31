@@ -44,15 +44,15 @@ const UnsavedForceModal = () => {
   if (!currentModal.open) return false
 
   const buttons = [{
-    name: 'continue',
-    color: 'primary',
-    onClick: dontSave,
-    children: 'Don\'t save'
-  }, {
     name: 'cancel',
     color: 'secondary',
     onClick: onHideModal,
     children: 'Cancel'
+  }, {
+    name: 'continue',
+    color: 'primary',
+    onClick: dontSave,
+    children: 'Don\'t save'
   }]
 
   return (

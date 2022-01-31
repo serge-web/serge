@@ -115,6 +115,17 @@ const AdminGameSetup = () => {
     dispatch(saveSettings(currentWargame, overview))
   }
 
+  const onDeletePlatformType = data => {
+    dispatch(modalAction.open('confirmDelete', {
+      type: 'platformType',
+      data,
+      customMessages: {
+        title: `Delete '${data.name}'`,
+        message: 'Are you sure you want to permanently delete this Platform Type?'
+      }
+    }))
+  }
+
   const handleSavePlatformTypes = platformTypes => {
     dispatch(savePlatformTypes(currentWargame, platformTypes))
   }
@@ -308,6 +319,7 @@ const AdminGameSetup = () => {
       channels={channels.channels}
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
+      onDeletePlatformType={onDeletePlatformType}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}
