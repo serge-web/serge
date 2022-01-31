@@ -1,6 +1,4 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button, Checkbox, FormControl, FormControlLabel, Input } from '@material-ui/core'
+import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
 import { uniqBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
@@ -9,7 +7,6 @@ import ColFilter, { CellFilter, HeaderFiltes } from './helpers/col-filter'
 import styles from './styles.module.scss'
 /* Import Types */
 import { ReactTableProps, Row } from './types/props'
-import cx from 'classnames'
 
 /* Render component */
 export const ReactTable: React.FC<ReactTableProps> = (props) => {
@@ -21,7 +18,6 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     handleMarkAllAsRead,
     customStyles,
     channelName = '',
-    filterTheme = 'light',
     ...restProps
   } = props
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
@@ -34,6 +30,15 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
   // ///////////////////////////////////////// //
   //    INJECT FILTER TO TABLE CELL HEADER     //
   // ///////////////////////////////////////// //
+
+  /**
+   * on rows changed, re-redner rows
+   */
+  useEffect(() => {
+    if (rows.length) {
+      setFilterdRows(rows)
+    }
+  }, [rows])
 
   useEffect(() => {
     // do not render filter icon if empty rows
