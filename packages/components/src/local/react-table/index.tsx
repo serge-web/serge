@@ -116,13 +116,17 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    * @returns Row[]
    */
   const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {
-    return appliedFilter.reduce((result: any[], { col, filter }) => {
-      result.push(...rows.filter(row => {
-        const filterLbl: string[] = filter.map(f => f.label)
-        return filterLbl.includes(row[col])
-      }))
-      return result
-    }, [])
+    let filtered = rows
+    appliedFilter.forEach((filter: { col: string, filter: CellFilter[] }) => {
+      // collate list of acceptable values
+      const acceptableValues: string[] = filter.filter.map(f => f.label)
+      // update set of filtered rows
+      filtered = filtered.filter((row: Row) => {
+        // see if this value is in the acceptable values
+        return acceptableValues.includes(row[filter.col])
+      })
+    })
+    return filtered
   }
 
   /**
