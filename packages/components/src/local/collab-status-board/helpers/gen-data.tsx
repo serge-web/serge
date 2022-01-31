@@ -90,14 +90,14 @@ export const genData = (
       selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.forceColor} label={row.from} />),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from),
-      center: true
+      center: true,
+      colFilter: true
     },
     {
       name: 'Title',
       selector: (row: Row): string => row.title,
       sortable: true,
-      center: true,
-      colFilter: true
+      center: true
     },
     {
       name: 'Status',
