@@ -76,7 +76,6 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
       handleArchiveDoc={handleArchiveDoc}
       handleMarkAllAsRead={handleMarkAllAsRead}
       channelName={channelColb.name}
-      filterTheme='light'
       fixedHeader
       expandableRows
       expandOnRowClicked={true}

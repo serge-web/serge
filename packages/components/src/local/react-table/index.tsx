@@ -3,6 +3,7 @@ import { uniqBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import ColFilter, { CellFilter, HeaderFiltes } from './helpers/col-filter'
+import { getElementByClass, getElementById } from './helpers/dom-helpers'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Types */
@@ -32,6 +33,30 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
   // ///////////////////////////////////////// //
 
   /**
+   * on header filter changed, update indicate filter icon
+   */
+  useEffect(() => {
+    filtersByKey.forEach(item => {
+      // check if the filter is applied or not
+      const filterApplied = item.filters.some(f => f.checked)
+      // get the filter icon id
+      let iconId = `${channelName}_${item.key}_filter`.toLowerCase()
+      let filterElm = getElementById(iconId)
+      // if the filterElm = null, might the channelName = '' if we open the table in PlayerLog modal, try to get 1 more time
+      if (!filterElm) {
+        iconId = `_${item.key}_filter`.toLowerCase()
+        filterElm = getElementById(iconId)
+      }
+      // return if the filterElm is null
+      if (!filterElm) {
+        return
+      }
+      // update color for the column which has filter applied
+      (filterElm as HTMLInputElement).style.opacity = filterApplied ? '1' : '0.5'
+    })
+  }, [filtersByKey])
+
+  /**
    * on rows changed, re-redner rows
    */
   useEffect(() => {
@@ -49,10 +74,10 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     resetLoadedStateIfNeed()
 
     // get list renderred table headers in all channel
-    const headers = document.getElementsByClassName('rdt_TableHeadRow')
+    const headers = getElementByClass('rdt_TableHeadRow')
     // process one by one
     const allFilter: HeaderFiltes[] = []
-    for (const header of Array.from(headers)) {
+    for (const header of headers) {
       if (!(header as any).loaded) {
         columns.forEach((col, idx) => {
           if (col.colFilter) {
@@ -69,14 +94,14 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
             allFilter.push(filter)
 
             const filterNode = header?.childNodes[idx]
-            const colFilterId = `${channelName}_${col.name}_filter`
-            const filterElm = document.getElementById(colFilterId)
+            const colFilterId = `${channelName}_${colField}_filter`.toLowerCase()
+            const filterElm = getElementById(colFilterId)
 
             if (!headers || filterElm) return
 
             // inject filter icon to corresponding cell header and add event for it
             const newFilterElm = document.createElement('div')
-            newFilterElm.innerHTML = `<i id='${colFilterId}' class='fa fa-filter' aria-hidden='true' style='cursor: pointer''></i>`
+            newFilterElm.innerHTML = `<i id='${colFilterId}' class='fa fa-filter' aria-hidden='true' style='cursor: pointer; opacity: 0.5''></i>`
             newFilterElm.onclick = (e: any): void => {
               setColName(colField)
               setAnchorEl(e.currentTarget)
@@ -95,8 +120,8 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    * in case a new message arrived, should reset the header state -> update the filter menu
    */
   const resetLoadedStateIfNeed = (): void => {
-    const headers = document.getElementsByClassName('rdt_TableHeadRow')
-    const shouldReset = Array.from(headers).every(header => (header as any).loaded)
+    const headers = getElementByClass('rdt_TableHeadRow')
+    const shouldReset = headers.every(header => (header as any).loaded)
     if (shouldReset) {
       Array.from(headers).forEach(header => {
         (header as any).loaded = false

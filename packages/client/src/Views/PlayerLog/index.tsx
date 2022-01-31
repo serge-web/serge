@@ -97,7 +97,6 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
           columns={columns}
           rows={filteredRows}
           customStyles={customStyles}
-          filterTheme='dark'
           fixedHeader
           defaultSortAsc={true}
           persistTableHead={true}
