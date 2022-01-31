@@ -32,7 +32,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
           </span>
         )
 
-      case 'roleName':
+      case 'lastActive':
         return (
           <span className={styles['custom-cell']}>
             <div className={cx({ [styles['role-icon']]: true, [styles.active]: row.active, [styles.inactive]: !row.active })} />
@@ -60,7 +60,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
       selector: (row: Row): string | React.ReactElement => cellRender(row, col),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA[col.field], rowB[col.field]),
-      colFilter: ['roleName', 'message'].includes(col.field) // enable col filter for 2 cols
+      colFilter: ['forceName', 'roleName', 'message'].includes(col.field) // enable col filter for 2 cols
     }
   })
 
