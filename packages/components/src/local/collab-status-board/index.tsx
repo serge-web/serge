@@ -1,7 +1,7 @@
 import { CollaborativePermission } from '@serge/config'
 import { ParticipantCollab } from '@serge/custom-types'
 import { setMessageState } from '@serge/helpers'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import ReactTable from '../react-table'
 import filteredMessages from './helpers/filteredMessages'
 import { genData } from './helpers/gen-data'
@@ -54,18 +54,18 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     return { ...data, filteredDoc }
   }, [messages])
 
-  const handleMarkAllAsRead = (): void => {
+  const handleMarkAllAsRead = useCallback(() => {
     for (const message of filteredDoc) {
       // flag for if we tell original sender of RFI that it has been responded to
       const key = message._id
       setMessageState(currentWargame, role.forceName, role.roleName, key)
     }
     onMarkAllAsRead && onMarkAllAsRead()
-  }
+  }, [filteredDoc])
 
-  const handleArchiveDoc = (): void => {
+  const handleArchiveDoc = useCallback(() => {
     setShowArchived(!showArchived)
-  }
+  }, [showArchived])
 
   return (
     <ReactTable

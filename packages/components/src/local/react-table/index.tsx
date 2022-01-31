@@ -167,7 +167,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
             label="Show archived"
             control={
               <Checkbox
-                onChange={handleArchiveDoc}
+                onChange={(): void => handleArchiveDoc()}
                 checked={!!showArchived}
               />
             }
@@ -176,7 +176,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
         {
           !!handleMarkAllAsRead && <div className={styles.btn}>
             <span>
-              <Button onClick={handleMarkAllAsRead}>Mark All As Read</Button>
+              <Button onClick={(): void => handleMarkAllAsRead()}>Mark All As Read</Button>
             </span>
           </div>
         }
