@@ -20,3 +20,9 @@ export interface WargameRevision {
   initiated: boolean,
   shortName: string
 }
+
+export interface HealthChechkInterface {
+  status: string, 
+  uptime: number, 
+  version: string
+}

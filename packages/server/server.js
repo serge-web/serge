@@ -16,6 +16,10 @@ const runServer = (
   require('dotenv').config()
   const archiver = require('archiver')
 
+  if (!process.env.REACT_APP_VERSION) {
+    process.env.REACT_APP_VERSION = require('../../package.json').version
+  }
+
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
     .plugin(require('pouchdb-adapter-http'))

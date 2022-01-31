@@ -31,6 +31,7 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   const dispatch = useDispatch()
   const [toggleBeat, setToggleBeat] = useState(false)
   const [serverStatus, setServerStatus] = useState('')
+  const [version, setVersion] = useState('')
   const [serverPingTime, setServerPingTime] = useState<number>(0)
   const isUmpire = (window as any).selectedChannel && (window as any).selectedChannel === UMPIRE_FORCE
 
@@ -55,11 +56,15 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
 
   const pingServer = () => {
     return pingServerApi().then(res => {
-      setServerStatus(res)
+      setServerStatus(res.status)
       setServerPingTime(new Date().getTime())
       return res
     })
   }
+
+  useEffect(() => {
+    pingServer().then(res => setVersion(res.version))
+  }, [])
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -81,7 +86,7 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
           className="heartbeat-checker"
         />
       </li>
-      <li>V:<span>{process.env.REACT_APP_VERSION}</span></li>
+      <li>V:<span>{version}</span></li>
       <li><span>{trimmedAppBuildDate}</span></li>
     </ul>
   )

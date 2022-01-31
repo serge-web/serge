@@ -50,7 +50,8 @@ import {
   ApiWargameDbObject,
   ApiWargameDb,
   ListenNewMessageType,
-  WargameRevision
+  WargameRevision,
+  HealthChechkInterface
 } from './types.d'
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
@@ -165,8 +166,8 @@ export const pingServer = (): Promise<any> => {
     }
   })
     .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data.status
+    .then((data: HealthChechkInterface) => {
+      return data
     })
     .catch((err) => {
       console.log(err)
