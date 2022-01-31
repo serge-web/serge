@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
-import { Column, Row } from '../types/props'
+import { Column, Row } from '../../react-table/types/props'
 import { capitalize } from 'lodash'
 import moment from 'moment'
 
@@ -90,8 +90,7 @@ export const genData = (
       selector: (row: Row): React.ReactElement => (<Badge customBackgroundColor={row.forceColor} label={row.from} />),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.from, rowB.from),
-      center: true,
-      colFilter: true
+      center: true
     },
     {
       name: 'Title',

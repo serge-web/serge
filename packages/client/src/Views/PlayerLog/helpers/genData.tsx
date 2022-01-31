@@ -56,10 +56,11 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
   const columns = columnsList.map(col => {
     return {
       name: col.label,
+      field: col.field,
       selector: (row: Row): string | React.ReactElement => cellRender(row, col),
       sortable: true,
-      // center: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA[col.field], rowB[col.field]),
+      colFilter: ['roleName', 'message'].includes(col.field) // enable col filter for 2 cols
     }
   })
 

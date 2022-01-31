@@ -57,7 +57,8 @@ const ColFilter: React.FC<ColFilterProps> = (props) => {
       anchorEl={anchorEl}
       open={open}
       onClose={onClose}
-      style={{ marginTop: '50px' }}
+      style={{ marginTop: '50px', zIndex: 10000 }}
+      MenuListProps={{ disablePadding: true }}
     >
       {localFilter.map((filter, idx) =>
         <div key={`${filter.label}-${idx}`}>
