@@ -6,6 +6,7 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
 import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from "@serge/config";
 import { Confirm } from '@serge/components'
+import { pingServer } from '../../api/wargames_api/index'
 import Props from './types'
 
 // @ts-ignore
@@ -71,6 +72,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)
+    pingServer('Send message')
   }
 
   const openConfirmPopup = (e: any): void => {

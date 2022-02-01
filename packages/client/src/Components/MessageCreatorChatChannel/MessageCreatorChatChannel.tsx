@@ -4,6 +4,7 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import Props from './types'
+import { pingServer } from '../../api/wargames_api'
 
 const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   const editorPreviewRef = createRef<HTMLDivElement>()
@@ -17,6 +18,8 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   }, [])
 
   const sendMessage = (): void => {
+
+    pingServer('Chat message')
 
     if (editor !== null) {
       let messageDetails: MessageDetails = {

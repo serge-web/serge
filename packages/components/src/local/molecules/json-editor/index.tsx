@@ -1,4 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from 'react'
+import unfetch, { Response } from 'node-fetch'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -8,11 +9,13 @@ import Props from './types/props'
 import { Editor } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
-import { expiredStorage } from '@serge/config'
+import { expiredStorage, serverPath } from '@serge/config'
 import { configDateTimeLocal } from '@serge/helpers'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
+
+const fetch = unfetch.bind(window)
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, title, template, storeNewValue, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
@@ -29,6 +32,19 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       fontSize: '16px'
     }
     return <span style={styles} >Schema not found for {template}</span>
+  }
+
+  const pingServer = (action: string): Promise<any> => {
+    return fetch(serverPath + 'healthcheck/' + action, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response: Response): Promise<any> => response.json())
+      .then((data: any) => {
+        return data
+      })
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
@@ -85,6 +101,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
       const targetId = target.getAttribute('id')
       if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
+        pingServer('Close message')
         if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
           expiredStorage.removeItem(genLocalStorageId())
           // remove click listener for unmounted component
@@ -134,6 +151,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
 
   useLayoutEffect(() => {
     if (editor) {
+      pingServer('Open message')
       if (disabled) {
         editor.disable()
       } else {

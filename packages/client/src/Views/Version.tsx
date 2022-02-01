@@ -53,8 +53,8 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   }, [serverStatus, serverPingTime])
 
   const pingServer = () => {
-    return pingServerApi().then(res => {
-      setServerStatus(res)
+    return pingServerApi('healthcheck').then(res => {
+      setServerStatus(typeof res === 'string' ? res : res.status)
       setServerPingTime(new Date().getTime())
       return res
     })

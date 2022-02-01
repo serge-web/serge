@@ -25,6 +25,7 @@ import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
 import CollabChannel from '../../../Components/CollabChannel'
+import { pingServer } from '../../../api/wargames_api/index'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -185,6 +186,7 @@ const factory = (state: PlayerUi): Factory => {
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
         default:
+          pingServer('Channel change')
           console.warn('not yet handling', v3Channel.channelType)
       }
     } else {

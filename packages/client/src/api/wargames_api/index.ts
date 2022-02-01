@@ -157,8 +157,8 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (): Promise<any> => {
-  return fetch(serverPath + 'healthcheck', {
+export const pingServer = (action: string): Promise<any> => {
+  return fetch(serverPath + 'healthcheck/' + action, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ export const pingServer = (): Promise<any> => {
   })
     .then((response: Response): Promise<any> => response.json())
     .then((data: any) => {
-      return data.status
+      return data
     })
     .catch((err) => {
       console.log(err)

@@ -102,10 +102,11 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck', (req, res) => {
+  app.get('/healthcheck/:action', (req, res) => {
     return res.status(200).send({
       status: 'OK',
-      uptime: process.uptime()
+      uptime: process.uptime(),
+      action: req.params.action
     })
   })
 
