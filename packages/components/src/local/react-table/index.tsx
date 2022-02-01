@@ -1,5 +1,5 @@
 import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
-import { uniqBy } from 'lodash'
+import { flattenDeep, uniqBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import ColFilter, { CellFilter, HeaderFiltes } from './helpers/col-filter'
@@ -85,7 +85,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
             const colFilters: CellFilter[] = rows.map(row => {
               return {
                 label: row[colField],
-                checked: false
+                checked: getFilterState(row[colField])
               }
             })
             // uniq filter by label and sort
@@ -113,8 +113,24 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
         break
       }
     }
+
+    onFilterChanged(allFilter)
     setAllFilters(allFilter)
-  }, [rows.length])
+  }, [rows])
+
+  /**
+   * merge existing filter state when the rows changes / the filter list is initialized
+   * @param label: filter label
+   * @returns boolean
+   */
+  const getFilterState = (label: string): boolean => {
+    if (!filtersByKey.length) {
+      return false
+    }
+    return filtersByKey.some(filter => {
+      return filter.filters.some(f => f.checked && f.label === label)
+    })
+  }
 
   /**
    * in case a new message arrived, should reset the header state -> update the filter menu
@@ -135,17 +151,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    * @returns Row[]
    */
   const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {
-    let filtered = rows
-    appliedFilter.forEach((filter: { col: string, filter: CellFilter[] }) => {
-      // collate list of acceptable values
-      const acceptableValues: string[] = filter.filter.map(f => f.label)
-      // update set of filtered rows
-      filtered = filtered.filter((row: Row) => {
-        // see if this value is in the acceptable values
-        return acceptableValues.includes(row[filter.col])
-      })
+    const acceptableValues: string[] = flattenDeep(appliedFilter.map(filter => filter.filter.map(f => f.label)))
+    return rows.filter(row => {
+      // see if this value is in the acceptable values
+      return Object.keys(row).some(key => acceptableValues.includes(row[key]))
     })
-    return filtered
   }
 
   /**
