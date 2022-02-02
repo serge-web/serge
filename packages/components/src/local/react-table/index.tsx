@@ -113,7 +113,6 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
         break
       }
     }
-
     onFilterChanged(allFilter)
     setAllFilters(allFilter)
   }, [rows])
