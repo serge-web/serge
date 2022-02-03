@@ -1,3 +1,4 @@
+import { COMMODITY_TYPE_NUMBER } from "@serge/config"
 import { PlatformTypeData } from "@serge/custom-types"
 
 export const platformTypes: PlatformTypeData[] = [
@@ -30,7 +31,28 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    commodityTypes: [
+      {
+        commType: COMMODITY_TYPE_NUMBER,
+        commId: 'comm-fish',
+        name: 'quota',
+        description: 'fishing allowance',
+        units: 'tonnes',
+        editableByPlayer: false,
+        defaultValue: 100
+      },
+      {
+        commType: COMMODITY_TYPE_NUMBER,
+        commId: 'comm-fuel',
+        name: 'fuel',
+        description: 'fuel remaining',
+        units: 'tonnes',
+        editableByPlayer: false,
+        format: '0.00',
+        defaultValue: 5
+      }
+    ]
   },
   {
     name: 'Frigate',
