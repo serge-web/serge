@@ -9,6 +9,8 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Components */
+import { faUserCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
 import Radio from '@material-ui/core/Radio'
@@ -84,7 +86,6 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     handleChangePlatformTypes(copyTypes)
   }
 
-
   const handleChangeCommodity = (item: CommodityType, key: number): void => {
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
     const newCommodities: CommodityTypes = data.commodityTypes ? [...data.commodityTypes] : []
@@ -96,7 +97,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const commType = item as CommodityType
     return (
       <div className={styles.mobile}>
-        {key === 0 && <div className={styles['mobile-title']}>Editable by player</div>}
+        {key === 0 && <div className={styles['mobile-title']}><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog}/></div>}
         <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangeCommodity(commType, key) }} />
       </div>
     )
@@ -138,8 +139,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const handleChangeSpeeds = (speedKts: Array<SortableListItem>): void => {
       handleChangePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
-    const handleChangeCommodities= (commodityTypes: Array<SortableListItem>): void => {
-      handleChangePlatformTypeData({ ...data, commodityTypes: commodityTypes as CommodityTypes}, selectedItem)
+    const handleChangeCommodities = (commodityTypes: Array<SortableListItem>): void => {
+      handleChangePlatformTypeData({ ...data, commodityTypes: commodityTypes as CommodityTypes }, selectedItem)
     }
     const handleChangeIcon = (icon: string): void => {
       handleChangePlatformTypeData({ ...data, icon }, selectedItem)
@@ -161,13 +162,12 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const handleCreateCommodities = (): void => {
       const baseData = data.commodityTypes || []
       const commodityTypes: CommodityTypes = [...baseData, {
-        name: 'New State',
+        name: 'New Commodity',
         commType: COMMODITY_TYPE_NUMBER,
         commId: 'comm' + uniqid.time()
       }]
       handleChangePlatformTypeData({ ...data, commodityTypes }, selectedItem)
     }
-    
 
     const handleCreateSpeeds = (): void => {
       if (data.speedKts) {
