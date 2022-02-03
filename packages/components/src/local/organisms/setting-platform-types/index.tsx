@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
+import uniqid from 'uniqid'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -21,8 +22,9 @@ import Button from '../../atoms/button'
 import IconUploader from '../../molecules/icon-uploader'
 import SortableList, { Item as SortableListItem } from '../../molecules/sortable-list'
 import EditableList, { Item } from '../../molecules/editable-list'
-import { PlatformType, PlatformTypeData, State } from '@serge/custom-types'
+import { CommodityType, CommodityTypes, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import { platformTypeNameToKey } from '@serge/helpers'
+import { COMMODITY_TYPE_NUMBER } from '@serge/config'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -82,12 +84,31 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     handleChangePlatformTypes(copyTypes)
   }
 
+
+  const handleChangeCommodity = (item: CommodityType, key: number): void => {
+    const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
+    const newCommodities: CommodityTypes = data.commodityTypes ? [...data.commodityTypes] : []
+    newCommodities[key].editableByPlayer = !item.editableByPlayer
+    handleChangePlatformTypeData({ ...data, commodityTypes: newCommodities }, selectedItem)
+  }
+
+  const renderCommoditiesSection = (item: SortableListItem, key: number): React.ReactNode => {
+    const commType = item as CommodityType
+    return (
+      <div className={styles.mobile}>
+        {key === 0 && <div className={styles['mobile-title']}>Editable by player</div>}
+        <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangeCommodity(commType, key) }} />
+      </div>
+    )
+  }
+
   const handleChangeMobile = (item: State, key: number): void => {
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
     const newStates: Array<State> = [...data.states]
     newStates[key].mobile = !item.mobile
     handleChangePlatformTypeData({ ...data, states: newStates }, selectedItem)
   }
+
   const renderStatesMobileSection = (item: SortableListItem, key: number): React.ReactNode => {
     const stateItem = item as State
     return (
@@ -117,6 +138,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const handleChangeSpeeds = (speedKts: Array<SortableListItem>): void => {
       handleChangePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
+    const handleChangeCommodities= (commodityTypes: Array<SortableListItem>): void => {
+      handleChangePlatformTypeData({ ...data, commodityTypes: commodityTypes as CommodityTypes}, selectedItem)
+    }
     const handleChangeIcon = (icon: string): void => {
       handleChangePlatformTypeData({ ...data, icon }, selectedItem)
     }
@@ -133,6 +157,18 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       }]
       handleChangePlatformTypeData({ ...data, states }, selectedItem)
     }
+
+    const handleCreateCommodities = (): void => {
+      const baseData = data.commodityTypes || []
+      const commodityTypes: CommodityTypes = [...baseData, {
+        name: 'New State',
+        commType: COMMODITY_TYPE_NUMBER,
+        commId: 'comm' + uniqid.time()
+      }]
+      handleChangePlatformTypeData({ ...data, commodityTypes }, selectedItem)
+    }
+    
+
     const handleCreateSpeeds = (): void => {
       if (data.speedKts) {
         const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
@@ -232,6 +268,20 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                 title='Add Speed' />
             </FormGroup>
             }
+          </div>
+        </div>
+        <div className={styles['form-row']}>
+          <div className={cx(styles.col, styles.section)}>
+            <FormGroup placeholder="Commodities">
+              <SortableList
+                required
+                sortable='manual'
+                onChange={handleChangeCommodities}
+                onCreate={handleCreateCommodities}
+                renderItemSection={renderCommoditiesSection}
+                items={data.commodityTypes || []}
+                title='Add Commodity' />
+            </FormGroup>
           </div>
         </div>
       </div>
