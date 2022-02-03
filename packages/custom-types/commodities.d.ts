@@ -14,6 +14,8 @@ export interface BaseCommodityType {
   commId: string
   // description of this type of commodity
   description?: string
+  // whether commodity can be edited by players
+  editableByPlayer?: boolean
 }
 
 export interface NumberCommodityType extends BaseCommodityType {
