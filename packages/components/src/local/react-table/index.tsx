@@ -154,7 +154,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     const acceptableValues: { label: string, col: string }[] = flattenDeep(appliedFilters.map(filter => filter.filter.map(f => ({ label: f.label, col: filter.col }))))
     return rows.filter(row => {
       // see if this value is in the acceptable values
-      return acceptableValues.some(({ label, col }) => label.includes(row[col]))
+      return acceptableValues.some(({ label, col }) => label.trim() === `${row[col]}`.trim())
     })
   }
 
