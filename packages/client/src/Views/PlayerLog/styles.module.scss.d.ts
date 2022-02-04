@@ -14,9 +14,6 @@ interface CssExports {
   'inactive': string;
   'logContent': string;
   'role-icon': string;
-  'filter-icon': string;
-  'input-filter': string;
-  'filter-group': string;
   'custom-cell': string;
 }
 export const cssExports: CssExports;
