@@ -52,12 +52,21 @@ const useStyles = makeStyles({
     '&&:after': {
       borderBottom: 'none'
     }
+  },
+  units: {
+    width: '120px'
+  },
+  format: {
+    width: '120px'
+  },
+  description: {
+    width: '300px'
   }
 });
 
 /* Render component */
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
-  const classes = useStyles()
+  const { description, format, underline, units } = useStyles()
   const newPlatformType: PlatformType = {
     complete: false,
     dirty: false,
@@ -69,6 +78,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const initialPlatformType: PlatformType = platformType || newPlatformType
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
   const [selectedItem, setSelectedItem] = useState<number>(0) // auto set first item in the list
+  const [debounce, setDebounce] = useState<any>()
 
   useEffect(() => {
     if (platformType) {
@@ -112,20 +122,25 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
     const onFieldChange = (field: 'units' | 'format' | 'description', value: string): void => {
-      // TODO: should validate input value for each field. e.g: 10kg or 5 tons or 1 invalid_unit ?
-      if (!data.commodityTypes)
-        return
-      data.commodityTypes[key][field] = value
-      handleChangePlatformTypeData(data, selectedItem)
+      // TODO: should validate input value for each field. e.g: kg or tons or invalid_unit ?
+
+      // should process data when finish typing to improve performance
+      clearTimeout(debounce)
+      setDebounce(setTimeout(() => {
+        if (!data.commodityTypes)
+          return
+        data.commodityTypes[key][field] = value
+        handleChangePlatformTypeData(data, selectedItem)
+      }, 500))
     }
 
     return (
       <div className={styles.mobile}>
         {key === 0 && <div className={styles['mobile-title']}><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog} /></div>}
         <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangeCommodity(commType, key) }} />
-        <TextField placeholder="units" InputProps={{ classes }} value={commType.units} onChange={(e): void => onFieldChange('units', e.target.value)} />
-        <TextField placeholder="description" InputProps={{ classes }} value={commType.description} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder="format" InputProps={{ classes }} value={commType.format} onChange={(e): void => onFieldChange('format', e.target.value)} />
+        <TextField placeholder="units" className={units} InputProps={{ className: underline }} defaultValue={commType.units} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder="description" className={description} InputProps={{ className: underline }} defaultValue={commType.description} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder="format" className={format} InputProps={{ className: underline }} defaultValue={commType.format} onChange={(e): void => onFieldChange('format', e.target.value)} />
       </div>
     )
   }

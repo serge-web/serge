@@ -149,6 +149,7 @@ export const SortableList: React.FC<PropTypes> = ({
             {
               inputActive
                 ? <input
+                  className={styles['value-label']}
                   type={isNumber ? 'number' : 'text'}
                   onChange={handleInputChange}
                   value={`${value}`}
