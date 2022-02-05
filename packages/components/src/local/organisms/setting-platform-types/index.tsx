@@ -1,32 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import cx from 'classnames'
-import uniqid from 'uniqid'
-
-/* Import proptypes */
-import PropTypes from './types/props'
-
-/* Import Styles */
-import styles from './styles.module.scss'
-
 /* Import Components */
 import { faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { withStyles } from '@material-ui/core/styles'
-import Switch from '@material-ui/core/Switch'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
+import { withStyles } from '@material-ui/core/styles'
+import Switch from '@material-ui/core/Switch'
+import TextField from "@material-ui/core/TextField"
+import { makeStyles } from '@material-ui/styles'
+import { COMMODITY_TYPE_NUMBER } from '@serge/config'
+import { CommodityType, CommodityTypes, NumberCommodityType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
+import { platformTypeNameToKey } from '@serge/helpers'
+import cx from 'classnames'
+import React, { useEffect, useState } from 'react'
+import uniqid from 'uniqid'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
-import TextInput from '../../atoms/text-input'
-import FormGroup from '../../atoms/form-group-shadow'
 import Button from '../../atoms/button'
+import FormGroup from '../../atoms/form-group-shadow'
+import TextInput from '../../atoms/text-input'
+import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
 import SortableList, { Item as SortableListItem } from '../../molecules/sortable-list'
-import EditableList, { Item } from '../../molecules/editable-list'
-import { CommodityType, CommodityTypes, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
-import { platformTypeNameToKey } from '@serge/helpers'
-import { COMMODITY_TYPE_NUMBER } from '@serge/config'
+/* Import Styles */
+import styles from './styles.module.scss'
+/* Import proptypes */
+import PropTypes from './types/props'
+
+
+
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -39,11 +41,23 @@ const MobileSwitch = withStyles({
     }
   },
   checked: {},
-  track: {}
+  track: {},
 })(Switch)
+
+const useStyles = makeStyles({
+  underline: {
+    '&&&:before': {
+      borderBottom: 'none'
+    },
+    '&&:after': {
+      borderBottom: 'none'
+    }
+  }
+});
 
 /* Render component */
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
+  const classes = useStyles()
   const newPlatformType: PlatformType = {
     complete: false,
     dirty: false,
@@ -54,7 +68,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   const initialPlatformType: PlatformType = platformType || newPlatformType
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
-  const [selectedItem, setSelectedItem] = useState<number>(-1)
+  const [selectedItem, setSelectedItem] = useState<number>(0) // auto set first item in the list
 
   useEffect(() => {
     if (platformType) {
@@ -94,11 +108,24 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const renderCommoditiesSection = (item: SortableListItem, key: number): React.ReactNode => {
-    const commType = item as CommodityType
+    const commType = item as NumberCommodityType
+    const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
+
+    const onFieldChange = (field: 'units' | 'format' | 'description', value: string): void => {
+      // TODO: should validate input value for each field. e.g: 10kg or 5 tons or 1 invalid_unit ?
+      if (!data.commodityTypes)
+        return
+      data.commodityTypes[key][field] = value
+      handleChangePlatformTypeData(data, selectedItem)
+    }
+
     return (
       <div className={styles.mobile}>
-        {key === 0 && <div className={styles['mobile-title']}><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog}/></div>}
+        {key === 0 && <div className={styles['mobile-title']}><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog} /></div>}
         <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangeCommodity(commType, key) }} />
+        <TextField placeholder="units" InputProps={{ classes }} value={commType.units} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder="description" InputProps={{ classes }} value={commType.description} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder="format" InputProps={{ classes }} value={commType.format} onChange={(e): void => onFieldChange('format', e.target.value)} />
       </div>
     )
   }
@@ -257,16 +284,16 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             </div>
           </div>
           <div className={cx(styles.col, styles.section)}>
-            { data.speedKts &&
-            <FormGroup placeholder="Speed (kts)">
-              <SortableList
-                required
-                sortable='auto'
-                onChange={handleChangeSpeeds}
-                onCreate={handleCreateSpeeds}
-                items={data.speedKts}
-                title='Add Speed' />
-            </FormGroup>
+            {data.speedKts &&
+              <FormGroup placeholder="Speed (kts)">
+                <SortableList
+                  required
+                  sortable='auto'
+                  onChange={handleChangeSpeeds}
+                  onCreate={handleCreateSpeeds}
+                  items={data.speedKts}
+                  title='Add Speed' />
+              </FormGroup>
             }
           </div>
         </div>
