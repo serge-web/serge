@@ -6,7 +6,7 @@ import CollabStatusBoard from './index'
 import docs from './README.md'
 
 import { MessageCustom } from '@serge/custom-types'
-import Props from './types/props'
+import { CollabStatusBoardProps } from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {
   channelCollaborativeEditing2,
@@ -59,7 +59,7 @@ export default {
   }
 }
 
-const Template: Story<Props> = (args) => {
+const Template: Story<CollabStatusBoardProps> = (args) => {
   const { isObserver, isUmpire } = args
   const [messages, setMessages] = useState(args.messages)
 
