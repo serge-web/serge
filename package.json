@@ -6,6 +6,9 @@
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "license": "Apache-2.0",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "workspaces": [
     "packages/*"
   ],
