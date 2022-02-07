@@ -1342,6 +1342,23 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="content"
             >
               <div
+                className="commoditie-header"
+              >
+                <span>
+                  Name
+                </span>
+                <span />
+                <span>
+                  Units
+                </span>
+                <span>
+                  Description
+                </span>
+                <span>
+                  Format
+                </span>
+              </div>
+              <div
                 className="main"
               >
                 <ul>

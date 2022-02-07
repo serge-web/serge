@@ -56,7 +56,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #1a394d;
-  padding-bottom: 22px;
+  padding-bottom: 40px;
 }
 
 .states-holder > div > div:last-child::before {
@@ -65,4 +65,29 @@
   z-index: 1;
   height: 38px;
   position: relative;
+}
+
+.commoditie-header {
+  display: flex;
+  padding-left: 20px;
+  font-size: small;
+  font-weight: 700;
+
+  span {
+    &:nth-child(1) {
+      width: 20%;
+    }
+    &:nth-child(2) {
+      width: 50px;
+    }
+    &:nth-child(3) {
+      width: 120px;
+    }
+    &:nth-child(4) {
+      width: 300px;
+    }
+    &:nth-child(5) {
+      width: 120px;
+    }
+  }
 }

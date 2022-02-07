@@ -7,7 +7,7 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
-import TextField from "@material-ui/core/TextField"
+import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
 import { COMMODITY_TYPE_NUMBER } from '@serge/config'
 import { CommodityType, CommodityTypes, NumberCommodityType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
@@ -27,9 +27,6 @@ import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes from './types/props'
 
-
-
-
 const MobileSwitch = withStyles({
   switchBase: {
     color: '#FFFFFF',
@@ -41,7 +38,7 @@ const MobileSwitch = withStyles({
     }
   },
   checked: {},
-  track: {},
+  track: {}
 })(Switch)
 
 const useStyles = makeStyles({
@@ -62,7 +59,7 @@ const useStyles = makeStyles({
   description: {
     width: '300px'
   }
-});
+})
 
 /* Render component */
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
@@ -122,8 +119,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
     const onFieldChange = (field: 'units' | 'format' | 'description', value: string): void => {
       // TODO: should validate input value for each field. e.g: kg or tons or invalid_unit ?
-      if (!data.commodityTypes)
-        return
+      if (!data.commodityTypes) { return }
       data.commodityTypes[key][field] = value
       handleChangePlatformTypeData(data, selectedItem)
     }
@@ -309,6 +305,13 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Commodities">
+              <div className={styles['commoditie-header']}>
+                <span>Name</span>
+                <span></span>
+                <span>Units</span>
+                <span>Description</span>
+                <span>Format</span>
+              </div>
               <SortableList
                 required
                 sortable='manual'
