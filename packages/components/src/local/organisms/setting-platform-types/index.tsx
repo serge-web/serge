@@ -145,7 +145,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const stateItem = item as State
     return (
       <div className={styles.mobile}>
-        {key === 0 && <div className={styles['mobile-title']}>Mobile</div>}
+        {key === 0 && <div title='Asset is mobile when in this state' className={styles['mobile-title']}>Mobile</div>}
         <MobileSwitch size='small' checked={stateItem.mobile} onChange={(): void => { handleChangeMobile(stateItem, key) }} />
       </div>
     )
@@ -262,8 +262,10 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               </FormControl>
             </FormGroup>
           </div>
+        </div>
+        <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder="Conditions">
+            <FormGroup placeholder="Conditions 2">
               <SortableList
                 required
                 onChange={handleChangeConditions}
@@ -272,8 +274,6 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                 title='Add Condition' />
             </FormGroup>
           </div>
-        </div>
-        <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
             <div className={styles['states-holder']}>
               <FormGroup placeholder="States">
