@@ -107,7 +107,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     handleChangePlatformTypes(copyTypes)
   }
 
-  const handleChangeCommodity = (item: CommodityType, key: number): void => {
+  const handleChangePlayerEditable = (item: CommodityType, key: number): void => {
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
     const newCommodities: CommodityTypes = data.commodityTypes ? [...data.commodityTypes] : []
     newCommodities[key].editableByPlayer = !item.editableByPlayer
@@ -126,7 +126,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
     return (
       <div className={styles.mobile}>
-        <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangeCommodity(commType, key) }} />
+        <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(commType, key) }} />
         <TextField placeholder="units" className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={commType.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
         <TextField placeholder="description" className={description} InputProps={{ className: underline }} value={commType.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
         <TextField placeholder="format" className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={commType.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
