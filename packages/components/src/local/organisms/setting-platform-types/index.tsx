@@ -306,10 +306,10 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             <FormGroup placeholder="Commodities">
               <div className={styles['commoditie-header']}>
                 <span></span>
-                <span><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog} /></span>
-                <span><FontAwesomeIcon size={'lg'} title='Units' icon={faRuler} /></span>
-                <span><FontAwesomeIcon size={'lg'} title='Description' icon={faList} /></span>
-                <span><FontAwesomeIcon size={'lg'} title='Format' icon={faCogs} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='If player can edit attribute' icon={faUserCog} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='Units for attribute (optional)' icon={faRuler} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='Description of attribute' icon={faList} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='Number display format (e.g. 0.00, optional)' icon={faCogs} /></span>
               </div>
               <SortableList
                 required
