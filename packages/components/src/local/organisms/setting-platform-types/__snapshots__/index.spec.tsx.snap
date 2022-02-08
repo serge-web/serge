@@ -658,7 +658,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -702,7 +702,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -746,7 +746,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -790,7 +790,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -834,7 +834,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -878,7 +878,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -1005,7 +1005,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                               onClick={[Function]}
                             >
                               <svg
-                                className="svg-inline--fa fa-times"
+                                className="svg-inline--fa fa-trash"
                               />
                             </div>
                           </span>
@@ -1090,7 +1090,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                               onClick={[Function]}
                             >
                               <svg
-                                className="svg-inline--fa fa-times"
+                                className="svg-inline--fa fa-trash"
                               />
                             </div>
                           </span>
@@ -1175,7 +1175,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                               onClick={[Function]}
                             >
                               <svg
-                                className="svg-inline--fa fa-times"
+                                className="svg-inline--fa fa-trash"
                               />
                             </div>
                           </span>
@@ -1239,7 +1239,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -1269,7 +1269,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -1473,7 +1473,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>
@@ -1615,7 +1615,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             onClick={[Function]}
                           >
                             <svg
-                              className="svg-inline--fa fa-times"
+                              className="svg-inline--fa fa-trash"
                             />
                           </div>
                         </span>

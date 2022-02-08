@@ -13,7 +13,7 @@ import { ReactSortable } from 'react-sortablejs'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faTimes, faGripVertical } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faTrash, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const SortableList: React.FC<PropTypes> = ({
@@ -172,7 +172,7 @@ export const SortableList: React.FC<PropTypes> = ({
                 <FontAwesomeIcon icon={faCopy} />
               </div>}
               {removeLocal && <div onClick={(): void => { handleRemove(key) }}>
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTrash} />
               </div>}
             </span>
           </section>
