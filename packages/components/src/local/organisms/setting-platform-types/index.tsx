@@ -1,5 +1,5 @@
 /* Import Components */
-import { faUserCog } from '@fortawesome/free-solid-svg-icons'
+import { faUserCog, faList, faCogs, faRuler } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FormControl from '@material-ui/core/FormControl'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -51,13 +51,14 @@ const useStyles = makeStyles({
     }
   },
   units: {
-    width: '120px'
+    width: '80px',
+    marginLeft: 10
   },
   format: {
-    width: '120px'
+    width: '80px'
   },
   description: {
-    width: '300px'
+    width: '380px'
   }
 })
 
@@ -118,7 +119,6 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
     const onFieldChange = (field: 'units' | 'format' | 'description', value: string): void => {
-      // TODO: should validate input value for each field. e.g: kg or tons or invalid_unit ?
       if (!data.commodityTypes) { return }
       data.commodityTypes[key][field] = value
       handleChangePlatformTypeData(data, selectedItem)
@@ -126,11 +126,10 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
     return (
       <div className={styles.mobile}>
-        {key === 0 && <div className={styles['mobile-title']}><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog} /></div>}
         <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangeCommodity(commType, key) }} />
-        <TextField placeholder="units" className={units} InputProps={{ className: underline }} value={commType.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder="units" className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={commType.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
         <TextField placeholder="description" className={description} InputProps={{ className: underline }} value={commType.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder="format" className={format} InputProps={{ className: underline }} value={commType.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
+        <TextField placeholder="format" className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={commType.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
       </div>
     )
   }
@@ -306,15 +305,15 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Commodities">
               <div className={styles['commoditie-header']}>
-                <span>Name</span>
                 <span></span>
-                <span>Units</span>
-                <span>Description</span>
-                <span>Format</span>
+                <span><FontAwesomeIcon size={'lg'} title='Player can edit attribute' icon={faUserCog} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='Units' icon={faRuler} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='Description' icon={faList} /></span>
+                <span><FontAwesomeIcon size={'lg'} title='Format' icon={faCogs} /></span>
               </div>
               <SortableList
                 required
-                sortable='manual'
+                sortable='auto'
                 onChange={handleChangeCommodities}
                 onCreate={handleCreateCommodities}
                 renderItemSection={renderCommoditiesSection}

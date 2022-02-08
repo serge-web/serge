@@ -36,9 +36,6 @@ exports[`sortable-list renders correctly 1`] = `
             >
               list item 1
             </div>
-            <svg
-              className="svg-inline--fa fa-trash"
-            />
           </div>
           <span>
             <div
@@ -83,9 +80,6 @@ exports[`sortable-list renders correctly 1`] = `
             >
               list item 2
             </div>
-            <svg
-              className="svg-inline--fa fa-trash"
-            />
           </div>
           <span>
             <div

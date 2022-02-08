@@ -648,9 +648,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Full capability
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -695,9 +692,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Limited capability
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -742,9 +736,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Illegally boarded
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -789,9 +780,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Immobile
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -836,9 +824,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Sinking
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -883,9 +868,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Destroyed
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -970,9 +952,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               Transiting
                             </div>
-                            <svg
-                              className="svg-inline--fa fa-trash"
-                            />
                           </div>
                           <div
                             className="mobile"
@@ -1063,9 +1042,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               Fishing
                             </div>
-                            <svg
-                              className="svg-inline--fa fa-trash"
-                            />
                           </div>
                           <div
                             className="mobile"
@@ -1151,9 +1127,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               Moored
                             </div>
-                            <svg
-                              className="svg-inline--fa fa-trash"
-                            />
                           </div>
                           <div
                             className="mobile"
@@ -1259,9 +1232,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             10
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -1292,9 +1262,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             20
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <span>
                           <div
@@ -1344,18 +1311,26 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               <div
                 className="commoditie-header"
               >
-                <span>
-                  Name
-                </span>
                 <span />
                 <span>
-                  Units
+                  <svg
+                    className="svg-inline--fa fa-user-cog"
+                  />
                 </span>
                 <span>
-                  Description
+                  <svg
+                    className="svg-inline--fa fa-ruler"
+                  />
                 </span>
                 <span>
-                  Format
+                  <svg
+                    className="svg-inline--fa fa-list"
+                  />
+                </span>
+                <span>
+                  <svg
+                    className="svg-inline--fa fa-cogs"
+                  />
                 </span>
               </div>
               <div
@@ -1364,21 +1339,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                 <ul>
                   <li
                     className="li"
-                    data-id="0"
                   >
-                    <div
-                      className="drag"
-                    >
-                      <span>
-                        <div
-                          onClick={[Function]}
-                        >
-                          <svg
-                            className="svg-inline--fa fa-grip-vertical"
-                          />
-                        </div>
-                      </span>
-                    </div>
                     <div
                       className="presection"
                     >
@@ -1393,20 +1354,10 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             quota
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <div
                           className="mobile"
                         >
-                          <div
-                            className="mobile-title"
-                          >
-                            <svg
-                              className="svg-inline--fa fa-user-cog"
-                            />
-                          </div>
                           <span
                             className="MuiSwitch-root MuiSwitch-sizeSmall"
                           >
@@ -1456,6 +1407,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 autoFocus={false}
                                 className="MuiInputBase-input MuiInput-input"
                                 disabled={false}
+                                maxLength={5}
                                 onAnimationStart={[Function]}
                                 onBlur={[Function]}
                                 onChange={[Function]}
@@ -1502,6 +1454,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 autoFocus={false}
                                 className="MuiInputBase-input MuiInput-input"
                                 disabled={false}
+                                maxLength={5}
                                 onAnimationStart={[Function]}
                                 onBlur={[Function]}
                                 onChange={[Function]}
@@ -1528,21 +1481,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   </li>
                   <li
                     className="li"
-                    data-id="1"
                   >
-                    <div
-                      className="drag"
-                    >
-                      <span>
-                        <div
-                          onClick={[Function]}
-                        >
-                          <svg
-                            className="svg-inline--fa fa-grip-vertical"
-                          />
-                        </div>
-                      </span>
-                    </div>
                     <div
                       className="presection"
                     >
@@ -1557,9 +1496,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             fuel
                           </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
                         </div>
                         <div
                           className="mobile"
@@ -1613,6 +1549,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 autoFocus={false}
                                 className="MuiInputBase-input MuiInput-input"
                                 disabled={false}
+                                maxLength={5}
                                 onAnimationStart={[Function]}
                                 onBlur={[Function]}
                                 onChange={[Function]}
@@ -1659,6 +1596,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 autoFocus={false}
                                 className="MuiInputBase-input MuiInput-input"
                                 disabled={false}
+                                maxLength={5}
                                 onAnimationStart={[Function]}
                                 onBlur={[Function]}
                                 onChange={[Function]}
