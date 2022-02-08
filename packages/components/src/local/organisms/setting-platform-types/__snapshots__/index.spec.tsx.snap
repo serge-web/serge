@@ -612,7 +612,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="placeholder"
             >
-              Conditions 2
+              Conditions
             </div>
             <div
               className="content"
