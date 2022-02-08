@@ -265,7 +265,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         </div>
         <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder="Conditions 2">
+            <FormGroup placeholder="Conditions">
               <SortableList
                 required
                 onChange={handleChangeConditions}
