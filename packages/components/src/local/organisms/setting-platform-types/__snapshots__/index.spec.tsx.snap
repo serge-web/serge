@@ -599,6 +599,10 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="form-row"
+      >
         <div
           className="col section"
         >
@@ -608,7 +612,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="placeholder"
             >
-              Conditions
+              Conditions 2
             </div>
             <div
               className="content"
@@ -896,10 +900,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="form-row"
-      >
         <div
           className="col section"
         >
@@ -958,6 +958,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             <div
                               className="mobile-title"
+                              title="Asset is mobile when in this state"
                             >
                               Mobile
                             </div>
