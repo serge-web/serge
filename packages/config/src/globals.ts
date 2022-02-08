@@ -81,6 +81,10 @@ export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
 export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 
+// types of commodity
+export const COMMODITY_TYPE_NUMBER = 'CommodityTypeNumber'
+export const COMMODITY_VALUE_NUMBER = 'CommodityValueNumber'
+
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 
