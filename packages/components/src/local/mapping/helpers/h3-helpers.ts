@@ -8,7 +8,7 @@ const labelFor3 = (centre: number[]): string => {
   const lng = centre[1]
   const latHemi = lat > 0 ? 'N' : 'S'
   const longHemi = lng > 0 ? 'E' : 'W'
-  return Math.abs(centre[0]).toFixed(2) + latHemi + ' ' + Math.abs(centre[1]).toFixed(2) + longHemi
+  return Math.abs(centre[0]).toFixed(1) + latHemi + ' ' + Math.abs(centre[1]).toFixed(1) + longHemi
 }
 
 /** create our composite cell structure for this index */
@@ -27,7 +27,7 @@ const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string): Se
   }
   const edge = h3ToGeoBoundary(index)
   return {
-    centreLatLng: centre,
+    centreLatLng: L.latLng(centre[0], centre[1]),
     name: label,
     index: index,
     styles: 0,

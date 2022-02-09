@@ -60,6 +60,7 @@ export {
   getParticipantStates
 } from './participant-states'
 export { default as plannedRouteFor } from './planned-route-for'
+export { default as plannedRouteFor3 } from './planned-route-for-3'
 export { default as roundToNearest } from './roundToNearest'
 export { default as routeAddSteps } from './route-add-steps'
 export { default as routeClearFromStep } from './route-clear-from-step'

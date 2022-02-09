@@ -325,7 +325,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const labelType = LAT_LON_LABELS
       const cells = createGridH3(mapBounds, 4, labelType)
       setH3gridCells(cells)
-      console.log('new cells', cells.length, cells[0])
+      console.log('new cells', mapBounds, cells.length, cells[0])
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
 

@@ -5,11 +5,11 @@ import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { calcAllowableCells, plannedRouteFor } from '@serge/helpers'
+import { calcAllowableCells, plannedRouteFor, plannedRouteFor3 } from '@serge/helpers'
 import Polygon from './helpers/polygon'
 import getCellStyle from './helpers/get-cell-style'
 
-import binCells, { PolyBin } from './helpers/bin-cells'
+import binCells, { binCells3, PolyBin, PolyBin3 } from './helpers/bin-cells'
 import generateOuterBoundary from './helpers/get-outer-boundary'
 import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from-geojson'
 
@@ -19,7 +19,25 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { SergeHex, SergeGrid, Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
-import { num2LatLng } from '../mapping/helpers/h3-helpers'
+import { geoToH3, H3Index, kRing } from 'h3-js'
+import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
+
+/**
+ *  create hexagonal grid
+ * @param {SergeGrid<SergeHex<{}>> | undefined} grid grid of hex cells
+ * @param {SergeHex<{}>} originHex start for this planning turn
+ * @param {number} range allowed distance of travel in this turn
+ * @returns {SergeHex<{}>[]} List of cells for where this asset could travel to
+ */
+ const calcAllowableCells3 = (grid: SergeGrid3, originHex: H3Index, range: number) => {
+  if (grid) {
+      const matchingCells = kRing(originHex, range)
+      return grid.filter((cell: SergeHex3) => matchingCells.indexOf(cell.index) != -1)
+  }
+  else {
+      return [];
+  }
+};
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
@@ -40,7 +58,9 @@ export const HexGrid: React.FC<{}> = () => {
 
   // allowable cells filtered depending on cell type
   const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
+  const [allowableCells3, setAllowableCells3] = useState<SergeGrid3>([])
   const [allowablePoly, setAllowablePoly] = useState<Array<L.LatLng>>([])
+  const [allowablePoly3, setAllowablePoly3] = useState<Array<L.LatLng>>([])
 
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
@@ -51,7 +71,9 @@ export const HexGrid: React.FC<{}> = () => {
 
   // cells representing the route that is currently being dragged
   const [planningRouteCells, setPlanningRouteCells] = useState<Array<SergeHex<{}>>>([])
+  const [planningRouteCells3, setPlanningRouteCells3] = useState<SergeGrid3>([])
   const [planningRoutePoly, setPlanningRoutePoly] = useState<L.LatLng[]>([])
+  const [planningRoutePoly3, setPlanningRoutePoly3] = useState<L.LatLng[]>([])
 
   // cells representing any route snippet that is already specified
   const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>([])
@@ -59,6 +81,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the binned polygons
   const [polyBins, setPolyBins] = useState<PolyBin[]>([])
+  const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
 
   // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
@@ -77,9 +100,11 @@ export const HexGrid: React.FC<{}> = () => {
   // allow the planning marker origin to be changed
   const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
   const [originHex, setOriginHex] = useState<SergeHex<{}> | undefined>(undefined)
+  const [originHex3, setOriginHex3] = useState<SergeHex3 | undefined>(undefined)
 
   // allow the destination end point to be changed
   const [dragDestination, setDragDestination] = useState<SergeHex<{}> | undefined>(undefined)
+  const [dragDestination3, setDragDestination3] = useState<SergeHex3 | undefined>(undefined)
 
   //  allow the achievable range to be changed
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningConstraints && planningConstraints.range)
@@ -178,6 +203,54 @@ export const HexGrid: React.FC<{}> = () => {
     return L.latLng([lat2 * radInv, lon2])
   }
 
+ /** handle the dynamic indicator that follows mouse movement,
+   * represented as cells & a line
+   */
+  useEffect(() => {
+    if (dragDestination3 && originHex3) {
+      // check if we're in laydown mode
+      if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
+        // we don't show path in laydown mode
+        setPlanningRoutePoly([])
+
+        // see if current cell is acceptable
+        // Note: special handling. if there are no allowable cells, it can be laid down anywhere
+        if (!allowableCells3.length || allowableCells3.includes(dragDestination3)) {
+          // ok, set planning route to just that cell - to mark the
+          // last acceptable cell
+          setPlanningRouteCells3([dragDestination3])
+        }
+      } else {
+        // work out the available cells
+        const plannedRoute: SergeHex3[] = planningConstraints
+          ? plannedRouteFor3(h3gridCells, allowableCells3, originHex3, dragDestination3) : []
+
+        // combine with any existing planned cells
+        if (selectedAsset && selectedAsset.type === 'datum') {
+          if (plannedRoute.length > 0) {
+            // we need the planned route to be more than one cell long in order
+            // for later code to recognise it as a valid leg
+            setPlanningRouteCells3([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
+          }
+        } else {
+          setPlanningRouteCells3(plannedRoute)
+
+          // also produce the lat-long values needed for the polylines
+          const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex3) => {
+            return cell.centreLatLng
+          })
+
+          // combine with any existing planned cells
+          setPlanningRoutePoly3(tmpPlannedRoutePoly)
+        }
+      }
+    } else {
+      // drop cells
+      setPlanningRouteCells3([])
+      setPlanningRoutePoly3([])
+    }
+  }, [dragDestination3, originHex3])
+
   /** handle the dynamic indicator that follows mouse movement,
    * represented as cells & a line
    */
@@ -234,6 +307,65 @@ export const HexGrid: React.FC<{}> = () => {
       setPlanningRange(planningConstraints.range)
     }
   }, [planningConstraints])
+
+  /** provide a list of cells allowable for this platform. The area may reduce
+       * as a player plans the leg
+       */
+  useEffect(() => {
+    const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+    if (planningRange === undefined && planningConstraints !== undefined) {
+      setPlanningRange(planningConstraints.range)
+    }
+    // check all data necessary for rendering is present
+    if (selectedAsset && planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
+      // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
+      const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.name === planningConstraints.origin)
+      // did we find cell?
+      if (originCell) {
+        setOrigin(originCell.centreLatLng)
+
+        // is there a limited range?
+        const allowableCellList: SergeHex3[] = planningRange ? calcAllowableCells3(h3gridCells, originCell.index, planningRange) : h3gridCells
+
+        // ok, see which ones are filterd
+        // "air" is a special planning mode, where we don't have to filter it
+        if (planningConstraints.travelMode === 'air') {
+          // are we an air platform in laydown?
+          // if we are, ensure laydown location is on land
+          const laydownCells = planningConstraints.status === LAYDOWN_TURN
+            ? allowableCellList.filter((cell: SergeHex3) => cell.terrain === 'land')
+            : allowableCellList
+
+          setAllowableCells3(laydownCells)
+        } else {
+          const filteredCells = allowableCellList.filter((cell: SergeHex3) => cell.terrain === planningConstraints.travelMode.toLowerCase())
+          setAllowableCells3(filteredCells)
+
+          if (filteredCells.length <= 500) {
+            // try to create convex polygon around cells, but only if there
+            // arent' too many cells
+            const hull = generateOuterBoundary3(filteredCells)
+            setAllowablePoly3(hull)
+          } else {
+            setAllowablePoly3([])
+          }
+        }
+      } else {
+        // drop the marker if we can't find it
+        setOrigin(undefined)
+        setAllowableCells3([])
+        setAllowablePoly3([])
+      }
+      // store it anyway, even if it's undefined
+      setOriginHex3(originCell)
+    } else {
+      // clear the route
+      setAllowableCells3([])
+      setAllowablePoly3([])
+      setOrigin(undefined)
+      setOriginHex(undefined)
+    }
+  }, [planningRange, planningConstraints, h3gridCells])
 
   /** provide a list of cells allowable for this platform. The area may reduce
        * as a player plans the leg
@@ -325,6 +457,27 @@ export const HexGrid: React.FC<{}> = () => {
     }
     return undefined
   }
+  const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
+    if (gridCells) {
+      const store: SergeGrid3 = []
+      let bounds: L.LatLngBounds | undefined
+
+      // create a polygon for each hex, add it to the parent
+      cells.forEach((hex: SergeHex3) => {
+        const centreWorld: L.LatLng = hex.centreLatLng
+        // extend the bounds
+        bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
+        store.push(hex)
+      })
+      if (bounds) {
+        const polyBins = binCells3(bounds, store)
+        // const bins = polyBins.map((bin: PolyBins) => bin.cells.length)
+        // console.log('bin sizes:', bins)
+        return polyBins
+      }
+    }
+    return undefined
+  }
 
   useEffect(() => {
     if (viewport && gridCells) {
@@ -386,17 +539,53 @@ export const HexGrid: React.FC<{}> = () => {
 
         setVisibleCells(visible)
         setRelevantCells(relevantCellArr)
-
-        console.log('setting cells', h3gridCells && h3gridCells.length, h3gridCells && h3gridCells[0])
-
-        setVisibleCells3(h3gridCells)
-        setRelevantCells3(h3gridCells)
       }
     } else {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [viewport, gridCells, h3gridCells, polyBins])
+  }, [viewport, gridCells, polyBins])
+
+  useEffect(() => {
+    if (viewport && h3gridCells && gridCells) {
+      if (polyBins3.length === 0) {
+        const bins = createPolyBins3(h3gridCells)
+        bins && setPolyBins3(bins)
+      } else {
+        // grow the viewport by 1/2 cell, so we can test
+        // if the cell centre is inside the viewport -
+        // necessary for cells at the edge
+        const bufferDist = gridCells.tileDiameterMins * 1852 * 1
+        const newTL = viewport.getNorthWest().toBounds(bufferDist)
+        const newBR = viewport.getSouthEast().toBounds(bufferDist)
+        const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
+
+        let visible: SergeGrid3 = []
+
+        // sort out visible cells, first by the bin
+        polyBins3.forEach((bin: PolyBin3) => {
+          if (extendedViewport.contains(bin.bounds)) {
+            // ok, add all of them
+            visible = visible.concat(bin.cells)
+          } else if (bin.bounds.intersects(extendedViewport)) {
+            // find the ones in the viewport
+            const inZone = bin.cells.filter((cell: SergeHex3) =>
+              extendedViewport.contains(cell.centreLatLng)
+            )
+            visible = visible.concat(inZone)
+          }
+        })
+
+        const relevantCellArr = visible
+
+        setVisibleCells3(visible)
+        setRelevantCells3(relevantCellArr)
+      }
+    } else {
+      setVisibleCells3([])
+      setRelevantCells3([])
+    }
+  }, [viewport, h3gridCells, polyBins3])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
@@ -408,8 +597,21 @@ export const HexGrid: React.FC<{}> = () => {
     //    const uniqueCells = [...new Set(allCells)]
     //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
-    setVisibleAndAllowableCells3(relevantCells3)
-  }, [allowableCells, relevantCells, relevantCells3, planningRouteCells])
+  }, [allowableCells, relevantCells, planningRouteCells])
+
+  // as a performance optimisation we plot the
+  // visible cells at this zoom level, plus the
+  // allowable filtered cells
+  useEffect(() => {
+    // combine both lists
+    const allCells = relevantCells3.concat(planningRouteCells3)
+    // some cells may be in both lists, so reduce to unique cells
+    //    const uniqueCells = [...new Set(allCells)]
+    //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
+    setVisibleAndAllowableCells3(allCells)
+  }, [allowableCells3, relevantCells3, planningRouteCells3])
+
+
 
   /** handler for planning marker being droppped
        *
@@ -509,6 +711,13 @@ export const HexGrid: React.FC<{}> = () => {
         setDragDestination(originHexCell)
       }
     }
+
+    // and the h3 version
+    const destinationHex3: string | undefined = dragDestination3 && geoToH3(location.lat, location.lng, 4)
+    if (destinationHex3) {
+      const dest = h3gridCells.find((cell:SergeHex3) => cell.index === destinationHex3)
+      dest && setDragDestination3(dest)
+    }
   }
 
   const onMarkerClick = (): void => {
@@ -577,7 +786,7 @@ export const HexGrid: React.FC<{}> = () => {
     </LayerGroup>
     <LayerGroup key={'hex_polygons3'} >{
       /* not too many cells visible, show hex outlines */
-      visibleAndAllowableCells3 && visibleAndAllowableCells3.length < 3000 && visibleAndAllowableCells3.map((cell: SergeHex3, index: number) => (
+      visibleAndAllowableCells3 && visibleAndAllowableCells3.length < SHOW_HEXES_UNDER && visibleAndAllowableCells3.map((cell: SergeHex3, index: number) => (
         <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -635,9 +844,21 @@ export const HexGrid: React.FC<{}> = () => {
       className={styles['planning-line']}
     />
     <Polyline
+      key={'hex_planning_line3'}
+      color={assetColor}
+      positions={planningRoutePoly3}
+      className={styles['planning-line']}
+    />
+    <Polyline
       key={'allowableCells_line'}
       color={assetColor}
       positions={allowablePoly}
+      className={styles['planning-line']}
+    />
+    <Polyline
+      key={'allowableCells3_line'}
+      color={assetColor}
+      positions={allowablePoly3}
       className={styles['planning-line']}
     />
     {origin &&
@@ -692,7 +913,7 @@ export const HexGrid: React.FC<{}> = () => {
       <LayerGroup key={'hex_labels3'} >{visibleCells3.map((cell: SergeHex3, index: number) => (
         <Marker
           key={'hex_label3_' + cell.name + '_' + index}
-          position={num2LatLng(cell.centreLatLng)}
+          position={cell.centreLatLng}
           zIndexOffset={-1000}
           width="120"
           icon={L.divIcon({
