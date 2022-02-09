@@ -81,3 +81,4 @@ export {
 } from './create-asset-based-on-platform-type'
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
+export * from './commodity-helpers'

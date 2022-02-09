@@ -13,7 +13,7 @@ import { ReactSortable } from 'react-sortablejs'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faTimes, faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faTrash, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const SortableList: React.FC<PropTypes> = ({
@@ -31,7 +31,6 @@ export const SortableList: React.FC<PropTypes> = ({
   onDeleteGameControl
 }) => {
   const [active, setActive] = useState<string | number>('')
-  const [itemsSaved] = useState<Array<Item>>(items)
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
   const [inputActive, setInputActive] = useState<boolean>(false)
 
@@ -119,7 +118,7 @@ export const SortableList: React.FC<PropTypes> = ({
           if (valueOnEmpty) {
             newValue = valueOnEmpty
           } else {
-            newValue = getValue(itemsSaved[key])
+            newValue = getValue(items[key])
             setSelectAllText(true)
           }
         }
@@ -149,6 +148,7 @@ export const SortableList: React.FC<PropTypes> = ({
             {
               inputActive
                 ? <input
+                  className={styles['value-label']}
                   type={isNumber ? 'number' : 'text'}
                   onChange={handleInputChange}
                   value={`${value}`}
@@ -164,11 +164,6 @@ export const SortableList: React.FC<PropTypes> = ({
                   <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
                     {value}
                   </div>
-                  <FontAwesomeIcon
-                    className={styles['delete-btn']}
-                    icon={faTrash}
-                    onClick={(): void => handleRemove(key)}
-                  />
                 </div>
             }
             {renderItemSection && renderItemSection(item, key)}
@@ -177,7 +172,7 @@ export const SortableList: React.FC<PropTypes> = ({
                 <FontAwesomeIcon icon={faCopy} />
               </div>}
               {removeLocal && <div onClick={(): void => { handleRemove(key) }}>
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTrash} />
               </div>}
             </span>
           </section>

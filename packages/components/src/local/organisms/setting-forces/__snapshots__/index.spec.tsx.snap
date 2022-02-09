@@ -525,9 +525,6 @@ exports[`SettingForces component: renders correctly 1`] = `
                                           >
                                             Game Control
                                           </div>
-                                          <svg
-                                            className="svg-inline--fa fa-trash"
-                                          />
                                         </div>
                                         <div
                                           className="role"
@@ -901,9 +898,6 @@ exports[`SettingForces component: renders correctly 1`] = `
                                           >
                                             RFI Manager
                                           </div>
-                                          <svg
-                                            className="svg-inline--fa fa-trash"
-                                          />
                                         </div>
                                         <div
                                           className="role"
