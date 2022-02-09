@@ -323,7 +323,7 @@ export const Mapping: React.FC<PropTypes> = ({
       }
       // now the h3 handler
       const labelType = CTR_LABELS
-      const cells = createGridH3(mapBounds, 4, labelType)
+      const cells = createGridH3(mapBounds, 4, labelType, atlanticCells)
       setH3gridCells(cells)
       console.log('new cells', mapBounds, cells.length, cells[0])
     }

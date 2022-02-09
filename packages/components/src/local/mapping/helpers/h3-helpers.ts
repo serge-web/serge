@@ -1,4 +1,5 @@
 import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
 import { labelFor } from './create-grid-from-geojson'
@@ -12,7 +13,7 @@ const labelFor3 = (centre: number[]): string => {
 }
 
 /** create our composite cell structure for this index */
-const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr: number): SergeHex3 => {
+const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr: number, cellType: number): SergeHex3 => {
   const centre = h3ToGeo(index)
   let label = ''
   if (labelType === X_Y_LABELS) {
@@ -32,7 +33,7 @@ const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr
     centreLatLng: L.latLng(centre[0], centre[1]),
     name: label,
     index: index,
-    styles: 0,
+    styles: cellType,
     poly: edge
   }
 }
@@ -66,7 +67,7 @@ export const CTR_LABELS = 'ctr_labels'
   * @param {number} res h grid resolution
   * @returns {SergeGrid3} h hex grid
   */
-export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: string): SergeGrid3 => {
+export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: string, cellDefs: any): SergeGrid3 => {
   // outer boundary
   const boundsNum = h3polyFromBounds(bounds)
 
@@ -77,10 +78,37 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: str
   const centreLoc = bounds.getCenter()
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
 
+  const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
+
+  // flatten the definitions array
+  const cellStyles: Array<{index: string, style: number}> = typedDefs && typedDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
+    return {
+      index: (value.properties && value.properties.hexname) || '',
+      style: (value.properties && value.properties.type) || ''
+    }
+  })
+
   // create the grid
   let ctr = 0
+  let styleMissing = 0
   const grid = cells.map((cell: H3Index): SergeHex3 => {
-    return indexToHex(cell, centreIndex, labelType, ++ctr)
+    // see if we have definition for this index
+    const match = cellStyles && cellStyles.find((value: {index: string, style: number}) => {
+      return value.index === cell
+    })
+    const cellStyle = (match && match.style) || 0
+    if (!match) {
+      styleMissing++
+    }
+    // convert style to power of 2, so we can have multiple styles
+    const powerCell = Math.pow(2, cellStyle)
+    const res = indexToHex(cell, centreIndex, labelType, ++ctr, powerCell)
+    return res
   })
+
+  if (styleMissing) {
+    console.log('Didn\'t find style definition for ' + styleMissing + ' cells')
+  }
+
   return grid
 }
