@@ -261,7 +261,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               onClick={handleSave}
               data-qa-type="save"
             >
-              Save
+              Save Platform-Type
             </Button>
           </div>
         </div>
