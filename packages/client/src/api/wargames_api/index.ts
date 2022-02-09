@@ -61,7 +61,7 @@ const wargameDbStore: ApiWargameDbObject[] = []
 
 // give database documents a suffix, so they're easier to open
 // in database utility tools
-export const dbSuffix = '.sqlite'
+const dbSuffix = '.sqlite'
 
 const rejectDefault = (err: any): any => {
   console.log(err)

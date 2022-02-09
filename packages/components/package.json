@@ -76,7 +76,6 @@
     "moment-timezone": "^0.5.33",
     "node-sass-chokidar": "^1.5.0",
     "npm-run-all": "^4.1.5",
-    "pouchdb": "^7.2.2",
     "react": "^16.12.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-data-table-component": "7.4.5",
