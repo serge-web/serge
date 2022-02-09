@@ -19,7 +19,6 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { SergeHex, SergeGrid, Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
-import getCellStyle3 from './helpers/get-cell-style-3'
 import { num2LatLng } from '../mapping/helpers/h3-helpers'
 
 /* Render component */
@@ -588,8 +587,7 @@ export const HexGrid: React.FC<{}> = () => {
           positions={cell.poly}
           stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
           className={styles['default-hex3']}
-//          className={styles[getCellStyle3(cell, [], [], undefined)]}
-          
+          // className={styles[getCellStyle3(cell, [], [], undefined)]}
           // className={styles[getCellStyle3(cell, planningRouteCells, [], cellForSelected)]}
         />
       ))}
@@ -683,29 +681,29 @@ export const HexGrid: React.FC<{}> = () => {
         />
       ))}
       </LayerGroup>
-
-{
-  // zoomLevel > 5.5 &&
-  // change - show labels if there are less than 400. With the zoom level
-  // we were getting issues where up North (where the cells appear larger) there are
-  // fewer visible at once, but we still weren't showing the labels.
-  visibleCells3 && visibleCells3.length < SHOW_LABELS_UNDER &&
-  /* note: for the label markers - we use the cells in the currently visible area */
-  <LayerGroup key={'hex_labels3'} >{visibleCells3.map((cell: SergeHex3, index: number) => (
-    <Marker
-      key={'hex_label3_' + cell.name + '_' + index}
-      position={num2LatLng(cell.centreLatLng)}
-      zIndexOffset={-1000}
-      width="120"
-      icon={L.divIcon({
-        // html: '' + cell.x + ',' + cell.y,
-        html: cell.name,
-        className: styles['default-coords'],
-        iconSize: [30, 20]
-      })}
-    />
-  ))}
-  </LayerGroup>
+    }
+    {
+      // zoomLevel > 5.5 &&
+      // change - show labels if there are less than 400. With the zoom level
+      // we were getting issues where up North (where the cells appear larger) there are
+      // fewer visible at once, but we still weren't showing the labels.
+      visibleCells3 && visibleCells3.length < SHOW_LABELS_UNDER &&
+      /* note: for the label markers - we use the cells in the currently visible area */
+      <LayerGroup key={'hex_labels3'} >{visibleCells3.map((cell: SergeHex3, index: number) => (
+        <Marker
+          key={'hex_label3_' + cell.name + '_' + index}
+          position={num2LatLng(cell.centreLatLng)}
+          zIndexOffset={-1000}
+          width="120"
+          icon={L.divIcon({
+            // html: '' + cell.x + ',' + cell.y,
+            html: cell.name,
+            className: styles['default-coords'],
+            iconSize: [30, 20]
+          })}
+        />
+      ))}
+      </LayerGroup>
     }
 
   </>

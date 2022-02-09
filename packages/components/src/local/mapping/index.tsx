@@ -10,7 +10,7 @@ import { cloneDeep, isEqual } from 'lodash'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
-import { createGridH3 } from './helpers/h3-helpers'
+import { createGridH3, LAT_LON_LABELS } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -322,9 +322,8 @@ export const Mapping: React.FC<PropTypes> = ({
         setGridCells(newGrid)
       }
       // now the h3 handler
-
-      const mapBounds2 = L.latLngBounds([45, -30], [30, 0])
-      const cells = createGridH3(mapBounds2, 4)
+      const labelType = LAT_LON_LABELS
+      const cells = createGridH3(mapBounds, 4, labelType)
       setH3gridCells(cells)
       console.log('new cells', cells.length, cells[0])
     }
