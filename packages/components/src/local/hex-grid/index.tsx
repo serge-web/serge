@@ -731,7 +731,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-//  console.log('vis', visibleCells.length, relevantCells.length, relevantCells3.length)
+  //  console.log('vis', visibleCells.length, relevantCells.length, relevantCells3.length)
 
   //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
   // console.log('hex grid', setPlanningRouteCells.length, setPlanningRouteCells.length && setPlanningRouteCells.length[0])

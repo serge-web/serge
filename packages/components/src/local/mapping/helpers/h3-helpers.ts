@@ -61,7 +61,6 @@ export const LAT_LON_LABELS = 'lat_lon_labels'
 export const X_Y_LABELS = 'x_y_labels'
 export const CTR_LABELS = 'ctr_labels'
 
-
 /** create the grid of h3 cells
   * @param {L.LatLngBounds} bounds Outer bounds of grid
   * @param {number} res h grid resolution
