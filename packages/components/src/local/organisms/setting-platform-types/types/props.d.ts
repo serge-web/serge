@@ -6,4 +6,5 @@ export default interface PropTypes {
   onSave?: (platformType: PlatformType) => void
   onDelete?: (platformType: PlatformType) => void
   iconUploadUrl?: string
+  wargameName?: string
 }

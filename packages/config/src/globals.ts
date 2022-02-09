@@ -119,3 +119,8 @@ export const serverPath = (
 export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
+
+// give database documents a suffix, so they're easier to open
+// in database utility tools
+export const dbSuffix = '.sqlite'
+export const localSettings = '_local/settings'

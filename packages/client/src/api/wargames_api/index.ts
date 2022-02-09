@@ -52,16 +52,12 @@ import {
   ListenNewMessageType,
   WargameRevision
 } from './types.d'
-import { hiddenPrefix } from '@serge/config'
+import { hiddenPrefix, dbSuffix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
 import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 
 const wargameDbStore: ApiWargameDbObject[] = []
-
-// give database documents a suffix, so they're easier to open
-// in database utility tools
-const dbSuffix = '.sqlite'
 
 const rejectDefault = (err: any): any => {
   console.log(err)
@@ -402,7 +398,9 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
 export const deletePlatformType = (dbName: string, platformType: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc = deepCopy(res)
-    newDoc.data.platform_types.platformTypes = newDoc.data.platform_types.platformTypes.filter((platform: PlatformType) => platform.name !== platformType.name)
+    if (newDoc.data.platform_types) {
+      newDoc.data.platform_types.platformTypes = newDoc.data.platform_types.platformTypes.filter((platform: PlatformType) => platform.name !== platformType.name)
+    }
     return updateWargame(newDoc, dbName)
   })
 }

@@ -23,6 +23,8 @@ import SortableList, { Item as SortableListItem } from '../../molecules/sortable
 import EditableList, { Item } from '../../molecules/editable-list'
 import { PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import { platformTypeNameToKey } from '@serge/helpers'
+import PouchDB from 'pouchdb'
+import { databasePath, dbSuffix, localSettings } from '@serge/config'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -39,7 +41,7 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
+export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, wargameName, iconUploadUrl }) => {
   const newPlatformType: PlatformType = {
     complete: false,
     dirty: false,
@@ -63,8 +65,22 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleDelete = (item: Item): void => {
+    const db: PouchDB.Database = new PouchDB(databasePath + wargameName + dbSuffix)
     setSelectedItem(-1)
-    onDelete && onDelete(item as PlatformType)
+    db.get(localSettings).then((res: any) => {
+      if (res.data.platform_types) {
+        if (res.data.platform_types.platformTypes) {
+          const existsSavedType = res.data.platform_types.platformTypes.filter((v: PlatformType) => v.name === item.name)
+          if (existsSavedType.length !== 0) {
+            onDelete && onDelete(existsSavedType[0])
+          } else {
+            handleChangePlatformTypes(localPlatformType.platformTypes.filter(v => v.name !== item.name))
+          }
+        }
+      } else {
+        handleChangePlatformTypes(localPlatformType.platformTypes.filter(v => v.name !== item.name))
+      }
+    })
   }
 
   const handleChangePlatformTypes = (nextPlatformTypes: Array<PlatformTypeData>): void => {
