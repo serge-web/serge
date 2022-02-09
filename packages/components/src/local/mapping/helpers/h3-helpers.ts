@@ -24,6 +24,11 @@ const latLng2Num = (pos: L.LatLng): number[] => {
   return [pos.lat, pos.lng]
 }
 
+/** generate Leaflet coordinate for h3 coords */
+export const num2LatLng = (coords: number[]): L.LatLng => {
+  return L.latLng(coords[0], coords[1])
+}
+
 const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
   return [
     latLng2Num(bounds.getNorthWest()),

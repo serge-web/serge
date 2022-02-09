@@ -125,7 +125,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [mapResized, setMapResized] = useState<boolean>(false)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
-  const [h3gridCells, setH3GridCells] = useState<SergeGrid3>([])
+  const [h3gridCells, setH3gridCells] = useState<SergeGrid3>([])
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre] = useState<L.LatLng | undefined>(undefined)
@@ -324,9 +324,9 @@ export const Mapping: React.FC<PropTypes> = ({
       // now the h3 handler
 
       const mapBounds2 = L.latLngBounds([45, -30], [30, 0])
-      const cells = createGridH3(mapBounds2, 3)
-      setH3GridCells(cells)
-      console.log('new cells', cells.length)
+      const cells = createGridH3(mapBounds2, 4)
+      setH3gridCells(cells)
+      console.log('new cells', cells.length, cells[0])
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
 

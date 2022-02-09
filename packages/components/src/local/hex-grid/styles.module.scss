@@ -7,6 +7,15 @@
   stroke-width: 1;
 }
 
+.default-hex3 {
+  // Note: we specify fill inside the code, depending if the are polygons present
+  //fill-opacity: 0.2;
+  // fill: transparent;
+  stroke: #faa;
+  opacity: 0.6;
+  stroke-width: 1;
+}
+
 .allowable-hex {
   // Note: we specify fill inside the code, depending if the are polygons present
   // fill: transparent;

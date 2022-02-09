@@ -17,15 +17,17 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
+import { SergeHex, SergeGrid, Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
+import getCellStyle3 from './helpers/get-cell-style-3'
+import { num2LatLng } from '../mapping/helpers/h3-helpers'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const {
-    gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
+    gridCells, h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = props
 
@@ -61,14 +63,17 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
+  const [visibleCells3, setVisibleCells3] = useState<SergeGrid3>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
   // we do this by filtering out cells that aren't relevant. Namely
   // cells on land or cells in open ocean
   const [relevantCells, setRelevantCells] = useState<SergeHex<{}>[]>([])
+  const [relevantCells3, setRelevantCells3] = useState<SergeGrid3>([])
 
   // union of relevant cells & cells available for the current planning step
   const [visibleAndAllowableCells, setVisibleAndAllowableCells] = useState<SergeHex<{}>[]>([])
+  const [visibleAndAllowableCells3, setVisibleAndAllowableCells3] = useState<SergeGrid3>([])
 
   // allow the planning marker origin to be changed
   const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
@@ -382,12 +387,17 @@ export const HexGrid: React.FC<{}> = () => {
 
         setVisibleCells(visible)
         setRelevantCells(relevantCellArr)
+
+        console.log('setting cells', h3gridCells && h3gridCells.length, h3gridCells && h3gridCells[0])
+
+        setVisibleCells3(h3gridCells)
+        setRelevantCells3(h3gridCells)
       }
     } else {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [viewport, gridCells, polyBins])
+  }, [viewport, gridCells, h3gridCells, polyBins])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
@@ -399,7 +409,8 @@ export const HexGrid: React.FC<{}> = () => {
     //    const uniqueCells = [...new Set(allCells)]
     //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
-  }, [allowableCells, relevantCells, planningRouteCells])
+    setVisibleAndAllowableCells3(relevantCells3)
+  }, [allowableCells, relevantCells, relevantCells3, planningRouteCells])
 
   /** handler for planning marker being droppped
        *
@@ -564,7 +575,27 @@ export const HexGrid: React.FC<{}> = () => {
           className={styles[getCellStyle(cell, planningRouteCells, [], cellForSelected)]}
         />
       ))}
-    {
+    </LayerGroup>
+    <LayerGroup key={'hex_polygons3'} >{
+      /* not too many cells visible, show hex outlines */
+      visibleAndAllowableCells3 && visibleAndAllowableCells3.length < 3000 && visibleAndAllowableCells3.map((cell: SergeHex3, index: number) => (
+        <Polygon
+        // we may end up with other elements per hex,
+        // such as labels so include prefix in key
+          key={'hex_poly3_' + cell.name + '_' + index}
+          fillColor={cell.fillColor || '#f00'}
+          fill={terrainPolys.length === 0} // only fill them if we don't have polys
+          positions={cell.poly}
+          stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+          className={styles['default-hex3']}
+//          className={styles[getCellStyle3(cell, [], [], undefined)]}
+          
+          // className={styles[getCellStyle3(cell, planningRouteCells, [], cellForSelected)]}
+        />
+      ))}
+    </LayerGroup>
+
+    <LayerGroup key={'hex_polygons4'} >{
       /** too many cells visible to show outline, so just show planned route (or target for laydown) */
       visibleAndAllowableCells.length >= SHOW_HEXES_UNDER && planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
         <Polygon
@@ -652,6 +683,29 @@ export const HexGrid: React.FC<{}> = () => {
         />
       ))}
       </LayerGroup>
+
+{
+  // zoomLevel > 5.5 &&
+  // change - show labels if there are less than 400. With the zoom level
+  // we were getting issues where up North (where the cells appear larger) there are
+  // fewer visible at once, but we still weren't showing the labels.
+  visibleCells3 && visibleCells3.length < SHOW_LABELS_UNDER &&
+  /* note: for the label markers - we use the cells in the currently visible area */
+  <LayerGroup key={'hex_labels3'} >{visibleCells3.map((cell: SergeHex3, index: number) => (
+    <Marker
+      key={'hex_label3_' + cell.name + '_' + index}
+      position={num2LatLng(cell.centreLatLng)}
+      zIndexOffset={-1000}
+      width="120"
+      icon={L.divIcon({
+        // html: '' + cell.x + ',' + cell.y,
+        html: cell.name,
+        className: styles['default-coords'],
+        iconSize: [30, 20]
+      })}
+    />
+  ))}
+  </LayerGroup>
     }
 
   </>
