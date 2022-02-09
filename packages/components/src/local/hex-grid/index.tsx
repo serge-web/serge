@@ -29,15 +29,14 @@ import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
  * @param {number} range allowed distance of travel in this turn
  * @returns {SergeHex<{}>[]} List of cells for where this asset could travel to
  */
- const calcAllowableCells3 = (grid: SergeGrid3, originHex: H3Index, range: number) => {
+const calcAllowableCells3 = (grid: SergeGrid3, originHex: H3Index, range: number): SergeGrid3 => {
   if (grid) {
-      const matchingCells = kRing(originHex, range)
-      return grid.filter((cell: SergeHex3) => matchingCells.indexOf(cell.index) != -1)
+    const matchingCells = kRing(originHex, range)
+    return grid.filter((cell: SergeHex3) => matchingCells.indexOf(cell.index) !== -1)
+  } else {
+    return []
   }
-  else {
-      return [];
-  }
-};
+}
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
@@ -68,6 +67,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
+  const [cellForSelected3, setCellForSelected3] = useState<string | undefined>(undefined)
 
   // cells representing the route that is currently being dragged
   const [planningRouteCells, setPlanningRouteCells] = useState<Array<SergeHex<{}>>>([])
@@ -131,6 +131,7 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableCells([])
           setOrigin(undefined)
           setDragDestination(undefined)
+          setDragDestination3(undefined)
           setPlanningRouteCells([])
           setPlanningRoutePoly([])
           setPlannedRouteCells([])
@@ -147,19 +148,30 @@ export const HexGrid: React.FC<{}> = () => {
           if (cellForSelected !== current.currentPosition) {
             setCellForSelected(current.currentPosition)
           }
+
+          const loc = current.currentLocation
+          if (loc) {
+            const h3Cell = geoToH3(loc.lat, loc.lng, 4)
+            if (cellForSelected3 !== h3Cell) {
+              setCellForSelected3(h3Cell)
+            }
+          }
         }
       } else {
         // selected asset no longer present - hide it
         setCellForSelected(undefined)
+        setCellForSelected3(undefined)
         setOrigin(undefined)
         setPlanningRange(undefined)
         setDragDestination(undefined)
+        setDragDestination3(undefined)
       }
     } else {
       setSelectedAssetId(undefined)
       /** if no asset is selected, clear the planning elements
        */
       setDragDestination(undefined)
+      setDragDestination3(undefined)
       setAllowableCells([])
       setPlanningRange(undefined)
       setOrigin(undefined)
@@ -203,7 +215,7 @@ export const HexGrid: React.FC<{}> = () => {
     return L.latLng([lat2 * radInv, lon2])
   }
 
- /** handle the dynamic indicator that follows mouse movement,
+  /** handle the dynamic indicator that follows mouse movement,
    * represented as cells & a line
    */
   useEffect(() => {
@@ -611,8 +623,6 @@ export const HexGrid: React.FC<{}> = () => {
     setVisibleAndAllowableCells3(allCells)
   }, [allowableCells3, relevantCells3, planningRouteCells3])
 
-
-
   /** handler for planning marker being droppped
        *
        */
@@ -715,7 +725,7 @@ export const HexGrid: React.FC<{}> = () => {
     // and the h3 version
     const destinationHex3: string | undefined = dragDestination3 && geoToH3(location.lat, location.lng, 4)
     if (destinationHex3) {
-      const dest = h3gridCells.find((cell:SergeHex3) => cell.index === destinationHex3)
+      const dest = h3gridCells.find((cell: SergeHex3) => cell.index === destinationHex3)
       dest && setDragDestination3(dest)
     }
   }

@@ -34,7 +34,6 @@ export interface NewTurnValues {
   state: string
   speed?: number
   route: Array<SergeHex<{}>>
-  route3: Array<SergeHex3>
 }
 
 export interface PlanTurnFormPopulate {
