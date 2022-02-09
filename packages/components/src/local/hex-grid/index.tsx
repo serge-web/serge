@@ -742,17 +742,17 @@ export const HexGrid: React.FC<{}> = () => {
   return <>
 
     { /*  - show number of visible cells */}
-    { /* viewport &&
+    { viewport &&
       <Marker
         key={'num_vis_cells'}
         position={ viewport.getCenter()}
-        width="120"
+        width='120'
         icon={L.divIcon({
-          html: '' + visibleCells.length,
+          html: '' + visibleAndAllowableCells3.length + ' h3 cells',
           className: styles['num-cells'],
           iconSize: [30, 20]
         })}
-      /> */
+      />
     }
 
     { /* POLY BINS */}
@@ -929,7 +929,7 @@ export const HexGrid: React.FC<{}> = () => {
           icon={L.divIcon({
             // html: '' + cell.x + ',' + cell.y,
             html: cell.name,
-            className: styles['default-coords'],
+            className: styles['default-coords-3'],
             iconSize: [30, 20]
           })}
         />
