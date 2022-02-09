@@ -32,6 +32,8 @@ import PropTypes from './types/props'
 import {
   SergeHex,
   SergeGrid,
+  SergeHex3,
+  SergeGrid3,
   MappingContext,
   NewTurnValues,
   PlanMobileAsset,
@@ -53,7 +55,7 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import { h3polyFromBounds } from './helpers/h3-helpers'
+import { createGridH3 } from './helpers/h3-helpers'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -127,7 +129,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [mapResized, setMapResized] = useState<boolean>(false)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
-  const [h3gridCells, setH3GridCells] = useState<Array<string> | undefined>(undefined)
+  const [h3gridCells, setH3GridCells] = useState<SergeGrid3>([])
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre] = useState<L.LatLng | undefined>(undefined)
@@ -324,10 +326,9 @@ export const Mapping: React.FC<PropTypes> = ({
         setGridCells(newGrid)
       }
       // now the h3 handler
-      const polygon: number[][] = h3polyFromBounds(mapBounds)
-      const h3Cells: string[] = polyfill(polygon, 10)
-      setH3GridCells(h3Cells)
-      console.log('new cells', h3Cells, h3gridCells)
+      const cells = createGridH3(mapBounds, 3)
+      setH3GridCells(cells)
+      console.log('new cells', cells.length)
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
 
