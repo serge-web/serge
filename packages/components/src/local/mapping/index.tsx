@@ -6,13 +6,11 @@ import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
-import { polyfill } from 'h3-js'
 
 /* helper functions */
-// TODO: verify we still handle planned routes properly
-// import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
 import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
+import { createGridH3 } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -32,7 +30,6 @@ import PropTypes from './types/props'
 import {
   SergeHex,
   SergeGrid,
-  SergeHex3,
   SergeGrid3,
   MappingContext,
   NewTurnValues,
@@ -55,7 +52,6 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import { createGridH3 } from './helpers/h3-helpers'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -326,7 +322,9 @@ export const Mapping: React.FC<PropTypes> = ({
         setGridCells(newGrid)
       }
       // now the h3 handler
-      const cells = createGridH3(mapBounds, 3)
+
+      const mapBounds2 = L.latLngBounds([45, -30], [30, 0])
+      const cells = createGridH3(mapBounds2, 3)
       setH3GridCells(cells)
       console.log('new cells', cells.length)
     }
@@ -578,6 +576,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
+    h3gridCells,
     forces: forcesState,
     platforms,
     platformTypesByKey,
