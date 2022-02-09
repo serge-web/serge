@@ -21,6 +21,7 @@ import { SergeHex, SergeGrid, Route, NewTurnValues, SergeGrid3, SergeHex3 } from
 import { LAYDOWN_TURN } from '@serge/config'
 import { geoToH3, H3Index, kRing } from 'h3-js'
 import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
+import getCellStyle3 from './helpers/get-cell-style-3'
 
 /**
  *  create hexagonal grid
@@ -48,8 +49,8 @@ export const HexGrid: React.FC<{}> = () => {
   } = props
 
   // define detail cut-offs
-  const SHOW_LABELS_UNDER = 600
-  const SHOW_HEXES_UNDER = 2000
+  const SHOW_LABELS_UNDER = 400
+  const SHOW_HEXES_UNDER = 1000
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -778,7 +779,7 @@ export const HexGrid: React.FC<{}> = () => {
 
     <LayerGroup key={'hex_polygons'} >{
       /* not too many cells visible, show hex outlines */
-      visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+      false && visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
         <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -802,9 +803,9 @@ export const HexGrid: React.FC<{}> = () => {
           fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
           stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-          className={styles['default-hex3']}
+          // className={styles['default-hex3']}
           // className={styles[getCellStyle3(cell, [], [], undefined)]}
-          // className={styles[getCellStyle3(cell, planningRouteCells, [], cellForSelected)]}
+          className={styles[getCellStyle3(cell, planningRouteCells3, [], cellForSelected3)]}
         />
       ))}
     </LayerGroup>
@@ -892,7 +893,7 @@ export const HexGrid: React.FC<{}> = () => {
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells.length < SHOW_LABELS_UNDER &&
+      false && visibleCells.length < SHOW_LABELS_UNDER &&
       /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
