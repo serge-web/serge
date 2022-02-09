@@ -85,7 +85,6 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
-  const [visibleCells3, setVisibleCells3] = useState<SergeGrid3>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
   // we do this by filtering out cells that aren't relevant. Namely
@@ -572,29 +571,27 @@ export const HexGrid: React.FC<{}> = () => {
         const newBR = viewport.getSouthEast().toBounds(bufferDist)
         const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
 
-        let visible: SergeGrid3 = []
+        const visible: SergeGrid3 = []
 
         // sort out visible cells, first by the bin
         polyBins3.forEach((bin: PolyBin3) => {
           if (extendedViewport.contains(bin.bounds)) {
+            console.log('adding ', bin.cells.length)
             // ok, add all of them
-            visible = visible.concat(bin.cells)
+            visible.push(...bin.cells)
           } else if (bin.bounds.intersects(extendedViewport)) {
             // find the ones in the viewport
             const inZone = bin.cells.filter((cell: SergeHex3) =>
               extendedViewport.contains(cell.centreLatLng)
             )
-            visible = visible.concat(inZone)
+            console.log('adding in zone', inZone.length)
+            visible.push(...inZone)
           }
         })
 
-        const relevantCellArr = visible
-
-        setVisibleCells3(visible)
-        setRelevantCells3(relevantCellArr)
+        setRelevantCells3(visible)
       }
     } else {
-      setVisibleCells3([])
       setRelevantCells3([])
     }
   }, [viewport, h3gridCells, polyBins3])
@@ -621,7 +618,7 @@ export const HexGrid: React.FC<{}> = () => {
     //    const uniqueCells = [...new Set(allCells)]
     //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells3(allCells)
-  }, [allowableCells3, relevantCells3, planningRouteCells3])
+  }, [relevantCells3, planningRouteCells3])
 
   /** handler for planning marker being droppped
        *
@@ -736,6 +733,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
+  console.log('vis', visibleCells.length, relevantCells.length, relevantCells3.length)
+
   //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
   // console.log('hex grid', setPlanningRouteCells.length, setPlanningRouteCells.length && setPlanningRouteCells.length[0])
 
@@ -756,15 +755,15 @@ export const HexGrid: React.FC<{}> = () => {
     }
 
     { /* POLY BINS */}
-    {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
+    {/* <LayerGroup key={'poly_bounds'} >{viewport && polyBins3 && polyBins3.map((bin: PolyBin3, index: number) => (
       <>
-      <Polygon
-        key={'bin_line_' + index}
-        color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
-        fillColor={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
-        positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(), bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
-        className={styles['planning-line']}
-      />
+        <Polygon
+          key={'bin_line_' + index}
+          color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
+          fillColor={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
+          positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(), bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
+          className={styles['planning-line']}
+        />
         <Marker
           key={'bin_label_' + index}
           position={bin.bounds.getCenter()}
@@ -775,9 +774,9 @@ export const HexGrid: React.FC<{}> = () => {
             iconSize: [30, 20]
           })}
         />
-        </>
+      </>
     ))}
-    </LayerGroup> */}
+        </LayerGroup> */}
 
     <LayerGroup key={'hex_polygons'} >{
       /* not too many cells visible, show hex outlines */
@@ -918,9 +917,9 @@ export const HexGrid: React.FC<{}> = () => {
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells3 && visibleCells3.length < SHOW_LABELS_UNDER &&
+      relevantCells3 && relevantCells3.length < SHOW_LABELS_UNDER &&
       /* note: for the label markers - we use the cells in the currently visible area */
-      <LayerGroup key={'hex_labels3'} >{visibleCells3.map((cell: SergeHex3, index: number) => (
+      <LayerGroup key={'hex_labels3'} >{relevantCells3.map((cell: SergeHex3, index: number) => (
         <Marker
           key={'hex_label3_' + cell.name + '_' + index}
           position={cell.centreLatLng}
