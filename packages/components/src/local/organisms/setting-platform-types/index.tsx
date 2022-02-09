@@ -75,7 +75,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   const initialPlatformType: PlatformType = platformType || newPlatformType
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
-  const [selectedItem, setSelectedItem] = useState<number>(0) // auto set first item in the list
+  const [selectedItem, setSelectedItem] = useState<number>(-1)
 
   useEffect(() => {
     if (platformType) {
@@ -246,7 +246,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               onClick={handleSave}
               data-qa-type="save"
             >
-              Save
+              Save Platform-Type
             </Button>
           </div>
         </div>
@@ -337,17 +337,17 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
-    handleChangePlatformTypes([
-      {
-        name: createPlatformName(),
-        conditions: [],
-        speedKts: [],
-        states: [],
-        icon: '',
-        travelMode: 'sea'
-      },
-      ...localPlatformType.platformTypes
-    ])
+    localPlatformType.platformTypes.push({
+      name: createPlatformName(),
+      conditions: [],
+      speedKts: [],
+      states: [],
+      icon: '',
+      travelMode: 'sea'
+    })
+    // update localPlatformType and call onSave
+    handleChangePlatformTypes(localPlatformType.platformTypes)
+    if (onSave) onSave(localPlatformType)
   }
 
   return (
