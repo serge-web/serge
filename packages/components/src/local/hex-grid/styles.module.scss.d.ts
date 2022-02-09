@@ -4,6 +4,7 @@ interface CssExports {
   'allowable-hex': string;
   'default-coords': string;
   'default-hex': string;
+  'default-hex3': string;
   'num-cells': string;
   'planned-hex': string;
   'planned-line': string;
