@@ -2,14 +2,12 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
-  'col': string;
-  'form-row': string;
-  'mobile': string;
-  'mobile-title': string;
-  'row': string;
-  'section': string;
-  'states-holder': string;
-  'commoditie-header': string;
+  'checkbox': string;
+  'btn': string;
+  'input-filter': string;
+  'filter-icon': string;
+  'light': string;
+  'dark': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

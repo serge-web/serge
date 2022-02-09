@@ -1,12 +1,10 @@
-import { faAddressBook, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Input } from '@material-ui/core'
-import { Row } from '@serge/components'
+import { ReactTable, Row } from '@serge/components'
 import { ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
-import { isEqual, uniq } from 'lodash'
+import { uniq } from 'lodash'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
-import DataTable from 'react-data-table-component'
+import React, { useEffect, useMemo, useState } from 'react'
 import Modal from 'react-modal'
 import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 import { getPlayerActivityLogs } from '../../api/wargames_api'
@@ -26,15 +24,11 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
   const [loop, setLoop] = useState<any>();
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
-  const [debounce, setDebounce] = useState<any>()
-  const [inSearchingMode, setSearchingMode] = useState<boolean>(false)
 
-  const { columns, rows, customStyles } = genPlayerLogDataTable(playerLogData)
+  const { columns, rows, customStyles } = useMemo(() => genPlayerLogDataTable(playerLogData), [playerLogData])
 
   useEffect(() => {
-    if (rows.length && !inSearchingMode) {
-      setFilterRows(rows)
-    }
+    setFilterRows(rows)
   }, [rows.length])
 
   useEffect(() => {
@@ -79,24 +73,6 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
     })
   }
 
-  const filterActivity = (event: any): void => {
-    clearTimeout(debounce)
-    setDebounce(setTimeout((searchStr: string) => {
-      setSearchingMode(!!searchStr.length)
-      const matchedRows = rows.filter(row => {
-        return Object.keys(row).some(key => `${row[key]}`.toLowerCase().includes(`${searchStr}`.toLowerCase()))
-      })
-
-      if (!isEqual(filteredRows, matchedRows)) {
-        setFilterRows(matchedRows)
-      }
-
-      if (!searchStr) {
-        setFilterRows(rows)
-      }
-    }, 500, event.target.value))
-  }
-
   return (
     <Modal
       isOpen={isOpen}
@@ -117,16 +93,11 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
         </div>
       </div>
       <div className={styles.content}>
-        <div className={styles['filter-group']}>
-          <FontAwesomeIcon icon={faSearch} className={styles['filter-icon']} />
-          <Input placeholder="filter activity" className={styles['input-filter']} onInput={filterActivity} />
-        </div>
-        <DataTable
+        <ReactTable
           columns={columns}
-          data={filteredRows}
-          fixedHeader
-          expandableRows
+          rows={filteredRows}
           customStyles={customStyles}
+          fixedHeader
           defaultSortAsc={true}
           persistTableHead={true}
           expandableRowsHideExpander={true}

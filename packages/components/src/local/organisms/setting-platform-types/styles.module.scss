@@ -41,6 +41,10 @@
   align-items: center;
   justify-content: center;
   min-width: 64px;
+
+  input {
+    margin-left: 10px;
+  }
 }
 
 .mobile-title {
@@ -52,7 +56,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #1a394d;
-  padding-bottom: 22px;
+  padding-bottom: 40px;
 }
 
 .states-holder > div > div:last-child::before {
@@ -61,4 +65,32 @@
   z-index: 1;
   height: 38px;
   position: relative;
+}
+
+.commoditie-header {
+  display: flex;
+  padding-left: 20px;
+  font-size: small;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+  span {
+    &:nth-child(1) {
+      width: 25%;
+    }
+    &:nth-child(2) {
+      width: 50px;
+      padding-left: 5px;
+    }
+    &:nth-child(3) {
+      width: 80px;
+      margin-left: 10px;
+    }
+    &:nth-child(4) {
+      width: 380px;
+    }
+    &:nth-child(5) {
+      width: 80px;
+    }
+  }
 }
