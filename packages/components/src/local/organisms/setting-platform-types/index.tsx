@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
-import { COMMODITY_TYPE_NUMBER, databasePath, dbSuffix, localSettings } from '@serge/config'
+import { COMMODITY_TYPE_NUMBER } from '@serge/config'
 import { CommodityType, CommodityTypes, NumberCommodityType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import { platformTypeNameToKey } from '@serge/helpers'
 import cx from 'classnames'
@@ -26,7 +26,6 @@ import SortableList, { Item as SortableListItem } from '../../molecules/sortable
 import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes from './types/props'
-import PouchDB from 'pouchdb'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -64,7 +63,7 @@ const useStyles = makeStyles({
 })
 
 /* Render component */
-export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, wargameName, iconUploadUrl }) => {
+export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
   const { description, format, underline, units } = useStyles()
   const newPlatformType: PlatformType = {
     complete: false,
@@ -89,22 +88,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleDelete = (item: Item): void => {
-    const db: PouchDB.Database = new PouchDB(databasePath + wargameName + dbSuffix)
     setSelectedItem(-1)
-    db.get(localSettings).then((res: any) => {
-      if (res.data.platform_types) {
-        if (res.data.platform_types.platformTypes) {
-          const existsSavedType = res.data.platform_types.platformTypes.filter((v: PlatformType) => v.name === item.name)
-          if (existsSavedType.length !== 0) {
-            onDelete && onDelete(existsSavedType[0])
-          } else {
-            handleChangePlatformTypes(localPlatformType.platformTypes.filter(v => v.name !== item.name))
-          }
-        }
-      } else {
-        handleChangePlatformTypes(localPlatformType.platformTypes.filter(v => v.name !== item.name))
-      }
-    })
+    onDelete && onDelete(item as PlatformType)
   }
 
   const handleChangePlatformTypes = (nextPlatformTypes: Array<PlatformTypeData>): void => {
@@ -352,17 +337,17 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
-    handleChangePlatformTypes([
-      {
-        name: createPlatformName(),
-        conditions: [],
-        speedKts: [],
-        states: [],
-        icon: '',
-        travelMode: 'sea'
-      },
-      ...localPlatformType.platformTypes
-    ])
+    localPlatformType.platformTypes.push({
+      name: createPlatformName(),
+      conditions: [],
+      speedKts: [],
+      states: [],
+      icon: '',
+      travelMode: 'sea'
+    })
+    // update localPlatformType and call onSave
+    handleChangePlatformTypes(localPlatformType.platformTypes)
+    if (onSave) onSave(localPlatformType)
   }
 
   return (

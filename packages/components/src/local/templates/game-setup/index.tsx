@@ -69,7 +69,6 @@ export const GameSetup: React.FC<Props> = ({
               onChange={onPlatformTypesChange}
               onSave={onSave}
               onDelete={onDeletePlatformType}
-              wargameName={wargame.currentWargame}
             />
           )
         }
