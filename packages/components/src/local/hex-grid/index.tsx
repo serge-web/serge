@@ -576,7 +576,6 @@ export const HexGrid: React.FC<{}> = () => {
         // sort out visible cells, first by the bin
         polyBins3.forEach((bin: PolyBin3) => {
           if (extendedViewport.contains(bin.bounds)) {
-            console.log('adding ', bin.cells.length)
             // ok, add all of them
             visible.push(...bin.cells)
           } else if (bin.bounds.intersects(extendedViewport)) {
@@ -584,7 +583,6 @@ export const HexGrid: React.FC<{}> = () => {
             const inZone = bin.cells.filter((cell: SergeHex3) =>
               extendedViewport.contains(cell.centreLatLng)
             )
-            console.log('adding in zone', inZone.length)
             visible.push(...inZone)
           }
         })
@@ -733,7 +731,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('vis', visibleCells.length, relevantCells.length, relevantCells3.length)
+//  console.log('vis', visibleCells.length, relevantCells.length, relevantCells3.length)
 
   //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
   // console.log('hex grid', setPlanningRouteCells.length, setPlanningRouteCells.length && setPlanningRouteCells.length[0])
