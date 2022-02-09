@@ -12,7 +12,7 @@ const labelFor3 = (centre: number[]): string => {
 }
 
 /** create our composite cell structure for this index */
-const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string): SergeHex3 => {
+const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr: number): SergeHex3 => {
   const centre = h3ToGeo(index)
   let label = ''
   if (labelType === X_Y_LABELS) {
@@ -22,8 +22,10 @@ const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string): Se
     } catch (err) {
       label = 'n/a'
     }
-  } else {
+  } else if(labelType === LAT_LON_LABELS) {
     label = labelFor3(centre)
+  } else {
+    label = '' + ctr
   }
   const edge = h3ToGeoBoundary(index)
   return {
@@ -57,6 +59,8 @@ const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
 
 export const LAT_LON_LABELS = 'lat_lon_labels'
 export const X_Y_LABELS = 'x_y_labels'
+export const CTR_LABELS = 'ctr_labels'
+
 
 /** create the grid of h3 cells
   * @param {L.LatLngBounds} bounds Outer bounds of grid
@@ -75,8 +79,9 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: str
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
 
   // create the grid
+  let ctr = 0
   const grid = cells.map((cell: H3Index): SergeHex3 => {
-    return indexToHex(cell, centreIndex, labelType)
+    return indexToHex(cell, centreIndex, labelType, ++ctr)
   })
   return grid
 }
