@@ -22,7 +22,7 @@ const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr
     } catch (err) {
       label = 'n/a'
     }
-  } else if(labelType === LAT_LON_LABELS) {
+  } else if (labelType === LAT_LON_LABELS) {
     label = labelFor3(centre)
   } else {
     label = '' + ctr
@@ -47,7 +47,7 @@ export const num2LatLng = (coords: number[]): L.LatLng => {
   return L.latLng(coords[0], coords[1])
 }
 
-const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
+export const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
   return [
     latLng2Num(bounds.getNorthWest()),
     latLng2Num(bounds.getNorthEast()),
