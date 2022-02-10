@@ -66,7 +66,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChatMessagesList
-        messages={state.channels[channelId].messages}
+        messages={state.channels[channelId].messages || []}
         onMarkAllAsRead={markAllAsReadLocal}
         turnPresentation={state.turnPresentation}
         playerForce={selectedForce.name}
