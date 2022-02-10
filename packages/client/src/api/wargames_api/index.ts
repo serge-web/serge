@@ -17,7 +17,8 @@ import {
   MAX_LISTENERS,
   SERGE_INFO,
   ERROR_THROTTLE,
-  COUNTER_MESSAGE
+  COUNTER_MESSAGE,
+  expiredStorage
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -157,8 +158,9 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (action: string): Promise<any> => {
-  return fetch(serverPath + 'healthcheck/' + action, {
+export const pingServer = (): Promise<any> => {
+  const time = expiredStorage.getItem('activityTime') || 'The player has not shown any activity yet'
+  return fetch(serverPath + 'healthcheck/' + time + '/healthcheck', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -166,7 +168,7 @@ export const pingServer = (action: string): Promise<any> => {
   })
     .then((response: Response): Promise<any> => response.json())
     .then((data: any) => {
-      return data
+      return data.status
     })
     .catch((err) => {
       console.log(err)
