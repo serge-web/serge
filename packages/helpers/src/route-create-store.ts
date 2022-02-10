@@ -1,6 +1,6 @@
 
 import L from 'leaflet'
-import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeData, SergeGrid3 } from '@serge/custom-types'
+import { RouteStore, Route, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -82,7 +82,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // dummy location, used if we don't have grid (such as in test)
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
           // sort out location.
-          const assetPosition: string = (existingRoute && existingRoute.currentPosition) || asset.position3 || asset.position
+          const assetPosition: string = (existingRoute && existingRoute.currentPosition) || asset.position
           const h3loc: number[] | undefined = (asset.position && h3ToGeo(asset.position)) || undefined
           const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
           const assetLocation: L.LatLng = (h3locLatlng) || dummyLocation
