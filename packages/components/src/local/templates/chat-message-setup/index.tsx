@@ -28,7 +28,6 @@ export const ChatMessageSetup: React.FC<Props> = ({ selectedForce, userId, force
         isUmpire={isUmpire}
         playerForce={forceName}
         turnPresentation={turnPresentation}
-        userId={userId}
         colors={[
           '#0F0'
         ]}
