@@ -10,7 +10,7 @@ import { cloneDeep, isEqual } from 'lodash'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
-import { createGridH3, CTR_LABELS } from './helpers/h3-helpers'
+import { createGridH3, H3_LABELS } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -232,7 +232,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
-        platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
@@ -250,7 +250,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
         const vStore: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, viewAsForce, platforms,
-          gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
+          filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
@@ -322,7 +322,7 @@ export const Mapping: React.FC<PropTypes> = ({
         setGridCells(newGrid)
       }
       // now the h3 handler
-      const labelType = CTR_LABELS
+      const labelType = H3_LABELS
       const cells = createGridH3(mapBounds, 4, labelType, atlanticCells)
       setH3gridCells(cells)
       console.log('new cells', mapBounds, cells.length, cells[0])
