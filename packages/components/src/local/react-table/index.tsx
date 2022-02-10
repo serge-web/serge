@@ -159,7 +159,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     })
   }
 
-    /**
+  /**
    * filter the data table by selected header menu filter item
    * @param headerFiltes: HeaderFiltes[]
    */

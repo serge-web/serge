@@ -8,8 +8,8 @@ import Props from './types/props'
 import { Editor } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
-import { setActivityTime, expiredStorage } from '@serge/config'
 import { configDateTimeLocal } from '@serge/helpers'
+import { expiredStorage } from '@serge/config'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
