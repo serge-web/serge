@@ -62,20 +62,18 @@ export const LAT_LON_LABELS = 'lat_lon_labels'
 export const X_Y_LABELS = 'x_y_labels'
 export const CTR_LABELS = 'ctr_labels'
 
-let ctr = 0
-
+/** see if we can perform i/j cell labelling for this grid.
+ * The algorithm runs through all the cells in the grid until one
+ * fails - then it immediately returns false
+ */
 export const checkIfIJWorks = (grid: string[], centre: H3Index): boolean => {
-  console.log('err', ++ctr)
   return !grid.some((cell: string) => {
-    let label
+    let coords = undefined
     try {
-      const coords = experimentalH3ToLocalIj(centre, cell)
-      label = labelFor(coords.i, coords.j)
+      coords = experimentalH3ToLocalIj(centre, cell)
     } catch (err) {
-      console.log('err', ++ctr)
-      label = undefined
     }
-    return !!label
+    return !coords
   })
 }
 
