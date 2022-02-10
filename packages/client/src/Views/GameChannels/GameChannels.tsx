@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import classNames from 'classnames'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TurnProgression, ForceObjective } from '@serge/components'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
@@ -13,6 +14,7 @@ import {
   showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage } from '../../consts'
+import PlayerLog from '../PlayerLog'
 
 const GameChannels: React.FC = (): React.ReactElement => {
   const {
@@ -32,6 +34,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     selectedForce,
     wargameInitiated
   } = usePlayerUiState()
+  const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
 
   if (selectedForce == undefined) {
     return (
@@ -51,13 +54,14 @@ const GameChannels: React.FC = (): React.ReactElement => {
   }
 
   return <div className="flex-content flex-content--row-wrap">
+    <PlayerLog isOpen={isPlayerlogOpen} onClose={(): void => togglePlayerLogModal(false)} />
     <div className="message-feed in-game-feed" data-tour="fourth-step">
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
         if (el) window.channelTabsContainer[selectedForce.uniqid] = el
-      }}/>
+      }} />
     </div>
-    <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl})} data-tour="fifth-step">
+    <div className={classNames({ "message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl })} data-tour="fifth-step">
       <div className="flex-content wargame-title">
         <h3>{wargameTitle}</h3>
         <span onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
@@ -65,6 +69,9 @@ const GameChannels: React.FC = (): React.ReactElement => {
         </span>
         <span className="tutorial">
           <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
+        </span>
+        <span className="playerlog">
+          <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
         </span>
       </div>
       <TurnProgression

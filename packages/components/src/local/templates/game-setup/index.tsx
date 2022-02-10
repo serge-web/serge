@@ -26,6 +26,7 @@ export const GameSetup: React.FC<Props> = ({
   activeTab = '',
   onOverviewChange,
   onPlatformTypesChange,
+  onDeletePlatformType,
   onForcesChange,
   onCreateForce,
   onDeleteForce,
@@ -67,6 +68,7 @@ export const GameSetup: React.FC<Props> = ({
               platformType={platformTypes}
               onChange={onPlatformTypesChange}
               onSave={onSave}
+              onDelete={onDeletePlatformType}
             />
           )
         }

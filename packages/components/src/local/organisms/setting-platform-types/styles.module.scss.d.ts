@@ -9,6 +9,7 @@ interface CssExports {
   'row': string;
   'section': string;
   'states-holder': string;
+  'commoditie-header': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

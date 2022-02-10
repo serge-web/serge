@@ -16,7 +16,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
         <button
           aria-controls="channel-add-menu"
           aria-haspopup="true"
-          className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+          className="MuiButtonBase-root MuiButton-root makeStyles-root-5 makeStyles-root-7 MuiButton-contained makeStyles-contained-6 makeStyles-contained-8 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
           data-qa-type="add"
           disabled={false}
           onBlur={[Function]}
@@ -51,7 +51,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <div
-              className="MuiInputBase-root MuiInput-root makeStyles-root-8 makeStyles-root-10 MuiInput-underline makeStyles-underline-9 makeStyles-underline-11 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              className="MuiInputBase-root MuiInput-root makeStyles-root-12 makeStyles-root-14 MuiInput-underline makeStyles-underline-13 makeStyles-underline-15 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
               onClick={[Function]}
             >
               <input
@@ -85,7 +85,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -97,7 +101,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -109,7 +117,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -121,7 +133,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -133,7 +149,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -145,7 +165,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -157,7 +181,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -169,7 +197,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -181,7 +213,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -193,7 +229,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -205,7 +245,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
           <span
             className="searchlist-row "
@@ -217,7 +261,11 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             </span>
             <div
               className="searchlist-menu"
-            />
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
           </span>
         </div>
       </div>

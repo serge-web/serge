@@ -17,9 +17,9 @@ import {
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
-  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages,
+  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
-    newState.allTemplatesByKey, newState.allForces, newState.playerLog)
+    newState.allTemplatesByKey, newState.allForces, newState.playerMessageLog)
   return res
 }
 

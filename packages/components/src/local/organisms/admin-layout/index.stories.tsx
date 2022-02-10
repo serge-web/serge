@@ -6,7 +6,7 @@ import SettingOverview, { WargameOverview } from '../setting-overview'
 import SettingPlatformTypes from '../setting-platform-types'
 import SettingForces from '../setting-forces'
 import { platformTypes as platformTypesMock, WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
-import SettingChannels, { ChannelData } from '../setting-channels'
+import SettingChannels, { ChannelTypes } from '../setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -42,7 +42,7 @@ export const Default: React.FC = (args) => {
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
-  const [changedChannels, setChangedChannels] = useState<Array<ChannelData>>(wargame.data.channels.channels || [])
+  const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
@@ -91,7 +91,7 @@ export const Default: React.FC = (args) => {
     console.log(updates.forces)
   }
 
-  const onChannelsChange = (updates: { channels: Array<ChannelData> }): void => {
+  const onChannelsChange = (updates: { channels: Array<ChannelTypes> }): void => {
     setChangedChannels(updates.channels)
     setWargameChanged(true)
   }

@@ -384,17 +384,10 @@ exports[`GameSetup component: renders correctly 1`] = `
                               </th>
                               <th
                                 aria-sort={null}
-                                className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
+                                className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
                                 scope="col"
                               >
                                 Restrict access to specific roles
-                              </th>
-                              <th
-                                aria-sort={null}
-                                className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
-                                scope="col"
-                              >
-                                Templates
                               </th>
                               <th
                                 aria-sort={null}
@@ -414,7 +407,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   White
                                 </div>
@@ -423,7 +416,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   All roles
                                 </div>
@@ -432,7 +425,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   Chat if empty
                                 </div>
@@ -502,7 +495,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   Red
                                 </div>
@@ -511,7 +504,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   All roles
                                 </div>
@@ -520,7 +513,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   Chat if empty
                                 </div>
@@ -590,7 +583,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   Blue
                                 </div>
@@ -599,7 +592,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   All roles
                                 </div>
@@ -608,7 +601,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   Chat if empty
                                 </div>
@@ -683,7 +676,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   <div
                                     className="MuiFormControl-root"
@@ -734,7 +727,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   <div
                                     className="MuiFormControl-root"
@@ -787,7 +780,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                                 className="td"
                               >
                                 <div
-                                  className="input-box"
+                                  className="input-box center"
                                 >
                                   <div
                                     className="MuiFormControl-root"
