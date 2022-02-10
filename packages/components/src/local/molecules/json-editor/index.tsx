@@ -85,7 +85,6 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
       const targetId = target.getAttribute('id')
       if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
-        setActivityTime()
         if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
           expiredStorage.removeItem(genLocalStorageId())
           // remove click listener for unmounted component
@@ -135,7 +134,6 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
 
   useLayoutEffect(() => {
     if (editor) {
-      setActivityTime()
       if (disabled) {
         editor.disable()
       } else {

@@ -91,6 +91,10 @@ export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 // value to use in DataTable filters for value not present
 export const EMPTY_CELL = '[Empty]'
 
+// name of property used for storing time/type of last activity
+export const ACTIVITY_TIME = 'activityTime'
+export const ACTIVITY_TYPE = 'activityType'
+
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition
@@ -124,7 +128,9 @@ export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
-// save activityTime
-export const setActivityTime = (): void  => {
-  return expiredStorage.setItem('activityTime', `${new Date().getTime()}`) 
+// there has been some user interaction, so log the current time
+export const setActivityTime = (event: string): void  => {
+  expiredStorage.setItem(ACTIVITY_TYPE, event) 
+  return expiredStorage.setItem(ACTIVITY_TIME, `${new Date().getTime()}`) 
 }
+

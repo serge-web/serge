@@ -18,7 +18,8 @@ import {
   SERGE_INFO,
   ERROR_THROTTLE,
   COUNTER_MESSAGE,
-  expiredStorage
+  expiredStorage,
+  ACTIVITY_TIME
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -159,7 +160,7 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 }
 
 export const pingServer = (): Promise<any> => {
-  const activityTime = expiredStorage.getItem('activityTime') || 'The player has not shown any activity yet'
+  const activityTime = expiredStorage.getItem(ACTIVITY_TIME) || 'The player has not shown any activity yet'
   return fetch(serverPath + 'healthcheck/' + activityTime + '/healthcheck', {
     method: 'GET',
     headers: {

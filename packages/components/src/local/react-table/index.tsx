@@ -1,4 +1,5 @@
 import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
+import { setActivityTime } from '@serge/config'
 import { flattenDeep, uniqBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
@@ -114,7 +115,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
       }
     }
 
-    onFilterChanged(allFilter)
+    updateFilters(allFilter)
     setAllFilters(allFilter)
   }, [rows])
 
@@ -158,11 +159,20 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     })
   }
 
-  /**
+    /**
    * filter the data table by selected header menu filter item
    * @param headerFiltes: HeaderFiltes[]
    */
   const onFilterChanged = (headerFiltes: HeaderFiltes[]): void => {
+    setActivityTime('filter changed')
+    updateFilters(headerFiltes)
+  }
+
+  /**
+   * filter the data table by selected header menu filter item
+   * @param headerFiltes: HeaderFiltes[]
+   */
+  const updateFilters = (headerFiltes: HeaderFiltes[]): void => {
     const appliedFilter = headerFiltes.reduce((result: { col: string, filter: CellFilter[] }[], headerFilter: HeaderFiltes) => {
       const { key, filters } = headerFilter
       const selectedFilter = filters.filter(f => f.checked)
@@ -189,6 +199,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    */
   const closeFilter = (): void => {
     setAnchorEl(null)
+  }
+
+  /** there has been some interaction with the data table */
+  const onTableInteraction = (): void => {
+    setActivityTime('data table interaction')
   }
 
   const ExpandedComponent = ({ data }: Row): React.ReactElement => data.collapsible()
@@ -220,6 +235,8 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
       <DataTable
         columns={columns}
         data={filteredRows}
+        onSort={onTableInteraction}
+        onRowExpandToggled={onTableInteraction}
         customStyles={customStyles}
         expandableRowsComponent={ExpandedComponent}
         {...restProps}

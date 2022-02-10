@@ -186,7 +186,7 @@ const factory = (state: PlayerUi): Factory => {
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
         default:
-          setActivityTime()
+          setActivityTime('Channels opened')
           console.warn('not yet handling', v3Channel.channelType)
       }
     } else {
