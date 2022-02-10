@@ -131,6 +131,6 @@ export const hiddenPrefix = '_#_'
 // there has been some user interaction, so log the current time
 export const setActivityTime = (event: string): void  => {
   expiredStorage.setItem(ACTIVITY_TYPE, event) 
-  return expiredStorage.setItem(ACTIVITY_TIME, `${new Date().getTime()}`) 
+  expiredStorage.setItem(ACTIVITY_TIME, `${new Date().getTime()}`) 
 }
 
