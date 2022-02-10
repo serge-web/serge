@@ -879,7 +879,8 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
-    <LayerGroup key='polygon_outlines'>
+    { false && // don't plot the polys from legacy data
+      <LayerGroup key='polygon_outlines'>
       {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
         <Polygon
           key={'poly_a' + index}
@@ -888,6 +889,7 @@ export const HexGrid: React.FC<{}> = () => {
           className={styles['terrain-outline']}/>
       )}
     </LayerGroup>
+    }
     {
       // zoomLevel > 5.5 &&
       // change - show labels if there are less than 400. With the zoom level
