@@ -3,6 +3,7 @@
 interface CssExports {
   'allowable-hex': string;
   'default-coords': string;
+  'default-coords-3': string;
   'default-hex': string;
   'default-hex3': string;
   'num-cells': string;
