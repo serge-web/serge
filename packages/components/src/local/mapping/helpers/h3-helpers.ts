@@ -25,6 +25,8 @@ const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr
     }
   } else if (labelType === LAT_LON_LABELS) {
     label = labelFor3(centre)
+  } else if (labelType === H3_LABELS) {
+    label = index
   } else {
     label = '' + ctr
   }
@@ -61,6 +63,7 @@ export const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
 export const LAT_LON_LABELS = 'lat_lon_labels'
 export const X_Y_LABELS = 'x_y_labels'
 export const CTR_LABELS = 'ctr_labels'
+export const H3_LABELS = 'h3_labels'
 
 /** see if we can perform i/j cell labelling for this grid.
  * The algorithm runs through all the cells in the grid until one
