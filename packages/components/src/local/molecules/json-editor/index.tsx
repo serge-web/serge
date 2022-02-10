@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
 import Props from './types/props'
-import { Editor, TemplateBody } from '@serge/custom-types'
+import { Editor } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
 import { expiredStorage } from '@serge/config'
@@ -19,12 +19,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  const schema = Object.keys(messageTemplates).map(
-    (key): TemplateBody => messageTemplates[key]
-    // @ts-ignore
-  ).find(msg => msg.details.title === template)
-
-  if (!schema) {
+  if (!messageTemplates[template]) {
     const styles = {
       color: '#f00',
       background: '#ff0',
@@ -46,7 +41,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
     const jsonEditorConfig = disabled
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
-    const modSchema = configDateTimeLocal(schema.details, gameDate)
+    const modSchema = configDateTimeLocal(messageTemplates[template].details, gameDate)
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema
@@ -83,7 +78,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       }
     }
 
-    const handleClick = ({ target }: any) => {
+    const handleClick = ({ target }: any): void => {
       // @ts-ignore
       const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
       const targetId = target.getAttribute('id')
