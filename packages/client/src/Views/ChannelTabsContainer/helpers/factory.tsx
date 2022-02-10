@@ -15,7 +15,7 @@ import {
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
   CHANNEL_CHAT,
-  expiredStorage
+  setActivityTime
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -186,7 +186,7 @@ const factory = (state: PlayerUi): Factory => {
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
         default:
-          expiredStorage.setItem('activityTime', `${new Date().getTime()}`)
+          setActivityTime()
           console.warn('not yet handling', v3Channel.channelType)
       }
     } else {

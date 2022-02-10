@@ -4,7 +4,7 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import Props from './types'
-import { expiredStorage } from '@serge/config'
+import { setActivityTime } from '@serge/config'
 
 const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   const editorPreviewRef = createRef<HTMLDivElement>()
@@ -19,7 +19,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
 
   const sendMessage = (): void => {
 
-    expiredStorage.setItem('activityTime', `${new Date().getTime()}`)
+    setActivityTime()
 
     if (editor !== null) {
       let messageDetails: MessageDetails = {

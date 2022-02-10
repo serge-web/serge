@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
-import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from "@serge/config";
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates, setActivityTime } from "@serge/config";
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -14,7 +14,6 @@ import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
-import { expiredStorage } from '../../consts'
 flatpickr(".calendar")
 
 const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, onMessageSend, onCancel, confirmCancel }) => {
@@ -72,7 +71,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)
-    expiredStorage.setItem('activityTime', `${new Date().getTime()}`)
+    setActivityTime()
   }
 
   const openConfirmPopup = (e: any): void => {

@@ -8,7 +8,7 @@ import Props from './types/props'
 import { Editor } from '@serge/custom-types'
 
 import setupEditor from './helpers/setupEditor'
-import { expiredStorage } from '@serge/config'
+import { setActivityTime, expiredStorage } from '@serge/config'
 import { configDateTimeLocal } from '@serge/helpers'
 
 // keydown listener should works only for defined tags
@@ -85,7 +85,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
       const targetId = target.getAttribute('id')
       if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
-        expiredStorage.setItem('activityTime', `${new Date().getTime()}`)
+        setActivityTime()
         if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
           expiredStorage.removeItem(genLocalStorageId())
           // remove click listener for unmounted component
@@ -135,7 +135,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
 
   useLayoutEffect(() => {
     if (editor) {
-      expiredStorage.setItem('activityTime', `${new Date().getTime()}`)
+      setActivityTime()
       if (disabled) {
         editor.disable()
       } else {

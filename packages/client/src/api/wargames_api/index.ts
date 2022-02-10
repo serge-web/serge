@@ -159,8 +159,8 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 }
 
 export const pingServer = (): Promise<any> => {
-  const time = expiredStorage.getItem('activityTime') || 'The player has not shown any activity yet'
-  return fetch(serverPath + 'healthcheck/' + time + '/healthcheck', {
+  const activityTime = expiredStorage.getItem('activityTime') ? expiredStorage.getItem('activityTime') : 'The player has not shown any activity yet'
+  return fetch(serverPath + 'healthcheck/' + activityTime + '/healthcheck', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
