@@ -63,10 +63,15 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const isUmpire = state.selectedForce && state.selectedForce.umpire
   const observing = !!state.channels[channelId].observing
 
+  // TODO: we have some wrong typing here.  The messages for this channel
+  // will all be chat messages plus turn markers.  But, that doesn't match
+  // what data is stored in the the channels dictionary
+  const chatMessages = state.channels[channelId].messages as any as ChatMessage[]
+
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChatMessagesList
-        messages={state.channels[channelId].messages || []}
+        messages={chatMessages || []}
         onMarkAllAsRead={markAllAsReadLocal}
         turnPresentation={state.turnPresentation}
         playerForce={selectedForce.name}
