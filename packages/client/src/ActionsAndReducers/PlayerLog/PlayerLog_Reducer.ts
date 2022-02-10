@@ -3,7 +3,9 @@ import { PlayerLogAction, PlayerActivity } from './PlayerLog_types'
 
 const initialState: PlayerActivity = {
   wargame: '',
-  role: ''
+  role: '',
+  updatedAt: 0,
+  event: ''
 }
 
 export const addPlayerLogReducer = (state = initialState, action: PlayerLogAction) => {
