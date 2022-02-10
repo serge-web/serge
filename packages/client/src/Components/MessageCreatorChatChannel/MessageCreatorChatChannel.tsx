@@ -4,7 +4,6 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import Props from './types'
-import { setActivityTime } from '@serge/config'
 
 const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   const editorPreviewRef = createRef<HTMLDivElement>()
