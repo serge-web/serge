@@ -62,6 +62,23 @@ export const LAT_LON_LABELS = 'lat_lon_labels'
 export const X_Y_LABELS = 'x_y_labels'
 export const CTR_LABELS = 'ctr_labels'
 
+let ctr = 0
+
+export const checkIfIJWorks = (grid: string[], centre: H3Index): boolean => {
+  console.log('err', ++ctr)
+  return !grid.some((cell: string) => {
+    let label
+    try {
+      const coords = experimentalH3ToLocalIj(centre, cell)
+      label = labelFor(coords.i, coords.j)
+    } catch (err) {
+      console.log('err', ++ctr)
+      label = undefined
+    }
+    return !!label
+  })
+}
+
 /** create the grid of h3 cells
   * @param {L.LatLngBounds} bounds Outer bounds of grid
   * @param {number} res h grid resolution
@@ -77,6 +94,9 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: str
   // sort out the centre index
   const centreLoc = bounds.getCenter()
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
+
+  // if game designer wants IJ labels, check we can do them
+  const correctedLabelType = labelType === X_Y_LABELS ? checkIfIJWorks(cells, centreIndex) ? labelType : LAT_LON_LABELS : labelType
 
   const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
 
@@ -102,7 +122,7 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: str
     }
     // convert style to power of 2, so we can have multiple styles
     const powerCell = Math.pow(2, cellStyle)
-    const res = indexToHex(cell, centreIndex, labelType, ++ctr, powerCell)
+    const res = indexToHex(cell, centreIndex, correctedLabelType, ++ctr, powerCell)
     return res
   })
 
