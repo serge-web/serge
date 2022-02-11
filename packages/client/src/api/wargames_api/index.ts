@@ -19,7 +19,8 @@ import {
   ERROR_THROTTLE,
   COUNTER_MESSAGE,
   expiredStorage,
-  ACTIVITY_TIME
+  ACTIVITY_TIME,
+  ACTIVITY_TYPE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -52,12 +53,12 @@ import {
   ApiWargameDbObject,
   ApiWargameDb,
   ListenNewMessageType,
-  WargameRevision
+  WargameRevision,
+  ActivityLogsInterface
 } from './types.d'
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import { checkReference } from '../messages_helper'
-import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -159,9 +160,12 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (): Promise<any> => {
+export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
   const activityTime = expiredStorage.getItem(ACTIVITY_TIME) || 'The player has not shown any activity yet'
-  return fetch(serverPath + 'healthcheck/' + activityTime + '/healthcheck', {
+  const activityType = expiredStorage.getItem(ACTIVITY_TYPE) || 'The player has not shown any activity yet'
+  const activityLogs: ActivityLogsInterface = { activityTime, activityType, ...activityDetails }
+
+  return fetch(serverPath + 'healthcheck/' + JSON.stringify(activityLogs) + '/healthcheck', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -175,18 +179,6 @@ export const pingServer = (): Promise<any> => {
       console.log(err)
       return "NOT_OK"
     })
-}
-
-export const sendPlayerLog = (playerLog: PlayerActivity): Promise<any> => {
-  return fetch(serverPath + 'playerlog', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(playerLog)
-  }).catch((err) => {
-    console.log(err)
-  })
 }
 
 export const getPlayerActivityLogs = () => {

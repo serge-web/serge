@@ -102,34 +102,32 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck/:time/:healthcheck', (req, res) => {
+  app.get('/healthcheck/:activityLog/:healthcheck', (req, res) => {
+    const { wargame, role, activityTime, activityType } = JSON.parse(req.params.activityLog)
+
+    if (wargame && role) {
+      const existingPlayerIdx = playerLog.findIndex(
+        player => player.role === role && player.wargame === wargame
+      )
+      if (existingPlayerIdx !== -1) {
+        playerLog[existingPlayerIdx].updatedAt = new Date().getTime()
+      } else {
+        const newPlayer = {
+          wargame,
+          role,
+          updatedAt: new Date().getTime()
+        }
+        playerLog.push(newPlayer)
+      }
+    }
+
     return res.status(200).send({
       status: 'OK',
-      mostRecentActivity: req.params.time
+      activityType: activityType,
+      mostRecentActivity: activityTime,
+      wargame: wargame,
+      role: role
     })
-  })
-
-  app.post('/playerlog', (req, res) => {
-    const { wargame, role } = req.body
-    if (!wargame || !role) {
-      return res.sendStatus(200)
-    }
-
-    const existingPlayerIdx = playerLog.findIndex(
-      player => player.role === role && player.wargame === wargame
-    )
-    if (existingPlayerIdx !== -1) {
-      playerLog[existingPlayerIdx].updatedAt = new Date().getTime()
-    } else {
-      const newPlayer = {
-        wargame,
-        role,
-        updatedAt: new Date().getTime()
-      }
-      playerLog.push(newPlayer)
-    }
-
-    return res.sendStatus(200)
   })
 
   app.get('/playerlog', (_, res) => {
