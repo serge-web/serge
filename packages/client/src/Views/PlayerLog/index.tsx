@@ -57,14 +57,16 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
             const lastMessage = messageLog[role.roleId]
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
+            const activityTime = activity && activity.activityTime && parseInt(activity.activityTime)
             logData.push({
               forceName: force.name,
               forceColor: force.color,
               roleName: role.name,
               message,
               lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
-              lastActive: activity ? moment(activity.updatedAt).fromNow() : 'N/A',
-              active: activity && (moment().diff(moment(activity.updatedAt))) < AGE_FOR_ACTIVE_MILLIS || false
+              lastActivity: activity ? activity.activityType : 'N/A',
+              lastActive: activityTime ? moment(activityTime).fromNow() : 'N/A',
+              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
         })

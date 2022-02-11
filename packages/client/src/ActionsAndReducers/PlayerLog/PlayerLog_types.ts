@@ -10,7 +10,7 @@ export type PlayerActivity = {
   // id of current role
   role: string
   // time of last event
-  updatedAt: number
+  activityTime: string
   // what happened at last event
-  event: string
+  activityType: string
 }
