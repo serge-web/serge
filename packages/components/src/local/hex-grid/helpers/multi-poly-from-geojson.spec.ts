@@ -11,7 +11,7 @@ it('Correctly convert GeoJSON to LeafletCoords', () => {
   expect(res[0].terrain.fillColor).toEqual('#9dd')
   expect(res[0].terrain.terrain).toEqual(Terrain.SEA)
 
-  expect(res[0].data[0][0].length).toEqual(2)
-  expect(typeof res[0].data[0][0][0]).toBe('number')
-  expect(typeof res[0].data[0][0][1]).toBe('number')
+  expect(res[0].data[0][0].length).toEqual(39)
+  expect(typeof res[0].data[0][0][0][0]).toBe('number')
+  expect(typeof res[0].data[0][0][0][1]).toBe('number')
 })
