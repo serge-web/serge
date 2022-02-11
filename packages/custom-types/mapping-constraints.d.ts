@@ -13,6 +13,10 @@ export default interface MappingConstraints {
    * bounding rectangle 
    */
   bounds: [[number, number], [number, number]],
+  /** 
+   * h3 resolution to use
+   */
+  h3res?: number,
   /**
    * diameter of tiles in use (nautical miles)
    */
