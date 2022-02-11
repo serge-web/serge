@@ -7,10 +7,10 @@ import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, Laydown
 import findPlatformTypeFor from './find-platform-type-for'
 import { h3ToGeo } from 'h3-js'
 
-const processStep = (step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
+const processStep = (step: RouteTurn): Array<RouteTurn> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
-
+  const res: Array<RouteTurn> = []
   if (step.status) {
     const steps: string[] = []
     const locations: Array<L.LatLng> = []
@@ -58,15 +58,15 @@ const createStepArray = (turns: RouteTurn[] | undefined, planned: boolean,
       if (turns.length > 0) {
         if (planned) {
           // just the first one
-          res = processStep(turns[0], res)
+          res = processStep(turns[0])
         } else {
           // just the last one
-          res = processStep(turns[turns.length - 1], res)
+          res = processStep(turns[turns.length - 1])
         }
       }
     } else {
       turns.forEach((step: RouteTurn) => {
-        res = processStep(step, res)
+        res = res.concat(processStep(step))
       })
     }
   }
@@ -283,7 +283,6 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
-  const historyTurns: RouteTurn[] | undefined = existingRoute && existingRoute.history
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
@@ -291,8 +290,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(historyTurns || asset.history,
-    false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 

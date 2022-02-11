@@ -7,6 +7,9 @@ import { plannedRoutesFor } from './planned-routes-for'
 import RouteData from '../types/route-data'
 import { Phase } from '@serge/config'
 
+const latVal = 79.24239850975904
+const lngVal = 38.02340700796988
+
 it('Provides valid planned for multi-point planned with filter', () => {
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, true, true)
   expect(store).toBeTruthy()
@@ -16,8 +19,8 @@ it('Provides valid planned for multi-point planned with filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
     expect(data.turnEnds.length).toEqual(1)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
     // and the polyline
     expect(data.polyline.length).toEqual(3)
   } else {
@@ -33,8 +36,8 @@ it('Provides valid planned for multi-point including static steps planned withou
   if (route && route.currentLocation) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
     expect(data.turnEnds.length).toEqual(3)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
     // and the polyline
     expect(data.polyline.length).toEqual(4)
   } else {
@@ -50,8 +53,8 @@ it('Provides valid planned for multi-point planned without filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
     expect(data.turnEnds.length).toEqual(5)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
     // try some state descriptions
     expect(data.turnEnds[0].status.speedKts).toEqual(10)
     expect(data.turnEnds[0].status.state).toEqual('Transiting')
@@ -83,8 +86,8 @@ it('Provides valid planned for single-point planned with filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
     expect(data.turnEnds.length).toEqual(1)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
     // and the polyline
     expect(data.polyline.length).toEqual(2)
   } else {
@@ -100,8 +103,8 @@ it('Provides valid planned for single-point planned without filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
     expect(data.turnEnds.length).toEqual(5)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
     // and the polyline
     expect(data.polyline.length).toEqual(4)
   } else {

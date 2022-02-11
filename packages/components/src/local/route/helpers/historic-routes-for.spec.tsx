@@ -7,6 +7,9 @@ import { historicRoutesFor } from './historic-routes-for'
 import RouteData from '../types/route-data'
 import { Phase } from '@serge/config'
 
+const latVal = 79.24239850975904
+const lngVal = 38.02340700796988
+
 it('Provides valid history for single-point history with filter', () => {
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, true, false)
   expect(store.routes.length).toEqual(9)
@@ -15,8 +18,8 @@ it('Provides valid history for single-point history with filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(1)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
   } else {
     expect(false).toBeTruthy()
   }
@@ -30,8 +33,8 @@ it('Provides valid history for multi-point history with filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(1)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
   } else {
     expect(false).toBeTruthy()
   }
@@ -45,8 +48,8 @@ it('Provides valid history for single-point history without filter', () => {
   if (route && route.currentLocation) {
     const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(1)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
   } else {
     expect(false).toBeTruthy()
   }
@@ -61,8 +64,8 @@ it('Provides valid history for multi-point history without filter', () => {
     const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
 
     expect(data.turnEnds.length).toEqual(3)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
+    expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
+    expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
     // try some state descriptions
     expect(data.turnEnds[0].status.speedKts).toEqual(10)
     expect(data.turnEnds[0].status.state).toEqual('Transiting')
