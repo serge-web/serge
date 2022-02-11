@@ -1,7 +1,8 @@
 import * as ActionConstant from '@serge/config'
-import { PlayerLogAction, PlayerActivity } from './PlayerLog_types'
+import { ActivityLogsInterface } from '../../api/wargames_api/types'
+import { PlayerLogAction } from './PlayerLog_types'
 
-const initialState: PlayerActivity = {
+const initialState: ActivityLogsInterface = {
   wargame: '',
   role: '',
   activityTime: '',

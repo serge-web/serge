@@ -24,6 +24,6 @@ export interface WargameRevision {
 export interface ActivityLogsInterface {
   activityTime: string
   activityType: string
-  role?: string
-  wargame?: string
+  role: string
+  wargame: string
 }
