@@ -71,7 +71,7 @@ export const H3_LABELS = 'h3_labels'
  */
 export const checkIfIJWorks = (grid: string[], centre: H3Index): boolean => {
   return !grid.some((cell: string) => {
-    let coords = undefined
+    let coords
     try {
       coords = experimentalH3ToLocalIj(centre, cell)
     } catch (err) {
