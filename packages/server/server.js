@@ -110,11 +110,12 @@ const runServer = (
         player => player.role === role && player.wargame === wargame
       )
       if (existingPlayerIdx !== -1) {
-        playerLog[existingPlayerIdx].updatedAt = new Date().getTime()
+        playerLog[existingPlayerIdx].updatedAt = activityTime
       } else {
         const newPlayer = {
           wargame,
           role,
+          activityType,
           updatedAt: new Date().getTime()
         }
         playerLog.push(newPlayer)
