@@ -56,7 +56,6 @@ const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[]): PolyBin[] => {
 
 /** Generate the Serge name for the supplied cell (1,3) == "B03" */
 export const binCells3 = (bounds: L.LatLngBounds, store: SergeGrid3): PolyBin3[] => {
-  console.log('bin cells 3', bounds)
   // create the bins
   const bl = bounds.getSouthWest()
   const tr = bounds.getNorthEast()
