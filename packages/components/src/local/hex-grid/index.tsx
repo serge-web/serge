@@ -881,14 +881,14 @@ export const HexGrid: React.FC<{}> = () => {
     </LayerGroup>
     { false && // don't plot the polys from legacy data
       <LayerGroup key='polygon_outlines'>
-      {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
-        <Polygon
-          key={'poly_a' + index}
-          positions={terrain.data}
-          fillColor={terrain.terrain.fillColor}
-          className={styles['terrain-outline']}/>
-      )}
-    </LayerGroup>
+        {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
+          <Polygon
+            key={'poly_a' + index}
+            positions={terrain.data}
+            fillColor={terrain.terrain.fillColor}
+            className={styles['terrain-outline']}/>
+        )}
+      </LayerGroup>
     }
     {
       // zoomLevel > 5.5 &&
