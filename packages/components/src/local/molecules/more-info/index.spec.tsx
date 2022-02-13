@@ -2,11 +2,11 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import InfoCard from './index'
+import MoreInfo from './index'
 
-it('InfoCard renders correctly', () => {
+it('MoreInfo renders correctly', () => {
   const tree = renderer
-    .create(<InfoCard content=""/>)
+    .create(<MoreInfo description="The percentage fuel remaining">Fuel</MoreInfo>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
