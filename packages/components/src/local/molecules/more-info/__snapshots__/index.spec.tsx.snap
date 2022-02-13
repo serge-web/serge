@@ -2,7 +2,7 @@
 
 exports[`MoreInfo renders correctly 1`] = `
 <div
-  className="togglePopup"
+  className="childNode"
   onClick={[Function]}
 >
   Fuel

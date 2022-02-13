@@ -15,6 +15,12 @@
 
 .content {
   font-size: small;
+
+  span {
+    font-size: small;
+    font-weight: 600;
+    cursor: pointer;
+  }
 }
 
 .childNode {
