@@ -33,7 +33,7 @@ export interface PerceptionFormData {
 export interface NewTurnValues {
   state: string
   speed?: number
-  route: Array<SergeHex<{}>>
+  route: Array<SergeHex3>
 }
 
 export interface PlanTurnFormPopulate {
