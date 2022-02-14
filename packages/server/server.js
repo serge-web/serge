@@ -110,7 +110,7 @@ const runServer = (
         player => player.role === role && player.wargame === wargame
       )
       if (existingPlayerIdx !== -1) {
-        playerLog[existingPlayerIdx].activityType = activityTime
+        playerLog[existingPlayerIdx].activityTime = activityTime
         playerLog[existingPlayerIdx].activityType = activityType
       } else {
         const newPlayer = {
