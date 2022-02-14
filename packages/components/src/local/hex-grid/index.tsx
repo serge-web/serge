@@ -518,9 +518,9 @@ export const HexGrid: React.FC<{}> = () => {
         // such as labels so include prefix in key
           key={'hex_poly3_' + cell.index + '_' + index}
           fillColor={cell.fillColor || assetColor}
-          fill={terrainPolys.length === 0 || allowableCells3.find((hex:SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
+          fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={'#f00' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff'*/ }
+          stroke={'#f00' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */ }
           // className={styles['default-hex3']}
           // className={styles[getCellStyle3(cell, [], [], undefined)]}
           className={styles[getCellStyle3(cell, planningRouteCells3, allowableCells3, cellForSelected3)]}
@@ -538,7 +538,7 @@ export const HexGrid: React.FC<{}> = () => {
           fillColor={cell.fillColor || '#f00'}
           fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={'#0f0' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff'*/}
+          stroke={'#0f0' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */}
           className={styles[getCellStyle3(cell, planningRouteCells3, [], cellForSelected3)]}
         />
       ))}

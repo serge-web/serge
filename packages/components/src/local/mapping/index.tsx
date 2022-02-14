@@ -44,7 +44,8 @@ import {
   Status,
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup,
-  MessageHostPlatform
+  MessageHostPlatform,
+  SergeHex3
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -229,13 +230,13 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (forcesState && gridCells) {
+    if (forcesState && h3gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -244,7 +245,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (forcesState && gridCells && routeStore.routes.length) {
+    if (forcesState && h3gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
@@ -358,10 +359,10 @@ export const Mapping: React.FC<PropTypes> = ({
           : turnNumber
 
         // increment turn number, if we have any turns planned, else start with `1`
-        const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
+        const coords: Array<string> = newLeg.route.map((cell: SergeHex3) => {
           return cell.name
         })
-        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
+        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex3) => {
           return cell.centreLatLng
         })
         const newStep: RouteTurn = {
@@ -380,7 +381,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // in adjudication phase. In that phase, only one step is created
         if (planningConstraints && !inAdjudicate) {
           // get the last planned cell, to act as the first new planned cell
-          const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
+          const lastCell: SergeHex3 = newLeg.route[newLeg.route.length - 1]
           // create new planning contraints
           const newP: PlanMobileAsset = {
             origin: lastCell.name,
@@ -565,8 +566,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** pan to the centre of the specified cell */
   const panTo = (cellRef: string): void => {
-    if (gridCells) {
-      const hex = gridCells.find((cell: SergeHex<{}>) => cell.name === cellRef)
+    if (h3gridCells) {
+      const hex = h3gridCells.find((cell: SergeHex3) => cell.name === cellRef)
       if (hex) {
         leafletElement && leafletElement.panTo(hex.centreLatLng, { duration: 1, easeLinearity: 0.6 })
       }
