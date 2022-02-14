@@ -102,10 +102,12 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck/:activityLog/:healthcheck', (req, res) => {
-    const { wargame, role, activityTime, activityType } = JSON.parse(req.params.activityLog)
+  app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
+    const { wargame, role } = req.params
+    const activityTime = req.params.activityTime.replace(/[+]/g, ' ')
+    const activityType = req.params.activityType.replace(/[+]/g, ' ')
 
-    if (wargame && role) {
+    if (wargame !== 'missing' && role !== 'missing') {
       const existingPlayerIdx = playerLog.findIndex(
         player => player.role === role && player.wargame === wargame
       )

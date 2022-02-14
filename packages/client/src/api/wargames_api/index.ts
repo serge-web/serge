@@ -53,8 +53,7 @@ import {
   ApiWargameDbObject,
   ApiWargameDb,
   ListenNewMessageType,
-  WargameRevision,
-  ActivityLogsInterface
+  WargameRevision
 } from './types.d'
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
@@ -161,11 +160,13 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 }
 
 export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
-  const activityTime = expiredStorage.getItem(ACTIVITY_TIME) || 'The player has not shown any activity yet'
-  const activityType = expiredStorage.getItem(ACTIVITY_TYPE) || 'The player has not shown any activity yet'
-  const activityLogs: ActivityLogsInterface = { activityTime, activityType, ...activityDetails }
+  const activityMissing = 'The player has not shown any activity yet'
+  const activityTime = (expiredStorage.getItem(ACTIVITY_TIME) || activityMissing).replace(/\s/g, '+')
+  const activityType = (expiredStorage.getItem(ACTIVITY_TYPE) || activityMissing).replace(/\s/g, '+')
 
-  return fetch(serverPath + 'healthcheck/' + JSON.stringify(activityLogs) + '/healthcheck', {
+  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
+
+  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
