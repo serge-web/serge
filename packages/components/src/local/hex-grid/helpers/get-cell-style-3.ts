@@ -9,7 +9,7 @@ import { SergeHex3 } from '@serge/custom-types'
  * @returns string to be used in polygon cell style
  */
 const getCellStyle3 = (cell: SergeHex3, plannedCells: Array<SergeHex3>, achievableCells: Array<SergeHex3>, selected: string | undefined): string => {
-  if (selected && selected === cell.name) {
+  if (selected && selected === cell.index) {
     return 'selected-hex'
   } else if (plannedCells && plannedCells.includes(cell)) {
     return 'planned-hex'
