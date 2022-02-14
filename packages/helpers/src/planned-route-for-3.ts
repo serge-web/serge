@@ -16,7 +16,9 @@ const plannedRouteFor3 = (grid: SergeGrid3 | undefined,
   if (grid) {
     if (originHex && destinationHex) {
       const route = h3Line(originHex.index, destinationHex.index)
-      const routeCells = grid.filter((cell:SergeHex3) => route.indexOf(cell.index) !== -1)
+      const routeCells = route.map((index:string): SergeHex3 | undefined => {
+        return grid.find((cell:SergeHex3) => { return cell.index === index })
+      }) as SergeGrid3
       if (allowableCells.length) {
         // sort out overlap with allowable cells
         return routeCells.filter(cell => allowableCells.includes(cell))
