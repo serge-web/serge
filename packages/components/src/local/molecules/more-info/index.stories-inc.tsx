@@ -18,9 +18,9 @@ export default {
 
 export const Default: React.FC = () => {
   return <>
-    <MoreInfo description="The percentage fuel remaining">Fuel</MoreInfo>
+    <MoreInfo description='The percentage fuel remaining'>Fuel</MoreInfo>
     <br />
-    <MoreInfo description="This is a long description, then we can see how it appear in the More Info panel. This is a long description, then we can see how it appear in the More Info panel.">
+    <MoreInfo description='This is a long description, then we can see how it appear in the More Info panel. This is a long description, then we can see how it appear in the More Info panel.'>
       <FontAwesomeIcon icon={faCogs} />
     </MoreInfo>
   </>
