@@ -42,7 +42,11 @@ const canCombineWith = (store: RouteStore, draggingItem: string | number, item: 
           return false
         }
 
-        const range: number = h3Distance(dragging.currentPosition, over.currentPosition)
+        // check for same cell first
+        const samePos = dragging.currentPosition === over.currentPosition
+
+        // if not same cell, calculate separation
+        const range: number = samePos ? 0 : h3Distance(dragging.currentPosition, over.currentPosition)
         return range <= ACCEPTABLE_RANGE
       } else {
         // we didn't find one or both of the platforms in the top level

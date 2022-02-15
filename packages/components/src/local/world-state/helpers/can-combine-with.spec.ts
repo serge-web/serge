@@ -4,21 +4,36 @@ import { forces, platformTypes } from '@serge/mocks'
 import { Phase } from '@serge/config'
 
 import canCombineWith from './can-combine-with'
-import { routeCreateStore } from '@serge/helpers'
-import { RouteStore } from '@serge/custom-types'
+import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
+import { ForceData, RouteStore } from '@serge/custom-types'
+
+const setLocation = (forces: ForceData[], assetID: string, location: string) => {
+  const asset = findAsset(forces, assetID)
+  asset.position = location
+}
 
 it('returns correct combine with answers', () => {
-  // put the tanker in the same cell as the frigate
-  if (forces[1].assets) {
-    forces[1].assets[3].position = forces[1].assets[1].position
-  }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
+  const myForces = deepCopy(forces)
+
+  // put the tanker in the same cell as the frigate
+  if (myForces[1].assets) {
+    myForces[1].assets[3].position = myForces[1].assets[1].position
+  }
 
   const tankerId = 'a0pra00003'
   const frigateId = 'a0pra00001'
   const groupId = 'a0pra5431'
-  // const merlinId = 'a0pra11002'
+  const merlinId = 'a0pra11002'
+
+  // frigate / tanker in same cell
+  setLocation(myForces, frigateId, '831801fffffffff')
+  setLocation(myForces, tankerId, '831801fffffffff')
+
+  // put task group once cell away
+  setLocation(myForces, groupId, '83182afffffffff')
+
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, myForces, 'Blue', platformTypes, false, false)
 
   // when component first renders, there isn't anything selected, so id of '-1' is used
   const UNSELECTED_ID = -1
@@ -33,11 +48,10 @@ it('returns correct combine with answers', () => {
   expect(canCombineWith(store, tankerId, frigateId, [], 'group')).toBeTruthy()
   expect(canCombineWith(store, frigateId, tankerId, [], 'group')).toBeTruthy()
 
-  // TODO: reinstate these tests
   // if they're not in same cell, they're not draggable
-  // expect(canCombineWith(store, frigateId, groupId, [], 'group')).toBeFalsy()
+  expect(canCombineWith(store, frigateId, groupId, [], 'group')).toBeFalsy()
 
   // // for a platform that is a child, if the target id is -1, it's the operation to
   // // go the top level
-  // expect(canCombineWith(store, merlinId, UNSELECTED_ID, [], 'empty')).toBeTruthy()
+  expect(canCombineWith(store, merlinId, UNSELECTED_ID, [], 'empty')).toBeTruthy()
 })
