@@ -1,6 +1,6 @@
 .infoCard {
   width: 350px;
-  min-height: 150px;
+  min-height: 100px;
   word-break: break-all;
 }
 
@@ -25,4 +25,10 @@
 
 .childNode {
   cursor: help;
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 5px;
+  }
 }
