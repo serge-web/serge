@@ -38,7 +38,7 @@ const MoreInfo: React.FC<MoreInfoProps> = ({ description, children }) => {
           </CardContent>
         </Card>
       </Popover>
-      <div className={styles.childNode}>
+      <div className={styles.child-node}>
         {children}
         <div onClick={showMoreInfo} className={styles.icon}><Info /></div>
       </div>

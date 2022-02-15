@@ -2,7 +2,7 @@
 
 exports[`MoreInfo renders correctly 1`] = `
 <div
-  className="childNode"
+  className="child-node"
 >
   Fuel
   <div
