@@ -8,8 +8,6 @@ import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
 
 /* helper functions */
-import createGrid from './helpers/create-grid'
-import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
 import { createGridH3, H3_LABELS } from './helpers/h3-helpers'
 
 import {
@@ -28,8 +26,6 @@ import {
 /* Import Types */
 import PropTypes from './types/props'
 import {
-  SergeHex,
-  SergeGrid,
   SergeGrid3,
   MappingContext,
   NewTurnValues,
@@ -125,7 +121,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [mapResized, setMapResized] = useState<boolean>(false)
-  const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [h3gridCells, setH3gridCells] = useState<SergeGrid3>([])
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
@@ -313,15 +308,15 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (mapBounds && mappingConstraints.tileDiameterMins) {
-      let newGrid
-      if (mappingConstraints.targetDataset === Domain.GULF) {
-        newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins)
-      } else if (mappingConstraints.targetDataset === Domain.ATLANTIC && atlanticCells) {
-        newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
-      }
-      if (newGrid) {
-        setGridCells(newGrid)
-      }
+      // let newGrid
+      // if (mappingConstraints.targetDataset === Domain.GULF) {
+      //   newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins)
+      // } else if (mappingConstraints.targetDataset === Domain.ATLANTIC && atlanticCells) {
+      //   newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
+      // }
+      // if (newGrid) {
+      //   setGridCells(newGrid)
+      // }
       // now the h3 handler
       const labelType = H3_LABELS
       const resolution = (mappingConstraints && mappingConstraints.h3res) || 3
@@ -336,7 +331,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
       } else {
-        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, gridCells)
+        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, h3gridCells)
         const newStore2: RouteStore = routeSetCurrent('', newStore)
         setRouteStore(newStore2)
         setSelectedAsset(undefined)
@@ -576,7 +571,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
-    gridCells,
     h3gridCells,
     forces: forcesState,
     platforms,

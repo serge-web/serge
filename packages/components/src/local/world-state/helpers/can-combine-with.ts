@@ -1,11 +1,11 @@
 
 import { NodeType } from '../../helper-elements/groups/types/props'
-import { RouteStore, SergeGrid, SergeHex, Route, GroupItem } from '@serge/custom-types'
-import { hexNamed } from '@serge/helpers'
+import { RouteStore, Route, GroupItem } from '@serge/custom-types'
+import { h3Distance } from 'h3-js'
 /**
  *  indicate if two assets can be combined
  */
-const canCombineWith = (store: RouteStore, draggingItem: string | number, item: string | number, _parents: Array<GroupItem>, nodeType: NodeType, gridCells: SergeGrid<SergeHex<{}>> | undefined): boolean => {
+const canCombineWith = (store: RouteStore, draggingItem: string | number, item: string | number, _parents: Array<GroupItem>, nodeType: NodeType): boolean => {
   // an acceptable range of zero means the assets have to be in the same cell,
   // a value of 1 means adjacent cells
   const ACCEPTABLE_RANGE = 0
@@ -42,21 +42,8 @@ const canCombineWith = (store: RouteStore, draggingItem: string | number, item: 
           return false
         }
 
-        if (gridCells) {
-          const dragHex = hexNamed(dragging.currentPosition, gridCells)
-          const overHex = hexNamed(over.currentPosition, gridCells)
-          if (dragHex && overHex) {
-            const range: number = dragHex.distance(overHex)
-            return range <= ACCEPTABLE_RANGE
-          } else {
-            console.warn('failed to find hex cell for locations', dragHex, overHex,
-              dragging.currentPosition, over.currentPosition)
-            return false
-          }
-        } else {
-          // don't have grid cells, maybe under test
-          return !(draggingItem > item)
-        }
+        const range: number = h3Distance(dragging.currentPosition, over.currentPosition)
+        return range <= ACCEPTABLE_RANGE
       } else {
         // we didn't find one or both of the platforms in the top level
         // of a force.  If the platforms aren't at the top level we don't allow them to

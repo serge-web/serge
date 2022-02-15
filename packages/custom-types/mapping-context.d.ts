@@ -1,6 +1,4 @@
 import { Phase, Domain } from '@serge/config'
-import SergeHex from './serge-hex'
-import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
@@ -13,10 +11,6 @@ export default interface MappingContext {
    * grid of cells, used for movement
    */
   h3gridCells: SergeGrid3
-  /**
-   * grid of cells, used for movement
-   */
-  gridCells: SergeGrid<SergeHex<{}>> | undefined
   /**
    * list of forces within this wargame
    */

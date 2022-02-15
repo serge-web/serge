@@ -47,7 +47,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType, debug = true): boolean => {
     if (debug) return true
-    return canCombineWith({ routes }, draggingItem.uniqid, item.uniqid, _parents, _type, undefined)
+    return canCombineWith({ routes }, draggingItem.uniqid, item.uniqid, _parents, _type)
   }
 
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))

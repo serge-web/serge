@@ -56,8 +56,8 @@ export default interface PropTypes {
   /**
    * grid of cells, used for movement
    */
-  gridCells?: SergeGrid<SergeHex<{}>> | undefined
- /**
+  gridCells?: SergeGrid3
+  /**
    * handler to move asset to top level of this force
    */
   groupMoveToRoot?: {(uniqid: string): void}

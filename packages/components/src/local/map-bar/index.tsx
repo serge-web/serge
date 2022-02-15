@@ -60,7 +60,7 @@ export const MapBar: React.FC = () => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const {
-    gridCells,
+    h3gridCells,
     playerForce,
     canSubmitOrders,
     phase,
@@ -374,7 +374,7 @@ export const MapBar: React.FC = () => {
             turnNumber={turnNumber}
             secondaryButtonLabel={secondaryStateTitle}
             secondaryButtonCallback={acceptAllRoutesCallback}
-            gridCells={gridCells} ></WorldState>
+            gridCells={h3gridCells} ></WorldState>
         </section>
       </div>
       {currentForm !== undefined && selectedAsset && routeStore.selected && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
