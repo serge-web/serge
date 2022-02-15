@@ -17,16 +17,16 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
-import { geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
+import { edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
 import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
 import getCellStyle3 from './helpers/get-cell-style-3'
 
 /**
  *  create hexagonal grid
- * @param {SergeGrid<SergeHex<{}>> | undefined} grid grid of hex cells
- * @param {SergeHex<{}>} originHex start for this planning turn
- * @param {number} range allowed distance of travel in this turn
- * @returns {SergeHex<{}>[]} List of cells for where this asset could travel to
+ * @param {SergeGrid3} grid grid of hex cells
+ * @param {H3Index} originHex start for this planning turn
+ * @param {number} range allowed distance of travel in this turn (in cells)
+ * @returns {SergeGrid3} List of cells for where this asset could travel to
  */
 const calcAllowableCells3 = (grid: SergeGrid3, originHex: H3Index, range: number): SergeGrid3 => {
   if (grid) {
@@ -42,7 +42,7 @@ export const HexGrid: React.FC<{}> = () => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const {
-    gridCells, h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
+    h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = props
 
@@ -163,7 +163,7 @@ export const HexGrid: React.FC<{}> = () => {
       setPlannedRouteCells([])
       setCellForSelected3(undefined)
     }
-  }, [selectedAsset, gridCells, viewAsRouteStore])
+  }, [selectedAsset, h3gridCells, viewAsRouteStore])
 
   /** handle the dynamic indicator that follows mouse movement,
    * represented as cells & a line
@@ -231,7 +231,7 @@ export const HexGrid: React.FC<{}> = () => {
       setPlanningRange(planningConstraints.range)
     }
     // check all data necessary for rendering is present
-    if (selectedAsset && planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
+    if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRange || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
       // did we find cell?
@@ -253,7 +253,7 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableCells3(laydownCells)
         } else {
           // TODO: reinstate terrain tests
-          const filteredCells = allowableCellList // .filter((cell: SergeHex3) => cell.terrain === planningConstraints.travelMode.toLowerCase())
+          const filteredCells = allowableCellList.filter((cell: SergeHex3) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableCells3(filteredCells)
 
           if (filteredCells.length <= 500) {
@@ -292,7 +292,7 @@ export const HexGrid: React.FC<{}> = () => {
   }, [polygonAreas])
 
   const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
-    if (gridCells) {
+    if (h3gridCells) {
       const store: SergeGrid3 = []
       let bounds: L.LatLngBounds | undefined
 
@@ -314,7 +314,7 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    if (viewport && h3gridCells && gridCells) {
+    if (viewport && h3gridCells) {
       if (polyBins3.length === 0) {
         const bins = createPolyBins3(h3gridCells)
         bins && setPolyBins3(bins)
@@ -322,7 +322,9 @@ export const HexGrid: React.FC<{}> = () => {
         // grow the viewport by 1/2 cell, so we can test
         // if the cell centre is inside the viewport -
         // necessary for cells at the edge
-        const bufferDist = gridCells.tileDiameterMins * 1852 * 1
+        const someCell = h3gridCells[0].index
+        const h3res = h3GetResolution(someCell)
+        const bufferDist = edgeLength(h3res, 'm')
         const newTL = viewport.getNorthWest().toBounds(bufferDist)
         const newBR = viewport.getSouthEast().toBounds(bufferDist)
         const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())

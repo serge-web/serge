@@ -1,3 +1,4 @@
+import { Terrain } from '@serge/config'
 import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
@@ -36,6 +37,7 @@ const indexToHex = (index: H3Index, centreIndex: H3Index, labelType: string, ctr
     name: label,
     index: index,
     styles: cellType,
+    terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
     poly: edge
   }
 }
