@@ -5,7 +5,8 @@
 }
 
 .header {
-  background-color: rgb(0, 29, 75);
+  background-color: rgb(106, 19, 54);
+  /*background-color: rgb(0, 29, 75); */
   height: 50px;
 
   svg {
@@ -34,6 +35,10 @@
   display: flex;
   align-items: flex-start;
   color: #c26;
+
+  :hover {
+    color: rgb(106, 19, 54);
+  }
 
   svg {
     font-size: 24px;
