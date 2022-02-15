@@ -23,7 +23,7 @@ const MoreInfo: React.FC<MoreInfoProps> = ({ description, children }) => {
   return (
     <>
       <Popover open={open} onClose={closeInfoCard} anchorEl={anchorElm}>
-        <Card className={styles.infoCard}>
+        <Card className={styles.infocard}>
           <CardHeader
             avatar={<Info />}
             action={
