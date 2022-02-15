@@ -18,7 +18,7 @@ it('returns correct combine with answers', () => {
   const tankerId = 'a0pra00003'
   const frigateId = 'a0pra00001'
   const groupId = 'a0pra5431'
- // const merlinId = 'a0pra11002'
+  // const merlinId = 'a0pra11002'
 
   // when component first renders, there isn't anything selected, so id of '-1' is used
   const UNSELECTED_ID = -1
