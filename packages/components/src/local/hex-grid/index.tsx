@@ -483,7 +483,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
 
     { /* POLY BINS */}
-    {/* <LayerGroup key={'poly_bounds'} >{viewport && polyBins3 && polyBins3.map((bin: PolyBin3, index: number) => (
+    { <LayerGroup key={'poly_bounds'} >{viewport && polyBins3 && polyBins3.map((bin: PolyBin3, index: number) => (
       <>
         <Polygon
           key={'bin_line_' + index}
@@ -504,7 +504,7 @@ export const HexGrid: React.FC<{}> = () => {
         />
       </>
     ))}
-        </LayerGroup> */}
+        </LayerGroup> }
 
     <LayerGroup key={'hex_polygons3'} >{
       /* not too many cells visible, show hex outlines */
