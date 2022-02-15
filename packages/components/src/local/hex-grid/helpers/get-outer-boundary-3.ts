@@ -15,7 +15,7 @@ const generateOuterBoundary3 = (cells: SergeGrid3): L.LatLng[] => {
   cells.forEach(hex => {
     if (hex.poly) {
       hex.poly.forEach((pt: number[]) => {
-        points.push(turf.point([pt[0], pt[1]]))
+        points.push(turf.point([pt[1], pt[0]]))
       })
     }
   })
