@@ -465,7 +465,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // console.log('selected', cellForSelected3)
 
- // console.log('allowable', allowableCells3.length, allowablePoly3.length, allowablePoly3, planningRoutePoly3.length, planningRoutePoly3)
+  // console.log('allowable', allowableCells3.length, allowablePoly3.length, allowablePoly3, planningRoutePoly3.length, planningRoutePoly3)
 
   return <>
     { /*  - show number of visible cells */}
@@ -517,7 +517,7 @@ export const HexGrid: React.FC<{}> = () => {
           fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
           positions={cell.poly}
           stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' }
-          className={styles[getCellStyle3(cell, [] /*planningRouteCells3*/, allowableCells3, cellForSelected3)]}
+          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, allowableCells3, cellForSelected3)]}
         />
       ))}
     </LayerGroup>

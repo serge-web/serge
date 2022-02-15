@@ -8,7 +8,6 @@ import { routeCreateStore } from '@serge/helpers'
 import { RouteStore } from '@serge/custom-types'
 
 it('returns correct combine with answers', () => {
-
   // put the tanker in the same cell as the frigate
   if (forces[1].assets) {
     forces[1].assets[3].position = forces[1].assets[1].position
