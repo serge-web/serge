@@ -4,6 +4,7 @@ interface CssExports {
   'childNode': string;
   'content': string;
   'header': string;
+  'icon': string;
   'infoCard': string;
 }
 export const cssExports: CssExports;

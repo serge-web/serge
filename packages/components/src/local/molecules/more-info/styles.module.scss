@@ -24,11 +24,18 @@
 }
 
 .childNode {
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+}
+
+.icon {
   cursor: help;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   svg {
-    margin-right: 5px;
+    font-size: 14px;
+    margin-top: -7px;
   }
 }
