@@ -1,17 +1,8 @@
 .default-hex {
   // Note: we specify fill inside the code, depending if the are polygons present
   //fill-opacity: 0.2;
-  // fill: transparent;
-  stroke: #aaa;
-  opacity: 0.6;
-  stroke-width: 1;
-}
-
-.default-hex3 {
-  // Note: we specify fill inside the code, depending if the are polygons present
-  fill-opacity: 0;
   fill: transparent;
-  stroke: #faa;
+  stroke: #aaa;
   opacity: 0.6;
   stroke-width: 1;
 }
@@ -50,24 +41,14 @@
 
 .planning-line {
   stroke-width: 2;
-  stroke: #f00;
 }
 
 .allowable-line {
   stroke-width: 3;
-  stroke: #0f0;
 }
 
 .default-coords {
-  color: #333;
-  line-height: 12px;
-  font-size: 12px;
-  opacity: 0.8;
-  text-align: center;
-}
-
-.default-coords-3 {
-  color: #833;
+  color: #555;
   line-height: 12px;
   font-size: 12px;
   opacity: 0.8;

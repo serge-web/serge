@@ -132,14 +132,6 @@ export const HexGrid: React.FC<{}> = () => {
           if (cellForSelected3 !== current.currentPosition) {
             setCellForSelected3(current.currentPosition)
           }
-
-          const loc = current.currentLocation
-          if (loc) {
-            const h3Cell = geoToH3(loc.lat, loc.lng, 4)
-            if (cellForSelected3 !== h3Cell) {
-              setCellForSelected3(h3Cell)
-            }
-          }
         }
       } else {
         // selected asset no longer present - hide it
@@ -473,6 +465,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // console.log('selected', cellForSelected3)
 
+ // console.log('allowable', allowableCells3.length, allowablePoly3.length, allowablePoly3, planningRoutePoly3.length, planningRoutePoly3)
+
   return <>
     { /*  - show number of visible cells */}
     { viewport &&
@@ -522,10 +516,8 @@ export const HexGrid: React.FC<{}> = () => {
           fillColor={cell.fillColor || assetColor}
           fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={'#f00' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */ }
-          // className={styles['default-hex3']}
-          // className={styles[getCellStyle3(cell, [], [], undefined)]}
-          className={styles[getCellStyle3(cell, planningRouteCells3, allowableCells3, cellForSelected3)]}
+          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' }
+          className={styles[getCellStyle3(cell, [] /*planningRouteCells3*/, allowableCells3, cellForSelected3)]}
         />
       ))}
     </LayerGroup>
@@ -555,7 +547,7 @@ export const HexGrid: React.FC<{}> = () => {
             key={'hex_planning_' + cell.index + '_' + index}
             fillColor={cell.fillColor || '#f00'}
             positions={cell.poly}
-            stroke={'#0f0' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */}
+            stroke={'#0ff' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */}
             className={styles['planned-hex']}
           />
         ))}
@@ -614,7 +606,7 @@ export const HexGrid: React.FC<{}> = () => {
           icon={L.divIcon({
             // html: '' + cell.x + ',' + cell.y,
             html: cell.name,
-            className: styles['default-coords-3'],
+            className: styles['default-coords'],
             iconSize: [30, 20]
           })}
         />

@@ -322,7 +322,6 @@ export const Mapping: React.FC<PropTypes> = ({
       const resolution = (mappingConstraints && mappingConstraints.h3res) || 3
       const cells = createGridH3(mapBounds, resolution, labelType, atlanticCells)
       setH3gridCells(cells)
-      console.log('new cells', mapBounds, cells.length, cells[0])
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
 
