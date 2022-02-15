@@ -13,7 +13,6 @@ const setLocation = (forces: ForceData[], assetID: string, location: string) => 
 }
 
 it('returns correct combine with answers', () => {
-
   const myForces = deepCopy(forces)
 
   // put the tanker in the same cell as the frigate
