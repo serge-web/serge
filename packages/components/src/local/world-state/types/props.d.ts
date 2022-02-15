@@ -54,10 +54,6 @@ export default interface PropTypes {
    */
   panel: WorldStatePanels
   /**
-   * grid of cells, used for movement
-   */
-  gridCells?: SergeGrid3
-  /**
    * handler to move asset to top level of this force
    */
   groupMoveToRoot?: {(uniqid: string): void}
