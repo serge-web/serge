@@ -2,13 +2,13 @@ import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM } from '@serge/config'
+import { CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
 
 /* helper functions */
-import { createGridH3, H3_LABELS } from './helpers/h3-helpers'
+import { createGridH3 } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -318,7 +318,7 @@ export const Mapping: React.FC<PropTypes> = ({
       //   setGridCells(newGrid)
       // }
       // now the h3 handler
-      const labelType = H3_LABELS
+      const labelType = (mappingConstraints && mappingConstraints.cellLabelsStyle) || CellLabelStyle.LAT_LON_LABELS
       const resolution = (mappingConstraints && mappingConstraints.h3res) || 3
       const cells = createGridH3(mapBounds, resolution, labelType, atlanticCells)
       setH3gridCells(cells)

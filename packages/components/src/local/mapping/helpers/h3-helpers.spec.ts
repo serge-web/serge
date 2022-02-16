@@ -1,7 +1,8 @@
 import data from '../data/atlantic-cells-short'
 import L from 'leaflet'
-import { checkIfIJWorks, createGridH3, CTR_LABELS, h3polyFromBounds, LAT_LON_LABELS, X_Y_LABELS } from './h3-helpers'
+import { checkIfIJWorks, createGridH3, h3polyFromBounds } from './h3-helpers'
 import { geoToH3, polyfill } from 'h3-js'
+import { CellLabelStyle } from '@serge/config'
 
 const smallBounds = L.latLngBounds(L.latLng(40, -40), L.latLng(65, 0))
 const largeBounds = L.latLngBounds(L.latLng(40, -90), L.latLng(65, 10))
@@ -44,7 +45,7 @@ it('checks if can produce ij index for small bounds', () => {
 
 it('generates hex coords', () => {
   const res = 3
-  const grid = createGridH3(smallBounds, res, LAT_LON_LABELS, data)
+  const grid = createGridH3(smallBounds, res, CellLabelStyle.LAT_LON_LABELS, data)
   expect(grid.length).toEqual(604)
   const first = grid[0]
   expect(first.index).toEqual('8319b4fffffffff')
@@ -54,7 +55,7 @@ it('generates hex coords', () => {
 
 it('generates hex coords for large area', () => {
   const res = 3
-  const grid = createGridH3(largeBounds, res, LAT_LON_LABELS, data)
+  const grid = createGridH3(largeBounds, res, CellLabelStyle.LAT_LON_LABELS, data)
   expect(grid.length).toEqual(1470)
   const first = grid[0]
   expect(first.name).toEqual('62.0N 40.9W')
@@ -63,7 +64,7 @@ it('generates hex coords for large area', () => {
 
 it('generates xy coords for small area', () => {
   const res = 3
-  const grid = createGridH3(smallBounds, res, X_Y_LABELS, data)
+  const grid = createGridH3(smallBounds, res, CellLabelStyle.X_Y_LABELS, data)
   const first = grid[0]
   expect(first.name).toEqual('L10')
   expect(first.poly.length).toEqual(6)
@@ -71,7 +72,7 @@ it('generates xy coords for small area', () => {
 
 it('generates xy coords for large area', () => {
   const res = 3
-  const grid = createGridH3(largeBounds, res, X_Y_LABELS, data)
+  const grid = createGridH3(largeBounds, res, CellLabelStyle.X_Y_LABELS, data)
   const first = grid[238] // debugging showed that tthis index failed
   // since we're doing large area, it swaps XY for LAT_LON
   expect(first.name).toEqual('41.8N 2.0E')
@@ -80,7 +81,7 @@ it('generates xy coords for large area', () => {
 
 it('generates ctr coords for large area', () => {
   const res = 3
-  const grid = createGridH3(largeBounds, res, CTR_LABELS, data)
+  const grid = createGridH3(largeBounds, res, CellLabelStyle.CTR_LABELS, data)
   const first = grid[238] // debugging showed that tthis index failed
   expect(first.name).toEqual('239')
   expect(first.poly.length).toEqual(6)

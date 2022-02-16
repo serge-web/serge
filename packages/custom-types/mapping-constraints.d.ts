@@ -1,4 +1,4 @@
-import { Domain } from '@serge/config'
+import { Domain, CellLabelStyle } from '@serge/config'
 
 export interface TileLayerDefinition {
   url: string,
@@ -17,6 +17,10 @@ export default interface MappingConstraints {
    * h3 resolution to use
    */
   h3res?: number,
+  /** 
+   * the strategy to use for the cell labels 
+   */
+  cellLabelsStyle?: CellLabelStyle
   /**
    * diameter of tiles in use (nautical miles)
    */
