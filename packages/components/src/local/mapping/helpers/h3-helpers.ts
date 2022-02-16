@@ -3,7 +3,8 @@ import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
-import { labelFor } from './create-grid-from-geojson'
+import { orderBy } from 'lodash'
+// . import { labelFor } from './create-grid-from-geojson'
 
 const labelFor3 = (centre: number[]): string => {
   const lat = centre[0]
@@ -19,7 +20,8 @@ const createLabel = (labelType: CellLabelStyle, index: H3Index, centreIndex: H3I
       let label
       try {
         const coords = experimentalH3ToLocalIj(centreIndex, index)
-        label = labelFor(coords.i, coords.j)
+        // label = labelFor(coords.i, coords.j)
+        label = '' + coords.i + ', ' + coords.j
       } catch (err) {
         label = 'n/a'
       }
@@ -133,9 +135,21 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: Cel
     return res
   })
 
+  const sortAndLabel = (grid: SergeGrid3): SergeGrid3 => {
+    const sorted = orderBy(grid, (a: SergeHex3) => (1 - a.centreLatLng.lat) * a.centreLatLng.lng, ['desc'])
+    const labelled = sorted.map((cell: SergeHex3, index: number): SergeHex3 => {
+      cell.name = '' + (index + 1)
+      return cell
+    })
+    return labelled
+  }
+
+  // special handling
+  const result = labelType === CellLabelStyle.CTR_LABELS ? sortAndLabel(grid) : grid
+
   if (styleMissing) {
     console.log('Didn\'t find style definition for ' + styleMissing + ' cells')
   }
 
-  return grid
+  return result
 }

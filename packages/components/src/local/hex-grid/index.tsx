@@ -63,7 +63,7 @@ export const HexGrid: React.FC<{}> = () => {
   const [terrainPolys, setTerrainPolys] = useState<TerrainPolygons[]>([])
 
   // the cell for the selected asset
-  const [cellForSelected3, setCellForSelected3] = useState<string | undefined>(undefined)
+  const [cellForSelected3, setCellForSelected3] = useState<string | undefined>()
 
   // cells representing the route that is currently being dragged
   const [planningRouteCells3, setPlanningRouteCells3] = useState<SergeGrid3>([])
@@ -483,7 +483,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
 
     { /* POLY BINS */}
-    { /*<LayerGroup key={'poly_bounds'} >{viewport && polyBins3 && polyBins3.map((bin: PolyBin3, index: number) => (
+    { /* <LayerGroup key={'poly_bounds'} >{viewport && polyBins3 && polyBins3.map((bin: PolyBin3, index: number) => (
       <>
         <Polygon
           key={'bin_line_' + index}
@@ -504,7 +504,7 @@ export const HexGrid: React.FC<{}> = () => {
         />
       </>
     ))}
-        </LayerGroup>*/ }
+        </LayerGroup> */ }
 
     <LayerGroup key={'hex_polygons3'} >{
       /* not too many cells visible, show hex outlines */
@@ -516,7 +516,7 @@ export const HexGrid: React.FC<{}> = () => {
           fillColor={cell.fillColor || assetColor}
           fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' }
+          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f00' }
           className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, allowableCells3, cellForSelected3)]}
         />
       ))}
@@ -532,7 +532,7 @@ export const HexGrid: React.FC<{}> = () => {
           fillColor={cell.fillColor || '#f00'}
           fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={'#0f0' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */}
+          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f0f' }
           className={styles[getCellStyle3(cell, planningRouteCells3, [], cellForSelected3)]}
         />
       ))}
