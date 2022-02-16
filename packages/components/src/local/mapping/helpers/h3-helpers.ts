@@ -4,7 +4,7 @@ import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
-// . import { labelFor } from './create-grid-from-geojson'
+import { labelFor } from './create-grid-from-geojson'
 
 const labelFor3 = (centre: number[]): string => {
   const lat = centre[0]
@@ -20,8 +20,8 @@ const createLabel = (labelType: CellLabelStyle, index: H3Index, centreIndex: H3I
       let label
       try {
         const coords = experimentalH3ToLocalIj(centreIndex, index)
-        // label = labelFor(coords.i, coords.j)
-        label = '' + coords.i + ', ' + coords.j
+        label = labelFor(coords.i, coords.j)
+        // label = '' + coords.i + ', ' + coords.j
       } catch (err) {
         label = 'n/a'
       }

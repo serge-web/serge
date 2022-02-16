@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { deepCopy } from '@serge/helpers'
-import { MappingConstraints , ForceData } from '@serge/custom-types'
+import { MappingConstraints, ForceData } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
