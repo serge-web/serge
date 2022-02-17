@@ -114,12 +114,12 @@
   overflow-x: auto;
 }
 
-.horizontalList {
+.horizontallist {
   height: 40px;
 
   span {
     &:nth-child(2) {
-      margin: 0 5px 0 5px;
+      margin: 0 5px;
     }
   }
 }
