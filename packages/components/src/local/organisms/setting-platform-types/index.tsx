@@ -1,5 +1,5 @@
 /* Import Components */
-import { faUserCog, faList, faCogs, faRuler } from '@fortawesome/free-solid-svg-icons'
+import { faCogs, faList, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FormControl from '@material-ui/core/FormControl'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -13,7 +13,8 @@ import { COMMODITY_TYPE_NUMBER } from '@serge/config'
 import { CommodityType, CommodityTypes, NumberCommodityType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import { platformTypeNameToKey } from '@serge/helpers'
 import cx from 'classnames'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import Modal from 'react-modal'
 import uniqid from 'uniqid'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
@@ -76,6 +77,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const initialPlatformType: PlatformType = platformType || newPlatformType
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
   const [selectedItem, setSelectedItem] = useState<number>(-1)
+  const [isOpen, setOpenSpeedModal] = useState<boolean>(false)
+  const speedItemElmRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (platformType) {
@@ -200,13 +203,39 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, commodityTypes }, selectedItem)
     }
 
-    const handleCreateSpeeds = (): void => {
-      if (data.speedKts) {
-        const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
-        handleChangePlatformTypeData({ ...data, speedKts }, selectedItem)
-      } else {
-        console.warn('Did not expect to receive new speeds for platform without speeds')
+    const toggleSpeedModal = (): void => {
+      setOpenSpeedModal(!isOpen)
+    }
+
+    const renderSpeedDataModal = (): React.ReactNode => {
+      const addSpeed = (): void => {
+        if (data.speedKts) {
+          const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
+          handleChangePlatformTypeData({ ...data, speedKts }, selectedItem)
+        } else {
+          console.warn('Did not expect to receive new speeds for platform without speeds')
+        }
+        setTimeout(() => {
+          speedItemElmRef && speedItemElmRef.current && speedItemElmRef.current.scrollIntoView()
+        }, 100)
       }
+
+      const items = data.speedKts ? data.speedKts : []
+      return <>
+        <div className={styles.speedModalContent}>
+          <SortableList
+            required
+            sortable='auto'
+            items={items}
+            onChange={handleChangeSpeeds}
+            disableButtonAdd
+            ref={speedItemElmRef}
+          />
+        </div>
+        <div className={styles.button}>
+          <button onClick={addSpeed}>Add Speed</button>
+        </div>
+      </>
     }
 
     const handleSave = (): void => {
@@ -288,15 +317,26 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             </div>
           </div>
           <div className={cx(styles.col, styles.section)}>
+            <Modal
+              isOpen={isOpen}
+              onRequestClose={toggleSpeedModal}
+              shouldCloseOnEsc
+              className={styles.modal}
+            >
+              {renderSpeedDataModal()}
+            </Modal>
             {data.speedKts &&
               <FormGroup placeholder="Speed (kts)">
                 <SortableList
                   required
                   sortable='auto'
                   onChange={handleChangeSpeeds}
-                  onCreate={handleCreateSpeeds}
+                  onCreate={toggleSpeedModal}
                   items={data.speedKts}
-                  title='Add Speed' />
+                  title='Add Speed'
+                  remove={false}
+                  viewDirection='horizontal'
+                />
               </FormGroup>
             }
           </div>

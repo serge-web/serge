@@ -13,6 +13,8 @@ interface CssExports {
   'presection': string;
   'section': string;
   'value-label': string;
+  'horizontal': string;
+  'horizontalList': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
