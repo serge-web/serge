@@ -507,7 +507,9 @@ exports[`SettingForces component: renders correctly 1`] = `
                               <div
                                 className="main"
                               >
-                                <ul>
+                                <ul
+                                  className="main"
+                                >
                                   <li
                                     className="li"
                                   >
