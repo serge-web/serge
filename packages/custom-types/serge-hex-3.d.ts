@@ -11,7 +11,7 @@ type H3pos = number[]
 export interface LabelStore {
   xy: string,
   ctr: string,
-  lat_lon: string
+  latLon: string
 }
 
 /** definition of cell using h3 coords */

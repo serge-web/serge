@@ -469,7 +469,7 @@ export const HexGrid: React.FC<{}> = () => {
         return store.xy
       case CellLabelStyle.LAT_LON_LABELS:
       default:
-        return store.lat_lon
+        return store.latLon
     }
   }
 

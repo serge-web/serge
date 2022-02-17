@@ -7,7 +7,7 @@ import canCombineWith from './can-combine-with'
 import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
 import { ForceData, RouteStore } from '@serge/custom-types'
 
-const setLocation = (forces: ForceData[], assetID: string, location: string) => {
+const setLocation = (forces: ForceData[], assetID: string, location: string): void => {
   const asset = findAsset(forces, assetID)
   asset.position = location
 }
