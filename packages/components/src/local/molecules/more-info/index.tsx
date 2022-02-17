@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Popover from '@material-ui/core/Popover'
 import { Close } from '@material-ui/icons'
 import Info from '@material-ui/icons/Info'
+import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import MoreInfoProps from './types/props'
@@ -40,7 +41,7 @@ const MoreInfo: React.FC<MoreInfoProps> = ({ description, children }) => {
       </Popover>
       <div className={styles.childnode}>
         {children}
-        <div onClick={showMoreInfo} className={styles.icon}><Info /></div>
+        <div onClick={showMoreInfo} className={styles.icon}><InfoOutlined /></div>
       </div>
     </>
   )

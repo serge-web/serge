@@ -2,18 +2,17 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
+  'button': string;
   'col': string;
   'commoditie-header': string;
   'form-row': string;
   'mobile': string;
   'mobile-title': string;
+  'modal': string;
   'row': string;
   'section': string;
-  'states-holder': string;
-  'commoditie-header': string;
-  'modal': string;
-  'button': string;
   'speedModalContent': string;
+  'states-holder': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
