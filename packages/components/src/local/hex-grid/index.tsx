@@ -460,12 +460,12 @@ export const HexGrid: React.FC<{}> = () => {
 
   const cellLabelFor = (cell: SergeHex3): string => {
     const store = cell.labelStore
-    switch(cellLabelStyle) {
+    switch (cellLabelStyle) {
       case CellLabelStyle.CTR_LABELS:
-        return store.ctr;
+        return store.ctr
       case CellLabelStyle.H3_LABELS:
         return cell.index
-      case CellLabelStyle.X_Y_LABELS:      
+      case CellLabelStyle.X_Y_LABELS:
         return store.xy
       case CellLabelStyle.LAT_LON_LABELS:
       default:

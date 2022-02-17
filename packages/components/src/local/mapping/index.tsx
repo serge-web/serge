@@ -294,7 +294,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraints.gridCellsURL])
 
   useEffect(() => {
-    if(mappingConstraints.cellLabelsStyle) {
+    if (mappingConstraints.cellLabelsStyle) {
       setCellLabelStyle(mappingConstraints.cellLabelsStyle)
     }
   }, [mappingConstraints.cellLabelsStyle])

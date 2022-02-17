@@ -14,7 +14,6 @@ const labelFor3 = (centre: number[]): string => {
   return Math.abs(centre[0]).toFixed(2) + latHemi + ' ' + Math.abs(centre[1]).toFixed(2) + longHemi
 }
 
-
 export const createLabels = (index: H3Index, centreIndex: H3Index, centre: number[]): LabelStore => {
   let label
   try {
@@ -129,7 +128,11 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
    * human-friendly coordinate system.
    */
   const sortAndLabel = (grid: SergeGrid3): SergeGrid3 => {
-    const sorted = orderBy(grid, (a: SergeHex3) => (1 - a.centreLatLng.lat) * a.centreLatLng.lng, ['desc'])
+    const calcValue = (a: SergeHex3): number => { 
+      // return a.centreLatLng.lng
+      return (1 - a.centreLatLng.lat) * a.centreLatLng.lng 
+    }
+    const sorted = orderBy(grid, (a: SergeHex3) => calcValue(a), ['desc'])
     const labelled = sorted.map((cell: SergeHex3, index: number): SergeHex3 => {
       cell.labelStore.ctr = '' + (index + 1)
       return cell

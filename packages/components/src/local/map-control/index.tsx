@@ -45,9 +45,7 @@ export const MapControl: React.FC<PropTypes> = ({
   filterHistoryRoutes,
   setFilterHistoryRoutes
 }) => {
-
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
-
 
   /*
    * disable map scroll and click events to allow
@@ -105,10 +103,9 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
-
   /** the forces from props has changed */
   useEffect(() => {
-    const doIt = (label:string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
+    const doIt = (label: string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
       return {
         label: label,
         value: style,
@@ -117,7 +114,7 @@ export const MapControl: React.FC<PropTypes> = ({
     }
 
     // collate the cell styles
-    const cellStyleList: CellStyleDetails[] =[
+    const cellStyleList: CellStyleDetails[] = [
       doIt('Ctr', CellLabelStyle.CTR_LABELS, cellLabelType),
       doIt('H3', CellLabelStyle.H3_LABELS, cellLabelType),
       doIt('L/L', CellLabelStyle.LAT_LON_LABELS, cellLabelType),
@@ -125,10 +122,8 @@ export const MapControl: React.FC<PropTypes> = ({
     ]
     console.log('regen cell styles', cellStyleList[0].active)
     setCellStyles(cellStyleList)
-
   }, [cellLabelType])
-  
-  
+
   if (!map) return null
 
   return (
