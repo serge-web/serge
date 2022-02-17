@@ -6,6 +6,8 @@ interface CssExports {
   'button': string;
   'delete-btn': string;
   'drag': string;
+  'horizontal': string;
+  'horizontallist': string;
   'item': string;
   'li': string;
   'main': string;
@@ -13,8 +15,6 @@ interface CssExports {
   'presection': string;
   'section': string;
   'value-label': string;
-  'horizontal': string;
-  'horizontalList': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

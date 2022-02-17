@@ -96,10 +96,10 @@
 
 .modal {
   position: absolute;
-  padding: 30px 10px 20px 10px;
+  padding: 30px 10px 20px;
   background-color: rgb(221, 221, 221);
-  border: none;
-  border-radius: 10px;
+  border-style: none;
+  border-radius: 8px;
   outline: none;
   top: 50%;
   left: 50%;
@@ -111,7 +111,7 @@
   flex-direction: column;
 }
 
-.speedModalContent {
+.speedmodalcontent {
   height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
