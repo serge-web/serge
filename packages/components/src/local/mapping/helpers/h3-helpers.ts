@@ -1,50 +1,43 @@
-import { Terrain, CellLabelStyle } from '@serge/config'
-import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import { Terrain } from '@serge/config'
+import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
-import { labelFor } from './create-grid-from-geojson'
+// import { labelFor } from './create-grid-from-geojson'
 
 const labelFor3 = (centre: number[]): string => {
   const lat = centre[0]
   const lng = centre[1]
   const latHemi = lat > 0 ? 'N' : 'S'
   const longHemi = lng > 0 ? 'E' : 'W'
-  return Math.abs(centre[0]).toFixed(1) + latHemi + ' ' + Math.abs(centre[1]).toFixed(1) + longHemi
+  return Math.abs(centre[0]).toFixed(2) + latHemi + ' ' + Math.abs(centre[1]).toFixed(2) + longHemi
 }
 
-const createLabel = (labelType: CellLabelStyle, index: H3Index, centreIndex: H3Index, centre: number[], ctr: number): string => {
-  switch (labelType) {
-    case CellLabelStyle.X_Y_LABELS: {
-      let label
-      try {
-        const coords = experimentalH3ToLocalIj(centreIndex, index)
-        label = labelFor(coords.i, coords.j)
-        // label = '' + coords.i + ', ' + coords.j
-      } catch (err) {
-        label = 'n/a'
-      }
-      return label
-    }
-    case CellLabelStyle.LAT_LON_LABELS: {
-      return labelFor3(centre)
-    }
-    case CellLabelStyle.H3_LABELS: {
-      return index
-    }
-    case CellLabelStyle.CTR_LABELS:
-    default:
-      return '' + ctr
+
+export const createLabels = (index: H3Index, centreIndex: H3Index, centre: number[]): LabelStore => {
+  let label
+  try {
+    const coords = experimentalH3ToLocalIj(centreIndex, index)
+    // label = labelFor(coords.i, coords.j)
+    label = '' + coords.i + ', ' + coords.j
+  } catch (err) {
+    label = 'n/a'
+  }
+
+  return {
+    xy: label,
+    ctr: 'pending',
+    lat_lon: labelFor3(centre)
   }
 }
 
 /** create our composite cell structure for this index */
-const indexToHex = (centre: number[], label: string, index: string, cellType: number): SergeHex3 => {
+const indexToHex = (centre: number[], labels: LabelStore, index: string, cellType: number): SergeHex3 => {
   const edge = h3ToGeoBoundary(index)
   return {
     centreLatLng: L.latLng(centre[0], centre[1]),
-    name: label,
+    labelStore: labels,
     index: index,
     styles: cellType,
     terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
@@ -92,7 +85,7 @@ export const checkIfIJWorks = (grid: string[], centre: H3Index): boolean => {
   * @param {number} res h grid resolution
   * @returns {SergeGrid3} h hex grid
   */
-export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: CellLabelStyle, cellDefs: any): SergeGrid3 => {
+export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any): SergeGrid3 => {
   // outer boundary
   const boundsNum = h3polyFromBounds(bounds)
 
@@ -102,9 +95,6 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: Cel
   // sort out the centre index
   const centreLoc = bounds.getCenter()
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
-
-  // if game designer wants IJ labels, check we can do them
-  const correctedLabelType = labelType === CellLabelStyle.X_Y_LABELS ? checkIfIJWorks(cells, centreIndex) ? labelType : CellLabelStyle.LAT_LON_LABELS : labelType
 
   const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
 
@@ -118,7 +108,7 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: Cel
 
   // create the grid
   let styleMissing = 0
-  const grid = cells.map((cell: H3Index, ctr: number): SergeHex3 => {
+  const grid = cells.map((cell: H3Index): SergeHex3 => {
     // see if we have definition for this index
     const match = cellStyles && cellStyles.find((value: {index: string, style: number}) => {
       return value.index === cell
@@ -130,22 +120,25 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, labelType: Cel
     // convert style to power of 2, so we can have multiple styles
     const powerCell = Math.pow(2, cellStyle)
     const centre = h3ToGeo(cell)
-    const label = createLabel(correctedLabelType, cell, centreIndex, centre, ctr + 1)
-    const res = indexToHex(centre, label, cell, powerCell)
+    const labels = createLabels(cell, centreIndex, centre)
+    const res = indexToHex(centre, labels, cell, powerCell)
     return res
   })
 
+  /** method to sort the cells from top-left to bottom right, to try to make
+   * human-friendly coordinate system.
+   */
   const sortAndLabel = (grid: SergeGrid3): SergeGrid3 => {
     const sorted = orderBy(grid, (a: SergeHex3) => (1 - a.centreLatLng.lat) * a.centreLatLng.lng, ['desc'])
     const labelled = sorted.map((cell: SergeHex3, index: number): SergeHex3 => {
-      cell.name = '' + (index + 1)
+      cell.labelStore.ctr = '' + (index + 1)
       return cell
     })
     return labelled
   }
 
-  // special handling
-  const result = labelType === CellLabelStyle.CTR_LABELS ? sortAndLabel(grid) : grid
+  // arrange the counters from top-left to bottom-right
+  const result = sortAndLabel(grid)
 
   if (styleMissing) {
     console.log('Didn\'t find style definition for ' + styleMissing + ' cells')

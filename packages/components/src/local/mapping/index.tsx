@@ -294,6 +294,12 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraints.gridCellsURL])
 
   useEffect(() => {
+    if(mappingConstraints.cellLabelsStyle) {
+      setCellLabelStyle(mappingConstraints.cellLabelsStyle)
+    }
+  }, [mappingConstraints.cellLabelsStyle])
+
+  useEffect(() => {
     if (mappingConstraints.polygonAreasURL) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraints.polygonAreasURL
@@ -308,20 +314,10 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraints.polygonAreasURL])
 
   useEffect(() => {
-    if (mapBounds && mappingConstraints.tileDiameterMins) {
-      // let newGrid
-      // if (mappingConstraints.targetDataset === Domain.GULF) {
-      //   newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins)
-      // } else if (mappingConstraints.targetDataset === Domain.ATLANTIC && atlanticCells) {
-      //   newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
-      // }
-      // if (newGrid) {
-      //   setGridCells(newGrid)
-      // }
+    if (mapBounds && mappingConstraints) {
       // now the h3 handler
-      const labelType = (mappingConstraints && mappingConstraints.cellLabelsStyle) || CellLabelStyle.LAT_LON_LABELS
-      const resolution = (mappingConstraints && mappingConstraints.h3res) || 3
-      const cells = createGridH3(mapBounds, resolution, labelType, atlanticCells)
+      const resolution = mappingConstraints.h3res || 3
+      const cells = createGridH3(mapBounds, resolution, atlanticCells)
       setH3gridCells(cells)
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
@@ -331,7 +327,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
       } else {
-        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, h3gridCells)
+        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].index, h3gridCells)
         const newStore2: RouteStore = routeSetCurrent('', newStore)
         setRouteStore(newStore2)
         setSelectedAsset(undefined)
@@ -355,7 +351,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
         // increment turn number, if we have any turns planned, else start with `1`
         const coords: Array<string> = newLeg.route.map((cell: SergeHex3) => {
-          return cell.name
+          return cell.index
         })
         const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex3) => {
           return cell.centreLatLng
@@ -379,7 +375,7 @@ export const Mapping: React.FC<PropTypes> = ({
           const lastCell: SergeHex3 = newLeg.route[newLeg.route.length - 1]
           // create new planning contraints
           const newP: PlanMobileAsset = {
-            origin: lastCell.name,
+            origin: lastCell.index,
             travelMode: planningConstraints.travelMode,
             status: newLeg.state,
             speed: newLeg.speed,
@@ -562,7 +558,7 @@ export const Mapping: React.FC<PropTypes> = ({
   /** pan to the centre of the specified cell */
   const panTo = (cellRef: string): void => {
     if (h3gridCells) {
-      const hex = h3gridCells.find((cell: SergeHex3) => cell.name === cellRef)
+      const hex = h3gridCells.find((cell: SergeHex3) => cell.index === cellRef)
       if (hex) {
         leafletElement && leafletElement.panTo(hex.centreLatLng, { duration: 1, easeLinearity: 0.6 })
       }

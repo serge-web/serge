@@ -16,7 +16,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
-import { LAYDOWN_TURN } from '@serge/config'
+import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
 import { edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
 import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
 import getCellStyle3 from './helpers/get-cell-style-3'
@@ -43,7 +43,7 @@ export const HexGrid: React.FC<{}> = () => {
   if (typeof props === 'undefined') return null
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, polygonAreas
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle
   } = props
 
   // define detail cut-offs
@@ -458,6 +458,21 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
+  const cellLabelFor = (cell: SergeHex3): string => {
+    const store = cell.labelStore
+    switch(cellLabelStyle) {
+      case CellLabelStyle.CTR_LABELS:
+        return store.ctr;
+      case CellLabelStyle.H3_LABELS:
+        return cell.index
+      case CellLabelStyle.X_Y_LABELS:      
+        return store.xy
+      case CellLabelStyle.LAT_LON_LABELS:
+      default:
+        return store.lat_lon
+    }
+  }
+
   //  console.log('vis', visibleCells.length, relevantCells.length, relevantCells3.length)
 
   //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
@@ -605,7 +620,7 @@ export const HexGrid: React.FC<{}> = () => {
           width="120"
           icon={L.divIcon({
             // html: '' + cell.x + ',' + cell.y,
-            html: cell.name,
+            html: cellLabelFor(cell),
             className: styles['default-coords'],
             iconSize: [30, 20]
           })}

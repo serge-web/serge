@@ -4,10 +4,20 @@ import L from 'leaflet'
 
 type H3pos = number[]
 
+
+/** temporary structure used to cache the assorted label styles, while we develop
+ * cell labelling
+ */
+export interface LabelStore {
+  xy: string,
+  ctr: string,
+  lat_lon: string
+}
+
 /** definition of cell using h3 coords */
 export interface SergeHex3 {
   centreLatLng: L.LatLng
-  name: string // human-readable index
+  labelStore: LabelStore // collection of labels to display
   index: H3Index // h3 index
   terrain?: Terrain // 'land' or 'sea' (initially undefined)
   styles: number // logical or of style numbers
