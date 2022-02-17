@@ -34,7 +34,7 @@
   cursor: help;
   display: flex;
   align-items: flex-start;
-  color: #c26;
+  color: #555;
 
   :hover {
     color: rgb(106, 19, 54);
@@ -43,5 +43,6 @@
   svg {
     font-size: 24px;
     margin-top: -12px;
+    margin-left: -2px;
   }
 }
