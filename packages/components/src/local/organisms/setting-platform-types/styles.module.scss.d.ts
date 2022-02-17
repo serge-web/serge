@@ -10,6 +10,9 @@ interface CssExports {
   'section': string;
   'states-holder': string;
   'commoditie-header': string;
+  'modal': string;
+  'button': string;
+  'speedModalContent': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
