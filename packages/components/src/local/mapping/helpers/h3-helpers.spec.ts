@@ -47,8 +47,8 @@ it('generates hex coords', () => {
   expect(grid.length).toEqual(604)
   const first = grid[0]
   expect(first.index).toEqual('830652fffffffff')
-  expect(first.labelStore.latLon).toEqual('64.9N 38.9W')
-  expect(first.labelStore.xy).toEqual('S18')
+  expect(first.labelStore.latLon).toEqual('64.85N 38.88W')
+  expect(first.labelStore.xy).toEqual('18, 17')
   expect(first.labelStore.ctr).toEqual('1')
   expect(first.poly.length).toEqual(6)
 })
@@ -59,8 +59,8 @@ it('generates hex coords for large area', () => {
   expect(grid.length).toEqual(1470)
   const first = grid[0]
   expect(first.index).toEqual('830f8efffffffff')
-  expect(first.labelStore.latLon).toEqual('64.8N 87.8W')
+  expect(first.labelStore.latLon).toEqual('64.83N 87.82W')
   expect(first.poly.length).toEqual(6)
   expect(first.labelStore.ctr).toEqual('1')
-  expect(first.labelStore.xy).toEqual('AB16')
+  expect(first.labelStore.xy).toEqual('27, 15')
 })
