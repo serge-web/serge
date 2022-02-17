@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DomEvent } from 'leaflet'
 import Item from './helpers/item'
 import cx from 'classnames'
@@ -14,6 +14,12 @@ import PlannedIcon from '@material-ui/icons/Update'
 /* Import proptypes */
 import PropTypes from './types/props'
 import { CellLabelStyle, UMPIRE_FORCE } from '@serge/config'
+
+interface CellStyleDetails {
+  label: string
+  value: CellLabelStyle
+  active: boolean
+}
 
 /* Import Styles */
 // import styles from './styles.module.scss'
@@ -40,7 +46,7 @@ export const MapControl: React.FC<PropTypes> = ({
   setFilterHistoryRoutes
 }) => {
 
-//  const [cellStyles, setCellStyles] = useState<ForceData[]>([])
+  const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
 
 
   /*
@@ -99,12 +105,30 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
-  // collate the cell styles
-  const cellStyles: {label: string, value: CellLabelStyle}[] =[
-      { label: 'Ctr', value: CellLabelStyle.CTR_LABELS },
-      { label: 'H3', value: CellLabelStyle.H3_LABELS }
-    ]    
 
+  /** the forces from props has changed */
+  useEffect(() => {
+    const doIt = (label:string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
+      return {
+        label: label,
+        value: style,
+        active: style === current
+      }
+    }
+
+    // collate the cell styles
+    const cellStyleList: CellStyleDetails[] =[
+      doIt('Ctr', CellLabelStyle.CTR_LABELS, cellLabelType),
+      doIt('H3', CellLabelStyle.H3_LABELS, cellLabelType),
+      doIt('L/L', CellLabelStyle.LAT_LON_LABELS, cellLabelType),
+      doIt('X-Y', CellLabelStyle.X_Y_LABELS, cellLabelType)
+    ]
+    console.log('regen cell styles', cellStyleList[0].active)
+    setCellStyles(cellStyleList)
+
+  }, [cellLabelType])
+  
+  
   if (!map) return null
 
   return (
@@ -138,9 +162,9 @@ export const MapControl: React.FC<PropTypes> = ({
           ))}
         </div>}
         {cellStyles.length && <div className={cx('leaflet-control')}>
-          {cellStyles.map((style: {label: string, value: CellLabelStyle}): JSX.Element => (
+          {cellStyles.map((style: CellStyleDetails): JSX.Element => (
             <Item
-              contentTheme={ (cellLabelType && cellLabelType === style.value) ? 'dark' : 'light' }
+              contentTheme={ style.active ? 'light' : 'dark' }
               key={`s_${style.value}`}
               onClick={(): void => { cellLabelCallback && cellLabelCallback(style.value) }}
               title={'Style cells as' + style.label}
