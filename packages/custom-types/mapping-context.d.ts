@@ -1,4 +1,4 @@
-import { Phase, Domain } from '@serge/config'
+import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
@@ -147,4 +147,6 @@ export default interface MappingContext {
    * series of polygon areas, to be shaded
    */
   polygonAreas?: any
+  /** how to format the cell labels */
+  cellLabelStyle?: CellLabelStyle
 }

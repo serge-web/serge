@@ -14,7 +14,7 @@ import { HexGrid } from '../hex-grid'
 import { Phase, serverPath } from '@serge/config'
 
 /* Import mock data */
-import { smallScaleForces as forces, smallScaleMappingConstraints as mapping,  platformTypes } from '@serge/mocks'
+import { smallScaleForces as forces, smallScaleMappingConstraints as mapping, platformTypes } from '@serge/mocks'
 import data from './data/atlantic-cells'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
@@ -37,7 +37,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 //   }
 // }
 
-//const forces: ForceData[] = deepCopy(atlanticForces)
+// const forces: ForceData[] = deepCopy(atlanticForces)
 // if (forces && forces.length) {
 //   if (forces[1].assets && forces[1].assets.length) {
 //     forces[1].assets[0].position = '8718aab70ffffff'

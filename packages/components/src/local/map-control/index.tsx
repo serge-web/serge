@@ -13,7 +13,7 @@ import PlannedIcon from '@material-ui/icons/Update'
 
 /* Import proptypes */
 import PropTypes from './types/props'
-import { UMPIRE_FORCE } from '@serge/config'
+import { CellLabelStyle, UMPIRE_FORCE } from '@serge/config'
 
 /* Import Styles */
 // import styles from './styles.module.scss'
@@ -32,11 +32,17 @@ export const MapControl: React.FC<PropTypes> = ({
   forces = [],
   viewAsCallback,
   viewAsForce,
+  cellLabelCallback,
+  cellLabelType,
   filterPlannedRoutes,
   setFilterPlannedRoutes,
   filterHistoryRoutes,
   setFilterHistoryRoutes
 }) => {
+
+//  const [cellStyles, setCellStyles] = useState<ForceData[]>([])
+
+
   /*
    * disable map scroll and click events to allow
    * to use map control  as usual html
@@ -93,6 +99,12 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
+  // collate the cell styles
+  const cellStyles: {label: string, value: CellLabelStyle}[] =[
+      { label: 'Ctr', value: CellLabelStyle.CTR_LABELS },
+      { label: 'H3', value: CellLabelStyle.H3_LABELS }
+    ]    
+
   if (!map) return null
 
   return (
@@ -122,6 +134,18 @@ export const MapControl: React.FC<PropTypes> = ({
               title={`View As ${force.name}`}
             >
               <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }}/>
+            </Item>
+          ))}
+        </div>}
+        {cellStyles.length && <div className={cx('leaflet-control')}>
+          {cellStyles.map((style: {label: string, value: CellLabelStyle}): JSX.Element => (
+            <Item
+              contentTheme={ (cellLabelType && cellLabelType === style.value) ? 'dark' : 'light' }
+              key={`s_${style.value}`}
+              onClick={(): void => { cellLabelCallback && cellLabelCallback(style.value) }}
+              title={'Style cells as' + style.label}
+            >
+              {style.label}
             </Item>
           ))}
         </div>}

@@ -136,6 +136,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
   const [atlanticCells, setAtlanticCells] = useState()
   const [polygonAreas, setPolygonAreas] = useState()
+  const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -604,7 +605,8 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlansSubmitted,
     domain: mappingConstraints.targetDataset,
     polygonAreas,
-    panTo
+    panTo,
+    cellLabelStyle
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -677,6 +679,8 @@ export const Mapping: React.FC<PropTypes> = ({
             setFilterPlannedRoutes = {setFilterPlannedRoutes}
             filterHistoryRoutes = {filterHistoryRoutes}
             setFilterHistoryRoutes = {setFilterHistoryRoutes}
+            cellLabelType = {cellLabelStyle}
+            cellLabelCallback = {setCellLabelStyle}
           />
           { mappingConstraints.tileLayer &&
             <TileLayer
