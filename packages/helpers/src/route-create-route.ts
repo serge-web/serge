@@ -290,6 +290,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
+  console.log('fturue', futureSteps, existingRoute && existingRoute.planned, asset.plannedTurns)
+
   const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)

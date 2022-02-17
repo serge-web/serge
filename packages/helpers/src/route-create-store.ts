@@ -77,6 +77,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
+          console.log('existing', controlled, adminInAdj, existingRouteBase)
           const existingRoute: Route | undefined = controlled || adminInAdj ? existingRouteBase : undefined
 
           // dummy location, used if we don't have grid (such as in test)
