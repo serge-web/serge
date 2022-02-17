@@ -144,7 +144,7 @@ export const MapControl: React.FC<PropTypes> = ({
             <PlannedIcon/>
           </Item>
         </div>
-        {forces.length && <div className={cx('leaflet-control')}>
+        {forces.length > 0 && <div className={cx('leaflet-control')}>
           {forces.map((force: any): JSX.Element => (
             <Item
               contentTheme={ showAsSelected(force.uniqid) }
@@ -156,7 +156,7 @@ export const MapControl: React.FC<PropTypes> = ({
             </Item>
           ))}
         </div>}
-        {cellStyles.length && <div className={cx('leaflet-control')}>
+        {cellStyles.length > 0 && <div className={cx('leaflet-control')}>
           {cellStyles.map((style: CellStyleDetails): JSX.Element => (
             <Item
               contentTheme={ style.active ? 'light' : 'dark' }
