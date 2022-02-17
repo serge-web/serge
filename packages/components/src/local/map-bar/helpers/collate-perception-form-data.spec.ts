@@ -18,7 +18,7 @@ it('contains relevant population results', () => {
     expect(res.perceivedForce.length).toEqual(4)
     expect(res.perceivedForce[0]).toEqual({ colour: '#00F', name: 'Blue' })
     expect(res.perceivedForce).toContainEqual({ colour: '#ccc', name: 'Unknown' })
-    expect(res.perceivedType.length).toEqual(13)
+    expect(res.perceivedType.length).toEqual(14)
     expect(res.perceivedType[0]).toEqual('Fishing vessel')
     expect(res.perceivedType).toContain('Unknown')
   } else {
