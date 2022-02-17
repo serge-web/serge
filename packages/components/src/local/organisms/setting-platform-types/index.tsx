@@ -223,7 +223,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
       const items = data.speedKts ? data.speedKts : []
       return <>
-        <div className={styles.speedModalContent}>
+        <div className={styles.speedmodalcontent}>
           <SortableList
             required
             sortable='auto'

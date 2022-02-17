@@ -138,7 +138,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
 
     return (
       viewDirection === 'horizontal'
-        ? <span className={styles.horizontalList}>
+        ? <span className={styles.horizontallist}>
           <span>{value}</span>
           {key < items.length - 1 && <span>-</span>}
         </span>

@@ -11,7 +11,7 @@ interface CssExports {
   'modal': string;
   'row': string;
   'section': string;
-  'speedModalContent': string;
+  'speedmodalcontent': string;
   'states-holder': string;
 }
 export const cssExports: CssExports;

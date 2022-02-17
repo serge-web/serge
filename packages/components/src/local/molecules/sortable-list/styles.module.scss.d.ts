@@ -7,7 +7,7 @@ interface CssExports {
   'delete-btn': string;
   'drag': string;
   'horizontal': string;
-  'horizontalList': string;
+  'horizontallist': string;
   'item': string;
   'li': string;
   'main': string;
