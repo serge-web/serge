@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import MoreInfoProps from './types/props'
 
-const MoreInfo: React.FC<MoreInfoProps> = ({ description, children }) => {
+const MoreInfo: React.FC<MoreInfoProps> = ({ description, children, color }) => {
   const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
 
   const showMoreInfo = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -41,7 +41,7 @@ const MoreInfo: React.FC<MoreInfoProps> = ({ description, children }) => {
       </Popover>
       <div className={styles.childnode}>
         {children}
-        <div onClick={showMoreInfo} className={styles.icon}><InfoOutlined /></div>
+        <div onClick={showMoreInfo} className={styles.icon}><InfoOutlined htmlColor={color || '#f00'} /></div>
       </div>
     </>
   )
