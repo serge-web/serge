@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 25%;
+  min-width: 25%;
 }
 
 .main li {
@@ -85,7 +85,6 @@
 
 .drag > span,
 .section > span {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,6 +104,24 @@
   line-height: 20px;
   font-weight: 300;
   color: #434343;
+}
+
+.horizontal {
+  display: flex !important;
+  flex-direction: row;
+  max-width: 19vw;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.horizontallist {
+  height: 40px;
+
+  span {
+    &:nth-child(2) {
+      margin: 0 5px;
+    }
+  }
 }
 
 .overlap {

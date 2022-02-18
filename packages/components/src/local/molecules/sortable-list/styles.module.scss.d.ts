@@ -6,6 +6,8 @@ interface CssExports {
   'button': string;
   'delete-btn': string;
   'drag': string;
+  'horizontal': string;
+  'horizontallist': string;
   'item': string;
   'li': string;
   'main': string;
