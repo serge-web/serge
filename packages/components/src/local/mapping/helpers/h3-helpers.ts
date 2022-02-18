@@ -1,7 +1,7 @@
 import { Terrain } from '@serge/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
-import { experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
+import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
 // import { labelFor } from './create-grid-from-geojson'
@@ -15,17 +15,16 @@ const labelFor3 = (centre: number[]): string => {
 }
 
 export const createLabels = (index: H3Index, centreIndex: H3Index, centre: number[]): LabelStore => {
-  let label
+  let coords: CoordIJ | undefined
   try {
-    const coords = experimentalH3ToLocalIj(centreIndex, index)
+    coords = experimentalH3ToLocalIj(centreIndex, index)
     // label = labelFor(coords.i, coords.j)
-    label = '' + coords.i + ', ' + coords.j
   } catch (err) {
-    label = 'n/a'
+    coords = undefined
   }
-
   return {
-    xy: label,
+    xy: coords ? '' + coords.i + ', ' + coords.j : 'unknown',
+    xyVals: coords ? [coords.i, coords.j] : [],
     ctr: 'pending',
     latLon: labelFor3(centre)
   }
@@ -77,6 +76,51 @@ export const checkIfIJWorks = (grid: string[], centre: H3Index): boolean => {
     }
     return !coords
   })
+}
+
+export const ijLabel = (iV: number, jV: number): string => {
+  const iOffset = iV - 0
+  const jOffset = jV - 0
+  const xVals = ['a', 'b', 'c', 'd', 'e']
+  const xLen = xVals.length
+  const cycles = iOffset / xLen
+  const xVal = (cycles && xVals[cycles]) + xVals[iOffset - xLen * cycles]
+  return xVal + jOffset
+}
+
+export const createIndex = (x: number, y: number): string => {
+  const range = 'ABCDEFGHJKLMNPQRSTUVWXYZ'.split('')
+  let result = ''
+
+  while (x > 0) {
+    // 0 corresponds to `A` and 23 corresponds to `Z`
+    result = range[(x - 1) % 24] + result
+    x = Math.floor((x - 1) / 24)
+  }
+  return result + y
+}
+
+export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
+  const withCoords = grid.filter((cell: SergeHex3) => cell.labelStore.xyVals.length)
+  const iVals = withCoords.map((cell: SergeHex3): number => cell.labelStore.xyVals[0])
+  const jVals = withCoords.map((cell: SergeHex3): number => cell.labelStore.xyVals[1])
+  const iMax = Math.max(...iVals)
+  const jMax = Math.max(...jVals)
+  const res = grid.map((cell: SergeHex3): SergeHex3 => {
+    const coords = cell.labelStore.xyVals
+    if (coords.length) {
+      const i = coords[0]
+      const j = coords[1] // so number coords start at one
+      const label = createIndex(iMax - i + 1, jMax - j + 1)
+      cell.labelStore.xy = label
+      return cell
+    } else {
+      // can't generate XY Coords.
+      cell.labelStore.xy = '==='
+      return cell
+    }
+  })
+  return res
 }
 
 /** create the grid of h3 cells
@@ -141,7 +185,10 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
   }
 
   // arrange the counters from top-left to bottom-right
-  const result = sortAndLabel(grid)
+  const sorted = sortAndLabel(grid)
+
+  // and sort out the xy indices
+  const result = updateXy(sorted)
 
   if (styleMissing) {
     console.log('Didn\'t find style definition for ' + styleMissing + ' cells')

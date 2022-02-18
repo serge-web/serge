@@ -10,6 +10,7 @@ type H3pos = number[]
  */
 export interface LabelStore {
   xy: string,
+  xyVals: number[],
   ctr: string,
   latLon: string
 }

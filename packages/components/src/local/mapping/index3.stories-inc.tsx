@@ -11,7 +11,7 @@ import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
 
 // import data types
-import { Domain, Phase, serverPath } from '@serge/config'
+import { CellLabelStyle, Domain, Phase, serverPath } from '@serge/config'
 
 /* Import mock data */
 import { atlanticForces, platformTypes } from '@serge/mocks'
@@ -94,6 +94,7 @@ const atlanticConstraints: MappingConstraints = {
       30
     ]
   ],
+  cellLabelsStyle: CellLabelStyle.X_Y_LABELS,
   maxNativeZoom: 7,
   maxZoom: 10,
   minZoom: 3,

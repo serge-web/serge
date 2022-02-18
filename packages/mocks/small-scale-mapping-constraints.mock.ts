@@ -3,7 +3,7 @@ import { MappingConstraints } from "@serge/custom-types"
 
 export const mappingConstraints: MappingConstraints = {
     bounds: [[50.6, -20.2], [50.1, -19.1]],
-    cellLabelsStyle: CellLabelStyle.H3_LABELS,
+    cellLabelsStyle: CellLabelStyle.X_Y_LABELS,
     h3res: 7,
     maxNativeZoom: 7,
     maxZoom: 12,
