@@ -34,8 +34,6 @@ const speedValues = {
   Four: 'Four'
 }
 
-
-
 export const Default: React.FC = () => <PlanTurnForm
   turnPlanned={postback}
   formHeader="Planning header"
@@ -83,9 +81,9 @@ export const DefaultAttributesEditable: React.FC = () => <PlanTurnForm
         mobile: true
       }],
       speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
-      attributes: [ {commId:'comm_a', commType: COMMODITY_TYPE_NUMBER, name:'Fuel', editableByPlayer: false},
-      {commId:'comm_b', commType: COMMODITY_TYPE_NUMBER, name:'People', editableByPlayer: true},
-      {commId:'comm_c', commType: COMMODITY_TYPE_NUMBER, name:'Water', units:'litres', editableByPlayer: false} ]
+      attributes: [{ commId: 'comm_a', commType: COMMODITY_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false },
+        { commId: 'comm_b', commType: COMMODITY_TYPE_NUMBER, name: 'People', editableByPlayer: true },
+        { commId: 'comm_c', commType: COMMODITY_TYPE_NUMBER, name: 'Water', units: 'litres', editableByPlayer: false }]
     },
     values: {
       statusVal: {
@@ -95,9 +93,9 @@ export const DefaultAttributesEditable: React.FC = () => <PlanTurnForm
       speedVal: 0,
       turnsVal: 5,
       condition: 'Working',
-      attributes: [{commId:'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 12},
-      {commId:'comm_b', commType: COMMODITY_VALUE_NUMBER, value: 213},
-      {commId:'comm_c', commType: COMMODITY_VALUE_NUMBER, value: 12450}]
+      attributes: [{ commId: 'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 12 },
+        { commId: 'comm_b', commType: COMMODITY_VALUE_NUMBER, value: 213 },
+        { commId: 'comm_c', commType: COMMODITY_VALUE_NUMBER, value: 12450 }]
     }
   }}
   icon={iconData}
@@ -151,7 +149,7 @@ export const TurnsPlannedAttributesNotEditable: React.FC = () => <PlanTurnForm
         mobile: true
       }],
       speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
-      attributes: [{commId:'comm_a', commType: COMMODITY_TYPE_NUMBER, name:'Fuel', editableByPlayer: false}]
+      attributes: [{ commId: 'comm_a', commType: COMMODITY_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false }]
     },
     values: {
       statusVal: {
@@ -161,7 +159,7 @@ export const TurnsPlannedAttributesNotEditable: React.FC = () => <PlanTurnForm
       speedVal: 0,
       turnsVal: 5,
       condition: 'Working',
-      attributes: [{commId:'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 12}]
+      attributes: [{ commId: 'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 12 }]
     }
   }}
   icon={iconData}

@@ -156,7 +156,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
             const label = name + ': ' + item.value + units
             return <Badge allCaps={false} customSize='large' label={label}/>
           })}
-          { attributesAreEditable && 
+          { attributesAreEditable &&
             <span className={styles.editattributes}><Button>Edit</Button></span>
           }
         </div>

@@ -1,5 +1,5 @@
-import { COMMODITY_TYPE_NUMBER, COMMODITY_VALUE_NUMBER } from "@serge/config"
-import { PlanTurnFormData } from "@serge/custom-types"
+import { COMMODITY_TYPE_NUMBER, COMMODITY_VALUE_NUMBER } from '@serge/config'
+import { PlanTurnFormData } from '@serge/custom-types'
 
 const formData: PlanTurnFormData = {
   populate: {
@@ -12,9 +12,9 @@ const formData: PlanTurnFormData = {
       mobile: true
     }],
     speed: [10, 20, 30],
-    attributes: [ {commId:'comm_a', commType: COMMODITY_TYPE_NUMBER, name:'Fuel', editableByPlayer: false},
-    {commId:'comm_b', commType: COMMODITY_TYPE_NUMBER, name:'People', editableByPlayer: false},
-    {commId:'comm_c', commType: COMMODITY_TYPE_NUMBER, name:'Water', units:'litres', editableByPlayer: false} ]
+    attributes: [{ commId: 'comm_a', commType: COMMODITY_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false },
+      { commId: 'comm_b', commType: COMMODITY_TYPE_NUMBER, name: 'People', editableByPlayer: false },
+      { commId: 'comm_c', commType: COMMODITY_TYPE_NUMBER, name: 'Water', units: 'litres', editableByPlayer: false }]
   },
   values: {
     statusVal: {
@@ -24,9 +24,9 @@ const formData: PlanTurnFormData = {
     speedVal: 10,
     turnsVal: 5,
     condition: 'Working',
-    attributes: [{commId:'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 12},
-    {commId:'comm_b', commType: COMMODITY_VALUE_NUMBER, value: 213},
-    {commId:'comm_c', commType: COMMODITY_VALUE_NUMBER, value: 12450}]
+    attributes: [{ commId: 'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 12 },
+      { commId: 'comm_b', commType: COMMODITY_VALUE_NUMBER, value: 213 },
+      { commId: 'comm_c', commType: COMMODITY_VALUE_NUMBER, value: 12450 }]
   }
 }
 

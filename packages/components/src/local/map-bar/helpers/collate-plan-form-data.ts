@@ -31,7 +31,8 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
       turnsVal: 1,
       condition: selectedAsset.condition,
       attributes: attributes
-  }  }
+    }
+  }
   return formData
 }
 

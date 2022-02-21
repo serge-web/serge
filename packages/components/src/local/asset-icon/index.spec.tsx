@@ -28,7 +28,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     phase = {Phase.Planning}
     turnNumber={5}
   ><AssetIcon uniqid='id1' contactId='C324' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
-      selected={false} type='agi' force='blue' perceivedForceColor='#0f0' 
+      selected={false} type='agi' force='blue' perceivedForceColor='#0f0'
       attributes={[]}
       perceivedForceClass='blue' visibleTo={['blue']} status={ { speedKts: 10, state: 'Working' }}
       tooltip='Tooltip for marker'/></Mapping>, { attachTo: div })
