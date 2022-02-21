@@ -4,16 +4,17 @@ import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
-// import { labelFor } from './create-grid-from-geojson'
 
-const labelFor3 = (centre: number[]): string => {
-  const lat = centre[0]
-  const lng = centre[1]
+/** create a formatted lat/long label */
+const latLngLabel = (location: number[]): string => {
+  const lat = location[0]
+  const lng = location[1]
   const latHemi = lat > 0 ? 'N' : 'S'
   const longHemi = lng > 0 ? 'E' : 'W'
-  return Math.abs(centre[0]).toFixed(2) + latHemi + ' ' + Math.abs(centre[1]).toFixed(2) + longHemi
+  return Math.abs(location[0]).toFixed(2) + latHemi + ' ' + Math.abs(location[1]).toFixed(2) + longHemi
 }
 
+/** create the assorted label types for this index */
 export const createLabels = (index: H3Index, centreIndex: H3Index, centre: number[]): LabelStore => {
   let coords: CoordIJ | undefined
   try {
@@ -26,21 +27,16 @@ export const createLabels = (index: H3Index, centreIndex: H3Index, centre: numbe
     xy: coords ? '' + coords.i + ', ' + coords.j : 'unknown',
     xyVals: coords ? [coords.i, coords.j] : [],
     ctr: 'pending',
-    latLon: labelFor3(centre)
+    latLon: latLngLabel(centre)
   }
 }
 
-/** generate h3 coordinate for leaflet lat-long */
-const latLng2Num = (pos: L.LatLng): number[] => {
-  return [pos.lat, pos.lng]
-}
-
-/** generate Leaflet coordinate for h3 coords */
-export const num2LatLng = (coords: number[]): L.LatLng => {
-  return L.latLng(coords[0], coords[1])
-}
-
+/** produce a polygon in h3 array structure from a Leaflet LatLngBounds */
 export const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
+  /** generate h3 coordinate for leaflet lat-long */
+  const latLng2Num = (pos: L.LatLng): number[] => {
+    return [pos.lat, pos.lng]
+  }
   return [
     latLng2Num(bounds.getNorthWest()),
     latLng2Num(bounds.getNorthEast()),
