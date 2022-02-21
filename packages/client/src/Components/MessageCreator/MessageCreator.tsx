@@ -3,8 +3,8 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
-import { Editor, MessageDetails } from '@serge/custom-types'
-import { SpecialChannelTypes, CollaborativeMessageStates } from "@serge/config";
+import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from "@serge/config";
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -12,7 +12,6 @@ import Props from './types'
 import JSONEditor from '@json-editor/json-editor'
 import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
-import moment from 'moment'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
 flatpickr(".calendar")
@@ -42,17 +41,19 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       timestamp: new Date().toISOString(),
       turnNumber: state.currentTurn
     }
-    const currentChannelFormat = state.channels[curChannel].format || null
+    const channelUI = state.channels[curChannel] as ChannelUI
+    const channel = channelUI.cData
 
-    if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
+    // special handling if this is a collab-channel
+    if(channel.channelType === CHANNEL_COLLAB) {
+      // populate the metadata
+      const channelCollab = channel as ChannelCollab
+      
+      // ok, brand new message
+      const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
       details.collaboration = {
-        status: CollaborativeMessageStates.PendingReview,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format()
-      }
-    } else if (currentChannelFormat === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE) {
-      details.collaboration = {
-        status: CollaborativeMessageStates.Pending,
-        lastUpdated: moment(new Date(), moment.ISO_8601).format()
+        status: initial,
+        lastUpdated: details.timestamp
       }
     }
 
@@ -181,6 +182,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
       disable_collapse: true,
       disable_edit_json: true,
       disable_properties: true,
+      prompt_before_delete: false
     }))
   }
 

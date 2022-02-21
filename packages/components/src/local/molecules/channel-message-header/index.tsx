@@ -37,6 +37,7 @@ export const ChannelMessageHeader: React.FC<Props> = ({
         title={hasBeenRead ? 'Click here to mark as unread' : ''}
         icon={hasBeenRead ? faEnvelopeOpen : faEnvelope}
         onClick={markUnread}
+        color={!hasBeenRead ? 'rgb(255, 193, 7)' : 'rgb(255, 255, 255)'}
       />
       <div onClick={onExpand}>
         {
@@ -49,7 +50,6 @@ export const ChannelMessageHeader: React.FC<Props> = ({
           <span className={styles['info-body']}>{moment(timestamp).format('HH:mm')}</span>
           <Badge size="small" label={role} customBackgroundColor={forceColor} />
           <Badge size="small" label={messageType} />
-          {!hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
         </Box>
       </div>
     </div>

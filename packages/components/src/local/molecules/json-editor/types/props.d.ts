@@ -15,9 +15,13 @@ export default interface Props {
    */
   messageId: string
   /**
-   * template
+   * template ID
    */
   template: string
+  /**
+   * title to display above the form
+   */
+  title?: string
   /**
    * dictionary of templates, indexed by template name
    */

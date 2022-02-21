@@ -23,12 +23,14 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: "default_img/umpireDefault.png",
         roleId: redCO.roleId
       },
-      messageType: "Chat",
+      messageType: "k16eedkl",
       timestamp: "2020-10-13T08:52:04.394Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response: {
+          content:  "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -56,7 +58,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response: {
+          content:  "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -85,7 +89,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.Closed,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response: {
+          content:  "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -170,7 +176,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        status: CollaborativeMessageStates.Pending
+        status: CollaborativeMessageStates.Unallocated
       },
       turnNumber: 1
     },
@@ -260,7 +266,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: 'RFI 3 response from White Logistics',
+        response: {
+          content:  'RFI 3 response from White Logistics'
+        }
       },
       turnNumber: 1
     },
@@ -349,7 +357,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4",
+        response: {
+          content: "Game control response to RFI 4"
+        }
       },
       turnNumber: 1
     },
@@ -380,7 +390,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.Released,
         lastUpdated: "2020-03-25T15:08:47.540Z",
-        response: "Game control response to RFI 4"
+        response: {
+          content:  "Game control response to RFI 4"
+        }
       },
       privateMessage: "The private content goes in here",
       turnNumber: 1

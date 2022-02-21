@@ -1,6 +1,6 @@
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { WargameOverview } from '../../../organisms/setting-overview'
-import { ChannelData } from '../../../organisms/setting-channels'
+import { ChannelTypes } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
 import { ForceData, PlatformType, PlatformTypeData } from '@serge/custom-types'
 
@@ -20,7 +20,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Channels, retrieved from database
    */
-  channels: Array<ChannelData>
+  channels: Array<ChannelTypes>
   /**
    * Callback on overview setting change events
    */
@@ -29,6 +29,10 @@ export default interface Props extends AdminLayoutProps {
    * Callback on platform types setting change events
    */
   onPlatformTypesChange: (platformType: PlatformType) => void
+  /**
+   * Callback on platform type delete button click events
+   */
+  onDeletePlatformType?: (item: PlatformType) => void
   /**
    * Callback on forces setting change events
    */
@@ -53,11 +57,11 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels setting change events
    */
-  onChannelsChange: (updates: { channels: ChannelData[] }) => void
+  onChannelsChange: (updates: { channels: ChannelTypes[] }) => void
   /**
    * Callback on channel' sidebar click events
    */
-  onSidebarChannelsClick?: (channel: ChannelData) => void
+  onSidebarChannelsClick?: (channel: ChannelTypes) => void
   /**
    * Callback on channels Add button click events
    */
@@ -74,7 +78,7 @@ export default interface Props extends AdminLayoutProps {
    * Selected channel to indicate which channel should be active
    * in channels setting tab
    */
-  selectedChannel?: ChannelData
+  selectedChannel?: ChannelTypes
   /**
    * Callback on each of the game setup tab save events
    */

@@ -24,7 +24,7 @@ export const MapControl: React.FC<PropTypes> = ({
   map,
   /* home */
   showHome = true,
-  home,
+  bounds,
   /* zoom */
   showZoom = true,
   zoomStepSize = 0.5,
@@ -52,9 +52,9 @@ export const MapControl: React.FC<PropTypes> = ({
     if (currentZoom) map.setZoom(currentZoom + changeValue)
   }
 
-  /* set map to home view */
+  /* set map to overall view */
   const handleHome = (): void => {
-    map.flyTo(home || map.getCenter(), 10)
+    bounds && map.flyToBounds(bounds)
   }
 
   /* set view as force */

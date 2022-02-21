@@ -167,6 +167,15 @@ export const clearWargames = () => {
   }
 }
 
+export const downloadAllWargames = () => {
+  return async(dispatch) => {
+    wargamesApi.downloadAllWargames()
+    
+    const wargames = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(wargames))
+  }
+}
+
 export const deleteWargame = (name) => {
   return async (dispatch) => {
     await wargamesApi.deleteWargame(name)
@@ -247,6 +256,18 @@ export const saveSettings = (dbName, data) => {
     dispatch(setTabSaved())
 
     dispatch(addNotification('Overview saved.', 'success'))
+  }
+}
+
+export const deletePlatformType = (dbName, platformType) => {
+  return async dispatch => {
+    const wargame = await wargamesApi.deletePlatformType(dbName, platformType)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification(`Platform type '${platformType.name}' deleted.`, 'success'))
   }
 }
 
