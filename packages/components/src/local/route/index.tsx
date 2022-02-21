@@ -16,7 +16,7 @@ import { LaydownPhases } from '@serge/config'
 export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected, clearRouteHandler }: PropTypes) => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
-  const { gridCells, turnNumber } = props
+  const { turnNumber } = props
   const plainDots = [1, 7]
   const selectedDots = [4, 8]
 
@@ -30,7 +30,7 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   // Note : the planned and history data are often created in the same way,
   // maybe some refactoring would be necessary in this case
   useEffect(() => {
-    if (gridCells && route && route.currentLocation) {
+    if (route && route.currentLocation) {
       // see if we're in laydown mode
       if (!route.laydownPhase || route.laydownPhase === LaydownPhases.NotInLaydown || route.laydownPhase === LaydownPhases.Immobile || route.selected) {
         // start with historic
@@ -49,7 +49,7 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
         setPlannedTurnMarkers([])
       }
     }
-  }, [gridCells, route, trimmed, selected, turnNumber])
+  }, [route, trimmed, selected, turnNumber])
 
   return <>
     <LayerGroup key={'hex_route_layer_' + name}>

@@ -80,7 +80,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
       }
     }
 
-    const handleClick = ({ target }: any) => {
+    const handleClick = ({ target }: any): void => {
       // @ts-ignore
       const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
       const targetId = target.getAttribute('id')

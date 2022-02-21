@@ -1,3 +1,4 @@
+import { CellLabelStyle } from '@serge/config'
 import { ForceData } from '@serge/custom-types'
 import { LatLng, LatLngBounds } from 'leaflet'
 
@@ -20,6 +21,10 @@ export default interface PropTypes {
   viewAsCallback?: {(force: string): void}
   /** current value of `view as` */
   viewAsForce?: string
+  /** callback for umpire clicking on view-as button */
+  cellLabelCallback?: {(style: CellLabelStyle): void}
+  /** current value of `view as` */
+  cellLabelType?: CellLabelStyle
   /** whether planned routes filtered */
   filterPlannedRoutes?: boolean
   /** callback for toggling planned routes */

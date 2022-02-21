@@ -1,5 +1,5 @@
 import { LaydownPhases } from '@serge/config'
-import { RouteStore, Route, SergeGrid, SergeHex } from '@serge/custom-types'
+import { RouteStore, Route, SergeGrid3 } from '@serge/custom-types'
 import hexNamed from './hex-named'
 import { cloneDeep } from 'lodash'
 
@@ -8,7 +8,7 @@ import { cloneDeep } from 'lodash'
  * @param {string} location new initial location
  * @returns {RouteStore} updated route store
  */
-const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<SergeHex<unknown>> | undefined): RouteStore => {
+const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid3 | undefined): RouteStore => {
   // take deep copy
   const modified: RouteStore = cloneDeep(store)
   // find the matching route

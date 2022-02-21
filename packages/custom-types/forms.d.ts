@@ -1,5 +1,6 @@
 import ColorOption from './color-option'
 import SergeHex from './serge-hex'
+import { SergeHex3 } from './serge-hex-3'
 
 interface Status {
   name: string,
@@ -32,7 +33,7 @@ export interface PerceptionFormData {
 export interface NewTurnValues {
   state: string
   speed?: number
-  route: Array<SergeHex<{}>>
+  route: Array<SergeHex3>
 }
 
 export interface PlanTurnFormPopulate {

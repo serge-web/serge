@@ -58,6 +58,19 @@ export enum Terrain {
   SEA = 'sea'
 }
 
+/** style of label for hexes
+ */
+ export enum CellLabelStyle {
+   // 12.3N 32.3W
+   LAT_LON_LABELS = 'lat_lon_labels',
+   // A12
+   X_Y_LABELS = 'x_y_labels',
+   // 432
+   CTR_LABELS = 'ctr_labels',
+   // 35234fe5effffff
+   H3_LABELS = 'h3_labels'
+}
+
 /** who is required to give asset an initial location */
 export enum LaydownTypes {
   /** the umpire (game designer) can position asset */

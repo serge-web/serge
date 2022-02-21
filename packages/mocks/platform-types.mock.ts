@@ -55,6 +55,36 @@ export const platformTypes: PlatformTypeData[] = [
     ]
   },
   {
+    name: 'ssn',
+    conditions: [
+      'Full capability',
+      'Limited capability',
+      'Immobile',
+      'Sinking',
+      'Destroyed'
+    ],
+    icon: 'ssn.svg',
+    speedKts: [
+      10,
+      20
+    ],
+    states: [
+      {
+        name: 'Transiting',
+        mobile: true
+      },
+      {
+        name: 'Evasive',
+        mobile: true
+      },
+      {
+        name: 'Aggressove',
+        mobile: true
+      }
+    ],
+    travelMode: 'sea'
+  },
+  {
     name: 'Frigate',
     conditions: [
       'Full capability',
@@ -62,6 +92,24 @@ export const platformTypes: PlatformTypeData[] = [
       'Immobile',
       'Sinking',
       'Destroyed'
+    ],
+    commodityTypes: [
+      {
+        name: 'ASDIC',
+        commId: 'asdicComm',
+        description: 'ASDIC orientation (absolute)',
+        defaultValue: 0,
+        editableByPlayer: true,
+        commType: "CommodityTypeNumber"
+      },
+      {
+        name: 'Battery Level',
+        units: '%',
+        commId: 'fuelComm',
+        defaultValue: 100,
+        editableByPlayer: false,
+        commType: "CommodityTypeNumber"
+      }
     ],
     icon: 'frigate.svg',
     speedKts: [

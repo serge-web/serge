@@ -10,7 +10,7 @@ import { forces, platformTypes, platformTypesByKey, localMappingConstraints } fr
 import { RouteStore, Route as RouteType } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 
-const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
+const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
 const route: RouteType = store.routes[0] as RouteType
 
 const clearFromTurn = (turn: number): void => {

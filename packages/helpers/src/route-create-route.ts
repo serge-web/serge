@@ -1,17 +1,16 @@
 import L from 'leaflet'
-import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
+import { Route, RouteTurn, RouteChild, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
-import hexNamed from './hex-named'
 import findPlatformTypeFor from './find-platform-type-for'
+import { h3ToGeo } from 'h3-js'
 
-const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
-  step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
+const processStep = (step: RouteTurn): Array<RouteTurn> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
-
+  const res: Array<RouteTurn> = []
   if (step.status) {
     const steps: string[] = []
     const locations: Array<L.LatLng> = []
@@ -19,8 +18,9 @@ const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
       // ok, this is modern way of planned or history steps
       step.route.forEach((coord: string) => {
         steps.push(coord)
-        const hex: SergeHex<unknown> | undefined = grid && hexNamed(coord, grid)
-        locations.push((hex && hex.centreLatLng) || dummyLocation)
+        const hex3: number[] = h3ToGeo(coord)
+        const hex3Loc: L.LatLng = L.latLng(hex3[0], hex3[1])
+        locations.push(hex3Loc || dummyLocation)
       })
     }
     // only include the speed parameter if there's one present
@@ -50,7 +50,7 @@ const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHex<unknown>> | undefined, planned: boolean,
+const createStepArray = (turns: RouteTurn[] | undefined, planned: boolean,
   filterSteps: boolean): Array<RouteTurn> => {
   let res: Array<RouteTurn> = []
   if (turns) {
@@ -58,15 +58,15 @@ const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHe
       if (turns.length > 0) {
         if (planned) {
           // just the first one
-          res = processStep(grid, turns[0], res)
+          res = processStep(turns[0])
         } else {
           // just the last one
-          res = processStep(grid, turns[turns.length - 1], res)
+          res = processStep(turns[turns.length - 1])
         }
       }
     } else {
       turns.forEach((step: RouteTurn) => {
-        res = processStep(grid, step, res)
+        res = res.concat(processStep(step))
       })
     }
   }
@@ -274,7 +274,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   underControl: boolean, visibleToThisForce: boolean, actualForce: string, perceivedForceClass: string | undefined, perceivedForce: string, perceivedName: string,
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
-  currentLocation: L.LatLng, grid: SergeGrid<SergeHex<unknown>> | undefined, includePlanned: boolean,
+  currentLocation: L.LatLng, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
@@ -283,16 +283,14 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
-  const historyTurns: RouteTurn[] | undefined = existingRoute && existingRoute.history
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, filterPlannedSteps) : []
-  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, false) : []
+  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(historyTurns || asset.history, grid,
-    false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
