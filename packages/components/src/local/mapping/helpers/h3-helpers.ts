@@ -90,14 +90,15 @@ export const ijLabel = (iV: number, jV: number): string => {
 
 export const createIndex = (x: number, y: number): string => {
   const range = 'ABCDEFGHJKLMNPQRSTUVWXYZ'.split('')
+  const base = range.length
   let result = ''
 
-  while (x > 0) {
+  while (x >= 0) {
     // 0 corresponds to `A` and 23 corresponds to `Z`
-    result = range[(x - 1) % 24] + result
-    x = Math.floor((x - 1) / 24)
+    result = range[x % base] + result
+    x = Math.floor(x / base) - 1
   }
-  return result + y
+  return result + (y + 1)
 }
 
 export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
