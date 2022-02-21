@@ -49,7 +49,7 @@ it('generates hex coords', () => {
   const first = grid[0]
   expect(first.index).toEqual('830652fffffffff')
   expect(first.labelStore.latLon).toEqual('64.85N 38.88W')
-  expect(first.labelStore.xy).toEqual('B3')
+  expect(first.labelStore.xy).toEqual('A2')
   expect(first.labelStore.ctr).toEqual('1')
   expect(first.poly.length).toEqual(6)
 })
@@ -63,7 +63,7 @@ it('generates hex coords for large area', () => {
   expect(first.labelStore.latLon).toEqual('64.83N 87.82W')
   expect(first.poly.length).toEqual(6)
   expect(first.labelStore.ctr).toEqual('1')
-  expect(first.labelStore.xy).toEqual('B17')
+  expect(first.labelStore.xy).toEqual('A16')
 })
 
 it('correctly translates -3,23 to A23', () => {
@@ -88,7 +88,7 @@ it('correctly translates -3,23 to A23', () => {
   grid.push(makeIt(12, 15))
   const res = updateXy(grid)
   expect(res).toBeTruthy()
-  expect(res[0].labelStore.xy).toEqual('P15')
+  expect(res[0].labelStore.xy).toEqual('N14')
 })
 
 it('correctly generate index grid', () => {

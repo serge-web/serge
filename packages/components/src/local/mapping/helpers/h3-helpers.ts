@@ -30,19 +30,6 @@ export const createLabels = (index: H3Index, centreIndex: H3Index, centre: numbe
   }
 }
 
-/** create our composite cell structure for this index */
-const indexToHex = (centre: number[], labels: LabelStore, index: string, cellType: number): SergeHex3 => {
-  const edge = h3ToGeoBoundary(index)
-  return {
-    centreLatLng: L.latLng(centre[0], centre[1]),
-    labelStore: labels,
-    index: index,
-    styles: cellType,
-    terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
-    poly: edge
-  }
-}
-
 /** generate h3 coordinate for leaflet lat-long */
 const latLng2Num = (pos: L.LatLng): number[] => {
   return [pos.lat, pos.lng]
@@ -78,16 +65,8 @@ export const checkIfIJWorks = (grid: string[], centre: H3Index): boolean => {
   })
 }
 
-export const ijLabel = (iV: number, jV: number): string => {
-  const iOffset = iV - 0
-  const jOffset = jV - 0
-  const xVals = ['a', 'b', 'c', 'd', 'e']
-  const xLen = xVals.length
-  const cycles = iOffset / xLen
-  const xVal = (cycles && xVals[cycles]) + xVals[iOffset - xLen * cycles]
-  return xVal + jOffset
-}
-
+/** generate Alphanumeric Index grid coords for xy params
+ */
 export const createIndex = (x: number, y: number, range: string[], base: number): string => {
   let result = ''
   while (x >= 0) {
@@ -98,6 +77,9 @@ export const createIndex = (x: number, y: number, range: string[], base: number)
   return result + (y + 1)
 }
 
+/** now the grid is completed, generate a user friendly
+ * alphanumeric grid over it, offsetting by the highest values of x/y coords
+ */
 export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
   const withCoords = grid.filter((cell: SergeHex3) => cell.labelStore.xyVals.length)
   const iVals = withCoords.map((cell: SergeHex3): number => cell.labelStore.xyVals[0])
@@ -112,7 +94,7 @@ export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
     if (coords.length) {
       const i = coords[0]
       const j = coords[1] // so number coords start at one
-      const label = createIndex(iMax - i + 1, jMax - j + 1, range, base)
+      const label = createIndex(iMax - i, jMax - j, range, base)
       cell.labelStore.xy = label
       return cell
     } else {
@@ -165,8 +147,15 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
     const powerCell = Math.pow(2, cellStyle)
     const centre = h3ToGeo(cell)
     const labels = createLabels(cell, centreIndex, centre)
-    const res = indexToHex(centre, labels, cell, powerCell)
-    return res
+    const edge = h3ToGeoBoundary(cell)
+    return {
+      centreLatLng: L.latLng(centre[0], centre[1]),
+      labelStore: labels,
+      index: cell,
+      styles: powerCell,
+      terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
+      poly: edge
+    }
   })
 
   /** method to sort the cells from top-left to bottom right, to try to make
