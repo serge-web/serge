@@ -20,7 +20,7 @@ import { WorldStatePanels } from './helpers/enums'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
-  submitTitle, submitForm, panel, gridCells, turnNumber,
+  submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
 }: PropTypes) => {
@@ -167,7 +167,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
-    return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
+    return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type)
   }
 
   // player can drag items in planning phase if they can submit orders, or umpire can do it

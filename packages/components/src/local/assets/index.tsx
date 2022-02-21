@@ -19,7 +19,7 @@ export const Assets: React.FC<{}> = () => {
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
   const {
-    gridCells,
+    h3gridCells,
     forces,
     playerForce,
     selectedAsset,
@@ -44,7 +44,7 @@ export const Assets: React.FC<{}> = () => {
   }, [playerForce])
 
   useEffect(() => {
-    if (gridCells) {
+    if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce } = route
@@ -98,7 +98,7 @@ export const Assets: React.FC<{}> = () => {
       })
       setAssets(tmpAssets)
     }
-  }, [gridCells, forces, playerForce, viewAsRouteStore])
+  }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
   return <>
     <LayerGroup>{ assets && assets.map((asset) => {
