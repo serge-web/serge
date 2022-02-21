@@ -105,7 +105,7 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /** the forces from props has changed */
   useEffect(() => {
-    const doIt = (label: string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
+    const storeStyle = (label: string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
       return {
         label: label,
         value: style,
@@ -115,12 +115,11 @@ export const MapControl: React.FC<PropTypes> = ({
 
     // collate the cell styles
     const cellStyleList: CellStyleDetails[] = [
-      doIt('Ctr', CellLabelStyle.CTR_LABELS, cellLabelType),
-      doIt('H3', CellLabelStyle.H3_LABELS, cellLabelType),
-      doIt('L/L', CellLabelStyle.LAT_LON_LABELS, cellLabelType),
-      doIt('X-Y', CellLabelStyle.X_Y_LABELS, cellLabelType)
+      storeStyle('Ctr', CellLabelStyle.CTR_LABELS, cellLabelType),
+      storeStyle('H3', CellLabelStyle.H3_LABELS, cellLabelType),
+      storeStyle('L/L', CellLabelStyle.LAT_LON_LABELS, cellLabelType),
+      storeStyle('X-Y', CellLabelStyle.X_Y_LABELS, cellLabelType)
     ]
-    console.log('regen cell styles', cellStyleList[0].active)
     setCellStyles(cellStyleList)
   }, [cellLabelType])
 
