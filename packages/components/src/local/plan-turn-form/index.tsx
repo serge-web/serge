@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -15,7 +15,8 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
-import { PlanTurnFormValues, Status } from '@serge/custom-types'
+import { CommodityType, NumberCommodityType, NumberCommodityValue, PlanTurnFormValues, Status } from '@serge/custom-types'
+import Badge from '../atoms/badge'
 
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({
@@ -28,6 +29,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   const { statusVal, turnsVal, speedVal, condition } = formState
 
   const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
+
+  // whether the player can edit any of the attributes
+  const attributesAreEditable = formData.populate.attributes && formData.populate.attributes.some((value: CommodityType) => value.editableByPlayer)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -140,14 +144,22 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       : <FormGroup title="For">
         <Input className={clInput} disabled={formDisabled} name="turns" value={turnsVal} onChange={changeHandler}/>
         <span className={styles.text}>turns</span>
-        {/*
-          <TextInput
-            label="For"
-            name="turns"
-            value={turnsVal}
-            updateState={changeHandler}
-          />
-        */}
+      </FormGroup>
+    }
+    {formData.values.attributes && formData.values.attributes.length > 0 &&
+      <FormGroup title="Attributes" titlePosition="absolute">
+        <div className={styles.attributelist}>
+          { formData.values.attributes.map((item: NumberCommodityValue): ReactElement => {
+            const cType = formData.populate.attributes.find((value: NumberCommodityType) => value.commId === item.commId)
+            const name = cType ? cType.name : 'UKNOWN'
+            const units = (cType && cType.units && (' ' + cType.units)) || ''
+            const label = name + ': ' + item.value + units
+            return <Badge allCaps={false} customSize='large' label={label}/>
+          })}
+          { attributesAreEditable && 
+            <span className={styles.editattributes}><Button>Edit</Button></span>
+          }
+        </div>
       </FormGroup>
     }
     <FormGroup title="Condition">

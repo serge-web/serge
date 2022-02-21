@@ -121,6 +121,7 @@ export const Assets: React.FC<{}> = () => {
         perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
         imageSrc={imageSrc}
+        attributes={asset.attributes || []}
         locationPending={!!asset.laydownPhase}/>
     })}
 

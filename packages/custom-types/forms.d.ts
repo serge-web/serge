@@ -1,4 +1,6 @@
+import { CommodityTypes } from '.'
 import ColorOption from './color-option'
+import { CommodityValues } from './commodities'
 import SergeHex from './serge-hex'
 
 interface Status {
@@ -38,6 +40,7 @@ export interface NewTurnValues {
 export interface PlanTurnFormPopulate {
   status: Array<Status>
   speed: Array<number>
+  attributes: CommodityTypes
 }
 
 export interface PlanTurnFormValues {
@@ -45,6 +48,7 @@ export interface PlanTurnFormValues {
   speedVal: number
   turnsVal: number
   condition: string
+  attributes: CommodityValues
 }
 
 export interface PlanTurnFormData {

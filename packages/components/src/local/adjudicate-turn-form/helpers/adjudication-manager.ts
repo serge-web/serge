@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData, CommodityValues } from '@serge/custom-types'
 import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
@@ -334,14 +334,18 @@ class AdjudicationManager {
   readyForDragging (): void {
     // convert the data object
     const state: Status | undefined = this.plannedState()
-    const status: RouteStatus = this.currentStatus()
     if (state) {
+      const status: RouteStatus = this.currentStatus()
+      const route: Route | undefined = this.store.selected
+      const attributes: CommodityValues = (route && route.attributes) || []
       // ok, start planning
       const turnData: PlanTurnFormValues = {
         statusVal: state,
         speedVal: status.speedKts ? status.speedKts : 0,
         turnsVal: 1,
-        condition: this.currentCondition()
+        condition: this.currentCondition(),
+        // TODO: use real atributes
+        attributes: attributes
       }
       this.turnPlanned(turnData)
     }
