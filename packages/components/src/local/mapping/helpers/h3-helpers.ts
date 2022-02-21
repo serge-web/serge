@@ -88,11 +88,8 @@ export const ijLabel = (iV: number, jV: number): string => {
   return xVal + jOffset
 }
 
-export const createIndex = (x: number, y: number): string => {
-  const range = 'ABCDEFGHJKLMNPQRSTUVWXYZ'.split('')
-  const base = range.length
+export const createIndex = (x: number, y: number, range: string[], base: number): string => {
   let result = ''
-
   while (x >= 0) {
     // 0 corresponds to `A` and 23 corresponds to `Z`
     result = range[x % base] + result
@@ -107,12 +104,15 @@ export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
   const jVals = withCoords.map((cell: SergeHex3): number => cell.labelStore.xyVals[1])
   const iMax = Math.max(...iVals)
   const jMax = Math.max(...jVals)
+  const range: string[] = 'ABCDEFGHJKLMNPQRSTUVWXYZ'.split('')
+  const base = range.length
+
   const res = grid.map((cell: SergeHex3): SergeHex3 => {
     const coords = cell.labelStore.xyVals
     if (coords.length) {
       const i = coords[0]
       const j = coords[1] // so number coords start at one
-      const label = createIndex(iMax - i + 1, jMax - j + 1)
+      const label = createIndex(iMax - i + 1, jMax - j + 1, range, base)
       cell.labelStore.xy = label
       return cell
     } else {

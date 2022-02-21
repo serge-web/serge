@@ -92,9 +92,12 @@ it('correctly translates -3,23 to A23', () => {
 })
 
 it('correctly generate index grid', () => {
-  expect(createIndex(0, 0)).toEqual('A1')
-  expect(createIndex(1, 0)).toEqual('B1')
-  expect(createIndex(1, 1)).toEqual('B2')
-  expect(createIndex(24, 31)).toEqual('AA32')
-  expect(createIndex(18000, 80084)).toEqual('AGFA80085')
+  const range: string[] = 'ABCDEFGHJKLMNPQRSTUVWXYZ'.split('')
+  const base = range.length
+
+  expect(createIndex(0, 0, range, base)).toEqual('A1')
+  expect(createIndex(1, 0, range, base)).toEqual('B1')
+  expect(createIndex(1, 1, range, base)).toEqual('B2')
+  expect(createIndex(24, 31, range, base)).toEqual('AA32')
+  expect(createIndex(18000, 80084, range, base)).toEqual('AGFA80085')
 })
