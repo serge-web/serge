@@ -5,6 +5,7 @@ import PlanTurnForm from './index'
 import docs from './README.md'
 import { withKnobs, radios } from '@storybook/addon-knobs'
 import { PlanTurnFormValues } from '@serge/custom-types'
+import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -47,7 +48,8 @@ export const Default: React.FC = () => <PlanTurnForm
         name: 'Transiting',
         mobile: true
       }],
-      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40]
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
+      attributes: []
     },
     values: {
       statusVal: {
@@ -56,44 +58,15 @@ export const Default: React.FC = () => <PlanTurnForm
       },
       speedVal: 0,
       turnsVal: 5,
-      condition: 'Working'
+      condition: 'Working',
+      attributes: []
     }
   }}
   icon={iconData}
   plansSubmitted={false}
 />
 
-export const CannotSubmitPlans: React.FC = () => <PlanTurnForm
-  turnPlanned={postback}
-  formHeader="Planning header"
-  canSubmitPlans={false}
-  formData={{
-    populate: {
-      status: [{
-        name: 'Moored',
-        mobile: false
-      },
-      {
-        name: 'Transiting',
-        mobile: true
-      }],
-      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40]
-    },
-    values: {
-      statusVal: {
-        name: 'Transiting',
-        mobile: true
-      },
-      speedVal: 0,
-      turnsVal: 5,
-      condition: 'Working'
-    }
-  }}
-  icon={iconData}
-  plansSubmitted={false}
-/>
-
-export const TurnsPlanned: React.FC = () => <PlanTurnForm
+export const DefaultAttributesEditable: React.FC = () => <PlanTurnForm
   turnPlanned={postback}
   formHeader="Planning header"
   canSubmitPlans={true}
@@ -107,7 +80,10 @@ export const TurnsPlanned: React.FC = () => <PlanTurnForm
         name: 'Transiting',
         mobile: true
       }],
-      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40]
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
+      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false },
+        { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People', editableByPlayer: true },
+        { attrId: 'comm_c', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Water', units: 'litres', editableByPlayer: false }]
     },
     values: {
       statusVal: {
@@ -116,7 +92,74 @@ export const TurnsPlanned: React.FC = () => <PlanTurnForm
       },
       speedVal: 0,
       turnsVal: 5,
-      condition: 'Working'
+      condition: 'Working',
+      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_VALUE_NUMBER, value: 12 },
+        { attrId: 'comm_b', attrType: ATTRIBUTE_VALUE_NUMBER, value: 213 },
+        { attrId: 'comm_c', attrType: ATTRIBUTE_VALUE_NUMBER, value: 12450 }]
+    }
+  }}
+  icon={iconData}
+  plansSubmitted={false}
+/>
+
+export const CannotSubmitPlansNoAttributes: React.FC = () => <PlanTurnForm
+  turnPlanned={postback}
+  formHeader="Planning header"
+  canSubmitPlans={false}
+  formData={{
+    populate: {
+      status: [{
+        name: 'Moored',
+        mobile: false
+      },
+      {
+        name: 'Transiting',
+        mobile: true
+      }],
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
+      attributes: []
+    },
+    values: {
+      statusVal: {
+        name: 'Transiting',
+        mobile: true
+      },
+      speedVal: 0,
+      turnsVal: 5,
+      condition: 'Working',
+      attributes: []
+    }
+  }}
+  icon={iconData}
+  plansSubmitted={false}
+/>
+
+export const TurnsPlannedAttributesNotEditable: React.FC = () => <PlanTurnForm
+  turnPlanned={postback}
+  formHeader="Planning header"
+  canSubmitPlans={true}
+  formData={{
+    populate: {
+      status: [{
+        name: 'Moored',
+        mobile: false
+      },
+      {
+        name: 'Transiting',
+        mobile: true
+      }],
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
+      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false }]
+    },
+    values: {
+      statusVal: {
+        name: 'Transiting',
+        mobile: true
+      },
+      speedVal: 0,
+      turnsVal: 5,
+      condition: 'Working',
+      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_VALUE_NUMBER, value: 12 }]
     }
   }}
   icon={iconData}

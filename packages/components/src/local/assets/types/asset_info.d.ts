@@ -1,5 +1,5 @@
 import { LaydownPhases } from '@serge/config'
-import { RouteStatus } from '@serge/custom-types'
+import { AttributeValues, RouteStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
 export default interface AssetInfo {
@@ -17,4 +17,5 @@ export default interface AssetInfo {
   readonly uniqid: string
   controlledBy?: Array<string>
   laydownPhase?: LaydownPhases
+  attributes: AttributeValues
 }

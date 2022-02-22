@@ -2,9 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
+  'attribute-header': string;
   'button': string;
   'col': string;
-  'commoditie-header': string;
   'form-row': string;
   'mobile': string;
   'mobile-title': string;

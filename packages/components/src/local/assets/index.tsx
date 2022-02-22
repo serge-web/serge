@@ -47,7 +47,7 @@ export const Assets: React.FC<{}> = () => {
     if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce } = route
+        const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
@@ -87,7 +87,8 @@ export const Assets: React.FC<{}> = () => {
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
                 controlledBy: assetForce.controlledBy,
-                laydownPhase: laydownPhase
+                laydownPhase: laydownPhase,
+                attributes: attributes
               }
               tmpAssets.push(assetInfo)
             }
@@ -101,7 +102,7 @@ export const Assets: React.FC<{}> = () => {
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
   return <>
-    <LayerGroup>{ assets && assets.map((asset) => {
+    <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
       const platformType = platformTypesByKey[asset.type]
       const imageSrc: string | undefined = typeof platformType !== 'undefined' ? platformType.icon : undefined
       return <AssetIcon
@@ -121,6 +122,7 @@ export const Assets: React.FC<{}> = () => {
         perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
         imageSrc={imageSrc}
+        attributes={asset.attributes}
         locationPending={!!asset.laydownPhase}/>
     })}
 

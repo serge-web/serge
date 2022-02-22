@@ -227,7 +227,8 @@ export const MapBar: React.FC = () => {
         condition: asset.condition,
         visibleTo: visibleToArr,
         status: asset.status,
-        locationPending: !!asset.locationPending
+        locationPending: !!asset.locationPending,
+        attributes: asset.attributeValues || []
       }
       // ok done, share the good news
       setSelectedAsset(selected)

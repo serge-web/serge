@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 /* Import helpers */
 import { deepCompare, isNumber } from '@serge/helpers'
 import Badge from '../atoms/badge'
-import { ColorOption, RouteStatus, Status } from '@serge/custom-types'
+import { ColorOption, AttributeTypes, AttributeValues, NumberAttributeType, NumberAttributeValue, RouteStatus, Status } from '@serge/custom-types'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
@@ -42,6 +42,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
   const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
+
+  const [attributeTypes, setAttributeTypes] = useState<AttributeTypes>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -69,6 +72,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
 
+      // attributes
+      updateIfNecessary('attribute types', attributeTypes, formData.attributes, setAttributeTypes)
+      updateIfNecessary('attribute values', attributeValues, manager.currentAttributeValues(), setAttributeValues)
+
       // the command buttons
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
@@ -94,6 +101,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       console.warn('Adjudicate form received unexpected condition', e)
     }
   }
+
+  const attributesHandler = (attributes: AttributeValues): void => {
+    manager && manager.setCurrentAttributes(attributes)
+  }
+  // TODO - delete this, once we're using attributes handler
+  console.log('dummy call to please compiler', !!attributesHandler)
 
   const visibleHandler = (e: any): void => {
     setVisibleVal(e.value)
@@ -185,6 +198,20 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           </FormGroup>
         }
       </fieldset>
+      }
+      { attributeValues && attributeValues.length > 0 &&
+      <FormGroup title="Attributes" titlePosition="absolute">
+        <div className={styles.attributelist}>
+          { attributeValues.map((item: NumberAttributeValue): ReactElement => {
+            const cType = attributeTypes && attributeTypes.find((value: NumberAttributeType) => value.attrId === item.attrId)
+            const name = cType ? cType.name : ('UNKNOWN:' + item.attrId)
+            const units = (cType && cType.units && (' ' + cType.units)) || ''
+            const label = name + ': ' + item.value + units
+            return <Badge key={item.attrId} allCaps={false} customSize='large' label={label}/>
+          })}
+          <span className={styles.editattributes}><Button>Edit</Button></span>
+        </div>
+      </FormGroup>
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">

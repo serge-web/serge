@@ -335,7 +335,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     asset: asset,
     visibleTo: visibleTo,
     condition: condition,
-    adjudicationState: adjudicationState
+    adjudicationState: adjudicationState,
+    attributes: asset.attributeValues || []
   }
 }
 

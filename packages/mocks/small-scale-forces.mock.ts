@@ -69,11 +69,21 @@ export const forces: ForceData[] = [
         ],
         "locationPending": true,
         "name": "SSN-1",
-        "commodityValues": [
+        "attributeValues": [
           {
-            commId: 'asdicComm',
-            commType: "CommodityValueNumber",
+            attrId: 'asdicComm',
+            attrType: "AttributeValueNumber",
             value: 135
+          },
+          {
+            attrId: 'comm-battery',
+            attrType: "AttributeValueNumber",
+            value: 90
+          },
+          {
+            attrId: 'comm-torpedoes',
+            attrType: "AttributeValueNumber",
+            value: 10
           }
         ],
         "perceptions": [],

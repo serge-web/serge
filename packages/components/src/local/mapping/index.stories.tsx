@@ -247,6 +247,7 @@ WithMarker.args = {
       perceivedForceColor={'#00f'}
       perceivedForceClass={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
       visibleTo={['blue,', 'red']}
+      attributes= {[]}
       status={{
         speedKts: 10,
         state: 'Working'
