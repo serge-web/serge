@@ -65,8 +65,6 @@ formWithAttributes.attributes = [
 const manager2: AdjudicationManager = new AdjudicationManager(storeWithAttributes, platformTypes, 'a1', 'Asset name', 3,
   setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formWithAttributes)
 
-console.log('attr', manager2, manager2.currentAttributeValues())
-
 export const Default: React.FC = () => <AdjudicateTurnForm
   manager={manager}
   canSubmitPlans={true}
