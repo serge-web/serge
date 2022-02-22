@@ -18,7 +18,8 @@ const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsse
     status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
     speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
     visibleTo: availableForcesList,
-    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: string) => c) : []
+    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: string) => c) : [],
+    attributes: (currentPlatform && currentPlatform.commodityTypes) || []
   }
   return formData
 }

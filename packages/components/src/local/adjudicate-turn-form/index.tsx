@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 /* Import helpers */
 import { deepCompare, isNumber } from '@serge/helpers'
 import Badge from '../atoms/badge'
-import { ColorOption, RouteStatus, Status } from '@serge/custom-types'
+import { ColorOption, CommodityTypes, CommodityValues, NumberCommodityType, NumberCommodityValue, RouteStatus, Status } from '@serge/custom-types'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
@@ -42,6 +42,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
   const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
+
+  const [attributeTypes, setAttributeTypes] = useState<CommodityTypes>([])
+  const [attributeValues, setAttributeValues] = useState<CommodityValues>([])
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -68,6 +71,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('status', statusVal, manager.plannedState().name, setStatusVal)
       updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
+
+      // attributes
+      updateIfNecessary('attribute types', attributeTypes, formData.attributes, setAttributeTypes)
+      updateIfNecessary('attribute values', attributeValues, manager.currentAttributeValues(), setAttributeValues)
 
       // the command buttons
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
@@ -185,6 +192,20 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           </FormGroup>
         }
       </fieldset>
+      }
+      { attributeValues && attributeValues.length > 0 &&
+      <FormGroup title="Attributes" titlePosition="absolute">
+        <div className={styles.attributelist}>
+          { attributeValues.map((item: NumberCommodityValue): ReactElement => {
+            const cType = attributeTypes && attributeTypes.find((value: NumberCommodityType) => value.commId === item.commId)
+            const name = cType ? cType.name : 'UKNOWN'
+            const units = (cType && cType.units && (' ' + cType.units)) || ''
+            const label = name + ': ' + item.value + units
+            return <Badge allCaps={false} customSize='large' label={label}/>
+          })}
+          <span className={styles.editattributes}><Button>Edit</Button></span>
+        </div>
+      </FormGroup>
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">

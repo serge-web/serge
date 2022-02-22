@@ -96,6 +96,11 @@ class AdjudicationManager {
     return undefined
   }
 
+  currentAttributeValues (): CommodityValues {
+    const selected: Route | undefined = this && this.store && this.store.selected
+    return selected ? selected.attributes : []
+  }
+
   /** indicate the planned speed of the selected asset */
   plannedSpeed (): number {
     const selected: Route | undefined = this.store.selected
@@ -344,7 +349,6 @@ class AdjudicationManager {
         speedVal: status.speedKts ? status.speedKts : 0,
         turnsVal: 1,
         condition: this.currentCondition(),
-        // TODO: use real atributes
         attributes: attributes
       }
       this.turnPlanned(turnData)

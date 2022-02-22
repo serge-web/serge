@@ -63,6 +63,7 @@ export interface AdjudicateTurnFormPopulate {
   speed: Array<number>
   visibleTo: Array<ColorOption>
   condition: Array<string>
+  attributes: CommodityTypes
 }
 
 export interface VisibilityFormData {
