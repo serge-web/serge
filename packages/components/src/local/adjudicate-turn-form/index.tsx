@@ -102,6 +102,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const attributesHandler = (attributes: CommodityValues): void => {
+    manager && manager.setCurrentAttributes(attributes)
+  }
+  // TODO - delete this, once we're using attributes handler
+  console.log('dummy call to please compiler', !!attributesHandler)
+
   const visibleHandler = (e: any): void => {
     setVisibleVal(e.value)
     manager && manager.setCurrentVisibleTo(e.value)
