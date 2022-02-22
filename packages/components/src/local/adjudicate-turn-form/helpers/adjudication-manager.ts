@@ -101,6 +101,14 @@ class AdjudicationManager {
     return selected ? selected.attributes : []
   }
 
+  setCurrentAttributes(attributes: CommodityValues) {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      selected.attributes = attributes
+    }
+  }
+
+
   /** indicate the planned speed of the selected asset */
   plannedSpeed (): number {
     const selected: Route | undefined = this.store.selected

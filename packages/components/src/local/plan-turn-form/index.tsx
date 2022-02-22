@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
-import { CommodityType, NumberCommodityType, NumberCommodityValue, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { CommodityType, CommodityValues, NumberCommodityType, NumberCommodityValue, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 
 /* Render component */
@@ -61,6 +61,17 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const attributesHandler = (attributes: CommodityValues): void => {
+    setFormState(
+      {
+        ...formState,
+        attributes: attributes
+      }
+    )
+  }
+  // TODO - delete this, once we're using attributes handler
+  console.log('dummy call to please compiler', !!attributesHandler)
+
   const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
   if (!speedInitialised) {
     setSpeedInitialised(true)
@@ -68,7 +79,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   }
 
   // Status has a different data model and requires it's own handler
-
   const statusHandler = (data: any): void => {
     // retrieve the new value
     const newState: string = data.target && data.target.value
@@ -117,7 +127,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
         <Button onClick={deleteEmptyTaskGroup}>Group Empty - <b>Delete</b></Button>
       }
       { plansSubmitted &&
-       <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
     <FormGroup title="State" align="right">
