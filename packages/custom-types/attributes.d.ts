@@ -53,3 +53,19 @@ export type AttributeTypes = AttributeType[]
 /** collection of instances of values of atribute */
 export type AttributeValues = AttributeValue[]
 
+/** collate data for attribute editor table */
+export interface AttributeEditorData {
+  // name for read interface
+  nameRead: string
+  // name for text editor, optionally includes units
+  nameWrite: string
+  description?: string
+  // value as displayed in read-only mode
+  valueRead: string
+  // value as supplied to text field
+  valueWrite: string
+  // attribute id, needed to store results
+  attrId: string
+  // value type, needed to store results
+  valueType: string
+}

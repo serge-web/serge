@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -14,8 +14,8 @@ import Input from '@material-ui/core/Input'
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { isNumber } from '@serge/helpers'
-import { AttributeType, AttributeValues, NumberAttributeType, NumberAttributeValue, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { collateEditorData, isNumber } from '@serge/helpers'
+import { AttributeEditorData, AttributeType, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 
 /* Render component */
@@ -24,6 +24,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   turnPlanned, icon, plansSubmitted, deleteEmptyTaskGroup
 }) => {
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
+  const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
 
   const { status, speed } = formData.populate
   const { statusVal, turnsVal, speedVal, condition } = formState
@@ -31,9 +32,14 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
 
   // whether the player can edit any of the attributes
-  const attributesAreEditable = formData.populate.attributes && formData.populate.attributes.some((value: AttributeType) => value.editableByPlayer)
+  const attributesAreEditable = canSubmitPlans && formData.populate.attributes && formData.populate.attributes.some((value: AttributeType) => value.editableByPlayer)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
+
+  // initialise, from manager helper
+  useEffect(() => {
+    setAttributes(collateEditorData(formData.values.attributes, formData.populate.attributes))
+  }, [formData.values, formData.populate])
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -156,14 +162,11 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
         <span className={styles.text}>turns</span>
       </FormGroup>
     }
-    {formData.values.attributes && formData.values.attributes.length > 0 &&
+    {attributes && attributes.length > 0 &&
       <FormGroup title="Attributes" titlePosition="absolute">
         <div className={styles.attributelist}>
-          { formData.values.attributes.map((item: NumberAttributeValue): ReactElement => {
-            const cType = formData.populate.attributes.find((value: NumberAttributeType) => value.attrId === item.attrId)
-            const name = cType ? cType.name : ('UNKNOWN' + item.attrId)
-            const units = (cType && cType.units && (' ' + cType.units)) || ''
-            const label = name + ': ' + item.value + units
+          { attributes.map((item: AttributeEditorData): ReactElement => {
+            const label = item.nameRead + ' ' + item.valueRead
             return <Badge key={item.attrId} allCaps={false} customSize='large' label={label}/>
           })}
           { attributesAreEditable &&

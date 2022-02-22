@@ -161,56 +161,6 @@ exports[`PlanTurnForm renders correctly 1`] = `
     className="group"
   >
     <div
-      className="container title title-absolute"
-    >
-      Attributes
-    </div>
-    <div
-      className="container main-container"
-    >
-      <div
-        className="attributelist"
-      >
-        <div
-          className="MuiChip-root makeStyles-root-1 makeStyles-root-4"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-        >
-          <span
-            className="MuiChip-label makeStyles-label-3 makeStyles-label-5"
-          >
-            Fuel: 12
-          </span>
-        </div>
-        <div
-          className="MuiChip-root makeStyles-root-1 makeStyles-root-6"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-        >
-          <span
-            className="MuiChip-label makeStyles-label-3 makeStyles-label-7"
-          >
-            People: 213
-          </span>
-        </div>
-        <div
-          className="MuiChip-root makeStyles-root-1 makeStyles-root-8"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-        >
-          <span
-            className="MuiChip-label makeStyles-label-3 makeStyles-label-9"
-          >
-            Water: 12450 litres
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="group"
-  >
-    <div
       className="container title"
     >
       Condition
@@ -226,7 +176,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
     </div>
   </div>
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

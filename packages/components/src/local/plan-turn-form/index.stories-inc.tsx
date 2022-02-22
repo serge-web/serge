@@ -102,6 +102,42 @@ export const DefaultAttributesEditable: React.FC = () => <PlanTurnForm
   plansSubmitted={false}
 />
 
+export const DefaultAttributesEditableCannotSubmitPlans: React.FC = () => <PlanTurnForm
+  turnPlanned={postback}
+  formHeader="Planning header"
+  canSubmitPlans={false}
+  formData={{
+    populate: {
+      status: [{
+        name: 'Moored',
+        mobile: false
+      },
+      {
+        name: 'Transiting',
+        mobile: true
+      }],
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
+      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false },
+        { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People', editableByPlayer: true },
+        { attrId: 'comm_c', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Water', units: 'litres', editableByPlayer: false }]
+    },
+    values: {
+      statusVal: {
+        name: 'Transiting',
+        mobile: true
+      },
+      speedVal: 0,
+      turnsVal: 5,
+      condition: 'Working',
+      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_VALUE_NUMBER, value: 12 },
+        { attrId: 'comm_b', attrType: ATTRIBUTE_VALUE_NUMBER, value: 213 },
+        { attrId: 'comm_c', attrType: ATTRIBUTE_VALUE_NUMBER, value: 12450 }]
+    }
+  }}
+  icon={iconData}
+  plansSubmitted={false}
+/>
+
 export const CannotSubmitPlansNoAttributes: React.FC = () => <PlanTurnForm
   turnPlanned={postback}
   formHeader="Planning header"
