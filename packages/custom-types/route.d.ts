@@ -1,5 +1,5 @@
 import { PlanningStates, LaydownPhases } from '@serge/config'
-import { Asset, CommodityValues } from '.'
+import { Asset, AttributeValues } from '.'
 import RouteStatus from './route-status'
 import RouteTurn from './route-turn'
 
@@ -82,5 +82,5 @@ export default interface Route {
   /** how far this route has progressed through the adjudication process */
   adjudicationState?: PlanningStates
   /** the attributes for this asset */
-  attributes: CommodityValues
+  attributes: AttributeValues
 }

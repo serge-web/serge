@@ -1,4 +1,4 @@
-import { CommodityValues, RouteStatus } from ".";
+import { AttributeValues, RouteStatus } from ".";
 
 /**
  * note: for some of the fields in this structure, it's the perceived name/type/force,
@@ -14,7 +14,7 @@ export default interface SelectedAsset {
     condition: string,
     visibleTo: Array<string>
     status?: RouteStatus,
-    attributes: CommodityValues
+    attributes: AttributeValues
     /** flag for if player is free to relocate this asset to a suitable cell in turn zero */
     locationPending?: boolean
   }

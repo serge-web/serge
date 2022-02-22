@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData, CommodityValues } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData, AttributeValues } from '@serge/custom-types'
 import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
@@ -96,12 +96,12 @@ class AdjudicationManager {
     return undefined
   }
 
-  currentAttributeValues (): CommodityValues {
+  currentAttributeValues (): AttributeValues {
     const selected: Route | undefined = this && this.store && this.store.selected
     return selected ? selected.attributes : []
   }
 
-  setCurrentAttributes (attributes: CommodityValues) {
+  setCurrentAttributes (attributes: AttributeValues) {
     const selected: Route | undefined = this.store.selected
     if (selected) {
       selected.attributes = attributes
@@ -349,7 +349,7 @@ class AdjudicationManager {
     if (state) {
       const status: RouteStatus = this.currentStatus()
       const route: Route | undefined = this.store.selected
-      const attributes: CommodityValues = (route && route.attributes) || []
+      const attributes: AttributeValues = (route && route.attributes) || []
       // ok, start planning
       const turnData: PlanTurnFormValues = {
         statusVal: state,

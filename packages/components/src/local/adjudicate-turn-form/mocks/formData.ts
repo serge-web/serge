@@ -1,6 +1,6 @@
-import { AdjudicateTurnFormPopulate, CommodityTypes } from '@serge/custom-types'
+import { AdjudicateTurnFormPopulate, AttributeTypes } from '@serge/custom-types'
 
-const attributes: CommodityTypes = []
+const attributes: AttributeTypes = []
 
 const formData: AdjudicateTurnFormPopulate = {
   contactId: 'C234',

@@ -19,7 +19,7 @@ const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsse
     speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
     visibleTo: availableForcesList,
     condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: string) => c) : [],
-    attributes: (currentPlatform && currentPlatform.commodityTypes) || []
+    attributes: (currentPlatform && currentPlatform.attributeTypes) || []
   }
   return formData
 }

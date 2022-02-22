@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
-import { CommodityType, CommodityValues, NumberCommodityType, NumberCommodityValue, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { AttributeType, AttributeValues, NumberAttributeType, NumberAttributeValue, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 
 /* Render component */
@@ -31,7 +31,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
 
   // whether the player can edit any of the attributes
-  const attributesAreEditable = formData.populate.attributes && formData.populate.attributes.some((value: CommodityType) => value.editableByPlayer)
+  const attributesAreEditable = formData.populate.attributes && formData.populate.attributes.some((value: AttributeType) => value.editableByPlayer)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -61,7 +61,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const attributesHandler = (attributes: CommodityValues): void => {
+  const attributesHandler = (attributes: AttributeValues): void => {
     setFormState(
       {
         ...formState,
@@ -159,8 +159,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     {formData.values.attributes && formData.values.attributes.length > 0 &&
       <FormGroup title="Attributes" titlePosition="absolute">
         <div className={styles.attributelist}>
-          { formData.values.attributes.map((item: NumberCommodityValue): ReactElement => {
-            const cType = formData.populate.attributes.find((value: NumberCommodityType) => value.commId === item.commId)
+          { formData.values.attributes.map((item: NumberAttributeValue): ReactElement => {
+            const cType = formData.populate.attributes.find((value: NumberAttributeType) => value.attrId === item.attrId)
             const name = cType ? cType.name : 'UKNOWN'
             const units = (cType && cType.units && (' ' + cType.units)) || ''
             const label = name + ': ' + item.value + units

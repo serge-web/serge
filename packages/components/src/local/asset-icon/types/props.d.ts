@@ -1,4 +1,4 @@
-import { CommodityValues, RouteStatus } from '@serge/custom-types'
+import { AttributeValues, RouteStatus } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -68,5 +68,5 @@ export default interface PropTypes {
   /**
    *  attributes for this assset
    */
-  attributes: CommodityValues
+  attributes: AttributeValues
 }

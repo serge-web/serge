@@ -22,7 +22,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
     populate: {
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
       speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      attributes: (currentPlatform && currentPlatform.commodityTypes) ? [] : []
+      attributes: (currentPlatform && currentPlatform.attributeTypes) ? [] : []
     },
     values: {
       // we will always have the status, but compiler doesn't trust us

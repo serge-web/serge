@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 /* Import helpers */
 import { deepCompare, isNumber } from '@serge/helpers'
 import Badge from '../atoms/badge'
-import { ColorOption, CommodityTypes, CommodityValues, NumberCommodityType, NumberCommodityValue, RouteStatus, Status } from '@serge/custom-types'
+import { ColorOption, AttributeTypes, AttributeValues, NumberAttributeType, NumberAttributeValue, RouteStatus, Status } from '@serge/custom-types'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
@@ -43,8 +43,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
   const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
-  const [attributeTypes, setAttributeTypes] = useState<CommodityTypes>([])
-  const [attributeValues, setAttributeValues] = useState<CommodityValues>([])
+  const [attributeTypes, setAttributeTypes] = useState<AttributeTypes>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -102,7 +102,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const attributesHandler = (attributes: CommodityValues): void => {
+  const attributesHandler = (attributes: AttributeValues): void => {
     manager && manager.setCurrentAttributes(attributes)
   }
   // TODO - delete this, once we're using attributes handler
@@ -202,8 +202,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       { attributeValues && attributeValues.length > 0 &&
       <FormGroup title="Attributes" titlePosition="absolute">
         <div className={styles.attributelist}>
-          { attributeValues.map((item: NumberCommodityValue): ReactElement => {
-            const cType = attributeTypes && attributeTypes.find((value: NumberCommodityType) => value.commId === item.commId)
+          { attributeValues.map((item: NumberAttributeValue): ReactElement => {
+            const cType = attributeTypes && attributeTypes.find((value: NumberAttributeType) => value.attrId === item.attrId)
             const name = cType ? cType.name : 'UKNOWN'
             const units = (cType && cType.units && (' ' + cType.units)) || ''
             const label = name + ': ' + item.value + units

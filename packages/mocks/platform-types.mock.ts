@@ -1,4 +1,4 @@
-import { COMMODITY_TYPE_NUMBER } from "@serge/config"
+import { ATTRIBUTE_TYPE_NUMBER } from "@serge/config"
 import { PlatformTypeData } from "@serge/custom-types"
 
 export const platformTypes: PlatformTypeData[] = [
@@ -32,10 +32,10 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    commodityTypes: [
+    attributeTypes: [
       {
-        commType: COMMODITY_TYPE_NUMBER,
-        commId: 'comm-fish',
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-fish',
         name: 'quota',
         description: 'fishing allowance',
         units: 'tonnes',
@@ -43,8 +43,8 @@ export const platformTypes: PlatformTypeData[] = [
         defaultValue: 100
       },
       {
-        commType: COMMODITY_TYPE_NUMBER,
-        commId: 'comm-fuel',
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-fuel',
         name: 'fuel',
         description: 'fuel remaining',
         units: 'tonnes',
@@ -93,22 +93,22 @@ export const platformTypes: PlatformTypeData[] = [
       'Sinking',
       'Destroyed'
     ],
-    commodityTypes: [
+    attributeTypes: [
       {
         name: 'ASDIC',
-        commId: 'asdicComm',
+        attrId: 'asdicComm',
         description: 'ASDIC orientation (absolute)',
         defaultValue: 0,
         editableByPlayer: true,
-        commType: "CommodityTypeNumber"
+        attrType: "AttributeTypeNumber"
       },
       {
         name: 'Battery Level',
         units: '%',
-        commId: 'fuelComm',
+        attrId: 'fuelComm',
         defaultValue: 100,
         editableByPlayer: false,
-        commType: "CommodityTypeNumber"
+        attrType: "AttributeTypeNumber"
       }
     ],
     icon: 'frigate.svg',

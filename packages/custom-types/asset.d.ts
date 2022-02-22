@@ -1,4 +1,4 @@
-import { CommodityValues, Perception, RouteStatus, RouteTurn } from '.'
+import { AttributeValues, Perception, RouteStatus, RouteTurn } from '.'
 import { LaydownTypes } from '@serge/config'
 export interface Asset {
   /**
@@ -53,9 +53,9 @@ export interface Asset {
    *
   */
   status?: RouteStatus
-  /** commodities for this asset 
+  /** attributes for this asset 
    */
-  commodityValues?: CommodityValues
+  attributeValues?: AttributeValues
 }
 
 export default Asset

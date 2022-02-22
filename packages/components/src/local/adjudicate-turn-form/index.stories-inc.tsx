@@ -10,7 +10,7 @@ import { deepCopy, routeCreateStore, routeSetCurrent } from '@serge/helpers'
 /* Import mock data */
 import { forces, platformTypes } from '@serge/mocks'
 import AdjudicationManager from './helpers/adjudication-manager'
-import { COMMODITY_TYPE_NUMBER, COMMODITY_VALUE_NUMBER, Phase } from '@serge/config'
+import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER, Phase } from '@serge/config'
 
 export default {
   title: 'local/organisms/AdjudicateTurnForm',
@@ -34,8 +34,8 @@ const store: RouteStore = routeSetCurrent(frigateId, baseStore)
 // have a route store with attribute data
 const storeWithAttributes: RouteStore = deepCopy(store)
 if (storeWithAttributes.selected) {
-  storeWithAttributes.selected.attributes = [{ commId: 'comm_a', commType: COMMODITY_VALUE_NUMBER, value: 123 },
-    { commId: 'comm_b', commType: COMMODITY_VALUE_NUMBER, value: 42 }]
+  storeWithAttributes.selected.attributes = [{ attrId: 'comm_a', attrType: ATTRIBUTE_VALUE_NUMBER, value: 123 },
+    { attrId: 'comm_b', attrType: ATTRIBUTE_VALUE_NUMBER, value: 42 }]
 }
 
 const setRouteStore = (store: RouteStore): void => {
@@ -57,14 +57,13 @@ const closePlanningForm = (): void => {
 const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a1', 'Asset name', 3,
   setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formData)
 
-// const fuelCommodity: NumberCommodityType = { commId: 'comm_a', commType: COMMODITY_TYPE_NUMBER, name: 'Fuel', units: 'tons' }
-const formWithCommodities: AdjudicateTurnFormPopulate = deepCopy(formData)
-formWithCommodities.attributes = [
-  { commId: 'comm_a', commType: COMMODITY_TYPE_NUMBER, name: 'Fuel', units: 'tons' },
-  { commId: 'comm_b', commType: COMMODITY_TYPE_NUMBER, name: 'People' }
+const formWithAttributes: AdjudicateTurnFormPopulate = deepCopy(formData)
+formWithAttributes.attributes = [
+  { attrId: 'comm_a', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', units: 'tons' },
+  { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People' }
 ]
 const manager2: AdjudicationManager = new AdjudicationManager(storeWithAttributes, platformTypes, 'a1', 'Asset name', 3,
-  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formWithCommodities)
+  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formWithAttributes)
 
 console.log('attr', manager2, manager2.currentAttributeValues())
 
@@ -73,7 +72,7 @@ export const Default: React.FC = () => <AdjudicateTurnForm
   canSubmitPlans={true}
   plansSubmitted={false} />
 
-export const TurnsPlannedWithCommodities: React.FC = () => <AdjudicateTurnForm
+export const TurnsPlannedWithAttributes: React.FC = () => <AdjudicateTurnForm
   manager={manager2}
   canSubmitPlans={true}
   plansSubmitted={true} />
