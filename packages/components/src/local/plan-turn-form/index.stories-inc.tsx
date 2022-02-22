@@ -102,7 +102,6 @@ export const DefaultAttributesEditable: React.FC = () => <PlanTurnForm
   plansSubmitted={false}
 />
 
-
 export const DefaultAttributesEditableCannotSubmitPlans: React.FC = () => <PlanTurnForm
   turnPlanned={postback}
   formHeader="Planning header"

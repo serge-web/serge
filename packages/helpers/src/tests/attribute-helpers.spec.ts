@@ -68,5 +68,8 @@ describe('default attribute:', () => {
     expect(res[1].valueRead).toEqual('45')
     expect(res[0].valueWrite).toEqual('55.000')
     expect(res[1].valueWrite).toEqual('45')
+    expect(res[0].valueType).toEqual(ATTRIBUTE_VALUE_NUMBER)
+    expect(res[1].valueType).toEqual(ATTRIBUTE_VALUE_NUMBER)
+    expect(res[0].description).toEqual('The top speed 1 for this platform type')
   })
 })
