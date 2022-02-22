@@ -18,9 +18,9 @@ import { PlanningCommands } from '@serge/config'
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { deepCompare, isNumber } from '@serge/helpers'
+import { deepCompare, isNumber, collateEditorData } from '@serge/helpers'
 import Badge from '../atoms/badge'
-import { ColorOption, AttributeTypes, AttributeValues, NumberAttributeType, NumberAttributeValue, RouteStatus, Status } from '@serge/custom-types'
+import { ColorOption, AttributeValues, RouteStatus, Status, AttributeEditorData } from '@serge/custom-types'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
@@ -43,8 +43,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
   const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
-  const [attributeTypes, setAttributeTypes] = useState<AttributeTypes>([])
-  const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
+  const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -73,8 +72,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
 
       // attributes
-      updateIfNecessary('attribute types', attributeTypes, formData.attributes, setAttributeTypes)
-      updateIfNecessary('attribute values', attributeValues, manager.currentAttributeValues(), setAttributeValues)
+      updateIfNecessary('attribute types', attributes, collateEditorData(manager.currentAttributeValues(), formData.attributes), setAttributes)
 
       // the command buttons
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
@@ -199,14 +197,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       </fieldset>
       }
-      { attributeValues && attributeValues.length > 0 &&
+      { attributes && attributes.length > 0 &&
       <FormGroup title="Attributes" titlePosition="absolute">
         <div className={styles.attributelist}>
-          { attributeValues.map((item: NumberAttributeValue): ReactElement => {
-            const cType = attributeTypes && attributeTypes.find((value: NumberAttributeType) => value.attrId === item.attrId)
-            const name = cType ? cType.name : ('UNKNOWN:' + item.attrId)
-            const units = (cType && cType.units && (' ' + cType.units)) || ''
-            const label = name + ': ' + item.value + units
+          { attributes.map((item: AttributeEditorData): ReactElement => {
+            const label = item.nameRead + ' ' + item.valueRead
             return <Badge key={item.attrId} allCaps={false} customSize='large' label={label}/>
           })}
           <span className={styles.editattributes}><Button>Edit</Button></span>
