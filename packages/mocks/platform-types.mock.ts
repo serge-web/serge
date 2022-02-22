@@ -82,7 +82,36 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: true
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    attributeTypes: [
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'asdicComm',
+        name: 'ASDIC',
+        description: 'ASDIC orientation (absolute)',
+        units: '°',
+        editableByPlayer: true,
+        defaultValue: 0
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-battery',
+        name: 'Battery',
+        description: 'Remaining battery level',
+        units: '%',
+        editableByPlayer: false,
+        defaultValue: 100
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-torpedoes',
+        name: 'Torpedoes',
+        description: 'Number of torpedoes remaining',
+        editableByPlayer: true,
+        format: '0',
+        defaultValue: 12
+      }
+    ]
   },
   {
     name: 'Frigate',

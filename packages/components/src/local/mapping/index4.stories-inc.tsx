@@ -19,48 +19,6 @@ import data from './data/atlantic-cells'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
-// const setPlanned = (planned: boolean, forceId: number, assetId: number, value: string[]): void => {
-//   const force = forces[forceId]
-//   if (force && force.assets && force.assets.length) {
-//     const asset = force.assets[assetId]
-//     if (asset) {
-//       const list = planned ? asset.plannedTurns : asset.history
-//       value.forEach((val: string, index: number) => {
-//         if (list && list.length && list[index] && list[index].route) {
-//           const route = list[index].route
-//           if (route && route.length) {
-//             route[0] = val
-//           }
-//         }
-//       })
-//     }
-//   }
-// }
-
-// const forces: ForceData[] = deepCopy(atlanticForces)
-// if (forces && forces.length) {
-//   if (forces[1].assets && forces[1].assets.length) {
-//     forces[1].assets[0].position = '8718aab70ffffff'
-//     forces[1].assets[1].position = '8718aab64ffffff'
-
-//     setPlanned(true, 1, 0, ['8718a84daffffff', '8718a84c2ffffff'])
-//     setPlanned(false, 1, 0, ['8718aab18ffffff', '8718aaa24ffffff', '8718aab09ffffff'])
-
-//     setPlanned(false, 1, 1, ['8718a8781ffffff'])
-//     setPlanned(true, 1, 1, ['8718a87a4ffffff', '8718a844effffff'])
-//   }
-//   if (forces[2].assets && forces[2].assets.length) {
-//     forces[2].assets[0].position = '8718aab2affffff'
-//     forces[2].assets[1].position = '8718aab64ffffff'
-
-//     setPlanned(false, 2, 0, ['8718aab20ffffff'])
-//     setPlanned(true, 2, 0, ['8718a84daffffff', '8718a84c3ffffff'])
-
-//     setPlanned(false, 2, 1, ['8718aab15ffffff'])
-//     setPlanned(true, 2, 1, ['8718aab0cffffff'])
-//   }
-// }
-
 async function fetchMock (): Promise<any> {
   return {
     json: (): any => data

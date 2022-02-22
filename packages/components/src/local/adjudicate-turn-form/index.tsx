@@ -204,7 +204,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         <div className={styles.attributelist}>
           { attributeValues.map((item: NumberAttributeValue): ReactElement => {
             const cType = attributeTypes && attributeTypes.find((value: NumberAttributeType) => value.attrId === item.attrId)
-            const name = cType ? cType.name : 'UKNOWN'
+            const name = cType ? cType.name : ('UNKNOWN:' + item.attrId)
             const units = (cType && cType.units && (' ' + cType.units)) || ''
             const label = name + ': ' + item.value + units
             return <Badge allCaps={false} customSize='large' label={label}/>

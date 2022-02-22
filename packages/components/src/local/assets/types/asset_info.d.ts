@@ -17,5 +17,5 @@ export default interface AssetInfo {
   readonly uniqid: string
   controlledBy?: Array<string>
   laydownPhase?: LaydownPhases
-  attributes?: AttributeValues
+  attributes: AttributeValues
 }

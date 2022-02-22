@@ -1,4 +1,4 @@
-import { SelectedAsset, PlanTurnFormData, PlatformTypeData, State, RouteStatus } from '@serge/custom-types'
+import { SelectedAsset, PlanTurnFormData, PlatformTypeData, State, RouteStatus, AttributeValues, AttributeTypes } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 
@@ -13,7 +13,8 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
   const currentStatus: State | undefined = currentPlatform && currentPlatform.states.find((s: State) => selectedAsset.status && s.name === selectedAsset.status.state)
   const availableStatus: State | undefined = currentStatus || (currentPlatform && currentPlatform.states[0])
   const status: RouteStatus | undefined = selectedAsset.status
-  const attributes = selectedAsset.attributes
+  const attributeValues: AttributeValues = selectedAsset.attributes
+  const attributeTypes: AttributeTypes = (currentPlatform && currentPlatform.attributeTypes) ? currentPlatform.attributeTypes : []
   // we're doing extra check that platform type has speeds, in case initialisation
   // data accidentally has speed in current/historic states, but that platform type
   // doesn't
@@ -22,7 +23,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
     populate: {
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
       speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      attributes: (currentPlatform && currentPlatform.attributeTypes) ? [] : []
+      attributes: attributeTypes
     },
     values: {
       // we will always have the status, but compiler doesn't trust us
@@ -30,7 +31,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
       speedVal: status && status.speedKts !== undefined && platformTypeHasSpeeds ? status.speedKts : 0,
       turnsVal: 1,
       condition: selectedAsset.condition,
-      attributes: attributes
+      attributes: attributeValues
     }
   }
   return formData

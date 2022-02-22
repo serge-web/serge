@@ -74,6 +74,16 @@ export const forces: ForceData[] = [
             attrId: 'asdicComm',
             attrType: "AttributeValueNumber",
             value: 135
+          },
+          {
+            attrId: 'comm-battery',
+            attrType: "AttributeValueNumber",
+            value: 90
+          },
+          {
+            attrId: 'comm-torpedoes',
+            attrType: "AttributeValueNumber",
+            value: 10
           }
         ],
         "perceptions": [],

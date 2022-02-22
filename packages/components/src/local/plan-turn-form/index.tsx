@@ -161,7 +161,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
         <div className={styles.attributelist}>
           { formData.values.attributes.map((item: NumberAttributeValue): ReactElement => {
             const cType = formData.populate.attributes.find((value: NumberAttributeType) => value.attrId === item.attrId)
-            const name = cType ? cType.name : 'UKNOWN'
+            const name = cType ? cType.name : ('UNKNOWN' + item.attrId)
             const units = (cType && cType.units && (' ' + cType.units)) || ''
             const label = name + ': ' + item.value + units
             return <Badge allCaps={false} customSize='large' label={label}/>
