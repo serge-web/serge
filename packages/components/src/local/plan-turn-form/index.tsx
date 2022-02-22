@@ -32,16 +32,14 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
 
   // whether the player can edit any of the attributes
-  const attributesAreEditable = formData.populate.attributes && formData.populate.attributes.some((value: AttributeType) => value.editableByPlayer)
+  const attributesAreEditable = canSubmitPlans && formData.populate.attributes && formData.populate.attributes.some((value: AttributeType) => value.editableByPlayer)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
-
 
   // initialise, from manager helper
   useEffect(() => {
     setAttributes(collateEditorData(formData.values.attributes, formData.populate.attributes))
   }, [formData.values, formData.populate])
-
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target

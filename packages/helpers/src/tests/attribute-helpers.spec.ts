@@ -22,7 +22,7 @@ const attributesTypes: AttributeTypes = [
     attrId: attrId2,
     description: 'The top speed 2 for this platform type',
     editableByPlayer: true,
-    attrType: ATTRIBUTE_TYPE_NUMBER,
+    attrType: ATTRIBUTE_TYPE_NUMBER
   }
 ]
 
