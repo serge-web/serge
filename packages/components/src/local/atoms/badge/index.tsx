@@ -45,7 +45,6 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
 )
 
 export const Badge: React.FC<Props> = ({ color, size, label, type, allCaps, customSize, customBackgroundColor, customColor, title, outline }: Props) => {
-  console.log('badge', customColor)
   const badgeStyles = useBadgeStyle({ type, allCaps, customSize, customBackgroundColor, customColor, outline })
   return <Chip title={title} color={color} size={size} label={label} classes={badgeStyles} variant={outline ? 'outlined' : 'default'} />
 }
