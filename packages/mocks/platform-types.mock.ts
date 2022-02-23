@@ -64,6 +64,10 @@ export const platformTypes: PlatformTypeData[] = [
       'Destroyed'
     ],
     icon: 'ssn.svg',
+    orientation: {
+      attribute: 'asdic-dir',
+      origin: 'absolute'
+    },
     speedKts: [
       10,
       20
