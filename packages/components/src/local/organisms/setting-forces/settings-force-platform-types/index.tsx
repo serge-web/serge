@@ -62,7 +62,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         setFixedLocationValue('')
       }
       // also the attributes
-      if(asset && asset.attributeValues) {
+      if (asset && asset.attributeValues) {
         // collate attributes
         const pType = platformTypes.find((value: PlatformTypeData) => value.name === asset.platformType)
         const attrs = collateEditorData(asset.attributeValues, (pType && pType.attributeTypes) || [])
@@ -181,18 +181,18 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         {
           attributes && attributes.length > 0 &&
             <ListItem>
-            <ListItemText>
-              <label className={styles['input-group']}>
-                <span className={styles['list-title']}>Attributes</span>
-                { attributes.map((item: AttributeEditorData): ReactElement => {
+              <ListItemText>
+                <label className={styles['input-group']}>
+                  <span className={styles['list-title']}>Attributes</span>
+                  { attributes.map((item: AttributeEditorData): ReactElement => {
                     const labelTxt = item.nameRead + ' ' + item.valueRead
                     return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
                   })
-                }
-                <Button>Edit</Button>
-              </label>
-            </ListItemText>
-          </ListItem>
+                  }
+                  <Button>Edit</Button>
+                </label>
+              </ListItemText>
+            </ListItem>
 
         }
       </List>

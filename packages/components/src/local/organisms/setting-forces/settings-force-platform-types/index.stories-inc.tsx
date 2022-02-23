@@ -23,7 +23,7 @@ export default {
 export const Default: React.FC = () => {
   const [force, setForce] = useState(forcesMock[1])
   const updateForce = (nextForce: ForceData): void => {
-    if(nextForce.uniqid !== force.uniqid) {
+    if (nextForce.uniqid !== force.uniqid) {
       setForce(nextForce)
     }
   }
@@ -31,7 +31,7 @@ export const Default: React.FC = () => {
     selectedForce={force}
     forcesData={forcesMock}
     platformTypes={platformTypesMock}
-    onChangeHandler={(nextForce): void => { updateForce(nextForce)}}
+    onChangeHandler={(nextForce): void => { updateForce(nextForce) }}
   />
 }
 
