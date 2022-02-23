@@ -19,7 +19,7 @@ export const collateEditorData = (values: AttributeValues, types: AttributeTypes
       const name = (aType && aType.name) || 'unknown'
       const nameField = name + (units ? ' (' + units + ')' : '')
       return {
-        nameRead: name,
+        nameRead: name + ': ',
         nameWrite: nameField,
         attrId: value.attrId,
         valueRead: formatValue(value.value, aType && aType.format, aType && aType.units),

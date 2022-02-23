@@ -117,7 +117,7 @@ export const DefaultAttributesEditableCannotSubmitPlans: React.FC = () => <PlanT
         mobile: true
       }],
       speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40],
-      attributes: [{ attrId: 'comm_a', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false },
+      attributes: [{ attrId: 'comm_a', description: 'Volume of fuel remaining', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', editableByPlayer: false },
         { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People', editableByPlayer: true },
         { attrId: 'comm_c', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Water', units: 'litres', editableByPlayer: false }]
     },
