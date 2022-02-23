@@ -142,3 +142,11 @@ outlinedCustomColor.args = {
   customColor: '#f00',
   outline: true
 }
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const filledCustomColor = Template.bind({})
+filledCustomColor.args = {
+  label: 'Badge with tooltip',
+  allCaps: false,
+  customColor: '#cfa',
+}
