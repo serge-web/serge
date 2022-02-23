@@ -29,7 +29,7 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
       ...type ? { backgroundColor: (theme.palette[type] || {}).main } : {},
       ...allCaps ? { textTransform: 'uppercase' } : {},
       ...customSize ? customSizeStyle(customSize) : {},
-      ...customBackgroundColor ? { backgroundColor: customBackgroundColor } : {},
+      ...customBackgroundColor ? { backgroundColor: customBackgroundColor } : {}
     }),
     sizeSmall: {
       height: '15px',
@@ -38,7 +38,7 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
     label: ({ customBackgroundColor, outline, customColor }: Props) => {
       const useDark = outline || isHexLight(customBackgroundColor || '')
       return {
-        color: customColor || (useDark ? '#000' : '#fff') 
+        color: customColor || (useDark ? '#000' : '#fff')
       }
     }
   })

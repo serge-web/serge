@@ -139,7 +139,7 @@ export const outlinedCustomColor = Template.bind({})
 outlinedCustomColor.args = {
   label: 'Badge with tooltip',
   allCaps: false,
-  customColor: '#f00',
+  customColor: '#228',
   outline: true
 }
 
@@ -148,5 +148,5 @@ export const filledCustomColor = Template.bind({})
 filledCustomColor.args = {
   label: 'Badge with tooltip',
   allCaps: false,
-  customColor: '#cfa',
+  customColor: '#cfa'
 }
