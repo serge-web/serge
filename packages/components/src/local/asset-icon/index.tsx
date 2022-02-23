@@ -124,7 +124,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   }, [orientSrc])
 
   // temporarily offset the orientation
-  const position2 = L.latLng(position.lat + 0.1, position.lng + 0.1)
+  const position2 = position // L.latLng(position.lat + 0.1, position.lng + 0.1)
 
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
@@ -144,7 +144,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   })
 
   const orientIcon = L.divIcon({
-    iconSize: [120, 120],
+    iconSize: [140, 140],
     html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
   })
 
