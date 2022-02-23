@@ -69,4 +69,8 @@ export default interface PropTypes {
    *  attributes for this assset
    */
   attributes: AttributeValues
+  /** 
+   * orienttation of the marker (degs from North)
+   */
+  orientation?: number
 }

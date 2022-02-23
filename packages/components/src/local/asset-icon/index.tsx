@@ -101,9 +101,11 @@ export const AssetIcon: React.FC<PropTypes> = ({
   selected,
   locationPending,
   imageSrc,
-  attributes
+  attributes,
+  orientation
 }) => {
-  const [loadStatus, setLoadStatus] = useState(true)
+  const [iconLoadStatus, setIconLoadStatus] = useState(true)
+  const [orientLoadStatus, setOrientLoadStatus] = useState(true)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const { setShowMapBar, setSelectedAsset, selectedAsset } = props
@@ -112,18 +114,38 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
+    checkImageStatus(imageSrc).then(res => { setIconLoadStatus(res) }).catch(() => { setIconLoadStatus(false) })
   }, [imageSrc])
+
+  const orientSrc = 'orientation-marker'
+
+  useEffect(() => {
+    checkImageStatus(orientSrc).then(res => { setOrientLoadStatus(res) }).catch(() => { setOrientLoadStatus(false) })
+  }, [orientSrc])
+
+  // temporarily offset the orientation
+  const position2 = L.latLng(position.lat + 0.1, position.lng + 0.1)
 
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
-  const image = loadStatus && typeof imageSrc !== 'undefined'
+  const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
+  const orientStr = orientation ? `style='transform: rotate(` + orientation + `deg);'` : ``
+  const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
+    ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
+    : `<div ` + orientStr + ` class="${cx(reverceClassName, styles.img, styles[`orientation`])}"></div>`
+
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${image}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${iconImage}</div>`
+  })
+
+  const orientIcon = L.divIcon({
+    iconSize: [120, 120],
+    html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
   })
 
   const clickEvent = (): void => {
@@ -152,9 +174,14 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
-    <Tooltip>{capitalize(tooltip)}</Tooltip>
-  </Marker>
+  return <> { orientation && 
+    <Marker position={position2} icon={orientIcon}>
+    </Marker>
+    }
+    <Marker position={position} icon={divIcon} onclick={clickEvent}>
+      <Tooltip>{capitalize(tooltip)}</Tooltip>
+    </Marker>
+  </>
 }
 
 export default AssetIcon

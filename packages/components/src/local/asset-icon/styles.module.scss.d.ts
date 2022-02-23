@@ -13,6 +13,8 @@ interface CssExports {
   'force': string;
   'green': string;
   'img': string;
+  'orient-icon-with-image': string;
+  'orientation': string;
   'platform-type-agi': string;
   'platform-type-auxiliary': string;
   'platform-type-boghammer': string;
