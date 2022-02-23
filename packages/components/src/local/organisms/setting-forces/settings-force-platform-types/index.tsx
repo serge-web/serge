@@ -1,16 +1,16 @@
-import React, { FC, ChangeEvent, ReactNode, useState, useEffect } from 'react'
+import React, { FC, ChangeEvent, ReactNode, useState, useEffect, ReactElement } from 'react'
 import { LaydownTypes } from '@serge/config'
 /* Import proptypes */
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import PropTypes from './types/props'
 import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortableItems'
-import { Asset, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeEditorData, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
 
 /* Import Styles */
 import styles from './styles.module.scss'
 
 /* Import Components */
-import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform } from '@serge/helpers'
+import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform, collateEditorData } from '@serge/helpers'
 
 import cx from 'classnames'
 import { GetIcon } from '../../../asset-icon' // getIconClassname
@@ -30,6 +30,8 @@ import Typography from '@material-ui/core/Typography'
 import Groups from '../../../helper-elements/groups'
 import { NodeType } from '../../../helper-elements/groups/types/props'
 import canCombineWith from '../../../world-state/helpers/can-combine-with'
+import Badge from '../../../atoms/badge'
+import Button from '../../../atoms/button'
 
 export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [] }) => {
   const [fixedLocationValue, setFixedLocationValue] = useState('')
@@ -44,6 +46,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const [selectedPlatforms, setSelectedPlatforms] = useState<ForceItemType[]>(createSelectedForcePlatforms(selectedForce.assets))
   const [selectedAssetItem, setSelectedAssetItem] = useState<ForceItemType>(createSelectedForcePlatforms(selectedForce.assets)[0])
+  const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
 
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType, debug = true): boolean => {
     if (debug) return true
@@ -57,6 +60,15 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       const asset = selectedForce.assets.find(asset => asset.uniqid === selectedAssetItem.uniqid)
       if (asset?.locationPending !== LaydownTypes.Fixed) {
         setFixedLocationValue('')
+      }
+      // also the attributes
+      if(asset && asset.attributeValues) {
+        // collate attributes
+        const pType = platformTypes.find((value: PlatformTypeData) => value.name === asset.platformType)
+        const attrs = collateEditorData(asset.attributeValues, (pType && pType.attributeTypes) || [])
+        setAttributes(attrs)
+      } else {
+        setAttributes([])
       }
     }
   }, [selectedAssetItem])
@@ -165,6 +177,23 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
               />
             </ListItemText>
           </ListItem>
+        }
+        {
+          attributes && attributes.length > 0 &&
+            <ListItem>
+            <ListItemText>
+              <label className={styles['input-group']}>
+                <span className={styles['list-title']}>Attributes</span>
+                { attributes.map((item: AttributeEditorData): ReactElement => {
+                    const labelTxt = item.nameRead + ' ' + item.valueRead
+                    return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
+                  })
+                }
+                <Button>Edit</Button>
+              </label>
+            </ListItemText>
+          </ListItem>
+
         }
       </List>
     </div>
