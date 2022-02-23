@@ -10,7 +10,7 @@ import { Asset, AttributeEditorData, ForceData, GroupItem, PlatformTypeData } fr
 import styles from './styles.module.scss'
 
 /* Import Components */
-import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform, collateEditorData } from '@serge/helpers'
+import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform, collateEditorData, findPlatformTypeFor } from '@serge/helpers'
 
 import cx from 'classnames'
 import { GetIcon } from '../../../asset-icon' // getIconClassname
@@ -64,8 +64,11 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       // also the attributes
       if (asset && asset.attributeValues) {
         // collate attributes
-        const pType = platformTypes.find((value: PlatformTypeData) => value.name === asset.platformType)
+        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
         const attrs = collateEditorData(asset.attributeValues, (pType && pType.attributeTypes) || [])
+        if (!pType) {
+          console.warn('Warning, failed to find platform type data for:', asset.platformType)
+        }
         setAttributes(attrs)
       } else {
         setAttributes([])
