@@ -184,11 +184,12 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
               <ListItemText>
                 <label className={styles['input-group']}>
                   <span className={styles['list-title']}>Attributes</span>
-                  { attributes.map((item: AttributeEditorData): ReactElement => {
-                    const labelTxt = item.nameRead + ' ' + item.valueRead
-                    return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
-                  })
-                  }
+                  <div>
+                    { attributes.map((item: AttributeEditorData): ReactElement => {
+                      const labelTxt = item.nameRead + ' ' + item.valueRead
+                      return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
+                    })}
+                  </div>
                   <Button>Edit</Button>
                 </label>
               </ListItemText>
