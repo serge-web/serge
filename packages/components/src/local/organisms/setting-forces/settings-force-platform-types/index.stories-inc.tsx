@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import AssetsAccordion from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { forces as forcesMock, platformTypes as platformTypesMock } from '@serge/mocks'
+import { smallScaleForces as forcesMock, platformTypes as platformTypesMock } from '@serge/mocks'
+import { ForceData } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -20,12 +21,17 @@ export default {
   }
 }
 export const Default: React.FC = () => {
-  const [force, setForce] = useState(forcesMock[0])
+  const [force, setForce] = useState(forcesMock[1])
+  const updateForce = (nextForce: ForceData): void => {
+    if(nextForce.uniqid !== force.uniqid) {
+      setForce(nextForce)
+    }
+  }
   return <AssetsAccordion
     selectedForce={force}
     forcesData={forcesMock}
     platformTypes={platformTypesMock}
-    onChangeHandler={(nextForce): void => setForce(nextForce)}
+    onChangeHandler={(nextForce): void => { updateForce(nextForce)}}
   />
 }
 
