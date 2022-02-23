@@ -167,7 +167,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
         <div className={styles.attributelist}>
           { attributes.map((item: AttributeEditorData): ReactElement => {
             const label = item.nameRead + ' ' + item.valueRead
-            return <Badge key={item.attrId} allCaps={false} customSize='large' label={label}/>
+            return <Badge title={item.description} key={item.attrId} allCaps={false} customSize='large' label={label}/>
           })}
           { attributesAreEditable &&
             <span className={styles.editattributes}><Button>Edit</Button></span>
