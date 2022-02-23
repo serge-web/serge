@@ -29,23 +29,25 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
       ...type ? { backgroundColor: (theme.palette[type] || {}).main } : {},
       ...allCaps ? { textTransform: 'uppercase' } : {},
       ...customSize ? customSizeStyle(customSize) : {},
-      ...customBackgroundColor ? { backgroundColor: customBackgroundColor } : {}
+      ...customBackgroundColor ? { backgroundColor: customBackgroundColor } : {},
     }),
     sizeSmall: {
       height: '15px',
       fontSize: '.65rem'
     },
-    label: ({ customBackgroundColor }: Props) => {
+    label: ({ customBackgroundColor, outline, customColor }: Props) => {
+      const useDark = outline || isHexLight(customBackgroundColor || '')
       return {
-        color: isHexLight(customBackgroundColor || '') ? '#000' : '#fff'
+        color: customColor || (useDark ? '#000' : '#fff') 
       }
     }
   })
 )
 
-export const Badge: React.FC<Props> = ({ color, size, label, type, allCaps, customSize, customBackgroundColor, customColor }: Props) => {
-  const badgeStyles = useBadgeStyle({ type, allCaps, customSize, customBackgroundColor, customColor })
-  return <Chip color={color} size={size} label={label} classes={badgeStyles} />
+export const Badge: React.FC<Props> = ({ color, size, label, type, allCaps, customSize, customBackgroundColor, customColor, title, outline }: Props) => {
+  console.log('badge', customColor)
+  const badgeStyles = useBadgeStyle({ type, allCaps, customSize, customBackgroundColor, customColor, outline })
+  return <Chip title={title} color={color} size={size} label={label} classes={badgeStyles} variant={outline ? 'outlined' : 'default'} />
 }
 
 Badge.defaultProps = {
