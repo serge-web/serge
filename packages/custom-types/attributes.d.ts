@@ -67,5 +67,7 @@ export interface AttributeEditorData {
   // attribute id, needed to store results
   attrId: string
   // value type, needed to store results
-  valueType: string
+  valueType: typeof ATTRIBUTE_VALUE_NUMBER
+  // whether the player can edit the field
+  playerCanEdit: boolean
 }

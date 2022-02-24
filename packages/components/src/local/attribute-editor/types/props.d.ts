@@ -4,7 +4,11 @@ export type Props = {
   /** close handler */
   onClose: VoidFunction
   /** save handler */
-  onSave: (data: AttributeEditorData[]) => void
+  onSave: (data: AttributeValues) => void
   /** data to be edited */
   data: AttributeEditorData[]
+  /** whether the data is being edited in adjudication phase,
+   * which means we can ignore the `playerCanEditData` value
+   */
+  inAdjudication?: boolean
 }

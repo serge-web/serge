@@ -1,6 +1,6 @@
 import React from 'react'
 // Import component files
-import { AttributeEditorData, AttributeTypes, AttributeValues, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { AttributeTypes, AttributeValues, ForceData, PlatformTypeData } from '@serge/custom-types'
 import AttributeEditor from './index'
 import docs from './README.md'
 import { platformTypes, smallScaleForces } from '@serge/mocks'
@@ -18,13 +18,13 @@ export default {
   }
 }
 
-const onSave = (data: AttributeEditorData[] ) => {
+const onSave = (data: AttributeValues) => {
   console.log('data', data)
 }
 
 const getTypes = (pTypes: PlatformTypeData[]): AttributeTypes => {
   let aTypes: AttributeTypes | undefined
-  if(pTypes && pTypes[1]) {
+  if (pTypes && pTypes[1]) {
     aTypes = pTypes[1].attributeTypes
   }
   return aTypes || []
@@ -32,7 +32,7 @@ const getTypes = (pTypes: PlatformTypeData[]): AttributeTypes => {
 
 const getValues = (forces: ForceData[]): any => {
   let aValues: AttributeValues | undefined
-  if(forces && forces.length && forces[1] && forces[1].assets && forces[1].assets[0]) {
+  if (forces && forces.length && forces[1] && forces[1].assets && forces[1].assets[0]) {
     aValues = forces[1].assets[0].attributeValues
   }
   return aValues || []
@@ -42,5 +42,8 @@ const attrTypes = getTypes(platformTypes)
 const attrValues = getValues(smallScaleForces)
 const attrData = collateEditorData(attrValues, attrTypes)
 
-export const Default: React.FunctionComponent = () => 
-  <AttributeEditor isOpen={true} onClose={() => {console.log('close')}} onSave={onSave} data={attrData}  />  
+export const Default: React.FunctionComponent = () =>
+  <AttributeEditor isOpen={true} onClose={() => { console.log('close') }} onSave={onSave} data={attrData} />
+
+export const InAdjudication: React.FunctionComponent = () =>
+  <AttributeEditor inAdjudication={true} isOpen={true} onClose={() => { console.log('close') }} onSave={onSave} data={attrData} />

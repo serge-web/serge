@@ -1,14 +1,17 @@
 import Button from '@material-ui/core/Button'
-import { AttributeEditorData } from '@serge/custom-types'
+import { AttributeEditorData, AttributeValue, AttributeValues, NumberAttributeValue } from '@serge/custom-types'
 import cloneDeep from 'lodash/cloneDeep'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import MoreInfo from '../molecules/more-info'
 import styles from './styles.module.scss'
 import { Props } from './types/props'
+import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
 /* Render component */
-export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave }) => {
+export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
 
   useEffect(() => {
@@ -23,7 +26,16 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
   }
 
   const onSaveLocal = (): void => {
-    onSave(localData)
+    // transform the data
+    const res: AttributeValues = localData.map((data: AttributeEditorData): AttributeValue => {
+      const value: NumberAttributeValue = {
+        attrId: data.attrId,
+        attrType: ATTRIBUTE_VALUE_NUMBER,
+        value: Number(data.valueWrite)
+      }
+      return value
+    })
+    onSave(res)
     onClose()
   }
 
@@ -45,10 +57,15 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
       </div>
       <div className={styles.body}>
         {localData.map((item: AttributeEditorData, idx: number) => {
-          const elmName = item.description ? <MoreInfo description={item.description}>{item.nameRead}</MoreInfo> : item.nameRead
+          const locked = !(inAdjudication || item.playerCanEdit)
+          const tooltip = !locked && 'Value only editable by umpire in adjudication' || ''
+          const elmName = item.description ? <MoreInfo description={item.description}>{item.nameWrite}</MoreInfo> : item.nameWrite
           return <div key={idx} className={styles.row}>
             <span>{elmName}</span>
-            <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+            { locked
+              ? <span><FontAwesomeIcon icon={faLock} title="Attribute locked" /><input disabled={true} title={tooltip} value={item.valueWrite} /></span>
+              : <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+            }
           </div>
         })}
       </div>

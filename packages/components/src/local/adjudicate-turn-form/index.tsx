@@ -7,7 +7,7 @@ import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
 import React, { ReactElement, useEffect, useState } from 'react'
 import Badge from '../atoms/badge'
 import { Button } from '../atoms/button'
-import { FormEditableModal } from '../form-editable-modal'
+import { AttributeEditor } from '../attribute-editor'
 import { clSelect, FormGroup } from '../form-elements/form-group'
 import RCB from '../form-elements/rcb'
 /* Import components */
@@ -40,6 +40,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const icon: { forceColor: string, platformType: string } = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>(manager ? manager.currentAttributeValues() : [])
   const [isOpen, toggleModal] = useState<boolean>(false)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
@@ -69,13 +70,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
 
       // attributes
-      updateIfNecessary('attribute types', attributes, collateEditorData(manager.currentAttributeValues(), formData.attributes), setAttributes)
+      updateIfNecessary('attribute types', attributes, collateEditorData(attributeValues, formData.attributes), setAttributes)
 
       // the command buttons
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
-  }, [manager, stateIsMobile, conditionVal])
+  }, [manager, stateIsMobile, conditionVal, attributeValues])
 
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
@@ -96,12 +97,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       console.warn('Adjudicate form received unexpected condition', e)
     }
   }
-
-  const attributesHandler = (attributes: AttributeValues): void => {
-    manager && manager.setCurrentAttributes(attributes)
-  }
-  // TODO - delete this, once we're using attributes handler
-  console.log('dummy call to please compiler', !!attributesHandler)
 
   const visibleHandler = (e: any): void => {
     setVisibleVal(e.value)
@@ -157,14 +152,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     toggleModal(false)
   }
 
-  const updateData = (data: AttributeEditorData[]): void => {
-    // TODO: update valueWrite to valueRead then we can display latest value in the UI?
-    setAttributes(data)
+  const updateData = (data: AttributeValues): void => {
+    setAttributeValues(data)
   }
 
   return (
     <div className={styles.adjudicate}>
-      <FormEditableModal isOpen={isOpen} onClose={closeModal} onSave={updateData} data={attributes} />
+      <AttributeEditor isOpen={isOpen} onClose={closeModal} onSave={updateData} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
