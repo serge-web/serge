@@ -132,11 +132,10 @@ export const AssetIcon: React.FC<PropTypes> = ({
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
-  const orientStr = orientation ? `style='transform: rotate(` + orientation + `deg);'` : ``
+  const orientStr = orientation ? 'style=\'transform: rotate(' + orientation + 'deg);\'' : ''
   const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
-    : `<div ` + orientStr + ` class="${cx(reverceClassName, styles.img, styles[`orientation`])}"></div>`
-
+    : '<div ' + orientStr + ` class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
@@ -174,13 +173,13 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <> { orientation && 
+  return <> { orientation &&
     <Marker position={position2} icon={orientIcon}>
     </Marker>
-    }
-    <Marker position={position} icon={divIcon} onclick={clickEvent}>
-      <Tooltip>{capitalize(tooltip)}</Tooltip>
-    </Marker>
+  }
+  <Marker position={position} icon={divIcon} onclick={clickEvent}>
+    <Tooltip>{capitalize(tooltip)}</Tooltip>
+  </Marker>
   </>
 }
 
