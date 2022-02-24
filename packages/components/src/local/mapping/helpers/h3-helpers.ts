@@ -44,7 +44,7 @@ export const brgBetweenTwoHex = (start: string, end: string): number => {
   const p2 = h3ToGeo(end)
   const l1 = num2LatLng(p1)
   const l2 = num2LatLng(p2)
-  return  90 - Math.atan2(l2.lat - l1.lat, l2.lng - l1.lng) * 180 / Math.PI
+  return 90 - Math.atan2(l2.lat - l1.lat, l2.lng - l1.lng) * 180 / Math.PI
 }
 
 /** produce a polygon in h3 array structure from a Leaflet LatLngBounds */

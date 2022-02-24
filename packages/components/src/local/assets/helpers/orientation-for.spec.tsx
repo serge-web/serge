@@ -1,11 +1,11 @@
-import { Asset, AttributeValues, ForceData, RouteTurn } from "@serge/custom-types"
-import orientationFor from "./orientation-for"
+import { Asset, AttributeValues, ForceData, RouteTurn } from '@serge/custom-types'
+import orientationFor from './orientation-for'
 import { smallScaleForces } from '@serge/mocks'
-import { OrientationMarker } from "@serge/custom-types/platform-type-data"
-import { brgBetweenTwoHex } from "../../mapping/helpers/h3-helpers"
+import { OrientationMarker } from '@serge/custom-types/platform-type-data'
+import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
 
 const getAsset = (forces: ForceData[]): Asset | undefined => {
-  if(forces && forces[1] && forces[1].assets) {
+  if (forces && forces[1] && forces[1].assets) {
     return forces[1].assets[0]
   } else {
     return undefined
@@ -32,10 +32,10 @@ it('Calculates correct orientation', () => {
     // allow use of planned
     expect(orientationFor(current, history, planned, attributes, rel)).toBeCloseTo(15, 0)
 
-    //test permutations of orientation!
-    const relAttr: OrientationMarker = { origin: 'relative', attribute: 'asdic-dir'}
+    // test permutations of orientation!
+    const relAttr: OrientationMarker = { origin: 'relative', attribute: 'asdic-dir' }
     expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(150, 0)
-    const absAttr: OrientationMarker = { origin: 'absolute', attribute: 'asdic-dir'}
+    const absAttr: OrientationMarker = { origin: 'absolute', attribute: 'asdic-dir' }
     expect(orientationFor(current, history, planned, attributes, absAttr)).toBeCloseTo(135, 0)
   }
 })
@@ -43,8 +43,6 @@ it('Calculates correct orientation', () => {
 it('Maths works as expected', () => {
   const pos1 = '8718a84daffffff'
   const pos2 = '8718a84d8ffffff'
-  expect(brgBetweenTwoHex(pos1, pos2)).toBeCloseTo(78,0)
-  expect(brgBetweenTwoHex(pos2, pos1)).toBeCloseTo(258,0)
+  expect(brgBetweenTwoHex(pos1, pos2)).toBeCloseTo(78, 0)
+  expect(brgBetweenTwoHex(pos2, pos1)).toBeCloseTo(258, 0)
 })
-
-
