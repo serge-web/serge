@@ -52,7 +52,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
   const [attributeTypes, setAttributeTypes] = useState<AttributeTypes>([])
 
-
   const [attributeEditorIsOpen, setAttributeEditorIsOpen] = useState<boolean>(false)
 
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType, debug = true): boolean => {
@@ -80,7 +79,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     const attrs = collateEditorData(attributeValues, attributeTypes)
     setAttributes(attrs)
   }, [attributeTypes, attributeValues])
-
 
   const renderAssetForm = (): ReactNode => {
     if (selectedPlatforms.length === 0) return null
