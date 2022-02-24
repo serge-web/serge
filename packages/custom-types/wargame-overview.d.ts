@@ -1,6 +1,7 @@
 import MappingConstraints from "./mapping-constraints";
 import { GameTurnLength } from "./turn-length";
 import { TurnFormats } from "@serge/config"
+import { InformationMarkers } from "./information-markers";
 
 export default interface WargameOverview {
   /** title for this wargame */
@@ -25,4 +26,6 @@ export default interface WargameOverview {
   dirty: boolean
   /** dimensions of the map */
   mapConstraints?: MappingConstraints
+  /** information markers */
+  infoMarkers?: InformationMarkers
 }
