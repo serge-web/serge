@@ -51,6 +51,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
       shouldCloseOnEsc
       shouldCloseOnOverlayClick={false}
       ariaHideApp={false}
+      style={{ overlay: { zIndex: 100 } }}
     >
       <div className={styles.header}>
         <span>Name</span><span>Value</span>
