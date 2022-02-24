@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 import { Props } from './types/props'
 
 /* Render component */
-export const FormEditableModal: React.FC<Props> = ({ isOpen, data, onClose, onSave }) => {
+export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
 
   useEffect(() => {
@@ -60,4 +60,4 @@ export const FormEditableModal: React.FC<Props> = ({ isOpen, data, onClose, onSa
   )
 }
 
-export default React.memo(FormEditableModal)
+export default AttributeEditor

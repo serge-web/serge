@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import FormEditableModal from './index'
+import AttributeEditor from './index'
 
 describe('FormEditableModal component:', () => {
   it('renders correctly', () => {
@@ -15,7 +15,7 @@ describe('FormEditableModal component:', () => {
     }
     const tree = renderer
       .create(
-        <FormEditableModal isOpen={false} onClose={onClose} onSave={onSave} data={[]} />
+        <AttributeEditor isOpen={false} onClose={onClose} onSave={onSave} data={[]} />
       )
       .toJSON()
     expect(tree).toMatchSnapshot()
