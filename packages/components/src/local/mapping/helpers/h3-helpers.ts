@@ -31,12 +31,25 @@ export const createLabels = (index: H3Index, centreIndex: H3Index, centre: numbe
   }
 }
 
+export const latLng2Num = (pos: L.LatLng): number[] => {
+  return [pos.lat, pos.lng]
+}
+
+export const num2LatLng = (vals: number[]): L.LatLng => {
+  return L.latLng(vals[0], vals[1])
+}
+
+export const brgBetweenTwoHex = (start: string, end: string): number => {
+  const p1 = h3ToGeo(start)
+  const p2 = h3ToGeo(end)
+  const l1 = num2LatLng(p1)
+  const l2 = num2LatLng(p2)
+  return  90 - Math.atan2(l2.lat - l1.lat, l2.lng - l1.lng) * 180 / Math.PI
+}
+
 /** produce a polygon in h3 array structure from a Leaflet LatLngBounds */
 export const h3polyFromBounds = (bounds: L.LatLngBounds): number[][] => {
   /** generate h3 coordinate for leaflet lat-long */
-  const latLng2Num = (pos: L.LatLng): number[] => {
-    return [pos.lat, pos.lng]
-  }
   return [
     latLng2Num(bounds.getNorthWest()),
     latLng2Num(bounds.getNorthEast()),
