@@ -1,0 +1,70 @@
+.modal {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 4px;
+  outline: none;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  min-height: auto;
+  max-height: 60%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  font-size: 14px;
+}
+
+.footer {
+  text-align: end;
+  border-top: 1.5px solid lightgray;
+
+  button {
+    min-width: 100px;
+    margin: 5px 0 0 5px;
+  }
+}
+
+.cellName {
+  width: 35% !important;
+}
+
+.header {
+  padding: 10px 10px 5px 10px;
+  display: flex;
+  border-bottom: 1.5px solid lightgray;
+
+  span {
+    font-weight: 600;
+    font-size: 15px;
+
+    &:nth-child(1) {
+      width: 35%;
+    }
+  }
+}
+
+.body {
+  max-height: 280px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+
+  span {
+    &:nth-child(1) {
+      width: 35%;
+    }
+  }
+
+  input {
+    width: 65%;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    outline: none;
+  }
+}

@@ -1,26 +1,22 @@
-import React, { useState, useEffect, ReactElement } from 'react'
-
-/* Import Types */
-import PropTypes from './types/props'
-
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import { PlanningCommands } from '@serge/config'
+import { AttributeEditorData, AttributeValues, ColorOption, RouteStatus, Status } from '@serge/custom-types'
+/* Import helpers */
+import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
+import React, { ReactElement, useEffect, useState } from 'react'
+import Badge from '../atoms/badge'
+import { Button } from '../atoms/button'
+import { FormEditableModal } from '../form-editable-modal'
+import { clSelect, FormGroup } from '../form-elements/form-group'
+import RCB from '../form-elements/rcb'
 /* Import components */
 import Speed from '../form-elements/speed'
-import { Button } from '../atoms/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
-import RCB from '../form-elements/rcb'
-import { FormGroup, clSelect } from '../form-elements/form-group'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-
-import { PlanningCommands } from '@serge/config'
-
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-
-/* Import helpers */
-import { deepCompare, isNumber, collateEditorData } from '@serge/helpers'
-import Badge from '../atoms/badge'
-import { ColorOption, AttributeValues, RouteStatus, Status, AttributeEditorData } from '@serge/custom-types'
+/* Import Types */
+import PropTypes from './types/props'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
@@ -41,9 +37,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [speedVal, setSpeedVal] = useState<number>(0)
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
-  const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
+  const icon: { forceColor: string, platformType: string } = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [isOpen, toggleModal] = useState<boolean>(false)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -111,7 +108,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     manager && manager.setCurrentVisibleTo(e.value)
   }
 
-  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => { // deepscan-disable-line UNUSED_PARAM
+  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: { (value: any): void }): void => { // deepscan-disable-line UNUSED_PARAM
     if (!deepCompare(before, after)) {
       // console.log('+ updating ', _name, before, after)
       doUpdate(after)
@@ -152,13 +149,27 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const openEditModal = (): void => {
+    toggleModal(true)
+  }
+
+  const closeModal = (): void => {
+    toggleModal(false)
+  }
+
+  const updateData = (data: AttributeEditorData[]): void => {
+    // TODO: update valueWrite to valueRead then we can display latest value in the UI?
+    setAttributes(data)
+  }
+
   return (
     <div className={styles.adjudicate}>
+      <FormEditableModal isOpen={isOpen} onClose={closeModal} onSave={updateData} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        { manager && (manager.getContactId() + ' - ')}
+        {manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}
         {manager &&
           <Badge label={manager.currentPlanningStatus()} />
@@ -167,7 +178,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           <div className='sub-title'>(Form disabled, plans submitted)</div>
         }
       </TitleWithIcon>
-      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
+      {conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">
           {!formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
             <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
@@ -197,16 +208,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       </fieldset>
       }
-      { attributes && attributes.length > 0 &&
-      <FormGroup title="Attributes" titlePosition="absolute">
-        <div className={styles.attributelist}>
-          { attributes.map((item: AttributeEditorData): ReactElement => {
-            const label = item.nameRead + ' ' + item.valueRead
-            return <Badge key={item.attrId} allCaps={false} customSize='large' label={label}/>
-          })}
-          <span className={styles.editattributes}><Button>Edit</Button></span>
-        </div>
-      </FormGroup>
+      {attributes && attributes.length > 0 &&
+        <FormGroup title="Attributes" titlePosition="absolute">
+          <div className={styles.attributelist}>
+            {attributes.map((item: AttributeEditorData): ReactElement => {
+              const label = item.nameRead + ' ' + item.valueRead
+              return <Badge key={item.attrId} allCaps={false} customSize='large' label={label} />
+            })}
+            <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
+          </div>
+        </FormGroup>
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
