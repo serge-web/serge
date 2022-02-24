@@ -4,7 +4,7 @@ import { LaydownTypes } from '@serge/config'
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import PropTypes from './types/props'
 import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortableItems'
-import { Asset, AttributeEditorData, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeEditorData, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -32,6 +32,7 @@ import { NodeType } from '../../../helper-elements/groups/types/props'
 import canCombineWith from '../../../world-state/helpers/can-combine-with'
 import Badge from '../../../atoms/badge'
 import Button from '../../../atoms/button'
+import AttributeEditor from '../../../attribute-editor'
 
 export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [] }) => {
   const [fixedLocationValue, setFixedLocationValue] = useState('')
@@ -46,7 +47,13 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const [selectedPlatforms, setSelectedPlatforms] = useState<ForceItemType[]>(createSelectedForcePlatforms(selectedForce.assets))
   const [selectedAssetItem, setSelectedAssetItem] = useState<ForceItemType>(createSelectedForcePlatforms(selectedForce.assets)[0])
+
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
+  const [attributeTypes, setAttributeTypes] = useState<AttributeTypes>([])
+
+
+  const [attributeEditorIsOpen, setAttributeEditorIsOpen] = useState<boolean>(false)
 
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType, debug = true): boolean => {
     if (debug) return true
@@ -61,20 +68,19 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       if (asset?.locationPending !== LaydownTypes.Fixed) {
         setFixedLocationValue('')
       }
-      // also the attributes
-      if (asset && asset.attributeValues) {
-        // collate attributes
+      if (asset) {
         const pType = findPlatformTypeFor(platformTypes, asset.platformType)
-        const attrs = collateEditorData(asset.attributeValues, (pType && pType.attributeTypes) || [])
-        if (!pType) {
-          console.warn('Warning, failed to find platform type data for:', asset.platformType)
-        }
-        setAttributes(attrs)
-      } else {
-        setAttributes([])
+        pType && setAttributeTypes(pType.attributeTypes || [])
+        setAttributeValues(asset.attributeValues || [])
       }
     }
   }, [selectedAssetItem])
+
+  useEffect(() => {
+    const attrs = collateEditorData(attributeValues, attributeTypes)
+    setAttributes(attrs)
+  }, [attributeTypes, attributeValues])
+
 
   const renderAssetForm = (): ReactNode => {
     if (selectedPlatforms.length === 0) return null
@@ -125,6 +131,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     }
 
     return <div className={styles['view-result-box']}>
+      <AttributeEditor isOpen={attributeEditorIsOpen} onClose={() => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
       <List dense={true}>
         <ListItem>
           <ListItemText>
@@ -181,8 +188,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             </ListItemText>
           </ListItem>
         }
-        {
-          attributes && attributes.length > 0 &&
+        { attributes.length > 0 &&
             <ListItem>
               <ListItemText>
                 <label className={styles['input-group']}>
@@ -193,7 +199,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                       return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
                     })}
                   </div>
-                  <Button>Edit</Button>
+                  <span className={styles.editattributes}><Button onClick={() => setAttributeEditorIsOpen(true)}>Edit</Button></span>
                 </label>
               </ListItemText>
             </ListItem>
