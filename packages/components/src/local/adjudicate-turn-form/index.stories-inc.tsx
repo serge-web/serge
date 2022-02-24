@@ -59,7 +59,7 @@ const manager: AdjudicationManager = new AdjudicationManager(store, platformType
 
 const formWithAttributes: AdjudicateTurnFormPopulate = deepCopy(formData)
 formWithAttributes.attributes = [
-  { attrId: 'comm_a', description: 'How much fuel is remaining', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', units: 'tons' },
+  { attrId: 'comm_a', editableByPlayer: true, description: 'How much fuel is remaining', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', units: 'tons' },
   { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People' }
 ]
 const manager2: AdjudicationManager = new AdjudicationManager(storeWithAttributes, platformTypes, 'a1', 'Asset name', 3,

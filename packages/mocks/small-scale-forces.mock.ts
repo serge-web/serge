@@ -111,7 +111,7 @@ export const forces: ForceData[] = [
         ],
         "position": "8718aab70ffffff",
         "uniqid": "a034a22t5431"
-      } /*,
+      },
       {
         "condition": "Working",
         "contactId": "C164",
@@ -129,9 +129,9 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
-        "position": "8318f0fffffffff",
+        "position": "8718a84d9ffffff",
         "uniqid": "a0prbr1141"
-      } ,
+      } /* ,
       {
         "condition": "Working",
         "contactId": "C866",

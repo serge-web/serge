@@ -97,7 +97,6 @@ export const platformTypes: PlatformTypeData[] = [
         attrType: ATTRIBUTE_TYPE_NUMBER,
         attrId: 'comm-battery',
         name: 'Battery',
-        description: 'Remaining battery level',
         units: '%',
         editableByPlayer: false,
         defaultValue: 100
