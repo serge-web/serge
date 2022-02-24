@@ -61,13 +61,13 @@ export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }:
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
+        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
       </div>
       : <div className={cx(
         getIconClassname(color, icType, destroyed, isSelected),
         styles['asset-icon-fw'],
         getReverce(color)
-      )}/>}
+      )} />}
   </div>
 }
 
@@ -132,10 +132,10 @@ export const AssetIcon: React.FC<PropTypes> = ({
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
-  const orientStr = orientation ? 'style=\'transform: rotate(' + orientation + 'deg);\'' : ''
+  const orientStr = orientation ? `style='transform: translate(3px, 5px) rotate(${orientation}deg);'` : ''
   const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
-    : '<div ' + orientStr + ` class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
+    : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
@@ -173,13 +173,15 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <> { orientation &&
-    <Marker position={position2} icon={orientIcon}>
+  return <>
+    {
+      orientation &&
+      <Marker position={position2} icon={orientIcon}>
+      </Marker>
+    }
+    <Marker position={position} icon={divIcon} onclick={clickEvent}>
+      <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
-  }
-  <Marker position={position} icon={divIcon} onclick={clickEvent}>
-    <Tooltip>{capitalize(tooltip)}</Tooltip>
-  </Marker>
   </>
 }
 

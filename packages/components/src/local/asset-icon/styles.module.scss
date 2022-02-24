@@ -91,12 +91,8 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
 }
 
 .orientation {
-  background-image: url("./counters/orientation-marker.svg");
-  background-size: 80px;
-  fill: #f00;
-  color: #0f0;
-  filter: hue-rotate(244deg);
-  background-position: 25px 25px;
+  mask: url("./counters/orientation-marker.svg");
+  background-color: rgb(190, 48, 48);
 }
 
 .img {
