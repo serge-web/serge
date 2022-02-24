@@ -1,8 +1,6 @@
-import {
-  Button
-} from '@material-ui/core'
+import Button from '@material-ui/core/Button'
 import { AttributeEditorData } from '@serge/custom-types'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import MoreInfo from '../molecules/more-info'
@@ -62,4 +60,4 @@ export const FormEditableModal: React.FC<Props> = ({ isOpen, data, onClose, onSa
   )
 }
 
-export default FormEditableModal
+export default React.memo(FormEditableModal)
