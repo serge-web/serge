@@ -41,7 +41,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
   const [attributeValues, setAttributeValues] = useState<AttributeValues>(manager ? manager.currentAttributeValues() : [])
-  const [isOpen, toggleModal] = useState<boolean>(false)
+  const [attributeEditorOpen, setAttributeEditorOpen] = useState<boolean>(false)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -145,11 +145,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   }
 
   const openEditModal = (): void => {
-    toggleModal(true)
+    setAttributeEditorOpen(true)
   }
 
   const closeModal = (): void => {
-    toggleModal(false)
+    setAttributeEditorOpen(false)
   }
 
   const updateData = (data: AttributeValues): void => {
@@ -158,7 +158,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   return (
     <div className={styles.adjudicate}>
-      <AttributeEditor isOpen={isOpen} onClose={closeModal} onSave={updateData} data={attributes} />
+      <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
