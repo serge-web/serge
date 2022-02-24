@@ -91,6 +91,7 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
 }
 
 .orientation {
+  -webkit-mask: url("./counters/orientation-marker.svg");
   mask: url("./counters/orientation-marker.svg");
 }
 
