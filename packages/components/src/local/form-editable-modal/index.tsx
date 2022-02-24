@@ -21,7 +21,7 @@ export const FormEditableModal: React.FC<Props> = ({ isOpen, data, onClose, onSa
 
   const onValueChange = (newValue: any, idx: number): void => {
     localData[idx].valueWrite = newValue
-    setLocalData(cloneDeep(localData))
+    setLocalData([...localData])
   }
 
   const onSaveLocal = (): void => {

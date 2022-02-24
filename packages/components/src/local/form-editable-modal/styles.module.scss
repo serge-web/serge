@@ -17,7 +17,7 @@
 
 .footer {
   text-align: end;
-  border-top: 1.5px solid lightgray;
+  border-top: 1.5px solid rgb(211, 211, 211);
 
   button {
     min-width: 100px;
@@ -25,14 +25,10 @@
   }
 }
 
-.cellName {
-  width: 35% !important;
-}
-
 .header {
   padding: 10px 10px 5px;
   display: flex;
-  border-bottom: 1.5px solid lightgray;
+  border-bottom: 1.5px solid rgb(211, 211, 211);
 
   span {
     font-weight: 600;
@@ -63,8 +59,8 @@
 
   input {
     width: 65%;
-    border: none;
-    border-bottom: 1px solid lightgray;
+    border: 0;
+    border-bottom: 1px solid rgb(211, 211, 211);
     outline: none;
   }
 }
