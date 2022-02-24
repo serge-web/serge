@@ -58,7 +58,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
       <div className={styles.body}>
         {localData.map((item: AttributeEditorData, idx: number) => {
           const locked = !(inAdjudication || item.playerCanEdit)
-          const tooltip = !locked && 'Value only editable by umpire in adjudication' || ''
+          const tooltip = (!locked && 'Value only editable by umpire in adjudication') || ''
           const elmName = item.description ? <MoreInfo description={item.description}>{item.nameWrite}</MoreInfo> : item.nameWrite
           return <div key={idx} className={styles.row}>
             <span>{elmName}</span>

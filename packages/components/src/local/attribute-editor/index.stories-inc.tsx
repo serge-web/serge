@@ -18,7 +18,7 @@ export default {
   }
 }
 
-const onSave = (data: AttributeValues) => {
+const onSave = (data: AttributeValues): void => {
   console.log('data', data)
 }
 
@@ -42,8 +42,8 @@ const attrTypes = getTypes(platformTypes)
 const attrValues = getValues(smallScaleForces)
 const attrData = collateEditorData(attrValues, attrTypes)
 
-export const Default: React.FunctionComponent = () =>
+export const Default: React.FunctionComponent = (): React.ReactElement =>
   <AttributeEditor isOpen={true} onClose={() => { console.log('close') }} onSave={onSave} data={attrData} />
 
-export const InAdjudication: React.FunctionComponent = () =>
+export const InAdjudication: React.FunctionComponent = (): React.ReactElement =>
   <AttributeEditor inAdjudication={true} isOpen={true} onClose={() => { console.log('close') }} onSave={onSave} data={attrData} />
