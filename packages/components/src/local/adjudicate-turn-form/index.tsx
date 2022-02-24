@@ -208,16 +208,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       </fieldset>
       }
-      {attributes && attributes.length > 0 &&
-        <FormGroup title="Attributes" titlePosition="absolute">
-          <div className={styles.attributelist}>
-            {attributes.map((item: AttributeEditorData): ReactElement => {
-              const label = item.nameRead + ' ' + item.valueRead
-              return <Badge key={item.attrId} allCaps={false} customSize='large' label={label} />
-            })}
-            <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
-          </div>
-        </FormGroup>
+      { attributes && attributes.length > 0 &&
+      <FormGroup title="Attributes" titlePosition="absolute">
+        <div className={styles.attributelist}>
+          { attributes.map((item: AttributeEditorData): ReactElement => {
+            const label = item.nameRead + item.valueRead
+            return <Badge title={item.description} key={item.attrId} allCaps={false} label={label}/>
+          })}
+          <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
+        </div>
+      </FormGroup>
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">

@@ -71,7 +71,7 @@ export const forces: ForceData[] = [
         "name": "SSN-1",
         "attributeValues": [
           {
-            attrId: 'asdicComm',
+            attrId: 'asdic-dir',
             attrType: "AttributeValueNumber",
             value: 135
           },

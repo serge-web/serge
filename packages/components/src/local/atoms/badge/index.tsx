@@ -24,6 +24,7 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
     root: ({ type, allCaps, customSize, customBackgroundColor }: Props) => ({
       marginLeft: theme.spacing(1),
       fontWeight: 700,
+      borderRadius: '5px',
       paddingTop: theme.spacing(0.25),
       paddingBottom: theme.spacing(0.25),
       ...type ? { backgroundColor: (theme.palette[type] || {}).main } : {},

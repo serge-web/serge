@@ -86,7 +86,7 @@ export const platformTypes: PlatformTypeData[] = [
     attributeTypes: [
       {
         attrType: ATTRIBUTE_TYPE_NUMBER,
-        attrId: 'asdicComm',
+        attrId: 'asdic-dir',
         name: 'ASDIC',
         description: 'ASDIC orientation (absolute)',
         units: '°',
@@ -125,7 +125,7 @@ export const platformTypes: PlatformTypeData[] = [
     attributeTypes: [
       {
         name: 'ASDIC',
-        attrId: 'asdicComm',
+        attrId: 'asdic-dir',
         description: 'ASDIC orientation (absolute)',
         defaultValue: 0,
         editableByPlayer: true,
