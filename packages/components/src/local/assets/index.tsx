@@ -108,7 +108,7 @@ export const Assets: React.FC<{}> = () => {
       return <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
-        orientation={320}
+        orientation={220}
         contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}

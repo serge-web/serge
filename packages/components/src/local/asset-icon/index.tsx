@@ -132,8 +132,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
-  const customColor = '#f48' // consider make it as a props to customize the marker color
-  const orientStr = `style='transform: ${orientation ? `translate(3px, 5px) rotate(${orientation}deg)` : 'translate(-1px, 5px)'}; background-color: ${customColor}'`
+  const orientStr = `style='transform: ${orientation ? `translate(3px, 5px) rotate(${orientation}deg)` : 
+    'translate(-1px, 5px)'}; background-color: ${perceivedForceColor}'`
   const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
     : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
