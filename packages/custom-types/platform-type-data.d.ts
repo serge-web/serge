@@ -15,6 +15,8 @@ export interface OrientationMarker {
   origin?: 'relative' | 'absolute'
 }
 
+export type OrientationMarkers = OrientationMarker[]
+
 export default interface PlatformTypeData {
   name: string,
   conditions: Array<string>,
@@ -30,5 +32,5 @@ export default interface PlatformTypeData {
   /** list of attribute types for this platform type */
   attributeTypes?: AttributeTypes
   /** if/how to display orientation data for the asset */
-  orientation?: OrientationMarker
+  orientation?: OrientationMarkers
 }

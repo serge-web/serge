@@ -15,6 +15,7 @@ import styles from './styles.module.scss'
 /* Import context */
 import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
+import { OrientationData } from '../assets/types/asset_info'
 
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
@@ -102,8 +103,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   locationPending,
   imageSrc,
   attributes,
-  orientation,
-  shadeOrientation
+  orientationData
 }) => {
   const [iconLoadStatus, setIconLoadStatus] = useState(true)
   const [orientLoadStatus, setOrientLoadStatus] = useState(true)
@@ -124,8 +124,9 @@ export const AssetIcon: React.FC<PropTypes> = ({
     checkImageStatus(orientSrc).then(res => { setOrientLoadStatus(res) }).catch(() => { setOrientLoadStatus(false) })
   }, [orientSrc])
 
-  // temporarily offset the orientation
-  const position2 = position // L.latLng(position.lat + 0.1, position.lng + 0.1)
+  // temporarily offset the markers, so we know which one we are seeing
+  const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
+  const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
 
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
@@ -133,22 +134,35 @@ export const AssetIcon: React.FC<PropTypes> = ({
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
-  const orientColor = shadeOrientation ? '#333' : perceivedForceColor
-  const orientStr = `style='transform: ${orientation ? `translate(3px, 5px) rotate(${orientation}deg)`
-    : 'translate(-1px, 5px)'}; background-color: ${orientColor}'`
-  const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
-    : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
+  const createMarker = (orientation: number, color: string, shade?: boolean): L.DivIcon => {
+    const orientColor = shade ? '#333' : color 
+    const orientStr = `style='transform: ${`translate(3px, 5px) rotate(${orientation}deg)`}; background-color: ${orientColor}'`
+    const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
+      ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
+      : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
+    return L.divIcon({
+        iconSize: [140, 140],
+        html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
+      })
+  }
+
+  // COLLATE LIST OF MARKER ICONS - NOT WORKING
+  const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
+    return createMarker(item.orientation, '#0f0' /* perceivedForceColor */, item.shadeOrientation)
+  }) : [] 
+
+  // SINGLE ICON MARKER - WORKING
+  let orientIcon
+  if(orientationData && orientationData.length) {
+    const item = orientationData[0]
+    orientIcon = createMarker(item.orientation, '#f00' /*perceivedForceColor*/, item.shadeOrientation)
+  }
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${iconImage}</div>`
   })
 
-  const orientIcon = L.divIcon({
-    iconSize: [140, 140],
-    html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
-  })
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -177,12 +191,15 @@ export const AssetIcon: React.FC<PropTypes> = ({
   }
 
   return <>
-    {
-      orientation !== undefined &&
-      <Marker position={position2} icon={orientIcon}>
+    { orientMarkers && orientMarkers.map((icon: L.DivIcon, index: number) => {
+      <Marker key={'orient_'+index} position={position2} icon={icon}>
+      </Marker>
+    })}
+    { orientIcon && 
+      <Marker key={'orient_'} position={position3} icon={orientIcon}>
       </Marker>
     }
-    <Marker position={position} icon={divIcon} onclick={clickEvent}>
+    <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
   </>

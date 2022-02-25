@@ -582,10 +582,10 @@ const wargame: Wargame = {
                         "Mission Kill"
                     ],
                     "icon": "destroyer.svg",
-                    "orientation": {
+                    "orientation": [{
                         "attribute": "asdic-dir",
                         "origin": "absolute"
-                    },
+                    }, {}],
                     "name": "Destroyer",
                     "speedKts": [
                         6,
@@ -661,8 +661,8 @@ const wargame: Wargame = {
                     ],
                     "icon": "ssn.svg",
                     "name": "SSN",
-                    "orientation": {
-                    },
+                    "orientation": [{
+                    }],
                     "attributeTypes": [
                         {
                             "name": "Battery Level",

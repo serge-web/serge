@@ -10,9 +10,10 @@ import { Route } from '../route'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import AssetInfo from './types/asset_info'
+import AssetInfo, { OrientationData } from './types/asset_info'
 import { Route as RouteType, ForceData, PerceivedTypes } from '@serge/custom-types'
 import orientationFor from './helpers/orientation-for'
+import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -78,8 +79,18 @@ export const Assets: React.FC<{}> = () => {
             }
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
-              const orientation = orientationFor(route.currentPosition, route.history, route.planned, route.attributes, thisPlatformType && thisPlatformType.orientation)
-              const shadeOrientation = thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.attribute != undefined
+              const orientData: OrientationData[] = []
+              thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.forEach((marker: OrientationMarker) => {
+                const orientation = orientationFor(route.currentPosition, route.history, route.planned, route.attributes, marker)
+                if(orientation) {
+                  const shadeOrientation = marker.attribute != undefined
+                  const newItem: OrientationData = {
+                    orientation: 180 + orientation,
+                    shadeOrientation: shadeOrientation
+                  }
+                  orientData.push(newItem)
+                }
+              })
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
@@ -96,8 +107,7 @@ export const Assets: React.FC<{}> = () => {
                 controlledBy: assetForce.controlledBy,
                 laydownPhase: laydownPhase,
                 attributes: attributes,
-                orientation: orientation,
-                shadeOrientation: shadeOrientation
+                orientationData: orientData,
               }
               tmpAssets.push(assetInfo)
             }
@@ -117,8 +127,7 @@ export const Assets: React.FC<{}> = () => {
       return <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
-        orientation={asset.orientation && 180 + asset.orientation}
-        shadeOrientation={asset.shadeOrientation}
+        orientationData={asset.orientationData}
         contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}
