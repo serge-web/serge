@@ -135,34 +135,33 @@ export const AssetIcon: React.FC<PropTypes> = ({
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
   const createMarker = (orientation: number, color: string, shade?: boolean): L.DivIcon => {
-    const orientColor = shade ? '#333' : color 
+    const orientColor = shade ? '#333' : color
     const orientStr = `style='transform: ${`translate(3px, 5px) rotate(${orientation}deg)`}; background-color: ${orientColor}'`
     const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
       ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
       : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
     return L.divIcon({
-        iconSize: [140, 140],
-        html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
-      })
+      iconSize: [140, 140],
+      html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
+    })
   }
 
   // COLLATE LIST OF MARKER ICONS - NOT WORKING
   const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
     return createMarker(item.orientation, '#0f0' /* perceivedForceColor */, item.shadeOrientation)
-  }) : [] 
+  }) : []
 
   // SINGLE ICON MARKER - WORKING
   let orientIcon
-  if(orientationData && orientationData.length) {
+  if (orientationData && orientationData.length) {
     const item = orientationData[0]
-    orientIcon = createMarker(item.orientation, '#f00' /*perceivedForceColor*/, item.shadeOrientation)
+    orientIcon = createMarker(item.orientation, '#f00' /* perceivedForceColor */, item.shadeOrientation)
   }
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${iconImage}</div>`
   })
-
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -192,10 +191,10 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   return <>
     { orientMarkers && orientMarkers.map((icon: L.DivIcon, index: number) => {
-      <Marker key={'orient_'+index} position={position2} icon={icon}>
+      <Marker key={'orient_' + index} position={position2} icon={icon}>
       </Marker>
     })}
-    { orientIcon && 
+    { orientIcon &&
       <Marker key={'orient_'} position={position3} icon={orientIcon}>
       </Marker>
     }

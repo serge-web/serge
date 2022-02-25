@@ -4,7 +4,7 @@ import L from 'leaflet'
 
 export interface OrientationData {
   /** the angle for the orientation */
-  orientation: number,
+  orientation: number
   /** whether to apply different shading to this marker */
   shadeOrientation?: boolean
 }
