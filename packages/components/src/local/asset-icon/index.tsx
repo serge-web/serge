@@ -191,7 +191,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   return <>
     { orientMarkers && orientMarkers.map((icon: L.DivIcon, index: number) => {
-      <Marker key={'orient_' + index} position={position2} icon={icon}>
+      return <Marker key={'orient_' + index} position={position2} icon={icon}>
       </Marker>
     })}
     { orientIcon &&

@@ -83,7 +83,7 @@ export const Assets: React.FC<{}> = () => {
               thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.forEach((marker: OrientationMarker) => {
                 const orientation = orientationFor(route.currentPosition, route.history, route.planned, route.attributes, marker)
                 if (orientation) {
-                  const shadeOrientation = marker.attribute != undefined
+                  const shadeOrientation = marker.attribute !== undefined
                   const newItem: OrientationData = {
                     orientation: 180 + orientation,
                     shadeOrientation: shadeOrientation

@@ -18,7 +18,7 @@ import { smallScaleMappingConstraints as mapping, watuWargame } from '@serge/moc
 import data from './data/atlantic-cells'
 
 const forces = watuWargame.data.forces.forces
-const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes || []
+const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
