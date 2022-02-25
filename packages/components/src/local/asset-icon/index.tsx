@@ -125,8 +125,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   }, [orientSrc])
 
   // temporarily offset the markers, so we know which one we are seeing
-  const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
-  const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
+  // const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
+  // const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
 
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
@@ -135,28 +135,22 @@ export const AssetIcon: React.FC<PropTypes> = ({
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
   const createMarker = (orientation: number, color: string, shade?: boolean): L.DivIcon => {
+    console.log('create', name, orientation, shade)
     const orientColor = shade ? '#333' : color
     const orientStr = `style='transform: ${`translate(3px, 5px) rotate(${orientation}deg)`}; background-color: ${orientColor}'`
     const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
       ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
       : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
     return L.divIcon({
-      iconSize: [140, 140],
+      iconSize: [120, 120],
       html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
     })
   }
 
   // COLLATE LIST OF MARKER ICONS - NOT WORKING
   const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
-    return createMarker(item.orientation, '#0f0' /* perceivedForceColor */, item.shadeOrientation)
+    return createMarker(item.orientation, perceivedForceColor, item.shadeOrientation)
   }) : []
-
-  // SINGLE ICON MARKER - WORKING
-  let orientIcon
-  if (orientationData && orientationData.length) {
-    const item = orientationData[0]
-    orientIcon = createMarker(item.orientation, '#f00' /* perceivedForceColor */, item.shadeOrientation)
-  }
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
@@ -191,13 +185,9 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   return <>
     { orientMarkers && orientMarkers.map((icon: L.DivIcon, index: number) => {
-      return <Marker key={'orient_' + index} position={position2} icon={icon}>
+      return <Marker key={'orient_' + index} position={position} icon={icon}>
       </Marker>
     })}
-    { orientIcon &&
-      <Marker key={'orient_'} position={position3} icon={orientIcon}>
-      </Marker>
-    }
     <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
