@@ -18,4 +18,10 @@ export default interface AssetInfo {
   controlledBy?: Array<string>
   laydownPhase?: LaydownPhases
   attributes: AttributeValues
+
+  /** angle to point the orientation marker (or undefined
+   * to not show marker) */
+  orientation: number | undefined
+  /** whether to use `special formatting` on orientation marker */
+  shadeOrientation?: boolean
 }

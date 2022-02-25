@@ -1,58 +1,67 @@
-{
+import { Wargame } from "@serge/custom-types";
+
+const wargame: Wargame = {
     "adjudicationStartTime": "2021-08-10T16:12:25+01:00",
+    "wargameList": [],
     "data": {
         "channels": {
             "channels": [
                 {
                     "name": "VHF C16",
+                    "channelType": "ChannelCustom",
                     "participants": [
                         {
                             "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "8qsze9",
-                            "templates": []
+                            "templates": [],
+                            "pType": "ParticipantCustom"
                         },
                         {
                             "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "hzrzp",
-                            "templates": []
+                            "templates": [],
+                            "pType": "ParticipantCustom"
                         },
                         {
                             "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "icrx",
-                            "templates": []
+                            "templates": [],
+                            "pType": "ParticipantCustom"
                         }
                     ],
                     "uniqid": "channel-koirdijk"
                 },
                 {
                     "name": "mapping",
+                    "channelType": "mapping",
                     "participants": [
                         {
                             "force": "White",
+                            "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": [],
-                            "subscriptionId": "zit48h",
-                            "templates": []
+                            "subscriptionId": "zit48h"
                         },
                         {
                             "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "w9lmf",
-                            "templates": []
+                            "pType": "ParticipantMapping",
+
                         },
                         {
                             "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "x0kbe",
-                            "templates": []
+                            "pType": "ParticipantMapping",
                         }
                     ],
                     "uniqid": "channel-koirldxk"
@@ -70,7 +79,7 @@
                 {
                     "color": "#FCFBEE",
                     "dirty": false,
-                    "icon": "http://localhost:8080/default_img/umpireDefault.png",
+                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
                     "name": "White",
                     "overview": "Umpire force.",
                     "roles": [
@@ -81,7 +90,6 @@
                             "isObserver": true,
                             "isRFIManager": false,
                             "name": "Game Control",
-                            "password": "pkoiqu5ev",
                             "roleId": "rks5zfzd2"
                         },
                         {
@@ -91,7 +99,6 @@
                             "isObserver": false,
                             "isRFIManager": true,
                             "name": "RFI Mgr",
-                            "password": "prtrbj",
                             "roleId": "rks5zfzd3"
                         },
                         {
@@ -101,7 +108,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "Blue HHQ",
-                            "password": "p3ssu8",
                             "roleId": "rks5zfzd4"
                         },
                         {
@@ -111,7 +117,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "Red HHQ",
-                            "password": "pvg5sb",
                             "roleId": "rks5zfzd5"
                         }
                     ],
@@ -163,22 +168,25 @@
                                     "route": [
                                         "8718a84daffffff"
                                     ],
-                                    "speed": 20,
-                                    "state": "Transiting",
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
                                     "turn": 1
                                 },
                                 {
                                     "route": [
                                         "8718a84c2ffffff"
                                     ],
-                                    "speed": 20,
-                                    "state": "Transiting",
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
                                     "turn": 2
                                 }
                             ],
                             "platformType": "destroyer",
                             "attributeValues": [
-
                                 {
                                     "attrId": "asdic-dir",
                                     "attrType": "AttributeValueNumber",
@@ -186,7 +194,7 @@
                                 },
                                 {
                                     "attrId": "att-torpedoes",
-                                    "Value": 25,
+                                    "value": 25,
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
@@ -196,14 +204,23 @@
                         {
                             "condition": "Working",
                             "contactId": "C164",
-                            "history": [],
+                            "history": [{
+                                "route": [
+                                    "8718aab55ffffff"
+                                ],
+                                "status": {
+                                    "speedKts": 12,
+                                    "state": "Transiting"
+                                },
+                                "turn": 1
+                            }],
                             "locationPending": true,
-                            "name": "NORT",
+                            "name": "TALN",
                             "attributeValues": [
                                 {
-                                    "attrId": "asdic-dir",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 135
+                                    "attrId": "comm-battery",
+                                    "value": 100,
+                                    "attrType": "AttributeValueNumber"
                                 }
                             ],
                             "perceptions": [
@@ -216,8 +233,8 @@
                                     "force": "Blue-1"
                                 }
                             ],
-                            "platformType": "destroyer",
-                            "position": "8318f0fffffffff",
+                            "platformType": "ssn",
+                            "position": "8718aab60ffffff",
                             "uniqid": "a0prbr1141"
                         },
                         {
@@ -256,7 +273,7 @@
                     "color": "#00aaff",
                     "cssClass": "blue-1",
                     "dirty": false,
-                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "iconURL": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "Blue-1",
                     "overview": "An overview written here..",
                     "roles": [
@@ -266,7 +283,6 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "name": "CO",
-                            "password": "pkoiqzx9e",
                             "roleId": "rks5zfzd6"
                         },
                         {
@@ -276,7 +292,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "CTF B5",
-                            "password": "pxxpka",
                             "roleId": "rks5zfzdb"
                         }
                     ],
@@ -321,7 +336,7 @@
                     "color": "#f00",
                     "cssClass": "red-1",
                     "dirty": false,
-                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "iconURL": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "Red-1",
                     "overview": "An overview written here..",
                     "roles": [
@@ -331,7 +346,6 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "name": "CO",
-                            "password": "pkoirc8rl",
                             "roleId": "rks5zfzdi"
                         },
                         {
@@ -341,7 +355,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "CTF Y1",
-                            "password": "pdnxcf",
                             "roleId": "rks5zfzdj"
                         },
                         {
@@ -351,7 +364,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "CTF Y2",
-                            "password": "pf2g5",
                             "roleId": "rks5zfzdk"
                         },
                         {
@@ -361,7 +373,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "CTF Y3",
-                            "password": "putgsqw",
                             "roleId": "rks5zfzdl"
                         },
                         {
@@ -371,7 +382,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "CTF Y4",
-                            "password": "pp912",
                             "roleId": "rks5zfzdm"
                         },
                         {
@@ -381,7 +391,6 @@
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "CTF Y5",
-                            "password": "pbyz1",
                             "roleId": "rks5zfzdn"
                         }
                     ],
@@ -400,26 +409,17 @@
             "gameDescription": "",
             "gameTurnTime": 43200000,
             "mapConstraints": {
-                "bounds": [
-                    [
-                        50.4,
-                        -19.8
-                    ],
-                    [
-                        50.1,
-                        -19.1
-                    ]
-                ],
+                "bounds": [[50.4, -20.2], [50.1, -19.1]],
                 "cellLabelsStyle": "ctr_labels",
                 "gridCellsURL": "cells/atlantic-cells-6k.json",
                 "h3res": 7,
                 "maxNativeZoom": 7,
                 "maxZoom": 12,
-                "minZoom": 3,
+                "minZoom": 5,
                 "minZoomHexes": 6,
                 "polygonAreasURL": "cells/atlantic-polygons.json",
                 "targetDataset": "Atlantic",
-                "tileDiameterMins": 24.4,
+                "tileDiameterMins": 64,
                 "tileLayer": {
                     "attribution": "Generated by QTiles",
                     "url": "./atlantic_tiles/{z}/{x}/{y}.png"
@@ -431,7 +431,7 @@
             "timeWarning": 60000,
             "turnPresentation": "Turn-Pairs"
         },
-        "platform_types": {
+        "platformTypes": {
             "complete": false,
             "dirty": false,
             "name": "Platform Types",
@@ -885,3 +885,5 @@
     "wargameInitiated": false,
     "wargameTitle": "Small wargame"
 }
+
+export default wargame

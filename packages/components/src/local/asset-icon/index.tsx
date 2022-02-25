@@ -102,7 +102,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   locationPending,
   imageSrc,
   attributes,
-  orientation
+  orientation,
+  shadeOrientation
 }) => {
   const [iconLoadStatus, setIconLoadStatus] = useState(true)
   const [orientLoadStatus, setOrientLoadStatus] = useState(true)
@@ -132,8 +133,9 @@ export const AssetIcon: React.FC<PropTypes> = ({
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
+  const orientColor = shadeOrientation ? '#333' : perceivedForceColor
   const orientStr = `style='transform: ${orientation ? `translate(3px, 5px) rotate(${orientation}deg)`
-    : 'translate(-1px, 5px)'}; background-color: ${perceivedForceColor}'`
+    : 'translate(-1px, 5px)'}; background-color: ${orientColor}'`
   const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
     : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
@@ -176,7 +178,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   return <>
     {
-      orientation &&
+      orientation !== undefined &&
       <Marker position={position2} icon={orientIcon}>
       </Marker>
     }

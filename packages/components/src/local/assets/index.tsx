@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-import { findPerceivedAsTypes, visibleTo } from '@serge/helpers'
+import { findPerceivedAsTypes, platformTypeNameToKey, visibleTo } from '@serge/helpers'
 import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
 import { Route } from '../route'
 
@@ -12,6 +12,7 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import AssetInfo from './types/asset_info'
 import { Route as RouteType, ForceData, PerceivedTypes } from '@serge/custom-types'
+import orientationFor from './helpers/orientation-for'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -48,6 +49,10 @@ export const Assets: React.FC<{}> = () => {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
+        const thisPlatformType = platformTypesByKey[platformTypeNameToKey(route.asset.platformType)]
+        if (!thisPlatformType) {
+          console.warn('Failed to find platform for', platformType, platformTypesByKey, route)
+        }
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
@@ -73,6 +78,8 @@ export const Assets: React.FC<{}> = () => {
             }
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
+              const orientation = orientationFor(route.currentPosition, route.history, route.planned, route.attributes, thisPlatformType && thisPlatformType.orientation)
+              const shadeOrientation = thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.attribute != undefined
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
@@ -88,7 +95,9 @@ export const Assets: React.FC<{}> = () => {
                 uniqid: uniqid,
                 controlledBy: assetForce.controlledBy,
                 laydownPhase: laydownPhase,
-                attributes: attributes
+                attributes: attributes,
+                orientation: orientation,
+                shadeOrientation: shadeOrientation
               }
               tmpAssets.push(assetInfo)
             }
@@ -101,6 +110,7 @@ export const Assets: React.FC<{}> = () => {
     }
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
+
   return <>
     <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
       const platformType = platformTypesByKey[asset.type]
@@ -108,7 +118,8 @@ export const Assets: React.FC<{}> = () => {
       return <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
-        orientation={220}
+        orientation={asset.orientation && 180 + asset.orientation}
+        shadeOrientation={asset.shadeOrientation}
         contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}

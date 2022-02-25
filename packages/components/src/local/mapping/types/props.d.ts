@@ -25,7 +25,7 @@ export default interface PropTypes {
    * platforms for this wargame
    */
   platformTypesByKey: { [property: string]: PlatformTypeData}
-  /** current player's force
+  /** current player's force (force-id)
    *
   */
   playerForce: string
