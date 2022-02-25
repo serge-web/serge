@@ -134,10 +134,10 @@ export const AssetIcon: React.FC<PropTypes> = ({
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
-  const createMarker = (orientation: number, color: string, shade?: boolean): L.DivIcon => {
-    console.log('create', name, orientation, shade)
-    const orientColor = shade ? '#333' : color
-    const orientStr = `style='transform: ${`translate(3px, 5px) rotate(${orientation}deg)`}; background-color: ${orientColor}'`
+  // collate list of orientation markers
+  const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
+    const orientColor = item.shadeOrientation ? '#333' : perceivedForceColor
+    const orientStr = `style='transform: ${`translate(3px, 5px) rotate(${item.orientation}deg)`}; background-color: ${orientColor}'`
     const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
       ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
       : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
@@ -145,11 +145,6 @@ export const AssetIcon: React.FC<PropTypes> = ({
       iconSize: [120, 120],
       html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
     })
-  }
-
-  // COLLATE LIST OF MARKER ICONS - NOT WORKING
-  const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
-    return createMarker(item.orientation, perceivedForceColor, item.shadeOrientation)
   }) : []
 
   const divIcon = L.divIcon({
