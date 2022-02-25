@@ -111,11 +111,22 @@ export const forces: ForceData[] = [
         ],
         "position": "8718aab70ffffff",
         "uniqid": "a034a22t5431"
-      } /*,
+      },
       {
         "condition": "Working",
         "contactId": "C164",
-        "history": [],
+        "history": [
+          {
+            "route": [
+              "8718aab6affffff"
+            ],
+            "status": {
+              "speedKts": 12,
+              "state": "Transiting a"
+            },
+            "turn": 1
+          }
+        ],
         "locationPending": true,
         "name": "NORTH",
         "perceptions": [
@@ -129,9 +140,9 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
-        "position": "8318f0fffffffff",
+        "position": "8718aab6cffffff",
         "uniqid": "a0prbr1141"
-      } ,
+      } /* ,
       {
         "condition": "Working",
         "contactId": "C866",

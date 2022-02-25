@@ -145,6 +145,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     icon: 'frigate.svg',
+    orientation: {},
     speedKts: [
       10,
       20,
