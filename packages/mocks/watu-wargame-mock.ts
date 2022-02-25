@@ -190,7 +190,7 @@ const wargame: Wargame = {
                                 {
                                     "attrId": "asdic-dir",
                                     "attrType": "AttributeValueNumber",
-                                    "value": 15
+                                    "value": 150
                                 },
                                 {
                                     "attrId": "att-torpedoes",
