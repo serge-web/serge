@@ -47,10 +47,8 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
         const turn = history[history.length - 1]
         if (turn && turn.route && turn.route.length) {
           const routeSteps = turn.route.length
-          if (routeSteps) {
-            start = turn.route[routeSteps - 1]
-            dest = current
-          }
+          start = turn.route[routeSteps - 1]
+          dest = current
         }
       }
       if (dest && start) {
