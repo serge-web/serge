@@ -14,7 +14,7 @@ import { HexGrid } from '../hex-grid'
 import { Phase, serverPath } from '@serge/config'
 
 /* Import mock data */
-import { smallScaleMappingConstraints as mapping,  watuWargame } from '@serge/mocks'
+import { smallScaleMappingConstraints as mapping, watuWargame } from '@serge/mocks'
 import data from './data/atlantic-cells'
 
 const forces = watuWargame.data.forces.forces
@@ -137,7 +137,7 @@ NaturalEarth.args = {
   forces: forces,
   gameTurnTime: twoFourHours,
   canSubmitOrders: true,
-  platformTypesByKey:platformTypesByKey,
+  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   phase: Phase.Planning,
   wargameInitiated: true,
@@ -157,7 +157,7 @@ OpenStreetMap.args = {
   forces: forces,
   gameTurnTime: twoFourHours,
   canSubmitOrders: true,
-  platformTypesByKey:platformTypesByKey,
+  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   wargameInitiated: true,
   phase: Phase.Planning,
@@ -177,7 +177,7 @@ DetailedCells.args = {
   forces: forces,
   gameTurnTime: twoFourHours,
   canSubmitOrders: true,
-  platformTypesByKey:platformTypesByKey,
+  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   phase: Phase.Planning,
   wargameInitiated: true,

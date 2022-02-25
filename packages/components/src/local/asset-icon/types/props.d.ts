@@ -73,7 +73,7 @@ export default interface PropTypes {
    * orientation of the marker (degs from North)
    */
   orientation?: number
-  /** 
+  /**
    * whether to apply special formatting to the orientation marker
    * (typically if the value is coming from an attribute, and this
    * doesn't relate to heading)

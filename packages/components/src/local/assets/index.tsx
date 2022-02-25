@@ -110,7 +110,6 @@ export const Assets: React.FC<{}> = () => {
     }
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
-
   return <>
     <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
       const platformType = platformTypesByKey[asset.type]

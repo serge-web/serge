@@ -138,7 +138,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [atlanticCells, setAtlanticCells] = useState()
   const [polygonAreas, setPolygonAreas] = useState()
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
-  
+
   const domain = enumFromString(Domain, mappingConstraints.targetDataset) || Domain.ATLANTIC
 
   // only update bounds if they're different to the current one
@@ -295,7 +295,7 @@ export const Mapping: React.FC<PropTypes> = ({
         })
     }
   }, [mappingConstraints.gridCellsURL])
-  
+
   useEffect(() => {
     if (mappingConstraints.cellLabelsStyle) {
       const value = mappingConstraints.cellLabelsStyle
