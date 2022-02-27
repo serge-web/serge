@@ -1,4 +1,4 @@
-import { PlatformTypeData, RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
+import { PlatformTypeData, RouteStore } from '@serge/custom-types'
 import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {
@@ -54,10 +54,6 @@ export default interface PropTypes {
    */
   panel: WorldStatePanels
   /**
-   * grid of cells, used for movement
-   */
-  gridCells?: SergeGrid<SergeHex<{}>> | undefined
- /**
    * handler to move asset to top level of this force
    */
   groupMoveToRoot?: {(uniqid: string): void}

@@ -4,13 +4,13 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { PlanTurnFormValues, RouteStore } from '@serge/custom-types'
-import { routeCreateStore, routeSetCurrent } from '@serge/helpers'
+import { AdjudicateTurnFormPopulate, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
+import { deepCopy, routeCreateStore, routeSetCurrent } from '@serge/helpers'
 
 /* Import mock data */
 import { forces, platformTypes } from '@serge/mocks'
 import AdjudicationManager from './helpers/adjudication-manager'
-import { Phase } from '@serge/config'
+import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER, Phase } from '@serge/config'
 
 export default {
   title: 'local/organisms/AdjudicateTurnForm',
@@ -27,9 +27,16 @@ export default {
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 // prepare some routes, and a selected item
-const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, false, false)
+const baseStore: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false, undefined)
 const frigateId = 'a0pra00001'
-const store: RouteStore = routeSetCurrent(frigateId, store2)
+const store: RouteStore = routeSetCurrent(frigateId, baseStore)
+
+// have a route store with attribute data
+const storeWithAttributes: RouteStore = deepCopy(store)
+if (storeWithAttributes.selected) {
+  storeWithAttributes.selected.attributes = [{ attrId: 'comm_a', attrType: ATTRIBUTE_VALUE_NUMBER, value: 123 },
+    { attrId: 'comm_b', attrType: ATTRIBUTE_VALUE_NUMBER, value: 42 }]
+}
 
 const setRouteStore = (store: RouteStore): void => {
   console.log('new store', store.routes.length)
@@ -50,15 +57,25 @@ const closePlanningForm = (): void => {
 const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a1', 'Asset name', 3,
   setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formData)
 
+const formWithAttributes: AdjudicateTurnFormPopulate = deepCopy(formData)
+formWithAttributes.attributes = [
+  { attrId: 'comm_a', editableByPlayer: true, description: 'How much fuel is remaining', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'Fuel', units: 'tons' },
+  { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People' }
+]
+const manager2: AdjudicationManager = new AdjudicationManager(storeWithAttributes, platformTypes, 'a1', 'Asset name', 3,
+  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formWithAttributes)
+
 export const Default: React.FC = () => <AdjudicateTurnForm
   manager={manager}
   canSubmitPlans={true}
   plansSubmitted={false} />
 
-export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
+export const TurnsPlannedWithAttributes: React.FC = () => <AdjudicateTurnForm
+  manager={manager2}
   canSubmitPlans={true}
   plansSubmitted={true} />
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
+  manager={manager}
   plansSubmitted={false}
   canSubmitPlans={false} />
