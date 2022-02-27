@@ -137,7 +137,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   // collate list of orientation markers
   const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
     const orientColor = item.shadeOrientation ? '#333' : perceivedForceColor
-    const orientStr = `style='transform: ${`translate(3px, 5px) rotate(${item.orientation}deg)`}; background-color: ${orientColor}'`
+    const orientStr = `style='transform: ${`rotate(${item.orientation}deg)`}; background-color: ${orientColor}'`
     const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
       ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
       : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
@@ -147,9 +147,11 @@ export const AssetIcon: React.FC<PropTypes> = ({
     })
   }) : []
 
+  // get top orient marker in the list
+  const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${iconImage}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${iconImage}</div>`
   })
 
   const clickEvent = (): void => {
@@ -179,9 +181,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   }
 
   return <>
-    { orientMarkers && orientMarkers.map((icon: L.DivIcon, index: number) => {
-      return <Marker key={'orient_' + index} position={position} icon={icon}>
-      </Marker>
+    {orientMarkers && orientMarkers.map((icon: L.DivIcon, index: number) => {
+      return <Marker key={'orient_' + index} position={position} icon={icon} />
     })}
     <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
