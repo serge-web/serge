@@ -23,7 +23,7 @@ const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platfo
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 const platformTypesByKey = {}
-platformTypes && platformTypes.forEach((plat: PlatformTypeData) => {
+platformTypes.forEach((plat: PlatformTypeData) => {
   platformTypesByKey[platformTypeNameToKey(plat.name)] = plat
 })
 
