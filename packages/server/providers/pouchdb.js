@@ -1,0 +1,147 @@
+const listeners = {}
+let addListenersQueue = []
+const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')
+
+const pouchDb = (app, io, pouchOptions) => {
+  const PouchDB = require('pouchdb-core')
+    .plugin(require('pouchdb-adapter-node-websql'))
+    .plugin(require('pouchdb-adapter-http'))
+    .plugin(require('pouchdb-mapreduce'))
+    .plugin(require('pouchdb-replication'))
+    .defaults(pouchOptions)
+  require('pouchdb-all-dbs')(PouchDB)
+
+  app.use('/db', require('express-pouchdb')(PouchDB))
+
+  // changesListener
+  const initChangesListener = (dbName) => {
+    const db = new PouchDB(dbName, pouchOptions)
+    // saving listener
+    listeners[dbName] = db.changes({
+      since: 'now',
+      live: true,
+      timeout: false,
+      heartbeat: false,
+      include_docs: true
+    }).on('change', (result) => {
+      db.get(result.id).then((data) => {
+        io.emit('changes', data)
+      }).catch(err => console.log('Error in get', err))
+    }).catch(err => console.log('Error on change data', err))
+  }
+
+  // check listeners queue to add a new listenr
+  setInterval(() => {
+    if (addListenersQueue.length) {
+      for (const dbName of addListenersQueue) {
+        initChangesListener(dbName)
+      }
+      // clean queue
+      addListenersQueue = []
+    }
+  }, 5000)
+
+  PouchDB.allDbs().then(dbs => {
+    dbs.forEach(db => initChangesListener(db))
+  }).catch(err => console.log('Error on load alldbs', err))
+
+  const checkSqliteExists = (dbName) => {
+    return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
+  }
+
+  app.put('/:wargame', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+    const db = new PouchDB(databaseName, pouchOptions)
+    const putData = req.body
+
+    if (!listeners[databaseName]) {
+      addListenersQueue.push(databaseName)
+    }
+
+    const retryUntilWritten = (db, doc) => {
+      return db.get(doc._id).then((origDoc) => {
+        doc._rev = origDoc._rev
+        return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc }))
+      }).catch(err => {
+        if (err.status === 409) {
+          return retryUntilWritten(db, doc)
+        } else { // new doc
+          return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
+        }
+      })
+    }
+    retryUntilWritten(db, putData)
+  })
+
+  app.get('/replicate/:replicate/:dbname', (req, res) => {
+    const newDbName = checkSqliteExists(req.params.replicate) // new db name
+    const newDb = new PouchDB(newDbName, pouchOptions)
+    const existingDatabase = checkSqliteExists(req.params.dbname) // copy data from
+    newDb.replicate.from(existingDatabase).then(() => {
+      res.send('Replicated')
+    }).catch(err => res.status(400).send({ msg: 'Error on replication', data: err }))
+  })
+
+  app.delete('/delete/:dbName', (req, res) => {
+    const dbName = checkSqliteExists(req.params.dbName)
+    const db = new PouchDB(dbName, pouchOptions)
+    db.destroy().then(() => {
+      res.send({ msg: 'ok', data: dbName })
+    }).catch((err) => res.status(400).send({ msg: 'error', data: err }))
+  })
+
+  app.delete('/clearAll', (req, res) => {
+    PouchDB.resetAllDbs()
+      .then(() => res.send())
+      .catch(err => res.status(500).send(`Error on clearAll ${err}`))
+  })
+
+  // get all wargame names
+  app.get('/allDbs', async (req, res) => {
+    PouchDB.allDbs().then(dbs => {
+      const dbList = dbs.map(dbName => dbName.replace(dbSuffix, ''))
+      res.send({ msg: 'ok', data: dbList || [] })
+    }).catch(() => res.send([]))
+  })
+
+  // get all documents for wargame
+  app.get('/:wargame', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+    db.allDocs({ include_docs: true, attachments: true })
+      .then(result => {
+        const messages = result.rows.reduce((messages, { doc }) => {
+          const isNotSystem = doc._id !== localSettings
+          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
+          return messages
+        }, [])
+        res.send({ msg: 'ok', data: messages })
+      }).catch(() => res.send([]))
+  })
+
+  // get document for wargame
+  app.get('/:wargame/:id/:idp2', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+    const db = new PouchDB(databaseName, pouchOptions)
+    let id = `${req.params.id}`
+
+    if (req.params.idp2) {
+      id += '/' + req.params.idp2
+    }
+
+    if (!id || !databaseName) {
+      res.status(404).send({ msg: 'Wrong Id or Wargame', data: null })
+    }
+
+    db.get(id)
+      .then(data => res.send({ msg: 'ok', data: data || [] }))
+      .catch(() => res.send([]))
+  })
+}
+
+module.exports = pouchDb

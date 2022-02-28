@@ -16,8 +16,6 @@ export const LAYDOWN_TURN = 'laydown'
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
-export const MAX_LISTENERS = 82
-
 export const UMPIRE_FORCE = 'umpire'
 export const UMPIRE_FORCE_NAME = 'white'
 
@@ -123,3 +121,10 @@ export const serverPath = (
 export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
+
+export const clearAll = 'clearAll'
+export const allDbs = 'allDbs'
+export const socketPath = 'http://localhost:4000'
+export const replicate = 'replicate/'
+export const deletePath = 'delete/'
+export const localSettings = '_local/settings'

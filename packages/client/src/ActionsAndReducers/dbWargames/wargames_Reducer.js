@@ -35,7 +35,7 @@ export const wargamesReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case ActionConstant.ALL_WARGAME_NAMES_SAVED:
-      newState.wargameList = action.payload
+      newState.wargameList = action.payload || []
       return newState
 
     case ActionConstant.SET_CURRENT_WARGAME:
