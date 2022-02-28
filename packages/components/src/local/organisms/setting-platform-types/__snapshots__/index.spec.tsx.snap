@@ -97,6 +97,22 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <span
               onClick={[Function]}
             >
+              ssn
+            </span>
+            <div
+              className="searchlist-menu"
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
               Frigate
             </span>
             <div
