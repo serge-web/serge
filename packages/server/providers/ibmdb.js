@@ -4,10 +4,10 @@ const { localSettings, COUNTER_MESSAGE } = require('../consts')
 const Cloudant = require('@cloudant/cloudant')
 
 const cloudant = Cloudant({
-  url: 'https://27d57343-a838-4b42-887d-8f947628c2b5-bluemix.cloudantnosqldb.appdomain.cloud',
+  url: process.env.IBM_URL,
   plugins: {
     iamauth: {
-      iamApiKey: 'cYnqoe0qRNIHaLndXakpgnfsjFF0nsM-HFEZOWnY3VMb'
+      iamApiKey: process.env.IBM_API
     }
   }
 })
