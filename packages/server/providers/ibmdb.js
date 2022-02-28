@@ -3,6 +3,8 @@ let addListenersQueue = []
 const { localSettings, COUNTER_MESSAGE } = require('../consts')
 const Cloudant = require('@cloudant/cloudant')
 
+require('dotenv').config()
+
 const cloudant = Cloudant({
   url: process.env.IBM_URL,
   plugins: {
