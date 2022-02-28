@@ -28,7 +28,8 @@ export const Assets: React.FC<{}> = () => {
     viewAsRouteStore,
     phase,
     clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
-    platformTypesByKey
+    platformTypesByKey,
+    map
   } = props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
@@ -143,6 +144,7 @@ export const Assets: React.FC<{}> = () => {
         tooltip={asset.name}
         imageSrc={imageSrc}
         attributes={asset.attributes}
+        map={map}
         locationPending={!!asset.laydownPhase}/>
     })}
 

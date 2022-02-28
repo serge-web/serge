@@ -149,4 +149,8 @@ export default interface MappingContext {
   polygonAreas?: any
   /** how to format the cell labels */
   cellLabelStyle?: CellLabelStyle
+  /** 
+   * the leaflet map
+   */
+  map?: L.Map
 }

@@ -45,6 +45,7 @@ interface CssExports {
   'red-1': string;
   'red-2': string;
   'selected': string;
+  'triangle': string;
   'unknown': string;
 }
 export const cssExports: CssExports;

@@ -607,7 +607,8 @@ export const Mapping: React.FC<PropTypes> = ({
     domain: domain,
     polygonAreas,
     panTo,
-    cellLabelStyle
+    cellLabelStyle,
+    map: leafletElement
   }
 
   // any events for leafletjs you can get from leafletElement
