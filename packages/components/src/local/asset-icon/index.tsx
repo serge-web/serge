@@ -202,24 +202,23 @@ export const AssetIcon: React.FC<PropTypes> = ({
         //     const orientRads = 190.0 * Math.PI / 180.0
         const cells: L.LatLng[] = []
         const op1 = map.latLngToLayerPoint(position)
-        const op2 = map.latLngToContainerPoint(position)
+//        const op2 = map.latLngToContainerPoint(position)
         const op = op1 // op1.add(L.point(0, -100))
-        const wid = 15
+        const wid = 20
         const len = 40
         const cosR = Math.sin(orientRads)
         const sinR = Math.cos(orientRads)
-        const origin = op.add([0, 5])
+        const origin = op.add([0, 0])
         const rotatePoint = (x: number, y: number, sinTheta: number, cosTheta: number): L.Point => {
           const xd = x * cosTheta - y * sinTheta
           const yd = y * cosTheta + x * sinTheta
           return L.point(xd, yd)
         }
 
-        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 0, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 5, sinR, cosR))))
         cells.push(map.layerPointToLatLng(origin.add(rotatePoint(0, -len, sinR, cosR))))
-        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(wid, 0, sinR, cosR))))
-        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 0, sinR, cosR))))
-        console.log('icon', name, cell.orientation, op1, op2, map.layerPointToContainerPoint(op2))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(wid, 5, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 5, sinR, cosR))))
         const color = cell.shadeOrientation ? '#222' : perceivedForceColor
         return <Polygon
           key={'hex_poly3_' + index}
@@ -227,7 +226,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
           fill={true}
           positions={cells}
           stroke={false}
-          className={styles.triangle}
+          className={styles['triangle']}
         />
       })}
     </LayerGroup>
