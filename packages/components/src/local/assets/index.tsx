@@ -86,7 +86,7 @@ export const Assets: React.FC<{}> = () => {
                 if (orientation) {
                   const shadeOrientation = marker.attribute !== undefined
                   const newItem: OrientationData = {
-                    orientation: 180 + orientation,
+                    orientation: orientation,
                     shadeOrientation: shadeOrientation
                   }
                   orientData.push(newItem)
