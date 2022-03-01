@@ -73,7 +73,7 @@ export default interface PropTypes {
    * orientation of the marker (degs from North)
    */
   orientationData?: OrientationData[]
-  /** 
+  /**
    * the leaflet map (used for projection conversions)
    */
   map?: L.Map

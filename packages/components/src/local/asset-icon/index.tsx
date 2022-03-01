@@ -146,7 +146,6 @@ export const AssetIcon: React.FC<PropTypes> = ({
   //   })
   // }) : []
 
-
   // Note: keep the following commented out code. It was quite challenging to come up with
   // correctly oriented markers
   //
@@ -197,42 +196,41 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   return <>
     <LayerGroup key={'hex_polygons3'} >{
-        /* not too many cells visible, show hex outlines */
-        map && orientationData && orientationData.map((cell: OrientationData, index: number) => {
-          const orientRads = (90 - cell.orientation) * Math.PI / 180.0
-     //     const orientRads = 190.0 * Math.PI / 180.0
-          const cells: L.LatLng[] = []
-          const op1 = map.latLngToLayerPoint(position)
-          const op2 = map.latLngToContainerPoint(position)
-          const op = op1 // op1.add(L.point(0, -100))
-          const wid = 15
-          const len = 40
-          const cosR = Math.sin(orientRads)
-          const sinR = Math.cos(orientRads)
-          const origin = op.add([0, 5])
-          const rotatePoint = (x: number, y: number, sinTheta: number, cosTheta: number): L.Point => {
-            const xd = x * cosTheta - y * sinTheta
-            const yd = y * cosTheta + x * sinTheta
-            return L.point(xd, yd)
-          }
+      /* not too many cells visible, show hex outlines */
+      map && orientationData && orientationData.map((cell: OrientationData, index: number) => {
+        const orientRads = (90 - cell.orientation) * Math.PI / 180.0
+        //     const orientRads = 190.0 * Math.PI / 180.0
+        const cells: L.LatLng[] = []
+        const op1 = map.latLngToLayerPoint(position)
+        const op2 = map.latLngToContainerPoint(position)
+        const op = op1 // op1.add(L.point(0, -100))
+        const wid = 15
+        const len = 40
+        const cosR = Math.sin(orientRads)
+        const sinR = Math.cos(orientRads)
+        const origin = op.add([0, 5])
+        const rotatePoint = (x: number, y: number, sinTheta: number, cosTheta: number): L.Point => {
+          const xd = x * cosTheta - y * sinTheta
+          const yd = y * cosTheta + x * sinTheta
+          return L.point(xd, yd)
+        }
 
-          cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 0, sinR, cosR))))
-          cells.push(map.layerPointToLatLng(origin.add(rotatePoint(0, -len, sinR, cosR))))
-          cells.push(map.layerPointToLatLng(origin.add(rotatePoint(wid, 0, sinR, cosR))))
-          cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 0, sinR, cosR))))
-          console.log('icon', name, cell.orientation, op1, op2, map.layerPointToContainerPoint(op2))
-          const color = cell.shadeOrientation ? '#222' : perceivedForceColor
-          return <Polygon
-            key={'hex_poly3_' + index}
-            fillColor={color}
-            fill={true}
-            positions={cells}
-            stroke={false}
-            className={styles['triangle']}
-          />
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 0, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(0, -len, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(wid, 0, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 0, sinR, cosR))))
+        console.log('icon', name, cell.orientation, op1, op2, map.layerPointToContainerPoint(op2))
+        const color = cell.shadeOrientation ? '#222' : perceivedForceColor
+        return <Polygon
+          key={'hex_poly3_' + index}
+          fillColor={color}
+          fill={true}
+          positions={cells}
+          stroke={false}
+          className={styles.triangle}
+        />
       })}
-      </LayerGroup>
-
+    </LayerGroup>
 
     <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
