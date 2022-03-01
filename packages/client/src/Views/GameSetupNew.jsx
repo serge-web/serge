@@ -50,6 +50,7 @@ const AdminGameSetup = () => {
   const {
     overview,
     platformTypes,
+    platform_types, // TODO: legacy name. To be deleted.
     forces,
     channels
   } = data
@@ -313,7 +314,7 @@ const AdminGameSetup = () => {
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
-      platformTypes={platformTypes}
+      platformTypes={platformTypes || platform_types}
       forces={forces.forces}
       selectedForce={forces.selectedForce}
       channels={channels.channels}
