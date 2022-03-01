@@ -603,6 +603,7 @@ const wargame: Wargame = {
                             "name": "Loitering"
                         }
                     ],
+                    "turningCircle": 500,
                     "attributeTypes": [
                         {
                             "name": "ASDIC",
