@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import L, { DragEndEvent } from 'leaflet'
+import { h3SetToMultiPolygon } from 'h3-js'
 import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -253,6 +254,13 @@ export const HexGrid: React.FC<{}> = () => {
             // arent' too many cells
             const hull = generateOuterBoundary3(filteredCells)
             setAllowablePoly3(hull)
+
+            // investigate h33 hull function
+            const cellIndices = filteredCells.map((cell: SergeHex3): string => cell.index)
+            const hull2 = h3SetToMultiPolygon(cellIndices, true)
+            const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+            setAllowablePoly3(h3points)
+
           } else {
             setAllowablePoly3([])
           }
