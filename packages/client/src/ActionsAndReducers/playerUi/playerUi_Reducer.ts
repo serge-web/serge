@@ -136,7 +136,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_FORCE:
       newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
-      console.log('set force', newState.selectedForce, action.payload)
       break
 
     case SET_ROLE:
