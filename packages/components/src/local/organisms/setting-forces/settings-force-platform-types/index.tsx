@@ -129,7 +129,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     }
 
     return <div className={styles['view-result-box']}>
-      <AttributeEditor isOpen={attributeEditorIsOpen} onClose={() => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
+      <AttributeEditor isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
       <List dense={true}>
         <ListItem>
           <ListItemText>
@@ -197,7 +197,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                       return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
                     })}
                   </div>
-                  <span className={styles.editattributes}><Button onClick={() => setAttributeEditorIsOpen(true)}>Edit</Button></span>
+                  <span className={styles.editattributes}><Button onClick={(): void => setAttributeEditorIsOpen(true)}>Edit</Button></span>
                 </label>
               </ListItemText>
             </ListItem>

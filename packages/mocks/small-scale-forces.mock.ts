@@ -115,7 +115,18 @@ export const forces: ForceData[] = [
       {
         "condition": "Working",
         "contactId": "C164",
-        "history": [],
+        "history": [
+          {
+            "route": [
+              "8718aab6affffff"
+            ],
+            "status": {
+              "speedKts": 12,
+              "state": "Transiting a"
+            },
+            "turn": 1
+          }
+        ],
         "locationPending": true,
         "name": "NORTH",
         "perceptions": [
@@ -129,7 +140,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
-        "position": "8718a84d9ffffff",
+        "position": "8718aab6cffffff",
         "uniqid": "a0prbr1141"
       } /* ,
       {
