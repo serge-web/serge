@@ -1,9 +1,27 @@
-import { MessageCustom, TemplateBodysByKey } from '@serge/custom-types'
+import { MessageCustom, MessageStructure, TemplateBodysByKey } from '@serge/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
-  getJsonEditorValue?: (value: { [property: string]: any }) => void
-  message: MessageCustom
+  /**
+   * handler for any text change
+   */
+  storeNewValue?: (value: { [property: string]: any }) => void
+  /**
+   * content of message
+   */
+  messageContent: MessageStructure
+  /**
+   * id for message (used for tracking message read)
+   */
+  messageId: string
+  /**
+   * template ID
+   */
+  template: string
+  /**
+   * title to display above the form
+   */
+  title?: string
   /**
    * dictionary of templates, indexed by template name
    */
@@ -24,4 +42,6 @@ export default interface Props {
   expandHeight?: boolean
   /** current game time, used for initialising date-time controls */
   gameDate: string
+  /** disable/enable Array tools with form */
+  disableArrayToolsWithEditor?: boolean
 }

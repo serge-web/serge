@@ -100,7 +100,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   tooltip,
   selected,
   locationPending,
-  imageSrc
+  imageSrc,
+  attributes
 }) => {
   const [loadStatus, setLoadStatus] = useState(true)
   const props = useContext(MapContext).props
@@ -143,7 +144,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
         condition: condition || 'unknown',
         visibleTo: visibleTo,
         status: status,
-        locationPending: locationPending
+        locationPending: locationPending,
+        attributes: attributes
       }
       setSelectedAsset(selection)
       setShowMapBar(true)

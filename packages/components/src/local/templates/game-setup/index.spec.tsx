@@ -9,7 +9,7 @@ import {
   platformType as platformTypeMock
 } from '@serge/mocks'
 import {
-  ChannelData,
+  ChannelTypes,
   ForceData,
   PlatformType,
   Wargame,
@@ -30,7 +30,7 @@ const Component = (): React.ReactElement => {
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
-  const [changedChannels, setChangedChannels] = useState<Array<ChannelData>>(wargame.data.channels.channels || [])
+  const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
@@ -65,7 +65,7 @@ const Component = (): React.ReactElement => {
     setWargameChanged(true)
   }
 
-  const onChannelsChange = (updates: { channels: Array<ChannelData> }): void => {
+  const onChannelsChange = (updates: { channels: Array<ChannelTypes> }): void => {
     setChangedChannels(updates.channels)
     setWargameChanged(true)
   }

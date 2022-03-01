@@ -1,7 +1,7 @@
-import { PlayerUiChannels, PlayerUiChatChannel, MessageCustom } from '.';
+import { PlayerUiChannels, PlayerUiChatChannel, PlayerMessageLog } from '.';
 
 export default interface SetWargameMessage {
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
-  rfiMessages: Array<MessageCustom>
+  playerMessageLog: PlayerMessageLog
 }

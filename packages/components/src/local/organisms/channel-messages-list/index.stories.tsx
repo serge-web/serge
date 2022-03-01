@@ -66,13 +66,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     })
     setIsRead(newState)
   }
-  const handleChange = (nextMsg: MessageCustom): void => {
-    console.log('sending modified message', nextMsg)
-    // setMessages(messages.map(msg => {
-    //   if (msg._id === nextMsg._id) return nextMsg
-    //   return msg
-    // }))
-  }
 
   // remove later versions
   const newestMessages = mostRecentOnly(messages)
@@ -84,10 +77,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     colors={colors}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
-    onChange={handleChange}
     isUmpire={true}
     role={'Comms'}
-    isRFIManager={false}
   />
 }
 

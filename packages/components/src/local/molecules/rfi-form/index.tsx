@@ -158,7 +158,7 @@ export const RfiForm: React.FC<Props> = (props) => {
             label="Answer"
             labelColor="common.white"
             labelSize={12}
-            value={message.details.collaboration?.response}
+            value={(message.details.collaboration?.response && message.details.collaboration?.response.content) || ''}
             updateState={onUpdateAnswer}
             multiline
             rows={2}

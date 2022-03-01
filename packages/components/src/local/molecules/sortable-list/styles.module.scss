@@ -40,6 +40,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  min-width: 25%;
 }
 
 .main li {
@@ -96,7 +97,6 @@
 
 .section > input,
 .section > div {
-  flex: 1;
   font-family: inherit;
   font-size: 18px;
   background: none;
@@ -104,6 +104,24 @@
   line-height: 20px;
   font-weight: 300;
   color: #434343;
+}
+
+.horizontal {
+  display: flex !important;
+  flex-direction: row;
+  max-width: 19vw;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.horizontallist {
+  height: 40px;
+
+  span {
+    &:nth-child(2) {
+      margin: 0 5px;
+    }
+  }
 }
 
 .overlap {

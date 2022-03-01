@@ -21,32 +21,21 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Role from './role'
-import { ForceRole, StateOfWorld } from '.'
+import { Force, ForceRole, StateOfWorld, ForceData } from '.'
 import Wargame from './wargame'
-
-
-/** additional message detail used for management of RFIs */
-export interface RFIData {
-  // current state
-  status: CollaborativeMessageStates,
-  // id of current owner
-  owner: string,
-  // response to RFI
-  answer: string
-}
 
 export interface MessageDetailsFrom {
   /** name
    */
-  force: string,
+  readonly force: ForceData['name'],
   /** id of sending force */
-  forceId?: string,
+  readonly forceId?: ForceData['uniqid'],
   /** CSS color shade for this force */
-  forceColor: string,
+  readonly forceColor: ForceData['color'],
   /** role of the individual that wrote message */
-  roleId: Role['roleId'],
+  readonly roleId: Role['roleId'],
   /** name of the role that send messsage */
-  roleName: Role['name'],
+  readonly roleName: Role['name'],
   /** URL of icon to display for this force
    * TODO: once all code under TypeScript try making it non-optional,
    * and fix cases where it's not assigned
@@ -55,7 +44,7 @@ export interface MessageDetailsFrom {
    * @deprecated use iconURL instead
    */
   icon?: string,
-  iconURL: string,
+  iconURL: ForceData['iconURL'],
   /** user-name, as typed into Feedback/insights form */
   name?: string
 }
@@ -79,8 +68,8 @@ export interface MessageDetails {
    * explain source for answer, or assumptions made
    */
   privateMessage?: string,
-  /** data related to RFI (Request for Information) */
-  rfi?: RFIData
+  /** if this message has been archived */
+  archived?: boolean
 }
 
 export interface MessageStructure {
@@ -94,6 +83,7 @@ export interface MessageStructure {
 }
 
 export interface CoreMessage {
+  readonly messageType: string,
   /** unique id (PouchDB for this document) */
   readonly _id: string
   /** PouchDB revision for this document */
@@ -108,7 +98,8 @@ export interface CoreMessage {
 export interface FeedbackItem {
   /** who the feedback is from */
   readonly fromId: Role['roleId']
-  readonly fromName: Role['roleId']
+  readonly fromName: Role['name']
+  readonly fromForce: ForceData['name']
   /** when the feedback was provided */
   readonly date: string
   /** the feedback */
@@ -122,27 +113,28 @@ export interface CollaborationDetails {
   /**
    * Message status
    */
-   status: CollaborativeMessageStates
+  status: CollaborativeMessageStates
    /** date-time when the last change 
-    * was made to this message
-    */
-   lastUpdated: string
-   /**
-    * Current message owner
-    */
-   owner?: ForceRole
-   /**
-    * response to message, only used in RFIs
-    */
-   response?: string
+   * was made to this message
+   */
+  lastUpdated: string
+  /**
+   * Current message owner
+   */
+  owner?: ForceRole
+  /**
+   * structured response to message
+   */
+  response?: MessageStructure
    /** 
-    * feedback on last version
-    */
-   feedback?: Array<FeedbackItem>
+   * feedback on last version
+   */
+  feedback?: Array<FeedbackItem>
 }
 
 export interface MessageCustom extends CoreMessage {
-  messageType: typeof CUSTOM_MESSAGE,
+  readonly messageType: typeof CUSTOM_MESSAGE,
+  /** the strutured message */
   message: MessageStructure,
   /** whether this message is open/expanded on the current client */
   isOpen: boolean
@@ -161,8 +153,8 @@ export interface MessageCustom extends CoreMessage {
 /** 
  * instance of CounterMEssage for COA and RFI
  */
- export interface MessageCounter {
-  messageType: typeof COUNTER_MESSAGE,
+export interface MessageCounter {
+  readonly messageType: typeof COUNTER_MESSAGE,
   /** unique id (PouchDB for this document) */
   readonly _id: string
   /** PouchDB revision for this document */
@@ -174,12 +166,12 @@ export interface MessageCustom extends CoreMessage {
 }
 
 export interface ChatMessage extends CoreMessage {
-  messageType: typeof CHAT_MESSAGE,
+  readonly messageType: typeof CHAT_MESSAGE,
   message: MessageStructure
 }
 
 export interface MessageFeedback extends CoreMessage {
-  messageType: typeof FEEDBACK_MESSAGE,
+  readonly messageType: typeof FEEDBACK_MESSAGE,
   message: MessageStructure
 }
 
@@ -188,7 +180,7 @@ export interface MessageFeedback extends CoreMessage {
  * updated wargame
  */
 export interface MessageInfoType extends Wargame {
-  messageType: typeof INFO_MESSAGE,
+  readonly messageType: typeof INFO_MESSAGE,
   infoType: boolean,
   gameTurn: number
 }
@@ -197,7 +189,7 @@ export interface MessageInfoType extends Wargame {
   * Mapped/Clipped version of MessageInfoType for channel
   */
 export interface MessageInfoTypeClipped {
-  messageType: typeof INFO_MESSAGE_CLIPPED,
+  readonly messageType: typeof INFO_MESSAGE_CLIPPED,
   details: {
     /** id of channel `infoTypeChannelMarker${uniqId.time()}` */
     channel: string
@@ -210,18 +202,18 @@ export interface MessageInfoTypeClipped {
 }
 
 export interface MessageForceLaydown {
-  messageType: typeof FORCE_LAYDOWN,
-  readonly updates: Array<{uniqid: string, position: string}>
+  readonly messageType: typeof FORCE_LAYDOWN,
+  readonly updates: Array<{ uniqid: string, position: string }>
 }
 export interface MessagePerceptionOfContact {
-  messageType: typeof PERCEPTION_OF_CONTACT,
+  readonly messageType: typeof PERCEPTION_OF_CONTACT,
   readonly assetId: string,
   readonly perception: Perception
 }
 
 /** two assets are going to join, to form a task group */
 export interface MessageCreateTaskGroup {
-  messageType: typeof CREATE_TASK_GROUP,
+  readonly messageType: typeof CREATE_TASK_GROUP,
   /** id of the platform that was dragged onto another */
   readonly dragged: string,
   /** id of the target platform that other was dropped onto */
@@ -230,7 +222,7 @@ export interface MessageCreateTaskGroup {
 
 /** an asset is going to host another platform */
 export interface MessageHostPlatform {
-  messageType: typeof HOST_PLATFORM,
+  readonly messageType: typeof HOST_PLATFORM,
   /** id of the platform that was dragged onto another */
   readonly dragged: string,
   /** id of the target platform that other was dropped onto */
@@ -239,13 +231,13 @@ export interface MessageHostPlatform {
 
 /** an asset is leaving a task group, navigating to top level */
 export interface MessageLeaveTaskGroup {
-  messageType: typeof LEAVE_TASK_GROUP,
+  readonly messageType: typeof LEAVE_TASK_GROUP,
   /** id of the platform that was dragged to the top level */
   readonly dragged: string,
 }
 
 export interface MessageVisibilityChanges {
-  messageType: typeof VISIBILITY_CHANGES,
+  readonly messageType: typeof VISIBILITY_CHANGES,
   readonly visibility: Visibility[],
   readonly assetId: string,
   condition?: string
@@ -253,7 +245,7 @@ export interface MessageVisibilityChanges {
 
 
 export interface MessageDeletePlatform {
-  messageType: typeof DELETE_PLATFORM,
+  readonly messageType: typeof DELETE_PLATFORM,
   readonly assetId: string,
 }
 
@@ -263,30 +255,30 @@ export interface MessageSubmitPlans {
 }
 
 export interface MessageStateOfWorld {
-  messageType: typeof STATE_OF_WORLD,
+  readonly messageType: typeof STATE_OF_WORLD,
   readonly state: StateOfWorld
 }
 
 export type MessageMap = MessageForceLaydown |
-                         MessagePerceptionOfContact |
-                         MessageVisibilityChanges |
-                         MessageSubmitPlans |
-                         MessageStateOfWorld |
-                         MessageCreateTaskGroup |
-                         MessageLeaveTaskGroup | 
-                         MessageHostPlatform |
-                         MessageDeletePlatform
+  MessagePerceptionOfContact |
+  MessageVisibilityChanges |
+  MessageSubmitPlans |
+  MessageStateOfWorld |
+  MessageCreateTaskGroup |
+  MessageLeaveTaskGroup |
+  MessageHostPlatform |
+  MessageDeletePlatform
 
 
 export type MessageChannel = MessageInfoTypeClipped |
-                             MessageCustom
+  MessageCustom
 
 type Message = MessageCustom |
-               ChatMessage |
-               MessageFeedback |
-               MessageInfoTypeClipped |
-               MessageMap |
-               MessageInfoType |
-               MessageCounter
+  ChatMessage |
+  MessageFeedback |
+  MessageInfoTypeClipped |
+  MessageMap |
+  MessageInfoType |
+  MessageCounter
 
 export default Message

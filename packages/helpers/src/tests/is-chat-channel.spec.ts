@@ -1,40 +1,51 @@
 /* global it expect */
+import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from '@serge/config'
+import { ChannelCustom } from '@serge/custom-types'
+import { ParticipantCustom } from '@serge/custom-types/participant'
 import isChatChannel from '../is-chat-channel'
 /* Import mock data */
 
-const empty = {
+const empty: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
-    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [] },
-    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
+    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [], pType: PARTICIPANT_CUSTOM },
+    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
+  ] as ParticipantCustom[],
   uniqid: 'channel-k63pjit0'
 }
 
-const chat = {
+const chat: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
-    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'idchat' }] },
-    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
+    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
+    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
+  ] as ParticipantCustom[],
   uniqid: 'channel-k63pjit0'
 }
 
-const mixed = {
+const mixed: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
-    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'Weather', _id: 'weather' }, { title: 'Chat', _id: 'idchat' }] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'idchat' }] },
-    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
+    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'Weather', _id: 'weather' }, { title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
+    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
+  ] as ParticipantCustom[],
   uniqid: 'channel-k63pjit0'
 }
 
-const nonChat = {
+const nonChat: ChannelCustom = {
+  channelType: CHANNEL_CUSTOM,
   name: 'Channel 16',
   participants: [
-    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'RFI', _id: 'rfi' }] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Weather', _id: 'weather' }] },
-    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
+    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'RFI', _id: 'rfi' }], pType: PARTICIPANT_CUSTOM },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Weather', _id: 'weather' }], pType: PARTICIPANT_CUSTOM },
+    { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
+  ] as ParticipantCustom[],
   uniqid: 'channel-k63pjit0'
 }
 

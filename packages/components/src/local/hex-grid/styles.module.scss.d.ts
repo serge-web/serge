@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'allowable-hex': string;
+  'allowable-line': string;
   'default-coords': string;
   'default-hex': string;
   'num-cells': string;

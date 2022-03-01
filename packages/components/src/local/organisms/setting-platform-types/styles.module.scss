@@ -9,6 +9,7 @@
 .col {
   flex: 1;
 }
+
 .actions {
   display: flex;
   align-items: center;
@@ -41,6 +42,10 @@
   align-items: center;
   justify-content: center;
   min-width: 64px;
+
+  input {
+    margin-left: 10px;
+  }
 }
 
 .mobile-title {
@@ -52,13 +57,83 @@
   font-size: 14px;
   line-height: 20px;
   color: #1a394d;
-  padding-bottom: 22px;
 }
 
 .states-holder > div > div:last-child::before {
   content: "";
   display: block;
   z-index: 1;
-  height: 38px;
+  // height: 38px;
   position: relative;
+}
+
+.attribute-header {
+  display: flex;
+  font-size: small;
+  font-weight: 700;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    &:nth-child(1) {
+      min-width: 25%;
+    }
+    &:nth-child(2) {
+      width: 40px;
+    }
+    &:nth-child(3) {
+      width: 80px;
+    }
+    &:nth-child(4) {
+      width: 380px;
+    }
+    &:nth-child(5) {
+      width: 80px;
+    }
+  }
+}
+
+.modal {
+  position: absolute;
+  padding: 30px 10px 20px;
+  background-color: rgb(221, 221, 221);
+  border-style: none;
+  border-radius: 8px;
+  outline: none;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 250px;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.speedmodalcontent {
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.button {
+  text-align: center;
+
+  button {
+    border-width: 0;
+    color: #fff;
+    padding: 10px;
+    width: 120px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 300;
+    background-color: rgb(28, 69, 135);
+    cursor: pointer;
+
+    &:nth-child(1) {
+      margin-right: 2px;
+    }
+  }
 }

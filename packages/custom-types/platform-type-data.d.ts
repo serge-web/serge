@@ -1,3 +1,4 @@
+import { AttributeTypes } from '.';
 import State from './state'
 
 export default interface PlatformTypeData {
@@ -11,5 +12,7 @@ export default interface PlatformTypeData {
    */
   speedKts?: Array<number>,
   states: Array<State>,
-  travelMode: string
+  travelMode: string,
+  /** list of attribute types for this platform type */
+  attributeTypes?: AttributeTypes
 }

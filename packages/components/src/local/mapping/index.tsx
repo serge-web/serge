@@ -2,16 +2,13 @@ import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM } from '@serge/config'
+import { CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
 
 /* helper functions */
-// TODO: verify we still handle planned routes properly
-// import storePlannedRoute from './helpers/store-planned-route'
-import createGrid from './helpers/create-grid'
-import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
+import { createGridH3 } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -29,8 +26,7 @@ import {
 /* Import Types */
 import PropTypes from './types/props'
 import {
-  SergeHex,
-  SergeGrid,
+  SergeGrid3,
   MappingContext,
   NewTurnValues,
   PlanMobileAsset,
@@ -44,7 +40,8 @@ import {
   Status,
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup,
-  MessageHostPlatform
+  MessageHostPlatform,
+  SergeHex3
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -124,7 +121,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [mapResized, setMapResized] = useState<boolean>(false)
-  const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
+  const [h3gridCells, setH3gridCells] = useState<SergeGrid3>([])
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre] = useState<L.LatLng | undefined>(undefined)
@@ -139,6 +136,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
   const [atlanticCells, setAtlanticCells] = useState()
   const [polygonAreas, setPolygonAreas] = useState()
+  const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -228,13 +226,13 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (forcesState && gridCells) {
+    if (forcesState && h3gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
-        platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -243,13 +241,13 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (forcesState && gridCells && routeStore.routes.length) {
+    if (forcesState && h3gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
         const vStore: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, viewAsForce, platforms,
-          gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
+          filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
@@ -296,6 +294,12 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraints.gridCellsURL])
 
   useEffect(() => {
+    if (mappingConstraints.cellLabelsStyle) {
+      setCellLabelStyle(mappingConstraints.cellLabelsStyle)
+    }
+  }, [mappingConstraints.cellLabelsStyle])
+
+  useEffect(() => {
     if (mappingConstraints.polygonAreasURL) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraints.polygonAreasURL
@@ -310,16 +314,11 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraints.polygonAreasURL])
 
   useEffect(() => {
-    if (mapBounds && mappingConstraints.tileDiameterMins) {
-      let newGrid
-      if (mappingConstraints.targetDataset === Domain.GULF) {
-        newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins)
-      } else if (mappingConstraints.targetDataset === Domain.ATLANTIC && atlanticCells) {
-        newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
-      }
-      if (newGrid) {
-        setGridCells(newGrid)
-      }
+    if (mapBounds && mappingConstraints) {
+      // now the h3 handler
+      const resolution = mappingConstraints.h3res || 3
+      const cells = createGridH3(mapBounds, resolution, atlanticCells)
+      setH3gridCells(cells)
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
 
@@ -328,7 +327,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
       } else {
-        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, gridCells)
+        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].index, h3gridCells)
         const newStore2: RouteStore = routeSetCurrent('', newStore)
         setRouteStore(newStore2)
         setSelectedAsset(undefined)
@@ -351,10 +350,10 @@ export const Mapping: React.FC<PropTypes> = ({
           : turnNumber
 
         // increment turn number, if we have any turns planned, else start with `1`
-        const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
-          return cell.name
+        const coords: Array<string> = newLeg.route.map((cell: SergeHex3) => {
+          return cell.index
         })
-        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
+        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex3) => {
           return cell.centreLatLng
         })
         const newStep: RouteTurn = {
@@ -373,10 +372,10 @@ export const Mapping: React.FC<PropTypes> = ({
         // in adjudication phase. In that phase, only one step is created
         if (planningConstraints && !inAdjudicate) {
           // get the last planned cell, to act as the first new planned cell
-          const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
+          const lastCell: SergeHex3 = newLeg.route[newLeg.route.length - 1]
           // create new planning contraints
           const newP: PlanMobileAsset = {
-            origin: lastCell.name,
+            origin: lastCell.index,
             travelMode: planningConstraints.travelMode,
             status: newLeg.state,
             speed: newLeg.speed,
@@ -558,8 +557,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** pan to the centre of the specified cell */
   const panTo = (cellRef: string): void => {
-    if (gridCells) {
-      const hex = gridCells.find((cell: SergeHex<{}>) => cell.name === cellRef)
+    if (h3gridCells) {
+      const hex = h3gridCells.find((cell: SergeHex3) => cell.index === cellRef)
       if (hex) {
         leafletElement && leafletElement.panTo(hex.centreLatLng, { duration: 1, easeLinearity: 0.6 })
       }
@@ -568,7 +567,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
-    gridCells,
+    h3gridCells,
     forces: forcesState,
     platforms,
     platformTypesByKey,
@@ -602,7 +601,8 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlansSubmitted,
     domain: mappingConstraints.targetDataset,
     polygonAreas,
-    panTo
+    panTo,
+    cellLabelStyle
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -667,6 +667,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <MapControl
             map = {leafletElement}
             home = {mapCentre}
+            bounds = {mapBounds}
             forces = {playerForce === UMPIRE_FORCE ? forcesState : undefined}
             viewAsCallback = {viewAsCallback}
             viewAsForce = {viewAsForce}
@@ -674,6 +675,8 @@ export const Mapping: React.FC<PropTypes> = ({
             setFilterPlannedRoutes = {setFilterPlannedRoutes}
             filterHistoryRoutes = {filterHistoryRoutes}
             setFilterHistoryRoutes = {setFilterHistoryRoutes}
+            cellLabelType = {cellLabelStyle}
+            cellLabelCallback = {setCellLabelStyle}
           />
           { mappingConstraints.tileLayer &&
             <TileLayer

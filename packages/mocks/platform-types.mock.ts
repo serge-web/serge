@@ -1,3 +1,4 @@
+import { ATTRIBUTE_TYPE_NUMBER } from "@serge/config"
 import { PlatformTypeData } from "@serge/custom-types"
 
 export const platformTypes: PlatformTypeData[] = [
@@ -30,7 +31,86 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    attributeTypes: [
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-fish',
+        name: 'quota',
+        description: 'fishing allowance',
+        units: 'tonnes',
+        editableByPlayer: false,
+        defaultValue: 100
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-fuel',
+        name: 'fuel',
+        description: 'fuel remaining',
+        units: 'tonnes',
+        editableByPlayer: false,
+        format: '0.00',
+        defaultValue: 5
+      }
+    ]
+  },
+  {
+    name: 'ssn',
+    conditions: [
+      'Full capability',
+      'Limited capability',
+      'Immobile',
+      'Sinking',
+      'Destroyed'
+    ],
+    icon: 'ssn.svg',
+    speedKts: [
+      10,
+      20
+    ],
+    states: [
+      {
+        name: 'Transiting',
+        mobile: true
+      },
+      {
+        name: 'Evasive',
+        mobile: true
+      },
+      {
+        name: 'Aggressove',
+        mobile: true
+      }
+    ],
+    travelMode: 'sea',
+    attributeTypes: [
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'asdic-dir',
+        name: 'ASDIC',
+        description: 'ASDIC orientation (absolute)',
+        units: '°',
+        editableByPlayer: true,
+        defaultValue: 0
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-battery',
+        name: 'Battery',
+        units: '%',
+        editableByPlayer: false,
+        defaultValue: 100
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-torpedoes',
+        name: 'Torpedoes',
+        description: 'Number of torpedoes remaining',
+        editableByPlayer: true,
+        format: '0',
+        defaultValue: 12
+      }
+    ]
   },
   {
     name: 'Frigate',
@@ -40,6 +120,24 @@ export const platformTypes: PlatformTypeData[] = [
       'Immobile',
       'Sinking',
       'Destroyed'
+    ],
+    attributeTypes: [
+      {
+        name: 'ASDIC',
+        attrId: 'asdic-dir',
+        description: 'ASDIC orientation (absolute)',
+        defaultValue: 0,
+        editableByPlayer: true,
+        attrType: "AttributeTypeNumber"
+      },
+      {
+        name: 'Battery Level',
+        units: '%',
+        attrId: 'fuelComm',
+        defaultValue: 100,
+        editableByPlayer: false,
+        attrType: "AttributeTypeNumber"
+      }
     ],
     icon: 'frigate.svg',
     speedKts: [

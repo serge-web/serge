@@ -6,16 +6,10 @@ import {
   MessageInfoType,
   SetWargameMessage
 } from '@serge/custom-types'
-import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
+import { handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, getMessageState, removeMessageState } from '@serge/helpers'
 import {
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
-// TODO: change it to @serge/config
-
-import {
-  LOCAL_STORAGE_TIMEOUT,
-  expiredStorage,
-} from '../../../consts'
 
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
@@ -23,9 +17,9 @@ import {
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
-  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages,
+  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
-    newState.allTemplatesByKey, newState.allForces)
+    newState.allTemplatesByKey, newState.allForces, newState.playerMessageLog)
   return res
 }
 
@@ -59,7 +53,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
       const res = openMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
-        expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+        setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, payloadMessage._id)
         break;
       }
     }
@@ -69,7 +63,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
     return message._id &&
       !message.hasBeenRead &&
       message.messageType !== INFO_MESSAGE_CLIPPED &&
-      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+      getMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id) === null
   }).length
 
   return {
@@ -96,14 +90,14 @@ export const markUnread = (channel: string, message: MessageChannel, newState: P
   }
 
   const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
-  expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`)
+  removeMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
 
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
   const unreadMessageCount = channelMessages.filter((message) => {
     return message._id &&
       !message.hasBeenRead &&
       message.messageType !== INFO_MESSAGE_CLIPPED &&
-      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+      getMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id) === null
   }).length
 
   return {
@@ -135,7 +129,7 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
     const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
     if (message._id) {
       message.hasBeenRead = true
-      expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+      setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
     }
     return message
   })

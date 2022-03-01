@@ -6,7 +6,7 @@ import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import { MessageTemplatesMockByKey, messageDataCollaborativeEditing, WargameMock } from '@serge/mocks'
+import { MessageTemplatesMockByKey, WargameMock, messageDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import Props from './types/props'
@@ -31,15 +31,32 @@ export default {
     }
   }
 }
+const storeNewValue = (value: { [property: string]: any }): void => {
+  console.log('store data', value)
+}
 
-const Template: Story<Props> = ({ message, messageTemplates, disabled }) => <JsonEditor message={message} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
-export const Default = Template.bind({})
+const Template: Story<Props> = ({ messageTemplates, messageId, disabled, template, messageContent }) => {
+  return (
+    <JsonEditor storeNewValue={storeNewValue} template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
+  )
+}
 
-const defArgs: Props = {
-  message: messageDataCollaborativeEditing[1],
+export const Standard = Template.bind({})
+Standard.args = {
+  messageContent: messageDataCollaborativeEditing[0].message,
   messageTemplates: MessageTemplatesMockByKey,
+  messageId: 'id_1',
+  template: 'k16eedkk',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
-Default.args = defArgs
+export const Response = Template.bind({})
+Response.args = {
+  template: 'k16eedkj',
+  messageContent: messageDataCollaborativeResponding[0].message,
+  messageId: 'id_2ß',
+  messageTemplates: MessageTemplatesMockByKey,
+  disabled: false,
+  gameDate: WargameMock.data.overview.gameDate
+}

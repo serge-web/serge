@@ -1,4 +1,6 @@
-import { AdjudicateTurnFormPopulate } from '@serge/custom-types'
+import { AdjudicateTurnFormPopulate, AttributeTypes } from '@serge/custom-types'
+
+const attributes: AttributeTypes = []
 
 const formData: AdjudicateTurnFormPopulate = {
   contactId: 'C234',
@@ -31,7 +33,8 @@ const formData: AdjudicateTurnFormPopulate = {
       colour: '#fff'
     }
   ],
-  condition: ['Working', 'Disabled', 'Immobile', 'Destroyed']
+  condition: ['Working', 'Disabled', 'Immobile', 'Destroyed'],
+  attributes: attributes
 }
 
 export default formData

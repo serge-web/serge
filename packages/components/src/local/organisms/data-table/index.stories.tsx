@@ -6,11 +6,11 @@ import DataTableProps, { RowWithCollapsibleType } from './types/props'
 import docs from './README.md'
 import { Story } from '@storybook/react/types-6-0'
 import Badge from '../../atoms/badge'
-import RfiForm from '../../molecules/rfi-form'
 import { MessageCustom } from '@serge/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
 import { CollaborativeMessageStates } from '@serge/config'
+import { RfiForm } from '../../molecules/rfi-form'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -81,7 +81,9 @@ newest[0].details.privateMessage = longStr
 newest[0].details.collaboration = {
   status: CollaborativeMessageStates.Released,
   lastUpdated: '2020-03-25T15:08:47.540Z',
-  response: longStr + longStr
+  response: {
+    content: longStr + longStr
+  }
 }
 
 const rfiData = newest.map((message: any) => {
@@ -92,8 +94,8 @@ const rfiData = newest.map((message: any) => {
     messageItem.details.from.roleName,
     messageItem.details.from.forceColor,
     messageItem.message.Title,
-      messageItem.details.collaboration?.status,
-      messageItem.details.collaboration?.owner
+    messageItem.details.collaboration?.status,
+    messageItem.details.collaboration?.owner
   ]
 })
 
