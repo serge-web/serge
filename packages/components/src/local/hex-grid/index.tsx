@@ -252,8 +252,8 @@ export const HexGrid: React.FC<{}> = () => {
           if (filteredCells.length <= 500) {
             // try to create convex polygon around cells, but only if there
             // arent' too many cells
-            const hull = generateOuterBoundary3(filteredCells)
-            setAllowablePoly3(hull)
+            // const hull = generateOuterBoundary3(filteredCells)
+            // setAllowablePoly3(hull)
 
             // investigate h33 hull function
             const cellIndices = filteredCells.map((cell: SergeHex3): string => cell.index)

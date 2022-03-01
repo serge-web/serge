@@ -4,6 +4,9 @@ import L from 'leaflet'
 
 /** produce a polygon that represents the outer boundary of a set of cells.
  * This is typically used to mark the limit of travel in a turn for an asset.
+ * 
+ * Note: use of this method was superceded by the h3 h3SetToMultiPolygon
+ * method, which typically took a 1/10th of the time.
  */
 const generateOuterBoundary3 = (cells: SergeGrid3): L.LatLng[] => {
   const points: turf.Feature<turf.Point>[] = []
