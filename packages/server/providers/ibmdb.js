@@ -23,10 +23,8 @@ const ibmDb = (app, io) => {
         live: true,
         include_docs: true
       }, (err, change) => {
-        if (!err) {
-          db.get(change.id).then(data => io.emit('changes', data))
-        }
-     })
+        if (!err) io.emit('changes', change.doc)
+    })
   }
 
   // check listeners queue to add a new listenr
