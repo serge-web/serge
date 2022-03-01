@@ -23,4 +23,8 @@ export default interface PlanMobileAsset {
    * for unlimited range or if it's immobile
    */
   range?: number
+  /**
+   * optional turning circle for asset, specified in metres
+   */
+  turningCircle?: number
   }

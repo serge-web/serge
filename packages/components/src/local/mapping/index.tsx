@@ -184,7 +184,8 @@ export const Mapping: React.FC<PropTypes> = ({
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
-            status: LAYDOWN_TURN
+            status: LAYDOWN_TURN,
+            turningCircle: pType.turningCircle
           }
           setPlanningConstraints(moves)
         }
@@ -384,7 +385,8 @@ export const Mapping: React.FC<PropTypes> = ({
             travelMode: planningConstraints.travelMode,
             status: newLeg.state,
             speed: newLeg.speed,
-            range: planningConstraints.range
+            range: planningConstraints.range,
+            turningCircle: planningConstraints.turningCircle
           }
           setPlanningConstraints(newP)
         } else {
@@ -451,11 +453,13 @@ export const Mapping: React.FC<PropTypes> = ({
           origin: origin,
           travelMode: pType.travelMode,
           status: status.name,
-          speed: plannedTurn.speedVal
+          speed: plannedTurn.speedVal,
+          turningCircle: pType.turningCircle
         } : {
           origin: origin,
           travelMode: pType.travelMode,
-          status: status.name
+          status: status.name,
+          turningCircle: pType.turningCircle
         }
 
         // special handling, a mobile status may not have a speedVal,
