@@ -12,7 +12,8 @@ const selected: SelectedAsset = {
   status: {
     speedKts: 10,
     state: 'Transiting'
-  }
+  },
+  attributes: []
 }
 
 export default selected

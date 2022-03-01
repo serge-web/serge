@@ -12,6 +12,7 @@ interface CssExports {
   'asset-name': string;
   'assets-list-box': string;
   'assets-list-scrollable-box': string;
+  'editattributes': string;
   'icon-box': string;
   'icon-box-content': string;
   'icon-box-holder': string;

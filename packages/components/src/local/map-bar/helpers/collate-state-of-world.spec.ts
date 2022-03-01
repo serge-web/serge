@@ -45,7 +45,7 @@ it('world gets moved forward with existing history', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, false, false)
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
   const stateOfWorld: StateOfWorld = message.state
   expect(stateOfWorld).toBeDefined()
@@ -80,7 +80,7 @@ it('world gets moved forward without existing history', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, false, false)
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
   const stateOfWorld: StateOfWorld = message.state
   expect(stateOfWorld).toBeDefined()
@@ -112,7 +112,7 @@ it('world gets moved forward with destroyed asset', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, false, false)
 
   // mangle a route
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')
@@ -154,7 +154,7 @@ it('world gets moved forward with modified vis & condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, false, false)
 
   // modify route for dhow-a
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')
@@ -189,7 +189,7 @@ it('world gets moved forward with empty condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, false, false)
 
   // modify route for dhow-a
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')

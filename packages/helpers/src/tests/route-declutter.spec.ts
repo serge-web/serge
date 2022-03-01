@@ -10,7 +10,7 @@ import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
 import { Phase } from '@serge/config'
 
 it('declutter routes', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
 
   // force some platforms into the cell already occupied
   // but the platform in route 2
@@ -40,7 +40,7 @@ it('declutter routes', () => {
 it('dont declutter last point on selected track', () => {
   const fisherAId = 'a0pra000202'
   const dhowAId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(fisherAId, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(fisherAId, Phase.Adjudication, forces, 'umpire', platformTypes, true, true)
 
   // check dhow location & end of fisher planned match
   const fisherA1: Route | undefined = store.selected
@@ -91,7 +91,7 @@ it('dont declutter last point on selected track', () => {
 it('declutter last point on un-selected track', () => {
   const fisherAId = 'a0pra000202'
   const dhowAId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, true, false)
 
   // check dhow location & end of fisher planned match
   const fisherA1: Route | undefined = store.routes.find(route => route.uniqid === fisherAId)

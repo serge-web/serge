@@ -1,5 +1,8 @@
+import { AttributeTypes } from '.'
 import ColorOption from './color-option'
+import { AttributeValues } from './attributes'
 import SergeHex from './serge-hex'
+import { SergeHex3 } from './serge-hex-3'
 
 interface Status {
   name: string,
@@ -32,12 +35,13 @@ export interface PerceptionFormData {
 export interface NewTurnValues {
   state: string
   speed?: number
-  route: Array<SergeHex<{}>>
+  route: Array<SergeHex3>
 }
 
 export interface PlanTurnFormPopulate {
   status: Array<Status>
   speed: Array<number>
+  attributes: AttributeTypes
 }
 
 export interface PlanTurnFormValues {
@@ -45,6 +49,7 @@ export interface PlanTurnFormValues {
   speedVal: number
   turnsVal: number
   condition: string
+  attributes: AttributeValues
 }
 
 export interface PlanTurnFormData {
@@ -58,6 +63,7 @@ export interface AdjudicateTurnFormPopulate {
   speed: Array<number>
   visibleTo: Array<ColorOption>
   condition: Array<string>
+  attributes: AttributeTypes
 }
 
 export interface VisibilityFormData {
