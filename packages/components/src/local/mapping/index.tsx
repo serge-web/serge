@@ -90,8 +90,8 @@ export const MapContext = createContext<ContextInterface>({ props: undefined })
 
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
-  mapBar,
   mappingConstraints,
+  mapBar,
   forces,
   playerForce,
   canSubmitOrders,
@@ -116,7 +116,7 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
-  const [showMapBar, setShowMapBar] = useState<boolean>(true)
+  const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
@@ -652,7 +652,7 @@ export const Mapping: React.FC<PropTypes> = ({
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
-        {mapBar && <MapBar />}
+        {showMapBar && <MapBar />}
         <Map
           className={styles.map}
           center={mapCentre}
