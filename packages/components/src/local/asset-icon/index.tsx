@@ -201,14 +201,14 @@ export const AssetIcon: React.FC<PropTypes> = ({
         const orientRads = (90 - cell.orientation) * Math.PI / 180.0
         //     const orientRads = 190.0 * Math.PI / 180.0
         const cells: L.LatLng[] = []
-        const op1 = map.latLngToLayerPoint(position)
-//        const op2 = map.latLngToContainerPoint(position)
-        const op = op1 // op1.add(L.point(0, -100))
+        const origin = map.latLngToLayerPoint(position)
         const wid = 20
         const len = 40
+        // precalculate cos/sin, since it's reused
         const cosR = Math.sin(orientRads)
         const sinR = Math.cos(orientRads)
-        const origin = op.add([0, 0])
+
+        // method to rotate point around origin
         const rotatePoint = (x: number, y: number, sinTheta: number, cosTheta: number): L.Point => {
           const xd = x * cosTheta - y * sinTheta
           const yd = y * cosTheta + x * sinTheta
@@ -219,6 +219,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
         cells.push(map.layerPointToLatLng(origin.add(rotatePoint(0, -len, sinR, cosR))))
         cells.push(map.layerPointToLatLng(origin.add(rotatePoint(wid, 5, sinR, cosR))))
         cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 5, sinR, cosR))))
+
+        // use dark shade if told to shade it, else perceived color
         const color = cell.shadeOrientation ? '#222' : perceivedForceColor
         return <Polygon
           key={'hex_poly3_' + index}
