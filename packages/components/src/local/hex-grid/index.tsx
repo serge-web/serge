@@ -19,7 +19,6 @@ import { MapContext } from '../mapping'
 import { Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
 
-import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
 import getCellStyle3 from './helpers/get-cell-style-3'
 
 /**
