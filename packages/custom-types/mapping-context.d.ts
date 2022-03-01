@@ -22,7 +22,7 @@ export default interface MappingContext {
   /**
    * object of platforms within this wargame by Asset.platformType keys
    */
-   platformTypesByKey: { [property: string]: PlatformTypeData }
+  platformTypesByKey: { [property: string]: PlatformTypeData }
   /**
    * force for current player
    */
