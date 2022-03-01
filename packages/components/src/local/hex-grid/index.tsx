@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import L, { DragEndEvent } from 'leaflet'
-import { h3SetToMultiPolygon } from 'h3-js'
+import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
 import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -18,7 +18,7 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
-import { edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
+
 import generateOuterBoundary3 from './helpers/get-outer-boundary-3'
 import getCellStyle3 from './helpers/get-cell-style-3'
 
@@ -260,7 +260,6 @@ export const HexGrid: React.FC<{}> = () => {
             const hull2 = h3SetToMultiPolygon(cellIndices, true)
             const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
             setAllowablePoly3(h3points)
-
           } else {
             setAllowablePoly3([])
           }
