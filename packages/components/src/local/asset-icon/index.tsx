@@ -216,7 +216,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
           fill={true}
           positions={cells}
           stroke={false}
-          className={styles['triangle']}
+          className={styles.triangle}
         />
       })}
     </LayerGroup>
