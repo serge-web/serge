@@ -53,15 +53,14 @@ const wargame: Wargame = {
                             "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "w9lmf",
-                            "pType": "ParticipantMapping",
-
+                            "pType": "ParticipantMapping"
                         },
                         {
                             "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "x0kbe",
-                            "pType": "ParticipantMapping",
+                            "pType": "ParticipantMapping"
                         }
                     ],
                     "uniqid": "channel-koirldxk"
