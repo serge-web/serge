@@ -49,7 +49,7 @@ const AdminGameSetup = () => {
   } = wargame
   const {
     overview,
-    platform_types: platformTypes,
+    platformTypes,
     forces,
     channels
   } = data
