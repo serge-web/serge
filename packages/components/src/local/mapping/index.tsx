@@ -42,8 +42,7 @@ import {
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup,
   MessageHostPlatform,
-  SergeHex3,
-  TurningDetails
+  SergeHex3
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -468,7 +467,8 @@ export const Mapping: React.FC<PropTypes> = ({
           // check range is in 10s
           const range = roundToNearest(roughRange, 1)
 
-          const heading = orientationFor(current.currentPosition, current.history, current.planned, {})
+          // produce a heading value
+          const heading = orientationFor(current.currentPosition, current.history, current.planned, [], {})
 
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
