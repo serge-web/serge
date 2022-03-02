@@ -23,7 +23,7 @@
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  border: 1px solid hsla(0, 0%, 100%, 0.6);
+  border: 0;
   &.selected {
     border: 4px solid rgba(255, 255, 255, 0.7);
     box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
@@ -90,12 +90,33 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
   }
 }
 
+.orientation {
+  /* stylelint-disable */
+  -webkit-mask: url("./counters/orientation-marker.svg");
+  /* stylelint-enable */
+  mask: url("./counters/orientation-marker.svg");
+}
+
+.triangle {
+  fill-opacity: 0.6;
+}
+
 .img {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 100%;
+}
+
+.orient-icon-with-image {
+  padding: 10%;
+  box-sizing: border-box;
+  background-color: transparent;
+  img {
+    width: 100%;
+    display: block;
+  }
 }
 
 .asset-icon-with-image {

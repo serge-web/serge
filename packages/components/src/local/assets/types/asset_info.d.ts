@@ -2,6 +2,13 @@ import { LaydownPhases } from '@serge/config'
 import { AttributeValues, RouteStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
+export interface OrientationData {
+  /** the angle for the orientation */
+  orientation: number
+  /** whether to apply different shading to this marker */
+  shadeOrientation?: boolean
+}
+
 export default interface AssetInfo {
   position: L.LatLng
   name: string
@@ -18,4 +25,6 @@ export default interface AssetInfo {
   controlledBy?: Array<string>
   laydownPhase?: LaydownPhases
   attributes: AttributeValues
+  /** details of orientations to show */
+  orientationData: OrientationData[]
 }
