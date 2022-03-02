@@ -13,6 +13,8 @@ interface CssExports {
   'force': string;
   'green': string;
   'img': string;
+  'orient-icon-with-image': string;
+  'orientation': string;
   'platform-type-agi': string;
   'platform-type-auxiliary': string;
   'platform-type-boghammer': string;
@@ -43,6 +45,7 @@ interface CssExports {
   'red-1': string;
   'red-2': string;
   'selected': string;
+  'triangle': string;
   'unknown': string;
 }
 export const cssExports: CssExports;

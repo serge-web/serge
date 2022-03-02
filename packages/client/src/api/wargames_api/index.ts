@@ -46,7 +46,8 @@ import {
   MessageStructure,
   MessageCustom,
   GameTurnLength,
-  ChannelTypes
+  ChannelTypes,
+  PlatformTypeData
 } from '@serge/custom-types'
 
 import {
@@ -397,16 +398,20 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
 
 export const deletePlatformType = (dbName: string, platformType: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc = deepCopy(res)
-    newDoc.data.platform_types.platformTypes = newDoc.data.platform_types.platformTypes.filter((platform: PlatformType) => platform.name !== platformType.name)
+    const newDoc: Wargame = deepCopy(res)
+    if (newDoc.data.platformTypes) {
+      newDoc.data.platformTypes.platformTypes = newDoc.data.platformTypes.platformTypes.filter((platform: PlatformTypeData) => platform.name !== platformType.name)
+    } else {
+      console.warn('Trying to delete platform types, but structure is empty')
+    }
     return updateWargame(newDoc, dbName)
   })
 }
 
 export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc = deepCopy(res)
-    newDoc.data.platform_types = data
+    const newDoc: Wargame = deepCopy(res)
+    newDoc.data.platformTypes = data
     return updateWargame(newDoc, dbName)
   })
 }

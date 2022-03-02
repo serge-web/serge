@@ -145,6 +145,7 @@ const factory = (state: PlayerUi): Factory => {
     const renderMap = (channelid: string) => <Mapping
       mappingConstraints={mappingConstraints}
       forces={state.allForces}
+      mapBar={true}
       platforms={state.allPlatformTypes}
       phase={phaseFor(state.phase)}
       turnNumber={state.currentTurn}

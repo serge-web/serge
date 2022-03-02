@@ -47,7 +47,9 @@ export const createMessageExportItem = ({ currentWargame, exportMessagelist = []
   const channelTitles: ChannelTitles = getChannelTitlesFromInfoTypeMessages(infoTypeMessages)
   const data: ExportItemData[] = exportDataGrouped(exportMessagelist, channelTitles)
   const title = `Export ${new Date().toISOString().slice(0, 19).replace('T', ' ')}`
-  return createExportItem({ type: EXPORT_ITEM_MESSAGES, title, wargame: currentWargame, data })
+  // note: we have made the `currentWargame` element of `wargame` optional.  But, following
+  // call needs a string for wargame.  So, we offer empty string if missing
+  return createExportItem({ type: EXPORT_ITEM_MESSAGES, title, wargame: currentWargame || '', data })
 }
 
 const keysSimplify = (row: FlatMessage): FlatMessage => {
