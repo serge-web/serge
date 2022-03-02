@@ -42,7 +42,8 @@ import {
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup,
   MessageHostPlatform,
-  SergeHex3
+  SergeHex3,
+  TurningDetails
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -50,6 +51,7 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
+import orientationFor from '../assets/helpers/orientation-for'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -184,8 +186,7 @@ export const Mapping: React.FC<PropTypes> = ({
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
-            status: LAYDOWN_TURN,
-            turningCircle: pType.turningCircle
+            status: LAYDOWN_TURN
           }
           setPlanningConstraints(moves)
         }
@@ -448,20 +449,6 @@ export const Mapping: React.FC<PropTypes> = ({
         // sort out platform type for this asset
         const pType = findPlatformTypeFor(platforms, current.platformType)
 
-        // package up planning constraints, sensitive to if there is a speed or not
-        const constraints: PlanMobileAsset = plannedTurn.speedVal ? {
-          origin: origin,
-          travelMode: pType.travelMode,
-          status: status.name,
-          speed: plannedTurn.speedVal,
-          turningCircle: pType.turningCircle
-        } : {
-          origin: origin,
-          travelMode: pType.travelMode,
-          status: status.name,
-          turningCircle: pType.turningCircle
-        }
-
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
@@ -480,12 +467,25 @@ export const Mapping: React.FC<PropTypes> = ({
 
           // check range is in 10s
           const range = roundToNearest(roughRange, 1)
-          constraints.range = range
 
-          setPlanningConstraints(constraints)
+          const heading = orientationFor(current.currentPosition, current.history, current.planned, {})
+
+          const mobileConstraints: PlanMobileAsset = {
+            origin: origin,
+            travelMode: pType.travelMode,
+            status: status.name,
+            speed: plannedTurn.speedVal,
+            turningCircle: (heading !== undefined && pType.turningCircle) ? { radius: pType.turningCircle, heading: heading, distance: distancePerTurn } : undefined,
+            range: range
+          }
+          setPlanningConstraints(mobileConstraints)
         } else {
-          setPlanningConstraints(constraints)
-          constraints.range = undefined
+          const noSpeedConstraints = {
+            origin: origin,
+            travelMode: pType.travelMode,
+            status: status.name
+          }
+          setPlanningConstraints(noSpeedConstraints)
         }
       } else {
         // if we were planning a mobile route, clear that

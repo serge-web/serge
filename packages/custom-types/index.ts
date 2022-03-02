@@ -43,7 +43,7 @@ export { default as Message,
          MessageCounter
        } from './message.d'
 export { default as PerceivedTypes } from './perceived-types.d'
-export { default as PlanMobileAsset } from './plan-mobile-asset'
+export { default as PlanMobileAsset, TurningDetails } from './plan-mobile-asset'
 export { default as PlannedRoute } from './planned-route.d'
 export { default as PlatformTypeData } from './platform-type-data.d'
 export { default as PlatformType } from './platform-type.d'
