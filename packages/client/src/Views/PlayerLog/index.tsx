@@ -58,6 +58,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
             const activityTime = activity && activity.activityTime && parseInt(activity.activityTime)
+            setPlayerLogData([])
             logData.push({
               forceName: force.name,
               forceColor: force.color,
