@@ -7,6 +7,7 @@ import factory from './helpers/factory'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import FlexLayout, { Model } from 'flexlayout-react'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { setActivityTime } from '@serge/config'
 
 
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
@@ -22,6 +23,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
 
   useEffect(() => {
     addTabs(state, model, gameAdmin, gameAdminTitle, insights)
+    setActivityTime('Logged in')
   }, [])
 
   return (
