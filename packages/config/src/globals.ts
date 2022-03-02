@@ -128,7 +128,14 @@ export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
-// there has been some user interaction, so log the current time
+// 
+/** there has been some user interaction, so log the current time
+ * The storage we're using is shared across browser tabs, so previously
+ * one session would overwrite the history for another. So, we prepend the
+ * activity type with the role name - to let one player use multiple tabs.
+ * @param role - current role id
+ * @param event - name of event that just happened
+ */
 export const setActivityTime = (role: string, event: string): void  => {
   expiredStorage.setItem(`${role}_${ACTIVITY_TYPE}`, event) 
   expiredStorage.setItem(`${role}_${ACTIVITY_TIME}`, `${new Date().getTime()}`) 

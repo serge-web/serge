@@ -14,8 +14,7 @@ import {
   Phase,
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
-  CHANNEL_CHAT,
-  setActivityTime
+  CHANNEL_CHAT
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -187,8 +186,7 @@ const factory = (state: PlayerUi): Factory => {
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
         default:
-          setActivityTime(state.selectedRole, 'Channels opened')
-          console.warn('not yet handling', v3Channel.channelType)
+          console.log('not yet handling', v3Channel.channelType)
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {
