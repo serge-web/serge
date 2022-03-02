@@ -83,3 +83,4 @@ export {
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
 export * from './attribute-helpers'
+export { default as enumFromString } from './enum-from-string'
