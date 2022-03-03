@@ -21,7 +21,8 @@ import {
   findPlatformTypeFor,
   findAsset,
   routeSetLaydown,
-  enumFromString
+  enumFromString,
+  platformTypeNameToKey
 } from '@serge/helpers'
 
 /* Import Types */
@@ -180,7 +181,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (layPhase && canSubmitOrders) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
-          const pType = platformTypesByKey[asset.platformType]
+          const pType = platformTypesByKey[platformTypeNameToKey(asset.platformType)]
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
