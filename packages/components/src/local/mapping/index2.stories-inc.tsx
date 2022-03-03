@@ -17,7 +17,7 @@ import { Phase } from '@serge/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/PreInitMapping',
+  title: 'local/Mapping/PreInit',
   component: Mapping,
   decorators: [wrapper],
   parameters: {

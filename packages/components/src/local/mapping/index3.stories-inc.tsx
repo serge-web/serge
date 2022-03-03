@@ -29,7 +29,7 @@ async function fetchMock (): Promise<any> {
 }
 
 export default {
-  title: 'local/AtlanticMapping',
+  title: 'local/Mapping/Atlantic',
   component: Mapping,
   decorators: [wrapper],
   parameters: {
