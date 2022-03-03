@@ -546,7 +546,7 @@ export const forces: ForceData[] = [
         "contactId": "C015",
         "history": [
           {
-            "route": ["AI53"],
+            "route": ["83065afffffffff"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -566,7 +566,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AE53"
+              "831b2afffffffff"
             ],
             "status": {
               "speedKts": 20,
@@ -576,75 +576,17 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AC53"
+              "831b0dfffffffff"
             ],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
             },
             "turn": 4
-          },
-          {
-            "route": [
-              "AA53"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 5
-          },
-          {
-            "route": [
-              "Z52"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 6
-          },
-          {
-            "route": [
-              "X52"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 7
-          },
-          {
-            "route": [
-              "V53"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 8
-          },
-          {
-            "status": {
-              "state": "Moored"
-            },
-            "turn": 9
-          },
-          {
-            "status": {
-              "state": "Moored"
-            },
-            "turn": 10
-          },
-          {
-            "status": {
-              "state": "Moored"
-            },
-            "turn": 11
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "AG53",
+        "position": "831b21fffffffff",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -656,7 +598,7 @@ export const forces: ForceData[] = [
         "contactId": "C081",
         "history": [
           {
-            "route": ["AI56"],
+            "route": ["831b34fffffffff"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -682,7 +624,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AF55"
+              "831b04fffffffff"
             ],
             "status": {
               "speedKts": 20,
@@ -692,83 +634,17 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AE55"
+              "831b00fffffffff"
             ],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
             },
             "turn": 4
-          },
-          {
-            "route": [
-              "AC55"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 5
-          },
-          {
-            "route": [
-              "AA55"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 6
-          },
-          {
-            "route": [
-              "Y55"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 7
-          },
-          {
-            "route": [
-              "Y54"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 8
-          },
-          {
-            "status": {
-              "state": "Moored"
-            },
-            "turn": 9
-          },
-          {
-            "route": [
-              "Z54"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 10
-          },
-          {
-            "route": [
-              "AB54"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 11
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "AG56",
+        "position": "831b31fffffffff",
         "status": {
           "state": "Moored"
         },
@@ -779,7 +655,7 @@ export const forces: ForceData[] = [
         "contactId": "C116",
         "history": [
           {
-            "route": ["O31"],
+            "route": ["830659fffffffff"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
@@ -799,7 +675,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "K33"
+              "83064bfffffffff"
             ],
             "status": {
               "speedKts": 10,
@@ -812,72 +688,10 @@ export const forces: ForceData[] = [
               "state": "Fishing"
             },
             "turn": 4
-          },
-          {
-            "route": [
-              "L34"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 5
-          },
-          {
-            "route": [
-              "N34"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 6
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 7
-          },
-          {
-            "route": [
-              "M36"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 8
-          },
-          {
-            "route": [
-              "K36"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 9
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 10
-          },
-          {
-            "route": [
-              "J35"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 11
-          }
+          }          
         ],
         "platformType": "fishing-vessel",
-        "position": "M31",
+        "position": "831b2dfffffffff",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -889,7 +703,7 @@ export const forces: ForceData[] = [
         "contactId": "C026",
         "history": [
           {
-            "route": ["AU12"],
+            "route": ["83064efffffffff"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
@@ -914,81 +728,17 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AP15"
+              "83066bfffffffff"
             ],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
             },
             "turn": 4
-          },
-          {
-            "route": [
-              "AN17"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 5
-          },
-          {
-            "route": [
-              "AL18"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 6
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 7
-          },
-          {
-            "route": [
-              "AL17"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 8
-          },
-          {
-            "route": [
-              "AL16"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 9
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 10
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 11
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 12
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "AR13",
+        "position": "83064bfffffffff",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -1000,7 +750,7 @@ export const forces: ForceData[] = [
         "contactId": "C115",
         "history": [
           {
-            "route": ["AC25"],
+            "route": ["830764fffffffff"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
@@ -1026,7 +776,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "X27"
+              "831936fffffffff"
             ],
             "status": {
               "speedKts": 10,
@@ -1039,72 +789,10 @@ export const forces: ForceData[] = [
               "state": "Fishing"
             },
             "turn": 4
-          },
-          {
-            "route": [
-              "U28"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 5
-          },
-          {
-            "route": [
-              "S29"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 6
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 7
-          },
-          {
-            "route": [
-              "U28"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 8
-          },
-          {
-            "route": [
-              "AV16"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 9
-          },
-          {
-            "status": {
-              "state": "Fishing"
-            },
-            "turn": 10
-          },
-          {
-            "route": [
-              "W27"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 11
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "AA26",
+        "position": "830761fffffffff",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
