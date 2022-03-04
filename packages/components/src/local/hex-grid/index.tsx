@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import L, { DragEndEvent } from 'leaflet'
-import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
+import * as turf from '@turf/turf'
 import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -18,7 +18,7 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
-
+import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
 
 /**
@@ -73,6 +73,10 @@ export const HexGrid: React.FC<{}> = () => {
   const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex3>>([])
   const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]>([])
 
+  // temporary turn data
+  const [leftTurn, setLeftTurn] = useState<L.LatLng[]>([])
+  const [rightTurn, setRightTurn] = useState<L.LatLng[]>([])
+  
   // the binned polygons
   const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
 
@@ -121,6 +125,10 @@ export const HexGrid: React.FC<{}> = () => {
           setPlannedRouteCells([])
           setPlannedRoutePoly([])
 
+          // temp for turning circles
+          setLeftTurn([])
+          setRightTurn([])
+
           // and update the asset id
           setSelectedAssetId(selectedAsset.uniqid)
           // remember the color of the selected asset, so we shade correctly shade background
@@ -154,6 +162,11 @@ export const HexGrid: React.FC<{}> = () => {
       setPlannedRoutePoly([])
       setPlannedRouteCells([])
       setCellForSelected3(undefined)
+
+      // temp for turning circles
+      setLeftTurn([])
+      setRightTurn([])
+      
     }
   }, [selectedAsset, h3gridCells, viewAsRouteStore])
 
@@ -230,6 +243,46 @@ export const HexGrid: React.FC<{}> = () => {
       if (originCell) {
         setOrigin(originCell.centreLatLng)
 
+        //////////////////////
+        // TEMPORARY - TURNING CIRCLES
+
+        // const toRadians = (degs: number) => {
+        //   return degs * (Math.PI/180);
+        // }
+
+        // const toVector = (dx: number, dy: number) => {
+        //   const direction =  Math.atan2(dy, dy)
+        //   const magnitude = Math.sqrt(dx * dx + dy * dy)
+        //   return {magnitude, direction}
+        // }
+
+        if(planningConstraints.turningCircle) {
+          // coords of circle
+          const details = planningConstraints.turningCircle
+          const radiusKm: number = planningConstraints.turningCircle.radius / 1000
+          const origin = turf.point( [originCell.centreLatLng.lng, originCell.centreLatLng.lat])
+
+          const buildTurn = (origin: turf.Feature<turf.Point>, left: boolean): L.LatLng[] => {
+            const offset = left? -90 : 90
+            const thisOrigin = turf.destination(origin, radiusKm, details.heading + offset, {units: 'kilometers'} )
+            const pts: L.LatLng[] = []
+            for(var i: number = 0; i<360; i+= 30) {
+              const dest: turf.Feature<turf.Point> = turf.destination(thisOrigin, radiusKm, i, {units: 'kilometers'} )
+              const point: turf.Position = dest.geometry.coordinates
+              const pos: L.LatLng = L.latLng(point[1], point[0])
+              pts.push(pos)
+            }
+          // append the start point, to make poly
+          pts.push(pts[0])
+            return pts
+          }
+
+          // store data
+          setLeftTurn(buildTurn(origin, true))
+          setRightTurn(buildTurn(origin, false))
+        }
+
+
         // is there a limited range?
         const allowableCellList: SergeHex3[] = planningRangeCells ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
 
@@ -258,8 +311,7 @@ export const HexGrid: React.FC<{}> = () => {
             const cellIndices = filteredCells.map((cell: SergeHex3): string => cell.index)
             const hull2 = h3SetToMultiPolygon(cellIndices, true)
             const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
-            setAllowablePoly3(h3points)
-          } else {
+            setAllowablePoly3(h3points)          } else {
             setAllowablePoly3([])
           }
         }
@@ -572,6 +624,19 @@ export const HexGrid: React.FC<{}> = () => {
             className={styles['planned-hex']}
           />
         ))}
+    <Polyline
+      key={'temp_left_turn'}
+      color={'#ff0'}
+      positions={leftTurn}
+      className={styles['planned-line']}
+    />
+    <Polyline
+      key={'temp_right_turn'}
+      color={'#f0f'}
+      positions={rightTurn}
+      className={styles['planned-line']}
+    />
+
     <Polyline
       key={'hex_planned_line'}
       color={assetColor}
