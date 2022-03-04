@@ -1,4 +1,6 @@
 import { CustomDialog } from '@serge/components'
+import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
@@ -76,23 +78,48 @@ export const SettingForces: React.FC<PropTypes> = ({
       if (!selectedForce) {
         return
       }
-      const innvalidAssetFound = selectedForce.assets?.some(asset => {
+      let attributeErrors: string[] = []
+      selectedForce.assets?.forEach(asset => {
         const pType = findPlatformTypeFor(platformTypes, asset.platformType)
-        // check length of the asset, if it does not equal then show an waning message
-        if (pType.attributeTypes?.length !== asset.attributeValues?.length) {
-          toggleModal(`The attribute of the asset ${asset.name} does not match with platform type`)
-          return true
-        }
-        // if the asset length is equal, check each item to see if it matched together
-        const matched = pType.attributeTypes?.every(type => !!asset.attributeValues?.find(value => value.attrId === type.attrId))
-        if (!matched) {
-          toggleModal(`The attribute of the asset ${asset.name} does not match with platform type`)
-          return true
-        }
-        return false
+        // check for extra attributes
+        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) =>
+        {
+          return ! (pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId)) 
+        })
+
+        extraAttrs && extraAttrs?.forEach((value: NumberAttributeValue) => {
+          const msg = 'Removed attribute ' + value.attrId + ' from ' + asset.name
+          attributeErrors.push(msg)
+          // and strip out the attributes
+          asset.attributeValues = asset.attributeValues && asset.attributeValues.filter((value => !extraAttrs.includes(value)))
+        })
+
+        // check for missing attributes
+        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: NumberAttributeType) =>
+        {
+          return ! (asset.attributeValues && asset.attributeValues.some((val: NumberAttributeValue) => val.attrId === value.attrId)) 
+        })
+
+        missingAttrs && missingAttrs?.forEach((value: NumberAttributeType) => {
+          const msg = 'Added attribute ' + value.name + ' to ' + asset.name
+          attributeErrors.push(msg)
+          // initialise array, if necessary
+          if (!asset.attributeValues) {
+            asset.attributeValues = []
+          }
+          // and create the default values
+          asset.attributeValues.push({
+            attrId: value.attrId,
+            attrType: ATTRIBUTE_VALUE_NUMBER,
+            value: value.defaultValue || 0
+          })
+        })
       })
 
-      if (!innvalidAssetFound && onSave) {
+      // show message
+      attributeErrors.length > 0 && toggleModal('The attributes for some assets did not match with type details. These fixes have been applied: ' + attributeErrors.join())
+
+      if (onSave) {
         onSave(forcesData)
       }
     }
