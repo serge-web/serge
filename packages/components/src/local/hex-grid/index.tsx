@@ -256,18 +256,18 @@ export const HexGrid: React.FC<{}> = () => {
         //   return {magnitude, direction}
         // }
 
-        if(planningConstraints.turningCircle) {
+        if (planningConstraints.turningCircle) {
           // coords of circle
           const details = planningConstraints.turningCircle
           const radiusKm: number = planningConstraints.turningCircle.radius / 1000
-          const origin = turf.point( [originCell.centreLatLng.lng, originCell.centreLatLng.lat])
+          const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
 
           const buildTurn = (origin: turf.Feature<turf.Point>, left: boolean): L.LatLng[] => {
-            const offset = left? -90 : 90
-            const thisOrigin = turf.destination(origin, radiusKm, details.heading + offset, {units: 'kilometers'} )
+            const offset = left ? -90 : 90
+            const thisOrigin = turf.destination(origin, radiusKm, details.heading + offset, { units: 'kilometers' })
             const pts: L.LatLng[] = []
-            for(var i: number = 0; i<360; i+= 30) {
-              const dest: turf.Feature<turf.Point> = turf.destination(thisOrigin, radiusKm, i, {units: 'kilometers'} )
+            for (let i = 0; i < 360; i += 30) {
+              const dest: turf.Feature<turf.Point> = turf.destination(thisOrigin, radiusKm, i, { units: 'kilometers' })
               const point: turf.Position = dest.geometry.coordinates
               const pos: L.LatLng = L.latLng(point[1], point[0])
               pts.push(pos)
@@ -282,12 +282,11 @@ export const HexGrid: React.FC<{}> = () => {
           setRightTurn(buildTurn(origin, false))
           
           // now the circle involute
-          const dist = details.distance
+          const distKm = details.distance / 1000
           const circum = radiusKm * Math.PI * 2
-          const proportion = dist / circum * circum
-          console.log('dist', dist, circum, proportion)
+          const proportion = (distKm / circum) * circum
+          console.log('dist', distKm, radiusKm, circum, proportion)
         }
-
 
         // is there a limited range?
         const allowableCellList: SergeHex3[] = planningRangeCells ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
@@ -317,7 +316,8 @@ export const HexGrid: React.FC<{}> = () => {
             const cellIndices = filteredCells.map((cell: SergeHex3): string => cell.index)
             const hull2 = h3SetToMultiPolygon(cellIndices, true)
             const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
-            setAllowablePoly3(h3points)          } else {
+            setAllowablePoly3(h3points)         
+          } else {
             setAllowablePoly3([])
           }
         }

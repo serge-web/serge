@@ -406,14 +406,17 @@ const wargame: Wargame = {
             "dirty": false,
             "gameDate": "2021-05-13T16:12",
             "gameDescription": "",
-            "gameTurnTime": 43200000,
+            "gameTurnTime": {
+                "millis": 600000,
+                "unit": "millis"
+            },
             "mapConstraints": {
                 "bounds": [[50.4, -20.2], [50.1, -19.1]],
-                "cellLabelsStyle": "ctr_labels",
+                "cellLabelsStyle": "x_y_labels",
                 "gridCellsURL": "cells/atlantic-cells-6k.json",
-                "h3res": 7,
+                "h3res": 8,
                 "maxNativeZoom": 7,
-                "maxZoom": 12,
+                "maxZoom": 14,
                 "minZoom": 5,
                 "minZoomHexes": 6,
                 "polygonAreasURL": "cells/atlantic-polygons.json",
