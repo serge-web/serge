@@ -76,7 +76,7 @@ export const HexGrid: React.FC<{}> = () => {
   // temporary turn data
   const [leftTurn, setLeftTurn] = useState<L.LatLng[]>([])
   const [rightTurn, setRightTurn] = useState<L.LatLng[]>([])
-  
+
   // the binned polygons
   const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
 
@@ -166,7 +166,6 @@ export const HexGrid: React.FC<{}> = () => {
       // temp for turning circles
       setLeftTurn([])
       setRightTurn([])
-      
     }
   }, [selectedAsset, h3gridCells, viewAsRouteStore])
 
@@ -243,7 +242,7 @@ export const HexGrid: React.FC<{}> = () => {
       if (originCell) {
         setOrigin(originCell.centreLatLng)
 
-        //////////////////////
+        /// ///////////////////
         // TEMPORARY - TURNING CIRCLES
 
         // const toRadians = (degs: number) => {
@@ -272,15 +271,15 @@ export const HexGrid: React.FC<{}> = () => {
               const pos: L.LatLng = L.latLng(point[1], point[0])
               pts.push(pos)
             }
-          // append the start point, to make poly
-          pts.push(pts[0])
+            // append the start point, to make poly
+            pts.push(pts[0])
             return pts
           }
 
           // store data
           setLeftTurn(buildTurn(origin, true))
           setRightTurn(buildTurn(origin, false))
-          
+
           // now the circle involute
           const distKm = details.distance / 1000
           const circum = radiusKm * Math.PI * 2
@@ -316,7 +315,7 @@ export const HexGrid: React.FC<{}> = () => {
             const cellIndices = filteredCells.map((cell: SergeHex3): string => cell.index)
             const hull2 = h3SetToMultiPolygon(cellIndices, true)
             const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
-            setAllowablePoly3(h3points)         
+            setAllowablePoly3(h3points)
           } else {
             setAllowablePoly3([])
           }
