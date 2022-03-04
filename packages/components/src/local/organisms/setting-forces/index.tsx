@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import { CustomDialog } from '@serge/components'
+import { findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
-
-/* Import proptypes */
-import PropTypes, { ForceData } from './types/props'
-/* Import Styles */
-import styles from './styles.module.scss'
-
+import React, { useEffect, useState } from 'react'
 /* Import Components */
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
-import TextInput from '../../atoms/text-input'
 import Button from '../../atoms/button'
 import Colorpicker from '../../atoms/colorpicker'
+import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
-
 import SettingsForceOverview from './settings-force-overview'
-import RolesAccordion from './settings-force-roles'
 import AssetsAccordion from './settings-force-platform-types'
+import RolesAccordion from './settings-force-roles'
+/* Import Styles */
+import styles from './styles.module.scss'
+/* Import proptypes */
+import PropTypes, { ForceData } from './types/props'
 
 /* Render component */
 export const SettingForces: React.FC<PropTypes> = ({
@@ -36,6 +35,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
+  const [content, toggleModal] = useState<string>('')
 
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
@@ -72,8 +72,38 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
     }
 
+    const onSaveForce = (): void => {
+      if (!selectedForce) {
+        return
+      }
+      const innvalidAssetFound = selectedForce.assets?.some(asset => {
+        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+        // check length of the asset, if it does not equal then show an waning message
+        if (pType.attributeTypes?.length !== asset.attributeValues?.length) {
+          toggleModal(`The attribute of the asset ${asset.name} does not match with platform type`)
+          return true
+        }
+        // if the asset length is equal, check each item to see if it matched together
+        const matched = pType.attributeTypes?.every(type => !!asset.attributeValues?.find(value => value.attrId === type.attrId))
+        if (!matched) {
+          toggleModal(`The attribute of the asset ${asset.name} does not match with platform type`)
+          return true
+        }
+        return false
+      })
+
+      if (!innvalidAssetFound && onSave) {
+        onSave(forcesData)
+      }
+    }
+
+    const onClose = (): void => {
+      toggleModal('')
+    }
+
     return (
       <div key={selectedItem}>
+        <CustomDialog isOpen={!!content} header='Error' onClose={onClose} content={content} />
         <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput
@@ -99,7 +129,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               color="primary"
-              onClick={(): void => { if (onSave) onSave(forcesData) }}
+              onClick={onSaveForce}
               data-qa-type="save"
             >
               Save Force
@@ -130,7 +160,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             />
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 
