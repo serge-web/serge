@@ -476,9 +476,8 @@ export const Mapping: React.FC<PropTypes> = ({
             travelMode: pType.travelMode,
             status: status.name,
             speed: plannedTurn.speedVal,
-            turningCircle: (heading !== undefined && pType.turningCircle) ? { radius: pType.turningCircle, heading: heading, distance: distancePerTurnNM } : undefined,
-            rangeCells: range,
-            rangeM: distancePerTurnM
+            turningCircle: (heading !== undefined && pType.turningCircle) ? { radius: pType.turningCircle, heading: heading, distance: distancePerTurnM } : undefined,
+            rangeCells: range
           }
           setPlanningConstraints(mobileConstraints)
         } else {
