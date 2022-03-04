@@ -21,7 +21,8 @@ import {
   findPlatformTypeFor,
   findAsset,
   routeSetLaydown,
-  enumFromString
+  enumFromString,
+  platformTypeNameToKey
 } from '@serge/helpers'
 
 /* Import Types */
@@ -140,7 +141,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [polygonAreas, setPolygonAreas] = useState()
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
 
-  const domain = enumFromString(Domain, mappingConstraints.targetDataset) || Domain.ATLANTIC
+  const domain = (mappingConstraints && enumFromString(Domain, mappingConstraints.targetDataset)) || Domain.ATLANTIC
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -181,7 +182,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (layPhase && canSubmitOrders) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
-          const pType = platformTypesByKey[asset.platformType]
+          const pType = platformTypesByKey[platformTypeNameToKey(asset.platformType)]
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
@@ -284,7 +285,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [phase])
 
   useEffect(() => {
-    if (mappingConstraints.gridCellsURL) {
+    if (mappingConstraints && mappingConstraints.gridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraints.gridCellsURL
       fetchMethod(url)
@@ -295,18 +296,18 @@ export const Mapping: React.FC<PropTypes> = ({
           console.error(err)
         })
     }
-  }, [mappingConstraints.gridCellsURL])
+  }, [mappingConstraints])
 
   useEffect(() => {
-    if (mappingConstraints.cellLabelsStyle) {
+    if (mappingConstraints && mappingConstraints.cellLabelsStyle) {
       const value = mappingConstraints.cellLabelsStyle
       const style = enumFromString(CellLabelStyle, value)
       style && setCellLabelStyle(style)
     }
-  }, [mappingConstraints.cellLabelsStyle])
+  }, [mappingConstraints])
 
   useEffect(() => {
-    if (mappingConstraints.polygonAreasURL) {
+    if (mappingConstraints && mappingConstraints.polygonAreasURL) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraints.polygonAreasURL
       fetchMethod(url)
@@ -317,7 +318,7 @@ export const Mapping: React.FC<PropTypes> = ({
           console.error(err)
         })
     }
-  }, [mappingConstraints.polygonAreasURL])
+  }, [mappingConstraints])
 
   useEffect(() => {
     if (mapBounds && mappingConstraints) {
@@ -326,7 +327,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
       setH3gridCells(cells)
     }
-  }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
+  }, [mappingConstraints, mapBounds, atlanticCells])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {
@@ -662,13 +663,12 @@ export const Mapping: React.FC<PropTypes> = ({
           className={styles.map}
           center={mapCentre}
           bounds={mapBounds}
-          //          maxBounds={mapBounds}
           zoom={zoom}
           zoomDelta={zoomDelta}
           zoomSnap={zoomSnap}
-          minZoom={mappingConstraints.minZoom}
+          minZoom={mappingConstraints ? mappingConstraints.minZoom : 2}
           zoomControl={false}
-          maxZoom={mappingConstraints.maxZoom}
+          maxZoom={mappingConstraints ? mappingConstraints.maxZoom : 12}
           onClick={mapClick}
           ref={handleEvents}
           touchZoom={touchZoom}
@@ -689,7 +689,7 @@ export const Mapping: React.FC<PropTypes> = ({
             cellLabelType = {cellLabelStyle}
             cellLabelCallback = {setCellLabelStyle}
           />
-          { mappingConstraints.tileLayer &&
+          { mappingConstraints && mappingConstraints.tileLayer &&
             <TileLayer
               url={mappingConstraints.tileLayer.url}
               attribution={mappingConstraints.tileLayer.attribution}
