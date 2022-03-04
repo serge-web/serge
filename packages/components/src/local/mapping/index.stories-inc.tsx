@@ -21,7 +21,7 @@ import { MessageMap, MappingConstraints } from '@serge/custom-types'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/Mapping',
+  title: 'local/Mapping/Gulf',
   component: Mapping,
   decorators: [wrapper],
   parameters: {
@@ -193,6 +193,7 @@ Default.args = {
 export const WithMapBar = Template
 WithMapBar.args = {
   forces: forces,
+  mappingConstraints: localMappingConstraints,
   gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
@@ -228,6 +229,7 @@ WithMarker.args = {
   forces: forces,
   playerForce: 'Blue',
   canSubmitOrders: false,
+  mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
   platformTypesByKey: platformTypesByKey,
   gameTurnTime: 72000,
@@ -269,6 +271,7 @@ export const WithAssets = Template
 WithAssets.args = {
   forces: forces,
   platforms: platformTypes,
+  mappingConstraints: localMappingConstraints,
   platformTypesByKey: platformTypesByKey,
   turnNumber: 2,
   mapPostBack: mapPostBack,
@@ -287,6 +290,7 @@ export const WithLimitedAssets = Template
 WithLimitedAssets.args = {
   forces: smallForces,
   platforms: platformTypes,
+  mappingConstraints: localMappingConstraints,
   platformTypesByKey: platformTypesByKey,
   turnNumber: 2,
   mapPostBack: mapPostBack,
@@ -306,6 +310,7 @@ export const WithGrid = Template
 WithGrid.args = {
   forces: forces,
   platforms: platformTypes,
+  mappingConstraints: localMappingConstraints,
   platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -323,6 +328,7 @@ WithAllowableRange.args = {
   forces: forces,
   platforms: platformTypes,
   phase: Phase.Planning,
+  mappingConstraints: localMappingConstraints,
   turnNumber: 5,
   canSubmitOrders: false,
   playerForce: 'Blue',
@@ -357,6 +363,7 @@ export const WithPhases = Template
 WithPhases.args = {
   forces: forces,
   canSubmitOrders: false,
+  mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
   platformTypesByKey: platformTypesByKey,
   mapPostBack: mapPostBack,

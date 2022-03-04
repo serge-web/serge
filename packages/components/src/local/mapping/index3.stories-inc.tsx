@@ -14,7 +14,7 @@ import { HexGrid } from '../hex-grid'
 import { CellLabelStyle, Domain, Phase, serverPath } from '@serge/config'
 
 /* Import mock data */
-import { atlanticForces, platformTypes } from '@serge/mocks'
+import { atlanticForces, platformTypes, platformTypesByKey } from '@serge/mocks'
 import data from './data/atlantic-cells'
 // TODO: here is the 'master' version of the cells,
 // in the @serge/data package
@@ -29,7 +29,7 @@ async function fetchMock (): Promise<any> {
 }
 
 export default {
-  title: 'local/AtlanticMapping',
+  title: 'local/Mapping/Atlantic',
   component: Mapping,
   decorators: [wrapper],
   parameters: {
@@ -167,6 +167,7 @@ NaturalEarth.args = {
   gameTurnTime: twoFourHours,
   canSubmitOrders: true,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   wargameInitiated: true,
   turnNumber: 5,
@@ -187,6 +188,7 @@ OpenStreetMap.args = {
   gameTurnTime: twoFourHours,
   canSubmitOrders: true,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   wargameInitiated: true,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -207,6 +209,7 @@ DetailedCells.args = {
   gameTurnTime: twoFourHours,
   canSubmitOrders: true,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   wargameInitiated: true,
   turnNumber: 5,
