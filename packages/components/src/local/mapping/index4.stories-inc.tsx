@@ -36,7 +36,7 @@ async function fetchMock (): Promise<any> {
 const forceList = forces.map((force: ForceData) => force.uniqid)
 
 export default {
-  title: 'local/LocalMapping',
+  title: 'local/Mapping/SmallScale',
   component: Mapping,
   decorators: [wrapper],
   parameters: {
