@@ -73,25 +73,24 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     if (!asset) {
       return
     }
-    if (asset?.locationPending !== LaydownTypes.Fixed) {
+    if (asset.locationPending !== LaydownTypes.Fixed) {
       setFixedLocationValue('')
     }
-    if (asset) {
-      const pType = findPlatformTypeFor(platformTypes, asset.platformType)
-      pType && setAttributeTypes(pType.attributeTypes || [])
 
-      let attrValues = asset.attributeValues || []
-      if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
-        attrValues = pType.attributeTypes.map((aType: AttributeType) => {
-          return {
-            attrId: aType.attrId,
-            value: 0,
-            attrType: ATTRIBUTE_VALUE_NUMBER
-          }
-        })
-      }
-      setAttributeValues(attrValues)
+    const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+    pType && setAttributeTypes(pType.attributeTypes || [])
+
+    let attrValues = asset.attributeValues || []
+    if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
+      attrValues = pType.attributeTypes.map((aType: AttributeType) => {
+        return {
+          attrId: aType.attrId,
+          value: 0,
+          attrType: ATTRIBUTE_VALUE_NUMBER
+        }
+      })
     }
+    setAttributeValues(attrValues)
   }, [selectedAssetItem])
 
   useEffect(() => {
