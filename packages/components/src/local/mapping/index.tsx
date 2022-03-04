@@ -385,7 +385,7 @@ export const Mapping: React.FC<PropTypes> = ({
             travelMode: planningConstraints.travelMode,
             status: newLeg.state,
             speed: newLeg.speed,
-            range: planningConstraints.range,
+            rangeCells: planningConstraints.rangeCells,
             turningCircle: planningConstraints.turningCircle
           }
           setPlanningConstraints(newP)
@@ -459,8 +459,9 @@ export const Mapping: React.FC<PropTypes> = ({
           }
           const speedKts = plannedTurn.speedVal
           const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
-          const distancePerTurn = stepSizeHrs * speedKts
-          const roughRange = distancePerTurn / mappingConstraints.tileDiameterMins
+          const distancePerTurnNM = stepSizeHrs * speedKts
+          const distancePerTurnM = distancePerTurnNM * 1852
+          const roughRange = distancePerTurnNM / mappingConstraints.tileDiameterMins
 
           // console.log('turn time', gameTurnTime, stepSizeHrs, distancePerTurn, speedKts, mappingConstraints.tileDiameterMins, roughRange)
 
@@ -475,8 +476,9 @@ export const Mapping: React.FC<PropTypes> = ({
             travelMode: pType.travelMode,
             status: status.name,
             speed: plannedTurn.speedVal,
-            turningCircle: (heading !== undefined && pType.turningCircle) ? { radius: pType.turningCircle, heading: heading, distance: distancePerTurn } : undefined,
-            range: range
+            turningCircle: (heading !== undefined && pType.turningCircle) ? { radius: pType.turningCircle, heading: heading, distance: distancePerTurnNM } : undefined,
+            rangeCells: range,
+            rangeM: distancePerTurnM
           }
           setPlanningConstraints(mobileConstraints)
         } else {
