@@ -92,7 +92,7 @@ export const HexGrid: React.FC<{}> = () => {
   const [dragDestination3, setDragDestination3] = useState<SergeHex3 | undefined>(undefined)
 
   //  allow the achievable range to be changed
-  const [planningRange, setPlanningRange] = useState<number | undefined>(planningConstraints && planningConstraints.range)
+  const [planningRangeCells, setPlanningRangeCells] = useState<number | undefined>(planningConstraints && planningConstraints.rangeCells)
 
   // the AllowableRange story doesn't have a selected asset. Set to red in here
   // it won't have impact on real game play
@@ -112,7 +112,7 @@ export const HexGrid: React.FC<{}> = () => {
         // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
         if (selectedAsset.uniqid !== selectedAssetId) {
           // clear the current planning details
-          setPlanningRange(undefined)
+          setPlanningRangeCells(undefined)
           setAllowableCells3([])
           setOrigin(undefined)
           setDragDestination3(undefined)
@@ -137,7 +137,7 @@ export const HexGrid: React.FC<{}> = () => {
         // selected asset no longer present - hide it
         setCellForSelected3(undefined)
         setOrigin(undefined)
-        setPlanningRange(undefined)
+        setPlanningRangeCells(undefined)
         setDragDestination3(undefined)
       }
     } else {
@@ -146,7 +146,7 @@ export const HexGrid: React.FC<{}> = () => {
        */
       setDragDestination3(undefined)
       setAllowableCells3([])
-      setPlanningRange(undefined)
+      setPlanningRangeCells(undefined)
       setOrigin(undefined)
       setAssetColor(undefined)
       setOriginHex3(undefined)
@@ -210,7 +210,7 @@ export const HexGrid: React.FC<{}> = () => {
   */
   useEffect(() => {
     if (planningConstraints !== undefined) {
-      setPlanningRange(planningConstraints.range)
+      setPlanningRangeCells(planningConstraints.rangeCells)
     }
   }, [planningConstraints])
 
@@ -219,11 +219,11 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
-    if (planningRange === undefined && planningConstraints !== undefined) {
-      setPlanningRange(planningConstraints.range)
+    if (planningRangeCells === undefined && planningConstraints !== undefined) {
+      setPlanningRangeCells(planningConstraints.rangeCells)
     }
     // check all data necessary for rendering is present
-    if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRange || rangeUnlimited)) {
+    if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRangeCells || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
       // did we find cell?
@@ -231,7 +231,7 @@ export const HexGrid: React.FC<{}> = () => {
         setOrigin(originCell.centreLatLng)
 
         // is there a limited range?
-        const allowableCellList: SergeHex3[] = planningRange ? calcAllowableCells3(h3gridCells, originCell.index, planningRange) : h3gridCells
+        const allowableCellList: SergeHex3[] = planningRangeCells ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
@@ -272,7 +272,7 @@ export const HexGrid: React.FC<{}> = () => {
       setOrigin(undefined)
       setOriginHex3(undefined)
     }
-  }, [planningRange, planningConstraints, h3gridCells])
+  }, [planningRangeCells, planningConstraints, h3gridCells])
 
   /** remap the GeoJSON coords (lngLat) to Leaflet coords (latLng)
   */
@@ -381,7 +381,7 @@ export const HexGrid: React.FC<{}> = () => {
       setPlannedRoutePoly([])
       setPlanningRouteCells3([])
       setPlanningRoutePoly3([])
-      setPlanningRange(undefined)
+      setPlanningRangeCells(undefined)
       setAllowableCells3([])
     } else {
       // Note: ok, we don't actually use the marker location, since
@@ -389,7 +389,7 @@ export const HexGrid: React.FC<{}> = () => {
       // use the last point in the planning leg
       const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
 
-      if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells3.length) {
+      if (plannedRouteCells && (planningRangeCells || rangeUnlimited) && planningRouteCells3.length) {
         // deduct one from planned route, since it includes the origin cell
         const routeLen = planningRouteCells3.length - 1
         const lastCell: SergeHex3 = planningRouteCells3[routeLen]
@@ -404,7 +404,7 @@ export const HexGrid: React.FC<{}> = () => {
           const trimmedPlanningRouteCells = planningRouteCells3.slice(1)
 
           // have we consumed the full length?
-          if (rangeUnlimited || routeLen === planningRange) {
+          if (rangeUnlimited || routeLen === planningRangeCells) {
             // combine planned and planning cells, ready for results
             const fullCellList: Array<SergeHex3> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
@@ -415,19 +415,19 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRoutePoly3([])
 
             // restore the full planning range allowance
-            setPlanningRange(planningConstraints.range)
+            setPlanningRangeCells(planningConstraints.rangeCells)
 
             // ok, planning complete - fire the event back up the hierarchy
             setNewLeg && setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
-          } else if (planningRange && !rangeUnlimited) {
+          } else if (planningRangeCells && !rangeUnlimited) {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
-            const remaining = planningRange - routeLen
+            const remaining = planningRangeCells - routeLen
 
             setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
             // note: we extend the existing planned cells, with the new ones
             setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly3))
             setOriginHex3(lastCell)
-            setPlanningRange(remaining)
+            setPlanningRangeCells(remaining)
           }
         }
       }
