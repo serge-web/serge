@@ -270,9 +270,9 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
     let lastDate: number = 0
     let infoMessageIndex: number = -1
     for (let index = 0; index < messages.length; index++) {
-      const message = messages[index];
+      const message = messages[index]
       if (message.messageType === INFO_MESSAGE) {
-        const nextDate = + new Date(message._id)
+        const nextDate = + new Date(message._id as string)
         if (nextDate > lastDate) {
           lastDate = nextDate;
           infoMessageIndex = index

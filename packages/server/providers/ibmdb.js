@@ -18,7 +18,7 @@ const ibmDb = (app, io) => {
   // changesListener
   const initChangesListener = (dbName) => {
     const db = cloudant.db.use(dbName)
-      db.follow({
+    listeners[dbName] = db.follow({
         since: 'now',
         live: true,
         include_docs: true
