@@ -280,6 +280,12 @@ export const HexGrid: React.FC<{}> = () => {
           // store data
           setLeftTurn(buildTurn(origin, true))
           setRightTurn(buildTurn(origin, false))
+          
+          // now the circle involute
+          const dist = details.distance
+          const circum = radiusKm * Math.PI * 2
+          const proportion = dist / circum * circum
+          console.log('dist', dist, circum, proportion)
         }
 
 
