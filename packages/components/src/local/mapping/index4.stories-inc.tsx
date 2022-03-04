@@ -55,7 +55,7 @@ export default {
   argTypes: {
     playerForce: {
       name: 'View as',
-      defaultValue: forceList[0],
+      defaultValue: forceList[1],
       control: {
         type: 'radio',
         options: forceList
