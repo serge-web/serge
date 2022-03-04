@@ -35,11 +35,6 @@ export default interface PlanMobileAsset {
    * for unlimited range or if it's immobile
    */
   rangeCells?: number
-  /**
-   * optional limit of range (m) this asset can travel in this turn. Omit
-   * for unlimited range or if it's immobile
-   */
-  rangeM?: number
    /**
    * optional turning circle for asset, specified in metres
    */
