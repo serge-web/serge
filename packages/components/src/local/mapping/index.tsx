@@ -6,6 +6,7 @@ import { CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
+import * as h3 from 'h3-js'
 
 /* helper functions */
 import { createGridH3 } from './helpers/h3-helpers'
@@ -458,16 +459,21 @@ export const Mapping: React.FC<PropTypes> = ({
             window.alert('Cannot plan route with zero game turn time')
             // TODO: also display notification in UI
           }
+          const minsToKm = (mins: number): number => {
+            const metres = mins * 1862
+            return metres / 1000
+          }
+          const tileRadiusKm = mappingConstraints.h3res ? h3.edgeLength(mappingConstraints.h3res, 'km') : minsToKm(mappingConstraints.tileDiameterMins)
           const speedKts = plannedTurn.speedVal
           const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
           const distancePerTurnNM = stepSizeHrs * speedKts
           const distancePerTurnM = distancePerTurnNM * 1852
-          const roughRange = distancePerTurnNM / mappingConstraints.tileDiameterMins
-
-          // console.log('turn time', gameTurnTime, stepSizeHrs, distancePerTurn, speedKts, mappingConstraints.tileDiameterMins, roughRange)
+          const roughRangeCells = distancePerTurnM / (tileRadiusKm * 1000)
 
           // check range is in 10s
-          const range = roundToNearest(roughRange, 1)
+          const range = roundToNearest(roughRangeCells, 1)
+
+          console.log('turn time', gameTurnTime, stepSizeHrs, distancePerTurnM, speedKts, mappingConstraints.tileDiameterMins, tileRadiusKm, range)
 
           // produce a heading value
           const heading = orientationFor(current.currentPosition, current.history, current.planned, [], {})
