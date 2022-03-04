@@ -1,6 +1,6 @@
 import { CustomDialog } from '@serge/components'
 import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
+import { Asset, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
@@ -78,29 +78,27 @@ export const SettingForces: React.FC<PropTypes> = ({
       if (!selectedForce) {
         return
       }
-      let attributeErrors: string[] = []
-      selectedForce.assets?.forEach(asset => {
+      const attributeErrors: string[] = []
+      selectedForce.assets?.forEach((asset: Asset) => {
         const pType = findPlatformTypeFor(platformTypes, asset.platformType)
         // check for extra attributes
-        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) =>
-        {
-          return ! (pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId)) 
+        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
+          return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))
         })
 
-        extraAttrs && extraAttrs?.forEach((value: NumberAttributeValue) => {
+        extraAttrs && extraAttrs.forEach((value: NumberAttributeValue) => {
           const msg = 'Removed attribute ' + value.attrId + ' from ' + asset.name
           attributeErrors.push(msg)
           // and strip out the attributes
-          asset.attributeValues = asset.attributeValues && asset.attributeValues.filter((value => !extraAttrs.includes(value)))
+          asset.attributeValues = asset.attributeValues && asset.attributeValues.filter(value => !extraAttrs.includes(value))
         })
 
         // check for missing attributes
-        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: NumberAttributeType) =>
-        {
-          return ! (asset.attributeValues && asset.attributeValues.some((val: NumberAttributeValue) => val.attrId === value.attrId)) 
+        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: NumberAttributeType) => {
+          return !(asset.attributeValues && asset.attributeValues.some((val: NumberAttributeValue) => val.attrId === value.attrId))
         })
 
-        missingAttrs && missingAttrs?.forEach((value: NumberAttributeType) => {
+        missingAttrs && missingAttrs.forEach((value: NumberAttributeType) => {
           const msg = 'Added attribute ' + value.name + ' to ' + asset.name
           attributeErrors.push(msg)
           // initialise array, if necessary
