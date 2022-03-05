@@ -24,7 +24,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
 
 /**
  * TODOS:
@@ -182,16 +182,16 @@ const AdminGameSetup = () => {
   const onSave = updates => {
     let saveAction
     switch (currentTab) {
-      case 'overview':
+      case AdminTabs.Overview:
         saveAction = handleSaveOverview
         break
-      case 'platform_types':
+      case AdminTabs.PlatformTypes:
         saveAction = handleSavePlatformTypes
         break
-      case 'forces':
+      case AdminTabs.Forces:
         saveAction = handleSaveForce
         break
-      case 'channels':
+      case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
       default:
