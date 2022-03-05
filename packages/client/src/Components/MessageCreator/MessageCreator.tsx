@@ -71,7 +71,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)
-    setActivityTime('send channel message')
+    setActivityTime(details.from.roleId, 'send channel message')
   }
 
   const openConfirmPopup = (e: any): void => {

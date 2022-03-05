@@ -15,7 +15,6 @@ interface UnreadCounter {
   [property: string]: number
 }
 
-
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
@@ -105,7 +104,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
               factory={factory(state)}
               onRenderTab={tabRender(state)}
               onModelChange={() => {
-                setActivityTime('change tab')
+                setActivityTime(state.selectedRole ,'change tab')
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />

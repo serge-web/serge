@@ -162,8 +162,8 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 
 export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = (expiredStorage.getItem(ACTIVITY_TIME) || activityMissing).replace(/\s/g, '+')
-  const activityType = (expiredStorage.getItem(ACTIVITY_TYPE) || activityMissing).replace(/\s/g, '+')
+  const activityTime = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing).replace(/\s/g, '+')
+  const activityType = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing).replace(/\s/g, '+')
 
   const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
 

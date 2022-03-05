@@ -29,6 +29,8 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
 
   const open = Boolean(anchorEl)
 
+  const getRoleId = new URLSearchParams(window.location.search).get('access')
+
   // ///////////////////////////////////////// //
   //    INJECT FILTER TO TABLE CELL HEADER     //
   // ///////////////////////////////////////// //
@@ -164,7 +166,9 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    * @param headerFiltes: HeaderFiltes[]
    */
   const onFilterChanged = (headerFiltes: HeaderFiltes[]): void => {
-    setActivityTime('filter changed')
+    if (getRoleId) {
+      setActivityTime(getRoleId, 'filter changed')
+    }
     updateFilters(headerFiltes)
   }
 
@@ -203,7 +207,9 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
 
   /** there has been some interaction with the data table */
   const onTableInteraction = (): void => {
-    setActivityTime('data table interaction')
+    if (getRoleId) {
+      setActivityTime(getRoleId, 'data table interaction')
+    }
   }
 
   const ExpandedComponent = ({ data }: Row): React.ReactElement => data.collapsible()

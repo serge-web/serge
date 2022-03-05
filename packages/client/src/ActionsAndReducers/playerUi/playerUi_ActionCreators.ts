@@ -160,7 +160,7 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
 }
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
-  setActivityTime('send message ' + details.messageType)
+  setActivityTime(details.from.roleId, 'send message ' + details.messageType)
   return async (): Promise<void> => {
     const bulkSubmit = false
     if(bulkSubmit) {

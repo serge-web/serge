@@ -129,8 +129,8 @@ export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
 // there has been some user interaction, so log the current time
-export const setActivityTime = (event: string): void  => {
-  expiredStorage.setItem(ACTIVITY_TYPE, event) 
-  expiredStorage.setItem(ACTIVITY_TIME, `${new Date().getTime()}`) 
+export const setActivityTime = (role: string, event: string): void  => {
+  expiredStorage.setItem(`${role}_${ACTIVITY_TYPE}`, event) 
+  expiredStorage.setItem(`${role}_${ACTIVITY_TIME}`, `${new Date().getTime()}`) 
 }
 
