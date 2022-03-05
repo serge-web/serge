@@ -37,7 +37,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
-  const [content, toggleModal] = useState<string>('')
+  const [content, toggleModal] = useState<any>('')
 
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
@@ -75,11 +75,11 @@ export const SettingForces: React.FC<PropTypes> = ({
     }
 
     const onSaveForce = (): void => {
-      if (!selectedForce) {
+      if (!selectedForce || !selectedForce.assets) {
         return
       }
       const attributeErrors: string[] = []
-      selectedForce.assets && selectedForce.assets.forEach((asset: Asset) => {
+      selectedForce.assets.forEach((asset: Asset) => {
         const pType = findPlatformTypeFor(platformTypes, asset.platformType)
         // check for extra attributes
         const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
@@ -115,9 +115,21 @@ export const SettingForces: React.FC<PropTypes> = ({
       })
 
       // show message
-      attributeErrors.length > 0 && toggleModal('The attributes for some assets did not match with type details. These fixes have been applied: ' + attributeErrors.join())
+      const attrsbuteErrorList = attributeErrors.reduce((html, item) => {
+        html += `<li>${item}</li>`
+        return html
+      }, '')
+      attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)
 
       if (onSave) {
+        forcesData.some(force => {
+          if (force.uniqid === selectedForce.uniqid) {
+            // TODO: should loop each asset and assign only the `attributeValues` for each one instead of assign the whole asset to force?
+            force.assets = selectedForce.assets
+            return true
+          }
+          return false
+        })
         onSave(forcesData)
       }
     }
