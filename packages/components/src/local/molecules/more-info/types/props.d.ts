@@ -6,5 +6,5 @@ export default interface Props {
   children: React.ReactNode
   /** (optional) color for icon */
   color?: string
-  container: ReactModal | HTMLElement | null
+  container?: ReactModal | HTMLElement | null
 };
