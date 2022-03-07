@@ -1,4 +1,4 @@
-import { CustomDialog } from '@serge/components'
+import { CustomDialog } from '../../atoms/custom-dialog'
 import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 import { Asset, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
