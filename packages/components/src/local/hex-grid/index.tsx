@@ -246,7 +246,7 @@ export const HexGrid: React.FC<{}> = () => {
         // TEMPORARY - TURNING CIRCLES
 
         const toRadians = (degs: number) => {
-          return degs * (Math.PI/180);
+          return degs * (Math.PI / 180)
         }
 
         // const toVector = (dx: number, dy: number) => {
@@ -286,10 +286,10 @@ export const HexGrid: React.FC<{}> = () => {
           const startAngle = (distKm / circum) * 360 - 180
           const startRads = toRadians(startAngle)
           console.log('dist', distKm, radiusKm, circum, startAngle)
-          for(let i = 0; i < startAngle; i += 20) {
+          for (let i = 0; i < startAngle; i += 20) {
             const B4 = toRadians(i)
-            const x = radiusKm*(Math.cos(B4-startRads)+(B4)*Math.sin(B4-startRads)+1)
-            const y = radiusKm*(Math.sin(B4-startRads)-(B4)*Math.cos(B4-startRads))
+            const x = radiusKm * (Math.cos(B4 - startRads) + (B4) * Math.sin(B4 - startRads) + 1)
+            const y = radiusKm * (Math.sin(B4 - startRads) - (B4) * Math.cos(B4 - startRads))
             console.log('p', i, x, y)
           }
         }
