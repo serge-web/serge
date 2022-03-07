@@ -5,8 +5,11 @@ import MessageCreator from '../Components/MessageCreator/MessageCreator'
 import DropdownInput from '../Components/Inputs/DropdownInput'
 import '@serge/themes/App.scss'
 import { usePrevious } from '@serge/helpers'
+import { useSelector } from 'react-redux'
+import { setActivityTime } from '@serge/config'
 
 const NewMessage = props => {
+  const role = useSelector(state => state.playerLog.role)
   const { templates, curChannel, privateMessage, orderableChannel, confirmCancel } = props
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
@@ -35,6 +38,7 @@ const NewMessage = props => {
   }, [templates, prevTemplates])
 
   const onMessageSend = (e) => {
+    setActivityTime(role, 'New message')
     setTimeout(() => {
       tab.current.handleTriggerClick(e)
     }, 0)

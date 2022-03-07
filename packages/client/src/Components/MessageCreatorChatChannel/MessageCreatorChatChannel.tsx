@@ -17,7 +17,6 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   }, [])
 
   const sendMessage = (): void => {
-
     if (editor !== null) {
       let messageDetails: MessageDetails = {
         channel: state.chatChannel.name,
