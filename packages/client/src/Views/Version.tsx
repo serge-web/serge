@@ -3,8 +3,8 @@ import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { PlayerActivity } from '../ActionsAndReducers/PlayerLog/PlayerLog_types'
-import { pingServer as pingServerApi, sendPlayerLog } from '../api/wargames_api'
+import { pingServer as pingServerApi } from '../api/wargames_api'
+import { ActivityLogsInterface } from '../api/wargames_api/types'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
 type Notification = {
@@ -17,14 +17,14 @@ type Notification = {
 
 type VersionProps = {
   notifications: Notification[]
-  playerLog: PlayerActivity
+  playerLog: ActivityLogsInterface
 }
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 // trim off the seconds
 const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
-const mapStateToProps = ({ notifications, playerLog }: { notifications: Notification[], playerLog: PlayerActivity }) => ({ notifications, playerLog })
+const mapStateToProps = ({ notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface }) => ({ notifications, playerLog })
 
 const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   const dispatch = useDispatch()
@@ -53,7 +53,9 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   }, [serverStatus, serverPingTime])
 
   const pingServer = () => {
-    return pingServerApi().then(res => {
+    const wargame = playerLog.wargame
+    const role = playerLog.role
+    return pingServerApi( { wargame, role} ).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -63,7 +65,6 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   useEffect(() => {
     const timerId = setInterval(() => {
       pingServer()
-      sendPlayerLog(playerLog)
     }, SERVER_PING_INTERVAL)
 
     return () => {

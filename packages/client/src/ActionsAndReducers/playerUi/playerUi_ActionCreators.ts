@@ -15,7 +15,8 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  setActivityTime
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
@@ -159,6 +160,7 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
 }
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
+  setActivityTime(details.from.roleId, 'send message ' + details.messageType)
   return async (): Promise<void> => {
     const bulkSubmit = false
     if(bulkSubmit) {
