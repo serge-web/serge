@@ -23,7 +23,6 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
 
   useEffect(() => {
     addTabs(state, model, gameAdmin, gameAdminTitle, insights)
-    console.log('logged in', state.selectedRole)
     setActivityTime(state.selectedRole, 'Logged in')
   }, [])
 
