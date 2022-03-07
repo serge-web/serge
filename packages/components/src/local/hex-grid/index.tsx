@@ -245,9 +245,9 @@ export const HexGrid: React.FC<{}> = () => {
         /// ///////////////////
         // TEMPORARY - TURNING CIRCLES
 
-        // const toRadians = (degs: number) => {
-        //   return degs * (Math.PI/180);
-        // }
+        const toRadians = (degs: number) => {
+          return degs * (Math.PI/180);
+        }
 
         // const toVector = (dx: number, dy: number) => {
         //   const direction =  Math.atan2(dy, dy)
@@ -281,10 +281,17 @@ export const HexGrid: React.FC<{}> = () => {
           setRightTurn(buildTurn(origin, false))
 
           // now the circle involute
-          const distKm = details.distance / 1000
+          const distKm = 2 * details.distance / 1000
           const circum = radiusKm * Math.PI * 2
-          const proportion = (distKm / circum) * circum
-          console.log('dist', distKm, radiusKm, circum, proportion)
+          const startAngle = (distKm / circum) * 360 - 180
+          const startRads = toRadians(startAngle)
+          console.log('dist', distKm, radiusKm, circum, startAngle)
+          for(let i = 0; i < startAngle; i += 20) {
+            const B4 = toRadians(i)
+            const x = radiusKm*(Math.cos(B4-startRads)+(B4)*Math.sin(B4-startRads)+1)
+            const y = radiusKm*(Math.sin(B4-startRads)-(B4)*Math.cos(B4-startRads))
+            console.log('p', i, x, y)
+          }
         }
 
         // is there a limited range?
