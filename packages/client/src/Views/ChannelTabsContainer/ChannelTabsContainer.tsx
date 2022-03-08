@@ -9,11 +9,11 @@ import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT, FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import Props from './types'
+import { setActivityTime } from '@serge/config'
 
 interface UnreadCounter {
   [property: string]: number
 }
-
 
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
@@ -104,6 +104,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
               factory={factory(state)}
               onRenderTab={tabRender(state)}
               onModelChange={() => {
+                setActivityTime(state.selectedRole ,'change tab')
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />

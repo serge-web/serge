@@ -25,6 +25,8 @@ export default interface PlayerUi {
   selectedRole: Role['roleId'],
   selectedRoleName: Role['name'],
   isObserver: boolean,
+  /** player is from umpire force */
+  isUmpire: boolean,
   canSubmitPlans: boolean,
   isGameControl: boolean,
   currentTurn: number,
