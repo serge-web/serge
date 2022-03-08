@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import { CustomDialog } from '../../atoms/custom-dialog'
+import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { Asset, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
+import { findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
-
-/* Import proptypes */
-import PropTypes, { ForceData } from './types/props'
-/* Import Styles */
-import styles from './styles.module.scss'
-
+import React, { useEffect, useState } from 'react'
 /* Import Components */
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
-import TextInput from '../../atoms/text-input'
 import Button from '../../atoms/button'
 import Colorpicker from '../../atoms/colorpicker'
+import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
-
 import SettingsForceOverview from './settings-force-overview'
-import RolesAccordion from './settings-force-roles'
 import AssetsAccordion from './settings-force-platform-types'
+import RolesAccordion from './settings-force-roles'
+/* Import Styles */
+import styles from './styles.module.scss'
+/* Import proptypes */
+import PropTypes, { ForceData } from './types/props'
 
 /* Render component */
 export const SettingForces: React.FC<PropTypes> = ({
@@ -36,6 +37,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
+  const [content, toggleModal] = useState<any>('')
 
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
@@ -72,8 +74,73 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
     }
 
+    const onSaveForce = (): void => {
+      if (!selectedForce || !selectedForce.assets) {
+        return
+      }
+      const attributeErrors: string[] = []
+      selectedForce.assets.forEach((asset: Asset) => {
+        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+        // check for extra attributes
+        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
+          return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))
+        })
+
+        extraAttrs && extraAttrs.forEach((value: NumberAttributeValue) => {
+          const msg = 'Removed attribute ' + value.attrId + ' from ' + asset.name
+          attributeErrors.push(msg)
+          // and strip out the attributes
+          asset.attributeValues = asset.attributeValues && asset.attributeValues.filter(value => !extraAttrs.includes(value))
+        })
+
+        // check for missing attributes
+        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: NumberAttributeType) => {
+          return !(asset.attributeValues && asset.attributeValues.some((val: NumberAttributeValue) => val.attrId === value.attrId))
+        })
+
+        missingAttrs && missingAttrs.forEach((value: NumberAttributeType) => {
+          const msg = 'Added attribute ' + value.name + ' to ' + asset.name
+          attributeErrors.push(msg)
+          // initialise array, if necessary
+          if (!asset.attributeValues) {
+            asset.attributeValues = []
+          }
+          // and create the default values
+          asset.attributeValues.push({
+            attrId: value.attrId,
+            attrType: ATTRIBUTE_VALUE_NUMBER,
+            value: value.defaultValue || 0
+          })
+        })
+      })
+
+      // show message
+      const attrsbuteErrorList = attributeErrors.reduce((html, item) => {
+        html += `<li>${item}</li>`
+        return html
+      }, '')
+      attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)
+
+      if (onSave) {
+        forcesData.some(force => {
+          if (force.uniqid === selectedForce.uniqid) {
+            // TODO: should loop each asset and assign only the `attributeValues` for each one instead of assign the whole asset to force?
+            force.assets = selectedForce.assets
+            return true
+          }
+          return false
+        })
+        onSave(forcesData)
+      }
+    }
+
+    const onClose = (): void => {
+      toggleModal('')
+    }
+
     return (
       <div key={selectedItem}>
+        <CustomDialog isOpen={!!content} cancelBtnText={'OK'} header='Error' onClose={onClose} content={content} />
         <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput
@@ -99,7 +166,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               color="primary"
-              onClick={(): void => { if (onSave) onSave(forcesData) }}
+              onClick={onSaveForce}
               data-qa-type="save"
             >
               Save Force
@@ -130,7 +197,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             />
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 
