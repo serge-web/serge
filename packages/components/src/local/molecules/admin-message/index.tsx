@@ -13,11 +13,11 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const AdminMessage: React.FC<PropTypes> = ({ message, force }: PropTypes) => {
+export const AdminMessage: React.FC<PropTypes> = ({ message, roleId }: PropTypes) => {
   if (message.messageType === CUSTOM_MESSAGE) {
     const { details } = message
     const { from } = details
-    const isOwnMessage = force === from.force
+    const isOwnMessage = roleId === from.roleId
     return (
       <div className={classNames([
         styles['message-preview-player'],

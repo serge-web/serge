@@ -2,8 +2,18 @@
 
 exports[`AdminMessage component: renders component correctly 1`] = `
 <div
-  className="message-preview-player own-message"
+  className="message-preview-player"
 >
+  <span
+    className="message-bullet"
+    style={
+      Object {
+        "backgroundColor": "#FCFBEE",
+      }
+    }
+  >
+     
+  </span>
   <div
     className="bold"
   >
@@ -11,7 +21,7 @@ exports[`AdminMessage component: renders component correctly 1`] = `
 
   </div>
   <div
-    className="info-wrap info-wrap--own-message"
+    className="info-wrap"
   >
     <time
       dateTime="2020-03-25T15:08:47.510Z"

@@ -49,6 +49,8 @@ const force = {
 const info = InfoMessagesMock as Array<ChatMessage | MessageInfoTypeClipped>
 const chat = ChatMessagesMock as Array<ChatMessage | MessageInfoTypeClipped>
 const messages = info.concat(chat)
+const chatMessage = chat[1] as ChatMessage
+const playerRole = chatMessage.details.from.roleId
 
 const Template: Story<Props> = (args) => {
   const icons = [
@@ -62,6 +64,7 @@ const Template: Story<Props> = (args) => {
     messages={messages}
     icons={icons}
     playerForce={playerForce}
+    playerRole={playerRole}
     isUmpire={isUmpire}
     colors={colors}
   />

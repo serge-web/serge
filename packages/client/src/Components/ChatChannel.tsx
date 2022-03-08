@@ -14,7 +14,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { selectedForce } = state
+  const { selectedRole, selectedForce } = state
   const chatMessageRef = useRef<any>(null);
   const resizeObserverRef = useRef<any>(null);
   const [chatContainerHeight, setChatContainerHeight] = useState(0);
@@ -74,6 +74,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         messages={chatMessages || []}
         onMarkAllAsRead={markAllAsReadLocal}
         turnPresentation={state.turnPresentation}
+        playerRole={selectedRole}
         playerForce={selectedForce.name}
         isUmpire={!!isUmpire}
         icons={icons}
