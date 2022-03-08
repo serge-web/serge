@@ -24,7 +24,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
 
 /**
  * TODOS:
@@ -49,7 +49,8 @@ const AdminGameSetup = () => {
   } = wargame
   const {
     overview,
-    platform_types: platformTypes,
+    platformTypes,
+    platform_types, // TODO: legacy name. To be deleted.
     forces,
     channels
   } = data
@@ -115,6 +116,17 @@ const AdminGameSetup = () => {
     dispatch(saveSettings(currentWargame, overview))
   }
 
+  const onDeletePlatformType = data => {
+    dispatch(modalAction.open('confirmDelete', {
+      type: 'platformType',
+      data,
+      customMessages: {
+        title: `Delete '${data.name}'`,
+        message: 'Are you sure you want to permanently delete this Platform Type?'
+      }
+    }))
+  }
+
   const handleSavePlatformTypes = platformTypes => {
     dispatch(savePlatformTypes(currentWargame, platformTypes))
   }
@@ -170,16 +182,16 @@ const AdminGameSetup = () => {
   const onSave = updates => {
     let saveAction
     switch (currentTab) {
-      case 'overview':
+      case AdminTabs.Overview:
         saveAction = handleSaveOverview
         break
-      case 'platform_types':
+      case AdminTabs.PlatformTypes:
         saveAction = handleSavePlatformTypes
         break
-      case 'forces':
+      case AdminTabs.Forces:
         saveAction = handleSaveForce
         break
-      case 'channels':
+      case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
       default:
@@ -302,12 +314,13 @@ const AdminGameSetup = () => {
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
-      platformTypes={platformTypes}
+      platformTypes={platformTypes || platform_types}
       forces={forces.forces}
       selectedForce={forces.selectedForce}
       channels={channels.channels}
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
+      onDeletePlatformType={onDeletePlatformType}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}

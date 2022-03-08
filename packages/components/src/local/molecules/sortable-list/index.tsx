@@ -13,10 +13,10 @@ import { ReactSortable } from 'react-sortablejs'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faTimes, faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faTrash, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const SortableList: React.FC<PropTypes> = ({
+export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   onClick,
   onChange,
   items,
@@ -28,10 +28,11 @@ export const SortableList: React.FC<PropTypes> = ({
   required = false,
   valueOnEmpty,
   remove,
-  onDeleteGameControl
-}) => {
+  onDeleteGameControl,
+  viewDirection = 'vertical',
+  disableButtonAdd
+}, modalRef) => {
   const [active, setActive] = useState<string | number>('')
-  const [itemsSaved] = useState<Array<Item>>(items)
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
   const [inputActive, setInputActive] = useState<boolean>(false)
 
@@ -119,7 +120,7 @@ export const SortableList: React.FC<PropTypes> = ({
           if (valueOnEmpty) {
             newValue = valueOnEmpty
           } else {
-            newValue = getValue(itemsSaved[key])
+            newValue = getValue(items[key])
             setSelectAllText(true)
           }
         }
@@ -136,53 +137,54 @@ export const SortableList: React.FC<PropTypes> = ({
     }
 
     return (
-      <li key={uniqid} className={cx(styles.li, active === uniqid && styles.active)}>
-        {sortable === 'manual' && <div className={styles.drag}>
-          <span>
-            <div onClick={(): void => { handleRemove(key) }}>
-              <FontAwesomeIcon icon={faGripVertical} />
-            </div>
-          </span>
-        </div>}
-        <div className={styles.presection}>
-          <section className={styles.section}>
-            {
-              inputActive
-                ? <input
-                  type={isNumber ? 'number' : 'text'}
-                  onChange={handleInputChange}
-                  value={`${value}`}
-                  ref={(input): void => {
-                    if (selectAllText && input && uniqid === active) {
-                      input.select()
-                      setSelectAllText(false)
-                    }
-                  }}
-                  onBlur={(): void => setInputActive(false)}
-                />
-                : <div className={styles['value-label']}>
-                  <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
-                    {value}
-                  </div>
-                  <FontAwesomeIcon
-                    className={styles['delete-btn']}
-                    icon={faTrash}
-                    onClick={(): void => handleRemove(key)}
-                  />
-                </div>
-            }
-            {renderItemSection && renderItemSection(item, key)}
+      viewDirection === 'horizontal'
+        ? <span key={key} className={styles.horizontallist}>
+          <span>{value}</span>
+          {key < items.length - 1 && <span>-</span>}
+        </span>
+        : <li key={uniqid} className={cx(styles.li, active === uniqid && styles.active)}>
+          {sortable === 'manual' && <div className={styles.drag}>
             <span>
-              {copy && <div onClick={(): void => { handleCopy(item, key) }}>
-                <FontAwesomeIcon icon={faCopy} />
-              </div>}
-              {removeLocal && <div onClick={(): void => { handleRemove(key) }}>
-                <FontAwesomeIcon icon={faTimes} />
-              </div>}
+              <div onClick={(): void => { handleRemove(key) }}>
+                <FontAwesomeIcon icon={faGripVertical} />
+              </div>
             </span>
-          </section>
-        </div>
-      </li>
+          </div>}
+          <div className={styles.presection}>
+            <section className={styles.section}>
+              {
+                inputActive
+                  ? <input
+                    className={styles['value-label']}
+                    type={isNumber ? 'number' : 'text'}
+                    onChange={handleInputChange}
+                    value={`${value}`}
+                    ref={(input): void => {
+                      if (selectAllText && input && uniqid === active) {
+                        input.select()
+                        setSelectAllText(false)
+                      }
+                    }}
+                    onBlur={(): void => setInputActive(false)}
+                  />
+                  : <div className={styles['value-label']}>
+                    <div ref={key === items.length - 1 ? modalRef : null} onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
+                      {value}
+                    </div>
+                  </div>
+              }
+              {renderItemSection && renderItemSection(item, key)}
+              <span>
+                {copy && <div onClick={(): void => { handleCopy(item, key) }}>
+                  <FontAwesomeIcon icon={faCopy} />
+                </div>}
+                {removeLocal && <div onClick={(): void => { handleRemove(key) }}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </div>}
+              </span>
+            </section>
+          </div >
+        </li >
     )
   })
 
@@ -192,14 +194,14 @@ export const SortableList: React.FC<PropTypes> = ({
         ? <ReactSortable tag='ul' list={sortableItems} setList={handleSetList}>
           {renderItems}
         </ReactSortable>
-        : <ul>{renderItems}</ul>
+        : <ul className={cx({ [styles.horizontal]: viewDirection === 'horizontal', [styles.main]: true })}>{renderItems}</ul>
       }
-      <div className={styles['add-section']}>
+      {!disableButtonAdd && <div className={styles['add-section']}>
         <button className={styles.button} onClick={handleCreate}>{title}</button>
-      </div>
+      </div>}
     </div>
   )
-}
+})
 
 export { Item } from './types/props'
 

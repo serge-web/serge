@@ -78,6 +78,9 @@ exports[`GameSetup component: renders correctly 1`] = `
                 className="progress-indicator progress-indicator-complete"
               />
               <div
+                className="progress-indicator"
+              />
+              <div
                 className="progress-indicator progress-indicator-complete"
               />
               <div
@@ -100,7 +103,7 @@ exports[`GameSetup component: renders correctly 1`] = `
           className="item"
           onClick={[Function]}
         >
-          platform types
+          platformTypes
         </div>
         <div
           className="item"

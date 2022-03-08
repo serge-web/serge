@@ -1,9 +1,7 @@
-import { Phase, Domain } from '@serge/config'
-import SergeHex from './serge-hex'
-import SergeGrid from './serge-grid'
+import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData } from '.'
+import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
 
 /**
  * mapping context, shared with child elements
@@ -12,7 +10,7 @@ export default interface MappingContext {
   /**
    * grid of cells, used for movement
    */
-  gridCells: SergeGrid<SergeHex<{}>> | undefined
+  h3gridCells: SergeGrid3
   /**
    * list of forces within this wargame
    */
@@ -24,7 +22,7 @@ export default interface MappingContext {
   /**
    * object of platforms within this wargame by Asset.platformType keys
    */
-   platformTypesByKey: { [property: string]: PlatformTypeData }
+  platformTypesByKey: { [property: string]: PlatformTypeData }
   /**
    * force for current player
    */
@@ -149,4 +147,10 @@ export default interface MappingContext {
    * series of polygon areas, to be shaded
    */
   polygonAreas?: any
+  /** how to format the cell labels */
+  cellLabelStyle?: CellLabelStyle
+  /** 
+   * the leaflet map
+   */
+  map?: L.Map
 }

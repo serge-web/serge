@@ -5,7 +5,7 @@ import { TerrainType, typeFor } from '../../mapping/helpers/create-grid-from-geo
 
 export interface TerrainPolygons {
   terrain: TerrainType
-  data: L.LatLngExpression[][][][]
+  data: L.LatLngExpression[][][]
 }
 
 /** uility function, to convert GeoJSON data to Leaflet
@@ -26,14 +26,15 @@ const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
   }
 
   // now collapse & reconstruct tree, swapping lon & lat
-  const terrains = interestingTerrains.map((feature: Feature) => {
+  const terrains = interestingTerrains.map((feature: Feature): TerrainPolygons => {
     const multiPoly = feature.geometry as MultiPolygon
     const terrain = (feature.properties && typeFor(feature.properties.type)) || nullTerrain
     return {
       terrain: terrain,
-      data: multiPoly.coordinates.map((level1: number[][][]) => {
-        return level1.map((level2: number[][]) => {
-          return level2.map((level3: number[]) => {
+      data: multiPoly.coordinates.map((level1: number[][][]): L.LatLngTuple[][] => {
+        return level1.map((level2: number[][]): L.LatLngTuple[] => {
+          return level2.map((level3: number[]): L.LatLngTuple => {
+            // note: need to swap GeoJSON lon/lat to Leaflet lat/lon
             return [level3[1], level3[0]]
           })
         })

@@ -1,4 +1,4 @@
-import { Perception, RouteStatus, RouteTurn } from '.'
+import { AttributeValues, Perception, RouteStatus, RouteTurn } from '.'
 import { LaydownTypes } from '@serge/config'
 export interface Asset {
   /**
@@ -53,6 +53,9 @@ export interface Asset {
    *
   */
   status?: RouteStatus
+  /** attributes for this asset 
+   */
+  attributeValues?: AttributeValues
 }
 
 export default Asset

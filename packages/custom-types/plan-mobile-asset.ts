@@ -6,7 +6,7 @@ export default interface PlanMobileAsset {
    * hex coords of start location
    */
   origin: string
-  /**
+   /**
    * mode of travel for this asset
    */
   travelMode: string
@@ -23,4 +23,4 @@ export default interface PlanMobileAsset {
    * for unlimited range or if it's immobile
    */
   range?: number
-}
+  }

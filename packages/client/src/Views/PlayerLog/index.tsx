@@ -1,18 +1,17 @@
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import RefreshIcon from '@material-ui/icons/Cached'
-import { ForceData, PlayerMessageLog, PlayerMessage, Role } from '@serge/custom-types'
-import cx from 'classnames'
+import { ReactTable, Row } from '@serge/components'
+import { ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
+import { uniq } from 'lodash'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Modal from 'react-modal'
-import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 import { getPlayerActivityLogs } from '../../api/wargames_api'
+import { ActivityLogsInterface } from '../../api/wargames_api/types'
 import { usePlayerUiState } from '../../Store/PlayerUi'
+import { genPlayerLogDataTable } from './helpers/genData'
 import styles from './styles.module.scss'
 import { PlayerLogModal, PlayerLogProps } from './types/props'
-import { uniq } from 'lodash'
 
 // interval between UI refreshes
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
@@ -24,41 +23,13 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
   const { allForces, playerMessageLog, currentWargame } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
-  const [refreshing, setRefreshState] = useState<boolean>(false)
+  const [filteredRows, setFilterRows] = useState<Row[]>([])
 
-  const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    setRefreshState(true)
-    getPlayerActivityLogs().then((activityLog: PlayerActivity[]) => {
-      setRefreshState(false)
-      const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLog && activityLog.length && activityLog.filter((value: PlayerActivity) => value.wargame === currentWargame) || []
-      const activityRoles = activityLogsForThisWargame.map((value: PlayerActivity) => value.role)
-      const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
-      const knownRoles = activityRoles.concat(messageRoles)
-      const uniqueRoles = uniq(knownRoles)
+  const { columns, rows, customStyles } = useMemo(() => genPlayerLogDataTable(playerLogData), [playerLogData])
 
-      allForces.forEach((force: ForceData) => {
-        force.roles.forEach((role: Role) => {
-          if (uniqueRoles.includes(role.roleId)) {
-            const activity = activityLogsForThisWargame.find((value: PlayerActivity) => value.role === role.roleId)
-            const lastMessage = messageLog[role.roleId]
-            const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
-            const messageTime = lastMessage && lastMessage.lastMessageTime
-            logData.push({
-              forceName: force.name,
-              forceColor: force.color,
-              roleName: role.name,
-              message,
-              lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
-              lastActive: activity ? moment(activity.updatedAt).fromNow() : 'N/A',
-              active: activity && (moment().diff(moment(activity.updatedAt))) < AGE_FOR_ACTIVE_MILLIS || false
-            })
-          }
-        })
-      })
-      setPlayerLogData(logData)
-    })
-  }
+  useEffect(() => {
+    setFilterRows(rows)
+  }, [rows.length])
 
   useEffect(() => {
     clearInterval(loop)
@@ -69,6 +40,41 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
       }, REFRESH_PLAYER_LOG_INTERVAL))
     }
   }, [isOpen, playerMessageLog])
+
+  const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
+    getPlayerActivityLogs().then((activityLog: ActivityLogsInterface[]) => {
+      const logData: PlayerLogModal[] = []
+      const activityLogsForThisWargame = activityLog && activityLog.length && activityLog.filter((value: ActivityLogsInterface) => value.wargame === currentWargame) || []
+      const activityRoles = activityLogsForThisWargame.map((value: ActivityLogsInterface) => value.role)
+      const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
+      const knownRoles = activityRoles.concat(messageRoles)
+      const uniqueRoles = uniq(knownRoles)
+
+      allForces.forEach((force: ForceData) => {
+        force.roles.forEach((role: Role) => {
+          if (uniqueRoles.includes(role.roleId)) {
+            const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
+            const lastMessage = messageLog[role.roleId]
+            const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
+            const messageTime = lastMessage && lastMessage.lastMessageTime
+            const activityTime = activity && activity.activityTime && parseInt(activity.activityTime)
+            setPlayerLogData([])
+            logData.push({
+              forceName: force.name,
+              forceColor: force.color,
+              roleName: role.name,
+              message,
+              lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
+              lastActivity: activity ? activity.activityType : 'N/A',
+              lastActive: activityTime ? moment(activityTime).fromNow() : 'N/A',
+              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
+            })
+          }
+        })
+      })
+      setPlayerLogData(logData)
+    })
+  }
 
   return (
     <Modal
@@ -90,39 +96,20 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
         </div>
       </div>
       <div className={styles.content}>
-        <div className={styles.tableContent}>
-          <span className={cx({ [styles.refreshIcon]: true, [styles.rotate]: refreshing })}><RefreshIcon /></span>
-          <div className={cx(styles.row, styles.header)}>
-            <span>Force</span>
-            <span>Role</span>
-            <span>Last Active</span>
-            <span>Message</span>
-            <span>Sent at</span>
-          </div>
-          {playerLogData.length === 0 &&
-            <div className={styles.loader}>
-              <CircularProgress />
-            </div>}
-          <div className={styles.logContent}>
-            {playerLogData.map((log, idx) => (
-              <div key={idx} className={cx(styles.row, styles.item)}>
-                <span>
-                  <img key={'force_icon_' + idx} className={styles['role-icon']} alt="" style={{ backgroundColor: log.forceColor }} />&nbsp;
-                  {log.forceName}
-                </span>
-                <span>
-                  <img key={'active_icon_' + idx} className={cx({ [styles.active]: log.active, [styles.inactive]: !log.active })} alt="" />&nbsp;{log.roleName}
-                </span>
-                <span>{log.lastActive}</span>
-                <span>{log.message}</span>
-                <span>{log.lastMessage}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ReactTable
+          columns={columns}
+          rows={filteredRows}
+          customStyles={customStyles}
+          fixedHeader
+          defaultSortAsc={true}
+          persistTableHead={true}
+          expandableRowsHideExpander={true}
+          highlightOnHover={true}
+          fixedHeaderScrollHeight='55vh'
+        />
       </div>
     </Modal>
   )
 }
 
-export default PlayerLogComponent
+export default React.memo(PlayerLogComponent)

@@ -15,6 +15,8 @@ export type PlayerLogModal = {
   lastMessage: string
   /** time the player was last present */
   lastActive: string
+  /** what the last activity was */
+  lastActivity: string
   /** whether player recently active */
   active: boolean
 }

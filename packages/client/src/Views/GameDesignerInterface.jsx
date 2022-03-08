@@ -27,13 +27,13 @@ class GameDesignerInterface extends Component {
 
   createWargame = () => {
     this.props.dispatch(createNewWargameDB());
-  };
+  }
 
   clearWargames = () => {
     this.props.dispatch(modalAction.open('confirmDelete', {
       type: 'games'
     }))
-  };
+  }
 
   downloadAllData = () => {
     this.props.dispatch(downloadAllWargames())
@@ -41,7 +41,7 @@ class GameDesignerInterface extends Component {
 
   checkPassword = password => {
     this.props.dispatch(checkAdminAccess(password));
-  };
+  }
 
   onButtonClick = onClick => route => {
     onClick && onClick()

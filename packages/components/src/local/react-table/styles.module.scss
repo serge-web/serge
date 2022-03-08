@@ -1,0 +1,48 @@
+@import "../../../../themes/dependencies/variables";
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.filter-icon {
+  position: absolute;
+  margin-top: 8px;
+}
+
+.input-filter {
+  width: 250px;
+  padding-left: 22px;
+}
+
+.light {
+  color: #fff !important;
+}
+
+.dark {
+  color: #000 !important;
+}
+
+.checkbox {
+  margin-left: 0 !important;
+  margin-bottom: 0.2rem !important;
+
+  span {
+    color: #3ef1ea;
+  }
+}
+
+.btn {
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    color: #3ef1ea;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

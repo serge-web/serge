@@ -1,4 +1,4 @@
-import { RouteStatus } from '@serge/custom-types'
+import { AttributeValues, RouteStatus } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -65,4 +65,16 @@ export default interface PropTypes {
    * imageSrc custom icon for asset
    */
   imageSrc?: string
+  /**
+   *  attributes for this assset
+   */
+  attributes: AttributeValues
+  /**
+   * orientation of the marker (degs from North)
+   */
+  orientationData?: OrientationData[]
+  /**
+   * the leaflet map (used for projection conversions)
+   */
+  map?: L.Map
 }
