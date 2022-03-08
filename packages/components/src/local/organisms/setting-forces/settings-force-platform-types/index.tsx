@@ -1,10 +1,10 @@
 import React, { FC, ChangeEvent, ReactNode, useState, useEffect, ReactElement } from 'react'
-import { LaydownTypes } from '@serge/config'
+import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes } from '@serge/config'
 /* Import proptypes */
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import PropTypes from './types/props'
 import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortableItems'
-import { Asset, AttributeEditorData, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -45,8 +45,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     return selectedForcePlatforms
   }
 
-  const [selectedPlatforms, setSelectedPlatforms] = useState<ForceItemType[]>(createSelectedForcePlatforms(selectedForce.assets))
-  const [selectedAssetItem, setSelectedAssetItem] = useState<ForceItemType>(createSelectedForcePlatforms(selectedForce.assets)[0])
+  const [selectedPlatforms, setSelectedPlatforms] = useState<Asset[]>(createSelectedForcePlatforms(selectedForce.assets))
+  const [selectedAssetItem, setSelectedAssetItem] = useState<Asset>(createSelectedForcePlatforms(selectedForce.assets)[0])
 
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
   const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
@@ -61,22 +61,47 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))
 
-  useEffect(() => {
-    if (Array.isArray(selectedForce.assets)) {
-      const asset = selectedForce.assets.find(asset => asset.uniqid === selectedAssetItem.uniqid)
-      if (asset?.locationPending !== LaydownTypes.Fixed) {
-        setFixedLocationValue('')
-      }
-      if (asset) {
-        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
-        pType && setAttributeTypes(pType.attributeTypes || [])
-        setAttributeValues(asset.attributeValues || [])
-      }
+  const getSelectedAsset = (): Asset | undefined => {
+    if (Array.isArray(selectedPlatforms)) {
+      return selectedPlatforms.find(asset => asset.uniqid === selectedAssetItem.uniqid)
     }
+    return undefined
+  }
+
+  useEffect(() => {
+    const asset = getSelectedAsset()
+    if (!asset) {
+      return
+    }
+    if (asset.locationPending !== LaydownTypes.Fixed) {
+      setFixedLocationValue('')
+    }
+
+    const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+    pType && setAttributeTypes(pType.attributeTypes || [])
+    let attrValues = asset.attributeValues || []
+    if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
+      attrValues = pType.attributeTypes.map((aType: AttributeType) => {
+        return {
+          attrId: aType.attrId,
+          value: 0,
+          attrType: ATTRIBUTE_VALUE_NUMBER
+        }
+      })
+    }
+    setAttributeValues(attrValues)
   }, [selectedAssetItem])
 
   useEffect(() => {
     const attrs = collateEditorData(attributeValues, attributeTypes)
+    const assets = selectedForce.assets || []
+    assets.some(asset => {
+      if (asset.uniqid === selectedAssetItem.uniqid) {
+        asset.attributeValues = attributeValues
+        return true
+      }
+      return false
+    })
     setAttributes(attrs)
   }, [attributeTypes, attributeValues])
 
@@ -135,7 +160,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           <ListItemText>
             <label className={styles['input-group']}>
               <span className={styles['list-title']}>Name</span>
-              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.name} onChange={handleChangeAssetName}/>
+              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.name} onChange={handleChangeAssetName} />
             </label>
           </ListItemText>
         </ListItem>
@@ -143,7 +168,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           <ListItemText>
             <label className={styles['input-group']}>
               <span className={styles['list-title']}>ContactID</span>
-              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.contactId} onChange={handleChangeAssetContactId}/>
+              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.contactId} onChange={handleChangeAssetContactId} />
             </label>
           </ListItemText>
         </ListItem>
@@ -151,7 +176,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           <ListItemText>
             <label className={styles['input-group']}>
               <span className={styles['list-title']}>UniqueID</span>
-              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.uniqid} onChange={handleChangeAssetUniqid}/>
+              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.uniqid} onChange={handleChangeAssetUniqid} />
             </label>
           </ListItemText>
         </ListItem>
@@ -186,21 +211,21 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             </ListItemText>
           </ListItem>
         }
-        { attributes.length > 0 &&
-            <ListItem>
-              <ListItemText>
-                <label className={styles['input-group']}>
-                  <span className={styles['list-title']}>Attributes</span>
-                  <div>
-                    { attributes.map((item: AttributeEditorData): ReactElement => {
-                      const labelTxt = item.nameRead + ' ' + item.valueRead
-                      return <Badge key={item.attrId} allCaps={false} label={labelTxt}/>
-                    })}
-                  </div>
-                  <span className={styles.editattributes}><Button onClick={(): void => setAttributeEditorIsOpen(true)}>Edit</Button></span>
-                </label>
-              </ListItemText>
-            </ListItem>
+        {attributes.length > 0 &&
+          <ListItem>
+            <ListItemText>
+              <label className={styles['input-group']}>
+                <span className={styles['list-title']}>Attributes</span>
+                <div>
+                  {attributes.map((item: AttributeEditorData): ReactElement => {
+                    const labelTxt = item.nameRead + ' ' + item.valueRead
+                    return <Badge key={item.attrId} allCaps={false} label={labelTxt} />
+                  })}
+                </div>
+                <span className={styles.editattributes}><Button onClick={(): void => setAttributeEditorIsOpen(true)}>Edit</Button></span>
+              </label>
+            </ListItemText>
+          </ListItem>
 
         }
       </List>
@@ -230,7 +255,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedPlatforms.length
-
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
