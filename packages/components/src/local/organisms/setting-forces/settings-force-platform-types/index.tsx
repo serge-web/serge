@@ -62,8 +62,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))
 
   const getSelectedAsset = (): Asset | undefined => {
-    if (Array.isArray(selectedForce.assets)) {
-      return selectedForce.assets.find(asset => asset.uniqid === selectedAssetItem.uniqid)
+    if (Array.isArray(selectedPlatforms)) {
+      return selectedPlatforms.find(asset => asset.uniqid === selectedAssetItem.uniqid)
     }
     return undefined
   }
@@ -79,7 +79,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
     const pType = findPlatformTypeFor(platformTypes, asset.platformType)
     pType && setAttributeTypes(pType.attributeTypes || [])
-
     let attrValues = asset.attributeValues || []
     if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
       attrValues = pType.attributeTypes.map((aType: AttributeType) => {
@@ -256,7 +255,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedPlatforms.length
-
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
