@@ -3,6 +3,7 @@ import React from 'react'
 /* Import proptypes */
 import PropTypes from './types/props'
 import { Wargame } from '@serge/custom-types'
+import { AdminTabs } from '@serge/config'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -25,10 +26,10 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
   }
 
   const contentTabs = [
-    'overview',
-    'platform_types',
-    'forces',
-    'channels'
+    AdminTabs.Overview,
+    AdminTabs.PlatformTypes,
+    AdminTabs.Forces,
+    AdminTabs.Channels
   ]
 
   const renderContainer = (reqWargame: Wargame): React.ReactNode => {
