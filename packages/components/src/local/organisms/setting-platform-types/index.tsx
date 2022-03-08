@@ -201,7 +201,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         attrType: ATTRIBUTE_TYPE_NUMBER,
         attrId: 'attr' + uniqid.time()
       }]
-      handleChangePlatformTypeData({ ...data, attributeTypes: attributeTypes }, selectedItem)
+      handleChangePlatformTypeData({ ...data, attributeTypes }, selectedItem)
     }
 
     const toggleSpeedModal = (): void => {
