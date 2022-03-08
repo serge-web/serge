@@ -12,6 +12,8 @@ export default interface PropTypes extends ForcesInChannelProps {
   isUmpire: boolean
   /** force this player belongs to */
   playerForce: string
+  /** role this player belongs to */
+  playerRole?: string
   /**
    * Max height of chat container box
    */

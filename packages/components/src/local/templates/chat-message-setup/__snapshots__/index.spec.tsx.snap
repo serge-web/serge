@@ -133,7 +133,7 @@ Array [
           className="MuiBox-root MuiBox-root-17"
           style={
             Object {
-              "float": "right",
+              "float": "left",
             }
           }
         >
