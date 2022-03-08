@@ -1,11 +1,11 @@
+import { AdminTabs } from '@serge/config'
 import React from 'react'
 import AdminContent from '../../atoms/admin-content'
 import AdminLayout from '../../organisms/admin-layout'
+import SettingChannels from '../../organisms/setting-channels'
+import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
 import SettingPlatformTypes from '../../organisms/setting-platform-types'
-import SettingForces from '../../organisms/setting-forces'
-import SettingChannels from '../../organisms/setting-channels'
-
 /* Import Types */
 import Props from './types/props'
 
@@ -26,6 +26,7 @@ export const GameSetup: React.FC<Props> = ({
   activeTab = '',
   onOverviewChange,
   onPlatformTypesChange,
+  onDeletePlatformType,
   onForcesChange,
   onCreateForce,
   onDeleteForce,
@@ -50,28 +51,29 @@ export const GameSetup: React.FC<Props> = ({
     <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} onPressBack={onPressBack} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
         {
-          currentActiveTab === 'overview' && (
+          currentActiveTab === AdminTabs.Overview && (
             <SettingOverview
               overview={overview}
               onChange={onOverviewChange}
               onSave={onSave}
               initiateWargame={onWargameInitiate}
-              wargameInitiated={wargame.wargameInitiated}
+              wargameInitiated={!!wargame.wargameInitiated}
             />
           )
         }
         {
-          currentActiveTab === 'platform_types' && (
+          currentActiveTab === AdminTabs.PlatformTypes && (
             <SettingPlatformTypes
               iconUploadUrl={iconUploadUrl}
               platformType={platformTypes}
               onChange={onPlatformTypesChange}
               onSave={onSave}
+              onDelete={onDeletePlatformType}
             />
           )
         }
         {
-          currentActiveTab === 'forces' && (
+          currentActiveTab === AdminTabs.Forces && (
             <SettingForces
               iconUploadUrl={iconUploadUrl}
               forces={forces}
@@ -87,7 +89,7 @@ export const GameSetup: React.FC<Props> = ({
           )
         }
         {
-          currentActiveTab === 'channels' && (
+          currentActiveTab === AdminTabs.Channels && (
             <SettingChannels
               channels={channels}
               onChange={onChannelsChange}

@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoaStatusBoard renders correctly 1`] = `
+Array [
+  <div
+    className="actions"
+  >
+    <label
+      className="MuiFormControlLabel-root checkbox"
+    >
+      <span
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={null}
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <input
+            checked={false}
+            className="PrivateSwitchBase-input-4"
+            data-indeterminate={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+      >
+        Show archived
+      </span>
+    </label>
+    <div
+      className="btn"
+    >
+      <span>
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-text"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Mark All As Read
+          </span>
+        </button>
+      </span>
+    </div>
+  </div>,
+  <div
+    className="sc-ckVGcZ boOxDU"
+  >
+    <div
+      className="sc-eNQAEJ kUevjB"
+    >
+      <div
+        className="sc-bdVaJa QqzfF rdt_Table"
+        disabled={false}
+        role="table"
+      >
+        <div
+          className="sc-bwzfXH gZOhQP rdt_TableHead"
+          role="rowgroup"
+        >
+          <div
+            className="sc-htpNat evnGOm rdt_TableHeadRow"
+            role="row"
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={1}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT eAbDNw rdt_TableCol_Sortable"
+                data-column-id={1}
+                data-sort-id={1}
+                disabled={true}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={1}
+                >
+                  ID
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={2}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT eAbDNw rdt_TableCol_Sortable"
+                data-column-id={2}
+                data-sort-id={2}
+                disabled={true}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={2}
+                >
+                  From
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={3}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT eAbDNw rdt_TableCol_Sortable"
+                data-column-id={3}
+                data-sort-id={3}
+                disabled={true}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={3}
+                >
+                  Title
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU bXBEFh rdt_TableCol"
+              data-column-id={4}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT eAbDNw rdt_TableCol_Sortable"
+                data-column-id={4}
+                data-sort-id={4}
+                disabled={true}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={4}
+                >
+                  Status
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={5}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT eAbDNw rdt_TableCol_Sortable"
+                data-column-id={5}
+                data-sort-id={5}
+                disabled={true}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={5}
+                >
+                  Updated
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={6}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT eAbDNw rdt_TableCol_Sortable"
+                data-column-id={6}
+                data-sort-id={6}
+                disabled={true}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={6}
+                >
+                  Owner
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-kEYyzF bEDbun"
+        >
+          <div
+            style={
+              Object {
+                "padding": "24px",
+              }
+            }
+          >
+            There are no records to display
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

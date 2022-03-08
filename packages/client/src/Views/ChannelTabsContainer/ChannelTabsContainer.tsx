@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import FlexLayout, { Model } from 'flexlayout-react'
-import { ChannelData } from '@serge/custom-types'
+import { ChannelTypes } from '@serge/custom-types'
 import factory from './helpers/factory'
 import computeTabs from './helpers/computeTabs'
 import tabRender from './helpers/tabRender'
@@ -9,31 +9,24 @@ import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT, FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import Props from './types'
+import { setActivityTime } from '@serge/config'
 
 interface UnreadCounter {
   [property: string]: number
 }
-
 
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  const [unreadedMessages, setUnreadedMessages] = useState<UnreadCounter>({})
 
-  const handleUnreadMessagesCountChange = (nextCount: UnreadCounter): void => {
-    setUnreadedMessages({
-      ...unreadedMessages,
-      ...nextCount
-    })
-  }
 
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
-    const setTabContent = (channel: ChannelData) => ({
+    const setTabContent = (channel: ChannelTypes) => ({
       type: 'tab',
       id: channel.uniqid,
       name: channel.name,
@@ -108,9 +101,10 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
           ? (
             <FlexLayout.Layout
               model={model}
-              factory={factory(state, handleUnreadMessagesCountChange)}
-              onRenderTab={tabRender(state, unreadedMessages)}
+              factory={factory(state)}
+              onRenderTab={tabRender(state)}
               onModelChange={() => {
+                setActivityTime(state.selectedRole ,'change tab')
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />

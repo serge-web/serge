@@ -49,16 +49,19 @@ export { default as isPerceivedBy, ForceStyle } from './is-perceived-by'
 export { default as isValidUrl } from './is-valid-url'
 export { default as mostRecentOnly } from './most-recent-only'
 export { default as padInteger } from './padInteger'
+export { default as newestPerRole, logTable } from './newest-per-role'
 export {
   matchedForceAndRoleFilter,
   matchedAllRolesFilter,
   matchedForceFilter
 } from './participant-filters'
 export {
-  checkParticipantStates,
+  checkLegacyParticipantStates,
+  checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
 export { default as plannedRouteFor } from './planned-route-for'
+export { default as plannedRouteFor3 } from './planned-route-for-3'
 export { default as roundToNearest } from './roundToNearest'
 export { default as routeAddSteps } from './route-add-steps'
 export { default as routeClearFromStep } from './route-clear-from-step'
@@ -80,3 +83,5 @@ export {
 } from './create-asset-based-on-platform-type'
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
+export * from './attribute-helpers'
+export { default as enumFromString } from './enum-from-string'

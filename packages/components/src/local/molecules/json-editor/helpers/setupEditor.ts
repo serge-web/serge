@@ -16,17 +16,21 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   const disableArrayReOrder = 'disable_array_reorder'
   const disableArrayAdd = 'disable_array_add'
   const disableArrayDelete = 'disable_array_delete'
+  const disableArrayDeleteLastRow = 'disable_array_delete_last_row'
+  const promptBeforeDelete = 'prompt_before_delete'
 
-  if (schema && schema.type) {
+  if (schema && schema.type && ref.current) {
     const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',
       [disableCollapse]: true,
       [disableEditJson]: true,
       [disableProperties]: true,
-      [disableArrayReOrder]: jsonEditorConfig.disableArrayReOrder ? jsonEditorConfig.disableArrayReOrder : false,
-      [disableArrayAdd]: jsonEditorConfig.disableArrayAdd ? jsonEditorConfig.disableArrayAdd : false,
-      [disableArrayDelete]: jsonEditorConfig.disableArrayDelete ? jsonEditorConfig.disableArrayDelete : false
+      [disableArrayDeleteLastRow]: true,
+      [promptBeforeDelete]: false,
+      [disableArrayReOrder]: !!jsonEditorConfig.disableArrayReOrder,
+      [disableArrayAdd]: !!jsonEditorConfig.disableArrayAdd,
+      [disableArrayDelete]: !!jsonEditorConfig.disableArrayDelete
     }) as Editor
     return newEditor
   }

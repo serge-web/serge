@@ -13,6 +13,7 @@ const runServer = (
   const express = require('express')
   const path = require('path')
   const uniqid = require('uniqid')
+  const archiver = require('archiver')
 
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
@@ -47,7 +48,12 @@ const runServer = (
 
   const clientBuildPath = '../client/build'
 
+  // log of time of receipt of player heartbeat messages
+  const playerLog = []
+
   app.use(cors(corsOptions))
+  app.use(express.json())
+
   app.use('/db', require('express-pouchdb')(PouchDB))
 
   app.get('/allDbs', (req, res) => {
@@ -68,6 +74,19 @@ const runServer = (
       })
   })
 
+  app.get('/downloadAll', (req, res) => {
+    const output = fs.createWriteStream('all_dbs.zip')
+    const archive = archiver('zip')
+
+    archive.pipe(output)
+
+    archive.directory(path.join(__dirname, 'db'), false)
+
+    archive.finalize()
+
+    setTimeout(() => res.download(path.join(__dirname, 'all_dbs.zip')), 500)
+  })
+
   app.get('/deleteDb', (req, res) => {
     fs.unlink('db/' + req.query.db, err => {
       console.log(err)
@@ -83,24 +102,65 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck', (req, res) => {
-    res.status(200).send({
+  app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
+    const { wargame, role } = req.params
+    const activityTime = req.params.activityTime.replace(/[+]/g, ' ')
+    const activityType = req.params.activityType.replace(/[+]/g, ' ')
+
+    if (wargame !== 'missing' && role !== 'missing') {
+      const existingPlayerIdx = playerLog.findIndex(
+        player => player.role === role && player.wargame === wargame
+      )
+      if (existingPlayerIdx !== -1) {
+        playerLog[existingPlayerIdx].activityTime = activityTime
+        playerLog[existingPlayerIdx].activityType = activityType
+      } else {
+        const newPlayer = {
+          wargame,
+          role,
+          activityType,
+          activityTime
+        }
+        playerLog.push(newPlayer)
+      }
+    }
+
+    return res.status(200).send({
       status: 'OK',
-      uptime: process.uptime()
+      activityType: activityType,
+      mostRecentActivity: activityTime,
+      wargame: wargame,
+      role: role
     })
+  })
+
+  app.get('/playerlog', (_, res) => {
+    res.status(200).send(playerLog)
+  })
+
+  app.get('/playerlog/:wargame', (req, res) => {
+    const wargame = req.params.wargame
+    const selectedWargame = playerLog.find(log => log.wargame === wargame) || {}
+    res.status(200).send(selectedWargame)
   })
 
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
-      res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
-      return
+      return res.sendFile(
+        path.join(process.cwd(), dataDir, req.params.filename)
+      )
     }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
-  app.use('/saveIcon', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' }))
+  app.use(
+    '/saveIcon',
+    express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
+  )
   app.post('/saveIcon', (req, res) => {
-    const imageName = `${uniqid.time('icon-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
+    const imageName = `${uniqid.time('icon-')}.${
+      req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'
+    }`
     const image = `${imgDir}/${imageName}`
     let imagePath = `${req.headers.host}/getIcon/${imageName}`
     if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
@@ -162,7 +222,12 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    const start =
+      process.platform === 'darwin'
+        ? 'open'
+        : process.platform === 'win32'
+          ? 'start'
+          : 'xdg-open'
     require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }

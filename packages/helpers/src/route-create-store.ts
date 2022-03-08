@@ -1,12 +1,12 @@
 
 import L from 'leaflet'
-import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
+import { RouteStore, Route, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
-import hexNamed from './hex-named'
 import forceColors from './force-colors'
+import { h3ToGeo } from 'h3-js'
 
 /** determine which forces this player can control
  * @param {ForceData[]} forces array of forces
@@ -38,7 +38,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: string,
-  platformTypes: PlatformTypeData[], grid: SergeGrid<SergeHex<unknown>> | undefined, filterHistorySteps: boolean,
+  platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
   filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: [] }
 
@@ -83,8 +83,9 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
           // sort out location.
           const assetPosition: string = (existingRoute && existingRoute.currentPosition) || asset.position
-          const matchingHex: SergeHex<unknown> | undefined = (grid && hexNamed(assetPosition, grid)) || undefined
-          const assetLocation: L.LatLng = (matchingHex && matchingHex.centreLatLng) || dummyLocation
+          const h3loc: number[] | undefined = (asset.position && h3ToGeo(asset.position)) || undefined
+          const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
+          const assetLocation: L.LatLng = (h3locLatlng) || dummyLocation
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
@@ -98,7 +99,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
               controlled, visibleToThisPlayer, force.name, force.cssClass, force.uniqid, asset.name, asset.platformType,
               platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
-              grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
+              true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
             if (existingRoute) {
               // ok, copy the adjudication state
@@ -127,13 +128,13 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                     // create route for this asset
                     const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, false, force.uniqid, perceptions.force, perceptions.force,
                       perceptions.name, perceptions.type, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
-                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
+                      false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
                   }
                 }
               })
             } else {
-              // can't see it directly. See if we can perceive it
+              // it's not a composite unit, just process it
               const perceivedColor: ForceStyle | undefined = isPerceivedBy(asset.perceptions, playerForceName, forceColorList, undefinedColor)
               if (perceivedColor) {
                 const perceptions = findPerceivedAsTypes(playerForceName, asset.name, false, asset.contactId,
@@ -142,7 +143,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, false, force.uniqid, perceptions.force, perceptions.force,
                     perceptions.name, perceptions.type, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
-                    grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
+                    false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                   store.routes.push(newRoute)
                 }
               }

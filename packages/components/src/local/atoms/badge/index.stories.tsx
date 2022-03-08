@@ -117,3 +117,36 @@ noCapital.args = {
   allCaps: false,
   customBackgroundColor: '#666'
 }
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const tooltip = Template.bind({})
+tooltip.args = {
+  label: 'Badge with tooltip',
+  allCaps: false,
+  title: 'The content of the tooltip'
+}
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const outlined = Template.bind({})
+outlined.args = {
+  label: 'Outline badge',
+  allCaps: false,
+  outline: true
+}
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const outlinedCustomColor = Template.bind({})
+outlinedCustomColor.args = {
+  label: 'Outline with custom color',
+  allCaps: false,
+  customColor: '#228',
+  outline: true
+}
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const filledCustomColor = Template.bind({})
+filledCustomColor.args = {
+  label: 'Filled with custom color',
+  allCaps: false,
+  customColor: '#cfa'
+}

@@ -21,7 +21,8 @@ const gameMessages: MessageChannel[] = [
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:04.394Z",
-      turnNumber: 1
+      turnNumber: 1,
+      privateMessage: "Private response to message"
     },
     message: {
       content: "message from Red"

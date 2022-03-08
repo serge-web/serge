@@ -9,7 +9,11 @@ describe('Badge component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <Badge label="Charcoal" type="charcoal" />
+        <div>
+          <Badge label="Charcoal" type="charcoal" />
+          <Badge label="Outline" outline={true} />
+          <Badge label="Outline custom color" customColor='#f00' outline={true} />
+        </div>
       )
       .toJSON()
     expect(tree).toMatchSnapshot()

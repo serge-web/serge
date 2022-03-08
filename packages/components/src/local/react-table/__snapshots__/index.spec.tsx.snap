@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactTable component: renders correctly 1`] = `
+Array [
+  <div
+    className="actions"
+  />,
+  <div
+    className="sc-ckVGcZ ebjDzu"
+  >
+    <div
+      className="sc-eNQAEJ kUevjB"
+    >
+      <div
+        className="sc-bdVaJa QqzfF rdt_Table"
+        disabled={false}
+        role="table"
+      >
+        <div
+          className="sc-kEYyzF bEDbun"
+        >
+          <div
+            style={
+              Object {
+                "padding": "24px",
+              }
+            }
+          >
+            There are no records to display
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
