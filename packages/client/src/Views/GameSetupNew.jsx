@@ -3,7 +3,7 @@ import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
-import { checkUnique, findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
+import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from '@serge/helpers'
 import { channelTemplate, forceTemplate, CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../consts'
 import {
   addNewForce,
@@ -139,6 +139,12 @@ const AdminGameSetup = () => {
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
+    const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
+    if (empForceRoleNames.length > 0) {
+      dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+      return
+    }
+    
     const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
     if (dupForceRoleNames.length > 0) {
       dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))

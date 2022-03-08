@@ -128,6 +128,9 @@ export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
+// default name for role name
+export const NEW_ROLE = 'New Role'
+
 // 
 /** there has been some user interaction, so log the current time
  * The storage we're using is shared across browser tabs, so previously
