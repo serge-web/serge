@@ -7,7 +7,7 @@ import Props from './types'
 const MessagesListChatChannel = ({ messages, markAllAsRead }: Props): React.ReactElement | null => {
 
   const { selectedRole } = usePlayerUiState()
-  if (selectedRole === undefined) throw new Error('selectedForce is undefined')
+  if (selectedRole === undefined) throw new Error('selectedRole is undefined')
 
   return (<>
     <span className='link link--noIcon link--secondary' onClick={markAllAsRead}>Mark all as read</span>
