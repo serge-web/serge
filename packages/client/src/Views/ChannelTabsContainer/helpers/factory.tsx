@@ -186,7 +186,7 @@ const factory = (state: PlayerUi): Factory => {
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
         default:
-          console.warn('not yet handling', v3Channel.channelType)
+          console.log('not yet handling', v3Channel.channelType)
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {

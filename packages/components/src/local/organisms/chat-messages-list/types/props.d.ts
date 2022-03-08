@@ -13,10 +13,6 @@ export default interface PropTypes extends ForcesInChannelProps {
   /** force this player belongs to */
   playerForce: string
   /**
-   * The user id
-   */
-  userId: string
-  /**
    * Max height of chat container box
    */
   chatContainerHeight?: number

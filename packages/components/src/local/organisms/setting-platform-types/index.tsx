@@ -197,7 +197,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const handleCreateAttributes = (): void => {
       const baseData = data.attributeTypes || []
       const attributeTypes: AttributeTypes = [...baseData, {
-        name: 'New Attrobite',
+        name: 'New Attribute',
         attrType: ATTRIBUTE_TYPE_NUMBER,
         attrId: 'attr' + uniqid.time()
       }]

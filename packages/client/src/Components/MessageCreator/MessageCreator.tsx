@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
-import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from "@serge/config";
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates, setActivityTime } from "@serge/config";
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -71,6 +71,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)
+    setActivityTime(details.from.roleId, 'send channel message')
   }
 
   const openConfirmPopup = (e: any): void => {
