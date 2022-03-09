@@ -144,7 +144,7 @@ const AdminGameSetup = () => {
       dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
       return
     }
-    
+
     const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
     if (dupForceRoleNames.length > 0) {
       dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
