@@ -76,6 +76,7 @@ export const HexGrid: React.FC<{}> = () => {
   // temporary turn data
   const [leftTurn, setLeftTurn] = useState<L.LatLng[]>([])
   const [rightTurn, setRightTurn] = useState<L.LatLng[]>([])
+  const [leftArc, setLeftArc] = useState<L.LatLng[]>([])
 
   // the binned polygons
   const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
@@ -226,6 +227,23 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningConstraints])
 
+
+  /** function to create a circle */
+  const buildTurn = (origin: turf.Feature<turf.Point>, left: boolean, radiusKm: number, heading: number): L.LatLng[] => {
+    const offset = left ? -90 : 90
+    const thisOrigin = turf.destination(origin, radiusKm, heading + offset, { units: 'kilometers' })
+    const pts: L.LatLng[] = []
+    for (let i = 0; i < 360; i += 30) {
+      const dest: turf.Feature<turf.Point> = turf.destination(thisOrigin, radiusKm, i, { units: 'kilometers' })
+      const point: turf.Position = dest.geometry.coordinates
+      const pos: L.LatLng = L.latLng(point[1], point[0])
+      pts.push(pos)
+    }
+    // append the start point, to make poly
+    pts.push(pts[0])
+    return pts
+  }
+
   /** provide a list of cells allowable for this platform. The area may reduce
        * as a player plans the leg
        */
@@ -245,53 +263,65 @@ export const HexGrid: React.FC<{}> = () => {
         /// ///////////////////
         // TEMPORARY - TURNING CIRCLES
 
-        const toRadians = (degs: number) => {
-          return degs * (Math.PI / 180)
+        const toRadians = (degs: number): number => {
+          return degs * Math.PI / 180
         }
 
-        // const toVector = (dx: number, dy: number) => {
-        //   const direction =  Math.atan2(dy, dy)
-        //   const magnitude = Math.sqrt(dx * dx + dy * dy)
-        //   return {magnitude, direction}
-        // }
+        const toDegrees = (rads: number): number => {
+          return rads * 180 / Math.PI
+        }
 
+        const toVector = (dx: number, dy: number) => {
+          const direction =  toDegrees(Math.atan2(dy, dx))
+          const magnitude = Math.sqrt(dx * dx + dy * dy)
+          return {magnitude, direction}
+        }
         if (planningConstraints.turningCircle) {
           // coords of circle
           const details = planningConstraints.turningCircle
-          const radiusKm: number = planningConstraints.turningCircle.radius / 1000
+          const radiusKm: number = details.radius / 1000
           const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
-
-          const buildTurn = (origin: turf.Feature<turf.Point>, left: boolean): L.LatLng[] => {
-            const offset = left ? -90 : 90
-            const thisOrigin = turf.destination(origin, radiusKm, details.heading + offset, { units: 'kilometers' })
-            const pts: L.LatLng[] = []
-            for (let i = 0; i < 360; i += 30) {
-              const dest: turf.Feature<turf.Point> = turf.destination(thisOrigin, radiusKm, i, { units: 'kilometers' })
-              const point: turf.Position = dest.geometry.coordinates
-              const pos: L.LatLng = L.latLng(point[1], point[0])
-              pts.push(pos)
-            }
-            // append the start point, to make poly
-            pts.push(pts[0])
-            return pts
-          }
+          const heading = details.heading
 
           // store data
-          setLeftTurn(buildTurn(origin, true))
-          setRightTurn(buildTurn(origin, false))
+          setLeftTurn(buildTurn(origin, true, radiusKm, heading))
+          setRightTurn(buildTurn(origin, false, radiusKm, heading))
+
+          const cleanAngle = (angle: number): number => {
+            let res = angle
+            while (res < 0) {
+              res += 360
+            }
+            while (res > 360) {
+              res -= 360
+            }
+            return res
+          }
 
           // now the circle involute
-          const distKm = 2 * details.distance / 1000
+          let distKm = details.distance / 1000
           const circum = radiusKm * Math.PI * 2
-          const startAngle = (distKm / circum) * 360 - 180
+
+          if (distKm > circum) {
+            distKm = circum * 0.7
+          }
+
+          const startAngle = distKm / circum * 360 - 180
+          const cleanStart = cleanAngle(startAngle)
           const startRads = toRadians(startAngle)
-          console.log('dist', distKm, radiusKm, circum, startAngle)
-          for (let i = 0; i < startAngle; i += 20) {
+          const lArc = []
+          console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
+          for (let i = 0; i < cleanStart; i += 40) {
             const B4 = toRadians(i)
             const x = radiusKm * (Math.cos(B4 - startRads) + (B4) * Math.sin(B4 - startRads) + 1)
-            const y = radiusKm * (Math.sin(B4 - startRads) - (B4) * Math.cos(B4 - startRads))
-            console.log('p', i, x, y)
+            const y = -radiusKm * (Math.sin(B4 - startRads) - (B4) * Math.cos(B4 - startRads))
+            const vector = toVector(x, y)
+            const newLoc = turf.destination(origin, vector.magnitude, 90 + vector.direction, { units: 'kilometers' })
+            const loc = L.latLng(newLoc.geometry.coordinates[1], newLoc.geometry.coordinates[0])
+            console.log('p', x, y, vector, newLoc)
+            lArc.push(loc)
           }
+          setLeftArc(lArc)
         }
 
         // is there a limited range?
@@ -646,6 +676,12 @@ export const HexGrid: React.FC<{}> = () => {
       key={'temp_right_turn'}
       color={'#f0f'}
       positions={rightTurn}
+      className={styles['planned-line']}
+    />
+    <Polyline
+      key={'temp_left_arc'}
+      color={'#0ff'}
+      positions={leftArc}
       className={styles['planned-line']}
     />
 

@@ -130,7 +130,7 @@ const wargame: Wargame = {
                             "history": [
                                 {
                                     "route": [
-                                        "8718aab18ffffff"
+                                        "8818aab087fffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
@@ -140,23 +140,13 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "route": [
-                                        "8718aaa24ffffff"
+                                        "8818aab091fffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
-                                        "state": "Transiting a"
+                                        "state": "Transiting b"
                                     },
-                                    "turn": 1
-                                },
-                                {
-                                    "route": [
-                                        "8718aab09ffffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 12,
-                                        "state": "Transiting a"
-                                    },
-                                    "turn": 1
+                                    "turn": 2
                                 }
                             ],
                             "locationPending": true,
@@ -187,7 +177,7 @@ const wargame: Wargame = {
                             "platformType": "destroyer",
                             "attributeValues": [
                                 {
-                                    "attrId": "asdic-dir2",
+                                    "attrId": "asdic-dir",
                                     "attrType": "AttributeValueNumber",
                                     "value": 150
                                 },

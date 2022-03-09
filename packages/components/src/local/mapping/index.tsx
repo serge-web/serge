@@ -44,7 +44,8 @@ import {
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup,
   MessageHostPlatform,
-  SergeHex3
+  SergeHex3,
+  TurningDetails
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -52,7 +53,7 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import orientationFor from '../assets/helpers/orientation-for'
+import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -381,6 +382,19 @@ export const Mapping: React.FC<PropTypes> = ({
         if (planningConstraints && !inAdjudicate) {
           // get the last planned cell, to act as the first new planned cell
           const lastCell: SergeHex3 = newLeg.route[newLeg.route.length - 1]
+
+          // calculate turning circle data
+          let turningCircleData: TurningDetails | undefined
+          if (planningConstraints.turningCircle) {
+            const heading = lastStepOrientationFor(lastCell.index, selRoute.planned, [])
+            const existingCircle = planningConstraints.turningCircle
+            turningCircleData = existingCircle
+            if (heading !== undefined) {
+              const newCircle: TurningDetails = {...existingCircle, heading}
+              turningCircleData = newCircle
+            }
+          }
+
           // create new planning contraints
           const newP: PlanMobileAsset = {
             origin: lastCell.index,
@@ -388,7 +402,7 @@ export const Mapping: React.FC<PropTypes> = ({
             status: newLeg.state,
             speed: newLeg.speed,
             rangeCells: planningConstraints.rangeCells,
-            turningCircle: planningConstraints.turningCircle
+            turningCircle: turningCircleData
           }
           setPlanningConstraints(newP)
         } else {
@@ -473,17 +487,20 @@ export const Mapping: React.FC<PropTypes> = ({
           // check range is in 10s
           const range = roundToNearest(roughRangeCells, 1)
 
-          console.log('turn time', gameTurnTime, stepSizeHrs, distancePerTurnM, speedKts, mappingConstraints.tileDiameterMins, tileRadiusKm, range)
-
           // produce a heading value
-          const heading = orientationFor(current.currentPosition, current.history, current.planned, [], {})
+          const heading = lastStepOrientationFor(origin, current.history, current.planned)
+          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? { 
+            radius: pType.turningCircle, 
+            heading: heading, 
+            distance: distancePerTurnM } 
+          : undefined
 
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
             travelMode: pType.travelMode,
             status: status.name,
             speed: plannedTurn.speedVal,
-            turningCircle: (heading !== undefined && pType.turningCircle) ? { radius: pType.turningCircle, heading: heading, distance: distancePerTurnM } : undefined,
+            turningCircle: turnData,
             rangeCells: range
           }
           setPlanningConstraints(mobileConstraints)
