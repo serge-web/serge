@@ -165,7 +165,7 @@ const wargame: Wargame = {
                             "plannedTurns": [
                                 {
                                     "route": [
-                                        "8718a84daffffff"
+                                        "8818a84da1fffff"
                                     ],
                                     "status": {
                                         "speedKts": 20,
@@ -175,7 +175,7 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "route": [
-                                        "8718a84c2ffffff"
+                                        "8818a84c21fffff"
                                     ],
                                     "status": {
                                         "speedKts": 20,
@@ -187,7 +187,7 @@ const wargame: Wargame = {
                             "platformType": "destroyer",
                             "attributeValues": [
                                 {
-                                    "attrId": "asdic-dir",
+                                    "attrId": "asdic-dir2",
                                     "attrType": "AttributeValueNumber",
                                     "value": 150
                                 },
@@ -197,9 +197,9 @@ const wargame: Wargame = {
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
-                            "position": "8718aab70ffffff",
+                            "position": "8818aab701fffff",
                             "uniqid": "a034a22t5431"
-                        },
+                        }/*,
                         {
                             "condition": "Working",
                             "contactId": "C164",
@@ -267,7 +267,7 @@ const wargame: Wargame = {
                             "platformType": "ssn",
                             "position": "8318f2fffffffff",
                             "uniqid": "a0a975y4221"
-                        }
+                        }*/
                     ],
                     "color": "#00aaff",
                     "cssClass": "blue-1",
@@ -407,14 +407,14 @@ const wargame: Wargame = {
             "gameDate": "2021-05-13T16:12",
             "gameDescription": "",
             "gameTurnTime": {
-                "millis": 600000,
+                "millis": 120000,
                 "unit": "millis"
             },
             "mapConstraints": {
-                "bounds": [[50.4, -20.2], [50.1, -19.1]],
+                "bounds": [[50.4, -19.8], [50.2, -19.3]],
                 "cellLabelsStyle": "x_y_labels",
                 //"gridCellsURL": "cells/atlantic-cells-6k.json",
-                "h3res": 7,
+                "h3res": 8,
                 "maxNativeZoom": 7,
                 "maxZoom": 14,
                 "minZoom": 5,
