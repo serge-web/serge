@@ -478,11 +478,12 @@ export const Mapping: React.FC<PropTypes> = ({
             return metres / 1000
           }
           const tileRadiusKm = mappingConstraints.h3res ? h3.edgeLength(mappingConstraints.h3res, 'km') : minsToKm(mappingConstraints.tileDiameterMins)
+          const tileDiameterKm = tileRadiusKm * 2
           const speedKts = plannedTurn.speedVal
           const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
           const distancePerTurnNM = stepSizeHrs * speedKts
           const distancePerTurnM = distancePerTurnNM * 1852
-          const roughRangeCells = distancePerTurnM / (tileRadiusKm * 1000)
+          const roughRangeCells = distancePerTurnM / (tileDiameterKm * 1000)
 
           // check range is in 10s
           const range = roundToNearest(roughRangeCells, 1)
@@ -494,8 +495,6 @@ export const Mapping: React.FC<PropTypes> = ({
             heading: heading,
             distance: distancePerTurnM
           } : undefined
-
-          console.log('mapping', turnData, origin, current.history, current.planned)
 
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
