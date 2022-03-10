@@ -193,29 +193,27 @@ export const HexGrid: React.FC<{}> = () => {
           setPlanningRouteCells3([dragDestination3])
         }
       } else {
-        if (planningConstraints && planningConstraints.turningCircle && cameFrom && originHex3) {
-          if (dragDestination3 && cameFrom && originHex3) {
-            const points = []
-            const cells = []
-            let current = cameFrom[dragDestination3.index]
-            while (current !== originHex3.index && current !== undefined) {
-              const pos = h3ToGeo(current)
-              points.push(L.latLng(pos[0], pos[1]))
-              // find the cell
-              const cell = allowableCells3.find((value: SergeHex3) => value.index === current)
-              cell && cells.push(cell)
-              current = cameFrom[current]
-            }
-            // append the origin
-            if (points.length > 1) {
-              points.unshift(dragDestination3.centreLatLng)
-              points.push(originHex3.centreLatLng)
-              cells.unshift(dragDestination3)
-              cells.push(originHex3)
-            }
-            setPlanningRouteCells3(cells.reverse())
-            setPlanningRoutePoly3(points.reverse())
+        if (planningConstraints && planningConstraints.turningCircle && cameFrom) {
+          const points = []
+          const cells = []
+          let current = cameFrom[dragDestination3.index]
+          while (current !== originHex3.index && current !== undefined) {
+            const pos = h3ToGeo(current)
+            points.push(L.latLng(pos[0], pos[1]))
+            // find the cell
+            const cell = allowableCells3.find((value: SergeHex3) => value.index === current)
+            cell && cells.push(cell)
+            current = cameFrom[current]
           }
+          // append the origin
+          if (points.length > 1) {
+            points.unshift(dragDestination3.centreLatLng)
+            points.push(originHex3.centreLatLng)
+            cells.unshift(dragDestination3)
+            cells.push(originHex3)
+          }
+          setPlanningRouteCells3(cells.reverse())
+          setPlanningRoutePoly3(points.reverse())          
         } else {
           // work out the available cells
           const plannedRoute: SergeHex3[] = planningConstraints
