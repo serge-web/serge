@@ -12,6 +12,10 @@ export default interface MappingContext {
    */
   h3gridCells: SergeGrid3
   /**
+   * H3 grid resolution in use
+   */
+  h3Resolution: number
+  /**
    * list of forces within this wargame
    */
   forces: ForceData[]

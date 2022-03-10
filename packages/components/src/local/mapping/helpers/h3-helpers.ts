@@ -4,6 +4,7 @@ import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
+import * as turf from '@turf/turf'
 
 /** create a formatted lat/long label */
 const latLngLabel = (location: number[]): string => {
@@ -37,6 +38,78 @@ export const latLng2Num = (pos: L.LatLng): number[] => {
 
 export const num2LatLng = (vals: number[]): L.LatLng => {
   return L.latLng(vals[0], vals[1])
+}
+
+export const toTurf = (poly: L.LatLng[]): number[][] => {
+  return poly.map((val:L.LatLng): number[] => {
+    return [val.lng, val.lat]
+  })
+}
+
+
+
+export const toRadians = (degs: number): number => {
+  return degs * Math.PI / 180
+}
+
+export const toDegrees = (rads: number): number => {
+  return rads * 180 / Math.PI
+}
+
+export const toVector = (dx: number, dy: number): {magnitude: number, direction: number} => {
+  const direction = toDegrees(Math.atan2(dy, dx))
+  const magnitude = Math.sqrt(dx * dx + dy * dy)
+  return { magnitude, direction }
+}
+
+export const leafletContains = (poly: L.LatLng[], point: L.LatLng): boolean => {
+  const t1 = turf.polygon([toTurf(poly)])
+  const t2 = turf.point([point.lng, point.lat])
+  return turf.booleanContains(t1, t2)
+}
+
+export const leafletContainsTurf = (poly: number[][], point: L.LatLng): boolean => {
+  const t1 = turf.polygon([poly])
+  const t2 = turf.point([point.lng, point.lat])
+  return turf.booleanContains(t1, t2)
+}
+
+export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
+  const t1 = turf.polygon([toTurf(poly1)])
+  const t2 = turf.buffer(t1, distanceKm, {units:'kilometers'})
+  const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
+  return coords[0].map((value: turf.Position) => {
+    return L.latLng(value[1], value[0])
+  })
+}
+
+export const leafletUnion = (poly1: L.LatLng[], poly2: L.LatLng[]): L.LatLng[] | undefined => {
+  const t1 = turf.polygon([toTurf(poly1)])
+  const t2 = turf.polygon([toTurf(poly2)])
+  const union = turf.union(t1, t2)
+  const data = union.geometry.coordinates
+  let depth = 0
+  if (Array.isArray(data[0])) {
+    depth++
+    if (Array.isArray(data[0][0])) {
+      depth++
+      if (Array.isArray(data[0][0][0])) {
+        depth++
+      }
+    }
+  }
+  // sometimes we get a multipolygon. When there are some overlapping lines
+  // they may be treated as a hole.  So, we get the outer section which
+  // is the first item in the array. The holes come after it
+  const coords = depth === 2 ? data[0] : data[0][0]
+  const typedCoords = coords as turf.Position[]
+  if (typedCoords.length !== 100) {
+    return typedCoords.map((value: turf.Position) => {
+      return L.latLng(value[1], value[0])
+    })
+  } else {
+    return undefined
+  }
 }
 
 /** calculate the bearing (in degs) between two h3 hex cells */

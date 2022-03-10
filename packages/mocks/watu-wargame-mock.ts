@@ -387,7 +387,7 @@ const wargame: Wargame = {
             "gameDate": "2021-05-13T16:12",
             "gameDescription": "",
             "gameTurnTime": {
-                "millis": 120000,
+                "millis": 240000,
                 "unit": "millis"
             },
             "mapConstraints": {

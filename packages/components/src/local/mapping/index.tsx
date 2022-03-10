@@ -123,6 +123,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
+  const [h3Resolution, setH3Resolution] = useState<number>(3)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [mapResized, setMapResized] = useState<boolean>(false)
@@ -327,6 +328,7 @@ export const Mapping: React.FC<PropTypes> = ({
       // now the h3 handler
       const resolution = mappingConstraints.h3res || 3
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
+      setH3Resolution(resolution)
       setH3gridCells(cells)
     }
   }, [mappingConstraints, mapBounds, atlanticCells])
@@ -603,6 +605,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     h3gridCells,
+    h3Resolution,
     forces: forcesState,
     platforms,
     platformTypesByKey,

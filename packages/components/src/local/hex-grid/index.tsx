@@ -16,10 +16,11 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { Route, NewTurnValues, SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import { Route, NewTurnValues, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
 import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
-import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing } from 'h3-js'
+import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
+import { leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
 
 /**
  *  create hexagonal grid
@@ -43,7 +44,8 @@ export const HexGrid: React.FC<{}> = () => {
   if (typeof props === 'undefined') return null
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle, mapBounds
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle, 
+    mapBounds, h3Resolution
   } = props
 
   // define detail cut-offs
@@ -76,9 +78,8 @@ export const HexGrid: React.FC<{}> = () => {
   // temporary turn data
   const [leftTurn, setLeftTurn] = useState<L.LatLng[]>([])
   const [rightTurn, setRightTurn] = useState<L.LatLng[]>([])
-  const [leftArc, setLeftArc] = useState<L.LatLng[]>([])
-  const [rightArc, setRightArc] = useState<L.LatLng[]>([])
-  const [bothArc, setBothArc] = useState<L.LatLng[]>([])
+  const [turningPoly, setTurningPoly] = useState<L.LatLng[]>([])
+  const [achievablePoly, setAchievablePoly] = useState<L.LatLng[]>([])
 
   const [mapBoundsPts, setMapBoundsPts] = useState<L.LatLng[]>([])
 
@@ -222,6 +223,79 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination3, originHex3])
 
+
+  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): 
+    {turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string} => {
+
+    if (details) {
+      // coords of circle
+      const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
+      const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
+      const heading = details.heading
+
+      // calculate the position behind the origin
+      const behindLoc = turf.destination(origin, turnRadiusKm, 180 + heading, { units: 'kilometers' })
+      const coords = behindLoc.geometry.coordinates
+      const cellBehind = geoToH3(coords[1], coords[0], h3Resolution)
+
+      // store data
+      const leftPts = buildTurn(origin, true, turnRadiusKm, heading)
+      const rightPts = buildTurn(origin, false, turnRadiusKm, heading)
+
+      // now the circle involute
+      let distKm = details.distance / 1000
+      const circum = turnRadiusKm * Math.PI * 2
+
+      let excess = 0
+      if (distKm > circum) {
+        excess = distKm - circum
+        console.log('buffer', circum, distKm, excess)
+        distKm = circum * 0.95
+      }
+
+      const startAngle = distKm / circum * 360 + 180
+      const startRads = toRadians(startAngle)
+      const lArc = [originCell.centreLatLng]
+      const rArc = [originCell.centreLatLng]
+      // console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
+      const angleStep = startAngle / 20
+      let incomplete = true
+      for (let i = 0; i <= startAngle && incomplete; i += angleStep) {
+        const t = toRadians(i)
+        const u = t - startRads
+        const x = turnRadiusKm * (1 + Math.cos(u) + t * Math.sin(u))
+        const y = turnRadiusKm * (Math.sin(u) - t * Math.cos(u))
+        const vectorR = toVector(x, -y)
+        const newLocR = turf.destination(origin, vectorR.magnitude, 90 + vectorR.direction + heading, { units: 'kilometers' })
+        const locR = L.latLng(newLocR.geometry.coordinates[1], newLocR.geometry.coordinates[0])
+        rArc.push(locR)
+        const vectorL = toVector(-x, -y)
+        const newLocL = turf.destination(origin, vectorL.magnitude, 90 + vectorL.direction + heading, { units: 'kilometers' })
+        const locL = L.latLng(newLocL.geometry.coordinates[1], newLocL.geometry.coordinates[0])
+        lArc.push(locL)
+        // console.log('p', i, x, y, vectorL.direction, vectorL.magnitude)
+        incomplete = vectorR.direction > -90
+      }
+      // start off with the right arc
+
+      // now append the left arc, in reverse
+      const leftReverse = lArc.reverse()
+      rArc.push(...leftReverse)
+
+      // now calculate union of zones
+      // extend the circles slightly, so they overal
+      const growLeft = leafletBuffer(leftPts, turnRadiusKm * 0.05)
+      const growRight = leafletBuffer(rightPts, turnRadiusKm * 0.05)
+
+      const circles = leafletUnion(growLeft, growRight) || []
+      const overall = leafletUnion(circles, rArc) || []
+      const turnArc = excess ? leafletBuffer(overall, excess) : overall
+
+      return {turnCircles: circles, turnOverall: turnArc, cellBehind: cellBehind}
+    }
+    return { turnCircles: [], turnOverall: [], cellBehind: ''}
+  }
+
   /** listen out for just planning constraints changing, since we
   * update planning range from it.
   */
@@ -263,71 +337,40 @@ export const HexGrid: React.FC<{}> = () => {
       if (originCell) {
         setOrigin(originCell.centreLatLng)
 
-        /// ///////////////////
-        // TEMPORARY - TURNING CIRCLES
+        const { turnCircles, turnOverall, cellBehind}= calcTurnData(originCell, planningConstraints.turningCircle)
 
-        const toRadians = (degs: number): number => {
-          return degs * Math.PI / 180
-        }
-
-        const toDegrees = (rads: number): number => {
-          return rads * 180 / Math.PI
-        }
-
-        const toVector = (dx: number, dy: number): {magnitude: number, direction: number} => {
-          const direction = toDegrees(Math.atan2(dy, dx))
-          const magnitude = Math.sqrt(dx * dx + dy * dy)
-          return { magnitude, direction }
-        }
-        if (planningConstraints.turningCircle) {
-          // coords of circle
-          const details = planningConstraints.turningCircle
-          const radiusKm: number = details.radius / 1000
-          const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
-          const heading = details.heading
-
-          // store data
-          setLeftTurn(buildTurn(origin, true, radiusKm, heading))
-          setRightTurn(buildTurn(origin, false, radiusKm, heading))
-
-          // now the circle involute
-          const distKm = details.distance / 1000
-          const circum = radiusKm * Math.PI * 2
-
-          // if (distKm > circum) {
-          //   distKm = circum * 0.7
-          // }
-
-          const startAngle = distKm / circum * 360 + 180
-          const startRads = toRadians(startAngle)
-          const lArc = []
-          const rArc = []
-          // console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
-          const angleStep = startAngle / 20
-          let inComplete = true
-          for (let i = 0; i <= startAngle && inComplete; i += angleStep) {
-            const t = toRadians(i)
-            const u = t - startRads
-            const x = radiusKm * (1 + Math.cos(u) + t * Math.sin(u))
-            const y = radiusKm * (Math.sin(u) - t * Math.cos(u))
-            const vectorL = toVector(x, -y)
-            const newLocL = turf.destination(origin, vectorL.magnitude, 90 + vectorL.direction + heading, { units: 'kilometers' })
-            const locL = L.latLng(newLocL.geometry.coordinates[1], newLocL.geometry.coordinates[0])
-            lArc.push(locL)
-            const vectorR = toVector(-x, -y)
-            const newLocR = turf.destination(origin, vectorR.magnitude, 90 + vectorR.direction + heading, { units: 'kilometers' })
-            const locR = L.latLng(newLocR.geometry.coordinates[1], newLocR.geometry.coordinates[0])
-            rArc.push(locR)
-            // console.log('p', i, x, y, vectorL.direction, vectorL.magnitude)
-            inComplete = vectorL.direction > -90
-          }
-          setLeftArc(lArc)
-          setRightArc(rArc)
-          setBothArc(rArc)
-        }
+        // don't draw the lines
+        false && setAchievablePoly(turnOverall)
+        false && setTurningPoly(turnCircles)
 
         // is there a limited range?
-        const allowableCellList: SergeHex3[] = planningRangeCells ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
+        let allowableCellList: SergeHex3[] = planningRangeCells 
+          ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
+        
+        if (turnOverall.length) {
+          // convert the poly to turf, to remove repeated processing
+          const turfOverall = toTurf(turnOverall)
+          const circleOverall = toTurf(turnCircles)
+
+          // filter the allowable cells for the turning circles
+          allowableCellList = allowableCellList.filter((value: SergeHex3) => {
+            if(value.index === originCell.index) {
+              return true
+            } else {
+              if(value.index === cellBehind) {
+                return false
+              } else {
+                const pos = h3ToGeo(value.index)
+                const lPos = L.latLng(pos[0], pos[1])
+                if (leafletContainsTurf(circleOverall, lPos)) {
+                  return false 
+                } else {
+                  return leafletContainsTurf(turfOverall, lPos)
+                }
+              }
+            }
+          })
+        }
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
@@ -697,19 +740,13 @@ export const HexGrid: React.FC<{}> = () => {
     <Polyline
       key={'temp_left_arc'}
       color={'#0ff'}
-      positions={leftArc}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'temp_right_arc'}
-      color={'#66f'}
-      positions={rightArc}
+      positions={turningPoly}
       className={styles['planned-line']}
     />
     <Polyline
       key={'temp_both_arc'}
       color={'#f66'}
-      positions={bothArc}
+      positions={achievablePoly}
       className={styles['planned-line']}
     />
     <Polyline
