@@ -103,11 +103,9 @@ it('correctly generate index grid', () => {
 })
 
 it('correctly provides union function', () => {
-
-  const l1: L.LatLng[] = [L.latLng(-82.574787, 35.594087), L.latLng(-82.574787, 35.615581),L.latLng(-82.545261, 35.615581), L.latLng(-82.545261, 35.594087),L.latLng(-82.574787, 35.594087)]
+  const l1: L.LatLng[] = [L.latLng(-82.574787, 35.594087), L.latLng(-82.574787, 35.615581), L.latLng(-82.545261, 35.615581), L.latLng(-82.545261, 35.594087), L.latLng(-82.574787, 35.594087)]
   const l2: L.LatLng[] = [L.latLng(-82.560024, 35.585153), L.latLng(-82.560024, 35.602602), L.latLng(-82.52964, 35.602602), L.latLng(-82.52964, 35.585153), L.latLng(-82.560024, 35.585153)]
 
   const res = leafletUnion(l1, l2)
   expect(res && res.length).toEqual(9)
 })
-

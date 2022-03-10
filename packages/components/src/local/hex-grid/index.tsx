@@ -44,7 +44,7 @@ export const HexGrid: React.FC<{}> = () => {
   if (typeof props === 'undefined') return null
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle, 
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle,
     mapBounds, h3Resolution
   } = props
 
@@ -223,10 +223,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination3, originHex3])
 
-
-  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): 
+  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails):
     {turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string} => {
-
     if (details) {
       // coords of circle
       const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
@@ -291,9 +289,9 @@ export const HexGrid: React.FC<{}> = () => {
       const overall = leafletUnion(circles, rArc) || []
       const turnArc = excess ? leafletBuffer(overall, excess) : overall
 
-      return {turnCircles: circles, turnOverall: turnArc, cellBehind: cellBehind}
+      return { turnCircles: circles, turnOverall: turnArc, cellBehind: cellBehind }
     }
-    return { turnCircles: [], turnOverall: [], cellBehind: ''}
+    return { turnCircles: [], turnOverall: [], cellBehind: '' }
   }
 
   /** listen out for just planning constraints changing, since we
@@ -337,16 +335,16 @@ export const HexGrid: React.FC<{}> = () => {
       if (originCell) {
         setOrigin(originCell.centreLatLng)
 
-        const { turnCircles, turnOverall, cellBehind}= calcTurnData(originCell, planningConstraints.turningCircle)
+        const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
         false && setAchievablePoly(turnOverall)
         false && setTurningPoly(turnCircles)
 
         // is there a limited range?
-        let allowableCellList: SergeHex3[] = planningRangeCells 
+        let allowableCellList: SergeHex3[] = planningRangeCells
           ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
-        
+
         if (turnOverall.length) {
           // convert the poly to turf, to remove repeated processing
           const turfOverall = toTurf(turnOverall)
@@ -354,16 +352,16 @@ export const HexGrid: React.FC<{}> = () => {
 
           // filter the allowable cells for the turning circles
           allowableCellList = allowableCellList.filter((value: SergeHex3) => {
-            if(value.index === originCell.index) {
+            if (value.index === originCell.index) {
               return true
             } else {
-              if(value.index === cellBehind) {
+              if (value.index === cellBehind) {
                 return false
               } else {
                 const pos = h3ToGeo(value.index)
                 const lPos = L.latLng(pos[0], pos[1])
                 if (leafletContainsTurf(circleOverall, lPos)) {
-                  return false 
+                  return false
                 } else {
                   return leafletContainsTurf(turfOverall, lPos)
                 }

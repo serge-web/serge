@@ -41,12 +41,10 @@ export const num2LatLng = (vals: number[]): L.LatLng => {
 }
 
 export const toTurf = (poly: L.LatLng[]): number[][] => {
-  return poly.map((val:L.LatLng): number[] => {
+  return poly.map((val: L.LatLng): number[] => {
     return [val.lng, val.lat]
   })
 }
-
-
 
 export const toRadians = (degs: number): number => {
   return degs * Math.PI / 180
@@ -76,7 +74,7 @@ export const leafletContainsTurf = (poly: number[][], point: L.LatLng): boolean 
 
 export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
   const t1 = turf.polygon([toTurf(poly1)])
-  const t2 = turf.buffer(t1, distanceKm, {units:'kilometers'})
+  const t2 = turf.buffer(t1, distanceKm, { units: 'kilometers' })
   const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
   return coords[0].map((value: turf.Position) => {
     return L.latLng(value[1], value[0])
