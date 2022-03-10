@@ -37,10 +37,9 @@ const lastStepOrientationFor = (current: string, realOrigin: string, history: Ar
   if (planned && planned.length) {
     // direction to last step
     // put all routes into one list
-
-    // push the origin in at the start, in case there's just one planned step
     const steps = flattenLocations(planned)
-    if(steps.length === 1) {
+    if (steps.length === 1) {
+      // push the origin in at the start, in case there's just one planned step
       steps.unshift(realOrigin)
     }
     const sLen = steps.length
@@ -60,7 +59,8 @@ const lastStepOrientationFor = (current: string, realOrigin: string, history: Ar
   if (dest && start) {
     // special case. If start & end are same, return undefined
     if (start !== dest) {
-      // find the points      
+      // find the points
+      console.log('data', start, dest)
       const route = h3.h3Line(start, dest)
       const rLen = route.length
       if (rLen > 2) {
