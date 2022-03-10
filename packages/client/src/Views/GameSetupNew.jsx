@@ -4,7 +4,7 @@ import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
 import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from '@serge/helpers'
-import { channelTemplate, forceTemplate, CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../consts'
+import { forceTemplate } from '../consts'
 import {
   addNewForce,
   setCurrentTab,
@@ -16,7 +16,6 @@ import {
   setGameData,
   setSelectedForce,
   setSelectedChannel,
-  addNewChannel,
   duplicateChannel,
   saveWargameTitle,
   initiateWargame
@@ -233,22 +232,11 @@ const AdminGameSetup = () => {
     }))
   }
 
-  const onCreateChannel = (buttonText) => {
+  const onCreateChannel = (id, createdChannel) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      let id = `channel-${uniqid.time()}`
-      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {
-        id = buttonText
-      }
-      dispatch(addNewChannel({ name: id, uniqid: id }))
-      dispatch(setSelectedChannel({ name: id, uniqid: id }))
-
-      const template = channelTemplate
-      template.name = id
-      template.uniqid = id
-
-      dispatch(saveChannel(currentWargame, id, template, id))
+      dispatch(saveChannel(currentWargame, id, createdChannel, id))
     }
   }
 
