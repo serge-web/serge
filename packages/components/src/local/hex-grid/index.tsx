@@ -298,15 +298,14 @@ export const HexGrid: React.FC<{}> = () => {
           //   distKm = circum * 0.7
           // }
 
-          const startAngle = distKm / circum * 360 - 180
-          const cleanStart = startAngle + 360
+          const startAngle = distKm / circum * 360 + 180
           const startRads = toRadians(startAngle)
           const lArc = []
           const rArc = []
           // console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
-          const angleStep = cleanStart / 20
+          const angleStep = startAngle / 20
           let inComplete = true
-          for (let i = 0; i <= cleanStart && inComplete; i += angleStep) {
+          for (let i = 0; i <= startAngle && inComplete; i += angleStep) {
             const t = toRadians(i)
             const u = t - startRads
             const x = radiusKm * (1 + Math.cos(u) + t * Math.sin(u))
