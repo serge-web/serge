@@ -1,14 +1,14 @@
 import { Card, CardContent, CardHeader } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import Popover from '@material-ui/core/Popover'
-import { Close } from '@material-ui/icons'
+import CloseIcon from '@material-ui/icons/Close'
 import Info from '@material-ui/icons/Info'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import MoreInfoProps from './types/props'
 
-const MoreInfo: React.FC<MoreInfoProps> = ({ description, children, color }) => {
+const MoreInfo: React.FC<MoreInfoProps> = ({ description, children, color, container }) => {
   const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
 
   const showMoreInfo = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -23,13 +23,13 @@ const MoreInfo: React.FC<MoreInfoProps> = ({ description, children, color }) => 
 
   return (
     <>
-      <Popover open={open} onClose={closeInfoCard} anchorEl={anchorElm}>
+      <Popover container={container || document.body} open={open} onClose={closeInfoCard} anchorEl={anchorElm}>
         <Card className={styles.infocard}>
           <CardHeader
             avatar={<Info />}
             action={
               <IconButton size="small" onClick={closeInfoCard}>
-                <Close></Close>
+                <CloseIcon />
               </IconButton>
             }
             className={styles.header}
