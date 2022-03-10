@@ -385,7 +385,6 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [polygonAreas])
 
-
   /** plot the outer map bounds
     */
   useEffect(() => {
@@ -398,7 +397,7 @@ export const HexGrid: React.FC<{}> = () => {
       res.push(mapBounds.getNorthWest())
       setMapBoundsPts(res)
     }
-  }, [mapBounds])  
+  }, [mapBounds])
 
   const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
     if (h3gridCells) {
@@ -719,7 +718,6 @@ export const HexGrid: React.FC<{}> = () => {
       positions={mapBoundsPts}
       className={styles['planned-line']}
     />
-
 
     <Polyline
       key={'hex_planned_line'}

@@ -60,10 +60,9 @@ const lastStepOrientationFor = (current: string, realOrigin: string, history: Ar
     // special case. If start & end are same, return undefined
     if (start !== dest) {
       // find the points
-      console.log('data', start, dest)
       const route = h3.h3Line(start, dest)
       const rLen = route.length
-      if (rLen > 2) {
+      if (rLen >= 2) {
         const angle = brgBetweenTwoHex(route[rLen - 2], dest)
         return cleanAngle(angle)
       }
