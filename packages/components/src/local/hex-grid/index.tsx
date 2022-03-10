@@ -18,7 +18,7 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
 import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
-import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo } from 'h3-js'
+import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
 import { leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
 
@@ -80,8 +80,9 @@ export const HexGrid: React.FC<{}> = () => {
   const [rightTurn, setRightTurn] = useState<L.LatLng[]>([])
   const [turningPoly, setTurningPoly] = useState<L.LatLng[]>([])
   const [achievablePoly, setAchievablePoly] = useState<L.LatLng[]>([])
-
   const [mapBoundsPts, setMapBoundsPts] = useState<L.LatLng[]>([])
+  const [cameFrom, setCameFrom] = useState<{}>({})
+
 
   // the binned polygons
   const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
@@ -193,27 +194,52 @@ export const HexGrid: React.FC<{}> = () => {
           setPlanningRouteCells3([dragDestination3])
         }
       } else {
-        // work out the available cells
-        const plannedRoute: SergeHex3[] = planningConstraints
-          ? plannedRouteFor3(h3gridCells, allowableCells3, originHex3, dragDestination3) : []
-
-        // combine with any existing planned cells
-        if (selectedAsset && selectedAsset.type === 'datum') {
-          if (plannedRoute.length > 0) {
-            // we need the planned route to be more than one cell long in order
-            // for later code to recognise it as a valid leg
-            setPlanningRouteCells3([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
-          }
+        if(planningConstraints && planningConstraints.turningCircle && cameFrom && originHex3) {
+          if (dragDestination3 && cameFrom && originHex3) {
+            const points = []
+            const cells = []
+            let current = cameFrom[dragDestination3.index]
+            while (current !== originHex3.index && current !== undefined) {
+              const pos = h3ToGeo(current)
+              points.push(L.latLng(pos[0], pos[1]))
+              // find the cell
+              const cell = allowableCells3.find((value: SergeHex3) => value.index === current)
+              cell && cells.push(cell)
+              current = cameFrom[current]
+            }
+            // append the origin
+            if(points.length > 1) {
+              points.unshift(dragDestination3.centreLatLng)
+              points.push(originHex3.centreLatLng)
+              cells.unshift(dragDestination3)
+              cells.push(originHex3)
+            }
+            setPlanningRouteCells3(cells.reverse())
+            setPlanningRoutePoly3(points.reverse())
+          }  
         } else {
-          setPlanningRouteCells3(plannedRoute)
-
-          // also produce the lat-long values needed for the polylines
-          const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex3) => {
-            return cell.centreLatLng
-          })
+          // work out the available cells
+          const plannedRoute: SergeHex3[] = planningConstraints
+            ? plannedRouteFor3(h3gridCells, allowableCells3, originHex3, dragDestination3) : []
 
           // combine with any existing planned cells
-          setPlanningRoutePoly3(tmpPlannedRoutePoly)
+          if (selectedAsset && selectedAsset.type === 'datum') {
+            if (plannedRoute.length > 0) {
+              // we need the planned route to be more than one cell long in order
+              // for later code to recognise it as a valid leg
+              setPlanningRouteCells3([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
+            }
+          } else {
+            setPlanningRouteCells3(plannedRoute)
+
+            // also produce the lat-long values needed for the polylines
+            const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex3) => {
+              return cell.centreLatLng
+            })
+
+            // combine with any existing planned cells
+            setPlanningRoutePoly3(tmpPlannedRoutePoly)
+          }
         }
       }
     } else {
@@ -223,8 +249,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination3, originHex3])
 
-  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails):
-    {turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string} => {
+  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string } => {
     if (details) {
       // coords of circle
       const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
@@ -368,6 +393,8 @@ export const HexGrid: React.FC<{}> = () => {
               }
             }
           })
+
+          // also generate the flood fill
         }
 
         // ok, see which ones are filterd
@@ -439,6 +466,40 @@ export const HexGrid: React.FC<{}> = () => {
       setMapBoundsPts(res)
     }
   }, [mapBounds])
+
+  /** plot the outer map bounds
+  */
+  useEffect(() => {
+    // route planning
+    if (planningConstraints && planningConstraints.turningCircle && originHex3) {
+      const start = originHex3.index
+      const frontier = [start]
+      const came_from = {}
+      came_from[start] = undefined
+
+      while (frontier.length) {
+        // get the nextitem
+        const current = frontier.shift()
+        if (current) {
+          // get the neighbours
+          const neighbours = hexRing(current, 1)
+          // loop through neighbours
+          neighbours.forEach((index: string) => {
+            // check it's allowable
+            if (allowableCells3.some((cell: SergeHex3) => cell.index === index)) {
+              // does it have origin?
+              if (came_from[index] === undefined) {
+                // nope, store it
+                frontier.push(index)
+                came_from[index] = current
+              }
+            }
+          })
+        }
+      }
+      setCameFrom(came_from)
+    }
+  }, [originHex3])
 
   const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
     if (h3gridCells) {
@@ -601,8 +662,7 @@ export const HexGrid: React.FC<{}> = () => {
     const marker = e.target
     const location = marker.getLatLng()
 
-    const res = h3GetResolution(h3gridCells[0].index)
-    const destinationHex3: string | undefined = geoToH3(location.lat, location.lng, res)
+    const destinationHex3: string | undefined = geoToH3(location.lat, location.lng, h3Resolution)
     if (destinationHex3) {
       const dest = h3gridCells.find((cell: SergeHex3) => cell.index === destinationHex3)
       dest && setDragDestination3(dest)
@@ -641,10 +701,10 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
     { /*  - show number of visible cells */}
-    { viewport &&
+    {viewport &&
       <Marker
         key={'num_vis_cells'}
-        position={ viewport.getCenter()}
+        position={viewport.getCenter()}
         width='120'
         icon={L.divIcon({
           html: '' + visibleAndAllowableCells3.length + ' h3 cells',
@@ -682,13 +742,13 @@ export const HexGrid: React.FC<{}> = () => {
       /* not too many cells visible, show hex outlines */
       visibleAndAllowableCells3 && visibleAndAllowableCells3.length < SHOW_HEXES_UNDER && visibleAndAllowableCells3.map((cell: SergeHex3, index: number) => (
         <Polygon
-        // we may end up with other elements per hex,
-        // such as labels so include prefix in key
+          // we may end up with other elements per hex,
+          // such as labels so include prefix in key
           key={'hex_poly3_' + cell.index + '_' + index}
           fillColor={cell.fillColor || assetColor}
           fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f00' }
+          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f00'}
           className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, allowableCells3, cellForSelected3)]}
         />
       ))}
@@ -698,19 +758,19 @@ export const HexGrid: React.FC<{}> = () => {
       /** too many cells visible to show outline, so just show planned route (or target for laydown) */
       visibleAndAllowableCells3.length >= SHOW_HEXES_UNDER && planningRouteCells3.map((cell: SergeHex3, index: number) => (
         <Polygon
-        // we may end up with other elements per hex,
-        // such as labels so include prefix in key
+          // we may end up with other elements per hex,
+          // such as labels so include prefix in key
           key={'hex_poly_' + cell.index + '_' + index}
           fillColor={cell.fillColor || '#f00'}
           fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
-          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f0f' }
+          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f0f'}
           className={styles[getCellStyle3(cell, planningRouteCells3, [], cellForSelected3)]}
         />
       ))}
-    { // special case - if we're in air travel mode the planning route may not be in the
-      // available cells listing
-      planningConstraints && planningConstraints.travelMode === 'air' &&
+      { // special case - if we're in air travel mode the planning route may not be in the
+        // available cells listing
+        planningConstraints && planningConstraints.travelMode === 'air' &&
         allowableCells3.length === 0 &&
         planningRouteCells3.map((cell: SergeHex3, index: number) => (
           <Polygon
@@ -723,56 +783,56 @@ export const HexGrid: React.FC<{}> = () => {
             className={styles['planned-hex']}
           />
         ))}
-    <Polyline
-      key={'temp_left_turn'}
-      color={'#ff0'}
-      positions={leftTurn}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'temp_right_turn'}
-      color={'#f0f'}
-      positions={rightTurn}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'temp_left_arc'}
-      color={'#0ff'}
-      positions={turningPoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'temp_both_arc'}
-      color={'#f66'}
-      positions={achievablePoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'temp_map_bounds'}
-      color={'#22c'}
-      positions={mapBoundsPts}
-      className={styles['planned-line']}
-    />
+      <Polyline
+        key={'temp_left_turn'}
+        color={'#ff0'}
+        positions={leftTurn}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'temp_right_turn'}
+        color={'#f0f'}
+        positions={rightTurn}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'temp_left_arc'}
+        color={'#0ff'}
+        positions={turningPoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'temp_both_arc'}
+        color={'#f66'}
+        positions={achievablePoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'temp_map_bounds'}
+        color={'#22c'}
+        positions={mapBoundsPts}
+        className={styles['planned-line']}
+      />
 
-    <Polyline
-      key={'hex_planned_line'}
-      color={assetColor}
-      positions={plannedRoutePoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'hex_planning_line3'}
-      color={assetColor}
-      positions={planningRoutePoly3}
-      className={styles['planning-line']}
-    />
-    <Polyline
-      key={'allowableCells3_line'}
-      color={assetColor}
-      positions={allowablePoly3}
-      className={styles['allowable-line']}
-    />
-    {origin &&
+      <Polyline
+        key={'hex_planned_line'}
+        color={assetColor}
+        positions={plannedRoutePoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'hex_planning_line3'}
+        color={assetColor}
+        positions={planningRoutePoly3}
+        className={styles['planning-line']}
+      />
+      <Polyline
+        key={'allowableCells3_line'}
+        color={assetColor}
+        positions={allowablePoly3}
+        className={styles['allowable-line']}
+      />
+      {origin &&
         <Marker
           draggable={true}
           onDragend={dropped}
@@ -780,16 +840,16 @@ export const HexGrid: React.FC<{}> = () => {
           onClick={onMarkerClick}
           position={origin}
           key={'drag_marker_'} />
-    }
+      }
     </LayerGroup>
-    { false && // don't plot the polys from legacy data
+    {false && // don't plot the polys from legacy data
       <LayerGroup key='polygon_outlines'>
         {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
           <Polygon
             key={'poly_a' + index}
             positions={terrain.data}
             fillColor={terrain.terrain.fillColor}
-            className={styles['terrain-outline']}/>
+            className={styles['terrain-outline']} />
         )}
       </LayerGroup>
     }
