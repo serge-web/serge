@@ -43,7 +43,7 @@ export const HexGrid: React.FC<{}> = () => {
   if (typeof props === 'undefined') return null
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle, mapBounds
   } = props
 
   // define detail cut-offs
@@ -77,6 +77,10 @@ export const HexGrid: React.FC<{}> = () => {
   const [leftTurn, setLeftTurn] = useState<L.LatLng[]>([])
   const [rightTurn, setRightTurn] = useState<L.LatLng[]>([])
   const [leftArc, setLeftArc] = useState<L.LatLng[]>([])
+  const [rightArc, setRightArc] = useState<L.LatLng[]>([])
+  const [bothArc, setBothArc] = useState<L.LatLng[]>([])
+
+  const [mapBoundsPts, setMapBoundsPts] = useState<L.LatLng[]>([])
 
   // the binned polygons
   const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
@@ -227,7 +231,6 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningConstraints])
 
-
   /** function to create a circle */
   const buildTurn = (origin: turf.Feature<turf.Point>, left: boolean, radiusKm: number, heading: number): L.LatLng[] => {
     const offset = left ? -90 : 90
@@ -271,10 +274,10 @@ export const HexGrid: React.FC<{}> = () => {
           return rads * 180 / Math.PI
         }
 
-        const toVector = (dx: number, dy: number) => {
-          const direction =  toDegrees(Math.atan2(dy, dx))
+        const toVector = (dx: number, dy: number): {magnitude: number, direction: number} => {
+          const direction = toDegrees(Math.atan2(dy, dx))
           const magnitude = Math.sqrt(dx * dx + dy * dy)
-          return {magnitude, direction}
+          return { magnitude, direction }
         }
         if (planningConstraints.turningCircle) {
           // coords of circle
@@ -299,29 +302,40 @@ export const HexGrid: React.FC<{}> = () => {
           }
 
           // now the circle involute
-          let distKm = details.distance / 1000
+          const distKm = details.distance / 1000
           const circum = radiusKm * Math.PI * 2
 
-          if (distKm > circum) {
-            distKm = circum * 0.7
-          }
+          // if (distKm > circum) {
+          //   distKm = circum * 0.7
+          // }
 
           const startAngle = distKm / circum * 360 - 180
           const cleanStart = cleanAngle(startAngle)
           const startRads = toRadians(startAngle)
           const lArc = []
+          const rArc = []
           console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
-          for (let i = 0; i < cleanStart; i += 40) {
-            const B4 = toRadians(i)
-            const x = radiusKm * (Math.cos(B4 - startRads) + (B4) * Math.sin(B4 - startRads) + 1)
-            const y = -radiusKm * (Math.sin(B4 - startRads) - (B4) * Math.cos(B4 - startRads))
-            const vector = toVector(x, y)
-            const newLoc = turf.destination(origin, vector.magnitude, 90 + vector.direction, { units: 'kilometers' })
-            const loc = L.latLng(newLoc.geometry.coordinates[1], newLoc.geometry.coordinates[0])
-            console.log('p', x, y, vector, newLoc)
-            lArc.push(loc)
+          const angleStep = cleanStart / 20
+          let inComplete = true
+          for (let i = 0; i < cleanStart && inComplete; i += angleStep) {
+            const t = toRadians(i)
+            const u = t - startRads
+            const x = radiusKm * (1 + Math.cos(u) + t * Math.sin(u))
+            const y = radiusKm * (Math.sin(u) - t * Math.cos(u))
+            const vectorL = toVector(x, -y)
+            const newLocL = turf.destination(origin, vectorL.magnitude, 90 + vectorL.direction + heading, { units: 'kilometers' })
+            const locL = L.latLng(newLocL.geometry.coordinates[1], newLocL.geometry.coordinates[0])
+            lArc.push(locL)
+            const vectorR = toVector(-x, -y)
+            const newLocR = turf.destination(origin, vectorR.magnitude, 90 + vectorR.direction + heading, { units: 'kilometers' })
+            const locR = L.latLng(newLocR.geometry.coordinates[1], newLocR.geometry.coordinates[0])
+            rArc.push(locR)
+            console.log('p', i, x, y, vectorL.direction, vectorL.magnitude)
+            inComplete = vectorL.direction > -90
           }
           setLeftArc(lArc)
+          setRightArc(rArc)
+          setBothArc(rArc)
         }
 
         // is there a limited range?
@@ -382,6 +396,21 @@ export const HexGrid: React.FC<{}> = () => {
       setTerrainPolys(leafletPolyAreas)
     }
   }, [polygonAreas])
+
+
+  /** plot the outer map bounds
+    */
+  useEffect(() => {
+    if (mapBounds) {
+      const res = []
+      res.push(mapBounds.getNorthWest())
+      res.push(mapBounds.getNorthEast())
+      res.push(mapBounds.getSouthEast())
+      res.push(mapBounds.getSouthWest())
+      res.push(mapBounds.getNorthWest())
+      setMapBoundsPts(res)
+    }
+  }, [mapBounds])  
 
   const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
     if (h3gridCells) {
@@ -684,6 +713,25 @@ export const HexGrid: React.FC<{}> = () => {
       positions={leftArc}
       className={styles['planned-line']}
     />
+    <Polyline
+      key={'temp_right_arc'}
+      color={'#66f'}
+      positions={rightArc}
+      className={styles['planned-line']}
+    />
+    <Polyline
+      key={'temp_both_arc'}
+      color={'#f66'}
+      positions={bothArc}
+      className={styles['planned-line']}
+    />
+    <Polyline
+      key={'temp_map_bounds'}
+      color={'#22c'}
+      positions={mapBoundsPts}
+      className={styles['planned-line']}
+    />
+
 
     <Polyline
       key={'hex_planned_line'}

@@ -386,11 +386,11 @@ export const Mapping: React.FC<PropTypes> = ({
           // calculate turning circle data
           let turningCircleData: TurningDetails | undefined
           if (planningConstraints.turningCircle) {
-            const heading = lastStepOrientationFor(lastCell.index, selRoute.planned, [])
+            const heading = lastStepOrientationFor(lastCell.index, lastCell.index, selRoute.planned, [])
             const existingCircle = planningConstraints.turningCircle
             turningCircleData = existingCircle
             if (heading !== undefined) {
-              const newCircle: TurningDetails = {...existingCircle, heading}
+              const newCircle: TurningDetails = { ...existingCircle, heading }
               turningCircleData = newCircle
             }
           }
@@ -488,12 +488,14 @@ export const Mapping: React.FC<PropTypes> = ({
           const range = roundToNearest(roughRangeCells, 1)
 
           // produce a heading value
-          const heading = lastStepOrientationFor(origin, current.history, current.planned)
-          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? { 
-            radius: pType.turningCircle, 
-            heading: heading, 
-            distance: distancePerTurnM } 
-          : undefined
+          const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
+          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
+            radius: pType.turningCircle,
+            heading: heading,
+            distance: distancePerTurnM
+          } : undefined
+
+          console.log('mapping', turnData, origin, current.history, current.planned)
 
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
@@ -637,7 +639,8 @@ export const Mapping: React.FC<PropTypes> = ({
     polygonAreas,
     panTo,
     cellLabelStyle,
-    map: leafletElement
+    map: leafletElement,
+    mapBounds: mapBounds
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -720,7 +723,7 @@ export const Mapping: React.FC<PropTypes> = ({
               bounds={mapBounds}
             />
           }
-          <ScaleControl position='bottomright' />
+          <ScaleControl position='topright' />
           {children}
         </Map>
       </section>

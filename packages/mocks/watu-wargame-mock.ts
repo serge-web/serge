@@ -130,7 +130,7 @@ const wargame: Wargame = {
                             "history": [
                                 {
                                     "route": [
-                                        "8818aab087fffff"
+                                        "8918aab725bffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
@@ -140,7 +140,7 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "route": [
-                                        "8818aab091fffff"
+                                        "8918aab7203ffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
@@ -155,23 +155,13 @@ const wargame: Wargame = {
                             "plannedTurns": [
                                 {
                                     "route": [
-                                        "8818a84da1fffff"
+                                        "8918aab709bffff"
                                     ],
                                     "status": {
                                         "speedKts": 20,
                                         "state": "Transiting"
                                     },
                                     "turn": 1
-                                },
-                                {
-                                    "route": [
-                                        "8818a84c21fffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 20,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 2
                                 }
                             ],
                             "platformType": "destroyer",
@@ -187,7 +177,7 @@ const wargame: Wargame = {
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
-                            "position": "8818aab701fffff",
+                            "position": "8918aab7003ffff",
                             "uniqid": "a034a22t5431"
                         }/*,
                         {
@@ -401,12 +391,12 @@ const wargame: Wargame = {
                 "unit": "millis"
             },
             "mapConstraints": {
-                "bounds": [[50.4, -19.8], [50.2, -19.3]],
+                "bounds": [[50.26, -19.6], [50.21, -19.40]],
                 "cellLabelsStyle": "x_y_labels",
                 //"gridCellsURL": "cells/atlantic-cells-6k.json",
-                "h3res": 8,
+                "h3res": 9,
                 "maxNativeZoom": 7,
-                "maxZoom": 14,
+                "maxZoom": 16,
                 "minZoom": 5,
                 "minZoomHexes": 6,
                 //"polygonAreasURL": "cells/atlantic-polygons.json",

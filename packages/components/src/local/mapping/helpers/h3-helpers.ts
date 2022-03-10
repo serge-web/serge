@@ -39,6 +39,7 @@ export const num2LatLng = (vals: number[]): L.LatLng => {
   return L.latLng(vals[0], vals[1])
 }
 
+/** calculate the bearing (in degs) between two h3 hex cells */
 export const brgBetweenTwoHex = (start: string, end: string): number => {
   const p1 = h3ToGeo(start)
   const p2 = h3ToGeo(end)

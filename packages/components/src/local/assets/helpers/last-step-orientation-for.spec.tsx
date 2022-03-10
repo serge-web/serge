@@ -20,11 +20,11 @@ it('Calculates correct orientation for whole route', () => {
 
     // check we're looking at the asset we expect to look at
     expect(asset && asset.name).toEqual('SSN-1')
-    
-    history[history.length-1].route = ['8818a84c21fffff']
+
+    history[history.length - 1].route = ['8818a84c21fffff']
     planned[0].route = ['8818a84c6dfffff']
 
-//    console.log('asset', asset.name, current, history, planned)
+    //    console.log('asset', asset.name, current, history, planned)
 
     // omit history
     expect(lastStepOrientationFor(current, [], [])).toBeUndefined()
