@@ -574,7 +574,8 @@ const wargame: Wargame = {
                         12,
                         18,
                         24,
-                        30
+                        30,
+                        36
                     ],
                     "states": [
                         {

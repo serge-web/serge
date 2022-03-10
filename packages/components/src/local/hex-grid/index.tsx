@@ -290,17 +290,6 @@ export const HexGrid: React.FC<{}> = () => {
           setLeftTurn(buildTurn(origin, true, radiusKm, heading))
           setRightTurn(buildTurn(origin, false, radiusKm, heading))
 
-          const cleanAngle = (angle: number): number => {
-            let res = angle
-            while (res < 0) {
-              res += 360
-            }
-            while (res > 360) {
-              res -= 360
-            }
-            return res
-          }
-
           // now the circle involute
           const distKm = details.distance / 1000
           const circum = radiusKm * Math.PI * 2
@@ -310,14 +299,14 @@ export const HexGrid: React.FC<{}> = () => {
           // }
 
           const startAngle = distKm / circum * 360 - 180
-          const cleanStart = cleanAngle(startAngle)
+          const cleanStart = startAngle + 360
           const startRads = toRadians(startAngle)
           const lArc = []
           const rArc = []
-          console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
+          // console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
           const angleStep = cleanStart / 20
           let inComplete = true
-          for (let i = 0; i < cleanStart && inComplete; i += angleStep) {
+          for (let i = 0; i <= cleanStart && inComplete; i += angleStep) {
             const t = toRadians(i)
             const u = t - startRads
             const x = radiusKm * (1 + Math.cos(u) + t * Math.sin(u))
@@ -330,7 +319,7 @@ export const HexGrid: React.FC<{}> = () => {
             const newLocR = turf.destination(origin, vectorR.magnitude, 90 + vectorR.direction + heading, { units: 'kilometers' })
             const locR = L.latLng(newLocR.geometry.coordinates[1], newLocR.geometry.coordinates[0])
             rArc.push(locR)
-            console.log('p', i, x, y, vectorL.direction, vectorL.magnitude)
+            // console.log('p', i, x, y, vectorL.direction, vectorL.magnitude)
             inComplete = vectorL.direction > -90
           }
           setLeftArc(lArc)
