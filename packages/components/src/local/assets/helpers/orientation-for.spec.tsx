@@ -30,11 +30,11 @@ it('Calculates correct orientation for whole route', () => {
     // force use of history
     expect(orientationFor(current, history, [], attributes, rel)).toBeCloseTo(78, 0)
     // allow use of planned
-    expect(orientationFor(current, history, planned, attributes, rel)).toBeCloseTo(41.4, 0)
+    expect(orientationFor(current, history, planned, attributes, rel)).toBeCloseTo(14.4, 0)
 
     // test permutations of orientation!
     const relAttr: OrientationMarker = { origin: 'relative', attribute: 'asdic-dir' }
-    expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(176.4, 0)
+    expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(149.6, 0)
     const absAttr: OrientationMarker = { origin: 'absolute', attribute: 'asdic-dir' }
     expect(orientationFor(current, history, planned, attributes, absAttr)).toBeCloseTo(135, 0)
   }
