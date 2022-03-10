@@ -48,7 +48,6 @@ const lastStepOrientationFor = (current: string, realOrigin: string, history: Ar
       start = steps[sLen - 2]
       dest = steps[sLen - 1]
     }
-    console.log('planned', steps, start, dest)
   } else if (history && history.length) {
     // direction from last history with location to current
     const steps = flattenLocations(history)
@@ -63,7 +62,6 @@ const lastStepOrientationFor = (current: string, realOrigin: string, history: Ar
     if (start !== dest) {
       // find the points      
       const route = h3.h3Line(start, dest)
-      console.log('route', start, dest, route)
       const rLen = route.length
       if (rLen > 2) {
         const angle = brgBetweenTwoHex(route[rLen - 2], dest)
