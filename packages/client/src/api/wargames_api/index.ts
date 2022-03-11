@@ -15,16 +15,16 @@ import {
   ADJUDICATION_PHASE,
   clearAll,
   allDbs,
-  ERROR_THROTTLE,
   COUNTER_MESSAGE,
   expiredStorage,
   ACTIVITY_TIME,
   ACTIVITY_TYPE,
-  SERGE_INFO
+  SERGE_INFO,
+  INFO_MESSAGE, 
+  FEEDBACK_MESSAGE, 
+  CUSTOM_MESSAGE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
-
-import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
 
 import {
   setLatestFeedbackMessage,
