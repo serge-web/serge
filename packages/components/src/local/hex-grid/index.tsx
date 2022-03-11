@@ -206,12 +206,12 @@ export const HexGrid: React.FC<{}> = () => {
             current = cameFrom[current]
           }
           // append the origin
-          if (points.length > 1) {
-            points.unshift(dragDestination3.centreLatLng)
-            points.push(originHex3.centreLatLng)
-            cells.unshift(dragDestination3)
-            cells.push(originHex3)
-          }
+          points.unshift(dragDestination3.centreLatLng)
+          points.push(originHex3.centreLatLng)
+          cells.unshift(dragDestination3)
+          cells.push(originHex3)
+
+          // store data
           setPlanningRouteCells3(cells.reverse())
           setPlanningRoutePoly3(points.reverse())
         } else {
@@ -269,7 +269,6 @@ export const HexGrid: React.FC<{}> = () => {
       let excess = 0
       if (distKm > circum) {
         excess = distKm - circum
-        console.log('buffer', circum, distKm, excess)
         distKm = circum * 0.95
       }
 
