@@ -1,9 +1,9 @@
-import React, { RefObject, useEffect, useMemo, useRef, useState } from 'react'
 import { AdminMessage } from '@serge/components'
-import { usePlayerUiState } from '../../Store/PlayerUi'
 import '@serge/themes/App.scss'
-import Props from './types'
 import sortBy from 'lodash/sortBy'
+import React, { useEffect, useMemo, useRef } from 'react'
+import { usePlayerUiState } from '../../Store/PlayerUi'
+import Props from './types'
 
 const MessagesListChatChannel = ({ messages, markAllAsRead }: Props): React.ReactElement | null => {
 
