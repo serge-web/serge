@@ -424,7 +424,7 @@ export const saveChannel = (dbName: string, newName: string, newData: ChannelTyp
     const channelNew = channels.every((channel: any) => channel.name !== oldName)
 
     if (channelNew) {
-      channels.push({ ...newData, name: newName })
+      channels.unshift({ ...newData, name: newName })
     } else {
       const channelIndex = channels.findIndex((channel) => channel.name === oldName)
       channels.splice(channelIndex, 1, { ...newData, name: newName })
@@ -490,7 +490,7 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
     const forceNew = forces.every((force) => force.name !== oldName)
 
     if (forceNew) {
-      forces.push({ ...newData, name: newName })
+      forces.unshift({ ...newData, name: newName })
     } else {
       const forceIndex = forces.findIndex((force) => force.name === oldName)
       // forces.forceName = newName;

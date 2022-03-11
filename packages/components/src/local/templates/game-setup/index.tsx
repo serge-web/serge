@@ -6,11 +6,7 @@ import SettingChannels from '../../organisms/setting-channels'
 import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
 import SettingPlatformTypes from '../../organisms/setting-platform-types'
-/* Import Types */
 import Props from './types/props'
-
-/* Import Stylesheet */
-// import styles from './styles.module.scss'
 
 /* Render component */
 export const GameSetup: React.FC<Props> = ({
