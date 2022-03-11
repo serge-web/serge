@@ -360,13 +360,13 @@ export const Mapping: React.FC<PropTypes> = ({
           ? selRoute.planned[selRoute.planned.length - 1].turn
           : turnNumber
 
-        // increment turn number, if we have any turns planned, else start with `1`
         const coords: Array<string> = newLeg.route.map((cell: SergeHex3) => {
           return cell.index
         })
         const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex3) => {
           return cell.centreLatLng
         })
+        // increment turn number, if we have any turns planned, else start with `1`
         const newStep: RouteTurn = {
           turn: turnStart + 1,
           status: { state: newLeg.state, speedKts: newLeg.speed },
@@ -396,6 +396,8 @@ export const Mapping: React.FC<PropTypes> = ({
               turningCircleData = newCircle
             }
           }
+
+          console.log('step', turningCircleData)
 
           // create new planning contraints
           const newP: PlanMobileAsset = {
@@ -486,6 +488,8 @@ export const Mapping: React.FC<PropTypes> = ({
           const distancePerTurnNM = stepSizeHrs * speedKts
           const distancePerTurnM = distancePerTurnNM * 1852
           const roughRangeCells = distancePerTurnM / (tileDiameterKm * 1000)
+
+          console.log('distance this turn:', distancePerTurnM)
 
           // check range is in 10s
           const range = roundToNearest(roughRangeCells, 1)
