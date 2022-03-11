@@ -8,8 +8,8 @@ interface CssExports {
   'message-bullet': string;
   'message-preview-player': string;
   'own-message': string;
-  'floatRight': string;
-  'floatLeft': string;
+  'float-right': string;
+  'float-left': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

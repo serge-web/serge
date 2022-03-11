@@ -41,7 +41,7 @@ exports[`GameAdmin page: renders correctly 1`] = `
       </button>
     </div>
     <div
-      className="message-container floatLeft"
+      className="message-container float-left"
     >
       <span
         className="message-bullet"
@@ -88,7 +88,7 @@ exports[`GameAdmin page: renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="message-container floatLeft"
+      className="message-container float-left"
     >
       <span
         className="message-bullet"

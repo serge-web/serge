@@ -21,7 +21,7 @@ export const AdminMessage: React.FC<PropTypes> = ({ message, roleId }: PropTypes
     return (
       <div className={classNames([
         styles['message-container'],
-        (isOwnMessage ? styles.floatRight : styles.floatLeft)
+        (isOwnMessage ? styles['float-right'] : styles['float-left'])
       ])} ref={msgRef}>
         {!isOwnMessage && <span className={styles['message-bullet']} style={{ backgroundColor: from.forceColor, height: (msgRef.current && msgRef.current.getBoundingClientRect().height) || 60 }} />}
         <div className={classNames([

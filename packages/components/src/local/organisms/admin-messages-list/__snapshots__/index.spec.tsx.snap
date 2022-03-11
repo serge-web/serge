@@ -37,7 +37,7 @@ exports[`AdminMessage component:  renders component correctly 1`] = `
     </button>
   </div>
   <div
-    className="message-container floatLeft"
+    className="message-container float-left"
   >
     <span
       className="message-bullet"
@@ -84,7 +84,7 @@ exports[`AdminMessage component:  renders component correctly 1`] = `
     </div>
   </div>
   <div
-    className="message-container floatLeft"
+    className="message-container float-left"
   >
     <span
       className="message-bullet"

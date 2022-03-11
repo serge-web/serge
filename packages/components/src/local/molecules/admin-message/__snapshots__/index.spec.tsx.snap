@@ -2,7 +2,7 @@
 
 exports[`AdminMessage component: renders component correctly 1`] = `
 <div
-  className="message-container floatLeft"
+  className="message-container float-left"
 >
   <span
     className="message-bullet"
