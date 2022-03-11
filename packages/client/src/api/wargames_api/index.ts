@@ -19,7 +19,8 @@ import {
   COUNTER_MESSAGE,
   expiredStorage,
   ACTIVITY_TIME,
-  ACTIVITY_TYPE
+  ACTIVITY_TYPE,
+  SERGE_INFO
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -58,8 +59,6 @@ import {
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
-import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
-import { checkReference } from '../messages_helper'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
