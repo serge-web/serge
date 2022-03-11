@@ -213,7 +213,7 @@ export const HexGrid: React.FC<{}> = () => {
             cells.push(originHex3)
           }
           setPlanningRouteCells3(cells.reverse())
-          setPlanningRoutePoly3(points.reverse())          
+          setPlanningRoutePoly3(points.reverse())
         } else {
           // work out the available cells
           const plannedRoute: SergeHex3[] = planningConstraints
