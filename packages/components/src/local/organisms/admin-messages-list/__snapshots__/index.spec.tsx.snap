@@ -37,87 +37,97 @@ exports[`AdminMessage component:  renders component correctly 1`] = `
     </button>
   </div>
   <div
-    className="message-preview-player"
+    className="message-container floatLeft"
   >
     <span
       className="message-bullet"
       style={
         Object {
           "backgroundColor": "#FCFBEE",
+          "height": 60,
         }
       }
-    >
-       
-    </span>
+    />
     <div
-      className="bold"
+      className="message-preview-player"
     >
-      test
-
-    </div>
-    <div
-      className="info-wrap"
-    >
-      <time
-        dateTime="2020-03-25T15:08:47.510Z"
-      >
-        15:08
-      </time>
-      <small>
+      <div>
         <div
-          className="MuiChip-root MuiChip-sizeSmall"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="bold"
         >
-          <span
-            className="MuiChip-label MuiChip-labelSmall"
-          >
-            Game Control
-          </span>
+          test
+
         </div>
-      </small>
+        <div
+          className="info-wrap"
+        >
+          <time
+            dateTime="2020-03-25T15:08:47.510Z"
+          >
+            15:08
+          </time>
+          <small>
+            <div
+              className="MuiChip-root MuiChip-colorPrimary MuiChip-outlined MuiChip-outlinedPrimary MuiChip-sizeSmall"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <span
+                className="MuiChip-label MuiChip-labelSmall"
+              >
+                Game Control
+              </span>
+            </div>
+          </small>
+        </div>
+      </div>
     </div>
   </div>
   <div
-    className="message-preview-player"
+    className="message-container floatLeft"
   >
     <span
       className="message-bullet"
       style={
         Object {
           "backgroundColor": "#1989dc",
+          "height": 60,
         }
       }
-    >
-       
-    </span>
+    />
     <div
-      className="bold"
+      className="message-preview-player"
     >
-      Lorem ipsum do lor sit amet adipiscius elit
-
-    </div>
-    <div
-      className="info-wrap"
-    >
-      <time
-        dateTime="2020-03-25T15:08:47.510Z"
-      >
-        15:08
-      </time>
-      <small>
+      <div>
         <div
-          className="MuiChip-root MuiChip-sizeSmall"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="bold"
         >
-          <span
-            className="MuiChip-label MuiChip-labelSmall"
-          >
-            CO
-          </span>
+          Lorem ipsum do lor sit amet adipiscius elit
+
         </div>
-      </small>
+        <div
+          className="info-wrap"
+        >
+          <time
+            dateTime="2020-03-25T15:08:47.510Z"
+          >
+            15:08
+          </time>
+          <small>
+            <div
+              className="MuiChip-root MuiChip-colorPrimary MuiChip-outlined MuiChip-outlinedPrimary MuiChip-sizeSmall"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <span
+                className="MuiChip-label MuiChip-labelSmall"
+              >
+                CO
+              </span>
+            </div>
+          </small>
+        </div>
+      </div>
     </div>
   </div>
 </div>
