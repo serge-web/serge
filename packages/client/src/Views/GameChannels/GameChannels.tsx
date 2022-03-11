@@ -32,7 +32,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
     timeWarning,
     turnEndTime,
     selectedForce,
-    wargameInitiated
+    wargameInitiated,
+    isUmpire
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
 
@@ -64,15 +65,17 @@ const GameChannels: React.FC = (): React.ReactElement => {
     <div className={classNames({ "message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl })} data-tour="fifth-step">
       <div className="flex-content wargame-title">
         <h3>{wargameTitle}</h3>
-        <span onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
+        <span title="Sumbit lesson learned/feedback" onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
           <strong className="sr-only">Show lesson</strong>
         </span>
-        <span className="tutorial">
+        <span className="tutorial" title="Re-play tutorial">
           <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
         </span>
-        <span className="playerlog">
+        {
+          isUmpire && <span title="Show player log" className="playerlog">
           <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
         </span>
+        }
       </div>
       <TurnProgression
         adjudicationStartTime={adjudicationStartTime}

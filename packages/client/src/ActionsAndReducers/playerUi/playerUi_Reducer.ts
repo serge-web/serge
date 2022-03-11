@@ -41,6 +41,7 @@ export const initialState: PlayerUi = {
   selectedRole: '',
   selectedRoleName: '',
   isObserver: false,
+  isUmpire: false,
   canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
@@ -136,6 +137,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_FORCE:
       newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
+      newState.isUmpire = !!(newState.selectedForce && newState.selectedForce.umpire)
       break
 
     case SET_ROLE:

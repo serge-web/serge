@@ -20,6 +20,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 import PasswordView from '../../../molecules/password-view'
 import { getUniquePasscode } from '@serge/helpers'
+import { NEW_ROLE } from '@serge/config'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -109,7 +110,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
       roleId: getUniquePasscode(forces, 'r'),
-      name: 'New Role',
+      name: NEW_ROLE,
       canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
@@ -144,6 +145,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
                 items={data.roles}
                 title='Add Role'
                 onDeleteGameControl={onDeleteGameControl}
+                valueOnEmpty={NEW_ROLE}
               />
             </FormGroup>
           </div>

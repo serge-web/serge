@@ -60,7 +60,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
         className="MuiBox-root MuiBox-root-5"
         style={
           Object {
-            "float": "left",
+            "float": "right",
           }
         }
       >
