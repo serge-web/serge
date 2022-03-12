@@ -61,7 +61,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
       selector: (row: Row): string | React.ReactElement => cellRender(row, col),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA[col.field], rowB[col.field]),
-      colFilter: ['forceName', 'roleName', 'message', 'lastActivity'].includes(col.field) // enable col filter for 2 cols
+      colFilter: ['forceName', 'roleName', 'message', 'lastActivity'].includes(col.field),
     }
   })
 
