@@ -68,7 +68,7 @@ exports[`AdminMessage component:  renders component correctly 1`] = `
           </time>
           <small>
             <div
-              className="MuiChip-root MuiChip-colorPrimary MuiChip-outlined MuiChip-outlinedPrimary MuiChip-sizeSmall"
+              className="MuiChip-root role MuiChip-colorPrimary MuiChip-outlined MuiChip-outlinedPrimary MuiChip-sizeSmall"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >
@@ -115,7 +115,7 @@ exports[`AdminMessage component:  renders component correctly 1`] = `
           </time>
           <small>
             <div
-              className="MuiChip-root MuiChip-colorPrimary MuiChip-outlined MuiChip-outlinedPrimary MuiChip-sizeSmall"
+              className="MuiChip-root role MuiChip-colorPrimary MuiChip-outlined MuiChip-outlinedPrimary MuiChip-sizeSmall"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
             >

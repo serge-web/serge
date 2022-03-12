@@ -37,7 +37,7 @@ export const AdminMessage: React.FC<PropTypes> = ({ message, roleId }: PropTypes
               (isOwnMessage ? styles['info-wrap--own-message'] : null)
             ])}>
               <time dateTime={message.details.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</time>
-              <small><Chip size="small" color="primary" variant="outlined" label={from.roleName} /></small>
+              <small><Chip className={styles.role} size="small" color="primary" variant="outlined" label={from.roleName} /></small>
             </div>
           </div>
         </div>

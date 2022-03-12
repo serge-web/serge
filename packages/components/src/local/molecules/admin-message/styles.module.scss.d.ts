@@ -10,6 +10,7 @@ interface CssExports {
   'own-message': string;
   'float-right': string;
   'float-left': string;
+  'role': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
