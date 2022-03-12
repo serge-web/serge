@@ -104,8 +104,8 @@ const runServer = (
 
   app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
     const { wargame, role } = req.params
-    const activityTime = req.params.activityTime.replace(/[+]/g, ' ')
-    const activityType = req.params.activityType.replace(/[+]/g, ' ')
+    const activityTime = decodeURIComponent(req.params.activityTime)
+    const activityType = decodeURIComponent(req.params.activityType)
 
     if (wargame !== 'missing' && role !== 'missing') {
       const existingPlayerIdx = playerLog.findIndex(
