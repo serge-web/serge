@@ -1,5 +1,12 @@
 @import "../../../../../themes/dependencies/variables";
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+}
+
 .logo {
   text-align: center;
 
@@ -18,7 +25,7 @@
   }
 
   img {
-    width: 70%;
+    width: 100%;
     height: auto;
   }
 }

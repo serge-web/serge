@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AdminLogin component: renders correctly 1`] = `
-Array [
+<div
+  className="container"
+>
   <span
     className="logo"
   >
@@ -14,7 +16,7 @@ Array [
     <p>
       Admin Page
     </p>
-  </span>,
+  </span>
   <div
     className="password"
   >
@@ -51,7 +53,7 @@ Array [
         </div>
       </div>
     </section>
-  </div>,
+  </div>
   <button
     className="MuiButtonBase-root MuiButton-root makeStyles-root-9 makeStyles-root-11 MuiButton-contained makeStyles-contained-10 makeStyles-contained-12 MuiButton-containedPrimary"
     disabled={false}
@@ -75,6 +77,6 @@ Array [
     >
       Enter
     </span>
-  </button>,
-]
+  </button>
+</div>
 `;

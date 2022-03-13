@@ -35,26 +35,29 @@ export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
 
   return (
     <>
-      <span className={styles.logo}>
-        <img src={logoPath} />
-        <p>Serge</p>
-        <p>Admin Page</p>
-      </span>
-      <div className={styles.password}>
-        <TextInput
-          label="Password"
-          labelColor="common.white"
-          value={password}
-          type="password"
-          variant="filled"
-          updateState={setPasswordValue}
-          onKeyPress={handleOnKeyPress}
-          fullWidth
-        />
-      </div>
-      <Button color="primary" onClick={(): void => onSubmit(password)}>
+      <div className={styles.container}>
+        <span className={styles.logo}>
+          <img src={logoPath} />
+          <p>Serge</p>
+          <p>Admin Page</p>
+        </span>
+
+        <div className={styles.password}>
+          <TextInput
+            label="Password"
+            labelColor="common.white"
+            value={password}
+            type="password"
+            variant="filled"
+            updateState={setPasswordValue}
+            onKeyPress={handleOnKeyPress}
+            fullWidth
+          />
+        </div>
+        <Button color="primary" onClick={(): void => onSubmit(password)}>
         Enter
-      </Button>
+        </Button>
+      </div>
     </>
   )
 }
