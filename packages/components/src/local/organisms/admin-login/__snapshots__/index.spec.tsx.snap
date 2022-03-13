@@ -2,17 +2,21 @@
 
 exports[`AdminLogin component: renders correctly 1`] = `
 Array [
-  <h2
-    className="login-form-head"
+  <span
+    className="logo"
   >
-    Password
-  </h2>,
+    <img
+      src=""
+    />
+    <p>
+      Serge
+    </p>
+    <p>
+      Admin Page
+    </p>
+  </span>,
   <div
-    style={
-      Object {
-        "marginBottom": 16,
-      }
-    }
+    className="password"
   >
     <section
       className="input-container disable-offset fullwidth"
@@ -49,7 +53,7 @@ Array [
     </section>
   </div>,
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-9 makeStyles-root-11 MuiButton-contained makeStyles-contained-10 makeStyles-contained-12 MuiButton-containedSecondary"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-9 makeStyles-root-11 MuiButton-contained makeStyles-contained-10 makeStyles-contained-12 MuiButton-containedPrimary"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

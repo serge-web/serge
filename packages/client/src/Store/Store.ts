@@ -1,17 +1,20 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import { messageTypesReducer } from '../ActionsAndReducers/dbMessageTypes/messageTypes_Reducer'
-import { messagesReducer } from '../ActionsAndReducers/dbMessages/messages_Reducer'
-import { currentModal } from '../ActionsAndReducers/Modal/Modal_Reducer'
-import { currentViewURIReducer } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_Reducer'
-import { umpireMenuReducer } from '../ActionsAndReducers/UmpireMenu/umpireMenu_Reducer'
-import { wargamesReducer } from '../ActionsAndReducers/dbWargames/wargames_Reducer'
-import { notificationReducer } from '../ActionsAndReducers/Notification/Notification_Reducer'
-import { loadingDbReducer } from '../ActionsAndReducers/loadingDb_Reducer'
-import { exportItems } from '../ActionsAndReducers/ExportItems/ExportItems_Reducer'
-import { gameInfo } from '../ActionsAndReducers/sergeInfo/sergeInfo_Reducer'
-import { addPlayerLogReducer } from '../ActionsAndReducers/PlayerLog/PlayerLog_Reducer'
-
+import { RootState } from '@serge/custom-types'
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
+import { messageTypesReducer } from '../ActionsAndReducers/dbMessageTypes/messageTypes_Reducer'
+import { wargamesReducer } from '../ActionsAndReducers/dbWargames/wargames_Reducer'
+import { addPlayerLogReducer } from '../ActionsAndReducers/PlayerLog/PlayerLog_Reducer'
+import { currentViewURIReducer } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_Reducer'
+import {
+  currentModalWithType,
+  exportItemsReducerWithType,
+  gameInfoReducerWithType,
+  loadingDbReducerWithType,
+  messagesTypesReducerWithType,
+  notificationReducerWithType,
+  umpireMenuReducerWithType
+} from './RootReducer'
+
 
 const middlewares = [thunk]
 
@@ -20,16 +23,18 @@ if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger)
 }
 
-export default createStore(combineReducers({
+const store: Store<RootState> = createStore<RootState, any, any, any>(combineReducers({
   messageTypes: messageTypesReducer,
-  messages: messagesReducer,
-  umpireMenu: umpireMenuReducer,
+  messages: messagesTypesReducerWithType,
+  umpireMenu: umpireMenuReducerWithType,
   currentViewURI: currentViewURIReducer,
-  currentModal,
-  notifications: notificationReducer,
+  currentModal: currentModalWithType,
+  notifications: notificationReducerWithType,
   playerLog: addPlayerLogReducer,
   wargame: wargamesReducer,
-  dbLoading: loadingDbReducer,
-  exportItems,
-  gameInfo
+  dbLoading: loadingDbReducerWithType,
+  exportItems: exportItemsReducerWithType,
+  gameInfo: gameInfoReducerWithType
 }), applyMiddleware(...middlewares))
+
+export default store
