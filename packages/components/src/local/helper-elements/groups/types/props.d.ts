@@ -1,4 +1,5 @@
 import { GroupItem } from '@serge/custom-types'
+import { Store } from 'react-sortablejs'
 
 export type NodeType = 'empty' | 'group' | 'group-out'
 
@@ -15,4 +16,5 @@ export default interface PropTypes {
    */
   canOrganise?: boolean
   group?: string
+  setList?: (newList: GroupItem) => void
 }

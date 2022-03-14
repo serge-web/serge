@@ -7,6 +7,18 @@
 
     li {
       list-style-type: none;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    p {
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      color: red;
+      right: 10px;
+      top: 5px;
+      z-index: 1000;
+      font-weight: 700;
     }
   }
 

@@ -20,7 +20,7 @@ const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => 
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
-  const { items = [], renderContent = defaulRender, onSet } = props
+  const { items = [], renderContent = defaulRender, onSet, setList } = props
   const maxDepth = typeof props.maxDepth === 'undefined' ? 3 : props.maxDepth
   const canOrganise: boolean = props.canOrganise || false
 
@@ -101,7 +101,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
 
   return (
     <div className={styles.main}>
-      <ul>{ items.map(i => <li key={i.uniqid}>{ renderGroupItem(i) }</li>) }</ul>
+      <ul>{ items.map(i => <li>{ renderGroupItem(i) }<p onClick={(): void => setList && setList(i)}>&#9747;</p></li>) }</ul>
       {dragItem.uniqid && dragItem.uniqid !== -1 && hasParrent && <Dropzone
         disable={!canCombineWith(dragItem, { uniqid: -1 }, [], 'empty')}
         item={{ uniqid: -1 }}

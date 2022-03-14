@@ -328,6 +328,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         renderContent={renderContent}
                         canOrganise={true}
                         canCombineWith={canCombineWithLocal}
+                        setList={(newList: GroupItem): void => setSelectedPlatforms(selectedPlatforms.filter(item => item.uniqid !== newList.uniqid))}
                         group={'platformTypesList'}
                         maxDepth={5}
                         onSet={(itemsLink: GroupItem[], type: NodeType, depth: GroupItem[]): void => {
