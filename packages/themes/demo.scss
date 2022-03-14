@@ -137,19 +137,40 @@
   }
 }
 
-@media screen and (max-width: 1336px) {
+@media screen and (max-width: 1440px) {
   .flex-content--welcome {
     .contain-welcome-screen {
       width: 90%;
     }
 
     .welcome-desc {
-      h1 {
-        font-size: 1.5rem;
+      text-align: center;
+      
+      p {
+        width: 100%;
+
+        &:nth-child(1) {
+          font-weight: 700;
+          text-transform: uppercase;
+          margin: 15px 0 15px 0;
+          font-size: 30px;
+        }
+        &:nth-child(2) {
+          font-size: 20px;
+          font-weight: 550;
+          text-transform: capitalize;
+        }
+
+        div {
+          &:last-child {
+            font-style: italic;
+            margin-top: 10px;
+          }
+        }
       }
 
       .paragraph {
-        font-size: 0.75rem;
+        font-size: 17px;
       }
     }
   }
