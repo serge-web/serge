@@ -79,11 +79,21 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
   const [selectedItem, setSelectedItem] = useState<number>(-1)
   const [isOpen, setOpenSpeedModal] = useState<boolean>(false)
+  const [previousItem, setPreviousItem] = useState<Item | null>()
   const speedItemElmRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (platformType) {
       setLocalPlatformType(platformType)
+      // if previoutItem has value but could not be found in the `localPlatformType.platformTypes` mean it has been deleted
+      // then we should set the selected index to -1
+      if (previousItem) {
+        const preIdx = localPlatformType.platformTypes.findIndex(item => item.name === previousItem.name)
+        if (preIdx === -1) {
+          setSelectedItem(preIdx)
+          setPreviousItem(null)
+        }
+      }
     }
   }, [platformType])
 
@@ -92,7 +102,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleDelete = (item: Item): void => {
-    setSelectedItem(-1)
+    setPreviousItem(item)
     onDelete && onDelete(item as PlatformType)
   }
 
@@ -378,7 +388,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
-    localPlatformType.platformTypes.push({
+    localPlatformType.platformTypes.unshift({
       name: createPlatformName(),
       conditions: [],
       speedKts: [],
