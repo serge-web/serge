@@ -444,10 +444,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
     setSelectedItem(Math.max(selectedChannelId, 0))
     setLocalChannelUpdates(channels)
-  }, [channels])
+  }, [channels, selectedChannelId])
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
