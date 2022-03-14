@@ -62,4 +62,4 @@ export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
   )
 }
 
-export default React.memo(AdminLogin)
+export default AdminLogin
