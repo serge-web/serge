@@ -168,9 +168,9 @@ export const clearWargames = () => {
 }
 
 export const downloadAllWargames = () => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     wargamesApi.downloadAllWargames()
-    
+
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
   }
@@ -298,7 +298,7 @@ export const saveForce = (dbName, newName, newData, oldName) => {
       const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
       newData.iconURL = savedIconURL.path
     }
-    
+
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
