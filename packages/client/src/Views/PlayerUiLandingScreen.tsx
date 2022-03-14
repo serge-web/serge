@@ -25,8 +25,9 @@ const PlayerUiLandingScreen: React.FC<Props> = ({ gameInfo, enterSerge }) => (
           </a>
         </div>
         <div className="welcome-desc">
-          <h1>{gameInfo.title}</h1>
-          {lineBreak(gameInfo.description)}
+          <p>{gameInfo.title}</p>
+          <p>Welcome!</p>
+          <p>{lineBreak(gameInfo.description)}</p>
           <button name="play" className="btn btn-action btn-action--primary" onClick={enterSerge}>Play</button>
         </div>
       </div>
