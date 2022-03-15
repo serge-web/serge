@@ -23,26 +23,32 @@ const DeleteModal = () => {
     const { type, data } = currentModal.data
     const curTab = wargame.currentTab
 
-    if (type === 'force') {
-      const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
-      if (isUmpire) return
-      dispatch(deleteSelectedForce(wargame.currentWargame, data))
-    }
-
-    if (type === 'asset') {
-      dispatch(deleteSelectedAsset(data))
-    }
-
-    if (type === 'channel') {
-      dispatch(deleteSelectedChannel(wargame.currentWargame, data))
-    }
-
-    if (type === 'games') {
-      dispatch(clearWargames())
-    }
-
-    if (type === 'platformType') {
-      dispatch(deletePlatformType(wargame.currentWargame, data))
+    switch (type) {
+      case 'force': {
+        const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
+        if (isUmpire) return
+        dispatch(deleteSelectedForce(wargame.currentWargame, data))
+        break
+      }
+      case 'asset': {
+        dispatch(deleteSelectedAsset(data))
+        break
+      }
+      case 'channel': {
+        dispatch(deleteSelectedChannel(wargame.currentWargame, data))
+        break
+      }
+      case 'games': {
+        dispatch(clearWargames())
+        break
+      }
+      case 'platformType': {
+        dispatch(deletePlatformType(wargame.currentWargame, data))
+        break
+      }
+      default: {
+        console.warn('delete handler not provided for:', type)
+      }
     }
 
     dispatch(modalAction.close())
