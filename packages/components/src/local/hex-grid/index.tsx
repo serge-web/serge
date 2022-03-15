@@ -344,7 +344,7 @@ export const HexGrid: React.FC<{}> = () => {
        * as a player plans the leg
        */
   useEffect(() => {
-    console.log('updating planned routes', planningConstraints && planningConstraints.turningCircle, planningRangeCells)
+    console.log('updating planned routes, distance remaining:', planningConstraints && planningConstraints.turningCircle && planningConstraints.turningCircle.distance, 'cells:', planningRangeCells)
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (planningRangeCells === undefined && planningConstraints !== undefined) {
       setPlanningRangeCells(planningConstraints.rangeCells)
@@ -464,7 +464,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [mapBounds])
 
-  /** plot the outer map bounds
+  /** calculate routeing data using algorithm found here:
+   * https://www.redblobgames.com/pathfinding/a-star/introduction.html
   */
   useEffect(() => {
     // route planning
@@ -624,7 +625,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         // special case.  The small errors in planning mean player may be offered longer route
         // than the allowance
-        console.log('plan route', planningRangeCells, routeLen)
+        console.log('plan route, range cells:', planningRangeCells, 'route length', routeLen)
         if(planningRangeCells && routeLen > planningRangeCells) {
           routeLen = planningRangeCells
         }
@@ -667,7 +668,7 @@ export const HexGrid: React.FC<{}> = () => {
               const edgeSize = edgeLength(h3GetResolution(sampleCell), 'm')
               const distanceTravelled = planningRouteCells3.length * edgeSize * 2
               const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled 
-              console.log('distance', distanceTravelled, edgeSize, distanceRemaining)
+              console.log('distance travelled:', distanceTravelled, ', edge size:', edgeSize,' dist remaining:', distanceRemaining)
               planningConstraints.turningCircle.distance =  distanceRemaining            
             }
 
