@@ -319,6 +319,7 @@ export const HexGrid: React.FC<{}> = () => {
   * update planning range from it.
   */
   useEffect(() => {
+    console.log('updating range cells', planningConstraints && planningConstraints.rangeCells)
     if (planningConstraints !== undefined) {
       setPlanningRangeCells(planningConstraints.rangeCells)
     }
@@ -344,13 +345,16 @@ export const HexGrid: React.FC<{}> = () => {
        * as a player plans the leg
        */
   useEffect(() => {
-    console.log('updating planned routes, distance remaining:', planningConstraints && planningConstraints.turningCircle && planningConstraints.turningCircle.distance, 'cells:', planningRangeCells)
+    console.log('updating cells', !!planningRangeCells, !!planningConstraints, !!h3gridCells)
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (planningRangeCells === undefined && planningConstraints !== undefined) {
       setPlanningRangeCells(planningConstraints.rangeCells)
     }
     // check all data necessary for rendering is present
     if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRangeCells || rangeUnlimited)) {
+      console.log('updating planned routes, distance remaining:', planningConstraints && planningConstraints.turningCircle &&
+        planningConstraints.turningCircle.distance, 'cells:', planningRangeCells)
+
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
       // did we find cell?
@@ -586,6 +590,12 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const dropped = (e: DragEndEvent): void => {
+    // don't process a cell being dropped in a no-go area
+    if (dragDestination3 && allowableCells3.length) {
+      if (!allowableCells3.find((cell: SergeHex3) => cell.index === dragDestination3.index)) {
+        return
+      }
+    }
     setDragDestination3(undefined)
     setAllowableCells3([])
     if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
@@ -696,7 +706,13 @@ export const HexGrid: React.FC<{}> = () => {
     const destinationHex3: string | undefined = geoToH3(location.lat, location.lng, h3Resolution)
     if (destinationHex3) {
       const dest = h3gridCells.find((cell: SergeHex3) => cell.index === destinationHex3)
-      dest && setDragDestination3(dest)
+      // also check it's in our allowable list
+      if (dest && allowableCells3.length) {
+        const valid = allowableCells3.some((cell: SergeHex3) => cell.index === destinationHex3)
+        if (valid) {
+          setDragDestination3(dest)
+        }
+      }
     }
   }
 
