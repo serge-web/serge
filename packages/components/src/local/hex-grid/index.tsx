@@ -580,7 +580,7 @@ export const HexGrid: React.FC<{}> = () => {
   const simplifyRoute = (route: SergeHex3[]): SergeHex3[] => {
     const len = route.length
     const start = route[0]
-    const last = route[len-1]
+    const last = route[len - 1]
     const direct = h3Line(start.index, last.index)
     const res = (direct.length === len) ? [start, last] : route
     return res
@@ -629,14 +629,14 @@ export const HexGrid: React.FC<{}> = () => {
         // deduct one from planned route, since it includes the origin cell
         let routeLen = planningRouteCells3.length - 1
         const lastCell: SergeHex3 = planningRouteCells3[routeLen]
-        
+
         const marker = e.target
         marker.setLatLng(lastCell.centreLatLng)
 
         // special case.  The small errors in planning mean player may be offered longer route
         // than the allowance
         console.log('plan route, range cells:', planningRangeCells, 'route length', routeLen)
-        if(planningRangeCells && routeLen > planningRangeCells) {
+        if (planningRangeCells && routeLen > planningRangeCells) {
           routeLen = planningRangeCells
         }
 
@@ -664,22 +664,23 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRangeCells(planningConstraints.rangeCells)
 
             // ok, planning complete - fire the event back up the hierarchy
-            setNewLeg && setNewLeg({ 
-              state: planningConstraints.status, 
-              speed: planningConstraints.speed, 
-              route: fullCellList })
+            setNewLeg && setNewLeg({
+              state: planningConstraints.status,
+              speed: planningConstraints.speed,
+              route: fullCellList
+            })
           } else if (planningRangeCells && !rangeUnlimited) {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
             const remaining = planningRangeCells - routeLen
             console.log('remaining', remaining)
 
-            if(planningConstraints.turningCircle) {
+            if (planningConstraints.turningCircle) {
               const sampleCell = planningRouteCells3[0].index
               const edgeSize = edgeLength(h3GetResolution(sampleCell), 'm')
               const distanceTravelled = planningRouteCells3.length * edgeSize * 2
-              const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled 
-              console.log('distance travelled:', distanceTravelled, ', edge size:', edgeSize,' dist remaining:', distanceRemaining)
-              planningConstraints.turningCircle.distance =  distanceRemaining            
+              const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled
+              console.log('distance travelled:', distanceTravelled, ', edge size:', edgeSize, ' dist remaining:', distanceRemaining)
+              planningConstraints.turningCircle.distance = distanceRemaining
             }
 
             setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
