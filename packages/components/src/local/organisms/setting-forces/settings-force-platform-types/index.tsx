@@ -34,7 +34,7 @@ import Badge from '../../../atoms/badge'
 import Button from '../../../atoms/button'
 import AttributeEditor from '../../../attribute-editor'
 
-export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [] }) => {
+export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [], onDeleteAsset }) => {
   const [fixedLocationValue, setFixedLocationValue] = useState('')
   const [addAssetActive, setAddAssetActive] = useState(false)
 
@@ -327,6 +327,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         items={selectedPlatforms}
                         renderContent={renderContent}
                         canOrganise={true}
+                        onDeleteAsset={onDeleteAsset}
+                        selectedAssetItem={selectedAssetItem}
                         canCombineWith={canCombineWithLocal}
                         setList={(newList: GroupItem): void => setSelectedPlatforms(selectedPlatforms.filter(item => item.uniqid !== newList.uniqid))}
                         group={'platformTypesList'}

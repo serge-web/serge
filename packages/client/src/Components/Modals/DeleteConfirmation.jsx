@@ -3,7 +3,7 @@ import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonList } from '@serge/components'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
-import { deleteSelectedForce, deleteSelectedChannel, clearWargames, deletePlatformType } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { deleteSelectedForce, deleteSelectedChannel, clearWargames, deletePlatformType, deleteSelectedAsset } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import '@serge/themes/App.scss'
 
 const DeleteModal = () => {
@@ -27,6 +27,10 @@ const DeleteModal = () => {
       const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
       if (isUmpire) return
       dispatch(deleteSelectedForce(wargame.currentWargame, data))
+    }
+
+    if (type === 'asset') {
+      dispatch(deleteSelectedAsset(data))
     }
 
     if (type === 'channel') {

@@ -333,6 +333,14 @@ export const deleteSelectedChannel = (dbName, channel) => {
   }
 }
 
+export const deleteSelectedAsset = (data) => {
+  return async (dispatch) => {
+    const { setList, item } = data
+    setList(item)
+    dispatch(addNotification('Asset deleted.', 'warning'))
+  }
+}
+
 export const initiateWargame = (dbName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.initiateGame(dbName)
