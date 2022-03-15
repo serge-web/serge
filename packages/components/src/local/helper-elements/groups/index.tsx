@@ -106,7 +106,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
   return (
     <div className={styles.main}>
       <ul>{ items.map(i => <li key={i.uniqid}>{renderGroupItem(i)}
-        <p style={{ color: selectedAssetItem?.uniqid === i.uniqid ? '#dfdfdf' : '#7a7a7a' }} onClick={() => deleteAsset(i)}>&#10006;</p>
+        <p style={{ color: selectedAssetItem?.uniqid === i.uniqid ? '#dfdfdf' : '#7a7a7a' }} onClick={(): void => deleteAsset(i)}>&#10006;</p>
       </li>)}</ul>
       {dragItem.uniqid && dragItem.uniqid !== -1 && hasParrent && <Dropzone
         disable={!canCombineWith(dragItem, { uniqid: -1 }, [], 'empty')}
