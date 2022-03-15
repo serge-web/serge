@@ -7,6 +7,20 @@
 
     li {
       list-style-type: none;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    p {
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      right: 10px;
+      top: 15px;
+      z-index: 1000;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
     }
   }
 
