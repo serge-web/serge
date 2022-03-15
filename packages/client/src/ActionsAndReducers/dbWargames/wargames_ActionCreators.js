@@ -335,8 +335,7 @@ export const deleteSelectedChannel = (dbName, channel) => {
 
 export const deleteSelectedAsset = (data) => {
   return async (dispatch) => {
-    const { setList, item } = data
-    setList(item)
+    data.setList(data.item)
     dispatch(addNotification('Asset deleted.', 'warning'))
   }
 }
