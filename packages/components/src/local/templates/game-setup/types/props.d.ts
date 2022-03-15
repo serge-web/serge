@@ -107,4 +107,5 @@ export default interface Props extends AdminLayoutProps {
    * Handler for when user tries to delete role with Game Control privileges
    */
   onDeleteGameControl?: (role: Role) => void
+  onDeleteAsset?: () => void
 }

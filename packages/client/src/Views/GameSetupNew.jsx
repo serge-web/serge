@@ -244,6 +244,10 @@ const AdminGameSetup = () => {
     dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
   }
 
+  const onDeleteAsset = (setList, item) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'asset', data: { setList, item } }))
+  }
+
   const onDuplicateChannel = ({ uniqid }) => {
     dispatch(duplicateChannel(currentWargame, uniqid))
   }
@@ -331,6 +335,7 @@ const AdminGameSetup = () => {
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
       onDeleteGameControl={handleDeleteGameControl}
+      onDeleteAsset={onDeleteAsset}
     />
   )
 }

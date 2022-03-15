@@ -1,5 +1,5 @@
 import * as ActionConstant from '@serge/config'
-import { ActivityLogsInterface } from '../../api/wargames_api/types'
+import { ActivityLogsInterface } from '@serge/custom-types'
 import { PlayerLogAction } from './PlayerLog_types'
 
 const initialState: ActivityLogsInterface = {
