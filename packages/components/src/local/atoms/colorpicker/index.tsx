@@ -18,7 +18,6 @@ export const Colorpicker: React.FC<PropTypes> = ({ onChange, value }) => {
 
   const handleChange = (color: ColorResult): void => {
     onChange(color.hex)
-    handleClick()
   }
 
   const colorStyles: CSSProperties = {

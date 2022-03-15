@@ -8,6 +8,9 @@ interface CssExports {
   'message-bullet': string;
   'message-preview-player': string;
   'own-message': string;
+  'float-right': string;
+  'float-left': string;
+  'role': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

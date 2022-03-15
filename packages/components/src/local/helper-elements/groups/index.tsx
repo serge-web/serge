@@ -20,7 +20,7 @@ const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => 
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
-  const { items = [], renderContent = defaulRender, onSet } = props
+  const { items = [], renderContent = defaulRender, onSet, onDeleteAsset, selectedAssetItem, setList } = props
   const maxDepth = typeof props.maxDepth === 'undefined' ? 3 : props.maxDepth
   const canOrganise: boolean = props.canOrganise || false
 
@@ -52,6 +52,10 @@ export const Groups: React.FC<PropTypes> = (props) => {
     if (parents.length >= maxDepth) return false
     if (subitems.find((i: GroupItem) => i.uniqId === dragItem.uniqid)) return false
     return !!(dragItem.uniqid && dragItem.uniqid !== -1)
+  }
+
+  const deleteAsset = (item: GroupItem): void => {
+    if (onDeleteAsset && setList) onDeleteAsset(setList, item)
   }
 
   const renderGroupItem = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element | null => {
@@ -101,7 +105,9 @@ export const Groups: React.FC<PropTypes> = (props) => {
 
   return (
     <div className={styles.main}>
-      <ul>{ items.map(i => <li key={i.uniqid}>{ renderGroupItem(i) }</li>) }</ul>
+      <ul>{ items.map(i => <li key={i.uniqid}>{renderGroupItem(i)}
+        <p style={{ color: selectedAssetItem?.uniqid === i.uniqid ? '#dfdfdf' : '#7a7a7a' }} onClick={(): void => deleteAsset(i)}>&#10006;</p>
+      </li>)}</ul>
       {dragItem.uniqid && dragItem.uniqid !== -1 && hasParrent && <Dropzone
         disable={!canCombineWith(dragItem, { uniqid: -1 }, [], 'empty')}
         item={{ uniqid: -1 }}

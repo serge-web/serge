@@ -46,8 +46,9 @@
 }
 
 #umpire {
+  display: flex;
   height: 100vh;
-  padding: 15vh 0 15vh 22vw;
+  justify-content: center;
   width: 100vw;
   h2 {
     margin-bottom: 1em;
