@@ -20,10 +20,3 @@ export interface WargameRevision {
   initiated: boolean,
   shortName: string
 }
-
-export interface ActivityLogsInterface {
-  activityTime: string
-  activityType: string
-  role: string
-  wargame: string
-}
