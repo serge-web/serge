@@ -1,10 +1,10 @@
 import { HeartbeatChecker } from '@serge/components'
+import { ActivityLogsInterface } from '@serge/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { pingServer as pingServerApi } from '../api/wargames_api'
-import { ActivityLogsInterface } from '../api/wargames_api/types'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
 type Notification = {

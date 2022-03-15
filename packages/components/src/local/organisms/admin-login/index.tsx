@@ -1,48 +1,63 @@
-import React, { useState } from 'react'
-import TextInput from '../../atoms/text-input'
+import { DEFAULT_SERVER, serverPath } from '@serge/config'
+import { RootState } from '@serge/custom-types'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import Button from '../../atoms/button'
-
-/* Import Types */
-import Props from './types/props'
-
-import { DEFAULT_SERVER } from '@serge/config'
-
+import TextInput from '../../atoms/text-input'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
+/* Import Types */
+import Props from './types/props'
 
 /* Render component */
 export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
   // (temporarily) put password in box, to make testing quicker in dev
   const providePassword = true
   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')
+  const gameInfo = useSelector((state: RootState) => state.gameInfo)
 
-  const setPasswordValue = (target: { value: string }): void => {
+  const setPasswordValue = useCallback((target: { value: string }): void => {
     setPassword(target.value)
-  }
-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {
+  }, [])
+
+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {
     if (evt.key === 'Enter') {
       onSubmit && onSubmit(password)
     }
-  }
+  }, [password])
+
+  const logoPath = useMemo(() => {
+    if (gameInfo.imageUrl) {
+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`
+    }
+    return ''
+  }, [gameInfo.imageUrl])
 
   return (
     <>
-      <h2 className={styles['login-form-head']}>Password</h2>
-      <div style={{ marginBottom: 16 }}>
-        <TextInput
-          label="Password"
-          labelColor="common.white"
-          value={password}
-          type="password"
-          variant="filled"
-          updateState={setPasswordValue}
-          onKeyPress={handleOnKeyPress}
-          fullWidth
-        />
-      </div>
-      <Button color="secondary" onClick={(): void => onSubmit(password)}>
+      <div className={styles.container}>
+        <span className={styles.logo}>
+          <img src={logoPath} />
+          <p>Serge</p>
+          <p>Admin Page</p>
+        </span>
+
+        <div className={styles.password}>
+          <TextInput
+            label="Password"
+            labelColor="common.white"
+            value={password}
+            type="password"
+            variant="filled"
+            updateState={setPasswordValue}
+            onKeyPress={handleOnKeyPress}
+            fullWidth
+          />
+        </div>
+        <Button color="primary" onClick={(): void => onSubmit(password)}>
         Enter
-      </Button>
+        </Button>
+      </div>
     </>
   )
 }

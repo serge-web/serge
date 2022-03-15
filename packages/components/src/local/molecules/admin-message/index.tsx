@@ -1,42 +1,45 @@
-import { CUSTOM_MESSAGE } from '@serge/config'
-// TODO: change it to @serge/config
-
-import React from 'react'
-import moment from 'moment'
-import classNames from 'classnames'
 import Chip from '@material-ui/core/Chip'
-
+import { CUSTOM_MESSAGE } from '@serge/config'
+import classNames from 'classnames'
+import moment from 'moment'
+// TODO: change it to @serge/config
+import React, { useRef } from 'react'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
 /* Render component */
 export const AdminMessage: React.FC<PropTypes> = ({ message, roleId }: PropTypes) => {
+  const msgRef = useRef<HTMLDivElement | null>(null)
+
   if (message.messageType === CUSTOM_MESSAGE) {
     const { details } = message
     const { from } = details
     const isOwnMessage = roleId === from.roleId
+
     return (
       <div className={classNames([
-        styles['message-preview-player'],
-        (isOwnMessage ? styles['own-message'] : null)
-      ])}>
-        {
-          isOwnMessage
-            ? null
-            : <span className={styles['message-bullet']} style={{ backgroundColor: from.forceColor }}>&nbsp;</span>
-        }
-        <div className={message.hasBeenRead ? undefined : styles.bold}>
-          {message.message.content}
-        </div>
+        styles['message-container'],
+        (isOwnMessage ? styles['float-right'] : styles['float-left'])
+      ])} ref={msgRef}>
+        {!isOwnMessage && <span className={styles['message-bullet']} style={{ backgroundColor: from.forceColor, height: (msgRef.current && msgRef.current.getBoundingClientRect().height) || 60 }} />}
         <div className={classNames([
-          styles['info-wrap'],
-          (isOwnMessage ? styles['info-wrap--own-message'] : null)
+          styles['message-preview-player'],
+          (isOwnMessage ? styles['own-message'] : null)
         ])}>
-          <time dateTime={message.details.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</time>
-          <small><Chip size="small" color="default" label={from.roleName} /></small>
+          <div>
+            <div className={message.hasBeenRead ? undefined : styles.bold}>
+              {message.message.content}
+            </div>
+            <div className={classNames([
+              styles['info-wrap'],
+              (isOwnMessage ? styles['info-wrap--own-message'] : null)
+            ])}>
+              <time dateTime={message.details.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</time>
+              <small><Chip className={styles.role} size="small" color="primary" variant="outlined" label={from.roleName} /></small>
+            </div>
+          </div>
         </div>
       </div>
     )
