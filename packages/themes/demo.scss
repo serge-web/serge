@@ -160,17 +160,15 @@
           font-weight: 550;
           text-transform: capitalize;
         }
-
-        div {
-          &:last-child {
-            font-style: italic;
-            margin-top: 10px;
-          }
-        }
       }
 
       .paragraph {
         font-size: 17px;
+
+        &:last-child {
+          font-style: italic;
+          margin-top: 10px;
+        }
       }
     }
   }
