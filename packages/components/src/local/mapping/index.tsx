@@ -495,6 +495,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
+          console.log('heading', origin, current.currentPosition, current.history, current.planned)
           const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
             radius: pType.turningCircle,
             heading: heading,
