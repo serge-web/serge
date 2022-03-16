@@ -179,6 +179,7 @@ export const HexGrid: React.FC<{}> = () => {
    * represented as cells & a line
    */
   useEffect(() => {
+    console.log('dragged, came from', cameFrom)
     if (dragDestination3 && originHex3) {
       // check if we're in laydown mode
       if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
@@ -379,23 +380,29 @@ export const HexGrid: React.FC<{}> = () => {
           // filter the allowable cells for the turning circles
           allowableCellList = allowableCellList.filter((value: SergeHex3) => {
             if (value.index === originCell.index) {
+              // this is the start cell, it must be ok
               return true
             } else {
               if (value.index === cellBehind) {
+                // this is the cell behind the current one. We won't allow it
                 return false
               } else {
+                // check if this cell is in the polygon
                 const pos = h3ToGeo(value.index)
                 const lPos = L.latLng(pos[0], pos[1])
                 if (leafletContainsTurf(circleOverall, lPos)) {
+                  // it's in the turning circle. don't allow it
                   return false
+                } else if (leafletContainsTurf(turfOverall, lPos)) {
+                  // see if it is within the relevant number of steps
+                  
+                  return true
                 } else {
-                  return leafletContainsTurf(turfOverall, lPos)
+                  return false
                 }
               }
             }
           })
-
-          // also generate the flood fill
         }
 
         // ok, see which ones are filterd
@@ -473,12 +480,11 @@ export const HexGrid: React.FC<{}> = () => {
   */
   useEffect(() => {
     // route planning
-    if (planningConstraints && planningConstraints.turningCircle && originHex3) {
+    if (planningConstraints && planningConstraints.turningCircle && originHex3 && allowableCells3.length) {
       const start = originHex3.index
       const frontier = [start]
       const cameFromDict = {}
       cameFromDict[start] = undefined
-
       while (frontier.length) {
         // get the nextitem
         const current = frontier.shift()
@@ -499,10 +505,9 @@ export const HexGrid: React.FC<{}> = () => {
           })
         }
       }
-      console.log('updatedCameFrom', Object.keys(cameFromDict).length, allowableCells3.length)
       setCameFrom(cameFromDict)
     }
-  }, [originHex3, planningRangeCells])
+  }, [originHex3, planningRangeCells, allowableCells3])
 
   const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
     if (h3gridCells) {
@@ -677,8 +682,8 @@ export const HexGrid: React.FC<{}> = () => {
             if (planningConstraints.turningCircle) {
               const sampleCell = planningRouteCells3[0].index
               const cellRadius = edgeLength(h3GetResolution(sampleCell), 'm')
-              // cell spacing from here: https://www.redblobgames.com/grids/hexagons/#size-and-spacing          
-              const distanceBetweenCellCentres =  cellRadius * 2 * 0.75
+              // cell spacing from here: https://www.redblobgames.com/grids/hexagons/#size-and-spacing
+              const distanceBetweenCellCentres = cellRadius * 2 * 0.75
 
               // drop the first cell of the route
               const genuineRouteCells = planningRouteCells3.slice(1)
