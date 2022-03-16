@@ -42,7 +42,7 @@
   },
   "scripts": {
     "dev": "nodemon main.js",
-    "start": "node main.js RAVEN_DB",
+    "start": "node main.js",
     "pouchdb": "node main.js POUCH_DB",
     "choose": "node main.js",
     "lint": "eslint --fix **/*.js"
