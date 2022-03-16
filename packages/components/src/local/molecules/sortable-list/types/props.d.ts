@@ -34,7 +34,7 @@ export default interface PropTypes {
   required?: boolean
   valueOnEmpty?: ReactText
   /** Handler for when user tries to delete role with Game Control privileges */
-  onDeleteGameControl?: (role: Role) => void
+  onDeleteGameControl?: (NewItems: Item[], key: number, handleChange: (changedItems: Array<Item>) => void) => void
   viewDirection?: 'horizontal' | 'vertical'
   disableButtonAdd?: boolean
   ref?: React.Ref<HTMLDivElement>

@@ -106,8 +106,13 @@ const AdminGameSetup = () => {
     dispatch(setGameData(changes))
   }
 
-  const handleDeleteGameControl = role => {
-    dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
+  const handleDeleteGameControl = (roles, key, handleChange) => {
+    const role = roles[key]
+    if (role.isGameControl) {
+      dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
+    } else {
+      dispatch(modalAction.open('confirmDelete', { type: 'role', data: { roles, key, handleChange } }))
+    }
   }
 
   const handleSaveOverview = overview => {

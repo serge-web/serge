@@ -134,7 +134,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Roles">
               <SortableList
-                remove={false}
+                remove={true}
                 sortable='auto'
                 required
                 onChange={(roles: Array<SortableListItem>): void => {

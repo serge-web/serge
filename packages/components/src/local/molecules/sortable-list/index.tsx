@@ -66,18 +66,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   }
 
   const handleRemove = (key: number): void => {
-    const newItems = [...items]
-    const role = newItems[key]
-    if (typeof role === 'object') {
-      if (role.isGameControl) {
-        if (typeof onDeleteGameControl === 'function') {
-          onDeleteGameControl(role)
-          return
-        }
-      }
-    }
-    newItems.splice(key, 1)
-    handleChange(newItems)
+    onDeleteGameControl && onDeleteGameControl(items, key, handleChange)
   }
 
   const sortableItems: Array<SortableItem> = items.map((item: Item, key: number) => {
