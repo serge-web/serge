@@ -65,7 +65,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
 
   const handleRemove = (key: number): void => {
     if (customDeleteHandler) {
-      customDeleteHandler && customDeleteHandler(items, key, handleChange)
+      customDeleteHandler(items, key, handleChange)
     } else {
       const newItems = [...items]
       newItems.splice(key, 1)
