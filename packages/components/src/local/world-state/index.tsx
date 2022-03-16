@@ -17,10 +17,11 @@ import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phas
 import { Confirm } from '@serge/components'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
+import { platformTypeNameToKey } from '@serge/helpers'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
-  submitTitle, submitForm, panel, gridCells, turnNumber,
+  submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
 }: PropTypes) => {
@@ -132,7 +133,7 @@ export const WorldState: React.FC<PropTypes> = ({
     let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformType !== 'unknown') {
-      const platformType: PlatformTypeData | undefined = platformTypesByKey[item.platformType]
+      const platformType: PlatformTypeData | undefined = platformTypesByKey && platformTypesByKey[platformTypeNameToKey(item.platformType)]
       if (typeof platformType !== 'undefined') {
         imageSrc = platformType.icon
         isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
@@ -167,7 +168,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
-    return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
+    return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type)
   }
 
   // player can drag items in planning phase if they can submit orders, or umpire can do it

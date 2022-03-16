@@ -59,7 +59,7 @@ export class DbProvider implements DbProviderInterface {
     return url.replace(databasePath, '')
   }
 
-  put (doc: Wargame | Message): Promise<Wargame | Message> {  
+  put (doc: Wargame | Message): Promise<Wargame | Message> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName(), {
         method: 'PUT',
@@ -77,16 +77,17 @@ export class DbProvider implements DbProviderInterface {
         .then(res => res.json() as Promise<FetchDataArray>)
         .then((res) => {
           const { msg, data } = res
-          if (msg === 'ok') resolve(data as Message[])
+          // @ts-ignore
+          if (msg === 'ok') resolve(data[0] && data[0].docs ? data[0].docs : data as Message[])
           else reject(msg)
         })
       })
   }
 
-  replicate(newDbName: string): Promise<DbProvider> {
+  replicate(newDbProvider: { name: string, db: ProviderDbInterface }): Promise<DbProvider> {
     return new Promise((resolve, reject) => {
-      fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbName)}/${this.getDbName()}`)
-        .then(() => resolve(new DbProvider(newDbName)))
+      fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbProvider.name)}/${this.getDbName()}`)
+        .then(() => resolve(new DbProvider(newDbProvider.name)))
         .catch((err: string) => reject(err))
     })
   }

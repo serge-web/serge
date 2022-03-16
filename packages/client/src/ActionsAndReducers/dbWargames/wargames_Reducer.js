@@ -79,7 +79,7 @@ export const wargamesReducer = (state = initialState, action) => {
       newForce.name = action.payload.name
       newForce.uniqid = action.payload.uniqid
 
-      newState.data[tab].forces.push(newForce)
+      newState.data[tab].forces.unshift(newForce)
       break
 
     case ActionConstant.SET_FORCE_COLOR:

@@ -9,8 +9,8 @@ import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
-import { COMMODITY_TYPE_NUMBER } from '@serge/config'
-import { CommodityType, CommodityTypes, NumberCommodityType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
+import { ATTRIBUTE_TYPE_NUMBER } from '@serge/config'
+import { AttributeType, AttributeTypes, NumberAttributeType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import { platformTypeNameToKey } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
@@ -79,11 +79,21 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
   const [selectedItem, setSelectedItem] = useState<number>(-1)
   const [isOpen, setOpenSpeedModal] = useState<boolean>(false)
+  const [previousItem, setPreviousItem] = useState<Item | null>()
   const speedItemElmRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (platformType) {
       setLocalPlatformType(platformType)
+      // if previoutItem has value but could not be found in the `localPlatformType.platformTypes` mean it has been deleted
+      // then we should set the selected index to -1
+      if (previousItem) {
+        const preIdx = localPlatformType.platformTypes.findIndex(item => item.name === previousItem.name)
+        if (preIdx === -1) {
+          setSelectedItem(preIdx)
+          setPreviousItem(null)
+        }
+      }
     }
   }, [platformType])
 
@@ -92,7 +102,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleDelete = (item: Item): void => {
-    setSelectedItem(-1)
+    setPreviousItem(item)
     onDelete && onDelete(item as PlatformType)
   }
 
@@ -111,29 +121,29 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     handleChangePlatformTypes(copyTypes)
   }
 
-  const handleChangePlayerEditable = (item: CommodityType, key: number): void => {
+  const handleChangePlayerEditable = (item: AttributeType, key: number): void => {
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
-    const newCommodities: CommodityTypes = data.commodityTypes ? [...data.commodityTypes] : []
-    newCommodities[key].editableByPlayer = !item.editableByPlayer
-    handleChangePlatformTypeData({ ...data, commodityTypes: newCommodities }, selectedItem)
+    const newAttributes: AttributeTypes = data.attributeTypes ? [...data.attributeTypes] : []
+    newAttributes[key].editableByPlayer = !item.editableByPlayer
+    handleChangePlatformTypeData({ ...data, attributeTypes: newAttributes }, selectedItem)
   }
 
-  const renderCommoditiesSection = (item: SortableListItem, key: number): React.ReactNode => {
-    const commType = item as NumberCommodityType
+  const renderAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
+    const attrype = item as NumberAttributeType
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
     const onFieldChange = (field: 'units' | 'format' | 'description', value: string): void => {
-      if (!data.commodityTypes) { return }
-      data.commodityTypes[key][field] = value
+      if (!data.attributeTypes) { return }
+      data.attributeTypes[key][field] = value
       handleChangePlatformTypeData(data, selectedItem)
     }
 
     return (
       <div className={styles.mobile}>
-        <MobileSwitch size='small' checked={commType.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(commType, key) }} />
-        <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={commType.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
-        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={commType.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={commType.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
+        <MobileSwitch size='small' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
+        <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
       </div>
     )
   }
@@ -174,8 +184,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const handleChangeSpeeds = (speedKts: Array<SortableListItem>): void => {
       handleChangePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
-    const handleChangeCommodities = (commodityTypes: Array<SortableListItem>): void => {
-      handleChangePlatformTypeData({ ...data, commodityTypes: commodityTypes as CommodityTypes }, selectedItem)
+    const handleChangeAttributes = (attributeTypes: Array<SortableListItem>): void => {
+      handleChangePlatformTypeData({ ...data, attributeTypes: attributeTypes as AttributeTypes }, selectedItem)
     }
     const handleChangeIcon = (icon: string): void => {
       handleChangePlatformTypeData({ ...data, icon }, selectedItem)
@@ -194,14 +204,14 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, states }, selectedItem)
     }
 
-    const handleCreateCommodities = (): void => {
-      const baseData = data.commodityTypes || []
-      const commodityTypes: CommodityTypes = [...baseData, {
-        name: 'New Commodity',
-        commType: COMMODITY_TYPE_NUMBER,
-        commId: 'comm' + uniqid.time()
+    const handleCreateAttributes = (): void => {
+      const baseData = data.attributeTypes || []
+      const attributeTypes: AttributeTypes = [...baseData, {
+        name: 'New Attribute',
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'attr' + uniqid.time()
       }]
-      handleChangePlatformTypeData({ ...data, commodityTypes }, selectedItem)
+      handleChangePlatformTypeData({ ...data, attributeTypes }, selectedItem)
     }
 
     const toggleSpeedModal = (): void => {
@@ -344,8 +354,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         </div>
         <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder='Commodities'>
-              <div className={styles['commoditie-header']}>
+            <FormGroup placeholder='Attributes'>
+              <div className={styles['attribute-header']}>
                 <span></span>
                 <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
                 <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
@@ -355,11 +365,11 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               <SortableList
                 required
                 sortable='auto'
-                onChange={handleChangeCommodities}
-                onCreate={handleCreateCommodities}
-                renderItemSection={renderCommoditiesSection}
-                items={data.commodityTypes || []}
-                title='Add Commodity' />
+                onChange={handleChangeAttributes}
+                onCreate={handleCreateAttributes}
+                renderItemSection={renderAttributesSection}
+                items={data.attributeTypes || []}
+                title='Add Attribute' />
             </FormGroup>
           </div>
         </div>
@@ -378,7 +388,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
-    localPlatformType.platformTypes.push({
+    localPlatformType.platformTypes.unshift({
       name: createPlatformName(),
       conditions: [],
       speedKts: [],

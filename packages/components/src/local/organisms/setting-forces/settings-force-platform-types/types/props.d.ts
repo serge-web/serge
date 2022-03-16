@@ -1,4 +1,4 @@
-import { ForceData, Route, PlatformTypeData } from '@serge/custom-types'
+import { ForceData, Route, PlatformTypeData, Asset } from '@serge/custom-types'
 
 export default interface PropTypes {
   selectedForce: ForceData
@@ -6,4 +6,6 @@ export default interface PropTypes {
   onChangeHandler: (nextForce: ForceData) => void
   routes?: Route[]
   forcesData: ForceData[]
+  onDeleteAsset?: () => void
+  selectedAssetItem?: Asset
 }

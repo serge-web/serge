@@ -1381,6 +1381,48 @@ exports[`SettingForces component: renders correctly 1`] = `
                                 </div>
                                 <div
                                   className="icon-item-main"
+                                  data-id="ssn"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="ssn"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/ssn.svg"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    ssn
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
                                   data-id="Frigate"
                                 >
                                   <div

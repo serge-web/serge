@@ -1,12 +1,11 @@
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
-import { ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
+import { ActivityLogsInterface, ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
 import Modal from 'react-modal'
-import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 import { getPlayerActivityLogs } from '../../api/wargames_api'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { genPlayerLogDataTable } from './helpers/genData'
@@ -42,10 +41,10 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
   }, [isOpen, playerMessageLog])
 
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs().then((activityLog: PlayerActivity[]) => {
+    getPlayerActivityLogs().then((activityLog: ActivityLogsInterface[]) => {
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLog && activityLog.length && activityLog.filter((value: PlayerActivity) => value.wargame === currentWargame) || []
-      const activityRoles = activityLogsForThisWargame.map((value: PlayerActivity) => value.role)
+      const activityLogsForThisWargame = activityLog && activityLog.length && activityLog.filter((value: ActivityLogsInterface) => value.wargame === currentWargame) || []
+      const activityRoles = activityLogsForThisWargame.map((value: ActivityLogsInterface) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
       const uniqueRoles = uniq(knownRoles)
@@ -53,18 +52,21 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
       allForces.forEach((force: ForceData) => {
         force.roles.forEach((role: Role) => {
           if (uniqueRoles.includes(role.roleId)) {
-            const activity = activityLogsForThisWargame.find((value: PlayerActivity) => value.role === role.roleId)
+            const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
+            const activityTime = activity && activity.activityTime && parseInt(activity.activityTime)
+            setPlayerLogData([])
             logData.push({
               forceName: force.name,
               forceColor: force.color,
               roleName: role.name,
               message,
               lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
-              lastActive: activity ? moment(activity.updatedAt).fromNow() : 'N/A',
-              active: activity && (moment().diff(moment(activity.updatedAt))) < AGE_FOR_ACTIVE_MILLIS || false
+              lastActivity: activity ? activity.activityType : 'N/A',
+              lastActive: activityTime ? moment(activityTime).fromNow() : 'N/A',
+              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
         })

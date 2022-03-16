@@ -19,7 +19,15 @@ export default interface Props extends ChipProps{
    */
   customBackgroundColor?: string
   /**
-   * Badge custom color
+   * Badge text custom color
    */
   customColor?: string
+  /**
+   * tooltip to display
+   */
+  title?: string
+  /**
+   * whether to just display outline
+   */
+  outline?: boolean
 }

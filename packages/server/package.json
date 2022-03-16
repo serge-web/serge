@@ -5,6 +5,7 @@
   "main": "main.js",
   "bin": "bin.js",
   "dependencies": {
+    "@cloudant/cloudant": "^4.5.1",
     "@serge/client": "^0.3.0",
     "adm-zip": "^0.4.13",
     "cors": "^2.8.5",
@@ -20,8 +21,6 @@
     "pouchdb-core": "^7.0.0",
     "pouchdb-mapreduce": "^7.0.0",
     "pouchdb-replication": "^7.0.0",
-    "ravendb": "^5.0.3",
-    "readline-sync": "^1.4.10",
     "socket.io": "^4.3.1",
     "sqlite3": "^4.1.0",
     "uniqid": "^5.0.3",

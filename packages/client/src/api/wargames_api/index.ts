@@ -13,14 +13,18 @@ import {
   MSG_TYPE_STORE,
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
-  SERGE_INFO,
-  COUNTER_MESSAGE,
   clearAll,
-  allDbs
+  allDbs,
+  COUNTER_MESSAGE,
+  expiredStorage,
+  ACTIVITY_TIME,
+  ACTIVITY_TYPE,
+  SERGE_INFO,
+  INFO_MESSAGE, 
+  FEEDBACK_MESSAGE, 
+  CUSTOM_MESSAGE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
-
-import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
 
 import {
   setLatestFeedbackMessage,
@@ -42,7 +46,8 @@ import {
   MessageStructure,
   MessageCustom,
   GameTurnLength,
-  ChannelTypes
+  ChannelTypes,
+  PlatformTypeData
 } from '@serge/custom-types'
 
 import {
@@ -54,12 +59,8 @@ import {
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
-import { PlayerActivity } from '../../ActionsAndReducers/PlayerLog/PlayerLog_types'
 
 const wargameDbStore: ApiWargameDbObject[] = []
-
-// give database documents a suffix, so they're easier to open
-// in database utility tools
 
 const rejectDefault = (err: string): any => {
   console.log(err)
@@ -131,8 +132,14 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (): Promise<any> => {
-  return fetch(serverPath + 'healthcheck', {
+export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
+  const activityMissing = 'The player has not shown any activity yet'
+  const activityTime = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing).replace(/\s/g, '+')
+  const activityType = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing).replace(/\s/g, '+')
+
+  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
+
+  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -146,18 +153,6 @@ export const pingServer = (): Promise<any> => {
       console.log(err)
       return "NOT_OK"
     })
-}
-
-export const sendPlayerLog = (playerLog: PlayerActivity): Promise<any> => {
-  return fetch(serverPath + 'playerlog', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(playerLog)
-  }).catch((err) => {
-    console.log(err)
-  })
 }
 
 export const getPlayerActivityLogs = () => {
@@ -183,7 +178,6 @@ export const populateWargame = (): Promise<string | Wargame[]> => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
-    
     toCreate.forEach(name => {
       const db = new DbProvider(databasePath + name)
       wargameDbStore.unshift({ name, db })
@@ -273,9 +267,9 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
     let lastDate: number = 0
     let infoMessageIndex: number = -1
     for (let index = 0; index < messages.length; index++) {
-      const message = messages[index];
+      const message = messages[index]
       if (message.messageType === INFO_MESSAGE) {
-        const nextDate = + new Date(message._id)
+        const nextDate = + new Date(message._id as string)
         if (nextDate > lastDate) {
           lastDate = nextDate;
           infoMessageIndex = index
@@ -379,16 +373,20 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
 
 export const deletePlatformType = (dbName: string, platformType: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc = deepCopy(res)
-    newDoc.data.platform_types.platformTypes = newDoc.data.platform_types.platformTypes.filter((platform: PlatformType) => platform.name !== platformType.name)
+    const newDoc: Wargame = deepCopy(res)
+    if (newDoc.data.platformTypes) {
+      newDoc.data.platformTypes.platformTypes = newDoc.data.platformTypes.platformTypes.filter((platform: PlatformTypeData) => platform.name !== platformType.name)
+    } else {
+      console.warn('Trying to delete platform types, but structure is empty')
+    }
     return updateWargame(newDoc, dbName)
   })
 }
 
 export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc = deepCopy(res)
-    newDoc.data.platform_types = data
+    const newDoc: Wargame = deepCopy(res)
+    newDoc.data.platformTypes = data
     return updateWargame(newDoc, dbName)
   })
 }
@@ -401,7 +399,7 @@ export const saveChannel = (dbName: string, newName: string, newData: ChannelTyp
     const channelNew = channels.every((channel: any) => channel.name !== oldName)
 
     if (channelNew) {
-      channels.push({ ...newData, name: newName })
+      channels.unshift({ ...newData, name: newName })
     } else {
       const channelIndex = channels.findIndex((channel) => channel.name === oldName)
       channels.splice(channelIndex, 1, { ...newData, name: newName })
@@ -467,7 +465,7 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
     const forceNew = forces.every((force) => force.name !== oldName)
 
     if (forceNew) {
-      forces.push({ ...newData, name: newName })
+      forces.unshift({ ...newData, name: newName })
     } else {
       const forceIndex = forces.findIndex((force) => force.name === oldName)
       // forces.forceName = newName;
@@ -519,7 +517,6 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
-
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName)
   return db.get(dbDefaultSettings._id).then((res) => {
@@ -542,8 +539,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
-  // @ts-ignore
-  const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName)
+  const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName)
   // @ts-ignore
   return db.replicate(newDb).then((): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName, db: newDb })

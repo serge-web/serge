@@ -1,7 +1,7 @@
 import { PlayerUiDispatch, PlayerUiActionTypes } from './player-ui-actions'
 import { Message, Wargame } from '@serge/custom-types'
-import PouchDB from 'pouchdb'
 import { DbProviderInterface } from '../db/types'
+import { Socket } from 'socket.io-client'
 
 export type ApiWargameDb = DbProviderInterface
 
@@ -9,7 +9,7 @@ export interface ListenNewMessageType {
   db: ApiWargameDb,
   name: string,
   dispatch: PlayerUiDispatch,
-  changes?: PouchDB.Core.Changes<Wargame | Message>
+  changes?: Socket.Core.Changes<Wargame | Message>
 }
 
 export type ApiWargameDbObject = { db: ApiWargameDb, name: string }

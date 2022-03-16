@@ -23,12 +23,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => {
-      db.get(result.id)
-        .then((data) => {
-          io.emit('changes', data)
-        }).catch(err => console.log('Error in get', err))
-    }).catch(err => console.log('Error on change data', err))
+    }).on('change', (result) => io.emit('changes', result.doc))
   }
 
   // check listeners queue to add a new listenr

@@ -6,7 +6,11 @@ export default interface PropTypes {
    */
   message: MessageChannel
   /**
-   * Current force
+   * Current roleId
    */
-  force: string
+  roleId?: string
+  /**
+   * Current forceId
+   */
+  force?: string
 }

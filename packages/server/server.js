@@ -14,8 +14,6 @@ const runServer = (
   const uniqid = require('uniqid')
   const archiver = require('archiver')
 
-  const readlineSync = require('readline-sync')
-
   /*
   // replicate database
   const localDB = new PouchDB('message_types')
@@ -74,34 +72,36 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck', (req, res) => {
+  app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
+    const { wargame, role } = req.params
+    const activityTime = req.params.activityTime.replace(/[+]/g, ' ')
+    const activityType = req.params.activityType.replace(/[+]/g, ' ')
+
+    if (wargame !== 'missing' && role !== 'missing') {
+      const existingPlayerIdx = playerLog.findIndex(
+        player => player.role === role && player.wargame === wargame
+      )
+      if (existingPlayerIdx !== -1) {
+        playerLog[existingPlayerIdx].activityTime = activityTime
+        playerLog[existingPlayerIdx].activityType = activityType
+      } else {
+        const newPlayer = {
+          wargame,
+          role,
+          activityType,
+          activityTime
+        }
+        playerLog.push(newPlayer)
+      }
+    }
+
     return res.status(200).send({
       status: 'OK',
-      uptime: process.uptime()
+      activityType: activityType,
+      mostRecentActivity: activityTime,
+      wargame: wargame,
+      role: role
     })
-  })
-
-  app.post('/playerlog', (req, res) => {
-    const { wargame, role } = req.body
-    if (!wargame || !role) {
-      return res.sendStatus(200)
-    }
-
-    const existingPlayerIdx = playerLog.findIndex(
-      player => player.role === role && player.wargame === wargame
-    )
-    if (existingPlayerIdx !== -1) {
-      playerLog[existingPlayerIdx].updatedAt = new Date().getTime()
-    } else {
-      const newPlayer = {
-        wargame,
-        role,
-        updatedAt: new Date().getTime()
-      }
-      playerLog.push(newPlayer)
-    }
-
-    return res.sendStatus(200)
   })
 
   app.get('/playerlog', (_, res) => {
@@ -185,26 +185,19 @@ const runServer = (
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
   const POUCH_DB = 'POUCH_DB'
-  const RAVEN_DB = 'RAVEN_DB'
-
-  const chooseDbTerminal = () => {
-    const terminalResult = process.argv[2] ? process.argv[2] : readlineSync.question(`Choose db "${RAVEN_DB}" or "${POUCH_DB}" `)
-    providerInterface(terminalResult)
-  }
+  const IBM_DB = 'IBM_DB'
 
   const providerInterface = (provider = '') => {
-    if (provider === RAVEN_DB) {
-      const ravenDb = require('./providers/ravendb')
-      ravenDb(app, io)
+    if (provider === IBM_DB) {
+      const ibmDb = require('./providers/ibmdb')
+      ibmDb(app, io)
     } else if (provider === POUCH_DB) {
       const pouchDb = require('./providers/pouchdb')
       pouchDb(app, io, pouchOptions)
-    } else {
-      chooseDbTerminal()
     }
   }
 
-  chooseDbTerminal()
+  providerInterface(IBM_DB)
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)

@@ -1,5 +1,21 @@
-import { CommodityTypes } from '.';
+import { AttributeTypes } from '.';
 import State from './state'
+
+/** description of if/how to display 
+ * the orientation of instances of this platform type
+ */
+export interface OrientationMarker {
+  /** 
+   * name of attribute to use as orientation value
+   */
+  attribute?: string
+  /** 
+   * whether attribute is relative to platform heading or absolute 
+   */
+  origin?: 'relative' | 'absolute'
+}
+
+export type OrientationMarkers = OrientationMarker[]
 
 export default interface PlatformTypeData {
   name: string,
@@ -13,6 +29,8 @@ export default interface PlatformTypeData {
   speedKts?: Array<number>,
   states: Array<State>,
   travelMode: string,
-  /** list of commodity types for this platform type */
-  commodityTypes?: CommodityTypes
+  /** list of attribute types for this platform type */
+  attributeTypes?: AttributeTypes
+  /** if/how to display orientation data for the asset */
+  orientation?: OrientationMarkers
 }

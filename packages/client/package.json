@@ -17,7 +17,6 @@
     "@types/flat": "^5.0.1",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.4",
-    "@types/pouchdb": "^6.4.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.12",
@@ -45,9 +44,6 @@
     "node-fetch": "^2.6.7",
     "node-sass": "^4.11.0",
     "nodemon": "^2.0.4",
-    "pouchdb": "^7.0.0",
-    "pouchdb-adapter-node-websql": "^7.0.0",
-    "pouchdb-all-dbs": "^1.0.2",
     "preval.macro": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -83,6 +79,7 @@
     "@types/react": "^16.14.5"
   },
   "devDependencies": {
+    "@types/preval.macro": "^3.0.0",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
@@ -91,8 +88,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^1.18.2",
-    "@types/preval.macro": "^3.0.0"
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "start": "react-scripts start",

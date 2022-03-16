@@ -7,7 +7,7 @@ export interface DbProviderInterface {
   get: (query: string) => Promise<Wargame | Message | { status: number }>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
   allDocs: () => Promise<Message[]>
-  replicate: (newDb: string) => Promise<DbProvider>
+  replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }
 
@@ -32,21 +32,6 @@ export interface FetchDataArray {
   msg: string,
   data: (Wargame | Message)[]
 }
-
-/*
-interface ChangesResponseChange<Content extends {}> {
-  id: string;
-  seq: number | string;
-  changes: Array<{ rev: string }>;
-  deleted?: boolean;
-  doc?: ExistingDocument<Content & ChangesMeta>;
-}
-interface ChangesResponse<Content extends {}> {
-  status: string;
-  last_seq: number | string;
-  results: Array<ChangesResponseChange<Content>>;
-}
-*/
 
 export type ChangeListener = (value: ChangesResponseChange<Content>) => any
 

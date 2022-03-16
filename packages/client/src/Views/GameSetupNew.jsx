@@ -3,8 +3,8 @@ import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
-import { checkUnique, findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
-import { channelTemplate, forceTemplate, CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../consts'
+import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from '@serge/helpers'
+import { forceTemplate } from '../consts'
 import {
   addNewForce,
   setCurrentTab,
@@ -16,7 +16,6 @@ import {
   setGameData,
   setSelectedForce,
   setSelectedChannel,
-  addNewChannel,
   duplicateChannel,
   saveWargameTitle,
   initiateWargame
@@ -24,7 +23,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
 
 /**
  * TODOS:
@@ -49,7 +48,8 @@ const AdminGameSetup = () => {
   } = wargame
   const {
     overview,
-    platform_types: platformTypes,
+    platformTypes,
+    platform_types, // TODO: legacy name. To be deleted.
     forces,
     channels
   } = data
@@ -138,6 +138,12 @@ const AdminGameSetup = () => {
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
+    const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
+    if (empForceRoleNames.length > 0) {
+      dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+      return
+    }
+
     const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
     if (dupForceRoleNames.length > 0) {
       dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
@@ -181,16 +187,16 @@ const AdminGameSetup = () => {
   const onSave = updates => {
     let saveAction
     switch (currentTab) {
-      case 'overview':
+      case AdminTabs.Overview:
         saveAction = handleSaveOverview
         break
-      case 'platform_types':
+      case AdminTabs.PlatformTypes:
         saveAction = handleSavePlatformTypes
         break
-      case 'forces':
+      case AdminTabs.Forces:
         saveAction = handleSaveForce
         break
-      case 'channels':
+      case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
       default:
@@ -226,27 +232,20 @@ const AdminGameSetup = () => {
     }))
   }
 
-  const onCreateChannel = (buttonText) => {
+  const onCreateChannel = (id, createdChannel) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      let id = `channel-${uniqid.time()}`
-      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {
-        id = buttonText
-      }
-      dispatch(addNewChannel({ name: id, uniqid: id }))
-      dispatch(setSelectedChannel({ name: id, uniqid: id }))
-
-      const template = channelTemplate
-      template.name = id
-      template.uniqid = id
-
-      dispatch(saveChannel(currentWargame, id, template, id))
+      dispatch(saveChannel(currentWargame, id, createdChannel, id))
     }
   }
 
   const onDeleteChannel = ({ uniqid }) => {
     dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
+  }
+
+  const onDeleteAsset = (setList, item) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'asset', data: { setList, item } }))
   }
 
   const onDuplicateChannel = ({ uniqid }) => {
@@ -313,7 +312,7 @@ const AdminGameSetup = () => {
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
-      platformTypes={platformTypes}
+      platformTypes={platformTypes || platform_types}
       forces={forces.forces}
       selectedForce={forces.selectedForce}
       channels={channels.channels}
@@ -336,6 +335,7 @@ const AdminGameSetup = () => {
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
       onDeleteGameControl={handleDeleteGameControl}
+      onDeleteAsset={onDeleteAsset}
     />
   )
 }

@@ -2,6 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'adjudicate': string;
+  'attributelist': string;
+  'editattributes': string;
   'fieldset': string;
 }
 export const cssExports: CssExports;

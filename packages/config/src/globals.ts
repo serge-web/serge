@@ -79,15 +79,19 @@ export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
 export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 
-// types of commodity
-export const COMMODITY_TYPE_NUMBER = 'CommodityTypeNumber'
-export const COMMODITY_VALUE_NUMBER = 'CommodityValueNumber'
+// types of attribute
+export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
+export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 
 // value to use in DataTable filters for value not present
 export const EMPTY_CELL = '[Empty]'
+
+// name of property used for storing time/type of last activity
+export const ACTIVITY_TIME = 'activityTime'
+export const ACTIVITY_TYPE = 'activityType'
 
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
@@ -128,3 +132,18 @@ export const socketPath = 'http://localhost:4000'
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 export const localSettings = '_local/settings'
+// default name for role name
+export const NEW_ROLE = 'New Role'
+
+// 
+/** there has been some user interaction, so log the current time
+ * The storage we're using is shared across browser tabs, so previously
+ * one session would overwrite the history for another. So, we prepend the
+ * activity type with the role name - to let one player use multiple tabs.
+ * @param role - current role id
+ * @param event - name of event that just happened
+ */
+export const setActivityTime = (role: string, event: string): void  => {
+  expiredStorage.setItem(`${role}_${ACTIVITY_TYPE}`, event) 
+  expiredStorage.setItem(`${role}_${ACTIVITY_TIME}`, `${new Date().getTime()}`) 
+}
