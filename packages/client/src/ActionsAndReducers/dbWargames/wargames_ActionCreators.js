@@ -342,9 +342,8 @@ export const deleteSelectedAsset = (data) => {
 
 export const deleteSelectedRole = (data) => {
   return async (dispatch) => {
-    const { roles } = data
-    await roles.splice(data.key, 1)
-    data.handleChange(roles)
+    await data.roles.splice(data.key, 1)
+    data.handleChange(data.roles)
     dispatch(addNotification('Role deleted.', 'warning'))
   }
 }
