@@ -353,7 +353,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     // check all data necessary for rendering is present
     if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRangeCells || rangeUnlimited)) {
-      console.log('updating planned routes, distance remaining:', planningConstraints && planningConstraints.turningCircle &&
+      console.log('updating planned routes, distance remaining:', planningConstraints.turningCircle &&
         planningConstraints.turningCircle.distance, 'cells:', planningRangeCells)
 
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
