@@ -29,7 +29,8 @@ export default interface PropTypes {
   renderItemSection?: (items: Item, key: number) => ReactNode
   title?: string
   copy?: boolean
-  remove?: boolean
+  /** whether to show remove/trash icon */
+  remove: boolean
   sortable?: 'manual' | 'auto'
   required?: boolean
   valueOnEmpty?: ReactText

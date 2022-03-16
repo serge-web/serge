@@ -236,6 +236,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <div className={styles.speedmodalcontent}>
           <SortableList
             required
+            remove={true}
             sortable='auto'
             items={items}
             onChange={handleChangeSpeeds}
@@ -308,6 +309,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             <FormGroup placeholder='Conditions'>
               <SortableList
                 required
+                remove={true}
                 onChange={handleChangeConditions}
                 onCreate={handleCreateConditions}
                 items={data.conditions}
@@ -319,6 +321,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               <FormGroup placeholder='States'>
                 <SortableList
                   required
+                  remove={true}
                   onChange={handleChangeStates}
                   onCreate={handleCreateStates}
                   renderItemSection={renderStatesMobileSection}
@@ -365,6 +368,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               <SortableList
                 required
                 sortable='auto'
+                remove={true}
                 onChange={handleChangeAttributes}
                 onCreate={handleCreateAttributes}
                 renderItemSection={renderAttributesSection}
