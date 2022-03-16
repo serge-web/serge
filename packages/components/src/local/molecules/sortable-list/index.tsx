@@ -36,8 +36,6 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
   const [inputActive, setInputActive] = useState<boolean>(false)
 
-  const removeLocal = typeof remove === 'undefined' ? true : remove
-
   const handleChange = (changedItems: Array<Item>): void => {
     if (typeof onChange === 'function') {
       onChange(changedItems)
@@ -66,7 +64,13 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   }
 
   const handleRemove = (key: number): void => {
-    onDeleteGameControl && onDeleteGameControl(items, key, handleChange)
+    if (onDeleteGameControl) {
+      onDeleteGameControl && onDeleteGameControl(items, key, handleChange)
+    } else {
+      const newItems = [...items]
+      newItems.splice(key, 1)
+      handleChange(newItems)
+    }
   }
 
   const sortableItems: Array<SortableItem> = items.map((item: Item, key: number) => {
@@ -168,7 +172,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
                 {copy && <div onClick={(): void => { handleCopy(item, key) }}>
                   <FontAwesomeIcon icon={faCopy} />
                 </div>}
-                {removeLocal && <div onClick={(): void => { handleRemove(key) }}>
+                {remove && <div onClick={(): void => { handleRemove(key) }}>
                   <FontAwesomeIcon icon={faTrash} />
                 </div>}
               </span>
