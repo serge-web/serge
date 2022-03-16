@@ -28,7 +28,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   required = false,
   valueOnEmpty,
   remove,
-  onDeleteGameControl,
+  customDeleteHandler,
   viewDirection = 'vertical',
   disableButtonAdd
 }, modalRef) => {
@@ -64,8 +64,8 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   }
 
   const handleRemove = (key: number): void => {
-    if (onDeleteGameControl) {
-      onDeleteGameControl && onDeleteGameControl(items, key, handleChange)
+    if (customDeleteHandler) {
+      customDeleteHandler && customDeleteHandler(items, key, handleChange)
     } else {
       const newItems = [...items]
       newItems.splice(key, 1)

@@ -15,7 +15,7 @@ export default interface PropTypes {
   platformTypes?: PlatformTypeData[]
   routes?: Route[]
   /** Handler for when user tries to delete role with Game Control privileges */
-  onDeleteGameControl?: (role: Role) => void
+  customDeleteHandler?: (role: Role) => void
   onDeleteAsset?: () => void
   selectedAssetItem?: Asset
 }

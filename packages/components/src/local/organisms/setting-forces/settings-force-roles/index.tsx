@@ -36,7 +36,7 @@ const MobileSwitch = withStyles({
   track: {}
 })(Switch)
 
-export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces, onDeleteGameControl }) => {
+export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces, customDeleteHandler }) => {
   const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
@@ -144,7 +144,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
                 renderItemSection={renderRoleFields}
                 items={data.roles}
                 title='Add Role'
-                onDeleteGameControl={onDeleteGameControl}
+                customDeleteHandler={customDeleteHandler}
                 valueOnEmpty={NEW_ROLE}
               />
             </FormGroup>

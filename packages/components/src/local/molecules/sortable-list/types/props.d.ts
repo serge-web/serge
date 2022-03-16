@@ -34,8 +34,9 @@ export default interface PropTypes {
   sortable?: 'manual' | 'auto'
   required?: boolean
   valueOnEmpty?: ReactText
-  /** Handler for when user tries to delete role with Game Control privileges */
-  onDeleteGameControl?: (NewItems: Item[], key: number, handleChange: (changedItems: Array<Item>) => void) => void
+  /** Custom delete handler.
+   * Initially used for ensuring Game Control isn't being deleted */
+  customDeleteHandler?: (NewItems: Item[], key: number, handleChange: (changedItems: Array<Item>) => void) => void
   viewDirection?: 'horizontal' | 'vertical'
   disableButtonAdd?: boolean
   ref?: React.Ref<HTMLDivElement>

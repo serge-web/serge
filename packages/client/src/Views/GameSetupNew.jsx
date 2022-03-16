@@ -339,7 +339,7 @@ const AdminGameSetup = () => {
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
-      onDeleteGameControl={handleDeleteGameControl}
+      customDeleteHandler={handleDeleteGameControl}
       onDeleteAsset={onDeleteAsset}
     />
   )
