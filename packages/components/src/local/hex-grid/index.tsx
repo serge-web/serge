@@ -676,10 +676,15 @@ export const HexGrid: React.FC<{}> = () => {
 
             if (planningConstraints.turningCircle) {
               const sampleCell = planningRouteCells3[0].index
-              const edgeSize = edgeLength(h3GetResolution(sampleCell), 'm')
-              const distanceTravelled = planningRouteCells3.length * edgeSize * 2
+              const cellRadius = edgeLength(h3GetResolution(sampleCell), 'm')
+              // cell spacing from here: https://www.redblobgames.com/grids/hexagons/#size-and-spacing          
+              const distanceBetweenCellCentres =  cellRadius * 2 * 0.75
+
+              // drop the first cell of the route
+              const genuineRouteCells = planningRouteCells3.slice(1)
+              const distanceTravelled = genuineRouteCells.length * distanceBetweenCellCentres
               const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled
-              console.log('distance travelled:', distanceTravelled, ', edge size:', edgeSize, ' dist remaining:', distanceRemaining)
+              console.log('distance travelled:', distanceTravelled, ', cell centre dist:', distanceBetweenCellCentres, ' dist remaining:', distanceRemaining)
               planningConstraints.turningCircle.distance = distanceRemaining
             }
 

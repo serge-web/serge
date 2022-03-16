@@ -488,11 +488,10 @@ export const Mapping: React.FC<PropTypes> = ({
           const distancePerTurnNM = stepSizeHrs * speedKts
           const distancePerTurnM = distancePerTurnNM * 1852
           const roughRangeCells = distancePerTurnM / (tileDiameterKm * 1000)
-
-          console.log('distance this turn:', distancePerTurnM)
-
           // check range is in 10s
           const range = roundToNearest(roughRangeCells, 1)
+
+          console.log('distance this turn:', distancePerTurnM, tileDiameterKm, range)
 
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
