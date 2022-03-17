@@ -20,7 +20,7 @@ import { Route, NewTurnValues, SergeGrid3, SergeHex3, TurningDetails } from '@se
 import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
 import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing, h3Line } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
-import { leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
+import { brgBetweenTwoHex, cleanAngle, leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
 
 /**
  *  create hexagonal grid
@@ -270,6 +270,8 @@ export const HexGrid: React.FC<{}> = () => {
         distKm = circum * 0.95
       }
 
+      console.log('calc turns, distance:' + distKm, ' radius:', turnRadiusKm, 'excess:', excess)
+
       const startAngle = distKm / circum * 360 + 180
       const startRads = toRadians(startAngle)
       const lArc = [originCell.centreLatLng]
@@ -357,8 +359,8 @@ export const HexGrid: React.FC<{}> = () => {
         const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        true && setAchievablePoly(turnOverall)
-        true && setTurningPoly(turnCircles)
+        false && setAchievablePoly(turnOverall)
+        false && setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
@@ -366,7 +368,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         if (turnOverall.length) {
           // convert the poly to turf, to remove repeated processing
-          const turfOverall = toTurf(turnOverall)
+          // const turfOverall = toTurf(turnOverall)
           const circleOverall = toTurf(turnCircles)
 
           // filter the allowable cells for the turning circles
@@ -386,7 +388,12 @@ export const HexGrid: React.FC<{}> = () => {
                   // it's in the turning circle. don't allow it
                   return false
                 } else {
-                  return (leafletContainsTurf(turfOverall, lPos))
+                  return true 
+                  // don't calculate if it's in the overall coverage,
+                  // since the domain returned was too small.
+                  // we now use the 'number of steps to get here'
+                  // in the route-finding algorithm to determine how far can be travelled
+                  // return (leafletContainsTurf(turfOverall, lPos))
                 }
               }
             }
@@ -501,7 +508,7 @@ export const HexGrid: React.FC<{}> = () => {
                 // nope, store it
                 frontier.push({ index: index, range: thisRange })
                 cameFromDict[index] = current.index
-                // exists.labelStore.xy = '+' + thisRange
+                exists.labelStore.xy = '+' + thisRange
               }
             }
           }
@@ -648,6 +655,7 @@ export const HexGrid: React.FC<{}> = () => {
         // than the allowance
         console.log('plan route, range cells:', planningRangeCells, 'route length', routeLen)
         if (planningRangeCells && routeLen > planningRangeCells) {
+          console.log('trim route to ', planningRangeCells)
           routeLen = planningRangeCells
         }
 
@@ -699,6 +707,21 @@ export const HexGrid: React.FC<{}> = () => {
               const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled
               console.log('distance travelled:', distanceTravelled, ', cell centre dist:', distanceBetweenCellCentres, ' dist remaining:', distanceRemaining)
               planningConstraints.turningCircle.distance = distanceRemaining
+
+              // also update the heading
+              let start, dest
+              const rLen = planningRouteCells3.length
+              if (rLen >= 2) {
+                // get the heading from these
+                start = planningRouteCells3[rLen - 2].index
+                dest = planningRouteCells3[rLen - 1].index
+              } else {
+                // use the last position
+                start = originHex3?.index || ''
+                dest = planningRouteCells3[rLen - 1].index
+              }
+              const heading = cleanAngle(brgBetweenTwoHex(start, dest))
+              planningConstraints.turningCircle.heading = heading
             }
 
             setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
