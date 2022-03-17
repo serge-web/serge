@@ -413,7 +413,7 @@ export const HexGrid: React.FC<{}> = () => {
           let cellsAfterTurn
 
           // if there is a turning circle, we will further restrict them
-          if (planningConstraints && planningConstraints.turningCircle && originHex3 && planningRangeCells) {
+          if (planningConstraints.turningCircle && originHex3 && planningRangeCells) {
             const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
             setCameFrom(cameFromDict)
             cellsAfterTurn = turnCells
