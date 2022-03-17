@@ -179,13 +179,13 @@ const wargame: Wargame = {
                             ],
                             "position": "8918aab7003ffff",
                             "uniqid": "a034a22t5431"
-                        }/*,
+                        },
                         {
                             "condition": "Working",
                             "contactId": "C164",
                             "history": [{
                                 "route": [
-                                    "8718aab55ffffff"
+                                    "8918aab6283ffff"
                                 ],
                                 "status": {
                                     "speedKts": 12,
@@ -213,7 +213,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformType": "ssn",
-                            "position": "8718aab60ffffff",
+                            "position": "8918aab663bffff",
                             "uniqid": "a0prbr1141"
                         },
                         {
@@ -247,7 +247,7 @@ const wargame: Wargame = {
                             "platformType": "ssn",
                             "position": "8318f2fffffffff",
                             "uniqid": "a0a975y4221"
-                        }*/
+                        }
                     ],
                     "color": "#00aaff",
                     "cssClass": "blue-1",
