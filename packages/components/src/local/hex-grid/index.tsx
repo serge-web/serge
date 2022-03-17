@@ -384,7 +384,7 @@ export const HexGrid: React.FC<{}> = () => {
                   // it's in the turning circle. don't allow it
                   return false
                 } else {
-                  return true 
+                  return true
                   // don't calculate if it's in the overall coverage,
                   // since the domain returned was too small.
                   // we now use the 'number of steps to get here'

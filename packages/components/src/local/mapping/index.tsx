@@ -392,7 +392,7 @@ export const Mapping: React.FC<PropTypes> = ({
           let turningCircleData: TurningDetails | undefined
           if (planningConstraints.turningCircle) {
             const legAsRoute = newLeg.route.map((cell: SergeHex3): string => {
-              return cell.index                
+              return cell.index
             })
             if (legAsRoute.length < 2) {
               // push in the end of hte previous step
@@ -406,7 +406,7 @@ export const Mapping: React.FC<PropTypes> = ({
                 state: newLeg.state
               }
             }
-            const heading = lastStepOrientationFor(lastCell.index, lastCell.index,[],  [route])
+            const heading = lastStepOrientationFor(lastCell.index, lastCell.index, [], [route])
             const existingCircle = planningConstraints.turningCircle
             turningCircleData = existingCircle
             if (heading !== undefined) {
@@ -511,8 +511,8 @@ export const Mapping: React.FC<PropTypes> = ({
           }
 
           const distanceBetweenTileCentresM = calcDistanceBetweenCentresM()
-          const distancePerTurnM = calcDistancePerTurnM( plannedTurn.speedVal)
-          const roughRangeCells =  distancePerTurnM / distanceBetweenTileCentresM
+          const distancePerTurnM = calcDistancePerTurnM(plannedTurn.speedVal)
+          const roughRangeCells = distancePerTurnM / distanceBetweenTileCentresM
 
           // check range is in 10s
           const range = roundToNearest(roughRangeCells, 1)
