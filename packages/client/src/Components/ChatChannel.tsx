@@ -115,7 +115,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
         <div className="new-message-creator wrap new-message-orderable" ref={chatMessageRef}>
           <div className="chat-message-container">
             {
-              isCustomChannel && isCustomChannel ?
+              typeof isCustomChannel === 'boolean' && isCustomChannel ?
               <NewMessage 
                 orderableChannel={true}
                 curChannel={channelId}
