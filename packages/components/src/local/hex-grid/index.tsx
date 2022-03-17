@@ -170,7 +170,6 @@ export const HexGrid: React.FC<{}> = () => {
       // for turning circles
       setAchievablePoly([])
       setTurningPoly([])
-
     }
   }, [selectedAsset, h3gridCells, viewAsRouteStore])
 
@@ -387,12 +386,12 @@ export const HexGrid: React.FC<{}> = () => {
                   // it's in the turning circle. don't allow it
                   return false
                 } else {
-                  return (leafletContainsTurf(turfOverall, lPos)) 
+                  return (leafletContainsTurf(turfOverall, lPos))
                 }
               }
             }
           })
-       }
+        }
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
@@ -412,7 +411,7 @@ export const HexGrid: React.FC<{}> = () => {
 
           // if there is a turning circle, we will further restrict them
           if (planningConstraints && planningConstraints.turningCircle && originHex3 && planningRangeCells) {
-            const {cameFromDict, turnCells} = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
+            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
             setCameFrom(cameFromDict)
             cellsAfterTurn = turnCells
           } else {
@@ -481,7 +480,7 @@ export const HexGrid: React.FC<{}> = () => {
   */
   const restrictTurn = (start: string, rangeCells: number, allowableCells: SergeHex3[]):
     {cameFromDict: {[name: string]: string | undefined}, turnCells: SergeHex3[]} => {
-    const frontier: [{index: string, range: number}] = [{index: start, range: 0}]
+    const frontier: [{index: string, range: number}] = [{ index: start, range: 0 }]
     const cameFromDict: {[name: string]: string | undefined} = {}
     cameFromDict[start] = undefined
     while (frontier.length) {
@@ -498,9 +497,9 @@ export const HexGrid: React.FC<{}> = () => {
             // does it have origin?
             if (cameFromDict[index] === undefined) {
               const thisRange = current.range + 1
-              if(current.range < rangeCells) {
+              if (current.range < rangeCells) {
                 // nope, store it
-                frontier.push({index: index, range: thisRange})
+                frontier.push({ index: index, range: thisRange })
                 cameFromDict[index] = current.index
                 // exists.labelStore.xy = '+' + thisRange
               }
@@ -511,7 +510,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     // only allow the cells that got into the dictionary
     const turnCells = allowableCells.filter((value: SergeHex3) => cameFromDict[value.index] !== undefined)
-    return {cameFromDict, turnCells}
+    return { cameFromDict, turnCells }
   }
 
   const createPolyBins3 = (cells: SergeGrid3): PolyBin3[] | undefined => {
@@ -672,7 +671,7 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRouteCells3([])
             setPlanningRoutePoly3([])
             setAchievablePoly([])
-            setTurningPoly([])  
+            setTurningPoly([])
 
             // restore the full planning range allowance
             setPlanningRangeCells(planningConstraints.rangeCells)
