@@ -32,7 +32,8 @@ export const SettingForces: React.FC<PropTypes> = ({
   selectedForce,
   platformTypes = [],
   routes,
-  onDeleteGameControl
+  customDeleteHandler,
+  onDeleteAsset
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
@@ -193,7 +194,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               data={data}
               handleChangeForce={handleChangeForce}
               forces={forcesData}
-              onDeleteGameControl={onDeleteGameControl}
+              customDeleteHandler={customDeleteHandler}
             />
 
             <AssetsAccordion
@@ -202,6 +203,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               forcesData={forcesData}
               platformTypes={platformTypes}
               onChangeHandler={handleChangeForce}
+              onDeleteAsset={onDeleteAsset}
             />
           </div>
         </div>

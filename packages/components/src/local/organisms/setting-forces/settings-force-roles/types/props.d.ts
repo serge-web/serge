@@ -5,5 +5,5 @@ export default interface PropTypes {
     handleChangeForce: (obj: ForceData) => void
     forces: ForceData[]
     /** Handler for when user tries to delete role with Game Control privileges */
-    onDeleteGameControl?: (role: Role) => void
+    customDeleteHandler?: (role: Role) => void
 }

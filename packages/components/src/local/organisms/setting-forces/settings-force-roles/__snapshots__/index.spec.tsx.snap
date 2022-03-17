@@ -456,7 +456,15 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   </div>
                                 </div>
                               </div>
-                              <span />
+                              <span>
+                                <div
+                                  onClick={[Function]}
+                                >
+                                  <svg
+                                    className="svg-inline--fa fa-trash"
+                                  />
+                                </div>
+                              </span>
                             </section>
                           </div>
                         </li>
@@ -772,7 +780,15 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   </span>
                                 </div>
                               </div>
-                              <span />
+                              <span>
+                                <div
+                                  onClick={[Function]}
+                                >
+                                  <svg
+                                    className="svg-inline--fa fa-trash"
+                                  />
+                                </div>
+                              </span>
                             </section>
                           </div>
                         </li>
