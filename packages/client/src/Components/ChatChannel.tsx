@@ -85,7 +85,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {
-        isCustomChannel && isCustomChannel ?
+        typeof isCustomChannel === 'boolean' && isCustomChannel ?
         <ChannelMessagesList 
           messages={messages}
           onRead={onRead}
