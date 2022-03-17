@@ -157,7 +157,12 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_FEEDBACK_MESSAGE:
-      newState.feedbackMessages.unshift(action.payload)
+      const doc = newState.feedbackMessages.find(message => message._id === action.payload._id)
+      if (doc) {
+        doc.hasBeenRead = true
+      } else {
+        newState.feedbackMessages.unshift(action.payload)
+      }
       break
 
     case SET_LATEST_WARGAME_MESSAGE:

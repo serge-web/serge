@@ -680,9 +680,16 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
     message: {
       content: message
     },
-    messageType: FEEDBACK_MESSAGE
+    messageType: FEEDBACK_MESSAGE,
+    hasBeenRead: false
   }
   return db.put(feedback).catch(rejectDefault)
+}
+
+export const updateFeedbacks = (dbName: string, messages: MessageFeedback[]): Promise<MessageFeedback[]> => {
+  const { db } = getWargameDbByName(dbName)
+  const promises = messages.map(feedback => db.put(feedback).catch(rejectDefault))
+  return Promise.all(promises)
 }
 
 export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {

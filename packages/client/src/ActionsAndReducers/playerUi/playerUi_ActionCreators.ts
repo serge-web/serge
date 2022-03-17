@@ -144,6 +144,12 @@ export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsF
   }
 }
 
+export const updateFeedbackMessages = (dbName: string, messages: MessageFeedback[]): Function => {
+  return async (): Promise<void> => {
+    await wargamesApi.updateFeedbacks(dbName, messages)
+  }
+}
+
 export const failedLoginFeedbackMessage = (dbName: string, password: string, turnNumber: number): Function => {
   return async (): Promise<void> => {
     const address = await wargamesApi.getIpAddress()

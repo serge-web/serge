@@ -19,7 +19,7 @@ export const feedbackMessage1: MessageFeedback = {
     },
     "messageType": "Chat",
     "timestamp": "2020-12-06T11:05:12.038Z",
-    turnNumber: 1
+    turnNumber: 1,
   },
   "message": {
     "content": "ds"
@@ -27,7 +27,8 @@ export const feedbackMessage1: MessageFeedback = {
   messageType: FEEDBACK_MESSAGE,
   // "feedback": true, we don't need it more
   "_id": "2020-12-06T11:05:12.038Z",
-  "_rev": "1-5201037a26e24f70ae45464c20b312aa"
+  "_rev": "1-5201037a26e24f70ae45464c20b312aa",
+  hasBeenRead: true
 }
 export const feedbackMessage2: MessageFeedback = {
   "details": {
@@ -50,7 +51,8 @@ export const feedbackMessage2: MessageFeedback = {
   messageType: FEEDBACK_MESSAGE,
   // "feedback": true, we don't need it more
   "_id": "2020-10-01T01:19:56.492Z",
-  "_rev": "1-1e2289c6ee47e2dfd1ffb7e84f66514f"
+  "_rev": "1-1e2289c6ee47e2dfd1ffb7e84f66514f",
+  hasBeenRead: true
 }
 
 export default feedbackMessage1

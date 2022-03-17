@@ -173,6 +173,7 @@ export interface ChatMessage extends CoreMessage {
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,
   message: MessageStructure
+  hasBeenRead: boolean
 }
 
 /** message containing updated game status, could be one of:
