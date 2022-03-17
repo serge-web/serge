@@ -15,6 +15,18 @@ const latLngLabel = (location: number[]): string => {
   return Math.abs(location[0]).toFixed(2) + latHemi + ' ' + Math.abs(location[1]).toFixed(2) + longHemi
 }
 
+/** put a angle in degrees into the 0..360 domain */
+export const cleanAngle = (angle: number): number => {
+  let res = angle
+  while (res < 0) {
+    res += 360
+  }
+  while (res > 360) {
+    res -= 360
+  }
+  return res
+}
+
 /** create the assorted label types for this index */
 export const createLabels = (index: H3Index, centreIndex: H3Index, centre: number[]): LabelStore => {
   let coords: CoordIJ | undefined

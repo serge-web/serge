@@ -1,4 +1,4 @@
-import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
+import { brgBetweenTwoHex, cleanAngle } from '../../mapping/helpers/h3-helpers'
 import { RouteTurn } from '@serge/custom-types'
 import * as h3 from 'h3-js'
 
@@ -11,16 +11,6 @@ import * as h3 from 'h3-js'
  * @returns {number | undefined} - either the orientation to use, or undefined if there is no orientation
 */
 const lastStepOrientationFor = (current: string, realOrigin: string, history: Array<RouteTurn>, planned: Array<RouteTurn>): number | undefined => {
-  const cleanAngle = (angle: number): number => {
-    let res = angle
-    while (res < 0) {
-      res += 360
-    }
-    while (res > 360) {
-      res -= 360
-    }
-    return res
-  }
 
   const flattenLocations = (route: RouteTurn[]): string[] => {
     const steps: string[] = []

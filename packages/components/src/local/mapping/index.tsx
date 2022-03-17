@@ -381,9 +381,12 @@ export const Mapping: React.FC<PropTypes> = ({
 
         // if we know our planning constraints, we can plan the next leg, as long as we're not
         // in adjudication phase. In that phase, only one step is created
-        if (planningConstraints && !inAdjudicate) {
+        if (planningConstraints && !inAdjudicate && newLeg.speed) {
           // get the last planned cell, to act as the first new planned cell
           const lastCell: SergeHex3 = newLeg.route[newLeg.route.length - 1]
+
+          // calculate distance
+          const distancePerTurnM = calcDistancePerTurnM(newLeg.speed)
 
           // calculate turning circle data
           let turningCircleData: TurningDetails | undefined
@@ -407,7 +410,7 @@ export const Mapping: React.FC<PropTypes> = ({
             const existingCircle = planningConstraints.turningCircle
             turningCircleData = existingCircle
             if (heading !== undefined) {
-              const newCircle: TurningDetails = { ...existingCircle, heading }
+              const newCircle: TurningDetails = { ...existingCircle, heading, distance: distancePerTurnM }
               turningCircleData = newCircle
             }
           }
@@ -468,6 +471,22 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlanningConstraints(undefined)
   }
 
+  const calcDistanceBetweenCentresM = (): number => {
+    const minsToM = (mins: number): number => {
+      return mins * 1862
+    }
+    const tileRadiusM = mappingConstraints.h3res ? h3.edgeLength(mappingConstraints.h3res, 'm') : minsToM(mappingConstraints.tileDiameterMins)
+    const tileDiameterM = tileRadiusM * 2
+    return tileDiameterM * 0.75
+  }
+
+  const calcDistancePerTurnM = (speed: number): number => {
+    const speedKts = speed
+    const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
+    const distancePerTurnNM = stepSizeHrs * speedKts
+    return distancePerTurnNM * 1852
+  }
+
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
@@ -490,21 +509,14 @@ export const Mapping: React.FC<PropTypes> = ({
             window.alert('Cannot plan route with zero game turn time')
             // TODO: also display notification in UI
           }
-          const minsToKm = (mins: number): number => {
-            const metres = mins * 1862
-            return metres / 1000
-          }
-          const tileRadiusKm = mappingConstraints.h3res ? h3.edgeLength(mappingConstraints.h3res, 'km') : minsToKm(mappingConstraints.tileDiameterMins)
-          const tileDiameterKm = tileRadiusKm * 2
-          const speedKts = plannedTurn.speedVal
-          const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
-          const distancePerTurnNM = stepSizeHrs * speedKts
-          const distancePerTurnM = distancePerTurnNM * 1852
-          const roughRangeCells = distancePerTurnM / (tileDiameterKm * 1000)
+
+          const distanceBetweenTileCentresM = calcDistanceBetweenCentresM()
+          const distancePerTurnM = calcDistancePerTurnM( plannedTurn.speedVal)
+          const roughRangeCells =  distancePerTurnM / distanceBetweenTileCentresM
+
           // check range is in 10s
           const range = roundToNearest(roughRangeCells, 1)
 
-          console.log('distance this turn:', distancePerTurnM, tileDiameterKm, range)
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
           const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {

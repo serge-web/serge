@@ -270,13 +270,10 @@ export const HexGrid: React.FC<{}> = () => {
         distKm = circum * 0.95
       }
 
-      console.log('calc turns, distance:' + distKm, ' radius:', turnRadiusKm, 'excess:', excess)
-
       const startAngle = distKm / circum * 360 + 180
       const startRads = toRadians(startAngle)
       const lArc = [originCell.centreLatLng]
       const rArc = [originCell.centreLatLng]
-      // console.log('start', distKm, radiusKm, circum, startAngle, cleanStart, startRads, heading)
       const angleStep = startAngle / 20
       let incomplete = true
       for (let i = 0; i <= startAngle && incomplete; i += angleStep) {
@@ -292,7 +289,6 @@ export const HexGrid: React.FC<{}> = () => {
         const newLocL = turf.destination(origin, vectorL.magnitude, 90 + vectorL.direction + heading, { units: 'kilometers' })
         const locL = L.latLng(newLocL.geometry.coordinates[1], newLocL.geometry.coordinates[0])
         lArc.push(locL)
-        // console.log('p', i, x, y, vectorL.direction, vectorL.magnitude)
         incomplete = vectorR.direction > -90
       }
       // start off with the right arc
@@ -302,7 +298,7 @@ export const HexGrid: React.FC<{}> = () => {
       rArc.push(...leftReverse)
 
       // now calculate union of zones
-      // extend the circles slightly, so they overal
+      // extend the circles slightly, so they overlap
       const growLeft = leafletBuffer(leftPts, turnRadiusKm * 0.05)
       const growRight = leafletBuffer(rightPts, turnRadiusKm * 0.05)
 
@@ -359,8 +355,8 @@ export const HexGrid: React.FC<{}> = () => {
         const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        false && setAchievablePoly(turnOverall)
-        false && setTurningPoly(turnCircles)
+        true && setAchievablePoly(turnOverall)
+        true && setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
@@ -653,9 +649,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         // special case.  The small errors in planning mean player may be offered longer route
         // than the allowance
-        console.log('plan route, range cells:', planningRangeCells, 'route length', routeLen)
         if (planningRangeCells && routeLen > planningRangeCells) {
-          console.log('trim route to ', planningRangeCells)
           routeLen = planningRangeCells
         }
 
@@ -693,7 +687,6 @@ export const HexGrid: React.FC<{}> = () => {
           } else if (planningRangeCells && !rangeUnlimited) {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
             const remaining = planningRangeCells - routeLen
-            console.log('remaining', remaining)
 
             if (planningConstraints.turningCircle) {
               const sampleCell = planningRouteCells3[0].index
@@ -705,7 +698,6 @@ export const HexGrid: React.FC<{}> = () => {
               const genuineRouteCells = planningRouteCells3.slice(1)
               const distanceTravelled = genuineRouteCells.length * distanceBetweenCellCentres
               const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled
-              console.log('distance travelled:', distanceTravelled, ', cell centre dist:', distanceBetweenCellCentres, ' dist remaining:', distanceRemaining)
               planningConstraints.turningCircle.distance = distanceRemaining
 
               // also update the heading
