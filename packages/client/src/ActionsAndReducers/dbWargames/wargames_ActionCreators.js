@@ -335,6 +335,14 @@ export const deleteSelectedAsset = (data) => {
   }
 }
 
+export const deleteSelectedRole = (data) => {
+  return async (dispatch) => {
+    await data.roles.splice(data.key, 1)
+    data.handleChange(data.roles)
+    dispatch(addNotification('Role deleted.', 'warning'))
+  }
+}
+
 export const initiateWargame = (dbName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.initiateGame(dbName)
