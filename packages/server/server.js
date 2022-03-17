@@ -33,6 +33,13 @@ const runServer = (
   const app = express()
   const { Server } = require('socket.io')
   const io = new Server(4000, { cors: { origin: '*' } })
+  let { IBM_URL, IBM_API } = process.env
+
+  if (!IBM_URL || !IBM_API) {
+    require('dotenv').config()
+    IBM_URL = process.env.IBM_URL
+    IBM_API = process.env.IBM_API
+  }
 
   app.use(express.json())
   app.use(bodyParser.urlencoded({ extended: true }))
@@ -184,20 +191,13 @@ const runServer = (
   app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
-  const POUCH_DB = 'POUCH_DB'
-  const IBM_DB = 'IBM_DB'
-
-  const providerInterface = (provider = '') => {
-    if (provider === IBM_DB) {
-      const ibmDb = require('./providers/ibmdb')
-      ibmDb(app, io)
-    } else if (provider === POUCH_DB) {
-      const pouchDb = require('./providers/pouchdb')
-      pouchDb(app, io, pouchOptions)
-    }
+  if (IBM_URL && IBM_API) {
+    const ibmDb = require('./providers/ibmdb')
+    ibmDb(app, io)
+  } else {
+    const pouchDb = require('./providers/pouchdb')
+    pouchDb(app, io, pouchOptions)
   }
-
-  providerInterface(IBM_DB)
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)
