@@ -388,7 +388,22 @@ export const Mapping: React.FC<PropTypes> = ({
           // calculate turning circle data
           let turningCircleData: TurningDetails | undefined
           if (planningConstraints.turningCircle) {
-            const heading = lastStepOrientationFor(lastCell.index, lastCell.index, selRoute.planned, [])
+            const legAsRoute = newLeg.route.map((cell: SergeHex3): string => {
+              return cell.index                
+            })
+            if (legAsRoute.length < 2) {
+              // push in the end of hte previous step
+              const lastPos = routeGetLatestPosition(lastCell.index, selRoute.planned)
+              legAsRoute.unshift(lastPos)
+            }
+            const route: RouteTurn = {
+              route: legAsRoute,
+              turn: turnNumber,
+              status: {
+                state: newLeg.state
+              }
+            }
+            const heading = lastStepOrientationFor(lastCell.index, lastCell.index,[],  [route])
             const existingCircle = planningConstraints.turningCircle
             turningCircleData = existingCircle
             if (heading !== undefined) {
@@ -396,8 +411,6 @@ export const Mapping: React.FC<PropTypes> = ({
               turningCircleData = newCircle
             }
           }
-
-          console.log('step', turningCircleData)
 
           // create new planning contraints
           const newP: PlanMobileAsset = {
@@ -492,10 +505,8 @@ export const Mapping: React.FC<PropTypes> = ({
           const range = roundToNearest(roughRangeCells, 1)
 
           console.log('distance this turn:', distancePerTurnM, tileDiameterKm, range)
-
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
-          console.log('heading', origin, current.currentPosition, current.history, current.planned)
           const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
             radius: pType.turningCircle,
             heading: heading,
