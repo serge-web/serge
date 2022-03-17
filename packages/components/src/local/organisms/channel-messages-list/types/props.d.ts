@@ -26,6 +26,6 @@ export default interface PropTypes extends ForcesInChannelProps {
   turnPresentation?: TurnFormats
 
   isUmpire: boolean
-  role: Role['name']
+  role?: string
 
 }
