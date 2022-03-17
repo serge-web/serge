@@ -103,7 +103,7 @@ exports[`GameSetup component: renders correctly 1`] = `
           className="item"
           onClick={[Function]}
         >
-          platformTypes
+          platform types
         </div>
         <div
           className="item"
