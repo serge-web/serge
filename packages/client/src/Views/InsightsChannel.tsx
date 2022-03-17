@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateFeedbackMessages } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
-import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
+import { usePlayerUiState } from '../Store/PlayerUi'
 import MessagesListInsightsChannel from './MessagesListInsightsChannel'
 import MessagesListRenderProp from './MessagesListRenderProp'
 
