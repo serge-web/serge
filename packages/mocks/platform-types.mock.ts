@@ -64,6 +64,10 @@ export const platformTypes: PlatformTypeData[] = [
       'Destroyed'
     ],
     icon: 'ssn.svg',
+    orientation: [{
+      attribute: 'asdic-dir',
+      origin: 'absolute'
+    }, {}],
     speedKts: [
       10,
       20
@@ -97,7 +101,6 @@ export const platformTypes: PlatformTypeData[] = [
         attrType: ATTRIBUTE_TYPE_NUMBER,
         attrId: 'comm-battery',
         name: 'Battery',
-        description: 'Remaining battery level',
         units: '%',
         editableByPlayer: false,
         defaultValue: 100
@@ -141,6 +144,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     icon: 'frigate.svg',
+    orientation: [{}],
     speedKts: [
       10,
       20,

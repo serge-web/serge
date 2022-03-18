@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 /* Import mock data */
-import { platformTypes, preInitialisedForces, localMappingConstraints } from '@serge/mocks'
+import { platformTypes, preInitialisedForces, localMappingConstraints, platformTypesByKey } from '@serge/mocks'
 
 import { deepCopy } from '@serge/helpers'
 
@@ -17,7 +17,7 @@ import { Phase } from '@serge/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/PreInitMapping',
+  title: 'local/Mapping/PreInit',
   component: Mapping,
   decorators: [wrapper],
   parameters: {
@@ -122,6 +122,7 @@ Default.args = {
   playerForce: 'Blue',
   canSubmitOrders: false,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Adjudication,
   turnNumber: 5,
   mapBar: true

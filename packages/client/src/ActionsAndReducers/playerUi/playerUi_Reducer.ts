@@ -41,6 +41,7 @@ export const initialState: PlayerUi = {
   selectedRole: '',
   selectedRoleName: '',
   isObserver: false,
+  isUmpire: false,
   canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
@@ -82,16 +83,23 @@ export const initialState: PlayerUi = {
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
+  function enumFromString<T> (enm: { [s: string]: T}, value: string): T | undefined {
+    return (Object.values(enm) as unknown as string[]).includes(value)
+      ? value as unknown as T
+      : undefined;
+  }
+
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
+      const turnFormat = action.payload.data.overview.turnPresentation || TurnFormats.Natural
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
-      newState.wargameInitiated = action.payload.wargameInitiated
+      newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.currentTurn = action.payload.gameTurn
-      newState.turnPresentation = action.payload.data.overview.turnPresentation
+      newState.turnPresentation = enumFromString(TurnFormats, turnFormat) 
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
-      newState.wargameInitiated = action.payload.wargameInitiated
+      newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.gameDate = action.payload.data.overview.gameDate
       newState.gameTurnTime = action.payload.data.overview.gameTurnTime
       newState.adjudicationStartTime = action.payload.adjudicationStartTime || ''
@@ -129,6 +137,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_FORCE:
       newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
+      newState.isUmpire = !!(newState.selectedForce && newState.selectedForce.umpire)
       break
 
     case SET_ROLE:

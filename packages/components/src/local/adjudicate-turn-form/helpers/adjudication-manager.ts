@@ -101,7 +101,7 @@ class AdjudicationManager {
     return selected ? selected.attributes : []
   }
 
-  setCurrentAttributes (attributes: AttributeValues) {
+  setCurrentAttributes (attributes: AttributeValues): void {
     const selected: Route | undefined = this.store.selected
     if (selected) {
       selected.attributes = attributes

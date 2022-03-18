@@ -28,15 +28,13 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   required = false,
   valueOnEmpty,
   remove,
-  onDeleteGameControl,
+  customDeleteHandler,
   viewDirection = 'vertical',
   disableButtonAdd
 }, modalRef) => {
   const [active, setActive] = useState<string | number>('')
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
   const [inputActive, setInputActive] = useState<boolean>(false)
-
-  const removeLocal = typeof remove === 'undefined' ? true : remove
 
   const handleChange = (changedItems: Array<Item>): void => {
     if (typeof onChange === 'function') {
@@ -66,18 +64,13 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   }
 
   const handleRemove = (key: number): void => {
-    const newItems = [...items]
-    const role = newItems[key]
-    if (typeof role === 'object') {
-      if (role.isGameControl) {
-        if (typeof onDeleteGameControl === 'function') {
-          onDeleteGameControl(role)
-          return
-        }
-      }
+    if (customDeleteHandler) {
+      customDeleteHandler(items, key, handleChange)
+    } else {
+      const newItems = [...items]
+      newItems.splice(key, 1)
+      handleChange(newItems)
     }
-    newItems.splice(key, 1)
-    handleChange(newItems)
   }
 
   const sortableItems: Array<SortableItem> = items.map((item: Item, key: number) => {
@@ -125,6 +118,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
           }
         }
       }
+
       const newItems: Array<Item> = [...items]
       if (typeof item === 'object') {
         if (newItems[key] && item.name) {
@@ -178,7 +172,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
                 {copy && <div onClick={(): void => { handleCopy(item, key) }}>
                   <FontAwesomeIcon icon={faCopy} />
                 </div>}
-                {removeLocal && <div onClick={(): void => { handleRemove(key) }}>
+                {remove && <div onClick={(): void => { handleRemove(key) }}>
                   <FontAwesomeIcon icon={faTrash} />
                 </div>}
               </span>

@@ -25,7 +25,7 @@ export default interface PropTypes {
    * platforms for this wargame
    */
   platformTypesByKey: { [property: string]: PlatformTypeData}
-  /** current player's force
+  /** current player's force (force-id)
    *
   */
   playerForce: string
@@ -105,9 +105,9 @@ export default interface PropTypes {
    */
   children?: JSX.Element
   /**
-   * length of each game turn (millis)
+   * length of each game turn (millis or struct)
    */
-  gameTurnTime: number
+  gameTurnTime: GameTurnLength
   /** we need to be able to override the fetch
    * API call when running from StoryBook
    */

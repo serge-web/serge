@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
-import { Marker, Tooltip } from 'react-leaflet'
+import { LayerGroup, Marker, Polygon, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
 import { lightOrDark } from '../map-control/helpers/lightOrDark'
@@ -15,6 +15,7 @@ import styles from './styles.module.scss'
 /* Import context */
 import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
+import { OrientationData } from '../assets/types/asset_info'
 
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
@@ -61,13 +62,13 @@ export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }:
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
+        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
       </div>
       : <div className={cx(
         getIconClassname(color, icType, destroyed, isSelected),
         styles['asset-icon-fw'],
         getReverce(color)
-      )}/>}
+      )} />}
   </div>
 }
 
@@ -101,9 +102,11 @@ export const AssetIcon: React.FC<PropTypes> = ({
   selected,
   locationPending,
   imageSrc,
-  attributes
+  attributes,
+  orientationData,
+  map
 }) => {
-  const [loadStatus, setLoadStatus] = useState(true)
+  const [iconLoadStatus, setIconLoadStatus] = useState(true)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const { setShowMapBar, setSelectedAsset, selectedAsset } = props
@@ -112,18 +115,45 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
+    checkImageStatus(imageSrc).then(res => { setIconLoadStatus(res) }).catch(() => { setIconLoadStatus(false) })
   }, [imageSrc])
+
+  // temporarily offset the markers, so we know which one we are seeing
+  // const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
+  // const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
 
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
-  const image = loadStatus && typeof imageSrc !== 'undefined'
+  const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
+  // Note: keep the following commented out code. It was quite challenging to come up with
+  // correctly oriented markers
+  //
+  // const orientSrc = 'orientation-marker'
+  // useEffect(() => {
+  //   checkImageStatus(orientSrc).then(res => { setOrientLoadStatus(res) }).catch(() => { setOrientLoadStatus(false) })
+  // }, [orientSrc])
+  //
+  // collate list of orientation markers
+  // const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
+  //   const orientColor = item.shadeOrientation ? '#333' : perceivedForceColor
+  //   const orientStr = `style='transform: ${`rotate(${item.orientation}deg)`}; background-color: ${orientColor}'`
+  //   const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
+  //     ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
+  //     : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
+  //   return L.divIcon({
+  //     iconSize: [120, 120],
+  //     html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
+  //   })
+  // }) : []
+
+  // get top orient marker in the list
+  const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${image}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${iconImage}</div>`
   })
 
   const clickEvent = (): void => {
@@ -152,9 +182,49 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
-    <Tooltip>{capitalize(tooltip)}</Tooltip>
-  </Marker>
+  return <>
+    <LayerGroup key={'hex_polygons3'} >{
+      /* not too many cells visible, show hex outlines */
+      map && orientationData && orientationData.map((cell: OrientationData, index: number) => {
+        const orientRads = (90 - cell.orientation) * Math.PI / 180.0
+        //     const orientRads = 190.0 * Math.PI / 180.0
+        const cells: L.LatLng[] = []
+        const origin = map.latLngToLayerPoint(position)
+        const wid = 20
+        const len = 40
+        // precalculate cos/sin, since it's reused
+        const cosR = Math.sin(orientRads)
+        const sinR = Math.cos(orientRads)
+
+        // method to rotate point around origin
+        const rotatePoint = (x: number, y: number, sinTheta: number, cosTheta: number): L.Point => {
+          const xd = x * cosTheta - y * sinTheta
+          const yd = y * cosTheta + x * sinTheta
+          return L.point(xd, yd)
+        }
+
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 5, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(0, -len, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(wid, 5, sinR, cosR))))
+        cells.push(map.layerPointToLatLng(origin.add(rotatePoint(-wid, 5, sinR, cosR))))
+
+        // use dark shade if told to shade it, else perceived color
+        const color = cell.shadeOrientation ? '#222' : perceivedForceColor
+        return <Polygon
+          key={'hex_poly3_' + index}
+          fillColor={color}
+          fill={true}
+          positions={cells}
+          stroke={false}
+          className={styles.triangle}
+        />
+      })}
+    </LayerGroup>
+
+    <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
+      <Tooltip>{capitalize(tooltip)}</Tooltip>
+    </Marker>
+  </>
 }
 
 export default AssetIcon

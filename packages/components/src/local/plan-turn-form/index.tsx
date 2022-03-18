@@ -17,6 +17,7 @@ import styles from './styles.module.scss'
 import { collateEditorData, isNumber } from '@serge/helpers'
 import { AttributeEditorData, AttributeType, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
+import AttributeEditor from '../attribute-editor'
 
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({
@@ -25,6 +26,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
 }) => {
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>(formData.values.attributes)
+  const [attributeEditorIsOpen, setAttributeEditorIsOpen] = useState<boolean>(false)
 
   const { status, speed } = formData.populate
   const { statusVal, turnsVal, speedVal, condition } = formState
@@ -38,8 +41,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
 
   // initialise, from manager helper
   useEffect(() => {
-    setAttributes(collateEditorData(formData.values.attributes, formData.populate.attributes))
-  }, [formData.values, formData.populate])
+    setAttributes(collateEditorData(attributeValues, formData.populate.attributes))
+  }, [attributeValues, formData.populate])
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -68,6 +71,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   }
 
   const attributesHandler = (attributes: AttributeValues): void => {
+    setAttributeValues(attributes)
     setFormState(
       {
         ...formState,
@@ -75,8 +79,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       }
     )
   }
-  // TODO - delete this, once we're using attributes handler
-  console.log('dummy call to please compiler', !!attributesHandler)
 
   const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
   if (!speedInitialised) {
@@ -103,6 +105,18 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const openEditModal = (): void => {
+    setAttributeEditorIsOpen(true)
+  }
+
+  const closeModal = (): void => {
+    setAttributeEditorIsOpen(false)
+  }
+
+  const updateData = (data: AttributeValues): void => {
+    attributesHandler(data)
+  }
+
   /** only enable the save button if this is a non-mobile state,
    * or if we have a speed value assigned
    */
@@ -124,6 +138,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
    * we use `statusVal &&` guard check in the following block
    */
   return <div className={styles.main}>
+    <AttributeEditor isOpen={attributeEditorIsOpen} onClose={closeModal} onSave={updateData} data={attributes} />
     <TitleWithIcon
       forceColor={icon.forceColor}
       platformType={icon.platformType}
@@ -170,7 +185,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
             return <Badge title={item.description} key={item.attrId} allCaps={false} label={label}/>
           })}
           { attributesAreEditable &&
-            <span className={styles.editattributes}><Button>Edit</Button></span>
+            <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
           }
         </div>
       </FormGroup>

@@ -1,6 +1,8 @@
+import noop from 'lodash'
+
 export type Props = {
   isOpen: boolean
   message: string
-  onConfirm: (e: any) => void
-  onCancel: () => void
+  onConfirm: noop
+  onCancel: noop
 }

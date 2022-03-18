@@ -144,6 +144,7 @@ const factory = (state: PlayerUi): Factory => {
     const renderMap = (channelid: string) => <Mapping
       mappingConstraints={mappingConstraints}
       forces={state.allForces}
+      mapBar={true}
       platforms={state.allPlatformTypes}
       phase={phaseFor(state.phase)}
       turnNumber={state.currentTurn}
@@ -185,7 +186,7 @@ const factory = (state: PlayerUi): Factory => {
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
         default:
-          console.warn('not yet handling', v3Channel.channelType)
+          console.log('not yet handling', v3Channel.channelType)
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {

@@ -1,6 +1,6 @@
 import data from '../data/atlantic-cells-short'
 import L from 'leaflet'
-import { checkIfIJWorks, createGridH3, createIndex, h3polyFromBounds, updateXy } from './h3-helpers'
+import { leafletUnion, checkIfIJWorks, createGridH3, createIndex, h3polyFromBounds, updateXy } from './h3-helpers'
 import { geoToH3, polyfill } from 'h3-js'
 import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
 
@@ -100,4 +100,12 @@ it('correctly generate index grid', () => {
   expect(createIndex(1, 1, range, base)).toEqual('B2')
   expect(createIndex(24, 31, range, base)).toEqual('AA32')
   expect(createIndex(18000, 80084, range, base)).toEqual('AGFA80085')
+})
+
+it('correctly provides union function', () => {
+  const l1: L.LatLng[] = [L.latLng(-82.574787, 35.594087), L.latLng(-82.574787, 35.615581), L.latLng(-82.545261, 35.615581), L.latLng(-82.545261, 35.594087), L.latLng(-82.574787, 35.594087)]
+  const l2: L.LatLng[] = [L.latLng(-82.560024, 35.585153), L.latLng(-82.560024, 35.602602), L.latLng(-82.52964, 35.602602), L.latLng(-82.52964, 35.585153), L.latLng(-82.560024, 35.585153)]
+
+  const res = leafletUnion(l1, l2)
+  expect(res && res.length).toEqual(9)
 })

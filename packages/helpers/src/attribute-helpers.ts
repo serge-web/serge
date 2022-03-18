@@ -15,6 +15,9 @@ export const collateEditorData = (values: AttributeValues, types: AttributeTypes
   if (values && values.length && types && types.length) {
     return values.map((value:AttributeValue): AttributeEditorData => {
       const aType = types.find((item: AttributeType) => value.attrId === item.attrId)
+      if (!aType) {
+        console.warn('Failed to find attribute type for ', value.attrId)
+      }
       const units = aType && aType.units
       const name = (aType && aType.name) || 'unknown'
       const nameField = name + (units ? ' (' + units + ')' : '')
@@ -26,6 +29,7 @@ export const collateEditorData = (values: AttributeValues, types: AttributeTypes
         valueWrite: formatValue(value.value, aType && aType.format, undefined),
         valueType: value.attrType,
         description: aType && aType.description,
+        playerCanEdit: (aType && aType.editableByPlayer) ? aType.editableByPlayer : false
       }
     })
   } else {

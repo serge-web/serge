@@ -55,6 +55,7 @@ export const Default: React.FC = () => {
     return (
       <SortableList
         title='Add new platform type'
+        remove={true}
         items={items.types}
         onClick={handleClick}
         onChange={handleChange}

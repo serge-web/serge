@@ -13,7 +13,7 @@ export enum Phase {
 /** TODO: remove this
  * Temporary classifier for which dataset is in use
  */
- export enum Domain {
+export enum Domain {
   ATLANTIC = 'Atlantic',
   GULF = 'Gulf'
 }
@@ -21,7 +21,7 @@ export enum Phase {
 
 /** increasing permissions in a collaborative editing channel
  */
- export enum CollaborativePermission {
+export enum CollaborativePermission {
   /** can */
   CannotCollaborate,
   CanEdit,
@@ -60,15 +60,15 @@ export enum Terrain {
 
 /** style of label for hexes
  */
- export enum CellLabelStyle {
-   // 12.3N 32.3W
-   LAT_LON_LABELS = 'lat_lon_labels',
-   // A12
-   X_Y_LABELS = 'x_y_labels',
-   // 432
-   CTR_LABELS = 'ctr_labels',
-   // 35234fe5effffff
-   H3_LABELS = 'h3_labels'
+export enum CellLabelStyle {
+  // 12.3N 32.3W
+  LAT_LON_LABELS = 'lat_lon_labels',
+  // A12
+  X_Y_LABELS = 'x_y_labels',
+  // 432
+  CTR_LABELS = 'ctr_labels',
+  // 35234fe5effffff
+  H3_LABELS = 'h3_labels'
 }
 
 /** who is required to give asset an initial location */
@@ -83,7 +83,7 @@ export enum LaydownTypes {
 /** the phases a v3 collaborative message goes through before
  * being approved to send
  */
- export enum CollaborativeMessageStates {
+export enum CollaborativeMessageStates {
   /**
    * message is waiting to be allocated to owner
    */
@@ -110,7 +110,7 @@ export enum LaydownTypes {
 
 /** the commands that can be appled to a collaborative message
  */
- export enum CollaborativeMessageCommands {
+export enum CollaborativeMessageCommands {
   SendForReview = 'Send for review',
   TakeOwnership = 'Take ownership',
   ReOpen = 'Re-open',
@@ -182,3 +182,10 @@ export enum PlanningCommands {
   /** umpire wants to revert to player's route, but still modify it */
   Cancel = 'cancel',
 }
+
+export enum AdminTabs {
+  Overview = 'overview',
+  PlatformTypes = 'platformTypes',
+  Forces = 'forces',
+  Channels = 'channels'
+};

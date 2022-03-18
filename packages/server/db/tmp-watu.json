@@ -156,7 +156,7 @@
                                 }
                             ],
                             "locationPending": true,
-                            "name": "SSN-1",
+                            "name": "NORT",
                             "perceptions": [],
                             "plannedTurns": [
                                 {
@@ -176,12 +176,18 @@
                                     "turn": 2
                                 }
                             ],
-                            "platformType": "ssn",
+                            "platformType": "destroyer",
                             "attributeValues": [
+
                                 {
-                                    "attrId": "comm-battery",
+                                    "attrId": "asdic-dir",
                                     "attrType": "AttributeValueNumber",
-                                    "value": 90
+                                    "value": 15
+                                },
+                                {
+                                    "attrId": "att-torpedoes",
+                                    "Value": 25,
+                                    "attrType": "AttributeValueNumber"
                                 }
                             ],
                             "position": "8718aab70ffffff",
@@ -601,6 +607,14 @@
                             "description": "ASDIC orientation (absolute)",
                             "defaultValue": 0,
                             "editableByPlayer": true,
+                            "attrType": "AttributeTypeNumber"
+                        },
+                        {
+                            "name": "Torpedoes",
+                            "attrId": "att-torpedoes",
+                            "description": "Number of torpedoes remaining",
+                            "defaultValue": 20,
+                            "editableByPlayer": false,
                             "attrType": "AttributeTypeNumber"
                         }
                     ],

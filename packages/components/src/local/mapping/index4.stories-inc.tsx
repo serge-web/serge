@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { deepCopy } from '@serge/helpers'
-import { MappingConstraints } from '@serge/custom-types'
+import { deepCopy, platformTypeNameToKey } from '@serge/helpers'
+import { ForceData, MappingConstraints, MilliTurns, PlatformTypeData } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -14,10 +14,20 @@ import { HexGrid } from '../hex-grid'
 import { Phase, serverPath } from '@serge/config'
 
 /* Import mock data */
-import { smallScaleForces as forces, smallScaleMappingConstraints as mapping, platformTypes } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
 import data from './data/atlantic-cells'
 
+const forces = watuWargame.data.forces.forces
+const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
+const overview = watuWargame.data.overview
+const mapping = overview.mapConstraints
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
+
+const platformTypesByKey = {}
+platformTypes.forEach((plat: PlatformTypeData) => {
+  platformTypesByKey[platformTypeNameToKey(plat.name)] = plat
+})
 
 async function fetchMock (): Promise<any> {
   return {
@@ -25,8 +35,10 @@ async function fetchMock (): Promise<any> {
   }
 }
 
+const forceList = forces.map((force: ForceData) => force.uniqid)
+
 export default {
-  title: 'local/LocalMapping',
+  title: 'local/Mapping/SmallScale',
   component: Mapping,
   decorators: [wrapper],
   parameters: {
@@ -45,21 +57,17 @@ export default {
   argTypes: {
     playerForce: {
       name: 'View as',
+      defaultValue: forceList[1],
       control: {
         type: 'radio',
-        defaultValue: 'White',
-        options: [
-          'White',
-          'Blue',
-          'Red'
-        ]
+        options: forceList
       }
     },
     phase: {
       name: 'Game phase',
+      defaultValue: Phase.Planning,
       control: {
         type: 'radio',
-        defaultValue: Phase.Planning,
         options: [
           Phase.Planning,
           Phase.Adjudication
@@ -107,12 +115,6 @@ interface StoryPropTypes extends MappingPropTypes {
   mappingConstraints: MappingConstraints
 }
 
-const forceNames = {
-  White: 'umpire',
-  Blue: 'Blue',
-  Red: 'Red'
-}
-
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     playerForce,
@@ -120,14 +122,14 @@ const Template: Story<StoryPropTypes> = (args) => {
   } = args
   return (
     <Mapping
-      playerForce={forceNames[playerForce]}
+      playerForce={playerForce}
       fetchOverride={fetchMock}
       {...props}
     />
   )
 }
 
-const twoFourHours = 1000 * 60 * 60 * 24
+const timeStep = (overview.gameTurnTime as MilliTurns).millis
 
 /**
  * DEFAULT VIEW
@@ -135,8 +137,9 @@ const twoFourHours = 1000 * 60 * 60 * 24
 export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: forces,
-  gameTurnTime: twoFourHours,
+  gameTurnTime: timeStep,
   canSubmitOrders: true,
+  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   phase: Phase.Planning,
   wargameInitiated: true,
@@ -154,8 +157,9 @@ NaturalEarth.args = {
 export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: forces,
-  gameTurnTime: twoFourHours,
+  gameTurnTime: timeStep,
   canSubmitOrders: true,
+  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   wargameInitiated: true,
   phase: Phase.Planning,
@@ -173,8 +177,9 @@ OpenStreetMap.args = {
 export const DetailedCells = Template.bind({})
 DetailedCells.args = {
   forces: forces,
-  gameTurnTime: twoFourHours,
+  gameTurnTime: timeStep,
   canSubmitOrders: true,
+  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   phase: Phase.Planning,
   wargameInitiated: true,

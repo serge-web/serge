@@ -168,9 +168,9 @@ export const clearWargames = () => {
 }
 
 export const downloadAllWargames = () => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     wargamesApi.downloadAllWargames()
-    
+
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
   }
@@ -298,7 +298,7 @@ export const saveForce = (dbName, newName, newData, oldName) => {
       const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
       newData.iconURL = savedIconURL.path
     }
-    
+
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
@@ -330,6 +330,21 @@ export const deleteSelectedChannel = (dbName, channel) => {
     }
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Channel deleted.', 'warning'))
+  }
+}
+
+export const deleteSelectedAsset = (data) => {
+  return async (dispatch) => {
+    data.setList(data.item)
+    dispatch(addNotification('Asset deleted.', 'warning'))
+  }
+}
+
+export const deleteSelectedRole = (data) => {
+  return async (dispatch) => {
+    await data.roles.splice(data.key, 1)
+    data.handleChange(data.roles)
+    dispatch(addNotification('Role deleted.', 'warning'))
   }
 }
 
