@@ -1,0 +1,111 @@
+.asset-icon-background {
+  position: relative;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.asset-icon-fw {
+  width: 100%;
+  height: 100%;
+}
+
+.asset-icon-invert {
+  filter: invert(100%);
+}
+
+.asset-icon {
+  position: absolute;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 80%;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 1px solid hsla(0, 0%, 100%, 0.6);
+  &.selected {
+    border: 4px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10%;
+  }
+  &.destroyed {
+    border-radius: 40%;
+    filter: brightness(0.7);
+  }
+}
+
+.force {
+  text-align: center;
+  padding: 1rem;
+}
+
+.blue {
+  background-color: #000fff;
+}
+
+.red {
+  background-color: #ff0b00;
+}
+
+.blue-1 {
+  background-color: #0af;
+}
+
+.red-1 {
+  background-color: #f00;
+}
+
+.blue-2 {
+  background-color: #00008f;
+}
+
+.red-2 {
+  background-color: #ff7b7b;
+}
+
+.green {
+  background-color: #19bd37;
+}
+
+.unknown {
+  background-color: #999;
+}
+
+.popup {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 999;
+}
+
+$platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
+  destroyer, fast-attack-craft, fishing-vessel, fixed-wing-aircraft, frigate,
+  frigate-ta, helicopter, mcmv, merchant-vessel, mine, missile, mpa, pirate, ssk,
+  ssn, task-group, torpedo, unknown, unmanned-airborne-vehicle;
+
+@each $platform in $platforms {
+  .platform-type-#{$platform} {
+    background-image: url("./counters/#{$platform}.svg");
+  }
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 100%;
+}
+
+.asset-icon-with-image {
+  padding: 10%;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+
+  img {
+    width: 100%;
+    display: block;
+  }
+}

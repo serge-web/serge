@@ -867,6 +867,7 @@ const wargame: Wargame = {
         },
         "annotations": {
             "data": [{
+                "uniqid": "marker-one",
                 "color": "#f00",
                 "description": "description for the annotation",
                 "icon": "marker",

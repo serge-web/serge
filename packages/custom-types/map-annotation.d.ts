@@ -1,6 +1,10 @@
 import ForceData from "./force-data"
 
 export default interface MapAnnotation {
+  /** unique id for this marker 
+   * 
+  */
+  readonly uniqid: string
   /* short label displayed by marker
    */
   label: string
@@ -24,8 +28,9 @@ export default interface MapAnnotation {
    * 
    */
   color: string
-  /** radius of shaded area to show behind icon
-   * 
+  /**
+   * (optional) circle of hexes to shade around marker 
+   * Either omit or use zero value for no shading
    */
   shadeRadius?: number
 }

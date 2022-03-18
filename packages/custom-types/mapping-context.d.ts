@@ -2,6 +2,7 @@ import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
+import MapAnnotation, { MapAnnotations } from './map-annotation'
 
 /**
  * mapping context, shared with child elements
@@ -22,7 +23,7 @@ export default interface MappingContext {
   /**
    * object of platforms within this wargame by Asset.platformType keys
    */
-   platformTypesByKey: { [property: string]: PlatformTypeData }
+  platformTypesByKey: { [property: string]: PlatformTypeData }
   /**
    * force for current player
    */
@@ -75,11 +76,19 @@ export default interface MappingContext {
    * state for which form should appear in the map bar
    */
   selectedAsset: SelectedAsset | undefined
+  /** which marker is selected
+   * 
+   */
+  selectedMarker: MapAnnotation['uniqid'] | undefined
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
-  /** 
+  /**
+   *  setter, to modify the currently selected information marker
+   **/
+  setSelectedMarker: {(uniqid: MapAnnotation['uniqid']): void}
+   /** 
    * the current map bounds
    */
   viewport: L.LatLngBounds | undefined
@@ -149,4 +158,8 @@ export default interface MappingContext {
   polygonAreas?: any
   /** how to format the cell labels */
   cellLabelStyle?: CellLabelStyle
+  /**
+   * information markers
+   */
+  infoMarkers?: MapAnnotations
 }
