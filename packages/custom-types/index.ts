@@ -85,8 +85,5 @@ export * from './channel-data.d'
 export * from './participant.d'
 export * from './attributes'
 export * from './serge-hex-3.d'
-<<<<<<< HEAD
 export * from './map-annotation'
-=======
 export * from './root-state'
->>>>>>> develop

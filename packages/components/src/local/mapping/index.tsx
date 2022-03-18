@@ -55,6 +55,7 @@ import ContextInterface from './types/context'
 import './leaflet.css'
 import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
+import MapAnnotation from '@serge/custom-types/map-annotation'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -144,6 +145,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [atlanticCells, setAtlanticCells] = useState()
   const [polygonAreas, setPolygonAreas] = useState()
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
+  const [selectedMarker, setSelectedMarker] = useState<MapAnnotation['uniqid'] | undefined>(undefined)
 
   const domain = (mappingConstraints && enumFromString(Domain, mappingConstraints.targetDataset)) || Domain.ATLANTIC
 
@@ -645,6 +647,8 @@ export const Mapping: React.FC<PropTypes> = ({
     planningConstraints,
     showMapBar,
     selectedAsset,
+    selectedMarker,
+    setSelectedMarker,
     viewport,
     zoomLevel,
     channelID,

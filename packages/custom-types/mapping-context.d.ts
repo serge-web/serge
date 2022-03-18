@@ -166,15 +166,12 @@ export default interface MappingContext {
   polygonAreas?: any
   /** how to format the cell labels */
   cellLabelStyle?: CellLabelStyle
-<<<<<<< HEAD
   /**
    * information markers
    */
   infoMarkers?: MapAnnotations
-=======
   /** 
    * the leaflet map
    */
   map?: L.Map
->>>>>>> develop
 }

@@ -14,7 +14,6 @@ import styles from './styles.module.scss'
 
 /* Import context */
 import { MapContext } from '../mapping'
-import { SelectedAsset } from '@serge/custom-types'
 
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
@@ -34,7 +33,7 @@ export const checkUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
   } else {
-    const prefix = '/static/media/src/local/asset-icon/counters/'
+    const prefix = '/static/media/src/local/info-marker/counters/'
     return prefix + url
   }
 }
@@ -83,7 +82,8 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
 
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
-  marker
+  marker,
+  location
 }) => {
   const [loadStatus, setLoadStatus] = useState(true)
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined)
@@ -113,7 +113,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
     if (selectedMarker && selectedMarker === marker.uniqid) {
       // clear selected asset, since it has been clicked again
       // @ts-ignore
-      setSelectedAsset(undefined)
+      setSelectedMarker(undefined)
       setShowMapBar(false)
     } else {
       // select this marker
@@ -122,8 +122,8 @@ export const InfoMarker: React.FC<PropTypes> = ({
     }
   }
 
-  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
-    <Tooltip>{capitalize(tooltip)}</Tooltip>
+  return <Marker key={marker.uniqid} position={location} icon={divIcon} onclick={clickEvent}>
+    <Tooltip>{capitalize(marker.label)}</Tooltip>
   </Marker>
 }
 

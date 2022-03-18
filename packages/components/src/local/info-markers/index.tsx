@@ -1,95 +1,84 @@
 import React, { useContext, useEffect, useState } from 'react'
-import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
-import AssetIcon from '../asset-icon'
-import { findPerceivedAsTypes, platformTypeNameToKey, visibleTo } from '@serge/helpers'
-import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
-import { Route } from '../route'
-
+import L from 'leaflet'
 /* Import Context */
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import AssetInfo, { OrientationData } from './types/asset_info'
-import { Route as RouteType, ForceData, PerceivedTypes } from '@serge/custom-types'
-import orientationFor from './helpers/orientation-for'
-import { OrientationMarker } from '@serge/custom-types/platform-type-data'
-import InformationMarker, { InformationMarkers } from '@serge/custom-types/information-markers'
+import { ForceData } from '@serge/custom-types'
+import MapAnnotation, { MapAnnotations } from '@serge/custom-types/map-annotation'
+import InfoMarker from '../info-marker'
+import PropTypes from './types/props'
+import { PLANNING_PHASE } from '@serge/config'
+import { h3ToGeo } from 'h3-js'
 
 /* Render component */
-export const InfoMarkers: React.FC<{}> = () => {
+export const InfoMarkers: React.FC<PropTypes> = ({
+  annotations
+}) => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
   const {
-    infoMarkers,
-    h3gridCells,
     forces,
     playerForce,
-    phase,
-    platformTypesByKey,
-    map
+    phase
   } = props
 
-  const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
-  const [visibleMarkers, setVisibleMarkers] = useState<InformationMarkers>([])
-
-
-  const playerForceEle = forces.find((force: ForceData) => force.uniqid === playerForce)
-  const playerForceName: string = playerForceEle ? playerForceEle.name : 'unknown'
+  const [isUmpire, setIsUmpire] = useState<boolean>(false)
+  const [visibleMarkers, setVisibleMarkers] = useState<MapAnnotations>([])
+  const [dragHandler, setDragHandler] = useState<{(location: L.LatLng): void} | undefined>(undefined)
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
    */
   useEffect(() => {
-    setUmpireInAdjudication(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE)
-  }, [playerForce])
+    const hisForce = forces.find((force: ForceData) => force.uniqid === playerForce)
+    setIsUmpire((hisForce && hisForce.umpire) || false)
+  }, [playerForce, forces])
+
+  useEffect(() => {
+    if (isUmpire) {
+      if (phase === PLANNING_PHASE) {
+        const updateNow = (location: L.LatLng): void => {
+          console.log('dragging marker immediately to:', location)
+        }
+        setDragHandler(updateNow)
+      } else {
+        const addToStateOfWorld = (location: L.LatLng): void => {
+          console.log('In state of world, update marker to:', location)
+        }
+        setDragHandler(addToStateOfWorld)
+      }
+    } else {
+      setDragHandler(undefined)
+    }
+  }, [isUmpire, phase])
 
   /**
    * filter the set of visible markers
    */
-   useEffect(() => {
-     if(infoMarkers && playerForceEle) {
-      if(playerForceEle.umpire) {
+  useEffect(() => {
+    if (annotations) {
+      if (isUmpire) {
         // include all
-        setVisibleMarkers(infoMarkers)
+        setVisibleMarkers(annotations)
       } else {
-        const visibleMarkers = infoMarkers.filter((marker: InformationMarker) => marker.visibleTo.some((value: string) => value === playerForceEle.uniqid) )
+        const visibleMarkers = annotations.filter((marker: MapAnnotation) => marker.visibleTo.some((value: string) => value === playerForce))
         setVisibleMarkers(visibleMarkers)
       }
-     } else {
-       setVisibleMarkers([])
-     }
-  }, [infoMarkers])
+    } else {
+      setVisibleMarkers([])
+    }
+  }, [annotations, isUmpire])
 
   return <>
-    <LayerGroup key='info-markers' >{ visibleMarkers && visibleMarkers.map((marker: InformationMarker) => {
-      return <InfoMarker marker={marker}/>
-
-      // const platformType = platformTypesByKey[asset.type]
-      // const imageSrc: string | undefined = typeof platformType !== 'undefined' ? platformType.icon : undefined
-      // return <AssetIcon
-      //   key={'a_for_' + asset.uniqid}
-      //   name={asset.name}
-      //   orientationData={asset.orientationData}
-      //   contactId={asset.contactId}
-      //   uniqid={asset.uniqid}
-      //   position={asset.position}
-      //   type={asset.type}
-      //   selected={asset.selected}
-      //   condition={asset.condition}
-      //   status={asset.status}
-      //   controlledBy={asset.controlledBy}
-      //   visibleTo={asset.visibleTo}
-      //   force={asset.force}
-      //   perceivedForceColor={asset.perceivedForceColor}
-      //   perceivedForceClass={asset.perceivedForceClass}
-      //   tooltip={asset.name}
-      //   imageSrc={imageSrc}
-      //   attributes={asset.attributes}
-      //   map={map}
-      //   locationPending={!!asset.laydownPhase}/>
+    <LayerGroup key='info-markers' >{ visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
+      const coords = h3ToGeo(marker.location)
+      const location = L.latLng(coords[0], coords[1])
+      console.log('location', location)
+      return false && <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler}/>
     })}
     </LayerGroup>
   </>

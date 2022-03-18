@@ -35,7 +35,9 @@ export default interface MapAnnotation {
   shadeRadius?: number
 }
 
+export type MapAnnotations = MapAnnotation[]
+
 /** collection of map annotations */
-export interface MapAnnotations {
-  data: MapAnnotation[]
+export interface MapAnnotationData {
+  annotations: MapAnnotations
 }
