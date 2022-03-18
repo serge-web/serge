@@ -23,7 +23,8 @@ import {
   findAsset,
   routeSetLaydown,
   enumFromString,
-  platformTypeNameToKey
+  platformTypeNameToKey,
+  turnTimeAsMillis
 } from '@serge/helpers'
 
 /* Import Types */
@@ -482,7 +483,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const calcDistancePerTurnM = (speed: number): number => {
     const speedKts = speed
-    const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
+    const turnMillis = turnTimeAsMillis(gameTurnTime)
+    const stepSizeHrs = turnMillis / 1000 / 60 / 60
     const distancePerTurnNM = stepSizeHrs * speedKts
     return distancePerTurnNM * 1852
   }
