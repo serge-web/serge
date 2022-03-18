@@ -355,8 +355,8 @@ export const HexGrid: React.FC<{}> = () => {
         const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        true && setAchievablePoly(turnOverall)
-        true && setTurningPoly(turnCircles)
+        false && setAchievablePoly(turnOverall)
+        false && setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
@@ -602,12 +602,6 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const dropped = (e: DragEndEvent): void => {
-    // don't process a cell being dropped in a no-go area
-    if (dragDestination3 && allowableCells3.length) {
-      if (!allowableCells3.find((cell: SergeHex3) => cell.index === dragDestination3.index)) {
-        return
-      }
-    }
     setDragDestination3(undefined)
     setAllowableCells3([])
     if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
