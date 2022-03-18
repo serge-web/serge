@@ -78,7 +78,7 @@ export const InfoMarkers: React.FC<PropTypes> = ({
       const coords = h3ToGeo(marker.location)
       const location = L.latLng(coords[0], coords[1])
       console.log('location', location)
-      return false && <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler}/>
+      return <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler}/>
     })}
     </LayerGroup>
   </>
