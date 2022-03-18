@@ -14,7 +14,7 @@ import { h3ToGeo } from 'h3-js'
 
 const marker: MapAnnotation | undefined = watuWargame.data.annotations && watuWargame.data.annotations[0]
 
-const coords = marker && h3ToGeo(marker?.location)
+const coords = marker && h3ToGeo(marker.location)
 const location = coords && L.latLng(coords[0], coords[1])
 
 it('Mapping renders correctly with AssetIcon', () => {
