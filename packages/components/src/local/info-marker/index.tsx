@@ -88,6 +88,8 @@ export const InfoMarker: React.FC<PropTypes> = ({
   const [loadStatus, setLoadStatus] = useState(true)
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined)
 
+  setImageSrc(marker.icon)
+
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const { setShowMapBar, setSelectedMarker, selectedMarker } = props
@@ -96,11 +98,11 @@ export const InfoMarker: React.FC<PropTypes> = ({
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
 
-  const className = getIconClassname(perceivedForceClass || '', '', selected)
+  const className = getIconClassname('', '', marker.uniqid === selectedMarker)
   const reverceClassName = getReverce(marker.color)
   const image = loadStatus && typeof imageSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
-    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
+    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${marker.icon}">`
+    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${marker.icon}`])}"></div>`
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],

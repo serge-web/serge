@@ -1,6 +1,6 @@
 # Hex Grid documentation
 
-This is an example readme file for the 'Assets' component.
+This is an example readme file for the 'Info Markers' component.
 
 ## UI Example
 
