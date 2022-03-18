@@ -340,7 +340,8 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       messageType: INFO_MESSAGE,
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
-      infoType: true // TODO: remove infoType
+      infoType: true, // TODO: remove infoType
+      hasBeenRead: false
     }
     return db.put(messageInfoType).then(() => messageInfoType)
   }).catch((err) => {
@@ -689,6 +690,12 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 export const updateFeedbacks = (dbName: string, messages: MessageFeedback[]): Promise<MessageFeedback[]> => {
   const { db } = getWargameDbByName(dbName)
   const promises = messages.map(feedback => db.put(feedback).catch(rejectDefault))
+  return Promise.all(promises)
+}
+
+export const updateAdminMessages = (dbName: string, messages: MessageCustom[]): Promise<MessageCustom[]> => {
+  const { db } = getWargameDbByName(dbName)
+  const promises = messages.map(adminMsg => db.put(adminMsg).catch(rejectDefault))
   return Promise.all(promises)
 }
 

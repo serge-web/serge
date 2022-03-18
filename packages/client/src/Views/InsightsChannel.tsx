@@ -9,22 +9,11 @@ import MessagesListRenderProp from './MessagesListRenderProp'
 
 const InsightsChannel = (): React.ReactElement => {
   const dispatch = useDispatch()
-  const [allMarkedRead, setAllMarkedRead] = useState(false)
   const {currentWargame, feedbackMessages, wargameTitle, selectedForce, selectedRole} = usePlayerUiState()
-
-  useEffect(() => {
-    let title = 'Serge'
-    const feedbackUnreadMsgCount = feedbackMessages.filter(message => !message.hasBeenRead).length
-    if (feedbackUnreadMsgCount) {
-      title += ` (${feedbackUnreadMsgCount})`
-    }
-    document.title = title
-  }, [feedbackMessages])
 
   const markAllAsRead = (): void => {
     const unreadMessageList: MessageFeedback[] = []
     feedbackMessages.forEach((message) => {
-      expiredStorage.setItem(currentWargame + message._id, 'read', LOCAL_STORAGE_TIMEOUT)
       if (!message.hasBeenRead) {
         message.hasBeenRead = true
         unreadMessageList.push(message)
@@ -34,7 +23,6 @@ const InsightsChannel = (): React.ReactElement => {
     if (unreadMessageList.length) {
       dispatch(updateFeedbackMessages(currentWargame, unreadMessageList))
     }
-    setAllMarkedRead(true)
   }
 
   // TODO: maybe some other check here bcos it's already defined as false
@@ -53,7 +41,6 @@ const InsightsChannel = (): React.ReactElement => {
         curChannel={'feedback_messages'}
         messages={feedbackMessages}
         userId={`${wargameTitle}-${selectedForce}-${selectedRole}`}
-        allMarkedRead={allMarkedRead}
         render={(messages: MessageFeedback[]) => (
           <MessagesListInsightsChannel
             messages={messages}

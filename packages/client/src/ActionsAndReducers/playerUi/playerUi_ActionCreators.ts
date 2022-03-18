@@ -150,6 +150,12 @@ export const updateFeedbackMessages = (dbName: string, messages: MessageFeedback
   }
 }
 
+export const updateAdminMessages = (dbName: string, messages: MessageCustom[]): Function => {
+  return async (): Promise<void> => {
+    await wargamesApi.updateAdminMessages(dbName, messages)
+  }
+}
+
 export const failedLoginFeedbackMessage = (dbName: string, password: string, turnNumber: number): Function => {
   return async (): Promise<void> => {
     const address = await wargamesApi.getIpAddress()

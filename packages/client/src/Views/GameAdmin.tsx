@@ -4,22 +4,26 @@ import MessageCreatorChatChannel from '../Components/MessageCreatorChatChannel/M
 import MessagesListChatChannel from './MessagesListChatChannel/MessagesListChatChannel'
 import MessagesListRenderProp from './MessagesListRenderProp'
 import { usePlayerUiState } from '../Store/PlayerUi'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { useDispatch } from 'react-redux'
+import { updateAdminMessages } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 const GameAdmin = (): React.ReactElement => {
   const state = usePlayerUiState()
-  const [allMarkedRead, setAllMarkedRead] = useState<boolean>(false)
-
-  useEffect(() => {
-    let channelLength = Object.keys(state.chatChannel.messages).length
-    if (channelLength) setAllMarkedRead(false)
-  }, [])
+  const dispatch = useDispatch()
 
   const markAllAsRead = (): void => {
+    const unreadMessageList: MessageCustom[] = []
     state.chatChannel.messages.forEach((message) => {
-      expiredStorage.setItem(state.currentWargame + message._id, 'read', LOCAL_STORAGE_TIMEOUT)
+      if (!message.hasBeenRead) {
+        message.hasBeenRead = true
+        unreadMessageList.push(message as MessageCustom)
+      }
     })
-    setAllMarkedRead(true)
+    // update feedback message read status
+    if (unreadMessageList.length) {
+      dispatch(updateAdminMessages(state.currentWargame, unreadMessageList))
+    }
   }
 
   return (
@@ -28,7 +32,6 @@ const GameAdmin = (): React.ReactElement => {
         curChannel={CHAT_CHANNEL_ID}
         messages={state.chatChannel.messages}
         userId={`${state.wargameTitle}-${state.selectedForce}-${state.selectedRole}`}
-        allMarkedRead={allMarkedRead}
         render={(messages: MessageChannel[]) => (
           <MessagesListChatChannel messages={messages} markAllAsRead={markAllAsRead} />
         )}

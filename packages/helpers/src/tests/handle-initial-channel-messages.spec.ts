@@ -23,7 +23,7 @@ describe('handle initial channel creation', () => {
     // TODO: check it handleAllInitialChannelMessages should get full (not clipped) infoType message
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
     const revPayload = payload.reverse()
-    const res: SetWargameMessage = handleAllInitialChannelMessages(revPayload, 'wargame-name', blueForce, selectedRole, allChannels,
+    const res: SetWargameMessage = handleAllInitialChannelMessages(revPayload, blueForce, selectedRole, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
     expect(res).toBeTruthy()
@@ -50,7 +50,7 @@ describe('handle new message into RFI channel', () => {
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
-    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, blueForce, selectedRole, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
     const newBlue1 = res.channels['channel-BlueRFI']

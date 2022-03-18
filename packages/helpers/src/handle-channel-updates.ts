@@ -1,15 +1,14 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB } from '@serge/config'
+import { CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
-  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
+  ChannelTypes, ChannelUI, ForceData, MessageChannel,
+  MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from '@serge/custom-types'
-import { getParticipantStates } from './participant-states'
-import deepCopy from './deep-copy'
+import { CoreParticipant } from '@serge/custom-types/participant'
 import uniqId from 'uniqid'
+import deepCopy from './deep-copy'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
-import { CoreParticipant } from '@serge/custom-types/participant'
+import { getParticipantStates } from './participant-states'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
@@ -21,6 +20,10 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
   }
   data.playerMessageLog[sourceRole] = logger
   if (channel === CHAT_CHANNEL_ID) {
+    const docIdx = data.chatChannel.messages.findIndex(msg => msg._id === payload._id)
+    if (docIdx !== -1) {
+      data.chatChannel.messages.splice(docIdx, 1)
+    }
     data.chatChannel.messages.unshift(deepCopy(payload))
   } else if (data.channels[channel]) {
     const theChannel: ChannelUI = data.channels[channel]
@@ -71,10 +74,6 @@ const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI =
   return res
 }
 
-export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: Role['roleId']): boolean => (
-  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}-${id}`) === 'read'
-)
-
 export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
   if (message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
     throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
@@ -94,7 +93,6 @@ export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClippe
 
 export const handleAllInitialChannelMessages = (
   payload: Array<MessageInfoType | MessageCustom>,
-  currentWargame: string,
   selectedForce: ForceData | undefined,
   selectedRole: Role['roleId'],
   allChannels: ChannelTypes[],
@@ -105,14 +103,14 @@ export const handleAllInitialChannelMessages = (
 ): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
-    const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
+    const hasBeenRead = message.hasBeenRead
 
     if (message.messageType === INFO_MESSAGE) {
       return clipInfoMEssage(message, hasBeenRead)
     } else {
       return {
         ...message,
-        hasBeenRead: hasBeenRead,
+        hasBeenRead,
         isOpen: false
       }
     }

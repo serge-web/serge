@@ -67,9 +67,10 @@ export interface MessageDetails {
   /** private (umpire-only) component of message, potentially to
    * explain source for answer, or assumptions made
    */
-  privateMessage?: string,
+  privateMessage?: string
   /** if this message has been archived */
   archived?: boolean
+  hasBeenRead?: boolean
 }
 
 export interface MessageStructure {
@@ -184,6 +185,7 @@ export interface MessageInfoType extends Wargame {
   readonly messageType: typeof INFO_MESSAGE,
   infoType: boolean,
   gameTurn: number
+  hasBeenRead: boolean
 }
 
 /**
