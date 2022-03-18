@@ -130,7 +130,7 @@ const wargame: Wargame = {
                             "history": [
                                 {
                                     "route": [
-                                        "8718aab18ffffff"
+                                        "8918aab725bffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
@@ -140,23 +140,13 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "route": [
-                                        "8718aaa24ffffff"
+                                        "8918aab7203ffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
-                                        "state": "Transiting a"
+                                        "state": "Transiting b"
                                     },
-                                    "turn": 1
-                                },
-                                {
-                                    "route": [
-                                        "8718aab09ffffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 12,
-                                        "state": "Transiting a"
-                                    },
-                                    "turn": 1
+                                    "turn": 2
                                 }
                             ],
                             "locationPending": true,
@@ -165,23 +155,13 @@ const wargame: Wargame = {
                             "plannedTurns": [
                                 {
                                     "route": [
-                                        "8718a84daffffff"
+                                        "8918aab709bffff"
                                     ],
                                     "status": {
                                         "speedKts": 20,
                                         "state": "Transiting"
                                     },
                                     "turn": 1
-                                },
-                                {
-                                    "route": [
-                                        "8718a84c2ffffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 20,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 2
                                 }
                             ],
                             "platformType": "destroyer",
@@ -197,7 +177,7 @@ const wargame: Wargame = {
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
-                            "position": "8718aab70ffffff",
+                            "position": "8918aab7003ffff",
                             "uniqid": "a034a22t5431"
                         },
                         {
@@ -205,7 +185,7 @@ const wargame: Wargame = {
                             "contactId": "C164",
                             "history": [{
                                 "route": [
-                                    "8718aab55ffffff"
+                                    "8918aab6283ffff"
                                 ],
                                 "status": {
                                     "speedKts": 12,
@@ -233,7 +213,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformType": "ssn",
-                            "position": "8718aab60ffffff",
+                            "position": "8918aab663bffff",
                             "uniqid": "a0prbr1141"
                         },
                         {
@@ -406,23 +386,26 @@ const wargame: Wargame = {
             "dirty": false,
             "gameDate": "2021-05-13T16:12",
             "gameDescription": "",
-            "gameTurnTime": 43200000,
+            "gameTurnTime": {
+                "millis": 240000,
+                "unit": "millis"
+            },
             "mapConstraints": {
-                "bounds": [[50.4, -20.2], [50.1, -19.1]],
-                "cellLabelsStyle": "ctr_labels",
+                "bounds": [[50.26, -19.6], [50.21, -19.40]],
+                "cellLabelsStyle": "x_y_labels",
                 "gridCellsURL": "cells/atlantic-cells-6k.json",
-                "h3res": 7,
+                "h3res": 9,
                 "maxNativeZoom": 7,
-                "maxZoom": 12,
+                "maxZoom": 16,
                 "minZoom": 5,
                 "minZoomHexes": 6,
                 "polygonAreasURL": "cells/atlantic-polygons.json",
                 "targetDataset": "Atlantic",
-                "tileDiameterMins": 64,
                 "tileLayer": {
                     "attribution": "Generated by QTiles",
                     "url": "./atlantic_tiles/{z}/{x}/{y}.png"
-                }
+                 },
+                "tileDiameterMins": 64
             },
             "name": "Overview - settings",
             "realtimeTurnTime": 300000,
@@ -591,7 +574,8 @@ const wargame: Wargame = {
                         12,
                         18,
                         24,
-                        30
+                        30,
+                        36
                     ],
                     "states": [
                         {
@@ -603,6 +587,7 @@ const wargame: Wargame = {
                             "name": "Loitering"
                         }
                     ],
+                    "turningCircle": 500,
                     "attributeTypes": [
                         {
                             "name": "ASDIC",

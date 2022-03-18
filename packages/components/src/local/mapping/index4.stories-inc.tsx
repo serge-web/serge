@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { deepCopy, platformTypeNameToKey } from '@serge/helpers'
-import { ForceData, MappingConstraints, PlatformTypeData } from '@serge/custom-types'
+import { ForceData, MappingConstraints, MilliTurns, PlatformTypeData } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -14,11 +14,13 @@ import { HexGrid } from '../hex-grid'
 import { Phase, serverPath } from '@serge/config'
 
 /* Import mock data */
-import { smallScaleMappingConstraints as mapping, watuWargame } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
 import data from './data/atlantic-cells'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
+const overview = watuWargame.data.overview
+const mapping = overview.mapConstraints
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -55,7 +57,7 @@ export default {
   argTypes: {
     playerForce: {
       name: 'View as',
-      defaultValue: forceList[0],
+      defaultValue: forceList[1],
       control: {
         type: 'radio',
         options: forceList
@@ -127,7 +129,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   )
 }
 
-const twoFourHours = 1000 * 60 * 60 * 24
+const timeStep = (overview.gameTurnTime as MilliTurns).millis
 
 /**
  * DEFAULT VIEW
@@ -135,7 +137,7 @@ const twoFourHours = 1000 * 60 * 60 * 24
 export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: forces,
-  gameTurnTime: twoFourHours,
+  gameTurnTime: timeStep,
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
@@ -155,7 +157,7 @@ NaturalEarth.args = {
 export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: forces,
-  gameTurnTime: twoFourHours,
+  gameTurnTime: timeStep,
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
@@ -175,7 +177,7 @@ OpenStreetMap.args = {
 export const DetailedCells = Template.bind({})
 DetailedCells.args = {
   forces: forces,
-  gameTurnTime: twoFourHours,
+  gameTurnTime: timeStep,
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,

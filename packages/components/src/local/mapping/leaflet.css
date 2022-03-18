@@ -435,10 +435,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	white-space: nowrap;
 	overflow: hidden;
 	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-
+  box-sizing: border-box;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.5);
+	margin-right:150px; /* temporarily move it in a little, to stop it hitting toolbar */
 	}
 .leaflet-control-scale-line:not(:first-child) {
 	border-top: 2px solid #777;
