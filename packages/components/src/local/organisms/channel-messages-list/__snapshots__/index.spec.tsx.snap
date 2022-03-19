@@ -65,11 +65,11 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         >
           <div
             className="message-title-wrap 
-      message-item-unread 
+       
       "
           >
             <svg
-              className="svg-inline--fa fa-envelope"
+              className="svg-inline--fa fa-envelope-open"
             />
             <div
               onClick={[Function]}

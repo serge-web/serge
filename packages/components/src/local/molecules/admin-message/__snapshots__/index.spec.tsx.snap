@@ -17,9 +17,7 @@ exports[`AdminMessage component: renders component correctly 1`] = `
     className="message-preview-player"
   >
     <div>
-      <div
-        className="bold"
-      >
+      <div>
         test
 
       </div>
