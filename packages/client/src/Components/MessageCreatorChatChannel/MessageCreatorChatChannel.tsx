@@ -30,7 +30,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
         messageType: schema.title,
         timestamp: new Date().toISOString(),
         turnNumber: state.currentTurn,
-        hasBeenRead: false
+        hasBeenRead: []
       }
 
       if (editor.getValue().content === '') return
@@ -41,7 +41,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   }
 
   return <div className='media'>
-    <div className='media-body message-creator' ref={editorPreviewRef}/>
+    <div className='media-body message-creator' ref={editorPreviewRef} />
     <div className='align-self-center'>
       <button name='send' className='btn btn-action btn-action--complimentary' onClick={sendMessage}>
         <span className='sr-only'>Send test</span>

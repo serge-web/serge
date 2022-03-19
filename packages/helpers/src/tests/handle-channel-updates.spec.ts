@@ -209,7 +209,7 @@ describe('handle channel update for info message', () => {
         content: 'Message from White, with Private content'
       },
       _id: messageId,
-      hasBeenRead: false,
+      hasBeenRead: [],
       isOpen: false
     }
 
@@ -261,7 +261,7 @@ describe('handle channel update for info message', () => {
         content: 'Message from White, with Private content'
       },
       _id: messageId,
-      hasBeenRead: false,
+      hasBeenRead: [],
       isOpen: false
     }
 
@@ -283,7 +283,7 @@ describe('handle channel update for info message', () => {
       infoType: true,
       details: { channel: 'Net 16' },
       _id: '2021-02-24T17:50:31.603Z',
-      hasBeenRead: false,
+      hasBeenRead: [],
       isOpen: false
     }
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
@@ -348,7 +348,7 @@ it('updates payload', () => {
     infoType: true,
     details: { channel: 'Net 16' },
     _id: '2021-02-24T17:50:31.603Z',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   }
   const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,

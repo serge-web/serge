@@ -77,7 +77,7 @@ const testMock: MessageCustom[] = [
     },
     _id: 'id_3a',
     _rev: '2',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -106,7 +106,7 @@ const testMock: MessageCustom[] = [
     },
     _rev: '1',
     _id: 'id_4',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -137,7 +137,7 @@ const testMock: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -167,7 +167,7 @@ const testMock: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -197,7 +197,7 @@ const testMock: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   }
 ]

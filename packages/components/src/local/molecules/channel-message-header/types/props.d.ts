@@ -21,9 +21,9 @@ export default interface Props {
    * Message sender rolename
    */
   roleName?: Role['name']
-   /**
-   * Message force color
-   */
+  /**
+  * Message force color
+  */
   forceColor: string
   /**
    * Message type
@@ -32,7 +32,7 @@ export default interface Props {
   /**
    * Message read state
    */
-  hasBeenRead?: boolean
+  hasBeenRead?: string[]
   /**
    * Handle on collapse event
    */

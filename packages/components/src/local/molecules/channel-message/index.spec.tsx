@@ -11,7 +11,7 @@ describe('ChannelMessage component:', () => {
     const tree = renderer
       .create(
         <ChannelMessage
-          hasBeenRead={false}
+          hasBeenRead={[]}
           isUmpire={false}
           message={GameMessagesMockRFI[0]}
           forceColor={GameMessagesMockRFI[0].details.from.forceColor}

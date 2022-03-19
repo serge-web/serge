@@ -51,7 +51,7 @@ describe('PlayerUi Message Reducers', () => {
   it('Should set OPEN_MESSAGE by channelId and messsage', () => {
     const expectedState: PlayerUi = copyState(state)
     expectedState.channels[actionCloseMessage.payload.message.details.channel].messages![0].isOpen = true
-    expectedState.channels[actionCloseMessage.payload.message.details.channel].messages![0].hasBeenRead = true
+    expectedState.channels[actionCloseMessage.payload.message.details.channel].messages![0].hasBeenRead = []
     expectedState.channels[actionCloseMessage.payload.message.details.channel].unreadMessageCount = GameMessagesMock.length - 1
     expect(reducer(state, actionOpenMessage)).toEqual(expectedState)
   })
@@ -63,7 +63,7 @@ describe('PlayerUi Message Reducers', () => {
   })
   it('Should set MARK_ALL_AS_READ by channel', () => {
     const expectedState: PlayerUi = copyState(state)
-    expectedState.channels[actionCloseMessage.payload.message.details.channel].messages = GameMessagesMock.map(msg => ({ ...msg, hasBeenRead: true }))
+    expectedState.channels[actionCloseMessage.payload.message.details.channel].messages = GameMessagesMock.map(msg => ({ ...msg, hasBeenRead: [] }))
     expectedState.channels[actionCloseMessage.payload.message.details.channel].unreadMessageCount = 0
     expect(reducer(state, markAllAsRead(GameMessagesMock[0].details.channel))).toEqual(expectedState)
   })

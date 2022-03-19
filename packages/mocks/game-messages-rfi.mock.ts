@@ -29,7 +29,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.InProgress,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: {
-          content:  "Game control response to RFI 4"
+          content: "Game control response to RFI 4"
         }
       },
       turnNumber: 1
@@ -39,7 +39,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "2020-03-25T15:08:47.525Z",
     _rev: "1",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -59,7 +59,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: {
-          content:  "Game control response to RFI 4"
+          content: "Game control response to RFI 4"
         }
       },
       turnNumber: 1
@@ -69,7 +69,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "2020-03-25T15:08:47.530Z",
     _rev: "1",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -90,7 +90,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.Closed,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: {
-          content:  "Game control response to RFI 4"
+          content: "Game control response to RFI 4"
         }
       },
       turnNumber: 1
@@ -100,7 +100,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "2020-03-25T15:08:47.540Z",
     _rev: "1",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -129,7 +129,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_1",
     _rev: "1",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -158,7 +158,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_2",
     _rev: "1",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -187,7 +187,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_3",
     _rev: "1",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -217,7 +217,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_2a",
     _rev: "2",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -247,7 +247,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_3a",
     _rev: "2",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -267,7 +267,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         status: CollaborativeMessageStates.PendingReview,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: {
-          content:  'RFI 3 response from White Logistics'
+          content: 'RFI 3 response from White Logistics'
         }
       },
       turnNumber: 1
@@ -279,7 +279,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_3b",
     _rev: "3",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -308,20 +308,20 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _rev: "1",
     _id: "id_4",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-        channel: "Red RFI",
-        from: {
-          force: "Red",
-          roleName: redCO.name,
-          forceColor: "#F00",
-          iconURL: "default_img/umpireDefault.png",
-          roleId: redCO.roleId
-        },
+      channel: "Red RFI",
+      from: {
+        force: "Red",
+        roleName: redCO.name,
+        forceColor: "#F00",
+        iconURL: "default_img/umpireDefault.png",
+        roleId: redCO.roleId
+      },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -338,20 +338,20 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_4a",
     _rev: "2",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-        channel: "Red RFI",
-        from: {
-            force: "Red",
-            roleName: redCO.name,
-            forceColor: "#F00",
-            iconURL: "default_img/umpireDefault.png",
-            roleId: redCO.roleId
-        },
+      channel: "Red RFI",
+      from: {
+        force: "Red",
+        roleName: redCO.name,
+        forceColor: "#F00",
+        iconURL: "default_img/umpireDefault.png",
+        roleId: redCO.roleId
+      },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -370,28 +370,28 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_4b",
     _rev: "3",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-        channel: "Red RFI",
-        archived: true,
-        from: {
-          force: "Red",
-          forceColor: "#F00",
-          roleName: redCO.name,
-          iconURL: "default_img/umpireDefault.png",
-          roleId: redCO.roleId
-        },
+      channel: "Red RFI",
+      archived: true,
+      from: {
+        force: "Red",
+        forceColor: "#F00",
+        roleName: redCO.name,
+        iconURL: "default_img/umpireDefault.png",
+        roleId: redCO.roleId
+      },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.Released,
         lastUpdated: "2020-03-25T15:08:47.540Z",
         response: {
-          content:  "Game control response to RFI 4"
+          content: "Game control response to RFI 4"
         }
       },
       privateMessage: "The private content goes in here",
@@ -404,7 +404,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     _id: "id_4c",
     _rev: "4",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
 ]

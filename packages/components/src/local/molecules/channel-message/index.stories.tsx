@@ -18,20 +18,20 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  const [isRead, setIsRead] = useState(false)
+  const [isRead, setIsRead] = useState<string[]>([])
   return (
     <ChannelMessage
       hasBeenRead={isRead}
       isUmpire={false}
       message={GameMessagesMockRFI[0]}
-      onRead={(): void => setIsRead(true)}
+      onRead={(): void => setIsRead(['12345'])}
       forceColor={'#000'}
     />
   )
 }
 
 export const StateOfTheWorld: React.FC = () => {
-  const [isRead, setIsRead] = useState(false)
+  const [isRead, setIsRead] = useState<string[]>([])
   return (
     <ChannelMessage
       hasBeenRead={isRead}
@@ -60,7 +60,7 @@ export const StateOfTheWorld: React.FC = () => {
           }]
         }
       }}
-      onRead={(): void => setIsRead(true)}
+      onRead={(): void => setIsRead(['12345'])}
       forceColor={'#000'}
     />
   )

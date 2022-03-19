@@ -39,7 +39,7 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, roleName,
         content: formState
       },
       _id: timestamp,
-      hasBeenRead: false,
+      hasBeenRead: [],
       isOpen: false
     }
     postBack && postBack(post)
@@ -47,7 +47,7 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, roleName,
   }
 
   return <div>
-    <TextInput label="Post message" name="Message" multiline rowsMax={4} updateState={changeHandler} value={formState}/>
+    <TextInput label="Post message" name="Message" multiline rowsMax={4} updateState={changeHandler} value={formState} />
     <Button onClick={submitForm}>Send</Button>
   </div>
 }

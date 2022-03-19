@@ -28,7 +28,7 @@ const gameMessages: MessageChannel[] = [
       content: "message from Red"
     },
     _id: "2020-03-25T15:08:47.520Z",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -50,31 +50,31 @@ const gameMessages: MessageChannel[] = [
       content: "Message from Blue"
     },
     _id: "2020-03-25T15:08:47.530Z",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-        channel: "channel-k63pjit0",
-        from: {
-            force: "White",
-            forceColor: "#FCFBEE",
-            iconURL: "default_img/umpireDefault.png",
-            roleName: whiteGC.name,
-            roleId: whiteGC.roleId
-        },
-        messageType: "Chat",
-        privateMessage: "The private content goes in here",
-        timestamp: "2020-10-13T08:52:40.930Z",
-        turnNumber: 1
+      channel: "channel-k63pjit0",
+      from: {
+        force: "White",
+        forceColor: "#FCFBEE",
+        iconURL: "default_img/umpireDefault.png",
+        roleName: whiteGC.name,
+        roleId: whiteGC.roleId
+      },
+      messageType: "Chat",
+      privateMessage: "The private content goes in here",
+      timestamp: "2020-10-13T08:52:40.930Z",
+      turnNumber: 1
     },
     message: {
-        content: "Message from White, with Private content"
+      content: "Message from White, with Private content"
     },
     _id: "2020-03-25T15:08:47.540Z",
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
-}
+  }
 ]
 export default gameMessages

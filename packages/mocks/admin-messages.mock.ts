@@ -23,7 +23,7 @@ const message1: MessageChannel = {
     "content": "test\n"
   },
   "_id": "2020-03-25T15:08:47.510Z",
-  "hasBeenRead": false,
+  "hasBeenRead": [],
   "isOpen": false
 }
 const message2: MessageCustom = {
@@ -46,7 +46,7 @@ const message2: MessageCustom = {
     "content": "Lorem ipsum do lor sit amet adipiscius elit\n"
   },
   "_id": "2020-03-25T15:08:47.520Z",
-  "hasBeenRead": false,
+  "hasBeenRead": [],
   "isOpen": false
 }
 

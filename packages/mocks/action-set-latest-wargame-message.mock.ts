@@ -8,7 +8,7 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
   payload: {
     messageType: CUSTOM_MESSAGE,
     isOpen: false,
-    hasBeenRead: false,
+    hasBeenRead: [],
     "details": {
       "channel": "channel-k16fgs63",
       "from": {

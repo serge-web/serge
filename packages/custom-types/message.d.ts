@@ -70,7 +70,7 @@ export interface MessageDetails {
   privateMessage?: string
   /** if this message has been archived */
   archived?: boolean
-  hasBeenRead?: boolean
+  hasBeenRead?: string[]
 }
 
 export interface MessageStructure {
@@ -115,9 +115,9 @@ export interface CollaborationDetails {
    * Message status
    */
   status: CollaborativeMessageStates
-   /** date-time when the last change 
-   * was made to this message
-   */
+  /** date-time when the last change 
+  * was made to this message
+  */
   lastUpdated: string
   /**
    * Current message owner
@@ -127,9 +127,9 @@ export interface CollaborationDetails {
    * structured response to message
    */
   response?: MessageStructure
-   /** 
-   * feedback on last version
-   */
+  /** 
+  * feedback on last version
+  */
   feedback?: Array<FeedbackItem>
 }
 

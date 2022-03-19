@@ -93,7 +93,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     _id: 'id_3a',
     _rev: '2',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -114,7 +114,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
         response: {
-          content:  'Didn\'t bother responding'
+          content: 'Didn\'t bother responding'
         }
       },
       turnNumber: 1
@@ -180,7 +180,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     _rev: '1',
     _id: 'id_4',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -273,7 +273,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -352,7 +352,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -433,7 +433,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   }
 ]
@@ -478,7 +478,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     _id: 'id_3a',
     _rev: '2',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -498,7 +498,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.InProgress,
         response: {
-          content:  'Game control response to RFI 4'
+          content: 'Game control response to RFI 4'
         }
       },
       turnNumber: 1
@@ -513,7 +513,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     _rev: '1',
     _id: 'id_4',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -534,7 +534,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
         response: {
-          content:  'Game control response to RFI 4'
+          content: 'Game control response to RFI 4'
         },
         feedback: [
           { fromId: `rkrlasdd5f`, fromName: `RFI Manager`, fromForce: 'Red', date: `2020-10-19T19:12:21.119Z`, feedback: `Endorsed. Even a good plan` }
@@ -553,7 +553,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.540Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -573,7 +573,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.PendingReview,
         response: {
-          content:  'Game control response to RFI 4'
+          content: 'Game control response to RFI 4'
         }
       },
       turnNumber: 1
@@ -588,7 +588,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.525Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   },
   {
@@ -609,7 +609,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Released,
         response: {
-          content:  'Game control response to Blue-2'
+          content: 'Game control response to Blue-2'
         }
       },
       turnNumber: 1
@@ -624,7 +624,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
     },
     _id: '2020-03-25T15:08:47.530Z',
     _rev: '1',
-    hasBeenRead: false,
+    hasBeenRead: [],
     isOpen: false
   }
 ]

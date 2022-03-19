@@ -155,7 +155,7 @@ export const genData = (
     // const myDocument: boolean = ownerComposite === formatRole(role)
     const lastUpdated = collab ? collab.lastUpdated : 'Pending'
     const status = collab ? collab.status : 'Unallocated'
-    const isReaded = message.hasBeenRead
+    const isReaded = Array.isArray(message.hasBeenRead) && message.hasBeenRead.includes(role.roleId)
     const messageState = message.details.collaboration?.status || CollaborativeMessageStates.Unallocated
 
     const collapsible = (): React.ReactElement => {

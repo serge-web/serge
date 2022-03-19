@@ -49,7 +49,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
 
     theChannel.messages.unshift({
       ...deepCopy(payload),
-      hasBeenRead: false,
+      hasBeenRead: [],
       isOpen: false
     })
 

@@ -15,7 +15,7 @@ describe('ChannelMessageHeader component:', () => {
           timestamp="2020-09-18T05:41:17.349Z"
           role="CO"
           messageType="Chat"
-          hasBeenRead={false}
+          hasBeenRead={[]}
           forceColor={'#000'}
         />
       )
