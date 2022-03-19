@@ -10,7 +10,6 @@ import PropTypes from './types/props'
 
 /* Render component */
 export const MessagesList: React.FC<PropTypes> = ({ messages }: PropTypes) => {
-
   const markAllAsRead = (): void => {
     // TODO: update hasBeenRead message state
   }
