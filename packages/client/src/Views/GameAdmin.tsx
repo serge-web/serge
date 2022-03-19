@@ -15,8 +15,11 @@ const GameAdmin = (): React.ReactElement => {
   const markAllAsRead = (): void => {
     const unreadMessageList: MessageCustom[] = []
     state.chatChannel.messages.forEach((message) => {
-      if (!message.hasBeenRead) {
-        message.hasBeenRead = true
+      if (!Array.isArray(message.hasBeenRead)) {
+        message.hasBeenRead = []
+      }
+      if (!message.hasBeenRead.includes(state.selectedRole)) {
+        message.hasBeenRead = [...message.hasBeenRead, state.selectedRole]
         unreadMessageList.push(message as MessageCustom)
       }
     })

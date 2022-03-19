@@ -13,8 +13,11 @@ const InsightsChannel = (): React.ReactElement => {
   const markAllAsRead = (): void => {
     const unreadMessageList: MessageFeedback[] = []
     feedbackMessages.forEach((message) => {
-      if (!message.hasBeenRead) {
-        message.hasBeenRead = true
+      if (!Array.isArray(message.hasBeenRead)) {
+        message.hasBeenRead = []
+      }
+      if (!message.hasBeenRead.includes(selectedRole)) {
+        message.hasBeenRead = [...message.hasBeenRead, selectedRole]
         unreadMessageList.push(message)
       }
     })

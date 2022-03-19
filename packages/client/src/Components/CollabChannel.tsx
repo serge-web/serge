@@ -49,7 +49,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const handleUnreadMessage = (message: MessageChannel): void => {
     if (message._id) {
-      message.hasBeenRead = false
+      message.hasBeenRead = []
     }
     dispatch(markUnread(channelId, message))
   }

@@ -34,12 +34,12 @@ export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoT
 }
 
 
-const openMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
+const openMessageChange = (message: MessageChannel, id: string, role: string): { message: MessageChannel, changed: boolean } => {
   let changed: boolean = false
   if (message._id === id) {
     changed = true
     message.isOpen = true
-    message.hasBeenRead = true
+    message.hasBeenRead = [...message.hasBeenRead, role]
   }
   return { message, changed }
 }
@@ -50,7 +50,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
   const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
   if (payloadMessage._id !== undefined) {
     for (let i in channelMessages) {
-      const res = openMessageChange(channelMessages[i], payloadMessage._id)
+      const res = openMessageChange(channelMessages[i], payloadMessage._id, newState.selectedRole)
       if (res.changed) {
         channelMessages[i] = res.message
         setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, payloadMessage._id)
@@ -128,7 +128,7 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
     const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
     if (message._id) {
-      message.hasBeenRead = true
+      message.hasBeenRead = [...message.hasBeenRead, newState.selectedRole]
       setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
     }
     return message

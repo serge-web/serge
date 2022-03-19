@@ -127,7 +127,7 @@ export const listenNewMessage = ({ db, name, dispatch, timerId, changes }: Liste
       if (doc === undefined) return
       if (doc.messageType === INFO_MESSAGE) {
         dispatch(setCurrentWargame(doc as Wargame))
-        dispatch(setLatestWargameMessage(clipInfoMEssage(doc)))
+        dispatch(setLatestWargameMessage(clipInfoMEssage(doc, [])))
         return
       }
 
@@ -341,7 +341,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
       infoType: true, // TODO: remove infoType
-      hasBeenRead: false
+      hasBeenRead: []
     }
     return db.put(messageInfoType).then(() => messageInfoType)
   }).catch((err) => {
@@ -682,7 +682,7 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
       content: message
     },
     messageType: FEEDBACK_MESSAGE,
-    hasBeenRead: false
+    hasBeenRead: []
   }
   return db.put(feedback).catch(rejectDefault)
 }
@@ -709,7 +709,7 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     details,
     message,
     isOpen: false,
-    hasBeenRead: false
+    hasBeenRead: []
   }
 
   return checkReference(customMessage, db).then((customMessageUpdated) => {
@@ -734,7 +734,7 @@ export const postNewMapMessage = (dbName, details, message) => {
     details,
     message,
     isOpen: false,
-    hasBeenRead: false
+    hasBeenRead: []
   }
 
   // db.put({

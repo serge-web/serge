@@ -18,11 +18,21 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const [tabLoadedStatus, setTabLoadedStatus] = useState<boolean>(false)
   const gameAdminTabId = 'Game Admin'
   const insightsTabId = 'Insights'
-  const { selectedForce, selectedRoleName, feedbackMessages, chatChannel } = state
+  const { selectedForce, selectedRoleName, selectedRole, feedbackMessages, chatChannel } = state
 
   const [gameAdmin, insights] = useMemo(() => {
-    const feedbackUnreadMsgCount = feedbackMessages.filter(message => !message.hasBeenRead).length
-    const adminUnreadMsgCount = chatChannel.messages.filter(message => !message.hasBeenRead).length
+    const feedbackUnreadMsgCount = feedbackMessages.filter(message => {
+      if (!Array.isArray(message.hasBeenRead)) {
+        message.hasBeenRead = []
+      }
+      return !message.hasBeenRead.includes(selectedRole)
+    }).length
+    const adminUnreadMsgCount = chatChannel.messages.filter(message => {
+      if (!Array.isArray(message.hasBeenRead)) {
+        message.hasBeenRead = []
+      }
+      return !message.hasBeenRead.includes(selectedRole)
+    }).length
    
     return [`Game Admin${adminUnreadMsgCount ? ' ('+adminUnreadMsgCount+')' : ''}`, `Insights${feedbackUnreadMsgCount ? ' ('+feedbackUnreadMsgCount+')' : ''}`]
   }, [feedbackMessages, chatChannel.messages])

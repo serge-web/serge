@@ -74,7 +74,7 @@ const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI =
   return res
 }
 
-export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
+export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead: string[]): MessageInfoTypeClipped => {
   if (message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
     throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
   }
@@ -281,7 +281,7 @@ const handleChannelUpdates = (
         if (thisChannel.messages && !collabChannel) {
           if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
             // no messages, or no turn marker found, create one
-            const message: MessageChannel = clipInfoMEssage(payload, false)
+            const message: MessageChannel = clipInfoMEssage(payload, [selectedRole])
 
             // if messages array is missing, create one
             // NO: we've already established this can't be missing

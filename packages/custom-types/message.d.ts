@@ -140,7 +140,7 @@ export interface MessageCustom extends CoreMessage {
   /** whether this message is open/expanded on the current client */
   isOpen: boolean
   /** whether this message has been read on the current client */
-  hasBeenRead: boolean
+  hasBeenRead: string[]
   /** the game turn when this was sent */
   gameTurn?: number,
   /** whether this represents an item of insight/feedback */
@@ -174,7 +174,7 @@ export interface ChatMessage extends CoreMessage {
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,
   message: MessageStructure
-  hasBeenRead: boolean
+  hasBeenRead: string[]
 }
 
 /** message containing updated game status, could be one of:
@@ -185,7 +185,7 @@ export interface MessageInfoType extends Wargame {
   readonly messageType: typeof INFO_MESSAGE,
   infoType: boolean,
   gameTurn: number
-  hasBeenRead: boolean
+  hasBeenRead: string[]
 }
 
 /**
@@ -200,7 +200,7 @@ export interface MessageInfoTypeClipped {
   infoType: boolean,
   gameTurn: number,
   isOpen: boolean,
-  hasBeenRead: boolean
+  hasBeenRead: string[]
   _id?: string
 }
 
