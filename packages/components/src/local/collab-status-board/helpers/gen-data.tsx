@@ -204,7 +204,7 @@ export const genData = (
       id: message.message.Reference || message._id, // for showing on the row
       _id: message._id, // tracking data
       from: message.details.from.roleName,
-      title: message.message.Title,
+      title: message.message.Title || message.message.title,
       status: status,
       owner: ownerComposite,
       updated: moment(lastUpdated).fromNow(),
