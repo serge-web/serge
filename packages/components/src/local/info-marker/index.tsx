@@ -86,9 +86,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
   location
 }) => {
   const [loadStatus, setLoadStatus] = useState(true)
-  const [imageSrc, setImageSrc] = useState<string | undefined>(undefined)
-
-  setImageSrc(marker.icon)
+  const [imageSrc] = useState<string | undefined>(marker.icon)
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
