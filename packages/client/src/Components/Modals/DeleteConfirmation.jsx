@@ -39,7 +39,7 @@ const DeleteModal = () => {
         break
       }
       case 'role': {
-        dispatch(deleteSelectedRole(data))
+        dispatch(deleteSelectedRole(wargame.currentWargame, data))
         break
       }
       case 'games': {

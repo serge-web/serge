@@ -534,6 +534,35 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
     forces.splice(forceIndex, 1)
     updatedData.forces.forces = forces
     updatedData.channels.complete = calcComplete(forces)
+    updatedData.channels.channels.filter((v: any) => v.participants = forces)
+    if (forces.length === 0) {
+      updatedData.channels = { 
+      name: 'Channels',
+      channels: [],
+      selectedChannel: '',
+      complete: false,
+      dirty: false
+      }
+    }
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
+export const deleteRolesParticipations = (dbName: string, roles: any): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    updatedData.forces.forces.forEach(v => v.roles = roles)
+    console.log('updatedData', updatedData)
+      if (roles.length === 0) {
+        updatedData.channels = { 
+          name: 'Channels',
+          channels: [],
+          selectedChannel: '',
+          complete: false,
+          dirty: false
+        }
+      }
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
@@ -608,25 +637,6 @@ export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
 }
-
-export const deleteParticipationsFromDb = async (dbName: string, force: string): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then( async (res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
-    const Allparticipants = updatedData.channels.channels.map(v => v.participants)
-    const channelIndex = Allparticipants.map((participants) => participants.findIndex((v: any) => v.forceUniqid === force))
-    Allparticipants.forEach((_v, i) => Allparticipants[i].splice(channelIndex[0], 1))
-    updatedData.channels.channels.filter((v: any) => v.participants = Allparticipants[0])
-    updatedData.channels.channels.forEach((v, i) => {
-      if (updatedData.channels.channels[i].participants.length === 0) {
-        console.log('1', v)
-        deleteChannel(dbName, v.uniqid)
-      }
-    })
-    console.log(updatedData)
-    return updateWargame({ ...res, data: updatedData }, dbName)
-  })
-} 
 
 export const getWargame = (gamePath: string): Promise<Wargame> => {
   return (async () => {
