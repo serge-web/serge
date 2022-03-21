@@ -553,7 +553,6 @@ export const deleteRolesParticipations = (dbName: string, roles: any): Promise<W
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     updatedData.forces.forces.forEach(v => v.roles = roles)
-    console.log('updatedData', updatedData)
       if (roles.length === 0) {
         updatedData.channels = { 
           name: 'Channels',
