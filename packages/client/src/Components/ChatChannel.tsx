@@ -123,7 +123,14 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
                 templates={channelUI.templates as any}
               />
             :
-            <ChatEntryForm turnNumber={state.currentTurn} from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} roleName={state.selectedRoleName} postBack={messageHandler} />
+            <ChatEntryForm 
+              turnNumber={state.currentTurn} 
+              from={selectedForce} 
+              isUmpire={!!isUmpire} 
+              channel={channelId} 
+              role={state.selectedRole} 
+              roleName={state.selectedRoleName} 
+              postBack={messageHandler} />
             }
           </div>
         </div>
