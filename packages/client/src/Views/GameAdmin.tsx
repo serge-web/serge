@@ -10,7 +10,7 @@ import MessagesListRenderProp from './MessagesListRenderProp'
 
 const GameAdmin = (): React.ReactElement => {
   const dispatch = usePlayerUiDispatch()
-  const { currentWargame, selectedForce, selectedRole, feedbackMessages, wargameTitle, chatChannel } = usePlayerUiState()
+  const { currentWargame, selectedForce, selectedRole, wargameTitle, chatChannel } = usePlayerUiState()
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
 
   const markAllAsRead = (): void => {
@@ -23,9 +23,7 @@ const GameAdmin = (): React.ReactElement => {
   return (
     <div className='contain-game-admin'>
       <MessagesListRenderProp
-        curChannel={CHAT_CHANNEL_ID}
         messages={chatChannel.messages}
-        userId={`${wargameTitle}-${selectedForce}-${selectedRole}`}
         render={(messages: MessageChannel[]) => (
           <MessagesListChatChannel messages={messages} markAllAsRead={markAllAsRead} />
         )}

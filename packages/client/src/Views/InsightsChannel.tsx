@@ -21,9 +21,7 @@ const InsightsChannel = (): React.ReactElement => {
   return (
     <div className='contain-game-insights'>
       <MessagesListRenderProp
-        curChannel={'feedback_messages'}
         messages={feedbackMessages}
-        userId={`${wargameTitle}-${selectedForce}-${selectedRole}`}
         render={(messages: MessageFeedback[]) => (
           <MessagesListInsightsChannel
             messages={messages}
