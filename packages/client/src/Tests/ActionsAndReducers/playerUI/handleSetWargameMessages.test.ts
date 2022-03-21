@@ -703,37 +703,6 @@ const playerUi: PlayerUi = {
       "title": "State of world (full 2)",
       "_id": "2019-12-20T15:57:11.519Z",
       "_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8"
-    },
-    "Laydown": {
-      "completed": false,
-      "details": {
-        "properties": {
-          "Initial Locations": {
-            "format": "table",
-            "items": {
-              "properties": {
-                "location": {
-                  "maxLength": 3,
-                  "type": "string"
-                },
-                "name": {
-                  "propertyOrder": 100,
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "minItems": 1,
-            "type": "array"
-          }
-        },
-        "title": "laydown",
-        "type": "object"
-      },
-      "lastUpdated": "2019-12-20T14:28:22.999Z",
-      "title": "Laydown",
-      "_id": "2019-12-20T14:28:22.999Z",
-      "_rev": "1-741dde8c87e0a0fcbe335c234b1619a3"
     }
   },
   "allPlatformTypes": [],
