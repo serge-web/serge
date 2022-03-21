@@ -3,14 +3,13 @@ import { setMessageState } from '@serge/helpers'
 import React from 'react'
 import { updateMessageState } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import MessageCreatorChatChannel from '../Components/MessageCreatorChatChannel/MessageCreatorChatChannel'
-import { CHAT_CHANNEL_ID } from '../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import MessagesListChatChannel from './MessagesListChatChannel/MessagesListChatChannel'
 import MessagesListRenderProp from './MessagesListRenderProp'
 
 const GameAdmin = (): React.ReactElement => {
   const dispatch = usePlayerUiDispatch()
-  const { currentWargame, selectedForce, selectedRole, wargameTitle, chatChannel } = usePlayerUiState()
+  const { currentWargame, selectedForce, selectedRole, chatChannel } = usePlayerUiState()
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
 
   const markAllAsRead = (): void => {

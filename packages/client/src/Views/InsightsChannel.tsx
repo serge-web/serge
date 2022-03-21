@@ -8,7 +8,7 @@ import MessagesListRenderProp from './MessagesListRenderProp'
 
 const InsightsChannel = (): React.ReactElement => {
   const dispatch = usePlayerUiDispatch()
-  const { currentWargame, selectedForce, selectedRole, feedbackMessages, wargameTitle } = usePlayerUiState()
+  const { currentWargame, selectedForce, selectedRole, feedbackMessages } = usePlayerUiState()
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
 
   const markAllAsRead = (): void => {
