@@ -37,6 +37,7 @@ export default interface MappingConstraints {
   tileDataFile?: string
   /** 
    * min zoom to display hexes 
+   * @deprecated
    */
   minZoomHexes: number
   /** 
