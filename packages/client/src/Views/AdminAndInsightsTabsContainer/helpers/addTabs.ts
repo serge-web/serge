@@ -1,24 +1,12 @@
 import FlexLayout, { Model } from 'flexlayout-react'
-import { PlayerUi } from '@serge/custom-types'
 
-export default (state: PlayerUi, model: Model, gameAdmin: string, gameAdminTitle: string, insights: string): void => {
-  if (state.isInsightViewer) {
-    model.doAction(
-      FlexLayout.Actions.addNode({
-        type: 'tab',
-        component: insights,
-        name: insights,
-        id: insights
-      }, '#2', FlexLayout.DockLocation.CENTER, -1)
-    )
-  }
-
+export default (model: Model, tabId: string, tabName: string): void => {
   model.doAction(
     FlexLayout.Actions.addNode({
       type: 'tab',
-      component: gameAdmin,
-      name: gameAdminTitle,
-      id: gameAdmin
+      component: tabName,
+      name: tabName,
+      id: tabId
     }, '#2', FlexLayout.DockLocation.CENTER, -1)
   )
 
