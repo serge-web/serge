@@ -6,6 +6,7 @@ import { CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
+import * as h3 from 'h3-js'
 
 /* helper functions */
 import { createGridH3 } from './helpers/h3-helpers'
@@ -22,7 +23,8 @@ import {
   findAsset,
   routeSetLaydown,
   enumFromString,
-  platformTypeNameToKey
+  platformTypeNameToKey,
+  turnTimeAsMillis
 } from '@serge/helpers'
 
 /* Import Types */
@@ -43,7 +45,8 @@ import {
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup,
   MessageHostPlatform,
-  SergeHex3
+  SergeHex3,
+  TurningDetails
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -51,6 +54,7 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
+import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -120,6 +124,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
+  const [h3Resolution, setH3Resolution] = useState<number>(3)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [mapResized, setMapResized] = useState<boolean>(false)
@@ -324,6 +329,7 @@ export const Mapping: React.FC<PropTypes> = ({
       // now the h3 handler
       const resolution = mappingConstraints.h3res || 3
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
+      setH3Resolution(resolution)
       setH3gridCells(cells)
     }
   }, [mappingConstraints, mapBounds, atlanticCells])
@@ -355,13 +361,13 @@ export const Mapping: React.FC<PropTypes> = ({
           ? selRoute.planned[selRoute.planned.length - 1].turn
           : turnNumber
 
-        // increment turn number, if we have any turns planned, else start with `1`
         const coords: Array<string> = newLeg.route.map((cell: SergeHex3) => {
           return cell.index
         })
         const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex3) => {
           return cell.centreLatLng
         })
+        // increment turn number, if we have any turns planned, else start with `1`
         const newStep: RouteTurn = {
           turn: turnStart + 1,
           status: { state: newLeg.state, speedKts: newLeg.speed },
@@ -376,16 +382,48 @@ export const Mapping: React.FC<PropTypes> = ({
 
         // if we know our planning constraints, we can plan the next leg, as long as we're not
         // in adjudication phase. In that phase, only one step is created
-        if (planningConstraints && !inAdjudicate) {
+        if (planningConstraints && !inAdjudicate && newLeg.speed) {
           // get the last planned cell, to act as the first new planned cell
           const lastCell: SergeHex3 = newLeg.route[newLeg.route.length - 1]
+
+          // calculate distance
+          const distancePerTurnM = calcDistancePerTurnM(newLeg.speed)
+
+          // calculate turning circle data
+          let turningCircleData: TurningDetails | undefined
+          if (planningConstraints.turningCircle) {
+            const legAsRoute = newLeg.route.map((cell: SergeHex3): string => {
+              return cell.index
+            })
+            if (legAsRoute.length < 2) {
+              // push in the end of hte previous step
+              const lastPos = routeGetLatestPosition(lastCell.index, selRoute.planned)
+              legAsRoute.unshift(lastPos)
+            }
+            const route: RouteTurn = {
+              route: legAsRoute,
+              turn: turnNumber,
+              status: {
+                state: newLeg.state
+              }
+            }
+            const heading = lastStepOrientationFor(lastCell.index, lastCell.index, [], [route])
+            const existingCircle = planningConstraints.turningCircle
+            turningCircleData = existingCircle
+            if (heading !== undefined) {
+              const newCircle: TurningDetails = { ...existingCircle, heading, distance: distancePerTurnM }
+              turningCircleData = newCircle
+            }
+          }
+
           // create new planning contraints
           const newP: PlanMobileAsset = {
             origin: lastCell.index,
             travelMode: planningConstraints.travelMode,
             status: newLeg.state,
             speed: newLeg.speed,
-            range: planningConstraints.range
+            rangeCells: planningConstraints.rangeCells,
+            turningCircle: turningCircleData
           }
           setPlanningConstraints(newP)
         } else {
@@ -434,6 +472,23 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlanningConstraints(undefined)
   }
 
+  const calcDistanceBetweenCentresM = (): number => {
+    const minsToM = (mins: number): number => {
+      return mins * 1862
+    }
+    const tileRadiusM = mappingConstraints.h3res ? h3.edgeLength(mappingConstraints.h3res, 'm') : minsToM(mappingConstraints.tileDiameterMins)
+    const tileDiameterM = tileRadiusM * 2
+    return tileDiameterM * 0.75
+  }
+
+  const calcDistancePerTurnM = (speed: number): number => {
+    const speedKts = speed
+    const turnMillis = turnTimeAsMillis(gameTurnTime)
+    const stepSizeHrs = turnMillis / 1000 / 60 / 60
+    const distancePerTurnNM = stepSizeHrs * speedKts
+    return distancePerTurnNM * 1852
+  }
+
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
@@ -447,18 +502,6 @@ export const Mapping: React.FC<PropTypes> = ({
         // sort out platform type for this asset
         const pType = findPlatformTypeFor(platforms, current.platformType)
 
-        // package up planning constraints, sensitive to if there is a speed or not
-        const constraints: PlanMobileAsset = plannedTurn.speedVal ? {
-          origin: origin,
-          travelMode: pType.travelMode,
-          status: status.name,
-          speed: plannedTurn.speedVal
-        } : {
-          origin: origin,
-          travelMode: pType.travelMode,
-          status: status.name
-        }
-
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
@@ -468,21 +511,38 @@ export const Mapping: React.FC<PropTypes> = ({
             window.alert('Cannot plan route with zero game turn time')
             // TODO: also display notification in UI
           }
-          const speedKts = plannedTurn.speedVal
-          const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
-          const distancePerTurn = stepSizeHrs * speedKts
-          const roughRange = distancePerTurn / mappingConstraints.tileDiameterMins
 
-          // console.log('turn time', gameTurnTime, stepSizeHrs, distancePerTurn, speedKts, mappingConstraints.tileDiameterMins, roughRange)
+          const distanceBetweenTileCentresM = calcDistanceBetweenCentresM()
+          const distancePerTurnM = calcDistancePerTurnM(plannedTurn.speedVal)
+          const roughRangeCells = distancePerTurnM / distanceBetweenTileCentresM
 
           // check range is in 10s
-          const range = roundToNearest(roughRange, 1)
-          constraints.range = range
+          const range = roundToNearest(roughRangeCells, 1)
 
-          setPlanningConstraints(constraints)
+          // produce a heading value
+          const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
+          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
+            radius: pType.turningCircle,
+            heading: heading,
+            distance: distancePerTurnM
+          } : undefined
+
+          const mobileConstraints: PlanMobileAsset = {
+            origin: origin,
+            travelMode: pType.travelMode,
+            status: status.name,
+            speed: plannedTurn.speedVal,
+            turningCircle: turnData,
+            rangeCells: range
+          }
+          setPlanningConstraints(mobileConstraints)
         } else {
-          setPlanningConstraints(constraints)
-          constraints.range = undefined
+          const noSpeedConstraints = {
+            origin: origin,
+            travelMode: pType.travelMode,
+            status: status.name
+          }
+          setPlanningConstraints(noSpeedConstraints)
         }
       } else {
         // if we were planning a mobile route, clear that
@@ -574,6 +634,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     h3gridCells,
+    h3Resolution,
     forces: forcesState,
     platforms,
     platformTypesByKey,
@@ -609,7 +670,8 @@ export const Mapping: React.FC<PropTypes> = ({
     polygonAreas,
     panTo,
     cellLabelStyle,
-    map: leafletElement
+    map: leafletElement,
+    mapBounds: mapBounds
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -692,7 +754,7 @@ export const Mapping: React.FC<PropTypes> = ({
               bounds={mapBounds}
             />
           }
-          <ScaleControl position='bottomright' />
+          <ScaleControl position='topright' />
           {children}
         </Map>
       </section>

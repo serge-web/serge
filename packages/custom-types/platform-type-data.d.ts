@@ -33,4 +33,6 @@ export default interface PlatformTypeData {
   attributeTypes?: AttributeTypes
   /** if/how to display orientation data for the asset */
   orientation?: OrientationMarkers
+  /** optional turning circle radius, in meters */
+  turningCircle?: number
 }
