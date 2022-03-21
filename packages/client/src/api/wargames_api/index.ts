@@ -609,6 +609,25 @@ export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
 }
 
+export const deleteParticipationsFromDb = async (dbName: string, force: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then( async (res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const Allparticipants = updatedData.channels.channels.map(v => v.participants)
+    const channelIndex = Allparticipants.map((participants) => participants.findIndex((v: any) => v.forceUniqid === force))
+    Allparticipants.forEach((_v, i) => Allparticipants[i].splice(channelIndex[0], 1))
+    updatedData.channels.channels.filter((v: any) => v.participants = Allparticipants[0])
+    updatedData.channels.channels.forEach((v, i) => {
+      if (updatedData.channels.channels[i].participants.length === 0) {
+        console.log('1', v)
+        deleteChannel(dbName, v.uniqid)
+      }
+    })
+    console.log(updatedData)
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+} 
+
 export const getWargame = (gamePath: string): Promise<Wargame> => {
   return (async () => {
     const name = getNameFromPath(gamePath)

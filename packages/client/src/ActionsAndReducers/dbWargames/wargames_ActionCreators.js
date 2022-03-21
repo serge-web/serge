@@ -369,6 +369,10 @@ export const deleteSelectedForce = (dbName, force) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.deleteForce(dbName, force)
 
+    const participiants = await wargamesApi.deleteParticipationsFromDb(dbName, force)
+
+    console.log('test-2', participiants)
+
     dispatch(setCurrentWargame(wargame))
 
     dispatch(addNotification('Force deleted.', 'warning'))
