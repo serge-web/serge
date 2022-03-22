@@ -109,3 +109,11 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
     display: block;
   }
 }
+
+.marker-label {
+  color: #222;
+  line-height: 22px;
+  font-size: 18px;
+  opacity: 0.8;
+  text-align: center;
+}

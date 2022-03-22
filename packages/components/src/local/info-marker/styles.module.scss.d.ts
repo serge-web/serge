@@ -13,6 +13,7 @@ interface CssExports {
   'force': string;
   'green': string;
   'img': string;
+  'marker-label': string;
   'platform-type-agi': string;
   'platform-type-auxiliary': string;
   'platform-type-boghammer': string;
