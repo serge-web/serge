@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Marker, Tooltip } from 'react-leaflet'
-import L from 'leaflet'
-import { capitalize } from 'lodash'
+import L, { DragEndEvent } from 'leaflet'
 import { lightOrDark } from '../map-control/helpers/lightOrDark'
 import unfetch from 'node-fetch'
 
@@ -14,6 +13,7 @@ import styles from './styles.module.scss'
 
 /* Import context */
 import { MapContext } from '../mapping'
+import { UMPIRE_FORCE } from '@serge/config'
 
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
@@ -87,10 +87,19 @@ export const InfoMarker: React.FC<PropTypes> = ({
 }) => {
   const [loadStatus, setLoadStatus] = useState(true)
   const [imageSrc] = useState<string | undefined>(marker.icon)
+  const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
-  const { setShowMapBar, setSelectedMarker, selectedMarker, clearMapSelection } = props
+  const {
+    setShowMapBar, setSelectedMarker, selectedMarker, clearMapSelection,
+    playerForce, canSubmitOrders
+  } = props
+
+  useEffect(() => {
+    const isUmpire = playerForce === UMPIRE_FORCE
+    setMarkerIsDraggable(isUmpire && canSubmitOrders && !!selectedMarker && selectedMarker === marker.uniqid)
+  }, [selectedMarker, marker, playerForce, canSubmitOrders])
 
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
@@ -120,9 +129,14 @@ export const InfoMarker: React.FC<PropTypes> = ({
     }
   }
 
+  const dragEnd = (e: DragEndEvent): void => {
+    const newPos: L.LatLng = e.target.getLatLng()
+    console.log('marker dragged to:', newPos)
+  }
+
   return <>
-    <Marker key={marker.uniqid} position={location} icon={divIcon} onclick={clickEvent}>
-      <Tooltip>{capitalize(marker.label)}</Tooltip>
+    <Marker draggable={markerIsDraggable} ondragend={dragEnd} key={marker.uniqid} position={location} icon={divIcon} onclick={clickEvent}>
+      <Tooltip>{marker.description}</Tooltip>
     </Marker>
     <Marker
       key={'label_' + marker.uniqid}
@@ -136,7 +150,6 @@ export const InfoMarker: React.FC<PropTypes> = ({
         iconSize: [180, 100]
       })}
     />
-
   </>
 }
 
