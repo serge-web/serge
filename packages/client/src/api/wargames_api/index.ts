@@ -47,7 +47,9 @@ import {
   MessageCustom,
   GameTurnLength,
   ChannelTypes,
-  PlatformTypeData
+  PlatformTypeData,
+  CoreParticipant,
+  Role
 } from '@serge/custom-types'
 
 import {
@@ -509,7 +511,7 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
     forces.splice(forceIndex, 1)
     updatedData.forces.forces = forces
     updatedData.channels.complete = calcComplete(forces)
-    updatedData.channels.channels.filter((v: any) => v.participants = forces)
+    updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)
     if (forces.length === 0) {
       updatedData.channels = { 
       name: 'Channels',
@@ -523,7 +525,7 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
   })
 }
 
-export const deleteRolesParticipations = (dbName: string, roles: any): Promise<Wargame> => {
+export const deleteRolesParticipations = (dbName: string, roles: Role[]): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
