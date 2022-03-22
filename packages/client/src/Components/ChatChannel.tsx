@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill';
-import { ChatMessagesList, ChatEntryForm } from '@serge/components'
-import { ChatMessage } from '@serge/custom-types'
+import { ChatMessagesList, ChatEntryForm, ChannelMessagesList } from '@serge/components'
+import { ChatMessage, MessageCustom } from '@serge/custom-types'
 import { markAllAsRead, saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
@@ -9,15 +9,18 @@ import {
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import '@serge/themes/App.scss'
+import NewMessage from './NewMessage';
 
-const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
+const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedRole, selectedForce } = state
-  const chatMessageRef = useRef<any>(null);
-  const resizeObserverRef = useRef<any>(null);
-  const [chatContainerHeight, setChatContainerHeight] = useState(0);
+  const chatMessageRef = useRef<any>(null)
+  const resizeObserverRef = useRef<any>(null)
+  const [chatContainerHeight, setChatContainerHeight] = useState(0)
+  const [isRead, setIsRead] = useState([true, false])
+  const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
@@ -66,27 +69,69 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
   // what data is stored in the the channels dictionary
-  const chatMessages = state.channels[channelId].messages as any as ChatMessage[]
+  const messages = state.channels[channelId].messages as any
+  
+  const onRead = (detail: MessageCustom): void => {
+    const newState = isRead.map((state, id) => {
+      if (id === messages.findIndex((item: any) => item._id === detail._id)) {
+        state = true
+        detail.hasBeenRead = true
+      }
+      return state
+    })
+    setIsRead(newState)
+  }
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      <ChatMessagesList
-        messages={chatMessages || []}
-        onMarkAllAsRead={markAllAsReadLocal}
-        turnPresentation={state.turnPresentation}
-        playerRole={selectedRole}
-        playerForce={selectedForce.name}
-        isUmpire={!!isUmpire}
-        icons={icons}
-        colors={colors}
-        chatContainerHeight={chatContainerHeight}
-        observing={observing}
-      />
+      {
+        typeof isCustomChannel === 'boolean' && isCustomChannel ?
+        <ChannelMessagesList 
+          messages={messages}
+          onRead={onRead}
+          playerForceId={selectedForce.name}
+          isUmpire={true}
+          icons={icons}
+          colors={colors}
+          onMarkAllAsRead={markAllAsReadLocal}
+          turnPresentation={state.turnPresentation}
+        />
+        :
+        <ChatMessagesList
+          messages={messages || []}
+          onMarkAllAsRead={markAllAsReadLocal}
+          turnPresentation={state.turnPresentation}
+          playerRole={selectedRole}
+          playerForce={selectedForce.name}
+          isUmpire={!!isUmpire}
+          icons={icons}
+          colors={colors}
+          chatContainerHeight={chatContainerHeight}
+          observing={observing}
+        />
+      }
       {
         !observing &&
         <div className="new-message-creator wrap new-message-orderable" ref={chatMessageRef}>
           <div className="chat-message-container">
-            <ChatEntryForm turnNumber={state.currentTurn} from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} roleName={state.selectedRoleName} postBack={messageHandler} />
+            {
+              typeof isCustomChannel === 'boolean' && isCustomChannel ?
+              <NewMessage 
+                orderableChannel={true}
+                curChannel={channelId}
+                privateMessage={!!selectedForce.umpire}
+                templates={channelUI.templates as any}
+              />
+            :
+            <ChatEntryForm 
+              turnNumber={state.currentTurn} 
+              from={selectedForce} 
+              isUmpire={!!isUmpire} 
+              channel={channelId} 
+              role={state.selectedRole} 
+              roleName={state.selectedRoleName} 
+              postBack={messageHandler} />
+            }
           </div>
         </div>
       }
