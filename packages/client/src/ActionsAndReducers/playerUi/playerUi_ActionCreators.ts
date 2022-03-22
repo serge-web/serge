@@ -194,7 +194,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     // } else {
       // actually post the message
       await wargamesApi.postNewMessage(dbName, details, message)
-//  }
+  }
 }
 
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: unknown): Promise<Message> => {
