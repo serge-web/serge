@@ -1,25 +1,22 @@
-import React, { useState, ReactNode, useEffect } from 'react'
-// import cx from 'classnames'
-
-/* Import proptypes */
-import PropTypes, { Item, SelectItem, SwitchItem } from './types/props'
-
-/* Import Styles */
-import styles from './styles.module.scss'
-
-/* Import Components */
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Chip from '@material-ui/core/Chip'
-import InputLabel from '@material-ui/core/InputLabel'
-import IconButton from '@material-ui/core/IconButton'
-import cx from 'classnames'
-
+import { faCheck, faPencilAlt, faTrash, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUndoAlt, faCheck, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { FormGroup, FormLabel, Switch } from '@material-ui/core'
+import Chip from '@material-ui/core/Chip'
+import FormControl from '@material-ui/core/FormControl'
+import IconButton from '@material-ui/core/IconButton'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+/* Import Components */
+import Select from '@material-ui/core/Select'
+import { makeStyles, createStyles } from '@material-ui/styles'
+import cx from 'classnames'
+import React, { ReactNode, useEffect, useState } from 'react'
+/* Import Styles */
+import styles from './styles.module.scss'
+// import cx from 'classnames'
+/* Import proptypes */
+import PropTypes, { Item, SelectItem, SwitchItem } from './types/props'
 
 export const EDITABLE_SELECT_ITEM = 'select'
 export const EDITABLE_SWITCH_ITEM = 'switch'
@@ -42,6 +39,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
     setItemsLocal(onChange(backup, -1))
     if (!noSwitchOnReset) switchMode()
   }
+
   const handleApply = (): void => {
     if (onSave) onSave(itemsLocal)
     if (isGenerator) return
@@ -122,8 +120,20 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
   }
 
   const renderSwitchItem = (item: SwitchItem, itemKey: number): React.ReactNode => {
+    const isEditMode = mode !== 'edit'
+
+    const useStyles = makeStyles(() => createStyles({
+      root: {
+        '&.MuiSwitch-root': {
+          filter: `opacity(${isEditMode ? 1 : 0.7})`
+        }
+      }
+    }))
+
+    const classes = useStyles()
+
     const toggleChecked = (): void => {
-      if (mode !== 'edit') return
+      if (!isEditMode) return
       const newItem: Item = {
         ...item,
         active: !item.active
@@ -138,7 +148,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
       <FormControl>
         {item.title && <FormLabel id={item.uniqid}>{item.title}</FormLabel>}
         <FormGroup>
-          <Switch checked={item.active || false} onChange={toggleChecked} />
+          <Switch className={classes.root} checked={item.active || false} onChange={toggleChecked} />
         </FormGroup>
       </FormControl>
     </div>
