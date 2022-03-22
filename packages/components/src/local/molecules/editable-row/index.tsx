@@ -120,7 +120,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
   }
 
   const renderSwitchItem = (item: SwitchItem, itemKey: number): React.ReactNode => {
-    const isEditMode = mode !== 'edit'
+    const isEditMode = mode === 'edit'
 
     const useStyles = makeStyles(() => createStyles({
       root: {
