@@ -125,17 +125,17 @@ export const InfoMarker: React.FC<PropTypes> = ({
       <Tooltip>{capitalize(marker.label)}</Tooltip>
     </Marker>
     <Marker
-          key={'label_' + marker.uniqid}
-          position={location}
-          zIndexOffset={-1000}
-          width="150"
-          icon={L.divIcon({
-            // html: '' + cell.x + ',' + cell.y,
-            html: marker.label,
-            className: styles['marker-label'],
-            iconSize: [180, 100]
-          })}
-        />
+      key={'label_' + marker.uniqid}
+      position={location}
+      zIndexOffset={-1000}
+      width="150"
+      icon={L.divIcon({
+        // html: '' + cell.x + ',' + cell.y,
+        html: marker.label,
+        className: styles['marker-label'],
+        iconSize: [180, 100]
+      })}
+    />
 
   </>
 }
