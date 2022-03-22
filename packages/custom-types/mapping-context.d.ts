@@ -92,6 +92,10 @@ export default interface MappingContext {
    *  setter, to modify the currently selected information marker
    **/
   setSelectedMarker: {(uniqid: MapAnnotation['uniqid']): void}
+  /** clear the map selection (asset or marker)
+   * 
+   */
+  clearMapSelection: {(): void}
    /** 
    * the current map bounds
    */

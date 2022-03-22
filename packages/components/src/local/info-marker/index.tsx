@@ -90,7 +90,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
-  const { setShowMapBar, setSelectedMarker, selectedMarker } = props
+  const { setShowMapBar, setSelectedMarker, selectedMarker, clearMapSelection } = props
 
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
@@ -111,7 +111,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
     if (selectedMarker && selectedMarker === marker.uniqid) {
       // clear selected asset, since it has been clicked again
       // @ts-ignore
-      setSelectedMarker(undefined)
+      clearMapSelection(undefined)
       setShowMapBar(false)
     } else {
       // select this marker
