@@ -7,7 +7,6 @@ import Badge from 'react-bootstrap/Badge'
 import { usePlayerUiState } from '../Store/PlayerUi'
 
 const MessagesListChatChannel = ({ messages, markAllAsRead }) => {
-
   const { currentWargame, selectedForce, selectedRole } = usePlayerUiState()
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
 
