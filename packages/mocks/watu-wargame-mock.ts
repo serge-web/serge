@@ -272,7 +272,17 @@ const wargame: Wargame = {
                             "isRFIManager": false,
                             "name": "CTF B5",
                             "roleId": "rks5zfzdb"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "Comms",
+                            "roleId": "blue-comms"
                         }
+
                     ],
                     "umpire": false,
                     "uniqid": "Blue-1",
