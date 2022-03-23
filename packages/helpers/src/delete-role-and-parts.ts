@@ -7,7 +7,7 @@ const deleteRoleAndParts = (updatedData: WargameData, roles: Role[], key: number
   if (!parentForce) {
     throw new Error('Failed to find parent force for role:' + roleToDelete)
   }
-  const roleRemoved = parentForce && parentForce.roles.filter((role: Role) => role.roleId !== roleToDelete)
+  const roleRemoved = parentForce.roles.filter((role: Role) => role.roleId !== roleToDelete)
   parentForce.roles = roleRemoved
 
   // remove channel participations for this role

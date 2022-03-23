@@ -49,9 +49,7 @@ import {
   ChannelTypes,
   PlatformTypeData,
   CoreParticipant,
-  Role,
-  ParticipantChat,
-  ParticipantTypes
+  Role
 } from '@serge/custom-types'
 
 import {
@@ -532,7 +530,7 @@ export const deleteRolesParticipations = (dbName: string, roles: Role[], key: nu
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const processedData = deleteRoleAndParts(updatedData, roles, key)
-    return updateWargame({ ...res, data: updatedData }, dbName)
+    return updateWargame({ ...res, data: processedData }, dbName)
   })
 }
 
