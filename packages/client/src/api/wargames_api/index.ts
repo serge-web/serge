@@ -49,7 +49,9 @@ import {
   ChannelTypes,
   PlatformTypeData,
   CoreParticipant,
-  Role
+  Role,
+  ParticipantChat,
+  ParticipantTypes
 } from '@serge/custom-types'
 
 import {
@@ -526,41 +528,55 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
 }
 
 export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
+  console.log('delete role', key, roles)
   return getLatestWargameRevision(dbName).then((res): any => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
-    const emptyRoles = []
-    let updatedRoles: Role[] = []
-    const allRoles = updatedData.forces.forces.map(v => v.roles)
-    updatedData.forces.forces.forEach((v, i) => {
-      v.roles.forEach(res => {
-        if (_.find(roles, { roleId: res.roleId })) {
-          v.roles.splice(key, 1)
-          updatedRoles = v.roles
-          key = v.roles.length
-        } 
+
+    // start off by deleting the role
+    const roleToDelete = roles[key].roleId
+    const parentForce = updatedData.forces.forces.find((force: ForceData) => force.roles.find((role: Role) => role.roleId === roleToDelete))
+    if (!parentForce) {
+      throw new Error("Failed to find parent force for role:" + roleToDelete)
+    }
+    const roleRemoved = parentForce && parentForce.roles.filter((role: Role) => role.roleId !== roleToDelete)
+    parentForce.roles = roleRemoved
+
+    // remove channel participations for this role
+    updatedData.channels.channels.forEach((channel: ChannelTypes) => {
+      const parts = channel.participants
+      const trimmedParts: ParticipantTypes[] = []
+      const partsToDelete: string[] = []
+      // see if the role we're deleting is in a participation for this channel
+      parts.forEach((part: ParticipantTypes) => {
+        if (part.roles.length > 0) {
+          const trimmedRoles: string[] = part.roles.filter((role: string) => role !== roleToDelete)
+          part.roles = trimmedRoles
+          // we only wish to delete participation if there were some roles present
+          // before, but not afterwards. If there were no roles before, then it
+          // deliberately means "all roles for force in channel"
+          if (trimmedRoles.length === 0) {
+            partsToDelete.push(part.subscriptionId)
+          }
+        }
+        trimmedParts.push(part)
       })
 
-      if (v.roles.length === 0) {
-        emptyRoles.push(i)
-        if (emptyRoles.length === allRoles.length) {
-            updatedData.channels = { 
-              name: 'Channels',
-              channels: [],
-              selectedChannel: '',
-              complete: false,
-              dirty: false
-            }
-        }
+      // in the next time we're "tricking" the compiler into accepting the 
+      // provided list.  We're not worried about the list being in the correct type
+      // since all the entries came from that list
+      channel.participants = trimmedParts as ParticipantChat[]
+
+      // now remove participations that no longer have any roles
+      if (partsToDelete.length > 0) {
+        channel.participants = channel.participants.filter((sub: ParticipantTypes) => !partsToDelete.some((id: string) => sub.subscriptionId === id))
       }
     })
 
-    if (updatedData.channels.channels.length === 0) {
-      return updateWargame({ ...res, data: updatedData }, dbName)
-    } else {
-      updateWargame({ ...res, data: updatedData }, dbName)
-      return updatedRoles
-    }
+    // now remove channels that no longer have any participations
+    updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
 
