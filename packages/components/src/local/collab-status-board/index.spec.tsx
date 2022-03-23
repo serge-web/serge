@@ -94,7 +94,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
-        lastUpdated:newDate(),
+        lastUpdated: newDate(),
         status: CollaborativeMessageStates.InProgress
       },
       turnNumber: 1
