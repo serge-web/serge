@@ -1,9 +1,12 @@
 import { ChannelTypes, ForceData, ParticipantChat, ParticipantTypes, Role, WargameData } from '@serge/custom-types'
+import deepCopy from './deep-copy'
 
-const deleteRoleAndParts = (updatedData: WargameData, roles: Role[], key: number): WargameData => {
+const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): WargameData => {
+  const res: WargameData = deepCopy(wargame)
+
   // start off by deleting the role
   const roleToDelete = roles[key].roleId
-  const parentForce = updatedData.forces.forces.find((force: ForceData) => force.roles.find((role: Role) => role.roleId === roleToDelete))
+  const parentForce = res.forces.forces.find((force: ForceData) => force.roles.find((role: Role) => role.roleId === roleToDelete))
   if (!parentForce) {
     throw new Error('Failed to find parent force for role:' + roleToDelete)
   }
@@ -11,7 +14,7 @@ const deleteRoleAndParts = (updatedData: WargameData, roles: Role[], key: number
   parentForce.roles = roleRemoved
 
   // remove channel participations for this role
-  updatedData.channels.channels.forEach((channel: ChannelTypes) => {
+  res.channels.channels.forEach((channel: ChannelTypes) => {
     const parts = channel.participants
     const trimmedParts: ParticipantTypes[] = []
     const partsToDelete: string[] = []
@@ -42,9 +45,9 @@ const deleteRoleAndParts = (updatedData: WargameData, roles: Role[], key: number
   })
 
   // now remove channels that no longer have any participations
-  updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
+  res.channels.channels = res.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
 
-  return updatedData
+  return res
 }
 
 export default deleteRoleAndParts

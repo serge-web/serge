@@ -527,9 +527,7 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
 
 export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
   return getLatestWargameRevision(dbName).then((res): any => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
-    const processedData = deleteRoleAndParts(updatedData, roles, key)
+    const processedData = deleteRoleAndParts(res.data, roles, key)
     return updateWargame({ ...res, data: processedData }, dbName)
   })
 }
