@@ -622,9 +622,6 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
         res.phase = PLANNING_PHASE
         res.gameTurn += 1
 
-        // const gameTurn = res.data.overview.gameTurnTime as number
-        // res.data.overview.gameDate = moment(res.data.overview.gameDate).add(gameTurn, 'ms').format('YYYY-MM-DDTHH:mm')
-
         const gameDate: string = res.data.overview.gameDate
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
         //        const twoM: MonthTurns = { unit: 'months', months: 2 }

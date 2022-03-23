@@ -6,7 +6,7 @@ import { ForceRole, MessageCustom, Role, ChannelCollab } from '@serge/custom-typ
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CollabStatusBoard from './index'
-import moment from 'moment'
+import newDate from '@serge/helpers/build/new-date'
 
 /* Import mock data */
 // import { GameChannels } from '@serge/mocks'
@@ -65,7 +65,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        lastUpdated: newDate(),
         status: CollaborativeMessageStates.Unallocated
       },
       turnNumber: 1
@@ -94,7 +94,7 @@ const testMock: MessageCustom[] = [
       messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        lastUpdated:newDate(),
         status: CollaborativeMessageStates.InProgress
       },
       turnNumber: 1
@@ -124,7 +124,7 @@ const testMock: MessageCustom[] = [
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        lastUpdated: newDate(),
         status: CollaborativeMessageStates.Closed,
         response: {
           content: 'Game control response to RFI 4'
@@ -154,7 +154,7 @@ const testMock: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        lastUpdated: newDate(),
         status: CollaborativeMessageStates.PendingReview,
         response: {
           content: 'Game control response to RFI 4'
@@ -184,7 +184,7 @@ const testMock: MessageCustom[] = [
       messageType: 'Chat',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
-        lastUpdated: moment(new Date(), moment.ISO_8601).format(),
+        lastUpdated: newDate(),
         status: CollaborativeMessageStates.Released,
         response: {
           content: 'Game control response to RFI 4'

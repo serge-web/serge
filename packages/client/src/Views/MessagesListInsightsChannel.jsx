@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Badge from 'react-bootstrap/Badge'
-import moment from 'moment'
 import classNames from 'classnames'
 
 import '@serge/themes/App.scss'
+import { formatFullDate } from '@serge/helpers'
 
 class MessagesListChatChannel extends Component {
   render () {
@@ -19,7 +19,7 @@ class MessagesListChatChannel extends Component {
                 <Badge pill variant="primary">{message.details.from.force}</Badge>
                 <Badge pill variant="secondary">{message.details.from.role}</Badge>
                 {message.details.from.name && <Badge pill variant="warning">{message.details.from.name}</Badge>}
-                <span>{moment(message.details.timestamp).format('YYYY-MMM-DD HH:mm')}</span>
+                <span>{formatFullDate(message.details.timestamp)}</span>
               </div>
               <div className={classNames({ bold: !message.hasBeenRead })}>
                 {message.message.content}

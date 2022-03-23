@@ -1,6 +1,5 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,6 +12,7 @@ import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
 import { MessageChannel } from '@serge/custom-types'
+import { formatTime } from '@serge/helpers'
 
 /* Render component */
 export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Props) => {
@@ -57,7 +57,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Pro
         >
           <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
           <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
-            {moment(message.details.timestamp).format('HH:mm')}
+            {formatTime(message.details.timestamp)}
           </span>
         </Box>
       </Box>
