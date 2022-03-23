@@ -337,10 +337,8 @@ export const deleteSelectedAsset = (data) => {
 
 export const deleteSelectedRole = (dbName, data) => {
   return async (dispatch) => {
-    await data.roles.splice(data.key, 1)
-    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles)
-    data.handleChange(data.roles)
-    dispatch(setCurrentWargame(wargame))
+    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
+    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Role deleted.', 'warning'))
   }
 }

@@ -525,21 +525,42 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
   })
 }
 
-export const deleteRolesParticipations = (dbName: string, roles: Role[]): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
+export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
+  return getLatestWargameRevision(dbName).then((res): any => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
-    updatedData.forces.forces.forEach(v => v.roles = roles)
-      if (roles.length === 0) {
-        updatedData.channels = { 
-          name: 'Channels',
-          channels: [],
-          selectedChannel: '',
-          complete: false,
-          dirty: false
+    const emptyRoles = []
+    let updatedRoles: Role[] = []
+    const allRoles = updatedData.forces.forces.map(v => v.roles)
+    updatedData.forces.forces.forEach((v, i) => {
+      v.roles.forEach(res => {
+        if (_.find(roles, { roleId: res.roleId })) {
+          v.roles.splice(key, 1)
+          updatedRoles = v.roles
+          key = v.roles.length
+        } 
+      })
+
+      if (v.roles.length === 0) {
+        emptyRoles.push(i)
+        if (emptyRoles.length === allRoles.length) {
+            updatedData.channels = { 
+              name: 'Channels',
+              channels: [],
+              selectedChannel: '',
+              complete: false,
+              dirty: false
+            }
         }
       }
-    return updateWargame({ ...res, data: updatedData }, dbName)
+    })
+
+    if (updatedData.channels.channels.length === 0) {
+      return updateWargame({ ...res, data: updatedData }, dbName)
+    } else {
+      updateWargame({ ...res, data: updatedData }, dbName)
+      return updatedRoles
+    }
   })
 }
 
