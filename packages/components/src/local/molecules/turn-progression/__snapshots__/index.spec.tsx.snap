@@ -16,7 +16,7 @@ exports[`TurnProgression component: renders correctly 1`] = `
        phase
     </h5>
     <time
-      dateTime="2019-10-01T02:02"
+      dateTime="2019-10-01 01:02"
     >
       2019-10-01 01:02
     </time>
