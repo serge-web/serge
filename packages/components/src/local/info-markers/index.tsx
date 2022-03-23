@@ -8,21 +8,19 @@ import { MapContext } from '../mapping'
 import { ForceData } from '@serge/custom-types'
 import MapAnnotation, { MapAnnotations } from '@serge/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
-import PropTypes from './types/props'
 import { PLANNING_PHASE } from '@serge/config'
 import { h3ToGeo } from 'h3-js'
 
 /* Render component */
-export const InfoMarkers: React.FC<PropTypes> = ({
-  annotations
-}) => {
+export const InfoMarkers: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
   const {
     forces,
     playerForce,
-    phase
+    phase,
+    infoMarkers
   } = props
 
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
@@ -60,18 +58,18 @@ export const InfoMarkers: React.FC<PropTypes> = ({
    * filter the set of visible markers
    */
   useEffect(() => {
-    if (annotations) {
+    if (infoMarkers) {
       if (isUmpire) {
         // include all
-        setVisibleMarkers(annotations)
+        setVisibleMarkers(infoMarkers)
       } else {
-        const visibleMarkers = annotations.filter((marker: MapAnnotation) => marker.visibleTo.some((value: string) => value === playerForce))
+        const visibleMarkers = infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((value: string) => value === playerForce))
         setVisibleMarkers(visibleMarkers)
       }
     } else {
       setVisibleMarkers([])
     }
-  }, [annotations, isUmpire])
+  }, [infoMarkers, isUmpire])
 
   return <>
     <LayerGroup key='info-markers' >{ visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {

@@ -144,6 +144,7 @@ NaturalEarth.args = {
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   phase: Phase.Planning,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -152,7 +153,7 @@ NaturalEarth.args = {
     <>
       <HexGrid />
       <Assets />
-      <InfoMarkers annotations={annotations} />
+      <InfoMarkers/>
     </>
   )
 }

@@ -10,7 +10,7 @@ import { platformTypes, platformTypesByKey, localMappingConstraints, watuWargame
 import InfoMarkers from '.'
 
 const forces = watuWargame.data.forces.forces
-const markers = watuWargame.data.annotations?.annotations
+const markers = watuWargame.data.annotations?.annotations || []
 
 it('Mapping renders correctly with AsseticonURL', () => {
   const div = document.createElement('div')
@@ -29,7 +29,8 @@ it('Mapping renders correctly with AsseticonURL', () => {
     phase={Phase.Planning}
     turnNumber={5}
     platformTypesByKey={platformTypesByKey}
-  ><InfoMarkers annotations={markers} /></Mapping>, { attachTo: div })
+    infoMarkers={markers}
+  ><InfoMarkers/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })
