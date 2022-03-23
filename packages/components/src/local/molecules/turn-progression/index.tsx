@@ -126,7 +126,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     >
       <div className={styles['turn-info-phase']}>
         <h5>Turn { formatTurn(currentTurn, turnPresentation) } - {phase} phase</h5>
-        <time dateTime={gameDate}>{formatFullDate(gameDate)}</time>
+        <time dateTime={formatFullDate(gameDate)}>{formatFullDate(gameDate)}</time>
         {
           isGameControl
             ? (
