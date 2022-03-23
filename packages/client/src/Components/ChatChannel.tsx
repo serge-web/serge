@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill';
 import { ChatMessagesList, ChatEntryForm, ChannelMessagesList } from '@serge/components'
-import { ChatMessage, MessageCustom } from '@serge/custom-types'
-import { markAllAsRead, saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
+import { markAllAsRead, markUnread, openMessage, saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
   getAllWargameMessages
@@ -19,7 +19,6 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const chatMessageRef = useRef<any>(null)
   const resizeObserverRef = useRef<any>(null)
   const [chatContainerHeight, setChatContainerHeight] = useState(0)
-  const [isRead, setIsRead] = useState([true, false])
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
@@ -72,14 +71,14 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const messages = state.channels[channelId].messages as any
   
   const onRead = (detail: MessageCustom): void => {
-    const newState = isRead.map((state, id) => {
-      if (id === messages.findIndex((item: any) => item._id === detail._id)) {
-        state = true
-        detail.hasBeenRead = true
-      }
-      return state
-    })
-    setIsRead(newState)
+    dispatch(openMessage(channelId, detail))
+  }
+
+  const handleUnreadMessage = (message: MessageChannel): void => {
+    if (message._id) {
+      message.hasBeenRead = false
+    }
+    dispatch(markUnread(channelId, message))
   }
 
   return (
@@ -95,6 +94,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
           colors={colors}
           onMarkAllAsRead={markAllAsReadLocal}
           turnPresentation={state.turnPresentation}
+          onUnread={handleUnreadMessage}
         />
         :
         <ChatMessagesList
@@ -108,6 +108,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
           colors={colors}
           chatContainerHeight={chatContainerHeight}
           observing={observing}
+          markUnread={handleUnreadMessage}
         />
       }
       {
