@@ -51,6 +51,8 @@ export interface ChannelCollab extends ChannelCore {
   newMessageTemplate: ParticipantTemplate | undefined
   /** type for response document */
   responseTemplate?: ParticipantTemplate
+
+  additonalData?: string[]
 }
 
 /** union of the assorted channel types */
