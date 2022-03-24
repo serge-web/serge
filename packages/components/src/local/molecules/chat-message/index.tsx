@@ -15,7 +15,7 @@ import Paragraph from '../../atoms/paragraph'
 import { MessageChannel } from '@serge/custom-types'
 
 /* Render component */
-export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Props) => {
+export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markUnread }: Props) => {
   const PrivateBadge = (): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
@@ -33,15 +33,17 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Pro
   const messageContent = message.details.messageType === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content
 
   return (
-    <div
-      className={
+      <div className={
         `${styles['chat-message-wrapper']} 
       ${isOwner ? styles['chat-message-wrapper__owner'] : styles['chat-message-wrapper__other']}`
-      }
-      style={{
-        [isOwner ? 'borderRightColor' : 'borderLeftColor']: message.details.from.forceColor
-      }}
-    >
+      } style={{ position: 'relative' }}><span
+        className={styles['message-bar']}
+        style={{
+          background: message.details.from.forceColor,
+          left: isOwner ? '99%' : '0%',
+          borderRadius: isOwner ? '0 8px 8px 0' : '8px 0 0 8px'
+        }}
+        onClick={() => markUnread && markUnread(message)}></span>
       <div className={styles['message-text']}>{messageContent}</div>
       <Box
         display="flex"

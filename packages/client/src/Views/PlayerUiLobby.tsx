@@ -57,6 +57,10 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
     force => ({ name: force.name, roles: force.roles })
   )
 
+  wargameList.forEach((game: WargameList) => {
+    console.log('game', game)
+  })
+
   const availableGames = wargameList.filter((wargame: WargameList) => !wargame.shortName.startsWith(hiddenPrefix))
 
   if (!selectedWargame && availableGames.length === 1) {
