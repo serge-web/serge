@@ -9,7 +9,7 @@ import FlexLayout, { Model } from 'flexlayout-react'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { setActivityTime } from '@serge/config'
 import { isMessageReaded } from '@serge/helpers'
-import renameTab from './helpers/renameTab'
+import addUnreadMsgCount from './helpers/renameTab'
 
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const state = usePlayerUiState()
@@ -17,40 +17,42 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))
   const [tabLoadedStatus, setTabLoadedStatus] = useState<boolean>(false)
   const gameAdminTabId = 'Game Admin'
+  const gameAdminTab = 'Game Admin'
   const insightsTabId = 'Insights'
+  const insightsTab = 'Insights'
   const dispatch = usePlayerUiDispatch()
   const { selectedForce, selectedRoleName } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const [gameAdmin, insights] = useMemo(() => {
+  const [feedbackMsgCount, adminMsgCount] = useMemo(() => {
     const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
     const feedbackMsgUnreadCount = state.feedbackMessages.filter(msg => !isMessageReaded(state.currentWargame, selectedForceId, state.selectedRole, msg._id)).length
     const adminMsgUnreadCount = state.chatChannel.messages.filter(msg => !isMessageReaded(state.currentWargame, selectedForceId, state.selectedRole, msg._id || '')).length
 
-    return [`Game Admin${adminMsgUnreadCount > 0 ? ' (' + adminMsgUnreadCount + ')' : ''}`, `Insights${feedbackMsgUnreadCount > 0 ? ' (' + feedbackMsgUnreadCount + ')' : ''}`]
+    return [feedbackMsgUnreadCount, adminMsgUnreadCount]
   }, [state.feedbackMessages, state.chatChannel.messages])
 
   useEffect(() => {
     if (!tabLoadedStatus) {
       if (state.isInsightViewer) {
-        addTabs(model, insightsTabId, insights)
+        addTabs(model, insightsTabId, insightsTab)
       }
-      addTabs(model, gameAdminTabId, gameAdmin)
+      addTabs(model, gameAdminTabId, gameAdminTab)
       setActivityTime(state.selectedRole, 'Logged in')
       setTabLoadedStatus(true)
     } else {
       if (state.isInsightViewer) {
-        renameTab(model, insightsTabId, insights)
+        addUnreadMsgCount(model, insightsTabId, feedbackMsgCount)
       }
-      renameTab(model, gameAdminTabId, gameAdmin)
+      addUnreadMsgCount(model, gameAdminTabId, adminMsgCount)
     }
-  }, [gameAdmin, insights])
+  }, [feedbackMsgCount, adminMsgCount])
 
   return (
     <>
       <FlexLayout.Layout
         model={model}
-        factory={factory(gameAdmin, insights)}
+        factory={factory(gameAdminTab, insightsTab)}
         classNameMapper={defaultClassName => `${defaultClassName} ${defaultClassName}--undo-transparent`}
       />
       <AdminPanelFooter
