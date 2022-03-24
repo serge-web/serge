@@ -439,11 +439,8 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
-    // const channelIndex = channels.findIndex((channel) => channel.uniqid === channelUniqid)
-    // channels.splice(channelIndex, 1)
     updatedData.channels.channels = channels.filter((channel: ChannelTypes) => channel.uniqid != channelUniqid)
     updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
-
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
