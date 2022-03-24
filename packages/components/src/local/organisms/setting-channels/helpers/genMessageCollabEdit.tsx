@@ -32,6 +32,7 @@ export const DocumentStatus = {
   UNALLOCATED: 'UNALLOCATED'
 }
 
+/** custom columns that could be added to the status table */
 export const AdditionalData = [
   { name: 'Location', uniqid: '0' },
   { name: 'Endorsed By', uniqid: '1' },
