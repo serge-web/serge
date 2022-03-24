@@ -22,7 +22,17 @@ export const EDITABLE_SELECT_ITEM = 'select'
 export const EDITABLE_SWITCH_ITEM = 'switch'
 
 /* Render component */
-export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onSave, defaultMode, onRemove, noSwitchOnReset, isGenerator, participantKey = -1 }) => {
+export const EditableRow: React.FC<PropTypes> = ({
+  items,
+  onChange,
+  actions,
+  onSave,
+  defaultMode,
+  onRemove,
+  noSwitchOnReset,
+  isGenerator,
+  participantKey = -1
+}) => {
   const [backup, setBackup] = useState(items)
   const [itemsLocal, setItemsLocal] = useState(items)
   const [mode, setMode] = useState(defaultMode)
