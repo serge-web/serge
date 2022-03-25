@@ -143,10 +143,10 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
-  const [atlanticCells, setAtlanticCells] = useState()
+  const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
-  const [mappingConstraintState] = useState<MappingConstraints | undefined>(mappingConstraints)
+  const [mappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
 
   const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
 
@@ -479,6 +479,9 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const calcDistanceBetweenCentresM = (): number => {
+    if (!mappingConstraintState) {
+      throw new Error('Cannot calculate distance without mapping constraints')
+    }
     const minsToM = (mins: number): number => {
       return mins * 1862
     }
