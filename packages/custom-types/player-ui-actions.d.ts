@@ -4,6 +4,7 @@ import {
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
   SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE,
   SET_FEEDBACK_MESSAGES,
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
@@ -48,6 +49,10 @@ interface SetAllTemplatesAction {
 }
 interface ShowHideObjectivesAction {
   type: typeof SHOW_HIDE_OBJECTIVES
+}
+interface UpdateMessageStateAction {
+  type: typeof UPDATE_MESSAGE_STATE,
+  payload: boolean
 }
 export interface SetWargameFeedbackAction {
   type: typeof SET_FEEDBACK_MESSAGES,
@@ -107,6 +112,7 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
   SetRoleAction |
   SetAllTemplatesAction |
   ShowHideObjectivesAction |
+  UpdateMessageStateAction |
   SetWargameFeedbackAction |
   SetLatestFeedbackMessageAction |
   SetLatestWargameMessageAction |
