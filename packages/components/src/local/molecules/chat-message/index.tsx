@@ -33,10 +33,10 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
   const messageContent = message.details.messageType === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content
 
   return (
-      <div className={
+    <div className={
         `${styles['chat-message-wrapper']} 
       ${isOwner ? styles['chat-message-wrapper__owner'] : styles['chat-message-wrapper__other']}`
-      } style={{ position: 'relative' }}><span
+    } style={{ position: 'relative' }}><span
         className={styles['message-bar']}
         style={{
           background: message.details.from.forceColor,

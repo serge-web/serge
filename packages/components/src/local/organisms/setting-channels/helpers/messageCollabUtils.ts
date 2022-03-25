@@ -12,7 +12,8 @@ export const getSelectedValue = (type: string, channelData?: ChannelTypes): stri
     initialState,
     requestChangesVerbs,
     approveVerbs,
-    releaseVerbs
+    releaseVerbs,
+    additonalData
   } = collabChannel
 
   switch (type) {
@@ -34,6 +35,9 @@ export const getSelectedValue = (type: string, channelData?: ChannelTypes): stri
 
     case MessageGroupType.RELEASE:
       return releaseVerbs
+
+    case MessageGroupType.ADDITIONAL_DATA:
+      return additonalData || []
 
     default:
       return []
@@ -117,6 +121,7 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   nextChannel.requestChangesVerbs = messageUpdates.requestChanges
   nextChannel.approveVerbs = messageUpdates.approve
   nextChannel.releaseVerbs = messageUpdates.release
+  nextChannel.additonalData = messageUpdates.additionalData
 
   return nextChannel as unknown as ChannelTypes
 }
