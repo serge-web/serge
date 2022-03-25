@@ -132,10 +132,10 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
+export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing).replace(/\s/g, '+')
-  const activityType = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing).replace(/\s/g, '+')
+  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)
+  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)
 
   const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
 

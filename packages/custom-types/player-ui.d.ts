@@ -62,6 +62,7 @@ export default interface PlayerUi {
     [property: string]: PlatformTypeData
   }
   showObjective: boolean,
+  updateMessageState: boolean,
   /** whether wargame changes stored as new documents (true) or whether
    * change overwrite the original wargame document (false)
    */
