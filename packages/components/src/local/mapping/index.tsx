@@ -46,7 +46,8 @@ import {
   MessageLeaveTaskGroup,
   MessageHostPlatform,
   SergeHex3,
-  TurningDetails
+  TurningDetails,
+  MappingConstraints
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -55,6 +56,7 @@ import ContextInterface from './types/context'
 import './leaflet.css'
 import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -142,15 +144,16 @@ export const Mapping: React.FC<PropTypes> = ({
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
   const [atlanticCells, setAtlanticCells] = useState()
-  const [polygonAreas, setPolygonAreas] = useState()
+  const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
+  const [mappingConstraintState] = useState<MappingConstraints | undefined>(mappingConstraints)
 
-  const domain = (mappingConstraints && enumFromString(Domain, mappingConstraints.targetDataset)) || Domain.ATLANTIC
+  const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
 
   // only update bounds if they're different to the current one
   useEffect(() => {
-    if (mappingConstraints) {
-      const conBounds = mappingConstraints.bounds
+    if (mappingConstraintState) {
+      const conBounds = mappingConstraintState.bounds
       const ne = conBounds[0]
       const sw = conBounds[1]
       const newBounds = L.latLngBounds(ne, sw)
@@ -164,7 +167,7 @@ export const Mapping: React.FC<PropTypes> = ({
         setMapBounds(newBounds)
       }
     }
-  }, [mappingConstraints])
+  }, [mappingConstraintState])
 
   // highlight the route for the selected asset
   useEffect(() => {
@@ -266,8 +269,10 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [routeStore, viewAsForce])
 
   const declutterRouteStore = (store: RouteStore): void => {
-    const declutteredStore = routeDeclutter(store, mappingConstraints.tileDiameterMins)
-    setViewAsRouteStore(declutteredStore)
+    if (mappingConstraintState) {
+      const declutteredStore = routeDeclutter(store, mappingConstraintState.tileDiameterMins)
+      setViewAsRouteStore(declutteredStore)
+    }
   }
 
   /**
@@ -289,9 +294,9 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [phase])
 
   useEffect(() => {
-    if (mappingConstraints && mappingConstraints.gridCellsURL) {
+    if (mappingConstraintState && mappingConstraintState.gridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
-      const url = serverPath + mappingConstraints.gridCellsURL
+      const url = serverPath + mappingConstraintState.gridCellsURL
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
@@ -300,20 +305,21 @@ export const Mapping: React.FC<PropTypes> = ({
           console.error(err)
         })
     }
-  }, [mappingConstraints])
+  }, [mappingConstraintState])
 
   useEffect(() => {
-    if (mappingConstraints && mappingConstraints.cellLabelsStyle) {
-      const value = mappingConstraints.cellLabelsStyle
+    if (mappingConstraintState && mappingConstraintState.cellLabelsStyle) {
+      const value = mappingConstraintState.cellLabelsStyle
       const style = enumFromString(CellLabelStyle, value)
+      console.log('%%% set label styles', mappingConstraintState)
       style && setCellLabelStyle(style)
     }
-  }, [mappingConstraints])
+  }, [mappingConstraintState])
 
   useEffect(() => {
-    if (mappingConstraints && mappingConstraints.polygonAreasURL) {
+    if (mappingConstraintState && mappingConstraintState.polygonAreasURL) {
       const fetchMethod = fetchOverride || whatFetch
-      const url = serverPath + mappingConstraints.polygonAreasURL
+      const url = serverPath + mappingConstraintState.polygonAreasURL
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
@@ -322,17 +328,17 @@ export const Mapping: React.FC<PropTypes> = ({
           console.error(err)
         })
     }
-  }, [mappingConstraints])
+  }, [mappingConstraintState])
 
   useEffect(() => {
-    if (mapBounds && mappingConstraints) {
+    if (mapBounds && mappingConstraintState) {
       // now the h3 handler
-      const resolution = mappingConstraints.h3res || 3
+      const resolution = mappingConstraintState.h3res || 3
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
       setH3Resolution(resolution)
       setH3gridCells(cells)
     }
-  }, [mappingConstraints, mapBounds, atlanticCells])
+  }, [mappingConstraintState, mapBounds, atlanticCells])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {
@@ -476,7 +482,7 @@ export const Mapping: React.FC<PropTypes> = ({
     const minsToM = (mins: number): number => {
       return mins * 1862
     }
-    const tileRadiusM = mappingConstraints.h3res ? h3.edgeLength(mappingConstraints.h3res, 'm') : minsToM(mappingConstraints.tileDiameterMins)
+    const tileRadiusM = mappingConstraintState.h3res ? h3.edgeLength(mappingConstraintState.h3res, 'm') : minsToM(mappingConstraintState.tileDiameterMins)
     const tileDiameterM = tileRadiusM * 2
     return tileDiameterM * 0.75
   }
@@ -723,9 +729,9 @@ export const Mapping: React.FC<PropTypes> = ({
           zoom={zoom}
           zoomDelta={zoomDelta}
           zoomSnap={zoomSnap}
-          minZoom={mappingConstraints ? mappingConstraints.minZoom : 2}
+          minZoom={mappingConstraintState ? mappingConstraintState.minZoom : 2}
           zoomControl={false}
-          maxZoom={mappingConstraints ? mappingConstraints.maxZoom : 12}
+          maxZoom={mappingConstraintState ? mappingConstraintState.maxZoom : 12}
           onClick={mapClick}
           ref={handleEvents}
           touchZoom={touchZoom}
@@ -746,11 +752,11 @@ export const Mapping: React.FC<PropTypes> = ({
             cellLabelType = {cellLabelStyle}
             cellLabelCallback = {setCellLabelStyle}
           />
-          { mappingConstraints && mappingConstraints.tileLayer &&
+          { mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
-              url={mappingConstraints.tileLayer.url}
-              attribution={mappingConstraints.tileLayer.attribution}
-              maxNativeZoom={mappingConstraints.maxNativeZoom}
+              url={mappingConstraintState.tileLayer.url}
+              attribution={mappingConstraintState.tileLayer.attribution}
+              maxNativeZoom={mappingConstraintState.maxNativeZoom}
               bounds={mapBounds}
             />
           }
