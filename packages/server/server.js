@@ -1,5 +1,4 @@
 const runServer = (
-  eventEmmiterMaxListeners,
   pouchOptions,
   corsOptions,
   imgDir,
@@ -9,18 +8,11 @@ const runServer = (
   onAppInitListeningAddons,
   onAppStartListeningAddons
 ) => {
-  require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
+  const bodyParser = require('body-parser')
   const path = require('path')
   const uniqid = require('uniqid')
   const archiver = require('archiver')
-
-  const PouchDB = require('pouchdb-core')
-    .plugin(require('pouchdb-adapter-node-websql'))
-    .plugin(require('pouchdb-adapter-http'))
-    .plugin(require('pouchdb-mapreduce'))
-    .plugin(require('pouchdb-replication'))
-    .defaults(pouchOptions)
 
   /*
   // replicate database
@@ -37,14 +29,20 @@ const runServer = (
   return
   */
   const fs = require('fs')
-
-  onAppInitListeningAddons.forEach(addon => {
-    addon.run(app)
-  })
-
-  require('pouchdb-all-dbs')(PouchDB)
   const cors = require('cors')
   const app = express()
+  const { Server } = require('socket.io')
+  const io = new Server(4000, { cors: { origin: '*' } })
+  let { IBM_URL, IBM_API } = process.env
+
+  if (!IBM_URL || !IBM_API) {
+    require('dotenv').config()
+    IBM_URL = process.env.IBM_URL
+    IBM_API = process.env.IBM_API
+  }
+
+  app.use(express.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
 
   const clientBuildPath = '../client/build'
 
@@ -52,27 +50,6 @@ const runServer = (
   const playerLog = []
 
   app.use(cors(corsOptions))
-  app.use(express.json())
-
-  app.use('/db', require('express-pouchdb')(PouchDB))
-
-  app.get('/allDbs', (req, res) => {
-    PouchDB.allDbs().then(dbs => {
-      res.send(dbs)
-    })
-  })
-
-  app.get('/clearAll', (req, res) => {
-    PouchDB.allDbs()
-      .then(dbs => {
-        dbs.forEach(db => {
-          new PouchDB(db).destroy()
-        })
-      })
-      .then(() => {
-        res.send()
-      })
-  })
 
   app.get('/downloadAll', (req, res) => {
     const output = fs.createWriteStream('all_dbs.zip')
@@ -213,6 +190,18 @@ const runServer = (
   app.use('/img/*', file404Error)
   app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
+
+  if (IBM_URL && IBM_API) {
+    const ibmDb = require('./providers/ibmdb')
+    ibmDb(app, io)
+  } else {
+    const pouchDb = require('./providers/pouchdb')
+    pouchDb(app, io, pouchOptions)
+  }
+
+  onAppInitListeningAddons.forEach(addon => {
+    addon.run(app)
+  })
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))

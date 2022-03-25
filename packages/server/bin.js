@@ -80,7 +80,6 @@ function initAddOnEvent (addon) {
 
 setTimeout(() => {
   server(
-    82, // event emmiter max listeners
     { prefix: 'serge/db/', adapter: 'websql' }, // PouchDb Options
     {
       // cors options

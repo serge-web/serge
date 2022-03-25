@@ -1,20 +1,21 @@
-import PouchDB from 'pouchdb'
 import {
   databasePath,
   SERGE_INFO,
   defaultGameInfo, serverPath
 } from '../consts'
 import { fetch } from 'whatwg-fetch'
+import DbProvider from './db'
 
 const LOCAL_DOC = '_local/settings'
 
-var db = new PouchDB(databasePath + SERGE_INFO)
+var db = new DbProvider(databasePath + SERGE_INFO)
 
 db.get(LOCAL_DOC)
-  .then(() => {})
-  .catch((err) => {
-    if (err.status === 404) {
-      db.put({
+  .then((data) => {
+    if (!data.status) {
+      return {}
+    } else {
+      return db.put({
         _id: LOCAL_DOC,
         ...defaultGameInfo
       })
@@ -62,6 +63,5 @@ export const saveLogo = (file) => {
     method: 'POST',
     'Content-Type': 'image/png',
     body: file
-  })
-    .then((res) => res.json())
+  }).then((res) => res.json())
 }
