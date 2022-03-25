@@ -104,8 +104,10 @@ export const ERROR_THROTTLE = 3000
 // review instances of the app.  In these
 // review instances, we can't predict the URL, so
 // were failing CORS test
+
+const { hostname, protocol, href } = window.location
+
 export const baseUrl = () => {
-  const { hostname, protocol, href } = window.location
   const host = (new URL(href)).searchParams.get('host')
 
   // NOTE: for all non-heroku deployments, we need to append the port number
@@ -128,7 +130,7 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
-export const socketPath = 'http://localhost:4000'
+export const socketPath = hostname.toLowerCase().indexOf('herokuapp') !== -1 ? `https://${hostname}` : 'http://localhost:4000'
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 export const localSettings = '_local/settings'
