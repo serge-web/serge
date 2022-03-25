@@ -19,7 +19,7 @@ const REFRESH_PLAYER_LOG_INTERVAL = 5000
 const AGE_FOR_ACTIVE_MILLIS = 60000
 
 const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
-  const { allForces, playerMessageLog, currentWargame } = usePlayerUiState()
+  const { allForces, playerMessageLog, currentWargame, selectedRole } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
@@ -51,22 +51,26 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
 
       allForces.forEach((force: ForceData) => {
         force.roles.forEach((role: Role) => {
+          // don't show log for owner
+          if (selectedRole === role.roleId) {
+            return
+          }
           if (uniqueRoles.includes(role.roleId)) {
             const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
-            const activityTime = activity && activity.activityTime && parseInt(activity.activityTime)
+            const activityTime = (activity && activity.activityTime) || ''
             setPlayerLogData([])
             logData.push({
               forceName: force.name,
               forceColor: force.color,
               roleName: role.name,
               message,
-              lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
+              lastMessage: messageTime,
+              lastActive: activityTime,
               lastActivity: activity ? activity.activityType : 'N/A',
-              lastActive: activityTime ? moment(activityTime).fromNow() : 'N/A',
-              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
+              active: activityTime && (moment().diff(moment(parseInt(activityTime)))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
         })
