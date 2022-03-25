@@ -3,7 +3,7 @@ import { AttributeEditorData, AttributeValue, AttributeValues, NumberAttributeVa
 import cloneDeep from 'lodash/cloneDeep'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal'
 import MoreInfo from '../molecules/more-info'
 import styles from './styles.module.scss'
@@ -13,6 +13,7 @@ import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 /* Render component */
 export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
+  const modalRef = useRef<ReactModal>(null)
 
   useEffect(() => {
     if (isOpen) {
@@ -39,14 +40,11 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
     onClose()
   }
 
-  const onCloseLocal = (): void => {
-    onClose()
-  }
-
   return (
     <Modal
+      ref={modalRef}
       isOpen={isOpen}
-      onRequestClose={onCloseLocal}
+      onRequestClose={onClose}
       className={styles.modal}
       shouldCloseOnEsc
       shouldCloseOnOverlayClick={false}
@@ -60,10 +58,10 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
         {localData.map((item: AttributeEditorData, idx: number) => {
           const locked = !(inAdjudication || item.playerCanEdit)
           const tooltip = (!locked && 'Value only editable by umpire in adjudication') || ''
-          const elmName = item.description ? <MoreInfo description={item.description}>{item.nameWrite}</MoreInfo> : item.nameWrite
+          const elmName = item.description ? <MoreInfo container={modalRef.current} description={item.description}>{item.nameWrite}</MoreInfo> : item.nameWrite
           return <div key={idx} className={styles.row}>
             <span>{elmName}</span>
-            { locked
+            {locked
               ? <span><FontAwesomeIcon icon={faLock} title="Attribute locked" /><input disabled={true} title={tooltip} value={item.valueWrite} /></span>
               : <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
             }
@@ -71,8 +69,8 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
         })}
       </div>
       <div className={styles.footer}>
-        <Button variant='contained' onClick={onCloseLocal}>Cancel</Button>
-        <Button variant='contained' onClick={onSaveLocal}>Save</Button>
+        <Button variant='contained' onClick={onClose}>Cancel</Button>
+        <Button variant='contained' color="primary" onClick={onSaveLocal}>Save</Button>
       </div>
     </Modal>
   )

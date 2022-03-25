@@ -1,6 +1,4 @@
 import uniqid from 'uniqid'
-
-import PouchDB from 'pouchdb'
 import {
   databasePath,
   MSG_TYPE_STORE
@@ -16,15 +14,16 @@ import link from '../Schemas/link.json'
 import dailyIntentions from '../Schemas/DailyIntentions.json'
 import pg19WeeklyOrders from '../Schemas/PG19_WeeklyOrders.json'
 import stateofworld from '../Schemas/StateOfWorld.json'
+import DbProvider from './db'
 
-var db = new PouchDB(databasePath + MSG_TYPE_STORE)
+var db = new DbProvider(databasePath + MSG_TYPE_STORE)
 
 export const populateDb = () => {
   const promises = []
 
   return new Promise((resolve, reject) => {
     db.allDocs().then(entries => {
-      if (entries.rows.length === 0) {
+      if (entries.length === 0) {
         var machine = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
@@ -243,9 +242,9 @@ export const deleteMessageFromDb = (id) => {
 
 export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true })
+    db.allDocs()
       .then((res) => {
-        resolve(res.rows.map((a) => a.doc))
+        resolve(res)
       })
       .catch((err) => {
         reject(err)

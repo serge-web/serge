@@ -79,11 +79,21 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const [localPlatformType, setLocalPlatformType] = useState<PlatformType>(initialPlatformType)
   const [selectedItem, setSelectedItem] = useState<number>(-1)
   const [isOpen, setOpenSpeedModal] = useState<boolean>(false)
+  const [previousItem, setPreviousItem] = useState<Item | null>()
   const speedItemElmRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (platformType) {
       setLocalPlatformType(platformType)
+      // if previoutItem has value but could not be found in the `localPlatformType.platformTypes` mean it has been deleted
+      // then we should set the selected index to -1
+      if (previousItem) {
+        const preIdx = localPlatformType.platformTypes.findIndex(item => item.name === previousItem.name)
+        if (preIdx === -1) {
+          setSelectedItem(preIdx)
+          setPreviousItem(null)
+        }
+      }
     }
   }, [platformType])
 
@@ -92,7 +102,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleDelete = (item: Item): void => {
-    setSelectedItem(-1)
+    setPreviousItem(item)
     onDelete && onDelete(item as PlatformType)
   }
 
@@ -197,11 +207,11 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const handleCreateAttributes = (): void => {
       const baseData = data.attributeTypes || []
       const attributeTypes: AttributeTypes = [...baseData, {
-        name: 'New Attrobite',
+        name: 'New Attribute',
         attrType: ATTRIBUTE_TYPE_NUMBER,
         attrId: 'attr' + uniqid.time()
       }]
-      handleChangePlatformTypeData({ ...data, attributeTypes: attributeTypes }, selectedItem)
+      handleChangePlatformTypeData({ ...data, attributeTypes }, selectedItem)
     }
 
     const toggleSpeedModal = (): void => {
@@ -226,6 +236,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <div className={styles.speedmodalcontent}>
           <SortableList
             required
+            remove={true}
             sortable='auto'
             items={items}
             onChange={handleChangeSpeeds}
@@ -298,6 +309,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             <FormGroup placeholder='Conditions'>
               <SortableList
                 required
+                remove={true}
                 onChange={handleChangeConditions}
                 onCreate={handleCreateConditions}
                 items={data.conditions}
@@ -309,6 +321,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               <FormGroup placeholder='States'>
                 <SortableList
                   required
+                  remove={true}
                   onChange={handleChangeStates}
                   onCreate={handleCreateStates}
                   renderItemSection={renderStatesMobileSection}
@@ -355,6 +368,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
               <SortableList
                 required
                 sortable='auto'
+                remove={true}
                 onChange={handleChangeAttributes}
                 onCreate={handleCreateAttributes}
                 renderItemSection={renderAttributesSection}
@@ -378,7 +392,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
-    localPlatformType.platformTypes.push({
+    localPlatformType.platformTypes.unshift({
       name: createPlatformName(),
       conditions: [],
       speedKts: [],

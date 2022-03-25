@@ -49,6 +49,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   onChange,
   onSave,
   onSidebarClick,
+  onCreate,
   onDelete,
   onDuplicate,
   channels,
@@ -443,20 +444,16 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
     setSelectedItem(Math.max(selectedChannelId, 0))
     setLocalChannelUpdates(channels)
-  }, [channels])
+  }, [channels, selectedChannelId])
 
   const handleAddChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
     const channelD = createdChannel as unknown as ChannelTypes
-    const nextChannels: ChannelTypes[] = [
-      channelD,
-      ...channels
-    ]
-    handleChangeChannels(nextChannels, channelD)
-    setLocalChannelUpdates(nextChannels)
+    localChannelUpdates.push(channelD)
+    onCreate && onCreate(createdChannel.name, createdChannel)
+    handleChangeChannels(localChannelUpdates, channelD)
   }
   const handleClose = (event: React.MouseEvent<Document, MouseEvent>): void => {
     // @ts-ignore

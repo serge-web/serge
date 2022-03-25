@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import { faHourglassStart, faSave } from '@fortawesome/free-solid-svg-icons'
+/* Import Icons */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AdminTabs } from '@serge/config'
 import cx from 'classnames'
+import React, { useEffect, useState } from 'react'
 import ProgressIndicator from '../../atoms/progress-indicator'
 import TextInput from '../../atoms/text-input'
-
+/* Import Styles */
+import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes from './types/props'
 
-/* Import Styles */
-import styles from './styles.module.scss'
-
-/* Import Icons */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHourglassStart, faSave } from '@fortawesome/free-solid-svg-icons'
+const defaultTabsOrder = [
+  AdminTabs.Overview,
+  AdminTabs.PlatformTypes,
+  AdminTabs.Forces,
+  AdminTabs.Channels
+]
 
 /* Render component */
 export const StatusBar: React.FC<PropTypes> = ({
   onChange,
   onSave,
   wargame: initialWargame,
-  tabsOrder = [
-    'overview',
-    'platform_types',
-    'forces',
-    'channels'
-  ]
+  tabsOrder = defaultTabsOrder
 }) => {
   const [wargame, setWargame] = useState(initialWargame)
   const [value, setValue] = useState(wargame.wargameTitle)
   const [dirty, setDirty] = useState(false)
 
-  const handleChange = (target: {value: string}): void => {
+  const handleChange = (target: { value: string }): void => {
     setDirty(true)
     setValue(target.value)
     if (typeof onChange === 'function') {

@@ -1,4 +1,4 @@
-import { GroupItem } from '@serge/custom-types'
+import { Asset, GroupItem } from '@serge/custom-types'
 
 export type NodeType = 'empty' | 'group' | 'group-out'
 
@@ -15,4 +15,7 @@ export default interface PropTypes {
    */
   canOrganise?: boolean
   group?: string
+  setList?: (newList: GroupItem) => void
+  onDeleteAsset?: ((newList: (item: GroupItem) => void, item: GroupItem) => void)
+  selectedAssetItem?: Asset
 }

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   SET_CURRENT_WARGAME_PLAYER,
   SET_FORCE,
@@ -41,6 +42,7 @@ export const initialState: PlayerUi = {
   selectedRole: '',
   selectedRoleName: '',
   isObserver: false,
+  isUmpire: false,
   canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
@@ -107,7 +109,16 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.mappingConstaints = action.payload.data.overview.mapConstraints
-      newState.allChannels = action.payload.data.channels.channels || []
+
+      // temporary workaround to remove duplicate channel definitions
+      // TODO: delete workaround once fix in place
+      const allChannels = action.payload.data.channels.channels || []
+      const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
+      if (allChannels.length != cleanChannels.length) {
+        console.warn('Applied workaround to remove duplicate channel defs')
+      }
+      newState.allChannels = cleanChannels
+
       newState.allForces = action.payload.data.forces.forces
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
@@ -136,6 +147,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_FORCE:
       newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
+      newState.isUmpire = !!(newState.selectedForce && newState.selectedForce.umpire)
       break
 
     case SET_ROLE:

@@ -15,7 +15,7 @@
   display: block;
   height: auto;
   margin: 0 auto;
-  width: 250px;
+  width: 200px;
 }
 
 .message-preview-player {
@@ -262,7 +262,6 @@
 
   &.out-of-game-feed {
     .message-list {
-      max-height: calc(100vh - 372px);
       padding: 16px;
 
       .data {
@@ -552,6 +551,11 @@
   }
 }
 
+.contain-game-admin {
+  display: flex;
+  flex-direction: column;
+}
+
 .new-message-creator {
   background-image: linear-gradient(
     to bottom,
@@ -563,7 +567,6 @@
   bottom: 0;
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
   padding: 1px;
-  position: absolute;
   width: 100%;
 
   .chat-message-container {
