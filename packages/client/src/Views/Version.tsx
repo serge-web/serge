@@ -2,7 +2,7 @@ import { HeartbeatChecker } from '@serge/components'
 import { ActivityLogsInterface } from '@serge/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { pingServer as pingServerApi } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
@@ -24,10 +24,9 @@ const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 1
 // trim off the seconds
 const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
-const mapStateToProps = ({ notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface }) => ({ notifications, playerLog })
-
-const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
+const Version: React.FC<VersionProps> = () => {
   const dispatch = useDispatch()
+  const { notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface } = useSelector(({ notifications, playerLog }: any) => ({ notifications, playerLog }))
   const [toggleBeat, setToggleBeat] = useState(false)
   const [serverStatus, setServerStatus] = useState('')
   const [serverPingTime, setServerPingTime] = useState<number>(0)
@@ -55,7 +54,7 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   const pingServer = () => {
     const wargame = playerLog.wargame
     const role = playerLog.role
-    return pingServerApi( { wargame, role} ).then(res => {
+    return pingServerApi({ wargame, role }).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -77,7 +76,8 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
       <li>
         <HeartbeatChecker
           enableHeartbeat={serverStatus === 'OK'}
-          animate={toggleBeat} onAnimateComplete={() => setToggleBeat(false)}
+          animate={toggleBeat}
+          onAnimateComplete={() => setToggleBeat(false)}
           className="heartbeat-checker"
         />
       </li>
@@ -87,4 +87,4 @@ const Version: React.FC<VersionProps> = ({ notifications, playerLog }) => {
   )
 }
 
-export default connect(mapStateToProps)(Version)
+export default React.memo(Version)

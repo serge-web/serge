@@ -132,10 +132,10 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
+export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing).replace(/\s/g, '+')
-  const activityType = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing).replace(/\s/g, '+')
+  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)
+  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)
 
   const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
 
@@ -497,14 +497,12 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
   })
 }
 
-export const deleteForce = (dbName: string, forceName: string): Promise<Wargame> => {
+export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
-    const forceIndex = forces.findIndex((force) => force.name === forceName)
-    forces.splice(forceIndex, 1)
-    updatedData.forces.forces = forces
+    updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
     updatedData.channels.complete = calcComplete(forces)
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
