@@ -6,7 +6,7 @@
   outline: none;
   top: 50%;
   left: 50%;
-  width: 950px;
+  width: 70%;
   height: 80%;
   min-height: 450px;
   margin-right: -50%;
@@ -57,12 +57,7 @@
 .content {
   margin: 10px 20px 0 20px;
   height: 75%;
-}
-
-.logContent {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 42vh;
+  overflow: auto;
 }
 
 .header {

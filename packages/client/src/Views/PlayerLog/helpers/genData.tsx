@@ -45,7 +45,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
         )
       case 'lastMessage':
         return row[col.field] ? moment(row[col.field]).fromNow() : 'N/A'
-      
+
       default:
         return row[col.field]
     }
@@ -68,6 +68,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA[col.field], rowB[col.field]),
       colFilter: ['forceName', 'roleName', 'message', 'lastActivity'].includes(col.field),
+      width: ['lastActive', 'lastActivity'].includes(col.field) ? '250px' : '150px'
     }
   })
 
