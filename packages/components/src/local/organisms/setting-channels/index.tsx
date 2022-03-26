@@ -523,7 +523,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   return (
     <AdminContent>
-      <Confirm isOpen={participantKey !== -1} message="Are you sure?" onCancel={(): void => confirmRemoveParticipant(-1)} onConfirm={(): void => setPostRemoveActionConfirmed(true)} />
+      <Confirm isOpen={participantKey !== -1} title="Delete Permission" message="Are you sure you want to permanently delete this permission?" onCancel={(): void => confirmRemoveParticipant(-1)} onConfirm={(): void => setPostRemoveActionConfirmed(true)} />
       <LeftSide>
         {renderActions()}
         <EditableList

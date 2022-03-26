@@ -125,8 +125,8 @@ const AdminGameSetup = () => {
       type: 'platformType',
       data,
       customMessages: {
-        title: 'Delete Permission',
-        message: `Are you sure you want to permanently delete this permission for ${data.name}?`
+        title: `Delete '${data.name}'`,
+        message: 'Are you sure you want to permanently delete this Platform Type?'
       }
     }))
   }
