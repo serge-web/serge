@@ -505,10 +505,8 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
     updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
-    updatedData.channels.complete = calcComplete(forces)
     updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)
-    if (forces.length === 0) {
-      console.log('1')
+    if (updatedData.forces.forces.length === 0) {
       updatedData.channels = { 
       name: 'Channels',
       channels: [],
@@ -525,7 +523,7 @@ export const deleteRolesParticipations = (dbName: string, roles: Role[], key: nu
   return getLatestWargameRevision(dbName).then((res): any => {
     const processedData = deleteRoleAndParts(res.data, roles, key)
     if (_.isArray(processedData)) {
-      updateWargame({ ...res, data: processedData[0]}, dbName)
+      updateWargame({ ...res, data: processedData[0] }, dbName)
       return processedData[1]
     }
     return updateWargame({ ...res, data: processedData }, dbName)

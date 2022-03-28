@@ -11,14 +11,13 @@ const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): W
     throw new Error('Failed to find parent force for role:' + roleToDelete)
   }
   const roleRemoved = parentForce.roles.filter((role: Role) => role.roleId !== roleToDelete)
-  console.log(parentForce, roleRemoved)
   parentForce.roles = roleRemoved
 
+  const partsToDelete: string[] = []
   // remove channel participations for this role
   res.channels.channels.forEach((channel: ChannelTypes) => {
     const parts = channel.participants
     const trimmedParts: ParticipantTypes[] = []
-    const partsToDelete: string[] = []
     // see if the role we're deleting is in a participation for this channel
     parts.forEach((part: ParticipantTypes) => {
       if (part.roles.length > 0) {
@@ -45,10 +44,9 @@ const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): W
     }
   })
 
-  // now remove channels that no longer have any participations
-  res.channels.channels = res.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
-
-  if (res.channels.channels.length === 0) {
+  if (partsToDelete.length !== 0) {
+    // now remove channels that no longer have any participations
+    res.channels.channels = res.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
     return res
   } else {
     return [res, roleRemoved]
