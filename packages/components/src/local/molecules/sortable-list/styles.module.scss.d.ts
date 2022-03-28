@@ -15,6 +15,7 @@ interface CssExports {
   'presection': string;
   'section': string;
   'value-label': string;
+  'trash-icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
