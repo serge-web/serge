@@ -1,7 +1,7 @@
 import { ChannelTypes, ForceData, ParticipantChat, ParticipantTypes, Role, WargameData } from '@serge/custom-types'
 import deepCopy from './deep-copy'
 
-const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): WargameData => {
+const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): WargameData | any => {
   const res: WargameData = deepCopy(wargame)
 
   // start off by deleting the role
@@ -11,6 +11,7 @@ const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): W
     throw new Error('Failed to find parent force for role:' + roleToDelete)
   }
   const roleRemoved = parentForce.roles.filter((role: Role) => role.roleId !== roleToDelete)
+  console.log(parentForce, roleRemoved)
   parentForce.roles = roleRemoved
 
   // remove channel participations for this role
@@ -30,7 +31,7 @@ const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): W
           partsToDelete.push(part.subscriptionId)
         }
       }
-      trimmedParts.push(part)
+      trimmedParts.push(part.roles ? part : [] as any)
     })
 
     // in the next time we're "tricking" the compiler into accepting the
@@ -47,7 +48,11 @@ const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): W
   // now remove channels that no longer have any participations
   res.channels.channels = res.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
 
-  return res
+  if (res.channels.channels.length === 0) {
+    return res
+  } else {
+    return [res, roleRemoved]
+  }
 }
 
 export default deleteRoleAndParts
