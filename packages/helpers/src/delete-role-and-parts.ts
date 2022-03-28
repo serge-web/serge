@@ -1,7 +1,7 @@
 import { ChannelTypes, ForceData, ParticipantChat, ParticipantTypes, Role, WargameData } from '@serge/custom-types'
 import deepCopy from './deep-copy'
 
-const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): WargameData | any => {
+const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): WargameData | [WargameData, Role[]] => {
   const res: WargameData = deepCopy(wargame)
 
   // start off by deleting the role
