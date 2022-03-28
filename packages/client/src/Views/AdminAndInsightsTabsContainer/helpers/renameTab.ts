@@ -1,8 +1,11 @@
 import FlexLayout, { Model } from 'flexlayout-react'
 
 export default (model: Model, nodeId: string, count: number): void => {
-  if (count === 0) {
-    return model.doAction(FlexLayout.Actions.updateNodeAttributes(nodeId, { className: '' }))
+  let className = ''
+  if (count > 0 && count <= 8) {
+    className = `unread-${count}`
+  } else if (count > 8) {
+    className = `unread-9plus`
   }
-  model.doAction(FlexLayout.Actions.updateNodeAttributes(nodeId, { className: `unread-${count}` }))
+  model.doAction(FlexLayout.Actions.updateNodeAttributes(nodeId, { className }))
 }
