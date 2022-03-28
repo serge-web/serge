@@ -105,7 +105,7 @@ export const ERROR_THROTTLE = 3000
 // review instances, we can't predict the URL, so
 // were failing CORS test
 
-const { hostname, protocol, href } = window.location
+const { hostname, protocol, href, origin } = window.location
 
 export const baseUrl = () => {
   const host = (new URL(href)).searchParams.get('host')
@@ -128,9 +128,11 @@ export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
+console.log('orrr', origin)
+
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
-export const socketPath = hostname.toLowerCase().indexOf('herokuapp') !== -1 ? `https://${hostname}` : 'http://localhost:4000'
+export const socketPath = origin.replace('3000', '4000')
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 export const localSettings = '_local/settings'
