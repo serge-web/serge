@@ -6,4 +6,6 @@ export type Props = {
   message: string
   onConfirm: noop
   onCancel: noop
+  cancelBtnText?: string
+  confirmBtnText?: string
 }
