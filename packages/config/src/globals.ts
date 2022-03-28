@@ -128,8 +128,6 @@ export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
-console.log('orrr', origin)
-
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
 export const socketPath = origin.replace('3000', '4000')
