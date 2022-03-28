@@ -360,9 +360,9 @@ export const duplicateChannel = (dbName, channel) => {
   }
 }
 
-export const deleteSelectedForce = (dbName, force) => {
+export const deleteSelectedForce = (dbName, forceId) => {
   return async (dispatch) => {
-    const wargame = await wargamesApi.deleteForce(dbName, force)
+    const wargame = await wargamesApi.deleteForce(dbName, forceId)
 
     dispatch(setCurrentWargame(wargame))
 
