@@ -39,6 +39,7 @@ exports[`sortable-list renders correctly 1`] = `
           </div>
           <span>
             <div
+              className="trash-icon"
               onClick={[Function]}
             >
               <svg
@@ -46,6 +47,7 @@ exports[`sortable-list renders correctly 1`] = `
               />
             </div>
           </span>
+          <span />
         </section>
       </div>
     </li>
@@ -83,6 +85,7 @@ exports[`sortable-list renders correctly 1`] = `
           </div>
           <span>
             <div
+              className="trash-icon"
               onClick={[Function]}
             >
               <svg
@@ -90,6 +93,7 @@ exports[`sortable-list renders correctly 1`] = `
               />
             </div>
           </span>
+          <span />
         </section>
       </div>
     </li>

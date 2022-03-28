@@ -167,13 +167,15 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
                     </div>
                   </div>
               }
+              <span>
+                {remove && <div className={styles['trash-icon']} onClick={(): void => { handleRemove(key) }}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </div>}
+              </span>
               {renderItemSection && renderItemSection(item, key)}
               <span>
                 {copy && <div onClick={(): void => { handleCopy(item, key) }}>
                   <FontAwesomeIcon icon={faCopy} />
-                </div>}
-                {remove && <div onClick={(): void => { handleRemove(key) }}>
-                  <FontAwesomeIcon icon={faTrash} />
                 </div>}
               </span>
             </section>
