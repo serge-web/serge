@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   clearWargames,
   deletePlatformType,
-  deleteSelectedAsset, deleteSelectedChannel, deleteSelectedForce, deleteSelectedRole
+  deleteSelectedAsset,
+  deleteSelectedChannel,
+  deleteSelectedForce,
+  deleteSelectedRole
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 

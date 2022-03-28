@@ -1,10 +1,9 @@
-import React from 'react'
-import ModalWrapper from './ModalWrapper'
-import { useDispatch, useSelector } from 'react-redux'
-import { ButtonList } from '@serge/components'
-import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
-import { deleteWargame } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { Confirm } from '@serge/components'
 import '@serge/themes/App.scss'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteWargame } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 
 const DeleteWargameModal = () => {
   const dispatch = useDispatch()
@@ -21,28 +20,16 @@ const DeleteWargameModal = () => {
 
   if (!currentModal.open) return false
 
-  const buttons = [{
-    name: 'cancel',
-    color: 'secondary',
-    onClick: onHideModal,
-    children: 'Cancel'
-  }, {
-    name: 'delete',
-    color: 'primary',
-    onClick: onDeleteWargame,
-    children: 'Delete'
-  }]
-
   return (
-    <ModalWrapper>
-      <div className="display-text-wrapper">
-        <h3>Delete</h3>
-        <p>This will permanently delete the wargame.<br/>Are you sure?</p>
-        <div className="buttons">
-          <ButtonList buttons={buttons} />
-        </div>
-      </div>
-    </ModalWrapper>
+    <Confirm
+      isOpen={currentModal.open}
+      title="Delete"
+      message="This will permanently delete the wargame. Are you sure?"
+      cancelBtnText='Cancel'
+      confirmBtnText='Delete'
+      onCancel={onHideModal}
+      onConfirm={onDeleteWargame}
+    />
   )
 }
 
