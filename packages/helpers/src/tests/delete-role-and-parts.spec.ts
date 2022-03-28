@@ -3,6 +3,7 @@ import deepCopy from '../deep-copy'
 
 import { watuWargame } from '@serge/mocks'
 import { ParticipantChat, Wargame } from '@serge/custom-types'
+import _ from 'lodash'
 
 const blueForce = watuWargame.data.forces.forces[1]
 const blueCO = blueForce.roles[0]
@@ -16,7 +17,7 @@ it('delete role:', () => {
   expect(blueForce.roles.length).toEqual(3)
   const res = deleteRoleAndParts(wargame.data, blueForce.roles, 1)
   expect(res).toBeTruthy()
-  const newBlue = res.forces.forces[1]
+  const newBlue = _.isArray(res) ? res[0].forces.forces[1] : res.forces.forces[1]
   expect(newBlue.roles.length).toEqual(2)
 })
 
@@ -29,7 +30,7 @@ it('delete role from participant multiple blue roles:', () => {
   expect(bluePart.roles.length).toEqual(2)
   const res = deleteRoleAndParts(wargame.data, blueForce.roles, 1)
   expect(res).toBeTruthy()
-  const newChann = res.channels.channels[0]
+  const newChann = _.isArray(res) ? res[0].channels.channels[0] : res.channels.channels[0]
   expect(newChann.name).toEqual('VHF C16')
   expect(newChann.participants.length).toEqual(3)
   expect(newChann.participants[1].roles.length).toEqual(1)
@@ -50,7 +51,7 @@ it('delete participation that just had one blue role:', () => {
   expect(res).toBeTruthy()
 
   // check there are now only two participations
-  const newChann = res.channels.channels[0]
+  const newChann = _.isArray(res) ? res[0].channels.channels[0] : res.channels.channels[0]
   expect(newChann.name).toEqual('VHF C16')
   expect(newChann.participants.length).toEqual(2)
 })
@@ -75,6 +76,6 @@ it('delete channel that has no more participations', () => {
   expect(res).toBeTruthy()
 
   // check there are now fewer channels
-  expect(res.channels.channels.length).toEqual(1)
-  expect(res.channels.channels[0].name).toEqual('mapping')
+  expect(_.isArray(res) ? res[0].channels.channels.length : res.channels.channels.length).toEqual(1)
+  expect(_.isArray(res) ? res[0].channels.channels[0].name : res.channels.channels[0].name).toEqual('mapping')
 })
