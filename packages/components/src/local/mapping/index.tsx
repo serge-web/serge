@@ -124,7 +124,7 @@ export const Mapping: React.FC<PropTypes> = ({
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined>(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [h3Resolution, setH3Resolution] = useState<number>(3)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
@@ -724,7 +724,7 @@ export const Mapping: React.FC<PropTypes> = ({
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
-        {showMapBar && <MapBar />}
+        <MapBar />
         <Map
           className={styles.map}
           center={mapCentre}
@@ -742,20 +742,20 @@ export const Mapping: React.FC<PropTypes> = ({
           attributionControl={attributionControl}
         >
           <MapControl
-            map = {leafletElement}
-            home = {mapCentre}
-            bounds = {mapBounds}
-            forces = {playerForce === UMPIRE_FORCE ? forcesState : undefined}
-            viewAsCallback = {viewAsCallback}
-            viewAsForce = {viewAsForce}
-            filterPlannedRoutes = {filterPlannedRoutes}
-            setFilterPlannedRoutes = {setFilterPlannedRoutes}
-            filterHistoryRoutes = {filterHistoryRoutes}
-            setFilterHistoryRoutes = {setFilterHistoryRoutes}
-            cellLabelType = {cellLabelStyle}
-            cellLabelCallback = {setCellLabelStyle}
+            map={leafletElement}
+            home={mapCentre}
+            bounds={mapBounds}
+            forces={playerForce === UMPIRE_FORCE ? forcesState : undefined}
+            viewAsCallback={viewAsCallback}
+            viewAsForce={viewAsForce}
+            filterPlannedRoutes={filterPlannedRoutes}
+            setFilterPlannedRoutes={setFilterPlannedRoutes}
+            filterHistoryRoutes={filterHistoryRoutes}
+            setFilterHistoryRoutes={setFilterHistoryRoutes}
+            cellLabelType={cellLabelStyle}
+            cellLabelCallback={setCellLabelStyle}
           />
-          { mappingConstraintState && mappingConstraintState.tileLayer &&
+          {mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
               url={mappingConstraintState.tileLayer.url}
               attribution={mappingConstraintState.tileLayer.attribution}
