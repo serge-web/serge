@@ -525,8 +525,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
     <AdminContent>
       <Confirm
         isOpen={participantKey !== -1}
-        title="Delete Permission"
-        message="Are you sure you want to permanently delete this permission?"
+        title="Delete Participation"
+        message="Are you sure you want to permanently delete this participation?"
         cancelBtnText='Cancel'
         confirmBtnText='Delete'
         onCancel={(): void => confirmRemoveParticipant(-1)}
