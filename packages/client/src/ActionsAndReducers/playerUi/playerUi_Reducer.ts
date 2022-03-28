@@ -5,6 +5,7 @@ import {
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
   SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE,
   SET_FEEDBACK_MESSAGES,
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
@@ -69,6 +70,7 @@ export const initialState: PlayerUi = {
   allPlatformTypes: [],
   allPlatformTypesByKey: {},
   showObjective: false,
+  updateMessageState: false,
   wargameInitiated: false,
   feedbackMessages: [],
   tourIsOpen: false,
@@ -84,7 +86,7 @@ export const initialState: PlayerUi = {
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T> (enm: { [s: string]: T}, value: string): T | undefined {
+  function enumFromString<T>(enm: { [s: string]: T }, value: string): T | undefined {
     return (Object.values(enm) as unknown as string[]).includes(value)
       ? value as unknown as T
       : undefined;
@@ -97,7 +99,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.currentTurn = action.payload.gameTurn
-      newState.turnPresentation = enumFromString(TurnFormats, turnFormat) 
+      newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated || false
@@ -162,6 +164,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.showObjective = !newState.showObjective
       break
 
+    case UPDATE_MESSAGE_STATE:
+      newState.updateMessageState = action.payload
+      break
+
     case SET_FEEDBACK_MESSAGES:
       newState.feedbackMessages = action.payload
       break
@@ -220,7 +226,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     console.log('PlayerUI > Prev State: ', state);
     console.log('PlayerUI > Next State: ', newState);
   }
-  
+
   return newState
 }
 
