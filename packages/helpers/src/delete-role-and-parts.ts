@@ -1,6 +1,11 @@
 import { ChannelTypes, ForceData, ParticipantChat, ParticipantTypes, Role, WargameData } from '@serge/custom-types'
 import deepCopy from './deep-copy'
 
+/** delete the specified role, but also remove any channel
+ * participations for that role, if present
+ * @returns either the wargame (if channels have been modified) or an array of the wargame 
+ * plus the list of changed roles (if channels have not been modified)
+ */
 const deleteRoleAndParts = (wargame: WargameData, roles: Role[], key: number): WargameData | [WargameData, Role[]] => {
   const res: WargameData = deepCopy(wargame)
 
