@@ -37,7 +37,7 @@ export const CustomDialog: React.FC<Props> = (props) => {
           onClose &&
           <Button
             variant="contained"
-            color="primary"
+            color="default"
             onClick={onClose}
           >
             {cancelBtnText}
