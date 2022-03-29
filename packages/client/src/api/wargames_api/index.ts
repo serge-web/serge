@@ -49,7 +49,9 @@ import {
   ChannelTypes,
   PlatformTypeData,
   CoreParticipant,
-  Role
+  Role,
+  ParticipantTypes,
+  ParticipantChat
 } from '@serge/custom-types'
 
 import {
@@ -504,8 +506,24 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
+
+    // remove the indicated force
     updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
-    updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)
+
+    // remove participations for this force
+    updatedData.channels.channels.forEach((channel: ChannelTypes) => {
+      // in the next time we're "tricking" the compiler into accepting the
+      // provided list.  We're not worried about the list being in the correct type
+      // since all the entries came from that list
+      const parts = channel.participants as ParticipantChat[]
+
+      // drop participations for this force
+      channel.participants = parts.filter((sub: ParticipantTypes) => sub.forceUniqid !== forceId)
+    })
+
+    // now delete channels with zero participations
+    updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
+
     if (updatedData.forces.forces.length === 0) {
       updatedData.channels = { 
       name: 'Channels',
