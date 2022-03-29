@@ -1,13 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Badge from 'react-bootstrap/Badge'
 import { isMessageReaded, formatFullDate } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import classNames from 'classnames'
-import moment from 'moment'
-import React from 'react'
 import Badge from 'react-bootstrap/Badge'
 import { usePlayerUiState } from '../Store/PlayerUi'
-import {  } from '@serge/helpers'
 
 const MessagesListChatChannel = ({ messages, markAllAsRead }) => {
   const { currentWargame, selectedForce, selectedRole } = usePlayerUiState()
