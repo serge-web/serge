@@ -48,3 +48,5 @@ export interface ParticipantCollab extends CoreParticipant {
   // level of access for the participant
   permission: CollaborativePermission
 } 
+
+export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping
