@@ -18,7 +18,8 @@ import {
   setSelectedChannel,
   duplicateChannel,
   saveWargameTitle,
-  initiateWargame
+  initiateWargame,
+  duplicatePlatformType
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -129,6 +130,10 @@ const AdminGameSetup = () => {
         message: 'Are you sure you want to permanently delete this Platform Type?'
       }
     }))
+  }
+   
+  const onDuplicatePlatformType = (data) => {
+    dispatch(duplicatePlatformType(currentWargame, data))
   }
 
   const handleSavePlatformTypes = platformTypes => {
@@ -324,6 +329,7 @@ const AdminGameSetup = () => {
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
       onDeletePlatformType={onDeletePlatformType}
+      onDuplicatePlatformType={onDuplicatePlatformType}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}

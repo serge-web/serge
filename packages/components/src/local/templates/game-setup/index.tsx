@@ -23,6 +23,7 @@ export const GameSetup: React.FC<Props> = ({
   onOverviewChange,
   onPlatformTypesChange,
   onDeletePlatformType,
+  onDuplicatePlatformType,
   onForcesChange,
   onCreateForce,
   onDeleteForce,
@@ -66,6 +67,7 @@ export const GameSetup: React.FC<Props> = ({
               onChange={onPlatformTypesChange}
               onSave={onSave}
               onDelete={onDeletePlatformType}
+              onDuplicate={onDuplicatePlatformType}
             />
           )
         }

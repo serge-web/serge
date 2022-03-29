@@ -383,6 +383,31 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType): 
   })
 }
 
+export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const platformTypes = updatedData.platformTypes && updatedData.platformTypes.platformTypes || []
+    const platformTypeIndex = platformTypes.findIndex((platformType) => platformType.name === currentPlatformType.name)
+    const duplicatedPlatformType = deepCopy(platformTypes[platformTypeIndex])
+    const uniq = uniqid.time()
+
+    duplicatedPlatformType.name = `${duplicatedPlatformType.name}-${uniq}`
+
+    platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)
+
+    if (updatedData.platformTypes) {
+      updatedData.platformTypes.platformTypes = platformTypes
+      updatedData.platformTypes.complete = calcComplete(platformTypes) && platformTypes.length !== 0
+      updatedData.platformTypes.selectedType = duplicatedPlatformType
+    }
+
+    console.log('duplicatedPlatformType', duplicatedPlatformType, updatedData.platformTypes)
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
 export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
