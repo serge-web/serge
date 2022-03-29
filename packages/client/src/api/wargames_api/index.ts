@@ -48,7 +48,6 @@ import {
   GameTurnLength,
   ChannelTypes,
   PlatformTypeData,
-  CoreParticipant,
   Role,
   ParticipantTypes,
   ParticipantChat
