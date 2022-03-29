@@ -9,10 +9,10 @@ import Box from '@material-ui/core/Box'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import cyan from '@material-ui/core/colors/cyan'
-import moment from 'moment'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Badge from '../../atoms/badge'
+import { formatTime } from '@serge/helpers'
 
 /* Render component */
 export const ChannelMessageHeader: React.FC<Props> = ({
@@ -47,7 +47,7 @@ export const ChannelMessageHeader: React.FC<Props> = ({
         }
         <div className={styles['message-title']}>{title}</div>
         <Box display="flex" alignItems="center" pl={3}>
-          <span className={styles['info-body']}>{moment(timestamp).format('HH:mm')}</span>
+          <span className={styles['info-body']}>{timestamp && formatTime(timestamp)}</span>
           <Badge size="small" label={role} customBackgroundColor={forceColor} />
           <Badge size="small" label={messageType} />
         </Box>
