@@ -1,8 +1,10 @@
 import { Column, Row } from '@serge/components';
+import cx from 'classnames';
+import orderBy from 'lodash/orderBy';
+import moment from 'moment';
 import React from 'react';
+import styles from '../styles.module.scss';
 import { PlayerLogModal } from '../types/props';
-import styles from '../styles.module.scss'
-import cx from 'classnames'
 
 type PlayerLogDataTable = {
   columns: Column[];
@@ -22,6 +24,8 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
     return a > b ? 1 : -1
   }
 
+  const sortedRows = orderBy(rows, 'lastMessage', 'desc')
+
   const cellRender = (row: Row, col: ColumnListItem): string | React.ReactElement => {
     switch (col.field) {
       case 'forceName':
@@ -36,9 +40,11 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
         return (
           <span className={styles['custom-cell']}>
             <div className={cx({ [styles['role-icon']]: true, [styles.active]: row.active, [styles.inactive]: !row.active })} />
-            {row[col.field]}
+            {row[col.field] ? moment(parseInt(row[col.field])).fromNow() : 'N/A'}
           </span>
         )
+      case 'lastMessage':
+        return row[col.field] ? moment(row[col.field]).fromNow() : 'N/A'
 
       default:
         return row[col.field]
@@ -61,7 +67,8 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
       selector: (row: Row): string | React.ReactElement => cellRender(row, col),
       sortable: true,
       sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA[col.field], rowB[col.field]),
-      colFilter: ['forceName', 'roleName', 'message', 'lastActivity'].includes(col.field) // enable col filter for 2 cols
+      colFilter: ['forceName', 'roleName', 'message', 'lastActivity'].includes(col.field),
+      width: ['lastActive', 'lastActivity'].includes(col.field) ? '250px' : '150px'
     }
   })
 
@@ -88,7 +95,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
 
   return {
     columns,
-    rows,
+    rows: sortedRows,
     customStyles
   }
 }

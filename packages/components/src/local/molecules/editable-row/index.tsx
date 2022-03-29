@@ -22,7 +22,17 @@ export const EDITABLE_SELECT_ITEM = 'select'
 export const EDITABLE_SWITCH_ITEM = 'switch'
 
 /* Render component */
-export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onSave, defaultMode, onRemove, noSwitchOnReset, isGenerator }) => {
+export const EditableRow: React.FC<PropTypes> = ({
+  items,
+  onChange,
+  actions,
+  onSave,
+  defaultMode,
+  onRemove,
+  noSwitchOnReset,
+  isGenerator,
+  participantKey = -1
+}) => {
   const [backup, setBackup] = useState(items)
   const [itemsLocal, setItemsLocal] = useState(items)
   const [mode, setMode] = useState(defaultMode)
@@ -41,7 +51,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
   }
 
   const handleApply = (): void => {
-    if (onSave) onSave(itemsLocal)
+    if (onSave) onSave(itemsLocal, participantKey)
     if (isGenerator) return
     setBackup(itemsLocal)
     switchMode()
@@ -177,7 +187,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
           <IconButton size='small' onClick={switchMode} aria-label="upload picture" component="span">
             <FontAwesomeIcon icon={faPencilAlt} size='sm' />
           </IconButton>
-          {onRemove && <IconButton size='small' onClick={onRemove} aria-label="upload picture" component="span">
+          {onRemove && <IconButton size='small' onClick={(): void => onRemove(participantKey)} aria-label="upload picture" component="span">
             <FontAwesomeIcon icon={faTrash} size='sm' />
           </IconButton>}
         </>}

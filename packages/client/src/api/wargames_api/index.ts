@@ -5,7 +5,7 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage } from '@serge/helpers'
+import { clipInfoMEssage, deleteRoleAndParts } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -47,7 +47,10 @@ import {
   MessageCustom,
   GameTurnLength,
   ChannelTypes,
-  PlatformTypeData
+  PlatformTypeData,
+  Role,
+  ParticipantTypes,
+  ParticipantChat
 } from '@serge/custom-types'
 
 import {
@@ -132,10 +135,10 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {
+export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing).replace(/\s/g, '+')
-  const activityType = (expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing).replace(/\s/g, '+')
+  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)
+  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)
 
   const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
 
@@ -439,11 +442,8 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
-    const channelIndex = channels.findIndex((channel) => channel.uniqid === channelUniqid)
-    channels.splice(channelIndex, 1)
-    updatedData.channels.channels = channels
+    updatedData.channels.channels = channels.filter((channel: ChannelTypes) => channel.uniqid != channelUniqid)
     updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
-
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
@@ -500,16 +500,50 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
   })
 }
 
-export const deleteForce = (dbName: string, forceName: string): Promise<Wargame> => {
+export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
-    const forceIndex = forces.findIndex((force) => force.name === forceName)
-    forces.splice(forceIndex, 1)
-    updatedData.forces.forces = forces
-    updatedData.channels.complete = calcComplete(forces)
+
+    // remove the indicated force
+    updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
+
+    // remove participations for this force
+    updatedData.channels.channels.forEach((channel: ChannelTypes) => {
+      // in the next time we're "tricking" the compiler into accepting the
+      // provided list.  We're not worried about the list being in the correct type
+      // since all the entries came from that list
+      const parts = channel.participants as ParticipantChat[]
+
+      // drop participations for this force
+      channel.participants = parts.filter((sub: ParticipantTypes) => sub.forceUniqid !== forceId)
+    })
+
+    // now delete channels with zero participations
+    updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
+
+    if (updatedData.forces.forces.length === 0) {
+      updatedData.channels = { 
+      name: 'Channels',
+      channels: [],
+      selectedChannel: '',
+      complete: false,
+      dirty: false
+      }
+    }
     return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
+export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
+  return getLatestWargameRevision(dbName).then((res): any => {
+    const processedData = deleteRoleAndParts(res.data, roles, key)
+    if (_.isArray(processedData)) {
+      updateWargame({ ...res, data: processedData[0] }, dbName)
+      return processedData[1]
+    }
+    return updateWargame({ ...res, data: processedData }, dbName)
   })
 }
 

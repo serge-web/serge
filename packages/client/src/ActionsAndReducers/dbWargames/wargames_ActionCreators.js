@@ -335,10 +335,10 @@ export const deleteSelectedAsset = (data) => {
   }
 }
 
-export const deleteSelectedRole = (data) => {
+export const deleteSelectedRole = (dbName, data) => {
   return async (dispatch) => {
-    await data.roles.splice(data.key, 1)
-    data.handleChange(data.roles)
+    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
+    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Role deleted.', 'warning'))
   }
 }
@@ -360,9 +360,9 @@ export const duplicateChannel = (dbName, channel) => {
   }
 }
 
-export const deleteSelectedForce = (dbName, force) => {
+export const deleteSelectedForce = (dbName, forceId) => {
   return async (dispatch) => {
-    const wargame = await wargamesApi.deleteForce(dbName, force)
+    const wargame = await wargamesApi.deleteForce(dbName, forceId)
 
     dispatch(setCurrentWargame(wargame))
 
