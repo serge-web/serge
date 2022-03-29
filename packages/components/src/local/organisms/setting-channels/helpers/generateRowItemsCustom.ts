@@ -27,9 +27,9 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextP
 
   // get selected roles
   const partRoles: string[] = nextParticipant.roles
-  const activeRoles: Array<number> = partRoles.map(role => {
+  const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
     return roleOptions.findIndex(option => option.value.roleId === role)
-  }).filter(active => active !== -1)
+  }).filter(active => active !== -1) : []
 
   let activeTemplates: Array<number> = []
 
