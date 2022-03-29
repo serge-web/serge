@@ -20,6 +20,7 @@ import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping 
 import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
+import Confirm from '../../atoms/confirm'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import FormGroup from '../../atoms/form-group-shadow'
@@ -62,6 +63,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
+  const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
+  const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
+
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
     uniqid: template._id,
@@ -180,15 +184,18 @@ export const SettingChannels: React.FC<PropTypes> = ({
     const renderTableBody = (data: ChannelTypes): React.ReactElement[] => {
       if (!data.participants) return [<></>]
       const dParts: CoreParticipant[] = data.participants
-      return dParts.map((participant, participantKey) => {
-        const handleSaveRow = (row: Array<RowItem>): void => {
+      return dParts.map((participant, key: number) => {
+        const handleSaveRow = (row: Array<RowItem>, pKey = -1): void => {
+          if (pKey === -1) {
+            return
+          }
           const nextParticipants = [...data.participants]
           if (isCollab) {
-            nextParticipants[participantKey] = rowToParticipantCollab(forces, row, participant as ParticipantCollab)
+            nextParticipants[pKey] = rowToParticipantCollab(forces, row, participant as ParticipantCollab)
           } else if (isChat) {
-            nextParticipants[participantKey] = rowToParticipantChat(forces, row, participant as ParticipantChat)
+            nextParticipants[pKey] = rowToParticipantChat(forces, row, participant as ParticipantChat)
           } else {
-            nextParticipants[participantKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
+            nextParticipants[pKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           }
 
           handleSaveRows(nextParticipants)
@@ -200,12 +207,18 @@ export const SettingChannels: React.FC<PropTypes> = ({
           handleSaveRows(newItems)
         }
 
+        if (postRemoveActionConfirmed && participantKey !== -1) {
+          handleRemoveParticipant()
+          setPostRemoveActionConfirmed(false)
+          confirmRemoveParticipant(-1)
+        }
+
         const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab)
           : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
             : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
         return <EditableRow
-          onRemove={handleRemoveParticipant}
+          onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
           key={participant.subscriptionId}
           onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
             return handleChangeRow(nextItems, /* itKey, */ participant)
@@ -214,6 +227,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           items={items}
           defaultMode='view'
           actions={true}
+          participantKey={key}
         />
       })
     }
@@ -509,6 +523,15 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   return (
     <AdminContent>
+      <Confirm
+        isOpen={participantKey !== -1}
+        title="Delete Participation"
+        message="Are you sure you want to permanently delete this participation?"
+        cancelBtnText='Cancel'
+        confirmBtnText='Delete'
+        onCancel={(): void => confirmRemoveParticipant(-1)}
+        onConfirm={(): void => setPostRemoveActionConfirmed(true)}
+      />
       <LeftSide>
         {renderActions()}
         <EditableList
