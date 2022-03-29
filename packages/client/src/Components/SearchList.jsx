@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
-import moment from "moment";
+import { formatShortDate } from '@serge/helpers'
 import classNames from "classnames";
 import {PropTypes} from "prop-types";
 
@@ -34,7 +33,7 @@ class SearchList extends Component {
             // a title field
             let title = item.details.title ? item.details.title : '[Title missing]';
 
-            let date = moment(item.lastUpdated).format('DD/MM/YY');
+            let date = formatShortDate(item.lastUpdated);
             return <span className={classNames({"searchlist-title": true, active})} href="#" onClick={that.setSelected.bind(that, item)} key={item._id}>{title} - {date}</span>
           })
           }

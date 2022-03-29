@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import moment from 'moment'
+import { formatShortDate } from '@serge/helpers'
 
 // Import component files
 import SearchList from './index'
@@ -66,7 +66,7 @@ export const Default: React.FC = () => {
       rowLabel={(listItem): string => {
         const item = listItem as TemplateListItem
         const title = item.details.title ? item.details.title : '[Title missing]'
-        const date = moment(item.lastUpdated).format('DD/MM/YY')
+        const date = formatShortDate(item.lastUpdated)
         return `${title} - ${date}`
       }}
       rowFilter={(item, query): boolean => {
