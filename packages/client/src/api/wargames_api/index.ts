@@ -399,10 +399,10 @@ export const saveChannel = (dbName: string, newName: string, newData: ChannelTyp
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
-    const channelNew = channels.every((channel: any) => channel.name !== oldName)
+    const channelNew = channels.every((channel: ChannelTypes) => channel.name !== oldName)
 
     if (channelNew) {
-      const channelIndex = channels.findIndex((channel) => channel.uniqid === newData.uniqid)
+      const channelIndex = channels.findIndex((channel: ChannelTypes) => channel.uniqid === newData.uniqid)
       if (channelIndex !== -1) channels.splice(channelIndex, 1)
       channels.unshift({ ...newData, name: newName })
     } else {
