@@ -399,6 +399,8 @@ export const saveChannel = (dbName: string, newName: string, newData: ChannelTyp
     const channelNew = channels.every((channel: any) => channel.name !== oldName)
 
     if (channelNew) {
+      const channelIndex = channels.findIndex((channel) => channel.uniqid === newData.uniqid)
+      if (channelIndex !== -1) channels.splice(channelIndex, 1)
       channels.unshift({ ...newData, name: newName })
     } else {
       const channelIndex = channels.findIndex((channel) => channel.name === oldName)
