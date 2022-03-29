@@ -13,7 +13,8 @@ import {
   isArrayOfObject,
   isBoolean,
   isValidUrl,
-  capitalize
+  capitalize,
+  formatFullDate
 } from '@serge/helpers'
 import Paragraph from '../../atoms/paragraph'
 import MessageLabel from '../../atoms/message-label'
@@ -43,7 +44,7 @@ const createTimeItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`dateTime-${pair[0]}${pair[1]}`}>
       <DetailLabel label={`${pair[0]}:`}/>
-      <span className={styles.data}>{moment(pair[1]).format('DD/MM/YY,HH:mm')}</span>
+      <span className={styles.data}>{formatFullDate(pair[1])}</span>
     </Fragment>
   )
 }
