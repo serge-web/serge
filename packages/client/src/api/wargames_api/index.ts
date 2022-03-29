@@ -402,8 +402,6 @@ export const duplicatePlatformType = (dbName: string, currentPlatformType: Platf
       updatedData.platformTypes.selectedType = duplicatedPlatformType
     }
 
-    console.log('duplicatedPlatformType', duplicatedPlatformType, updatedData.platformTypes)
-
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
