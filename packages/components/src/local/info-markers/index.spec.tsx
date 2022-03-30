@@ -18,7 +18,7 @@ it('Mapping renders correctly with AsseticonURL', () => {
 
   // Using enzyme's 'mount' to solve issues with Leaflet requiring access to the DOM and other features not
   // provided by react.render.
-  const tree = markers && mount(<Mapping
+  const tree = mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces={forces}
     gameTurnTime = {72000}

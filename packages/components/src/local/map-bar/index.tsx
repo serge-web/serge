@@ -345,7 +345,7 @@ export const MapBar: React.FC = () => {
       </div>
       {
         // only show tab if map markers present
-        infoMarkers && infoMarkers.length &&
+        infoMarkers && infoMarkers.length > 0 &&
         <div
           className={cx(styles.toggle, styles.controlled, (worldStatePanel === WorldStatePanels.Markers) && styles['toggle-active'])}
           onClick={(): void => { tabClickEvent(WorldStatePanels.ControlledBy) }}>
