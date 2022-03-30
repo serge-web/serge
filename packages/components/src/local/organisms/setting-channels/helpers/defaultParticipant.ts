@@ -20,7 +20,6 @@ export const defaultParticipantChat: ParticipantChat = {
   pType: PARTICIPANT_CHAT
 }
 
-
 export const defaultParticipantMapping: ParticipantMapping = {
   ...defaultCoreParticipant,
   pType: PARTICIPANT_MAPPING

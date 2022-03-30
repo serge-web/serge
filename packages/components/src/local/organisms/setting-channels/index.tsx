@@ -224,7 +224,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
         const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab)
           : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
-          : isMapping ? generateRowItemsMapping(forces, participant as ParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
+            : isMapping ? generateRowItemsMapping(forces, participant as ParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
         return <EditableRow
           onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
@@ -245,8 +245,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
     const renderTableFooter = (): React.ReactElement => {
       // generate the correct type of controls for this channel type
       const items = isCollab ? generateRowItemsCollab(forces, defaultParticipantCollab)
-        : isChat ? generateRowItemsChat(forces, defaultParticipantChat) 
-        : isMapping ? generateRowItemsMapping(forces, defaultParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipantCustom)
+        : isChat ? generateRowItemsChat(forces, defaultParticipantChat)
+          : isMapping ? generateRowItemsMapping(forces, defaultParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipantCustom)
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset
