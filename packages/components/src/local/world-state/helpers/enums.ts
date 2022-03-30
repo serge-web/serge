@@ -7,6 +7,8 @@ export enum WorldStatePanels {
   Control = 'control',
   /** player updating perception of target */
   Visibility = 'visibility',
+  /** map markers */
+  Markers = 'markers',
   /** umpire modifying own platform */
   ControlledBy = 'controlled'
 }

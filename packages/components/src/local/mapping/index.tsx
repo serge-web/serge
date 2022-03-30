@@ -56,6 +56,7 @@ import ContextInterface from './types/context'
 import './leaflet.css'
 import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
+import MapAnnotation from '@serge/custom-types/map-annotation'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 // Create a context which will be provided to any child of Map
@@ -104,6 +105,7 @@ export const Mapping: React.FC<PropTypes> = ({
   canSubmitOrders,
   platforms,
   platformTypesByKey,
+  infoMarkers,
   phase,
   turnNumber,
   wargameInitiated,
@@ -124,7 +126,8 @@ export const Mapping: React.FC<PropTypes> = ({
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined>(undefined)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
+  const [selectedMarker, setSelectedMarker] = useState<MapAnnotation['uniqid'] | undefined>(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [h3Resolution, setH3Resolution] = useState<number>(3)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
@@ -206,7 +209,7 @@ export const Mapping: React.FC<PropTypes> = ({
    */
   useEffect(() => {
     // clear the selected assets
-    setSelectedAsset(undefined)
+    clearMapSelection()
   }, [playerForce])
 
   /**
@@ -290,7 +293,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setCurrentPhase(phase)
 
     // clear the selected asset - this has the effect of removing the planning/adjducation form
-    setSelectedAsset(undefined)
+    clearMapSelection()
   }, [phase])
 
   useEffect(() => {
@@ -614,20 +617,10 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {
-    // do we have a previous asset, does it have planned routes?
-
-    // NO, don't store the object in the forces object. Keep them in the route store
-    // TODO: verify we're still handling planned routes
-    // if (selectedAsset && routeStore && routeStore.selected &&
-    //     routeStore.selected.planned && routeStore.selected.planned.length > 0) {
-    //   const route: RouteTurn[] = routeStore.selected.planned
-
-    //   // create an updated forces object, with the new planned routes
-    //   const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)
-    //   setForcesState(newForces)
-    // }
-    setSelectedAsset(asset)
+  /** clear the selected icons */
+  const clearMapSelection = (): void => {
+    setSelectedAsset(undefined)
+    setSelectedMarker(undefined)
   }
 
   /** pan to the centre of the specified cell */
@@ -645,6 +638,7 @@ export const Mapping: React.FC<PropTypes> = ({
     h3gridCells,
     h3Resolution,
     forces: forcesState,
+    infoMarkers,
     platforms,
     platformTypesByKey,
     playerForce,
@@ -654,6 +648,10 @@ export const Mapping: React.FC<PropTypes> = ({
     planningConstraints,
     showMapBar,
     selectedAsset,
+    selectedMarker,
+    setSelectedMarker,
+    setSelectedAsset,
+    clearMapSelection,
     viewport,
     zoomLevel,
     channelID,
@@ -662,7 +660,6 @@ export const Mapping: React.FC<PropTypes> = ({
     viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
-    setSelectedAsset: setSelectedAssetLocal,
     setZoomLevel,
     turnPlanned,
     clearFromTurn,
@@ -718,7 +715,7 @@ export const Mapping: React.FC<PropTypes> = ({
    * When that happens, clear the selection
    */
   const mapClick = (): void => {
-    setSelectedAssetLocal(undefined)
+    clearMapSelection()
   }
 
   return (
