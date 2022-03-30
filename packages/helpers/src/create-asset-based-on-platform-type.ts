@@ -33,14 +33,14 @@ export const createAttributes = (attributes?: AttributeTypes): NumberAttributeVa
 export const createAssetBasedOnPlatformType = (pType: PlatformTypeData): Asset => {
   const uniqid = generateAssetId()
   const contactId = generateAssetContactId(uniqid)
-  const platformType = platformTypeNameToKey(pType.name)
   const attributes = createAttributes(pType.attributeTypes)
 
   return {
     uniqid: uniqid,
     contactId: contactId,
     name: pType.name,
-    platformType,
+    platformType: pType.name,
+    platformTypeId: pType.uniqid,
     perceptions: [],
     condition: '',
     position: '',

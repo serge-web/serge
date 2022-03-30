@@ -36,6 +36,7 @@ const forces: ForceData[] = [
                                 perceptions: [
                                 ],
                                 platformType: "Unmanned-Airborne-Vehicle",
+                                platformTypeId : 'a10',
                                 uniqid: "a0pra43302"
                             },
                             {
@@ -45,6 +46,7 @@ const forces: ForceData[] = [
                                 perceptions: [
                                 ],
                                 platformType: "Unmanned-Airborne-Vehicle",
+                                platformTypeId : 'a10',
                                 uniqid: "a0pra17943"
                             }
                         ],
@@ -52,6 +54,7 @@ const forces: ForceData[] = [
                         perceptions: [
                         ],
                         platformType: "frigate",
+                        platformTypeId : 'a3',
                         uniqid: "a0prbr6441"
                     },
                     {
@@ -61,6 +64,7 @@ const forces: ForceData[] = [
                         perceptions: [
                         ],
                         platformType: "MCMV",
+                        platformTypeId : 'a7',
                         uniqid: "a0traa6790"
                     }
                 ],
@@ -70,6 +74,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "task-group",
+                platformTypeId : 'a11',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra5431"
             },
@@ -84,6 +89,7 @@ const forces: ForceData[] = [
                         perceptions: [
                         ],
                         platformType: "helicopter",
+                        platformTypeId : 'a8',
                         uniqid: "a0pra11002"
                     },
                     {
@@ -93,6 +99,7 @@ const forces: ForceData[] = [
                         perceptions: [
                         ],
                         platformType: "Unmanned-Airborne-Vehicle",
+                        platformTypeId : 'a10',
                         uniqid: "a0pra18702"
                     }
                 ],
@@ -100,6 +107,8 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "frigate",
+                platformTypeId : 'a3',
+
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra00001"
             },
@@ -110,6 +119,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fixed-wing-aircraft",
+                platformTypeId : 'a9',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra00002"
             },
@@ -120,6 +130,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
+                platformTypeId : 'a13',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra00003"
             }
@@ -160,6 +171,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
+                platformTypeId : 'a1',
                 uniqid: "a0pra000100"
             },
             {
@@ -173,6 +185,7 @@ const forces: ForceData[] = [
                         perceptions: [
                         ],
                         platformType: "boghammer",
+                        platformTypeId : 'a4',
                         uniqid: "a0pra153102"
                     }
                 ],
@@ -181,6 +194,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
+                platformTypeId : 'a1',
                 uniqid: "a0pra000101"
             },
             {
@@ -191,6 +205,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
+                platformTypeId : 'a1',
                 uniqid: "a0pra000102"
             },
             {
@@ -201,6 +216,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "coastal-radar-site",
+                platformTypeId : 'a12',
                 uniqid: "a0pra000103"
             }
         ],
@@ -239,6 +255,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
+                platformTypeId : 'a13',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000200"
             },
@@ -249,6 +266,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
+                platformTypeId : 'a13',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000201"
             },
@@ -259,6 +277,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
+                platformTypeId : 'a8',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000202"
             },
@@ -269,6 +288,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
+                platformTypeId : 'a8',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000203"
             },
@@ -279,6 +299,7 @@ const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
+                platformTypeId : 'a8',
                 locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000204"
             }

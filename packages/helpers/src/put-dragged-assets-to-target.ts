@@ -1,8 +1,8 @@
-import { Asset } from '@serge/custom-types'
+import { Asset, PlatformTypeData } from '@serge/custom-types'
 import { TASK_GROUP } from '@serge/config'
 
-const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[], isHosting = true): Asset[] => {
-  return assets.map((assetItem) => {
+const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[], isHosting = true, taskGroupType: PlatformTypeData): Asset[] => {
+  return assets.map((assetItem: Asset) => {
     if (assetItem.uniqid === targetId) {
       if (isHosting) {
         if (!assetItem.hosting) assetItem.hosting = []
@@ -21,7 +21,8 @@ const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[
             comprising: [asset, assetItem],
             name: groupId,
             perceptions: [],
-            platformType: TASK_GROUP,
+            platformType: taskGroupType.name,
+            platformTypeId: taskGroupType.uniqid,
             position: assetItem.position,
             status: {
               speedKts: 20,
@@ -35,10 +36,10 @@ const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[
     } else {
       const { hosting, comprising } = assetItem
       if (Array.isArray(hosting) && hosting.length > 0) {
-        assetItem.hosting = putDraggedAssetsToTarget(targetId, asset, hosting, isHosting)
+        assetItem.hosting = putDraggedAssetsToTarget(targetId, asset, hosting, isHosting, taskGroupType)
       }
       if (Array.isArray(comprising) && comprising.length > 0) {
-        assetItem.comprising = putDraggedAssetsToTarget(targetId, asset, comprising, isHosting)
+        assetItem.comprising = putDraggedAssetsToTarget(targetId, asset, comprising, isHosting, taskGroupType)
       }
     }
 

@@ -165,6 +165,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformType": "destroyer",
+                            "platformTypeId": "a6",
                             "attributeValues": [
                                 {
                                     "attrId": "asdic-dir",
@@ -213,6 +214,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformType": "ssn",
+                            "platformTypeId": "a8",
                             "position": "8918aab663bffff",
                             "uniqid": "a0prbr1141"
                         },
@@ -245,6 +247,7 @@ const wargame: Wargame = {
                             "name": "SSN-2",
                             "perceptions": [],
                             "platformType": "ssn",
+                            "platformTypeId": "a8",
                             "position": "8318f2fffffffff",
                             "uniqid": "a0a975y4221"
                         }
@@ -298,6 +301,7 @@ const wargame: Wargame = {
                             "name": "AGI",
                             "perceptions": [],
                             "platformType": "agi",
+                            "platformTypeId": "a15",
                             "position": "831965fffffffff",
                             "uniqid": "a0a45988ty54351"
                         },
@@ -318,6 +322,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformType": "mpa",
+                            "platformTypeId": "a11",
                             "position": "8308d4fffffffff",
                             "uniqid": "a03322ty344331"
                         }

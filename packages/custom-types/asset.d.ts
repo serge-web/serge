@@ -37,7 +37,7 @@ export interface Asset {
   /** 
    * the type-id of this platform 
    */
-  platformTypeId?: PlatformTypeData['uniqid']
+  platformTypeId: PlatformTypeData['uniqid']
   /** if the player is allowed to change the position of this asset
    * during turn-zero of a wargame
    * TODO: remove boolean format, it's just there for transition

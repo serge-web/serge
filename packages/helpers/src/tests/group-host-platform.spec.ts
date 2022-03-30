@@ -1,12 +1,15 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces as mockForces } from '@serge/mocks'
+import { forces as mockForces, platformTypes } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 
 import groupMoveToRoot from '../group-move-to-root'
 import groupHostPlatform from '../group-host-platform'
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { TASK_GROUP } from '@serge/config'
+
+const taskGroupType = platformTypes.find((platform: PlatformTypeData) => platform.name === TASK_GROUP)
 
 it('Moves merlin back onto frigate', () => {
   const forces = deepCopy(mockForces)
@@ -30,9 +33,13 @@ it('Moves merlin back onto frigate', () => {
   const forces2: ForceData[] | undefined = groupMoveToRoot(merlinId, forces)
   expect(forces2).toBeTruthy()
 
+  if (!taskGroupType) {
+    throw new Error('Cannot create task group type')
+  }
+
   // now try to put merling back onto frigate
   const numBeforeDrag = forces2 && forces2[1].assets && forces2[1].assets.length
-  const forces3: ForceData[] = groupHostPlatform(merlinId, frigateId, forces)
+  const forces3: ForceData[] = groupHostPlatform(merlinId, frigateId, forces, taskGroupType)
 
   // check num assets shrunk by 1
   if (numBeforeDrag !== undefined) {

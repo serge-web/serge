@@ -3,8 +3,11 @@ import { platformTypes } from '@serge/mocks'
 import findPlatformTypeFor from '../find-platform-type-for'
 
 it('find type using id', () => {
-  // try the host platform in the task group
   expect(findPlatformTypeFor(platformTypes, 'scrap', 'a2').uniqid).toEqual('a2')
+})
+
+it('cant\' find type using bad id', () => {
+  // try the host platform in the task group
   expect(() => { findPlatformTypeFor(platformTypes, 'scrap', 'bvsd2a') }).toThrow('Could not find platform type id:bvsd2a')
 })
 

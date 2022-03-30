@@ -87,7 +87,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
           name: item.name,
           platformType: item.platformType,
           force: assetForce,
-          destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+          destroyed: checkIfDestroyed(platformTypes, item.platformType, item.platformTypeId, item.condition),
           condition: item.condition,
           asset: item,
           hosting: hosting,
@@ -104,7 +104,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
             name: perceptions.name,
             platformType: perceptions.type,
             force: perceptions.force,
-            destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+            destroyed: checkIfDestroyed(platformTypes, item.platformType, item.platformTypeId, item.condition),
             condition: item.condition,
             asset: item,
             hosting: hosting,
@@ -136,7 +136,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
     currentState = status.state
     currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
   } else {
-    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, asset.platformType)
+    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
     if (platform) {
       const states = platform.states
       if (states && states.length) {
@@ -292,7 +292,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
-  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
+  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.platformTypeId, asset.condition)
 
   const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
   const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)

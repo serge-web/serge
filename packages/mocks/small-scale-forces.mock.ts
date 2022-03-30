@@ -88,6 +88,7 @@ export const forces: ForceData[] = [
         ],
         "perceptions": [],
         "platformType": "ssn",
+        "platformTypeId" : "a2",
         "plannedTurns": [
           {
             "turn": 1,
@@ -140,6 +141,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
+        "platformTypeId" : "a3",
         "position": "8718aab6cffffff",
         "uniqid": "a0prbr1141"
       } /* ,
