@@ -181,7 +181,7 @@ export const dbDefaultSettings = {
   gameTurn: 0,
   phase: ADJUDICATION_PHASE,
   turnEndTime: null,
-  adjudicationStartTime: moment().format()
+  adjudicationStartTime: moment(new Date(), moment.ISO_8601).format()
 }
 
 export const FLEX_LAYOUT_MODEL_DEFAULT = {

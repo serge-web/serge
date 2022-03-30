@@ -28,12 +28,14 @@ const runServer = (
   // end replicate database
   return
   */
+
   const fs = require('fs')
   const cors = require('cors')
   const app = express()
+  const http = require('http').createServer(app)
   const { Server } = require('socket.io')
-  const io = new Server(4000, { cors: { origin: '*' } })
   let { IBM_URL, IBM_API } = process.env
+  const io = new Server(IBM_URL && IBM_API ? http : 4000, { cors: { origin: '*' } })
 
   if (!IBM_URL || !IBM_API) {
     require('dotenv').config()
@@ -207,7 +209,7 @@ const runServer = (
     res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))
   })
 
-  const server = app.listen(port, () => {
+  const server = http.listen(port, () => {
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })

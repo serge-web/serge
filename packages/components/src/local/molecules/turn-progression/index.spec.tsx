@@ -17,7 +17,7 @@ describe('TurnProgression component:', () => {
           currentTurn={1}
           turnPresentation={TurnFormats.Natural}
           phase="adjudication"
-          gameDate="2019-10-01T02:02"
+          gameDate="2019-10-01T02:02+01:00"
           isGameControl={false}
           wargameInitiated={false}
         />

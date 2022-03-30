@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import moment from 'moment'
+
 import {
   CREATE_TEMPLATE_ROUTE,
   EDIT_TEMPLATE_ROUTE,
@@ -14,6 +14,7 @@ import { getAllMessageTypes, duplicateMessageType } from '../ActionsAndReducers/
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setSelectedSchema } from '../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
+import { formatShortDate } from '@serge/helpers'
 import '@serge/themes/App.scss'
 
 const MessageTemplates = () => {
@@ -43,7 +44,7 @@ const MessageTemplates = () => {
 
   const rowLabel = item => {
     const title = item.details.title ? item.details.title : '[Title missing]'
-    const date = moment(item.lastUpdated).format('DD/MM/YY')
+    const date = formatShortDate(item.lastUpdated)
     return `${title} - ${date}`
   }
 

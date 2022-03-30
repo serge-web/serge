@@ -5,7 +5,7 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage } from '@serge/helpers'
+import { clipInfoMEssage, deleteRoleAndParts } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -47,7 +47,10 @@ import {
   MessageCustom,
   GameTurnLength,
   ChannelTypes,
-  PlatformTypeData
+  PlatformTypeData,
+  Role,
+  ParticipantTypes,
+  ParticipantChat
 } from '@serge/custom-types'
 
 import {
@@ -396,9 +399,11 @@ export const saveChannel = (dbName: string, newName: string, newData: ChannelTyp
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
-    const channelNew = channels.every((channel: any) => channel.name !== oldName)
+    const channelNew = channels.every((channel: ChannelTypes) => channel.name !== oldName)
 
     if (channelNew) {
+      const channelIndex = channels.findIndex((channel: ChannelTypes) => channel.uniqid === newData.uniqid)
+      if (channelIndex !== -1) channels.splice(channelIndex, 1)
       channels.unshift({ ...newData, name: newName })
     } else {
       const channelIndex = channels.findIndex((channel) => channel.name === oldName)
@@ -502,9 +507,45 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
+
+    // remove the indicated force
     updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
-    updatedData.channels.complete = calcComplete(forces)
+
+    // remove participations for this force
+    updatedData.channels.channels.forEach((channel: ChannelTypes) => {
+      // in the next time we're "tricking" the compiler into accepting the
+      // provided list.  We're not worried about the list being in the correct type
+      // since all the entries came from that list
+      const parts = channel.participants as ParticipantChat[]
+
+      // drop participations for this force
+      channel.participants = parts.filter((sub: ParticipantTypes) => sub.forceUniqid !== forceId)
+    })
+
+    // now delete channels with zero participations
+    updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
+
+    if (updatedData.forces.forces.length === 0) {
+      updatedData.channels = { 
+      name: 'Channels',
+      channels: [],
+      selectedChannel: '',
+      complete: false,
+      dirty: false
+      }
+    }
     return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
+export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
+  return getLatestWargameRevision(dbName).then((res): any => {
+    const processedData = deleteRoleAndParts(res.data, roles, key)
+    if (_.isArray(processedData)) {
+      updateWargame({ ...res, data: processedData[0] }, dbName)
+      return processedData[1]
+    }
+    return updateWargame({ ...res, data: processedData }, dbName)
   })
 }
 
@@ -616,9 +657,6 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
         res.gameTurn += 1
-
-        // const gameTurn = res.data.overview.gameTurnTime as number
-        // res.data.overview.gameDate = moment(res.data.overview.gameDate).add(gameTurn, 'ms').format('YYYY-MM-DDTHH:mm')
 
         const gameDate: string = res.data.overview.gameDate
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime

@@ -1,7 +1,7 @@
 import Chip from '@material-ui/core/Chip'
 import { CUSTOM_MESSAGE } from '@serge/config'
+import { formatTime } from '@serge/helpers'
 import classNames from 'classnames'
-import moment from 'moment'
 // TODO: change it to @serge/config
 import React, { useRef } from 'react'
 /* Import Stylesheet */
@@ -36,7 +36,7 @@ export const AdminMessage: React.FC<PropTypes> = ({ message, roleId }: PropTypes
               styles['info-wrap'],
               (isOwnMessage ? styles['info-wrap--own-message'] : null)
             ])}>
-              <time dateTime={message.details.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</time>
+              <time dateTime={message.details.timestamp}>{formatTime(message.details.timestamp)}</time>
               <small><Chip className={styles.role} size="small" color="primary" variant="outlined" label={from.roleName} /></small>
             </div>
           </div>
