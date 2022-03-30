@@ -5,7 +5,7 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts } from '@serge/helpers'
+import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -567,44 +567,11 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces || []
     const forceIndex = forces.findIndex((force) => force.uniqid === currentForce.uniqid)
-    const cloneCopy: ForceData = deepCopy(forces[forceIndex])
-    const uniq = uniqid.time()
-
-    // create new force, with new name and id
-    const duplicateForce: ForceData = {
-      ...cloneCopy,
-      name: cloneCopy.name + `-${uniq}`,
-      uniqid: `f${uniq}`
-    }  
-
-    // give the roles a new id
-    if (duplicateForce.roles.length > 0) {
-      duplicateForce.roles = duplicateForce.roles.map((role: Role): Role => {
-        const uniqId = uniqid.time()
-        return {
-          ...role,
-          name: role.name + '-' + uniqId,
-          roleId: `r${uniqid}`
-        }
-      })
-    }
-
-    // give the assets a new id
-    if (duplicateForce.assets && duplicateForce.assets.length) {
-      duplicateForce.assets = duplicateForce.assets.map((asset: Asset): Asset => {
-        const uniqId = uniqid.time()
-        return {
-          ...asset,
-          name: asset.name + '-' + uniqId,
-          uniqid: `a${uniqid}`
-        }
-      })
-    }
-
-    forces.splice(forceIndex, 0, duplicateForce)
+    const duplicate = duplicateThisForce(forces[forceIndex])
+    forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
     updatedData.forces.complete = calcComplete(forces) && forces.length !== 0
-    updatedData.forces.selectedForce = duplicateForce as any 
+    updatedData.forces.selectedForce = duplicate as any 
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
