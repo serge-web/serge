@@ -50,8 +50,7 @@ import {
   PlatformTypeData,
   Role,
   ParticipantTypes,
-  ParticipantChat,
-  Asset
+  ParticipantChat
 } from '@serge/custom-types'
 
 import {
