@@ -2,6 +2,7 @@ import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
+import MapAnnotation, { MapAnnotations } from './map-annotation'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
@@ -80,11 +81,23 @@ export default interface MappingContext {
    * state for which form should appear in the map bar
    */
   selectedAsset: SelectedAsset | undefined
+  /** which marker is selected
+   * 
+   */
+  selectedMarker: MapAnnotation['uniqid'] | undefined
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
-  /** 
+  /**
+   *  setter, to modify the currently selected information marker
+   **/
+  setSelectedMarker: {(uniqid: MapAnnotation['uniqid']): void}
+  /** clear the map selection (asset or marker)
+   * 
+   */
+  clearMapSelection: {(): void}
+   /** 
    * the current map bounds
    */
   viewport: L.LatLngBounds | undefined
@@ -158,6 +171,10 @@ export default interface MappingContext {
   polygonAreas?: FeatureCollection<Geometry, GeoJsonProperties>
   /** how to format the cell labels */
   cellLabelStyle?: CellLabelStyle
+  /**
+   * information markers
+   */
+  infoMarkers?: MapAnnotations
   /** 
    * the leaflet map
    */

@@ -874,6 +874,17 @@ const wargame: Wargame = {
                 }
             ],
             "selectedType": ""
+        },
+        "annotations": {
+            "annotations": [{
+                "uniqid": "marker-one",
+                "color": "#f00",
+                "description": "description for the annotation",
+                "icon": "marker",
+                "label": "first marker",
+                "location": "8918aab76abffff",
+                "visibleTo": ["Blue-1"]
+            }]
         }
     },
     "gameTurn": 3,

@@ -84,7 +84,8 @@ export const MapBar: React.FC = () => {
     groupHostPlatform,
     plansSubmitted,
     setPlansSubmitted,
-    panTo
+    panTo,
+    infoMarkers
   } = props
 
   // sort out the handler for State of World button
@@ -342,6 +343,16 @@ export const MapBar: React.FC = () => {
         <ArrowRight />
         <span className={cx(styles.rotated)}>Visibility</span>
       </div>
+      {
+        // only show tab if map markers present
+        infoMarkers && infoMarkers.length > 0 &&
+        <div
+          className={cx(styles.toggle, styles.controlled, (worldStatePanel === WorldStatePanels.Markers) && styles['toggle-active'])}
+          onClick={(): void => { tabClickEvent(WorldStatePanels.ControlledBy) }}>
+          <ArrowRight />
+          <span className={cx(styles.rotated)}>Markers</span>
+        </div>
+      }
       {
         // only show tab 3 if umpire is adjudicating
         userIsUmpire && phase === ADJUDICATION_PHASE &&

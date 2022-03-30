@@ -109,7 +109,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const [iconLoadStatus, setIconLoadStatus] = useState(true)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
-  const { setShowMapBar, setSelectedAsset, selectedAsset } = props
+  const { setShowMapBar, setSelectedAsset, selectedAsset, clearMapSelection } = props
 
   // TODO: switch to received isDestroyed in props, using value from `Route`
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
@@ -160,7 +160,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
       // clear selected asset, since it has been clicked again
       // @ts-ignore
-      setSelectedAsset(undefined)
+      clearMapSelection(undefined)
       setShowMapBar(false)
     } else {
       // select this asset

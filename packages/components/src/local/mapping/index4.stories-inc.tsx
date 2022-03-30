@@ -16,11 +16,13 @@ import { Phase, serverPath } from '@serge/config'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
 import data from './data/atlantic-cells'
+import InfoMarkers from '../info-markers'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
+const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -142,6 +144,7 @@ NaturalEarth.args = {
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   phase: Phase.Planning,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -150,6 +153,7 @@ NaturalEarth.args = {
     <>
       <HexGrid />
       <Assets />
+      <InfoMarkers/>
     </>
   )
 }
