@@ -5,6 +5,7 @@ import {
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
   SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE,
   SET_FEEDBACK_MESSAGES,
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
@@ -58,6 +59,11 @@ export const setAllTemplates = (templatesByKey: TemplateBodysByKey): PlayerUiAct
 
 export const showHideObjectives = (): PlayerUiActionTypes => ({
   type: SHOW_HIDE_OBJECTIVES
+})
+
+export const updateMessageState = (state: boolean): PlayerUiActionTypes => ({
+  type: UPDATE_MESSAGE_STATE,
+  payload: state
 })
 
 export const setWargameFeedback = (messages: MessageFeedback[]): PlayerUiActionTypes => ({
@@ -162,28 +168,32 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
   setActivityTime(details.from.roleId, 'send message ' + details.messageType)
   return async (): Promise<void> => {
-    const bulkSubmit = false
-    if(bulkSubmit) {
-      const msg1 = message as any
-      const title = msg1.Title
-      const randomId = Math.floor(Math.random() * 100)
-      for(let i=0;i<200;i++) {
-        // timestamps can be used for ids, so ensure timestamps are unique.
-        const time = details.timestamp
-        const trimmedTime = time.substr(0, time.length-4)
-        const newTime = trimmedTime + (100 + i) + `Z`
-        details.timestamp = newTime
-        const msg = message as any
-        // create unique title
-        msg.Title = title + '-' + i
-        // create unique message reference
-        msg.Reference = `Blue_c-` + randomId + '-' + i 
-        // actually post the message
-        await wargamesApi.postNewMessage(dbName, details, message)
-      }
-    } else {
+    // the following block of commented out code was used in the past
+    // to generate bulk volumes of test data, by repeatedly submitting
+    // the provided message, with id/ref changed each time
+    //
+    // const bulkSubmit = false
+    // if (bulkSubmit) {
+    //   const msg1 = message as any
+    //   const title = msg1.Title
+    //   const randomId = Math.floor(Math.random() * 100)
+    //   for (let i = 0; i < 200; i++) {
+    //     // timestamps can be used for ids, so ensure timestamps are unique.
+    //     const time = details.timestamp
+    //     const trimmedTime = time.substr(0, time.length - 4)
+    //     const newTime = trimmedTime + (100 + i) + `Z`
+    //     details.timestamp = newTime
+    //     const msg = message as any
+    //     // create unique title
+    //     msg.Title = title + '-' + i
+    //     // create unique message reference
+    //     msg.Reference = `Blue_c-` + randomId + '-' + i
+    //     // actually post the message
+    //     await wargamesApi.postNewMessage(dbName, details, message)
+    //   }
+    // } else {
+      // actually post the message
       await wargamesApi.postNewMessage(dbName, details, message)
-    }
   }
 }
 

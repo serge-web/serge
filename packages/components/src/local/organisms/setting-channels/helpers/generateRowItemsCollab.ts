@@ -27,10 +27,10 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantCollab): A
   }
 
   // get selected roles
-  const activeRoles: Array<number> = nextParticipant.roles.map(role => {
+  const partRoles: string[] = nextParticipant.roles
+  const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
     return roleOptions.findIndex(option => option.value.roleId === role)
-  }).filter(active => active !== -1)
-
+  }).filter(active => active !== -1) : []
   // if this is a collaborative editing channel then the participant
   // will be of a specific type
   const collab = nextParticipant as unknown as ParticipantCollab

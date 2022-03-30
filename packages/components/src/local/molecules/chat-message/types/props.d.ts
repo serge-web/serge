@@ -7,4 +7,5 @@ export type Props = {
      */
     isUmpire: boolean
     isOwner: boolean
+    markUnread?: (message: ChatMessage) => void
   }

@@ -18,7 +18,9 @@ import {
   setSelectedChannel,
   duplicateChannel,
   saveWargameTitle,
-  initiateWargame
+  initiateWargame,
+  duplicatePlatformType,
+  duplicateForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -130,6 +132,10 @@ const AdminGameSetup = () => {
       }
     }))
   }
+   
+  const onDuplicatePlatformType = (data) => {
+    dispatch(duplicatePlatformType(currentWargame, data))
+  }
 
   const handleSavePlatformTypes = platformTypes => {
     dispatch(savePlatformTypes(currentWargame, platformTypes))
@@ -237,6 +243,10 @@ const AdminGameSetup = () => {
     }))
   }
 
+  const onDuplicateForce = (data) => {
+    dispatch(duplicateForce(currentWargame, data))
+  }
+
   const onCreateChannel = (id, createdChannel) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
@@ -324,9 +334,11 @@ const AdminGameSetup = () => {
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
       onDeletePlatformType={onDeletePlatformType}
+      onDuplicatePlatformType={onDuplicatePlatformType}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}
+      onDuplicateForce={onDuplicateForce}
       onSidebarForcesClick={handleSidebarForcesClick}
       onSidebarChannelsClick={handleSidebarChannelsClick}
       onChannelsChange={handleFormChange}

@@ -3,6 +3,7 @@ import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
 import MapAnnotation, { MapAnnotations } from './map-annotation'
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
  * mapping context, shared with child elements
@@ -167,7 +168,7 @@ export default interface MappingContext {
   /**
    * series of polygon areas, to be shaded
    */
-  polygonAreas?: any
+  polygonAreas?: FeatureCollection<Geometry, GeoJsonProperties>
   /** how to format the cell labels */
   cellLabelStyle?: CellLabelStyle
   /**

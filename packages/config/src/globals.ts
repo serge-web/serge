@@ -16,8 +16,6 @@ export const LAYDOWN_TURN = 'laydown'
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
-export const MAX_LISTENERS = 82
-
 export const UMPIRE_FORCE = 'umpire'
 export const UMPIRE_FORCE_NAME = 'white'
 
@@ -106,8 +104,10 @@ export const ERROR_THROTTLE = 3000
 // review instances of the app.  In these
 // review instances, we can't predict the URL, so
 // were failing CORS test
+
+const { hostname, protocol, href, origin } = window.location
+
 export const baseUrl = () => {
-  const { hostname, protocol, href } = window.location
   const host = (new URL(href)).searchParams.get('host')
 
   // NOTE: for all non-heroku deployments, we need to append the port number
@@ -128,6 +128,12 @@ export const databasePath = `${serverPath}db/`
 export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'
 
+export const clearAll = 'clearAll'
+export const allDbs = 'allDbs'
+export const socketPath = origin.replace('3000', '4000')
+export const replicate = 'replicate/'
+export const deletePath = 'delete/'
+export const localSettings = '_local/settings'
 // default name for role name
 export const NEW_ROLE = 'New Role'
 
@@ -143,4 +149,3 @@ export const setActivityTime = (role: string, event: string): void  => {
   expiredStorage.setItem(`${role}_${ACTIVITY_TYPE}`, event) 
   expiredStorage.setItem(`${role}_${ACTIVITY_TIME}`, `${new Date().getTime()}`) 
 }
-

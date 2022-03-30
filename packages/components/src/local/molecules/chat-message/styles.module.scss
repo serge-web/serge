@@ -9,16 +9,10 @@
   padding: 12px 15px;
 
   &__owner {
-    border-right-color: #fff;
-    border-right-width: 8px;
-    border-right-style: solid;
     text-align: right;
   }
 
   &__other {
-    border-left-color: #fff;
-    border-left-width: 8px;
-    border-left-style: solid;
     text-align: left;
   }
 }
@@ -68,4 +62,11 @@
   padding: 9px 8px;
   color: #000;
   font-size: 12px;
+}
+
+.message-bar {
+  width: 8px;
+  height: 100%;
+  position: absolute;
+  top: 0;
 }

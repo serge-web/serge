@@ -22,4 +22,5 @@ export default interface PropTypes extends ForcesInChannelProps {
   turnPresentation?: TurnFormats
 
   observing?: boolean
+  markUnread?: (message: ChatMessage) => void
 }

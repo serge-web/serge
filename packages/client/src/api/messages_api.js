@@ -1,13 +1,11 @@
 import uniqid from 'uniqid'
-
-import PouchDB from 'pouchdb'
 import {
   databasePath,
   MSG_STORE
 } from '../consts'
-import COUNTER_MESSAGE from '@serge/config'
+import DbProvider from './db'
 
-var db = new PouchDB(databasePath + MSG_STORE)
+var db = new DbProvider(databasePath + MSG_STORE)
 
 export const addMessage = (messageDetail, schema) => {
   return new Promise((resolve, reject) => {
@@ -71,18 +69,8 @@ export const duplicateMessageInDb = (id) => {
 
 export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true })
-      .then((res) => {
-        const results = res.rows.reduce((messages, { doc }) => {
-          if (
-            doc.messageType !== COUNTER_MESSAGE &&
-            doc.hasOwnProperty('_deleted') &&
-            doc.hasOwnProperty('details')
-          ) messages.push(doc)
-          return messages
-        }, [])
-        resolve(results)
-      })
+    db.allDocs()
+      .then((res) => resolve(res))
       .catch((err) => {
         reject(err)
       })

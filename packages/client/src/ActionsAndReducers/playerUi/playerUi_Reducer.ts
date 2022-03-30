@@ -1,9 +1,11 @@
+import _ from 'lodash'
 import {
   SET_CURRENT_WARGAME_PLAYER,
   SET_FORCE,
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
   SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE,
   SET_FEEDBACK_MESSAGES,
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
@@ -69,6 +71,7 @@ export const initialState: PlayerUi = {
   allPlatformTypes: [],
   allPlatformTypesByKey: {},
   showObjective: false,
+  updateMessageState: false,
   wargameInitiated: false,
   feedbackMessages: [],
   tourIsOpen: false,
@@ -84,7 +87,7 @@ export const initialState: PlayerUi = {
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T> (enm: { [s: string]: T}, value: string): T | undefined {
+  function enumFromString<T>(enm: { [s: string]: T }, value: string): T | undefined {
     return (Object.values(enm) as unknown as string[]).includes(value)
       ? value as unknown as T
       : undefined;
@@ -98,7 +101,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.currentTurn = action.payload.gameTurn
-      newState.turnPresentation = enumFromString(TurnFormats, turnFormat) 
+      newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
       newState.showAccessCodes = data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated || false
@@ -108,11 +111,19 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.realtimeTurnTime = data.overview.realtimeTurnTime
       newState.timeWarning = data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
-      newState.gameDescription = data.overview.gameDescription
-      newState.mappingConstaints = data.overview.mapConstraints
-      newState.allChannels = data.channels.channels || []
-      newState.allForces = data.forces.forces
+      newState.gameDescription = action.payload.data.overview.gameDescription
+      newState.mappingConstaints = action.payload.data.overview.mapConstraints
 
+      // temporary workaround to remove duplicate channel definitions
+      // TODO: delete workaround once fix in place
+      const allChannels = action.payload.data.channels.channels || []
+      const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
+      if (allChannels.length != cleanChannels.length) {
+        console.warn('Applied workaround to remove duplicate channel defs')
+      }
+      newState.allChannels = cleanChannels
+
+      newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
@@ -154,6 +165,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SHOW_HIDE_OBJECTIVES:
       newState.showObjective = !newState.showObjective
+      break
+
+    case UPDATE_MESSAGE_STATE:
+      newState.updateMessageState = action.payload
       break
 
     case SET_FEEDBACK_MESSAGES:
@@ -214,7 +229,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     console.log('PlayerUI > Prev State: ', state);
     console.log('PlayerUI > Next State: ', newState);
   }
-  
+
   return newState
 }
 

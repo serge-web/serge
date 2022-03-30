@@ -34,6 +34,16 @@ export const CustomDialog: React.FC<Props> = (props) => {
       <div style={bodyStyle} className={localStyles.body} dangerouslySetInnerHTML={{ __html: content || '' }}></div>
       <div style={footerStyle} className={localStyles.footer}>
         {
+          onClose &&
+          <Button
+            variant="contained"
+            color="default"
+            onClick={onClose}
+          >
+            {cancelBtnText}
+          </Button>
+        }
+        {
           onSave &&
           <Button
             variant="contained"
@@ -41,16 +51,6 @@ export const CustomDialog: React.FC<Props> = (props) => {
             onClick={onSave}
           >
             {saveBtnText}
-          </Button>
-        }
-        {
-          onClose &&
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onClose}
-          >
-            {cancelBtnText}
           </Button>
         }
       </div>

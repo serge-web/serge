@@ -187,8 +187,9 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_MAPPING:
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
+          return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
         default:
-          console.log('not yet handling', v3Channel.channelType)
+          console.log('not yet handling', v3Channel)
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {
