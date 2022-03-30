@@ -460,7 +460,8 @@ const wargame: Wargame = {
                             "name": "Passive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a1"
                 },
                 {
                     "conditions": [
@@ -494,7 +495,8 @@ const wargame: Wargame = {
                             "name": "Passive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a2"
                 },
                 {
                     "conditions": [
@@ -514,7 +516,8 @@ const wargame: Wargame = {
                             "name": "Deployed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a3"
                 },
                 {
                     "conditions": [
@@ -541,7 +544,8 @@ const wargame: Wargame = {
                             "name": "Air Ops"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a4"
                 },
                 {
                     "conditions": [
@@ -565,7 +569,8 @@ const wargame: Wargame = {
                             "name": "Supporting"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a5"
                 },
                 {
                     "conditions": [
@@ -616,7 +621,8 @@ const wargame: Wargame = {
                             "attrType": "AttributeTypeNumber"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a6"
                 },
                 {
                     "conditions": [
@@ -645,7 +651,8 @@ const wargame: Wargame = {
                             "name": "Evasive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a7"
                 },
                 {
                     "conditions": [
@@ -688,7 +695,8 @@ const wargame: Wargame = {
                             "name": "Evasive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a8"
                 },
                 {
                     "conditions": [
@@ -703,7 +711,8 @@ const wargame: Wargame = {
                             "name": "Active"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a9"
                 },
                 {
                     "conditions": [
@@ -723,7 +732,8 @@ const wargame: Wargame = {
                             "name": "Landed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a10"
                 },
                 {
                     "conditions": [
@@ -743,7 +753,8 @@ const wargame: Wargame = {
                             "name": "Landed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a11"
                 },
                 {
                     "conditions": [
@@ -763,7 +774,8 @@ const wargame: Wargame = {
                             "name": "Landed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a12"
                 },
                 {
                     "conditions": [
@@ -787,7 +799,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a13"
                 },
                 {
                     "conditions": [
@@ -814,7 +827,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a14"
                 },
                 {
                     "conditions": [
@@ -839,7 +853,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a15"
                 },
                 {
                     "conditions": [
@@ -870,7 +885,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a16"
                 }
             ],
             "selectedType": ""

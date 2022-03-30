@@ -1484,7 +1484,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a1"
         },
         {
           conditions: [
@@ -1515,7 +1516,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a2"
         },
         {
           conditions: [
@@ -1547,7 +1549,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a3"
         },
         {
           conditions: [
@@ -1575,7 +1578,8 @@ const game: Wargame = {
               name: 'Transiting'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a4"
         },
         {
           conditions: [
@@ -1608,7 +1612,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a5"
         },
         {
           conditions: [
@@ -1637,7 +1642,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a6"
         },
         {
           conditions: [
@@ -1663,7 +1669,8 @@ const game: Wargame = {
               name: 'Preparing for launch'
             }
           ],
-          travelMode: 'air'
+          travelMode: 'air',
+          "uniqid": "a7"
         },
         {
           conditions: [
@@ -1689,7 +1696,8 @@ const game: Wargame = {
               name: 'Preparing for launch'
             }
           ],
-          travelMode: 'air'
+          travelMode: 'air',
+          "uniqid": "a8"
         },
         {
           conditions: [
@@ -1713,7 +1721,8 @@ const game: Wargame = {
               name: 'Engaging'
             }
           ],
-          travelMode: 'land'
+          travelMode: 'land',
+          "uniqid": "a9"
         },
         {
           conditions: [
@@ -1744,7 +1753,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a10"
         }
       ],
       selectedType: ''

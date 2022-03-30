@@ -32,6 +32,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
+    "uniqid": "a1",
     attributeTypes: [
       {
         attrType: ATTRIBUTE_TYPE_NUMBER,
@@ -114,7 +115,8 @@ export const platformTypes: PlatformTypeData[] = [
         format: '0',
         defaultValue: 12
       }
-    ]
+    ],
+    "uniqid": "a2"
   },
   {
     name: 'Frigate',
@@ -164,7 +166,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a3"
   },
   {
     name: 'Boghammer',
@@ -196,7 +199,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a4"
   },
   {
     name: 'torpedo',
@@ -224,7 +228,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: true
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a5"
   },
   {
     name: 'Fast attack craft',
@@ -257,7 +262,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a6"
   },
   {
     name: 'MCMV',
@@ -286,7 +292,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a7"
   },
   {
     name: 'Helicopter',
@@ -312,7 +319,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'air'
+    travelMode: 'air',
+    "uniqid": "a8"
   },
   {
     name: 'Fixed wing aircraft',
@@ -338,7 +346,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'air'
+    travelMode: 'air',
+    "uniqid": "a9"
   },
   {
     name: 'Unmanned Airborne Vehicle',
@@ -364,7 +373,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'air'
+    travelMode: 'air',
+    "uniqid": "a10"
   },
   {
     name: 'Task Group',
@@ -393,7 +403,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a11"
   },
   {
     name: 'Coastal radar site',
@@ -419,7 +430,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'land'
+    travelMode: 'land',
+    "uniqid": "a12"
   },
   {
     name: 'Merchant vessel',
@@ -450,7 +462,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a13"
   }
 ]
 

@@ -396,13 +396,15 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
+    const newId = uniqid('p')
     localPlatformType.platformTypes.unshift({
       name: createPlatformName(),
       conditions: [],
       speedKts: [],
       states: [],
       icon: '',
-      travelMode: 'sea'
+      travelMode: 'sea',
+      uniqid: newId
     })
     // update localPlatformType and call onSave
     handleChangePlatformTypes(localPlatformType.platformTypes)
