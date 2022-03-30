@@ -87,6 +87,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -102,6 +105,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />
@@ -119,6 +125,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -134,6 +143,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />
@@ -151,6 +163,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -166,6 +181,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />
@@ -183,6 +201,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -198,6 +219,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />
@@ -215,6 +239,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -230,6 +257,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />
@@ -247,6 +277,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -263,6 +296,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
@@ -278,6 +314,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />

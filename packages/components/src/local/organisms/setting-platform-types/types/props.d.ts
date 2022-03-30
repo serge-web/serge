@@ -5,5 +5,6 @@ export default interface PropTypes {
   onChange: (platformType: PlatformType) => void
   onSave?: (platformType: PlatformType) => void
   onDelete?: (platformType: PlatformType) => void
+  onDuplicate?: (platformType: PlatformType) => void
   iconUploadUrl?: string
 }

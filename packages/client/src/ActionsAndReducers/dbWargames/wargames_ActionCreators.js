@@ -360,6 +360,24 @@ export const duplicateChannel = (dbName, channel) => {
   }
 }
 
+export const duplicatePlatformType = (dbName, platformType) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.duplicatePlatformType(dbName, platformType)
+
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Platform type duplicated.', 'success'))
+  }
+}
+
+export const duplicateForce = (dbName, force) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.duplicateForce(dbName, force)
+
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Force duplicated.', 'success'))
+  }
+}
+
 export const deleteSelectedForce = (dbName, forceId) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.deleteForce(dbName, forceId)
