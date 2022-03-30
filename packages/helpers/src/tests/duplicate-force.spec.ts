@@ -22,7 +22,7 @@ it('check complex force duplicated', () => {
       if (dupe.assets[0].comprising[0].hosting && origin.assets[0].comprising[0].hosting) {
         expect(dupe.assets[0].comprising[0].hosting[0].uniqid).not.toEqual(origin.assets[0].comprising[0].hosting[0].uniqid)
         expect(dupe.assets[0].comprising[0].hosting[0].name).not.toEqual(origin.assets[0].comprising[0].hosting[0].name)
-        expect(dupe.assets[0].comprising[0].hosting[0].contactId).not.toEqual(origin.assets[0].comprising[0].hosting[0].contactId)
+        expect(dupe.assets[0].comprising[0].hosting[0].contactId).not.toEqual(origin.assets[0].comprising[0].hosting[0].contactId )
       }
     }
   }
