@@ -50,7 +50,8 @@ import {
   PlatformTypeData,
   Role,
   ParticipantTypes,
-  ParticipantChat
+  ParticipantChat,
+  Asset
 } from '@serge/custom-types'
 
 import {
@@ -566,24 +567,44 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces || []
     const forceIndex = forces.findIndex((force) => force.uniqid === currentForce.uniqid)
-    const duplicateForce = deepCopy(forces[forceIndex])
-
+    const cloneCopy: ForceData = deepCopy(forces[forceIndex])
     const uniq = uniqid.time()
-    
-    duplicateForce.name = duplicateForce.name + `-${uniq}`
-    duplicateForce.uniqid = `force-${uniq}`
 
+    // create new force, with new name and id
+    const duplicateForce: ForceData = {
+      ...cloneCopy,
+      name: cloneCopy.name + `-${uniq}`,
+      uniqid: `f${uniq}`
+    }  
+
+    // give the roles a new id
     if (duplicateForce.roles.length > 0) {
-      duplicateForce.roles.forEach((roles: Role) => {
-        const uniqId = `role-${uniqid.time()}`
-        roles.roleId = uniqId
+      duplicateForce.roles = duplicateForce.roles.map((role: Role): Role => {
+        const uniqId = uniqid.time()
+        return {
+          ...role,
+          name: role.name + '-' + uniqId,
+          roleId: `r${uniqid}`
+        }
+      })
+    }
+
+    // give the assets a new id
+    if (duplicateForce.assets && duplicateForce.assets.length) {
+      duplicateForce.assets = duplicateForce.assets.map((asset: Asset): Asset => {
+        const uniqId = uniqid.time()
+        return {
+          ...asset,
+          name: asset.name + '-' + uniqId,
+          uniqid: `a${uniqid}`
+        }
       })
     }
 
     forces.splice(forceIndex, 0, duplicateForce)
     updatedData.forces.forces = forces
     updatedData.forces.complete = calcComplete(forces) && forces.length !== 0
-    updatedData.forces.selectedForce = duplicateForce
+    updatedData.forces.selectedForce = duplicateForce as any 
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
