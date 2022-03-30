@@ -369,6 +369,15 @@ export const duplicatePlatformType = (dbName, platformType) => {
   }
 }
 
+export const duplicateForce = (dbName, force) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.duplicateForce(dbName, force)
+
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Force duplicated.', 'success'))
+  }
+}
+
 export const deleteSelectedForce = (dbName, forceId) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.deleteForce(dbName, forceId)

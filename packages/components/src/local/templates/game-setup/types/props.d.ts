@@ -50,6 +50,10 @@ export default interface Props extends AdminLayoutProps {
    */
   onDeleteForce?: () => void
   /**
+   * Callback on forces delete button click events
+   */
+  onDuplicateForce?: () => void
+  /**
    * Callback on forces' sidebar click events
    */
   onSidebarForcesClick?: (force: ForceData) => void

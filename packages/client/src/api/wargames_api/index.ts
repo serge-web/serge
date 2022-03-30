@@ -560,6 +560,35 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
   })
 }
 
+export const duplicateForce = (dbName: string, currentForce: ForceData): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces || []
+    const forceIndex = forces.findIndex((force) => force.uniqid === currentForce.uniqid)
+    const duplicateForce = deepCopy(forces[forceIndex])
+
+    const uniq = uniqid.time()
+    
+    duplicateForce.name = duplicateForce.name + `-${uniq}`
+    duplicateForce.uniqid = `force-${uniq}`
+
+    if (duplicateForce.roles.length > 0) {
+      duplicateForce.roles.forEach((roles: Role) => {
+        const uniqId = `role-${uniqid.time()}`
+        roles.roleId = uniqId
+      })
+    }
+
+    forces.splice(forceIndex, 0, duplicateForce)
+    updatedData.forces.forces = forces
+    updatedData.forces.complete = calcComplete(forces) && forces.length !== 0
+    updatedData.forces.selectedForce = duplicateForce
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
 export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
   return getLatestWargameRevision(dbName).then((res): any => {
     const processedData = deleteRoleAndParts(res.data, roles, key)
