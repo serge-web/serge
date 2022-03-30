@@ -5,7 +5,7 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts } from '@serge/helpers'
+import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -386,6 +386,28 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType): 
   })
 }
 
+export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    if (updatedData.platformTypes) {
+      const platformTypes = updatedData.platformTypes.platformTypes || []
+      const platformTypeIndex = platformTypes.findIndex((platformType) => platformType.name === currentPlatformType.name)
+      const duplicatedPlatformType = deepCopy(platformTypes[platformTypeIndex])
+      const uniq = uniqid.time()
+
+      duplicatedPlatformType.name = `${duplicatedPlatformType.name}-${uniq}`
+
+      platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)
+      updatedData.platformTypes.platformTypes = platformTypes
+      updatedData.platformTypes.complete = calcComplete(platformTypes) && platformTypes.length !== 0
+      updatedData.platformTypes.selectedType = duplicatedPlatformType
+    }
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
 export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
@@ -534,6 +556,22 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
       dirty: false
       }
     }
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
+export const duplicateForce = (dbName: string, currentForce: ForceData): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces || []
+    const forceIndex = forces.findIndex((force) => force.uniqid === currentForce.uniqid)
+    const duplicate = duplicateThisForce(forces[forceIndex])
+    forces.splice(forceIndex, 0, duplicate)
+    updatedData.forces.forces = forces
+    updatedData.forces.complete = calcComplete(forces) && forces.length !== 0
+    updatedData.forces.selectedForce = duplicate as any 
+
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }

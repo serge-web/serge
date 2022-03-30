@@ -10,6 +10,7 @@ export default interface PropTypes {
   onSidebarClick?: (selectedForce: ForceData) => void
   onCreate?: () => void
   onDelete?: () => void
+  onDuplicate?: () => void
   selectedForce?: ForceData
   iconUploadUrl?: string
   platformTypes?: PlatformTypeData[]
