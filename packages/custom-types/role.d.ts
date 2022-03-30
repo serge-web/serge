@@ -1,5 +1,5 @@
 export default interface Role {
-  roleId: string,
+  readonly roleId: string,
   name: string,
   /**
    * If this role is `Game Control` - a role which cannot be deleted
