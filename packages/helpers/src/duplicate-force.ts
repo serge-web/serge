@@ -5,12 +5,25 @@ import uniqid from 'uniqid'
 
 const updateAssetId = (asset: Asset): Asset => {
   const uniqId = uniqid.time()
-  const uniqIdVal = `a${uniqid}`
+  const uniqIdVal = `a${uniqId}`
   const newAsset = {
     ...asset,
     name: asset.name + '-' + uniqId,
     contactId: generateAssetContactId(uniqIdVal),
     uniqid: uniqIdVal
+  }
+  // now hosted platforms
+  if (newAsset.hosting && newAsset.hosting.length) {
+    newAsset.hosting = newAsset.hosting.map((a2: Asset): Asset => {
+      return updateAssetId(a2)
+    })
+  }
+  // now comprising platforms
+  if (newAsset.comprising && newAsset.comprising.length) {
+    const newcomprise = newAsset.comprising.map((a2: Asset): Asset => {
+      return updateAssetId(a2)
+    })
+    newAsset.comprising = newcomprise
   }
   return newAsset
 }
@@ -34,7 +47,7 @@ const duplicateThisForce = (force: ForceData): ForceData => {
       return {
         ...role,
         name: role.name + '-' + uniqId,
-        roleId: `r${uniqid}`
+        roleId: `r${uniqId}`
       }
     })
   }
@@ -48,6 +61,6 @@ const duplicateThisForce = (force: ForceData): ForceData => {
     })
   }
 
-  return cloneForce
+  return duplicateForce
 }
 export default duplicateThisForce
