@@ -22,11 +22,13 @@ export default interface MappingContext {
    */
   forces: ForceData[]
   /**
-   * @deprecated list of platforms within this wargame
+   * list of platforms within this wargame.
+   * Don't deprecate. Use `findPlatformByType` method to retrieve value
    */
   platforms: PlatformTypeData[]
   /**
    * object of platforms within this wargame by Asset.platformType keys
+   * @deprecate it, we're indexing by type-name, which could change.
    */
   platformTypesByKey: { [property: string]: PlatformTypeData }
   /**

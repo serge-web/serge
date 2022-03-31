@@ -14,11 +14,11 @@ import { MapContext } from '../mapping'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import cx from 'classnames'
 import { PERCEPTION_OF_CONTACT } from '@serge/config'
+import { GetIcon } from '../asset-icon'
 
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, formData, channelID, mapPostBack }) => {
+export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, mapPostBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
@@ -62,9 +62,14 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, f
     }
   }
 
+  console.log('image in perceptiojn', formState.iconURL)
+
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
-      <span className={cx(styles['asset-icon'], styles[`platform-type-${type}`], force ? styles[force] : '')} />
+      <div className={styles['asset-icon']}>
+          <GetIcon icType={formState.perceivedTypeVal} color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
+      </div>
+      {/* <span className={cx(styles['asset-icon'], styles[`platform-type-${type}`], force ? styles[force] : '')} /> */}
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler} className={styles['input-container']} selectClassName={styles.select} />

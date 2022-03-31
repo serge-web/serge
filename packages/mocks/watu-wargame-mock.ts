@@ -300,7 +300,16 @@ const wargame: Wargame = {
                             "history": [],
                             "locationPending": true,
                             "name": "AGI",
-                            "perceptions": [],
+                            "perceptions": [
+                                {
+                                    "by": "Blue-1",
+                                    "force": "Red-1",
+                                },
+                                {
+                                    "by": "Blue-2",
+                                    "force": "Red-1"
+                                }
+                            ],
                             "platformType": "agi",
                             "platformTypeId": "a15",
                             "position": "831965fffffffff",
@@ -315,7 +324,9 @@ const wargame: Wargame = {
                             "perceptions": [
                                 {
                                     "by": "Blue-1",
-                                    "force": "Red-1"
+                                    "force": "Red-1",
+                                    "typeId": "a12",
+                                    "name": "MPA 2"
                                 },
                                 {
                                     "by": "Blue-2",

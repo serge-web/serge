@@ -1,4 +1,6 @@
-const formData = {
+import { PerceptionFormData } from "@serge/custom-types"
+
+const formData: PerceptionFormData = {
   populate: {
     perceivedForce: [
       {
@@ -31,7 +33,9 @@ const formData = {
     perceivedNameVal: 'Test',
     perceivedForceVal: 'blue-force',
     perceivedTypeVal: 'frigate',
-    assetId: 'c00012'
+    perceivedTypeId: 'a3',
+    assetId: 'c00012',
+    iconURL: 'frigate.svg'
   }
 }
 

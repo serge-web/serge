@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-import { findPerceivedAsTypes, platformTypeNameToKey, visibleTo } from '@serge/helpers'
+import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
 import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
 import { Route } from '../route'
 
@@ -28,7 +28,7 @@ export const Assets: React.FC<{}> = () => {
     viewAsRouteStore,
     phase,
     clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
-    platformTypesByKey,
+    platforms,
     map
   } = props
 
@@ -51,9 +51,9 @@ export const Assets: React.FC<{}> = () => {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformType, platformTypeId, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
-        const thisPlatformType = platformTypesByKey[platformTypeNameToKey(route.asset.platformType)]
+        const thisPlatformType = findPlatformTypeFor(platforms, route.asset.platformType, route.asset.platformTypeId)
         if (!thisPlatformType) {
-          console.warn('Failed to find platform for', platformType, platformTypesByKey, route)
+          console.warn('Failed to find platform for', platformType, platforms, route)
         }
         const { contactId, status, perceptions } = route.asset
 
@@ -95,7 +95,7 @@ export const Assets: React.FC<{}> = () => {
               })
 
               // sort out the icon
-              const iconUrl = perceivedAsTypes.type === 'unknown' ? 'unknown.svg' : platformTypesByKey[perceivedAsTypes.typeId].icon
+              const iconUrl = perceivedAsTypes.type === 'unknown' ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
 
               const assetInfo: AssetInfo = {
                 position: position,
@@ -130,8 +130,6 @@ export const Assets: React.FC<{}> = () => {
 
   return <>
     <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
-      const platformType = platformTypesByKey[asset.type]
-      const imageSrc: string | undefined = typeof platformType !== 'undefined' ? platformType.icon : undefined
       return <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
@@ -150,7 +148,7 @@ export const Assets: React.FC<{}> = () => {
         perceivedForceColor={asset.perceivedForceColor}
         perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
-        imageSrc={imageSrc}
+        imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
         locationPending={!!asset.laydownPhase}/>

@@ -20,7 +20,7 @@ export default interface AssetInfo {
   /**
    * url of the icon to use, like `marker.svg`
    */
-  iconUrl: string
+  iconUrl: PlatformTypeData['icon']
   force: string
   perceivedForceColor: string
   perceivedForceClass?: string

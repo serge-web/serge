@@ -3,6 +3,7 @@ import ColorOption from './color-option'
 import { AttributeValues } from './attributes'
 import SergeHex from './serge-hex'
 import { SergeHex3 } from './serge-hex-3'
+import PlatformTypeData from './platform-type-data'
 
 interface Status {
   name: string,
@@ -22,8 +23,12 @@ export interface PerceptionFormPopulate {
 export interface PerceptionFormValues {
   perceivedNameVal: string
   perceivedForceVal: string
+  /* @deprecate this field - only pass uniqid's around 
+   */
   perceivedTypeVal: string
+  perceivedTypeId: PlatformTypeData['uniqid']
   assetId: string
+  iconURL: PlatformTypeData['icon']
 }
 
 export interface PerceptionFormData {

@@ -17,10 +17,10 @@ import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phas
 import { Confirm } from '@serge/components'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
-import { platformTypeNameToKey } from '@serge/helpers'
+import { findPlatformTypeFor } from '@serge/helpers'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
@@ -58,12 +58,14 @@ export const WorldState: React.FC<PropTypes> = ({
         break
       }
       case WorldStatePanels.ControlledBy: {
-        // umpire gets theirs
+        // umpire gets theirss
         setTmpRoutes(store.routes.filter(r => r.underControl))
         break
       }
     }
   }, [store, phase, panel])
+
+  console.log('world state', tmpRoutes, store.routes)
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
@@ -124,6 +126,8 @@ export const WorldState: React.FC<PropTypes> = ({
       }
     }
 
+    console.log('world item', item)
+
     const numPlanned = item.plannedTurnsCount
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
@@ -133,19 +137,21 @@ export const WorldState: React.FC<PropTypes> = ({
     let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformType !== 'unknown') {
-      const platformType: PlatformTypeData | undefined = platformTypesByKey && platformTypesByKey[platformTypeNameToKey(item.platformType)]
+      const platformType: PlatformTypeData | undefined = findPlatformTypeFor(platforms, item.platformType, item.platformTypeId)// platformTypesByKey && platformTypesByKey[platformTypeNameToKey(item.platformType)]
+      console.log('world state a', platformType)
       if (typeof platformType !== 'undefined') {
         imageSrc = platformType.icon
         isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
       }
     }
 
+    console.log('world state b', imageSrc, item)
+
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescription: string = isDestroyed ? 'Destroyed' : descriptionText + laydownMessage
-
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>
