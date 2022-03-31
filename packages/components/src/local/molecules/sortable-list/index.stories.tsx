@@ -46,7 +46,7 @@ export const Default: React.FC = () => {
             speedKts: [],
             states: [],
             travelMode: 'sea',
-            "uniqid": "a1"
+            uniqid: 'a1'
           },
           ...items.types
         ]
