@@ -303,7 +303,7 @@ const wargame: Wargame = {
                             "perceptions": [
                                 {
                                     "by": "Blue-1",
-                                    "force": "Red-1",
+                                    "force": "Red-1"
                                 },
                                 {
                                     "by": "Blue-2",
