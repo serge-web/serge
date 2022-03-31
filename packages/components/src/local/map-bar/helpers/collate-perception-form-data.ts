@@ -28,7 +28,7 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: s
         perceivedForceVal: perceivedTypes.force,
         perceivedTypeId: perceivedTypes.typeId,
         assetId: selectedAsset.uniqid,
-        iconURL: perceivedType && perceivedType.icon || 'unknown.svg'
+        iconURL: (perceivedType && perceivedType.icon) || 'unknown.svg'
       }
     }
     return formData

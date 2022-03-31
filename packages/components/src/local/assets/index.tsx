@@ -58,7 +58,7 @@ export const Assets: React.FC<{}> = () => {
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
-        const perceivedAsTypes: PerceivedTypes | null = (platformTypeId == undefined) ? null : findPerceivedAsTypes(
+        const perceivedAsTypes: PerceivedTypes | null = (platformTypeId === undefined) ? null : findPerceivedAsTypes(
           playerForceName,
           name,
           visibleToThisForce,
