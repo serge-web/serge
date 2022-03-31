@@ -4,6 +4,7 @@ interface CssExports {
   'actions': string;
   'attribute-header': string;
   'button': string;
+  'cell': string;
   'col': string;
   'form-row': string;
   'mobile': string;
@@ -13,7 +14,6 @@ interface CssExports {
   'section': string;
   'speedmodalcontent': string;
   'states-holder': string;
-  'cell': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
