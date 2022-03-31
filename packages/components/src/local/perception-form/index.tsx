@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -28,18 +28,28 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   const { playerForce } = props
 
   const { perceivedForces, perceivedTypes } = formData.populate
-  const { perceivedNameVal, perceivedForceVal, perceivedTypeId } = formState
+  const { perceivedNameVal, perceivedForceVal } = formState
   const typeStrings: string[] = perceivedTypes.map((p: PerceivedType): string => p.name)
 
+  // add 'unknown' to the list of types
   const unknownStr = 'unknown'
   typeStrings.push(unknownStr)
 
-  if(formState) {
-    const typeDetails = perceivedTypes.find((p: PerceivedType) => {p.uniqid === formState.perceivedTypeId})
-    if (typeDetails) {
-      setTypeName(typeDetails.name)
+
+  /** the forces from props has changed */
+  useEffect(() => {
+    if(formState.perceivedTypeId) {
+      const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
+      if (typeDetails) {
+        setTypeName(typeDetails.name)
+      } else {
+        throw new Error('failed to find platform type' + formState.perceivedTypeId)
+      }
+    } else {
+      setTypeName(unknownStr)
     }
-  }
+  }, [formState])
+  
 
   const changeHandler = (e: any): void => {
     const { name, value } = e
@@ -53,8 +63,9 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
 
   const selectHandler = (data: string): void => {
     // get the id
-    const typeDetails = perceivedTypes.find((p: PerceivedType) => {p.name === data})
+    const typeDetails = perceivedTypes.find((p: PerceivedType) => p.name === data)
     const typeId = data === unknownStr ? undefined : typeDetails && typeDetails.uniqid
+    console.log('select', data, typeDetails, typeId, perceivedTypes)
     setFormState(
       {
         ...formState,
@@ -79,8 +90,6 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
-
-  console.log('perception', formState.iconURL, perceivedTypeId, perceivedTypes)
 
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
