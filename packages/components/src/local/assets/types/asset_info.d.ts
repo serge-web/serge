@@ -17,6 +17,10 @@ export default interface AssetInfo {
   status?: RouteStatus
   type: string
   typeId: PlatformTypeData['uniqid']
+  /**
+   * url of the icon to use, like `marker.svg`
+   */
+  iconUrl: string
   force: string
   perceivedForceColor: string
   perceivedForceClass?: string

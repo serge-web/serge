@@ -285,6 +285,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           <div className={styles.col}>
             <IconUploader platformType={platformTypeNameToKey(data.name)} iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
+          <div className={styles.uniqid}>Fixed id:{data.uniqid}</div>
           <div className={styles.actions}>
             <Button
               color='primary'

@@ -93,6 +93,10 @@ export const Assets: React.FC<{}> = () => {
                   orientData.push(newItem)
                 }
               })
+
+              // sort out the icon
+              const iconUrl = perceivedAsTypes.type === 'unknown' ? 'unknown.svg' : platformTypesByKey[perceivedAsTypes.typeId].icon
+
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
@@ -102,6 +106,7 @@ export const Assets: React.FC<{}> = () => {
                 selected: isSelected,
                 type: perceivedAsTypes.type,
                 typeId: perceivedAsTypes.typeId,
+                iconUrl: iconUrl,
                 perceivedForceColor: route.perceivedForceColor,
                 perceivedForceClass: route.perceivedForceClass,
                 force: assetForce.uniqid,

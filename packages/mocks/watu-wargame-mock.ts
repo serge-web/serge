@@ -164,7 +164,7 @@ const wargame: Wargame = {
                                     "turn": 1
                                 }
                             ],
-                            "platformType": "destroyer",
+                            "platformType": "destroyer2",
                             "platformTypeId": "a6",
                             "attributeValues": [
                                 {
@@ -210,7 +210,8 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "by": "Red-2",
-                                    "force": "Blue-1"
+                                    "force": "Blue-1",
+                                    "typeId": "a4"
                                 }
                             ],
                             "platformType": "ssn",
