@@ -315,7 +315,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             </FormGroup>
           </div>
           <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder='Turning Circle (optional)'>
+            <FormGroup placeholder='Turning Circle (optional)' description='If provided then assets will follow turn when changing direction during route planning'>
               <Table>
                 <TableBody>
                   <TableRow>
