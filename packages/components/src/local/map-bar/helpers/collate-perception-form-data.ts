@@ -1,4 +1,4 @@
-import { SelectedAsset, ColorOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes } from '@serge/custom-types'
+import { SelectedAsset, ColorOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes, PerceivedType } from '@serge/custom-types'
 import availableForces from './available-forces'
 import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/helpers'
 
@@ -14,27 +14,19 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: s
   const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
     selectedAsset.force, selectedAsset.type, selectedAsset.typeId, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
-  const platformTypes = platforms && platforms.map((p: PlatformTypeData) => p.name)
+  const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return {uniqid: p.uniqid, name: p.name}})
   const perceivedType = perceivedTypes && perceivedTypes.typeId && findPlatformTypeFor(platforms, '', perceivedTypes.typeId)
 
-  console.log('perception data', perceivedType, perceivedTypes, selectedAsset.typeId, selectedAsset.type, playerForce, asset.perceptions)
-
-  if (platformTypes) {
-    platformTypes.push('Unknown')
-  } else {
-    throw new Error('Failed to find list of platforms')
-  }
   if (perceivedTypes) {
     const formData: PerceptionFormData = {
       populate: {
-        perceivedForce: availableForceList,
-        perceivedType: platformTypes
+        perceivedForces: availableForceList,
+        perceivedTypes: platformTypes
       },
       values: {
         perceivedNameVal: perceivedTypes.name,
         perceivedForceVal: perceivedTypes.force,
-        perceivedTypeVal: perceivedTypes.type,
-        perceivedTypeId: perceivedTypes.typeId || 'unknown type',
+        perceivedTypeId: perceivedTypes.typeId,
         assetId: selectedAsset.uniqid,
         iconURL: perceivedType && perceivedType.icon || 'unknown.svg'
       }

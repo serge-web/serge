@@ -15,12 +15,11 @@ it('contains relevant population results', () => {
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
   if (data) {
     const res: PerceptionFormPopulate = data.populate
-    expect(res.perceivedForce.length).toEqual(4)
-    expect(res.perceivedForce[0]).toEqual({ colour: '#00F', name: 'Blue' })
-    expect(res.perceivedForce).toContainEqual({ colour: '#ccc', name: 'Unknown' })
-    expect(res.perceivedType.length).toEqual(14)
-    expect(res.perceivedType[0]).toEqual('Fishing vessel')
-    expect(res.perceivedType).toContain('Unknown')
+    expect(res.perceivedForces.length).toEqual(4)
+    expect(res.perceivedForces[0]).toEqual({ colour: '#00F', name: 'Blue' })
+    expect(res.perceivedForces).toContainEqual({ colour: '#ccc', name: 'Unknown' })
+    expect(res.perceivedTypes.length).toEqual(13)
+    expect(res.perceivedTypes[0]).toEqual({'name': 'Fishing vessel', 'uniqid': 'a1'})
   } else {
     expect(false).toBeTruthy()
   }
@@ -36,7 +35,7 @@ it('contains relevant current results for other force', () => {
   if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('unknown')
-    expect(res.perceivedTypeVal).toEqual('unknown')
+    expect(res.perceivedTypeId).toBeUndefined()
     expect(res.perceivedNameVal).toEqual('C065')
   } else {
     expect(false).toBeTruthy()
@@ -53,7 +52,7 @@ it('contains relevant current results for my force', () => {
   if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('blue')
-    expect(res.perceivedTypeVal).toEqual('frigate')
+    expect(res.perceivedTypeId).toEqual('a3')
     expect(res.perceivedNameVal).toEqual('Dhow-A')
   } else {
     expect(false).toBeTruthy()
@@ -70,7 +69,7 @@ it('contains relevant current results for umpire force', () => {
   if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('blue')
-    expect(res.perceivedTypeVal).toEqual('frigate')
+    expect(res.perceivedTypeId).toEqual('a3')
     expect(res.perceivedNameVal).toEqual('Dhow-A')
   } else {
     expect(false).toBeTruthy()

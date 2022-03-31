@@ -15,18 +15,20 @@ interface Force {
   colour: string
 }
 
+export interface PerceivedType {
+  name: PlatformTypeData['name']
+  uniqid : PlatformTypeData['uniqid']
+}
+
 export interface PerceptionFormPopulate {
-  perceivedForce: Array<ColorOption>
-  perceivedType: Array<string>
+  perceivedForces: Array<ColorOption>
+  perceivedTypes: Array<PerceivedType>
 }
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
   perceivedForceVal: string
-  /* @deprecate this field - only pass uniqid's around 
-   */
-  perceivedTypeVal: string
-  perceivedTypeId: PlatformTypeData['uniqid']
+  perceivedTypeId: PlatformTypeData['uniqid'] | undefined
   assetId: string
   iconURL: PlatformTypeData['icon']
 }
