@@ -47,7 +47,8 @@ import {
   MessageHostPlatform,
   SergeHex3,
   TurningDetails,
-  MappingConstraints
+  MappingConstraints,
+  MessageMap
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -119,7 +120,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   channelID,
-  mapPostBack = (): void => { console.log('mapPostBack') },
+  mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => { console.log('mapPostBack', messageType, channelID, payload) },
   children,
   fetchOverride
 }) => {
