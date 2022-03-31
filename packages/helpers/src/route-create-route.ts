@@ -97,7 +97,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
       } else {
         // sort out if this player can see this assset
         const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, false, item.contactId,
-          assetForce, item.platformType, item.perceptions)
+          assetForce, item.platformType, item.platformTypeId, item.perceptions)
         if (perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
@@ -273,7 +273,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   underControl: boolean, visibleToThisForce: boolean, actualForce: string, perceivedForceClass: string | undefined, perceivedForce: string, perceivedName: string,
-  perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
+  perceivedType: string, perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
@@ -312,6 +312,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     name: perceivedName,
     selected: isSelected,
     platformType: perceivedType,
+    platformTypeId: perceivedTypeId,
     underControl: underControl,
     visibleToThisForce: visibleToThisForce,
     perceivedForceName: perceivedForce,

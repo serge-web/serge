@@ -1,4 +1,5 @@
 import { AttributeValues, RouteStatus } from ".";
+import PlatformTypeData from "./platform-type-data";
 
 /**
  * note: for some of the fields in this structure, it's the perceived name/type/force,
@@ -9,6 +10,7 @@ export default interface SelectedAsset {
     name: string,
     contactId: string,
     type: string,
+    typeId: PlatformTypeData['uniqid'] | undefined
     force: string,
     controlledBy?: Array<string>,
     condition: string,

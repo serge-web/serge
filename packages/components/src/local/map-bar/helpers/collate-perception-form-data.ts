@@ -11,8 +11,8 @@ import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
 const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[]): PerceptionFormData | null => {
   // get the actual asset
   const asset: Asset = findAsset(forces, selectedAsset.uniqid)
-  const perceivedTypes: PerceivedTypes | null = findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
-    selectedAsset.force, selectedAsset.type, asset.perceptions)
+  const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
+    selectedAsset.force, selectedAsset.type, selectedAsset.typeId, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData) => p.name)
   if (platformTypes) {

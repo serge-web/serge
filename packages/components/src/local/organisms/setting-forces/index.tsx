@@ -82,7 +82,7 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
       const attributeErrors: string[] = []
       selectedForce.assets && selectedForce.assets.forEach((asset: Asset) => {
-        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+        const pType = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
         // check for extra attributes
         const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
           return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))

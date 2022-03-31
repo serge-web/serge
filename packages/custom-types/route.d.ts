@@ -1,5 +1,6 @@
 import { PlanningStates, LaydownPhases } from '@serge/config'
 import { Asset, AttributeValues } from '.'
+import PlatformTypeData from './platform-type-data'
 import RouteStatus from './route-status'
 import RouteTurn from './route-turn'
 
@@ -31,6 +32,8 @@ export default interface Route {
   name: string,
   /** platform-type (perceived or real) */
   platformType: string,
+  /** platform type id */
+  platformTypeId: PlatformTypeData['uniqid'] | undefined
   /** whether this asset is under control of current player's force */
   underControl: boolean,
   /** whether this asset is visible to current player's force */

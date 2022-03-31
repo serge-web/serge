@@ -1,3 +1,5 @@
+import PlatformTypeData from "./platform-type-data";
+
 export default interface Perception {
   /**
    *  the force this force thiks the asset belongs to
@@ -8,6 +10,10 @@ export default interface Perception {
   */
   type?: string,
   /** 
+   * the platform-type this force thinks the asset is 
+  */
+  typeId?: PlatformTypeData['uniqid'],
+   /** 
    * what this force thinks the asset is called 
    */
   name?: string,

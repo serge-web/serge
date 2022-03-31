@@ -819,9 +819,12 @@ export const postNewMapMessage = (dbName, details, message) => {
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
+        if (!res.data.platformTypes)
+          throw new Error('Cannot handle force delta without platform types')
+          
         // apply the reducer to this wargame
         // @ts-ignore
-        res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces)
+        res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         // store the new verison
         return createLatestWargameRevision(dbName, res)
       }).then((res) => {

@@ -1,4 +1,4 @@
-import { AttributeValues, RouteStatus } from '@serge/custom-types'
+import { AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -17,6 +17,10 @@ export default interface PropTypes {
    * The name of the icon to be used on the asset
    */
   type: string
+  /** 
+   * the type of the asset
+   */
+  typeId: PlatformTypeData['uniqid']
   /**
    * The position to place the icon on the map
    */

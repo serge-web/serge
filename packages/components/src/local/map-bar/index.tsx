@@ -223,6 +223,7 @@ export const MapBar: React.FC = () => {
         name: asset.name,
         contactId: asset.contactId,
         type: asset.platformType,
+        typeId: asset.platformTypeId,
         force: force.uniqid,
         controlledBy: force.controlledBy,
         condition: asset.condition,

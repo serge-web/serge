@@ -1,5 +1,5 @@
 import { LaydownPhases } from '@serge/config'
-import { AttributeValues, RouteStatus } from '@serge/custom-types'
+import { AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
 export interface OrientationData {
@@ -16,6 +16,7 @@ export default interface AssetInfo {
   condition?: string
   status?: RouteStatus
   type: string
+  typeId: PlatformTypeData['uniqid']
   force: string
   perceivedForceColor: string
   perceivedForceClass?: string

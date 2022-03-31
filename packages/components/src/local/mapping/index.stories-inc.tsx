@@ -245,6 +245,7 @@ WithMarker.args = {
       position={L.latLng(13.298034302, 43.0488191271)}
       selected={boolean(visLabel, visDefaultValue)}
       type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
+      typeId='dummy-ref'
       force={'Red'}
       perceivedForceColor={'#00f'}
       perceivedForceClass={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
