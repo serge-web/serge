@@ -2,12 +2,13 @@
 
 /* Import mock data */
 import { TASK_GROUP } from '@serge/config'
-import { Asset, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { Asset, ForceData } from '@serge/custom-types'
 import { forces, platformTypes } from '@serge/mocks'
+import findPlatformTypeFor from '../find-platform-type-for'
 
 import groupCreateNewGroup from '../group-create-new-group'
 
-const taskGroupType = platformTypes.find((platform: PlatformTypeData) => platform.name === TASK_GROUP)
+const taskGroupType = findPlatformTypeFor(platformTypes, TASK_GROUP, '')
 
 it('Creates new group from provided assets', () => {
   const frigateId = 'a0pra00001'
