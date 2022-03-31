@@ -13,6 +13,7 @@ interface CssExports {
   'section': string;
   'speedmodalcontent': string;
   'states-holder': string;
+  'cell': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

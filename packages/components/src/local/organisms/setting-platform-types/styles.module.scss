@@ -111,6 +111,23 @@
   flex-direction: column;
 }
 
+.cell {
+  border: none !important;
+  padding: 5px !important;
+  width: 60% !important;
+  margin-bottom: 5px;
+
+  input {
+    height: 0;
+  }
+
+  div {
+    &:first-child {
+      width: 100%;
+    }
+  }
+}
+
 .speedmodalcontent {
   height: 200px;
   overflow-x: hidden;
