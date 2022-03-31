@@ -35,10 +35,9 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   const unknownStr = 'unknown'
   typeStrings.push(unknownStr)
 
-
   /** the forces from props has changed */
   useEffect(() => {
-    if(formState.perceivedTypeId) {
+    if (formState.perceivedTypeId) {
       const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
       if (typeDetails) {
         setTypeName(typeDetails.name)
@@ -49,7 +48,6 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       setTypeName(unknownStr)
     }
   }, [formState])
-  
 
   const changeHandler = (e: any): void => {
     const { name, value } = e
@@ -72,7 +70,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
         perceivedTypeId: typeId
       }
     )
-    setTypeName(data) 
+    setTypeName(data)
   }
 
   const submitForm = (): void => {

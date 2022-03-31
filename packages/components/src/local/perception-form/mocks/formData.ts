@@ -17,10 +17,10 @@ const formData: PerceptionFormData = {
       }
     ],
     perceivedTypes: [
-      { uniqid: 'aa', name:'Fishing vessel'},
-      { uniqid: 'a1', name:'torpedo'},
-      { uniqid: 'a2', name:'Boghammer'},
-      { uniqid: 'a3', name:'Frigate'}
+      { uniqid: 'aa', name: 'Fishing vessel' },
+      { uniqid: 'a1', name: 'torpedo' },
+      { uniqid: 'a2', name: 'Boghammer' },
+      { uniqid: 'a3', name: 'Frigate' }
     ]
   },
   values: {
