@@ -1,4 +1,4 @@
-import { PerceptionFormData } from "@serge/custom-types"
+import { PerceptionFormData } from '@serge/custom-types'
 
 const formData: PerceptionFormData = {
   populate: {

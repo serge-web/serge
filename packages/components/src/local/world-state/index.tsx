@@ -65,8 +65,6 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }, [store, phase, panel])
 
-  console.log('world state', tmpRoutes, store.routes)
-
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
     if (setSelectedAssetById) {
@@ -126,8 +124,6 @@ export const WorldState: React.FC<PropTypes> = ({
       }
     }
 
-    console.log('world item', item)
-
     const numPlanned = item.plannedTurnsCount
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
@@ -136,16 +132,13 @@ export const WorldState: React.FC<PropTypes> = ({
     let isDestroyed: boolean | undefined = false
     let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
-    if (item.platformType !== 'unknown') {
-      const platformType: PlatformTypeData | undefined = findPlatformTypeFor(platforms, item.platformType, item.platformTypeId)// platformTypesByKey && platformTypesByKey[platformTypeNameToKey(item.platformType)]
-      console.log('world state a', platformType)
+    if (item.platformType !== 'unknown' || item.platformTypeId !== undefined) {
+      const platformType: PlatformTypeData | undefined = findPlatformTypeFor(platforms, item.platformType, item.platformTypeId)
       if (typeof platformType !== 'undefined') {
         imageSrc = platformType.icon
         isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
       }
     }
-
-    console.log('world state b', imageSrc, item)
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)

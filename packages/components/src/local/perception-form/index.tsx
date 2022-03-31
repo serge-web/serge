@@ -67,9 +67,8 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
       <div className={styles['asset-icon']}>
-          <GetIcon icType={formState.perceivedTypeVal} color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
+        <GetIcon icType={formState.perceivedTypeVal} color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
       </div>
-      {/* <span className={cx(styles['asset-icon'], styles[`platform-type-${type}`], force ? styles[force] : '')} /> */}
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler} className={styles['input-container']} selectClassName={styles.select} />

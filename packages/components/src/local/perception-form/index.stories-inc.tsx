@@ -21,7 +21,7 @@ const dummyConstrants: MappingConstraints = {
   tileDiameterMins: 12,
   minZoom: 12,
   maxZoom: 12,
-  bounds: [[12,13], [14,25]],
+  bounds: [[12, 13], [14, 25]],
   maxNativeZoom: 12,
   minZoomHexes: 32,
   targetDataset: Domain.ATLANTIC
@@ -57,4 +57,4 @@ export const Default: React.FC = () => <Mapping
   platformTypesByKey={platformTypesByKey}
   phase={Phase.Adjudication}
   turnNumber={5}
-  />
+/>
