@@ -30,7 +30,7 @@ import EditableRow, { Item as RowItem, Option } from '../../molecules/editable-r
 /* Import Helpers */
 import createChannel from './helpers/createChannel'
 import createParticipant from './helpers/createParticipant'
-import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCustom } from './helpers/defaultParticipant'
+import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCustom, defaultParticipantMapping } from './helpers/defaultParticipant'
 import generateRowItemsChat from './helpers/generateRowItemsChat'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import generateRowItemsCustom from './helpers/generateRowItemsCustom'
@@ -43,6 +43,8 @@ import rowToParticipantCustom from './helpers/rowToParticipantCustom'
 import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes, { ChannelTypes } from './types/props'
+import rowToParticipantMapping from './helpers/rowToParticipantMapping'
+import generateRowItemsMapping from './helpers/generateRowItemsMapping'
 // import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
@@ -75,6 +77,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const isCollab = isCollabChannel(selectedChannel)
   const isChat = selectedChannel && selectedChannel.channelType === CHANNEL_CHAT
   const isCustom = selectedChannel && selectedChannel.channelType === CHANNEL_CUSTOM
+  const isMapping = selectedChannel && selectedChannel.channelType === CHANNEL_MAPPING
   const channelAsLegacy = selectedChannel as any
   const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
 
@@ -165,6 +168,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
         const nextParticipant = rowToParticipantCustom(messageTemplatesOptions, forces, nextItems, participant as ParticipantCustom)
         return generateRowItemsCustom(messageTemplatesOptions, forces, nextParticipant)
       }
+      if (isMapping) {
+        const nextParticipant = rowToParticipantMapping(forces, nextItems, participant as ParticipantMapping)
+        return generateRowItemsMapping(forces, nextParticipant)
+      }
       console.warn('Not handled changed row for ', selectedChannel?.name)
       return []
     }
@@ -194,6 +201,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
             nextParticipants[pKey] = rowToParticipantCollab(forces, row, participant as ParticipantCollab)
           } else if (isChat) {
             nextParticipants[pKey] = rowToParticipantChat(forces, row, participant as ParticipantChat)
+          } else if (isMapping) {
+            nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
           } else {
             nextParticipants[pKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           }
@@ -215,7 +224,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
         const items = isCollab ? generateRowItemsCollab(forces, participant as ParticipantCollab)
           : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
-            : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
+            : isMapping ? generateRowItemsMapping(forces, participant as ParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
         return <EditableRow
           onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
@@ -236,7 +245,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
     const renderTableFooter = (): React.ReactElement => {
       // generate the correct type of controls for this channel type
       const items = isCollab ? generateRowItemsCollab(forces, defaultParticipantCollab)
-        : isChat ? generateRowItemsChat(forces, defaultParticipantChat) : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipantCustom)
+        : isChat ? generateRowItemsChat(forces, defaultParticipantChat)
+          : isMapping ? generateRowItemsMapping(forces, defaultParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, defaultParticipantCustom)
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset

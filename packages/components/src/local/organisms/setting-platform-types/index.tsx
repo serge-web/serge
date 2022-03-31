@@ -69,7 +69,7 @@ const useStyles = makeStyles({
 })
 
 /* Render component */
-export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
+export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, onDuplicate, iconUploadUrl }) => {
   const { description, format, underline, units } = useStyles()
   const newPlatformType: PlatformType = {
     complete: false,
@@ -108,6 +108,10 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const handleDelete = (item: Item): void => {
     setPreviousItem(item)
     onDelete && onDelete(item as PlatformType)
+  }
+
+  const handleDuplicate = (item: Item): void => {
+    onDuplicate && onDuplicate(item as PlatformType)
   }
 
   const handleChangePlatformTypes = (nextPlatformTypes: Array<PlatformTypeData>): void => {
@@ -436,6 +440,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           onClick={handleSwitch}
           onCreate={handleCreatePlatformType}
           onDelete={handleDelete}
+          onDuplicate={handleDuplicate}
           title='Create'
           selectedItem={selectedItem >= 0 ? localPlatformType.platformTypes[selectedItem].name : undefined}
           filterKey='name'

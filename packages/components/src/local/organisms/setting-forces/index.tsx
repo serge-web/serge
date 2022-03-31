@@ -28,6 +28,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   onSidebarClick,
   onCreate,
   onDelete,
+  onDuplicate,
   iconUploadUrl,
   selectedForce,
   platformTypes = [],
@@ -221,6 +222,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           onClick={handleSwitch}
           onCreate={onCreate}
           onDelete={onDelete}
+          onDuplicate={onDuplicate}
           withSearch={false}
           title="Add a New Force"
         />

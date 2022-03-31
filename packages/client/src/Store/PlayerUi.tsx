@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, Dispatch } from 'react'
-import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
+import { PlayerUi, PlayerUiActionTypes, Role } from '@serge/custom-types'
 import { useDispatch } from 'react-redux'
 import uniqid from 'uniqid'
 import { initialState, playerUiReducer } from '../ActionsAndReducers/playerUi/playerUi_Reducer'
@@ -28,11 +28,11 @@ export const usePlayerUiState = (): PlayerUi => {
   let needUpdate = false
   const { currentWargame, allForces } = context
   allForces.forEach(force => {
-    force.roles.forEach(role => {
-      if (!role.roleId) {
-        needUpdate = true
-        role.roleId = uniqid.time('r')
-      }
+    force.roles = force.roles.map((role: Role): Role => {
+      return {
+        ...role,
+        roleId: role.roleId || uniqid.time('r')
+      }      
     })
   })
   if (needUpdate) {
