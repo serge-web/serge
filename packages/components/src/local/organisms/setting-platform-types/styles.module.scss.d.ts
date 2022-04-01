@@ -4,6 +4,7 @@ interface CssExports {
   'actions': string;
   'attribute-header': string;
   'button': string;
+  'cell': string;
   'col': string;
   'form-row': string;
   'mobile': string;
