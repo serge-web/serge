@@ -12,7 +12,7 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: s
   // get the actual asset
   const asset: Asset = findAsset(forces, selectedAsset.uniqid)
   const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
-    selectedAsset.force, '', selectedAsset.typeId, asset.perceptions)
+    selectedAsset.forceId, '', selectedAsset.typeId, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return { uniqid: p.uniqid, name: p.name } })
   const perceivedType = perceivedTypes && perceivedTypes.typeId && findPlatformTypeFor(platforms, '', perceivedTypes.typeId)

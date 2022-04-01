@@ -113,7 +113,7 @@ export const MapBar: React.FC = () => {
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -219,7 +219,7 @@ export const MapBar: React.FC = () => {
         name: asset.name,
         contactId: asset.contactId,
         typeId: asset.platformTypeId,
-        force: force.uniqid,
+        forceId: force.uniqid,
         controlledBy: force.controlledBy,
         condition: asset.condition,
         visibleTo: visibleToArr,
@@ -268,10 +268,10 @@ export const MapBar: React.FC = () => {
       throw new Error('No route selected')
     }
     if (typeof selectedAsset === 'undefined') return null
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
+    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
     const platformType = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
     const iconData = {
-      forceColor: selectedAsset.force,
+      forceColor: selectedAsset.forceId,
       platformType: platformType.name,
       icon: platformType.icon
     }
@@ -282,7 +282,7 @@ export const MapBar: React.FC = () => {
         return data && <PerceptionForm
           key={selectedAsset.uniqid}
           type={platformType.name}
-          force={selectedAsset.force}
+          force={selectedAsset.forceId}
           formData={data}
           channelID={channelID}
           mapPostBack={mapPostBack} />

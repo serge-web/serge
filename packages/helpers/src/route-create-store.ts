@@ -13,8 +13,8 @@ import { h3ToGeo } from 'h3-js'
  * @param {string} playerForce uniqid for player force
  * @returns {string[]} list of forces this player can control
  */
-export const forcesControlledBy = (forces: ForceData[], playerForce: string): Array<string> => {
-  const res: Array<string> = []
+export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['uniqid']): Array<ForceData['uniqid']> => {
+  const res: Array<ForceData['uniqid']> = []
   forces.forEach((force: ForceData) => {
     if (force.controlledBy && force.controlledBy.includes(playerForce)) {
       res.push(force.uniqid)

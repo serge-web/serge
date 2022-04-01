@@ -6,7 +6,7 @@ const selected: SelectedAsset = {
   contactId: 'C345',
 //  type: 'Frigate',
   typeId: 'a3',
-  force: 'Blue',
+  forceId: 'Blue',
   controlledBy: [],
   condition: 'Full capability',
   visibleTo: ['red', 'blue'],

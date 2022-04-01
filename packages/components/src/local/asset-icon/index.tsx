@@ -170,7 +170,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
         contactId: contactId,
         name: name,
         typeId: typeId,
-        force: force,
+        forceId: force,
         controlledBy: controlledBy,
         condition: condition || 'unknown',
         visibleTo: visibleTo,
