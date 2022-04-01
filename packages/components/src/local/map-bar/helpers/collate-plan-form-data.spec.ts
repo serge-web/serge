@@ -19,3 +19,12 @@ it('contains relevant current results', () => {
   expect(res.statusVal).toEqual({ mobile: true, name: 'Transiting' })
   expect(res.turnsVal).toEqual(1)
 })
+
+
+it('contains relevant current results for mangled platform name', () => {
+  selectedAsset.type = 'bad type'
+  const res: PlanTurnFormValues = collatePlanFormData(platformTypes, selectedAsset).values
+  expect(res.speedVal).toEqual(10)
+  expect(res.statusVal).toEqual({ mobile: true, name: 'Transiting' })
+  expect(res.turnsVal).toEqual(1)
+})
