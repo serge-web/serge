@@ -1,6 +1,5 @@
 import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData, PlatformTypeData, State } from '@serge/custom-types'
-
-import { kebabCase } from 'lodash'
+import { findPlatformTypeFor } from '@serge/helpers'
 import availableForces from './available-forces'
 
 /** determine which form to show on this click
@@ -11,7 +10,7 @@ import availableForces from './available-forces'
 const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset,
   forces: ForceData[]
 ): AdjudicateTurnFormPopulate => {
-  const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
+  const currentPlatform = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)
   const formData: AdjudicateTurnFormPopulate = {
     contactId: selectedAsset.contactId,

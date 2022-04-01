@@ -9,7 +9,7 @@ export default interface SelectedAsset {
     readonly uniqid: string,
     name: string,
     contactId: string,
-    type: string,
+//    type: string,
     typeId: PlatformTypeData['uniqid'] | undefined
     force: string,
     controlledBy?: Array<string>,

@@ -14,7 +14,6 @@ class AdjudicationManager {
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
   closePlanningForm: { (): void }
-  iconData: {forceColor: string, platformType: string}
   formData: AdjudicateTurnFormPopulate
   formHeader: string
   turn: number
@@ -36,7 +35,6 @@ class AdjudicationManager {
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
     closePlanningForm: {(): void},
-    iconData: {forceColor: string, platformType: string},
     formData: AdjudicateTurnFormPopulate) {
     this.store = store
     this.platforms = platforms
@@ -45,7 +43,6 @@ class AdjudicationManager {
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
     this.closePlanningForm = closePlanningForm
-    this.iconData = iconData
     this.formData = formData
     this.formHeader = formHeader
     this.uniqid = uniqid

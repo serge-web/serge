@@ -9,7 +9,7 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
 import collateStateOfWorld from './helpers/collate-state-of-world'
 
-import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
+import { findAsset, forceFor, visibleTo, deepCopy, findPlatformTypeFor } from '@serge/helpers'
 
 /* import types */
 import {
@@ -96,10 +96,6 @@ export const MapBar: React.FC = () => {
   // sort out the handler for State of World button
   useEffect(() => {
     if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected && selectedAsset) {
-      const iconData = {
-        forceColor: selectedAsset.force,
-        platformType: selectedAsset.type
-      }
       const closePlanningForm = (): void => {
         // @ts-ignore
         setSelectedAsset(undefined)
@@ -107,7 +103,7 @@ export const MapBar: React.FC = () => {
       const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
       setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid,
         selectedAsset.name, turnNumber, setRouteStore, turnPlanned,
-        cancelRoutePlanning, closePlanningForm, iconData, formData))
+        cancelRoutePlanning, closePlanningForm, formData))
     } else {
       setAdjudicationManager(undefined)
     }
@@ -222,7 +218,6 @@ export const MapBar: React.FC = () => {
         uniqid: asset.uniqid,
         name: asset.name,
         contactId: asset.contactId,
-        type: asset.platformType,
         typeId: asset.platformTypeId,
         force: force.uniqid,
         controlledBy: force.controlledBy,
@@ -274,9 +269,11 @@ export const MapBar: React.FC = () => {
     }
     if (typeof selectedAsset === 'undefined') return null
     const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
+    const platformType = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
     const iconData = {
       forceColor: selectedAsset.force,
-      platformType: selectedAsset.type
+      platformType: platformType.name,
+      icon: platformType.icon
     }
     switch (form) {
       case MapBarForms.Perception:
@@ -284,7 +281,7 @@ export const MapBar: React.FC = () => {
         const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
         return data && <PerceptionForm
           key={selectedAsset.uniqid}
-          type={selectedAsset.type}
+          type={platformType.name}
           force={selectedAsset.force}
           formData={data}
           channelID={channelID}
@@ -295,6 +292,7 @@ export const MapBar: React.FC = () => {
           key={adjudicationManager && adjudicationManager.uniqid}
           manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
+          icon={iconData}
           canSubmitPlans={canSubmitOrders} />
       }
       case MapBarForms.Planning: {

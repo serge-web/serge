@@ -35,7 +35,7 @@ const newAsset = { ...selectedAsset }
 newAsset.condition = 'Immobile'
 
 const formData = collateVisibilityFormData(platformTypes, newAsset, forces)
-const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
+const iconData = { platformType: 'merchant-vessel', forceColor: 'blue', icon: 'frigate.svg' }
 
 export const Default: React.FC = () => <VisibilityAndConditionForm
   formHeader="Planning header"

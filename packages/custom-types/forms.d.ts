@@ -83,3 +83,11 @@ export interface VisibilityFormData {
   selectedCondition: string
 }
 
+/**
+ * Data for icon generation
+ */
+ export interface IconDefinition {
+  forceColor: string
+  platformType: string
+  icon: string
+}
