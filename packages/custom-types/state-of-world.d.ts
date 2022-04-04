@@ -4,6 +4,7 @@ import { Perception, RouteStatus, RouteTurn } from ".";
 export interface AssetState {
   readonly uniqid: string
   name: string
+  // TOOD: switch to asset id
   condition: string
   position: string
   perceptions: Perception[]
@@ -16,6 +17,7 @@ export interface AssetState {
 /** state of world for a force */
 export interface ForceState {
   name: string
+  // TODO: switch to force id
   assets: Array<AssetState>
 }
 

@@ -52,7 +52,7 @@ it('world gets moved forward with existing history', () => {
   expect(stateOfWorld.turn).toEqual(4)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.name).toEqual('Red Force')
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('K05')
@@ -87,7 +87,7 @@ it('world gets moved forward without existing history', () => {
   expect(stateOfWorld.turn).toEqual(4)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.name).toEqual('Red Force')
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('K05')
@@ -129,7 +129,7 @@ it('world gets moved forward with destroyed asset', () => {
   expect(stateOfWorld.turn).toEqual(4)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.name).toEqual('Red Force')
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('M04') // doesn't get moved forward
@@ -169,7 +169,7 @@ it('world gets moved forward with modified vis & condition', () => {
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
   const stateOfWorld: StateOfWorld = message.state
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.name).toEqual('Red Force')
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.perceptions.length).toEqual(1)
@@ -203,7 +203,7 @@ it('world gets moved forward with empty condition', () => {
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
   const stateOfWorld: StateOfWorld = message.state
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.name).toEqual('Red Force')
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.condition).toEqual('Limping along')

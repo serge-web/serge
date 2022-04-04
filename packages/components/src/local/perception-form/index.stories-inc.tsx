@@ -43,8 +43,6 @@ export default {
   }
 }
 
-console.log('stories', forces, platformTypes, localMappingConstraints)
-
 // TODO: Add some state handling here
 export const Default: React.FC = () => <Mapping
   mappingConstraints = {localMappingConstraints || dummyConstrants}

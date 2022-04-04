@@ -46,7 +46,7 @@ exports[`SettingForces component: renders correctly 1`] = `
             <span
               onClick={[Function]}
             >
-              Red
+              Red Force
             </span>
             <div
               className="searchlist-menu"
@@ -58,7 +58,7 @@ exports[`SettingForces component: renders correctly 1`] = `
             <span
               onClick={[Function]}
             >
-              Green
+              Green Force
             </span>
             <div
               className="searchlist-menu"

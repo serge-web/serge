@@ -10,7 +10,7 @@ import { ColorOption, ForceData } from '@serge/custom-types'
 const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpire: boolean): Array<ColorOption> => {
   if (forces) {
     const nonUmpire: ForceData[] = excludeUmpire ? forces.filter((force: ForceData) => force.uniqid !== UMPIRE_FORCE) : forces
-    const res = nonUmpire.map((force: ForceData) => {
+    const res: ColorOption[] = nonUmpire.map((force: ForceData): ColorOption => {
       return {
         colour: force.color,
         name: force.name
