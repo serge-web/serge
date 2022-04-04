@@ -1,25 +1,25 @@
-import { Perception } from '@serge/custom-types'
+import { ForceData, Perception } from '@serge/custom-types'
 
 /** set of descriptors for how a force is styled */
 export interface ForceStyle {
+  forceId?: ForceData['uniqid']
   /** name of this force */
   force: string
   color: string
-  cssClass?: string
  }
 
 /** Find how a force perceives this asset
  * @param {Perception[]} perceptions how an asset is perceived
- * @param {string} playerForceName the force for the current player
- * @param {Array<{force: string, color: string}>} forceColors couplets of force & color to use for that color
+ * @param {ForceData['uniqid']} playerForceId the force for the current player
+ * @param {Array<ForceStyle>} forceColors couplets of force & color to use for that color
  * @param {ForceStyle} undefinedColor the color to use for non-perceived types
  * @return {string | undefined} color shade to use, or undefined if asset isn't visible
  */
-const isPerceivedBy = (perceptions: Perception[], playerForceName: string,
+const isPerceivedBy = (perceptions: Perception[], playerForceId: ForceData['uniqid'],
   forceColors: Array<ForceStyle>, undefinedColor: ForceStyle): ForceStyle | undefined => {
   if (perceptions) {
     if (Array.isArray(perceptions)) {
-      const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForceName.toLowerCase())
+      const p: Perception | undefined = perceptions.find((p:Perception) => p.by === playerForceId)
       if (p) {
         // do we know force?
         const { force } = p
