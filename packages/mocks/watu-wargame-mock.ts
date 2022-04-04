@@ -79,7 +79,7 @@ const wargame: Wargame = {
                     "color": "#FCFBEE",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
-                    "name": "White",
+                    "name": "White Force",
                     "overview": "Umpire force.",
                     "roles": [
                         {
@@ -257,7 +257,7 @@ const wargame: Wargame = {
                     "cssClass": "blue-1",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/forceDefault.png",
-                    "name": "Blue-1",
+                    "name": "Blue-1 Force",
                     "overview": "An overview written here..",
                     "roles": [
                         {
@@ -343,7 +343,7 @@ const wargame: Wargame = {
                     "cssClass": "red-1",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/forceDefault.png",
-                    "name": "Red-1",
+                    "name": "Red-1 Force",
                     "overview": "An overview written here..",
                     "roles": [
                         {
