@@ -44,7 +44,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
         }
         res.push(vis)
       })
-      // TODO: the `res` payload value here currently contains force names. It should contain 
+      // TODO: the `res` payload value here currently contains force names. It should contain
       // force id's
       const message: MessageVisibilityChanges = {
         assetId: formData.assetId,

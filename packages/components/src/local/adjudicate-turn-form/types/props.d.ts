@@ -15,7 +15,7 @@ export default interface PropTypes {
    */
   manager?: AdjudicationManager
   /** icon
-   * 
+   *
    */
   icon: IconDefinition
 }

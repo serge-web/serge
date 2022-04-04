@@ -63,7 +63,7 @@ formWithAttributes.attributes = [
 const manager2: AdjudicationManager = new AdjudicationManager(storeWithAttributes, platformTypes, 'a1', 'Asset name', 3,
   setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, formWithAttributes)
 
-const icon: IconDefinition = { forceColor: '#f00', platformType: 'frigate', icon: 'frivate.svg'}
+const icon: IconDefinition = { forceColor: '#f00', platformType: 'frigate', icon: 'frivate.svg' }
 
 export const Default: React.FC = () => <AdjudicateTurnForm
   manager={manager}

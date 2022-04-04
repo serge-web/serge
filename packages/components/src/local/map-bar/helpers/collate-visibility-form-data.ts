@@ -12,7 +12,7 @@ const collateVisibilityFormData = (platforms: PlatformTypeData[], selectedAsset:
   const visibleTo: Array<string> = selectedAsset.visibleTo
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)
 
-  if(!selectedAsset.typeId) {
+  if (!selectedAsset.typeId) {
     console.error('Warning - Collate Visibility form does not have type id for selected asset', selectedAsset.name)
   }
 

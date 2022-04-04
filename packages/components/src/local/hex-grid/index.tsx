@@ -5,7 +5,7 @@ import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { DATUM } from '@serge/config'
+import { DATUM, CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
 
 /* Import helpers */
 import { findPlatformTypeFor, plannedRouteFor3 } from '@serge/helpers'
@@ -19,7 +19,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
-import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
+
 import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing, h3Line } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
 import { brgBetweenTwoHex, cleanAngle, leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
