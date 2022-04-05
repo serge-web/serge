@@ -1,9 +1,11 @@
+import ForceData from "./force-data";
 import PlatformTypeData from "./platform-type-data";
 
 /** set of CSS classes that represent perception */
 export default interface PerceivedTypes {
   /**
-   *  the force this force thiks the asset belongs to
+   *  css class fpr the the force this force thiks the asset belongs to.
+   * Probably sanitised version of force name
    */
   force: string,
   /** 
@@ -16,6 +18,10 @@ export default interface PerceivedTypes {
    *  the percevied type id (or undefined if unknown)
    */
   typeId?: PlatformTypeData['uniqid'] | undefined
+  /** the perceived force id (or undefined if unknown) 
+   * 
+  */
+  forceName?: ForceData['name']
   /** 
    * what this force thinks the asset is called 
    */

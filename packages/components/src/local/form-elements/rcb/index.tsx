@@ -32,6 +32,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
         selected
       }
     })
+    console.log('update', selection)
     updateCheckedArray(selection)
   }, [value, options])
 
@@ -68,14 +69,14 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
   const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
 
-  const selectedClassName = (o: string, selected: string): any | undefined =>{
+  const selectedClassName = (o: string, selected: string): any | undefined => {
     const isNumber = typeof o === 'number'
     if (isNumber) {
       return undefined
     } else {
       return o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
     }
-  } 
+  }
 
   const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
 

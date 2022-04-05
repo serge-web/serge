@@ -312,7 +312,7 @@ const wargame: Wargame = {
                             ],
                             "platformType": "agi",
                             "platformTypeId": "a15",
-                            "position": "831965fffffffff",
+                            "position": "8918a84db3bffff",
                             "uniqid": "a0a45988ty54351"
                         },
                         {
@@ -335,7 +335,7 @@ const wargame: Wargame = {
                             ],
                             "platformType": "mpa",
                             "platformTypeId": "a11",
-                            "position": "8308d4fffffffff",
+                            "position": "8918a84db33ffff",
                             "uniqid": "a03322ty344331"
                         }
                     ],

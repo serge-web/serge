@@ -27,8 +27,9 @@ export interface PerceptionFormPopulate {
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
-  perceivedForceVal: string
-  perceivedTypeId: PlatformTypeData['uniqid'] | undefined
+  perceivedForceClass: string
+  perceivedForceName: ForceData['name']
+  perceivedTypeId: PlatformTypeData['name'] | undefined
   assetId: string
   iconURL: PlatformTypeData['icon']
 }

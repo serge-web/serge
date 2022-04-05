@@ -16,6 +16,7 @@ import { MapContext } from '../mapping'
 import styles from './styles.module.scss'
 import { PERCEPTION_OF_CONTACT } from '@serge/config'
 import { GetIcon } from '../asset-icon'
+import ForceOption from '@serge/custom-types/color-option'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, mapPostBack }) => {
@@ -28,7 +29,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   const { playerForce } = props
 
   const { perceivedForces, perceivedTypes } = formData.populate
-  const { perceivedNameVal, perceivedForceVal } = formState
+  const { perceivedNameVal, perceivedForceClass, perceivedForceName } = formState
   const typeStrings: string[] = perceivedTypes.map((p: PerceivedType): string => p.name)
 
   // add 'unknown' to the list of types
@@ -79,25 +80,31 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
         messageType: PERCEPTION_OF_CONTACT,
         perception: {
           by: playerForce,
-          force: formState.perceivedForceVal,
+          force: formState.perceivedForceClass,
           typeId: formState.perceivedTypeId,
           name: formState.perceivedNameVal
         },
         assetId: formState.assetId
       }
+      console.log('state', payload)
       mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
 
+
+  const perceivedForceMatch = perceivedForces.find((force: ForceOption) => force.id === perceivedForceName)
+  const perceivedForceName2 = perceivedForceMatch && perceivedForceMatch.name
+  console.log('perception form color', formState.perceivedForceClass, formState.perceivedForceName, perceivedForceName2)
+
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
       <div className={styles['asset-icon']}>
-        <GetIcon icType={typeName} color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
+        <GetIcon icType={typeName} color={formState.perceivedForceClass} isSelected={false} imageSrc={formState.iconURL} />
       </div>
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={selectHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceVal} updateState={changeHandler} className={styles['input-container']} />
+        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceName2 || ''} updateState={changeHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>
