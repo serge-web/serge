@@ -77,10 +77,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
         >
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Fishing vessel
             </span>
             <div
@@ -96,10 +95,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               ssn
             </span>
             <div
@@ -115,10 +113,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Frigate
             </span>
             <div
@@ -134,10 +131,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Boghammer
             </span>
             <div
@@ -153,10 +149,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               torpedo
             </span>
             <div
@@ -172,10 +167,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Fast attack craft
             </span>
             <div
@@ -191,10 +185,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               MCMV
             </span>
             <div
@@ -210,10 +203,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Helicopter
             </span>
             <div
@@ -229,10 +221,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Fixed wing aircraft
             </span>
             <div
@@ -248,10 +239,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Unmanned Airborne Vehicle
             </span>
             <div
@@ -267,10 +257,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Task Group
             </span>
             <div
@@ -286,10 +275,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Coastal radar site
             </span>
             <div
@@ -305,10 +293,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Merchant vessel
             </span>
             <div
