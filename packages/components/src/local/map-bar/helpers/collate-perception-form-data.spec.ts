@@ -7,6 +7,9 @@ import forces from '@serge/mocks/forces.mock'
 import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
 import { UMPIRE_FORCE } from '@serge/config'
 
+const redId = forces[2].uniqid
+const redName = forces[2].name
+
 it('contains relevant population results', () => {
   const selected2 = {
     ...selectedAsset,
@@ -29,7 +32,8 @@ it('contains relevant current results for other force', () => {
   const selected2 = {
     ...selectedAsset,
     uniqid: 'a0pra000100',
-    force: 'Red'
+    force: redName,
+    forceId: redId
   }
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
   if (data) {
