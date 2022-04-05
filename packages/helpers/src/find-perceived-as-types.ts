@@ -2,6 +2,7 @@ import { UMPIRE_FORCE, UMPIRE_FORCE_NAME } from '@serge/config'
 import { Perception, PerceivedTypes, PlatformTypeData } from '@serge/custom-types'
 
 /** provide classnames for an asset, as perceived by current player
+ * // TODO: switch from force name to force id, for both "my" and "their"
  * @param {string} myForce force of current player
  * @param {string} myForceId force id of current player
  * @param {string} theirName name of selected asset
