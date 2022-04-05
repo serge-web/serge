@@ -18,10 +18,9 @@ exports[`SettingForces component: renders correctly 1`] = `
         >
           <span
             className="searchlist-row active"
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               White
             </span>
             <div
@@ -30,10 +29,9 @@ exports[`SettingForces component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Blue
             </span>
             <div
@@ -42,10 +40,9 @@ exports[`SettingForces component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Red
             </span>
             <div
@@ -54,10 +51,9 @@ exports[`SettingForces component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Green
             </span>
             <div

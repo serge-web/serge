@@ -5,15 +5,12 @@
     @include typo-primary;
     align-items: center;
     border-bottom: 1px solid #f2f2f2;
+    cursor: pointer;
     display: flex;
     margin-bottom: 0;
     padding: 1em 0;
     position: relative;
     width: 100%;
-
-    span {
-      cursor: pointer;
-    }
 
     &:hover {
       color: $dark-grey;
