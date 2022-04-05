@@ -101,7 +101,7 @@ export const defaultGameInfo = {
 
 export const forceTemplate = {
   name: '',
-  uniqid: null,
+  uniqid: '',
   overview: 'An overview written here..',
   roles: [
     {

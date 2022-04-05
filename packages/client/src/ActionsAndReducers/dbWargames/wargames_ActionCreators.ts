@@ -5,13 +5,15 @@ import _ from 'lodash'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { DEFAULT_SERVER, forceTemplate } from '../../consts'
+import { ChannelTypes, Force, ForceData, PlatformType, Role, Wargame, WargameDispatch, WargameOverview } from '@serge/custom-types'
+import { WargameRevision } from '../../api/wargames_api/types'
 
-export const setCurrentTab = (tab) => ({
+export const setCurrentTab = (tab: Notification) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
   payload: tab
 })
 
-export const setGameData = (data) => ({
+export const setGameData = (data: WargameOverview) => ({
   type: ActionConstant.SET_GAME_SETUP_DATA,
   payload: data
 })
@@ -24,67 +26,68 @@ export const setTabUnsaved = () => ({
   type: ActionConstant.SET_TAB_UNSAVED
 })
 
-export const setSelectedForce = (payload) => ({
+// TODO: check type
+export const setSelectedForce = (payload: any) => ({
   type: ActionConstant.SET_SELECTED_FORCE,
   payload
 })
 
-export const addNewChannel = (data) => ({
+export const addNewChannel = (data: ChannelTypes) => ({
   type: ActionConstant.ADD_NEW_CHANNEL,
   payload: data
 })
 
-export const addNewForce = (data) => ({
+export const addNewForce = (data: { name: string, uniqid: string }) => ({
   type: ActionConstant.ADD_NEW_FORCE,
   payload: data
 })
 
-export const setForceColor = (hex) => ({
+export const setForceColor = (hex: string) => ({
   type: ActionConstant.SET_FORCE_COLOR,
   payload: hex
 })
 
-export const setSelectedChannel = (payload) => ({
+export const setSelectedChannel = (payload: { name: string, uniqid: string }) => ({
   type: ActionConstant.SET_SELECTED_CHANNEL,
   payload
 })
 
-const saveAllWargameNames = (names) => ({
+const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]) => ({
   type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
   payload: names
 })
 
-const setCurrentWargame = (data) => ({
+const setCurrentWargame = (data: any) => ({
   type: ActionConstant.SET_CURRENT_WARGAME,
   payload: data
 })
 
-const setExportWargame = (data) => ({
+const setExportWargame = (data: any) => ({
   type: ActionConstant.SET_EXPORT_WARGAME,
   payload: data
 })
 
-export const addRecipientToChannel = (data) => ({
+export const addRecipientToChannel = (data: any) => ({
   type: ActionConstant.ADD_NEW_RECIPIENT,
   payload: data
 })
 
-export const updateRecipient = (id, data) => ({
+export const updateRecipient = (id: string, data: any) => ({
   type: ActionConstant.UPDATE_RECIPIENT,
   payload: { id, data }
 })
 
-export const removeRecipient = (id) => ({
+export const removeRecipient = (id: string) => ({
   type: ActionConstant.REMOVE_RECIPIENT,
   payload: id
 })
 
-const populatingDb = (isLoading) => ({
+const populatingDb = (isLoading: boolean) => ({
   type: ActionConstant.POPULATE_WARGAMES_DB,
   isLoading
 })
 
-export const addRole = (force, role) => ({
+export const addRole = (force: ForceData, role: Role) => ({
   type: ActionConstant.ADD_ROLE_TO_FORCE,
   payload: {
     force,
@@ -92,7 +95,7 @@ export const addRole = (force, role) => ({
   }
 })
 
-export const updateRole = (force, oldName, role) => ({
+export const updateRole = (force: Force, oldName: string, role: Role) => ({
   type: ActionConstant.UPDATE_ROLE_NAME,
   payload: {
     force,
@@ -101,12 +104,12 @@ export const updateRole = (force, oldName, role) => ({
   }
 })
 
-export const removeRole = (role) => ({
+export const removeRole = (role: Role) => ({
   type: ActionConstant.REMOVE_ROLE,
   role
 })
 
-export const addIcon = (icon) => ({
+export const addIcon = (icon: string) => ({
   type: ActionConstant.ADD_ICON,
   icon
 })
@@ -115,8 +118,8 @@ export const loginAdmin = () => ({
   type: ActionConstant.LOGIN_ADMIN
 })
 
-export const checkAdminAccess = (phrase) => {
-  return (dispatch) => {
+export const checkAdminAccess = (phrase: string) => {
+  return (dispatch: WargameDispatch) => {
     if (phrase === DEFAULT_SERVER) {
       dispatch(loginAdmin())
     } else {
@@ -125,8 +128,8 @@ export const checkAdminAccess = (phrase) => {
   }
 }
 
-export const saveIcon = (file) => {
-  return async (dispatch) => {
+export const saveIcon = (file: string) => {
+  return async (dispatch: WargameDispatch) => {
     const iconLocation = await wargamesApi.saveIcon(file)
     const { path } = iconLocation || {}
     const iconPath = String(path).replace(/^\./g, '')
@@ -135,10 +138,11 @@ export const saveIcon = (file) => {
 }
 
 export const populateWargameStore = () => {
-  return async (dispatch) => {
+  return async (dispatch: WargameDispatch) => {
     dispatch(populatingDb(true))
 
-    var wargameNames = await wargamesApi.populateWargame(dispatch)
+    // @ts-ignore
+    const wargameNames = await wargamesApi.populateWargame(dispatch)
 
     dispatch(saveAllWargameNames(wargameNames))
 
@@ -147,7 +151,8 @@ export const populateWargameStore = () => {
 }
 
 export const createNewWargameDB = () => {
-  return async (dispatch) => {
+  return async (dispatch: WargameDispatch) => {
+    // @ts-ignore
     const wargame = await wargamesApi.createWargame(dispatch)
 
     const wargames = await wargamesApi.getAllWargames()
@@ -163,7 +168,7 @@ export const clearWargames = () => {
 }
 
 export const downloadAllWargames = () => {
-  return async (dispatch) => {
+  return async (dispatch: WargameDispatch) => {
     wargamesApi.downloadAllWargames()
 
     const wargames = await wargamesApi.getAllWargames()
@@ -171,8 +176,8 @@ export const downloadAllWargames = () => {
   }
 }
 
-export const deleteWargame = (name) => {
-  return async (dispatch) => {
+export const deleteWargame = (name: string) => {
+  return async (dispatch: WargameDispatch) => {
     await wargamesApi.deleteWargame(name)
 
     const wargames = await wargamesApi.getAllWargames()
@@ -180,24 +185,24 @@ export const deleteWargame = (name) => {
   }
 }
 
-export const editWargame = (name) => {
-  return async (dispatch) => {
+export const editWargame = (name: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.editWargame(name)
 
     dispatch(setCurrentWargame(wargame))
   }
 }
 
-export const exportWargame = (name) => {
-  return async (dispatch) => {
+export const exportWargame = (name: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.exportWargame(name)
 
     dispatch(setExportWargame(wargame))
   }
 }
 
-export const refreshForce = (dbName, selectedForce) => {
-  return async (dispatch) => {
+export const refreshForce = (dbName: string, selectedForce: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.getWargameLocalFromName(dbName)
 
     const wargameIsInProgress = await wargamesApi.checkIfWargameStarted(dbName)
@@ -212,8 +217,8 @@ export const refreshForce = (dbName, selectedForce) => {
   }
 }
 
-export const refreshChannel = (dbName, selectedChannel) => {
-  return async (dispatch) => {
+export const refreshChannel = (dbName: string, selectedChannel: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.getWargameLocalFromName(dbName)
 
     const wargameIsInProgress = await wargamesApi.checkIfWargameStarted(dbName)
@@ -228,8 +233,8 @@ export const refreshChannel = (dbName, selectedChannel) => {
   }
 }
 
-export const saveWargameTitle = (dbName, title) => {
-  return async (dispatch) => {
+export const saveWargameTitle = (dbName: string, title: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.updateWargameTitle(dbName, title)
 
     const wargames = await wargamesApi.getAllWargames()
@@ -242,8 +247,8 @@ export const saveWargameTitle = (dbName, title) => {
   }
 }
 
-export const saveSettings = (dbName, data) => {
-  return async (dispatch) => {
+export const saveSettings = (dbName: string, data: WargameOverview) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.saveSettings(dbName, data)
 
     dispatch(setCurrentWargame(wargame))
@@ -254,8 +259,8 @@ export const saveSettings = (dbName, data) => {
   }
 }
 
-export const deletePlatformType = (dbName, platformType) => {
-  return async dispatch => {
+export const deletePlatformType = (dbName: string, platformType: PlatformType) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deletePlatformType(dbName, platformType)
 
     dispatch(setCurrentWargame(wargame))
@@ -266,8 +271,8 @@ export const deletePlatformType = (dbName, platformType) => {
   }
 }
 
-export const savePlatformTypes = (dbName, data) => {
-  return async (dispatch) => {
+export const savePlatformTypes = (dbName: string, data: PlatformType) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.savePlatformTypes(dbName, data)
 
     dispatch(setCurrentWargame(wargame))
@@ -278,16 +283,16 @@ export const savePlatformTypes = (dbName, data) => {
   }
 }
 
-export const updateForces = (dbName, newData) => {
-  return async (dispatch) => {
+export const updateForces = (dbName: string, newData: ForceData[]) => {
+  return async (dispatch: WargameDispatch) => {
     await wargamesApi.saveForces(dbName, newData)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
   }
 }
 
-export const saveForce = (dbName, newName, newData, oldName) => {
-  return async (dispatch, state) => {
+export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
+  return async (dispatch: WargameDispatch, state: any) => {
     const oldForceData = state().wargame.data.forces.selectedForce
     if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
       const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
@@ -303,56 +308,64 @@ export const saveForce = (dbName, newName, newData, oldName) => {
   }
 }
 
-export const saveChannel = (dbName, newName, newData, oldName) => {
-  return async (dispatch) => {
+export const saveChannel = (dbName: string, newName: string, newData: ChannelTypes, oldName: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
     const selectedChannel = { name: newName, uniqid: newData.uniqid }
     dispatch(setSelectedChannel(selectedChannel))
-    wargame.data.channels.selectedChannel = selectedChannel
+    wargame.data.channels.selectedChannel = selectedChannel.uniqid
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('channel saved.', 'success'))
   }
 }
 
-export const deleteSelectedChannel = (dbName, channel) => {
-  return async (dispatch) => {
+export const deleteSelectedChannel = (dbName: string, channel: string) => {
+  return async (dispatch: WargameDispatch) => {
+    console.log('TEST2', channel)
     const wargame = await wargamesApi.deleteChannel(dbName, channel)
 
-    if (channel === wargame.data.channels.selectedChannel.uniqid) {
+    if (channel === wargame.data.channels.selectedChannel) {
       const selectedChannel = wargame.data.channels.channels[0]
       dispatch(setSelectedChannel(selectedChannel))
-      wargame.data.channels.selectedChannel = selectedChannel
+      wargame.data.channels.selectedChannel = selectedChannel.uniqid
     }
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Channel deleted.', 'warning'))
   }
 }
 
-export const deleteSelectedAsset = (data) => {
-  return async (dispatch) => {
+export const deleteSelectedAsset = (data: any) => {
+  return async (dispatch: WargameDispatch) => {
     data.setList(data.item)
     dispatch(addNotification('Asset deleted.', 'warning'))
   }
 }
 
-export const deleteSelectedRole = (dbName, data) => {
-  return async (dispatch) => {
+export const deleteSelectedRole = (
+   dbName: string,
+   data: {
+   roles: Role[],
+   key: number,
+   handleChange: (changedItems: Array<Role>) => void }
+   ) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
     _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Role deleted.', 'warning'))
   }
 }
 
-export const initiateWargame = (dbName) => {
-  return async (dispatch) => {
+export const initiateWargame = (dbName: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.initiateGame(dbName)
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Wargame initiated. Note: change & `Save` overview, to inform player browsers', 'success'))
   }
 }
 
-export const duplicateChannel = (dbName, channel) => {
-  return async (dispatch) => {
+export const duplicateChannel = (dbName: string, channel: string) => {
+  return async (dispatch: WargameDispatch) => {
+    console.log('TEST', channel)
     const wargame = await wargamesApi.duplicateChannel(dbName, channel)
 
     dispatch(setCurrentWargame(wargame))
@@ -360,8 +373,8 @@ export const duplicateChannel = (dbName, channel) => {
   }
 }
 
-export const duplicatePlatformType = (dbName, platformType) => {
-  return async (dispatch) => {
+export const duplicatePlatformType = (dbName: string, platformType: PlatformType) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.duplicatePlatformType(dbName, platformType)
 
     dispatch(setCurrentWargame(wargame))
@@ -369,8 +382,8 @@ export const duplicatePlatformType = (dbName, platformType) => {
   }
 }
 
-export const duplicateForce = (dbName, force) => {
-  return async (dispatch) => {
+export const duplicateForce = (dbName: string, force: ForceData) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.duplicateForce(dbName, force)
 
     dispatch(setCurrentWargame(wargame))
@@ -378,8 +391,8 @@ export const duplicateForce = (dbName, force) => {
   }
 }
 
-export const deleteSelectedForce = (dbName, forceId) => {
-  return async (dispatch) => {
+export const deleteSelectedForce = (dbName: string, forceId: string) => {
+  return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteForce(dbName, forceId)
 
     dispatch(setCurrentWargame(wargame))
@@ -388,24 +401,24 @@ export const deleteSelectedForce = (dbName, forceId) => {
   }
 }
 
-export const cleanWargame = (dbName) => {
-  return async (dispatch) => {
+export const cleanWargame = (dbName: string) => {
+  return async (dispatch: WargameDispatch) => {
     var games = await wargamesApi.cleanWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }
 }
 
-export const duplicateWargame = (dbName) => {
-  return async (dispatch) => {
+export const duplicateWargame = (dbName: string) => {
+  return async (dispatch: WargameDispatch) => {
     var games = await wargamesApi.duplicateWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }
 }
 
-export const updateWargameVisible = dbName => {
-  return async dispatch => {
+export const updateWargameVisible = (dbName: string) => {
+  return async (dispatch: WargameDispatch) => {
     await wargamesApi.updateWargameVisible(dbName)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
