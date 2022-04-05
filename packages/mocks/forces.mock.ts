@@ -347,7 +347,7 @@ export const forces: ForceData[] = [
     color: '#00F',
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
-    name: 'Blue',
+    name: 'Blue Force',
     overview: 'Blue force.',
     roles: [
       {

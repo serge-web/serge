@@ -19,7 +19,7 @@ const collateVisibilityFormData = (platforms: PlatformTypeData[], selectedAsset:
   const currentPlatform = findPlatformTypeFor(platforms, '', selectedAsset.typeId || 'dummy-id')
 
   // remove asset's own force, since they can always see their own assets
-  const trimmedForcesList: ColorOption[] = availableForcesList.filter((c: ColorOption) => c.name !== selectedAsset.forceId)
+  const trimmedForcesList: ColorOption[] = availableForcesList.filter((c: ColorOption) => c.forceId !== selectedAsset.forceId)
 
   const formData: VisibilityFormData = {
     assetId: selectedAsset.uniqid,

@@ -16,5 +16,5 @@ it('contains relevant population results', () => {
   expect(status.length).toEqual(3)
   expect(status[0]).toEqual({ mobile: true, name: 'Transiting' })
   expect(visibleTo.length).toEqual(3)
-  expect(visibleTo[0]).toEqual({ colour: '#00F', name: 'Blue' })
+  expect(visibleTo[0]).toEqual({ colour: '#00F', forceName: 'Blue Force', forceId: 'Blue' })
 })

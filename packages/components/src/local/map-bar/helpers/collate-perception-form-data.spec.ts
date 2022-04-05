@@ -9,18 +9,20 @@ import { UMPIRE_FORCE } from '@serge/config'
 
 const redId = forces[2].uniqid
 const redName = forces[2].name
+const blueForce = forces[1]
 
 it('contains relevant population results', () => {
   const selected2 = {
     ...selectedAsset,
     uniqid: 'a0pra000100'
   }
-  const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
+  const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, blueForce.uniqid, selected2, forces)
   if (data) {
     const res: PerceptionFormPopulate = data.populate
     expect(res.perceivedForces.length).toEqual(4)
-    expect(res.perceivedForces[0]).toEqual({ colour: '#00F', name: 'Blue' })
-    expect(res.perceivedForces).toContainEqual({ colour: '#ccc', name: 'Unknown' })
+    expect(res.perceivedForces[0]).toEqual({ colour: '#00F', forceName: 'Blue Force', forceId: 'Blue' })
+    // check we have the special `undefined` value (null)
+    expect(res.perceivedForces).toContainEqual({ colour: '#ccc', forceName: 'Unknown', forceId: null })
     expect(res.perceivedTypes.length).toEqual(13)
     expect(res.perceivedTypes[0]).toEqual({ name: 'Fishing vessel', uniqid: 'a1' })
   } else {
@@ -35,7 +37,7 @@ it('contains relevant current results for other force', () => {
     force: redName,
     forceId: redId
   }
-  const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
+  const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, blueForce.uniqid, selected2, forces)
   if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('unknown')

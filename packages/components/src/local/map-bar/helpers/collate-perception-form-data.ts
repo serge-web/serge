@@ -4,14 +4,14 @@ import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/hel
 
 /** determine which form to show on this click
  * @param {PlatformTypeData[]} platforms list of platform types in the wargame
- * @param {string} playerForce force for the current platform
+ * @param {ForceData['uniqid']} playerForceId force for the current platform
  * @param {SelectedAsset} selectedAsset the currently selected asset
  * @return {string} data necessary for the plan turn form
  */
-const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[]): PerceptionFormData | null => {
+const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForceId: ForceData['uniqid'], selectedAsset: SelectedAsset, forces: ForceData[]): PerceptionFormData | null => {
   // get the actual asset
   const asset: Asset = findAsset(forces, selectedAsset.uniqid)
-  const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
+  const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForceId, asset.name, false, asset.contactId,
     selectedAsset.forceId, '', selectedAsset.typeId, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return { uniqid: p.uniqid, name: p.name } })

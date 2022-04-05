@@ -1,5 +1,5 @@
 import { UMPIRE_FORCE, UMPIRE_FORCE_NAME } from '@serge/config'
-import { Perception, PerceivedTypes, PlatformTypeData } from '@serge/custom-types'
+import { Perception, PerceivedTypes, PlatformTypeData, ForceData } from '@serge/custom-types'
 
 /** provide classnames for an asset, as perceived by current player
  * // TODO: switch from force name to force id, for both "my" and "their"
@@ -16,22 +16,22 @@ import { Perception, PerceivedTypes, PlatformTypeData } from '@serge/custom-type
  * @returns {string, string, string} name-class, force-class, type-class
  */
 export default function findPerceivedAsTypes (
-  myForce: string,
+  myForceId: ForceData['uniqid'],
   theirName: string,
   visibleToPlayerForce: boolean,
   theirContactID: string,
-  theirForce: string,
+  theirForceId: ForceData['uniqid'],
   theirType: string,
   theirTypeId: PlatformTypeData['uniqid'],
   theirPerceptions: Perception[]
 ): PerceivedTypes | null {
   let tmpPerception: Perception | null
-  if (myForce.toLowerCase() === theirForce.toLowerCase() || visibleToPlayerForce || myForce.toLowerCase() === UMPIRE_FORCE || myForce.toLowerCase() === UMPIRE_FORCE_NAME) {
+  if (myForceId === theirForceId || visibleToPlayerForce || myForceId === UMPIRE_FORCE || myForceId === UMPIRE_FORCE_NAME) {
     // just use the real values
-    tmpPerception = { name: theirName, force: theirForce, type: theirType, typeId: theirTypeId, by: myForce }
+    tmpPerception = { name: theirName, force: theirForceId, type: theirType, typeId: theirTypeId, by: myForceId }
   } else {
     // use the perceived values
-    tmpPerception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
+    tmpPerception = theirPerceptions.find(p => p.by === myForceId) || null
   }
   if (tmpPerception) {
     const nameClass: string = tmpPerception.name ? tmpPerception.name : theirContactID

@@ -13,11 +13,12 @@ const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpir
     const res: ColorOption[] = nonUmpire.map((force: ForceData): ColorOption => {
       return {
         colour: force.color,
-        name: force.name
+        forceName: force.name,
+        forceId: force.uniqid
       }
     })
     if (withUnknown) {
-      res.push({ name: 'Unknown', colour: '#ccc' })
+      res.push({ forceName: 'Unknown', colour: '#ccc', forceId: null })
     }
     return res
   } else {
