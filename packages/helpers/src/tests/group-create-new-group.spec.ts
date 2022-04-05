@@ -69,10 +69,6 @@ it('Creates new group from provided assets', () => {
       // check tanker has appeared at top level
       expect(forces2[1].assets.length).toEqual(4)
 
-      if (!taskGroupType) {
-        throw new Error('Failed to find task group type')
-      }
-
       // ok, try to add the tanker to the task group
       const forces3: ForceData[] = groupCreateNewGroup(tankerId, taskGroup.uniqid, forces2, taskGroupType)
       if (forces3[1] && forces3[1].assets && forces3[1].assets.length) {
