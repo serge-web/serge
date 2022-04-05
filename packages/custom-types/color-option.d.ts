@@ -1,9 +1,9 @@
 import ForceData from "./force-data"
+import FormOption from "./form-option"
 
-export default interface ColorOption {
-  forceName: ForceData['name']
-  // use null for force-id to ensure something is put in there,
-  // and it's not just undefined because it's forgotten
-  forceId: ForceData['uniqid'] | null
-  colour: string
+/** presenting forces as a series of drop-down options */
+export default interface ForceOption extends FormOption {
+  name: ForceData['name']
+  colour: ForceData['color']
+  id: ForceData['uniqid'] | null
 }

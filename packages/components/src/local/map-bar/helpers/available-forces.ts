@@ -5,20 +5,26 @@ import { ColorOption, ForceData } from '@serge/custom-types'
  * @param {any} forces list of forces in wargame
  * @param {boolean} withUnknown whether to include unknown force
  * @param {boolean} excludeUmpire whether to exclude umpire force
+ * @param {ForceData['uniqid'] | undefined} forceId own force Id - since we don't render own force. Undefined to not skip own force
  * @return {Array<ColorOption>} collection of name/color pairs
  */
-const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpire: boolean): Array<ColorOption> => {
+const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpire: boolean, forceId: ForceData['uniqid'] | undefined): Array<ColorOption> => {
   if (forces) {
+    // skip umpire
     const nonUmpire: ForceData[] = excludeUmpire ? forces.filter((force: ForceData) => force.uniqid !== UMPIRE_FORCE) : forces
-    const res: ColorOption[] = nonUmpire.map((force: ForceData): ColorOption => {
+
+    // skip own force
+    const skipOwn: ForceData[] = forceId ? nonUmpire.filter((force: ForceData) => force.uniqid !== forceId) : nonUmpire
+
+    const res: ColorOption[] = skipOwn.map((force: ForceData): ColorOption => {
       return {
         colour: force.color,
-        forceName: force.name,
-        forceId: force.uniqid
+        name: force.name,
+        id: force.uniqid
       }
     })
     if (withUnknown) {
-      res.push({ forceName: 'Unknown', colour: '#ccc', forceId: null })
+      res.push({ name: 'Unknown', colour: '#ccc', id: null })
     }
     return res
   } else {

@@ -14,7 +14,7 @@ import { VISIBILITY_CHANGES } from '@serge/config'
 
 /* Render component */
 export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
-  const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.values)
+  const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.forceNames)
   const [conditionVal, setConditionVal] = useState<string>(formData.selectedCondition)
   const forces: Array<ColorOption> = formData.populate
   const conditionValues: Array<string> = formData.condition
@@ -24,7 +24,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
   }
   const submitForm = (): void => {
     if (mapPostBack !== undefined) {
-      const originalVis: string[] = formData.values
+      const originalVis: string[] = formData.forceNames
       // collate list of visibility changes
       const res: Visibility[] = []
       // see if any forces have been hidden

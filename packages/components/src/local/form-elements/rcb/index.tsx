@@ -12,7 +12,7 @@ import PropTypes from './types/props'
 
 /* Import helpers */
 import { ConditionalWrapper, componentSelector } from './helpers'
-import Option from './types/option'
+import { FormOption } from '@serge/custom-types'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
@@ -64,11 +64,18 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
   const inputName = name || camelCase(label)
 
-  const getLabel = (option: Option): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
+  const getLabel = (option: FormOption): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
 
   const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
 
-  const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
+  const selectedClassName = (o: string, selected: string): any | undefined =>{
+    const isNumber = typeof o === 'number'
+    if (isNumber) {
+      return undefined
+    } else {
+      return o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
+    }
+  } 
 
   const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
 
