@@ -43,7 +43,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
           left: isOwner ? '99%' : '0%',
           borderRadius: isOwner ? '0 8px 8px 0' : '8px 0 0 8px'
         }}
-        onClick={() => markUnread && markUnread(message)}></span>
+        onClick={(): void => markUnread && markUnread(message)}></span>
       <div className={styles['message-text']}>{messageContent}</div>
       <Box
         display="flex"

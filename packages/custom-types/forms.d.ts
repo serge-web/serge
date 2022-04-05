@@ -3,6 +3,7 @@ import ColorOption from './color-option'
 import { AttributeValues } from './attributes'
 import SergeHex from './serge-hex'
 import { SergeHex3 } from './serge-hex-3'
+import PlatformTypeData from './platform-type-data'
 
 interface Status {
   name: string,
@@ -14,16 +15,22 @@ interface Force {
   colour: string
 }
 
+export interface PerceivedType {
+  name: PlatformTypeData['name']
+  uniqid : PlatformTypeData['uniqid']
+}
+
 export interface PerceptionFormPopulate {
-  perceivedForce: Array<ColorOption>
-  perceivedType: Array<string>
+  perceivedForces: Array<ColorOption>
+  perceivedTypes: Array<PerceivedType>
 }
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
   perceivedForceVal: string
-  perceivedTypeVal: string
+  perceivedTypeId: PlatformTypeData['uniqid'] | undefined
   assetId: string
+  iconURL: PlatformTypeData['icon']
 }
 
 export interface PerceptionFormData {
@@ -76,3 +83,11 @@ export interface VisibilityFormData {
   selectedCondition: string
 }
 
+/**
+ * Data for icon generation
+ */
+ export interface IconDefinition {
+  forceColor: string
+  platformType: string
+  icon: string
+}

@@ -47,7 +47,8 @@ import {
   MessageHostPlatform,
   SergeHex3,
   TurningDetails,
-  MappingConstraints
+  MappingConstraints,
+  MessageMap
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -119,7 +120,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   channelID,
-  mapPostBack = (): void => { console.log('mapPostBack') },
+  mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => { console.log('mapPostBack', messageType, channelID, payload) },
   children,
   fetchOverride
 }) => {
@@ -503,7 +504,9 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
-    if (current) {
+    // only handle this if we know the current track, and we know what type it is.
+    // we _Should_ know the platform type id, since it's our platform
+    if (current && current.platformTypeId) {
       // is it a mobile turn
       const status: Status = plannedTurn.statusVal
       if (status.mobile) {
@@ -512,7 +515,7 @@ export const Mapping: React.FC<PropTypes> = ({
         const origin: string = inAdjudicate ? current.currentPosition : routeGetLatestPosition(current.currentPosition, current.planned)
 
         // sort out platform type for this asset
-        const pType = findPlatformTypeFor(platforms, current.platformType)
+        const pType = findPlatformTypeFor(platforms, current.platformType, current.platformTypeId)
 
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel

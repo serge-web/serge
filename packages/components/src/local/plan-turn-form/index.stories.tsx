@@ -21,7 +21,7 @@ export default {
   }
 }
 
-const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
+const iconData = { platformType: 'merchant-vessel', forceColor: 'blue', icon: 'frigate.svg' }
 
 // put in the post handler
 const postback = (step: PlanTurnFormValues): void => {

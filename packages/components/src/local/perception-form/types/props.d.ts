@@ -6,7 +6,7 @@ export default interface PropTypes {
    */
   formHeader?: string
   /**
-   * The asset of the selected force
+   * The type pf platform @deprecated
    */
   type?: string
   /**

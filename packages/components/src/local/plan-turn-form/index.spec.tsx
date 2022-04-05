@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer'
 import PlanTurnForm from './index'
 
 import formData from './mocks/formData'
-const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
+const iconData = { platformType: 'merchant-vessel', forceColor: 'blue', icon: 'frigate.svg' }
 
 it('PlanTurnForm renders correctly', () => {
   const tree = renderer

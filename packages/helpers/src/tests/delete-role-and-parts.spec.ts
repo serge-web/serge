@@ -12,7 +12,7 @@ it('delete role:', () => {
   const wargame = deepCopy(watuWargame)
 
   expect(blueForce).toBeTruthy()
-  expect(blueForce.name).toEqual('Blue-1')
+  expect(blueForce.name).toEqual('Blue-1 Force')
   expect(blueForce.roles[2].name).toEqual('Comms')
   expect(blueForce.roles.length).toEqual(3)
   const res = deleteRoleAndParts(wargame.data, blueForce.roles, 1)

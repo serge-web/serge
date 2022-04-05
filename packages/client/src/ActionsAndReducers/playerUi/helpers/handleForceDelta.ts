@@ -10,7 +10,8 @@ import {
   MessageDeletePlatform,
   MessageStateOfWorld, 
   MessageCreateTaskGroup,
-  MessageLeaveTaskGroup } from '@serge/custom-types'
+  MessageLeaveTaskGroup, 
+  PlatformTypeData} from '@serge/custom-types'
 
 import { handleVisibilityAndConditionChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -35,7 +36,7 @@ import {
 // TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */
-export default (message: MessageMap, details: MessageDetails, allForces: ForceData[]): ForceData[] => {
+export default (message: MessageMap, details: MessageDetails, allForces: ForceData[], platformTypes: PlatformTypeData[]): ForceData[] => {
   const msgType: string = details.messageType
   if (!msgType) {
     console.error('problem - we need message type in ', message)
@@ -55,11 +56,11 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
     case STATE_OF_WORLD:
       return handleStateOfWorldChanges(message as MessageStateOfWorld, allForces)
     case CREATE_TASK_GROUP:
-      return handleCreateTaskGroup(message as MessageCreateTaskGroup, allForces)
+      return handleCreateTaskGroup(message as MessageCreateTaskGroup, allForces, platformTypes)
     case LEAVE_TASK_GROUP:
       return handleLeaveTaskGroup(message as MessageLeaveTaskGroup, allForces)
     case HOST_PLATFORM:
-      return handleHostPlatform(message as MessageHostPlatform, allForces)
+      return handleHostPlatform(message as MessageHostPlatform, allForces, platformTypes)
     case DELETE_PLATFORM:
       return handleDeletePlatform(message as MessageDeletePlatform, allForces)
       default:

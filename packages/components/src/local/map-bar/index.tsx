@@ -9,7 +9,7 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
 import collateStateOfWorld from './helpers/collate-state-of-world'
 
-import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
+import { findAsset, forceFor, visibleTo, deepCopy, findPlatformTypeFor } from '@serge/helpers'
 
 /* import types */
 import {
@@ -96,10 +96,6 @@ export const MapBar: React.FC = () => {
   // sort out the handler for State of World button
   useEffect(() => {
     if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected && selectedAsset) {
-      const iconData = {
-        forceColor: selectedAsset.force,
-        platformType: selectedAsset.type
-      }
       const closePlanningForm = (): void => {
         // @ts-ignore
         setSelectedAsset(undefined)
@@ -107,7 +103,7 @@ export const MapBar: React.FC = () => {
       const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
       setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid,
         selectedAsset.name, turnNumber, setRouteStore, turnPlanned,
-        cancelRoutePlanning, closePlanningForm, iconData, formData))
+        cancelRoutePlanning, closePlanningForm, formData))
     } else {
       setAdjudicationManager(undefined)
     }
@@ -117,7 +113,7 @@ export const MapBar: React.FC = () => {
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -222,8 +218,8 @@ export const MapBar: React.FC = () => {
         uniqid: asset.uniqid,
         name: asset.name,
         contactId: asset.contactId,
-        type: asset.platformType,
-        force: force.uniqid,
+        typeId: asset.platformTypeId,
+        forceId: force.uniqid,
         controlledBy: force.controlledBy,
         condition: asset.condition,
         visibleTo: visibleToArr,
@@ -272,10 +268,12 @@ export const MapBar: React.FC = () => {
       throw new Error('No route selected')
     }
     if (typeof selectedAsset === 'undefined') return null
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
+    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
+    const platformType = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
     const iconData = {
-      forceColor: selectedAsset.force,
-      platformType: selectedAsset.type
+      forceColor: selectedAsset.forceId,
+      platformType: platformType.name,
+      icon: platformType.icon
     }
     switch (form) {
       case MapBarForms.Perception:
@@ -283,8 +281,8 @@ export const MapBar: React.FC = () => {
         const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
         return data && <PerceptionForm
           key={selectedAsset.uniqid}
-          type={selectedAsset.type}
-          force={selectedAsset.force}
+          type={platformType.name}
+          force={selectedAsset.forceId}
           formData={data}
           channelID={channelID}
           mapPostBack={mapPostBack} />
@@ -294,6 +292,7 @@ export const MapBar: React.FC = () => {
           key={adjudicationManager && adjudicationManager.uniqid}
           manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
+          icon={iconData}
           canSubmitPlans={canSubmitOrders} />
       }
       case MapBarForms.Planning: {

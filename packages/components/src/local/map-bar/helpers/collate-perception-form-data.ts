@@ -1,6 +1,6 @@
-import { SelectedAsset, ColorOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes } from '@serge/custom-types'
+import { SelectedAsset, ColorOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes, PerceivedType } from '@serge/custom-types'
 import availableForces from './available-forces'
-import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
+import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/helpers'
 
 /** determine which form to show on this click
  * @param {PlatformTypeData[]} platforms list of platform types in the wargame
@@ -11,26 +11,24 @@ import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
 const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[]): PerceptionFormData | null => {
   // get the actual asset
   const asset: Asset = findAsset(forces, selectedAsset.uniqid)
-  const perceivedTypes: PerceivedTypes | null = findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
-    selectedAsset.force, selectedAsset.type, asset.perceptions)
+  const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForce, asset.name, false, asset.contactId,
+    selectedAsset.forceId, '', selectedAsset.typeId, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
-  const platformTypes = platforms && platforms.map((p: PlatformTypeData) => p.name)
-  if (platformTypes) {
-    platformTypes.push('Unknown')
-  } else {
-    throw new Error('Failed to find list of platforms')
-  }
+  const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return { uniqid: p.uniqid, name: p.name } })
+  const perceivedType = perceivedTypes && perceivedTypes.typeId && findPlatformTypeFor(platforms, '', perceivedTypes.typeId)
+
   if (perceivedTypes) {
     const formData: PerceptionFormData = {
       populate: {
-        perceivedForce: availableForceList,
-        perceivedType: platformTypes
+        perceivedForces: availableForceList,
+        perceivedTypes: platformTypes
       },
       values: {
         perceivedNameVal: perceivedTypes.name,
         perceivedForceVal: perceivedTypes.force,
-        perceivedTypeVal: perceivedTypes.type,
-        assetId: selectedAsset.uniqid
+        perceivedTypeId: perceivedTypes.typeId,
+        assetId: selectedAsset.uniqid,
+        iconURL: (perceivedType && perceivedType.icon) || 'unknown.svg'
       }
     }
     return formData

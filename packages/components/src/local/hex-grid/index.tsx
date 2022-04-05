@@ -5,8 +5,10 @@ import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
+import { DATUM, CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
+
 /* Import helpers */
-import { plannedRouteFor3 } from '@serge/helpers'
+import { findPlatformTypeFor, plannedRouteFor3 } from '@serge/helpers'
 import Polygon from './helpers/polygon'
 
 import { binCells3, PolyBin3 } from './helpers/bin-cells'
@@ -17,7 +19,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { Route, NewTurnValues, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
-import { CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
+
 import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing, h3Line } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
 import { brgBetweenTwoHex, cleanAngle, leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
@@ -45,7 +47,7 @@ export const HexGrid: React.FC<{}> = () => {
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle,
-    mapBounds, h3Resolution
+    mapBounds, h3Resolution, platforms
   } = props
 
   // define detail cut-offs
@@ -108,6 +110,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // remember the id of the current asset, so we can check if we're receiving a new one
   const [selectedAssetId, setSelectedAssetId] = useState<string | undefined>(undefined)
+
+  const datumType = findPlatformTypeFor(platforms, DATUM, '').name
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -218,7 +222,7 @@ export const HexGrid: React.FC<{}> = () => {
             ? plannedRouteFor3(h3gridCells, allowableCells3, originHex3, dragDestination3) : []
 
           // combine with any existing planned cells
-          if (selectedAsset && selectedAsset.type === 'datum') {
+          if (selectedAsset && selectedAsset.typeId === datumType) {
             if (plannedRoute.length > 0) {
               // we need the planned route to be more than one cell long in order
               // for later code to recognise it as a valid leg

@@ -20,7 +20,7 @@ import PropTypes from './types/props'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
-  plansSubmitted, canSubmitPlans, manager
+  plansSubmitted, canSubmitPlans, manager, icon
 }) => {
   // flag for if the current state is mobile#
   const [statusValues, setStatusValues] = useState<Array<Status>>([])
@@ -37,7 +37,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [speedVal, setSpeedVal] = useState<number>(0)
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
-  const icon: { forceColor: string, platformType: string } = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
   const [attributeValues, setAttributeValues] = useState<AttributeValues>(manager ? manager.currentAttributeValues() : [])

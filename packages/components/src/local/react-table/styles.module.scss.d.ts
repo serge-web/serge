@@ -2,12 +2,12 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
-  'checkbox': string;
   'btn': string;
-  'input-filter': string;
-  'filter-icon': string;
-  'light': string;
+  'checkbox': string;
   'dark': string;
+  'filter-icon': string;
+  'input-filter': string;
+  'light': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

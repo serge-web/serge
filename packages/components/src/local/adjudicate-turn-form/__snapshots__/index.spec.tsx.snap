@@ -18,7 +18,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
       className="icon"
     >
       <div
-        className="asset-icon"
+        className="asset-icon #f00 platform-type-frigate"
       />
     </div>
   </div>

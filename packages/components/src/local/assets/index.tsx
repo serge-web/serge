@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-import { findPerceivedAsTypes, platformTypeNameToKey, visibleTo } from '@serge/helpers'
+import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
 import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
 import { Route } from '../route'
 
@@ -28,7 +28,7 @@ export const Assets: React.FC<{}> = () => {
     viewAsRouteStore,
     phase,
     clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
-    platformTypesByKey,
+    platforms,
     map
   } = props
 
@@ -50,25 +50,26 @@ export const Assets: React.FC<{}> = () => {
     if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
-        const thisPlatformType = platformTypesByKey[platformTypeNameToKey(route.asset.platformType)]
+        const { uniqid, name, platformType, platformTypeId, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
+        const thisPlatformType = findPlatformTypeFor(platforms, route.asset.platformType, route.asset.platformTypeId)
         if (!thisPlatformType) {
-          console.warn('Failed to find platform for', platformType, platformTypesByKey, route)
+          console.warn('Failed to find platform for', platformType, platforms, route)
         }
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
-        const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
+        const perceivedAsTypes: PerceivedTypes | null = (platformTypeId === undefined) ? null : findPerceivedAsTypes(
           playerForceName,
           name,
           visibleToThisForce,
           contactId,
           actualForceName,
           platformType,
+          platformTypeId,
           perceptions
         )
 
-        if (perceivedAsTypes) {
+        if (perceivedAsTypes && perceivedAsTypes.typeId) {
           const position: L.LatLng | undefined = route.currentLocation // (cell && cell.centreLatLng) || undefined // route.currentLocation
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
@@ -92,6 +93,10 @@ export const Assets: React.FC<{}> = () => {
                   orientData.push(newItem)
                 }
               })
+
+              // sort out the icon
+              const iconUrl = perceivedAsTypes.type === 'unknown' ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
+
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
@@ -100,6 +105,8 @@ export const Assets: React.FC<{}> = () => {
                 status: status,
                 selected: isSelected,
                 type: perceivedAsTypes.type,
+                typeId: perceivedAsTypes.typeId,
+                iconUrl: iconUrl,
                 perceivedForceColor: route.perceivedForceColor,
                 perceivedForceClass: route.perceivedForceClass,
                 force: assetForce.uniqid,
@@ -123,8 +130,6 @@ export const Assets: React.FC<{}> = () => {
 
   return <>
     <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
-      const platformType = platformTypesByKey[asset.type]
-      const imageSrc: string | undefined = typeof platformType !== 'undefined' ? platformType.icon : undefined
       return <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
@@ -133,6 +138,7 @@ export const Assets: React.FC<{}> = () => {
         uniqid={asset.uniqid}
         position={asset.position}
         type={asset.type}
+        typeId={asset.typeId}
         selected={asset.selected}
         condition={asset.condition}
         status={asset.status}
@@ -142,7 +148,7 @@ export const Assets: React.FC<{}> = () => {
         perceivedForceColor={asset.perceivedForceColor}
         perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
-        imageSrc={imageSrc}
+        imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
         locationPending={!!asset.laydownPhase}/>

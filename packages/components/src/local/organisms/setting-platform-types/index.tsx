@@ -292,6 +292,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           <div className={styles.col}>
             <IconUploader platformType={platformTypeNameToKey(data.name)} iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
+          <div className={styles.uniqid}>Fixed id:{data.uniqid}</div>
           <div className={styles.actions}>
             <Button
               color='primary'
@@ -419,13 +420,15 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
+    const newId = uniqid('p')
     localPlatformType.platformTypes.unshift({
       name: createPlatformName(),
       conditions: [],
       speedKts: [],
       states: [],
       icon: '',
-      travelMode: 'sea'
+      travelMode: 'sea',
+      uniqid: newId
     })
     // update localPlatformType and call onSave
     handleChangePlatformTypes(localPlatformType.platformTypes)
