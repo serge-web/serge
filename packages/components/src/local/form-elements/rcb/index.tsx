@@ -15,7 +15,10 @@ import Option from './types/option'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
-  const [checkedArray, updateCheckedArray] = useState<Array<{}>>([])
+
+  type SelectionItem = {name: number | string, selected: boolean}
+
+  const [checkedArray, updateCheckedArray] = useState<Array<SelectionItem>>([])
 
   // NOTE: we only allow an object for options if force is true
   const firstOption = options && options.length && options[0]
@@ -27,8 +30,8 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
 
   useEffect(() => {
-    const selection = options.map((o: any) => {
-      const opt = o.name || o
+    const selection = options.map((option: string | number | Option) => {
+      const opt = valueFor(option)
       let selected = false
       if (Array.isArray(value)) {
         selected = value.includes(opt)
@@ -47,25 +50,21 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
     updateState((event.target))
   }
 
-  const handleCheckbox = (data: any): void => {
+  const handleCheckbox = (data: HTMLInputElement): void => {
     const { name, value, checked } = data
-
-    const lowerValue: string = value
-    const updatedArray: any = checkedArray.map((c: any) => {
-      if (c.name === lowerValue) {
+    const updatedArray: any = checkedArray.map((c: SelectionItem): SelectionItem => {
+      if (c.name === value) {
         c.selected = checked
       }
       return c
     })
 
-    updateCheckedArray(
-      updatedArray
-    )
+    updateCheckedArray(updatedArray)
 
     updateState(
       {
         name,
-        value: checkedArray.filter((c: any) => c.selected === true).map((c: any) => c.name)
+        value: checkedArray.filter((c: SelectionItem) => c.selected === true).map((c: SelectionItem) => c.name)
       }
     )
   }
@@ -74,12 +73,12 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
   const getLabel = (option: Option): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
 
-  const getSelected = (o: any): any => {
+  const getSelected = (o: string | number): boolean => {
     const res = Array.isArray(value) ? value.includes(o) : value === o
     return res
   } 
   
-  const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
+  const selectedClassName = (o: string, selected: string): string | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
 
   const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
 

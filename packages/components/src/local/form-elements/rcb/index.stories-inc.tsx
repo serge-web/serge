@@ -60,6 +60,7 @@ export const CheckboxWithForce: React.FC = () => <RCB type="checkbox" force={tru
 export const CheckboxWithLargeForce: React.FC = () => <RCB type="checkbox" force={true} label="Visible to" options={largeForces} value={largeForces[2].name} updateState={logData} />
 export const CompactCheckboxWithForce: React.FC = () => <RCB type="checkbox" compact={true} force={true} label="Visible to" options={forces} value={['Red']} updateState={logData} />
 export const CompactCheckboxWithForceMulti: React.FC = () => <RCB type="checkbox" compact={true} force={true} label="Visible to" options={forces} value={['Red', 'Blue']} updateState={logData} />
+export const CompactCheckboxWithLargeForce: React.FC = () => <RCB type="checkbox" compact={true} force={true} label="Visible to" options={largeForces} value={largeForces[2].name} updateState={logData} />
 export const Radio: React.FC = () => <RCB type="radio" label="Visible to" options={['Red', 'Blue']} value="Blue" updateState={logData} />
 export const RadioNumbers: React.FC = () => <RCB type="radio" label="Speed" options={numberChoices} value={numberChoices[1]} updateState={logData} />
 export const RadiLargeNumbers: React.FC = () => <RCB type="radio" label="Speed" options={largeNumbers} value={largeNumbers[1]} updateState={logData} />
