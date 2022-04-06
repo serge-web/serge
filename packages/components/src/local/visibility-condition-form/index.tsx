@@ -78,7 +78,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={forces} value={visibleTo} updateState={changeHandler} />
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={forces.length > 2} options={forces} value={visibleTo} updateState={changeHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { camelCase, kebabCase } from 'lodash'
 
 import InputContainer from '../../atoms/input-container'
 import { FormControlLabel, RadioGroup } from '@material-ui/core'
@@ -12,15 +11,25 @@ import PropTypes from './types/props'
 
 /* Import helpers */
 import { ConditionalWrapper, componentSelector } from './helpers'
-import Option from './types/option'
+import { SelectOption } from '@serge/custom-types'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
-  const [checkedArray, updateCheckedArray] = useState<Array<{}>>([])
+  type SelectionItem = {name: number | string, selected: boolean}
+
+  const [checkedArray, updateCheckedArray] = useState<Array<SelectionItem>>([])
+
+  // NOTE: we only allow an object for options if force is true
+  const firstOption = options && options.length && options[0]
+  if (firstOption) {
+    if (typeof firstOption === 'object' && !force) {
+      throw new Error('RCB control only accept objects as options if force flag is true:' + firstOption)
+    }
+  }
 
   useEffect(() => {
-    const selection = options.map((o: any) => {
-      const opt = o.name || o
+    const selection = options.map((option: string | number | SelectOption) => {
+      const opt = valueFor(option)
       let selected = false
       if (Array.isArray(value)) {
         selected = value.includes(opt)
@@ -36,46 +45,45 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   }, [value, options])
 
   const handleRadio = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    updateState((event.target))
+    updateState && updateState(event.target)
   }
 
-  const handleCheckbox = (data: any): void => {
+  const handleCheckbox = (data: HTMLInputElement): void => {
     const { name, value, checked } = data
-
-    const lowerValue: string = kebabCase(value)
-    const updatedArray: any = checkedArray.map((c: any) => {
-      if (kebabCase(c.name) === lowerValue) {
+    const updatedArray: any = checkedArray.map((c: SelectionItem): SelectionItem => {
+      if (c.name === value) {
         c.selected = checked
       }
       return c
     })
 
-    updateCheckedArray(
-      updatedArray
-    )
+    updateCheckedArray(updatedArray)
 
-    updateState(
+    updateState && updateState(
       {
         name,
-        value: checkedArray.filter((c: any) => c.selected === true).map((c: any) => c.name)
+        value: checkedArray.filter((c: SelectionItem) => c.selected === true).map((c: SelectionItem) => c.name)
       }
     )
   }
 
-  const inputName = name || camelCase(label)
+  const inputName = name || label
 
-  const getLabel = (option: Option): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
+  const getLabel = (option: SelectOption): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
 
-  const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
-
-  const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
+  const getSelected = (o: string | number): boolean => {
+    const res = Array.isArray(value) ? value.includes(o) : value === o
+    return res
+  }
 
   const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
+
+  const valueFor = (val: any): number | string => val.name || val
 
   return <InputContainer label={label} className={className} disableOffset={disableOffset}>
     <ConditionalWrapper
       condition={type === 'radio'}
-      wrapper={(children: any): React.ReactNode => <RadioGroup row={compact} aria-label={label} name={inputName} value={getSelected(value)} onChange={handleRadio}>{children}</RadioGroup>}
+      wrapper={(children: any): React.ReactNode => <RadioGroup row={compact} aria-label={label} name={inputName} value={valueFor(value)} onChange={handleRadio}>{children}</RadioGroup>}
     >
       {
         options.map((option: any) => {
@@ -87,8 +95,8 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
             title={option.name || option.toString()}
             control={componentSelector(type, option, selected, handleCheckbox, inputName)}
             label={getLabel(option)}
-            value={kebabCase(option.name) || option}
-            className={typeof selected === 'string' ? selectedClassName(o, selected) : ''}
+            value={option.name || option}
+            className={ selected ? styles.selected : ''}
           />
         }
         )
