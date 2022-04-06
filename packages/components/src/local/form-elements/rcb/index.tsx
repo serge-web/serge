@@ -76,8 +76,6 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
     return res
   }
 
-  const selectedClassName = (o: string, selected: string): string | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
-
   const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
 
   const valueFor = (val: any): number | string => val.name || val
@@ -98,7 +96,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
             control={componentSelector(type, option, selected, handleCheckbox, inputName)}
             label={getLabel(option)}
             value={option.name || option}
-            className={typeof selected === 'string' ? selectedClassName(o, selected) : ''}
+            className={ selected ? styles.selected : ''}
           />
         }
         )
