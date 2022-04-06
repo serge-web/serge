@@ -86,8 +86,18 @@ export interface VisibilityFormData {
 /**
  * Data for icon generation
  */
- export interface IconDefinition {
+export interface IconDefinition {
   forceColor: string
   platformType: string
   icon: string
+}
+
+/**
+ *  data for selection items for RCB
+ */
+export interface SelectOption {
+  /** value displayed */
+  name: string
+  /** fill-shade for marker */
+  colour: string
 }
