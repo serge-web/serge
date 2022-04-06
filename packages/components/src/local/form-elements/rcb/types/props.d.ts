@@ -1,5 +1,3 @@
-import Option from './option'
-
 export default interface PropTypes {
   /**
    * The type of component to show
@@ -17,7 +15,7 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: Array<string | number | Option>
+  options: Array<string | number | SelectOption>
   /**
    * The value to set the 'checked' parameter to
    */

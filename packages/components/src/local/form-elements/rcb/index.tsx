@@ -11,7 +11,7 @@ import PropTypes from './types/props'
 
 /* Import helpers */
 import { ConditionalWrapper, componentSelector } from './helpers'
-import Option from './types/option'
+import { SelectOption } from '@serge/custom-types'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
@@ -28,7 +28,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   }
 
   useEffect(() => {
-    const selection = options.map((option: string | number | Option) => {
+    const selection = options.map((option: string | number | SelectOption) => {
       const opt = valueFor(option)
       let selected = false
       if (Array.isArray(value)) {
@@ -45,7 +45,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   }, [value, options])
 
   const handleRadio = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    updateState((event.target))
+    updateState && updateState(event.target)
   }
 
   const handleCheckbox = (data: HTMLInputElement): void => {
@@ -59,7 +59,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
     updateCheckedArray(updatedArray)
 
-    updateState(
+    updateState && updateState(
       {
         name,
         value: checkedArray.filter((c: SelectionItem) => c.selected === true).map((c: SelectionItem) => c.name)
@@ -69,7 +69,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
   const inputName = name || label
 
-  const getLabel = (option: Option): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
+  const getLabel = (option: SelectOption): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
 
   const getSelected = (o: string | number): boolean => {
     const res = Array.isArray(value) ? value.includes(o) : value === o

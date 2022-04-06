@@ -1,10 +1,10 @@
+import { SelectOption } from '@serge/custom-types'
 import _ from 'lodash'
 import React from 'react'
 
 // Import component files
 import RCB from './index'
 import docs from './README.md'
-import Option from './types/option'
 
 export default {
   title: 'local/form-elements/RCB',
@@ -23,7 +23,7 @@ const getRandomRgb = (): string => {
 }
 
 const largeNumbers = _.range(15)
-const largeForces = largeNumbers.map((_item, index): Option => {
+const largeForces = largeNumbers.map((_item, index): SelectOption => {
   return {
     name: 'force-' + index,
     colour: getRandomRgb()
