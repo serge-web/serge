@@ -106,7 +106,7 @@ export const ERROR_THROTTLE = 3000
 // review instances, we can't predict the URL, so
 // were failing CORS test
 
-const { hostname, protocol, href } = window.location
+const { hostname, protocol, href, origin } = window.location
 
 export const baseUrl = () => {
   const host = (new URL(href)).searchParams.get('host')
