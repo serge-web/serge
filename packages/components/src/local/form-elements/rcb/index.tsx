@@ -15,7 +15,6 @@ import Option from './types/option'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
-
   type SelectionItem = {name: number | string, selected: boolean}
 
   const [checkedArray, updateCheckedArray] = useState<Array<SelectionItem>>([])
@@ -24,10 +23,9 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const firstOption = options && options.length && options[0]
   if (firstOption) {
     if (typeof firstOption === 'object' && !force) {
-      throw new Error("RCB control only accept objects as options if force flag is true:" + firstOption)
+      throw new Error('RCB control only accept objects as options if force flag is true:' + firstOption)
     }
   }
-
 
   useEffect(() => {
     const selection = options.map((option: string | number | Option) => {
@@ -76,14 +74,14 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const getSelected = (o: string | number): boolean => {
     const res = Array.isArray(value) ? value.includes(o) : value === o
     return res
-  } 
-  
+  }
+
   const selectedClassName = (o: string, selected: string): string | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
 
   const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
 
   const valueFor = (val: any): number | string => val.name || val
-  
+
   return <InputContainer label={label} className={className} disableOffset={disableOffset}>
     <ConditionalWrapper
       condition={type === 'radio'}
