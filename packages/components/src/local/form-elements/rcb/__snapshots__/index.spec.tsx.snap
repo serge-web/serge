@@ -10,7 +10,7 @@ exports[`CheckboxType renders correctly 1`] = `
     Visible to
   </div>
   <label
-    className="MuiFormControlLabel-root"
+    className="MuiFormControlLabel-root selected"
     title="Red"
   >
     <span
@@ -127,7 +127,7 @@ exports[`RadioType renders correctly 1`] = `
     role="radiogroup"
   >
     <label
-      className="MuiFormControlLabel-root"
+      className="MuiFormControlLabel-root selected"
       title="Red"
     >
       <span

@@ -38,7 +38,7 @@ exports[`VisibilityForm renders correctly 1`] = `
           >
             
             <label
-              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom"
+              className="MuiFormControlLabel-root"
               title="Red Force"
             >
               <span
@@ -93,11 +93,12 @@ exports[`VisibilityForm renders correctly 1`] = `
                       }
                     }
                   />
+                  Red Force
                 </span>
               </span>
             </label>
             <label
-              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom"
+              className="MuiFormControlLabel-root"
               title="Green Force"
             >
               <span
@@ -152,6 +153,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                       }
                     }
                   />
+                  Green Force
                 </span>
               </span>
             </label>
