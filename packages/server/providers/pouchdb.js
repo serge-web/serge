@@ -1,8 +1,12 @@
 const listeners = {}
 let addListenersQueue = []
+const path = require('path')
+const sqlite3 = require('sqlite3')
+
 const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
+  const PouchDBRemote = require('pouchdb-core')
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
     .plugin(require('pouchdb-adapter-http'))
@@ -43,6 +47,22 @@ const pouchDb = (app, io, pouchOptions) => {
 
   const checkSqliteExists = (dbName) => {
     return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
+  }
+
+  const connectToRemoteDb = (databaseName) => {
+    return new Promise((resolve, reject) => {
+      const db_path = path.resolve(__dirname, `../db/${databaseName}`)
+      new sqlite3.Database(db_path, async (err) => {
+        if(err) {
+          reject('Not exists file in db/: ' + err)
+        }
+        else {
+          const dbWithoutSqlite = databaseName.replace('.sqlite', '')
+          const remoteDb = new PouchDBRemote(`http://admin:admin3311@164.92.156.58:5984/${dbWithoutSqlite}`)
+          resolve(remoteDb)
+        }
+      })
+    })
   }
 
   app.put('/:wargame', (req, res) => {
@@ -109,6 +129,10 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     const db = new PouchDB(databaseName, pouchOptions)
+    connectToRemoteDb(databaseName)
+      .then((remoteDb) => remoteDb.replicate.from(db))
+      .catch(err => console.log('ERR', err))
+
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
