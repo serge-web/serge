@@ -28,6 +28,7 @@ export class DbProvider implements DbProviderInterface {
 
   changes (listener: (doc: Message) => void): void  {
     const socket = io(socketPath)
+    console.log('SOCKET', socket)
     socket.on('changes', data => {
       const doc = data as Message
         listener(doc)

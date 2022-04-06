@@ -32,10 +32,9 @@ const runServer = (
   const fs = require('fs')
   const cors = require('cors')
   const app = express()
-  const http = require('http').createServer(app)
   const { Server } = require('socket.io')
   let { IBM_URL, IBM_API } = process.env
-  const io = new Server(IBM_URL && IBM_API ? http : 4000, { cors: { origin: '*' } })
+  const io = new Server(4000, { cors: { origin: '*' } })
 
   if (!IBM_URL || !IBM_API) {
     require('dotenv').config()
@@ -209,7 +208,7 @@ const runServer = (
     res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))
   })
 
-  const server = http.listen(port, () => {
+  const server = app.listen(port, () => {
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
