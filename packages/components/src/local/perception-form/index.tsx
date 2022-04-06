@@ -29,7 +29,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   const { playerForce } = props
 
   const { perceivedForces, perceivedTypes } = formData.populate
-  const { perceivedNameVal, perceivedForceClass, perceivedForceName } = formState
+  const { perceivedNameVal, perceivedForceName } = formState
   const typeStrings: string[] = perceivedTypes.map((p: PerceivedType): string => p.name)
 
   // add 'unknown' to the list of types
@@ -90,7 +90,6 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
-
 
   const perceivedForceMatch = perceivedForces.find((force: ForceOption) => force.id === perceivedForceName)
   const perceivedForceName2 = perceivedForceMatch && perceivedForceMatch.name
