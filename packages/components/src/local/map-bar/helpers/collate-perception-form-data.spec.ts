@@ -18,8 +18,8 @@ it('contains relevant population results', () => {
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
   if (data) {
     const res: PerceptionFormPopulate = data.populate
-    expect(res.perceivedForces.length).toEqual(4)
-    expect(res.perceivedForces[0]).toEqual({ colour: '#00F', name: 'Blue' })
+    expect(res.perceivedForces.length).toEqual(3)
+    expect(res.perceivedForces[0]).toEqual({ colour: '#F00', name: 'Red Force' })
     expect(res.perceivedForces).toContainEqual({ colour: '#ccc', name: 'Unknown' })
     expect(res.perceivedTypes.length).toEqual(13)
     expect(res.perceivedTypes[0]).toEqual({ name: 'Fishing vessel', uniqid: 'a1' })

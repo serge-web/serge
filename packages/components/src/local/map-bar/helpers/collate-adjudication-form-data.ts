@@ -11,7 +11,7 @@ const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsse
   forces: ForceData[]
 ): AdjudicateTurnFormPopulate => {
   const currentPlatform = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
-  const availableForcesList: ColorOption[] = availableForces(forces, false, true)
+  const availableForcesList: ColorOption[] = availableForces(forces, false, true, selectedAsset.forceId)
   const formData: AdjudicateTurnFormPopulate = {
     contactId: selectedAsset.contactId,
     status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
