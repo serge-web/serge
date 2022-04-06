@@ -67,7 +67,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="red-force"
+                    value="Red Force"
                   />
                   <svg
                     aria-hidden={true}
@@ -126,7 +126,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="green-force"
+                    value="Green Force"
                   />
                   <svg
                     aria-hidden={true}
