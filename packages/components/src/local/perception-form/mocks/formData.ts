@@ -28,7 +28,7 @@ const formData: PerceptionFormData = {
   },
   values: {
     perceivedNameVal: 'Test',
-    perceivedForceVal: 'blue-force',
+    perceivedForceClass: 'blue-force',
     perceivedForceName: 'Blue Force',
     perceivedTypeId: 'a3',
     assetId: 'c00012',
