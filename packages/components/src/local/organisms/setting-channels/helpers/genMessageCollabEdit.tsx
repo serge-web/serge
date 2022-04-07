@@ -1,6 +1,7 @@
 import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import React from 'react'
+import MoreInfo from '../../../molecules/more-info'
 import { Option } from '../../../molecules/editable-row'
 import styles from '../styles.module.scss'
 import { MessageGroupProps } from '../types/props'
@@ -74,13 +75,16 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
               return 'Add Term Here'
             }
             if (!multiple) {
-              return selStr.length ? <Chip
-                size="small"
-                label={getLabel(selStr[0])}
-                onDelete={(): void => onDelete && onDelete(selStr)}
-                clickable={true}
-                onMouseDown={(e): void => e.stopPropagation()}
-              /> : null
+              return selStr.length
+                ? <Chip
+                  size="small"
+                  icon={<MoreInfo color='#fff' description={`Details for ${getLabel(selStr[0])}`} customChipStyle={{ marginTop: 0, marginLeft: 2 }} />}
+                  label={getLabel(selStr[0])}
+                  onDelete={(): void => onDelete && onDelete(selStr)}
+                  clickable={true}
+                  onMouseDown={(e): void => e.stopPropagation()}
+                />
+                : null
             }
             return selStr.map(id => options?.find(option => option.uniqid === id)?.name).join(', ')
           }}
@@ -144,7 +148,9 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           renderTags={(vals: any, getTagProps): any =>
             vals.map((val: string, index: number) => (
               <Chip
+                icon={<MoreInfo color='#fff' description={`Details for ${val}`} customChipStyle={{ marginTop: 0, marginLeft: 2 }} />}
                 label={val}
+                size="small"
                 {...getTagProps({ index })}
               />
             ))
