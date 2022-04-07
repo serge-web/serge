@@ -31,8 +31,7 @@ const runServer = (
   const cors = require('cors')
   const app = express()
   const { Server } = require('socket.io')
-  const httpRoot = require('http')
-  const http = httpRoot.createServer(app)
+  const http = require('http').createServer(app)
   let { IBM_URL, IBM_API } = process.env
   const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
 
