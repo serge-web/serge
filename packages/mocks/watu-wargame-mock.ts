@@ -335,7 +335,7 @@ const wargame: Wargame = {
                             ],
                             "platformType": "mpa",
                             "platformTypeId": "a11",
-                            "position": "8308d4fffffffff",
+                            "position": "8918a84db2bffff",
                             "uniqid": "a03322ty344331"
                         }
                     ],
