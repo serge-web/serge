@@ -131,7 +131,7 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
-export const socketPath = origin.replace('3000', '4000')
+export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : 'http://localhost:4000'
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 export const localSettings = '_local/settings'
