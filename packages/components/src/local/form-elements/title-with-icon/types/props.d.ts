@@ -9,7 +9,7 @@ export default interface PropTypes {
    * @deprecated
    */
   platformType: string
-  /** 
+  /**
    * the icon file to use (cow.svg)
    */
   icon: string
