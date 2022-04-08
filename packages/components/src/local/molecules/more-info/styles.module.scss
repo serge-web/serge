@@ -9,7 +9,12 @@
   /*background-color: rgb(0, 29, 75); */
   height: 50px;
 
-  svg {
+  div[class*="MuiCardHeader-avatar"] {
+    margin-right: 5px;
+  }
+
+  svg,
+  span {
     color: #fff;
   }
 }

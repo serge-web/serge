@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import MoreInfoProps from './types/props'
 
-const MoreInfo: React.FC<MoreInfoProps> = ({ description, children, color, container, customChipStyle }) => {
+const MoreInfo: React.FC<MoreInfoProps> = ({ title, description, children, color, container, customChipStyle }) => {
   const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
 
   const showMoreInfo = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -33,7 +33,8 @@ const MoreInfo: React.FC<MoreInfoProps> = ({ description, children, color, conta
               </IconButton>
             }
             className={styles.header}
-          ></CardHeader>
+            title={title}
+          />
           <CardContent className={styles.content}>
             {description}
           </CardContent>

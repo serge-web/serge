@@ -1,6 +1,6 @@
 import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
-import React from 'react'
+import React, { useMemo } from 'react'
 import MoreInfo from '../../../molecules/more-info'
 import { Option } from '../../../molecules/editable-row'
 import styles from '../styles.module.scss'
@@ -52,6 +52,8 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
     return opt ? opt.name : ''
   }
 
+  const customChipStyle = useMemo(() => ({ marginTop: 0, marginLeft: 2 }), [])
+
   return (<div className={styles['message-group']}>
     <div className={styles['message-title']}>
       {title}
@@ -78,7 +80,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
               return selStr.length
                 ? <Chip
                   size="small"
-                  icon={<MoreInfo color='#fff' description={`Details for ${getLabel(selStr[0])}`} customChipStyle={{ marginTop: 0, marginLeft: 2 }} />}
+                  icon={<MoreInfo color='#fff' title={getLabel(selStr[0])} description='Details' customChipStyle={customChipStyle} />}
                   label={getLabel(selStr[0])}
                   onDelete={(): void => onDelete && onDelete(selStr)}
                   clickable={true}
@@ -148,7 +150,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           renderTags={(vals: any, getTagProps): any =>
             vals.map((val: string, index: number) => (
               <Chip
-                icon={<MoreInfo color='#fff' description={`Details for ${val}`} customChipStyle={{ marginTop: 0, marginLeft: 2 }} />}
+                icon={<MoreInfo color='#fff' title={val} description='Details' customChipStyle={customChipStyle} />}
                 label={val}
                 size="small"
                 {...getTagProps({ index })}
