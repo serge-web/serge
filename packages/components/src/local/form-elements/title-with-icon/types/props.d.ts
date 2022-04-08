@@ -7,6 +7,10 @@ export default interface PropTypes {
    * The platform type to get the svg
    */
   platformType: string
+  /** 
+   * the icon file to use (cow.svg)
+   */
+  icon: string
   /**
    * The title text or node
    */
