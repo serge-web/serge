@@ -59,6 +59,7 @@ Array [
             placeholder="Filter data"
             required={false}
             type="text"
+            value=""
           />
         </div>
       </div>
