@@ -33,6 +33,9 @@ const runServer = (
   const { Server } = require('socket.io')
   const http = require('http').createServer(app)
   let { IBM_URL, IBM_API } = process.env
+
+  // note: use use the presence of `process.env.PORT` as an 
+  // note: indicator that we're running on Heroku
   const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
 
   if (!IBM_URL || !IBM_API) {
