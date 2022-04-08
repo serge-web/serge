@@ -142,6 +142,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     <TitleWithIcon
       forceColor={icon.forceColor}
       platformType={icon.platformType}
+      icon={icon.icon}
     >
       {formHeader}
       { deleteEmptyTaskGroup &&

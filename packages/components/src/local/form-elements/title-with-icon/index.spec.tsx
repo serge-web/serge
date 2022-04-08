@@ -7,7 +7,7 @@ import TitleWithIcon from './index'
 
 it('TitleWithIcon renders correctly', () => {
   const tree = renderer
-    .create(<TitleWithIcon forceColor="blue" platformType="merchant-vessel">Test</TitleWithIcon>)
+    .create(<TitleWithIcon forceColor="blue" icon="merchant-vessel" platformType="merchant-vessel">Test</TitleWithIcon>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

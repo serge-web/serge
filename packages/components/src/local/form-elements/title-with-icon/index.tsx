@@ -8,8 +8,11 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {
+export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType, icon }) => {
   const iconClassname = getIconClassname(forceColor.toLowerCase(), platformType)
+  console.log('title with icon', forceColor, platformType, icon, iconClassname)
+  // TODO: switch from using `iconClassname` to using the `icon` field in <GetIcon
+  // <GetIcon icType={platformType} color={forceColor} isSelected={item.selected} imageSrc={icon} />
   return (
     <div className={styles.main}>
       <h2>{children}</h2>

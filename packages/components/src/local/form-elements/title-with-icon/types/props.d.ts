@@ -4,7 +4,9 @@ export default interface PropTypes {
    */
   forceColor: string
   /**
-   * The platform type to get the svg
+   * The platform type to get the svg.  We can drop this
+   * prop once we're using the icon directly
+   * @deprecated
    */
   platformType: string
   /** 

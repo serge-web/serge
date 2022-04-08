@@ -161,6 +161,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       <TitleWithIcon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
+        icon={icon.icon}
       >
         {manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}
