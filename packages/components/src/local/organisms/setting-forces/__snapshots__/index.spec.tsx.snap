@@ -18,10 +18,9 @@ exports[`SettingForces component: renders correctly 1`] = `
         >
           <span
             className="searchlist-row active"
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               White
             </span>
             <div
@@ -30,10 +29,9 @@ exports[`SettingForces component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Blue
             </span>
             <div
@@ -42,11 +40,10 @@ exports[`SettingForces component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
-              Red
+            <span>
+              Red Force
             </span>
             <div
               className="searchlist-menu"
@@ -54,11 +51,10 @@ exports[`SettingForces component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
-              Green
+            <span>
+              Green Force
             </span>
             <div
               className="searchlist-menu"
@@ -528,6 +524,16 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             Game Control
                                           </div>
                                         </div>
+                                        <span>
+                                          <div
+                                            className="trash-icon"
+                                            onClick={[Function]}
+                                          >
+                                            <svg
+                                              className="svg-inline--fa fa-trash"
+                                            />
+                                          </div>
+                                        </span>
                                         <div
                                           className="role"
                                         >
@@ -901,6 +907,16 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             RFI Manager
                                           </div>
                                         </div>
+                                        <span>
+                                          <div
+                                            className="trash-icon"
+                                            onClick={[Function]}
+                                          >
+                                            <svg
+                                              className="svg-inline--fa fa-trash"
+                                            />
+                                          </div>
+                                        </span>
                                         <div
                                           className="role"
                                         >

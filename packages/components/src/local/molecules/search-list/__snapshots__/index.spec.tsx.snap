@@ -37,10 +37,9 @@ exports[`SearchList component: renders correctly 1`] = `
   >
     <span
       className="searchlist-row active"
+      onClick={[Function]}
     >
-      <span
-        onClick={[Function]}
-      >
+      <span>
         Label
       </span>
       <div
@@ -49,10 +48,9 @@ exports[`SearchList component: renders correctly 1`] = `
     </span>
     <span
       className="searchlist-row active"
+      onClick={[Function]}
     >
-      <span
-        onClick={[Function]}
-      >
+      <span>
         Label
       </span>
       <div
@@ -61,10 +59,9 @@ exports[`SearchList component: renders correctly 1`] = `
     </span>
     <span
       className="searchlist-row active"
+      onClick={[Function]}
     >
-      <span
-        onClick={[Function]}
-      >
+      <span>
         Label
       </span>
       <div
@@ -73,10 +70,9 @@ exports[`SearchList component: renders correctly 1`] = `
     </span>
     <span
       className="searchlist-row active"
+      onClick={[Function]}
     >
-      <span
-        onClick={[Function]}
-      >
+      <span>
         Label
       </span>
       <div

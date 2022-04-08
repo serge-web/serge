@@ -45,7 +45,8 @@ export const Default: React.FC = () => {
             icon: '',
             speedKts: [],
             states: [],
-            travelMode: 'sea'
+            travelMode: 'sea',
+            uniqid: 'a1'
           },
           ...items.types
         ]
@@ -55,6 +56,7 @@ export const Default: React.FC = () => {
     return (
       <SortableList
         title='Add new platform type'
+        remove={true}
         items={items.types}
         onClick={handleClick}
         onChange={handleChange}

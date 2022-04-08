@@ -6,11 +6,7 @@ import SettingChannels from '../../organisms/setting-channels'
 import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
 import SettingPlatformTypes from '../../organisms/setting-platform-types'
-/* Import Types */
 import Props from './types/props'
-
-/* Import Stylesheet */
-// import styles from './styles.module.scss'
 
 /* Render component */
 export const GameSetup: React.FC<Props> = ({
@@ -27,9 +23,11 @@ export const GameSetup: React.FC<Props> = ({
   onOverviewChange,
   onPlatformTypesChange,
   onDeletePlatformType,
+  onDuplicatePlatformType,
   onForcesChange,
   onCreateForce,
   onDeleteForce,
+  onDuplicateForce,
   onSidebarForcesClick,
   selectedForce,
   onChannelsChange,
@@ -43,7 +41,8 @@ export const GameSetup: React.FC<Props> = ({
   onSaveGameTitle,
   onWargameInitiate,
   iconUploadUrl,
-  onDeleteGameControl
+  customDeleteHandler,
+  onDeleteAsset
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
 
@@ -69,6 +68,7 @@ export const GameSetup: React.FC<Props> = ({
               onChange={onPlatformTypesChange}
               onSave={onSave}
               onDelete={onDeletePlatformType}
+              onDuplicate={onDuplicatePlatformType}
             />
           )
         }
@@ -82,9 +82,11 @@ export const GameSetup: React.FC<Props> = ({
               onSidebarClick={onSidebarForcesClick}
               onCreate={onCreateForce}
               onDelete={onDeleteForce}
+              onDuplicate={onDuplicateForce}
               selectedForce={selectedForce}
               platformTypes={platformTypes?.platformTypes}
-              onDeleteGameControl={onDeleteGameControl}
+              customDeleteHandler={customDeleteHandler}
+              onDeleteAsset={onDeleteAsset}
             />
           )
         }

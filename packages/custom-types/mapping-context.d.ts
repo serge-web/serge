@@ -2,6 +2,8 @@ import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
+import MapAnnotation, { MapAnnotations } from './map-annotation'
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
  * mapping context, shared with child elements
@@ -12,15 +14,21 @@ export default interface MappingContext {
    */
   h3gridCells: SergeGrid3
   /**
+   * H3 grid resolution in use
+   */
+  h3Resolution: number
+  /**
    * list of forces within this wargame
    */
   forces: ForceData[]
   /**
-   * @deprecated list of platforms within this wargame
+   * list of platforms within this wargame.
+   * Don't deprecate. Use `findPlatformByType` method to retrieve value
    */
   platforms: PlatformTypeData[]
   /**
    * object of platforms within this wargame by Asset.platformType keys
+   * @deprecate it, we're indexing by type-name, which could change.
    */
   platformTypesByKey: { [property: string]: PlatformTypeData }
   /**
@@ -75,14 +83,30 @@ export default interface MappingContext {
    * state for which form should appear in the map bar
    */
   selectedAsset: SelectedAsset | undefined
+  /** which marker is selected
+   * 
+   */
+  selectedMarker: MapAnnotation['uniqid'] | undefined
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
-  /** 
+  /**
+   *  setter, to modify the currently selected information marker
+   **/
+  setSelectedMarker: {(uniqid: MapAnnotation['uniqid']): void}
+  /** clear the map selection (asset or marker)
+   * 
+   */
+  clearMapSelection: {(): void}
+   /** 
    * the current map bounds
    */
   viewport: L.LatLngBounds | undefined
+  /** 
+   * outer bounds for the map
+   */
+  mapBounds?: L.LatLngBounds
   /**
    *  state for zoom Level
    **/
@@ -146,9 +170,13 @@ export default interface MappingContext {
   /**
    * series of polygon areas, to be shaded
    */
-  polygonAreas?: any
+  polygonAreas?: FeatureCollection<Geometry, GeoJsonProperties>
   /** how to format the cell labels */
   cellLabelStyle?: CellLabelStyle
+  /**
+   * information markers
+   */
+  infoMarkers?: MapAnnotations
   /** 
    * the leaflet map
    */

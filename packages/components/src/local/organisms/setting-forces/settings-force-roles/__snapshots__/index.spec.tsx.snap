@@ -120,6 +120,16 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   Game Control
                                 </div>
                               </div>
+                              <span>
+                                <div
+                                  className="trash-icon"
+                                  onClick={[Function]}
+                                >
+                                  <svg
+                                    className="svg-inline--fa fa-trash"
+                                  />
+                                </div>
+                              </span>
                               <div
                                 className="role"
                               >
@@ -478,6 +488,16 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   RFI Manager
                                 </div>
                               </div>
+                              <span>
+                                <div
+                                  className="trash-icon"
+                                  onClick={[Function]}
+                                >
+                                  <svg
+                                    className="svg-inline--fa fa-trash"
+                                  />
+                                </div>
+                              </span>
                               <div
                                 className="role"
                               >

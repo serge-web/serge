@@ -28,11 +28,13 @@ export const SettingForces: React.FC<PropTypes> = ({
   onSidebarClick,
   onCreate,
   onDelete,
+  onDuplicate,
   iconUploadUrl,
   selectedForce,
   platformTypes = [],
   routes,
-  onDeleteGameControl
+  customDeleteHandler,
+  onDeleteAsset
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
@@ -75,12 +77,12 @@ export const SettingForces: React.FC<PropTypes> = ({
     }
 
     const onSaveForce = (): void => {
-      if (!selectedForce || !selectedForce.assets) {
+      if (!selectedForce) {
         return
       }
       const attributeErrors: string[] = []
-      selectedForce.assets.forEach((asset: Asset) => {
-        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+      selectedForce.assets && selectedForce.assets.forEach((asset: Asset) => {
+        const pType = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
         // check for extra attributes
         const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
           return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))
@@ -119,17 +121,25 @@ export const SettingForces: React.FC<PropTypes> = ({
         html += `<li>${item}</li>`
         return html
       }, '')
+
       attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)
 
       if (onSave) {
-        forcesData.some(force => {
-          if (force.uniqid === selectedForce.uniqid) {
-            // TODO: should loop each asset and assign only the `attributeValues` for each one instead of assign the whole asset to force?
-            force.assets = selectedForce.assets
-            return true
-          }
-          return false
-        })
+        // if the data is wrong and has been modified, should update back to the forceData
+        // If not, just save the forcesData
+        if (attributeErrors.length) {
+          forcesData.some(force => {
+            if (force.uniqid === selectedForce.uniqid && force.assets) {
+              force.assets.forEach((asset, idx) => {
+                if (selectedForce.assets) {
+                  asset.attributeValues = selectedForce.assets[idx].attributeValues
+                }
+              })
+              return true
+            }
+            return false
+          })
+        }
         onSave(forcesData)
       }
     }
@@ -185,7 +195,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               data={data}
               handleChangeForce={handleChangeForce}
               forces={forcesData}
-              onDeleteGameControl={onDeleteGameControl}
+              customDeleteHandler={customDeleteHandler}
             />
 
             <AssetsAccordion
@@ -194,6 +204,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               forcesData={forcesData}
               platformTypes={platformTypes}
               onChangeHandler={handleChangeForce}
+              onDeleteAsset={onDeleteAsset}
             />
           </div>
         </div>
@@ -211,6 +222,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           onClick={handleSwitch}
           onCreate={onCreate}
           onDelete={onDelete}
+          onDuplicate={onDuplicate}
           withSearch={false}
           title="Add a New Force"
         />

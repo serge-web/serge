@@ -159,18 +159,13 @@ export const createNewWargameDB = () => {
 }
 
 export const clearWargames = () => {
-  return async (dispatch) => {
-    await wargamesApi.clearWargames()
-
-    const wargames = await wargamesApi.getAllWargames()
-    dispatch(saveAllWargameNames(wargames))
-  }
+  wargamesApi.clearWargames()
 }
 
 export const downloadAllWargames = () => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     wargamesApi.downloadAllWargames()
-    
+
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
   }
@@ -298,7 +293,7 @@ export const saveForce = (dbName, newName, newData, oldName) => {
       const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
       newData.iconURL = savedIconURL.path
     }
-    
+
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
@@ -333,6 +328,21 @@ export const deleteSelectedChannel = (dbName, channel) => {
   }
 }
 
+export const deleteSelectedAsset = (data) => {
+  return async (dispatch) => {
+    data.setList(data.item)
+    dispatch(addNotification('Asset deleted.', 'warning'))
+  }
+}
+
+export const deleteSelectedRole = (dbName, data) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
+    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Role deleted.', 'warning'))
+  }
+}
+
 export const initiateWargame = (dbName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.initiateGame(dbName)
@@ -350,9 +360,27 @@ export const duplicateChannel = (dbName, channel) => {
   }
 }
 
-export const deleteSelectedForce = (dbName, force) => {
+export const duplicatePlatformType = (dbName, platformType) => {
   return async (dispatch) => {
-    const wargame = await wargamesApi.deleteForce(dbName, force)
+    const wargame = await wargamesApi.duplicatePlatformType(dbName, platformType)
+
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Platform type duplicated.', 'success'))
+  }
+}
+
+export const duplicateForce = (dbName, force) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.duplicateForce(dbName, force)
+
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Force duplicated.', 'success'))
+  }
+}
+
+export const deleteSelectedForce = (dbName, forceId) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.deleteForce(dbName, forceId)
 
     dispatch(setCurrentWargame(wargame))
 

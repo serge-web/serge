@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, ReactNode, useState, useEffect, ReactElement } from 'react'
-import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes } from '@serge/config'
+import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes, TASK_GROUP } from '@serge/config'
 /* Import proptypes */
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import PropTypes from './types/props'
@@ -34,7 +34,7 @@ import Badge from '../../../atoms/badge'
 import Button from '../../../atoms/button'
 import AttributeEditor from '../../../attribute-editor'
 
-export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [] }) => {
+export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [], onDeleteAsset }) => {
   const [fixedLocationValue, setFixedLocationValue] = useState('')
   const [addAssetActive, setAddAssetActive] = useState(false)
 
@@ -77,7 +77,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       setFixedLocationValue('')
     }
 
-    const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+    const pType = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
     pType && setAttributeTypes(pType.attributeTypes || [])
     let attrValues = asset.attributeValues || []
     if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
@@ -327,17 +327,21 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         items={selectedPlatforms}
                         renderContent={renderContent}
                         canOrganise={true}
+                        onDeleteAsset={onDeleteAsset}
+                        selectedAssetItem={selectedAssetItem}
                         canCombineWith={canCombineWithLocal}
+                        setList={(newList: GroupItem): void => setSelectedPlatforms(selectedPlatforms.filter(item => item.uniqid !== newList.uniqid))}
                         group={'platformTypesList'}
                         maxDepth={5}
                         onSet={(itemsLink: GroupItem[], type: NodeType, depth: GroupItem[]): void => {
                           const items = itemsLink.slice(0)
                           const [droppedItem, droppedInTo] = items
                           let result: ForceData[] = []
+                          const taskGroup = findPlatformTypeFor(platformTypes, TASK_GROUP, '')
                           switch (type) {
                             case 'group': {
                               if (groupCreateNewGroup) {
-                                result = groupCreateNewGroup(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce])
+                                result = groupCreateNewGroup(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce], taskGroup)
                               } else {
                                 console.warn('No new group handler', depth)
                               }
@@ -353,7 +357,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                             }
                             default:
                               if (groupHostPlatform) {
-                                result = groupHostPlatform(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce])
+                                result = groupHostPlatform(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce], taskGroup)
                               } else {
                                 console.warn('No handler for host platform', depth)
                               }

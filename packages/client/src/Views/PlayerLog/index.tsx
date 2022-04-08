@@ -1,13 +1,12 @@
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
-import { ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
+import { ActivityLogsInterface, ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
 import Modal from 'react-modal'
 import { getPlayerActivityLogs } from '../../api/wargames_api'
-import { ActivityLogsInterface } from '../../api/wargames_api/types'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { genPlayerLogDataTable } from './helpers/genData'
 import styles from './styles.module.scss'
@@ -20,7 +19,7 @@ const REFRESH_PLAYER_LOG_INTERVAL = 5000
 const AGE_FOR_ACTIVE_MILLIS = 60000
 
 const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
-  const { allForces, playerMessageLog, currentWargame } = usePlayerUiState()
+  const { allForces, playerMessageLog, currentWargame, selectedRole } = usePlayerUiState()
   const [loop, setLoop] = useState<any>();
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
@@ -52,22 +51,26 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
 
       allForces.forEach((force: ForceData) => {
         force.roles.forEach((role: Role) => {
+          // don't show log for owner
+          if (selectedRole === role.roleId) {
+            return
+          }
           if (uniqueRoles.includes(role.roleId)) {
             const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
             const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
-            const activityTime = activity && activity.activityTime && parseInt(activity.activityTime)
+            const activityTime = (activity && activity.activityTime) || ''
             setPlayerLogData([])
             logData.push({
               forceName: force.name,
               forceColor: force.color,
               roleName: role.name,
               message,
-              lastMessage: messageTime ? moment(messageTime).fromNow() : 'N/A',
+              lastMessage: messageTime,
+              lastActive: activityTime,
               lastActivity: activity ? activity.activityType : 'N/A',
-              lastActive: activityTime ? moment(activityTime).fromNow() : 'N/A',
-              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
+              active: activityTime && (moment().diff(moment(parseInt(activityTime)))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
         })

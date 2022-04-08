@@ -1,6 +1,8 @@
-const formData = {
+import { PerceptionFormData } from '@serge/custom-types'
+
+const formData: PerceptionFormData = {
   populate: {
-    perceivedForce: [
+    perceivedForces: [
       {
         name: 'Blue Force',
         colour: '#69c'
@@ -14,24 +16,19 @@ const formData = {
         colour: '#fff'
       }
     ],
-    perceivedType: [
-      'Fishing vessel',
-      'Frigate',
-      'Boghammer',
-      'torpedo',
-      'Fast attack craft',
-      'MCMV',
-      'Helicopter',
-      'Fixed wing aircraft',
-      'Coastal radar site',
-      'Merchant vessel'
+    perceivedTypes: [
+      { uniqid: 'aa', name: 'Fishing vessel' },
+      { uniqid: 'a1', name: 'torpedo' },
+      { uniqid: 'a2', name: 'Boghammer' },
+      { uniqid: 'a3', name: 'Frigate' }
     ]
   },
   values: {
     perceivedNameVal: 'Test',
     perceivedForceVal: 'blue-force',
-    perceivedTypeVal: 'frigate',
-    assetId: 'c00012'
+    perceivedTypeId: 'a3',
+    assetId: 'c00012',
+    iconURL: 'frigate.svg'
   }
 }
 

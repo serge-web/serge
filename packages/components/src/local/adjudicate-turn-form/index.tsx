@@ -20,7 +20,7 @@ import PropTypes from './types/props'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
-  plansSubmitted, canSubmitPlans, manager
+  plansSubmitted, canSubmitPlans, manager, icon
 }) => {
   // flag for if the current state is mobile#
   const [statusValues, setStatusValues] = useState<Array<Status>>([])
@@ -37,7 +37,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [speedVal, setSpeedVal] = useState<number>(0)
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
-  const icon: { forceColor: string, platformType: string } = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
   const [attributeValues, setAttributeValues] = useState<AttributeValues>(manager ? manager.currentAttributeValues() : [])
@@ -215,7 +214,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={visibleToValues.length > 2} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         {/* previous (more verbose way of showing conditions) <FormGroup title="Condition" align="right">
           <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />

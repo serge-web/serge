@@ -19,7 +19,7 @@ import {
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { Mapping, Assets, HexGrid } from '@serge/components'
+import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
 import _ from 'lodash'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
@@ -148,6 +148,7 @@ const factory = (state: PlayerUi): Factory => {
       platforms={state.allPlatformTypes}
       phase={phaseFor(state.phase)}
       turnNumber={state.currentTurn}
+      infoMarkers={state.infoMarkers}
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       canSubmitOrders={canSubmitOrders}
       channelID={channelid}
@@ -157,6 +158,7 @@ const factory = (state: PlayerUi): Factory => {
       platformTypesByKey={state.allPlatformTypesByKey}
     >
       <Assets />
+      <InfoMarkers/>
       <HexGrid />
     </Mapping>
 
@@ -185,8 +187,9 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_MAPPING:
           return renderMap(node.getId())
         case CHANNEL_CUSTOM:
+          return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
         default:
-          console.log('not yet handling', v3Channel.channelType)
+          console.log('not yet handling', v3Channel)
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {

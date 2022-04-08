@@ -1,6 +1,5 @@
 import { SelectedAsset, ColorOption, VisibilityFormData, ForceData, PlatformTypeData } from '@serge/custom-types'
-
-import { kebabCase } from 'lodash'
+import { findPlatformTypeFor } from '@serge/helpers'
 import availableForces from './available-forces'
 
 /** produce the data necessary for the visibility form
@@ -11,18 +10,19 @@ import availableForces from './available-forces'
 const collateVisibilityFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset, forces: ForceData[]): VisibilityFormData => {
   // get the actual asset
   const visibleTo: Array<string> = selectedAsset.visibleTo
-  const availableForcesList: ColorOption[] = availableForces(forces, false, true)
+  const availableForcesList: ColorOption[] = availableForces(forces, false, true, selectedAsset.forceId)
 
-  const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
+  if (!selectedAsset.typeId) {
+    console.error('Warning - Collate Visibility form does not have type id for selected asset', selectedAsset.name)
+  }
 
-  // remove asset's own force, since they can always see their own assets
-  const trimmedForcesList: ColorOption[] = availableForcesList.filter((c: ColorOption) => c.name !== selectedAsset.force)
+  const currentPlatform = findPlatformTypeFor(platforms, '', selectedAsset.typeId || 'dummy-id')
 
   const formData: VisibilityFormData = {
     assetId: selectedAsset.uniqid,
     name: selectedAsset.name,
     contactId: selectedAsset.contactId,
-    populate: trimmedForcesList,
+    populate: availableForcesList,
     values: visibleTo,
     selectedCondition: selectedAsset.condition,
     condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: string) => c) : []

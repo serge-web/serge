@@ -40,15 +40,11 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
     onClose()
   }
 
-  const onCloseLocal = (): void => {
-    onClose()
-  }
-
   return (
     <Modal
       ref={modalRef}
       isOpen={isOpen}
-      onRequestClose={onCloseLocal}
+      onRequestClose={onClose}
       className={styles.modal}
       shouldCloseOnEsc
       shouldCloseOnOverlayClick={false}
@@ -73,8 +69,8 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
         })}
       </div>
       <div className={styles.footer}>
-        <Button variant='contained' onClick={onCloseLocal}>Cancel</Button>
-        <Button variant='contained' onClick={onSaveLocal}>Save</Button>
+        <Button variant='contained' onClick={onClose}>Cancel</Button>
+        <Button variant='contained' color="primary" onClick={onSaveLocal}>Save</Button>
       </div>
     </Modal>
   )

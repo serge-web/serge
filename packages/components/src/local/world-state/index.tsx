@@ -17,10 +17,10 @@ import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phas
 import { Confirm } from '@serge/components'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
-import { platformTypeNameToKey } from '@serge/helpers'
+import { findPlatformTypeFor } from '@serge/helpers'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
@@ -58,7 +58,7 @@ export const WorldState: React.FC<PropTypes> = ({
         break
       }
       case WorldStatePanels.ControlledBy: {
-        // umpire gets theirs
+        // umpire gets theirss
         setTmpRoutes(store.routes.filter(r => r.underControl))
         break
       }
@@ -132,8 +132,8 @@ export const WorldState: React.FC<PropTypes> = ({
     let isDestroyed: boolean | undefined = false
     let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
-    if (item.platformType !== 'unknown') {
-      const platformType: PlatformTypeData | undefined = platformTypesByKey && platformTypesByKey[platformTypeNameToKey(item.platformType)]
+    if (item.platformType !== 'unknown' || item.platformTypeId !== undefined) {
+      const platformType: PlatformTypeData | undefined = findPlatformTypeFor(platforms, item.platformType, item.platformTypeId)
       if (typeof platformType !== 'undefined') {
         imageSrc = platformType.icon
         isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
@@ -145,7 +145,6 @@ export const WorldState: React.FC<PropTypes> = ({
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescription: string = isDestroyed ? 'Destroyed' : descriptionText + laydownMessage
-
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>

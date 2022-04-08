@@ -77,191 +77,197 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
         >
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Fishing vessel
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               ssn
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Frigate
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Boghammer
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               torpedo
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Fast attack craft
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               MCMV
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Helicopter
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Fixed wing aircraft
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Unmanned Airborne Vehicle
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
                 className="svg-inline--fa fa-trash"
               />
             </div>
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Task Group
             </span>
             <div
               className="searchlist-menu"
             >
               <svg
-                className="svg-inline--fa fa-trash"
+                className="svg-inline--fa fa-clone"
               />
-            </div>
-          </span>
-          <span
-            className="searchlist-row "
-          >
-            <span
-              onClick={[Function]}
-            >
-              Coastal radar site
-            </span>
-            <div
-              className="searchlist-menu"
-            >
               <svg
                 className="svg-inline--fa fa-trash"
               />
@@ -269,15 +275,35 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
+            <span>
+              Coastal radar site
+            </span>
+            <div
+              className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
+          </span>
+          <span
+            className="searchlist-row "
+            onClick={[Function]}
+          >
+            <span>
               Merchant vessel
             </span>
             <div
               className="searchlist-menu"
             >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
               <svg
                 className="svg-inline--fa fa-trash"
               />

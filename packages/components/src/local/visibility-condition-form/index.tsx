@@ -20,6 +20,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
   const conditionValues: Array<string> = formData.condition
 
   const changeHandler = (e: any): void => {
+    console.log('change vis', e.value)
     setVisibleTo(e.value)
   }
   const submitForm = (): void => {
@@ -43,6 +44,8 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
         }
         res.push(vis)
       })
+      // TODO: the `res` payload value here currently contains force names. It should contain
+      // force id's
       const message: MessageVisibilityChanges = {
         assetId: formData.assetId,
         messageType: VISIBILITY_CHANGES,
@@ -75,7 +78,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={forces} value={visibleTo} updateState={changeHandler} />
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={forces.length > 2} options={forces} value={visibleTo} updateState={changeHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select

@@ -18,6 +18,11 @@ export interface OrientationMarker {
 export type OrientationMarkers = OrientationMarker[]
 
 export default interface PlatformTypeData {
+  /** unique identifier for this platform type. Having
+   * this identifier means the p-type name can be 
+   * edited
+   */
+  readonly uniqid: string,
   name: string,
   conditions: Array<string>,
   icon: string,
@@ -33,4 +38,6 @@ export default interface PlatformTypeData {
   attributeTypes?: AttributeTypes
   /** if/how to display orientation data for the asset */
   orientation?: OrientationMarkers
+  /** optional turning circle radius, in meters */
+  turningCircle?: number
 }

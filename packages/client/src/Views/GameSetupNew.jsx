@@ -3,8 +3,8 @@ import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
-import { checkUnique, findDuplicatePasscodes, getUniquePasscode } from '@serge/helpers'
-import { channelTemplate, forceTemplate, CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../consts'
+import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from '@serge/helpers'
+import { forceTemplate } from '../consts'
 import {
   addNewForce,
   setCurrentTab,
@@ -16,10 +16,11 @@ import {
   setGameData,
   setSelectedForce,
   setSelectedChannel,
-  addNewChannel,
   duplicateChannel,
   saveWargameTitle,
-  initiateWargame
+  initiateWargame,
+  duplicatePlatformType,
+  duplicateForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -107,8 +108,13 @@ const AdminGameSetup = () => {
     dispatch(setGameData(changes))
   }
 
-  const handleDeleteGameControl = role => {
-    dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
+  const handleDeleteGameControl = (roles, key, handleChange) => {
+    const role = roles[key]
+    if (role.isGameControl) {
+      dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
+    } else {
+      dispatch(modalAction.open('confirmDelete', { type: 'role', data: { roles, key, handleChange } }))
+    }
   }
 
   const handleSaveOverview = overview => {
@@ -126,6 +132,10 @@ const AdminGameSetup = () => {
       }
     }))
   }
+   
+  const onDuplicatePlatformType = (data) => {
+    dispatch(duplicatePlatformType(currentWargame, data))
+  }
 
   const handleSavePlatformTypes = platformTypes => {
     dispatch(savePlatformTypes(currentWargame, platformTypes))
@@ -138,6 +148,12 @@ const AdminGameSetup = () => {
     const forceOverview = newForceData.overview
     const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
+
+    const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
+    if (empForceRoleNames.length > 0) {
+      dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+      return
+    }
 
     const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
     if (dupForceRoleNames.length > 0) {
@@ -227,27 +243,24 @@ const AdminGameSetup = () => {
     }))
   }
 
-  const onCreateChannel = (buttonText) => {
+  const onDuplicateForce = (data) => {
+    dispatch(duplicateForce(currentWargame, data))
+  }
+
+  const onCreateChannel = (id, createdChannel) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      let id = `channel-${uniqid.time()}`
-      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {
-        id = buttonText
-      }
-      dispatch(addNewChannel({ name: id, uniqid: id }))
-      dispatch(setSelectedChannel({ name: id, uniqid: id }))
-
-      const template = channelTemplate
-      template.name = id
-      template.uniqid = id
-
-      dispatch(saveChannel(currentWargame, id, template, id))
+      dispatch(saveChannel(currentWargame, id, createdChannel, id))
     }
   }
 
   const onDeleteChannel = ({ uniqid }) => {
     dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
+  }
+
+  const onDeleteAsset = (setList, item) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'asset', data: { setList, item } }))
   }
 
   const onDuplicateChannel = ({ uniqid }) => {
@@ -321,9 +334,11 @@ const AdminGameSetup = () => {
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
       onDeletePlatformType={onDeletePlatformType}
+      onDuplicatePlatformType={onDuplicatePlatformType}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}
+      onDuplicateForce={onDuplicateForce}
       onSidebarForcesClick={handleSidebarForcesClick}
       onSidebarChannelsClick={handleSidebarChannelsClick}
       onChannelsChange={handleFormChange}
@@ -336,7 +351,8 @@ const AdminGameSetup = () => {
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
-      onDeleteGameControl={handleDeleteGameControl}
+      customDeleteHandler={handleDeleteGameControl}
+      onDeleteAsset={onDeleteAsset}
     />
   )
 }

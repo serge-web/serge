@@ -37,6 +37,7 @@ const forces: Array<ForceData> = [
         condition: 'Full capability',
         perceptions: [],
         platformType: 'frigate',
+        platformTypeId: 'a3',
         position: 'S23',
         status: {
           state: 'Transiting',

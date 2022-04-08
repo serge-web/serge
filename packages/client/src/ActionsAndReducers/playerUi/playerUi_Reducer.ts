@@ -1,9 +1,11 @@
+import _ from 'lodash'
 import {
   SET_CURRENT_WARGAME_PLAYER,
   SET_FORCE,
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
   SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE,
   SET_FEEDBACK_MESSAGES,
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
@@ -19,7 +21,7 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types';
 import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
@@ -64,10 +66,12 @@ export const initialState: PlayerUi = {
   channels: {},
   allChannels: [],
   allForces: [],
+  infoMarkers: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
   allPlatformTypesByKey: {},
   showObjective: false,
+  updateMessageState: false,
   wargameInitiated: false,
   feedbackMessages: [],
   tourIsOpen: false,
@@ -83,7 +87,7 @@ export const initialState: PlayerUi = {
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T> (enm: { [s: string]: T}, value: string): T | undefined {
+  function enumFromString<T>(enm: { [s: string]: T }, value: string): T | undefined {
     return (Object.values(enm) as unknown as string[]).includes(value)
       ? value as unknown as T
       : undefined;
@@ -91,44 +95,55 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
-      const turnFormat = action.payload.data.overview.turnPresentation || TurnFormats.Natural
+      const data: WargameData = action.payload.data
+      const turnFormat = data.overview.turnPresentation || TurnFormats.Natural
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.currentTurn = action.payload.gameTurn
-      newState.turnPresentation = enumFromString(TurnFormats, turnFormat) 
+      newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
-      newState.showAccessCodes = action.payload.data.overview.showAccessCodes
+      newState.showAccessCodes = data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated || false
-      newState.gameDate = action.payload.data.overview.gameDate
-      newState.gameTurnTime = action.payload.data.overview.gameTurnTime
+      newState.gameDate = data.overview.gameDate
+      newState.gameTurnTime = data.overview.gameTurnTime
       newState.adjudicationStartTime = action.payload.adjudicationStartTime || ''
-      newState.realtimeTurnTime = action.payload.data.overview.realtimeTurnTime
-      newState.timeWarning = action.payload.data.overview.timeWarning
+      newState.realtimeTurnTime = data.overview.realtimeTurnTime
+      newState.timeWarning = data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.mappingConstaints = action.payload.data.overview.mapConstraints
-      newState.allChannels = action.payload.data.channels.channels || []
+
+      // temporary workaround to remove duplicate channel definitions
+      // TODO: delete workaround once fix in place
+      const allChannels = action.payload.data.channels.channels || []
+      const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
+      if (allChannels.length != cleanChannels.length) {
+        console.warn('Applied workaround to remove duplicate channel defs')
+      }
+      newState.allChannels = cleanChannels
+
       newState.allForces = action.payload.data.forces.forces
+      newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
-      if (action.payload.data.platform_types) {
+      if (data.platform_types) {
         // @ts-ignore
-        newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+        newState.allPlatformTypes = data.platform_types.platformTypes
         newState.allPlatformTypesByKey = {}
         // @ts-ignore
-        for (const platformType of action.payload.data.platform_types.platformTypes) {
+        for (const platformType of data.platform_types.platformTypes) {
           newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
         }
       }
       // TODO: remove this ^^
 
-      if (action.payload.data.platformTypes) {
-        newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
+      if (data.platformTypes) {
+        newState.allPlatformTypes = data.platformTypes.platformTypes
         // don't need any more to do loop find when we need to get platformType based on Asset.platformType
         newState.allPlatformTypesByKey = {}
-        for (const platformType of action.payload.data.platformTypes.platformTypes) {
+        for (const platformType of data.platformTypes.platformTypes) {
           newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
         }
       }
@@ -150,6 +165,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SHOW_HIDE_OBJECTIVES:
       newState.showObjective = !newState.showObjective
+      break
+
+    case UPDATE_MESSAGE_STATE:
+      newState.updateMessageState = action.payload
       break
 
     case SET_FEEDBACK_MESSAGES:
@@ -210,7 +229,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     console.log('PlayerUI > Prev State: ', state);
     console.log('PlayerUI > Next State: ', newState);
   }
-  
+
   return newState
 }
 

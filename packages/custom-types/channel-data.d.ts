@@ -51,6 +51,10 @@ export interface ChannelCollab extends ChannelCore {
   newMessageTemplate: ParticipantTemplate | undefined
   /** type for response document */
   responseTemplate?: ParticipantTemplate
+  /** additional columns to display in table.  Currently takes some 'special values',
+   * see AdditionalData in genMessageCollabEdit.tsx
+   */
+  additonalData?: string[]
 }
 
 /** union of the assorted channel types */

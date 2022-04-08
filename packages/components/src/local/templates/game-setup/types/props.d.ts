@@ -34,6 +34,10 @@ export default interface Props extends AdminLayoutProps {
    */
   onDeletePlatformType?: (item: PlatformType) => void
   /**
+   * Callback on platform type duplicate button click events
+   */
+  onDuplicatePlatformType?: (item: PlatformType) => void
+  /**
    * Callback on forces setting change events
    */
   onForcesChange: (updates: { forces: ForceData[] }) => void
@@ -45,6 +49,10 @@ export default interface Props extends AdminLayoutProps {
    * Callback on forces delete button click events
    */
   onDeleteForce?: () => void
+  /**
+   * Callback on forces duplicate button click events
+   */
+  onDuplicateForce?: () => void
   /**
    * Callback on forces' sidebar click events
    */
@@ -106,5 +114,6 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Handler for when user tries to delete role with Game Control privileges
    */
-  onDeleteGameControl?: (role: Role) => void
+  customDeleteHandler?: (role: Role) => void
+  onDeleteAsset?: () => void
 }

@@ -12,7 +12,6 @@ interface CssExports {
   'header': string;
   'active': string;
   'inactive': string;
-  'logContent': string;
   'role-icon': string;
   'custom-cell': string;
 }

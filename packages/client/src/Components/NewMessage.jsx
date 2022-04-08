@@ -33,7 +33,11 @@ const NewMessage = props => {
 
   useEffect(() => {
     if (!prevTemplates) {
-      setSelectedSchema(templates[0].details)
+      if (templates.length) {
+        setSelectedSchema(templates[0].details)
+      } else {
+        console.warn('Zero templates received for channel ', curChannel)
+      }
     }
   }, [templates, prevTemplates])
 

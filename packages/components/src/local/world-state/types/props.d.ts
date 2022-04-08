@@ -11,14 +11,12 @@ export default interface PropTypes {
    */
   store: RouteStore
   /**
-   * list of platform types
-   */
-  /**
-   * @deprecated platformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+   * list of platform types. Use findPlatformForType() method to retrieve platform type
    */
   platforms: PlatformTypeData[]
   /**
    * platforms for this wargame
+   * @deprecated  - since it relies on fragile platformType-name field
    */
   platformTypesByKey: { [property: string]: PlatformTypeData}
   /**

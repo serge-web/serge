@@ -115,10 +115,9 @@ exports[`SettingChannels component: renders correctly 1`] = `
         >
           <span
             className="searchlist-row active"
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Channel 16
             </span>
             <div
@@ -127,10 +126,9 @@ exports[`SettingChannels component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Blue Net
             </span>
             <div
@@ -139,10 +137,9 @@ exports[`SettingChannels component: renders correctly 1`] = `
           </span>
           <span
             className="searchlist-row "
+            onClick={[Function]}
           >
-            <span
-              onClick={[Function]}
-            >
+            <span>
               Mapping
             </span>
             <div

@@ -19,9 +19,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  const schema = messageTemplates[template]
-
-  if (!schema) {
+  if (!messageTemplates[template]) {
     const styles = {
       color: '#f00',
       background: '#ff0',
@@ -43,7 +41,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
     const jsonEditorConfig = disabled
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
-    const modSchema = configDateTimeLocal(schema.details, gameDate)
+    const modSchema = configDateTimeLocal(messageTemplates[template].details, gameDate)
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema

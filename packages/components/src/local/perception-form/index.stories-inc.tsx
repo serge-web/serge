@@ -4,13 +4,28 @@ import React from 'react'
 import PerceptionForm from './index'
 import docs from './README.md'
 
-/* Import mock data */
-import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
-import formData from './mocks/formData'
 import Mapping from '../mapping'
 
 // import data types
-import { Phase } from '@serge/config'
+import { Domain, Phase } from '@serge/config'
+
+/* Import mock data */
+import { watuWargame, platformTypesByKey } from '@serge/mocks'
+import { MappingConstraints } from '@serge/custom-types'
+
+const forces = watuWargame.data.forces.forces
+const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes
+const localMappingConstraints = watuWargame.data.overview.mapConstraints
+
+const dummyConstrants: MappingConstraints = {
+  tileDiameterMins: 12,
+  minZoom: 12,
+  maxZoom: 12,
+  bounds: [[12, 13], [14, 25]],
+  maxNativeZoom: 12,
+  minZoomHexes: 32,
+  targetDataset: Domain.ATLANTIC
+}
 
 export default {
   title: 'local/PerceptionForm',
@@ -28,23 +43,16 @@ export default {
   }
 }
 
-// put in the post handler
-const postback = (messageType: string, payload: any): void => {
-  console.log('postback', messageType, payload)
-}
-
 // TODO: Add some state handling here
 export const Default: React.FC = () => <Mapping
-  mappingConstraints = {localMappingConstraints}
+  mappingConstraints = {localMappingConstraints || dummyConstrants}
   forces={forces}
   gameTurnTime = {72000}
   wargameInitiated={true}
-  playerForce='Blue'
+  playerForce={forces[1].uniqid}
   canSubmitOrders = {true}
-  platforms={platformTypes}
+  platforms={platformTypes || []}
   platformTypesByKey={platformTypesByKey}
   phase={Phase.Adjudication}
   turnNumber={5}
->
-  <PerceptionForm mapPostBack={postback} formHeader="Perception header" formData={formData} />
-</Mapping>
+/>
