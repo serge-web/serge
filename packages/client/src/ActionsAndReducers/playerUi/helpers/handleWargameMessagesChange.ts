@@ -124,19 +124,20 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
   return channelMessages
 }
 
-export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI => {
+export const markAllMessageState = (channel: string, newState: PlayerUi, msgState: 'read' | 'unread'): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
     const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
     if (message._id) {
-      message.hasBeenRead = true
-      setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
+      message.hasBeenRead = msgState === 'read' ? true : false
+      const msgFnc = msgState === 'read' ? setMessageState : removeMessageState
+      msgFnc(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
     }
     return message
   })
 
   return {
     ...newState.channels[channel],
-    unreadMessageCount: 0,
+    unreadMessageCount: msgState === 'read' ? 0 : channelMessages.length,
     messages: channelMessages
   }
 }

@@ -17,7 +17,8 @@ import {
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
-  setActivityTime
+  setActivityTime,
+  MARK_ALL_AS_UNREAD
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
@@ -98,6 +99,11 @@ export const closeMessage = (channel: string, message: MessageChannel): PlayerUi
 
 export const markAllAsRead = (channel: string): PlayerUiActionTypes => ({
   type: MARK_ALL_AS_READ,
+  payload: channel
+})
+
+export const markAllAsUnread = (channel: string): PlayerUiActionTypes => ({
+  type: MARK_ALL_AS_UNREAD,
   payload: channel
 })
 
@@ -192,8 +198,8 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     //     await wargamesApi.postNewMessage(dbName, details, message)
     //   }
     // } else {
-      // actually post the message
-      await wargamesApi.postNewMessage(dbName, details, message)
+    // actually post the message
+    await wargamesApi.postNewMessage(dbName, details, message)
   }
 }
 
