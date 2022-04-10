@@ -1,7 +1,6 @@
-import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
+import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip } from '@material-ui/core'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
-import React, { useMemo } from 'react'
-import MoreInfo from '../../../molecules/more-info'
+import React from 'react'
 import { Option } from '../../../molecules/editable-row'
 import styles from '../styles.module.scss'
 import { MessageGroupProps } from '../types/props'
@@ -52,8 +51,6 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
     return opt ? opt.name : ''
   }
 
-  const customChipStyle = useMemo(() => ({ marginTop: 0, marginLeft: 2 }), [])
-
   return (<div className={styles['message-group']}>
     <div className={styles['message-title']}>
       {title}
@@ -80,8 +77,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
               return selStr.length
                 ? <Chip
                   size="small"
-                  icon={<MoreInfo color='#fff' title={getLabel(selStr[0])} description='Details' customChipStyle={customChipStyle} />}
-                  label={getLabel(selStr[0])}
+                  label={<Tooltip title={getLabel(selStr[0])} placement="top"><span>{getLabel(selStr[0])}</span></Tooltip>}
                   onDelete={(): void => onDelete && onDelete(selStr)}
                   clickable={true}
                   onMouseDown={(e): void => e.stopPropagation()}
@@ -150,8 +146,7 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           renderTags={(vals: any, getTagProps): any =>
             vals.map((val: string, index: number) => (
               <Chip
-                icon={<MoreInfo color='#fff' title={val} description='Details' customChipStyle={customChipStyle} />}
-                label={val}
+                label={<Tooltip title={val} placement="top"><span>{val}</span></Tooltip>}
                 size="small"
                 {...getTagProps({ index })}
               />
