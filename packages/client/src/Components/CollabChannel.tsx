@@ -5,8 +5,8 @@ import {
   getAllWargameMessages,
   openMessage,
   markAllAsRead,
+  markAllAsUnread,
   saveMessage,
-  markUnread
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
@@ -24,10 +24,10 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const channelUI = state.channels[channelId]
   const channel = channelUI.cData as ChannelCollab
-  if(!channel) {
+  if (!channel) {
     console.warn('failed to receive v3 data')
     return (
-      <div/>
+      <div />
     )
   }
 
@@ -47,11 +47,8 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(markAllAsRead(channelId))
   }
 
-  const handleUnreadMessage = (message: MessageChannel): void => {
-    if (message._id) {
-      message.hasBeenRead = false
-    }
-    dispatch(markUnread(channelId, message))
+  const handleUnreadAllMessage = (): void => {
+    dispatch(markAllAsUnread(channelId))
   }
 
   const handleChange = (nextMsg: MessageCustom): void => {
@@ -60,7 +57,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const channelMessages = channelUI.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
-  
+
   //
   const role = {
     forceId: selectedForce.uniqid,
@@ -75,7 +72,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const canCreateMessages = isParticipating.filter((p: ParticipantCollab) => (p.canCreate)).length > 0
 
   const allTemplates = state.allTemplatesByKey
-  if(channel.newMessageTemplate === undefined) {
+  if (channel.newMessageTemplate === undefined) {
     console.warn('Problem - new message template not specified')
   }
   const trimmedTemplates = channel.newMessageTemplate ? [allTemplates[channel.newMessageTemplate._id]] : []
@@ -87,12 +84,12 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
-        { isCollabEdit && (
+        {isCollabEdit && (
           <CollabStatusBoard
             currentWargame={state.currentWargame}
             onMessageRead={handleOpenMessage}
             onMarkAllAsRead={markAllMsgAsRead}
-            onUnread={handleUnreadMessage}
+            onMarkAllAsUnRead={handleUnreadAllMessage}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={role}
