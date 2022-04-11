@@ -32,7 +32,11 @@ export const getIconClassname = (icForceClass: string, icType = '', destroyed?: 
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
 }
-export const checkUrl = (url: string): string => {
+
+/**
+ *  provide path prefix, if necessary
+ */
+const fixUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
   } else {
@@ -62,7 +66,7 @@ export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }:
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
+        <img src={fixUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
       </div>
       : <div className={cx(
         getIconClassname(color, icType, destroyed, isSelected),
@@ -75,7 +79,7 @@ export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }:
 const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   if (imageSrc && isUrl(imageSrc)) {
     try {
-      return fetch(checkUrl(imageSrc), { method: 'HEAD' })
+      return fetch(fixUrl(imageSrc), { method: 'HEAD' })
         .then(res => res.status !== 404)
     } catch (error) {
       console.warn(`failed to get "${imageSrc}" image`)
@@ -126,7 +130,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
   const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
+    ? `<img class="${reverceClassName}" src="${fixUrl(imageSrc)}" alt="${type}">`
     : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
   // Note: keep the following commented out code. It was quite challenging to come up with
