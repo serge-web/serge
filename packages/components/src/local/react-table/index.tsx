@@ -21,6 +21,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     showArchived,
     handleArchiveDoc,
     handleMarkAllAsRead,
+    handleMarkAllAsUnread,
     customStyles,
     channelName = '',
     ...restProps
@@ -241,6 +242,14 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     }, 500, e.target.value))
   }
 
+  const handleMessagesState = (): void => {
+    if (isAllMsgRead) {
+      handleMarkAllAsUnread && handleMarkAllAsUnread()
+    } else {
+      handleMarkAllAsRead && handleMarkAllAsRead()
+    }
+  }
+
   return (
     <>
       <div className={styles.actions}>
@@ -265,8 +274,8 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
         {
           !!handleMarkAllAsRead &&
           <div className={cx({ [styles['mark-all-as-read-section']]: true, [styles['mark-all-as-read-open']]: isAllMsgRead })}>
-            <Tooltip title="Mark All as Read">
-              <Button onClick={(): void => handleMarkAllAsRead()}>
+            <Tooltip title={isAllMsgRead ? 'Mark All as Unread' : 'Mark All as Read'}>
+              <Button onClick={handleMessagesState}>
                 <FontAwesomeIcon icon={isAllMsgRead ? faEnvelopeOpen : faEnvelope} />
               </Button>
             </Tooltip>
