@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetIcon, getIconClassname } from '../../asset-icon'
+import { /* GetIcon, */ getIconClassname } from '../../asset-icon'
 
 /* Import proptypes */
 import PropTypes from './types/props'
