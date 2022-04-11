@@ -1,4 +1,4 @@
-import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField } from '@material-ui/core'
+import { Checkbox, Chip, FormControlLabel, ListItemText, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip } from '@material-ui/core'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import React from 'react'
 import { Option } from '../../../molecules/editable-row'
@@ -74,13 +74,15 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
               return 'Add Term Here'
             }
             if (!multiple) {
-              return selStr.length ? <Chip
-                size="small"
-                label={getLabel(selStr[0])}
-                onDelete={(): void => onDelete && onDelete(selStr)}
-                clickable={true}
-                onMouseDown={(e): void => e.stopPropagation()}
-              /> : null
+              return selStr.length
+                ? <Chip
+                  size="small"
+                  label={<Tooltip title={getLabel(selStr[0])} placement="top"><span>{getLabel(selStr[0])}</span></Tooltip>}
+                  onDelete={(): void => onDelete && onDelete(selStr)}
+                  clickable={true}
+                  onMouseDown={(e): void => e.stopPropagation()}
+                />
+                : null
             }
             return selStr.map(id => options?.find(option => option.uniqid === id)?.name).join(', ')
           }}
@@ -144,7 +146,8 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           renderTags={(vals: any, getTagProps): any =>
             vals.map((val: string, index: number) => (
               <Chip
-                label={val}
+                label={<Tooltip title={val} placement="top"><span>{val}</span></Tooltip>}
+                size="small"
                 {...getTagProps({ index })}
               />
             ))
