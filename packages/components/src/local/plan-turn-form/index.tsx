@@ -141,7 +141,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     <AttributeEditor isOpen={attributeEditorIsOpen} onClose={closeModal} onSave={updateData} data={attributes} />
     <TitleWithIcon
       forceColor={icon.forceColor}
-      platformType={icon.platformType}
       icon={icon.icon}
     >
       {formHeader}

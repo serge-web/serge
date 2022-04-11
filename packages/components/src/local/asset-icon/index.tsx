@@ -46,7 +46,6 @@ const fixUrl = (url: string): string => {
 }
 
 interface GetIconProps {
-  icType: string
   color?: string
   destroyed?: boolean
   isSelected?: boolean
@@ -57,29 +56,33 @@ const getReverce = (color = ''): string | false => (
   color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
 )
 
-export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
+export const GetIcon = ({ color = '', /* destroyed, isSelected, */ imageSrc }: GetIconProps): React.ReactElement => {
   const [loadStatus, setLoadStatus] = useState(true)
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
-
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={fixUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
+        <img src={fixUrl(imageSrc)} alt={imageSrc} className={cx(getReverce(color), styles.img)} />
       </div>
-      : <div className={cx(
-        getIconClassname(color, icType, destroyed, isSelected),
-        styles['asset-icon-fw'],
-        getReverce(color)
-      )} />}
+      : null
+      // TODO: we need to use destroyed and isSelected params in above image styling,
+      // like we do with the code commented out below
+      // <div className={cx(
+      //   getIconClassname(color, icType, destroyed, isSelected),
+      //   styles['asset-icon-fw'],
+      //   getReverce(color)
+      // )} />
+    }
   </div>
 }
 
 const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   if (imageSrc && isUrl(imageSrc)) {
     try {
-      return fetch(fixUrl(imageSrc), { method: 'HEAD' })
+      const url = fixUrl(imageSrc)
+      return fetch(url, { method: 'HEAD' })
         .then(res => res.status !== 404)
     } catch (error) {
       console.warn(`failed to get "${imageSrc}" image`)
