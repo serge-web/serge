@@ -78,6 +78,7 @@
   }
 }
 
+// TODO: move away from use of CSS for force colors, they should come from `force.color`.
 .blue {
   background-color: #000fff;
 }
@@ -88,15 +89,4 @@
 
 .green {
   background-color: #19bd37;
-}
-
-$platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
-  destroyer, fast-attack-craft, fishing-vessel, fixed-wing-aircraft, frigate,
-  frigate-ta, helicopter, mcmv, merchant-vessel, mine, missile, mpa, pirate, ssk,
-  ssn, task-group, torpedo, unknown, unmanned-airborne-vehicle;
-
-@each $platform in $platforms {
-  .platform-type-#{$platform} {
-    background-image: url("../asset-icon/counters/#{$platform}.svg");
-  }
 }

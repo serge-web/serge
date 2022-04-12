@@ -22,12 +22,11 @@ import { OrientationData } from '../assets/types/asset_info'
 const fetch = unfetch.bind(window)
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType = '', destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
   destroyed ? styles.destroyed : null,
-  icSelected ? styles.selected : null,
-  icType && styles[`platform-type-${icType}`]
+  icSelected ? styles.selected : null
 ))
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
@@ -135,11 +134,13 @@ export const AssetIcon: React.FC<PropTypes> = ({
   // const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
   // const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
 
-  const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
+  const className = getIconClassname(perceivedForceClass || '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
+  // TODO: use styles for isDestroyed and selected in the icon
+  console.log('need to reflect:', isDestroyed, className)
   const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${fixUrl(imageSrc)}" alt="${type}">`
-    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
+    : null
 
   // Note: keep the following commented out code. It was quite challenging to come up with
   // correctly oriented markers

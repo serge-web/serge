@@ -79,17 +79,6 @@
   z-index: 999;
 }
 
-$platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
-  destroyer, fast-attack-craft, fishing-vessel, fixed-wing-aircraft, frigate,
-  frigate-ta, helicopter, mcmv, merchant-vessel, mine, missile, mpa, pirate, ssk,
-  ssn, task-group, torpedo, unknown, unmanned-airborne-vehicle;
-
-@each $platform in $platforms {
-  .platform-type-#{$platform} {
-    background-image: url("./counters/#{$platform}.svg");
-  }
-}
-
 .orientation {
   /* stylelint-disable */
   -webkit-mask: url("./counters/orientation-marker.svg");
