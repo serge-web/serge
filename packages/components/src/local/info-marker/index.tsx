@@ -23,7 +23,7 @@ const fetch = unfetch.bind(window)
 export const getIconClassname = (icForceClass: string, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
-  icSelected ? styles.selected : null,
+  icSelected ? styles.selected : null
 ))
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
