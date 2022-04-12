@@ -61,10 +61,15 @@ export const GetIcon = ({ color = '', /* destroyed, isSelected, */ imageSrc }: G
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
+  const typePrefix = (icon: string): string => {
+    const ind = icon.indexOf('.')
+    const trimmed = ind > 0 ? icon.substring(0, ind) : icon
+    return trimmed
+  }
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={fixUrl(imageSrc)} alt={imageSrc} className={cx(getReverce(color), styles.img)} />
+        <img src={fixUrl(imageSrc)} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img)} />
       </div>
       : null
       // TODO: we need to use destroyed and isSelected params in above image styling,
