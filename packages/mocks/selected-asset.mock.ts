@@ -10,7 +10,7 @@ const selected: SelectedAsset = {
   forceId: forces[1].uniqid,
   controlledBy: [],
   condition: 'Full capability',
-  visibleTo: [forces[2].uniqid, forces[1].uniqid],
+  visibleTo: [forces[2].uniqid, forces[3].uniqid],
   status: {
     speedKts: 10,
     state: 'Transiting'

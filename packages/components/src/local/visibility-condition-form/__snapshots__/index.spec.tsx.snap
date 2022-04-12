@@ -38,12 +38,12 @@ exports[`VisibilityForm renders correctly 1`] = `
           >
             
             <label
-              className="MuiFormControlLabel-root"
+              className="MuiFormControlLabel-root selected"
               title="Red Force"
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -61,7 +61,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                   className="MuiIconButton-label"
                 >
                   <input
-                    checked={false}
+                    checked={true}
                     className="PrivateSwitchBase-input-4"
                     data-indeterminate={false}
                     name="visibleTo"
@@ -76,7 +76,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
                     />
                   </svg>
                 </span>
@@ -98,12 +98,12 @@ exports[`VisibilityForm renders correctly 1`] = `
               </span>
             </label>
             <label
-              className="MuiFormControlLabel-root"
+              className="MuiFormControlLabel-root selected"
               title="Green Force"
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -121,7 +121,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                   className="MuiIconButton-label"
                 >
                   <input
-                    checked={false}
+                    checked={true}
                     className="PrivateSwitchBase-input-4"
                     data-indeterminate={false}
                     name="visibleTo"
@@ -136,7 +136,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
                     />
                   </svg>
                 </span>

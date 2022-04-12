@@ -80,7 +80,7 @@ export interface VisibilityFormData {
   assetId: string
   name: string
   contactId: string
-  populate: Array<ForceOption>
+  availableForces: Array<ForceOption>
   forceNames: Array<ForceData['name']>
   condition: Array<string>
   selectedCondition: string

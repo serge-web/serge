@@ -1,4 +1,4 @@
-# Percieved As Form documentation
+# Asset Visibility Form documentation
 
 This is an example readme file for the 'Visibility Form' component.
 
