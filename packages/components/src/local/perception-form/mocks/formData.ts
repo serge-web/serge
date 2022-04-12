@@ -29,7 +29,7 @@ const formData: PerceptionFormData = {
   values: {
     perceivedNameVal: 'Test',
     perceivedForceClass: 'blue-force',
-    perceivedForceName: 'Blue Force',
+    perceivedForceId: 'Blue Force',
     perceivedTypeId: 'a3',
     assetId: 'c00012',
     iconURL: 'frigate.svg'

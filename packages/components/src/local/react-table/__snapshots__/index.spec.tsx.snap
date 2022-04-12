@@ -4,7 +4,67 @@ exports[`ReactTable component: renders correctly 1`] = `
 Array [
   <div
     className="actions"
-  />,
+  >
+    <div
+      className="filter-section"
+    >
+      <button
+        aria-describedby={null}
+        className="MuiButtonBase-root MuiButton-root MuiButton-text"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        title="Filter Data"
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            className="svg-inline--fa fa-filter"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </button>
+      <div
+        className="MuiFormControl-root MuiTextField-root"
+      >
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiInput-input"
+            disabled={false}
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Filter data"
+            required={false}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>,
   <div
     className="sc-ckVGcZ ebjDzu"
   >

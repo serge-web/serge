@@ -4,7 +4,7 @@ import { camelCase } from 'lodash'
 import { Checkbox, Radio } from '@material-ui/core'
 import ComponentSelector from '../types/component-selector'
 
-const componentSelector: ComponentSelector = (type, option, value, handleCheckbox, name) => {
+const componentSelector: ComponentSelector = (type, option, selected, handleCheckbox, name) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     handleCheckbox(event.target)
   }
@@ -14,7 +14,7 @@ const componentSelector: ComponentSelector = (type, option, value, handleCheckbo
   let output = null
   switch (type) {
     case 'checkbox' :
-      output = <Checkbox name={inputName.toString()} checked={value} onChange={handleChange} />
+      output = <Checkbox name={inputName.toString()} checked={selected} onChange={handleChange} />
       break
     case 'radio' :
       output = <Radio />

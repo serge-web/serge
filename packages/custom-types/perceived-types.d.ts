@@ -21,7 +21,7 @@ export default interface PerceivedTypes {
   /** the perceived force id (or undefined if unknown) 
    * 
   */
-  forceName?: ForceData['name']
+  forceId?: ForceData['uniqid']
   /** 
    * what this force thinks the asset is called 
    */

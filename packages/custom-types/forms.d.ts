@@ -1,7 +1,6 @@
 import { AttributeTypes, ForceData } from '.'
-import ForceOption from './color-option'
+import ForceOption from './force-option'
 import { AttributeValues } from './attributes'
-import SergeHex from './serge-hex'
 import { SergeHex3 } from './serge-hex-3'
 import PlatformTypeData from './platform-type-data'
 
@@ -27,8 +26,11 @@ export interface PerceptionFormPopulate {
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
+  /** css class to style this force
+   * @deprecated since data should come from wargame
+   */
   perceivedForceClass: string
-  perceivedForceName: ForceData['name']
+  perceivedForceId: ForceData['uniqid'] | undefined
   perceivedTypeId: PlatformTypeData['name'] | undefined
   assetId: string
   iconURL: PlatformTypeData['icon']
@@ -87,8 +89,18 @@ export interface VisibilityFormData {
 /**
  * Data for icon generation
  */
- export interface IconDefinition {
+export interface IconDefinition {
   forceColor: string
   platformType: string
   icon: string
+}
+
+/**
+ *  data for selection items for RCB
+ */
+export interface SelectOption {
+  /** value displayed */
+  name: string
+  /** fill-shade for marker */
+  colour: string
 }

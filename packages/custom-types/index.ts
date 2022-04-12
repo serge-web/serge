@@ -5,7 +5,7 @@
 
 export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
-export { default as ColorOption } from './color-option.d'
+export { default as ForceOption } from './force-option.d'
 export { default as FormOption } from './form-option.d'
 export { default as ForceRole } from './force-role.d'
 export { default as ForceData } from './force-data.d'

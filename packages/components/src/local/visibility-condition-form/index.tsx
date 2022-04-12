@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import PropTypes from './types/props'
 import { Button, Select, MenuItem } from '@material-ui/core'
 import RCB from '../form-elements/rcb'
-import { ColorOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
+import { ForceOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import { FormGroup, clSelect } from '../form-elements/form-group'
 
@@ -16,7 +16,7 @@ import { VISIBILITY_CHANGES } from '@serge/config'
 export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
   const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.forceNames)
   const [conditionVal, setConditionVal] = useState<string>(formData.selectedCondition)
-  const forces: Array<ColorOption> = formData.populate
+  const forces: Array<ForceOption> = formData.populate
   const conditionValues: Array<string> = formData.condition
 
   const changeHandler = (e: any): void => {
@@ -77,7 +77,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={forces} value={visibleTo} updateState={changeHandler} />
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={forces.length > 2} options={forces} value={visibleTo} updateState={changeHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select

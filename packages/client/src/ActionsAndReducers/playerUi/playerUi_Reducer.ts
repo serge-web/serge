@@ -14,6 +14,7 @@ import {
   MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
+  MARK_ALL_AS_UNREAD,
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
@@ -28,7 +29,7 @@ import {
   openMessage,
   markUnread,
   closeMessage,
-  markAllAsRead
+  markAllMessageState
 } from './helpers/handleWargameMessagesChange';
 
 import {
@@ -206,7 +207,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case MARK_ALL_AS_READ:
-      newState.channels[action.payload] = markAllAsRead(action.payload, newState)
+      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
+      break
+
+    case MARK_ALL_AS_UNREAD:
+      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
       break
 
     case OPEN_TOUR:

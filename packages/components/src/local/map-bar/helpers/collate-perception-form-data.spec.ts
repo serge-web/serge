@@ -40,7 +40,7 @@ it('contains relevant current results for other force', () => {
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, blueForce.uniqid, selected2, forces)
   if (data) {
     const res: PerceptionFormValues = data.values
-    expect(res.perceivedForceName).toEqual('')
+    expect(res.perceivedForceId).toEqual('')
     expect(res.perceivedTypeId).toBeUndefined()
     expect(res.perceivedNameVal).toEqual('C065')
   } else {
