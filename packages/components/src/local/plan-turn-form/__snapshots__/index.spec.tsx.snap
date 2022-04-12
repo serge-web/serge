@@ -26,8 +26,8 @@ exports[`PlanTurnForm renders correctly 1`] = `
         >
           <img
             alt="frigate"
-            className="img"
-            src="/static/media/src/local/asset-icon/counters/frigate.svg"
+            className="img asset-icon"
+            src="/assets/counters/frigate.svg"
           />
         </div>
       </div>

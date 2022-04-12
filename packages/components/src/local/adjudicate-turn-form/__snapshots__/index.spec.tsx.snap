@@ -30,8 +30,8 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
         >
           <img
             alt="frivate"
-            className="img"
-            src="/static/media/src/local/asset-icon/counters/frivate.svg"
+            className="img asset-icon"
+            src="/assets/counters/frivate.svg"
           />
         </div>
       </div>

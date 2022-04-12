@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { SelectedAsset } from '@serge/custom-types'
 import cx from 'classnames'
-import { LayerGroup, Marker, Polygon, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
-import { lightOrDark } from '../map-control/helpers/lightOrDark'
 import unfetch from 'node-fetch'
-
+import React, { useContext, useEffect, useState } from 'react'
+import { LayerGroup, Marker, Polygon, Tooltip } from 'react-leaflet'
+import { OrientationData } from '../assets/types/asset_info'
+import { lightOrDark } from '../map-control/helpers/lightOrDark'
+/* Import context */
+import { MapContext } from '../mapping'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-/* Import context */
-import { MapContext } from '../mapping'
-import { SelectedAsset } from '@serge/custom-types'
-import { OrientationData } from '../assets/types/asset_info'
 
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
@@ -28,19 +26,19 @@ export const getIconClassname = (icForceClass: string, destroyed?: boolean, icSe
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null
 ))
+
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
 }
 
-/**
- *  provide path prefix, if necessary
- */
-const fixUrl = (url: string): string => {
+export const fixUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
   } else {
-    const prefix = '/static/media/src/local/asset-icon/counters/'
-    return prefix + url
+    if (process.env.STORYBOOK) {
+      return `/static/media/src/local/asset-icon/counters/${url}`
+    }
+    return `/assets/counters/${url}`
   }
 }
 
@@ -55,29 +53,25 @@ const getReverce = (color = ''): string | false => (
   color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
 )
 
-export const GetIcon = ({ color = '', /* destroyed, isSelected, */ imageSrc }: GetIconProps): React.ReactElement => {
+export const GetIcon = ({ color = '', destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
   const [loadStatus, setLoadStatus] = useState(true)
+
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
+
   const typePrefix = (icon: string): string => {
     const ind = icon.indexOf('.')
     const trimmed = ind > 0 ? icon.substring(0, ind) : icon
     return trimmed
   }
+
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
-    {imageSrc && loadStatus
-      ? <div className={styles['asset-icon-with-image']}>
-        <img src={fixUrl(imageSrc)} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img)} />
+    {
+      imageSrc &&
+      <div className={styles['asset-icon-with-image']}>
+        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, styles['asset-icon'], destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
       </div>
-      : null
-      // TODO: we need to use destroyed and isSelected params in above image styling,
-      // like we do with the code commented out below
-      // <div className={cx(
-      //   getIconClassname(color, icType, destroyed, isSelected),
-      //   styles['asset-icon-fw'],
-      //   getReverce(color)
-      // )} />
     }
   </div>
 }
