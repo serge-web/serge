@@ -503,7 +503,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                     className="asset-icon-with-image"
                                   >
                                     <img
-                                      alt="unmanned-airborne-vehicle"
+                                      alt="uas"
                                       className="img"
                                       src="/static/media/src/local/asset-icon/counters/uas.svg"
                                     />
@@ -545,7 +545,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                     className="asset-icon-with-image"
                                   >
                                     <img
-                                      alt="task-group"
+                                      alt="uas"
                                       className="img"
                                       src="/static/media/src/local/asset-icon/counters/uas.svg"
                                     />
