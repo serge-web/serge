@@ -23,7 +23,7 @@ export default interface SelectedAsset {
     forceId: ForceData['uniqid'],
     controlledBy?: Array<ForceData['uniqid']>,
     condition: string,
-    visibleTo: Array<string>
+    visibleTo: Array<ForceData['uniqid']>
     status?: RouteStatus,
     attributes: AttributeValues
     /** flag for if player is free to relocate this asset to a suitable cell in turn zero */

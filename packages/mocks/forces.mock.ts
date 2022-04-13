@@ -87,7 +87,7 @@ export const forces: ForceData[] = [
                     by: 'Red',
                     force: 'Blue',
                     name: 'Unknown UAV',
-                    type: 'Unmanned-Airborne-Vehicle',
+                    typeId: 'a10'
                   }],
                       plannedTurns: [],
                   platformType: 'Unmanned-Airborne-Vehicle',
@@ -140,7 +140,7 @@ export const forces: ForceData[] = [
           by: 'Red',
           force: 'Blue',
           name: 'BRIT',
-          type: 'task-group'
+          typeId: 'a11'
         }],
         plannedTurns: [
           {
@@ -199,7 +199,7 @@ export const forces: ForceData[] = [
             perceptions: [{
               by: 'Red',
               force: 'Blue',
-              type: 'helicopter'
+              typeId: 'a8'
             }],
             plannedTurns: [],
             platformType: 'helicopter',
@@ -229,7 +229,7 @@ export const forces: ForceData[] = [
           by: 'Red',
           force: 'Blue',
           name: 'Frigate Perceived Name',
-          type: 'frigate'
+          typeId: 'a3'
         }],
         plannedTurns: [
           {
@@ -296,8 +296,7 @@ export const forces: ForceData[] = [
         name: 'Tanker',
         perceptions: [{
           by: 'Red',
-          force: 'Blue',
-          type: ''
+          force: 'Blue'
         }],
         plannedTurns: [
           {
@@ -347,7 +346,7 @@ export const forces: ForceData[] = [
     color: '#00F',
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
-    name: 'Blue',
+    name: 'Blue Force',
     overview: 'Blue force.',
     roles: [
       {
@@ -402,7 +401,7 @@ export const forces: ForceData[] = [
         locationPending: LaydownTypes.ForceLaydown,
         name: 'Dhow-A',
         perceptions: [{
-          by: 'Blue',
+          by: 'Blue'
         }],
         plannedTurns: [
           {
@@ -478,7 +477,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'SHU’AI',
-          type: 'fishing-vessel'
+          typeId: 'a1'
         }],
         plannedTurns: [
           {
@@ -660,7 +659,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'OSAKA',
-          type: 'merchant-vessel'
+          typeId: 'a13'
         }],
         plannedTurns: [
           {
@@ -941,7 +940,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'JALIBUT',
-          type: 'merchant-vessel'
+          typeId: 'a13'
         }],
         plannedTurns: [
           {
@@ -1055,7 +1054,7 @@ export const forces: ForceData[] = [
         perceptions: [{
           by: 'Blue',
           force: 'Green',
-          type: 'merchant-vessel'
+          typeId: 'a13'
         }],
         plannedTurns: [
           {

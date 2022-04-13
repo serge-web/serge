@@ -13,11 +13,7 @@ export default interface PropTypes {
    * The contactId
    */
   contactId: string
-  /**
-   * The name of the icon to be used on the asset
-   */
-  type: string
-  /**
+   /**
    * the type of the asset
    */
   typeId: PlatformTypeData['uniqid']
@@ -33,10 +29,6 @@ export default interface PropTypes {
    * The perceived color for this asset
    */
   perceivedForceColor: string
-  /**
-   * The perceived color for this asset
-   */
-  perceivedForceClass?: string
    /**
    * if this asset is selected
    */
