@@ -49,7 +49,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     }
   }, [formState])
 
-  const changeHandler = (e: any): void => {
+  const changeHandler = (e: HTMLInputElement): void => {
     const { name, value } = e
     setFormState(
       {

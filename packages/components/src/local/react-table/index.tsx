@@ -1,7 +1,10 @@
-import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
+import { faArchive, faEnvelope, faEnvelopeOpen, faFilter } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button, TextField, Tooltip } from '@material-ui/core'
 import { setActivityTime } from '@serge/config'
+import cx from 'classnames'
 import { flattenDeep, uniqBy } from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import ColFilter, { CellFilter, HeaderFiltes } from './helpers/col-filter'
 import { getElementByClass, getElementById } from './helpers/dom-helpers'
@@ -18,6 +21,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     showArchived,
     handleArchiveDoc,
     handleMarkAllAsRead,
+    handleMarkAllAsUnread,
     customStyles,
     channelName = '',
     ...restProps
@@ -26,10 +30,15 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [colName, setColName] = useState<string>('')
   const [filtersByKey, setAllFilters] = useState<HeaderFiltes[]>([])
+  const [filterActive, setFilterActive] = useState<boolean>(false)
+  const [debounce, setDebounce] = useState<any>()
+  const [searchText, setSearchText] = useState<string>('')
 
   const open = Boolean(anchorEl)
 
   const getRoleId = new URLSearchParams(window.location.search).get('access')
+
+  const isAllMsgRead = useMemo(() => rows.every(msg => msg.isReaded), [rows])
 
   // ///////////////////////////////////////// //
   //    INJECT FILTER TO TABLE CELL HEADER     //
@@ -63,10 +72,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    * on rows changed, re-redner rows
    */
   useEffect(() => {
-    if (rows.length) {
+    if (rows.length || !filterActive) {
       setFilterdRows(rows)
+      setSearchText('')
     }
-  }, [rows])
+  }, [rows, filterActive])
 
   useEffect(() => {
     // do not render filter icon if empty rows
@@ -214,26 +224,61 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
 
   const ExpandedComponent = ({ data }: Row): React.ReactElement => data.collapsible()
 
+  /**
+   * filter rows on inputed search value
+   * @param e
+   */
+  const onFilterInput = (e: ChangeEvent<HTMLInputElement>): void => {
+    clearTimeout(debounce)
+    setSearchText(e.target.value)
+    setDebounce(setTimeout((searchText: string) => {
+      const filteredRows = rows.filter(row =>
+        Object.keys(row).some(key =>
+          row[key] &&
+          typeof row[key] === 'string' &&
+          `${row[key]}`.toLowerCase().includes(searchText.toLowerCase()))
+      )
+      setFilterdRows(filteredRows)
+    }, 500, e.target.value))
+  }
+
+  const handleMessagesState = (): void => {
+    if (isAllMsgRead) {
+      handleMarkAllAsUnread && handleMarkAllAsUnread()
+    } else {
+      handleMarkAllAsRead && handleMarkAllAsRead()
+    }
+  }
+
   return (
     <>
       <div className={styles.actions}>
+        <div className={cx({ [styles['filter-section']]: true, [styles['filter-active']]: filterActive })}>
+          <Tooltip title="Filter Data">
+            <Button onClick={(): void => setFilterActive(!filterActive)}>
+              <FontAwesomeIcon icon={faFilter} />
+            </Button>
+          </Tooltip>
+          <TextField placeholder='Filter data' value={searchText} InputProps={{ disableUnderline: true }} onChange={onFilterInput} />
+        </div>
         {
-          !!handleArchiveDoc && <FormControlLabel
-            className={styles.checkbox}
-            label="Show archived"
-            control={
-              <Checkbox
-                onChange={(): void => handleArchiveDoc()}
-                checked={!!showArchived}
-              />
-            }
-          />
+          !!handleArchiveDoc &&
+          <div className={cx({ [styles['archive-section']]: true, [styles['archive-active']]: showArchived })}>
+            <Tooltip title="Show Archive">
+              <Button onClick={(): void => handleArchiveDoc()}>
+                <FontAwesomeIcon icon={faArchive} />
+              </Button>
+            </Tooltip>
+          </div>
         }
         {
-          !!handleMarkAllAsRead && <div className={styles.btn}>
-            <span>
-              <Button onClick={(): void => handleMarkAllAsRead()}>Mark All As Read</Button>
-            </span>
+          !!handleMarkAllAsRead &&
+          <div className={cx({ [styles['mark-all-as-read-section']]: true, [styles['mark-all-as-read-open']]: isAllMsgRead })}>
+            <Tooltip title={isAllMsgRead ? 'Mark All as Unread' : 'Mark All as Read'}>
+              <Button onClick={handleMessagesState}>
+                <FontAwesomeIcon icon={isAllMsgRead ? faEnvelopeOpen : faEnvelope} />
+              </Button>
+            </Tooltip>
           </div>
         }
       </div>

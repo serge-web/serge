@@ -10,7 +10,7 @@ exports[`CheckboxType renders correctly 1`] = `
     Visible to
   </div>
   <label
-    className="MuiFormControlLabel-root"
+    className="MuiFormControlLabel-root selected"
     title="Red"
   >
     <span
@@ -36,7 +36,7 @@ exports[`CheckboxType renders correctly 1`] = `
           checked={true}
           className="PrivateSwitchBase-input-5"
           data-indeterminate={false}
-          name="visibleTo"
+          name="Visible to"
           onChange={[Function]}
           type="checkbox"
           value="Red"
@@ -86,7 +86,7 @@ exports[`CheckboxType renders correctly 1`] = `
           checked={false}
           className="PrivateSwitchBase-input-5"
           data-indeterminate={false}
-          name="visibleTo"
+          name="Visible to"
           onChange={[Function]}
           type="checkbox"
           value="Blue"
@@ -127,7 +127,7 @@ exports[`RadioType renders correctly 1`] = `
     role="radiogroup"
   >
     <label
-      className="MuiFormControlLabel-root"
+      className="MuiFormControlLabel-root selected"
       title="Red"
     >
       <span
@@ -152,7 +152,7 @@ exports[`RadioType renders correctly 1`] = `
           <input
             checked={true}
             className="PrivateSwitchBase-input-5"
-            name="visibleTo"
+            name="Visible to"
             onChange={[Function]}
             type="radio"
             value="Red"
@@ -218,7 +218,7 @@ exports[`RadioType renders correctly 1`] = `
           <input
             checked={false}
             className="PrivateSwitchBase-input-5"
-            name="visibleTo"
+            name="Visible to"
             onChange={[Function]}
             type="radio"
             value="Blue"
