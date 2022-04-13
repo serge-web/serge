@@ -20,11 +20,10 @@ import { UMPIRE_FORCE } from '@serge/config'
 const fetch = unfetch.bind(window)
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType = '', icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
-  icSelected ? styles.selected : null,
-  icType && styles[`platform-type-${icType}`]
+  icSelected ? styles.selected : null
 ))
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
@@ -54,17 +53,15 @@ export const GetIcon = ({ icType, color = '', isSelected, imageSrc }: GetIconPro
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
+  // TODO: reflect vale of `isSelecteed` in the icon
+  console.log('need to use', isSelected)
 
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
         <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
       </div>
-      : <div className={cx(
-        getIconClassname(color, icType, isSelected),
-        styles['asset-icon-fw'],
-        getReverce(color)
-      )}/>}
+      : null }
   </div>
 }
 
@@ -105,11 +102,13 @@ export const InfoMarker: React.FC<PropTypes> = ({
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
 
-  const className = getIconClassname('', '', marker.uniqid === selectedMarker)
+  const isSelected = marker.uniqid === selectedMarker
+  const className = getIconClassname('', isSelected)
   const reverceClassName = getReverce(marker.color)
+  // TOOD: need to use isSelected in following line
   const image = loadStatus && typeof imageSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${marker.icon}">`
-    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${marker.icon}`])}"></div>`
+    : null
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],

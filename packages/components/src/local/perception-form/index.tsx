@@ -92,7 +92,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
       <div className={styles['asset-icon']}>
-        <GetIcon icType={typeName} color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
+        <GetIcon color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
       </div>
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler} className={styles['input-container']} placeholder={'Enter name here'} />

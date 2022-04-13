@@ -1,48 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { SelectedAsset } from '@serge/custom-types'
 import cx from 'classnames'
-import { LayerGroup, Marker, Polygon, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
-import { lightOrDark } from '../map-control/helpers/lightOrDark'
 import unfetch from 'node-fetch'
-
-/* Import Types */
-import PropTypes from './types/props'
-
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
+import React, { useContext, useEffect, useState } from 'react'
+import { LayerGroup, Marker, Polygon, Tooltip } from 'react-leaflet'
+import { OrientationData } from '../assets/types/asset_info'
+import { lightOrDark } from '../map-control/helpers/lightOrDark'
 /* Import context */
 import { MapContext } from '../mapping'
-import { SelectedAsset } from '@serge/custom-types'
-import { OrientationData } from '../assets/types/asset_info'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+/* Import Types */
+import PropTypes from './types/props'
 
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
 const fetch = unfetch.bind(window)
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType = '', destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
   destroyed ? styles.destroyed : null,
-  icSelected ? styles.selected : null,
-  icType && styles[`platform-type-${icType}`]
+  icSelected ? styles.selected : null
 ))
+
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
 }
-export const checkUrl = (url: string): string => {
+
+export const fixUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
-  } else {
-    const prefix = '/static/media/src/local/asset-icon/counters/'
-    return prefix + url
   }
+  return `/assets/counters/${url}`
 }
 
 interface GetIconProps {
-  icType: string
   color?: string
   destroyed?: boolean
   isSelected?: boolean
@@ -53,29 +48,34 @@ const getReverce = (color = ''): string | false => (
   color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
 )
 
-export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
+export const GetIcon = ({ color = '', destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
   const [loadStatus, setLoadStatus] = useState(true)
+
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
 
+  const typePrefix = (icon: string): string => {
+    const ind = icon.indexOf('.')
+    const trimmed = ind > 0 ? icon.substring(0, ind) : icon
+    return trimmed
+  }
+
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
-    {imageSrc && loadStatus
-      ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
+    {
+      imageSrc &&
+      <div className={styles['asset-icon-with-image']}>
+        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, styles['asset-icon'], destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
       </div>
-      : <div className={cx(
-        getIconClassname(color, icType, destroyed, isSelected),
-        styles['asset-icon-fw'],
-        getReverce(color)
-      )} />}
+    }
   </div>
 }
 
 const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   if (imageSrc && isUrl(imageSrc)) {
     try {
-      return fetch(checkUrl(imageSrc), { method: 'HEAD' })
+      const url = fixUrl(imageSrc)
+      return fetch(url, { method: 'HEAD' })
         .then(res => res.status !== 404)
     } catch (error) {
       console.warn(`failed to get "${imageSrc}" image`)
@@ -123,11 +123,13 @@ export const AssetIcon: React.FC<PropTypes> = ({
   // const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
   // const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
 
-  const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
+  const className = getIconClassname(perceivedForceClass || '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
+  // TODO: use styles for isDestroyed and selected in the icon
+  console.log('need to reflect:', isDestroyed, className)
   const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
-    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
+    ? `<img class="${reverceClassName}" src="${fixUrl(imageSrc)}" alt="${type}">`
+    : null
 
   // Note: keep the following commented out code. It was quite challenging to come up with
   // correctly oriented markers

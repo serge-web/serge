@@ -72,7 +72,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
     <div className={styles.visibility}>
       <TitleWithIcon
         forceColor={icon.forceColor}
-        platformType={icon.platformType}
+        icon={icon.icon}
       >
         { formData.contactId + ' -  ' + formData.name }
       </TitleWithIcon>

@@ -4,5 +4,4 @@ export default interface PropTypes extends ImageDropzoneProps {
   background?: string
   icon?: string
   iconUploadUrl?: string
-  platformType?: string
 }
