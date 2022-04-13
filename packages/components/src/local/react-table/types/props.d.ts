@@ -13,6 +13,7 @@ export type ReactTableProps = Omit<TableProps, 'columns'> & {
   showArchived?: boolean
   handleArchiveDoc?: () => void
   handleMarkAllAsRead?: () => void
+  handleMarkAllAsUnread?: () => void
   channelName?: string
   filterTheme?: 'dark' | 'light'
 }

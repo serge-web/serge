@@ -15,7 +15,8 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  MARK_ALL_AS_UNREAD
 } from '@serge/config'
 
 import {
@@ -95,6 +96,11 @@ export interface MarkAllAsReadAction {
   type: typeof MARK_ALL_AS_READ,
   payload: string
 }
+
+export interface MarkAllASUnReadAction {
+  type: typeof MARK_ALL_AS_UNREAD,
+  payload: string
+}
 interface OpenTourAction {
   type: typeof OPEN_TOUR,
   payload: boolean
@@ -121,6 +127,7 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
   MarkUnreacAction |
   CloseMessageAction |
   MarkAllAsReadAction |
+  MarkAllASUnReadAction |
   OpenTourAction |
   OpenModalAction |
   CloseModalAction
