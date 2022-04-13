@@ -28,9 +28,9 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       const originalVis: string[] = formData.forceNames
 
       // see if any forces have been hidden
-      const hidden = originalVis.filter(item => !visibleTo.includes(item)).map((item: string):Visibility => {
+      const hidden = originalVis.filter(item => !visibleTo.includes(item)).map((item: string): Visibility => {
         // get the force id for this name
-        const force = forces.find((value:ForceOption) => value.name === item)
+        const force = forces.find((value: ForceOption) => value.name === item)
         return {
           by: force && force.id || '',
           newVis: false
@@ -38,9 +38,9 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       })
 
       // or revealed
-      const revealed = visibleTo.filter(item => !originalVis.includes(item)).map((item: string):Visibility => {
+      const revealed = visibleTo.filter(item => !originalVis.includes(item)).map((item: string): Visibility => {
         // get the force id for this name
-        const force = forces.find((value:ForceOption) => value.name === item)
+        const force = forces.find((value: ForceOption) => value.name === item)
         return {
           by: force && force.id || '',
           newVis: true

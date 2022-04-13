@@ -5,7 +5,6 @@ import { forces, platformTypes, selectedAsset } from '@serge/mocks'
 import { deepCopy } from '@serge/helpers'
 
 it('produces visibility data', () => {
-
   // remove a visible to entry, so we don't just select all forces
   const asset = deepCopy(selectedAsset)
   asset.visibleTo = [asset.visibleTo[0]]

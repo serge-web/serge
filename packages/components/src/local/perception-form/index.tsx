@@ -36,21 +36,21 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   typeStrings.push(unknownStr)
 
   const perceivedForce = perceivedForces.find((force: ForceOption) => force.id === formState.perceivedForceId || null)
-  const perceivedForceName = perceivedForce ? perceivedForce.name : "Unknown"
+  const perceivedForceName = perceivedForce ? perceivedForce.name : 'Unknown'
 
   /** the forces from props has changed */
   useEffect(() => {
     if (formState.perceivedTypeId) {
       const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
       if (typeDetails) {
-        if(typeName !== typeDetails.name) {
+        if (typeName !== typeDetails.name) {
           setTypeName(typeDetails.name)
         }
       } else {
         throw new Error('failed to find platform type' + formState.perceivedTypeId)
       }
     } else {
-      if(typeName !== unknownStr) {
+      if (typeName !== unknownStr) {
         setTypeName(unknownStr)
       }
     }
