@@ -90,10 +90,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   name,
   contactId,
   position,
-  type,
   typeId,
   force,
-  perceivedForceClass,
   perceivedForceColor,
   visibleTo,
   controlledBy,
@@ -122,13 +120,12 @@ export const AssetIcon: React.FC<PropTypes> = ({
   // temporarily offset the markers, so we know which one we are seeing
   // const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
   // const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
-
-  const className = getIconClassname(perceivedForceClass || '', isDestroyed, selected)
+  const className = getIconClassname('', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
   // TODO: use styles for isDestroyed and selected in the icon
-  console.log('need to reflect:', isDestroyed, className)
+  console.log('need to reflect:', isDestroyed, selected)
   const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${fixUrl(imageSrc)}" alt="${type}">`
+    ? `<img class="${reverceClassName}" src="${fixUrl(imageSrc)}" alt="${name}">`
     : null
 
   // Note: keep the following commented out code. It was quite challenging to come up with

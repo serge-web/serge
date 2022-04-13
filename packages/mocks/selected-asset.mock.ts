@@ -1,15 +1,16 @@
 import SelectedAsset from '@serge/custom-types/selected-asset'
 
+import forces from './forces.mock'
+
 const selected: SelectedAsset = {
   uniqid: 'id001',
   name: 'asset-name',
   contactId: 'C345',
-//  type: 'Frigate',
   typeId: 'a3',
-  forceId: 'Blue',
+  forceId: forces[1].uniqid,
   controlledBy: [],
   condition: 'Full capability',
-  visibleTo: ['red', 'blue'],
+  visibleTo: [forces[2].uniqid, forces[3].uniqid],
   status: {
     speedKts: 10,
     state: 'Transiting'

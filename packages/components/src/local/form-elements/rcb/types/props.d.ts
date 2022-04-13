@@ -15,7 +15,7 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: Array<string | number | SelectOption>
+  options: Array<string | number | FormOption>
   /**
    * The value to set the 'checked' parameter to
    */

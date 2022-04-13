@@ -40,7 +40,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const createSelectedForcePlatforms = (assets: Asset[] | undefined): ForceItemType[] => {
     const selectedForcePlatforms: ForceItemType[] = Array.isArray(assets)
-      ? assets.map((asset: Asset): ForceItemType => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
+      ? assets.map((asset: Asset): ForceItemType => ({ ...asset, id: asset.platformTypeId, type: ASSET_ITEM }))
       : []
     return selectedForcePlatforms
   }
@@ -77,7 +77,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       setFixedLocationValue('')
     }
 
-    const pType = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
+    const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
     pType && setAttributeTypes(pType.attributeTypes || [])
     let attrValues = asset.attributeValues || []
     if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {

@@ -3,7 +3,7 @@ import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
-import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
+import { UMPIRE_FORCE, ADJUDICATION_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import { Route } from '../route'
 
 /* Import Context */
@@ -50,10 +50,10 @@ export const Assets: React.FC<{}> = () => {
     if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, platformTypeId, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
-        const thisPlatformType = findPlatformTypeFor(platforms, route.asset.platformType, route.asset.platformTypeId)
+        const { uniqid, name, platformTypeId, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
+        const thisPlatformType = findPlatformTypeFor(platforms, '', route.asset.platformTypeId)
         if (!thisPlatformType) {
-          console.warn('Failed to find platform for', platformType, platforms, route)
+          console.warn('Failed to find platform for', platformTypeId, platforms, route)
         }
         const { contactId, status, perceptions } = route.asset
 
@@ -64,7 +64,6 @@ export const Assets: React.FC<{}> = () => {
           visibleToThisForce,
           contactId,
           actualForceName,
-          platformType,
           platformTypeId,
           perceptions
         )
@@ -95,7 +94,7 @@ export const Assets: React.FC<{}> = () => {
               })
 
               // sort out the icon
-              const iconUrl = perceivedAsTypes.type === 'unknown' ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
+              const iconUrl = perceivedAsTypes.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
 
               const assetInfo: AssetInfo = {
                 position: position,
@@ -104,11 +103,9 @@ export const Assets: React.FC<{}> = () => {
                 condition: condition,
                 status: status,
                 selected: isSelected,
-                type: perceivedAsTypes.type,
                 typeId: perceivedAsTypes.typeId,
                 iconUrl: iconUrl,
                 perceivedForceColor: route.perceivedForceColor,
-                perceivedForceClass: route.perceivedForceClass,
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
@@ -137,7 +134,6 @@ export const Assets: React.FC<{}> = () => {
         contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}
-        type={asset.type}
         typeId={asset.typeId}
         selected={asset.selected}
         condition={asset.condition}
@@ -146,7 +142,6 @@ export const Assets: React.FC<{}> = () => {
         visibleTo={asset.visibleTo}
         force={asset.force}
         perceivedForceColor={asset.perceivedForceColor}
-        perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
         imageSrc={asset.iconUrl}
         attributes={asset.attributes}

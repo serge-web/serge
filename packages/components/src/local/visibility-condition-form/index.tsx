@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import PropTypes from './types/props'
 import { Button, Select, MenuItem } from '@material-ui/core'
 import RCB from '../form-elements/rcb'
-import { ColorOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
+import { ForceOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import { FormGroup, clSelect } from '../form-elements/form-group'
 
@@ -14,42 +14,45 @@ import { VISIBILITY_CHANGES } from '@serge/config'
 
 /* Render component */
 export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
-  const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.values)
+  const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.forceNames)
   const [conditionVal, setConditionVal] = useState<string>(formData.selectedCondition)
-  const forces: Array<ColorOption> = formData.populate
+  const forces: Array<ForceOption> = formData.availableForces
   const conditionValues: Array<string> = formData.condition
 
   const changeHandler = (e: any): void => {
-    console.log('change vis', e.value)
     setVisibleTo(e.value)
   }
+
   const submitForm = (): void => {
     if (mapPostBack !== undefined) {
-      const originalVis: string[] = formData.values
-      // collate list of visibility changes
-      const res: Visibility[] = []
+      const originalVis: string[] = formData.forceNames
+
       // see if any forces have been hidden
-      originalVis.filter(item => !visibleTo.includes(item)).forEach(item => {
-        const vis: Visibility = {
-          by: item,
+      const hidden = originalVis.filter(item => !visibleTo.includes(item)).map((item: string): Visibility => {
+        // get the force id for this name
+        const force = forces.find((value: ForceOption) => value.name === item)
+        return {
+          by: (force && force.id) || '',
           newVis: false
         }
-        res.push(vis)
       })
+
       // or revealed
-      visibleTo.filter(item => !originalVis.includes(item)).forEach(item => {
-        const vis: Visibility = {
-          by: item,
+      const revealed = visibleTo.filter(item => !originalVis.includes(item)).map((item: string): Visibility => {
+        // get the force id for this name
+        const force = forces.find((value: ForceOption) => value.name === item)
+        return {
+          by: (force && force.id) || '',
           newVis: true
         }
-        res.push(vis)
       })
+      const changes = hidden.concat(revealed)
       // TODO: the `res` payload value here currently contains force names. It should contain
       // force id's
       const message: MessageVisibilityChanges = {
         assetId: formData.assetId,
         messageType: VISIBILITY_CHANGES,
-        visibility: res
+        visibility: changes
       }
       if (formData.selectedCondition !== conditionVal) {
         message.condition = conditionVal

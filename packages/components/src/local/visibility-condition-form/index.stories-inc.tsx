@@ -34,6 +34,10 @@ const postback = (messageType: string, payload: any): void => {
 const newAsset = { ...selectedAsset }
 newAsset.condition = 'Immobile'
 
+// aah, hold on. We don't want both forces to see the asset, since
+// that won't let us track making it visible to a force
+newAsset.visibleTo = [newAsset.visibleTo[0]]
+
 const formData = collateVisibilityFormData(platformTypes, newAsset, forces)
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue', icon: 'frigate.svg' }
 

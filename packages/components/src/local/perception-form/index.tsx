@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core'
 import Selector from '../form-elements/selector'
 import RCB from '../form-elements/rcb'
 import TextInput from '../atoms/text-input'
-import { MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
+import { ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
 
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -28,42 +28,59 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   const { playerForce } = props
 
   const { perceivedForces, perceivedTypes } = formData.populate
-  const { perceivedNameVal, perceivedForceVal } = formState
+  const { perceivedNameVal } = formState
   const typeStrings: string[] = perceivedTypes.map((p: PerceivedType): string => p.name)
 
   // add 'unknown' to the list of types
   const unknownStr = 'unknown'
   typeStrings.push(unknownStr)
 
+  const perceivedForce = perceivedForces.find((force: ForceOption) => force.id === formState.perceivedForceId || null)
+  const perceivedForceName = perceivedForce ? perceivedForce.name : 'Unknown'
+
   /** the forces from props has changed */
   useEffect(() => {
     if (formState.perceivedTypeId) {
       const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
       if (typeDetails) {
-        setTypeName(typeDetails.name)
+        if (typeName !== typeDetails.name) {
+          setTypeName(typeDetails.name)
+        }
       } else {
         throw new Error('failed to find platform type' + formState.perceivedTypeId)
       }
     } else {
-      setTypeName(unknownStr)
+      if (typeName !== unknownStr) {
+        setTypeName(unknownStr)
+      }
     }
   }, [formState])
 
-  const changeHandler = (e: HTMLInputElement): void => {
-    const { name, value } = e
+  const nameHandler = (e: HTMLInputElement): void => {
+    const { value } = e
     setFormState(
       {
         ...formState,
-        [`${name}Val`]: value
+        perceivedNameVal: value
       }
     )
   }
 
-  const selectHandler = (data: string): void => {
+  const forceHandler = (e: HTMLInputElement): void => {
+    const { value } = e
+    const force = perceivedForces.find((force: ForceOption) => force.name === value)
+    setFormState(
+      {
+        ...formState,
+        perceivedForceId: force && force.id ? force.id : undefined
+      }
+    )
+  }
+
+  const typeHandler = (data: string): void => {
     // get the id
     const typeDetails = perceivedTypes.find((p: PerceivedType) => p.name === data)
     const typeId = data === unknownStr ? undefined : typeDetails && typeDetails.uniqid
-    console.log('select', data, typeDetails, typeId, perceivedTypes)
     setFormState(
       {
         ...formState,
@@ -75,16 +92,19 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
 
   const submitForm = (): void => {
     if (mapPostBack !== undefined) {
+      const force = perceivedForces.find((force: ForceOption) => force.name === perceivedForceName)
       const payload: MessagePerceptionOfContact = {
+        // generate force id from force name
         messageType: PERCEPTION_OF_CONTACT,
         perception: {
           by: playerForce,
-          force: formState.perceivedForceVal,
+          force: force && force.id ? force.id : undefined,
           typeId: formState.perceivedTypeId,
           name: formState.perceivedNameVal
         },
         assetId: formState.assetId
       }
+      console.log('state', payload)
       mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
@@ -92,12 +112,12 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
       <div className={styles['asset-icon']}>
-        <GetIcon color={formState.perceivedForceVal} isSelected={false} imageSrc={formState.iconURL} />
+        <GetIcon color={formState.perceivedForceColor} isSelected={false} imageSrc={formState.iconURL} />
       </div>
       <fieldset className={styles.fieldset}>
-        <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler} className={styles['input-container']} placeholder={'Enter name here'} />
-        <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={selectHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceVal} updateState={changeHandler} className={styles['input-container']} />
+        <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />
+        <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceName || ''} updateState={forceHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>

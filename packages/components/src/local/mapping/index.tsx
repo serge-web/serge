@@ -23,7 +23,6 @@ import {
   findAsset,
   routeSetLaydown,
   enumFromString,
-  platformTypeNameToKey,
   turnTimeAsMillis
 } from '@serge/helpers'
 
@@ -193,7 +192,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (layPhase && canSubmitOrders) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
-          const pType = platformTypesByKey[platformTypeNameToKey(asset.platformType)]
+          const pType = findPlatformTypeFor(platforms, '', asset.platformTypeId)
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
@@ -515,7 +514,7 @@ export const Mapping: React.FC<PropTypes> = ({
         const origin: string = inAdjudicate ? current.currentPosition : routeGetLatestPosition(current.currentPosition, current.planned)
 
         // sort out platform type for this asset
-        const pType = findPlatformTypeFor(platforms, current.platformType, current.platformTypeId)
+        const pType = findPlatformTypeFor(platforms, '', current.platformTypeId)
 
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel
