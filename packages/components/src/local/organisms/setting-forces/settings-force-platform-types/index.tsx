@@ -1,38 +1,35 @@
-import React, { FC, ChangeEvent, ReactNode, useState, useEffect, ReactElement } from 'react'
-import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes, TASK_GROUP } from '@serge/config'
-/* Import proptypes */
-import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
-import PropTypes from './types/props'
-import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortableItems'
-import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
-
-/* Import Styles */
-import styles from './styles.module.scss'
-
-/* Import Components */
-import { createAssetBasedOnPlatformType, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform, collateEditorData, findPlatformTypeFor } from '@serge/helpers'
-
-import cx from 'classnames'
-import { GetIcon } from '../../../asset-icon' // getIconClassname
-import Grid from '@material-ui/core/Grid'
-import { ReactSortable } from 'react-sortablejs'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import TextInput from '../../../atoms/text-input'
-import NativeSelect from '@material-ui/core/NativeSelect'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Chip from '@material-ui/core/Chip'
+import Grid from '@material-ui/core/Grid'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import NativeSelect from '@material-ui/core/NativeSelect'
 import Typography from '@material-ui/core/Typography'
+import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes, TASK_GROUP } from '@serge/config'
+import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+/* Import Components */
+import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
+import cx from 'classnames'
+import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
+import { ReactSortable } from 'react-sortablejs'
+import { GetIcon } from '../../../asset-icon'; // getIconClassname
+import Button from '../../../atoms/button'
+import TextInput from '../../../atoms/text-input'
+import AttributeEditor from '../../../attribute-editor'
 import Groups from '../../../helper-elements/groups'
 import { NodeType } from '../../../helper-elements/groups/types/props'
 import canCombineWith from '../../../world-state/helpers/can-combine-with'
-import Badge from '../../../atoms/badge'
-import Button from '../../../atoms/button'
-import AttributeEditor from '../../../attribute-editor'
+/* Import proptypes */
+import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
+import { ForceItemType, ListItemType, PlatformItemType } from '../types/sortableItems'
+/* Import Styles */
+import styles from './styles.module.scss'
+import PropTypes from './types/props'
 
 export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [], onDeleteAsset }) => {
   const [fixedLocationValue, setFixedLocationValue] = useState('')
@@ -214,15 +211,15 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         {attributes.length > 0 &&
           <ListItem>
             <ListItemText>
-              <label className={styles['input-group']}>
+              <label className={cx(styles['input-group'], styles['attribute-group'])}>
                 <span className={styles['list-title']}>Attributes</span>
                 <div>
                   {attributes.map((item: AttributeEditorData): ReactElement => {
                     const labelTxt = item.nameRead + ' ' + item.valueRead
-                    return <Badge key={item.attrId} allCaps={false} label={labelTxt} />
+                    return <Chip key={item.attrId} label={labelTxt} className={styles['attribute-chip']} />
                   })}
+                  <Button color='primary' onClick={(): void => setAttributeEditorIsOpen(true)}>Edit</Button>
                 </div>
-                <span className={styles.editattributes}><Button onClick={(): void => setAttributeEditorIsOpen(true)}>Edit</Button></span>
               </label>
             </ListItemText>
           </ListItem>
