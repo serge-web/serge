@@ -28,8 +28,8 @@ const formData: PerceptionFormData = {
   },
   values: {
     perceivedNameVal: 'Test',
-    perceivedForceClass: 'blue-force',
     perceivedForceId: 'Blue Force',
+    perceivedForceColor: '#69c',
     perceivedTypeId: 'a3',
     assetId: 'c00012',
     iconURL: 'frigate.svg'

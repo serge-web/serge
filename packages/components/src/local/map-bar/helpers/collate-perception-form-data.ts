@@ -11,23 +11,24 @@ import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/hel
 const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForceId: ForceData['uniqid'], selectedAsset: SelectedAsset, forces: ForceData[]): PerceptionFormData | null => {
   // get the actual asset
   const asset: Asset = findAsset(forces, selectedAsset.uniqid)
-  const perceivedTypes: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForceId, asset.name, false, asset.contactId,
-    selectedAsset.forceId, '', selectedAsset.typeId, asset.perceptions)
+  const perceivedValues: PerceivedTypes | null = (selectedAsset.typeId === undefined) ? null : findPerceivedAsTypes(playerForceId, asset.name, false, asset.contactId,
+    selectedAsset.forceId, selectedAsset.typeId, asset.perceptions)
   const availableForceList: ForceOption[] = availableForces(forces, true, true, playerForceId)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return { uniqid: p.uniqid, name: p.name } })
-  const perceivedType = perceivedTypes && perceivedTypes.typeId && findPlatformTypeFor(platforms, '', perceivedTypes.typeId)
+  const perceivedType = perceivedValues && perceivedValues.typeId && findPlatformTypeFor(platforms, '', perceivedValues.typeId)
+  const perceivedForce = forces.find((force: ForceData) => (perceivedValues && perceivedValues.forceId) && force.uniqid === perceivedValues.forceId)
 
-  if (perceivedTypes) {
+  if (perceivedValues) {
     const formData: PerceptionFormData = {
       populate: {
         perceivedForces: availableForceList,
         perceivedTypes: platformTypes
       },
       values: {
-        perceivedNameVal: perceivedTypes.name,
-        perceivedForceClass: perceivedTypes.force,
-        perceivedForceId: perceivedTypes.forceId || '',
-        perceivedTypeId: perceivedTypes.typeId,
+        perceivedNameVal: perceivedValues.name,
+        perceivedForceColor: (perceivedForce && perceivedForce.color) || undefined,
+        perceivedForceId: (perceivedForce && perceivedForce.uniqid) || undefined,
+        perceivedTypeId: perceivedValues.typeId,
         assetId: selectedAsset.uniqid,
         iconURL: (perceivedType && perceivedType.icon) || 'unknown.svg'
       }

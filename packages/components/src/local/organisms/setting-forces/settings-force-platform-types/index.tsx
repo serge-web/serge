@@ -10,7 +10,7 @@ import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeVal
 import styles from './styles.module.scss'
 
 /* Import Components */
-import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform, collateEditorData, findPlatformTypeFor } from '@serge/helpers'
+import { createAssetBasedOnPlatformType, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform, collateEditorData, findPlatformTypeFor } from '@serge/helpers'
 
 import cx from 'classnames'
 import { GetIcon } from '../../../asset-icon' // getIconClassname
@@ -40,7 +40,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const createSelectedForcePlatforms = (assets: Asset[] | undefined): ForceItemType[] => {
     const selectedForcePlatforms: ForceItemType[] = Array.isArray(assets)
-      ? assets.map((asset: Asset): ForceItemType => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
+      ? assets.map((asset: Asset): ForceItemType => ({ ...asset, id: asset.platformTypeId, type: ASSET_ITEM }))
       : []
     return selectedForcePlatforms
   }
@@ -77,7 +77,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       setFixedLocationValue('')
     }
 
-    const pType = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
+    const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
     pType && setAttributeTypes(pType.attributeTypes || [])
     let attrValues = asset.attributeValues || []
     if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
@@ -231,8 +231,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       </List>
     </div>
   }
-  const findIcon = (platformType: string): string => {
-    const platform = platformTypes.find(({ name }) => name === platformType)
+  const findIcon = (platformTypeId: string): string => {
+    const platform = platformTypes.find((platform) => platform.uniqid === platformTypeId)
     return typeof platform === 'undefined' ? '' : platform.icon
   }
   const renderContent = (groupItem: GroupItem): JSX.Element => {
@@ -245,7 +245,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         onClick={(): void => { setSelectedAssetItem(item) }}
       >
         <div className={styles['item-asset-icon-box']}>
-          <GetIcon icType={item.platformType} color={selectedForce.color} imageSrc={findIcon(item.platformType)} />
+          <GetIcon color={selectedForce.color} imageSrc={findIcon(item.platformTypeId)} />
           {/* <div className={cx(icClassName, styles['item-asset-icon'])}/> */}
         </div>
         <div className={styles['asset-name']}>{item.name}</div>
@@ -305,7 +305,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
                               <div>
-                                <GetIcon icType={platformTypeNameToKey(item.name)} color='#415b76' imageSrc={item.icon} />
+                                <GetIcon color='#415b76' imageSrc={item.icon} />
                               </div>
                             </div>
                           </div>

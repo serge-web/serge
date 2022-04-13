@@ -15,7 +15,6 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
 import { ATTRIBUTE_TYPE_NUMBER } from '@serge/config'
 import { AttributeType, AttributeTypes, NumberAttributeType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
-import { platformTypeNameToKey } from '@serge/helpers'
 import cx from 'classnames'
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal'
@@ -290,7 +289,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             />
           </div>
           <div className={styles.col}>
-            <IconUploader platformType={platformTypeNameToKey(data.name)} iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
+            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.uniqid}>Fixed id:{data.uniqid}</div>
           <div className={styles.actions}>

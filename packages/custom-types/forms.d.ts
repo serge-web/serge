@@ -26,10 +26,7 @@ export interface PerceptionFormPopulate {
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
-  /** css class to style this force
-   * @deprecated since data should come from wargame
-   */
-  perceivedForceClass: string
+  perceivedForceColor: ForceData['color'] | undefined
   perceivedForceId: ForceData['uniqid'] | undefined
   perceivedTypeId: PlatformTypeData['name'] | undefined
   assetId: string

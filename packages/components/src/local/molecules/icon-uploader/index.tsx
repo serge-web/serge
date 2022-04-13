@@ -14,8 +14,7 @@ export const IconUploader: React.FC<PropTypes> = ({
   onChange,
   limit,
   icon,
-  iconUploadUrl,
-  platformType = ''
+  iconUploadUrl
 }) => {
   const [modal, setModal] = useState<boolean>(false)
 
@@ -40,7 +39,7 @@ export const IconUploader: React.FC<PropTypes> = ({
         style={{ background }}
         className={styles.icon}
       >
-        {icon && <GetIcon icType={platformType} imageSrc={icon} color={'#415b76'}/>}
+        {icon && <GetIcon imageSrc={icon} color={'#415b76'}/>}
       </div>
       <div onClick={handleClick}>{children}</div>
       {modal && <div className={styles.modal}>

@@ -40,7 +40,7 @@ it('contains relevant current results for other force', () => {
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, blueForce.uniqid, selected2, forces)
   if (data) {
     const res: PerceptionFormValues = data.values
-    expect(res.perceivedForceId).toEqual('')
+    expect(res.perceivedForceColor).toEqual(undefined)
     expect(res.perceivedTypeId).toBeUndefined()
     expect(res.perceivedNameVal).toEqual('C065')
   } else {
@@ -57,7 +57,7 @@ it('contains relevant current results for my force', () => {
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
   if (data) {
     const res: PerceptionFormValues = data.values
-    expect(res.perceivedForceClass).toEqual('blue')
+    expect(res.perceivedForceColor).toEqual(forces[1].color)
     expect(res.perceivedTypeId).toEqual('a3')
     expect(res.perceivedNameVal).toEqual('Dhow-A')
   } else {
@@ -74,7 +74,7 @@ it('contains relevant current results for umpire force', () => {
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, UMPIRE_FORCE, selected2, forces)
   if (data) {
     const res: PerceptionFormValues = data.values
-    expect(res.perceivedForceClass).toEqual('blue')
+    expect(res.perceivedForceColor).toEqual(forces[1].color)
     expect(res.perceivedTypeId).toEqual('a3')
     expect(res.perceivedNameVal).toEqual('Dhow-A')
   } else {

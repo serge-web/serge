@@ -160,7 +160,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
-        platformType={icon.platformType}
+        icon={icon.icon}
       >
         {manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}

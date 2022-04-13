@@ -164,7 +164,6 @@ const wargame: Wargame = {
                                     "turn": 1
                                 }
                             ],
-                            "platformType": "destroyer2",
                             "platformTypeId": "a6",
                             "attributeValues": [
                                 {
@@ -214,7 +213,6 @@ const wargame: Wargame = {
                                     "typeId": "a4"
                                 }
                             ],
-                            "platformType": "ssn",
                             "platformTypeId": "a8",
                             "position": "8918aab663bffff",
                             "uniqid": "a0prbr1141"
@@ -247,7 +245,6 @@ const wargame: Wargame = {
                             "locationPending": true,
                             "name": "SSN-2",
                             "perceptions": [],
-                            "platformType": "ssn",
                             "platformTypeId": "a8",
                             "position": "8318f2fffffffff",
                             "uniqid": "a0a975y4221"
@@ -333,7 +330,6 @@ const wargame: Wargame = {
                                     "force": "Red-1"
                                 }
                             ],
-                            "platformType": "mpa",
                             "platformTypeId": "a11",
                             "position": "8918a84db33ffff",
                             "uniqid": "a03322ty344331"

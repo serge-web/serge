@@ -21,23 +21,20 @@ export default function findPerceivedAsTypes (
   visibleToPlayerForce: boolean,
   theirContactID: string,
   theirForceId: ForceData['uniqid'],
-  theirType: string,
   theirTypeId: PlatformTypeData['uniqid'],
   theirPerceptions: Perception[]
 ): PerceivedTypes | null {
   let tmpPerception: Perception | null
   if (myForceId === theirForceId || visibleToPlayerForce || myForceId === UMPIRE_FORCE || myForceId === UMPIRE_FORCE_NAME) {
     // just use the real values
-    tmpPerception = { name: theirName, force: theirForceId, type: theirType, typeId: theirTypeId, by: myForceId }
+    tmpPerception = { name: theirName, force: theirForceId, typeId: theirTypeId, by: myForceId }
   } else {
     // use the perceived values
     tmpPerception = theirPerceptions.find(p => p.by === myForceId) || null
   }
   if (tmpPerception) {
     const nameClass: string = tmpPerception.name ? tmpPerception.name : theirContactID
-    const forceClass: string = tmpPerception.force ? tmpPerception.force.replace(/ /g, '-').toLowerCase() : 'unknown'
-    const typeClass: string = tmpPerception.type ? tmpPerception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
-    return { name: nameClass, force: forceClass, type: typeClass, typeId: tmpPerception.typeId, forceId: tmpPerception.force }
+    return { name: nameClass, typeId: tmpPerception.typeId, forceId: tmpPerception.force }
   } else {
     return null
   }
