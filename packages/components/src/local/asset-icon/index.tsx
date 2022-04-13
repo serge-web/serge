@@ -33,12 +33,8 @@ const isUrl = (url: string): boolean => {
 export const fixUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
-  } else {
-    if (process.env.STORYBOOK) {
-      return `/static/media/src/local/asset-icon/counters/${url}`
-    }
-    return `/assets/counters/${url}`
   }
+  return `/assets/counters/${url}`
 }
 
 interface GetIconProps {
