@@ -32,7 +32,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
         // get the force id for this name
         const force = forces.find((value: ForceOption) => value.name === item)
         return {
-          by: force && force.id || '',
+          by: (force && force.id) || '',
           newVis: false
         }
       })
@@ -42,7 +42,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
         // get the force id for this name
         const force = forces.find((value: ForceOption) => value.name === item)
         return {
-          by: force && force.id || '',
+          by: (force && force.id) || '',
           newVis: true
         }
       })
