@@ -14,7 +14,6 @@ import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
-
 // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
 // error based on some webpack version
 const fetch = unfetch.bind(window)
