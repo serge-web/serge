@@ -29,9 +29,9 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           className="asset-icon-with-image"
         >
           <img
-            alt="frivate"
+            alt="frigate"
             className="img asset-icon"
-            src="/assets/counters/frivate.svg"
+            src="/assets/counters/frigate.svg"
           />
         </div>
       </div>
