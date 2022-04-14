@@ -34,7 +34,7 @@ export default interface MappingContext {
   /**
    * force for current player
    */
-  playerForce: string
+  playerForce: ForceData['uniqid']
   /** 
    * if the current player can submit orders
    */

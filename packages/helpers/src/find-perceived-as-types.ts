@@ -1,4 +1,4 @@
-import { UMPIRE_FORCE, UMPIRE_FORCE_NAME } from '@serge/config'
+import { UMPIRE_FORCE, UMPIRE_FORCE_NAME, UNKNOWN_TYPE } from '@serge/config'
 import { Perception, PerceivedTypes, PlatformTypeData, ForceData } from '@serge/custom-types'
 
 /** provide classnames for an asset, as perceived by current player
@@ -34,7 +34,9 @@ export default function findPerceivedAsTypes (
   }
   if (tmpPerception) {
     const nameClass: string = tmpPerception.name ? tmpPerception.name : theirContactID
-    return { name: nameClass, typeId: tmpPerception.typeId, forceId: tmpPerception.force }
+    const typeId = tmpPerception.typeId || UNKNOWN_TYPE
+    const forceId = tmpPerception.force || UNKNOWN_TYPE
+    return { name: nameClass, typeId: typeId, forceId: forceId }
   } else {
     return null
   }

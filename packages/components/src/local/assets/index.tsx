@@ -35,9 +35,6 @@ export const Assets: React.FC<{}> = () => {
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
-  const playerForceEle = forces.find((force: ForceData) => force.uniqid === playerForce)
-  const playerForceName: string = playerForceEle ? playerForceEle.name : 'unknown'
-
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
@@ -50,20 +47,21 @@ export const Assets: React.FC<{}> = () => {
     if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformTypeId, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
+        const { uniqid, name, platformTypeId, actualForceId, condition, laydownPhase, visibleToThisForce, attributes } = route
         const thisPlatformType = findPlatformTypeFor(platforms, '', route.asset.platformTypeId)
         if (!thisPlatformType) {
           console.warn('Failed to find platform for', platformTypeId, platforms, route)
         }
         const { contactId, status, perceptions } = route.asset
 
+
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = (platformTypeId === undefined) ? null : findPerceivedAsTypes(
-          playerForceName,
+          playerForce,
           name,
           visibleToThisForce,
           contactId,
-          actualForceName,
+          actualForceId,
           platformTypeId,
           perceptions
         )
@@ -73,11 +71,10 @@ export const Assets: React.FC<{}> = () => {
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            let assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
-            if (!assetForce) {
-              // TODO: introduce consistency in how we represent forces (id, not name)
-              assetForce = forces.find((force: ForceData) => force.uniqid === actualForceName)
-            }
+            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.uniqid === actualForceId)
+            
+            // console.log('percy', perceivedAsTypes, position, !!assetForce, actualForceId)
+            
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const orientData: OrientationData[] = []
@@ -95,7 +92,6 @@ export const Assets: React.FC<{}> = () => {
 
               // sort out the icon
               const iconUrl = perceivedAsTypes.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
-
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,

@@ -1,6 +1,7 @@
 import { SelectedAsset, ForceOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes, PerceivedType } from '@serge/custom-types'
 import availableForces from './available-forces'
 import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/helpers'
+import { UNKNOWN_TYPE } from '@serge/config'
 
 /** determine which form to show on this click
  * @param {PlatformTypeData[]} platforms list of platform types in the wargame
@@ -15,7 +16,8 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForceId:
     selectedAsset.forceId, selectedAsset.typeId, asset.perceptions)
   const availableForceList: ForceOption[] = availableForces(forces, true, true, playerForceId)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return { uniqid: p.uniqid, name: p.name } })
-  const perceivedType = perceivedValues && perceivedValues.typeId && findPlatformTypeFor(platforms, '', perceivedValues.typeId)
+  const platformIcon = perceivedValues && perceivedValues.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
+
   const perceivedForce = forces.find((force: ForceData) => (perceivedValues && perceivedValues.forceId) && force.uniqid === perceivedValues.forceId)
 
   if (perceivedValues) {
@@ -30,7 +32,7 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForceId:
         perceivedForceId: (perceivedForce && perceivedForce.uniqid) || undefined,
         perceivedTypeId: perceivedValues.typeId,
         assetId: selectedAsset.uniqid,
-        iconURL: (perceivedType && perceivedType.icon) || 'unknown.svg'
+        iconURL: platformIcon
       }
     }
     return formData

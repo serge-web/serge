@@ -117,37 +117,11 @@ export const AssetIcon: React.FC<PropTypes> = ({
     checkImageStatus(imageSrc).then(res => { setIconLoadStatus(res) }).catch(() => { setIconLoadStatus(false) })
   }, [imageSrc])
 
-  // temporarily offset the markers, so we know which one we are seeing
-  // const position2 = L.latLng(position.lat + 0.05, position.lng + 0.1)
-  // const position3 = L.latLng(position.lat - 0.05, position.lng - 0.1)
   const className = getIconClassname('', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
-  // TODO: use styles for isDestroyed and selected in the icon
-  console.log('need to reflect:', isDestroyed, selected)
   const iconImage = iconLoadStatus && typeof imageSrc !== 'undefined'
     ? `<img class="${reverceClassName}" src="${fixUrl(imageSrc)}" alt="${name}">`
     : null
-
-  // Note: keep the following commented out code. It was quite challenging to come up with
-  // correctly oriented markers
-  //
-  // const orientSrc = 'orientation-marker'
-  // useEffect(() => {
-  //   checkImageStatus(orientSrc).then(res => { setOrientLoadStatus(res) }).catch(() => { setOrientLoadStatus(false) })
-  // }, [orientSrc])
-  //
-  // collate list of orientation markers
-  // const orientMarkers: L.DivIcon[] = orientationData ? orientationData.map((item: OrientationData): L.DivIcon => {
-  //   const orientColor = item.shadeOrientation ? '#333' : perceivedForceColor
-  //   const orientStr = `style='transform: ${`rotate(${item.orientation}deg)`}; background-color: ${orientColor}'`
-  //   const orientImage = orientLoadStatus && typeof orientSrc !== 'undefined'
-  //     ? `<img class="${reverceClassName}" src="${checkUrl(orientSrc)}" alt="${type}">`
-  //     : `<div ${orientStr} class="${cx(reverceClassName, styles.img, styles.orientation)}"></div>`
-  //   return L.divIcon({
-  //     iconSize: [120, 120],
-  //     html: `<div class='${className} ${styles['orient-icon-with-image']}'>${orientImage}</div>`
-  //   })
-  // }) : []
 
   // get top orient marker in the list
   const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0

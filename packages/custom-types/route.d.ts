@@ -40,8 +40,8 @@ export default interface Route {
   perceivedForceId: ForceData['uniqid'] | undefined,
   /** player's perceived color for this asset */
   perceivedForceColor: string,
-  /** real force for this platform */
-  actualForceName: string,
+  /** real force id for this platform */
+  actualForceId: ForceData['uniqid'],
   /** if this is the selected asset */
   selected: boolean,
   /** if this asset is destroyed */
