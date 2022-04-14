@@ -1,4 +1,5 @@
 import { SelectedAsset } from '@serge/custom-types'
+import { UNKNOWN_TYPE } from '@serge/config'
 import cx from 'classnames'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
@@ -145,7 +146,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
         typeId: typeId,
         forceId: force,
         controlledBy: controlledBy,
-        condition: condition || 'unknown',
+        condition: condition || UNKNOWN_TYPE,
         visibleTo: visibleTo,
         status: status,
         locationPending: locationPending,
