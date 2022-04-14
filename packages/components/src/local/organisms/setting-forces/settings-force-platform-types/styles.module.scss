@@ -84,6 +84,7 @@
   font-weight: bold;
   width: 90px;
   font-size: 14px;
+  margin-right: 2px;
 }
 
 .list-input input {
@@ -250,6 +251,10 @@
   word-break: break-word;
 }
 
-.editattributes {
-  margin-left: 20px;
+.attribute-chip {
+  margin-bottom: 1px;
+}
+
+.attribute-group {
+  align-items: flex-start;
 }
