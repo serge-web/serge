@@ -130,7 +130,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
     let isDestroyed: boolean | undefined = false
-    let imageSrc: string | undefined 
+    let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformTypeId !== UNKNOWN_TYPE && item.platformTypeId !== undefined) {
       const platformType: PlatformTypeData | undefined = findPlatformTypeFor(platforms, item.platformType, item.platformTypeId)
@@ -138,11 +138,10 @@ export const WorldState: React.FC<PropTypes> = ({
       isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
     } else {
       // player isn't aware of type.  But, we need to access the `real` type data to determine if it is destroyed
-      const trueType =  findPlatformTypeFor(platforms, item.platformType, item.asset.platformTypeId)
+      const trueType = findPlatformTypeFor(platforms, item.platformType, item.asset.platformTypeId)
       isDestroyed = trueType.conditions.length > 1 && item.condition === trueType.conditions[trueType.conditions.length - 1]
       imageSrc = 'unknown.svg'
     }
-
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)

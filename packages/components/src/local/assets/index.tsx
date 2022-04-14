@@ -54,7 +54,6 @@ export const Assets: React.FC<{}> = () => {
         }
         const { contactId, status, perceptions } = route.asset
 
-
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = (platformTypeId === undefined) ? null : findPerceivedAsTypes(
           playerForce,
@@ -72,9 +71,9 @@ export const Assets: React.FC<{}> = () => {
           if (position != null) {
             // sort out who can control this force
             const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.uniqid === actualForceId)
-            
+
             // console.log('percy', perceivedAsTypes, position, !!assetForce, actualForceId)
-            
+
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const orientData: OrientationData[] = []
