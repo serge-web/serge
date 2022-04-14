@@ -6,7 +6,7 @@ import { forces, platformTypes, preInitialisedForces } from '@serge/mocks'
 
 import routeCreateStore, { forcesControlledBy } from '../route-create-store'
 
-import { Phase, LaydownPhases, UMPIRE_FORCE } from '@serge/config'
+import { Phase, LaydownPhases, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 
 import { RouteStore, RouteChild, Route, ForceData, Asset } from '@serge/custom-types'
 
@@ -394,7 +394,7 @@ it('route displays perceived hosted assets in tree for red force', () => {
   const frigate = store.routes[0]
   expect(frigate.uniqid).toEqual('a0prbr6441')
   expect(frigate.name).toEqual('Frigate A Perceived Name')
-  expect(frigate.platformTypeId).toEqual(undefined)
+  expect(frigate.platformTypeId).toEqual(UNKNOWN_TYPE)
   expect(frigate.perceivedForceId).toEqual(blueForce)
 
   // find hosted platforms
@@ -438,7 +438,7 @@ it('route displays perceived comprised assets in flat layer for red force', () =
   const frigate = store.routes[0]
   expect(frigate.uniqid).toEqual('a0prbr6441')
   expect(frigate.name).toEqual('Frigate A Perceived Name')
-  expect(frigate.platformTypeId).toEqual(undefined)
+  expect(frigate.platformTypeId).toEqual(UNKNOWN_TYPE)
   expect(frigate.perceivedForceId).toEqual(blueForce)
 
   // the second route should be the hosting frigate

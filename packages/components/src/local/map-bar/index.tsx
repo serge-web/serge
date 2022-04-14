@@ -23,7 +23,7 @@ import {
   MessageForceLaydown,
   MessageDeletePlatform
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -269,11 +269,12 @@ export const MapBar: React.FC = () => {
     }
     if (typeof selectedAsset === 'undefined') return null
     const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
-    const platformType = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
+    const platformIcon = selectedAsset.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
+    const platformName = selectedAsset.typeId === UNKNOWN_TYPE ? 'Unknown' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').name
     const iconData = {
       forceColor: selectedAsset.forceId,
-      platformType: platformType.name,
-      icon: platformType.icon
+      platformType: platformName,
+      icon: platformIcon
     }
     switch (form) {
       case MapBarForms.Perception:
@@ -281,7 +282,7 @@ export const MapBar: React.FC = () => {
         const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
         return data && <PerceptionForm
           key={selectedAsset.uniqid}
-          type={platformType.name}
+          type={platformName}
           force={selectedAsset.forceId}
           formData={data}
           channelID={channelID}

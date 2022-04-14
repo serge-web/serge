@@ -1,6 +1,6 @@
 /* global it expect */
 
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 import { Perception } from '@serge/custom-types'
 import findPerceivedAsTypes from '../find-perceived-as-types'
 
@@ -63,12 +63,12 @@ it('gives perceived details for force with entry', () => {
 
 it('gives perceived details for force with entry but type missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'a13',
-    perceptionsTypeMissing)).toEqual({ name: 'Dumbo', typeId: undefined, forceId: 'Green' })
+    perceptionsTypeMissing)).toEqual({ name: 'Dumbo', typeId: UNKNOWN_TYPE, forceId: 'Green' })
 })
 
 it('gives perceived details for force with entry but force missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'a13',
-    perceptionsForceMissing)).toEqual({ name: 'Dumbo', forceId: undefined, typeId: 'a12' })
+    perceptionsForceMissing)).toEqual({ name: 'Dumbo', forceId: UNKNOWN_TYPE, typeId: 'a12' })
 })
 
 it('gives perceived details for force with entry but name missing', () => {
@@ -78,5 +78,5 @@ it('gives perceived details for force with entry but name missing', () => {
 
 it('gives perceived details for force with no details', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'a13',
-    perceptionsEmpty)).toEqual({ name: 'C0011', force: undefined, type: undefined })
+    perceptionsEmpty)).toEqual({ name: 'C0011', forceId: UNKNOWN_TYPE, typeId: UNKNOWN_TYPE })
 })

@@ -14,7 +14,7 @@ import { MapContext } from '../mapping'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { PERCEPTION_OF_CONTACT } from '@serge/config'
+import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
 import { GetIcon } from '../asset-icon'
 
 /* Render component */
@@ -40,7 +40,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
 
   /** the forces from props has changed */
   useEffect(() => {
-    if (formState.perceivedTypeId) {
+    if (formState.perceivedTypeId && formState.perceivedTypeId !== UNKNOWN_TYPE) {
       const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
       if (typeDetails) {
         if (typeName !== typeDetails.name) {
