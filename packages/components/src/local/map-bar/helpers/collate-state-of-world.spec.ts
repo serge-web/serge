@@ -33,7 +33,7 @@ it('world gets moved forward with existing history', () => {
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
-  const redForce = forcesCopy[2]
+  const redForce: ForceData = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
   if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
@@ -52,7 +52,7 @@ it('world gets moved forward with existing history', () => {
   expect(stateOfWorld.turn).toEqual(4)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.uniqid).toEqual(redForce)
+  expect(force.uniqid).toEqual(redForce.uniqid)
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('K05')
