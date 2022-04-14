@@ -126,8 +126,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="fishing-vessel"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/fishing-vessel.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/fishing-vessel.svg"
                                     />
                                   </div>
                                 </div>
@@ -168,8 +168,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="ssn"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/ssn.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/ssn.svg"
                                     />
                                   </div>
                                 </div>
@@ -210,8 +210,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="frigate"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/frigate.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/frigate.svg"
                                     />
                                   </div>
                                 </div>
@@ -252,8 +252,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="boghammer"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/boghammer.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/boghammer.svg"
                                     />
                                   </div>
                                 </div>
@@ -294,8 +294,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="torpedo"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/torpedo.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/torpedo.svg"
                                     />
                                   </div>
                                 </div>
@@ -336,8 +336,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="fast-attack-craft"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/fast-attack-craft.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/fast-attack-craft.svg"
                                     />
                                   </div>
                                 </div>
@@ -378,8 +378,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="mcmv"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/mcmv.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/mcmv.svg"
                                     />
                                   </div>
                                 </div>
@@ -420,8 +420,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="helicopter"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/helicopter.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/helicopter.svg"
                                     />
                                   </div>
                                 </div>
@@ -462,8 +462,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="fixed-wing-aircraft"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/fixed-wing-aircraft.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/fixed-wing-aircraft.svg"
                                     />
                                   </div>
                                 </div>
@@ -503,9 +503,9 @@ exports[`SettingForces component: renders correctly 1`] = `
                                     className="asset-icon-with-image"
                                   >
                                     <img
-                                      alt="unmanned-airborne-vehicle"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/uas.svg"
+                                      alt="uas"
+                                      className="img asset-icon"
+                                      src="/assets/counters/uas.svg"
                                     />
                                   </div>
                                 </div>
@@ -545,9 +545,9 @@ exports[`SettingForces component: renders correctly 1`] = `
                                     className="asset-icon-with-image"
                                   >
                                     <img
-                                      alt="task-group"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/uas.svg"
+                                      alt="uas"
+                                      className="img asset-icon"
+                                      src="/assets/counters/uas.svg"
                                     />
                                   </div>
                                 </div>
@@ -588,8 +588,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="coastal-radar-site"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/coastal-radar-site.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/coastal-radar-site.svg"
                                     />
                                   </div>
                                 </div>
@@ -630,8 +630,8 @@ exports[`SettingForces component: renders correctly 1`] = `
                                   >
                                     <img
                                       alt="merchant-vessel"
-                                      className="img"
-                                      src="/static/media/src/local/asset-icon/counters/merchant-vessel.svg"
+                                      className="img asset-icon"
+                                      src="/assets/counters/merchant-vessel.svg"
                                     />
                                   </div>
                                 </div>

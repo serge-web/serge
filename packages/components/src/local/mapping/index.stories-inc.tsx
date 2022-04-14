@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { boolean, radios } from '@storybook/addon-knobs'
+import { boolean } from '@storybook/addon-knobs'
 
 /* Import mock data */
 import { forces, platformTypes, platformTypesByKey, smallForces, localMappingConstraints } from '@serge/mocks'
@@ -208,22 +208,6 @@ WithMapBar.args = {
 const visLabel = 'Selected'
 const visDefaultValue = false
 
-const assetForceNames = {
-  Green: 'green',
-  Blue: 'blue',
-  Red: 'red'
-}
-const assetForceDefaultValue = 'blue'
-
-const assetTypelabel = 'Type'
-const assetTypeNames = {
-  Destroyer: 'destroyer',
-  MCMV: 'mcmv',
-  Unknown: 'unknown',
-  AGI: 'agi'
-}
-const assetTypeDefaultValue = 'agi'
-
 export const WithMarker = Template
 WithMarker.args = {
   forces: forces,
@@ -244,11 +228,9 @@ WithMarker.args = {
       condition='Working'
       position={L.latLng(13.298034302, 43.0488191271)}
       selected={boolean(visLabel, visDefaultValue)}
-      type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
       typeId='dummy-ref'
       force={'Red'}
       perceivedForceColor={'#00f'}
-      perceivedForceClass={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
       visibleTo={['blue,', 'red']}
       attributes= {[]}
       status={{

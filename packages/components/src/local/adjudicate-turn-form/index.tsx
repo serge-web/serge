@@ -1,7 +1,7 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { PlanningCommands } from '@serge/config'
-import { AttributeEditorData, AttributeValues, ColorOption, RouteStatus, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeValues, ForceOption, RouteStatus, Status } from '@serge/custom-types'
 /* Import helpers */
 import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
 import React, { ReactElement, useEffect, useState } from 'react'
@@ -25,7 +25,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   // flag for if the current state is mobile#
   const [statusValues, setStatusValues] = useState<Array<Status>>([])
   const [speedValues, setSpeedValues] = useState<Array<number>>([])
-  const [visibleToValues, setVisibleToValues] = useState<Array<ColorOption>>([])
+  const [visibleToValues, setVisibleToValues] = useState<Array<ForceOption>>([])
   const [conditionValues, setConditionValues] = useState<Array<string>>([])
 
   const [plansSubmittedVal, setPlansSubmittedVal] = useState<boolean>(true)
@@ -160,7 +160,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
-        platformType={icon.platformType}
+        icon={icon.icon}
       >
         {manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}

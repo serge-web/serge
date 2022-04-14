@@ -394,8 +394,8 @@ it('route displays perceived hosted assets in tree for red force', () => {
   const frigate = store.routes[0]
   expect(frigate.uniqid).toEqual('a0prbr6441')
   expect(frigate.name).toEqual('Frigate A Perceived Name')
-  expect(frigate.platformType).toEqual('unknown')
-  expect(frigate.perceivedForceName).toEqual('blue')
+  expect(frigate.platformTypeId).toEqual(undefined)
+  expect(frigate.perceivedForceId).toEqual(blueForce)
 
   // find hosted platforms
   const hosting: Array<RouteChild> = frigate.hosting
@@ -404,15 +404,15 @@ it('route displays perceived hosted assets in tree for red force', () => {
   expect(hosting.length).toEqual(1)
   // we can predict ids
   expect(hosting[0].uniqid).toEqual('a0pra43302')
-  expect(hosting[0].platformType).toEqual('unmanned-airborne-vehicle')
-  expect(hosting[0].force).toEqual('blue')
+  expect(hosting[0].platformTypeId).toEqual('a10')
+  expect(hosting[0].force).toEqual(blueForce)
 
   // get the host platform
   const frigate2 = store.routes[1]
   expect(frigate2.uniqid).toEqual('a0pra00001')
   expect(frigate2.name).toEqual('Frigate Perceived Name')
-  expect(frigate2.platformType).toEqual('frigate')
-  expect(frigate2.perceivedForceName).toEqual('blue')
+  expect(frigate2.platformTypeId).toEqual('a3')
+  expect(frigate2.perceivedForceId).toEqual(blueForce)
   // don't show planned route for platform from other force
   expect(frigate2.planned.length).toEqual(0)
 
@@ -426,8 +426,8 @@ it('route displays perceived hosted assets in tree for red force', () => {
 
   // since this is red force, we see perceived names
   expect(hosting2[0].name).toEqual('C572')
-  expect(hosting2[0].force).toEqual('blue')
-  expect(hosting2[0].platformType).toEqual('helicopter')
+  expect(hosting2[0].force).toEqual(blueForce)
+  expect(hosting2[0].platformTypeId).toEqual('a8')
 })
 
 it('route displays perceived comprised assets in flat layer for red force', () => {
@@ -438,15 +438,15 @@ it('route displays perceived comprised assets in flat layer for red force', () =
   const frigate = store.routes[0]
   expect(frigate.uniqid).toEqual('a0prbr6441')
   expect(frigate.name).toEqual('Frigate A Perceived Name')
-  expect(frigate.platformType).toEqual('unknown')
-  expect(frigate.perceivedForceName).toEqual('blue')
+  expect(frigate.platformTypeId).toEqual(undefined)
+  expect(frigate.perceivedForceId).toEqual(blueForce)
 
   // the second route should be the hosting frigate
   const frigate2 = store.routes[1]
   expect(frigate2.uniqid).toEqual('a0pra00001')
   expect(frigate2.name).toEqual('Frigate Perceived Name')
-  expect(frigate2.platformType).toEqual('frigate')
-  expect(frigate2.perceivedForceName).toEqual('blue')
+  expect(frigate2.platformTypeId).toEqual('a3')
+  expect(frigate2.perceivedForceId).toEqual(blueForce)
 })
 
 it('route displays full history for asset in red force', () => {
