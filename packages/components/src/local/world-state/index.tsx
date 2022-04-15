@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from 'react'
-
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import Button from '../atoms/button'
-import { GetIcon } from '../asset-icon'
-import Groups from '../helper-elements/groups'
-// import update from 'react-addons-update'
-
-/* Import Types */
-import PropTypes from './types/props'
-import { NodeType } from '../helper-elements/groups/types/props'
-import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phase, UNKNOWN_TYPE } from '@serge/config'
 import { Confirm } from '@serge/components'
+import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
+import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
+import { findPlatformTypeFor } from '@serge/helpers'
+import React, { useEffect, useState } from 'react'
+import { GetIcon } from '../asset-icon'
+import Button from '../atoms/button'
+import Groups from '../helper-elements/groups'
+import { NodeType } from '../helper-elements/groups/types/props'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
-import { findPlatformTypeFor } from '@serge/helpers'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+// import update from 'react-addons-update'
+/* Import Types */
+import PropTypes from './types/props'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
@@ -154,11 +151,8 @@ export const WorldState: React.FC<PropTypes> = ({
           <GetIcon color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
         </div>
         <div className={styles['item-content']}>
-          <div>
-            <p>{item.name}</p>
-            <p>{fullDescription}</p>
-          </div>
-
+          <p>{item.name}</p>
+          <p>{fullDescription}</p>
         </div>
         {(panel === WorldStatePanels.Control) && depth.length === 0 && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
