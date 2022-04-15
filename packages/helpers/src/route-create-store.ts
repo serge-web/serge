@@ -90,12 +90,11 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
-
             // if it's the selected asset, we plot all future steps
             const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
-              controlled, visibleToThisPlayer, force.name, force.uniqid, asset.name, asset.platformTypeId,
+              controlled, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
               platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
               true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 

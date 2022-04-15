@@ -5,7 +5,7 @@ import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
 import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 
 const redId = forces[2].uniqid
 const redName = forces[2].name
@@ -41,7 +41,7 @@ it('contains relevant current results for other force', () => {
   if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceColor).toEqual(undefined)
-    expect(res.perceivedTypeId).toBeUndefined()
+    expect(res.perceivedTypeId).toEqual(UNKNOWN_TYPE)
     expect(res.perceivedNameVal).toEqual('C065')
   } else {
     expect(false).toBeTruthy()

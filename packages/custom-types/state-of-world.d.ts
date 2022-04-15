@@ -1,4 +1,4 @@
-import { Perception, RouteStatus, RouteTurn } from ".";
+import { ForceData, Perception, RouteStatus, RouteTurn } from ".";
 
 /** state of world for an asset */
 export interface AssetState {
@@ -16,7 +16,10 @@ export interface AssetState {
 
 /** state of world for a force */
 export interface ForceState {
-  name: string
+  /** 
+   * which force this state is for
+   */
+  uniqid: ForceData['uniqid']
   // TODO: switch to force id
   assets: Array<AssetState>
 }

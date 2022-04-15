@@ -314,7 +314,6 @@ export const Mapping: React.FC<PropTypes> = ({
     if (mappingConstraintState && mappingConstraintState.cellLabelsStyle) {
       const value = mappingConstraintState.cellLabelsStyle
       const style = enumFromString(CellLabelStyle, value)
-      console.log('%%% set label styles', mappingConstraintState)
       style && setCellLabelStyle(style)
     }
   }, [mappingConstraintState])

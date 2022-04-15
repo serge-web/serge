@@ -3,7 +3,7 @@ import { Route, RouteTurn, RouteChild, Asset, RouteStatus, PlatformTypeData, Per
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase, UNKNOWN_TYPE, DATUM } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase, DATUM, UNKNOWN_TYPE } from '@serge/config'
 import findPlatformTypeFor from './find-platform-type-for'
 import { h3ToGeo } from 'h3-js'
 
@@ -252,7 +252,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {boolean} visibleToThisForce whether this force can see this asset
- * @param {string} actualForce the true force for the asset
+ * @param {string} actualForceId the true force for the asset
  * @param {string} perceivedForce the perceived force of the asset
  * @param {string} perceivedName the perceived name of the asset
  * @param {string} perceivedType the perceived type of the asset
@@ -271,7 +271,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, visibleToThisForce: boolean, actualForce: string, perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
+  underControl: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
   perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
@@ -293,8 +293,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
 
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
@@ -315,7 +315,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     visibleToThisForce: visibleToThisForce,
     perceivedForceId: perceivedForce,
     perceivedForceColor: color,
-    actualForceName: actualForce,
+    actualForceId: actualForceId,
     color: color,
     hosting: hosting,
     comprising: comprising,
