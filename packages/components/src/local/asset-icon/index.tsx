@@ -10,6 +10,10 @@ import AssetIconProps from './types/props'
 // error based on some webpack version
 const fetch = unfetch.bind(window)
 
+const isUrl = (url: string): boolean => {
+  return !/base64/.test(url)
+}
+
 /* Export divIcon classname generator to use icons in to other sections */
 export const getIconClassname = (icForceClass: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
@@ -17,10 +21,6 @@ export const getIconClassname = (icForceClass: string, destroyed?: boolean, icSe
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null
 ))
-
-const isUrl = (url: string): boolean => {
-  return !/base64/.test(url)
-}
 
 export const fixUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
@@ -63,7 +63,7 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
     {
       imageSrc &&
       <div className={styles['asset-icon-with-image']}>
-        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, styles['asset-icon'], destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
+        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
       </div>
     }
   </div>

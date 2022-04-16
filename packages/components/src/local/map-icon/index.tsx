@@ -2,9 +2,10 @@ import { UNKNOWN_TYPE } from '@serge/config'
 import { SelectedAsset } from '@serge/custom-types'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
-import React, { useContext } from 'react'
-import { LayerGroup, Polygon, Tooltip } from 'react-leaflet'
-import AssetIcon from '../asset-icon'
+import React, { useContext, useMemo } from 'react'
+import * as ReactDOMServer from 'react-dom/server'
+import { LayerGroup, Marker, Polygon, Tooltip } from 'react-leaflet'
+import AssetIcon, { getIconClassname } from '../asset-icon'
 import { OrientationData } from '../assets/types/asset_info'
 /* Import context */
 import { MapContext } from '../mapping'
@@ -34,13 +35,12 @@ export const MapIcon: React.FC<PropTypes> = ({
   orientationData,
   map
 }) => {
-  // const [iconLoadStatus, setIconLoadStatus] = useState(true)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const { setShowMapBar, setSelectedAsset, selectedAsset, clearMapSelection } = props
 
-  // TODO: switch to received isDestroyed in props, using value from `Route`
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
+  const className = getIconClassname('', isDestroyed, selected)
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -67,6 +67,19 @@ export const MapIcon: React.FC<PropTypes> = ({
       setShowMapBar(true)
     }
   }
+
+  // only re-render <AssetIcon /> component when imageSrc changed
+  const assetIconCompAsString = useMemo(() => {
+    const AssetIconComponent = (): React.ReactElement => <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={selected} onClick={clickEvent} />
+    return ReactDOMServer.renderToString(<AssetIconComponent />)
+  }, [imageSrc])
+
+  // get top orient marker in the list
+  const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
+  const divIcon = L.divIcon({
+    iconSize: [40, 40],
+    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${assetIconCompAsString}</div>`
+  })
 
   return <>
     <LayerGroup key={'hex_polygons3'} >{
@@ -106,9 +119,10 @@ export const MapIcon: React.FC<PropTypes> = ({
         />
       })}
     </LayerGroup>
-    <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={selected} onClick={clickEvent}>
+
+    <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
-    </AssetIcon>
+    </Marker>
   </>
 }
 

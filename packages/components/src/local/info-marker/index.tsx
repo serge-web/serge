@@ -32,8 +32,7 @@ export const checkUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
   } else {
-    const prefix = '/static/media/src/local/info-marker/counters/'
-    return prefix + url
+    return `/assets/counters/${url}`
   }
 }
 
@@ -59,9 +58,9 @@ export const GetIcon = ({ icType, color = '', isSelected, imageSrc }: GetIconPro
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
+        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)} />
       </div>
-      : null }
+      : null}
   </div>
 }
 

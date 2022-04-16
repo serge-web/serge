@@ -16,7 +16,7 @@
     "cleanup": "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",
     "test:ts": "tsc --pretty",
-    "test:unit": "jest --passWithNoTests",
+    "test:unit": "jest --passWithNoTests -u",
     "lint": "run-p lint:*",
     "lint:ts": "eslint --fix src/**/*.ts*",
     "lint:styles": "stylelint --fix src/**/*.scss",

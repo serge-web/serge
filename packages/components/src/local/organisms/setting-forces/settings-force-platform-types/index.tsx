@@ -15,7 +15,7 @@ import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeVal
 /* Import Components */
 import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
 import cx from 'classnames'
-import { AssetIcon } from 'index'
+import AssetIcon from '../../../asset-icon'
 import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import Button from '../../../atoms/button'
