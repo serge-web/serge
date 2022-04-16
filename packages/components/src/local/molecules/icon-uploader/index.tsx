@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
+import AssetIcon from '../../asset-icon'
 import ImageDropzone from '../../atoms/image-dropzone'
-import { GetIcon } from '../../asset-icon'
-/* Import proptypes */
-import PropTypes from './types/props'
-
 /* Import Styles */
 import styles from './styles.module.scss'
+/* Import proptypes */
+import PropTypes from './types/props'
 
 /* Render component */
 export const IconUploader: React.FC<PropTypes> = ({
@@ -39,11 +38,11 @@ export const IconUploader: React.FC<PropTypes> = ({
         style={{ background }}
         className={styles.icon}
       >
-        {icon && <GetIcon imageSrc={icon} color={'#415b76'}/>}
+        {icon && <AssetIcon imageSrc={icon} color={'#415b76'} />}
       </div>
       <div onClick={handleClick}>{children}</div>
       {modal && <div className={styles.modal}>
-        <div className={styles['modal-bg']} onClick={handleClick}/>
+        <div className={styles['modal-bg']} onClick={handleClick} />
         <div className={styles['modal-content']}>
           <ImageDropzone iconUploadUrl={iconUploadUrl} use64onApiEror={true} limit={limit} onChange={handleChange} onRejected={onRejected} />
         </div>

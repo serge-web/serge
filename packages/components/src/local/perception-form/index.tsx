@@ -1,21 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react'
-
-/* Import Types */
-import PropTypes from './types/props'
-import Form from '../form'
 import { Button } from '@material-ui/core'
-import Selector from '../form-elements/selector'
-import RCB from '../form-elements/rcb'
-import TextInput from '../atoms/text-input'
+import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
 import { ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
-
+import React, { useContext, useEffect, useState } from 'react'
+import AssetIcon from '../asset-icon'
+import TextInput from '../atoms/text-input'
+import Form from '../form'
+import RCB from '../form-elements/rcb'
+import Selector from '../form-elements/selector'
 /* Import Context */
 import { MapContext } from '../mapping'
-
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
-import { GetIcon } from '../asset-icon'
+/* Import Types */
+import PropTypes from './types/props'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, mapPostBack }) => {
@@ -112,7 +109,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   return <div>
     <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
       <div className={styles['asset-icon']}>
-        <GetIcon color={formState.perceivedForceColor} isSelected={false} imageSrc={formState.iconURL} />
+        <AssetIcon color={formState.perceivedForceColor} isSelected={false} imageSrc={formState.iconURL} />
       </div>
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />

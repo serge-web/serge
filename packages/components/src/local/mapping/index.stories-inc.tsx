@@ -1,22 +1,19 @@
+// import data types
+import { Domain, Phase } from '@serge/config'
+import { MappingConstraints, MessageMap } from '@serge/custom-types'
+/* Import mock data */
+import { forces, localMappingConstraints, platformTypes, platformTypesByKey, smallForces } from '@serge/mocks'
+import { boolean } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
 import L from 'leaflet'
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
-import { boolean } from '@storybook/addon-knobs'
-
-/* Import mock data */
-import { forces, platformTypes, platformTypesByKey, smallForces, localMappingConstraints } from '@serge/mocks'
-
-// Import component files
-import Mapping from './index'
-import MappingPropTypes from './types/props'
-import docs from './README.md'
-import AssetIcon from '../asset-icon'
 import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
-
-// import data types
-import { Phase, Domain } from '@serge/config'
-import { MessageMap, MappingConstraints } from '@serge/custom-types'
+import MapIcon from '../map-icon'
+// Import component files
+import Mapping from './index'
+import docs from './README.md'
+import MappingPropTypes from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -221,7 +218,7 @@ WithMarker.args = {
   turnNumber: 5,
   mapBar: false,
   children: (
-    <AssetIcon
+    <MapIcon
       uniqid="id1"
       name="Jeffrey"
       contactId='C345'
@@ -232,7 +229,7 @@ WithMarker.args = {
       force={'Red'}
       perceivedForceColor={'#00f'}
       visibleTo={['blue,', 'red']}
-      attributes= {[]}
+      attributes={[]}
       status={{
         speedKts: 10,
         state: 'Working'

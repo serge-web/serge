@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
-import L from 'leaflet'
-import { LayerGroup } from 'react-leaflet'
-import AssetIcon from '../asset-icon'
+import { ADJUDICATION_PHASE, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
+import { ForceData, PerceivedTypes, Route as RouteType } from '@serge/custom-types'
+import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
-import { UMPIRE_FORCE, ADJUDICATION_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { Route } from '../route'
-
+import L from 'leaflet'
+import React, { useContext, useEffect, useState } from 'react'
+import { LayerGroup } from 'react-leaflet'
+import MapIcon from '../map-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
-
+import { Route } from '../route'
+import orientationFor from './helpers/orientation-for'
 /* Import Types */
 import AssetInfo, { OrientationData } from './types/asset_info'
-import { Route as RouteType, ForceData, PerceivedTypes } from '@serge/custom-types'
-import orientationFor from './helpers/orientation-for'
-import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -121,8 +119,8 @@ export const Assets: React.FC<{}> = () => {
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
   return <>
-    <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
-      return <AssetIcon
+    <LayerGroup>{assets && assets.map((asset: AssetInfo) => {
+      return <MapIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
         orientationData={asset.orientationData}
@@ -141,18 +139,20 @@ export const Assets: React.FC<{}> = () => {
         imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
-        locationPending={!!asset.laydownPhase}/>
+        locationPending={!!asset.laydownPhase} />
     })}
 
-    { viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
-      <Route name={'test'}
-        key = { 'r_for_' + route.uniqid }
-        route = {route} color={route.color}
-        selected = { route.selected}
-        trimmed = { umpireInAdjudication }
-        clearRouteHandler = { clearFromTurn }
-      />
-    ))}
+      {
+        viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
+          <Route name={'test'}
+            key={'r_for_' + route.uniqid}
+            route={route} color={route.color}
+            selected={route.selected}
+            trimmed={umpireInAdjudication}
+            clearRouteHandler={clearFromTurn}
+          />
+        ))
+      }
 
     </LayerGroup>
   </>

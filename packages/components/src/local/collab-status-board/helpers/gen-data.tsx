@@ -9,7 +9,7 @@ import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Import Stylesheet */
-import styles from '../styles.module.scss'
+// import styles from '../styles.module.scss'
 import { Column, Row } from '../../react-table/types/props'
 import { capitalize } from 'lodash'
 import moment from 'moment'
@@ -177,7 +177,7 @@ export const genData = (
       }
 
       return (
-        <div className={styles['rfi-form']}>
+        <div /* className={styles['rfi-form']} */>
           <CollabMessageDetail
             isReaded={isReaded}
             onRead={handleRead}
