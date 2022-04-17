@@ -142,17 +142,17 @@ export const Assets: React.FC<{}> = () => {
         locationPending={!!asset.laydownPhase} />
     })}
 
-      {
-        viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
-          <Route name={'test'}
-            key={'r_for_' + route.uniqid}
-            route={route} color={route.color}
-            selected={route.selected}
-            trimmed={umpireInAdjudication}
-            clearRouteHandler={clearFromTurn}
-          />
-        ))
-      }
+    {
+      viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
+        <Route name={'test'}
+          key={'r_for_' + route.uniqid}
+          route={route} color={route.color}
+          selected={route.selected}
+          trimmed={umpireInAdjudication}
+          clearRouteHandler={clearFromTurn}
+        />
+      ))
+    }
 
     </LayerGroup>
   </>

@@ -69,16 +69,14 @@ export const MapIcon: React.FC<PropTypes> = ({
   }
 
   // only re-render <AssetIcon /> component when imageSrc changed
-  const assetIconCompAsString = useMemo(() => {
-    const AssetIconComponent = (): React.ReactElement => <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={selected} onClick={clickEvent} />
-    return ReactDOMServer.renderToString(<AssetIconComponent />)
-  }, [imageSrc])
+  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={selected} onClick={clickEvent} />), [imageSrc])
 
   // get top orient marker in the list
   const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${assetIconCompAsString}</div>`
+    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
   })
 
   return <>
@@ -86,7 +84,7 @@ export const MapIcon: React.FC<PropTypes> = ({
       /* not too many cells visible, show hex outlines */
       map && orientationData && orientationData.map((cell: OrientationData, index: number) => {
         const orientRads = (90 - cell.orientation) * Math.PI / 180.0
-        //     const orientRads = 190.0 * Math.PI / 180.0
+        // const orientRads = 190.0 * Math.PI / 180.0
         const cells: L.LatLng[] = []
         const origin = map.latLngToLayerPoint(position)
         const wid = 20
