@@ -25,7 +25,7 @@ export const InfoMarkers: React.FC<{}> = () => {
 
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
   const [visibleMarkers, setVisibleMarkers] = useState<MapAnnotations>([])
-  const [dragHandler, setDragHandler] = useState<{(location: L.LatLng): void} | undefined>(undefined)
+  const [dragHandler, setDragHandler] = useState<{(location: L.LatLng): void } | undefined>(undefined)
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
@@ -72,10 +72,10 @@ export const InfoMarkers: React.FC<{}> = () => {
   }, [infoMarkers, isUmpire])
 
   return <>
-    <LayerGroup key='info-markers' >{ visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
+    <LayerGroup key='info-markers' >{visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
       const coords = h3ToGeo(marker.location)
       const location = L.latLng(coords[0], coords[1])
-      return <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler}/>
+      return <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler} />
     })}
     </LayerGroup>
   </>
