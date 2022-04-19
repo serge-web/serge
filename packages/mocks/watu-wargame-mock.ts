@@ -913,6 +913,14 @@ const wargame: Wargame = {
                 "label": "first marker",
                 "location": "8918aab76abffff",
                 "visibleTo": ["Blue-1"]
+            }, {
+                "uniqid": "marker-two",
+                "color": "#f00",
+                "description": "description for the second annotation",
+                "icon": "unknown.svg",
+                "label": "second marker",
+                "location": "8918aab744fffff",
+                "visibleTo": ["Blue-1", "Red-1"]
             }]
         }
     },
