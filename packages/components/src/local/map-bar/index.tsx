@@ -193,7 +193,7 @@ export const MapBar: React.FC = () => {
   // Toggles the map bar on and off
   const tabClickEvent = (nextPanel: WorldStatePanels): void => {
     // has the current panel been clicked on?
-    if (nextPanel === worldStatePanel) {
+    if (nextPanel === worldStatePanel && showMapBar) {
       // ok, hide it
       setShowMapBar(false)
     } else {
@@ -278,16 +278,16 @@ export const MapBar: React.FC = () => {
     }
     switch (form) {
       case MapBarForms.Perception:
-      {
-        const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
-        return data && <PerceptionForm
-          key={selectedAsset.uniqid}
-          type={platformName}
-          force={selectedAsset.forceId}
-          formData={data}
-          channelID={channelID}
-          mapPostBack={mapPostBack} />
-      }
+        {
+          const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
+          return data && <PerceptionForm
+            key={selectedAsset.uniqid}
+            type={platformName}
+            force={selectedAsset.forceId}
+            formData={data}
+            channelID={channelID}
+            mapPostBack={mapPostBack} />
+        }
       case MapBarForms.Adjudicaton: {
         return <AdjudicateTurnForm
           key={adjudicationManager && adjudicationManager.uniqid}
@@ -313,7 +313,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={formData}
           channelID={channelID}
-          deleteEmptyTaskGroup = {deleteHandler}
+          deleteEmptyTaskGroup={deleteHandler}
           turnPlanned={turnPlanned} />
       }
       case MapBarForms.Visibility:
@@ -374,7 +374,7 @@ export const MapBar: React.FC = () => {
             store={routeStore}
             platforms={platforms}
             panel={worldStatePanel}
-            submitTitle = {stateSubmitTitle}
+            submitTitle={stateSubmitTitle}
             setSelectedAssetById={setSelectedAssetById}
             submitForm={worldStateSubmitHandler}
             groupMoveToRoot={groupMoveToRoot}
@@ -384,7 +384,7 @@ export const MapBar: React.FC = () => {
             setPlansSubmitted={setPlansSubmitted}
             turnNumber={turnNumber}
             secondaryButtonLabel={secondaryStateTitle}
-            secondaryButtonCallback={acceptAllRoutesCallback}/>
+            secondaryButtonCallback={acceptAllRoutesCallback} />
         </section>
       </div>
       {currentForm !== undefined && selectedAsset && routeStore.selected && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
