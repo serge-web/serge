@@ -278,16 +278,16 @@ export const MapBar: React.FC = () => {
     }
     switch (form) {
       case MapBarForms.Perception:
-        {
-          const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
-          return data && <PerceptionForm
-            key={selectedAsset.uniqid}
-            type={platformName}
-            force={selectedAsset.forceId}
-            formData={data}
-            channelID={channelID}
-            mapPostBack={mapPostBack} />
-        }
+      {
+        const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
+        return data && <PerceptionForm
+          key={selectedAsset.uniqid}
+          type={platformName}
+          force={selectedAsset.forceId}
+          formData={data}
+          channelID={channelID}
+          mapPostBack={mapPostBack} />
+      }
       case MapBarForms.Adjudicaton: {
         return <AdjudicateTurnForm
           key={adjudicationManager && adjudicationManager.uniqid}
