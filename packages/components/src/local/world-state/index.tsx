@@ -151,11 +151,8 @@ export const WorldState: React.FC<PropTypes> = ({
           <AssetIcon color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
         </div>
         <div className={styles['item-content']}>
-          <div>
-            <p>{item.name}</p>
-            <p>{fullDescription}</p>
-          </div>
-
+          <p>{item.name}</p>
+          <p>{fullDescription}</p>
         </div>
         {(panel === WorldStatePanels.Control) && depth.length === 0 && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
