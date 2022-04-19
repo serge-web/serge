@@ -17,7 +17,7 @@ import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor,
 import cx from 'classnames'
 import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
-import { GetIcon } from '../../../asset-icon'; // getIconClassname
+import { GetIcon } from '../../../asset-icon' // getIconClassname
 import Button from '../../../atoms/button'
 import TextInput from '../../../atoms/text-input'
 import AttributeEditor from '../../../attribute-editor'
