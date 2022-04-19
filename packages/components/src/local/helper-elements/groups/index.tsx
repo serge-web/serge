@@ -16,7 +16,7 @@ import { DropItem } from '../dropzone/types/props'
 import styles from './styles.module.scss'
 import { TASK_GROUP } from '@serge/config'
 
-const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => <>name: {item.name}<br/>depth: {depth.length}</>
+const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => <>name: {item.name}<br />depth: {depth.length}</>
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
@@ -84,7 +84,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           active={dragItem.uniqid}
           type='group'
           group={props.group}
-          onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
+          onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth)}
         >
           {renderContent(item, depth)}
         </Dropzone>}
@@ -96,18 +96,23 @@ export const Groups: React.FC<PropTypes> = (props) => {
           onEnd={onEnd}
           active={dragItem.uniqid}
           group={props.group}
-          onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
+          onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth)}
         />}
-        {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
+        {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{renderGroupItem(i, [...depth, item])}</li>)}</ul>}
       </CollapsibleContent>
     </Collapsible>)
   }
 
   return (
     <div className={styles.main}>
-      <ul>{ items.map(i => <li key={i.uniqid}>{renderGroupItem(i)}
-        <p style={{ color: selectedAssetItem?.uniqid === i.uniqid ? '#dfdfdf' : '#7a7a7a' }} onClick={(): void => deleteAsset(i)}>&#10006;</p>
-      </li>)}</ul>
+      <ul>
+        {items.map(i =>
+          <li key={i.uniqid}>
+            {renderGroupItem(i)}
+            {onDeleteAsset && setList && <p className={styles['delete-asset']} style={{ color: selectedAssetItem?.uniqid === i.uniqid ? '#dfdfdf' : '#7a7a7a' }} onClick={(): void => deleteAsset(i)}>&#10006;</p>}
+          </li>
+        )}
+      </ul>
       {dragItem.uniqid && dragItem.uniqid !== -1 && hasParrent && <Dropzone
         disable={!canCombineWith(dragItem, { uniqid: -1 }, [], 'empty')}
         item={{ uniqid: -1 }}
@@ -115,7 +120,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
         active={dragItem.uniqid}
         type='group-out'
         group={props.group}
-        onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, []) }
+        onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, [])}
       />}
     </div>
   )
