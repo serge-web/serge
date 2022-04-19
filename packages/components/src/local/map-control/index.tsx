@@ -129,16 +129,16 @@ export const MapControl: React.FC<PropTypes> = ({
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
         <div className={cx('leaflet-control')}>
-          {showZoom && <Item title="Zoom In" onClick={(): void => { handleZoomChange(zoomStepSize) }}><AddIcon/></Item>}
-          {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon/></Item>}
-          {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
+          {showZoom && <Item title='Zoom In' onClick={(): void => { handleZoomChange(zoomStepSize) }}><AddIcon/></Item>}
+          {showHome && <Item title='Fit to window' onClick={(): void => { handleHome() }}><HomeIcon/></Item>}
+          {showZoom && <Item title='Zoom Out' onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
         </div>
         <div className={cx('leaflet-control')}>
-          <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}
+          <Item title='View full history' onClick={(): void => { toggleHistoryFilter() }}
             contentTheme={ isFilterAsHistoryRoutes() } >
             <HistoryIcon/>
           </Item>
-          <Item title="View all planned steps" onClick={(): void => { togglePlannedFilter() }}
+          <Item title='View all planned steps' onClick={(): void => { togglePlannedFilter() }}
             contentTheme={ isFilterAsPlannedRoutes() } >
             <PlannedIcon/>
           </Item>
