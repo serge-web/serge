@@ -15,9 +15,9 @@ import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeVal
 /* Import Components */
 import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
 import cx from 'classnames'
+import AssetIcon from '../../../asset-icon'
 import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
-import { GetIcon } from '../../../asset-icon' // getIconClassname
 import Button from '../../../atoms/button'
 import TextInput from '../../../atoms/text-input'
 import AttributeEditor from '../../../attribute-editor'
@@ -242,7 +242,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         onClick={(): void => { setSelectedAssetItem(item) }}
       >
         <div className={styles['item-asset-icon-box']}>
-          <GetIcon color={selectedForce.color} imageSrc={findIcon(item.platformTypeId)} />
+          <AssetIcon color={selectedForce.color} imageSrc={findIcon(item.platformTypeId)} />
           {/* <div className={cx(icClassName, styles['item-asset-icon'])}/> */}
         </div>
         <div className={styles['asset-name']}>{item.name}</div>
@@ -302,7 +302,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
                               <div>
-                                <GetIcon color='#415b76' imageSrc={item.icon} />
+                                <AssetIcon color='#415b76' imageSrc={item.icon} />
                               </div>
                             </div>
                           </div>

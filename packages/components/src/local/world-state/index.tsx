@@ -4,7 +4,7 @@ import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHAS
 import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
-import { GetIcon } from '../asset-icon'
+import AssetIcon from '../asset-icon'
 import Button from '../atoms/button'
 import Groups from '../helper-elements/groups'
 import { NodeType } from '../helper-elements/groups/types/props'
@@ -148,7 +148,7 @@ export const WorldState: React.FC<PropTypes> = ({
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>
-          <GetIcon color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
+          <AssetIcon color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
         </div>
         <div className={styles['item-content']}>
           <p>{item.name}</p>
