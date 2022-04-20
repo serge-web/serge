@@ -1,88 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
-import cx from 'classnames'
-import { Marker, Tooltip } from 'react-leaflet'
+import { UMPIRE_FORCE } from '@serge/config'
 import L, { DragEndEvent } from 'leaflet'
-import { lightOrDark } from '../map-control/helpers/lightOrDark'
-import unfetch from 'node-fetch'
-
-/* Import Types */
-import PropTypes from './types/props'
-
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import * as ReactDOMServer from 'react-dom/server'
+import { Marker, Tooltip } from 'react-leaflet'
+import AssetIcon, { getIconClassname } from '../asset-icon'
 /* Import context */
 import { MapContext } from '../mapping'
-import { UMPIRE_FORCE } from '@serge/config'
-
-// TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
-// error based on some webpack version
-const fetch = unfetch.bind(window)
-
-/* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icSelected?: boolean): string => (cx(
-  styles['asset-icon'],
-  styles[icForceClass],
-  icSelected ? styles.selected : null
-))
-const isUrl = (url: string): boolean => {
-  return !/base64/.test(url)
-}
-export const checkUrl = (url: string): string => {
-  if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
-    return url
-  } else {
-    const prefix = '/static/media/src/local/info-marker/counters/'
-    return prefix + url
-  }
-}
-
-interface GetIconProps {
-  icType: string
-  color?: string
-  isSelected?: boolean
-  imageSrc?: string
-}
-
-const getReverce = (color = ''): string | false => (
-  color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
-)
-
-export const GetIcon = ({ icType, color = '', isSelected, imageSrc }: GetIconProps): React.ReactElement => {
-  const [loadStatus, setLoadStatus] = useState(true)
-  useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
-  }, [imageSrc])
-  // TODO: reflect vale of `isSelecteed` in the icon
-  console.log('need to use', isSelected)
-
-  return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
-    {imageSrc && loadStatus
-      ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
-      </div>
-      : null }
-  </div>
-}
-
-const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
-  if (imageSrc && isUrl(imageSrc)) {
-    try {
-      return fetch(checkUrl(imageSrc), { method: 'HEAD' })
-        .then(res => res.status !== 404)
-    } catch (error) {
-      console.warn(`failed to get "${imageSrc}" image`)
-    }
-  }
-  return new Promise((resolve) => resolve(true))
-}
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+/* Import Types */
+import PropTypes from './types/props'
 
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location
 }) => {
-  const [loadStatus, setLoadStatus] = useState(true)
   const [imageSrc] = useState<string | undefined>(marker.icon)
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
 
@@ -98,21 +31,15 @@ export const InfoMarker: React.FC<PropTypes> = ({
     setMarkerIsDraggable(isUmpire && canSubmitOrders && !!selectedMarker && selectedMarker === marker.uniqid)
   }, [selectedMarker, marker, playerForce, canSubmitOrders])
 
-  useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
-  }, [imageSrc])
-
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)
-  const reverceClassName = getReverce(marker.color)
-  // TOOD: need to use isSelected in following line
-  const image = loadStatus && typeof imageSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${marker.icon}">`
-    : null
+
+  // only re-render <AssetIcon /> component when imageSrc changed
+  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${marker.color}">${image}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${marker.color}">${assetIconComponentAsString}</div>`
   })
 
   const clickEvent = (): void => {

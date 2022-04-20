@@ -23,7 +23,7 @@ exports[`TitleWithIcon renders correctly 1`] = `
       >
         <img
           alt="merchant-vessel"
-          className="img asset-icon"
+          className="img"
           src="/assets/counters/merchant-vessel.svg"
         />
       </div>

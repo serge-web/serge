@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetIcon } from '../../asset-icon'
+import AssetIcon from '../../asset-icon'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
@@ -11,7 +11,7 @@ export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, icon 
     <div className={styles.main}>
       <h2>{children}</h2>
       <div className={styles.icon}>
-        <GetIcon color={forceColor} isSelected={false} imageSrc={icon} />
+        <AssetIcon color={forceColor} isSelected={false} imageSrc={icon} />
       </div>
     </div>
   )

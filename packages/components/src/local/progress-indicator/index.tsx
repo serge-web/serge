@@ -1,14 +1,11 @@
 /* Import Dependencies */
 import React from 'react'
-
-/* Import Interfaces */
-import PropTypes from './types/props'
-
 /* Import Helpers */
 import getClassName from './helpers/getClassName'
-
 /* Import Styles */
 import styles from './styles.module.scss'
+/* Import Interfaces */
+import PropTypes from './types/props'
 
 /* Render component */
 export const ProgressIndicator: React.FC<PropTypes> = ({ tabs, currentTab }: PropTypes) =>
