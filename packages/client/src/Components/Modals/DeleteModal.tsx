@@ -1,4 +1,5 @@
 import { Confirm } from '@serge/components'
+import { RootState } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,10 +11,10 @@ import { MESSAGE_TEMPLATE_ROUTE } from '../../consts'
 
 const DeleteModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
-  const messages = useSelector(state => state.messages)
-  const umpireMenu = useSelector(state => state.umpireMenu)
-  const currentViewURI = useSelector(state => state.currentViewURI)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
+  const messages = useSelector((state: RootState) => state.messages)
+  const umpireMenu = useSelector((state: RootState) => state.umpireMenu)
+  const currentViewURI = useSelector((state: RootState) => state.currentViewURI)
 
   const onHideModal = () => {
     dispatch(modalAction.close())

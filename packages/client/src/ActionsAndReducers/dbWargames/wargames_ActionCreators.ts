@@ -5,89 +5,97 @@ import _ from 'lodash'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { DEFAULT_SERVER, forceTemplate } from '../../consts'
-import { ChannelTypes, Force, ForceData, PlatformType, Role, Wargame, WargameDispatch, WargameOverview } from '@serge/custom-types'
-import { WargameRevision } from '../../api/wargames_api/types'
+import { 
+  ChannelTypes,
+  ForceData,
+  PlatformType,
+  Role,
+  Wargame,
+  WargameActionTypes,
+  WargameDispatch,
+  WargameOverview,
+  WargameRevision
+ } from '@serge/custom-types'
 
-export const setCurrentTab = (tab: Notification) => ({
+export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
   payload: tab
 })
 
-export const setGameData = (data: WargameOverview) => ({
+export const setGameData = (data: WargameOverview): WargameActionTypes => ({
   type: ActionConstant.SET_GAME_SETUP_DATA,
   payload: data
 })
 
-export const setTabSaved = () => ({
+export const setTabSaved = (): WargameActionTypes => ({
   type: ActionConstant.SET_TAB_SAVED
 })
 
-export const setTabUnsaved = () => ({
+export const setTabUnsaved = (): WargameActionTypes => ({
   type: ActionConstant.SET_TAB_UNSAVED
 })
 
-// TODO: check type
-export const setSelectedForce = (payload: any) => ({
+export const setSelectedForce = (selectedForce: { name: string, uniqid: string, iconURL?: string }): WargameActionTypes => ({
   type: ActionConstant.SET_SELECTED_FORCE,
-  payload
+  payload: selectedForce
 })
 
-export const addNewChannel = (data: ChannelTypes) => ({
+export const addNewChannel = (data: ChannelTypes): WargameActionTypes => ({
   type: ActionConstant.ADD_NEW_CHANNEL,
   payload: data
 })
 
-export const addNewForce = (data: { name: string, uniqid: string }) => ({
+export const addNewForce = (data: { name: string, uniqid: string }): WargameActionTypes => ({
   type: ActionConstant.ADD_NEW_FORCE,
   payload: data
 })
 
-export const setForceColor = (hex: string) => ({
+export const setForceColor = (hex: string): WargameActionTypes => ({
   type: ActionConstant.SET_FORCE_COLOR,
   payload: hex
 })
 
-export const setSelectedChannel = (payload: { name: string, uniqid: string }) => ({
+export const setSelectedChannel = (selectedChannel: { name: string, uniqid: string }): WargameActionTypes => ({
   type: ActionConstant.SET_SELECTED_CHANNEL,
-  payload
+  payload: selectedChannel
 })
 
-const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]) => ({
+const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]): WargameActionTypes => ({
   type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
   payload: names
 })
 
-const setCurrentWargame = (data: any) => ({
+const setCurrentWargame = (data: Wargame): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_WARGAME,
   payload: data
 })
 
-const setExportWargame = (data: any) => ({
+const setExportWargame = (data: Wargame): WargameActionTypes => ({
   type: ActionConstant.SET_EXPORT_WARGAME,
   payload: data
 })
 
-export const addRecipientToChannel = (data: any) => ({
+export const addRecipientToChannel = (data: { id: string, data: Wargame }): WargameActionTypes => ({
   type: ActionConstant.ADD_NEW_RECIPIENT,
   payload: data
 })
 
-export const updateRecipient = (id: string, data: any) => ({
+export const updateRecipient = ( id: string, data: Wargame ): WargameActionTypes => ({
   type: ActionConstant.UPDATE_RECIPIENT,
   payload: { id, data }
 })
 
-export const removeRecipient = (id: string) => ({
+export const removeRecipient = (id: string): WargameActionTypes => ({
   type: ActionConstant.REMOVE_RECIPIENT,
   payload: id
 })
 
-const populatingDb = (isLoading: boolean) => ({
+const populatingDb = (isLoading: boolean): WargameActionTypes => ({
   type: ActionConstant.POPULATE_WARGAMES_DB,
-  isLoading
+  payload: isLoading
 })
 
-export const addRole = (force: ForceData, role: Role) => ({
+export const addRole = (force: string, role: string): WargameActionTypes => ({
   type: ActionConstant.ADD_ROLE_TO_FORCE,
   payload: {
     force,
@@ -95,7 +103,7 @@ export const addRole = (force: ForceData, role: Role) => ({
   }
 })
 
-export const updateRole = (force: Force, oldName: string, role: Role) => ({
+export const updateRole = (force: string, oldName: string, role: string): WargameActionTypes => ({
   type: ActionConstant.UPDATE_ROLE_NAME,
   payload: {
     force,
@@ -104,17 +112,17 @@ export const updateRole = (force: Force, oldName: string, role: Role) => ({
   }
 })
 
-export const removeRole = (role: Role) => ({
+export const removeRole = (role: string): WargameActionTypes => ({
   type: ActionConstant.REMOVE_ROLE,
-  role
+  payload: role
 })
 
-export const addIcon = (icon: string) => ({
+export const addIcon = (icon: string): WargameActionTypes => ({
   type: ActionConstant.ADD_ICON,
-  icon
+  payload: icon
 })
 
-export const loginAdmin = () => ({
+export const loginAdmin = (): WargameActionTypes => ({
   type: ActionConstant.LOGIN_ADMIN
 })
 

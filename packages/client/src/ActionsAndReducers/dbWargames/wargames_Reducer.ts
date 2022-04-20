@@ -106,7 +106,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
 
     case ActionConstant.DELETE_SELECTED_CHANNEL:
 
-      channelIndex = newState.data[tab].channels.findIndex((channel: ChannelTypes) => channel.name === action.payload)
+      channelIndex = newState.data[tab].channels.findIndex((channel: ChannelTypes) => channel.name === action.payload.name)
       newState.data[tab].channels.splice(channelIndex, 1)
       newState.data[tab].selectedChannel = ''
       break
@@ -139,13 +139,13 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
       break
 
     case ActionConstant.REMOVE_ROLE:
-      index = newState.data[tab].forces.find((force: ForceData) => force.name === newState.data[tab].selectedForce.name).roles.findIndex((role: Role) => role.name === action.role)
+      index = newState.data[tab].forces.find((force: ForceData) => force.name === newState.data[tab].selectedForce.name).roles.findIndex((role: Role) => role.name === action.payload)
       newState.data[tab].forces.find((f: ForceData) => f.name === newState.data[tab].selectedForce.name).roles.splice(index, 1)
       break
 
     case ActionConstant.ADD_ICON:
       selected = newState.data[tab].selectedForce.name
-      newState.data[tab].forces.find((f: ForceData) => f.name === selected).icon = serverPath + action.icon.slice(1)
+      newState.data[tab].forces.find((f: ForceData) => f.name === selected).icon = serverPath + action.payload.slice(1)
       break
 
     case ActionConstant.LOGIN_ADMIN:

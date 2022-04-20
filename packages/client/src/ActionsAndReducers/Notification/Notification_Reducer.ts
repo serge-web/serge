@@ -1,9 +1,10 @@
 import * as ActionConstant from '@serge/config'
+import { ADD_NOTIFICATION } from '@serge/config'
 import copyState from '../../Helpers/copyStateHelper.js'
 
-const initialState = []
+const initialState: any[] = []
 
-export const notificationReducer = (state = initialState, action) => {
+export const notificationReducer = (state = initialState, action: { type: typeof ADD_NOTIFICATION | typeof ActionConstant.HIDE_NOTIFICATION, id: string, payload: string }) => {
   const newState = copyState(state)
 
   switch (action.type) {
@@ -13,7 +14,7 @@ export const notificationReducer = (state = initialState, action) => {
 
     case ActionConstant.HIDE_NOTIFICATION:
 
-      const index = newState.findIndex((item) => item.id === action.id)
+      const index = newState.findIndex((item: any) => item.id === action.id)
       newState.splice(index, 1)
       return newState
 
