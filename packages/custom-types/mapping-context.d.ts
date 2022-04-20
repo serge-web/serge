@@ -90,6 +90,10 @@ export default interface MappingContext {
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
+  updateMarker?: {(marker: MapAnnotation): void}
+   /**
+   *  setter, to modify the currently selected asset (or to clear it)
+   **/
   setSelectedAsset: {(asset: SelectedAsset): void}
   /**
    *  setter, to modify the currently selected information marker

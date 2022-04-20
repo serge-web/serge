@@ -51,7 +51,8 @@ import {
   TurningDetails,
   MappingConstraints,
   MessageMap,
-  MapAnnotation
+  MapAnnotation,
+  MapAnnotations
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -95,6 +96,7 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
+  const [infoMarkersState, setInfoMarkersState] = useState<MapAnnotations>(infoMarkers)
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [selectedMarker, setSelectedMarker] = useState<MapAnnotation['uniqid'] | undefined>(undefined)
@@ -559,6 +561,12 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  const updateMarker = (marker: MapAnnotation): void => {
+    const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
+    others.push(marker)
+    setInfoMarkersState(others)
+  }
+
   const localAddInfoMarker = (): void => {
     console.log('mapping add info')
     // get the centre of the map
@@ -578,10 +586,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
       if (phase === Phase.Adjudication) {
         // just add new marker to current set of annotations
-        if (!infoMarkers) {
-          infoMarkers = []
-        }
-        infoMarkers.push(marker)
+        infoMarkersState.push(marker)
+        setInfoMarkersState(infoMarkersState)
       } else {
         // process marker immediately
 
@@ -654,7 +660,7 @@ export const Mapping: React.FC<PropTypes> = ({
     h3gridCells,
     h3Resolution,
     forces: forcesState,
-    infoMarkers,
+    infoMarkers: infoMarkersState,
     platforms,
     platformTypesByKey,
     playerForce,
@@ -667,6 +673,7 @@ export const Mapping: React.FC<PropTypes> = ({
     selectedMarker,
     setSelectedMarker,
     setSelectedAsset,
+    updateMarker,
     clearMapSelection,
     viewport,
     zoomLevel,

@@ -13,6 +13,7 @@ import {
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
   DELETE_PLATFORM,
+  UPDATE_MARKER,
   CollaborativeMessageStates,
   COUNTER_MESSAGE
 } from '@serge/config'
@@ -23,6 +24,7 @@ import Visibility from './visibility'
 import Role from './role'
 import { Force, ForceRole, StateOfWorld, ForceData } from '.'
 import Wargame from './wargame'
+import { MapAnnotation } from './map-annotation'
 
 export interface MessageDetailsFrom {
   /** name
@@ -259,6 +261,11 @@ export interface MessageStateOfWorld {
   readonly state: StateOfWorld
 }
 
+export interface MessageUpdateMarker {
+  readonly messageType: typeof UPDATE_MARKER,
+  readonly marker: MapAnnotation
+}
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -267,8 +274,8 @@ export type MessageMap = MessageForceLaydown |
   MessageCreateTaskGroup |
   MessageLeaveTaskGroup |
   MessageHostPlatform |
-  MessageDeletePlatform
-
+  MessageDeletePlatform |
+  MessageUpdateMarker 
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom

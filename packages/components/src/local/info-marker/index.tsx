@@ -14,7 +14,8 @@ import PropTypes from './types/props'
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
-  location
+  location,
+  dragged
 }) => {
   const [imageSrc] = useState<string | undefined>(marker.icon)
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
@@ -57,7 +58,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
 
   const dragEnd = (e: DragEndEvent): void => {
     const newPos: L.LatLng = e.target.getLatLng()
-    console.log('marker dragged to:', newPos)
+    dragged && dragged(newPos)
   }
 
   return <>

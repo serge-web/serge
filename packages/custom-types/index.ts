@@ -33,6 +33,7 @@ export { default as Message,
          MessageLeaveTaskGroup,
          MessageHostPlatform,
          MessageDeletePlatform,
+         MessageUpdateMarker,
          // System Messages
          MessageFeedback,
          MessageInfoType,

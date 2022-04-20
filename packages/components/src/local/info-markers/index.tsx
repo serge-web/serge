@@ -5,11 +5,11 @@ import L from 'leaflet'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { ForceData } from '@serge/custom-types'
+import { ForceData, MessageUpdateMarker } from '@serge/custom-types'
 import { MapAnnotations, MapAnnotation } from '@serge/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
-import { PLANNING_PHASE } from '@serge/config'
-import { h3ToGeo } from 'h3-js'
+import { PLANNING_PHASE, UPDATE_MARKER } from '@serge/config'
+import { geoToH3, h3ToGeo } from 'h3-js'
 
 /* Render component */
 export const InfoMarkers: React.FC<{}> = () => {
@@ -20,12 +20,15 @@ export const InfoMarkers: React.FC<{}> = () => {
     forces,
     playerForce,
     phase,
-    infoMarkers
+    infoMarkers,
+    h3Resolution,
+    selectedMarker,
+    updateMarker,
+    mapPostBack
   } = props
 
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
   const [visibleMarkers, setVisibleMarkers] = useState<MapAnnotations>([])
-  const [dragHandler, setDragHandler] = useState<{(location: L.LatLng): void } | undefined>(undefined)
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
@@ -36,23 +39,27 @@ export const InfoMarkers: React.FC<{}> = () => {
     setIsUmpire((hisForce && hisForce.umpire) || false)
   }, [playerForce, forces])
 
-  useEffect(() => {
-    if (isUmpire) {
-      if (phase === PLANNING_PHASE) {
-        const updateNow = (location: L.LatLng): void => {
-          console.log('dragging marker immediately to:', location)
-        }
-        setDragHandler(updateNow)
-      } else {
-        const addToStateOfWorld = (location: L.LatLng): void => {
-          console.log('In state of world, update marker to:', location)
-        }
-        setDragHandler(addToStateOfWorld)
-      }
-    } else {
-      setDragHandler(undefined)
+  const dragHandler = (location: L.LatLng): void => {
+    const marker = infoMarkers.find((item: MapAnnotation) => item.uniqid === selectedMarker)
+    if (!marker) {
+      console.error('could not find this marker', selectedMarker)
+      return
     }
-  }, [isUmpire, phase])
+    const newLocation = geoToH3(location.lat, location.lng, h3Resolution)
+    marker.location = newLocation
+    if (phase === PLANNING_PHASE) {
+      // collate information
+      const mType = ''
+      const payload: MessageUpdateMarker = {
+        messageType: UPDATE_MARKER,
+        marker: marker
+      }
+      mapPostBack(mType, payload)
+      updateMarker && updateMarker(marker)
+    } else {
+      updateMarker && updateMarker(marker)
+    }
+  }
 
   /**
    * filter the set of visible markers
