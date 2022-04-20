@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
-import L from 'leaflet'
-import { LayerGroup } from 'react-leaflet'
-import AssetIcon from '../asset-icon'
+import { ADJUDICATION_PHASE, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
+import { ForceData, PerceivedTypes, Route as RouteType } from '@serge/custom-types'
+import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
-import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
-import { Route } from '../route'
-
+import L from 'leaflet'
+import React, { useContext, useEffect, useState } from 'react'
+import { LayerGroup } from 'react-leaflet'
+import MapIcon from '../map-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
-
+import { Route } from '../route'
+import orientationFor from './helpers/orientation-for'
 /* Import Types */
 import AssetInfo, { OrientationData } from './types/asset_info'
-import { Route as RouteType, ForceData, PerceivedTypes } from '@serge/custom-types'
-import orientationFor from './helpers/orientation-for'
-import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -35,9 +33,6 @@ export const Assets: React.FC<{}> = () => {
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
-  const playerForceEle = forces.find((force: ForceData) => force.uniqid === playerForce)
-  const playerForceName: string = playerForceEle ? playerForceEle.name : 'unknown'
-
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
@@ -50,21 +45,20 @@ export const Assets: React.FC<{}> = () => {
     if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, platformTypeId, actualForceName, condition, laydownPhase, visibleToThisForce, attributes } = route
-        const thisPlatformType = findPlatformTypeFor(platforms, route.asset.platformType, route.asset.platformTypeId)
+        const { uniqid, name, platformTypeId, actualForceId, condition, laydownPhase, visibleToThisForce, attributes } = route
+        const thisPlatformType = findPlatformTypeFor(platforms, '', route.asset.platformTypeId)
         if (!thisPlatformType) {
-          console.warn('Failed to find platform for', platformType, platforms, route)
+          console.warn('Failed to find platform for', platformTypeId, platforms, route)
         }
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = (platformTypeId === undefined) ? null : findPerceivedAsTypes(
-          playerForceName,
+          playerForce,
           name,
           visibleToThisForce,
           contactId,
-          actualForceName,
-          platformType,
+          actualForceId,
           platformTypeId,
           perceptions
         )
@@ -74,11 +68,10 @@ export const Assets: React.FC<{}> = () => {
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            let assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
-            if (!assetForce) {
-              // TODO: introduce consistency in how we represent forces (id, not name)
-              assetForce = forces.find((force: ForceData) => force.uniqid === actualForceName)
-            }
+            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.uniqid === actualForceId)
+
+            // console.log('percy', perceivedAsTypes, position, !!assetForce, actualForceId)
+
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const orientData: OrientationData[] = []
@@ -95,8 +88,7 @@ export const Assets: React.FC<{}> = () => {
               })
 
               // sort out the icon
-              const iconUrl = perceivedAsTypes.type === 'unknown' ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
-
+              const iconUrl = perceivedAsTypes.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', perceivedAsTypes.typeId).icon
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
@@ -104,11 +96,9 @@ export const Assets: React.FC<{}> = () => {
                 condition: condition,
                 status: status,
                 selected: isSelected,
-                type: perceivedAsTypes.type,
                 typeId: perceivedAsTypes.typeId,
                 iconUrl: iconUrl,
                 perceivedForceColor: route.perceivedForceColor,
-                perceivedForceClass: route.perceivedForceClass,
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
@@ -129,15 +119,14 @@ export const Assets: React.FC<{}> = () => {
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
   return <>
-    <LayerGroup>{ assets && assets.map((asset: AssetInfo) => {
-      return <AssetIcon
+    <LayerGroup>{assets && assets.map((asset: AssetInfo) => {
+      return <MapIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
         orientationData={asset.orientationData}
         contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}
-        type={asset.type}
         typeId={asset.typeId}
         selected={asset.selected}
         condition={asset.condition}
@@ -146,23 +135,24 @@ export const Assets: React.FC<{}> = () => {
         visibleTo={asset.visibleTo}
         force={asset.force}
         perceivedForceColor={asset.perceivedForceColor}
-        perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
         imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
-        locationPending={!!asset.laydownPhase}/>
+        locationPending={!!asset.laydownPhase} />
     })}
 
-    { viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
-      <Route name={'test'}
-        key = { 'r_for_' + route.uniqid }
-        route = {route} color={route.color}
-        selected = { route.selected}
-        trimmed = { umpireInAdjudication }
-        clearRouteHandler = { clearFromTurn }
-      />
-    ))}
+    {
+      viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
+        <Route name={'test'}
+          key={'r_for_' + route.uniqid}
+          route={route} color={route.color}
+          selected={route.selected}
+          trimmed={umpireInAdjudication}
+          clearRouteHandler={clearFromTurn}
+        />
+      ))
+    }
 
     </LayerGroup>
   </>

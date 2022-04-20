@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer'
 
 import AdjudicateTurnForm from './index'
 
-const icon: IconDefinition = { forceColor: '#f00', platformType: 'frigate', icon: 'frivate.svg' }
+const icon: IconDefinition = { forceColor: '#f00', platformType: 'frigate', icon: 'frigate.svg' }
 
 it('AdjudicateTurnForm renders correctly', () => {
   const tree = renderer

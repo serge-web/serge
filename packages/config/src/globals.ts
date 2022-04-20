@@ -21,6 +21,8 @@ export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
+export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
+
 //TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
 
 export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
@@ -131,7 +133,8 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
-export const socketPath = origin.replace('3000', '4000')
+// Note: On heroku we don't use the additional port for the socket, we use the plain origin
+export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 export const localSettings = '_local/settings'

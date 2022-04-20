@@ -3,11 +3,14 @@
 interface CssExports {
   'actions': string;
   'btn': string;
-  'checkbox': string;
   'dark': string;
-  'filter-icon': string;
-  'input-filter': string;
   'light': string;
+  'filter-section': string;
+  'filter-active': string;
+  'archive-section': string;
+  'archive-active': string;
+  'mark-all-as-read-section': string;
+  'mark-all-as-read-open': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

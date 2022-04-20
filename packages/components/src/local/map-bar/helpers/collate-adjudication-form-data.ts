@@ -1,4 +1,4 @@
-import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData, PlatformTypeData, State } from '@serge/custom-types'
+import { SelectedAsset, AdjudicateTurnFormPopulate, ForceOption, ForceData, PlatformTypeData, State } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import availableForces from './available-forces'
 
@@ -11,7 +11,7 @@ const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsse
   forces: ForceData[]
 ): AdjudicateTurnFormPopulate => {
   const currentPlatform = findPlatformTypeFor(platforms, '', selectedAsset.typeId || '')
-  const availableForcesList: ColorOption[] = availableForces(forces, false, true)
+  const availableForcesList: ForceOption[] = availableForces(forces, false, true, selectedAsset.forceId)
   const formData: AdjudicateTurnFormPopulate = {
     contactId: selectedAsset.contactId,
     status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],

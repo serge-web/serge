@@ -5,15 +5,18 @@ const formData: PerceptionFormData = {
     perceivedForces: [
       {
         name: 'Blue Force',
-        colour: '#69c'
+        colour: '#69c',
+        id: 'Blue'
       },
       {
         name: 'Red Force',
-        colour: '#f00'
+        colour: '#f00',
+        id: 'Red'
       },
       {
         name: 'White Force',
-        colour: '#fff'
+        colour: '#fff',
+        id: 'Umpire'
       }
     ],
     perceivedTypes: [
@@ -25,7 +28,8 @@ const formData: PerceptionFormData = {
   },
   values: {
     perceivedNameVal: 'Test',
-    perceivedForceVal: 'blue-force',
+    perceivedForceId: 'Blue Force',
+    perceivedForceColor: '#69c',
     perceivedTypeId: 'a3',
     assetId: 'c00012',
     iconURL: 'frigate.svg'

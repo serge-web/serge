@@ -1,5 +1,5 @@
 import { PlanningStates, LaydownPhases } from '@serge/config'
-import { Asset, AttributeValues } from '.'
+import { Asset, AttributeValues, ForceData } from '.'
 import PlatformTypeData from './platform-type-data'
 import RouteStatus from './route-status'
 import RouteTurn from './route-turn'
@@ -10,7 +10,7 @@ export interface RouteChild {
   /** name (perceived or real) */
   name: string,
   /** platform-type (perceived or real) */
-  platformType: string,
+  platformTypeId: PlatformTypeData['uniqid'] | undefined,
   /** force (perceived or real) */
   force: string
   /** if this asset is destroyed */
@@ -30,22 +30,18 @@ export default interface Route {
   readonly uniqid: string,
   /** name (perceived or real) */
   name: string,
-  /** platform-type (perceived or real) */
-  platformType: string,
   /** platform type id */
   platformTypeId: PlatformTypeData['uniqid'] | undefined
   /** whether this asset is under control of current player's force */
   underControl: boolean,
   /** whether this asset is visible to current player's force */
   visibleToThisForce: boolean;
-  /** name of force for this platform (perceived or real) */
-  perceivedForceName: string,
+  /** id force for this platform (perceived or real) */
+  perceivedForceId: ForceData['uniqid'] | undefined,
   /** player's perceived color for this asset */
   perceivedForceColor: string,
-  /** player's perceived color for this asset */
-  perceivedForceClass?: string,
-  /** real force for this platform */
-  actualForceName: string,
+  /** real force id for this platform */
+  actualForceId: ForceData['uniqid'],
   /** if this is the selected asset */
   selected: boolean,
   /** if this asset is destroyed */

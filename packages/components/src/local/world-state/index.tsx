@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from 'react'
-
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import Button from '../atoms/button'
-import { GetIcon } from '../asset-icon'
-import Groups from '../helper-elements/groups'
-// import update from 'react-addons-update'
-
-/* Import Types */
-import PropTypes from './types/props'
-import { NodeType } from '../helper-elements/groups/types/props'
-import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phase } from '@serge/config'
 import { Confirm } from '@serge/components'
+import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
+import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
+import { findPlatformTypeFor } from '@serge/helpers'
+import React, { useEffect, useState } from 'react'
+import AssetIcon from '../asset-icon'
+import Button from '../atoms/button'
+import Groups from '../helper-elements/groups'
+import { NodeType } from '../helper-elements/groups/types/props'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
-import { findPlatformTypeFor } from '@serge/helpers'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+// import update from 'react-addons-update'
+/* Import Types */
+import PropTypes from './types/props'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
@@ -132,12 +129,15 @@ export const WorldState: React.FC<PropTypes> = ({
     let isDestroyed: boolean | undefined = false
     let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
-    if (item.platformType !== 'unknown' || item.platformTypeId !== undefined) {
+    if (item.platformTypeId !== UNKNOWN_TYPE && item.platformTypeId !== undefined) {
       const platformType: PlatformTypeData | undefined = findPlatformTypeFor(platforms, item.platformType, item.platformTypeId)
-      if (typeof platformType !== 'undefined') {
-        imageSrc = platformType.icon
-        isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
-      }
+      imageSrc = platformType.icon
+      isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
+    } else {
+      // player isn't aware of type.  But, we need to access the `real` type data to determine if it is destroyed
+      const trueType = findPlatformTypeFor(platforms, item.platformType, item.asset.platformTypeId)
+      isDestroyed = trueType.conditions.length > 1 && item.condition === trueType.conditions[trueType.conditions.length - 1]
+      imageSrc = 'unknown.svg'
     }
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
@@ -148,14 +148,11 @@ export const WorldState: React.FC<PropTypes> = ({
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>
-          <GetIcon icType={item.platformType} color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
+          <AssetIcon color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
         </div>
         <div className={styles['item-content']}>
-          <div>
-            <p>{item.name}</p>
-            <p>{fullDescription}</p>
-          </div>
-
+          <p>{item.name}</p>
+          <p>{fullDescription}</p>
         </div>
         {(panel === WorldStatePanels.Control) && depth.length === 0 && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}

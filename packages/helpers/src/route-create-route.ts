@@ -1,9 +1,9 @@
 import L from 'leaflet'
-import { Route, RouteTurn, RouteChild, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
+import { Route, RouteTurn, RouteChild, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception, ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase, DATUM, UNKNOWN_TYPE } from '@serge/config'
 import findPlatformTypeFor from './find-platform-type-for'
 import { h3ToGeo } from 'h3-js'
 
@@ -85,9 +85,9 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
         const newChild: RouteChild = {
           uniqid: item.uniqid,
           name: item.name,
-          platformType: item.platformType,
+          platformTypeId: item.platformTypeId,
           force: assetForce,
-          destroyed: checkIfDestroyed(platformTypes, item.platformType, item.platformTypeId, item.condition),
+          destroyed: checkIfDestroyed(platformTypes, item.platformTypeId, item.condition),
           condition: item.condition,
           asset: item,
           hosting: hosting,
@@ -97,14 +97,14 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
       } else {
         // sort out if this player can see this assset
         const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, false, item.contactId,
-          assetForce, item.platformType, item.platformTypeId, item.perceptions)
+          assetForce, item.platformTypeId, item.perceptions)
         if (perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
             name: perceptions.name,
-            platformType: perceptions.type,
-            force: perceptions.force,
-            destroyed: checkIfDestroyed(platformTypes, item.platformType, item.platformTypeId, item.condition),
+            platformTypeId: perceptions.typeId || UNKNOWN_TYPE,
+            force: perceptions.forceId || UNKNOWN_TYPE,
+            destroyed: checkIfDestroyed(platformTypes, item.platformTypeId, item.condition),
             condition: item.condition,
             asset: item,
             hosting: hosting,
@@ -136,7 +136,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
     currentState = status.state
     currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
   } else {
-    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, asset.platformType, asset.platformTypeId)
+    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
     if (platform) {
       const states = platform.states
       if (states && states.length) {
@@ -252,8 +252,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {boolean} visibleToThisForce whether this force can see this asset
- * @param {string} actualForce the true force for the asset
- * @param {string} perceivedForceClass the CSS class for the perceived force of the asset
+ * @param {string} actualForceId the true force for the asset
  * @param {string} perceivedForce the perceived force of the asset
  * @param {string} perceivedName the perceived name of the asset
  * @param {string} perceivedType the perceived type of the asset
@@ -272,14 +271,14 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, visibleToThisForce: boolean, actualForce: string, perceivedForceClass: string | undefined, perceivedForce: string, perceivedName: string,
-  perceivedType: string, perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
+  underControl: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
+  perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
-  const showHistory = asset.platformType !== 'datum'
+  const showHistory = asset.platformTypeId !== DATUM
 
   // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
@@ -292,10 +291,10 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
-  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.platformTypeId, asset.condition)
+  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
 
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
@@ -311,14 +310,12 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     uniqid: asset.uniqid,
     name: perceivedName,
     selected: isSelected,
-    platformType: perceivedType,
     platformTypeId: perceivedTypeId,
     underControl: underControl,
     visibleToThisForce: visibleToThisForce,
-    perceivedForceName: perceivedForce,
-    perceivedForceClass: perceivedForceClass,
+    perceivedForceId: perceivedForce,
     perceivedForceColor: color,
-    actualForceName: actualForce,
+    actualForceId: actualForceId,
     color: color,
     hosting: hosting,
     comprising: comprising,

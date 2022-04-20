@@ -1,9 +1,7 @@
-import Option from '../types/option'
-
 export default interface ComponentSelector {
   (
     type: string,
-    option: number | string | Option,
+    option: number | string | FormOption,
     value: any,
     postBack: any,
     name?: string
