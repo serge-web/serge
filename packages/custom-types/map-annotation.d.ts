@@ -1,6 +1,6 @@
 import ForceData from "./force-data"
 
-export default interface MapAnnotation {
+export interface MapAnnotation {
   /** unique id for this marker 
    * 
   */

@@ -2,7 +2,7 @@ import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
-import MapAnnotation, { MapAnnotations } from './map-annotation'
+import { MapAnnotations, MapAnnotation } from './map-annotation'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**

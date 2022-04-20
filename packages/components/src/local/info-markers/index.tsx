@@ -6,7 +6,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { ForceData } from '@serge/custom-types'
-import MapAnnotation, { MapAnnotations } from '@serge/custom-types/map-annotation'
+import { MapAnnotations, MapAnnotation } from '@serge/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
 import { PLANNING_PHASE } from '@serge/config'
 import { h3ToGeo } from 'h3-js'

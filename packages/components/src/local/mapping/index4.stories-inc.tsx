@@ -59,7 +59,7 @@ export default {
   argTypes: {
     playerForce: {
       name: 'View as',
-      defaultValue: forceList[1],
+      defaultValue: forceList[0],
       control: {
         type: 'radio',
         options: forceList
@@ -67,7 +67,7 @@ export default {
     },
     phase: {
       name: 'Game phase',
-      defaultValue: Phase.Planning,
+      defaultValue: Phase.Adjudication,
       control: {
         type: 'radio',
         options: [
@@ -120,12 +120,14 @@ interface StoryPropTypes extends MappingPropTypes {
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     playerForce,
+    phase,
     ...props
   } = args
   return (
     <Mapping
       playerForce={playerForce}
       fetchOverride={fetchMock}
+      phase={phase}
       {...props}
     />
   )
@@ -143,7 +145,6 @@ NaturalEarth.args = {
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
-  phase: Phase.Planning,
   infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
@@ -166,7 +167,6 @@ OpenStreetMap.args = {
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   wargameInitiated: true,
-  phase: Phase.Planning,
   turnNumber: 5,
   mapBar: true,
   mappingConstraints: osmConstraints,
@@ -185,7 +185,6 @@ DetailedCells.args = {
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
-  phase: Phase.Planning,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,

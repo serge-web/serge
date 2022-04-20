@@ -1,5 +1,5 @@
 import { STATE_OF_WORLD } from '@serge/config'
-import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld } from '@serge/custom-types'
+import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld, MapAnnotations } from '@serge/custom-types'
 import { padInteger, deepCopy } from '@serge/helpers'
 
 export const updatePerceptions = (visibleTo: Array<string>, current: Perception[]): Perception[] => {
@@ -16,7 +16,7 @@ export const updatePerceptions = (visibleTo: Array<string>, current: Perception[
   return removeNotPresent.concat(newPerceptions)
 }
 
-const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageStateOfWorld => {
+const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotations: MapAnnotations): MessageStateOfWorld => {
   const forces: Array<ForceState> = []
   routes.forEach((route: Route) => {
     const forceId: string = route.actualForceId
@@ -66,7 +66,8 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageS
   const res: StateOfWorld = {
     turn: turnNumber + 1,
     name: 'State of World T' + padInteger(turnNumber),
-    forces: forces
+    forces: forces,
+    mapAnnotations: annotations
   }
 
   const message: MessageStateOfWorld = {

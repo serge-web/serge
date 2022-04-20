@@ -10,6 +10,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import PublicIcon from '@material-ui/icons/Public'
 import HistoryIcon from '@material-ui/icons/History'
 import PlannedIcon from '@material-ui/icons/Update'
+import InfoIcon from '@material-ui/icons/Info'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -43,7 +44,8 @@ export const MapControl: React.FC<PropTypes> = ({
   filterPlannedRoutes,
   setFilterPlannedRoutes,
   filterHistoryRoutes,
-  setFilterHistoryRoutes
+  setFilterHistoryRoutes,
+  addInfoMarker
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
 
@@ -143,6 +145,14 @@ export const MapControl: React.FC<PropTypes> = ({
             <PlannedIcon/>
           </Item>
         </div>
+        { addInfoMarker &&
+          <div className={cx('leaflet-control')}>
+            <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}
+              contentTheme={ 'dark' } >
+              <InfoIcon/>
+            </Item>
+          </div>
+        }
         {forces.length > 0 && <div className={cx('leaflet-control')}>
           {forces.map((force: any): JSX.Element => (
             <Item
