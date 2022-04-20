@@ -922,6 +922,12 @@ const wargame: Wargame = {
                 "location": "8918aab744fffff",
                 "visibleTo": ["Blue-1", "Red-1"]
             }]
+        },
+        "annotationIcons": {
+            "markers": [{
+                "name": "Unknown",
+                "icon": "unknown.svg"
+            }]
         }
     },
     "gameTurn": 3,

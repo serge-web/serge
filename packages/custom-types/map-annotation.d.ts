@@ -1,4 +1,5 @@
 import ForceData from "./force-data"
+import IconOption from "./icon-option"
 
 export interface MapAnnotation {
   /** unique id for this marker 
@@ -35,7 +36,19 @@ export interface MapAnnotation {
   shadeRadius?: number
 }
 
+/**
+ * collection of map annotations
+ */
 export type MapAnnotations = MapAnnotation[]
+
+/**
+ * collection of icon definitions
+ */
+export type AnnotationIcons = IconOption[]
+
+export interface AnnotationMarkerData {
+  markers: AnnotationIcons
+}
 
 /** collection of map annotations */
 export interface MapAnnotationData {

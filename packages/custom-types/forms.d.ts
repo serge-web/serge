@@ -3,6 +3,8 @@ import ForceOption from './force-option'
 import { AttributeValues } from './attributes'
 import { SergeHex3 } from './serge-hex-3'
 import PlatformTypeData from './platform-type-data'
+import IconOption from './icon-option'
+import { MapAnnotation } from './map-annotation'
 
 interface Status {
   name: string,
@@ -36,6 +38,16 @@ export interface PerceptionFormValues {
 export interface PerceptionFormData {
   populate: PerceptionFormPopulate
   values: PerceptionFormValues
+}
+
+export interface MarkerFormPopulate {
+  forces: Array<ForceOption>
+  icons: Array<IconOption>
+}
+
+export interface MarkerFormData {
+  populate: MarkerFormPopulate
+  value: MapAnnotation
 }
 
 /** message for when player has planned new turn of data */
