@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM 
+  LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'

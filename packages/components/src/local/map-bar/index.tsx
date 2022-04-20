@@ -253,7 +253,6 @@ export const MapBar: React.FC = () => {
       // and pan the map
       panTo && marker && panTo(marker.location)
     }
-
   }
 
   const acceptAllRoutesCallback = (): void => {
