@@ -21,7 +21,8 @@ import {
   MessageStateOfWorld,
   MessageSubmitPlans,
   MessageForceLaydown,
-  MessageDeletePlatform
+  MessageDeletePlatform,
+  MapAnnotation
 } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE } from '@serge/config'
 
@@ -70,7 +71,9 @@ export const MapBar: React.FC = () => {
     turnNumber,
     setShowMapBar,
     selectedAsset,
+    selectedMarker,
     setSelectedAsset,
+    setSelectedMarker,
     channelID,
     mapPostBack,
     routeStore,
@@ -235,6 +238,24 @@ export const MapBar: React.FC = () => {
     }
   }
 
+  const localSetSelectedMarker = (id: string): void => {
+    // is it a new id?
+    if (selectedMarker && selectedMarker === id) {
+      // current clicked on, clear it
+      // @ts-ignore
+      setSelectedMarker(undefined)
+    } else {
+      setSelectedMarker(id)
+
+      // get the marker
+      const marker = infoMarkers.find((item: MapAnnotation) => item.uniqid === id)
+
+      // and pan the map
+      panTo && marker && panTo(marker.location)
+    }
+
+  }
+
   const acceptAllRoutesCallback = (): void => {
     if (routeStore) {
       const newStore = deepCopy(routeStore)
@@ -343,16 +364,12 @@ export const MapBar: React.FC = () => {
         <ArrowRight />
         <span className={cx(styles.rotated)}>Visibility</span>
       </div>
-      {
-        // only show tab if map markers present
-        infoMarkers && infoMarkers.length > 0 &&
-        <div
-          className={cx(styles.toggle, styles.controlled, (worldStatePanel === WorldStatePanels.Markers) && styles['toggle-active'])}
-          onClick={(): void => { tabClickEvent(WorldStatePanels.ControlledBy) }}>
-          <ArrowRight />
-          <span className={cx(styles.rotated)}>Markers</span>
-        </div>
-      }
+      <div
+        className={cx(styles.toggle, styles.markers, (worldStatePanel === WorldStatePanels.Markers) && styles['toggle-active'])}
+        onClick={(): void => { tabClickEvent(WorldStatePanels.Markers) }}>
+        <ArrowRight />
+        <span className={cx(styles.rotated)}>Markers</span>
+      </div>
       {
         // only show tab 3 if umpire is adjudicating
         userIsUmpire && phase === ADJUDICATION_PHASE &&
@@ -370,12 +387,16 @@ export const MapBar: React.FC = () => {
             phase={phase}
             platformTypesByKey={platformTypesByKey}
             isUmpire={playerForce === UMPIRE_FORCE}
+            playerForce={playerForce}
+            infoMarkers={infoMarkers}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}
             platforms={platforms}
             panel={worldStatePanel}
             submitTitle={stateSubmitTitle}
             setSelectedAssetById={setSelectedAssetById}
+            setSelectedMarkerById={localSetSelectedMarker}
+            selectedMarker={selectedMarker}
             submitForm={worldStateSubmitHandler}
             groupMoveToRoot={groupMoveToRoot}
             groupCreateNewGroup={groupCreateNewGroup}

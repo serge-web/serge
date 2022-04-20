@@ -20,6 +20,7 @@ it('Mapping renders correctly', () => {
     gameTurnTime = {72000}
     wargameInitiated = {true}
     playerForce = 'Blue'
+    infoMarkers={[]}
     canSubmitOrders = {true}
     platforms = {platformTypes}
     platformTypesByKey={platformTypesByKey}

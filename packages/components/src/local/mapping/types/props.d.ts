@@ -17,7 +17,7 @@ export default interface PropTypes {
   /**
    * information markers
    */
-  infoMarkers?: MapAnnotations
+  infoMarkers: MapAnnotations
   /**
    *  platforms for this wargame.
    * use `findPlatformTypeFor` method to retrieve platform type

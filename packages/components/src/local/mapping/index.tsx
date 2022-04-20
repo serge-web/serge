@@ -590,6 +590,8 @@ export const Mapping: React.FC<PropTypes> = ({
         // send message
       }
 
+      console.table(infoMarkers)
+
       // finally, select the new marker
       setSelectedMarker(marker.uniqid)
     }

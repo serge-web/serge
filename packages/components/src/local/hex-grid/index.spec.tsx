@@ -21,6 +21,7 @@ it('Mapping renders correctly with HexGrid', () => {
     wargameInitiated = {true}
     platforms = {platformTypes}
     playerForce={'Blue'}
+    infoMarkers={[]}
     canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={5}

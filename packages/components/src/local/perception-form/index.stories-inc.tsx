@@ -17,6 +17,8 @@ const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes
 const localMappingConstraints = watuWargame.data.overview.mapConstraints
 
+const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []
+
 const dummyConstrants: MappingConstraints = {
   tileDiameterMins: 12,
   minZoom: 12,
@@ -49,6 +51,7 @@ export const Default: React.FC = () => <Mapping
   forces={forces}
   gameTurnTime = {72000}
   wargameInitiated={true}
+  infoMarkers={infoMarkers}
   playerForce={forces[1].uniqid}
   canSubmitOrders = {true}
   platforms={platformTypes || []}

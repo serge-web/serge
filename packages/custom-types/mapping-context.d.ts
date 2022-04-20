@@ -176,7 +176,7 @@ export default interface MappingContext {
   /**
    * information markers
    */
-  infoMarkers?: MapAnnotations
+  infoMarkers: MapAnnotations
   /** 
    * the leaflet map
    */

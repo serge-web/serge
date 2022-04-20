@@ -18,6 +18,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     mappingConstraints={localMappingConstraints}
     forces={forces}
     gameTurnTime={72000}
+    infoMarkers={[]}
     wargameInitiated={true}
     platforms={platformTypes}
     platformTypesByKey={platformTypesByKey}
