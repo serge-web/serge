@@ -469,7 +469,7 @@ const channelsElement = [
 ]
 
 export const wargame = {
-  _id: 'settings',
+  _id: 'initial_wargame',
   wargameTitle: 'imwarc_demo',
   data: {
     overview: {

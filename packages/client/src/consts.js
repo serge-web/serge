@@ -146,7 +146,7 @@ export const channelTemplate = {
 }
 
 export const dbDefaultSettings = {
-  _id: 'settings',
+  _id: 'initial_wargame',
   wargameTitle: '',
   data: {
     overview: {

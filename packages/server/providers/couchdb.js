@@ -68,7 +68,7 @@ const couchDb = (app, io, pouchOptions) => {
   //       resolve(remoteDb)
   //     })
   //   })
-  // } // uncoment this part for sync 
+  // } // uncoment this part for sync
 
   app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
@@ -137,9 +137,9 @@ const couchDb = (app, io, pouchOptions) => {
     //       connectToRemoteDb(dbName)
     //         .then(remoteDb => PouchDB.sync(db, remoteDb))
     //         .catch(err => console.log('ERR', err))
-    //     } 
+    //     }
     //     })
-    // }) // uncoment this part for sync 
+    // }) // uncoment this part for sync
     CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json()
       .catch(err => res.status(500).send(`Error on request allDbs ${err}`))
       .then(allDbs => {
@@ -179,9 +179,21 @@ const couchDb = (app, io, pouchOptions) => {
       res.status(404).send({ msg: 'Wrong Id or Wargame', data: null })
     }
 
-    db.get(id)
-      .then(data => res.send({ msg: 'ok', data: data }))
-      .catch(err => res.send({ msg: 'err', data: err }))
+    const getSettings = () => {
+      db.get('settings')
+        .then(data => res.send({ msg: 'ok', data: data }))
+        .catch(err => res.send({ msg: 'err', data: err }))
+    }
+
+    if (databaseName.indexOf('serge_info') !== -1) {
+      getSettings()
+    } else {
+      db.get(id)
+        .then(data => res.send({ msg: 'ok', data: data }))
+        .catch(() => {
+          getSettings()
+        })
+    }
   })
 }
 

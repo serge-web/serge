@@ -3,7 +3,7 @@ import umpireForceTemplate from './umpireForce'
 import { ADJUDICATION_PHASE } from '@serge/config'
 
 export default {
-  _id: 'settings',
+  _id: 'initial_wargame',
   wargameTitle: '',
   data: {
     overview: {

@@ -135,9 +135,21 @@ const pouchDb = (app, io, pouchOptions) => {
       res.status(404).send({ msg: 'Wrong Id or Wargame', data: null })
     }
 
-    db.get(id)
-      .then(data => res.send({ msg: 'ok', data: data || [] }))
-      .catch(err => res.send({ msg: 'err', data: err }))
+    const getSettings = () => {
+      db.get('settings')
+        .then(data => res.send({ msg: 'ok', data: data }))
+        .catch(err => res.send({ msg: 'err', data: err }))
+    }
+
+    if (databaseName.indexOf('serge_info') !== -1) {
+      getSettings()
+    } else {
+      db.get(id)
+        .then(data => res.send({ msg: 'ok', data: data }))
+        .catch(() => {
+          getSettings()
+        })
+    }
   })
 }
 

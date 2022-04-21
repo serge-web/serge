@@ -27,7 +27,7 @@ const wargameLocal = {
   wargameTitle: 'wargame-juli0v4i',
   wargameInitiated: true,
   data: {},
-  _id: 'settings',
+  _id: 'initial_wargame',
   _rev: '0-1'
 }
 
