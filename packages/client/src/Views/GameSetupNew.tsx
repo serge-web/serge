@@ -37,6 +37,14 @@ import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootS
  channels: createChannel
  back button
  */
+
+ type UniqueNameInterface = {
+  newName: string,
+  list: any[],
+  label: string,
+  oldName: string
+ }
+
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const { wargame, messageTypes }: { wargame: Wargame, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
@@ -75,8 +83,8 @@ const AdminGameSetup = () => {
   }
 
   // TODO: oldName is not used 
-  const isUniqueName = ({ newName, list, label }: any) => {
-    let listNames = list.map((item: any) => item.name)
+  const isUniqueName = ({ newName, list, label }: UniqueNameInterface) => {
+    let listNames = list.map((item: ForceData) => item.name)
     listNames = _.pull(listNames, newName)
 
     if (!checkUnique(newName, listNames)) {
