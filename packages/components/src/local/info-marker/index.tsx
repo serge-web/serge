@@ -34,12 +34,36 @@ export const InfoMarker: React.FC<PropTypes> = ({
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)
 
+  /**
+   * because we load svg file from the external url, it's a bit complex to custom color of this svg
+   * so we can only use <object> to load the svg file and using javascript to change its style
+   * @param color
+   */
+  const changeMarkerInfoColor = (color: string): void => {
+    setTimeout(() => {
+      if (imageSrc) {
+        const svgElm = document.getElementById(imageSrc)
+        if (svgElm) {
+          const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
+          if (svgElms && svgElms.length) {
+            const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
+            if (svgStyleElms && svgStyleElms.length) {
+              svgStyleElms[0].innerHTML = `.st0{fill:${color};}`
+            }
+          }
+        }
+      }
+    }, 350)
+  }
+
+  changeMarkerInfoColor(marker.color)
+
   // only re-render <AssetIcon /> component when imageSrc changed
-  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
+  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon allowCustomColor imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${marker.color}">${assetIconComponentAsString}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${assetIconComponentAsString}</div>`
   })
 
   const clickEvent = (): void => {
