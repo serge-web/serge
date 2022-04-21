@@ -138,7 +138,7 @@ export const allDbs = 'allDbs'
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
-export const localSettings = '_local/settings'
+export const localSettings = 'settings'
 // default name for role name
 export const NEW_ROLE = 'New Role'
 

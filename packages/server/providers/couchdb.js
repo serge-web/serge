@@ -3,7 +3,10 @@ let addListenersQueue = []
 
 const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')
 
-const pouchDb = (app, io, pouchOptions) => {
+const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
+
+const couchDb = (app, io, pouchOptions) => {
+  const CouchDB = require('pouchdb-core')
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
     .plugin(require('pouchdb-adapter-http'))
@@ -14,9 +17,14 @@ const pouchDb = (app, io, pouchOptions) => {
 
   app.use('/db', require('express-pouchdb')(PouchDB))
 
+  const couchDbURL = (databaseName = '') => {
+    const dbWithoutSqlite = databaseName.replace(dbSuffix, '')
+    return `http://${COUCH_ACCOUNT}:${COUCH_PASSWORD}@${COUCH_URL}/${dbWithoutSqlite}`
+  }
+
   // changesListener
   const initChangesListener = (dbName) => {
-    const db = new PouchDB(dbName, pouchOptions)
+    const db = new CouchDB(couchDbURL(dbName))
     // saving listener
     listeners[dbName] = db.changes({
       since: 'now',
@@ -38,17 +46,33 @@ const pouchDb = (app, io, pouchOptions) => {
     }
   }, 5000)
 
-  PouchDB.allDbs().then(dbs => {
-    dbs.forEach(db => initChangesListener(db))
-  }).catch(err => console.log('Error on load alldbs', err))
+  CouchDB.fetch(couchDbURL('_all_dbs'))
+    .then(result => result.json().then(allDbs => {
+      allDbs.forEach(db => initChangesListener(db))
+    }).catch(err => console.log('Error on load alldbs', err))
+    )
 
   const checkSqliteExists = (dbName) => {
     return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
   }
 
-  app.put('/:wargame', async (req, res) => {
+  // const connectToRemoteDb = (databaseName) => {
+  //   const path = require('path')
+  //   const sqlite3 = require('sqlite3')
+  //   return new Promise((resolve, reject) => {
+  //     const dbPath = path.resolve(__dirname, `../db/${databaseName}`)
+  //     // eslint-disable-next-line no-new
+  //     new sqlite3.Database(dbPath, async (err) => {
+  //       if (err) return reject(new Error('Not exists file in db/' + err))
+  //       const remoteDb = new CouchDB(couchDbURL(databaseName))
+  //       resolve(remoteDb)
+  //     })
+  //   })
+  // } // uncoment this part for sync
+
+  app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
-    const db = new PouchDB(databaseName, pouchOptions)
+    const db = new CouchDB(couchDbURL(databaseName))
     const putData = req.body
 
     if (!listeners[databaseName]) {
@@ -70,12 +94,13 @@ const pouchDb = (app, io, pouchOptions) => {
         }
       })
     }
+
     retryUntilWritten(db, putData)
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
     const newDbName = checkSqliteExists(req.params.replicate) // new db name
-    const newDb = new PouchDB(newDbName, pouchOptions)
+    const newDb = new CouchDB(couchDbURL(newDbName))
     const existingDatabase = checkSqliteExists(req.params.dbname) // copy data from
     newDb.replicate.from(existingDatabase).then(() => {
       res.send('Replicated')
@@ -84,37 +109,56 @@ const pouchDb = (app, io, pouchOptions) => {
 
   app.delete('/delete/:dbName', (req, res) => {
     const dbName = checkSqliteExists(req.params.dbName)
-    const db = new PouchDB(dbName, pouchOptions)
-    db.destroy().then(() => {
+    const remoteDb = new CouchDB(couchDbURL(dbName))
+    remoteDb.destroy().then(() => {
       res.send({ msg: 'ok', data: dbName })
     }).catch((err) => res.status(400).send({ msg: 'error', data: err }))
   })
 
   app.delete('/clearAll', (req, res) => {
-    PouchDB.resetAllDbs()
-      .then(() => res.send())
-      .catch(err => res.status(500).send(`Error on clearAll ${err}`))
+    CouchDB.fetch(couchDbURL('_all_dbs'))
+      .then(result => result.json().then(allDbs => {
+        const dbList = allDbs.map(async db => {
+          const remoteDb = new CouchDB(couchDbURL(db))
+          return remoteDb.destroy()
+        })
+        res.send({ msg: 'ok', data: dbList })
+      })
+        .catch(err => res.status(500).send(`Error on request clearAll ${err}`))
+        .catch(() => res.send([])))
   })
 
   // get all wargame names
-  app.get('/allDbs', async (req, res) => {
-    PouchDB.allDbs().then(dbs => {
-      const dbList = dbs.map(dbName => dbName.replace(dbSuffix, ''))
-      res.send({ msg: 'ok', data: dbList || [] })
-    }).catch(() => res.send([]))
+  app.get('/allDbs', (req, res) => {
+    // PouchDB.allDbs().then(dbs => {
+    //   dbs.forEach(dbName => {
+    //     if (dbName.includes('wargame-kzod28lc')) {
+    //       const db = new PouchDB(dbName, pouchOptions)
+    //       connectToRemoteDb(dbName)
+    //         .then(remoteDb => PouchDB.sync(db, remoteDb))
+    //         .catch(err => console.log('ERR', err))
+    //     }
+    //     })
+    // }) // uncoment this part for sync
+    CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json()
+      .catch(err => res.status(500).send(`Error on request allDbs ${err}`))
+      .then(allDbs => {
+        res.send({ msg: 'ok', data: allDbs || [] })
+      })
+      .catch(() => res.send([])))
   })
 
   // get all documents for wargame
-  app.get('/:wargame', async (req, res) => {
+  app.get('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
 
     if (!databaseName) {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
     }
 
-    const db = new PouchDB(databaseName, pouchOptions)
+    const remoteDb = new CouchDB(couchDbURL(databaseName))
 
-    db.allDocs({ include_docs: true, attachments: true })
+    remoteDb.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
           const isNotSystem = doc._id !== localSettings
@@ -128,7 +172,7 @@ const pouchDb = (app, io, pouchOptions) => {
   // get document for wargame
   app.get('/get/:wargame/:id', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
-    const db = new PouchDB(databaseName, pouchOptions)
+    const db = new CouchDB(couchDbURL(databaseName))
     const id = `${req.params.id}`
 
     if (!id || !databaseName) {
@@ -136,9 +180,9 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     db.get(id)
-      .then(data => res.send({ msg: 'ok', data: data || [] }))
+      .then(data => res.send({ msg: 'ok', data: data }))
       .catch(err => res.send({ msg: 'err', data: err }))
   })
 }
 
-module.exports = pouchDb
+module.exports = couchDb

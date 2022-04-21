@@ -19,7 +19,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
-        <ForcesInChannel colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
+        <ForcesInChannel messages={messages} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
       </Box>
       <Box ml={2} className={styles['messages-list']}>
         {
