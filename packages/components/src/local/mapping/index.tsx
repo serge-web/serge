@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM
+  LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -52,7 +52,8 @@ import {
   MappingConstraints,
   MessageMap,
   MapAnnotation,
-  MapAnnotations
+  MapAnnotations,
+  MessageUpdateMarker
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -579,10 +580,25 @@ export const Mapping: React.FC<PropTypes> = ({
     const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
     others.push(marker)
     setInfoMarkersState(others)
+    // check which phase we're in
+    switch (phase) {
+      case Phase.Adjudication: {
+        // no further action- it will get caught up in new world state
+        break
+      }
+      case Phase.Planning: {
+        // send the update out immediately
+        const message: MessageUpdateMarker = {
+          messageType: UPDATE_MARKER,
+          marker: marker
+        }
+        mapPostBack(UPDATE_MARKER, message, undefined)
+        break
+      }
+    }
   }
 
   const localAddInfoMarker = (): void => {
-    console.log('mapping add info')
     // get the centre of the map
     if (leafletElement) {
       const center: L.LatLng = leafletElement.getBounds().getCenter()
@@ -598,22 +614,17 @@ export const Mapping: React.FC<PropTypes> = ({
         location: cell
       }
 
-      if (phase === Phase.Adjudication) {
-        // just add new marker to current set of annotations
-        infoMarkersState.push(marker)
-        setInfoMarkersState(infoMarkersState)
-      } else {
-        // process marker immediately
-
-        // TODO create message
-
-        // send message
-      }
-
-      console.table(infoMarkers)
+      // just add new marker to current set of annotations
+      infoMarkersState.push(marker)
+      setInfoMarkersState(infoMarkersState)
 
       // finally, select the new marker
       setSelectedMarker(marker.uniqid)
+
+      // now the marker is selected, its form
+      // should be displayed.
+      // the new marker will get "stored"
+      // when the user clicks on "Save"
     }
   }
 

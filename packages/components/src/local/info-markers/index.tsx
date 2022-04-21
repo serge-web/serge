@@ -5,10 +5,9 @@ import L from 'leaflet'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { ForceData, MessageUpdateMarker } from '@serge/custom-types'
+import { ForceData } from '@serge/custom-types'
 import { MapAnnotations, MapAnnotation } from '@serge/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
-import { PLANNING_PHASE, UPDATE_MARKER } from '@serge/config'
 import { geoToH3, h3ToGeo } from 'h3-js'
 
 /* Render component */
@@ -19,12 +18,10 @@ export const InfoMarkers: React.FC<{}> = () => {
   const {
     forces,
     playerForce,
-    phase,
     infoMarkers,
     h3Resolution,
     selectedMarker,
-    updateMarker,
-    mapPostBack
+    updateMarker
   } = props
 
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
@@ -47,18 +44,7 @@ export const InfoMarkers: React.FC<{}> = () => {
     }
     const newLocation = geoToH3(location.lat, location.lng, h3Resolution)
     marker.location = newLocation
-    if (phase === PLANNING_PHASE) {
-      // collate information
-      const mType = ''
-      const payload: MessageUpdateMarker = {
-        messageType: UPDATE_MARKER,
-        marker: marker
-      }
-      mapPostBack(mType, payload)
-      updateMarker && updateMarker(marker)
-    } else {
-      updateMarker && updateMarker(marker)
-    }
+    updateMarker && updateMarker(marker)
   }
 
   /**
