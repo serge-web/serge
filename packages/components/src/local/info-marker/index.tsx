@@ -45,15 +45,15 @@ export const InfoMarker: React.FC<PropTypes> = ({
         const svgElm = document.getElementById(imageSrc)
         if (svgElm) {
           const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
-          if (svgElms && svgElms.length) {
+          if (svgElms.length) {
             const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
-            if (svgStyleElms && svgStyleElms.length) {
+            if (svgStyleElms.length) {
               svgStyleElms[0].innerHTML = `.st0{fill:${color};}`
             }
           }
         }
       }
-    }, 350)
+    }, 300)
   }
 
   changeMarkerInfoColor(marker.color)
