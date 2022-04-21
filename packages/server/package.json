@@ -5,7 +5,6 @@
   "main": "main.js",
   "bin": "bin.js",
   "dependencies": {
-    "@cloudant/cloudant": "^4.5.1",
     "@serge/client": "^0.3.0",
     "adm-zip": "^0.4.13",
     "cors": "^2.8.5",
