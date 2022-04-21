@@ -1,4 +1,5 @@
 import { Confirm } from '@serge/components'
+import { RootState, ForceData } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,8 +15,8 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 
 const DeleteModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
-  const wargame = useSelector(state => state.wargame)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
+  const wargame = useSelector((state: RootState) => state.wargame)
 
   if (!currentModal.data) {
     return <></>
@@ -31,21 +32,23 @@ const DeleteModal = () => {
 
     switch (type) {
       case 'force': {
-        const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
-        if (isUmpire) return
-        dispatch(deleteSelectedForce(wargame.currentWargame, data))
-        break
+        if (curTab && wargame.currentWargame) {
+          const isUmpire = wargame.data[curTab].forces.find((f: ForceData) => f.uniqid === data).umpire
+          if (isUmpire) return
+          dispatch(deleteSelectedForce(wargame.currentWargame, data))
+          break
+        }
       }
       case 'asset': {
         dispatch(deleteSelectedAsset(data))
         break
       }
       case 'channel': {
-        dispatch(deleteSelectedChannel(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deleteSelectedChannel(wargame.currentWargame, data))
         break
       }
       case 'role': {
-        dispatch(deleteSelectedRole(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deleteSelectedRole(wargame.currentWargame, data))
         break
       }
       case 'games': {
@@ -53,7 +56,7 @@ const DeleteModal = () => {
         break
       }
       case 'platformType': {
-        dispatch(deletePlatformType(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data))
         break
       }
       default: {
@@ -64,7 +67,7 @@ const DeleteModal = () => {
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   const customMessages = currentModal.data.customMessages
 

@@ -31,7 +31,7 @@ const DeleteModal = () => {
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   return (
     <Confirm

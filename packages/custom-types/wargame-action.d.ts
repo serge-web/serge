@@ -72,7 +72,7 @@ interface SetSelectedForce {
 
 interface AddNewChannel {
     type: typeof ADD_NEW_CHANNEL,
-    payload: ChannelTypes
+    payload: { name: string, uniqid: string }
 }
 
 interface SetSelectedChannel {

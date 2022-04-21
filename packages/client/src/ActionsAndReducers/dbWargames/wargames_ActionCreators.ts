@@ -40,7 +40,7 @@ export const setSelectedForce = (selectedForce: { name: string, uniqid: string, 
   payload: selectedForce
 })
 
-export const addNewChannel = (data: ChannelTypes): WargameActionTypes => ({
+export const addNewChannel = (data: { name: string, uniqid: string }): WargameActionTypes => ({
   type: ActionConstant.ADD_NEW_CHANNEL,
   payload: data
 })
@@ -186,7 +186,7 @@ export const downloadAllWargames = () => {
 
 export const deleteWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
-    await wargamesApi.deleteWargame(name)
+    wargamesApi.deleteWargame(name)
 
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
@@ -329,7 +329,6 @@ export const saveChannel = (dbName: string, newName: string, newData: ChannelTyp
 
 export const deleteSelectedChannel = (dbName: string, channel: string) => {
   return async (dispatch: WargameDispatch) => {
-    console.log('TEST2', channel)
     const wargame = await wargamesApi.deleteChannel(dbName, channel)
 
     if (channel === wargame.data.channels.selectedChannel) {
@@ -373,7 +372,6 @@ export const initiateWargame = (dbName: string) => {
 
 export const duplicateChannel = (dbName: string, channel: string) => {
   return async (dispatch: WargameDispatch) => {
-    console.log('TEST', channel)
     const wargame = await wargamesApi.duplicateChannel(dbName, channel)
 
     dispatch(setCurrentWargame(wargame))

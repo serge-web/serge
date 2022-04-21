@@ -5,17 +5,18 @@ import { ImageDropzone } from '@serge/components'
 import { saveIcon } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import '@serge/themes/App.scss'
+import { RootState } from '@serge/custom-types'
 
 const AddIconModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
 
-  const onSaveIcon = (src, file) => {
+  const onSaveIcon = (file: string) => {
     dispatch(saveIcon(file))
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   return (
     <ModalWrapper>

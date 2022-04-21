@@ -8,10 +8,15 @@ import AddIconModal from '../AddIconModal'
 import ColorPickerModal from '../ColorPickerModal'
 import AddLogoModal from '../AddLogoModal'
 import DeleteConfirmation from '../DeleteConfirmation'
-
 import '@serge/themes/App.scss'
 
-class ModalSwitchAdmin extends Component {
+interface CurrentModal {
+  open: boolean,
+  modal: string,
+  data: {}
+}
+
+class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {
     let modal
     switch (this.props.currentModal.modal) {
@@ -60,7 +65,7 @@ class ModalSwitchAdmin extends Component {
   }
 }
 
-const mapStateToProps = ({ currentModal }) => ({
+const mapStateToProps = ({ currentModal }: { currentModal: CurrentModal }) => ({
   currentModal
 })
 

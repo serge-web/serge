@@ -1,4 +1,5 @@
 import { Confirm } from '@serge/components'
+import { RootState } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,18 +8,18 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 
 const DeleteWargameModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
 
   const onHideModal = () => {
     dispatch(modalAction.close())
   }
 
   const onDeleteWargame = () => {
-    dispatch(deleteWargame(currentModal.data))
+    dispatch(deleteWargame(currentModal.data.data))
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   return (
     <Confirm

@@ -5,34 +5,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ButtonList } from '@serge/components'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import {
-  setSelectedForce,
+  refreshChannel,
   setTabSaved,
-  addNewForce,
-  saveForce,
-  refreshForce
+  addNewChannel,
+  setSelectedChannel
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import { forceTemplate } from '../../consts'
 import '@serge/themes/App.scss'
+import { RootState } from '@serge/custom-types'
 
-const UnsavedForceModal = () => {
+const UnsavedChannelModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
-  const wargame = useSelector(state => state.wargame)
+  const wargame = useSelector((state: RootState) => state.wargame)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
 
   const dontSave = () => {
     if (currentModal.data === 'create-new') {
-      const id = 'force-' + uniqid.time()
-      dispatch(addNewForce({ name: id, uniqid: id }))
-      dispatch(setSelectedForce({ name: id, uniqid: id }))
-
-      const template = forceTemplate
-      template.name = id
-      template.uniqid = id
-
-      dispatch(saveForce(wargame.currentWargame, id, template, id))
+      const id = `channel-${uniqid.time()}`
+      dispatch(addNewChannel({ name: id, uniqid: id }))
+      dispatch(setSelectedChannel({ name: id, uniqid: id }))
     } else {
-      dispatch(refreshForce(wargame.currentWargame, currentModal.data))
+      if (wargame.currentWargame) dispatch(refreshChannel(wargame.currentWargame, `${currentModal.data}`))
     }
+
     dispatch(setTabSaved())
     dispatch(modalAction.close())
   }
@@ -41,7 +35,7 @@ const UnsavedForceModal = () => {
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   const buttons = [{
     name: 'cancel',
@@ -68,4 +62,4 @@ const UnsavedForceModal = () => {
   )
 }
 
-export default UnsavedForceModal
+export default UnsavedChannelModal

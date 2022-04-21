@@ -40,7 +40,7 @@ export type DBLoadingState = {
 export type CurrentModal = {
   open: boolean;
   modal: string;
-  data: null;
+  data: any
 }
 
 export type RootState = {
