@@ -15,29 +15,5 @@ exports[`ForcesInChannel component: renders correctly 1`] = `
       }
     }
   />
-  <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 MuiButton-text MuiButton-textSecondary"
-    disabled={false}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onDragLeave={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onMouseDown={[Function]}
-    onMouseLeave={[Function]}
-    onMouseUp={[Function]}
-    onTouchEnd={[Function]}
-    onTouchMove={[Function]}
-    onTouchStart={[Function]}
-    tabIndex={0}
-    type="button"
-  >
-    <span
-      className="MuiButton-label"
-    >
-      Mark all read
-    </span>
-  </button>
 </div>
 `;

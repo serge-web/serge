@@ -68,7 +68,7 @@ const couchDb = (app, io, pouchOptions) => {
   //       resolve(remoteDb)
   //     })
   //   })
-  // } // uncoment this part for sync 
+  // } // uncoment this part for sync
 
   app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
@@ -137,9 +137,9 @@ const couchDb = (app, io, pouchOptions) => {
     //       connectToRemoteDb(dbName)
     //         .then(remoteDb => PouchDB.sync(db, remoteDb))
     //         .catch(err => console.log('ERR', err))
-    //     } 
+    //     }
     //     })
-    // }) // uncoment this part for sync 
+    // }) // uncoment this part for sync
     CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json()
       .catch(err => res.status(500).send(`Error on request allDbs ${err}`))
       .then(allDbs => {
