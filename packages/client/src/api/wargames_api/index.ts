@@ -5,7 +5,7 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
+import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce, handleUpdateMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -22,7 +22,8 @@ import {
   SERGE_INFO,
   INFO_MESSAGE, 
   FEEDBACK_MESSAGE, 
-  CUSTOM_MESSAGE
+  CUSTOM_MESSAGE,
+  UPDATE_MARKER
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -50,7 +51,10 @@ import {
   PlatformTypeData,
   Role,
   ParticipantTypes,
-  ParticipantChat
+  ParticipantChat,
+  MessageUpdateMarker,
+  AnnotationMarkerData,
+  MapAnnotationData
 } from '@serge/custom-types'
 
 import {
@@ -783,7 +787,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 // @ts-ignore
-export const postNewMapMessage = (dbName, details, message) => {
+export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
 
@@ -821,10 +825,24 @@ export const postNewMapMessage = (dbName, details, message) => {
       .then((res) => {
         if (!res.data.platformTypes)
           throw new Error('Cannot handle force delta without platform types')
+
+        // special handling for marker message
+        if(message.messageType === UPDATE_MARKER) {
+          // ok - marker update - not force
+          if (!res.data.annotations) {
+            const newAnns: MapAnnotationData = {
+              annotations: []
+            }
+            res.data.annotations = newAnns
+          }
+          const validMessage: MessageUpdateMarker = message
+          res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else {
+          // apply the reducer to this wargame
+          // @ts-ignore
+          res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
+        }
           
-        // apply the reducer to this wargame
-        // @ts-ignore
-        res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         // store the new verison
         return createLatestWargameRevision(dbName, res)
       }).then((res) => {

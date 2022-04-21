@@ -14,7 +14,8 @@ import {
   Phase,
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
-  CHANNEL_CHAT
+  CHANNEL_CHAT,
+  UPDATE_MARKER
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -75,6 +76,9 @@ const factory = (state: PlayerUi): Factory => {
     const turnNumber = state.currentTurn
 
     switch (form) {
+      case UPDATE_MARKER:
+        sendMapMessage(UPDATE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        break
       case FORCE_LAYDOWN:
         sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
         break

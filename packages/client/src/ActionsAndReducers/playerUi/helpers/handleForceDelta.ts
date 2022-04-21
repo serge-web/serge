@@ -11,7 +11,9 @@ import {
   MessageStateOfWorld, 
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup, 
-  PlatformTypeData} from '@serge/custom-types'
+  PlatformTypeData,
+  MessageUpdateMarker,
+  MapAnnotations} from '@serge/custom-types'
 
 import { handleVisibilityAndConditionChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -31,12 +33,14 @@ import {
   CREATE_TASK_GROUP,
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
-  DELETE_PLATFORM
+  DELETE_PLATFORM,
+  UPDATE_MARKER
 } from '@serge/config'
 // TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */
-export default (message: MessageMap, details: MessageDetails, allForces: ForceData[], platformTypes: PlatformTypeData[]): ForceData[] => {
+export default (message: MessageMap, details: MessageDetails, allForces: ForceData[], 
+  platformTypes: PlatformTypeData[], infoMarkers: MapAnnotations): ForceData[] => {
   const msgType: string = details.messageType
   if (!msgType) {
     console.error('problem - we need message type in ', message)
