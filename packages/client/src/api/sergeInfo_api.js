@@ -6,9 +6,9 @@ import {
 import { fetch } from 'whatwg-fetch'
 import DbProvider from './db'
 
-const LOCAL_DOC = '_local/settings'
+const LOCAL_DOC = 'settings'
 
-var db = new DbProvider(databasePath + SERGE_INFO)
+const db = new DbProvider(databasePath + SERGE_INFO)
 
 db.get(LOCAL_DOC)
   .then((data) => {

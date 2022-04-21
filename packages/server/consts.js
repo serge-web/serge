@@ -1,5 +1,5 @@
 module.exports = {
-  localSettings: '_local/settings',
+  localSettings: 'settings',
   COUNTER_MESSAGE: 'CounterMessage',
   dbSuffix: '.sqlite'
 }
