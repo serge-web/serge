@@ -36,8 +36,8 @@ const DeleteModal = () => {
           const isUmpire = wargame.data[curTab].forces.find((f: ForceData) => f.uniqid === data).umpire
           if (isUmpire) return
           dispatch(deleteSelectedForce(wargame.currentWargame, data))
-          break
         }
+        break
       }
       case 'asset': {
         dispatch(deleteSelectedAsset(data))
