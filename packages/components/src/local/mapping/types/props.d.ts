@@ -19,6 +19,10 @@ export default interface PropTypes {
    */
   infoMarkers: MapAnnotations
   /**
+   * icons to use for info markers
+   */
+  markerIcons?: AnnotationIcons
+  /**
    *  platforms for this wargame.
    * use `findPlatformTypeFor` method to retrieve platform type
    */

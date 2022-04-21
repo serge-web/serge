@@ -2,7 +2,7 @@ import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
-import { MapAnnotations, MapAnnotation } from './map-annotation'
+import { MapAnnotations, MapAnnotation, AnnotationIcons } from './map-annotation'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
@@ -181,6 +181,10 @@ export default interface MappingContext {
    * information markers
    */
   infoMarkers: MapAnnotations
+  /** 
+   * icons for info markers
+   */
+  markerIcons: AnnotationIcons
   /** 
    * the leaflet map
    */

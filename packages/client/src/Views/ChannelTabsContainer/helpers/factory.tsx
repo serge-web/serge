@@ -149,6 +149,7 @@ const factory = (state: PlayerUi): Factory => {
       phase={phaseFor(state.phase)}
       turnNumber={state.currentTurn}
       infoMarkers={state.infoMarkers}
+      markerIcons={state.markerIcons}
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       canSubmitOrders={canSubmitOrders}
       channelID={channelid}

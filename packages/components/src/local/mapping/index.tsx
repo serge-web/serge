@@ -77,6 +77,7 @@ export const Mapping: React.FC<PropTypes> = ({
   platforms,
   platformTypesByKey,
   infoMarkers,
+  markerIcons,
   phase,
   turnNumber,
   wargameInitiated,
@@ -151,8 +152,21 @@ export const Mapping: React.FC<PropTypes> = ({
     setShowAddInfo((playerForce === UMPIRE_FORCE) && canSubmitOrders)
   }, [phase, playerForce])
 
+  // if marker is selected, clear the asset
+  useEffect(() => {
+    // if a marker has been selected, then clear the selected asset
+    if (selectedMarker) {
+      setSelectedAsset(undefined)
+    }
+  }, [selectedMarker])
+
   // highlight the route for the selected asset
   useEffect(() => {
+    // if an asset has been selected, then clear the selected marker
+    if (selectedAsset) {
+      setSelectedMarker(undefined)
+    }
+
     // if we were planning a mobile route, clear that
     if (planningConstraints && selectedAsset) {
       setPlanningConstraints(undefined)
@@ -661,6 +675,7 @@ export const Mapping: React.FC<PropTypes> = ({
     h3Resolution,
     forces: forcesState,
     infoMarkers: infoMarkersState,
+    markerIcons: markerIcons,
     platforms,
     platformTypesByKey,
     playerForce,

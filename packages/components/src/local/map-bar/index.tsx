@@ -42,6 +42,8 @@ import { MapBarForms } from './helpers/enums'
 import collateVisibilityFormData from './helpers/collate-visibility-form-data'
 import collateForceLaydown from './helpers/collate-force-laydown'
 import VisibilityAndConditionForm from '../visibility-condition-form'
+import collateMarkerFormData from './helpers/collate-marker-form-data'
+import MarkerForm from '../marker-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -88,7 +90,8 @@ export const MapBar: React.FC = () => {
     plansSubmitted,
     setPlansSubmitted,
     panTo,
-    infoMarkers
+    infoMarkers,
+    markerIcons
   } = props
 
   // sort out the handler for State of World button
@@ -116,7 +119,8 @@ export const MapBar: React.FC = () => {
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
+          selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -128,6 +132,13 @@ export const MapBar: React.FC = () => {
       }
     }
   }, [routeStore])
+
+  // sort out the handler for State of World button
+  useEffect(() => {
+    if (playerForce === UMPIRE_FORCE && selectedMarker) {
+      setCurrentForm(MapBarForms.Marker)
+    }
+  }, [selectedMarker])
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -284,11 +295,32 @@ export const MapBar: React.FC = () => {
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
+    if (selectedAsset && selectedMarker) {
+      // hmm, if both are selected we may be moving from one state to the other
+      // provide null return, so we know which to use
+      return <></>
+    }
+    if (typeof selectedAsset === 'undefined') {
+      // see if we have a marker
+      if (selectedMarker && userIsUmpire) {
+        const marker = infoMarkers.find((item: MapAnnotation) => item.uniqid === selectedMarker)
+        if (!marker) {
+          throw new Error('Failed to find marker with id:' + selectedMarker)
+        }
+        const data = collateMarkerFormData(marker, markerIcons, forces)
+        return data && <MarkerForm
+          formData={data}
+          mapPostBack={mapPostBack} />
+      } else {
+        // ok, return a marker form
+        return <></>
+      }
+    }
     if (!routeStore || !routeStore.selected) {
       throw new Error('No route selected')
     }
-    if (typeof selectedAsset === 'undefined') return null
-    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
+    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
+      selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
     const platformIcon = selectedAsset.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
     const platformName = selectedAsset.typeId === UNKNOWN_TYPE ? 'Unknown' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').name
     const iconData = {
@@ -345,7 +377,10 @@ export const MapBar: React.FC = () => {
           mapPostBack={mapPostBack}
           channelID={channelID} />
       default:
+      {
+        console.warn('failed to create form for ', form)
         return <></>
+      }
     }
   }
 
@@ -407,7 +442,7 @@ export const MapBar: React.FC = () => {
             secondaryButtonCallback={acceptAllRoutesCallback} />
         </section>
       </div>
-      {currentForm !== undefined && selectedAsset && routeStore.selected && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
+      {currentForm !== undefined && ((selectedAsset && routeStore.selected) || selectedMarker) && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
         <div className={styles['form-inner']}>
           <section>
             {formSelector()}

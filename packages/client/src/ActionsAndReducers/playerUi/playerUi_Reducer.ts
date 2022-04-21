@@ -68,6 +68,7 @@ export const initialState: PlayerUi = {
   allChannels: [],
   allForces: [],
   infoMarkers: [],
+  markerIcons: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
   allPlatformTypesByKey: {},
@@ -126,6 +127,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
       newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
+      newState.markerIcons = (data.annotationIcons && data.annotationIcons.markers) || []
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
