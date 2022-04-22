@@ -23,7 +23,8 @@ import {
   INFO_MESSAGE, 
   FEEDBACK_MESSAGE, 
   CUSTOM_MESSAGE,
-  UPDATE_MARKER
+  UPDATE_MARKER,
+  STATE_OF_WORLD
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -54,7 +55,8 @@ import {
   ParticipantChat,
   MessageUpdateMarker,
   AnnotationMarkerData,
-  MapAnnotationData
+  MapAnnotationData,
+  MessageStateOfWorld
 } from '@serge/custom-types'
 
 import {
@@ -66,6 +68,7 @@ import {
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -837,9 +840,21 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           }
           const validMessage: MessageUpdateMarker = message
           res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
-        } else {
+        } else if (message.messageType === STATE_OF_WORLD) {
+          // ok, this needs to work on force AND info markers
+          const validMessage: MessageStateOfWorld = message
+          if (!res.data.annotations) {
+            const newAnns: MapAnnotationData = {
+              annotations: []
+            }
+            res.data.annotations = newAnns
+          }
+          res.data.forces.forces= handleStateOfWorldChanges(validMessage, res.data.forces.forces)
+          // we can just copy in the new markers
+          res.data.annotations.annotations = validMessage.state.mapAnnotations
+        }
+         else {
           // apply the reducer to this wargame
-          // @ts-ignore
           res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         }
           
