@@ -26,3 +26,15 @@
   height: 24px;
   width: 24px;
 }
+
+.mark-all-read {
+  min-width: unset !important;
+  padding: 0 !important;
+
+  svg {
+    width: 20px !important;
+    height: 20px;
+    color: #fff;
+    box-shadow: 0 0 5px #fff;
+  }
+}
