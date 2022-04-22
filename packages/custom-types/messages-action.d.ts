@@ -6,10 +6,10 @@ import {
     DB_MESSAGE_SAVED,
     DB_MESSAGE_STATUS,
     DB_RETURNED_MESSAGE,
-    MESSAGE_LIBRARY_ROUTE,
     RESET_MESSAGE_PREVIEW,
     SET_CURRENT_VIEW_FROM_URI
  } from "@serge/config"
+import { MessageFeedback } from './message'
 
 interface DBMessageSaveStatus {
     type: typeof DB_MESSAGE_STATUS,
@@ -23,7 +23,7 @@ interface DbMessagesSaved {
 
 interface DBSaveMessagePreview {
     type: typeof DB_RETURNED_MESSAGE,
-    payload: any
+    payload: MessageFeedback
 }
 
 interface LoadingDBMessage {

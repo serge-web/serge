@@ -8,7 +8,7 @@ import * as messagesApi from '../../api/messages_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { setCurrentViewFromURI } from '../setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { MESSAGE_LIBRARY_ROUTE } from '../../consts'
-import { MessagesActionTypes, MessagesDispatch } from '@serge/custom-types'
+import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from '@serge/custom-types'
 
 const DBMessageSaveStatus = (status: string): MessagesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_STATUS,
@@ -20,7 +20,7 @@ const DBSaveMessageArray = (messages: []): MessagesActionTypes => ({
   payload: messages
 })
 
-const DBSaveMessagePreview = (message: any): MessagesActionTypes => ({
+const DBSaveMessagePreview = (message: MessageFeedback): MessagesActionTypes => ({
     type: ActionConstant.DB_RETURNED_MESSAGE,
     payload: message
 })
@@ -39,7 +39,7 @@ export const resetMessagePreview = (): MessagesActionTypes => ({
   type: ActionConstant.RESET_MESSAGE_PREVIEW
 })
 
-export const createMessage = (message: any, schema: any) => {
+export const createMessage = (message: RequestForInformation, schema: {}) => {
   if (!check.object(message)) throw Error(`createMessageType() requires object with message, from & to NOT. ${message}`)
 
   return async (dispatch: MessagesDispatch) => {
@@ -83,7 +83,7 @@ export const duplicateMessage = (messageId: string) => {
   }
 }
 
-export const updateMessage = (message: any, id: string) => {
+export const updateMessage = (message: RequestForInformation, id: string) => {
   if (!check.object(message)) throw Error(`updateMessage() requires object with message, from & to NOT. ${message}`)
 
   return async (dispatch: MessagesDispatch) => {

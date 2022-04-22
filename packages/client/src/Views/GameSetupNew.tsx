@@ -82,7 +82,6 @@ const AdminGameSetup = () => {
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
   }
 
-  // TODO: oldName is not used 
   const isUniqueName = ({ newName, list, label }: UniqueNameInterface) => {
     let listNames = list.map((item: ForceData) => item.name)
     listNames = _.pull(listNames, newName)
@@ -114,7 +113,7 @@ const AdminGameSetup = () => {
     })
   }
 
-  const handleFormChange = (changes: any) => {
+  const handleFormChange = (changes: WargameOverview) => {
     dispatch(setGameData(changes))
   }
 
