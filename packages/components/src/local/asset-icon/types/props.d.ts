@@ -3,5 +3,6 @@ export default interface PropTypes {
   destroyed?: boolean
   isSelected?: boolean
   imageSrc?: string
+  allowCustomColor?: boolean
   onClick?: VoidFunction
 }
