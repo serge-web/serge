@@ -11,6 +11,9 @@ import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
+// eslint-disable-next-line no-var
+declare var SVGInject: any
+
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
@@ -34,32 +37,12 @@ export const InfoMarker: React.FC<PropTypes> = ({
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)
 
-  /**
-   * because we load svg file from the external url, it's a bit complex to custom color of this svg
-   * so we can only use <object> to load the svg file and using javascript to change its style
-   * @param color
-   */
-  const changeMarkerInfoColor = (color: string): void => {
-    setTimeout(() => {
-      if (imageSrc) {
-        const svgElm = document.getElementById(imageSrc)
-        if (svgElm) {
-          const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
-          if (svgElms.length) {
-            const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
-            if (svgStyleElms.length) {
-              svgStyleElms[0].innerHTML = `.st0{fill:${color};}`
-            }
-          }
-        }
-      }
-    }, 300)
-  }
-
-  changeMarkerInfoColor(marker.color)
+  setTimeout(() => {
+    SVGInject(document.querySelectorAll('img.injectable'))
+  })
 
   // only re-render <AssetIcon /> component when imageSrc changed
-  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon allowCustomColor imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
+  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon allowCustomStyle imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
