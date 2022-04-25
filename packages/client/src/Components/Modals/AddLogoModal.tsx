@@ -6,12 +6,13 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 import { saveSergeLogo } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
 import { addNotification } from '../../ActionsAndReducers/Notification/Notification_ActionCreators'
 import '@serge/themes/App.scss'
+import { RootState } from '@serge/custom-types'
 
 const AddLogoModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
 
-  const saveLogo = (src, file) => {
+  const saveLogo = (file: string) => {
     dispatch(saveSergeLogo(file))
     dispatch(modalAction.close())
   }
@@ -20,7 +21,7 @@ const AddLogoModal = () => {
     dispatch(addNotification('Not accepted.', 'warning'))
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   return (
     <ModalWrapper>

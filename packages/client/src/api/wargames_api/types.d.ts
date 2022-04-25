@@ -14,9 +14,3 @@ export interface ListenNewMessageType {
 
 export type ApiWargameDbObject = { db: ApiWargameDb, name: string }
 
-export interface WargameRevision {
-  name: string,
-  title: string,
-  initiated: boolean,
-  shortName: string
-}

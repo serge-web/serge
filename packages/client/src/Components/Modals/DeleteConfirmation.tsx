@@ -1,4 +1,5 @@
 import { Confirm } from '@serge/components'
+import { RootState, ForceData, ModalData, RoleType, PlatformType } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,8 +15,8 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 
 const DeleteModal = () => {
   const dispatch = useDispatch()
-  const currentModal = useSelector(state => state.currentModal)
-  const wargame = useSelector(state => state.wargame)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
+  const wargame = useSelector((state: RootState) => state.wargame)
 
   if (!currentModal.data) {
     return <></>
@@ -26,14 +27,16 @@ const DeleteModal = () => {
   }
 
   const onDelete = () => {
-    const { type, data } = currentModal.data
+    const { type, data } = currentModal.data as ModalData
     const curTab = wargame.currentTab
 
     switch (type) {
       case 'force': {
-        const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
-        if (isUmpire) return
-        dispatch(deleteSelectedForce(wargame.currentWargame, data))
+        if (curTab && wargame.currentWargame) {
+          const isUmpire = wargame.data[curTab].forces.find((f: ForceData) => f.uniqid === data).umpire
+          if (isUmpire) return
+          dispatch(deleteSelectedForce(wargame.currentWargame, data as string))
+        }
         break
       }
       case 'asset': {
@@ -41,11 +44,11 @@ const DeleteModal = () => {
         break
       }
       case 'channel': {
-        dispatch(deleteSelectedChannel(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deleteSelectedChannel(wargame.currentWargame, data as string))
         break
       }
       case 'role': {
-        dispatch(deleteSelectedRole(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deleteSelectedRole(wargame.currentWargame, data as RoleType))
         break
       }
       case 'games': {
@@ -53,7 +56,7 @@ const DeleteModal = () => {
         break
       }
       case 'platformType': {
-        dispatch(deletePlatformType(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data as PlatformType))
         break
       }
       default: {
@@ -64,14 +67,14 @@ const DeleteModal = () => {
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
-  const customMessages = currentModal.data.customMessages
+  const { customMessages, type } = currentModal.data as ModalData
 
   return (
     <Confirm
       isOpen={currentModal.open}
-      title={customMessages ? customMessages.title : `Delete ${currentModal.data.type}`}
+      title={customMessages ? customMessages.title : `Delete ${type}`}
       message={customMessages ? customMessages.message : 'This action is permanent. Are you sure?'}
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
