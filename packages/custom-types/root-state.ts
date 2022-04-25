@@ -37,17 +37,33 @@ export type DBLoadingState = {
   loadingWargames: boolean;
 }
 
-export type CurrentModal = {
-  open: boolean;
-  modal: string;
-  data: {
-    type: string,
-    data: any,
-    customMessages: {
-      title: string,
-      message: string
-    }
+/** data structure being collated for the
+ * modal dialog
+ */
+export type ModalData = {
+  type: string,
+  // TODO: constrain this `any` type
+  data: any,
+  customMessages: {
+    title: string,
+    message: string
   }
+}
+
+export type CurrentModal = {
+  /**
+   * whether this modal is open
+   */
+  open: boolean;
+  /**
+   * type of modal in use
+   * TODO: constrain this to a set of fixed strings
+   */
+  modal: string;
+  /**
+   *  the data that is being deleted
+   */
+  data: string | ModalData
 }
 
 export type RootState = {

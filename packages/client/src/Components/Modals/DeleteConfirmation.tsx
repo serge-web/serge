@@ -1,5 +1,5 @@
 import { Confirm } from '@serge/components'
-import { RootState, ForceData } from '@serge/custom-types'
+import { RootState, ForceData, ModalData } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,7 +27,7 @@ const DeleteModal = () => {
   }
 
   const onDelete = () => {
-    const { type, data } = currentModal.data
+    const { type, data } = currentModal.data as ModalData
     const curTab = wargame.currentTab
 
     switch (type) {
@@ -69,12 +69,12 @@ const DeleteModal = () => {
 
   if (!currentModal.open) return <></>
 
-  const customMessages = currentModal.data.customMessages
+  const { customMessages, type } = currentModal.data as ModalData
 
   return (
     <Confirm
       isOpen={currentModal.open}
-      title={customMessages ? customMessages.title : `Delete ${currentModal.data.type}`}
+      title={customMessages ? customMessages.title : `Delete ${type}`}
       message={customMessages ? customMessages.message : 'This action is permanent. Are you sure?'}
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
