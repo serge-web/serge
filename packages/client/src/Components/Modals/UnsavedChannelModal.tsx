@@ -19,7 +19,7 @@ const UnsavedChannelModal = () => {
   const currentModal = useSelector((state: RootState) => state.currentModal)
 
   const dontSave = () => {
-    if (currentModal.data === 'create-new') {
+    if (currentModal.data as unknown as string === 'create-new') {
       const id = `channel-${uniqid.time()}`
       dispatch(addNewChannel({ name: id, uniqid: id }))
       dispatch(setSelectedChannel({ name: id, uniqid: id }))

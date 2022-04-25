@@ -4,7 +4,7 @@ import copyState from '../../Helpers/copyStateHelper'
 const initialState = {
   open: false,
   modal: '',
-  data: null
+  data: {}
 }
 
 interface ModalOpenInterface {

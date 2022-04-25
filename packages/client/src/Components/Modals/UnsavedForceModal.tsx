@@ -21,7 +21,7 @@ const UnsavedForceModal = () => {
   const wargame = useSelector((state: RootState) => state.wargame)
 
   const dontSave = () => {
-    if (currentModal.data === 'create-new') {
+    if (currentModal.data as unknown as string === 'create-new') {
       const id = 'force-' + uniqid.time()
       dispatch(addNewForce({ name: id, uniqid: id }))
       dispatch(setSelectedForce({ name: id, uniqid: id }))
@@ -32,7 +32,7 @@ const UnsavedForceModal = () => {
       
       if (wargame.currentWargame) dispatch(saveForce(wargame.currentWargame, id, template, id))
     } else {
-      if (wargame.currentWargame && currentModal.data) dispatch(refreshForce(wargame.currentWargame, currentModal.data))
+      if (wargame.currentWargame && currentModal.data) dispatch(refreshForce(wargame.currentWargame, currentModal.data as unknown as string))
     }
     dispatch(setTabSaved())
     dispatch(modalAction.close())

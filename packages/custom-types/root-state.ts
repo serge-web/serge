@@ -40,7 +40,14 @@ export type DBLoadingState = {
 export type CurrentModal = {
   open: boolean;
   modal: string;
-  data: any
+  data: {
+    type: string,
+    data: any,
+    customMessages: {
+      title: string,
+      message: string
+    }
+  }
 }
 
 export type RootState = {
