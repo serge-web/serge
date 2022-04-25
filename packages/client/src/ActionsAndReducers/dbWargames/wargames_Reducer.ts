@@ -9,7 +9,9 @@ import {
   serverPath
 } from '../../consts'
 
-var initialState = {
+import { ChannelTypes, ForceData, ParticipantTypes, Role, WargameActionTypes } from '@serge/custom-types'
+
+const initialState = {
   isLoading: false,
   wargameList: [],
   currentWargame: '',
@@ -21,12 +23,12 @@ var initialState = {
   adminNotLoggedIn: true
 }
 
-export const wargamesReducer = (state = initialState, action) => {
+export const wargamesReducer = (state = initialState, action: WargameActionTypes) => {
   const newState = copyState(state)
   const tab = newState.currentTab
 
-  let selected
-  let curChannel
+  let selected: string
+  let curChannel: string
   let index
   let newForce
   let newChannel
@@ -83,7 +85,7 @@ export const wargamesReducer = (state = initialState, action) => {
       break
 
     case ActionConstant.SET_FORCE_COLOR:
-      newState.data[tab].forces.find((force) => force.name === newState.data[tab].selectedForce.name).color = action.payload
+      newState.data[tab].forces.find((force: ForceData) => force.name === newState.data[tab].selectedForce.name).color = action.payload
       break
 
     case ActionConstant.SET_SELECTED_FORCE:
@@ -104,7 +106,7 @@ export const wargamesReducer = (state = initialState, action) => {
 
     case ActionConstant.DELETE_SELECTED_CHANNEL:
 
-      channelIndex = newState.data[tab].channels.findIndex((channel) => channel.name === action.payload)
+      channelIndex = newState.data[tab].channels.findIndex((channel: ChannelTypes) => channel.name === action.payload.name)
       newState.data[tab].channels.splice(channelIndex, 1)
       newState.data[tab].selectedChannel = ''
       break
@@ -112,38 +114,38 @@ export const wargamesReducer = (state = initialState, action) => {
     case ActionConstant.ADD_NEW_RECIPIENT:
       curChannel = newState.data[tab].selectedChannel.uniqid
       newParticipant = { ...action.payload, subscriptionId: uniqId.time() }
-      newState.data[tab].channels.find((c) => c.uniqid === curChannel).participants.push(newParticipant)
+      newState.data[tab].channels.find((c: ChannelTypes) => c.uniqid === curChannel).participants.push(newParticipant)
       break
 
     case ActionConstant.UPDATE_RECIPIENT:
       curChannel = newState.data[tab].selectedChannel.uniqid
-      index = newState.data[tab].channels.find((c) => c.uniqid === curChannel).participants.findIndex((participant) => participant.subscriptionId === action.payload.id)
-      newState.data[tab].channels.find((c) => c.uniqid === curChannel).participants.splice(index, 1, { ...action.payload.data, subscriptionId: action.payload.id })
+      index = newState.data[tab].channels.find((c: ChannelTypes) => c.uniqid === curChannel).participants.findIndex((participant: ParticipantTypes) => participant.subscriptionId === action.payload.id)
+      newState.data[tab].channels.find((c: ChannelTypes) => c.uniqid === curChannel).participants.splice(index, 1, { ...action.payload.data, subscriptionId: action.payload.id })
       break
 
     case ActionConstant.REMOVE_RECIPIENT:
       curChannel = newState.data[tab].selectedChannel.uniqid
-      index = newState.data[tab].channels.find((c) => c.uniqid === curChannel).participants.findIndex((participant) => participant.subscriptionId === action.payload)
-      newState.data[tab].channels.find((c) => c.uniqid === curChannel).participants.splice(index, 1)
+      index = newState.data[tab].channels.find((c: ChannelTypes) => c.uniqid === curChannel).participants.findIndex((participant: ParticipantTypes) => participant.subscriptionId === action.payload)
+      newState.data[tab].channels.find((c: ChannelTypes) => c.uniqid === curChannel).participants.splice(index, 1)
       break
 
     case ActionConstant.ADD_ROLE_TO_FORCE:
-      newState.data[tab].forces.find((force) => force.name === action.payload.force).roles.push(action.payload.role)
+      newState.data[tab].forces.find((force: ForceData) => force.name === action.payload.force).roles.push(action.payload.role)
       break
 
     case ActionConstant.UPDATE_ROLE_NAME:
-      index = newState.data[tab].forces.find((force) => force.name === action.payload.force).roles.findIndex((role) => role.name === action.payload.oldName)
-      newState.data[tab].forces.find((force) => force.name === action.payload.force).roles.splice(index, 1, action.payload.role)
+      index = newState.data[tab].forces.find((force: ForceData) => force.name === action.payload.force).roles.findIndex((role: Role) => role.name === action.payload.oldName)
+      newState.data[tab].forces.find((force: ForceData) => force.name === action.payload.force).roles.splice(index, 1, action.payload.role)
       break
 
     case ActionConstant.REMOVE_ROLE:
-      index = newState.data[tab].forces.find((force) => force.name === newState.data[tab].selectedForce.name).roles.findIndex((role) => role.name === action.role)
-      newState.data[tab].forces.find((f) => f.name === newState.data[tab].selectedForce.name).roles.splice(index, 1)
+      index = newState.data[tab].forces.find((force: ForceData) => force.name === newState.data[tab].selectedForce.name).roles.findIndex((role: Role) => role.name === action.payload)
+      newState.data[tab].forces.find((f: ForceData) => f.name === newState.data[tab].selectedForce.name).roles.splice(index, 1)
       break
 
     case ActionConstant.ADD_ICON:
       selected = newState.data[tab].selectedForce.name
-      newState.data[tab].forces.find((f) => f.name === selected).icon = serverPath + action.icon.slice(1)
+      newState.data[tab].forces.find((f: ForceData) => f.name === selected).icon = serverPath + action.payload.slice(1)
       break
 
     case ActionConstant.LOGIN_ADMIN:

@@ -5,27 +5,35 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ButtonList } from '@serge/components'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import {
-  refreshChannel,
+  setSelectedForce,
   setTabSaved,
-  addNewChannel,
-  setSelectedChannel
+  addNewForce,
+  saveForce,
+  refreshForce
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { forceTemplate } from '../../consts'
 import '@serge/themes/App.scss'
+import { RootState } from '@serge/custom-types'
 
-const UnsavedChannelModal = () => {
+const UnsavedForceModal = () => {
   const dispatch = useDispatch()
-  const wargame = useSelector(state => state.wargame)
-  const currentModal = useSelector(state => state.currentModal)
+  const currentModal = useSelector((state: RootState) => state.currentModal)
+  const wargame = useSelector((state: RootState) => state.wargame)
 
   const dontSave = () => {
-    if (currentModal.data === 'create-new') {
-      const id = `channel-${uniqid.time()}`
-      dispatch(addNewChannel({ name: id, uniqid: id }))
-      dispatch(setSelectedChannel({ name: id, uniqid: id }))
-    } else {
-      dispatch(refreshChannel(wargame.currentWargame, currentModal.data))
-    }
+    if (currentModal.data as string === 'create-new') {
+      const id = 'force-' + uniqid.time()
+      dispatch(addNewForce({ name: id, uniqid: id }))
+      dispatch(setSelectedForce({ name: id, uniqid: id }))
 
+      const template = forceTemplate
+      template.name = id
+      template.uniqid = id
+      
+      if (wargame.currentWargame) dispatch(saveForce(wargame.currentWargame, id, template, id))
+    } else {
+      if (wargame.currentWargame && currentModal.data) dispatch(refreshForce(wargame.currentWargame, currentModal.data as string))
+    }
     dispatch(setTabSaved())
     dispatch(modalAction.close())
   }
@@ -34,7 +42,7 @@ const UnsavedChannelModal = () => {
     dispatch(modalAction.close())
   }
 
-  if (!currentModal.open) return false
+  if (!currentModal.open) return <></>
 
   const buttons = [{
     name: 'cancel',
@@ -61,4 +69,4 @@ const UnsavedChannelModal = () => {
   )
 }
 
-export default UnsavedChannelModal
+export default UnsavedForceModal

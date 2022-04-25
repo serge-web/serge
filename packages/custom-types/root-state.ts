@@ -1,4 +1,6 @@
 import { MessageTypes, Wargame } from '.';
+import PlatformType from './platform-type';
+import Role from './role';
 
 export type GameInfo = {
   imageUrlSet: boolean;
@@ -37,10 +39,39 @@ export type DBLoadingState = {
   loadingWargames: boolean;
 }
 
+export type RoleType = {
+  roles: Role[],
+  key: number,
+  handleChange: (changedItems: Array<Role>) => void
+}
+
+/** data structure being collated for the
+ * modal dialog
+ */
+export type ModalData = {
+  type: string,
+  data: string | RoleType | PlatformType,
+  customMessages: {
+    title: string,
+    message: string
+  }
+}
+
+export type ModalTypes = 'delete' | 'deleteWargame' | 'unsavedForce' | 'unsavedChannel' | 'addIcon' | 'colorpicker' | 'uploadLogo' | 'confirmDelete'
+
 export type CurrentModal = {
+  /**
+   * whether this modal is open
+   */
   open: boolean;
-  modal: string;
-  data: null;
+  /**
+   * type of modal in use
+   */
+  modal: ModalTypes;
+  /**
+   * the data that is being deleted
+   */
+  data: string | ModalData
 }
 
 export type RootState = {
