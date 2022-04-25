@@ -26,6 +26,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
+import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview } from '@serge/custom-types'
 
 /**
  * TODOS:
@@ -36,11 +37,18 @@ import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
  channels: createChannel
  back button
  */
+
+ type UniqueNameInterface = {
+  newName: string,
+  list: any[],
+  label: string,
+  oldName: string
+ }
+
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
-  const wargame = useSelector(state => state.wargame)
+  const { wargame, messageTypes }: { wargame: Wargame, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
 
-  const messageTypes = useSelector(state => state.messageTypes)
   const {
     data,
     currentWargame,
@@ -51,6 +59,7 @@ const AdminGameSetup = () => {
   const {
     overview,
     platformTypes,
+    // @ts-ignore
     platform_types, // TODO: legacy name. To be deleted.
     forces,
     channels
@@ -60,7 +69,7 @@ const AdminGameSetup = () => {
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
-  const onTabChange = tab => {
+  const onTabChange = (tab: Notification) => {
     if (!isWargameChanged()) {
       dispatch(setCurrentTab(tab))
     } else {
@@ -68,13 +77,13 @@ const AdminGameSetup = () => {
     }
   }
 
-  const onPressBack = (e) => {
+  const onPressBack = (e: MouseEvent) => {
     e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
   }
 
-  const isUniqueName = ({ newName, list, label }) => {
-    let listNames = list.map((item) => item.name)
+  const isUniqueName = ({ newName, list, label }: UniqueNameInterface) => {
+    let listNames = list.map((item: ForceData) => item.name)
     listNames = _.pull(listNames, newName)
 
     if (!checkUnique(newName, listNames)) {
@@ -84,8 +93,8 @@ const AdminGameSetup = () => {
     return true
   }
 
-  const isUniqueForceName = force => {
-    const selectedForce = forces.selectedForce.name
+  const isUniqueForceName = (force: ForceData) => {
+    const selectedForce = forces.selectedForce
     return isUniqueName({
       oldName: selectedForce,
       newName: force.name,
@@ -94,7 +103,7 @@ const AdminGameSetup = () => {
     })
   }
 
-  const isUniqueChannelName = channel => {
+  const isUniqueChannelName = (channel: ChannelTypes) => {
     const selectedChannel = channels.selectedChannel
     return isUniqueName({
       oldName: selectedChannel,
@@ -104,11 +113,11 @@ const AdminGameSetup = () => {
     })
   }
 
-  const handleFormChange = changes => {
+  const handleFormChange = (changes: WargameOverview) => {
     dispatch(setGameData(changes))
   }
 
-  const handleDeleteGameControl = (roles, key, handleChange) => {
+  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
     const role = roles[key]
     if (role.isGameControl) {
       dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
@@ -117,12 +126,12 @@ const AdminGameSetup = () => {
     }
   }
 
-  const handleSaveOverview = overview => {
+  const handleSaveOverview = (overview: WargameOverview) => {
     console.log('currentWargame', currentWargame, overview)
-    dispatch(saveSettings(currentWargame, overview))
+    if (currentWargame) dispatch(saveSettings(currentWargame, overview))
   }
 
-  const onDeletePlatformType = data => {
+  const onDeletePlatformType = (data: PlatformType) => {
     dispatch(modalAction.open('confirmDelete', {
       type: 'platformType',
       data,
@@ -133,69 +142,74 @@ const AdminGameSetup = () => {
     }))
   }
    
-  const onDuplicatePlatformType = (data) => {
-    dispatch(duplicatePlatformType(currentWargame, data))
+  const onDuplicatePlatformType = (data: PlatformType) => {
+    if (currentWargame) dispatch(duplicatePlatformType(currentWargame, data))
   }
 
-  const handleSavePlatformTypes = platformTypes => {
-    dispatch(savePlatformTypes(currentWargame, platformTypes))
+  const handleSavePlatformTypes = (platformTypes: PlatformType) => {
+    if (currentWargame) dispatch(savePlatformTypes(currentWargame, platformTypes))
   }
 
-  const handleSaveForce = newForces => {
+  const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
-    const selectedForceId = selectedForce.uniqid
+    const selectedForceId = selectedForce
     const newForceData = newForces.find(force => force.uniqid === selectedForceId)
-    const forceOverview = newForceData.overview
-    const forceName = newForceData.name
-    newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
-
-    const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
-    if (empForceRoleNames.length > 0) {
-      dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
-      return
-    }
-
-    const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
-    if (dupForceRoleNames.length > 0) {
-      dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
-      return
-    }
-
-    if (typeof forceName === 'string' && forceName.length > 0) {
-      if (!isUniqueForceName(newForceData)) return
-      const selectedForce = forces.selectedForce.name
-      dispatch(saveForce(currentWargame, forceName, newForceData, selectedForce))
-    }
-
-    if (forceName === null) {
-      const selectedForce = forces.selectedForce.name
-      dispatch(saveForce(currentWargame, selectedForce, newForceData, selectedForce))
-    } else if (forceName.length === 0) {
-      dispatch(addNotification('No Force Name', 'warning'))
+    if (newForceData) {
+      const forceOverview = newForceData.overview
+      const forceName = newForceData.name
+      // @ts-ignore
+      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
+  
+      const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
+      if (empForceRoleNames.length > 0) {
+        dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+        return
+      }
+  
+      const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
+      if (dupForceRoleNames.length > 0) {
+        dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+        return
+      }
+  
+      if (typeof forceName === 'string' && forceName.length > 0) {
+        if (!isUniqueForceName(newForceData)) return
+        const selectedForce = forces.selectedForce
+        if (currentWargame) dispatch(saveForce(currentWargame, forceName, newForceData, selectedForce))
+      }
+  
+      if (forceName === null) {
+        const selectedForce = forces.selectedForce
+        if (currentWargame) dispatch(saveForce(currentWargame, selectedForce, newForceData, selectedForce))
+      } else if (forceName.length === 0) {
+        dispatch(addNotification('No Force Name', 'warning'))
+      }
     }
   }
 
-  const handleSaveChannel = channel => {
+  const handleSaveChannel = (channel: ChannelTypes) => {
     const channelName = channel.name
-    const selectedChannelName = channels.selectedChannel.name
+    const selectedChannelName = channels.selectedChannel
     const selectedChannelId = channel.uniqid
     const newChannelData = channels.channels.find((c) => c.uniqid === selectedChannelId)
 
-    if (typeof channelName === 'string' && channelName.length > 0) {
-      if (!isUniqueChannelName(channel)) return
-
-      dispatch(setTabSaved())
-      dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName))
-    }
-
-    if (channelName === null) {
-      dispatch(saveChannel(currentWargame, selectedChannelName, newChannelData, selectedChannelName))
-    } else if (channelName.length === 0) {
-      window.alert('no channel name')
+    if (currentWargame && newChannelData) {
+      if (typeof channelName === 'string' && channelName.length > 0) {
+        if (!isUniqueChannelName(channel)) return
+  
+        dispatch(setTabSaved())
+        dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName))
+      }
+  
+      if (channelName === null) {
+        dispatch(saveChannel(currentWargame, selectedChannelName, newChannelData, selectedChannelName))
+      } else if (channelName.length === 0) {
+        window.alert('no channel name')
+      }
     }
   }
 
-  const onSave = updates => {
+  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes) => {
     let saveAction
     switch (currentTab) {
       case AdminTabs.Overview:
@@ -232,46 +246,46 @@ const AdminGameSetup = () => {
       template.roles.forEach(role => {
         role.roleId = getUniquePasscode(forces.forces, 'p')
       })
-      dispatch(saveForce(currentWargame, id, template, id))
+      if (currentWargame) dispatch(saveForce(currentWargame, id, template, id))
     }
   }
 
-  const onDeleteForce = ({ uniqid: data }) => {
+  const onDeleteForce = ({ uniqid: data }: { uniqid: string }) => {
     dispatch(modalAction.open('confirmDelete', {
       type: 'force',
       data
     }))
   }
 
-  const onDuplicateForce = (data) => {
-    dispatch(duplicateForce(currentWargame, data))
+  const onDuplicateForce = (data: ForceData) => {
+    if (currentWargame) dispatch(duplicateForce(currentWargame, data))
   }
 
-  const onCreateChannel = (id, createdChannel) => {
+  const onCreateChannel = (id: string, createdChannel: ChannelTypes) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      dispatch(saveChannel(currentWargame, id, createdChannel, id))
+      if (currentWargame) dispatch(saveChannel(currentWargame, id, createdChannel, id))
     }
   }
 
-  const onDeleteChannel = ({ uniqid }) => {
+  const onDeleteChannel = ({ uniqid }: { uniqid: string }) => {
     dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
   }
 
-  const onDeleteAsset = (setList, item) => {
+  const onDeleteAsset = (setList: (newList: Array<Asset>) => void, item: Asset) => {
     dispatch(modalAction.open('confirmDelete', { type: 'asset', data: { setList, item } }))
   }
 
-  const onDuplicateChannel = ({ uniqid }) => {
-    dispatch(duplicateChannel(currentWargame, uniqid))
+  const onDuplicateChannel = ({ uniqid }: { uniqid: string }) => {
+    if (currentWargame) dispatch(duplicateChannel(currentWargame, uniqid))
   }
 
   const onWargameInitiate = () => {
-    dispatch(initiateWargame(currentWargame))
+    if (currentWargame) dispatch(initiateWargame(currentWargame))
   }
 
-  const handleSidebarForcesClick = force => {
+  const handleSidebarForcesClick = (force: { name: string, uniqid: string, iconURL: string }) => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', force))
     } else {
@@ -279,7 +293,7 @@ const AdminGameSetup = () => {
     }
   }
 
-  const handleSidebarChannelsClick = channel => {
+  const handleSidebarChannelsClick = (channel: ChannelTypes) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', channel))
     } else {
@@ -288,7 +302,7 @@ const AdminGameSetup = () => {
     }
   }
 
-  const handleSaveWargameTitle = (newGameTitle) => {
+  const handleSaveWargameTitle = (newGameTitle: string) => {
     let wargameNames = wargameList.map((game) => game.title)
     wargameNames = _.pull(wargameNames, wargameTitle)
 
@@ -298,7 +312,7 @@ const AdminGameSetup = () => {
     }
 
     if (typeof newGameTitle === 'string' && newGameTitle.length > 0) {
-      dispatch(saveWargameTitle(currentWargame, newGameTitle))
+      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle))
     }
 
     if (newGameTitle === null || newGameTitle.length === 0) {
@@ -315,7 +329,7 @@ const AdminGameSetup = () => {
   }, [currentTab])
 
   const getSelectedChannel = () => {
-    return channels && channels.channels.find(channel => channel.uniqid === channels.selectedChannel.uniqid)
+    return channels && channels.channels.find((channel: ChannelTypes) => channel.uniqid === channels.selectedChannel)
   }
 
   return (

@@ -50,14 +50,14 @@ import {
   PlatformTypeData,
   Role,
   ParticipantTypes,
-  ParticipantChat
+  ParticipantChat,
+  WargameRevision
 } from '@serge/custom-types'
 
 import {
   ApiWargameDbObject,
   ApiWargameDb,
-  ListenNewMessageType,
-  WargameRevision
+  ListenNewMessageType
 } from './types.d'
 import { hiddenPrefix } from '@serge/config'
 import incrementGameTime from '../../Helpers/increment-game-time'
