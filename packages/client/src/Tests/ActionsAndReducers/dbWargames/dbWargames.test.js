@@ -13,6 +13,7 @@ import {
 import * as ActionConstant from '@serge/config'
 import _ from 'lodash'
 import deepCopy from '../../../Helpers/copyStateHelper'
+import { wargameSettings } from '@serge/config'
 
 // eslint-disable-next-line no-undef
 jest.mock('uniqid', () => ({
@@ -27,7 +28,7 @@ const wargameLocal = {
   wargameTitle: 'wargame-juli0v4i',
   wargameInitiated: true,
   data: {},
-  _id: 'initial_wargame',
+  _id: wargameSettings,
   _rev: '0-1'
 }
 

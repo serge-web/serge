@@ -137,6 +137,7 @@ export const allDbs = 'allDbs'
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
+/** name of the document used to store the initial wargame definition */
 export const wargameSettings = 'initial_wargame'
 export const settings = 'settings'
 // default name for role name

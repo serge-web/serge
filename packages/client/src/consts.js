@@ -1,6 +1,7 @@
 import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
+import { wargameSettings } from '@serge/config'
 
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
@@ -146,7 +147,7 @@ export const channelTemplate = {
 }
 
 export const dbDefaultSettings = {
-  _id: 'initial_wargame',
+  _id: wargameSettings,
   wargameTitle: '',
   data: {
     overview: {

@@ -1,9 +1,9 @@
 import moment from 'moment'
 import umpireForceTemplate from './umpireForce'
-import { ADJUDICATION_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE, wargameSettings } from '@serge/config'
 
 export default {
-  _id: 'initial_wargame',
+  _id: wargameSettings,
   wargameTitle: '',
   data: {
     overview: {
