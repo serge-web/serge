@@ -4,7 +4,7 @@ import lineBreak from '../Helpers/splitNewLineBreak'
 import { ADMIN_ROUTE, STORYBOOK_ROUTE } from '../consts'
 import { faUserCog, faPencilRuler } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from './PlayerUi/types'
-import { databasePath, SERGE_INFO } from '@serge/config'
+import { databasePath, SERGE_INFO, settings } from '@serge/config'
 import DbProvider from '../api/db'
 
 const db = new DbProvider(databasePath + SERGE_INFO)
@@ -15,7 +15,7 @@ const PlayerUiLandingScreen: React.FC<Props> = ({ gameInfo, enterSerge }) => {
 
   const [title,setTitle] = React.useState('')
 
-  db.get('settings').then((res) => setTitle(res['title'] || 'Database not found'))
+  db.get(settings).then((res) => setTitle(res['title'] || 'Database not found'))
 
   return <div className="flex-content-wrapper flex-content-wrapper--welcome">
     <div className="flex-content flex-content--welcome">

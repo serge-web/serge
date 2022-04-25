@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 
-const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')
+const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -117,7 +117,7 @@ const pouchDb = (app, io, pouchOptions) => {
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== localSettings
+          const isNotSystem = doc._id !== wargameSettings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])
@@ -138,7 +138,7 @@ const pouchDb = (app, io, pouchOptions) => {
     db.get(id)
       .then(data => res.send({ msg: 'ok', data: data }))
       .catch(() => {
-       db.get('settings')
+       db.get(settings)
         .then(data => res.send({ msg: 'ok', data: data }))
         .catch((err) => res.send({ msg: 'err', data: err }))
       })
