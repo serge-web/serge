@@ -16,7 +16,7 @@ const DeleteWargameModal = () => {
 
   const onDeleteWargame = () => {
     const { data } = currentModal.data as ModalData
-    dispatch(deleteWargame(data.data))
+    dispatch(deleteWargame(data as string))
     dispatch(modalAction.close())
   }
 

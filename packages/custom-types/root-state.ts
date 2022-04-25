@@ -1,4 +1,6 @@
 import { MessageTypes, Wargame } from '.';
+import PlatformType from './platform-type';
+import Role from './role';
 
 export type GameInfo = {
   imageUrlSet: boolean;
@@ -37,13 +39,18 @@ export type DBLoadingState = {
   loadingWargames: boolean;
 }
 
+export type RoleType = {
+  roles: Role[],
+  key: number,
+  handleChange: (changedItems: Array<Role>) => void
+}
+
 /** data structure being collated for the
  * modal dialog
  */
 export type ModalData = {
   type: string,
-  // TODO: constrain this `any` type
-  data: any,
+  data: string | RoleType | PlatformType,
   customMessages: {
     title: string,
     message: string

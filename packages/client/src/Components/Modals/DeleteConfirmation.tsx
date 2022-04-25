@@ -1,5 +1,5 @@
 import { Confirm } from '@serge/components'
-import { RootState, ForceData, ModalData } from '@serge/custom-types'
+import { RootState, ForceData, ModalData, RoleType, PlatformType } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +35,7 @@ const DeleteModal = () => {
         if (curTab && wargame.currentWargame) {
           const isUmpire = wargame.data[curTab].forces.find((f: ForceData) => f.uniqid === data).umpire
           if (isUmpire) return
-          dispatch(deleteSelectedForce(wargame.currentWargame, data))
+          dispatch(deleteSelectedForce(wargame.currentWargame, data as string))
         }
         break
       }
@@ -44,11 +44,11 @@ const DeleteModal = () => {
         break
       }
       case 'channel': {
-        if (wargame.currentWargame) dispatch(deleteSelectedChannel(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deleteSelectedChannel(wargame.currentWargame, data as string))
         break
       }
       case 'role': {
-        if (wargame.currentWargame) dispatch(deleteSelectedRole(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deleteSelectedRole(wargame.currentWargame, data as RoleType))
         break
       }
       case 'games': {
@@ -56,7 +56,7 @@ const DeleteModal = () => {
         break
       }
       case 'platformType': {
-        if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data))
+        if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data as PlatformType))
         break
       }
       default: {
