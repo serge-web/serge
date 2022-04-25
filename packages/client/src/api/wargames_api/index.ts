@@ -816,11 +816,24 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   //   console.log(err)
   //   return err
   // })
-
   db.put(customMessage).catch((err) => {
     console.log(err)
     return err
   })
+
+  /**
+   * annotations are optional. So, if they're unset, initialise them
+   */
+  const checkAnnotations = (annoData: MapAnnotationData | undefined): MapAnnotationData => {
+    if (typeof annoData === 'undefined') {
+      const newAnns: MapAnnotationData = {
+        annotations: []
+      }
+      return newAnns
+    } else {
+      return annoData
+    }
+  }
 
   // also make the modification to the wargame
   return new Promise((resolve, reject) => {
@@ -831,25 +844,18 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
 
         // special handling for marker message
         if(message.messageType === UPDATE_MARKER) {
-          // ok - marker update - not force
-          if (!res.data.annotations) {
-            const newAnns: MapAnnotationData = {
-              annotations: []
-            }
-            res.data.annotations = newAnns
-          }
+          // ok - marker update - not force. If admin changes markers during planning phase,
+          // they get updated immediately, so we do that here.
+          // initialise annotations, if necessary
+          res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageUpdateMarker = message
           res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
-          if (!res.data.annotations) {
-            const newAnns: MapAnnotationData = {
-              annotations: []
-            }
-            res.data.annotations = newAnns
-          }
           res.data.forces.forces= handleStateOfWorldChanges(validMessage, res.data.forces.forces)
+          // initialise annotations, if necessary
+          res.data.annotations = checkAnnotations(res.data.annotations)
           // we can just copy in the new markers
           res.data.annotations.annotations = validMessage.state.mapAnnotations
         }
