@@ -9,12 +9,7 @@ import ColorPickerModal from '../ColorPickerModal'
 import AddLogoModal from '../AddLogoModal'
 import DeleteConfirmation from '../DeleteConfirmation'
 import '@serge/themes/App.scss'
-
-interface CurrentModal {
-  open: boolean,
-  modal: string,
-  data: {}
-}
+import { CurrentModal } from '@serge/custom-types'
 
 class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {

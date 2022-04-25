@@ -50,6 +50,8 @@ export type ModalData = {
   }
 }
 
+export type ModalTypes = 'delete' | 'deleteWargame' | 'unsavedForce' | 'unsavedChannel' | 'addIcon' | 'colorpicker' | 'uploadLogo' | 'confirmDelete'
+
 export type CurrentModal = {
   /**
    * whether this modal is open
@@ -57,11 +59,10 @@ export type CurrentModal = {
   open: boolean;
   /**
    * type of modal in use
-   * TODO: constrain this to a set of fixed strings
    */
-  modal: string;
+  modal: ModalTypes;
   /**
-   *  the data that is being deleted
+   * the data that is being deleted
    */
   data: string | ModalData
 }
