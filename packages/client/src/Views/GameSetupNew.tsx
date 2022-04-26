@@ -323,13 +323,14 @@ const AdminGameSetup = () => {
   useEffect(() => {
     if (currentTab === 'forces' && forces.selectedForce === '') {
       dispatch(setSelectedForce(forces.forces[0]))
-    } else if (currentTab === 'channels' && channels.selectedChannel === '') {
+    } else if (currentTab === 'channels' && channels.selectedChannel === '' as string) {
       dispatch(setSelectedChannel(channels.channels[0]))
     }
   }, [currentTab])
 
   const getSelectedChannel = () => {
-    return channels && channels.channels.find((channel: ChannelTypes) => channel.uniqid === channels.selectedChannel.uniqid)
+    const { uniqid } = channels.selectedChannel as { uniqid: string }
+    return channels && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
   }
 
   return (
