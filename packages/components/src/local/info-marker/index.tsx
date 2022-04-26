@@ -1,8 +1,11 @@
 import { UMPIRE_FORCE } from '@serge/config'
 import L, { DragEndEvent } from 'leaflet'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import unfetch from 'node-fetch'
 import React, { useContext, useEffect, useState } from 'react'
 import { Marker, Tooltip } from 'react-leaflet'
+import xmljs from 'xml-js'
 import { getIconClassname } from '../asset-icon'
 /* Import context */
 import { MapContext } from '../mapping'
@@ -10,6 +13,7 @@ import { MapContext } from '../mapping'
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
+
 const fetch = unfetch.bind(window)
 
 /* Render component */
@@ -38,7 +42,15 @@ export const InfoMarker: React.FC<PropTypes> = ({
   useEffect(() => {
     fetch(`/assets/counters/${marker.icon || 'unknown.svg'}`, { method: 'GET' })
       .then(res => res.text())
-      .then(text => setSvgContent(text))
+      .then(text => {
+        const option = { compact: true }
+        const svgJson = JSON.parse(xmljs.xml2json(text, option))
+        const attributes = get(svgJson, 'svg.g.path._attributes')
+        attributes.style = `fill: ${marker.color}`
+        set(svgJson, 'svg.g.path._attributes', attributes)
+        const svgXml = xmljs.json2xml(svgJson, option)
+        setSvgContent(svgXml)
+      })
   }, [marker.icon])
 
   const divIcon = L.divIcon({
