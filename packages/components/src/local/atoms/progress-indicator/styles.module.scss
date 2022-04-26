@@ -11,7 +11,7 @@
 }
 
 .progress::before {
-  background: #415b76;
+  background: lightgray;
   content: "";
   height: 2px;
   left: 12px;
@@ -25,13 +25,13 @@
 
 .progress-indicator {
   background: #eff4f2;
-  border: 2px solid #415b76;
+  border: 1px solid rgb(128, 128, 128);
   border-radius: 50%;
-  height: 20px;
-  margin: 0 15px;
+  height: 12px;
+  width: 12px;
+  margin: 0 12px;
   position: relative;
   transition: all 0.5s ease;
-  width: 20px;
   z-index: 2;
 }
 
@@ -45,11 +45,8 @@
 
 .progress-indicator-active::before {
   animation: scale 0.5s ease-out;
-  border: 1.5px solid #abc761;
   border-radius: 50%;
   box-sizing: border-box;
-  content: "";
-  opacity: 0.75;
   position: absolute;
   width: 150%;
   height: 150%;
@@ -58,7 +55,8 @@
   transform: translate3d(-50%, -50%, 0);
 }
 
-.progress-indicator-complete {
-  background: #abc761;
-  border: 2px solid #abc761;
+.progress-indicator-active {
+  background: #388e3c;
+  border: 1px solid #388e3c;
+  box-shadow: 0 0 5px #388e3c;
 }

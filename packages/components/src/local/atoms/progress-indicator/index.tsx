@@ -15,8 +15,7 @@ export const ProgressIndicator: React.FC<Props> = ({ list }: Props) =>
         list.map((entry, key) => (
           <div key={key} className={cx(
             styles['progress-indicator'],
-            entry.active && styles['progress-indicator-active'],
-            entry.complete && styles['progress-indicator-complete']
+            entry.active && styles['progress-indicator-active']
           )} />
         ))
       }
