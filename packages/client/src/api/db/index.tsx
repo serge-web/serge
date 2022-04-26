@@ -42,7 +42,7 @@ export class DbProvider implements DbProviderInterface {
 
   get (query: string): Promise<Wargame | Message | { status: number }> {
     return new Promise((resolve, reject) => {
-      fetch(serverPath + this.getDbName() + '/' + query)
+      fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
         .then(({ msg, data }) => {
           if (msg === 'ok') resolve(data)

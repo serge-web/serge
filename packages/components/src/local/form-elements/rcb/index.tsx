@@ -11,7 +11,8 @@ import PropTypes from './types/props'
 
 /* Import helpers */
 import { ConditionalWrapper, componentSelector } from './helpers'
-import { SelectOption } from '@serge/custom-types'
+import { FormOption } from '@serge/custom-types'
+import { camelCase } from 'lodash'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
@@ -28,7 +29,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   }
 
   useEffect(() => {
-    const selection = options.map((option: string | number | SelectOption) => {
+    const selection = options.map((option: string | number | FormOption) => {
       const opt = valueFor(option)
       let selected = false
       if (Array.isArray(value)) {
@@ -67,9 +68,9 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
     )
   }
 
-  const inputName = name || label
+  const inputName = name || camelCase(label)
 
-  const getLabel = (option: SelectOption): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
+  const getLabel = (option: FormOption): any => force && option.colour ? <span><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{!compact && option.name}</span> : option
 
   const getSelected = (o: string | number): boolean => {
     const res = Array.isArray(value) ? value.includes(o) : value === o

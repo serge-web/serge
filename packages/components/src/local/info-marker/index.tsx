@@ -1,92 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react'
-import cx from 'classnames'
-import { Marker, Tooltip } from 'react-leaflet'
+import { UMPIRE_FORCE } from '@serge/config'
 import L, { DragEndEvent } from 'leaflet'
-import { lightOrDark } from '../map-control/helpers/lightOrDark'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import unfetch from 'node-fetch'
-
+import React, { useContext, useEffect, useState } from 'react'
+import { Marker, Tooltip } from 'react-leaflet'
+import xmljs from 'xml-js'
+import { getIconClassname } from '../asset-icon'
+/* Import context */
+import { MapContext } from '../mapping'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-/* Import context */
-import { MapContext } from '../mapping'
-import { UMPIRE_FORCE } from '@serge/config'
-
-// TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
-// error based on some webpack version
 const fetch = unfetch.bind(window)
-
-/* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType = '', icSelected?: boolean): string => (cx(
-  styles['asset-icon'],
-  styles[icForceClass],
-  icSelected ? styles.selected : null,
-  icType && styles[`platform-type-${icType}`]
-))
-const isUrl = (url: string): boolean => {
-  return !/base64/.test(url)
-}
-export const checkUrl = (url: string): string => {
-  if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
-    return url
-  } else {
-    const prefix = '/static/media/src/local/info-marker/counters/'
-    return prefix + url
-  }
-}
-
-interface GetIconProps {
-  icType: string
-  color?: string
-  isSelected?: boolean
-  imageSrc?: string
-}
-
-const getReverce = (color = ''): string | false => (
-  color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
-)
-
-export const GetIcon = ({ icType, color = '', isSelected, imageSrc }: GetIconProps): React.ReactElement => {
-  const [loadStatus, setLoadStatus] = useState(true)
-  useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
-  }, [imageSrc])
-
-  return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
-    {imageSrc && loadStatus
-      ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
-      </div>
-      : <div className={cx(
-        getIconClassname(color, icType, isSelected),
-        styles['asset-icon-fw'],
-        getReverce(color)
-      )}/>}
-  </div>
-}
-
-const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
-  if (imageSrc && isUrl(imageSrc)) {
-    try {
-      return fetch(checkUrl(imageSrc), { method: 'HEAD' })
-        .then(res => res.status !== 404)
-    } catch (error) {
-      console.warn(`failed to get "${imageSrc}" image`)
-    }
-  }
-  return new Promise((resolve) => resolve(true))
-}
 
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location
 }) => {
-  const [loadStatus, setLoadStatus] = useState(true)
-  const [imageSrc] = useState<string | undefined>(marker.icon)
+  const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
 
   const props = useContext(MapContext).props
@@ -101,19 +36,26 @@ export const InfoMarker: React.FC<PropTypes> = ({
     setMarkerIsDraggable(isUmpire && canSubmitOrders && !!selectedMarker && selectedMarker === marker.uniqid)
   }, [selectedMarker, marker, playerForce, canSubmitOrders])
 
-  useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
-  }, [imageSrc])
+  const isSelected = marker.uniqid === selectedMarker
+  const className = getIconClassname('', isSelected)
 
-  const className = getIconClassname('', '', marker.uniqid === selectedMarker)
-  const reverceClassName = getReverce(marker.color)
-  const image = loadStatus && typeof imageSrc !== 'undefined'
-    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${marker.icon}">`
-    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${marker.icon}`])}"></div>`
+  useEffect(() => {
+    fetch(`/assets/counters/${marker.icon || 'unknown.svg'}`, { method: 'GET' })
+      .then(res => res.text())
+      .then(text => {
+        const option = { compact: true }
+        const svgJson = JSON.parse(xmljs.xml2json(text, option))
+        const attributes = get(svgJson, 'svg.g.path._attributes')
+        attributes.style = `fill: ${marker.color}`
+        set(svgJson, 'svg.g.path._attributes', attributes)
+        const svgXml = xmljs.json2xml(svgJson, option)
+        setSvgContent(svgXml)
+      })
+  }, [marker.icon, marker.color])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${marker.color}">${image}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${svgContent}</div>`
   })
 
   const clickEvent = (): void => {

@@ -1,20 +1,17 @@
 import React from 'react'
-import { getIconClassname } from '../../asset-icon'
-
+import AssetIcon from '../../asset-icon'
+/* Import Styles */
+import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes from './types/props'
 
-/* Import Styles */
-import styles from './styles.module.scss'
-
 /* Render component */
-export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {
-  const iconClassname = getIconClassname(forceColor.toLowerCase(), platformType)
+export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, icon }) => {
   return (
     <div className={styles.main}>
       <h2>{children}</h2>
       <div className={styles.icon}>
-        <div className={iconClassname}/>
+        <AssetIcon color={forceColor} isSelected={false} imageSrc={icon} />
       </div>
     </div>
   )

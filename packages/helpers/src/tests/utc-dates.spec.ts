@@ -4,8 +4,9 @@ import newDate from '../new-date'
 
 describe('sort out UTC dates', () => {
   it('creates dates as expected', () => {
-    const theDate = new Date().toISOString()
-    const newD = newDate()
+    const dateVal = new Date()
+    const theDate = dateVal.toISOString()
+    const newD = newDate(dateVal)
     expect(newD).toEqual(theDate)
     // check the time zoen
     expect(newD.charAt(10)).toEqual('T')

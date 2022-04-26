@@ -38,7 +38,7 @@ const canCombineWith = (store: RouteStore, draggingItem: string | number, item: 
       }
       if (dragging && over) {
         // check they are on the same force
-        if (dragging.actualForceName !== over.actualForceName) {
+        if (dragging.actualForceId !== over.actualForceId) {
           return false
         }
 

@@ -106,6 +106,6 @@ it('checks platform types are correct', () => {
   expect(manager.platformDetails).toBeFalsy() // not retrieved yet
   const details = manager.getPlatformDetails()
   expect(details).toBeTruthy()
-  expect(details.name.toUpperCase()).toEqual(store.selected && store.selected.platformType.toUpperCase())
+  expect(details.uniqid).toEqual(store.selected && store.selected.platformTypeId)
   expect(manager.platformDetails).toBeTruthy() // cached object available
 })

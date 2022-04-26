@@ -1,3 +1,5 @@
+import { CoreMessage } from '@serge/custom-types'
+
 export default interface Props {
   /**
    * List of icons generated from each force's icon
@@ -10,5 +12,10 @@ export default interface Props {
   /**
    * Callback on mark all as read button click event
    */
-  onMarkAllAsRead?: {(): void}
+  onMarkAllAsRead?: { (): void }
+  /**
+   * Messages in the chahnel. Used to determine whether to
+   * show `Mark all as read` button
+   */
+  messages?: CoreMessage[]
 }

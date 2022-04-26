@@ -1,7 +1,6 @@
-import { AttributeTypes } from '.'
-import ColorOption from './color-option'
+import { AttributeTypes, ForceData } from '.'
+import ForceOption from './force-option'
 import { AttributeValues } from './attributes'
-import SergeHex from './serge-hex'
 import { SergeHex3 } from './serge-hex-3'
 import PlatformTypeData from './platform-type-data'
 
@@ -21,14 +20,15 @@ export interface PerceivedType {
 }
 
 export interface PerceptionFormPopulate {
-  perceivedForces: Array<ColorOption>
+  perceivedForces: Array<ForceOption>
   perceivedTypes: Array<PerceivedType>
 }
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
-  perceivedForceVal: string
-  perceivedTypeId: PlatformTypeData['uniqid'] | undefined
+  perceivedForceColor: ForceData['color'] | undefined
+  perceivedForceId: ForceData['uniqid'] | undefined
+  perceivedTypeId: PlatformTypeData['name'] | undefined
   assetId: string
   iconURL: PlatformTypeData['icon']
 }
@@ -68,7 +68,7 @@ export interface AdjudicateTurnFormPopulate {
   contactId: string
   status: Array<Status>
   speed: Array<number>
-  visibleTo: Array<ColorOption>
+  visibleTo: Array<ForceOption>
   condition: Array<string>
   attributes: AttributeTypes
 }
@@ -77,8 +77,8 @@ export interface VisibilityFormData {
   assetId: string
   name: string
   contactId: string
-  populate: Array<ColorOption>
-  values: Array<string>
+  availableForces: Array<ForceOption>
+  forceNames: Array<ForceData['name']>
   condition: Array<string>
   selectedCondition: string
 }

@@ -22,15 +22,18 @@ const formData: AdjudicateTurnFormPopulate = {
   visibleTo: [
     {
       name: 'Blue Force',
-      colour: '#69c'
+      colour: '#69c',
+      id: 'Blue'
     },
     {
       name: 'Red Force',
-      colour: '#f00'
+      colour: '#f00',
+      id: 'Red'
     },
     {
       name: 'White Force',
-      colour: '#fff'
+      colour: '#fff',
+      id: 'umpire'
     }
   ],
   condition: ['Working', 'Disabled', 'Immobile', 'Destroyed'],

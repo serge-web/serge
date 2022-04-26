@@ -21,6 +21,8 @@ export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
+export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
+
 //TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
 
 export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
@@ -135,7 +137,9 @@ export const allDbs = 'allDbs'
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
 export const replicate = 'replicate/'
 export const deletePath = 'delete/'
-export const localSettings = '_local/settings'
+/** name of the document used to store the initial wargame definition */
+export const wargameSettings = 'initial_wargame'
+export const settings = 'settings'
 // default name for role name
 export const NEW_ROLE = 'New Role'
 

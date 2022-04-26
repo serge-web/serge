@@ -1,6 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
-const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')
+
+const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -45,7 +46,7 @@ const pouchDb = (app, io, pouchOptions) => {
     return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
   }
 
-  app.put('/:wargame', (req, res) => {
+  app.put('/:wargame', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
@@ -57,7 +58,10 @@ const pouchDb = (app, io, pouchOptions) => {
     const retryUntilWritten = (db, doc) => {
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
-        return db.put(doc).then(() => res.send({ msg: 'Updated', data: doc }))
+        return db.put(doc).then(async () => {
+          await db.compact()
+          res.send({ msg: 'Updated', data: doc })
+        })
       }).catch(err => {
         if (err.status === 409) {
           return retryUntilWritten(db, doc)
@@ -109,10 +113,11 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     const db = new PouchDB(databaseName, pouchOptions)
+
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== localSettings
+          const isNotSystem = doc._id !== wargameSettings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])
@@ -121,22 +126,22 @@ const pouchDb = (app, io, pouchOptions) => {
   })
 
   // get document for wargame
-  app.get('/:wargame/:id/:idp2', (req, res) => {
+  app.get('/get/:wargame/:id', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
-    let id = `${req.params.id}`
-
-    if (req.params.idp2) {
-      id += '/' + req.params.idp2
-    }
+    const id = `${req.params.id}`
 
     if (!id || !databaseName) {
       res.status(404).send({ msg: 'Wrong Id or Wargame', data: null })
     }
 
     db.get(id)
-      .then(data => res.send({ msg: 'ok', data: data || [] }))
-      .catch(() => res.send([]))
+      .then(data => res.send({ msg: 'ok', data: data }))
+      .catch(() => {
+        db.get(settings)
+          .then(data => res.send({ msg: 'ok', data: data }))
+          .catch((err) => res.send({ msg: 'err', data: err }))
+      })
   })
 }
 
