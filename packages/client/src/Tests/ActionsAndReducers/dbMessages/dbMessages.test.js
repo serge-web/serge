@@ -4,9 +4,9 @@ import thunk from 'redux-thunk'
 import * as messages from '../../../ActionsAndReducers/dbMessages/messages_ActionCreators'
 import * as messagesApi from '../../../api/messages_api'
 import machineryFailure from '../../../Schemas/machinery_failure.json'
-import * as ActionConstant from '@serge/config'
+import * as Globals from '@serge/config'
 import { messagesReducer } from '../../../ActionsAndReducers/dbMessages/messages_Reducer'
-import { ADMIN_ROUTE, MESSAGE_LIBRARY_ROUTE } from '../../../consts'
+import { MESSAGE_LIBRARY_ROUTE } from '../../../consts'
 
 const mockStore = configureStore([thunk])
 
@@ -53,18 +53,18 @@ describe('message actions', () => {
 
   it('fetches all messages ActionConstant.DB_MESSAGE_SAVED after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: true },
       {
-        type: ActionConstant.DB_MESSAGE_STATUS,
+        type: Globals.DB_MESSAGE_STATUS,
         payload: {
           _id: 'id',
           _rev: 'revision1',
           ok: true
         }
       },
-      { type: ActionConstant.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false },
-      { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_LIBRARY_ROUTE }
+      { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false },
+      { type: Globals.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_LIBRARY_ROUTE }
     ]
 
     const store = mockStore({})
@@ -77,13 +77,13 @@ describe('message actions', () => {
 
   it('duplicates a message ActionConstant.DB_MESSAGE_SAVED after successful duplication', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: true },
       {
-        type: ActionConstant.DB_MESSAGE_STATUS,
+        type: Globals.DB_MESSAGE_STATUS,
         payload: true
       },
-      { type: ActionConstant.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false }
+      { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false }
     ]
 
     const store = mockStore({})
@@ -96,19 +96,19 @@ describe('message actions', () => {
 
   it('updates a message and ActionConstant.DB_MESSAGE_SAVED after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: true },
       {
-        type: ActionConstant.DB_MESSAGE_STATUS,
+        type: Globals.DB_MESSAGE_STATUS,
         payload: {
           _id: 'id',
           _rev: 'revision1',
           ok: true
         }
       },
-      { type: ActionConstant.DB_RETURNED_MESSAGE, payload: {} },
-      { type: ActionConstant.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false },
-      { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_LIBRARY_ROUTE }
+      { type: Globals.DB_RETURNED_MESSAGE, payload: {} },
+      { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false },
+      { type: Globals.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_LIBRARY_ROUTE }
     ]
 
     const store = mockStore({})
@@ -121,10 +121,10 @@ describe('message actions', () => {
 
   it('deletes a message and ActionConstant.RESET_MESSAGE_STATUS after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
-      { type: ActionConstant.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.RESET_MESSAGE_PREVIEW },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false }
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
+      { type: Globals.RESET_MESSAGE_PREVIEW },
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false }
     ]
 
     const store = mockStore({})
@@ -137,9 +137,9 @@ describe('message actions', () => {
 
   it('gets a message and ActionConstant.RESET_MESSAGE_STATUS after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGES_GET, isLoading: true },
-      { type: ActionConstant.DB_RETURNED_MESSAGE, payload: {} },
-      { type: ActionConstant.DB_MESSAGES_GET, isLoading: false }
+      { type: Globals.DB_MESSAGES_GET, isLoading: true },
+      { type: Globals.DB_RETURNED_MESSAGE, payload: {} },
+      { type: Globals.DB_MESSAGES_GET, isLoading: false }
     ]
 
     const store = mockStore({})
@@ -152,9 +152,9 @@ describe('message actions', () => {
 
   it('gets all messages and ActionConstant.RESET_MESSAGE_STATUS after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGES_GET, isLoading: true },
-      { type: ActionConstant.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGES_GET, isLoading: false }
+      { type: Globals.DB_MESSAGES_GET, isLoading: true },
+      { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
+      { type: Globals.DB_MESSAGES_GET, isLoading: false }
     ]
 
     const store = mockStore({})
@@ -169,7 +169,7 @@ describe('message actions', () => {
 describe('messages reducer', () => {
   it('should set isLoading to true', () => {
     const action = {
-      type: ActionConstant.DB_MESSAGES_GET,
+      type: Globals.DB_MESSAGES_GET,
       isLoading: true
     }
 
@@ -180,7 +180,7 @@ describe('messages reducer', () => {
 
   it('should save messages to store', () => {
     const action = {
-      type: ActionConstant.DB_MESSAGE_SAVED,
+      type: Globals.DB_MESSAGE_SAVED,
       payload: ['test']
     }
 
@@ -192,7 +192,7 @@ describe('messages reducer', () => {
   it('should returns correct messages from the store', () => {
     const payload = { _id: 1 }
     const action = {
-      type: ActionConstant.DB_RETURNED_MESSAGE,
+      type: Globals.DB_RETURNED_MESSAGE,
       payload
     }
 

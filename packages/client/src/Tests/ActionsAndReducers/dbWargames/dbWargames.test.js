@@ -7,11 +7,11 @@ import * as wargamesApi from '../../../api/wargames_api'
 import {
   forceTemplate,
   umpireForceTemplate,
-  channelTemplate,
-  wargameSettings
+  channelTemplate
 } from '../../../consts'
 
-import * as ActionConstant from '@serge/config'
+// import * as ActionConstant from '@serge/config'
+import * as Globals from '@serge/config'
 import _ from 'lodash'
 import deepCopy from '../../../Helpers/copyStateHelper'
 
@@ -28,7 +28,7 @@ const wargameLocal = {
   wargameTitle: 'wargame-juli0v4i',
   wargameInitiated: true,
   data: {},
-  _id: wargameSettings,
+  _id: Globals.wargameSettings,
   _rev: '0-1'
 }
 
@@ -94,7 +94,7 @@ describe('wargames actions', () => {
 
   it('creates wargame databases ActionConstant.ALL_WARGAME_NAMES_SAVED after successful creation', async () => {
     const expectedActions = [
-      { type: ActionConstant.ALL_WARGAME_NAMES_SAVED, payload: wargameList }
+      { type: Globals.ALL_WARGAME_NAMES_SAVED, payload: wargameList }
     ]
 
     const store = mockStore({})
@@ -107,7 +107,7 @@ describe('wargames actions', () => {
 
   it('creates a new wargame ActionConstant.ALL_WARGAME_NAMES_SAVED after successful creation', async () => {
     const expectedActions = [
-      { type: ActionConstant.SET_CURRENT_WARGAME, payload: _.omit(wargameLocal, ['_id', '_rev']) }
+      { type: Globals.SET_CURRENT_WARGAME, payload: _.omit(wargameLocal, ['_id', '_rev']) }
     ]
 
     const store = mockStore({})
@@ -120,7 +120,7 @@ describe('wargames actions', () => {
 
   it('edits a wargame ActionConstant.SET_CURRENT_WARGAME after setting to edit', async () => {
     const expectedActions = [
-      { type: ActionConstant.SET_CURRENT_WARGAME, payload: wargameLocal }
+      { type: Globals.SET_CURRENT_WARGAME, payload: wargameLocal }
     ]
 
     const store = mockStore({})
@@ -133,7 +133,7 @@ describe('wargames actions', () => {
 
   it('duplicates a wargame ActionConstant.SET_CURRENT_WARGAME after setting to edit', async () => {
     const expectedActions = [
-      { type: ActionConstant.ALL_WARGAME_NAMES_SAVED, payload: wargameList }
+      { type: Globals.ALL_WARGAME_NAMES_SAVED, payload: wargameList }
     ]
 
     const store = mockStore({})
@@ -148,7 +148,7 @@ describe('wargames actions', () => {
 describe('wargames reducer', () => {
   it('should save wargames names', () => {
     const wargameNamesAction = {
-      type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
+      type: Globals.ALL_WARGAME_NAMES_SAVED,
       payload: wargameList // important to pass correct payload, that's what the tests are for ;)
     }
 
@@ -157,7 +157,7 @@ describe('wargames reducer', () => {
 
   it('should set current wargame', () => {
     const setCurrentAction = {
-      type: ActionConstant.SET_CURRENT_WARGAME,
+      type: Globals.SET_CURRENT_WARGAME,
       payload: wargameLocal // important to pass correct payload, that's what the tests are for ;)
     }
 
@@ -171,7 +171,7 @@ describe('wargames reducer', () => {
 
   it('should set current game tab', () => {
     const setTabAction = {
-      type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
+      type: Globals.SET_CURRENT_GAME_SETUP_TAB,
       payload: 1
     }
 
@@ -191,7 +191,7 @@ describe('wargames reducer', () => {
     }
 
     const setDataAction = {
-      type: ActionConstant.SET_GAME_SETUP_DATA,
+      type: Globals.SET_GAME_SETUP_DATA,
       payload: { data: newData[0].data }
     }
 
@@ -207,7 +207,7 @@ describe('wargames reducer', () => {
     newData[1].forces.push(forceTemplate)
 
     const addForceAction = {
-      type: ActionConstant.ADD_NEW_FORCE,
+      type: Globals.ADD_NEW_FORCE,
       payload: {
         name: 'black',
         uniqid: 'uid'
@@ -226,7 +226,7 @@ describe('wargames reducer', () => {
     newData[1].selectedForce = newData[1].forces[0]
 
     const addForceAction = {
-      type: ActionConstant.SET_SELECTED_FORCE,
+      type: Globals.SET_SELECTED_FORCE,
       payload: newData[1].forces[0]
     }
 
@@ -242,7 +242,7 @@ describe('wargames reducer', () => {
     newData[2].channels.push(channelTemplate)
 
     const addChannelAction = {
-      type: ActionConstant.ADD_NEW_CHANNEL,
+      type: Globals.ADD_NEW_CHANNEL,
       payload: {
         name: 'black',
         uniqid: 'uid'
@@ -261,7 +261,7 @@ describe('wargames reducer', () => {
     newData[2].selectedChannel = newData[2].channels[0]
 
     const addForceAction = {
-      type: ActionConstant.SET_SELECTED_CHANNEL,
+      type: Globals.SET_SELECTED_CHANNEL,
       payload: newData[2].channels[0]
     }
 
@@ -283,7 +283,7 @@ describe('wargames reducer', () => {
     newData[1].forces[0].subscriptionId = 'k335grni'
 
     const addRecipientAction = {
-      type: ActionConstant.ADD_NEW_RECIPIENT,
+      type: Globals.ADD_NEW_RECIPIENT,
       payload: oldData[1].forces[0]
     }
 
