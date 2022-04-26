@@ -1,29 +1,19 @@
 import { faHourglassStart, faSave } from '@fortawesome/free-solid-svg-icons'
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { AdminTabs } from '@serge/config'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
-import ProgressIndicator from '../../atoms/progress-indicator'
 import TextInput from '../../atoms/text-input'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes from './types/props'
 
-const defaultTabsOrder = [
-  AdminTabs.Overview,
-  AdminTabs.PlatformTypes,
-  AdminTabs.Forces,
-  AdminTabs.Channels
-]
-
 /* Render component */
 export const StatusBar: React.FC<PropTypes> = ({
   onChange,
   onSave,
-  wargame: initialWargame,
-  tabsOrder = defaultTabsOrder
+  wargame: initialWargame
 }) => {
   const [wargame, setWargame] = useState(initialWargame)
   const [value, setValue] = useState(wargame.wargameTitle)
@@ -43,15 +33,6 @@ export const StatusBar: React.FC<PropTypes> = ({
       onSave(value)
     }
   }
-
-  const wargameData = Object.entries(wargame.data)
-  const progressList = [...tabsOrder].map((tab, index) => {
-    const tabEntry = wargameData.find(entry => entry[0] === tab)
-    return tabEntry ? {
-      active: wargame.currentTab ? wargame.currentTab === tabEntry[0] : index === 0,
-      complete: tabEntry[1].complete
-    } : {}
-  }).filter(item => Object.keys(item).length)
 
   useEffect(() => {
     setWargame(initialWargame)
@@ -81,9 +62,6 @@ export const StatusBar: React.FC<PropTypes> = ({
           </div>
         )
       }
-      <div className={styles.item}>
-        <ProgressIndicator list={progressList} />
-      </div>
     </div>
   )
 }

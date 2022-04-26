@@ -65,30 +65,6 @@ exports[`GameSetup component: renders correctly 1`] = `
           />
            Wargame in progress
         </div>
-        <div
-          className="item"
-        >
-          <div
-            className="progress-box"
-          >
-            <div
-              className="progress"
-            >
-              <div
-                className="progress-indicator"
-              />
-              <div
-                className="progress-indicator"
-              />
-              <div
-                className="progress-indicator"
-              />
-              <div
-                className="progress-indicator progress-indicator-active"
-              />
-            </div>
-          </div>
-        </div>
       </div>
       <div
         className="main"
