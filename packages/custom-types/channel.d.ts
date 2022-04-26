@@ -3,7 +3,9 @@ import { ChannelTypes } from './channel-data'
 export default interface Channel {
   name: string,
   channels: Array<ChannelTypes>,
-  selectedChannel: string,
+  selectedChannel: {
+    uniqid: string
+  },
   complete: boolean,
   dirty: boolean
 }
