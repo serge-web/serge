@@ -1,9 +1,12 @@
 import { UMPIRE_FORCE } from '@serge/config'
 import L, { DragEndEvent } from 'leaflet'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import * as ReactDOMServer from 'react-dom/server'
+import get from 'lodash/get'
+import set from 'lodash/set'
+import unfetch from 'node-fetch'
+import React, { useContext, useEffect, useState } from 'react'
 import { Marker, Tooltip } from 'react-leaflet'
-import AssetIcon, { getIconClassname } from '../asset-icon'
+import xmljs from 'xml-js'
+import { getIconClassname } from '../asset-icon'
 /* Import context */
 import { MapContext } from '../mapping'
 /* Import Stylesheet */
@@ -11,12 +14,14 @@ import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
+const fetch = unfetch.bind(window)
+
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location
 }) => {
-  const [imageSrc] = useState<string | undefined>(marker.icon)
+  const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
 
   const props = useContext(MapContext).props
@@ -34,36 +39,23 @@ export const InfoMarker: React.FC<PropTypes> = ({
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)
 
-  /**
-   * because we load svg file from the external url, it's a bit complex to custom color of this svg
-   * so we can only use <object> to load the svg file and using javascript to change its style
-   * @param color
-   */
-  const changeMarkerInfoColor = (color: string): void => {
-    setTimeout(() => {
-      if (imageSrc) {
-        const svgElm = document.getElementById(imageSrc)
-        if (svgElm) {
-          const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
-          if (svgElms.length) {
-            const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
-            if (svgStyleElms.length) {
-              svgStyleElms[0].innerHTML = `.st0{fill:${color};}`
-            }
-          }
-        }
-      }
-    }, 300)
-  }
-
-  changeMarkerInfoColor(marker.color)
-
-  // only re-render <AssetIcon /> component when imageSrc changed
-  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon allowCustomColor imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
+  useEffect(() => {
+    fetch(`/assets/counters/${marker.icon || 'unknown.svg'}`, { method: 'GET' })
+      .then(res => res.text())
+      .then(text => {
+        const option = { compact: true }
+        const svgJson = JSON.parse(xmljs.xml2json(text, option))
+        const attributes = get(svgJson, 'svg.g.path._attributes')
+        attributes.style = `fill: ${marker.color}`
+        set(svgJson, 'svg.g.path._attributes', attributes)
+        const svgXml = xmljs.json2xml(svgJson, option)
+        setSvgContent(svgXml)
+      })
+  }, [marker.icon, marker.color])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${assetIconComponentAsString}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${svgContent}</div>`
   })
 
   const clickEvent = (): void => {
