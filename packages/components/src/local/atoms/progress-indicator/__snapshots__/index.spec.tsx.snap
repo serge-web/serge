@@ -8,7 +8,7 @@ exports[`ProgressIndicator component: renders correctly 1`] = `
     className="progress"
   >
     <div
-      className="progress-indicator progress-indicator-complete"
+      className="progress-indicator"
     />
     <div
       className="progress-indicator progress-indicator-active"
