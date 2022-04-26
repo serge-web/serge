@@ -1,25 +1,23 @@
 import { UMPIRE_FORCE } from '@serge/config'
 import L, { DragEndEvent } from 'leaflet'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import * as ReactDOMServer from 'react-dom/server'
+import unfetch from 'node-fetch'
+import React, { useContext, useEffect, useState } from 'react'
 import { Marker, Tooltip } from 'react-leaflet'
-import AssetIcon, { getIconClassname } from '../asset-icon'
+import { getIconClassname } from '../asset-icon'
 /* Import context */
 import { MapContext } from '../mapping'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
-
-// eslint-disable-next-line no-var
-declare var SVGInject: any
+const fetch = unfetch.bind(window)
 
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location
 }) => {
-  const [imageSrc] = useState<string | undefined>(marker.icon)
+  const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
 
   const props = useContext(MapContext).props
@@ -37,16 +35,15 @@ export const InfoMarker: React.FC<PropTypes> = ({
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)
 
-  setTimeout(() => {
-    SVGInject(document.querySelectorAll('img.injectable'))
-  })
-
-  // only re-render <AssetIcon /> component when imageSrc changed
-  const assetIconComponentAsString = useMemo(() => ReactDOMServer.renderToString(<AssetIcon allowCustomStyle imageSrc={imageSrc} destroyed={false} isSelected={isSelected} />), [imageSrc])
+  useEffect(() => {
+    fetch(`/assets/counters/${marker.icon || 'unknown.svg'}`, { method: 'GET' })
+      .then(res => res.text())
+      .then(text => setSvgContent(text))
+  }, [marker.icon])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${assetIconComponentAsString}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${svgContent}</div>`
   })
 
   const clickEvent = (): void => {
