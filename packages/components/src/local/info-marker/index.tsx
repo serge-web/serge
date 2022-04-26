@@ -46,7 +46,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
         if (svgElm) {
           const asAny = svgElm as any
           if (asAny.contentDocument) {
-            const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
+            const svgElms = Array.from(asAny.contentDocument.getElementsByTagName('svg')) as HTMLElement[]
             if (svgElms.length) {
               const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
               if (svgStyleElms.length) {
