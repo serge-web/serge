@@ -46,7 +46,7 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   return new Promise((resolve) => resolve(true))
 }
 
-const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected, imageSrc, onClick, allowCustomColor }) => {
+const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected, imageSrc, onClick }) => {
   const [loadStatus, setLoadStatus] = useState(true)
 
   useEffect(() => {
@@ -63,8 +63,7 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
     {
       imageSrc &&
       <div className={styles['asset-icon-with-image']}>
-        {allowCustomColor && <object id={imageSrc} data={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} type="image/svg+xml"></object>}
-        {!allowCustomColor && <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />}
+        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
       </div>
     }
   </div>
