@@ -1,3 +1,5 @@
+import { wargameSettings } from '@serge/config'
+
 const assetConditions = [
   'Working',
   'Disabled',
@@ -469,7 +471,7 @@ const channelsElement = [
 ]
 
 export const wargame = {
-  _id: 'settings',
+  _id: wargameSettings,
   wargameTitle: 'imwarc_demo',
   data: {
     overview: {
