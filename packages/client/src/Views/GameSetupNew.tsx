@@ -323,7 +323,7 @@ const AdminGameSetup = () => {
   useEffect(() => {
     if (currentTab === 'forces' && forces.selectedForce === '') {
       dispatch(setSelectedForce(forces.forces[0]))
-    } else if (currentTab === 'channels' && channels.selectedChannel === '' as string) {
+    } else if (currentTab === 'channels' && channels.selectedChannel === '') {
       dispatch(setSelectedChannel(channels.channels[0]))
     }
   }, [currentTab])
