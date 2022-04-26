@@ -14,13 +14,13 @@ export default async function initSetup () {
   networks.updateWargame = async () => {
     await page.waitForResponse(response => {
       const request = response.request()
-      return request.url().endsWith('settings') && request.method() === 'PUT' && response.status() === 201
+      return request.url().endsWith('initial_wargame') && request.method() === 'PUT' && response.status() === 201
     })
   }
   networks.fetchWargame = async () => {
     await page.waitForResponse(response => {
       const request = response.request()
-      return request.url().endsWith('settings?') && request.method() === 'GET' && response.status() === 200
+      return request.url().endsWith('initial_wargame?') && request.method() === 'GET' && response.status() === 200
     })
   }
   networks.getAllWargames = async () => {
