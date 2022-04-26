@@ -7,13 +7,13 @@ import * as wargamesApi from '../../../api/wargames_api'
 import {
   forceTemplate,
   umpireForceTemplate,
-  channelTemplate
+  channelTemplate,
+  wargameSettings
 } from '../../../consts'
 
 import * as ActionConstant from '@serge/config'
 import _ from 'lodash'
 import deepCopy from '../../../Helpers/copyStateHelper'
-import { wargameSettings } from '@serge/config'
 
 // eslint-disable-next-line no-undef
 jest.mock('uniqid', () => ({
