@@ -4,7 +4,6 @@
  * in other packages
  */
 
-export { default as ProgressIndicator } from './local/progress-indicator'
 export { default as InputContainer } from './local/atoms/input-container'
 export { default as TextInput } from './local/atoms/text-input'
 export { default as Button } from './local/atoms/button'
