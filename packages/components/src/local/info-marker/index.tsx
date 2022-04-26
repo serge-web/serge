@@ -44,11 +44,14 @@ export const InfoMarker: React.FC<PropTypes> = ({
       if (imageSrc) {
         const svgElm = document.getElementById(imageSrc)
         if (svgElm) {
-          const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
-          if (svgElms.length) {
-            const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
-            if (svgStyleElms.length) {
-              svgStyleElms[0].innerHTML = `.st0{fill:${color};}`
+          const asAny = svgElm as any
+          if (asAny.contentDocument) {
+            const svgElms = Array.from((svgElm as any).contentDocument.getElementsByTagName('svg')) as HTMLElement[]
+            if (svgElms.length) {
+              const svgStyleElms = Array.from(svgElms[0].getElementsByTagName('style')) as HTMLElement[]
+              if (svgStyleElms.length) {
+                svgStyleElms[0].innerHTML = `.st0{fill:${color};}`
+              }
             }
           }
         }
