@@ -106,7 +106,7 @@ const AdminGameSetup = () => {
   const isUniqueChannelName = (channel: ChannelTypes) => {
     const selectedChannel = channels.selectedChannel
     return isUniqueName({
-      oldName: selectedChannel,
+      oldName: selectedChannel as string,
       newName: channel.name,
       list: channels.channels,
       label: 'Channel'
@@ -198,11 +198,11 @@ const AdminGameSetup = () => {
         if (!isUniqueChannelName(channel)) return
   
         dispatch(setTabSaved())
-        dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName))
+        dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName as string))
       }
   
       if (channelName === null) {
-        dispatch(saveChannel(currentWargame, selectedChannelName, newChannelData, selectedChannelName))
+        dispatch(saveChannel(currentWargame, selectedChannelName as string, newChannelData, selectedChannelName as string))
       } else if (channelName.length === 0) {
         window.alert('no channel name')
       }
@@ -330,7 +330,7 @@ const AdminGameSetup = () => {
 
   const getSelectedChannel = () => {
     const { uniqid } = channels.selectedChannel as { uniqid: string }
-    return channels && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
   }
 
   return (
