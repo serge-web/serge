@@ -30,7 +30,7 @@ const UnsavedForceModal = () => {
       template.name = id
       template.uniqid = id
       
-      if (wargame.currentWargame) dispatch(saveForce(wargame.currentWargame, id, template, id))
+      if (wargame.currentWargame) dispatch(saveForce(wargame.currentWargame, template))
     } else {
       if (wargame.currentWargame && currentModal.data) dispatch(refreshForce(wargame.currentWargame, currentModal.data as string))
     }
