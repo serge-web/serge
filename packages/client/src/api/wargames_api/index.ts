@@ -3,7 +3,6 @@ import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
-import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
 import {
