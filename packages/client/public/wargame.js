@@ -484,28 +484,24 @@ export const wargame = {
       // turnStrategy: '',
       gameDate: '2023-07-05T14:00Z',
       showAccessCodes: true,
-      complete: true,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForce, blueForce, redForce, greenForce],
       selectedForce: '',
-      complete: false,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: channelsElement,
       selectedChannel: '',
-      complete: false,
       dirty: false
     },
     platformTypes: {
       name: 'Platform Types',
       platformTypes: platformTypes,
       selectedType: '',
-      complete: false,
       dirty: false
     }
   },

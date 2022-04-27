@@ -7,6 +7,5 @@ export default interface Force {
   // I _think_ we're storing a whole force. I'm sure it should be
   // a force-id
   selectedForce: string,
-  complete: boolean,
   dirty: boolean
 }
