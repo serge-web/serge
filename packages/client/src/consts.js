@@ -1,7 +1,9 @@
 import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
+import * as Globals from '@serge/config'
 
+/** name of the document used to store the initial wargame definition */
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
 
@@ -101,7 +103,7 @@ export const defaultGameInfo = {
 
 export const forceTemplate = {
   name: '',
-  uniqid: null,
+  uniqid: '',
   overview: 'An overview written here..',
   roles: [
     {
@@ -146,7 +148,7 @@ export const channelTemplate = {
 }
 
 export const dbDefaultSettings = {
-  _id: 'settings',
+  _id: Globals.wargameSettings,
   wargameTitle: '',
   data: {
     overview: {

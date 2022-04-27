@@ -63,8 +63,7 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
     {
       imageSrc &&
       <div className={styles['asset-icon-with-image']}>
-         <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)}
-          className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
+        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
       </div>
     }
   </div>

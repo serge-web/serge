@@ -7,7 +7,7 @@ import { addNotification, hideNotification } from '../ActionsAndReducers/Notific
 import { pingServer as pingServerApi } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
-type Notification = {
+export type Notification = {
   message: string,
   type: string,
   id: number,
