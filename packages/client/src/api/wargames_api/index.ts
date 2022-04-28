@@ -3,7 +3,6 @@ import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
-import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
 import {
@@ -369,7 +368,6 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
   return getLatestWargameRevision(dbName).then((res) => {
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
-    wargame.data.overview.complete = calcComplete(data)
     return updateWargame(wargame, dbName)
   })
 }
@@ -400,7 +398,6 @@ export const duplicatePlatformType = (dbName: string, currentPlatformType: Platf
 
       platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)
       updatedData.platformTypes.platformTypes = platformTypes
-      updatedData.platformTypes.complete = calcComplete(platformTypes) && platformTypes.length !== 0
       updatedData.platformTypes.selectedType = duplicatedPlatformType
     }
 
@@ -431,7 +428,6 @@ export const saveChannel = (dbName: string, newData: ChannelTypes): Promise<Warg
     }
 
     updatedData.channels.channels = channels
-    updatedData.channels.complete = calcComplete(channels)
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -453,7 +449,6 @@ export const duplicateChannel = (dbName: string, channelUniqid: string): Promise
 
     channels.splice(channelIndex, 0, duplicateChannel)
     updatedData.channels.channels = channels
-    updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
     updatedData.channels.selectedChannel = duplicateChannel
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -465,7 +460,6 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
     updatedData.channels.channels = channels.filter((channel: ChannelTypes) => channel.uniqid != channelUniqid)
-    updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
@@ -501,8 +495,6 @@ export const saveForce = (dbName: string, newData: ForceData) => {
     const forceCheck: ForceData[] = deepCopy(forces)
     const umpireIndex = forceCheck.findIndex((force) => force.umpire)
     forceCheck.splice(umpireIndex, 1)
-
-    updatedData.forces.complete = calcComplete(forceCheck)
 
     return updateWargame({ ...res, data: updatedData }, dbName)
     // if (newDoc.wargameInitiated) {
@@ -550,7 +542,6 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
       name: 'Channels',
       channels: [],
       selectedChannel: '',
-      complete: false,
       dirty: false
       }
     }
@@ -567,7 +558,6 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
-    updatedData.forces.complete = calcComplete(forces) && forces.length !== 0
     updatedData.forces.selectedForce = duplicate as any 
 
     return updateWargame({ ...res, data: updatedData }, dbName)

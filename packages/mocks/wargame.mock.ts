@@ -51,7 +51,6 @@ const wargame: Wargame = {
       timeWarning: 60000,
       gameDate: "2020-02-21T12:41:20+00:00",
       showAccessCodes: false,
-      complete: false,
       dirty: false
     },
     forces: {
@@ -79,14 +78,12 @@ const wargame: Wargame = {
         }
       ],
       selectedForce: "",
-      complete: false,
       dirty: false
     },
     channels: {
       name: "Channels",
       channels: [],
-      selectedChannel: "",
-      complete: false,
+      selectedChannel: "", 
       dirty: false
     }
   },

@@ -66,13 +66,11 @@ const wargame: Wargame = {
                     "uniqid": "channel-koirldxk"
                 }
             ],
-            "complete": false,
             "dirty": false,
             "name": "Channels",
             "selectedChannel": ""
         },
         "forces": {
-            "complete": true,
             "dirty": false,
             "forces": [
                 {
@@ -405,7 +403,6 @@ const wargame: Wargame = {
             "selectedForce": ""
         },
         "overview": {
-            "complete": false,
             "dirty": false,
             "gameDate": "2021-05-13T16:12",
             "gameDescription": "",
@@ -437,7 +434,6 @@ const wargame: Wargame = {
             "turnPresentation": "Turn-Pairs"
         },
         "platformTypes": {
-            "complete": false,
             "dirty": false,
             "name": "Platform Types",
             "platformTypes": [

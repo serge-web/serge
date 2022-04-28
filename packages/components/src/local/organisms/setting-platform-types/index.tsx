@@ -71,7 +71,6 @@ const useStyles = makeStyles({
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, onDuplicate, iconUploadUrl }) => {
   const { description, format, underline, units } = useStyles()
   const newPlatformType: PlatformType = {
-    complete: false,
     dirty: false,
     name: 'Platform Mock',
     selectedType: '',
