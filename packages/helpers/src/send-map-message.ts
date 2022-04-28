@@ -11,7 +11,7 @@ import { ForceData, MessageMap, Message, MessageDetails, Role } from '@serge/cus
  */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined,
   channelID: string, role: Role['roleId'], roleName: Role['name'], currentWargame: string, turnNumber: number,
-  saveMapMessage: {(dbName: string, details: MessageDetails, message: unknown): Promise<Message>}): void => {
+  saveMapMessage: {(dbName: string, details: MessageDetails, message: MessageMap): Promise<Message>}): void => {
   if (force) {
     const { name, color, iconURL } = force
 
