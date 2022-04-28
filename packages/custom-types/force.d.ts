@@ -6,7 +6,7 @@ export default interface Force {
   // TODO: we need to constrain what we store below.
   // I _think_ we're storing a whole force. I'm sure it should be
   // a force-id
-  selectedForce: string | { uniqid : string },
+  selectedForce: string | ForceData,
   complete: boolean,
   dirty: boolean
 }

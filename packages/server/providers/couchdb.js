@@ -169,7 +169,7 @@ const couchDb = (app, io, pouchOptions) => {
     remoteDb.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings || doc._id !== settings
+          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])

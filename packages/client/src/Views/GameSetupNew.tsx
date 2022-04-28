@@ -152,7 +152,7 @@ const AdminGameSetup = () => {
 
   const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
-    const { uniqid } = selectedForce as { uniqid: string }
+    const { uniqid } = selectedForce as ForceData
     const newForceData = newForces.find(force => force.uniqid === uniqid)
     if (newForceData) {
       const forceOverview = newForceData.overview
