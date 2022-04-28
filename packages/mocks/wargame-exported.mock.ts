@@ -167,13 +167,11 @@ const game: Wargame = {
           uniqid: 'channel-k53ti36p'
         }
       ],
-      complete: false,
       dirty: false,
       name: 'Channels',
       selectedChannel: ''
     },
     forces: {
-      complete: true,
       dirty: false,
       forces: [
         {
@@ -1460,7 +1458,6 @@ const game: Wargame = {
       selectedForce: ''
     },
     overview: {
-      complete: true,
       dirty: false,
       gameDate: '2020-01-07T13:18',
       gameDescription: 'Sample MWARC Wargame',
@@ -1471,7 +1468,6 @@ const game: Wargame = {
       timeWarning: 60000
     },
     platformTypes: {
-      complete: false,
       dirty: false,
       name: 'Platform Types',
       platformTypes: [
