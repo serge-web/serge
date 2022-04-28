@@ -21,7 +21,7 @@
       "../server/addons/**/*"
     ],
     "targets": [
-      "node14"
+      "node16"
     ],
     "outputPath": "build-temp"
   },
