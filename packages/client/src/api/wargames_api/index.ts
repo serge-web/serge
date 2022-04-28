@@ -413,20 +413,18 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   })
 }
 
-export const saveChannel = (dbName: string, newName: string, newData: ChannelTypes, oldName: string): Promise<Wargame> => {
+export const saveChannel = (dbName: string, newData: ChannelTypes): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
-    const channelNew = channels.every((channel: ChannelTypes) => channel.name !== oldName)
+    const channelNew = channels.every((channel: ChannelTypes) => channel.uniqid !== newData.uniqid)
 
     if (channelNew) {
-      const channelIndex = channels.findIndex((channel: ChannelTypes) => channel.uniqid === newData.uniqid)
-      if (channelIndex !== -1) channels.splice(channelIndex, 1)
-      channels.unshift({ ...newData, name: newName })
+      channels.unshift({ ...newData, name: newData.name })
     } else {
-      const channelIndex = channels.findIndex((channel) => channel.name === oldName)
-      channels.splice(channelIndex, 1, { ...newData, name: newName })
+      const channelIndex = channels.findIndex((channel) => channel.uniqid === newData.uniqid)
+      channels.splice(channelIndex, 1, { ...newData, name: newData.name })
     }
 
     updatedData.channels.channels = channels
@@ -475,19 +473,19 @@ export const saveForces = (dbName: string, newData: ForceData[]) => {
   })
 }
 
-export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
+export const saveForce = (dbName: string, newData: ForceData) => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
-    const forceNew = forces.every((force) => force.name !== oldName)
+    const forceNew = forces.every((force) => force.uniqid !== newData.uniqid)
 
     if (forceNew) {
-      forces.unshift({ ...newData, name: newName })
+      forces.unshift({ ...newData, name: newData.name })
     } else {
-      const forceIndex = forces.findIndex((force) => force.name === oldName)
+      const forceIndex = forces.findIndex((force) => force.uniqid === newData.uniqid)
       // forces.forceName = newName;
-      forces.splice(forceIndex, 1, { ...newData, name: newName })
+      forces.splice(forceIndex, 1, { ...newData, name: newData.name })
     }
 
     updatedData.forces.forces = forces

@@ -68,7 +68,7 @@ class ForcesTab extends Component {
       template.name = id;
       template.uniqid = id;
 
-      this.props.dispatch(saveForce(this.props.wargame.currentWargame, id, template, id));
+      this.props.dispatch(saveForce(this.props.wargame.currentWargame, template));
 
       this.setState({
         newForceName: null,
@@ -112,13 +112,11 @@ class ForcesTab extends Component {
 
     if (typeof this.state.newForceName === 'string' && this.state.newForceName.length > 0) {
       if (!this.checkUnique()) return;
-      let selectedForce = this.props.wargame.data[curTab].selectedForce.name;
-      this.props.dispatch(saveForce(this.props.wargame.currentWargame, this.state.newForceName, newForceData, selectedForce));
+      this.props.dispatch(saveForce(this.props.wargame.currentWargame, newForceData));
     }
 
     if (this.state.newForceName === null) {
-      let selectedForce = this.props.wargame.data[curTab].selectedForce.name;
-      this.props.dispatch(saveForce(this.props.wargame.currentWargame, selectedForce, newForceData, selectedForce));
+      this.props.dispatch(saveForce(this.props.wargame.currentWargame, newForceData));
     } else if (this.state.newForceName.length === 0) {
       this.props.dispatch(addNotification("No Force Name", "warning"));
     }

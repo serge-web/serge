@@ -56,14 +56,14 @@ class ForcesTab extends Component {
       this.props.dispatch(modalAction.open("unsavedChannel", "create-new"));
     } else {
       let id = `channel-${uniqid.time()}`;
-      this.props.dispatch(addNewChannel({name: id, uniqid: id}));
-      this.props.dispatch(setSelectedChannel({name: id, uniqid: id}));
+      this.props.dispatch(addNewChannel({ name: id, uniqid: id }));
+      this.props.dispatch(setSelectedChannel({ name: id, uniqid: id }));
 
       let template = channelTemplate;
       template.name = id;
       template.uniqid = id;
 
-      this.props.dispatch(saveChannel(this.props.wargame.currentWargame, id, template, id));
+      this.props.dispatch(saveChannel(this.props.wargame.currentWargame, template));
     }
   };
 
@@ -119,11 +119,11 @@ class ForcesTab extends Component {
       if (!this.checkUnique()) return;
 
       this.props.dispatch(setTabSaved());
-      this.props.dispatch(saveChannel(this.props.wargame.currentWargame, this.state.newChannelName, newChannelData, selectedChannel));
+      this.props.dispatch(saveChannel(this.props.wargame.currentWargame, newChannelData));
     }
 
     if (this.state.newChannelName === null) {
-      this.props.dispatch(saveChannel(this.props.wargame.currentWargame, selectedChannel, newChannelData, selectedChannel));
+      this.props.dispatch(saveChannel(this.props.wargame.currentWargame, newChannelData));
     } else if (this.state.newChannelName.length === 0) {
       alert('no channel name');
     }

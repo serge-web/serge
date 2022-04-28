@@ -3,9 +3,9 @@ import ForceData from './force-data'
 export default interface Force {
   name: string,
   forces: Array<ForceData>,
-  // TODO: we need to constrain what we store below.
-  // I _think_ we're storing a whole force. I'm sure it should be
-  // a force-id
-  selectedForce: string,
+  // TODO: selectedForce is only used client-side. So it's ok
+  // to store the whole object. So, we should have
+  // selectedForce?: ForceData
+  selectedForce: string | ForceData,
   dirty: boolean
 }
