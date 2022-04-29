@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
-import classNames from 'classnames'
-import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
-import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
-import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook, faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { TurnProgression, ForceObjective } from '@serge/components'
-import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
+import { ForceObjective, TurnProgression } from '@serge/components'
+import classNames from 'classnames'
+import { TabNode } from 'flexlayout-react'
+import React, { useCallback, useState } from 'react'
 import {
   nextGameTurn,
   openModal,
@@ -14,8 +11,10 @@ import {
   showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage } from '../../consts'
+import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
+import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
+import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import PlayerLog from '../PlayerLog'
-import { TabNode } from 'flexlayout-react'
 
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
@@ -59,9 +58,13 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange, }): React.Reac
     dispatch(openTour(true))
   }
 
-  const closePlayerLogModal = (): void => {
+  const closePlayerLogModal = useCallback(() => {
     togglePlayerLogModal(false)
-  }
+  }, [])
+
+  const openPlayerLogModal = useCallback(() => {
+    togglePlayerLogModal(true)
+  }, [])
 
   return <div className="flex-content flex-content--row-wrap">
     <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerLogModal} />
@@ -82,7 +85,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange, }): React.Reac
         </span>
         {
           isUmpire && <span title="Show player log" className="playerlog">
-            <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
+            <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerLogModal} />
           </span>
         }
       </div>
