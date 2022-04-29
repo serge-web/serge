@@ -3,11 +3,8 @@ import { WargameList } from '@serge/custom-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPlayerLog } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators';
-import {
-  getWargame
-} from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators';
+import { getWargame } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators';
 import LoaderScreen from '../../Components/LoaderScreen';
-import { expiredStorage } from '../../consts';
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi';
 import GameChannelsWithTour from '../GameChannelsWithTour';
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen';
