@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "find": "^0.3.0",
-    "pkg": "^4.4.0",
+    "pkg": "5.3.2",
     "archiver": "^5.3.0"
   },
   "bin": "../server/bin.js",
