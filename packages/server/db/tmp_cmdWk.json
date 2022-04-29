@@ -782,13 +782,11 @@
                     "uniqid": "channel-koirn3xn"
                 }
             ],
-            "complete": false,
             "dirty": false,
             "name": "Channels",
             "selectedChannel": ""
         },
         "forces": {
-            "complete": true,
             "dirty": false,
             "forces": [
                 {
@@ -1751,7 +1749,6 @@
             "selectedForce": ""
         },
         "overview": {
-            "complete": false,
             "dirty": false,
             "gameDate": "2021-05-10T16:12:05+01:00",
             "gameDescription": "",
@@ -1786,7 +1783,6 @@
             "timeWarning": 60000
         },
         "platform_types": {
-            "complete": false,
             "dirty": false,
             "name": "Platform Types",
             "platformTypes": [

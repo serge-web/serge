@@ -6,6 +6,5 @@ export default interface Channel {
   selectedChannel: string | {
     uniqid: string
   },
-  complete: boolean,
   dirty: boolean
 }
