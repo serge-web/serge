@@ -59,8 +59,12 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange, }): React.Reac
     dispatch(openTour(true))
   }
 
+  const closePlayerLogModal = (): void => {
+    togglePlayerLogModal(false)
+  }
+
   return <div className="flex-content flex-content--row-wrap">
-    <PlayerLog isOpen={isPlayerlogOpen} onClose={(): void => togglePlayerLogModal(false)} />
+    <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerLogModal} />
     <div className="message-feed in-game-feed" data-tour="fourth-step">
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
