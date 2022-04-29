@@ -15,8 +15,13 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage } from '../../consts'
 import PlayerLog from '../PlayerLog'
+import { TabNode } from 'flexlayout-react'
 
-const GameChannels: React.FC = (): React.ReactElement => {
+type GameChannelsProps = {
+  onTabChange: (node: TabNode) => void
+}
+
+const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange, }): React.ReactElement => {
   const {
     currentWargame,
     gameDate,
@@ -60,7 +65,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
         if (el) window.channelTabsContainer[selectedForce.uniqid] = el
-      }} />
+      }} onTabChange={onTabChange} />
     </div>
     <div className={classNames({ "message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl })} data-tour="fifth-step">
       <div className="flex-content wargame-title">
@@ -73,8 +78,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
         </span>
         {
           isUmpire && <span title="Show player log" className="playerlog">
-          <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
-        </span>
+            <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
+          </span>
         }
       </div>
       <TurnProgression
