@@ -38,6 +38,7 @@
     "lorem-ipsum": "^2.0.3",
     "moment": "^2.24.0",
     "node-fetch": "^2.6.7",
+    "node-sass": "^6.0.0",
     "nodemon": "^2.0.4",
     "preval.macro": "^3.0.0",
     "prop-types": "^15.7.2",
@@ -83,8 +84,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^1.18.2",
-    "sass": "^1.51.0"
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "start": "react-scripts start",
