@@ -1,0 +1,60 @@
+# Technique adopted from this article, while Heroku review apps suspended:
+# https://remarkablemark.org/blog/2022/04/23/heroku-github-actions-pull-request/
+
+# .github/workflows/heroku-pull-request.yml
+name: Heroku Pull Request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  heroku-pull-request:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_APP_NAME: my-app-pr-${{ github.event.number }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
+          ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
+
+      - name: Login to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: user@example.com
+          heroku_app_name: ${{ env.HEROKU_APP_NAME }}
+          justlogin: true
+
+      - name: Create Heroku app
+        if: github.event.action == 'opened'
+        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} # --team=my-team
+
+      - name: Add Heroku app to pipeline
+        if: github.event.action == 'opened'
+        run: heroku pipelines:add my-pipeline --app=${{ env.HEROKU_APP_NAME }} --stage=development
+
+      - name: Copy environment variables to Heroku app
+        if: github.event.action == 'opened'
+        run: |
+          heroku config --shell --app=my-development-app > .env
+          cat .env | tr '\n' ' ' | xargs heroku config:set --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Add Heroku remote
+        run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Push to Heroku
+        run: git push heroku ${{ github.head_ref }}:master --force
+
+      - name: Add comment to PR
+        if: github.event.action == 'opened'
+        run: |
+          gh pr comment ${{ github.event.number }} --body '[Heroku app](https://dashboard.heroku.com/apps/${{ env.HEROKU_APP_NAME }}): https://${{ env.HEROKU_APP_NAME }}.herokuapp.com'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Destroy Heroku app
+        if: github.event.action == 'closed'
+        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
