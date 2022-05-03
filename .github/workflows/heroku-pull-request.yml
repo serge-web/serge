@@ -2,7 +2,7 @@
 # https://remarkablemark.org/blog/2022/04/23/heroku-github-actions-pull-request/
 
 # .github/workflows/heroku-pull-request.yml
-name: Heroku Pull Request
+name: Heroku Pull Request (temporary)
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
@@ -11,7 +11,7 @@ jobs:
   heroku-pull-request:
     runs-on: ubuntu-latest
     env:
-      HEROKU_APP_NAME: manual-deploy-pr-${{ github.event.number }}
+      HEROKU_APP_NAME: my-app-pr-${{ github.event.number }}
 
     steps:
       - name: Checkout repository
