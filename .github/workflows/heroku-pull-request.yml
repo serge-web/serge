@@ -11,7 +11,7 @@ jobs:
   heroku-pull-request:
     runs-on: ubuntu-latest
     env:
-      HEROKU_APP_NAME: my-app-pr-${{ github.event.number }}
+      HEROKU_APP_NAME: manual-deploy-pr-${{ github.event.number }}
 
     steps:
       - name: Checkout repository
@@ -24,7 +24,7 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_email: user@example.com
+          heroku_email: ian@planetmayo.com
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
 
@@ -40,6 +40,7 @@ jobs:
         if: github.event.action == 'opened'
         run: |
           heroku config --shell --app=my-development-app > .env
+          more .env
           cat .env | tr '\n' ' ' | xargs heroku config:set --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
