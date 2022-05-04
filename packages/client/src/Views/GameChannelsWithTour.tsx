@@ -1,18 +1,28 @@
-import React, { useState } from 'react'
-import GameChannels from './GameChannels/GameChannels'
-import Tour from 'reactour'
-import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
-import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { TabNode } from 'flexlayout-react'
+import { makeStyles } from '@material-ui/styles'
 import { UMPIRE_FORCE } from '@serge/config'
+import { TabNode } from 'flexlayout-react'
+import React, { useState } from 'react'
+import Tour from 'reactour'
+import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
+import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
+import GameChannels from './GameChannels/GameChannels'
 
 type GameTour = {
   selector: string;
   content: string | (() => JSX.Element);
 }
 
+const useStyles = makeStyles({
+  tourImg: {
+    width: 400,
+    height: 300,
+    backgroundColor: 'lightgray'
+  }
+})
+
 const GameChannelsWithTour: React.FC = () => {
+  const classes = useStyles()
   const dispatch = usePlayerUiDispatch()
   const {
     selectedForce,
@@ -85,23 +95,58 @@ const GameChannelsWithTour: React.FC = () => {
   const mappingTourSteps: any[] = [
     {
       selector: '',
-      content: 'This is the Mapping Channel. Use this channel to view and control assets, plan actions and implement decisions.'
+      content: () => (
+        <div>
+          <span>
+            This is the Mapping Channel. Use this channel to view and control assets, plan actions and implement decisions.
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
     },
     {
       selector: '[data-tour="world-state"]',
-      content: 'The tab on the left of the screen shows Force Assets, under "Control", where you can submit routes per Assets'
+      content: () => (
+        <div>
+          <span>
+            The tab on the left of the screen shows Force Assets, under "Control", where you can submit routes per Assets
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
     },
     {
       selector: '[data-tour="visibility"]',
-      content: 'Under "Visibility", you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information'
+      content: () => (
+        <div>
+          <span>
+            Under "Visibility", you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
     },
     {
       selector: '[data-tour="zoom-control"]',
-      content: 'You can Zoom In and Zoom with the Plus and Dash button above, as well as fit the screen to the window by pressing the Home button'
+      content: () => (
+        <div>
+          <span>
+            You can Zoom In and Zoom with the Plus and Dash button above, as well as fit the screen to the window by pressing the Home button
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
     },
     {
       selector: '[data-tour="counter-clockwise"]',
-      content: 'Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps'
+      content: () => (
+        <div>
+          <span>
+            Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
     }
   ]
 
@@ -109,7 +154,14 @@ const GameChannelsWithTour: React.FC = () => {
     mappingTourSteps.push(
       {
         selector: '[data-tour="certain-force"]',
-        content: 'The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force'
+        content: () => (
+          <div>
+            <span>
+              The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force
+            </span>
+            <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+          </div>
+        )
       }
     )
   }
