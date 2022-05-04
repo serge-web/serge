@@ -5,6 +5,7 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { TabNode } from 'flexlayout-react'
+import { UMPIRE_FORCE } from '@serge/config'
 
 type GameTour = {
   selector: string;
@@ -17,6 +18,7 @@ const GameChannelsWithTour: React.FC = () => {
     selectedForce,
     selectedRole,
     wargameTitle,
+    allForces,
   } = usePlayerUiState()
 
   const gameTourKey = `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-tourDone`
@@ -80,7 +82,7 @@ const GameChannelsWithTour: React.FC = () => {
     }
   ]
 
-  const mappingTourSteps = [
+  const mappingTourSteps: any[] = [
     {
       selector: '',
       content: 'This is the Mapping Channel. Use this channel to view and control assets, plan actions and implement decisions.'
@@ -100,11 +102,19 @@ const GameChannelsWithTour: React.FC = () => {
     {
       selector: '[data-tour="counter-clockwise"]',
       content: 'Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps'
-    },
-    {
-      selector: '[data-tour="certain-force"]',
-      content: 'The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force'
-    },
+    }
+  ]
+
+  if (selectedForce && selectedForce.uniqid === UMPIRE_FORCE && allForces.length) {
+    mappingTourSteps.push(
+      {
+        selector: '[data-tour="certain-force"]',
+        content: 'The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force'
+      }
+    )
+  }
+
+  mappingTourSteps.push(
     {
       selector: '',
       content: () => (<div className="close-tour-dialog">
@@ -114,7 +124,7 @@ const GameChannelsWithTour: React.FC = () => {
         <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
       </div>)
     }
-  ]
+  )
 
   if (!showMappingTour && tourIsOpen !== storageTourIsOpen) {
     setTourStep(gameTourSteps)
