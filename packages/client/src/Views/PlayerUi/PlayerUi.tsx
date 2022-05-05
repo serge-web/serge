@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { Props } from './types.d'
 import { WargameList } from '@serge/custom-types'
-import { hiddenPrefix } from '@serge/config';
+import { hiddenPrefix } from '@serge/config'
 
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
@@ -11,11 +12,11 @@ import LoaderScreen from '../../Components/LoaderScreen'
 import checkPassword from './helpers/checkPassword'
 import { expiredStorage } from '../../consts'
 import {
-  getWargame,
+  getWargame
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
-import { useDispatch } from 'react-redux';
-import { addPlayerLog } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators';
+import { useDispatch } from 'react-redux'
+import { addPlayerLog } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 
 enum Room {
   landing,
@@ -56,7 +57,6 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
 
     // dispatch wargame and role to version component
     dispatch(addPlayerLog(currentWargame, selectedRole))
-
   }, [selectedForce, selectedRole])
 
   useEffect(() => {
@@ -81,15 +81,13 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
   }
 
   useEffect(() => {
-    if (wargame.wargameList.length && !loggedIn)
-      byPassLogin()
+    if (wargame.wargameList.length && !loggedIn) { byPassLogin() }
   }, [loggedIn, wargame.wargameList])
-
 
   const handleCheckPassword = (pass: string): void => {
     if (currentWargame.startsWith(hiddenPrefix)) {
       wargameIsInvalid()
-      return;
+      return
     }
     const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, playerUiDispatch)
     if (check) {
@@ -106,11 +104,10 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
         byPassParamsArr.forEach(key => {
           currentUrl.searchParams.set(key, byPassParams[key])
         })
-        history.pushState({}, 'null', currentUrl.href);
+        history.pushState({}, 'null', currentUrl.href)
       }
       setScreen(Room.player)
-    }
-    else checkPasswordFail()
+    } else checkPasswordFail()
   }
 
   // show the relevant screen

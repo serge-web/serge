@@ -1,10 +1,10 @@
-import { Column, Row } from '@serge/components';
-import cx from 'classnames';
-import orderBy from 'lodash/orderBy';
-import moment from 'moment';
-import React from 'react';
-import styles from '../styles.module.scss';
-import { PlayerLogModal } from '../types/props';
+import { Column, Row } from '@serge/components'
+import cx from 'classnames'
+import orderBy from 'lodash/orderBy'
+import moment from 'moment'
+import React from 'react'
+import styles from '../styles.module.scss'
+import { PlayerLogModal } from '../types/props'
 
 type PlayerLogDataTable = {
   columns: Column[];
@@ -16,7 +16,6 @@ type ColumnListItem = {
   field: string;
 }
 export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTable => {
-
   const sortCol = (str1: string, str2: string): number => {
     const a = str1.toLowerCase()
     const b = str2.toLowerCase()

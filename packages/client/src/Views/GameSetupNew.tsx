@@ -262,7 +262,7 @@ const AdminGameSetup = () => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      if (currentWargame) dispatch(saveChannel(currentWargame,createdChannel))
+      if (currentWargame) dispatch(saveChannel(currentWargame, createdChannel))
     }
   }
 

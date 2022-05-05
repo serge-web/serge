@@ -15,7 +15,7 @@ import {
   WargameDispatch,
   WargameOverview,
   WargameRevision
- } from '@serge/custom-types'
+} from '@serge/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -80,7 +80,7 @@ export const addRecipientToChannel = (data: { id: string, data: Wargame }): Warg
   payload: data
 })
 
-export const updateRecipient = ( id: string, data: Wargame ): WargameActionTypes => ({
+export const updateRecipient = (id: string, data: Wargame): WargameActionTypes => ({
   type: ActionConstant.UPDATE_RECIPIENT,
   payload: { id, data }
 })
@@ -349,12 +349,12 @@ export const deleteSelectedAsset = (data: any) => {
 }
 
 export const deleteSelectedRole = (
-   dbName: string,
-   data: {
+  dbName: string,
+  data: {
    roles: Role[],
    key: number,
    handleChange: (changedItems: Array<Role>) => void }
-   ) => {
+) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
     _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))

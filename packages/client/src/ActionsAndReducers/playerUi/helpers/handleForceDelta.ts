@@ -11,7 +11,8 @@ import {
   MessageStateOfWorld, 
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup, 
-  PlatformTypeData} from '@serge/custom-types'
+  PlatformTypeData
+} from '@serge/custom-types'
 
 import { handleVisibilityAndConditionChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -63,7 +64,7 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
       return handleHostPlatform(message as MessageHostPlatform, allForces, platformTypes)
     case DELETE_PLATFORM:
       return handleDeletePlatform(message as MessageDeletePlatform, allForces)
-      default:
+    default:
       console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces
   }

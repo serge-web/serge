@@ -24,14 +24,14 @@ export const createExportItem = (exportData: ExportItem): ExportItemsUiActionTyp
   payload: exportData
 })
 export const showLoading = (): ExportItemsUiActionTypes => ({
-  type: LOADER,
+  type: LOADER
 })
 
 const getInfoTypeMessagesFromWargameExportMessageList = (list: Message[]) => list.filter(({ messageType }) => messageType === INFO_MESSAGE)
 
 // just for codeclimate Cognitive Complexity
 const getChannelTitlesFromInfoTypeMessages = (messages: MessageInfoType[]): ChannelTitles => {
-  let channelTitles: ChannelTitles = {}
+  const channelTitles: ChannelTitles = {}
   for (const { data } of messages) {
     for (const channel of data.channels.channels) {
       const { name, uniqid } = channel
@@ -66,7 +66,7 @@ const keysSimplify = (row: FlatMessage): FlatMessage => {
 const keysSimplifyGetNewKey = (subkeys: string[]): string[] => {
   const newKey = []
   for (var i = 0; i < subkeys.length; i++) {
-    if (subkeys[i].replace(/\s/g,"") !== "") {
+    if (subkeys[i].replace(/\s/g, '') !== '') {
       // note: this used to be the format string, but the keys were being duplicated
       // we also dropped the leading EXPORT_ITEM_MESSAGES key
       // newKey.push(`${subkeys[i - 1] || EXPORT_ITEM_MESSAGES}_${subkeys[i]}`)
@@ -91,9 +91,8 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
       const title = message.messageType === CUSTOM_MESSAGE ? 'CM ' + message.details.messageType : msgType
       // The max length of the sheet name is 31
       data.push({
-        title: title.length > 31 ? 
-          title.substring(0, 26) + '@' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4) : 
-          title,
+        title: title.length > 31 ? title.substring(0, 26) + '@' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4)
+          : title,
         items: [
           rowsAndFields.fields.map(field => (field.toUpperCase())),
           ...rowsAndFields.rows
@@ -105,10 +104,9 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
 }
 
 const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message, channelTitles: ChannelTitles) :ExportDataGroupedGetRowsAndFields => {
-
-  const messagesFiltered: Message[] = message.messageType === CUSTOM_MESSAGE ?
-    messages.filter(msg => msg.messageType === CUSTOM_MESSAGE && message.details.messageType === msg.details.messageType):
-    messages.filter(({ messageType }) => message.messageType === messageType)
+  const messagesFiltered: Message[] = message.messageType === CUSTOM_MESSAGE 
+    ? messages.filter(msg => msg.messageType === CUSTOM_MESSAGE && message.details.messageType === msg.details.messageType)
+    : messages.filter(({ messageType }) => message.messageType === messageType)
 
   const fields: string[] = []
   const rows: string[][] = []
@@ -125,10 +123,10 @@ const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message
       // check if fields/titles have no current key then add
       if (!fields.includes(key)) fields.push(key)
     }
-    return {flatMsg, objectKeys}
+    return { flatMsg, objectKeys }
   })
 
-  for (const {objectKeys, flatMsg} of messagesWithChannelNames) {
+  for (const { objectKeys, flatMsg } of messagesWithChannelNames) {
     const row: string[] = Array(fields.length).fill('')
     for (const key of objectKeys) {
       let value = flatMsg[key]
@@ -142,4 +140,3 @@ const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message
 
   return { fields, rows }
 }
-

@@ -25,8 +25,8 @@ const DeleteWargameModal = () => {
   return (
     <Confirm
       isOpen={currentModal.open}
-      title="Delete"
-      message="This will permanently delete the wargame. Are you sure?"
+      title='Delete'
+      message='This will permanently delete the wargame. Are you sure?'
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
       onCancel={onHideModal}

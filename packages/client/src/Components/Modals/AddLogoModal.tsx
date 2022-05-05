@@ -25,9 +25,9 @@ const AddLogoModal = () => {
 
   return (
     <ModalWrapper>
-      <div className="display-text-wrapper">
+      <div className='display-text-wrapper'>
         <ImageDropzone
-          title="Add an image"
+          title='Add an image'
           limit={100000}
           onChange={saveLogo}
           onRejected={onRejected}

@@ -1,11 +1,11 @@
-import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from "@serge/custom-types"
-import { messagesReducer } from "../ActionsAndReducers/dbMessages/messages_Reducer"
-import { exportItems } from "../ActionsAndReducers/ExportItems/ExportItems_Reducer"
-import { loadingDbReducer } from "../ActionsAndReducers/loadingDb_Reducer"
-import { currentModal } from "../ActionsAndReducers/Modal/Modal_Reducer"
-import { notificationReducer } from "../ActionsAndReducers/Notification/Notification_Reducer"
-import { gameInfo } from "../ActionsAndReducers/sergeInfo/sergeInfo_Reducer"
-import { umpireMenuReducer } from "../ActionsAndReducers/UmpireMenu/umpireMenu_Reducer"
+import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from '@serge/custom-types'
+import { messagesReducer } from '../ActionsAndReducers/dbMessages/messages_Reducer'
+import { exportItems } from '../ActionsAndReducers/ExportItems/ExportItems_Reducer'
+import { loadingDbReducer } from '../ActionsAndReducers/loadingDb_Reducer'
+import { currentModal } from '../ActionsAndReducers/Modal/Modal_Reducer'
+import { notificationReducer } from '../ActionsAndReducers/Notification/Notification_Reducer'
+import { gameInfo } from '../ActionsAndReducers/sergeInfo/sergeInfo_Reducer'
+import { umpireMenuReducer } from '../ActionsAndReducers/UmpireMenu/umpireMenu_Reducer'
 
 // almost reducer is written in js file so we don't have a type for this
 // it makes a bit difficult when query data from state and we don't know extractly what type of the state

@@ -48,8 +48,8 @@ class MetaSchema extends Component {
         </CardHeader>
         <CardBody style={{ padding: 0 }}>
           <ReactAce
-            mode="json"
-            theme="monokai"
+            mode='json'
+            theme='monokai'
             setReadOnly={false}
             onChange={this.onChange}
             style={{ height: '400px' }}

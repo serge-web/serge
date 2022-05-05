@@ -62,7 +62,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
         onIconClick={(): void => dispatch(showHideObjectives())}
       />
     </>
-  );
+  )
 }
 
 export default AdminAndInsightsTabsContainer

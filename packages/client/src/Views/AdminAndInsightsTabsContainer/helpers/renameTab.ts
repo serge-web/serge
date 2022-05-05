@@ -5,7 +5,7 @@ export default (model: Model, nodeId: string, count: number): void => {
   if (count > 0 && count <= 8) {
     className = `unread-${count}`
   } else if (count > 8) {
-    className = `unread-9plus`
+    className = 'unread-9plus'
   }
   model.doAction(FlexLayout.Actions.updateNodeAttributes(nodeId, { className }))
 }
