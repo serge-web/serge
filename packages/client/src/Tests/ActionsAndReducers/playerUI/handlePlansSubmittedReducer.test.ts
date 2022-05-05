@@ -88,14 +88,14 @@ const allForces: ForceData[] = [
         name: 'foxtrot',
         perceptions: []
       }
-  ],
-  uniqid: 'id4',
-  overview: '',
-  roles: [],
-  iconURL: '',
-  color: '',
-  umpire: false,
-  dirty: false
+    ],
+    uniqid: 'id4',
+    overview: '',
+    roles: [],
+    iconURL: '',
+    color: '',
+    umpire: false,
+    dirty: false
   }
 ]
 const payload: MessageSubmitPlans = {

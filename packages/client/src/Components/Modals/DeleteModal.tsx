@@ -36,8 +36,8 @@ const DeleteModal = () => {
   return (
     <Confirm
       isOpen={currentModal.open}
-      title="Delete"
-      message="This will permanently remove the message. Are you sure?"
+      title='Delete'
+      message='This will permanently remove the message. Are you sure?'
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
       onCancel={onHideModal}

@@ -22,7 +22,7 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types'
 import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
@@ -30,12 +30,12 @@ import {
   markUnread,
   closeMessage,
   markAllMessageState
-} from './helpers/handleWargameMessagesChange';
+} from './helpers/handleWargameMessagesChange'
 
 import {
-  CHAT_CHANNEL_ID,
+  CHAT_CHANNEL_ID
 } from '../../consts'
-import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
+import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
 import { platformTypeNameToKey } from '@serge/helpers'
 
@@ -84,14 +84,13 @@ export const initialState: PlayerUi = {
   playerMessageLog: {}
 }
 
-
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T>(enm: { [s: string]: T }, value: string): T | undefined {
+  function enumFromString<T> (enm: { [s: string]: T }, value: string): T | undefined {
     return (Object.values(enm) as unknown as string[]).includes(value)
       ? value as unknown as T
-      : undefined;
+      : undefined
   }
 
   switch (action.type) {
@@ -119,7 +118,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       // TODO: delete workaround once fix in place
       const allChannels = action.payload.data.channels.channels || []
       const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
-      if (allChannels.length != cleanChannels.length) {
+      if (allChannels.length !== cleanChannels.length) {
         console.warn('Applied workaround to remove duplicate channel defs')
       }
       newState.allChannels = cleanChannels
@@ -230,9 +229,9 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
   if (process.env.NODE_ENV === 'development') {
-    console.log('PlayerUI: ', action.type);
-    console.log('PlayerUI > Prev State: ', state);
-    console.log('PlayerUI > Next State: ', newState);
+    console.log('PlayerUI: ', action.type)
+    console.log('PlayerUI > Prev State: ', state)
+    console.log('PlayerUI > Next State: ', newState)
   }
 
   return newState

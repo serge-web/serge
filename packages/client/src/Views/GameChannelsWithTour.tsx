@@ -28,7 +28,7 @@ const GameChannelsWithTour: React.FC = () => {
     selectedForce,
     selectedRole,
     wargameTitle,
-    allForces,
+    allForces
   } = usePlayerUiState()
 
   const gameTourKey = `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-tourDone`
@@ -109,7 +109,7 @@ const GameChannelsWithTour: React.FC = () => {
       content: () => (
         <div>
           <span>
-            The tab on the left of the screen shows Force Assets, under "Control", where you can submit routes per Assets
+            The tab on the left of the screen shows Force Assets, under `Control`, where you can submit routes per Assets
           </span>
           <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
         </div>
@@ -120,7 +120,7 @@ const GameChannelsWithTour: React.FC = () => {
       content: () => (
         <div>
           <span>
-            Under "Visibility", you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information
+            Under `Visibility`, you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information
           </span>
           <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
         </div>

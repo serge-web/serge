@@ -67,8 +67,8 @@ const NewMessage = props => {
             <DropdownInput
               updateStore={setTemplate}
               selectOptions={allTemplates}
-              placeholder="Select message"
-              className="message-input"
+              placeholder='Select message'
+              className='message-input'
               data={JSON.stringify(selectedSchema)}
             />
           )

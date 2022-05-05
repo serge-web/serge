@@ -24,8 +24,8 @@ export const usePlayerUiState = (): PlayerUi => {
   if (context === undefined) {
     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')
   }
-  //process roleid for the legacy data
-  let needUpdate = false
+  // process roleid for the legacy data
+  const needUpdate = false
   const { currentWargame, allForces } = context
   allForces.forEach(force => {
     force.roles = force.roles.map((role: Role): Role => {
@@ -44,8 +44,8 @@ export const usePlayerUiState = (): PlayerUi => {
 
 export const usePlayerUiDispatch = (): Dispatch<PlayerUiActionTypes> => {
   const context = useContext(PlayerDispatchContext)
-  const empty_context = {}
-  if (context === undefined || context === empty_context) {
+  const emptyContext = {}
+  if (context === undefined || context === emptyContext) {
     throw new Error('usePlayerUiDispatch must be used within a PlayerDispatchContext.Provider')
   }
   return context

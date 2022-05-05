@@ -1,13 +1,5 @@
 import { ForceData, PlayerUi, Role } from '@serge/custom-types'
 
-interface GetRoleParamsForPlayerUI {
-  isGameControl: boolean,
-  isObserver: boolean,
-  isRFIManager: boolean
-  isInsightViewer: boolean,
-  selectedRole: Role['roleId']
-}
-
 const getRoleParamsForPlayerUI = (role: Role, newState: PlayerUi): void => {
   newState.selectedRole = role.roleId
   newState.selectedRoleName = role.name

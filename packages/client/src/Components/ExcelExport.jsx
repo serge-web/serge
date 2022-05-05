@@ -30,7 +30,7 @@ const ExcelExport = ({ exp, index }) => {
     }, data)
   }
 
-  if (data.length === 0) return <span className="badge badge-warning">No data to export</span>
+  if (data.length === 0) return <span className='badge badge-warning'>No data to export</span>
 
   return (
     <div>

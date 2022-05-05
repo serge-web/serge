@@ -32,17 +32,17 @@ describe('PlayerUi Message Actions', () => {
 
 const state: PlayerUi = {
   ...initialState,
-  "channels": {
+  'channels': {
     [GameMessagesMock[0].details.channel]: {
       uniqid: '345345',
       participants: [],
-      "name": "Blue Chat",
-      "templates": [],
-      "forceIcons": ["http://localhost:8080/default_img/forceDefault.png"],
-      "forceColors": ["#3dd0ff"],
-      "messages": GameMessagesMock,
-      "unreadMessageCount": GameMessagesMock.length,
-      "observing": false
+      'name': 'Blue Chat',
+      'templates': [],
+      'forceIcons': ['http://localhost:8080/default_img/forceDefault.png'],
+      'forceColors': ['#3dd0ff'],
+      'messages': GameMessagesMock,
+      'unreadMessageCount': GameMessagesMock.length,
+      'observing': false
     }
   }
 }

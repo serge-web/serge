@@ -17,7 +17,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
   const setDefaultModel = () => {
     const { allChannels } = state
@@ -66,7 +65,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
   }
 
   const getModel = (): Model => {
-    let model = expiredStorage.getItem(modelName)
+    const model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
     return FlexLayout.Model.fromJson(setDefaultModel())
   }
@@ -89,7 +88,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
       computeTabs(state, model)
     }
   }, [state, wargamesLoaded])
-
 
   const onRenderTab = (node: TabNode) => {
     tabRender(state)(node)

@@ -21,8 +21,8 @@ const DBSaveMessageArray = (messages: []): MessagesActionTypes => ({
 })
 
 const DBSaveMessagePreview = (message: MessageFeedback): MessagesActionTypes => ({
-    type: ActionConstant.DB_RETURNED_MESSAGE,
-    payload: message
+  type: ActionConstant.DB_RETURNED_MESSAGE,
+  payload: message
 })
 
 const loadingDBMessageCreate = (isLoading: boolean): MessagesActionTypes => ({

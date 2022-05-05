@@ -1,4 +1,8 @@
-import { faAddressBook, faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react'
+import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
+import classNames from 'classnames'
+import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
+import { faBookOpen, faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import classNames from 'classnames'
@@ -41,9 +45,9 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange, }): React.Reac
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
 
-  if (selectedForce == undefined) {
+  if (selectedForce === undefined) {
     return (
-      <div className="flex-content--center">
+      <div className='flex-content--center'>
         <h1>Chosen force not in game</h1>
         <h4>Please reload and select a force</h4>
       </div>
@@ -58,34 +62,26 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange, }): React.Reac
     dispatch(openTour(true))
   }
 
-  const closePlayerLogModal = useCallback(() => {
-    togglePlayerLogModal(false)
-  }, [])
-
-  const openPlayerLogModal = useCallback(() => {
-    togglePlayerLogModal(true)
-  }, [])
-
-  return <div className="flex-content flex-content--row-wrap">
-    <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerLogModal} />
-    <div className="message-feed in-game-feed" data-tour="fourth-step">
+  return <div className='flex-content flex-content--row-wrap'>
+    <PlayerLog isOpen={isPlayerlogOpen} onClose={(): void => togglePlayerLogModal(false)} />
+    <div className='message-feed in-game-feed' data-tour='fourth-step'>
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
         if (el) window.channelTabsContainer[selectedForce.uniqid] = el
       }} onTabChange={onTabChange} />
     </div>
-    <div className={classNames({ "message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl })} data-tour="fifth-step">
-      <div className="flex-content wargame-title">
+    <div className={classNames({ 'message-feed': true, 'out-of-game-feed': true, 'umpire-feed': isGameControl })} data-tour='fifth-step'>
+      <div className='flex-content wargame-title'>
         <h3>{wargameTitle}</h3>
-        <span title="Sumbit lesson learned/feedback" onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
-          <strong className="sr-only">Show lesson</strong>
+        <span title='Sumbit lesson learned/feedback' onClick={(): void => dispatch(openModal('lessons'))} className='wargame-title-icon' data-tour='third-step'>
+          <strong className='sr-only'>Show lesson</strong>
         </span>
-        <span className="tutorial" title="Re-play tutorial">
+        <span className='tutorial' title='Re-play tutorial'>
           <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
         </span>
         {
-          isUmpire && <span title="Show player log" className="playerlog">
-            <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerLogModal} />
+          isUmpire && <span title='Show player log' className='playerlog'>
+            <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
           </span>
         }
       </div>
