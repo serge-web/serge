@@ -14,13 +14,3 @@
   "extends": ["standard", "plugin:react/recommended"],
   "plugins": ["prettier"]
 }
-
-// module.exports = {
-//   "globals": {
-//       "Atomics": "readonly",
-//       "SharedArrayBuffer": "readonly"
-//   },
-//   "plugins": [
-//       "react",
-//       "@typescript-eslint"
-//   ],
