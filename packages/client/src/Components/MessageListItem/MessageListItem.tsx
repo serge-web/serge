@@ -28,6 +28,7 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
           isOpen={isOpen}
           title={itemTitle}
           timestamp={`${moment(details.timestamp)}`}
+          // @ts-ignore
           role={details.from.role}
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}

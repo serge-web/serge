@@ -1,12 +1,12 @@
-import { Message, Wargame } from '@serge/custom-types'
-import { Socket } from 'socket.io-client'
+import { Message, MessageCustom, Wargame } from '@serge/custom-types'
+import DbProvider from '.'
 
 export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
   destroy: () => void
   get: (query: string) => Promise<Wargame | Message | { status: number }>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
-  allDocs: () => Promise<Message[]>
+  allDocs: () => Promise<MessageCustom[]>
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }
@@ -15,7 +15,7 @@ export interface ProviderDbInterface {
   db: DbProviderInterface.Socket<Message | Wargame>
 }
 
-export interface ChangesResponseChange<Content extends {}> {
+export interface ChangesResponseChange {
   id: string;
   seq: number | string;
   changes: Array<{ rev: string }>;
@@ -33,6 +33,4 @@ export interface FetchDataArray {
   data: (Wargame | Message)[]
 }
 
-export type ChangeListener = (value: ChangesResponseChange<Content>) => any
-
-
+export type ChangeListener = (value: ChangesResponseChange) => any

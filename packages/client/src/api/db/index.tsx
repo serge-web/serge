@@ -5,7 +5,7 @@ import {
   replicate,
   deletePath
 } from '@serge/config'
-import { Message, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, Wargame } from '@serge/custom-types'
 import { io } from 'socket.io-client'
 import {
   ProviderDbInterface,
@@ -70,7 +70,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  allDocs (): Promise<Message[]> {
+  allDocs (): Promise<MessageCustom[]> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName())
         .then(res => res.json() as Promise<FetchDataArray>)

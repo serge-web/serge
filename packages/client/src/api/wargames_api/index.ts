@@ -737,6 +737,7 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
 
       const [counter, existId] = counterIdExist
 
+      // @ts-ignore
       const counterExist = existId ? existId.message.counter : message.message.counter
 
       counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
@@ -828,6 +829,7 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     .then((res): Message[] => res.reduce((messages: Message[], res): Message[] => {
+      // @ts-ignore
       if (res && res.messageType !== COUNTER_MESSAGE) messages.push(res)
       return messages
     }, []))
