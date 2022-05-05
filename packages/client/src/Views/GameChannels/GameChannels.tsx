@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import classNames from 'classnames'
 import { TabNode } from 'flexlayout-react'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   nextGameTurn,
   openModal,
@@ -58,8 +58,16 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     dispatch(openTour(true))
   }
 
+  const closePlayerlogModal = useCallback(() => {
+    togglePlayerLogModal(false)
+  }, [])
+
+  const openPlayerlogModal = useCallback(() => {
+    togglePlayerLogModal(true)
+  }, [])
+
   return <div className='flex-content flex-content--row-wrap'>
-    <PlayerLog isOpen={isPlayerlogOpen} onClose={(): void => togglePlayerLogModal(false)} />
+    <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} />
     <div className='message-feed in-game-feed' data-tour='fourth-step'>
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
@@ -77,7 +85,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         </span>
         {
           isUmpire && <span title='Show player log' className='playerlog'>
-            <FontAwesomeIcon icon={faAddressBook} onClick={(): void => togglePlayerLogModal(true)} />
+            <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
           </span>
         }
       </div>
