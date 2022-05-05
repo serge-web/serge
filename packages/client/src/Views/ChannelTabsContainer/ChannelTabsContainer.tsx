@@ -11,16 +11,11 @@ import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerU
 import Props from './types'
 import { setActivityTime } from '@serge/config'
 
-interface UnreadCounter {
-  [property: string]: number
-}
-
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-
 
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
   const setDefaultModel = () => {
@@ -70,7 +65,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   }
 
   const getModel = (): Model => {
-    let model = expiredStorage.getItem(modelName)
+    const model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
     return FlexLayout.Model.fromJson(setDefaultModel())
   }
@@ -104,7 +99,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
               factory={factory(state)}
               onRenderTab={tabRender(state)}
               onModelChange={() => {
-                setActivityTime(state.selectedRole ,'change tab')
+                setActivityTime(state.selectedRole, 'change tab')
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />

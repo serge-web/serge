@@ -9,14 +9,15 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     editor = null
   }
 
-  if (schema && schema.type)
-  return new JSONEditor(ref.current, {
-    schema: schema,
-    theme: 'bootstrap4',
-    disable_collapse: true,
-    disable_edit_json: true,
-    disable_properties: true,
-  }) as Editor
+  if (schema && schema.type) {
+    return new JSONEditor(ref.current, {
+      schema: schema,
+      theme: 'bootstrap4',
+      disable_collapse: true,
+      disable_edit_json: true,
+      disable_properties: true
+    }) as Editor 
+  }
 
   return null
 }

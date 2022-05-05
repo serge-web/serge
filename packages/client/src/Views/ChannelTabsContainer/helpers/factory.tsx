@@ -15,6 +15,7 @@ import {
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
   CHANNEL_CHAT
+  , Domain 
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -23,7 +24,7 @@ import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
 import _ from 'lodash'
 import ChatChannel from '../../../Components/ChatChannel'
 import findChannelByName from './findChannelByName'
-import { Domain } from '@serge/config'
+
 import CollabChannel from '../../../Components/CollabChannel'
 
 type Factory = (node: TabNode) => React.ReactNode
@@ -36,7 +37,7 @@ const findRole = (roleId: string, forceData: ForceData | undefined): Role => {
       return role
     }
   }
-  throw new Error('Role not found for id:' + roleId);
+  throw new Error('Role not found for id:' + roleId)
 }
 
 /** convert phase as a string to the enum type
@@ -48,12 +49,7 @@ const phaseFor = (phase: string): Phase => {
   return phase === 'planning' ? Phase.Planning : Phase.Adjudication
 }
 
-type OnMessageCountChange = (unreadMessageForChannel: {
-  [property: string]: number
-}) => void
-
 const factory = (state: PlayerUi): Factory => {
-
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints: MappingConstraints = state.mappingConstaints || {
     bounds: [[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]],
@@ -108,7 +104,6 @@ const factory = (state: PlayerUi): Factory => {
   }
 
   return (node: TabNode): React.ReactNode => {
-
     /** helper to determine if the specified channel should be rendered */
     const renderThisChannel = (channelData?: ChannelUI): boolean => {
       if (channelData) {
@@ -117,7 +112,7 @@ const factory = (state: PlayerUi): Factory => {
         // lose that content.  Note: there _Shouldn't_ be a performance
         // hit, since the content in those channels won't be changing
         const cType = channelData.cData.channelType
-        if(cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING) {
+        if (cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING) {
           return true
         }
       }
@@ -199,7 +194,7 @@ const factory = (state: PlayerUi): Factory => {
         if (isChatChannel(channelDefinition)) {
           return <ChatChannel channelId={matchedChannel[0]} />
         } else {
-          console.log("Not rendering channel for ", channelDefinition)
+          console.log('Not rendering channel for ', channelDefinition)
         }
       }
     }

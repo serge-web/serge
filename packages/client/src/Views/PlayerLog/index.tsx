@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
@@ -20,7 +21,7 @@ const AGE_FOR_ACTIVE_MILLIS = 60000
 
 const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
   const { allForces, playerMessageLog, currentWargame, selectedRole } = usePlayerUiState()
-  const [loop, setLoop] = useState<any>();
+  const [loop, setLoop] = useState<any>()
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
 

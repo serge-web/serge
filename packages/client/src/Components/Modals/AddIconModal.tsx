@@ -20,7 +20,7 @@ const AddIconModal = () => {
 
   return (
     <ModalWrapper>
-      <div className="display-text-wrapper">
+      <div className='display-text-wrapper'>
         <ImageDropzone
           limit={20000}
           onChange={onSaveIcon}

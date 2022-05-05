@@ -6,12 +6,12 @@ import {
   openMessage,
   markAllAsRead,
   markAllAsUnread,
-  saveMessage,
+  saveMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
-import { CollabStatusBoard } from "@serge/components";
-import { CHANNEL_COLLAB } from "@serge/config";
+import { CollabStatusBoard } from '@serge/components'
+import { CHANNEL_COLLAB } from '@serge/config'
 import '@serge/themes/App.scss'
 
 const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {

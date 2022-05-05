@@ -6,7 +6,7 @@ import {
   setRole,
   startListening,
   setAllTemplates,
-  failedLoginFeedbackMessage,
+  failedLoginFeedbackMessage
 } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 export default (
@@ -17,7 +17,7 @@ export default (
   turnNumber: number,
   dispatch: Dispatch<PlayerUiActionTypes>
 ): boolean => {
-  let role: Role | undefined = undefined
+  let role: Role | undefined
   const force = allForces.find(force => (
     force.roles.find(roleItem => {
       role = roleItem
@@ -25,18 +25,18 @@ export default (
     }) !== undefined
   ))
 
-  if(allForces.length === 0) {
-    console.error("Can't check password, forces data missing")
+  if (allForces.length === 0) {
+    console.error('Can\'t check password, forces data missing')
   }
 
   if (force === undefined || role === undefined) {
-    failedLoginFeedbackMessage(currentWargame, pass, turnNumber);
-    return false;
+    failedLoginFeedbackMessage(currentWargame, pass, turnNumber)
+    return false
   }
 
-  dispatch(setForce(force.uniqid));
-  dispatch(setRole(role));
-  dispatch(setAllTemplates(messageTypes.templatesByKey));
-  startListening(currentWargame)(dispatch);
-  return true;
-};
+  dispatch(setForce(force.uniqid))
+  dispatch(setRole(role))
+  dispatch(setAllTemplates(messageTypes.templatesByKey))
+  startListening(currentWargame)(dispatch)
+  return true
+}
