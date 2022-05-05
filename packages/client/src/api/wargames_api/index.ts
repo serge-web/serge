@@ -120,7 +120,8 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
     if (doc.messageType === FEEDBACK_MESSAGE) {
       dispatch(setLatestFeedbackMessage(doc))
     } else if (doc.messageType === COUNTER_MESSAGE) {
-        
+      // eslint-disable-next-line no-useless-return
+      return 
     } else {
       // @ts-ignore: TODO: check this case
       dispatch(setLatestWargameMessage(doc))

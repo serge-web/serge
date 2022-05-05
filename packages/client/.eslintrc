@@ -17,12 +17,12 @@
     "react/prop-types": 0,
     "no-trailing-spaces": "off",
     "no-use-before-define": "off",
-    "dot-notation": "warn",
+    "dot-notation": "off",
     "no-case-declarations": "off",
     "react/display-name": "off",
     "react/no-deprecated": "off",
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",
-    "eqeqeq": "warn"
+    "eqeqeq": "off"
   }
 }
