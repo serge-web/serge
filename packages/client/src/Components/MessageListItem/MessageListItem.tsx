@@ -6,7 +6,6 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import Props from './types'
 
 const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
-
   let itemTitle
   const state = usePlayerUiState()
   const { selectedForce } = state
@@ -14,7 +13,7 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
   const { details, message, isOpen, hasBeenRead } = detail
   if (message.title) {
     itemTitle = message.title
-  } else if(message.content) {
+  } else if (message.content) {
     // yes, we have content (probably chat) use it
     itemTitle = message.content
   } else {

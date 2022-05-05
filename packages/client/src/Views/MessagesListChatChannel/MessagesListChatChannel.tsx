@@ -8,13 +8,12 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import Props from './types'
 
 const MessagesListChatChannel = ({ messages, markAllAsRead }: Props): React.ReactElement | null => {
-
   const { currentWargame, selectedForce, selectedRole } = usePlayerUiState()
   if (selectedRole === undefined) throw new Error('selectedRole is undefined')
 
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
-  let msgRef = useRef<HTMLDivElement | null>(null)
-  const orderedMessages = useMemo(() => sortBy(messages, '_id'), [messages.length]);
+  const msgRef = useRef<HTMLDivElement | null>(null)
+  const orderedMessages = useMemo(() => sortBy(messages, '_id'), [messages.length])
 
   const isMessageRead = (message: MessageChannel): boolean => isMessageReaded(currentWargame, selectedForceId, selectedRole, message._id || '')
 

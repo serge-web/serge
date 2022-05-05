@@ -12,8 +12,8 @@ const ExportItem = ({ children, item }) => {
   }
 
   return (
-    <li className="flex-content-wrapper">
-      <div className="flex-content flex-content--big flex-content--first">
+    <li className='flex-content-wrapper'>
+      <div className='flex-content flex-content--big flex-content--first'>
         <h5>{item.title}</h5>
         <p>Selected wargame: {item.wargame}</p>
         <p>
@@ -22,7 +22,7 @@ const ExportItem = ({ children, item }) => {
           </span>))}
         </p>
       </div>
-      <div className="flex-content flex-content--big flex-content--last">
+      <div className='flex-content flex-content--big flex-content--last'>
         {children}
       </div>
     </li>

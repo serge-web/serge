@@ -22,6 +22,7 @@ import {
   INFO_MESSAGE, 
   FEEDBACK_MESSAGE, 
   CUSTOM_MESSAGE
+  , hiddenPrefix 
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -58,7 +59,7 @@ import {
   ApiWargameDb,
   ListenNewMessageType
 } from './types.d'
-import { hiddenPrefix } from '@serge/config'
+
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 
@@ -82,7 +83,7 @@ const getNameFromPath = (dbPath: string): string => {
 const getWargameDbByName = (name: string): ApiWargameDbObject => {
   name = name.replace(hiddenPrefix, '')
   const dbObject = wargameDbStore.find((item) => item.name === name)
-  if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
+  if (dbObject === undefined) throw new Error(`wargame database with '${name}' not found`)
   return dbObject
 }
 
@@ -107,24 +108,23 @@ export const deleteWargame = (wargamePath: string): void => {
 }
 
 export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
-
   db.changes((msg) => {
     const doc = msg as Message
-      if (doc === undefined) return
-      if (doc.messageType === INFO_MESSAGE) {
-        dispatch(setCurrentWargame(doc as Wargame))
-        dispatch(setLatestWargameMessage(clipInfoMEssage(doc)))
-        return
-      }
+    if (doc === undefined) return
+    if (doc.messageType === INFO_MESSAGE) {
+      dispatch(setCurrentWargame(doc as Wargame))
+      dispatch(setLatestWargameMessage(clipInfoMEssage(doc)))
+      return
+    }
 
-      if (doc.messageType === FEEDBACK_MESSAGE) {
-        dispatch(setLatestFeedbackMessage(doc))
-      } else if (doc.messageType === COUNTER_MESSAGE) {
-        return
-      } else {
-        // @ts-ignore: TODO: check this case
-        dispatch(setLatestWargameMessage(doc))
-      }
+    if (doc.messageType === FEEDBACK_MESSAGE) {
+      dispatch(setLatestFeedbackMessage(doc))
+    } else if (doc.messageType === COUNTER_MESSAGE) {
+        
+    } else {
+      // @ts-ignore: TODO: check this case
+      dispatch(setLatestWargameMessage(doc))
+    }
   })
 }
 
@@ -144,7 +144,7 @@ export const pingServer = (activityDetails: { wargame: string, role: string }): 
   return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }
   })
     .then((response: Response): Promise<any> => response.json())
@@ -153,7 +153,7 @@ export const pingServer = (activityDetails: { wargame: string, role: string }): 
     })
     .catch((err) => {
       console.log(err)
-      return "NOT_OK"
+      return 'NOT_OK'
     })
 }
 
@@ -176,7 +176,7 @@ export const getPlayerActivityLogs = () => {
 }
 
 export const populateWargame = (): Promise<string | Wargame[]> => {
-   return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
+  return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
@@ -215,18 +215,17 @@ export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
 }
 
-
 export const getIpAddress = (): Promise<{ ip: string }> => {
   return fetch(serverPath + 'getIp').then<{ ip: string }>((res) => res.json())
 }
 
-// TODO: Need to check component "ImageDropzone" it returns file with Any type
+// TODO: Need to check component 'ImageDropzone' it returns file with Any type
 // @ts-ignore
 export const saveIcon = (file) => {
   return fetch(serverPath + 'saveIcon', {
     method: 'POST',
     headers: {
-      'Content-Type': 'image/png',
+      'Content-Type': 'image/png'
     },
     body: file
   }).then((res) => res.json())
@@ -271,9 +270,9 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
     for (let index = 0; index < messages.length; index++) {
       const message = messages[index]
       if (message.messageType === INFO_MESSAGE) {
-        const nextDate = + new Date(message._id as string)
+        const nextDate = +new Date(message._id as string)
         if (nextDate > lastDate) {
-          lastDate = nextDate;
+          lastDate = nextDate
           infoMessageIndex = index
         }
       }
@@ -347,7 +346,7 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: 
   return db.put({
     ...nextWargame,
     _id: dbDefaultSettings._id,
-    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format(),
+    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format()
   }).then(() => {
     return db.get(dbDefaultSettings._id) as Promise<Wargame>
   })
@@ -525,7 +524,7 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
 
     // remove participations for this force
     updatedData.channels.channels.forEach((channel: ChannelTypes) => {
-      // in the next time we're "tricking" the compiler into accepting the
+      // in the next time we're 'tricking' the compiler into accepting the
       // provided list.  We're not worried about the list being in the correct type
       // since all the entries came from that list
       const parts = channel.participants as ParticipantChat[]
@@ -539,10 +538,10 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
 
     if (updatedData.forces.forces.length === 0) {
       updatedData.channels = { 
-      name: 'Channels',
-      channels: [],
-      selectedChannel: '',
-      dirty: false
+        name: 'Channels',
+        channels: [],
+        selectedChannel: '',
+        dirty: false
       }
     }
     return updateWargame({ ...res, data: updatedData }, dbName)
@@ -660,7 +659,7 @@ export const createLatestWargameRevision = (dbName: string, wargame: Wargame): P
     ...copiedData,
     _rev: undefined,
     _id: new Date().toISOString(),
-    messageType: INFO_MESSAGE,
+    messageType: INFO_MESSAGE
   }).then(() => {
     return getLatestWargameRevision(dbName)
   }).catch(rejectDefault)
@@ -719,24 +718,25 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 }
 
 const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails) => {
-  return new Promise(async(resolve): Promise<void> => {
-    if(message.details.messageType !== 'Chat') {
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve): Promise<void> => {
+    if (message.details.messageType !== 'Chat') {
       // default value for message counter
       message.message.counter = 1
 
       const counterIdExist = await db.allDocs().then(res => {
         const counters = res.reduce((messages: number[], message) => {
-          if(message['details'].from.force === details.from.force && message['message'].counter) messages.push(message['message'].counter)
-            return messages
-        },[])
-        const existId = res.find(message => message['_id'] === details.timestamp)
+          if (message.details.from.force === details.from.force && message.message.counter) messages.push(message.message.counter)
+          return messages
+        }, [])
+        const existId = res.find(message => message._id === details.timestamp)
 
         return [Math.max(...counters), existId]
       })
 
       const [counter, existId] = counterIdExist
 
-      const counterExist = existId ? existId['message'].counter : message.message.counter
+      const counterExist = existId ? existId.message.counter : message.message.counter
 
       counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
       message.message.Reference = [message.details.from.force, message.message.counter].join('-')
@@ -807,8 +807,7 @@ export const postNewMapMessage = (dbName, details, message) => {
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
-        if (!res.data.platformTypes)
-          throw new Error('Cannot handle force delta without platform types')
+        if (!res.data.platformTypes) { throw new Error('Cannot handle force delta without platform types') }
           
         // apply the reducer to this wargame
         // @ts-ignore

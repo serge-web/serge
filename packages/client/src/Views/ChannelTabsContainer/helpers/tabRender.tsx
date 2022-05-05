@@ -64,7 +64,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       })
     })
 
-    let channel: ChannelUI | undefined;
+    let channel: ChannelUI | undefined
 
     const addMenuItemMsgCount = (className: string) => {
       if (!className) return
@@ -78,7 +78,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
                 menuItem.classList.add(className)
               }
             })
-          });
+          })
         })
       }
     }
@@ -87,7 +87,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       if (node.getClassName() !== className) {
         node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
-    };
+    }
 
     if (!_.isEmpty(state.channels)) {
       const matchedChannel = findChannelByName(state.channels, node.getName())

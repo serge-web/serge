@@ -25,7 +25,7 @@ describe('PlayerUi Modal Reducer', () => {
   // })
 
   it('should handle OPEN_MODAL and set modalOpened', () => {
-    const modalName = "My Test Modal"
+    const modalName = 'My Test Modal'
     expect(reducer(undefined, openModal(modalName))).toEqual({
       ...initialState,
       modalOpened: modalName
@@ -35,7 +35,7 @@ describe('PlayerUi Modal Reducer', () => {
   it('should handle CLOSE_MODAL and unset modalOpened', () => {
     expect(reducer({
       ...initialState,
-      modalOpened: "My Test Modal"
+      modalOpened: 'My Test Modal'
     }, closeModal())).toEqual({
       ...initialState,
       modalOpened: undefined

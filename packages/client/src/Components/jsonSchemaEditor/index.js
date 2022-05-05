@@ -78,7 +78,7 @@ class SchemaEditor extends Component {
   render () {
     return (
       <>
-        <div className="flex-content flex-content--left50">
+        <div className='flex-content flex-content--left50'>
           <Editor
             schema={this.state.metaSchema}
             onChange={this.updatePreviewSchema}
@@ -86,7 +86,7 @@ class SchemaEditor extends Component {
             defaultValue={this.defaultValue}
           />
         </div>
-        <div className="flex-content flex-content--right50">
+        <div className='flex-content flex-content--right50'>
           <Preview schema={this.state.previewSchema}/>
         </div>
       </>

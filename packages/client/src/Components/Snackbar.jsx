@@ -1,49 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import "@serge/themes/App.scss";
+import '@serge/themes/App.scss'
 
 class Snackbar extends Component {
-
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return nextProps.id === this.props.id;
+  shouldComponentUpdate (nextProps, nextState, nextContext) {
+    return nextProps.id === this.props.id
   }
 
   onClickHandler = () => {
-    if(this.props.autoHide) {
-      clearTimeout(this.timer);
+    if (this.props.autoHide) {
+      clearTimeout(this.timer)
     }
-    this.props.onClickHandler(this.props.id);
+    this.props.onClickHandler(this.props.id)
   };
 
-  componentWillMount() {
-    if(this.props.autoHide) {
+  componentWillMount () {
+    if (this.props.autoHide) {
       this.timer = setTimeout(() => {
-        this.props.onClickHandler(this.props.id);
-      }, 2500);
+        this.props.onClickHandler(this.props.id)
+      }, 2500)
     }
   }
 
-  render() {
-
-    let type = this.props.type ? this.props.type : '';
-    let classes = `active ${type}`;
+  render () {
+    const type = this.props.type ? this.props.type : ''
+    const classes = `active ${type}`
 
     return (
       <>
-        <div id="notification" className={classes} key={this.props.id}>
+        <div id='notification' className={classes} key={this.props.id}>
           {this.props.message}<FontAwesomeIcon icon={faTimes} onClick={this.onClickHandler} />
         </div>
       </>
-    );
+    )
   }
 }
 
 Snackbar.defaultProps = {
-  autoHide: true,
+  autoHide: true
 }
 
-
-export default Snackbar;
+export default Snackbar

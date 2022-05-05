@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import "@serge/themes/App.scss";
+import '@serge/themes/App.scss'
 
 class Checkbox extends Component {
-
   onChange = (e) => {
-    this.props.updateStore(e.target.checked);
+    this.props.updateStore(e.target.checked)
   };
 
-  render() {
+  render () {
     return (
-      <div className="md-checkbox">
+      <div className='md-checkbox'>
         <input
           id={this.props.id}
-          type="checkbox"
+          type='checkbox'
           onChange={this.onChange}
           checked={this.props.isChecked}
           title={this.props.title}
-          className="md-checkbox--checkbox"
+          className='md-checkbox--checkbox'
         />
         <label title={this.props.title} htmlFor={this.props.id}>{this.props.label}</label>
       </div>
-    );
+    )
   }
 }
 
@@ -31,7 +30,7 @@ Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   isChecked: PropTypes.bool.isRequired,
   updateStore: PropTypes.func.isRequired,
-  title: PropTypes.string,
-};
+  title: PropTypes.string
+}
 
-export default Checkbox;
+export default Checkbox

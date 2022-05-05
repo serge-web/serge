@@ -1,5 +1,5 @@
-import { Message, Wargame } from "@serge/custom-types"
-import { Socket } from "socket.io-client"
+import { Message, Wargame } from '@serge/custom-types'
+import { Socket } from 'socket.io-client'
 
 export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
