@@ -106,47 +106,19 @@ const GameChannelsWithTour: React.FC = () => {
     },
     {
       selector: '[data-tour="world-state"]',
-      content: () => (
-        <div>
-          <span>
-            The tab on the left of the screen shows Force Assets, under `Control`, where you can submit routes per Assets
-          </span>
-          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
-        </div>
-      )
+      content: 'The tab on the left of the screen shows Force Assets, under `Control`, where you can submit routes per Assets'
     },
     {
       selector: '[data-tour="visibility"]',
-      content: () => (
-        <div>
-          <span>
-            Under `Visibility`, you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information
-          </span>
-          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
-        </div>
-      )
+      content: 'Under "Visibility", you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information'
     },
     {
       selector: '[data-tour="zoom-control"]',
-      content: () => (
-        <div>
-          <span>
-            You can Zoom In and Zoom with the Plus and Dash button above, as well as fit the screen to the window by pressing the Home button
-          </span>
-          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
-        </div>
-      )
+      content: 'You can Zoom In and Zoom with the Plus and Dash button above, as well as fit the screen to the window by pressing the Home button'
     },
     {
       selector: '[data-tour="counter-clockwise"]',
-      content: () => (
-        <div>
-          <span>
-            Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps
-          </span>
-          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
-        </div>
-      )
+      content: 'Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps'
     }
   ]
 
@@ -154,14 +126,7 @@ const GameChannelsWithTour: React.FC = () => {
     mappingTourSteps.push(
       {
         selector: '[data-tour="certain-force"]',
-        content: () => (
-          <div>
-            <span>
-              The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force
-            </span>
-            <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
-          </div>
-        )
+        content: 'The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force'
       }
     )
   }
