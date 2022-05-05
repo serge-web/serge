@@ -23,6 +23,7 @@
     "@types/react-select": "^3.1.2",
     "@types/reactour": "^1.17.1",
     "@types/uniqid": "^5.2.0",
+    "@typescript-eslint/parser": "^5.22.0",
     "bootstrap": "^4.3.1",
     "check-types": "^8.0.1",
     "classnames": "^2.2.6",
