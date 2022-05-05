@@ -277,8 +277,7 @@ export const MapBar: React.FC = () => {
       icon: platformIcon
     }
     switch (form) {
-      case MapBarForms.Perception:
-      {
+      case MapBarForms.Perception: {
         const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
         return data && <PerceptionForm
           key={selectedAsset.uniqid}
@@ -339,7 +338,9 @@ export const MapBar: React.FC = () => {
       </div>
       <div
         className={cx(styles.toggle, styles.visibility, (worldStatePanel === WorldStatePanels.Visibility) && styles['toggle-active'])}
-        onClick={(): void => { tabClickEvent(WorldStatePanels.Visibility) }}>
+        onClick={(): void => { tabClickEvent(WorldStatePanels.Visibility) }}
+        data-tour="visibility"
+      >
         <ArrowRight />
         <span className={cx(styles.rotated)}>Visibility</span>
       </div>

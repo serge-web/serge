@@ -172,7 +172,7 @@ export const WorldState: React.FC<PropTypes> = ({
   const canDragItems = isUmpire || (phase === PLANNING_PHASE && canSubmitOrders)
 
   return <>
-    <div className={styles['world-state']}>
+    <div className={styles['world-state']} data-tour="world-state">
       <h2 className={styles.title}>{customTitle}
         {plansSubmitted &&
           <div className='sub-title'>(Form disabled, {customTitle} submitted)</div>

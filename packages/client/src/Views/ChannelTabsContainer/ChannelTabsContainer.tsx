@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import FlexLayout, { Model } from 'flexlayout-react'
+import FlexLayout, { Model, TabNode } from 'flexlayout-react'
 import { ChannelTypes } from '@serge/custom-types'
 import factory from './helpers/factory'
 import computeTabs from './helpers/computeTabs'
@@ -11,7 +11,7 @@ import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerU
 import Props from './types'
 import { setActivityTime } from '@serge/config'
 
-const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
+const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
@@ -89,6 +89,13 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
     }
   }, [state, wargamesLoaded])
 
+  const onRenderTab = (node: TabNode) => {
+    tabRender(state)(node)
+    if (node.isVisible()) {
+      onTabChange(node)
+    }
+  }
+
   return (
     <div className='contain-channel-tabs' data-force={selectedForce.uniqid} ref={rootRef}>
       {
@@ -97,7 +104,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
             <FlexLayout.Layout
               model={model}
               factory={factory(state)}
-              onRenderTab={tabRender(state)}
+              onRenderTab={onRenderTab}
               onModelChange={() => {
                 setActivityTime(state.selectedRole, 'change tab')
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
