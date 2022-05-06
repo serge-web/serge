@@ -95,14 +95,8 @@ const GameChannelsWithTour: React.FC = () => {
   const mappingTourSteps: any[] = [
     {
       selector: '',
-      content: () => (
-        <div>
-          <span>
-            This is the Mapping Channel. Use this channel to view and control assets, plan actions and implement decisions.
-          </span>
-          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
-        </div>
-      )
+      content: ' This is the Mapping Channel. Use this map to understand where assets are. Permitted player roles are able to plan routes for assets,' +
+       ' and Game Control can adjudicate turns'
     },
     {
       selector: '[data-tour="world-state"]',
@@ -119,6 +113,18 @@ const GameChannelsWithTour: React.FC = () => {
     {
       selector: '[data-tour="counter-clockwise"]',
       content: 'Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps'
+    },
+    {
+      selector: '',
+      content: () => (
+        <div>
+          <span>
+            Icon markers show the type of asset, shaded according to force. Assets of unknown force are shaded grey, of unknown type are marked with a question mark.
+            Select an own-force asset in Planning phase to provide plans, or from another force to edit/record your perception of it.
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
     }
   ]
 
@@ -136,7 +142,7 @@ const GameChannelsWithTour: React.FC = () => {
       selector: '',
       content: () => (<div className="close-tour-dialog">
         <span>
-          You can come back to this turotial as any time by clicking on the intro button on the top right corner.
+          You can come back to this tutorial as any time by clicking on the intro button on the top right corner.
         </span>
         <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
       </div>)
