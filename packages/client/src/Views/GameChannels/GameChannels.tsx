@@ -40,6 +40,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     isUmpire
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
+  const [selectedNode, setSelectedNode] = useState<string>('')
 
   if (selectedForce === undefined) {
     return (
@@ -52,8 +53,13 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
 
   const dispatch = usePlayerUiDispatch()
 
+  const handleChangeTab = (node: TabNode): void => {
+    setSelectedNode(node.getComponent() || '')
+    onTabChange(node)
+  } 
+
   const openTourFn = () => {
-    const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+    const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-${selectedNode === 'mapping' ? 'mapping-' : ''}tourDone`
     expiredStorage.removeItem(storageKey)
     dispatch(openTour(true))
   }
@@ -72,7 +78,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
         if (el) window.channelTabsContainer[selectedForce.uniqid] = el
-      }} onTabChange={onTabChange} />
+      }} onTabChange={handleChangeTab} />
     </div>
     <div className={classNames({ 'message-feed': true, 'out-of-game-feed': true, 'umpire-feed': isGameControl })} data-tour='fifth-step'>
       <div className='flex-content wargame-title'>
