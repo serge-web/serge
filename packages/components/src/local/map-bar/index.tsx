@@ -308,7 +308,7 @@ export const MapBar: React.FC = () => {
           throw new Error('Failed to find marker with id:' + selectedMarker)
         }
         const data = collateMarkerFormData(marker, markerIcons, forces)
-        return data && <MarkerForm
+        return <MarkerForm
           formData={data}
           mapPostBack={mapPostBack} />
       } else {

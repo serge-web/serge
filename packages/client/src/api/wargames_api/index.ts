@@ -47,6 +47,7 @@ import {
   MessageFeedback,
   MessageStructure,
   MessageCustom,
+  MessageMap,
   GameTurnLength,
   ChannelTypes,
   PlatformTypeData,
@@ -54,7 +55,6 @@ import {
   ParticipantTypes,
   ParticipantChat,
   MessageUpdateMarker,
-  AnnotationMarkerData,
   MapAnnotationData,
   MessageStateOfWorld,
   WargameRevision
