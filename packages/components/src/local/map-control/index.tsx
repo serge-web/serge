@@ -128,37 +128,37 @@ export const MapControl: React.FC<PropTypes> = ({
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
-        <div className={cx('leaflet-control')}>
-          {showZoom && <Item title="Zoom In" onClick={(): void => { handleZoomChange(zoomStepSize) }}><AddIcon/></Item>}
-          {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon/></Item>}
-          {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
+        <div className={cx('leaflet-control')} data-tour="zoom-control">
+          {showZoom && <Item title="Zoom In" onClick={(): void => { handleZoomChange(zoomStepSize) }}><AddIcon /></Item>}
+          {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon /></Item>}
+          {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon /></Item>}
         </div>
-        <div className={cx('leaflet-control')}>
+        <div className={cx('leaflet-control')} data-tour="counter-clockwise">
           <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}
-            contentTheme={ isFilterAsHistoryRoutes() } >
-            <HistoryIcon/>
+            contentTheme={isFilterAsHistoryRoutes()} >
+            <HistoryIcon />
           </Item>
           <Item title="View all planned steps" onClick={(): void => { togglePlannedFilter() }}
-            contentTheme={ isFilterAsPlannedRoutes() } >
-            <PlannedIcon/>
+            contentTheme={isFilterAsPlannedRoutes()} >
+            <PlannedIcon />
           </Item>
         </div>
-        {forces.length > 0 && <div className={cx('leaflet-control')}>
+        {forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
           {forces.map((force: any): JSX.Element => (
             <Item
-              contentTheme={ showAsSelected(force.uniqid) }
+              contentTheme={showAsSelected(force.uniqid)}
               key={`k_${force.uniqid}`}
               onClick={(): void => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
             >
-              <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }}/>
+              <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }} />
             </Item>
           ))}
         </div>}
         {cellStyles.length > 0 && <div className={cx('leaflet-control')}>
           {cellStyles.map((style: CellStyleDetails): JSX.Element => (
             <Item
-              contentTheme={ style.active ? 'light' : 'dark' }
+              contentTheme={style.active ? 'light' : 'dark'}
               key={`s_${style.value}`}
               onClick={(): void => { cellLabelCallback && cellLabelCallback(style.value) }}
               title={'Style cells as' + style.label}
