@@ -35,8 +35,9 @@ import {
   MessageCustom,
   MessageInfoType,
   MessageDetailsFrom,
-  TemplateBodysByKey
-  , PlayerUiActionTypes 
+  MessageMap,
+  TemplateBodysByKey, 
+  PlayerUiActionTypes 
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -204,7 +205,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: unknown): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }

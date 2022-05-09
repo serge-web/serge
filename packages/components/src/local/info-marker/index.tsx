@@ -19,7 +19,8 @@ const fetch = unfetch.bind(window)
 /* Render component */
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
-  location
+  location,
+  dragged
 }) => {
   const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
@@ -73,7 +74,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
 
   const dragEnd = (e: DragEndEvent): void => {
     const newPos: L.LatLng = e.target.getLatLng()
-    console.log('marker dragged to:', newPos)
+    dragged && dragged(newPos)
   }
 
   return <>

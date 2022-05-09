@@ -9,7 +9,7 @@ import { Phase } from '@serge/config'
 
 /* Import mock data */
 import { forces, platformTypes, platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
-import MapAnnotation from '@serge/custom-types/map-annotation'
+import { MapAnnotation } from '@serge/custom-types'
 import { h3ToGeo } from 'h3-js'
 
 const marker: MapAnnotation | undefined = watuWargame.data.annotations && watuWargame.data.annotations[0]
@@ -29,6 +29,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     gameTurnTime = {72000}
     wargameInitiated = {true}
     platforms = {platformTypes}
+    infoMarkers={[]}
     platformTypesByKey={platformTypesByKey}
     playerForce = 'blue'
     canSubmitOrders = {true}

@@ -918,7 +918,18 @@ const wargame: Wargame = {
                 "location": "8918aab747bffff",
                 "visibleTo": ["Blue-1"]
             }]
-        }
+        },
+        "annotationIcons": {
+            "markers": [{"name": "Unknown","icon": "marker_unknown.svg"}, 
+                {"name": "Audio-Visual", "icon": "marker_audio_visual.svg"},
+                {"name": "Audio", "icon": "marker_audio.svg"},
+                {"name": "Flash", "icon": "marker_flash.svg"},
+                {"name": "General", "icon": "marker_general.svg"},
+                {"name": "Periscope", "icon": "marker_periscope.svg"},
+                {"name": "Plume", "icon": "marker_plume.svg"},
+                {"name": "Wake", "icon": "marker_wake.svg"},
+                {"name": "Visual", "icon": "marker_visual.svg"}
+            ]}
     },
     "gameTurn": 3,
     "infoType": true,

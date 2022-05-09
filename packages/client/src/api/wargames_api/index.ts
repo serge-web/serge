@@ -4,7 +4,7 @@ import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
+import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce, handleUpdateMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -21,8 +21,10 @@ import {
   SERGE_INFO,
   INFO_MESSAGE, 
   FEEDBACK_MESSAGE, 
-  CUSTOM_MESSAGE
-  , hiddenPrefix 
+  CUSTOM_MESSAGE,
+  UPDATE_MARKER,
+  STATE_OF_WORLD,
+  hiddenPrefix 
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -45,12 +47,16 @@ import {
   MessageFeedback,
   MessageStructure,
   MessageCustom,
+  MessageMap,
   GameTurnLength,
   ChannelTypes,
   PlatformTypeData,
   Role,
   ParticipantTypes,
   ParticipantChat,
+  MessageUpdateMarker,
+  MapAnnotationData,
+  MessageStateOfWorld,
   WargameRevision
 } from '@serge/custom-types'
 
@@ -62,6 +68,7 @@ import {
 
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -112,13 +119,15 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
     const doc = msg as Message
     if (doc === undefined) return
     if (doc.messageType === INFO_MESSAGE) {
+      const infoM = doc as MessageInfoType
       dispatch(setCurrentWargame(doc as Wargame))
-      dispatch(setLatestWargameMessage(clipInfoMEssage(doc)))
+      dispatch(setLatestWargameMessage(clipInfoMEssage(infoM)))
       return
     }
 
     if (doc.messageType === FEEDBACK_MESSAGE) {
-      dispatch(setLatestFeedbackMessage(doc))
+      const feedbackM = doc as MessageFeedback
+      dispatch(setLatestFeedbackMessage(feedbackM))
     } else if (doc.messageType === COUNTER_MESSAGE) {
       // eslint-disable-next-line no-useless-return
       return 
@@ -271,7 +280,8 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
     for (let index = 0; index < messages.length; index++) {
       const message = messages[index]
       if (message.messageType === INFO_MESSAGE) {
-        const nextDate = +new Date(message._id as string)
+        const realM = message as any
+        const nextDate = +new Date(realM._id as string)
         if (nextDate > lastDate) {
           lastDate = nextDate
           infoMessageIndex = index
@@ -773,7 +783,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 // @ts-ignore
-export const postNewMapMessage = (dbName, details, message) => {
+export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
 
@@ -799,21 +809,54 @@ export const postNewMapMessage = (dbName, details, message) => {
   //   console.log(err)
   //   return err
   // })
-
   db.put(customMessage).catch((err) => {
     console.log(err)
     return err
   })
 
+  /**
+   * annotations are optional. So, if they're unset, initialise them
+   */
+  const checkAnnotations = (annoData: MapAnnotationData | undefined): MapAnnotationData => {
+    if (typeof annoData === 'undefined') {
+      const newAnns: MapAnnotationData = {
+        annotations: []
+      }
+      return newAnns
+    } else {
+      return annoData
+    }
+  }
+
   // also make the modification to the wargame
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
-        if (!res.data.platformTypes) { throw new Error('Cannot handle force delta without platform types') }
+        if (!res.data.platformTypes) {
+          throw new Error('Cannot handle force delta without platform types')
+        }
+
+        // special handling for marker message
+        if (message.messageType === UPDATE_MARKER) {
+          // ok - marker update - not force. If admin changes markers during planning phase,
+          // they get updated immediately, so we do that here.
+          // initialise annotations, if necessary
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageUpdateMarker = message
+          res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === STATE_OF_WORLD) {
+          // ok, this needs to work on force AND info markers
+          const validMessage: MessageStateOfWorld = message
+          res.data.forces.forces = handleStateOfWorldChanges(validMessage, res.data.forces.forces)
+          // initialise annotations, if necessary
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          // we can just copy in the new markers
+          res.data.annotations.annotations = validMessage.state.mapAnnotations
+        } else {
+          // apply the reducer to this wargame
+          res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
+        }
           
-        // apply the reducer to this wargame
-        // @ts-ignore
-        res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         // store the new verison
         return createLatestWargameRevision(dbName, res)
       }).then((res) => {

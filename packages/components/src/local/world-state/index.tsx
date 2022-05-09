@@ -1,7 +1,7 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Confirm } from '@serge/components'
 import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
+import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
@@ -17,12 +17,14 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById, setSelectedMarkerById, selectedMarker,
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
-  plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
+  plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback,
+  infoMarkers, playerForce
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
+  const [markers, setMarkers] = useState<MapAnnotations>([])
   const [modalIsOpen, setIsOpen] = useState(false)
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
@@ -59,14 +61,19 @@ export const WorldState: React.FC<PropTypes> = ({
         setTmpRoutes(store.routes.filter(r => r.underControl))
         break
       }
+      case WorldStatePanels.Markers: {
+        // see which markers are visible to players of this force
+        const visMarkers = isUmpire ? infoMarkers : infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((forceId: string) => forceId === playerForce))
+        setMarkers(visMarkers)
+        break
+      }
     }
   }, [store, phase, panel])
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
-    if (setSelectedAssetById) {
-      setSelectedAssetById(id)
-    }
+    const handler = isMarkers ? setSelectedMarkerById : setSelectedAssetById
+    handler && handler(id)
   }
 
   const onConfirm = (): void => {
@@ -104,6 +111,25 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
+
+  const renderMarkers = (item: GroupItem, _depth: Array<GroupItem> = []): JSX.Element => {
+    const canBeSelected = true
+    const marker = item as MapAnnotation
+    const forceColor = marker.color
+    const imageSrc = marker.icon
+    const isSelected = marker.uniqid === selectedMarker
+    return (
+      <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
+        <div className={styles['item-icon']}>
+          <AssetIcon color={forceColor} isSelected={isSelected} imageSrc={imageSrc} />
+        </div>
+        <div className={styles['item-content']}>
+          <p>{marker.label}</p>
+          <p>{marker.description}</p>
+        </div>
+      </div>
+    )
+  }
 
   const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
     // determine if this asset can be selected. We only allow assets at the top level
@@ -167,9 +193,15 @@ export const WorldState: React.FC<PropTypes> = ({
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type)
   }
 
+  const isMarkers = panel === WorldStatePanels.Markers
+
   // player can drag items in planning phase if they can submit orders, or umpire can do it
   // in adjudication or planning phase
-  const canDragItems = isUmpire || (phase === PLANNING_PHASE && canSubmitOrders)
+  const canDragItems = (!isMarkers) && (isUmpire || (phase === PLANNING_PHASE && canSubmitOrders))
+
+  const itemRenderer = isMarkers ? renderMarkers : renderContent
+
+  const items = isMarkers ? markers : tmpRoutes
 
   return <>
     <div className={styles['world-state']} data-tour="world-state">
@@ -180,8 +212,8 @@ export const WorldState: React.FC<PropTypes> = ({
       </h2>
 
       <Groups
-        items={tmpRoutes}
-        renderContent={renderContent}
+        items={items}
+        renderContent={itemRenderer}
         canOrganise={canDragItems}
         canCombineWith={canCombineWithLocal}
         onSet={(itemsLink: any, type: any, depth: any): void => {

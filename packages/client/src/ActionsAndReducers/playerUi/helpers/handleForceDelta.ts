@@ -8,7 +8,6 @@ import {
   MessageSubmitPlans, 
   MessageHostPlatform,
   MessageDeletePlatform,
-  MessageStateOfWorld, 
   MessageCreateTaskGroup,
   MessageLeaveTaskGroup, 
   PlatformTypeData
@@ -16,7 +15,6 @@ import {
 
 import { handleVisibilityAndConditionChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
-import handleStateOfWorldChanges from './handleStateOfWorldChanges'
 import handleForceLaydownChanges from './handleForceLaydownChanges'
 import handlePlansSubmittedChanges from './handlePlansSubmittedChanges'
 import handleCreateTaskGroup from './handleCreateTaskGroup'
@@ -37,7 +35,8 @@ import {
 // TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */
-export default (message: MessageMap, details: MessageDetails, allForces: ForceData[], platformTypes: PlatformTypeData[]): ForceData[] => {
+export default (message: MessageMap, details: MessageDetails, allForces: ForceData[], 
+  platformTypes: PlatformTypeData[]): ForceData[] => {
   const msgType: string = details.messageType
   if (!msgType) {
     console.error('problem - we need message type in ', message)
@@ -55,7 +54,7 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
     case SUBMIT_PLANS:
       return handlePlansSubmittedChanges(message as MessageSubmitPlans, allForces)
     case STATE_OF_WORLD:
-      return handleStateOfWorldChanges(message as MessageStateOfWorld, allForces)
+      throw new Error('State of world shouldn\'t be handled as force delta, since it handles markers, too')
     case CREATE_TASK_GROUP:
       return handleCreateTaskGroup(message as MessageCreateTaskGroup, allForces, platformTypes)
     case LEAVE_TASK_GROUP:

@@ -1,4 +1,4 @@
-import { PlatformTypeData, RouteStore } from '@serge/custom-types'
+import { MapAnnotations, PlatformTypeData, RouteStore } from '@serge/custom-types'
 import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {
@@ -10,6 +10,10 @@ export default interface PropTypes {
    * the set of routes currently being planned
    */
   store: RouteStore
+  /**
+   * map annotations
+   */
+  infoMarkers: MapAnnotations
   /**
    * list of platform types. Use findPlatformForType() method to retrieve platform type
    */
@@ -31,6 +35,10 @@ export default interface PropTypes {
    * whether this is from umpire force
    */
   isUmpire: boolean
+  /**
+   * force for this player
+   */
+  playerForce: ForceData['uniqid']
   /** whether this player can submit ordres
    *
    */
@@ -40,10 +48,18 @@ export default interface PropTypes {
    */
   submitTitle?: string
   /**
+   * the selected marker, or undefined
+   */
+  selectedMarker: MapAnnotation['uniqid'] | undefined
+  /**
    * callback for asset selected
    */
   setSelectedAssetById?: {(id: string): void}
   /**
+   * callback for asset selected
+   */
+  setSelectedMarkerById?: {(id: MapAnnotation['uniqid']): void}
+   /**
    * callback for submit changes
    */
   submitForm?: {(): void}

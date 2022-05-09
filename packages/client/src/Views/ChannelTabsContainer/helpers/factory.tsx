@@ -14,7 +14,8 @@ import {
   Phase,
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
-  CHANNEL_CHAT
+  CHANNEL_CHAT,
+  UPDATE_MARKER
   , Domain 
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
@@ -71,6 +72,9 @@ const factory = (state: PlayerUi): Factory => {
     const turnNumber = state.currentTurn
 
     switch (form) {
+      case UPDATE_MARKER:
+        sendMapMessage(UPDATE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        break
       case FORCE_LAYDOWN:
         sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
         break
@@ -144,6 +148,7 @@ const factory = (state: PlayerUi): Factory => {
       phase={phaseFor(state.phase)}
       turnNumber={state.currentTurn}
       infoMarkers={state.infoMarkers}
+      markerIcons={state.markerIcons}
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       canSubmitOrders={canSubmitOrders}
       channelID={channelid}

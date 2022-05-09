@@ -2,7 +2,7 @@ import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
 import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
-import MapAnnotation, { MapAnnotations } from './map-annotation'
+import { MapAnnotations, MapAnnotation, AnnotationIcons } from './map-annotation'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
@@ -88,6 +88,10 @@ export default interface MappingContext {
    */
   selectedMarker: MapAnnotation['uniqid'] | undefined
   /**
+   *  setter, to modify the currently selected asset (or to clear it)
+   **/
+  updateMarker?: {(marker: MapAnnotation): void}
+   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
@@ -176,7 +180,11 @@ export default interface MappingContext {
   /**
    * information markers
    */
-  infoMarkers?: MapAnnotations
+  infoMarkers: MapAnnotations
+  /** 
+   * icons for info markers
+   */
+  markerIcons: AnnotationIcons
   /** 
    * the leaflet map
    */

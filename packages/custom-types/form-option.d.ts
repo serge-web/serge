@@ -6,5 +6,9 @@ import ForceData from "./force-data"
  */
 export default interface FormOption {
   name: string
-  colour: string
+  /**
+   * color to use for this option.  
+   * NOTE: we should delete it, since colors aren't essential for these forms
+   */
+  colour?: string
 }
