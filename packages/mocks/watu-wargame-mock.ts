@@ -905,9 +905,17 @@ const wargame: Wargame = {
                 "uniqid": "marker-one",
                 "color": "#f00",
                 "description": "description for the annotation",
-                "icon": "unknown.svg",
+                "icon": "marker_unknown.svg",
                 "label": "first marker",
                 "location": "8918aab76abffff",
+                "visibleTo": ["Blue-1"]
+            },{
+                "uniqid": "marker-two",
+                "color": "#099",
+                "description": "description for the second annotation",
+                "icon": "marker_general.svg",
+                "label": "second marker",
+                "location": "8918aab747bffff",
                 "visibleTo": ["Blue-1"]
             }]
         }
