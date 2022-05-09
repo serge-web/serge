@@ -14,7 +14,7 @@ export interface AddNotificationInterface {
   }
 }
 
-export const addNotification = (message: string, type: string, autoHide = true, subType = 'alert'): AddNotificationInterface  => ({
+export const addNotification = (message: string, type: string, autoHide = true, subType = 'alert'): AddNotificationInterface => ({
   type: ActionConstant.ADD_NOTIFICATION,
   payload: {
     message: message,

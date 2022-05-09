@@ -9,19 +9,19 @@ import findAsset from '../../../Helpers/findAsset'
 const payload1: MessagePerceptionOfContact = {
   assetId: 'C01',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Green', type: 'Frigate'}
+  perception: { by: 'Red', force: 'Green', type: 'Frigate' }
 }
 
 const payload2: MessagePerceptionOfContact = {
   assetId: 'C02',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Red', type: 'MPA'}
+  perception: { by: 'Red', force: 'Red', type: 'MPA' }
 }
 
 const payload3: MessagePerceptionOfContact = {
   assetId: 'C06',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Red', type: 'Fisher'}
+  perception: { by: 'Red', force: 'Red', type: 'Fisher' }
 }
 
 const allForces: ForceData[] = [

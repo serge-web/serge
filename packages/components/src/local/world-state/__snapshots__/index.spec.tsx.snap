@@ -3,6 +3,7 @@
 exports[`WorldState renders correctly 1`] = `
 <div
   className="world-state"
+  data-tour="world-state"
 >
   <h2
     className="title"

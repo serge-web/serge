@@ -15,7 +15,7 @@ export default (props) => {
     [WELCOME_SCREEN_EDIT_ROUTE]: 'Welcome Screen'
   }
   return (
-    <div id="sidebar_admin">
+    <div id='sidebar_admin'>
       {
         Object.keys(menus).map(key => {
           const activeClassName = props.activeTab === key ? 'link--active' : ''

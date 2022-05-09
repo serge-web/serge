@@ -66,7 +66,15 @@ const pouchDb = (app, io, pouchOptions) => {
         if (err.status === 409) {
           return retryUntilWritten(db, doc)
         } else { // new doc
-          return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
+          return db.put(doc)
+            .then(() => res.send({ msg: 'Saved', data: doc }))
+            .catch(() => {
+              const settingsDoc = {
+                ...doc,
+                _id: settings
+              }
+              return retryUntilWritten(db, settingsDoc)
+            })
         }
       })
     }
@@ -117,7 +125,7 @@ const pouchDb = (app, io, pouchOptions) => {
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings
+          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])

@@ -15,7 +15,6 @@ import {
   umpireMenuReducerWithType
 } from './RootReducer'
 
-
 const middlewares = [thunk]
 
 if (process.env.NODE_ENV === 'development') {

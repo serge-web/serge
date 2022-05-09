@@ -204,7 +204,7 @@ export const WorldState: React.FC<PropTypes> = ({
   const items = isMarkers ? markers : tmpRoutes
 
   return <>
-    <div className={styles['world-state']}>
+    <div className={styles['world-state']} data-tour="world-state">
       <h2 className={styles.title}>{customTitle}
         {plansSubmitted &&
           <div className='sub-title'>(Form disabled, {customTitle} submitted)</div>

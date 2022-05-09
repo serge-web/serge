@@ -96,7 +96,7 @@ const AdminGameSetup = () => {
   const isUniqueForceName = (force: ForceData) => {
     const selectedForce = forces.selectedForce
     return isUniqueName({
-      oldName: selectedForce,
+      oldName: selectedForce as string,
       newName: force.name,
       list: forces.forces,
       label: 'Force'
@@ -152,13 +152,13 @@ const AdminGameSetup = () => {
 
   const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
-    const selectedForceId = selectedForce
-    const newForceData = newForces.find(force => force.uniqid === selectedForceId)
+    const { uniqid } = selectedForce as ForceData
+    const newForceData = newForces.find(force => force.uniqid === uniqid)
     if (newForceData) {
       const forceOverview = newForceData.overview
       const forceName = newForceData.name
       // @ts-ignore
-      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
+      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === uniqid).overview
   
       const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
       if (empForceRoleNames.length > 0) {
@@ -174,13 +174,11 @@ const AdminGameSetup = () => {
   
       if (typeof forceName === 'string' && forceName.length > 0) {
         if (!isUniqueForceName(newForceData)) return
-        const selectedForce = forces.selectedForce
-        if (currentWargame) dispatch(saveForce(currentWargame, forceName, newForceData, selectedForce))
+        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
       }
   
       if (forceName === null) {
-        const selectedForce = forces.selectedForce
-        if (currentWargame) dispatch(saveForce(currentWargame, selectedForce, newForceData, selectedForce))
+        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
       } else if (forceName.length === 0) {
         dispatch(addNotification('No Force Name', 'warning'))
       }
@@ -189,7 +187,6 @@ const AdminGameSetup = () => {
 
   const handleSaveChannel = (channel: ChannelTypes) => {
     const channelName = channel.name
-    const selectedChannelName = channels.selectedChannel
     const selectedChannelId = channel.uniqid
     const newChannelData = channels.channels.find((c) => c.uniqid === selectedChannelId)
 
@@ -198,11 +195,11 @@ const AdminGameSetup = () => {
         if (!isUniqueChannelName(channel)) return
   
         dispatch(setTabSaved())
-        dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName as string))
+        dispatch(saveChannel(currentWargame, newChannelData))
       }
   
       if (channelName === null) {
-        dispatch(saveChannel(currentWargame, selectedChannelName as string, newChannelData, selectedChannelName as string))
+        dispatch(saveChannel(currentWargame, newChannelData))
       } else if (channelName.length === 0) {
         window.alert('no channel name')
       }
@@ -246,7 +243,7 @@ const AdminGameSetup = () => {
       template.roles.forEach(role => {
         role.roleId = getUniquePasscode(forces.forces, 'p')
       })
-      if (currentWargame) dispatch(saveForce(currentWargame, id, template, id))
+      if (currentWargame) dispatch(saveForce(currentWargame, template))
     }
   }
 
@@ -265,7 +262,7 @@ const AdminGameSetup = () => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      if (currentWargame) dispatch(saveChannel(currentWargame, id, createdChannel, id))
+      if (currentWargame) dispatch(saveChannel(currentWargame, createdChannel))
     }
   }
 

@@ -161,21 +161,18 @@ export const dbDefaultSettings = {
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      complete: false,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForceTemplate],
       selectedForce: umpireForceTemplate,
-      complete: false,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: [],
       selectedChannel: '',
-      complete: false,
       dirty: false
     }
   },

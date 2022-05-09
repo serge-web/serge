@@ -15,7 +15,7 @@ import {
   WargameDispatch,
   WargameOverview,
   WargameRevision
- } from '@serge/custom-types'
+} from '@serge/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -80,7 +80,7 @@ export const addRecipientToChannel = (data: { id: string, data: Wargame }): Warg
   payload: data
 })
 
-export const updateRecipient = ( id: string, data: Wargame ): WargameActionTypes => ({
+export const updateRecipient = (id: string, data: Wargame): WargameActionTypes => ({
   type: ActionConstant.UPDATE_RECIPIENT,
   payload: { id, data }
 })
@@ -299,7 +299,7 @@ export const updateForces = (dbName: string, newData: ForceData[]) => {
   }
 }
 
-export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
+export const saveForce = (dbName: string, newData: ForceData) => {
   return async (dispatch: WargameDispatch, state: any) => {
     const oldForceData = state().wargame.data.forces.selectedForce
     if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
@@ -307,19 +307,19 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
       newData.iconURL = savedIconURL.path
     }
 
-    const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
+    const wargame = await wargamesApi.saveForce(dbName, newData)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
-    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, iconURL: newData.iconURL }))
+    dispatch(setSelectedForce({ name: newData.name, uniqid: newData.uniqid, iconURL: newData.iconURL }))
     dispatch(addNotification('Force saved.', 'success'))
   }
 }
 
-export const saveChannel = (dbName: string, newName: string, newData: ChannelTypes, oldName: string) => {
+export const saveChannel = (dbName: string, newData: ChannelTypes) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
-    const selectedChannel = { name: newName, uniqid: newData.uniqid }
+    const wargame = await wargamesApi.saveChannel(dbName, newData)
+    const selectedChannel = { name: newData.name, uniqid: newData.uniqid }
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel.uniqid
     dispatch(setCurrentWargame(wargame))
@@ -349,12 +349,12 @@ export const deleteSelectedAsset = (data: any) => {
 }
 
 export const deleteSelectedRole = (
-   dbName: string,
-   data: {
+  dbName: string,
+  data: {
    roles: Role[],
    key: number,
    handleChange: (changedItems: Array<Role>) => void }
-   ) => {
+) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
     _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))

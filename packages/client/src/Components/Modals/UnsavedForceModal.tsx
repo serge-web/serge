@@ -30,7 +30,7 @@ const UnsavedForceModal = () => {
       template.name = id
       template.uniqid = id
       
-      if (wargame.currentWargame) dispatch(saveForce(wargame.currentWargame, id, template, id))
+      if (wargame.currentWargame) dispatch(saveForce(wargame.currentWargame, template))
     } else {
       if (wargame.currentWargame && currentModal.data) dispatch(refreshForce(wargame.currentWargame, currentModal.data as string))
     }
@@ -58,10 +58,10 @@ const UnsavedForceModal = () => {
 
   return (
     <ModalWrapper>
-      <div className="display-text-wrapper">
+      <div className='display-text-wrapper'>
         <h3>Are you sure?</h3>
         <p>There are unsaved changes.</p>
-        <div className="buttons">
+        <div className='buttons'>
           <ButtonList buttons={buttons} />
         </div>
       </div>

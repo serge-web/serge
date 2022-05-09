@@ -51,10 +51,10 @@ const UnsavedChannelModal = () => {
 
   return (
     <ModalWrapper>
-      <div className="display-text-wrapper">
+      <div className='display-text-wrapper'>
         <h3>Are you sure?</h3>
         <p>There are unsaved changes.</p>
-        <div className="buttons">
+        <div className='buttons'>
           <ButtonList buttons={buttons} />
         </div>
       </div>
