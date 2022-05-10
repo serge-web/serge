@@ -161,6 +161,15 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [selectedMarker])
 
+
+  // handle an updated set of info markers
+  useEffect(() => {
+    // check new state is different
+    if (!isEqual(infoMarkersState, infoMarkers)) {
+      setInfoMarkersState(infoMarkers)  
+    }
+  }, [infoMarkers])
+
   // highlight the route for the selected asset
   useEffect(() => {
     // if an asset has been selected, then clear the selected marker
