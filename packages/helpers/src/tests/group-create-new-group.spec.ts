@@ -1,10 +1,14 @@
 /* global it expect */
 
 /* Import mock data */
+import { TASK_GROUP } from '@serge/config'
 import { Asset, ForceData } from '@serge/custom-types'
-import { forces } from '@serge/mocks'
+import { forces, platformTypes } from '@serge/mocks'
+import findPlatformTypeFor from '../find-platform-type-for'
 
 import groupCreateNewGroup from '../group-create-new-group'
+
+const taskGroupType = findPlatformTypeFor(platformTypes, TASK_GROUP, '')
 
 it('Creates new group from provided assets', () => {
   const frigateId = 'a0pra00001'
@@ -22,7 +26,11 @@ it('Creates new group from provided assets', () => {
     expect(false).toBeTruthy()
   }
 
-  const forces2: ForceData[] = groupCreateNewGroup(frigateId, tankerId, forces)
+  if (!taskGroupType) {
+    throw new Error('Failed to find task group type')
+  }
+
+  const forces2: ForceData[] = groupCreateNewGroup(frigateId, tankerId, forces, taskGroupType)
   expect(forces2).toBeTruthy()
 
   // check assets not at top level
@@ -62,7 +70,7 @@ it('Creates new group from provided assets', () => {
       expect(forces2[1].assets.length).toEqual(4)
 
       // ok, try to add the tanker to the task group
-      const forces3: ForceData[] = groupCreateNewGroup(tankerId, taskGroup.uniqid, forces2)
+      const forces3: ForceData[] = groupCreateNewGroup(tankerId, taskGroup.uniqid, forces2, taskGroupType)
       if (forces3[1] && forces3[1].assets && forces3[1].assets.length) {
         expect(forces3[1].assets.length).toEqual(3)
         const taskGroup2 = forces3[1].assets[2]

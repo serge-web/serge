@@ -4,7 +4,7 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { AdjudicateTurnFormPopulate, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
+import { AdjudicateTurnFormPopulate, IconDefinition, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
 import { deepCopy, routeCreateStore, routeSetCurrent } from '@serge/helpers'
 
 /* Import mock data */
@@ -23,8 +23,6 @@ export default {
     }
   }
 }
-
-const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 // prepare some routes, and a selected item
 const baseStore: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false, undefined)
@@ -55,7 +53,7 @@ const closePlanningForm = (): void => {
 }
 
 const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a1', 'Asset name', 3,
-  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formData)
+  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, formData)
 
 const formWithAttributes: AdjudicateTurnFormPopulate = deepCopy(formData)
 formWithAttributes.attributes = [
@@ -63,19 +61,24 @@ formWithAttributes.attributes = [
   { attrId: 'comm_b', attrType: ATTRIBUTE_TYPE_NUMBER, name: 'People' }
 ]
 const manager2: AdjudicationManager = new AdjudicationManager(storeWithAttributes, platformTypes, 'a1', 'Asset name', 3,
-  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formWithAttributes)
+  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, formWithAttributes)
+
+const icon: IconDefinition = { forceColor: '#f00', platformType: 'frigate', icon: 'frigate.svg' }
 
 export const Default: React.FC = () => <AdjudicateTurnForm
   manager={manager}
+  icon={icon}
   canSubmitPlans={true}
   plansSubmitted={false} />
 
 export const TurnsPlannedWithAttributes: React.FC = () => <AdjudicateTurnForm
   manager={manager2}
+  icon={icon}
   canSubmitPlans={true}
   plansSubmitted={true} />
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
   manager={manager}
+  icon={icon}
   plansSubmitted={false}
   canSubmitPlans={false} />

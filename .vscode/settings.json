@@ -1,4 +1,9 @@
 {
 "eslint.workingDirectories": 
-    ["./packages/components", "./packages/client", "./packages/helpers"]
+    [
+        "./packages/components",
+        "./packages/client",
+        "./packages/helpers"
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

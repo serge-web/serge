@@ -2,12 +2,15 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
-  'checkbox': string;
   'btn': string;
-  'input-filter': string;
-  'filter-icon': string;
-  'light': string;
   'dark': string;
+  'light': string;
+  'filter-section': string;
+  'filter-active': string;
+  'archive-section': string;
+  'archive-active': string;
+  'mark-all-as-read-section': string;
+  'mark-all-as-read-open': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

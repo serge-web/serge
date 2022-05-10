@@ -51,6 +51,7 @@ const allForces: ForceData[] = [
         condition: 'Full capability',
         contactId: 'C713',
         platformType: 'Unmanned-Airborne-Vehicle',
+        platformTypeId: 'a10',
         uniqid: 'C01',
         name: 'alpha',
         perceptions: [{ by: 'Red', force: 'Blue', type: 'Frigate' }]
@@ -59,6 +60,7 @@ const allForces: ForceData[] = [
         condition: 'Full capability',
         contactId: 'C723',
         platformType: 'Unmanned-Airborne-Vehicle',
+        platformTypeId: 'a10',
         name: 'bravo',
         uniqid: 'C02',
         perceptions: []
@@ -79,6 +81,7 @@ const allForces: ForceData[] = [
         condition: 'Full capability',
         contactId: 'C733',
         platformType: 'Unmanned-Airborne-Vehicle',
+        platformTypeId: 'a10',
         name: 'charlie',
         uniqid: 'C03',
         perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
@@ -87,6 +90,7 @@ const allForces: ForceData[] = [
         condition: 'Full capability',
         contactId: 'C813',
         platformType: 'Unmanned-Airborne-Vehicle',
+        platformTypeId: 'a10',
         name: 'delta',
         uniqid: 'C04',
         perceptions: []
@@ -107,6 +111,7 @@ const allForces: ForceData[] = [
         condition: 'Full capability',
         contactId: 'C743',
         platformType: 'Unmanned-Airborne-Vehicle',
+        platformTypeId: 'a10',
         name: 'echo',
         uniqid: 'C05',
         perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
@@ -115,6 +120,7 @@ const allForces: ForceData[] = [
         condition: 'Disabled',
         contactId: 'C715',
         platformType: 'Unmanned-Airborne-Vehicle',
+        platformTypeId: 'a10',
         uniqid: 'C06',
         name: 'foxtrot',
         perceptions: []

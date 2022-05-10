@@ -28,6 +28,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   onSidebarClick,
   onCreate,
   onDelete,
+  onDuplicate,
   iconUploadUrl,
   selectedForce,
   platformTypes = [],
@@ -81,7 +82,7 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
       const attributeErrors: string[] = []
       selectedForce.assets && selectedForce.assets.forEach((asset: Asset) => {
-        const pType = findPlatformTypeFor(platformTypes, asset.platformType)
+        const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
         // check for extra attributes
         const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
           return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))
@@ -221,6 +222,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           onClick={handleSwitch}
           onCreate={onCreate}
           onDelete={onDelete}
+          onDuplicate={onDuplicate}
           withSearch={false}
           title="Add a New Force"
         />

@@ -23,13 +23,14 @@ export const SearchListRow: React.FC<Props> = ({
       className={
         `${styles['searchlist-row']} ${activeClass ? styles.active : ''}`
       }
+      onClick={onClick}
     >
-      <span onClick={onClick}>
-        { children }
+      <span>
+        {children}
       </span>
       <div className={styles['searchlist-menu']}>
-        { onDuplicate && <FontAwesomeIcon className={styles['searchlist-icon']} icon={faClone} title="Duplicate channel" onClick={onDuplicate} />}
-        { onDelete && <FontAwesomeIcon className={styles['searchlist-icon']} icon={faTrash} title="Delete channel" onClick={onDelete} />}
+        {onDuplicate && <FontAwesomeIcon className={styles['searchlist-icon']} icon={faClone} title="Duplicate channel" onClick={onDuplicate} />}
+        {onDelete && <FontAwesomeIcon className={styles['searchlist-icon']} icon={faTrash} title="Delete channel" onClick={onDelete} />}
       </div>
     </span>
   )

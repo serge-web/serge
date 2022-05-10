@@ -167,13 +167,11 @@ const game: Wargame = {
           uniqid: 'channel-k53ti36p'
         }
       ],
-      complete: false,
       dirty: false,
       name: 'Channels',
       selectedChannel: ''
     },
     forces: {
-      complete: true,
       dirty: false,
       forces: [
         {
@@ -240,6 +238,7 @@ const game: Wargame = {
                     name: 'Frigate A Perceived Name'
                   }],
                   platformType: 'frigate',
+                  platformTypeId: 'dummy-val',
                   hosting: [
                     {
                       condition: 'Full capability',
@@ -255,6 +254,7 @@ const game: Wargame = {
                       }],
                       plannedTurns: [],
                       platformType: 'Unmanned-Airborne-Vehicle',
+                      platformTypeId: 'dummy-val',
                       status: {
                         state: 'Landed'
                       },
@@ -269,6 +269,7 @@ const game: Wargame = {
                       perceptions: [],
                       plannedTurns: [],
                       platformType: 'Unmanned-Airborne-Vehicle',
+                      platformTypeId: 'dummy-val',
                       status: {
                         state: 'Landed'
                       },
@@ -289,6 +290,7 @@ const game: Wargame = {
                   name: 'MCM Delta',
                   perceptions: [],
                   platformType: 'MCMV',
+                  platformTypeId: 'dummy-val',
                   status: {
                     speedKts: 20,
                     state: 'Transiting'
@@ -328,6 +330,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'task-group',
+              platformTypeId: 'dummy-val',
               position: 'P19',
               status: {
                 speedKts: 20,
@@ -363,6 +366,7 @@ const game: Wargame = {
                   }],
                   plannedTurns: [],
                   platformType: 'helicopter',
+                  platformTypeId: 'dummy-val',
                   status: {
                     state: 'Landed'
                   },
@@ -377,6 +381,7 @@ const game: Wargame = {
                   perceptions: [],
                   plannedTurns: [],
                   platformType: 'Unmanned-Airborne-Vehicle',
+                  platformTypeId: 'dummy-val',
                   status: {
                     state: 'Landed'
                   },
@@ -414,6 +419,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'frigate',
+              platformTypeId: 'dummy-val',
               position: 'P21',
               status: {
                 speedKts: 20,
@@ -430,6 +436,7 @@ const game: Wargame = {
               perceptions: [],
               plannedTurns: [],
               platformType: 'fixed-wing-aircraft',
+              platformTypeId: 'dummy-val',
               position: 'C17',
               status: {
                 state: 'Landed'
@@ -491,6 +498,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'merchant-vessel',
+              platformTypeId: 'dummy-val',
               position: 'O21',
               status: {
                 speedKts: 20,
@@ -588,6 +596,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'fishing-vessel',
+              platformTypeId: 'dummy-val',
               position: 'M04',
               status: {
                 speedKts: 10,
@@ -619,6 +628,7 @@ const game: Wargame = {
                   perceptions: [],
                   plannedTurns: [],
                   platformType: 'boghammer',
+                  platformTypeId: 'dummy-val',
                   status: {
                     speedKts: 10,
                     state: 'Transiting'
@@ -678,6 +688,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'fishing-vessel',
+              platformTypeId: 'dummy-val',
               position: 'M10',
               status: {
                 speedKts: 10,
@@ -733,6 +744,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'fishing-vessel',
+              platformTypeId: 'dummy-val',
               position: 'P17',
               status: {
                 speedKts: 10,
@@ -757,6 +769,7 @@ const game: Wargame = {
               perceptions: [],
               plannedTurns: [],
               platformType: 'coastal-radar-site',
+              platformTypeId: 'dummy-val',
               position: 'Q12',
               status: {
                 state: 'Inactive'
@@ -903,6 +916,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'merchant-vessel',
+              platformTypeId: 'dummy-val',
               position: 'H03',
               status: {
                 speedKts: 20,
@@ -1057,6 +1071,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'merchant-vessel',
+              platformTypeId: 'dummy-val',
               position: 'C00',
               status: {
                 state: 'Moored'
@@ -1170,6 +1185,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'fishing-vessel',
+              platformTypeId: 'dummy-val',
               position: 'K03',
               status: {
                 speedKts: 10,
@@ -1284,6 +1300,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'fishing-vessel',
+              platformTypeId: 'dummy-val',
               position: 'L09',
               status: {
                 speedKts: 10,
@@ -1406,6 +1423,7 @@ const game: Wargame = {
                 }
               ],
               platformType: 'fishing-vessel',
+              platformTypeId: 'dummy-val',
               position: 'N11',
               status: {
                 speedKts: 10,
@@ -1440,7 +1458,6 @@ const game: Wargame = {
       selectedForce: ''
     },
     overview: {
-      complete: true,
       dirty: false,
       gameDate: '2020-01-07T13:18',
       gameDescription: 'Sample MWARC Wargame',
@@ -1451,7 +1468,6 @@ const game: Wargame = {
       timeWarning: 60000
     },
     platformTypes: {
-      complete: false,
       dirty: false,
       name: 'Platform Types',
       platformTypes: [
@@ -1484,7 +1500,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a1"
         },
         {
           conditions: [
@@ -1515,7 +1532,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a2"
         },
         {
           conditions: [
@@ -1547,7 +1565,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a3"
         },
         {
           conditions: [
@@ -1575,7 +1594,8 @@ const game: Wargame = {
               name: 'Transiting'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a4"
         },
         {
           conditions: [
@@ -1608,7 +1628,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a5"
         },
         {
           conditions: [
@@ -1637,7 +1658,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a6"
         },
         {
           conditions: [
@@ -1663,7 +1685,8 @@ const game: Wargame = {
               name: 'Preparing for launch'
             }
           ],
-          travelMode: 'air'
+          travelMode: 'air',
+          "uniqid": "a7"
         },
         {
           conditions: [
@@ -1689,7 +1712,8 @@ const game: Wargame = {
               name: 'Preparing for launch'
             }
           ],
-          travelMode: 'air'
+          travelMode: 'air',
+          "uniqid": "a8"
         },
         {
           conditions: [
@@ -1713,7 +1737,8 @@ const game: Wargame = {
               name: 'Engaging'
             }
           ],
-          travelMode: 'land'
+          travelMode: 'land',
+          "uniqid": "a9"
         },
         {
           conditions: [
@@ -1744,7 +1769,8 @@ const game: Wargame = {
               name: 'Moored'
             }
           ],
-          travelMode: 'sea'
+          travelMode: 'sea',
+          "uniqid": "a10"
         }
       ],
       selectedType: ''

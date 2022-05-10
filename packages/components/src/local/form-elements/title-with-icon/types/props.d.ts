@@ -4,9 +4,9 @@ export default interface PropTypes {
    */
   forceColor: string
   /**
-   * The platform type to get the svg
+   * the icon file to use (cow.svg)
    */
-  platformType: string
+  icon: string
   /**
    * The title text or node
    */

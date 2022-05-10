@@ -16,11 +16,13 @@ import { Phase, serverPath } from '@serge/config'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
 import data from './data/atlantic-cells'
+import InfoMarkers from '../info-markers'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
+const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -57,7 +59,7 @@ export default {
   argTypes: {
     playerForce: {
       name: 'View as',
-      defaultValue: forceList[1],
+      defaultValue: forceList[0],
       control: {
         type: 'radio',
         options: forceList
@@ -65,7 +67,7 @@ export default {
     },
     phase: {
       name: 'Game phase',
-      defaultValue: Phase.Planning,
+      defaultValue: Phase.Adjudication,
       control: {
         type: 'radio',
         options: [
@@ -118,12 +120,14 @@ interface StoryPropTypes extends MappingPropTypes {
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     playerForce,
+    phase,
     ...props
   } = args
   return (
     <Mapping
       playerForce={playerForce}
       fetchOverride={fetchMock}
+      phase={phase}
       {...props}
     />
   )
@@ -141,7 +145,7 @@ NaturalEarth.args = {
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
-  phase: Phase.Planning,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -150,6 +154,7 @@ NaturalEarth.args = {
     <>
       <HexGrid />
       <Assets />
+      <InfoMarkers/>
     </>
   )
 }
@@ -162,7 +167,6 @@ OpenStreetMap.args = {
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   wargameInitiated: true,
-  phase: Phase.Planning,
   turnNumber: 5,
   mapBar: true,
   mappingConstraints: osmConstraints,
@@ -181,7 +185,6 @@ DetailedCells.args = {
   canSubmitOrders: true,
   platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
-  phase: Phase.Planning,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,

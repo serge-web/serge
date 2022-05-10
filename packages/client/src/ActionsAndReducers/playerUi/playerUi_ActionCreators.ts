@@ -17,12 +17,14 @@ import {
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
-  setActivityTime
+  setActivityTime,
+  MARK_ALL_AS_UNREAD
+  , FEEDBACK_MESSAGE 
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
-import { FEEDBACK_MESSAGE } from '@serge/config'
+
 import {
   Wargame,
   Role,
@@ -33,9 +35,10 @@ import {
   MessageCustom,
   MessageInfoType,
   MessageDetailsFrom,
-  TemplateBodysByKey
+  MessageMap,
+  TemplateBodysByKey, 
+  PlayerUiActionTypes 
 } from '@serge/custom-types'
-import { PlayerUiActionTypes } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -98,6 +101,11 @@ export const closeMessage = (channel: string, message: MessageChannel): PlayerUi
 
 export const markAllAsRead = (channel: string): PlayerUiActionTypes => ({
   type: MARK_ALL_AS_READ,
+  payload: channel
+})
+
+export const markAllAsUnread = (channel: string): PlayerUiActionTypes => ({
+  type: MARK_ALL_AS_UNREAD,
   payload: channel
 })
 
@@ -192,12 +200,12 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     //     await wargamesApi.postNewMessage(dbName, details, message)
     //   }
     // } else {
-      // actually post the message
-      await wargamesApi.postNewMessage(dbName, details, message)
+    // actually post the message
+    await wargamesApi.postNewMessage(dbName, details, message)
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: unknown): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }

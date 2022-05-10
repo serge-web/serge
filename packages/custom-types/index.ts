@@ -5,9 +5,11 @@
 
 export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
-export { default as ColorOption } from './color-option.d'
-export { default as ForceData } from './force-data.d'
+export { default as ForceOption } from './force-option.d'
+export { default as IconOption } from './icon-option.d'
+export { default as FormOption } from './form-option.d'
 export { default as ForceRole } from './force-role.d'
+export { default as ForceData } from './force-data.d'
 export { default as Force } from './force.d'
 export { default as GroupItem } from './group-item.d'
 export * from './forms.d'
@@ -32,6 +34,7 @@ export { default as Message,
          MessageLeaveTaskGroup,
          MessageHostPlatform,
          MessageDeletePlatform,
+         MessageUpdateMarker,
          // System Messages
          MessageFeedback,
          MessageInfoType,
@@ -68,6 +71,8 @@ export { default as WargameData } from './wargame-data.d'
 export { default as WargameList } from './wargame-list.d'
 export { default as WargameOverview } from './wargame-overview.d'
 export { default as Wargame } from './wargame.d'
+export { WargameDispatch, WargameActionTypes, WargameRevision } from './wargame-action'
+export { MessagesDispatch, MessagesActionTypes, SetCurrentViewFromURI } from './messages-action'
 export { default as Perception } from './perception.d'
 export { default as Asset } from './asset.d'
 export { default as Visibility } from './visibility.d'
@@ -85,4 +90,5 @@ export * from './channel-data.d'
 export * from './participant.d'
 export * from './attributes'
 export * from './serge-hex-3.d'
+export * from './map-annotation'
 export * from './root-state'

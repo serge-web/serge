@@ -7,22 +7,25 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
 import { ATTRIBUTE_TYPE_NUMBER } from '@serge/config'
 import { AttributeType, AttributeTypes, NumberAttributeType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
-import { platformTypeNameToKey } from '@serge/helpers'
 import cx from 'classnames'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal'
 import uniqid from 'uniqid'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
-import MoreInfo from '../../molecules/more-info'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
+import MoreInfo from '../../molecules/more-info'
 import SortableList, { Item as SortableListItem } from '../../molecules/sortable-list'
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -65,10 +68,9 @@ const useStyles = makeStyles({
 })
 
 /* Render component */
-export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, iconUploadUrl }) => {
+export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, onDuplicate, iconUploadUrl }) => {
   const { description, format, underline, units } = useStyles()
   const newPlatformType: PlatformType = {
-    complete: false,
     dirty: false,
     name: 'Platform Mock',
     selectedType: '',
@@ -104,6 +106,10 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const handleDelete = (item: Item): void => {
     setPreviousItem(item)
     onDelete && onDelete(item as PlatformType)
+  }
+
+  const handleDuplicate = (item: Item): void => {
+    onDuplicate && onDuplicate(item as PlatformType)
   }
 
   const handleChangePlatformTypes = (nextPlatformTypes: Array<PlatformTypeData>): void => {
@@ -174,6 +180,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     }
     const handleChangeTravelMode = (e: React.ChangeEvent<HTMLInputElement>): void => {
       handleChangePlatformTypeData({ ...data, travelMode: e.target.value }, selectedItem)
+    }
+    const handleChangeTurningCircle = (event: ChangeEvent<HTMLInputElement>): void => {
+      handleChangePlatformTypeData({ ...data, turningCircle: parseInt(event.target.value) }, selectedItem)
     }
     const handleChangeConditions = (conditions: Array<SortableListItem>): void => {
       handleChangePlatformTypeData({ ...data, conditions: conditions as Array<string> }, selectedItem)
@@ -279,8 +288,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             />
           </div>
           <div className={styles.col}>
-            <IconUploader platformType={platformTypeNameToKey(data.name)} iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
+            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
+          <div className={styles.uniqid}>Fixed id:{data.uniqid}</div>
           <div className={styles.actions}>
             <Button
               color='primary'
@@ -301,6 +311,22 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   <FormControlLabel value='air' control={<Radio color='primary' />} label='Air' />
                 </RadioGroup>
               </FormControl>
+            </FormGroup>
+          </div>
+          <div className={cx(styles.col, styles.section)}>
+            <FormGroup placeholder='Turning Circle (optional)' description='If provided then assets will follow turn when changing direction during route planning'>
+              <Table>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className={styles.cell}></TableCell>
+                    <TableCell className={styles.cell}><FontAwesomeIcon size={'lg'} icon={faRuler} /></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className={styles.cell}><TextField variant="outlined" type='number' value={data.turningCircle} placeholder='Enter Value Here' onChange={handleChangeTurningCircle} /></TableCell>
+                    <TableCell className={styles.cell}>m</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </FormGroup>
           </div>
         </div>
@@ -392,13 +418,15 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   // Create a new empty PlatformTypeData item
   const handleCreatePlatformType = (): void => {
+    const newId = uniqid('p')
     localPlatformType.platformTypes.unshift({
       name: createPlatformName(),
       conditions: [],
       speedKts: [],
       states: [],
       icon: '',
-      travelMode: 'sea'
+      travelMode: 'sea',
+      uniqid: newId
     })
     // update localPlatformType and call onSave
     handleChangePlatformTypes(localPlatformType.platformTypes)
@@ -413,6 +441,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           onClick={handleSwitch}
           onCreate={handleCreatePlatformType}
           onDelete={handleDelete}
+          onDuplicate={handleDuplicate}
           title='Create'
           selectedItem={selectedItem >= 0 ? localPlatformType.platformTypes[selectedItem].name : undefined}
           filterKey='name'

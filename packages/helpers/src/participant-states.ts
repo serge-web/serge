@@ -154,6 +154,23 @@ export const getParticipantStates = (
     if (chosenTemplates.length === 0) {
       if (typeof chatTemplate !== 'undefined') {
         templates = [chatTemplate]
+      } else {
+        // TODO: remove this workaround
+        // for new cloud hosting, all template ids have changed. So,
+        // if this happens, just look for template with correct title
+        const tempKeys = Object.keys(allTemplatesByKey)
+        let chatTemp: TemplateBody | undefined
+        tempKeys.some((key: string) => {
+          const template = allTemplatesByKey[key]
+          if (template.title === 'Chat') {
+            chatTemp = template
+          }
+          // returning non-null value will let us drop out of `some` loop early
+          return !!chatTemp
+        })
+        if (chatTemp) {
+          templates = [chatTemp]
+        }
       }
     } else {
       templates = chosenTemplates

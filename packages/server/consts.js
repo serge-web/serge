@@ -1,5 +1,6 @@
 module.exports = {
-  localSettings: '_local/settings',
+  wargameSettings: 'initial_wargame',
+  settings: 'settings',
   COUNTER_MESSAGE: 'CounterMessage',
   dbSuffix: '.sqlite'
 }

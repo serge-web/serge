@@ -13,8 +13,8 @@ import { h3ToGeo } from 'h3-js'
  * @param {string} playerForce uniqid for player force
  * @returns {string[]} list of forces this player can control
  */
-export const forcesControlledBy = (forces: ForceData[], playerForce: string): Array<string> => {
-  const res: Array<string> = []
+export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['uniqid']): Array<ForceData['uniqid']> => {
+  const res: Array<ForceData['uniqid']> = []
   forces.forEach((force: ForceData) => {
     if (force.controlledBy && force.controlledBy.includes(playerForce)) {
       res.push(force.uniqid)
@@ -37,20 +37,18 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: string,
+const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'],
   platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
   filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: [] }
 
   const controls: Array<string> = forcesControlledBy(forces, playerForceId)
-  const forceColorList: Array<{force: string, color: string}> = forceColors(forces)
-  const playerForce: ForceData | undefined = forces.find((force: ForceData) => force.uniqid === playerForceId)
-  const playerForceName: string = playerForce ? playerForce.name : 'unknown'
+  const forceColorList: Array<ForceStyle> = forceColors(forces)
 
   const undefinedColor: ForceStyle = {
     force: 'undefined',
-    color: '#999',
-    cssClass: 'undefined'
+    forceId: undefined,
+    color: '#999'
   }
 
   const localWargameInitiated: boolean = (wargameInitiated === undefined) ? true : wargameInitiated
@@ -92,12 +90,11 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
-
             // if it's the selected asset, we plot all future steps
             const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
-              controlled, visibleToThisPlayer, force.name, force.cssClass, force.uniqid, asset.name, asset.platformType,
+              controlled, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
               platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
               true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
@@ -118,16 +115,16 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
               // process list of children
               asset.comprising.forEach((child: Asset) => {
                 // can't see it directly. See if we can perceive it
-                const perceivedColor: ForceStyle | undefined = isPerceivedBy(child.perceptions, playerForceName, forceColorList, undefinedColor)
+                const perceivedColor: ForceStyle | undefined = isPerceivedBy(child.perceptions, playerForceId, forceColorList, undefinedColor)
                 if (perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForceId, child.name, false, child.contactId,
-                    thisForce, child.platformType, child.perceptions)
+                    thisForce, child.platformTypeId, child.perceptions)
 
                   // note: compiler/linter forcing us to re-check asset.position
                   if (asset.position && perceptions) {
                     // create route for this asset
-                    const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, false, force.uniqid, perceptions.force, perceptions.force,
-                      perceptions.name, perceptions.type, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
+                    const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, false, force.uniqid, perceptions.forceId,
+                      perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                       false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
                   }
@@ -135,14 +132,14 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
               })
             } else {
               // it's not a composite unit, just process it
-              const perceivedColor: ForceStyle | undefined = isPerceivedBy(asset.perceptions, playerForceName, forceColorList, undefinedColor)
+              const perceivedColor: ForceStyle | undefined = isPerceivedBy(asset.perceptions, playerForceId, forceColorList, undefinedColor)
               if (perceivedColor) {
-                const perceptions = findPerceivedAsTypes(playerForceName, asset.name, false, asset.contactId,
-                  thisForce, asset.platformType, asset.perceptions)
+                const perceptions = findPerceivedAsTypes(playerForceId, asset.name, false, asset.contactId,
+                  thisForce, asset.platformTypeId, asset.perceptions)
                 if (perceptions) {
                   // create route for this asset
-                  const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, false, force.uniqid, perceptions.force, perceptions.force,
-                    perceptions.name, perceptions.type, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
+                  const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, false, force.uniqid, perceptions.forceId,
+                    perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                     false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                   store.routes.push(newRoute)
                 }

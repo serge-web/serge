@@ -9,5 +9,4 @@ export default (model: Model, tabId: string, tabName: string): void => {
       id: tabId
     }, '#2', FlexLayout.DockLocation.CENTER, -1)
   )
-
 }

@@ -9,6 +9,7 @@ interface CssExports {
   'info-body__other': string;
   'info-body__owner': string;
   'label-private': string;
+  'message-bar': string;
   'message-text': string;
   'private': string;
 }

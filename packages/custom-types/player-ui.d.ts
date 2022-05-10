@@ -9,6 +9,7 @@ import Role from './role'
 import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
 import { PlayerMessageLog } from './player-log'
+import { AnnotationIcons, MapAnnotations } from './map-annotation'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -49,6 +50,10 @@ export default interface PlayerUi {
   channels: PlayerUiChannels,
   /** all channels in this wargame */
   allChannels: Array<ChannelTypes>,
+  /** the information markers */
+  infoMarkers: MapAnnotations,
+  /** icons used for markers */
+  markerIcons: AnnotationIcons,
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
   allTemplatesByKey: TemplateBodysByKey,

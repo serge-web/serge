@@ -28,4 +28,6 @@ export type CollabStatusBoardProps = {
   handleUnreadMessage?: (message: MessageCustom) => void
   /** mark all message as read */
   onMarkAllAsRead?: () => void
+  /** mark message unread */
+  onMarkAllAsUnRead?: () => void
 }

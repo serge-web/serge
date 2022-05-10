@@ -14,6 +14,7 @@ interface CssExports {
   'overlap': string;
   'presection': string;
   'section': string;
+  'trash-icon': string;
   'value-label': string;
 }
 export const cssExports: CssExports;

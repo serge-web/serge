@@ -7,7 +7,7 @@ import { addNotification, hideNotification } from '../ActionsAndReducers/Notific
 import { pingServer as pingServerApi } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
-type Notification = {
+export type Notification = {
   message: string,
   type: string,
   id: number,
@@ -78,7 +78,7 @@ const Version: React.FC<VersionProps> = () => {
           enableHeartbeat={serverStatus === 'OK'}
           animate={toggleBeat}
           onAnimateComplete={() => setToggleBeat(false)}
-          className="heartbeat-checker"
+          className='heartbeat-checker'
         />
       </li>
       <li>V:<span>{process.env.REACT_APP_VERSION}</span></li>

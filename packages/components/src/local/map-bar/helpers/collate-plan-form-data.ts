@@ -1,7 +1,5 @@
 import { SelectedAsset, PlanTurnFormData, PlatformTypeData, State, RouteStatus, AttributeValues, AttributeTypes } from '@serge/custom-types'
 
-import { kebabCase } from 'lodash'
-
 /** determine which form to show on this click
  * @param {PlatformTypeData[]} platforms list of platform types in the wargame
  * @param {SelectedAsset} selectedAsset the currently selected asset
@@ -9,7 +7,7 @@ import { kebabCase } from 'lodash'
  */
 const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset
 ): PlanTurnFormData => {
-  const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
+  const currentPlatform = platforms.find((platform: PlatformTypeData) => platform.uniqid === selectedAsset.typeId)
   const currentStatus: State | undefined = currentPlatform && currentPlatform.states.find((s: State) => selectedAsset.status && s.name === selectedAsset.status.state)
   const availableStatus: State | undefined = currentStatus || (currentPlatform && currentPlatform.states[0])
   const status: RouteStatus | undefined = selectedAsset.status

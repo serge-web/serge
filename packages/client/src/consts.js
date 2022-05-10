@@ -1,7 +1,9 @@
 import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
+import * as Globals from '@serge/config'
 
+/** name of the document used to store the initial wargame definition */
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
 
@@ -101,7 +103,7 @@ export const defaultGameInfo = {
 
 export const forceTemplate = {
   name: '',
-  uniqid: null,
+  uniqid: '',
   overview: 'An overview written here..',
   roles: [
     {
@@ -146,7 +148,7 @@ export const channelTemplate = {
 }
 
 export const dbDefaultSettings = {
-  _id: '_local/settings',
+  _id: Globals.wargameSettings,
   wargameTitle: '',
   data: {
     overview: {
@@ -159,21 +161,18 @@ export const dbDefaultSettings = {
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      complete: false,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForceTemplate],
       selectedForce: umpireForceTemplate,
-      complete: false,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: [],
       selectedChannel: '',
-      complete: false,
       dirty: false
     }
   },
@@ -181,7 +180,7 @@ export const dbDefaultSettings = {
   gameTurn: 0,
   phase: ADJUDICATION_PHASE,
   turnEndTime: null,
-  adjudicationStartTime: moment().format()
+  adjudicationStartTime: moment(new Date(), moment.ISO_8601).format()
 }
 
 export const FLEX_LAYOUT_MODEL_DEFAULT = {

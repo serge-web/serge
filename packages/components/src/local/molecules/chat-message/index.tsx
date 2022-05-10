@@ -1,6 +1,5 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,6 +12,7 @@ import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
 import { MessageChannel } from '@serge/custom-types'
+import { formatTime } from '@serge/helpers'
 
 /* Render component */
 export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markUnread }: Props) => {
@@ -43,7 +43,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
           left: isOwner ? '99%' : '0%',
           borderRadius: isOwner ? '0 8px 8px 0' : '8px 0 0 8px'
         }}
-        onClick={() => markUnread && markUnread(message)}></span>
+        onClick={(): void => markUnread && markUnread(message)}></span>
       <div className={styles['message-text']}>{messageContent}</div>
       <Box
         display="flex"
@@ -59,7 +59,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
         >
           <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
           <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
-            {moment(message.details.timestamp).format('HH:mm')}
+            {formatTime(message.details.timestamp)}
           </span>
         </Box>
       </Box>

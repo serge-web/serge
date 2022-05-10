@@ -1,20 +1,53 @@
-import React from 'react'
-import GameChannels from './GameChannels/GameChannels'
+import { makeStyles } from '@material-ui/styles'
+import { UMPIRE_FORCE } from '@serge/config'
+import { TabNode } from 'flexlayout-react'
+import React, { useState } from 'react'
 import Tour from 'reactour'
-import { usePlayerUiDispatch } from '../Store/PlayerUi'
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
+import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
+import GameChannels from './GameChannels/GameChannels'
 
-interface Props { storageKey: string, tourIsOpen: boolean }
+type GameTour = {
+  selector: string;
+  content: string | (() => React.ReactElement);
+}
 
-const GameChannelsWithTour: React.FC<Props> = ({ storageKey, tourIsOpen }) => {
+const useStyles = makeStyles({
+  tourImg: {
+    width: 400,
+    height: 300,
+    backgroundColor: 'lightgray'
+  }
+})
+
+const GameChannelsWithTour: React.FC = () => {
+  const classes = useStyles()
   const dispatch = usePlayerUiDispatch()
+  const {
+    selectedForce,
+    selectedRole,
+    wargameTitle,
+    allForces
+  } = usePlayerUiState()
+
+  const gameTourKey = `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-tourDone`
+  const mappingTourKey = `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-mapping-tourDone`
+
+  const [tourIsOpen, setTourIsOpen] = useState<boolean>(false)
+  const [mapTourIsOpen, setMapTourIsOpen] = useState<boolean>(false)
+  const [showMappingTour, setShowMappingTour] = useState<boolean>(false)
+  const [tourSteps, setTourStep] = useState<GameTour[]>([])
+
+  const storageTourIsOpen = expiredStorage.getItem(gameTourKey) !== 'done'
+  const storageMappingTourIsOpen = expiredStorage.getItem(mappingTourKey) !== 'done'
 
   const closeTour = (): void => {
-    expiredStorage.setItem(storageKey, 'done', LOCAL_STORAGE_TIMEOUT)
+    expiredStorage.setItem(showMappingTour ? mappingTourKey : gameTourKey, 'done', LOCAL_STORAGE_TIMEOUT)
     dispatch(openTour(false))
   }
-  const tourSteps = [
+
+  const gameTourSteps = [
     {
       selector: '[data-tour="first-step"]',
       content: 'Take a short guided tour to familiarise yourself with the main features of the wargame interface.'
@@ -59,17 +92,88 @@ const GameChannelsWithTour: React.FC<Props> = ({ storageKey, tourIsOpen }) => {
     }
   ]
 
+  const mappingTourSteps: any[] = [
+    {
+      selector: '',
+      content: ' This is the Mapping Channel. Use this map to understand where assets are. Permitted player roles are able to plan routes for assets,' +
+       ' and Game Control can adjudicate turns'
+    },
+    {
+      selector: '[data-tour="world-state"]',
+      content: 'The tab on the left of the screen shows Force Assets, under `Control`, where you can submit routes per Assets'
+    },
+    {
+      selector: '[data-tour="visibility"]',
+      content: 'Under "Visibility", you can view all of the visible Assets across various Forces. Clicking on any asset will popup a panel containing further information'
+    },
+    {
+      selector: '[data-tour="zoom-control"]',
+      content: 'You can Zoom In and Zoom with the Plus and Dash button above, as well as fit the screen to the window by pressing the Home button'
+    },
+    {
+      selector: '[data-tour="counter-clockwise"]',
+      content: 'Use the Counter-Clockwise button to View Full History. Use the Clockwise button to View All Planned Steps'
+    },
+    {
+      selector: '',
+      content: () => (
+        <div>
+          <span>
+            Icon markers show the type of asset, shaded according to force. Assets of unknown force are shaded grey, of unknown type are marked with a question mark.
+            Select an own-force asset in Planning phase to provide plans, or from another force to edit/record your perception of it.
+          </span>
+          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+        </div>
+      )
+    }
+  ]
+
+  if (selectedForce && selectedForce.uniqid === UMPIRE_FORCE && allForces.length) {
+    mappingTourSteps.push(
+      {
+        selector: '[data-tour="certain-force"]',
+        content: 'The Globe buttons serve as filter to mapping perception. Use them to view the map as a certain Force'
+      }
+    )
+  }
+
+  mappingTourSteps.push(
+    {
+      selector: '',
+      content: () => (<div className="close-tour-dialog">
+        <span>
+          You can come back to this tutorial as any time by clicking on the intro button on the top right corner.
+        </span>
+        <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
+      </div>)
+    }
+  )
+
+  if (!showMappingTour && tourIsOpen !== storageTourIsOpen) {
+    setTourStep(gameTourSteps)
+    setTourIsOpen(storageTourIsOpen)
+  }
+
+  if (!storageTourIsOpen && showMappingTour && mapTourIsOpen !== storageMappingTourIsOpen) {
+    setTourStep(mappingTourSteps)
+    setMapTourIsOpen(storageMappingTourIsOpen)
+  }
+
+  const onTabChange = (node: TabNode): void => {
+    setShowMappingTour(node.getComponent() === 'mapping')
+  }
+
   return (
     <>
       <div className="flex-content-wrapper" data-tour="first-step">
         <div className="flex-content flex-content--fill">
-          <GameChannels />
+          <GameChannels onTabChange={onTabChange} />
         </div>
       </div>
       {/* GUIDED TOUR */}
       <Tour
         steps={tourSteps}
-        isOpen={tourIsOpen}
+        isOpen={tourIsOpen || mapTourIsOpen}
         onRequestClose={closeTour}
         startAt={0}
       />

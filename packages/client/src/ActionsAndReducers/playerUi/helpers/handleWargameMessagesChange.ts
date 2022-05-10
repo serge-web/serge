@@ -33,7 +33,6 @@ export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoT
   return res
 }
 
-
 const openMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
   let changed: boolean = false
   if (message._id === id) {
@@ -47,14 +46,14 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
 export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelUI => {
   // mutating `messages` array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
-  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : ''
   if (payloadMessage._id !== undefined) {
-    for (let i in channelMessages) {
+    for (const i in channelMessages) {
       const res = openMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
         setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, payloadMessage._id)
-        break;
+        break
       }
     }
   }
@@ -74,7 +73,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
 }
 
 const closeMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
-  let changed: boolean = false
+  const changed: boolean = false
   if (message.messageType === INFO_MESSAGE_CLIPPED /* InfoType have no id */ && message._id === id) {
     message.isOpen = false
   }
@@ -89,7 +88,7 @@ export const markUnread = (channel: string, message: MessageChannel, newState: P
     }
   }
 
-  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : ''
   removeMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
 
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
@@ -107,16 +106,15 @@ export const markUnread = (channel: string, message: MessageChannel, newState: P
   }
 }
 
-
 export const closeMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): (MessageChannel)[] => {
   // mutating messages array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
   if (payloadMessage._id !== undefined) {
-    for (let i in channelMessages) {
+    for (const i in channelMessages) {
       const res = closeMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
-        break;
+        break
       }
     }
   }
@@ -124,19 +122,20 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
   return channelMessages
 }
 
-export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI => {
+export const markAllMessageState = (channel: string, newState: PlayerUi, msgState: 'read' | 'unread'): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
-    const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
+    const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : ''
     if (message._id) {
-      message.hasBeenRead = true
-      setMessageState(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
+      message.hasBeenRead = msgState === 'read'
+      const msgFnc = msgState === 'read' ? setMessageState : removeMessageState
+      msgFnc(newState.currentWargame, selectedForce, newState.selectedRole, message._id)
     }
     return message
   })
 
   return {
     ...newState.channels[channel],
-    unreadMessageCount: 0,
+    unreadMessageCount: msgState === 'read' ? 0 : channelMessages.length,
     messages: channelMessages
   }
 }

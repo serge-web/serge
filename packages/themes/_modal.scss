@@ -59,6 +59,11 @@
       right: -15px;
       top: 100px;
     }
+
+    h3 {
+      text-align: center;
+      width: 100%;
+    }
   }
 
   h3 {
@@ -133,4 +138,9 @@
 .text-input-wrap {
   display: flex;
   flex-direction: column;
+}
+
+.reactour__helper {
+  max-width: min-content !important;
+  min-width: 350px !important;
 }

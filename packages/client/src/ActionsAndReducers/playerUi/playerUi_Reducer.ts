@@ -14,6 +14,7 @@ import {
   MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
+  MARK_ALL_AS_UNREAD,
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
@@ -21,20 +22,20 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types'
 import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
   markUnread,
   closeMessage,
-  markAllAsRead
-} from './helpers/handleWargameMessagesChange';
+  markAllMessageState
+} from './helpers/handleWargameMessagesChange'
 
 import {
-  CHAT_CHANNEL_ID,
+  CHAT_CHANNEL_ID
 } from '../../consts'
-import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
+import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
 import { platformTypeNameToKey } from '@serge/helpers'
 
@@ -66,6 +67,8 @@ export const initialState: PlayerUi = {
   channels: {},
   allChannels: [],
   allForces: [],
+  infoMarkers: [],
+  markerIcons: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
   allPlatformTypesByKey: {},
@@ -82,32 +85,32 @@ export const initialState: PlayerUi = {
   playerMessageLog: {}
 }
 
-
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T>(enm: { [s: string]: T }, value: string): T | undefined {
+  function enumFromString<T> (enm: { [s: string]: T }, value: string): T | undefined {
     return (Object.values(enm) as unknown as string[]).includes(value)
       ? value as unknown as T
-      : undefined;
+      : undefined
   }
 
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
-      const turnFormat = action.payload.data.overview.turnPresentation || TurnFormats.Natural
+      const data: WargameData = action.payload.data
+      const turnFormat = data.overview.turnPresentation || TurnFormats.Natural
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.currentTurn = action.payload.gameTurn
       newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
-      newState.showAccessCodes = action.payload.data.overview.showAccessCodes
+      newState.showAccessCodes = data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated || false
-      newState.gameDate = action.payload.data.overview.gameDate
-      newState.gameTurnTime = action.payload.data.overview.gameTurnTime
+      newState.gameDate = data.overview.gameDate
+      newState.gameTurnTime = data.overview.gameTurnTime
       newState.adjudicationStartTime = action.payload.adjudicationStartTime || ''
-      newState.realtimeTurnTime = action.payload.data.overview.realtimeTurnTime
-      newState.timeWarning = action.payload.data.overview.timeWarning
+      newState.realtimeTurnTime = data.overview.realtimeTurnTime
+      newState.timeWarning = data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.mappingConstaints = action.payload.data.overview.mapConstraints
@@ -116,31 +119,33 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       // TODO: delete workaround once fix in place
       const allChannels = action.payload.data.channels.channels || []
       const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
-      if (allChannels.length != cleanChannels.length) {
+      if (allChannels.length !== cleanChannels.length) {
         console.warn('Applied workaround to remove duplicate channel defs')
       }
       newState.allChannels = cleanChannels
 
       newState.allForces = action.payload.data.forces.forces
+      newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
+      newState.markerIcons = (data.annotationIcons && data.annotationIcons.markers) || []
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
-      if (action.payload.data.platform_types) {
+      if (data.platform_types) {
         // @ts-ignore
-        newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+        newState.allPlatformTypes = data.platform_types.platformTypes
         newState.allPlatformTypesByKey = {}
         // @ts-ignore
-        for (const platformType of action.payload.data.platform_types.platformTypes) {
+        for (const platformType of data.platform_types.platformTypes) {
           newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
         }
       }
       // TODO: remove this ^^
 
-      if (action.payload.data.platformTypes) {
-        newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
+      if (data.platformTypes) {
+        newState.allPlatformTypes = data.platformTypes.platformTypes
         // don't need any more to do loop find when we need to get platformType based on Asset.platformType
         newState.allPlatformTypesByKey = {}
-        for (const platformType of action.payload.data.platformTypes.platformTypes) {
+        for (const platformType of data.platformTypes.platformTypes) {
           newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
         }
       }
@@ -203,7 +208,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case MARK_ALL_AS_READ:
-      newState.channels[action.payload] = markAllAsRead(action.payload, newState)
+      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
+      break
+
+    case MARK_ALL_AS_UNREAD:
+      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
       break
 
     case OPEN_TOUR:
@@ -222,9 +231,9 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
   if (process.env.NODE_ENV === 'development') {
-    console.log('PlayerUI: ', action.type);
-    console.log('PlayerUI > Prev State: ', state);
-    console.log('PlayerUI > Next State: ', newState);
+    console.log('PlayerUI: ', action.type)
+    console.log('PlayerUI > Prev State: ', state)
+    console.log('PlayerUI > Next State: ', newState)
   }
 
   return newState

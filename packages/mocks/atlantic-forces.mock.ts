@@ -43,6 +43,7 @@ export const forces: ForceData[] = [
                 ],
                 "plannedTurns": [],
                 "platformType": "Unmanned-Airborne-Vehicle",
+                "platformTypeId" : "a10",
                 "status": {
                   "state": "Landed"
                 },
@@ -56,6 +57,7 @@ export const forces: ForceData[] = [
                 "perceptions": [],
                 "plannedTurns": [],
                 "platformType": "Unmanned-Airborne-Vehicle",
+                "platformTypeId" : "a10",
                 "status": {
                   "state": "Landed"
                 },
@@ -71,6 +73,7 @@ export const forces: ForceData[] = [
               }
             ],
             "platformType": "frigate",
+            "platformTypeId" : "a3",
             "uniqid": "a0prbr6441"
           },
           {
@@ -80,6 +83,7 @@ export const forces: ForceData[] = [
             "name": "MCM Delta",
             "perceptions": [],
             "platformType": "MCMV",
+            "platformTypeId" : "a7",
             "uniqid": "a0traa6790"
           }
         ],
@@ -143,6 +147,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "task-group",
+        "platformTypeId" : "a11",
         "position": "8318adfffffffff",
         "status": {
           "speedKts": 10,
@@ -178,6 +183,7 @@ export const forces: ForceData[] = [
             ],
             "plannedTurns": [],
             "platformType": "helicopter",
+            "platformTypeId" : "a8",
             "status": {
               "state": "Landed"
             },
@@ -191,6 +197,7 @@ export const forces: ForceData[] = [
             "perceptions": [],
             "plannedTurns": [],
             "platformType": "Unmanned-Airborne-Vehicle",
+            "platformTypeId" : "a10",
             "status": {
               "state": "Landed"
             },
@@ -229,6 +236,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
+        "platformTypeId" : "a3",
         "position": "8318a3fffffffff",
         "status": {
           "speedKts": 20,
@@ -244,6 +252,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "fixed-wing-aircraft",
+        "platformTypeId" : "a9",
         "position": "831976fffffffff",
         "status": {
           "state": "Landed"
@@ -294,6 +303,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
+        "platformTypeId" : "a13",
         "position": "83181cfffffffff",
         "status": {
           "speedKts": 20,
@@ -365,6 +375,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
+        "platformTypeId" : "a1",
         "position": "830932fffffffff",
         "status": {
           "speedKts": 10,
@@ -396,6 +407,7 @@ export const forces: ForceData[] = [
             "perceptions": [],
             "plannedTurns": [],
             "platformType": "boghammer",
+            "platformTypeId" : "a4",
             "status": {
               "state": "Landed"
             },
@@ -437,6 +449,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
+        "platformTypeId" : "a1",
         "position": "830910fffffffff",
         "status": {
           "speedKts": 10,
@@ -492,6 +505,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
+        "platformTypeId" : "a1",
         "position": "830765fffffffff",
         "status": {
           "speedKts": 10,
@@ -515,6 +529,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "coastal-radar-site",
+        "platformTypeId" : "a12",
         "position": "830744fffffffff",
         "status": {
           "state": "Inactive"
@@ -586,6 +601,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
+        "platformTypeId" : "a13",
         "position": "831b21fffffffff",
         "status": {
           "speedKts": 20,
@@ -644,6 +660,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
+        "platformTypeId" : "a13",
         "position": "831b31fffffffff",
         "status": {
           "state": "Moored"
@@ -691,6 +708,7 @@ export const forces: ForceData[] = [
           }          
         ],
         "platformType": "fishing-vessel",
+        "platformTypeId" : "a1",
         "position": "831b2dfffffffff",
         "status": {
           "speedKts": 10,
@@ -738,6 +756,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
+        "platformTypeId" : "a1",
         "position": "83064bfffffffff",
         "status": {
           "speedKts": 10,
@@ -792,6 +811,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
+        "platformTypeId" : "a1",
         "position": "830761fffffffff",
         "status": {
           "speedKts": 10,

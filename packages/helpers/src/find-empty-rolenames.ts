@@ -18,8 +18,8 @@ const findEmptyRolenames = (newData: ForceData, forces: ForceData[]): Array<{ fo
     forcesData,
     (output: ExtForces[] = [], force) => {
       force.roles.forEach(role => {
-        const empRole = role.name ? role.name : ""
-        if (empRole === "" || empRole === NEW_ROLE) {
+        const empRole = role.name ? role.name : ''
+        if (empRole === '' || empRole === NEW_ROLE) {
           output.push({
             forceName: force.name,
             roleName: empRole

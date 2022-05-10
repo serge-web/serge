@@ -14,7 +14,6 @@ class AdjudicationManager {
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
   closePlanningForm: { (): void }
-  iconData: {forceColor: string, platformType: string}
   formData: AdjudicateTurnFormPopulate
   formHeader: string
   turn: number
@@ -36,7 +35,6 @@ class AdjudicationManager {
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
     closePlanningForm: {(): void},
-    iconData: {forceColor: string, platformType: string},
     formData: AdjudicateTurnFormPopulate) {
     this.store = store
     this.platforms = platforms
@@ -45,7 +43,6 @@ class AdjudicationManager {
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
     this.closePlanningForm = closePlanningForm
-    this.iconData = iconData
     this.formData = formData
     this.formHeader = formHeader
     this.uniqid = uniqid
@@ -60,9 +57,8 @@ class AdjudicationManager {
   getPlatformDetails (): PlatformTypeData {
     if (this.platformDetails === undefined) {
       const selected: Route | undefined = this.store.selected
-      if (selected) {
-        const pType = selected.platformType
-        this.platformDetails = findPlatformTypeFor(this.platforms, pType)
+      if (selected && selected.platformTypeId) {
+        this.platformDetails = findPlatformTypeFor(this.platforms, '', selected.platformTypeId)
       }
     }
     if (this.platformDetails !== undefined) return this.platformDetails
@@ -187,9 +183,8 @@ class AdjudicationManager {
         return selected.currentStatus
       } else {
         // no current status, use the first one
-
-        // get the platform type
-        const platform = findPlatformTypeFor(this.platforms, selected.platformType)
+        // do we know the platform type
+        const platform = selected.platformTypeId && findPlatformTypeFor(this.platforms, '', selected.platformTypeId)
         if (platform) {
           const defaultState: State = platform.states[0]
           // create new state

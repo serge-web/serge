@@ -17,9 +17,7 @@ const runServer = (
   /*
   // replicate database
   const localDB = new PouchDB('message_types')
-
   const nextDb = new PouchDB('message_types.sqlite')
-
   localDB.replicate.to(nextDb).on('complete', function () {
     console.log('yay, we\'re done!');
   }).on('error', function (err) {
@@ -28,18 +26,25 @@ const runServer = (
   // end replicate database
   return
   */
+
   const fs = require('fs')
   const cors = require('cors')
   const app = express()
   const { Server } = require('socket.io')
-  const io = new Server(4000, { cors: { origin: '*' } })
-  let { IBM_URL, IBM_API } = process.env
+  const http = require('http').createServer(app)
 
-  if (!IBM_URL || !IBM_API) {
+  let { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
+
+  if (!COUCH_ACCOUNT || !COUCH_URL || !COUCH_PASSWORD) {
     require('dotenv').config()
-    IBM_URL = process.env.IBM_URL
-    IBM_API = process.env.IBM_API
+    COUCH_ACCOUNT = process.env.COUCH_ACCOUNT
+    COUCH_URL = process.env.COUCH_URL
+    COUCH_PASSWORD = process.env.COUCH_PASSWORD
   }
+
+  // note: use use the presence of `process.env.PORT` as an
+  // note: indicator that we're running on Heroku
+  const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
 
   app.use(express.json())
   app.use(bodyParser.urlencoded({ extended: true }))
@@ -191,9 +196,9 @@ const runServer = (
   app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
-  if (IBM_URL && IBM_API) {
-    const ibmDb = require('./providers/ibmdb')
-    ibmDb(app, io)
+  if (COUCH_ACCOUNT && COUCH_URL && COUCH_PASSWORD) {
+    const couchDb = require('./providers/couchdb')
+    couchDb(app, io, pouchOptions)
   } else {
     const pouchDb = require('./providers/pouchdb')
     pouchDb(app, io, pouchOptions)
@@ -207,7 +212,7 @@ const runServer = (
     res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))
   })
 
-  const server = app.listen(port, () => {
+  const server = http.listen(port, () => {
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })

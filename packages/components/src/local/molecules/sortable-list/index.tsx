@@ -51,6 +51,12 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
     }
   }
 
+  const handleBlur = (): void => {
+    setActive('')
+    setInputActive(false)
+    setSelectAllText(false)
+  }
+
   const handleCreate = (): void => {
     if (typeof onCreate === 'function') {
       onCreate()
@@ -159,7 +165,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
                         setSelectAllText(false)
                       }
                     }}
-                    onBlur={(): void => setInputActive(false)}
+                    onBlur={handleBlur}
                   />
                   : <div className={styles['value-label']}>
                     <div ref={key === items.length - 1 ? modalRef : null} onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
@@ -167,13 +173,15 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
                     </div>
                   </div>
               }
+              <span>
+                {remove && <div className={styles['trash-icon']} onClick={(): void => { handleRemove(key) }}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </div>}
+              </span>
               {renderItemSection && renderItemSection(item, key)}
               <span>
                 {copy && <div onClick={(): void => { handleCopy(item, key) }}>
                   <FontAwesomeIcon icon={faCopy} />
-                </div>}
-                {remove && <div onClick={(): void => { handleRemove(key) }}>
-                  <FontAwesomeIcon icon={faTrash} />
                 </div>}
               </span>
             </section>

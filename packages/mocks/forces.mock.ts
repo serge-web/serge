@@ -75,6 +75,7 @@ export const forces: ForceData[] = [
                 name: 'Frigate A Perceived Name'
               }],
               platformType: 'frigate',
+              platformTypeId : 'a3',
               hosting: [
                 {
                   condition: 'Full capability',
@@ -86,10 +87,11 @@ export const forces: ForceData[] = [
                     by: 'Red',
                     force: 'Blue',
                     name: 'Unknown UAV',
-                    type: 'Unmanned-Airborne-Vehicle',
+                    typeId: 'a10'
                   }],
                       plannedTurns: [],
                   platformType: 'Unmanned-Airborne-Vehicle',
+                  platformTypeId : 'a10',
                   status: {
                     state: 'Landed'
                   },
@@ -104,6 +106,7 @@ export const forces: ForceData[] = [
                   perceptions: [],
                   plannedTurns: [],
                   platformType: 'Unmanned-Airborne-Vehicle',
+                  platformTypeId : 'a10',
                   status: {
                     state: 'Landed'
                   },
@@ -124,6 +127,7 @@ export const forces: ForceData[] = [
               name: 'MCM Delta',
               perceptions: [],
               platformType: 'MCMV',
+              platformTypeId : 'a7',
               status: {
                 speedKts: 20,
                 state: 'Transiting'
@@ -136,7 +140,7 @@ export const forces: ForceData[] = [
           by: 'Red',
           force: 'Blue',
           name: 'BRIT',
-          type: 'task-group'
+          typeId: 'a11'
         }],
         plannedTurns: [
           {
@@ -163,6 +167,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'task-group',
+        platformTypeId : 'a11',
         position: 'P19',
         status: {
           speedKts: 20,
@@ -194,10 +199,11 @@ export const forces: ForceData[] = [
             perceptions: [{
               by: 'Red',
               force: 'Blue',
-              type: 'helicopter'
+              typeId: 'a8'
             }],
             plannedTurns: [],
             platformType: 'helicopter',
+            platformTypeId : 'a8',
             status: {
               state: 'Landed'
             },
@@ -212,6 +218,7 @@ export const forces: ForceData[] = [
             perceptions: [],
             plannedTurns: [],
             platformType: 'Unmanned-Airborne-Vehicle',
+            platformTypeId : 'a10',
             status: {
               state: 'Landed'
             },
@@ -222,7 +229,7 @@ export const forces: ForceData[] = [
           by: 'Red',
           force: 'Blue',
           name: 'Frigate Perceived Name',
-          type: 'frigate'
+          typeId: 'a3'
         }],
         plannedTurns: [
           {
@@ -249,6 +256,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'frigate',
+        platformTypeId : 'a3',
         position: 'P21',
         status: {
           speedKts: 20,
@@ -265,6 +273,7 @@ export const forces: ForceData[] = [
         perceptions: [],
         plannedTurns: [],
         platformType: 'fixed-wing-aircraft',
+        platformTypeId : 'a9',
         position: 'C17',
         status: {
           state: 'Landed'
@@ -287,8 +296,7 @@ export const forces: ForceData[] = [
         name: 'Tanker',
         perceptions: [{
           by: 'Red',
-          force: 'Blue',
-          type: ''
+          force: 'Blue'
         }],
         plannedTurns: [
           {
@@ -327,6 +335,7 @@ export const forces: ForceData[] = [
         ],
         platformType: 'merchant-vessel',
         position: 'O21',
+        platformTypeId : 'a13',
         status: {
           speedKts: 20,
           state: 'Transiting'
@@ -337,7 +346,7 @@ export const forces: ForceData[] = [
     color: '#00F',
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
-    name: 'Blue',
+    name: 'Blue Force',
     overview: 'Blue force.',
     roles: [
       {
@@ -392,7 +401,7 @@ export const forces: ForceData[] = [
         locationPending: LaydownTypes.ForceLaydown,
         name: 'Dhow-A',
         perceptions: [{
-          by: 'Blue',
+          by: 'Blue'
         }],
         plannedTurns: [
           {
@@ -423,6 +432,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
+        platformTypeId : 'a1',
         position: 'M04',
         status: {
           speedKts: 10,
@@ -454,6 +464,7 @@ export const forces: ForceData[] = [
             perceptions: [],
             plannedTurns: [],
             platformType: 'boghammer',
+            platformTypeId : 'a4',
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -466,7 +477,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'SHU’AI',
-          type: 'fishing-vessel'
+          typeId: 'a1'
         }],
         plannedTurns: [
           {
@@ -513,6 +524,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
+        platformTypeId : 'a1',
         position: 'M10',
         status: {
           speedKts: 10,
@@ -568,6 +580,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
+        platformTypeId : 'a1',
         position: 'P17',
         status: {
           speedKts: 10,
@@ -592,6 +605,7 @@ export const forces: ForceData[] = [
         perceptions: [],
         plannedTurns: [],
         platformType: 'coastal-radar-site',
+        platformTypeId : 'a12',
         position: 'Q12',
         status: {
           state: 'Inactive'
@@ -602,7 +616,7 @@ export const forces: ForceData[] = [
     color: '#F00',
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
-    name: 'Red',
+    name: 'Red Force',
     overview: 'Red force.',
     roles: [
       {
@@ -645,7 +659,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'OSAKA',
-          type: 'merchant-vessel'
+          typeId: 'a13'
         }],
         plannedTurns: [
           {
@@ -746,6 +760,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'merchant-vessel',
+        platformTypeId : 'a13',
         position: 'H03',
         status: {
           speedKts: 20,
@@ -900,6 +915,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'merchant-vessel',
+        platformTypeId : 'a13',
         position: 'C00',
         status: {
           state: 'Moored'
@@ -924,7 +940,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'JALIBUT',
-          type: 'merchant-vessel'
+          typeId: 'a13'
         }],
         plannedTurns: [
           {
@@ -1013,6 +1029,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
+        platformTypeId : 'a1',
         position: 'K03',
         status: {
           speedKts: 10,
@@ -1037,7 +1054,7 @@ export const forces: ForceData[] = [
         perceptions: [{
           by: 'Blue',
           force: 'Green',
-          type: 'merchant-vessel'
+          typeId: 'a13'
         }],
         plannedTurns: [
           {
@@ -1127,6 +1144,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
+        platformTypeId : 'a1',
         position: 'L09',
         status: {
           speedKts: 10,
@@ -1249,6 +1267,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
+        platformTypeId : 'a1',
         position: 'N11',
         status: {
           speedKts: 10,
@@ -1263,7 +1282,7 @@ export const forces: ForceData[] = [
     ],
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
-    name: 'Green',
+    name: 'Green Force',
     overview: 'Green Shipping',
     roles: [
       {

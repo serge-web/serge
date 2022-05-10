@@ -1,4 +1,4 @@
-import { PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
+import { IconDefinition, PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -28,10 +28,7 @@ export default interface PropTypes {
   /**
    * Data for icon generation
    */
-  icon: {
-    forceColor: string
-    platformType: string
-  }
+  icon: IconDefinition
   /**
    * flag for if turns have been planned
    */

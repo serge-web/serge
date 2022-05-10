@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import moment from 'moment'
 /* Import Types */
 import Props, { DialogModalStatus } from './types/props'
 
@@ -22,6 +21,7 @@ import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, Messag
 import Collapsible from '../../helper-elements/collapsible'
 import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, createActionTable } from './helpers/actions-for'
 import { ClaimFunc, CLAIM_HANDLER, CoreFunc, CORE_HANDLER, SubmitFunc, SUBMIT_HANDLER } from './helpers/handlers'
+import { formatFullDate } from '@serge/helpers'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -56,7 +56,7 @@ const getOpenModalStatus = (key: string): DialogModalStatus => {
 }
 
 const formatFeedback = (feedback: FeedbackItem): string => {
-  return moment(feedback.date).format('YYYY-MM-DD HH:mm') +
+  return formatFullDate(feedback.date) +
     ' [' + feedback.fromForce + '-' + feedback.fromName + '] ' +
     feedback.feedback
 }

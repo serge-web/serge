@@ -1,5 +1,5 @@
 import { LaydownPhases } from '@serge/config'
-import { AttributeValues, RouteStatus } from '@serge/custom-types'
+import { AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
 export interface OrientationData {
@@ -15,10 +15,13 @@ export default interface AssetInfo {
   contactId: string
   condition?: string
   status?: RouteStatus
-  type: string
+  typeId: PlatformTypeData['uniqid']
+  /**
+   * url of the icon to use, like `marker.svg`
+   */
+  iconUrl: PlatformTypeData['icon']
   force: string
   perceivedForceColor: string
-  perceivedForceClass?: string
   selected: boolean
   visibleTo: Array<string>
   readonly uniqid: string

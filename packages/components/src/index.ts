@@ -4,7 +4,6 @@
  * in other packages
  */
 
-export { default as ProgressIndicator } from './local/progress-indicator'
 export { default as InputContainer } from './local/atoms/input-container'
 export { default as TextInput } from './local/atoms/text-input'
 export { default as Button } from './local/atoms/button'
@@ -46,4 +45,5 @@ export { default as Confirm } from './local/atoms/confirm'
 export { default as CustomDialog } from './local/atoms/custom-dialog'
 export { default as Tabs } from './local/atoms/tabs'
 export { default as ReactTable } from './local/react-table'
+export { default as InfoMarkers } from './local/info-markers'
 export { Row, Column } from './local/react-table/types/props'

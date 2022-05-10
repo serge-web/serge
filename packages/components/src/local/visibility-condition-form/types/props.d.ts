@@ -1,4 +1,4 @@
-import { VisibilityFormData, MapPostBack } from '@serge/custom-types'
+import { VisibilityFormData, MapPostBack, IconDefinition } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -8,10 +8,7 @@ export default interface PropTypes {
   /**
    * Data for icon generation
    */
-  icon: {
-    forceColor: string
-    platformType: string
-  }
+  icon: IconDefinition
   /**
    * List of forces, plus who can see this asset
    */

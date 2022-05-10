@@ -110,13 +110,11 @@
 				"uniqid": "channel-k53ti36p"
 			}
 	],
-		"complete": false,
 		"dirty": false,
 		"name": "Channels",
 		"selectedChannel": ""
 	},
 	"forces": {
-		"complete": true,
 		"dirty": false,
 		"forces": [{
 				"color": "#FCFBEE",
@@ -1694,7 +1692,6 @@
 		"selectedForce": ""
 	},
 	"overview": {
-		"complete": true,
 		"dirty": false,
 		"gameDate": "2020-01-07T11:48:15+00:00",
 		"gameDescription": "Sample MWARC Wargame",
@@ -1705,7 +1702,6 @@
 		"timeWarning": 60000
 	},
 	"platform_types": {
-		"complete": false,
 		"dirty": false,
 		"name": "Platform Types",
 		"platformTypes": [{

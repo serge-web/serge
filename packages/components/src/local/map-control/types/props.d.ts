@@ -33,4 +33,6 @@ export default interface PropTypes {
   filterHistoryRoutes?: boolean
   /** callback for toggling History routes */
   setFilterHistoryRoutes?: {(value: boolean): void}
+  /** callback for adding a new information marker */
+  addInfoMarker?: {(): void}
 }

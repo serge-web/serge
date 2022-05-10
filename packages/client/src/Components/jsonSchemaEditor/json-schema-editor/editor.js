@@ -133,7 +133,7 @@ SchemaEditor.prototype.updateSchema = function (schema) {
 
   // Add extra validation logic for integer Schemas that use the `range` format.
   // For integer Schemas that use the `range` format we require that minimum and maximum properties are set, too.
-  var range_integer_validator = function (schema, value, path) {
+  var rangeIntegerValidator = function (schema, value, path) {
     var errors = []
     if (value !== null && value.type === 'integer' && value.format === 'range') {
       if (typeof value.minimum === 'undefined' || typeof value.maximum === 'undefined') {
@@ -148,7 +148,7 @@ SchemaEditor.prototype.updateSchema = function (schema) {
   }
 
   // Check that if minimum and maximum are specified, minimum <= maximum
-  var min_max_consistence_validator = function (schema, value, path) {
+  var minMaxConsistenceValidator = function (schema, value, path) {
     var errors = []
     if (value !== null && (value.type === 'integer' || value.type === 'number')) {
       if (typeof value.minimum !== 'undefined' && typeof value.minimum !== 'undefined' && value.minimum > value.maximum) {
@@ -165,7 +165,7 @@ SchemaEditor.prototype.updateSchema = function (schema) {
   // Recreate the JSON-Editor
   this.jsonEditor = new JSONEditor(this.renderZone, {
     schema: schema,
-    custom_validators: [range_integer_validator, min_max_consistence_validator]
+    custom_validators: [rangeIntegerValidator, minMaxConsistenceValidator]
   })
 
   // Add a save button
@@ -174,9 +174,9 @@ SchemaEditor.prototype.updateSchema = function (schema) {
 
   this.jsonEditor.on('ready', function () {
     var button = this.root.getButton(saveButtonLabel, 'save', saveButtonLabel)
-    var button_holder = this.root.theme.getHeaderButtonHolder()
-    button_holder.appendChild(button)
-    this.root.header.parentNode.insertBefore(button_holder, this.root.header.nextSibling)
+    var buttonHolder = this.root.theme.getHeaderButtonHolder()
+    buttonHolder.appendChild(button)
+    this.root.header.parentNode.insertBefore(buttonHolder, this.root.header.nextSibling)
 
     var jsonEditor = this
     button.addEventListener('click', function (e) {

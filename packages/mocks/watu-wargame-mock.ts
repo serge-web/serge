@@ -66,20 +66,18 @@ const wargame: Wargame = {
                     "uniqid": "channel-koirldxk"
                 }
             ],
-            "complete": false,
             "dirty": false,
             "name": "Channels",
             "selectedChannel": ""
         },
         "forces": {
-            "complete": true,
             "dirty": false,
             "forces": [
                 {
                     "color": "#FCFBEE",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
-                    "name": "White",
+                    "name": "White Force",
                     "overview": "Umpire force.",
                     "roles": [
                         {
@@ -164,7 +162,7 @@ const wargame: Wargame = {
                                     "turn": 1
                                 }
                             ],
-                            "platformType": "destroyer",
+                            "platformTypeId": "a6",
                             "attributeValues": [
                                 {
                                     "attrId": "asdic-dir",
@@ -209,10 +207,11 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "by": "Red-2",
-                                    "force": "Blue-1"
+                                    "force": "Blue-1",
+                                    "typeId": "a4"
                                 }
                             ],
-                            "platformType": "ssn",
+                            "platformTypeId": "a8",
                             "position": "8918aab663bffff",
                             "uniqid": "a0prbr1141"
                         },
@@ -244,7 +243,7 @@ const wargame: Wargame = {
                             "locationPending": true,
                             "name": "SSN-2",
                             "perceptions": [],
-                            "platformType": "ssn",
+                            "platformTypeId": "a8",
                             "position": "8318f2fffffffff",
                             "uniqid": "a0a975y4221"
                         }
@@ -253,7 +252,7 @@ const wargame: Wargame = {
                     "cssClass": "blue-1",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/forceDefault.png",
-                    "name": "Blue-1",
+                    "name": "Blue-1 Force",
                     "overview": "An overview written here..",
                     "roles": [
                         {
@@ -272,7 +271,17 @@ const wargame: Wargame = {
                             "isRFIManager": false,
                             "name": "CTF B5",
                             "roleId": "rks5zfzdb"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "Comms",
+                            "roleId": "blue-comms"
                         }
+
                     ],
                     "umpire": false,
                     "uniqid": "Blue-1",
@@ -286,9 +295,19 @@ const wargame: Wargame = {
                             "history": [],
                             "locationPending": true,
                             "name": "AGI",
-                            "perceptions": [],
+                            "perceptions": [
+                                {
+                                    "by": "Blue-1",
+                                    "force": "Red-1"
+                                },
+                                {
+                                    "by": "Blue-2",
+                                    "force": "Red-1"
+                                }
+                            ],
                             "platformType": "agi",
-                            "position": "831965fffffffff",
+                            "platformTypeId": "a15",
+                            "position": "8918a84db3bffff",
                             "uniqid": "a0a45988ty54351"
                         },
                         {
@@ -300,15 +319,17 @@ const wargame: Wargame = {
                             "perceptions": [
                                 {
                                     "by": "Blue-1",
-                                    "force": "Red-1"
+                                    "force": "Red-1",
+                                    "typeId": "a12",
+                                    "name": "MPA 2"
                                 },
                                 {
                                     "by": "Blue-2",
                                     "force": "Red-1"
                                 }
                             ],
-                            "platformType": "mpa",
-                            "position": "8308d4fffffffff",
+                            "platformTypeId": "a11",
+                            "position": "8918a84db33ffff",
                             "uniqid": "a03322ty344331"
                         }
                     ],
@@ -316,7 +337,7 @@ const wargame: Wargame = {
                     "cssClass": "red-1",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/forceDefault.png",
-                    "name": "Red-1",
+                    "name": "Red-1 Force",
                     "overview": "An overview written here..",
                     "roles": [
                         {
@@ -382,7 +403,6 @@ const wargame: Wargame = {
             "selectedForce": ""
         },
         "overview": {
-            "complete": false,
             "dirty": false,
             "gameDate": "2021-05-13T16:12",
             "gameDescription": "",
@@ -414,7 +434,6 @@ const wargame: Wargame = {
             "turnPresentation": "Turn-Pairs"
         },
         "platformTypes": {
-            "complete": false,
             "dirty": false,
             "name": "Platform Types",
             "platformTypes": [
@@ -450,7 +469,8 @@ const wargame: Wargame = {
                             "name": "Passive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a1"
                 },
                 {
                     "conditions": [
@@ -484,7 +504,8 @@ const wargame: Wargame = {
                             "name": "Passive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a2"
                 },
                 {
                     "conditions": [
@@ -504,7 +525,8 @@ const wargame: Wargame = {
                             "name": "Deployed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a3"
                 },
                 {
                     "conditions": [
@@ -531,7 +553,8 @@ const wargame: Wargame = {
                             "name": "Air Ops"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a4"
                 },
                 {
                     "conditions": [
@@ -555,7 +578,8 @@ const wargame: Wargame = {
                             "name": "Supporting"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a5"
                 },
                 {
                     "conditions": [
@@ -606,7 +630,8 @@ const wargame: Wargame = {
                             "attrType": "AttributeTypeNumber"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a6"
                 },
                 {
                     "conditions": [
@@ -635,7 +660,8 @@ const wargame: Wargame = {
                             "name": "Evasive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a7"
                 },
                 {
                     "conditions": [
@@ -678,7 +704,8 @@ const wargame: Wargame = {
                             "name": "Evasive"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a8"
                 },
                 {
                     "conditions": [
@@ -693,7 +720,8 @@ const wargame: Wargame = {
                             "name": "Active"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a9"
                 },
                 {
                     "conditions": [
@@ -713,7 +741,8 @@ const wargame: Wargame = {
                             "name": "Landed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a10"
                 },
                 {
                     "conditions": [
@@ -733,7 +762,8 @@ const wargame: Wargame = {
                             "name": "Landed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a11"
                 },
                 {
                     "conditions": [
@@ -753,7 +783,8 @@ const wargame: Wargame = {
                             "name": "Landed"
                         }
                     ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "uniqid": "a12"
                 },
                 {
                     "conditions": [
@@ -777,7 +808,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a13"
                 },
                 {
                     "conditions": [
@@ -804,7 +836,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a14"
                 },
                 {
                     "conditions": [
@@ -829,7 +862,8 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a15"
                 },
                 {
                     "conditions": [
@@ -860,11 +894,42 @@ const wargame: Wargame = {
                             "name": "Moored"
                         }
                     ],
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "uniqid": "a16"
                 }
             ],
             "selectedType": ""
-        }
+        },
+        "annotations": {
+            "annotations": [{
+                "uniqid": "marker-one",
+                "color": "#f00",
+                "description": "description for the annotation",
+                "icon": "marker_unknown.svg",
+                "label": "first marker",
+                "location": "8918aab76abffff",
+                "visibleTo": ["Blue-1"]
+            },{
+                "uniqid": "marker-two",
+                "color": "#099",
+                "description": "description for the second annotation",
+                "icon": "marker_general.svg",
+                "label": "second marker",
+                "location": "8918aab747bffff",
+                "visibleTo": ["Blue-1"]
+            }]
+        },
+        "annotationIcons": {
+            "markers": [{"name": "Unknown","icon": "marker_unknown.svg"}, 
+                {"name": "Audio-Visual", "icon": "marker_audio_visual.svg"},
+                {"name": "Audio", "icon": "marker_audio.svg"},
+                {"name": "Flash", "icon": "marker_flash.svg"},
+                {"name": "General", "icon": "marker_general.svg"},
+                {"name": "Periscope", "icon": "marker_periscope.svg"},
+                {"name": "Plume", "icon": "marker_plume.svg"},
+                {"name": "Wake", "icon": "marker_wake.svg"},
+                {"name": "Visual", "icon": "marker_visual.svg"}
+            ]}
     },
     "gameTurn": 3,
     "infoType": true,

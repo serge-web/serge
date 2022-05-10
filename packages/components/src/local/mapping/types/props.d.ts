@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -14,21 +14,28 @@ export default interface PropTypes {
    *
    */
   forces: ForceData[]
-  /** platforms for this wargame
-   *
-   */
   /**
-   * @deprecated platformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+   * information markers
+   */
+  infoMarkers: MapAnnotations
+  /**
+   * icons to use for info markers
+   */
+  markerIcons?: AnnotationIcons
+  /**
+   *  platforms for this wargame.
+   * use `findPlatformTypeFor` method to retrieve platform type
    */
   platforms: PlatformTypeData[]
   /**
    * platforms for this wargame
+   * @deprecated - just stick with array
    */
   platformTypesByKey: { [property: string]: PlatformTypeData}
   /** current player's force (force-id)
    *
   */
-  playerForce: string
+  playerForce: ForceData['uniqid']
   /**
    * if the current player can submit orders
    */
