@@ -1,11 +1,12 @@
 /* global it expect */
 import collateStateOfWorld, { updatePerceptions } from './collate-state-of-world'
 
-import forces from '@serge/mocks/forces.mock'
-import platforms from '@serge/mocks/platform-types.mock'
+import { forces, platformTypes, MapAnnotationMock } from '@serge/mocks'
 import { routeCreateStore, deepCopy } from '@serge/helpers'
-import { MessageStateOfWorld, RouteStore, StateOfWorld, Route } from '@serge/custom-types'
+import { MessageStateOfWorld, RouteStore, StateOfWorld, Route, ForceData, Asset, MapAnnotations } from '@serge/custom-types'
 import { Phase } from '@serge/config'
+
+const markers: MapAnnotations = [MapAnnotationMock]
 
 it('correctly updates perceptions for new forces', () => {
   const res = updatePerceptions(['Red', 'Green'], [{ by: 'Blue' }])
@@ -33,7 +34,7 @@ it('world gets moved forward with existing history', () => {
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
-  const redForce = forcesCopy[2]
+  const redForce: ForceData = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
   if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
@@ -45,14 +46,16 @@ it('world gets moved forward with existing history', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
-  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platformTypes, false, false)
+  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
   const stateOfWorld: StateOfWorld = message.state
   expect(stateOfWorld).toBeDefined()
   expect(stateOfWorld.turn).toEqual(4)
+  expect(stateOfWorld.mapAnnotations).toBeTruthy()
+  expect(stateOfWorld.mapAnnotations.length).toEqual(1)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.uniqid).toEqual(redForce.uniqid)
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('K05')
@@ -65,7 +68,7 @@ it('world gets moved forward without existing history', () => {
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
-  const redForce = forcesCopy[2]
+  const redForce: ForceData = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
   if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
@@ -80,14 +83,14 @@ it('world gets moved forward without existing history', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
-  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platformTypes, false, false)
+  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
   const stateOfWorld: StateOfWorld = message.state
   expect(stateOfWorld).toBeDefined()
   expect(stateOfWorld.turn).toEqual(4)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.uniqid).toEqual(redForce.uniqid)
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('K05')
@@ -100,8 +103,8 @@ it('world gets moved forward with destroyed asset', () => {
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
-  const redForce = forcesCopy[2]
-  const redDhow = redForce.assets && redForce.assets[0]
+  const redForce: ForceData = forcesCopy[2]
+  const redDhow: Asset | undefined = redForce.assets && redForce.assets[0]
   if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
     expect(redDhow.plannedTurns && redDhow.plannedTurns.length).toEqual(3)
@@ -112,7 +115,7 @@ it('world gets moved forward with destroyed asset', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platformTypes, false, false)
 
   // mangle a route
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')
@@ -123,13 +126,13 @@ it('world gets moved forward with destroyed asset', () => {
     expect(false).toBeTruthy()
   }
 
-  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
+  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
   const stateOfWorld: StateOfWorld = message.state
   expect(stateOfWorld).toBeDefined()
   expect(stateOfWorld.turn).toEqual(4)
   expect(stateOfWorld.forces.length).toEqual(3) // one per force
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.uniqid).toEqual(redForce.uniqid)
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.position).toEqual('M04') // doesn't get moved forward
@@ -154,7 +157,7 @@ it('world gets moved forward with modified vis & condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platformTypes, false, false)
 
   // modify route for dhow-a
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')
@@ -166,10 +169,10 @@ it('world gets moved forward with modified vis & condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
+  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
   const stateOfWorld: StateOfWorld = message.state
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.uniqid).toEqual(redForce.uniqid)
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.perceptions.length).toEqual(1)
@@ -180,7 +183,7 @@ it('world gets moved forward with empty condition', () => {
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
-  const redForce = forcesCopy[2]
+  const redForce: ForceData = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
   if (redDhow) {
     redDhow.condition = 'Limping along'
@@ -189,7 +192,7 @@ it('world gets moved forward with empty condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'Red', platformTypes, false, false)
 
   // modify route for dhow-a
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')
@@ -200,11 +203,11 @@ it('world gets moved forward with empty condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
+  const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
   const stateOfWorld: StateOfWorld = message.state
   const force = stateOfWorld.forces[1]
-  expect(force.name).toEqual('Red')
+  expect(force.uniqid).toEqual(redForce.uniqid)
   const asset = force.assets[0]
-  expect(asset.name).toEqual('Dhow-A')
+  expect(asset.uniqid).toEqual(redDhow && redDhow.uniqid)
   expect(asset.condition).toEqual('Limping along')
 })

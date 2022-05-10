@@ -1,4 +1,4 @@
-import { Perception, RouteStatus, RouteTurn } from '.'
+import { AttributeValues, Perception, PlatformTypeData, RouteStatus, RouteTurn } from '.'
 import { LaydownTypes } from '@serge/config'
 export interface Asset {
   /**
@@ -30,9 +30,14 @@ export interface Asset {
   /** the current condition of this asset
    */
   condition: string,
-  /** the type of this platform
+  /** 
+   * the type of this platform. To be @deprecated
    */
-  platformType: string,
+  platformType?: string,
+  /** 
+   * the type-id of this platform 
+   */
+  platformTypeId: PlatformTypeData['uniqid']
   /** if the player is allowed to change the position of this asset
    * during turn-zero of a wargame
    * TODO: remove boolean format, it's just there for transition
@@ -53,6 +58,9 @@ export interface Asset {
    *
   */
   status?: RouteStatus
+  /** attributes for this asset 
+   */
+  attributeValues?: AttributeValues
 }
 
 export default Asset

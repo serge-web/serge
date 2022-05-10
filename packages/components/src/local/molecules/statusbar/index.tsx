@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import cx from 'classnames'
-import ProgressIndicator from '../../atoms/progress-indicator'
-import TextInput from '../../atoms/text-input'
-
-/* Import proptypes */
-import PropTypes from './types/props'
-
-/* Import Styles */
-import styles from './styles.module.scss'
-
+import { faHourglassStart, faSave } from '@fortawesome/free-solid-svg-icons'
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHourglassStart, faSave } from '@fortawesome/free-solid-svg-icons'
+import cx from 'classnames'
+import React, { useEffect, useState } from 'react'
+import TextInput from '../../atoms/text-input'
+/* Import Styles */
+import styles from './styles.module.scss'
+/* Import proptypes */
+import PropTypes from './types/props'
 
 /* Render component */
 export const StatusBar: React.FC<PropTypes> = ({
   onChange,
   onSave,
-  wargame: initialWargame,
-  tabsOrder = [
-    'overview',
-    'platform_types',
-    'forces',
-    'channels'
-  ]
+  wargame: initialWargame
 }) => {
   const [wargame, setWargame] = useState(initialWargame)
   const [value, setValue] = useState(wargame.wargameTitle)
   const [dirty, setDirty] = useState(false)
 
-  const handleChange = (target: {value: string}): void => {
+  const handleChange = (target: { value: string }): void => {
     setDirty(true)
     setValue(target.value)
     if (typeof onChange === 'function') {
@@ -44,15 +34,6 @@ export const StatusBar: React.FC<PropTypes> = ({
     }
   }
 
-  const wargameData = Object.entries(wargame.data)
-  const progressList = [...tabsOrder].map((tab, index) => {
-    const tabEntry = wargameData.find(entry => entry[0] === tab)
-    return tabEntry ? {
-      active: wargame.currentTab ? wargame.currentTab === tabEntry[0] : index === 0,
-      complete: tabEntry[1].complete
-    } : {}
-  }).filter(item => Object.keys(item).length)
-
   useEffect(() => {
     setWargame(initialWargame)
     setValue(initialWargame.wargameTitle)
@@ -66,6 +47,7 @@ export const StatusBar: React.FC<PropTypes> = ({
           titleInput={true}
           value={value}
           updateState={handleChange}
+          className="underline"
         />
         {
           dirty
@@ -80,9 +62,6 @@ export const StatusBar: React.FC<PropTypes> = ({
           </div>
         )
       }
-      <div className={styles.item}>
-        <ProgressIndicator list={progressList} />
-      </div>
     </div>
   )
 }

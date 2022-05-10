@@ -16,34 +16,10 @@ exports[`TurnProgression component: renders correctly 1`] = `
        phase
     </h5>
     <time
-      dateTime="2019-10-01T02:02"
+      dateTime="2019-10-01 01:02"
     >
-      01/10/2019 02:02
+      2019-10-01 01:02
     </time>
-  </div>
-  <div
-    className="turn-info-remaining"
-  >
-    <span
-      className="time-left"
-    >
-      00
-      :
-      00
-    </span>
-    <span
-      className="info-helper"
-    >
-      Elapsed
-    </span>
-    <div
-      className="not-initiated"
-      title="Initiate wargame via Admin Panel"
-    >
-      WARGAME 
-      <br />
-       NOT INITIATED
-    </div>
   </div>
 </div>
 `;

@@ -65,6 +65,12 @@
   padding-left: 1.15em;
 }
 
+.close-tour-dialog {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
 .link {
   @include shadow();
   @include transition();

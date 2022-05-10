@@ -19,10 +19,42 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
           }
         }
       />
+      <button
+        aria-describedby={null}
+        className="MuiButtonBase-root MuiButton-root MuiButton-text mark-all-read"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        title="Mark All as Read"
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            className="svg-inline--fa fa-envelope"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </button>
     </div>
   </div>
   <div
-    className="MuiBox-root MuiBox-root-3 messages-list"
+    className="MuiBox-root MuiBox-root-2 messages-list"
     style={
       Object {
         "height": "calc(100vh - 280px)",
@@ -30,13 +62,13 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-4"
+      className="MuiBox-root MuiBox-root-3"
     >
       <div
-        className="MuiBox-root MuiBox-root-5"
+        className="MuiBox-root MuiBox-root-4"
         style={
           Object {
-            "float": "left",
+            "float": "right",
           }
         }
       >
@@ -45,17 +77,28 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
       chat-message-wrapper__other"
           style={
             Object {
-              "borderLeftColor": "#FCFBEE",
+              "position": "relative",
             }
           }
         >
+          <span
+            className="message-bar"
+            onClick={[Function]}
+            style={
+              Object {
+                "background": "#FCFBEE",
+                "borderRadius": "8px 0 0 8px",
+                "left": "0%",
+              }
+            }
+          />
           <div
             className="message-text"
           >
             Content of message
           </div>
           <div
-            className="MuiBox-root MuiBox-root-6"
+            className="MuiBox-root MuiBox-root-5"
           >
             <span>
               <span
@@ -72,15 +115,15 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
               </span>
             </span>
             <div
-              className="MuiBox-root MuiBox-root-7"
+              className="MuiBox-root MuiBox-root-6"
             >
               <div
-                className="MuiChip-root makeStyles-root-8 makeStyles-root-11 MuiChip-sizeSmall makeStyles-sizeSmall-9"
+                className="MuiChip-root makeStyles-root-7 makeStyles-root-10 MuiChip-sizeSmall makeStyles-sizeSmall-8"
                 onKeyDown={[Function]}
                 onKeyUp={[Function]}
               >
                 <span
-                  className="MuiChip-label makeStyles-label-10 makeStyles-label-12 MuiChip-labelSmall"
+                  className="MuiChip-label makeStyles-label-9 makeStyles-label-11 MuiChip-labelSmall"
                 >
                   Game Control
                 </span>
@@ -93,7 +136,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
             </div>
           </div>
           <div
-            className="MuiBox-root MuiBox-root-13 private"
+            className="MuiBox-root MuiBox-root-12 private"
           >
             <div
               className="paragraph"

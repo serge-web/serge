@@ -1,14 +1,19 @@
+import { CellLabelStyle } from '@serge/config'
 import { ForceData } from '@serge/custom-types'
-import { LatLng } from 'leaflet'
+import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
   // main
   map?: any
-  // to home control
+  // whether to show home control
   showHome?: boolean
+  // current map centre
   home?: LatLng
-  // zoom control
+  // outer bounds of whole map
+  bounds?: LatLngBounds
+  // whether to show zoom control
   showZoom?: boolean
+  // size of zoom in/out increment
   zoomStepSize?: number
   // view as control
   forces?: ForceData[]
@@ -16,6 +21,10 @@ export default interface PropTypes {
   viewAsCallback?: {(force: string): void}
   /** current value of `view as` */
   viewAsForce?: string
+  /** callback for umpire clicking on view-as button */
+  cellLabelCallback?: {(style: CellLabelStyle): void}
+  /** current value of `view as` */
+  cellLabelType?: CellLabelStyle
   /** whether planned routes filtered */
   filterPlannedRoutes?: boolean
   /** callback for toggling planned routes */
@@ -24,5 +33,6 @@ export default interface PropTypes {
   filterHistoryRoutes?: boolean
   /** callback for toggling History routes */
   setFilterHistoryRoutes?: {(value: boolean): void}
-
+  /** callback for adding a new information marker */
+  addInfoMarker?: {(): void}
 }

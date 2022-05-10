@@ -1,7 +1,9 @@
 import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
+import * as Globals from '@serge/config'
 
+/** name of the document used to store the initial wargame definition */
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
 
@@ -54,7 +56,7 @@ export const CHANNEL_MAPPING = 'mapping'
 export const ERROR_THROTTLE = 3000
 
 // Interval for check server heartbeats
-export const SERVER_PING_INTERVAL = 5000
+export const SERVER_PING_INTERVAL = 20000
 
 // Nov 2019. Ian modified the server path to use the
 // current URL, so we can use Heroku to provide
@@ -90,9 +92,9 @@ export const defaultGameInfo = {
   imageUrlSet: false,
   imageUrl: '/default_img/sergeDefault.png',
   title: 'Serge',
-  description: `Welcome you have arrived at the development centre gaming facility.\n
+  description: `You have arrived at the Development Centre Gaming Facility.\n
   You will use this web-based application to interact with players from other forces, together with the umpires in the White Cell.\n
-  At any point during your time here you can submit insights via the Insights button at the top-right of the gaming page.
+  At any point during your time here you can submit insights via the Insights button at the top-right of the gaming page.\n
   These insights could relate to the current doctrine being explored, the performance of your force, or how the game is being organised / facilitated.\n
   Thanks in advance for your participation.\n
   Maj Duncan Dare, PO1 Gaming`,
@@ -101,7 +103,7 @@ export const defaultGameInfo = {
 
 export const forceTemplate = {
   name: '',
-  uniqid: null,
+  uniqid: '',
   overview: 'An overview written here..',
   roles: [
     {
@@ -146,7 +148,7 @@ export const channelTemplate = {
 }
 
 export const dbDefaultSettings = {
-  _id: '_local/settings',
+  _id: Globals.wargameSettings,
   wargameTitle: '',
   data: {
     overview: {
@@ -159,21 +161,18 @@ export const dbDefaultSettings = {
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      complete: false,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForceTemplate],
-      selectedForce: '',
-      complete: false,
+      selectedForce: umpireForceTemplate,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: [],
       selectedChannel: '',
-      complete: false,
       dirty: false
     }
   },
@@ -181,7 +180,7 @@ export const dbDefaultSettings = {
   gameTurn: 0,
   phase: ADJUDICATION_PHASE,
   turnEndTime: null,
-  adjudicationStartTime: moment().format()
+  adjudicationStartTime: moment(new Date(), moment.ISO_8601).format()
 }
 
 export const FLEX_LAYOUT_MODEL_DEFAULT = {

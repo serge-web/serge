@@ -1,3 +1,4 @@
+import { ATTRIBUTE_TYPE_NUMBER } from "@serge/config"
 import { PlatformTypeData } from "@serge/custom-types"
 
 export const platformTypes: PlatformTypeData[] = [
@@ -30,7 +31,92 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a1",
+    attributeTypes: [
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-fish',
+        name: 'quota',
+        description: 'fishing allowance',
+        units: 'tonnes',
+        editableByPlayer: false,
+        defaultValue: 100
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-fuel',
+        name: 'fuel',
+        description: 'fuel remaining',
+        units: 'tonnes',
+        editableByPlayer: false,
+        format: '0.00',
+        defaultValue: 5
+      }
+    ]
+  },
+  {
+    name: 'ssn',
+    conditions: [
+      'Full capability',
+      'Limited capability',
+      'Immobile',
+      'Sinking',
+      'Destroyed'
+    ],
+    icon: 'ssn.svg',
+    orientation: [{
+      attribute: 'asdic-dir',
+      origin: 'absolute'
+    }, {}],
+    speedKts: [
+      10,
+      20
+    ],
+    states: [
+      {
+        name: 'Transiting',
+        mobile: true
+      },
+      {
+        name: 'Evasive',
+        mobile: true
+      },
+      {
+        name: 'Aggressove',
+        mobile: true
+      }
+    ],
+    travelMode: 'sea',
+    attributeTypes: [
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'asdic-dir',
+        name: 'ASDIC',
+        description: 'ASDIC orientation (absolute)',
+        units: '°',
+        editableByPlayer: true,
+        defaultValue: 0
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-battery',
+        name: 'Battery',
+        units: '%',
+        editableByPlayer: false,
+        defaultValue: 100
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-torpedoes',
+        name: 'Torpedoes',
+        description: 'Number of torpedoes remaining',
+        editableByPlayer: true,
+        format: '0',
+        defaultValue: 12
+      }
+    ],
+    "uniqid": "a2"
   },
   {
     name: 'Frigate',
@@ -41,7 +127,26 @@ export const platformTypes: PlatformTypeData[] = [
       'Sinking',
       'Destroyed'
     ],
+    attributeTypes: [
+      {
+        name: 'ASDIC',
+        attrId: 'asdic-dir',
+        description: 'ASDIC orientation (absolute)',
+        defaultValue: 0,
+        editableByPlayer: true,
+        attrType: "AttributeTypeNumber"
+      },
+      {
+        name: 'Battery Level',
+        units: '%',
+        attrId: 'fuelComm',
+        defaultValue: 100,
+        editableByPlayer: false,
+        attrType: "AttributeTypeNumber"
+      }
+    ],
     icon: 'frigate.svg',
+    orientation: [{}],
     speedKts: [
       10,
       20,
@@ -61,7 +166,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a3"
   },
   {
     name: 'Boghammer',
@@ -93,7 +199,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a4"
   },
   {
     name: 'torpedo',
@@ -121,7 +228,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: true
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a5"
   },
   {
     name: 'Fast attack craft',
@@ -154,7 +262,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a6"
   },
   {
     name: 'MCMV',
@@ -183,7 +292,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a7"
   },
   {
     name: 'Helicopter',
@@ -209,7 +319,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'air'
+    travelMode: 'air',
+    "uniqid": "a8"
   },
   {
     name: 'Fixed wing aircraft',
@@ -235,7 +346,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'air'
+    travelMode: 'air',
+    "uniqid": "a9"
   },
   {
     name: 'Unmanned Airborne Vehicle',
@@ -261,7 +373,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'air'
+    travelMode: 'air',
+    "uniqid": "a10"
   },
   {
     name: 'Task Group',
@@ -290,7 +403,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a11"
   },
   {
     name: 'Coastal radar site',
@@ -316,7 +430,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'land'
+    travelMode: 'land',
+    "uniqid": "a12"
   },
   {
     name: 'Merchant vessel',
@@ -347,7 +462,8 @@ export const platformTypes: PlatformTypeData[] = [
         mobile: false
       }
     ],
-    travelMode: 'sea'
+    travelMode: 'sea',
+    "uniqid": "a13"
   }
 ]
 

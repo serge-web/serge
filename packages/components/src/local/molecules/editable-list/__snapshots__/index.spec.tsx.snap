@@ -40,10 +40,9 @@ exports[`editable-list renders correctly 1`] = `
     >
       <span
         className="searchlist-row "
+        onClick={[Function]}
       >
-        <span
-          onClick={[Function]}
-        >
+        <span>
           list item 1
         </span>
         <div
@@ -52,10 +51,9 @@ exports[`editable-list renders correctly 1`] = `
       </span>
       <span
         className="searchlist-row "
+        onClick={[Function]}
       >
-        <span
-          onClick={[Function]}
-        >
+        <span>
           list item 2
         </span>
         <div

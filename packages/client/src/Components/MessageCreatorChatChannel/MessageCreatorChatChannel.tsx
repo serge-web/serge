@@ -17,16 +17,15 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   }, [])
 
   const sendMessage = (): void => {
-
     if (editor !== null) {
-      let messageDetails: MessageDetails = {
+      const messageDetails: MessageDetails = {
         channel: state.chatChannel.name,
         from: {
           force: selectedForce.name,
           forceColor: selectedForce.color,
           roleId: state.selectedRole,
           roleName: state.selectedRoleName,
-          iconURL: selectedForce.iconURL || (selectedForce.icon || ''),
+          iconURL: selectedForce.iconURL || (selectedForce.icon || '')
         },
         messageType: schema.title,
         timestamp: new Date().toISOString(),

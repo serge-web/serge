@@ -2,8 +2,8 @@ const path = require('path')
 
 module.exports = {
     stories: [
-      '../src/**/*.stories.mdx',
-      '../src/**/*.stories.@(tsx)'
+      '../src/**/*.stories-inc.mdx',
+      '../src/**/*.stories-inc.@(tsx)'
     ],
     addons: [
         '@storybook/addon-links',
@@ -92,3 +92,4 @@ module.exports = {
         return config;
       },
 };
+

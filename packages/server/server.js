@@ -1,5 +1,4 @@
 const runServer = (
-  eventEmmiterMaxListeners,
   pouchOptions,
   corsOptions,
   imgDir,
@@ -9,24 +8,16 @@ const runServer = (
   onAppInitListeningAddons,
   onAppStartListeningAddons
 ) => {
-  require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
+  const bodyParser = require('body-parser')
   const path = require('path')
   const uniqid = require('uniqid')
-
-  const PouchDB = require('pouchdb-core')
-    .plugin(require('pouchdb-adapter-node-websql'))
-    .plugin(require('pouchdb-adapter-http'))
-    .plugin(require('pouchdb-mapreduce'))
-    .plugin(require('pouchdb-replication'))
-    .defaults(pouchOptions)
+  const archiver = require('archiver')
 
   /*
   // replicate database
   const localDB = new PouchDB('message_types')
-
   const nextDb = new PouchDB('message_types.sqlite')
-
   localDB.replicate.to(nextDb).on('complete', function () {
     console.log('yay, we\'re done!');
   }).on('error', function (err) {
@@ -35,37 +26,47 @@ const runServer = (
   // end replicate database
   return
   */
+
   const fs = require('fs')
-
-  onAppInitListeningAddons.forEach(addon => {
-    addon.run(app)
-  })
-
-  require('pouchdb-all-dbs')(PouchDB)
   const cors = require('cors')
   const app = express()
+  const { Server } = require('socket.io')
+  const http = require('http').createServer(app)
+
+  let { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
+
+  if (!COUCH_ACCOUNT || !COUCH_URL || !COUCH_PASSWORD) {
+    require('dotenv').config()
+    COUCH_ACCOUNT = process.env.COUCH_ACCOUNT
+    COUCH_URL = process.env.COUCH_URL
+    COUCH_PASSWORD = process.env.COUCH_PASSWORD
+  }
+
+  // note: use use the presence of `process.env.PORT` as an
+  // note: indicator that we're running on Heroku
+  const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
+
+  app.use(express.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
 
   const clientBuildPath = '../client/build'
 
+  // log of time of receipt of player heartbeat messages
+  const playerLog = []
+
   app.use(cors(corsOptions))
-  app.use('/db', require('express-pouchdb')(PouchDB))
 
-  app.get('/allDbs', (req, res) => {
-    PouchDB.allDbs().then(dbs => {
-      res.send(dbs)
-    })
-  })
+  app.get('/downloadAll', (req, res) => {
+    const output = fs.createWriteStream('all_dbs.zip')
+    const archive = archiver('zip')
 
-  app.get('/clearAll', (req, res) => {
-    PouchDB.allDbs()
-      .then(dbs => {
-        dbs.forEach(db => {
-          new PouchDB(db).destroy()
-        })
-      })
-      .then(() => {
-        res.send()
-      })
+    archive.pipe(output)
+
+    archive.directory(path.join(__dirname, 'db'), false)
+
+    archive.finalize()
+
+    setTimeout(() => res.download(path.join(__dirname, 'all_dbs.zip')), 500)
   })
 
   app.get('/deleteDb', (req, res) => {
@@ -83,24 +84,65 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck', (req, res) => {
-    res.status(200).send({
+  app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
+    const { wargame, role } = req.params
+    const activityTime = decodeURIComponent(req.params.activityTime)
+    const activityType = decodeURIComponent(req.params.activityType)
+
+    if (wargame !== 'missing' && role !== 'missing') {
+      const existingPlayerIdx = playerLog.findIndex(
+        player => player.role === role && player.wargame === wargame
+      )
+      if (existingPlayerIdx !== -1) {
+        playerLog[existingPlayerIdx].activityTime = activityTime
+        playerLog[existingPlayerIdx].activityType = activityType
+      } else {
+        const newPlayer = {
+          wargame,
+          role,
+          activityType,
+          activityTime
+        }
+        playerLog.push(newPlayer)
+      }
+    }
+
+    return res.status(200).send({
       status: 'OK',
-      uptime: process.uptime()
+      activityType: activityType,
+      mostRecentActivity: activityTime,
+      wargame: wargame,
+      role: role
     })
+  })
+
+  app.get('/playerlog', (_, res) => {
+    res.status(200).send(playerLog)
+  })
+
+  app.get('/playerlog/:wargame', (req, res) => {
+    const wargame = req.params.wargame
+    const selectedWargame = playerLog.find(log => log.wargame === wargame) || {}
+    res.status(200).send(selectedWargame)
   })
 
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
-      res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
-      return
+      return res.sendFile(
+        path.join(process.cwd(), dataDir, req.params.filename)
+      )
     }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
-  app.use('/saveIcon', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' }))
+  app.use(
+    '/saveIcon',
+    express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
+  )
   app.post('/saveIcon', (req, res) => {
-    const imageName = `${uniqid.time('icon-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
+    const imageName = `${uniqid.time('icon-')}.${
+      req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'
+    }`
     const image = `${imgDir}/${imageName}`
     let imagePath = `${req.headers.host}/getIcon/${imageName}`
     if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
@@ -154,15 +196,32 @@ const runServer = (
   app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
+  if (COUCH_ACCOUNT && COUCH_URL && COUCH_PASSWORD) {
+    const couchDb = require('./providers/couchdb')
+    couchDb(app, io, pouchOptions)
+  } else {
+    const pouchDb = require('./providers/pouchdb')
+    pouchDb(app, io, pouchOptions)
+  }
+
+  onAppInitListeningAddons.forEach(addon => {
+    addon.run(app)
+  })
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))
   })
 
-  const server = app.listen(port, () => {
+  const server = http.listen(port, () => {
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
-    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    const start =
+      process.platform === 'darwin'
+        ? 'open'
+        : process.platform === 'win32'
+          ? 'start'
+          : 'xdg-open'
     require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }

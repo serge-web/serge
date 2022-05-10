@@ -1,16 +1,12 @@
+import { AdminTabs } from '@serge/config'
 import React from 'react'
 import AdminContent from '../../atoms/admin-content'
 import AdminLayout from '../../organisms/admin-layout'
+import SettingChannels from '../../organisms/setting-channels'
+import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
 import SettingPlatformTypes from '../../organisms/setting-platform-types'
-import SettingForces from '../../organisms/setting-forces'
-import SettingChannels from '../../organisms/setting-channels'
-
-/* Import Types */
 import Props from './types/props'
-
-/* Import Stylesheet */
-// import styles from './styles.module.scss'
 
 /* Render component */
 export const GameSetup: React.FC<Props> = ({
@@ -26,9 +22,12 @@ export const GameSetup: React.FC<Props> = ({
   activeTab = '',
   onOverviewChange,
   onPlatformTypesChange,
+  onDeletePlatformType,
+  onDuplicatePlatformType,
   onForcesChange,
   onCreateForce,
   onDeleteForce,
+  onDuplicateForce,
   onSidebarForcesClick,
   selectedForce,
   onChannelsChange,
@@ -41,7 +40,9 @@ export const GameSetup: React.FC<Props> = ({
   messageTemplates,
   onSaveGameTitle,
   onWargameInitiate,
-  iconUploadUrl
+  iconUploadUrl,
+  customDeleteHandler,
+  onDeleteAsset
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
 
@@ -49,28 +50,30 @@ export const GameSetup: React.FC<Props> = ({
     <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} onPressBack={onPressBack} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
         {
-          currentActiveTab === 'overview' && (
+          currentActiveTab === AdminTabs.Overview && (
             <SettingOverview
               overview={overview}
               onChange={onOverviewChange}
               onSave={onSave}
               initiateWargame={onWargameInitiate}
-              wargameInitiated={wargame.wargameInitiated}
+              wargameInitiated={!!wargame.wargameInitiated}
             />
           )
         }
         {
-          currentActiveTab === 'platform_types' && (
+          currentActiveTab === AdminTabs.PlatformTypes && (
             <SettingPlatformTypes
               iconUploadUrl={iconUploadUrl}
               platformType={platformTypes}
               onChange={onPlatformTypesChange}
               onSave={onSave}
+              onDelete={onDeletePlatformType}
+              onDuplicate={onDuplicatePlatformType}
             />
           )
         }
         {
-          currentActiveTab === 'forces' && (
+          currentActiveTab === AdminTabs.Forces && (
             <SettingForces
               iconUploadUrl={iconUploadUrl}
               forces={forces}
@@ -79,13 +82,16 @@ export const GameSetup: React.FC<Props> = ({
               onSidebarClick={onSidebarForcesClick}
               onCreate={onCreateForce}
               onDelete={onDeleteForce}
+              onDuplicate={onDuplicateForce}
               selectedForce={selectedForce}
               platformTypes={platformTypes?.platformTypes}
+              customDeleteHandler={customDeleteHandler}
+              onDeleteAsset={onDeleteAsset}
             />
           )
         }
         {
-          currentActiveTab === 'channels' && (
+          currentActiveTab === AdminTabs.Channels && (
             <SettingChannels
               channels={channels}
               onChange={onChannelsChange}

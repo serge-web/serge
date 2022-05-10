@@ -13,16 +13,35 @@ export enum Phase {
 /** TODO: remove this
  * Temporary classifier for which dataset is in use
  */
- export enum Domain {
+export enum Domain {
   ATLANTIC = 'Atlantic',
   GULF = 'Gulf'
+}
+
+
+/** increasing permissions in a collaborative editing channel
+ */
+export enum CollaborativePermission {
+  /** can */
+  CannotCollaborate,
+  CanEdit,
+  CanSubmitForReview,
+  CanApprove,
+  CanRelease,
+  CanUnClaim
+}
+
+/** the initial state for new messages in a collab edit channel */
+export enum InitialStates {
+  PENDING_REVIEW = 'PENDING_REVIEW',
+  UNALLOCATED = 'UNALLOCATED'
 }
 
 /** types of special channel */
 export enum SpecialChannelTypes {
   CHANNEL_MAPPING = 'mapping',
-  CHANNEL_COLLAB_EDIT = 'collab-edit',
-  CHANNEL_COLLAB_RESPONSE = 'collab-response'
+  CHANNEL_COLLAB = 'collab',
+  CHANNEL_CHAT = 'chat'
 }
 
 /** types of extra column to be shown in collab editing */
@@ -39,6 +58,19 @@ export enum Terrain {
   SEA = 'sea'
 }
 
+/** style of label for hexes
+ */
+export enum CellLabelStyle {
+  // 12.3N 32.3W
+  LAT_LON_LABELS = 'lat_lon_labels',
+  // A12
+  X_Y_LABELS = 'x_y_labels',
+  // 432
+  CTR_LABELS = 'ctr_labels',
+  // 35234fe5effffff
+  H3_LABELS = 'h3_labels'
+}
+
 /** who is required to give asset an initial location */
 export enum LaydownTypes {
   /** the umpire (game designer) can position asset */
@@ -48,7 +80,7 @@ export enum LaydownTypes {
   Fixed = 'Fixed'
 }
 
-/** the phases a collaborative message goes through before
+/** the phases a v3 collaborative message goes through before
  * being approved to send
  */
 export enum CollaborativeMessageStates {
@@ -69,27 +101,16 @@ export enum CollaborativeMessageStates {
    * approved and released
    */
   Released = 'Released',
-  /**
-   * approved and finalised
-   */
-  Finalized = 'Finalized',
   /** 
    * document cancelled 
    */
   Closed = 'Closed',
-  /** 
-   * waiting to be allocated 
-   */
-  Pending = 'Unallocated',
-  /**
-   * document/message being edited
-   */
-  BeingEdited = 'Being edited',
 }
+
 
 /** the commands that can be appled to a collaborative message
  */
- export enum CollaborativeMessageCommands {
+export enum CollaborativeMessageCommands {
   SendForReview = 'Send for review',
   TakeOwnership = 'Take ownership',
   ReOpen = 'Re-open',
@@ -161,3 +182,10 @@ export enum PlanningCommands {
   /** umpire wants to revert to player's route, but still modify it */
   Cancel = 'cancel',
 }
+
+export enum AdminTabs {
+  Overview = 'overview',
+  PlatformTypes = 'platformTypes',
+  Forces = 'forces',
+  Channels = 'channels'
+};

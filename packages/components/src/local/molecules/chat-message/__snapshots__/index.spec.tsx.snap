@@ -6,10 +6,21 @@ exports[`ChatMessage renders correctly 1`] = `
       chat-message-wrapper__other"
   style={
     Object {
-      "borderLeftColor": "#FCFBEE",
+      "position": "relative",
     }
   }
 >
+  <span
+    className="message-bar"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#FCFBEE",
+        "borderRadius": "8px 0 0 8px",
+        "left": "0%",
+      }
+    }
+  />
   <div
     className="message-text"
   >

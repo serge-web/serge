@@ -6,9 +6,13 @@ import { forces, platformTypes, preInitialisedForces } from '@serge/mocks'
 
 import routeCreateStore, { forcesControlledBy } from '../route-create-store'
 
-import { LaydownPhases, Phase, UMPIRE_FORCE } from '@serge/config'
+import { Phase, LaydownPhases, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 
-import { RouteStore, Route, ForceData, RouteChild, Asset } from '@serge/custom-types'
+import { RouteStore, RouteChild, Route, ForceData, Asset } from '@serge/custom-types'
+
+const umpireForce = forces[0].uniqid
+const blueForce = forces[1].uniqid
+const redForce = forces[2].uniqid
 
 it('determines correct controlled routes', () => {
   expect(forcesControlledBy(forces, 'Blue')).toEqual([])
@@ -16,7 +20,7 @@ it('determines correct controlled routes', () => {
 })
 
 it('can create route under control as umpire ', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -35,7 +39,7 @@ it('can create route under control as umpire ', () => {
 })
 
 it('can create route with static steps under control as umpire in playing phase', () => {
-  const store: RouteStore = routeCreateStore('a0pra000100', Phase.Adjudication, forces, 'umpire', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore('a0pra000100', Phase.Adjudication, forces, umpireForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -57,7 +61,7 @@ it('can create route with static steps under control as umpire in playing phase'
 })
 
 it('can create route under control as umpire in playing phase', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -70,7 +74,7 @@ it('can create route under control as umpire in playing phase', () => {
 })
 
 it('can create route for un-recognised type', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, false, false)
 
   expect(store.routes.length).toEqual(11)
 
@@ -89,7 +93,7 @@ it('can create route for un-recognised type', () => {
 })
 
 it('create full history & planned for blue unit', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(11)
 
   // check a blue route
@@ -108,7 +112,7 @@ it('create full history & planned for blue unit', () => {
 
 it('create trimmed history & full planned for selected blue unit', () => {
   const frigateId = 'a0pra00001'
-  const store: RouteStore = routeCreateStore(frigateId, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(frigateId, Phase.Adjudication, forces, blueForce, platformTypes, true, false)
   expect(store.routes.length).toEqual(11)
 
   // check selected route
@@ -144,7 +148,7 @@ it('create trimmed history & full planned for selected blue unit', () => {
 
 it('create trimmed history & trimmed planned for without selected blue unit', () => {
   const frigateId = 'a0pra00001'
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, true, true)
   expect(store.routes.length).toEqual(11)
 
   expect(store.selected).toBeUndefined()
@@ -164,7 +168,7 @@ it('create trimmed history & trimmed planned for without selected blue unit', ()
 it('create trimmed history & trimmed planned for without selected red unit', () => {
   const frigateId = 'a0pra00001'
   const dhowId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(dhowId, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(dhowId, Phase.Adjudication, forces, blueForce, platformTypes, true, true)
   expect(store.routes.length).toEqual(11)
 
   expect(store.selected).toBeDefined()
@@ -191,7 +195,7 @@ it('create trimmed history & trimmed planned for without selected red unit', () 
 })
 
 it('create trimmed history & planned for blue unit', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, true, true)
   expect(store.routes.length).toEqual(11)
 
   // check a blue route
@@ -209,7 +213,7 @@ it('create trimmed history & planned for blue unit', () => {
 })
 
 it('create trimmed history & planned for blue unit but with full num of turns in attribute', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, true, true)
   expect(store.routes.length).toEqual(11)
 
   // check a blue route
@@ -224,7 +228,7 @@ it('create trimmed history & planned for blue unit but with full num of turns in
 })
 
 it('can create route as umpire in planning mode', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -237,7 +241,7 @@ it('can create route as umpire in planning mode', () => {
 })
 
 it('can create route as umpire in planning mode, filtering planned points', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce, platformTypes, true, true)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -280,7 +284,7 @@ it('support new way of storing past steps', () => {
       }
     ]
 
-    const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesClone, 'umpire', platformTypes, undefined, false, false)
+    const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesClone, umpireForce, platformTypes, false, false)
     expect(store.routes.length).toEqual(13)
 
     // check inside a route
@@ -298,7 +302,7 @@ it('support new way of storing past steps', () => {
 })
 
 it('route displays all hosted & comprising assets for white force', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, UMPIRE_FORCE, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, UMPIRE_FORCE, platformTypes, false, false)
   expect(store.routes.length).toEqual(13)
 
   // get the host platform
@@ -330,7 +334,7 @@ it('route displays all hosted & comprising assets for white force', () => {
 })
 
 it('route displays all hosted & comprising assets for blue force with filtered planned routes', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, true, true)
   expect(store.routes.length).toEqual(11)
 
   // get the host platform
@@ -343,7 +347,7 @@ it('route displays all hosted & comprising assets for blue force with filtered p
 })
 
 it('route displays all hosted & comprising assets for blue force', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(11)
 
   // get the host platform
@@ -383,15 +387,15 @@ it('route displays all hosted & comprising assets for blue force', () => {
 })
 
 it('route displays perceived hosted assets in tree for red force', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, undefined, false, false)
-  expect(store.routes.length).toEqual(9)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce, platformTypes, false, false)
 
+  expect(store.routes.length).toEqual(9)
   // try the host platform in the task group
   const frigate = store.routes[0]
   expect(frigate.uniqid).toEqual('a0prbr6441')
   expect(frigate.name).toEqual('Frigate A Perceived Name')
-  expect(frigate.platformType).toEqual('unknown')
-  expect(frigate.perceivedForceName).toEqual('blue')
+  expect(frigate.platformTypeId).toEqual(UNKNOWN_TYPE)
+  expect(frigate.perceivedForceId).toEqual(blueForce)
 
   // find hosted platforms
   const hosting: Array<RouteChild> = frigate.hosting
@@ -400,15 +404,15 @@ it('route displays perceived hosted assets in tree for red force', () => {
   expect(hosting.length).toEqual(1)
   // we can predict ids
   expect(hosting[0].uniqid).toEqual('a0pra43302')
-  expect(hosting[0].platformType).toEqual('unmanned-airborne-vehicle')
-  expect(hosting[0].force).toEqual('blue')
+  expect(hosting[0].platformTypeId).toEqual('a10')
+  expect(hosting[0].force).toEqual(blueForce)
 
   // get the host platform
   const frigate2 = store.routes[1]
   expect(frigate2.uniqid).toEqual('a0pra00001')
   expect(frigate2.name).toEqual('Frigate Perceived Name')
-  expect(frigate2.platformType).toEqual('frigate')
-  expect(frigate2.perceivedForceName).toEqual('blue')
+  expect(frigate2.platformTypeId).toEqual('a3')
+  expect(frigate2.perceivedForceId).toEqual(blueForce)
   // don't show planned route for platform from other force
   expect(frigate2.planned.length).toEqual(0)
 
@@ -422,31 +426,31 @@ it('route displays perceived hosted assets in tree for red force', () => {
 
   // since this is red force, we see perceived names
   expect(hosting2[0].name).toEqual('C572')
-  expect(hosting2[0].force).toEqual('blue')
-  expect(hosting2[0].platformType).toEqual('helicopter')
+  expect(hosting2[0].force).toEqual(blueForce)
+  expect(hosting2[0].platformTypeId).toEqual('a8')
 })
 
 it('route displays perceived comprised assets in flat layer for red force', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce, platformTypes, false, false)
   expect(store.routes.length).toEqual(9)
 
   // the first route should be for the frigate in the task group
   const frigate = store.routes[0]
   expect(frigate.uniqid).toEqual('a0prbr6441')
   expect(frigate.name).toEqual('Frigate A Perceived Name')
-  expect(frigate.platformType).toEqual('unknown')
-  expect(frigate.perceivedForceName).toEqual('blue')
+  expect(frigate.platformTypeId).toEqual(UNKNOWN_TYPE)
+  expect(frigate.perceivedForceId).toEqual(blueForce)
 
   // the second route should be the hosting frigate
   const frigate2 = store.routes[1]
   expect(frigate2.uniqid).toEqual('a0pra00001')
   expect(frigate2.name).toEqual('Frigate Perceived Name')
-  expect(frigate2.platformType).toEqual('frigate')
-  expect(frigate2.perceivedForceName).toEqual('blue')
+  expect(frigate2.platformTypeId).toEqual('a3')
+  expect(frigate2.perceivedForceId).toEqual(blueForce)
 })
 
 it('route displays full history for asset in red force', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, undefined, false, true)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce, platformTypes, false, true)
   expect(store.routes.length).toEqual(9)
 
   // find the dhow
@@ -463,7 +467,7 @@ it('route displays full history for asset in red force', () => {
 })
 
 it('route displays single step of history for asset in red force', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce, platformTypes, true, false)
   expect(store.routes.length).toEqual(9)
 
   // find the dhow
@@ -490,7 +494,7 @@ it('creates routes for assets in new laydown structure in pre-init', () => {
   }
   blue.assets[2].position = 'G23'
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, 'umpire', platformTypes, undefined, false, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce, platformTypes, false, false, false)
   expect(store.routes.length).toEqual(1) // only one route has a position
 
   // check inside the route with a position
@@ -514,7 +518,7 @@ it('creates routes for assets in legacy structure in pre-init', () => {
   }
   blue.assets[2].position = 'G23'
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, 'umpire', platformTypes, undefined, false, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce, platformTypes, false, false, false)
   expect(store.routes.length).toEqual(13) // only one route has a position
 
   // check inside the route with a position
@@ -538,7 +542,7 @@ it('creates routes for assets in legacy structure in post-init', () => {
   }
   blue.assets[2].position = 'G23'
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, 'umpire', platformTypes, undefined, false, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce, platformTypes, false, false, false)
   expect(store.routes.length).toEqual(13) // only one route has a position
 
   // check inside the route with a position

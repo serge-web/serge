@@ -30,7 +30,7 @@ exports[`AdminLayout renders correctly 1`] = `
           className="input-box item"
         >
           <section
-            className="input-container disable-offset"
+            className="input-container disable-offset underline"
           >
             <div
               className="MuiFormControl-root MuiTextField-root"
@@ -56,27 +56,6 @@ exports[`AdminLayout renders correctly 1`] = `
               </div>
             </div>
           </section>
-        </div>
-        <div
-          className="item"
-        >
-          <div
-            className="progress-box"
-          >
-            <div
-              className="progress"
-            >
-              <div
-                className="progress-indicator progress-indicator-active"
-              />
-              <div
-                className="progress-indicator"
-              />
-              <div
-                className="progress-indicator"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>

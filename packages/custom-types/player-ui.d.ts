@@ -1,4 +1,4 @@
-import ChannelData from './channel-data'
+import { ChannelTypes } from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel, MessageCustom } from './message'
@@ -6,7 +6,10 @@ import ChannelUI from './channel-ui'
 import MappingConstraints from './mapping-constraints'
 import { TemplateBodysByKey } from './message-types'
 import Role from './role'
+import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
+import { PlayerMessageLog } from './player-log'
+import { AnnotationIcons, MapAnnotations } from './map-annotation'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -23,13 +26,15 @@ export default interface PlayerUi {
   selectedRole: Role['roleId'],
   selectedRoleName: Role['name'],
   isObserver: boolean,
+  /** player is from umpire force */
+  isUmpire: boolean,
   canSubmitPlans: boolean,
   isGameControl: boolean,
   currentTurn: number,
   turnPresentation?: TurnFormats,
   phase: string,
   gameDate: string,
-  gameTurnTime: number,
+  gameTurnTime: GameTurnLength,
   realtimeTurnTime: number,
   turnEndTime: string,
   /**
@@ -44,7 +49,11 @@ export default interface PlayerUi {
   /** dictionary for set of channels visible to logged in player */
   channels: PlayerUiChannels,
   /** all channels in this wargame */
-  allChannels: Array<ChannelData>,
+  allChannels: Array<ChannelTypes>,
+  /** the information markers */
+  infoMarkers: MapAnnotations,
+  /** icons used for markers */
+  markerIcons: AnnotationIcons,
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
   allTemplatesByKey: TemplateBodysByKey,
@@ -58,6 +67,7 @@ export default interface PlayerUi {
     [property: string]: PlatformTypeData
   }
   showObjective: boolean,
+  updateMessageState: boolean,
   /** whether wargame changes stored as new documents (true) or whether
    * change overwrite the original wargame document (false)
    */
@@ -70,12 +80,10 @@ export default interface PlayerUi {
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
-  /** List of RFI messages */
-  rfiMessages: Array<MessageCustom>,
   /** whether logged in user can view insights & feedback */
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */
   isRFIManager: boolean
-  /** next ref number for RFI messages for this force */
-  nextMsgReference: number
+  /** log of recent player messages */
+  playerMessageLog: PlayerMessageLog
 }

@@ -1,3 +1,15 @@
+/** extra detail for close-in route planning,
+ * where turning circles are an issue
+ */
+ export interface TurningDetails {
+  /** radius of turning circle */
+  radius: number
+  /** distance in metres that asset can travel this turn */
+  distance: number
+  /** heading for asset, degrees from North */
+  heading: number
+}
+
 /**
  * Details necessary for planning a turn for a mobile asset
  */
@@ -6,7 +18,7 @@ export default interface PlanMobileAsset {
    * hex coords of start location
    */
   origin: string
-  /**
+   /**
    * mode of travel for this asset
    */
   travelMode: string
@@ -22,5 +34,9 @@ export default interface PlanMobileAsset {
    * optional limit of number of cells this asset can travel in this turn. Omit
    * for unlimited range or if it's immobile
    */
-  range?: number
-}
+  rangeCells?: number
+   /**
+   * optional turning circle for asset, specified in metres
+   */
+  turningCircle?: TurningDetails
+  }

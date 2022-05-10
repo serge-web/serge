@@ -4,6 +4,7 @@ import {
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
   SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE,
   SET_FEEDBACK_MESSAGES,
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
@@ -14,7 +15,8 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  MARK_ALL_AS_UNREAD
 } from '@serge/config'
 
 import {
@@ -25,9 +27,7 @@ import {
   MessageCustom,
   MessageInfoType
 } from '.'
-import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props';
 import { Dispatch } from 'react'
-import { TemplateBody } from './template';
 import { TemplateBodysByKey } from './message-types';
 
 export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
@@ -50,6 +50,10 @@ interface SetAllTemplatesAction {
 }
 interface ShowHideObjectivesAction {
   type: typeof SHOW_HIDE_OBJECTIVES
+}
+interface UpdateMessageStateAction {
+  type: typeof UPDATE_MESSAGE_STATE,
+  payload: boolean
 }
 export interface SetWargameFeedbackAction {
   type: typeof SET_FEEDBACK_MESSAGES,
@@ -92,6 +96,11 @@ export interface MarkAllAsReadAction {
   type: typeof MARK_ALL_AS_READ,
   payload: string
 }
+
+export interface MarkAllASUnReadAction {
+  type: typeof MARK_ALL_AS_UNREAD,
+  payload: string
+}
 interface OpenTourAction {
   type: typeof OPEN_TOUR,
   payload: boolean
@@ -109,6 +118,7 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
   SetRoleAction |
   SetAllTemplatesAction |
   ShowHideObjectivesAction |
+  UpdateMessageStateAction |
   SetWargameFeedbackAction |
   SetLatestFeedbackMessageAction |
   SetLatestWargameMessageAction |
@@ -117,6 +127,7 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
   MarkUnreacAction |
   CloseMessageAction |
   MarkAllAsReadAction |
+  MarkAllASUnReadAction |
   OpenTourAction |
   OpenModalAction |
   CloseModalAction

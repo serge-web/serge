@@ -2,11 +2,9 @@ interface Props {
   schema: any,
   curChannel: string,
   privateMessage: string
-  /** 
-   * helper function, to generate a new reference for the indicated force
-   */
-  generateNextReference?: {(force:string): number}
   onMessageSend?: (e: any) => void
-  onCancel?: () => void
+  onCancel?: (e: any) => void
+  // whether user has to confirm cancelling a new document
+  confirmCancel?: boolean
 }
 export default Props

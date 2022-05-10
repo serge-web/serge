@@ -1,65 +1,106 @@
-import React, { FC, ChangeEvent, ReactNode, useState, useEffect } from 'react'
-import { LaydownTypes } from '@serge/config'
-/* Import proptypes */
-import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
-import PropTypes from './types/props'
-import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortableItems'
-import { Asset, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
-
-/* Import Styles */
-import styles from './styles.module.scss'
-
-/* Import Components */
-import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform } from '@serge/helpers'
-
-import cx from 'classnames'
-import { GetIcon } from '../../../asset-icon' // getIconClassname
-import Grid from '@material-ui/core/Grid'
-import { ReactSortable } from 'react-sortablejs'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import TextInput from '../../../atoms/text-input'
-import NativeSelect from '@material-ui/core/NativeSelect'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Chip from '@material-ui/core/Chip'
+import Grid from '@material-ui/core/Grid'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import NativeSelect from '@material-ui/core/NativeSelect'
 import Typography from '@material-ui/core/Typography'
+import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes, TASK_GROUP } from '@serge/config'
+import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+/* Import Components */
+import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
+import cx from 'classnames'
+import AssetIcon from '../../../asset-icon'
+import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
+import { ReactSortable } from 'react-sortablejs'
+import Button from '../../../atoms/button'
+import TextInput from '../../../atoms/text-input'
+import AttributeEditor from '../../../attribute-editor'
 import Groups from '../../../helper-elements/groups'
 import { NodeType } from '../../../helper-elements/groups/types/props'
 import canCombineWith from '../../../world-state/helpers/can-combine-with'
+/* Import proptypes */
+import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
+import { ForceItemType, ListItemType, PlatformItemType } from '../types/sortableItems'
+/* Import Styles */
+import styles from './styles.module.scss'
+import PropTypes from './types/props'
 
-export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [] }) => {
+export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler, routes = [], onDeleteAsset }) => {
   const [fixedLocationValue, setFixedLocationValue] = useState('')
   const [addAssetActive, setAddAssetActive] = useState(false)
 
   const createSelectedForcePlatforms = (assets: Asset[] | undefined): ForceItemType[] => {
     const selectedForcePlatforms: ForceItemType[] = Array.isArray(assets)
-      ? assets.map((asset: Asset): ForceItemType => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
+      ? assets.map((asset: Asset): ForceItemType => ({ ...asset, id: asset.platformTypeId, type: ASSET_ITEM }))
       : []
     return selectedForcePlatforms
   }
 
-  const [selectedPlatforms, setSelectedPlatforms] = useState<ForceItemType[]>(createSelectedForcePlatforms(selectedForce.assets))
-  const [selectedAssetItem, setSelectedAssetItem] = useState<ForceItemType>(createSelectedForcePlatforms(selectedForce.assets)[0])
+  const [selectedPlatforms, setSelectedPlatforms] = useState<Asset[]>(createSelectedForcePlatforms(selectedForce.assets))
+  const [selectedAssetItem, setSelectedAssetItem] = useState<Asset>(createSelectedForcePlatforms(selectedForce.assets)[0])
+
+  const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>([])
+  const [attributeTypes, setAttributeTypes] = useState<AttributeTypes>([])
+
+  const [attributeEditorIsOpen, setAttributeEditorIsOpen] = useState<boolean>(false)
 
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType, debug = true): boolean => {
     if (debug) return true
-    return canCombineWith({ routes }, draggingItem.uniqid, item.uniqid, _parents, _type, undefined)
+    return canCombineWith({ routes }, draggingItem.uniqid, item.uniqid, _parents, _type)
   }
 
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))
 
-  useEffect(() => {
-    if (Array.isArray(selectedForce.assets)) {
-      const asset = selectedForce.assets.find(asset => asset.uniqid === selectedAssetItem.uniqid)
-      if (asset?.locationPending !== LaydownTypes.Fixed) {
-        setFixedLocationValue('')
-      }
+  const getSelectedAsset = (): Asset | undefined => {
+    if (Array.isArray(selectedPlatforms)) {
+      return selectedPlatforms.find(asset => asset.uniqid === selectedAssetItem.uniqid)
     }
+    return undefined
+  }
+
+  useEffect(() => {
+    const asset = getSelectedAsset()
+    if (!asset) {
+      return
+    }
+    if (asset.locationPending !== LaydownTypes.Fixed) {
+      setFixedLocationValue('')
+    }
+
+    const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
+    pType && setAttributeTypes(pType.attributeTypes || [])
+    let attrValues = asset.attributeValues || []
+    if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
+      attrValues = pType.attributeTypes.map((aType: AttributeType) => {
+        return {
+          attrId: aType.attrId,
+          value: 0,
+          attrType: ATTRIBUTE_VALUE_NUMBER
+        }
+      })
+    }
+    setAttributeValues(attrValues)
   }, [selectedAssetItem])
+
+  useEffect(() => {
+    const attrs = collateEditorData(attributeValues, attributeTypes)
+    const assets = selectedForce.assets || []
+    assets.some(asset => {
+      if (asset.uniqid === selectedAssetItem.uniqid) {
+        asset.attributeValues = attributeValues
+        return true
+      }
+      return false
+    })
+    setAttributes(attrs)
+  }, [attributeTypes, attributeValues])
 
   const renderAssetForm = (): ReactNode => {
     if (selectedPlatforms.length === 0) return null
@@ -110,12 +151,13 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     }
 
     return <div className={styles['view-result-box']}>
+      <AttributeEditor isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
       <List dense={true}>
         <ListItem>
           <ListItemText>
             <label className={styles['input-group']}>
               <span className={styles['list-title']}>Name</span>
-              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.name} onChange={handleChangeAssetName}/>
+              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.name} onChange={handleChangeAssetName} />
             </label>
           </ListItemText>
         </ListItem>
@@ -123,7 +165,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           <ListItemText>
             <label className={styles['input-group']}>
               <span className={styles['list-title']}>ContactID</span>
-              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.contactId} onChange={handleChangeAssetContactId}/>
+              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.contactId} onChange={handleChangeAssetContactId} />
             </label>
           </ListItemText>
         </ListItem>
@@ -131,7 +173,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           <ListItemText>
             <label className={styles['input-group']}>
               <span className={styles['list-title']}>UniqueID</span>
-              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.uniqid} onChange={handleChangeAssetUniqid}/>
+              <TextInput customColor="transparent" className={styles['list-input']} value={selectedAssetItem.uniqid} onChange={handleChangeAssetUniqid} />
             </label>
           </ListItemText>
         </ListItem>
@@ -166,11 +208,28 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             </ListItemText>
           </ListItem>
         }
+        {attributes.length > 0 &&
+          <ListItem>
+            <ListItemText>
+              <label className={cx(styles['input-group'], styles['attribute-group'])}>
+                <span className={styles['list-title']}>Attributes</span>
+                <div>
+                  {attributes.map((item: AttributeEditorData): ReactElement => {
+                    const labelTxt = item.nameRead + ' ' + item.valueRead
+                    return <Chip key={item.attrId} label={labelTxt} className={styles['attribute-chip']} />
+                  })}
+                  <Button color='primary' onClick={(): void => setAttributeEditorIsOpen(true)}>Edit</Button>
+                </div>
+              </label>
+            </ListItemText>
+          </ListItem>
+
+        }
       </List>
     </div>
   }
-  const findIcon = (platformType: string): string => {
-    const platform = platformTypes.find(({ name }) => name === platformType)
+  const findIcon = (platformTypeId: string): string => {
+    const platform = platformTypes.find((platform) => platform.uniqid === platformTypeId)
     return typeof platform === 'undefined' ? '' : platform.icon
   }
   const renderContent = (groupItem: GroupItem): JSX.Element => {
@@ -183,7 +242,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         onClick={(): void => { setSelectedAssetItem(item) }}
       >
         <div className={styles['item-asset-icon-box']}>
-          <GetIcon icType={item.platformType} color={selectedForce.color} imageSrc={findIcon(item.platformType)} />
+          <AssetIcon color={selectedForce.color} imageSrc={findIcon(item.platformTypeId)} />
           {/* <div className={cx(icClassName, styles['item-asset-icon'])}/> */}
         </div>
         <div className={styles['asset-name']}>{item.name}</div>
@@ -193,7 +252,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedPlatforms.length
-
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
@@ -244,7 +302,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
                               <div>
-                                <GetIcon icType={platformTypeNameToKey(item.name)} color='#415b76' imageSrc={item.icon} />
+                                <AssetIcon color='#415b76' imageSrc={item.icon} />
                               </div>
                             </div>
                           </div>
@@ -266,17 +324,21 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         items={selectedPlatforms}
                         renderContent={renderContent}
                         canOrganise={true}
+                        onDeleteAsset={onDeleteAsset}
+                        selectedAssetItem={selectedAssetItem}
                         canCombineWith={canCombineWithLocal}
+                        setList={(newList: GroupItem): void => setSelectedPlatforms(selectedPlatforms.filter(item => item.uniqid !== newList.uniqid))}
                         group={'platformTypesList'}
                         maxDepth={5}
                         onSet={(itemsLink: GroupItem[], type: NodeType, depth: GroupItem[]): void => {
                           const items = itemsLink.slice(0)
                           const [droppedItem, droppedInTo] = items
                           let result: ForceData[] = []
+                          const taskGroup = findPlatformTypeFor(platformTypes, TASK_GROUP, '')
                           switch (type) {
                             case 'group': {
                               if (groupCreateNewGroup) {
-                                result = groupCreateNewGroup(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce])
+                                result = groupCreateNewGroup(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce], taskGroup)
                               } else {
                                 console.warn('No new group handler', depth)
                               }
@@ -292,7 +354,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                             }
                             default:
                               if (groupHostPlatform) {
-                                result = groupHostPlatform(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce])
+                                result = groupHostPlatform(droppedItem.uniqid.toString(), droppedInTo.uniqid.toString(), [selectedForce], taskGroup)
                               } else {
                                 console.warn('No handler for host platform', depth)
                               }

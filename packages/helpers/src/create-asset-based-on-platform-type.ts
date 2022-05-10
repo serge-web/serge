@@ -1,7 +1,8 @@
 import { kebabCase } from 'lodash'
-import { Asset, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeTypes, NumberAttributeType, NumberAttributeValue, PlatformTypeData } from '@serge/custom-types'
 import uniqid from 'uniqid'
 import generateHashCode from './generate-hash-code'
+import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
 export const platformTypeNameToKey = (name: string): string => {
   return kebabCase(name.toLowerCase())
@@ -15,19 +16,35 @@ export const generateAssetContactId = (assetId: string): string => {
   return 'C' + generateHashCode(assetId)
 }
 
-export const createAssetBasedOnPlatformType = ({ name }: PlatformTypeData): Asset => {
+export const createAttributes = (attributes?: AttributeTypes): NumberAttributeValue[] => {
+  if (attributes) {
+    return attributes.map((attr: NumberAttributeType): NumberAttributeValue => {
+      return {
+        attrId: attr.attrId,
+        value: attr.defaultValue !== undefined ? attr.defaultValue : 0,
+        attrType: ATTRIBUTE_VALUE_NUMBER
+      }
+    })
+  } else {
+    return []
+  }
+}
+
+export const createAssetBasedOnPlatformType = (pType: PlatformTypeData): Asset => {
   const uniqid = generateAssetId()
   const contactId = generateAssetContactId(uniqid)
-  const platformType = platformTypeNameToKey(name)
+  const attributes = createAttributes(pType.attributeTypes)
 
   return {
-    uniqid,
-    contactId,
-    name,
-    platformType,
+    uniqid: uniqid,
+    contactId: contactId,
+    name: pType.name,
+    platformType: pType.name,
+    platformTypeId: pType.uniqid,
     perceptions: [],
     condition: '',
     position: '',
-    locationPending: false
+    locationPending: false,
+    attributeValues: attributes
   }
 }

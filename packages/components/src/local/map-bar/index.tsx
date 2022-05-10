@@ -9,7 +9,7 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
 import collateStateOfWorld from './helpers/collate-state-of-world'
 
-import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
+import { findAsset, forceFor, visibleTo, deepCopy, findPlatformTypeFor } from '@serge/helpers'
 
 /* import types */
 import {
@@ -21,9 +21,10 @@ import {
   MessageStateOfWorld,
   MessageSubmitPlans,
   MessageForceLaydown,
-  MessageDeletePlatform
+  MessageDeletePlatform,
+  MapAnnotation
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -41,6 +42,8 @@ import { MapBarForms } from './helpers/enums'
 import collateVisibilityFormData from './helpers/collate-visibility-form-data'
 import collateForceLaydown from './helpers/collate-force-laydown'
 import VisibilityAndConditionForm from '../visibility-condition-form'
+import collateMarkerFormData from './helpers/collate-marker-form-data'
+import MarkerForm from '../marker-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -60,7 +63,6 @@ export const MapBar: React.FC = () => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const {
-    gridCells,
     playerForce,
     canSubmitOrders,
     phase,
@@ -71,7 +73,9 @@ export const MapBar: React.FC = () => {
     turnNumber,
     setShowMapBar,
     selectedAsset,
+    selectedMarker,
     setSelectedAsset,
+    setSelectedMarker,
     channelID,
     mapPostBack,
     routeStore,
@@ -85,7 +89,9 @@ export const MapBar: React.FC = () => {
     groupHostPlatform,
     plansSubmitted,
     setPlansSubmitted,
-    panTo
+    panTo,
+    infoMarkers,
+    markerIcons
   } = props
 
   // sort out the handler for State of World button
@@ -96,10 +102,6 @@ export const MapBar: React.FC = () => {
   // sort out the handler for State of World button
   useEffect(() => {
     if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected && selectedAsset) {
-      const iconData = {
-        forceColor: selectedAsset.force,
-        platformType: selectedAsset.type
-      }
       const closePlanningForm = (): void => {
         // @ts-ignore
         setSelectedAsset(undefined)
@@ -107,7 +109,7 @@ export const MapBar: React.FC = () => {
       const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
       setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid,
         selectedAsset.name, turnNumber, setRouteStore, turnPlanned,
-        cancelRoutePlanning, closePlanningForm, iconData, formData))
+        cancelRoutePlanning, closePlanningForm, formData))
     } else {
       setAdjudicationManager(undefined)
     }
@@ -117,7 +119,8 @@ export const MapBar: React.FC = () => {
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
+          selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -129,6 +132,13 @@ export const MapBar: React.FC = () => {
       }
     }
   }, [routeStore])
+
+  // sort out the handler for State of World button
+  useEffect(() => {
+    if (playerForce === UMPIRE_FORCE && selectedMarker) {
+      setCurrentForm(MapBarForms.Marker)
+    }
+  }, [selectedMarker])
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -177,7 +187,7 @@ export const MapBar: React.FC = () => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
-      const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber)
+      const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber, infoMarkers || [])
       mapPostBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
       // Player has finished planning process, and now
@@ -197,7 +207,7 @@ export const MapBar: React.FC = () => {
   // Toggles the map bar on and off
   const tabClickEvent = (nextPanel: WorldStatePanels): void => {
     // has the current panel been clicked on?
-    if (nextPanel === worldStatePanel) {
+    if (nextPanel === worldStatePanel && showMapBar) {
       // ok, hide it
       setShowMapBar(false)
     } else {
@@ -222,19 +232,37 @@ export const MapBar: React.FC = () => {
         uniqid: asset.uniqid,
         name: asset.name,
         contactId: asset.contactId,
-        type: asset.platformType,
-        force: force.uniqid,
+        typeId: asset.platformTypeId,
+        forceId: force.uniqid,
         controlledBy: force.controlledBy,
         condition: asset.condition,
         visibleTo: visibleToArr,
         status: asset.status,
-        locationPending: !!asset.locationPending
+        locationPending: !!asset.locationPending,
+        attributes: asset.attributeValues || []
       }
       // ok done, share the good news
       setSelectedAsset(selected)
 
       // and pan the map
       panTo && asset.position && panTo(asset.position)
+    }
+  }
+
+  const localSetSelectedMarker = (id: string): void => {
+    // is it a new id?
+    if (selectedMarker && selectedMarker === id) {
+      // current clicked on, clear it
+      // @ts-ignore
+      setSelectedMarker(undefined)
+    } else {
+      setSelectedMarker(id)
+
+      // get the marker
+      const marker = infoMarkers.find((item: MapAnnotation) => item.uniqid === id)
+
+      // and pan the map
+      panTo && marker && panTo(marker.location)
     }
   }
 
@@ -267,23 +295,46 @@ export const MapBar: React.FC = () => {
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
+    if (selectedAsset && selectedMarker) {
+      // hmm, if both are selected we may be moving from one state to the other
+      // provide null return, so we know which to use
+      return <></>
+    }
+    if (typeof selectedAsset === 'undefined') {
+      // see if we have a marker
+      if (selectedMarker && userIsUmpire) {
+        const marker = infoMarkers.find((item: MapAnnotation) => item.uniqid === selectedMarker)
+        if (!marker) {
+          throw new Error('Failed to find marker with id:' + selectedMarker)
+        }
+        const data = collateMarkerFormData(marker, markerIcons, forces)
+        return <MarkerForm
+          formData={data}
+          mapPostBack={mapPostBack} />
+      } else {
+        // ok, return a marker form
+        return <></>
+      }
+    }
     if (!routeStore || !routeStore.selected) {
       throw new Error('No route selected')
     }
-    if (typeof selectedAsset === 'undefined') return null
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
+    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
+      selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+    const platformIcon = selectedAsset.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
+    const platformName = selectedAsset.typeId === UNKNOWN_TYPE ? 'Unknown' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').name
     const iconData = {
-      forceColor: selectedAsset.force,
-      platformType: selectedAsset.type
+      forceColor: selectedAsset.forceId,
+      platformType: platformName,
+      icon: platformIcon
     }
     switch (form) {
-      case MapBarForms.Perception:
-      {
+      case MapBarForms.Perception: {
         const data = collatePerceptionFormData(platforms, playerForce, selectedAsset, forces)
         return data && <PerceptionForm
           key={selectedAsset.uniqid}
-          type={selectedAsset.type}
-          force={selectedAsset.force}
+          type={platformName}
+          force={selectedAsset.forceId}
           formData={data}
           channelID={channelID}
           mapPostBack={mapPostBack} />
@@ -293,6 +344,7 @@ export const MapBar: React.FC = () => {
           key={adjudicationManager && adjudicationManager.uniqid}
           manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
+          icon={iconData}
           canSubmitPlans={canSubmitOrders} />
       }
       case MapBarForms.Planning: {
@@ -312,7 +364,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={formData}
           channelID={channelID}
-          deleteEmptyTaskGroup = {deleteHandler}
+          deleteEmptyTaskGroup={deleteHandler}
           turnPlanned={turnPlanned} />
       }
       case MapBarForms.Visibility:
@@ -324,7 +376,10 @@ export const MapBar: React.FC = () => {
           mapPostBack={mapPostBack}
           channelID={channelID} />
       default:
+      {
+        console.warn('failed to create form for ', form)
         return <></>
+      }
     }
   }
 
@@ -338,9 +393,17 @@ export const MapBar: React.FC = () => {
       </div>
       <div
         className={cx(styles.toggle, styles.visibility, (worldStatePanel === WorldStatePanels.Visibility) && styles['toggle-active'])}
-        onClick={(): void => { tabClickEvent(WorldStatePanels.Visibility) }}>
+        onClick={(): void => { tabClickEvent(WorldStatePanels.Visibility) }}
+        data-tour="visibility"
+      >
         <ArrowRight />
         <span className={cx(styles.rotated)}>Visibility</span>
+      </div>
+      <div
+        className={cx(styles.toggle, styles.markers, (worldStatePanel === WorldStatePanels.Markers) && styles['toggle-active'])}
+        onClick={(): void => { tabClickEvent(WorldStatePanels.Markers) }}>
+        <ArrowRight />
+        <span className={cx(styles.rotated)}>Markers</span>
       </div>
       {
         // only show tab 3 if umpire is adjudicating
@@ -359,12 +422,16 @@ export const MapBar: React.FC = () => {
             phase={phase}
             platformTypesByKey={platformTypesByKey}
             isUmpire={playerForce === UMPIRE_FORCE}
+            playerForce={playerForce}
+            infoMarkers={infoMarkers}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}
             platforms={platforms}
             panel={worldStatePanel}
-            submitTitle = {stateSubmitTitle}
+            submitTitle={stateSubmitTitle}
             setSelectedAssetById={setSelectedAssetById}
+            setSelectedMarkerById={localSetSelectedMarker}
+            selectedMarker={selectedMarker}
             submitForm={worldStateSubmitHandler}
             groupMoveToRoot={groupMoveToRoot}
             groupCreateNewGroup={groupCreateNewGroup}
@@ -373,11 +440,10 @@ export const MapBar: React.FC = () => {
             setPlansSubmitted={setPlansSubmitted}
             turnNumber={turnNumber}
             secondaryButtonLabel={secondaryStateTitle}
-            secondaryButtonCallback={acceptAllRoutesCallback}
-            gridCells={gridCells} ></WorldState>
+            secondaryButtonCallback={acceptAllRoutesCallback} />
         </section>
       </div>
-      {currentForm !== undefined && selectedAsset && routeStore.selected && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
+      {currentForm !== undefined && ((selectedAsset && routeStore.selected) || selectedMarker) && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
         <div className={styles['form-inner']}>
           <section>
             {formSelector()}

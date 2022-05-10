@@ -92,7 +92,6 @@ const wargame = {
           timeWarning: 60000,
           gameDate: '2019-10-01T14:02',
           showAccessCodes: true,
-          complete: false,
           dirty: false
         },
         forces: {
@@ -141,7 +140,6 @@ const wargame = {
             }
           ],
           selectedForce: '',
-          complete: true,
           dirty: false
         },
         channels: {
@@ -331,7 +329,6 @@ const wargame = {
             }
           ],
           selectedChannel: '',
-          complete: false,
           dirty: false
         }
       },
@@ -425,7 +422,6 @@ const wargame = {
           timeWarning: 60000,
           gameDate: '2019-10-01T02:02',
           showAccessCodes: true,
-          complete: false,
           dirty: false
         },
         forces: {
@@ -474,7 +470,6 @@ const wargame = {
             }
           ],
           selectedForce: '',
-          complete: true,
           dirty: false
         },
         channels: {
@@ -664,7 +659,6 @@ const wargame = {
             }
           ],
           selectedChannel: '',
-          complete: false,
           dirty: false
         }
       },
@@ -689,7 +683,6 @@ const wargame = {
           timeWarning: 60000,
           gameDate: '2019-10-01T02:02',
           showAccessCodes: true,
-          complete: false,
           dirty: false
         },
         forces: {
@@ -738,7 +731,6 @@ const wargame = {
             }
           ],
           selectedForce: '',
-          complete: true,
           dirty: false
         },
         channels: {
@@ -928,7 +920,6 @@ const wargame = {
             }
           ],
           selectedChannel: '',
-          complete: false,
           dirty: false
         }
       },
@@ -953,7 +944,6 @@ const wargame = {
           timeWarning: 60000,
           gameDate: '2019-09-30T14:02:13+01:00',
           showAccessCodes: true,
-          complete: false,
           dirty: false
         },
         forces: {
@@ -1002,7 +992,6 @@ const wargame = {
             }
           ],
           selectedForce: '',
-          complete: true,
           dirty: false
         },
         channels: {
@@ -1192,7 +1181,6 @@ const wargame = {
             }
           ],
           selectedChannel: '',
-          complete: false,
           dirty: false
         }
       },
@@ -1215,7 +1203,6 @@ const wargame = {
       timeWarning: 60000,
       gameDate: '2019-10-01T14:02',
       showAccessCodes: true,
-      complete: false,
       dirty: false
     },
     forces: {
@@ -1264,7 +1251,6 @@ const wargame = {
         }
       ],
       selectedForce: '',
-      complete: true,
       dirty: false
     },
     channels: {
@@ -1454,7 +1440,6 @@ const wargame = {
         }
       ],
       selectedChannel: '',
-      complete: false,
       dirty: false
     }
   },

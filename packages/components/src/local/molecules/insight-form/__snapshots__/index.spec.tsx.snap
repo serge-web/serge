@@ -18,7 +18,7 @@ exports[`InsightForm renders correctly 1`] = `
       />
     </svg>
     <h3>
-      Insights
+      Feedback
     </h3>
   </div>
   <p>

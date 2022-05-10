@@ -27,10 +27,11 @@ export type Item = SelectItem | SwitchItem
 export default interface PropTypes {
   items: Array<Item>
   onChange: (nextItems: Array<Item>, changedKey: number) => Array<Item>
-  onSave?: (nextItems: Array<Item>) => void
-  onRemove?: () => void
+  onSave?: (nextItems: Array<Item>, participantKey?: number) => void
+  onRemove?: (participantKey?: number) => void
   actions?: boolean
   defaultMode: 'view' | 'edit'
   noSwitchOnReset?: boolean
   isGenerator?: boolean
+  participantKey?: number
 }

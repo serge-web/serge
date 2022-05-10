@@ -19,8 +19,8 @@ interface Option { label: string, value: string }
 const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword }) => {
   if (!wargameList) {
     return (
-      <div className="flex-content-wrapper flex-content-wrapper--welcome">
-        <div className="flex-content flex-content--welcome">
+      <div className='flex-content-wrapper flex-content-wrapper--welcome'>
+        <div className='flex-content flex-content--welcome'>
           <h2>Serge - Serious Gaming Evolved</h2>
           <h2>&nbsp;</h2>
           <h3>* Server Not Found - check configuration</h3>
@@ -57,7 +57,12 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
     force => ({ name: force.name, roles: force.roles })
   )
 
-  const availableGames = wargameList.filter((wargame: WargameList) => !wargame.shortName.startsWith(hiddenPrefix))
+  console.log('Wargame list:')
+  console.table(wargameList)
+
+  // workaround in the next line. There are some circumstances (maybe db down)
+  // when we appear to have a wargame without a shortname
+  const availableGames = wargameList.filter((wargame: WargameList) => !(wargame.shortName && wargame.shortName.startsWith(hiddenPrefix)))
 
   if (!selectedWargame && availableGames.length === 1) {
     const { title, name } = availableGames[0]
@@ -65,26 +70,26 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
   }
 
   return (
-    <div className="flex-content-wrapper flex-content-wrapper--welcome">
-      <div className="flex-content flex-content--welcome">
+    <div className='flex-content-wrapper flex-content-wrapper--welcome'>
+      <div className='flex-content flex-content--welcome'>
         {!state.selectedForce && !state.selectedRole &&
           <div className={`flex-content--center ${selectedWargame && state.showAccessCodes ? 'has-demo-passwords' : ''}`}>
             <h1>Set wargame</h1>
-            <div id="custom-select-wargame-selection">
+            <div id='custom-select-wargame-selection'>
               <Select
-                name="wargame-selection"
+                name='wargame-selection'
                 value={selectedWargame}
-                className="react-select"
-                classNamePrefix="react-select"
+                className='react-select'
+                classNamePrefix='react-select'
                 options={availableGames.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
                 onChange={updateSelectedWargame}
               />
             </div>
-            <div className="flex-content">
+            <div className='flex-content'>
               <TextInput
-                className="material-input"
-                placeholder="Access code"
-                variant="filled"
+                className='material-input'
+                placeholder='Access code'
+                variant='filled'
                 type='password'
                 value={rolePassword}
                 updateState={(el: { value: string }) => setRolePassword(el.value)}
@@ -92,15 +97,15 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
               />
             </div>
             {selectedWargame && state.showAccessCodes &&
-              <div className="demo-passwords">
+              <div className='demo-passwords'>
                 <h3>Not visible in production</h3>
-                <ul className="demo-list-forces">
-                  {roleOptions.map((force) => (<li key={force.name} className="list-item-demo-passwords">
+                <ul className='demo-list-forces'>
+                  {roleOptions.map((force) => (<li key={force.name} className='list-item-demo-passwords'>
                     <h4>{force.name}</h4>
                     <ul data-qa-force-name={force.name}>
                       {force.roles.map((role: Role) => (
                         <li key={role.name}>
-                          <button onClick={e => setRolePasswordDemo(e, role.roleId)} className="btn btn-sm btn-primary">
+                          <button onClick={e => setRolePasswordDemo(e, role.roleId)} className='btn btn-sm btn-primary'>
                             {role.name}
                           </button>
                         </li>
@@ -111,9 +116,9 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
               </div>
             }
             <button
-              name="enter-game"
+              name='enter-game'
               disabled={!rolePassword}
-              className="btn btn-action btn-action--primary"
+              className='btn btn-action btn-action--primary'
               onClick={() => checkPassword(rolePassword)}
             >
               Enter

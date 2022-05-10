@@ -1,3 +1,5 @@
+import { wargameSettings } from '@serge/config'
+
 const assetConditions = [
   'Working',
   'Disabled',
@@ -469,7 +471,7 @@ const channelsElement = [
 ]
 
 export const wargame = {
-  _id: '_local/settings',
+  _id: wargameSettings,
   wargameTitle: 'imwarc_demo',
   data: {
     overview: {
@@ -482,28 +484,24 @@ export const wargame = {
       // turnStrategy: '',
       gameDate: '2023-07-05T14:00Z',
       showAccessCodes: true,
-      complete: true,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForce, blueForce, redForce, greenForce],
       selectedForce: '',
-      complete: false,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: channelsElement,
       selectedChannel: '',
-      complete: false,
       dirty: false
     },
     platformTypes: {
       name: 'Platform Types',
       platformTypes: platformTypes,
       selectedType: '',
-      complete: false,
       dirty: false
     }
   },

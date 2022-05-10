@@ -1,4 +1,4 @@
-import { Domain } from '@serge/config'
+import { Domain, CellLabelStyle } from '@serge/config'
 
 export interface TileLayerDefinition {
   url: string,
@@ -13,6 +13,16 @@ export default interface MappingConstraints {
    * bounding rectangle 
    */
   bounds: [[number, number], [number, number]],
+  /** 
+   * h3 resolution to use
+   */
+  h3res?: number,
+  /** 
+   * the strategy to use for the cell labels 
+   * Note: we allow string so that we can read
+   * in JSON data
+   */
+  cellLabelsStyle?: CellLabelStyle | string
   /**
    * diameter of tiles in use (nautical miles)
    */
@@ -27,6 +37,7 @@ export default interface MappingConstraints {
   tileDataFile?: string
   /** 
    * min zoom to display hexes 
+   * @deprecated
    */
   minZoomHexes: number
   /** 
@@ -44,8 +55,9 @@ export default interface MappingConstraints {
   /**
    * target dataset
    * // TODO: remove this, make generic
+   * Note: we allow strings, so we can read in JSON data
    */
-  targetDataset: Domain
+  targetDataset: Domain | string
   /**
    * Json data url to load atlantic cells data
    * Should refer to file in packages/data folder, 

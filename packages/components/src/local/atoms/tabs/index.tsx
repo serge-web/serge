@@ -12,6 +12,8 @@ import styles from './styles.module.scss'
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { kebabCase } from 'lodash'
+
 /* Render component */
 export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '', changed }) => {
   const useAsDefault = activeTab || tabs[0]
@@ -25,12 +27,23 @@ export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '', chan
       }
     }
   }
+
+  /** we had a camel case tab (platformType) which was being presented as PLATFORMTYPE,
+   * so we'll convert it to kebaby case first
+   */
+  const tidyTabName = (tab: string): string => {
+    const camel = kebabCase(tab)
+    const dropSpace = camel.replace('-', ' ')
+    const dropUnderScore = dropSpace.replace(/_/g, ' ')
+    return dropUnderScore
+  }
+
   return (
     <div className={styles.main}>
       {
         tabs.map((tab, key) => (
           <div key={key} className={cx(styles.item, tab === active && styles.active)} onClick={(e): void => { handleClick(tab, key, e) }}>
-            {tab.replace(/_/g, ' ')}
+            {tidyTabName(tab)}
             {tab === active && changed && <div className={styles.asterisk}><FontAwesomeIcon icon={faAsterisk} size="xs"/></div>}
           </div>
         ))

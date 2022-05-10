@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Props } from './types.d'
+/* eslint-disable no-unused-vars */
+import { hiddenPrefix } from '@serge/config'
 import { WargameList } from '@serge/custom-types'
-import { hiddenPrefix } from '@serge/config';
-
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addPlayerLog } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import {
+  getWargame
+} from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import LoaderScreen from '../../Components/LoaderScreen'
+import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
+import GameChannelsWithTour from '../GameChannelsWithTour'
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
-import GameChannelsWithTour from '../GameChannelsWithTour'
-import LoaderScreen from '../../Components/LoaderScreen'
-
 import checkPassword from './helpers/checkPassword'
-import { expiredStorage } from '../../consts'
-import {
-  getWargame,
-} from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
+import { Props } from './types.d'
 
 enum Room {
   landing,
@@ -21,8 +21,7 @@ enum Room {
   player
 }
 
-const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameIsInvalid, loadData}: Props): React.ReactElement => {
-  const [tourIsOpen, setTourIsOpen] = useState(false)
+const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameIsInvalid, loadData }: Props): React.ReactElement => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
   const [screen, setScreen] = useState<Room>(Room.landing)
@@ -31,11 +30,11 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     currentWargame,
     selectedForce,
     selectedRole,
-    wargameTitle,
     currentTurn
   } = usePlayerUiState()
-  
-  const dispatch = usePlayerUiDispatch()
+
+  const dispatch = useDispatch()
+  const playerUiDispatch = usePlayerUiDispatch()
 
   useEffect(() => {
     loadData()
@@ -44,11 +43,11 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
   }, [])
 
   useEffect(() => {
-    if(selectedForce && selectedRole) {
-      const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`) !== 'done'
-      if (storageTourIsOpen !== tourIsOpen) setTourIsOpen(storageTourIsOpen)
+    if (selectedForce && selectedRole) {
       // @ts-ignore
       window.selectedChannel = selectedForce.uniqid
+      // dispatch wargame and role to version component
+      dispatch(addPlayerLog(currentWargame, selectedRole))
     }
   }, [selectedForce, selectedRole])
 
@@ -68,23 +67,21 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
       if (selectedWargame) {
         setLoggedIn(true)
         setWaitingLoginPassword(_access)
-        await getWargame(selectedWargame.name)(dispatch)
+        await getWargame(selectedWargame.name)(playerUiDispatch)
       }
     }
   }
 
   useEffect(() => {
-    if (wargame.wargameList.length && !loggedIn)
-      byPassLogin()
+    if (wargame.wargameList.length && !loggedIn) { byPassLogin() }
   }, [loggedIn, wargame.wargameList])
-
 
   const handleCheckPassword = (pass: string): void => {
     if (currentWargame.startsWith(hiddenPrefix)) {
       wargameIsInvalid()
-      return;
+      return
     }
-    const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, dispatch)
+    const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, playerUiDispatch)
     if (check) {
       const currentUrl = new URL(document.location!.href)
       const byPassParams = {
@@ -99,19 +96,18 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
         byPassParamsArr.forEach(key => {
           currentUrl.searchParams.set(key, byPassParams[key])
         })
-        history.pushState({}, 'null', currentUrl.href);
+        history.pushState({}, 'null', currentUrl.href)
       }
       setScreen(Room.player)
-    }
-    else checkPasswordFail()
+    } else checkPasswordFail()
   }
 
   // show the relevant screen
-  switch(screen) {
+  switch (screen) {
     case Room.landing:
       return <PlayerUiLandingScreen
-      gameInfo={gameInfo}
-      enterSerge={() => { setScreen(Room.lobby) }}
+        gameInfo={gameInfo}
+        enterSerge={() => { setScreen(Room.lobby) }}
       />
     case Room.lobby:
       return <PlayerUiLobby
@@ -121,11 +117,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
       />
     case Room.player:
       if (selectedForce) {
-        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
-        return <GameChannelsWithTour
-          storageKey={setStorageKey()}
-          tourIsOpen={tourIsOpen}
-        />
+        return <GameChannelsWithTour />
       }
       return <LoaderScreen />
   }

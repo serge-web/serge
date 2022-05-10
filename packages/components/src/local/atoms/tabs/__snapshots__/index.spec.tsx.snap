@@ -8,19 +8,19 @@ exports[`tabs renders correctly 1`] = `
     className="item active"
     onClick={[Function]}
   >
-    tab1
+    tab 1
   </div>
   <div
     className="item"
     onClick={[Function]}
   >
-    tab2
+    tab 2
   </div>
   <div
     className="item"
     onClick={[Function]}
   >
-    tab3
+    tab 3
   </div>
 </div>
 `;

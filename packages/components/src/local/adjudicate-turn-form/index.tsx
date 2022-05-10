@@ -1,35 +1,31 @@
-import React, { useState, useEffect } from 'react'
-
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import { PlanningCommands } from '@serge/config'
+import { AttributeEditorData, AttributeValues, ForceOption, RouteStatus, Status } from '@serge/custom-types'
+/* Import helpers */
+import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
+import React, { ReactElement, useEffect, useState } from 'react'
+import Badge from '../atoms/badge'
+import { Button } from '../atoms/button'
+import { AttributeEditor } from '../attribute-editor'
+import { clSelect, FormGroup } from '../form-elements/form-group'
+import RCB from '../form-elements/rcb'
+/* Import components */
+import Speed from '../form-elements/speed'
+import TitleWithIcon from '../form-elements/title-with-icon'
+/* Import Stylesheet */
+import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
-/* Import components */
-import Speed from '../form-elements/speed'
-import { Button } from '../atoms/button'
-import TitleWithIcon from '../form-elements/title-with-icon'
-import RCB from '../form-elements/rcb'
-import { FormGroup, clSelect } from '../form-elements/form-group'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-
-import { PlanningCommands } from '@serge/config'
-
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-/* Import helpers */
-import { deepCompare, isNumber } from '@serge/helpers'
-import Badge from '../atoms/badge'
-import { ColorOption, RouteStatus, Status } from '@serge/custom-types'
-
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
-  plansSubmitted, canSubmitPlans, manager
+  plansSubmitted, canSubmitPlans, manager, icon
 }) => {
   // flag for if the current state is mobile#
   const [statusValues, setStatusValues] = useState<Array<Status>>([])
   const [speedValues, setSpeedValues] = useState<Array<number>>([])
-  const [visibleToValues, setVisibleToValues] = useState<Array<ColorOption>>([])
+  const [visibleToValues, setVisibleToValues] = useState<Array<ForceOption>>([])
   const [conditionValues, setConditionValues] = useState<Array<string>>([])
 
   const [plansSubmittedVal, setPlansSubmittedVal] = useState<boolean>(true)
@@ -41,7 +37,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [speedVal, setSpeedVal] = useState<number>(0)
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
-  const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
+
+  const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>(manager ? manager.currentAttributeValues() : [])
+  const [attributeEditorOpen, setAttributeEditorOpen] = useState<boolean>(false)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
@@ -69,11 +68,14 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
 
+      // attributes
+      updateIfNecessary('attribute types', attributes, collateEditorData(attributeValues, formData.attributes), setAttributes)
+
       // the command buttons
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
-  }, [manager, stateIsMobile, conditionVal])
+  }, [manager, stateIsMobile, conditionVal, attributeValues])
 
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
@@ -100,7 +102,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     manager && manager.setCurrentVisibleTo(e.value)
   }
 
-  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => { // deepscan-disable-line UNUSED_PARAM
+  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: { (value: any): void }): void => { // deepscan-disable-line UNUSED_PARAM
     if (!deepCompare(before, after)) {
       // console.log('+ updating ', _name, before, after)
       doUpdate(after)
@@ -141,13 +143,26 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const openEditModal = (): void => {
+    setAttributeEditorOpen(true)
+  }
+
+  const closeModal = (): void => {
+    setAttributeEditorOpen(false)
+  }
+
+  const updateData = (data: AttributeValues): void => {
+    setAttributeValues(data)
+  }
+
   return (
     <div className={styles.adjudicate}>
+      <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
-        platformType={icon.platformType}
+        icon={icon.icon}
       >
-        { manager && (manager.getContactId() + ' - ')}
+        {manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}
         {manager &&
           <Badge label={manager.currentPlanningStatus()} />
@@ -156,7 +171,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           <div className='sub-title'>(Form disabled, plans submitted)</div>
         }
       </TitleWithIcon>
-      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
+      {conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">
           {!formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
             <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
@@ -186,9 +201,20 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       </fieldset>
       }
+      { attributes && attributes.length > 0 &&
+      <FormGroup title="Attributes" titlePosition="absolute">
+        <div className={styles.attributelist}>
+          { attributes.map((item: AttributeEditorData): ReactElement => {
+            const label = item.nameRead + item.valueRead
+            return <Badge title={item.description} key={item.attrId} allCaps={false} label={label}/>
+          })}
+          <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
+        </div>
+      </FormGroup>
+      }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={visibleToValues.length > 2} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         {/* previous (more verbose way of showing conditions) <FormGroup title="Condition" align="right">
           <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />

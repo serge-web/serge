@@ -24,7 +24,7 @@ const useButtonStyle = makeStyles((theme: Theme) =>
           },
 
           '&.MuiButton-sizeSmall': {
-            minWidth: '144px',
+            minWidth: '100px',
             fontSize: '12px',
             fontWeight: '600',
             borderRadius: '5px'

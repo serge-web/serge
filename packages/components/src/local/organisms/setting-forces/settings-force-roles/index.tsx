@@ -11,7 +11,7 @@ import cx from 'classnames'
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown, faEye, faComments, faDirections, faBookReader } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faEye, faComments, faDirections, faBookReader, faChessKing } from '@fortawesome/free-solid-svg-icons'
 import SortableList, { Item as SortableListItem } from '../../../molecules/sortable-list'
 import FormGroup from '../../../atoms/form-group-shadow'
 import Accordion from '@material-ui/core/Accordion'
@@ -20,6 +20,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 import PasswordView from '../../../molecules/password-view'
 import { getUniquePasscode } from '@serge/helpers'
+import { NEW_ROLE } from '@serge/config'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -35,7 +36,7 @@ const MobileSwitch = withStyles({
   track: {}
 })(Switch)
 
-export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces }) => {
+export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces, customDeleteHandler }) => {
   const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
@@ -51,6 +52,16 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
             handleChangeRole({ ...roleItem, roleId })
           }}/>
           {key === 0 && <div className={styles['role-title']}>Password</div>}
+        </div>
+        <div className={styles['role-item']}>
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isGameControl} onChange={(): void => {
+            handleChangeRole({ ...roleItem, isGameControl: !roleItem.isGameControl })
+          }} />
+          {key === 0 && <div
+            title='Game Control'
+            className={cx(styles['role-title'], styles['title-center'])}>
+            <FontAwesomeIcon icon={faChessKing} />
+          </div>}
         </div>
         <div className={styles['role-item']}>
           <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isObserver} onChange={(): void => {
@@ -99,7 +110,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
       roleId: getUniquePasscode(forces, 'r'),
-      name: 'New Role',
+      name: NEW_ROLE,
       canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
@@ -123,7 +134,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Roles">
               <SortableList
-                remove={false}
+                remove={true}
                 sortable='auto'
                 required
                 onChange={(roles: Array<SortableListItem>): void => {
@@ -133,6 +144,8 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces 
                 renderItemSection={renderRoleFields}
                 items={data.roles}
                 title='Add Role'
+                customDeleteHandler={customDeleteHandler}
+                valueOnEmpty={NEW_ROLE}
               />
             </FormGroup>
           </div>

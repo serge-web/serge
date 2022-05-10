@@ -1,17 +1,16 @@
 import L from 'leaflet'
-import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
+import { Route, RouteTurn, RouteChild, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception, ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
-import hexNamed from './hex-named'
+import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase, DATUM, UNKNOWN_TYPE } from '@serge/config'
 import findPlatformTypeFor from './find-platform-type-for'
+import { h3ToGeo } from 'h3-js'
 
-const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
-  step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
+const processStep = (step: RouteTurn): Array<RouteTurn> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
-
+  const res: Array<RouteTurn> = []
   if (step.status) {
     const steps: string[] = []
     const locations: Array<L.LatLng> = []
@@ -19,8 +18,9 @@ const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
       // ok, this is modern way of planned or history steps
       step.route.forEach((coord: string) => {
         steps.push(coord)
-        const hex: SergeHex<unknown> | undefined = grid && hexNamed(coord, grid)
-        locations.push((hex && hex.centreLatLng) || dummyLocation)
+        const hex3: number[] = h3ToGeo(coord)
+        const hex3Loc: L.LatLng = L.latLng(hex3[0], hex3[1])
+        locations.push(hex3Loc || dummyLocation)
       })
     }
     // only include the speed parameter if there's one present
@@ -50,7 +50,7 @@ const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHex<unknown>> | undefined, planned: boolean,
+const createStepArray = (turns: RouteTurn[] | undefined, planned: boolean,
   filterSteps: boolean): Array<RouteTurn> => {
   let res: Array<RouteTurn> = []
   if (turns) {
@@ -58,15 +58,15 @@ const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHe
       if (turns.length > 0) {
         if (planned) {
           // just the first one
-          res = processStep(grid, turns[0], res)
+          res = processStep(turns[0])
         } else {
           // just the last one
-          res = processStep(grid, turns[turns.length - 1], res)
+          res = processStep(turns[turns.length - 1])
         }
       }
     } else {
       turns.forEach((step: RouteTurn) => {
-        res = processStep(grid, step, res)
+        res = res.concat(processStep(step))
       })
     }
   }
@@ -85,9 +85,9 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
         const newChild: RouteChild = {
           uniqid: item.uniqid,
           name: item.name,
-          platformType: item.platformType,
+          platformTypeId: item.platformTypeId,
           force: assetForce,
-          destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+          destroyed: checkIfDestroyed(platformTypes, item.platformTypeId, item.condition),
           condition: item.condition,
           asset: item,
           hosting: hosting,
@@ -97,14 +97,14 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
       } else {
         // sort out if this player can see this assset
         const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, false, item.contactId,
-          assetForce, item.platformType, item.perceptions)
+          assetForce, item.platformTypeId, item.perceptions)
         if (perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
             name: perceptions.name,
-            platformType: perceptions.type,
-            force: perceptions.force,
-            destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+            platformTypeId: perceptions.typeId || UNKNOWN_TYPE,
+            force: perceptions.forceId || UNKNOWN_TYPE,
+            destroyed: checkIfDestroyed(platformTypes, item.platformTypeId, item.condition),
             condition: item.condition,
             asset: item,
             hosting: hosting,
@@ -136,7 +136,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
     currentState = status.state
     currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
   } else {
-    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, asset.platformType)
+    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
     if (platform) {
       const states = platform.states
       if (states && states.length) {
@@ -252,8 +252,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {boolean} visibleToThisForce whether this force can see this asset
- * @param {string} actualForce the true force for the asset
- * @param {string} perceivedForceClass the CSS class for the perceived force of the asset
+ * @param {string} actualForceId the true force for the asset
  * @param {string} perceivedForce the perceived force of the asset
  * @param {string} perceivedName the perceived name of the asset
  * @param {string} perceivedType the perceived type of the asset
@@ -272,32 +271,30 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, visibleToThisForce: boolean, actualForce: string, perceivedForceClass: string | undefined, perceivedForce: string, perceivedName: string,
-  perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
-  currentLocation: L.LatLng, grid: SergeGrid<SergeHex<unknown>> | undefined, includePlanned: boolean,
+  underControl: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
+  perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
+  currentLocation: L.LatLng, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
-  const showHistory = asset.platformType !== 'datum'
+  const showHistory = asset.platformTypeId !== DATUM
 
   // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
-  const historyTurns: RouteTurn[] | undefined = existingRoute && existingRoute.history
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, filterPlannedSteps) : []
-  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, false) : []
+  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(historyTurns || asset.history, grid,
-    false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
-  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
+  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
 
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
@@ -313,13 +310,12 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     uniqid: asset.uniqid,
     name: perceivedName,
     selected: isSelected,
-    platformType: perceivedType,
+    platformTypeId: perceivedTypeId,
     underControl: underControl,
     visibleToThisForce: visibleToThisForce,
-    perceivedForceName: perceivedForce,
-    perceivedForceClass: perceivedForceClass,
+    perceivedForceId: perceivedForce,
     perceivedForceColor: color,
-    actualForceName: actualForce,
+    actualForceId: actualForceId,
     color: color,
     hosting: hosting,
     comprising: comprising,
@@ -337,7 +333,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     asset: asset,
     visibleTo: visibleTo,
     condition: condition,
-    adjudicationState: adjudicationState
+    adjudicationState: adjudicationState,
+    attributes: asset.attributeValues || []
   }
 }
 

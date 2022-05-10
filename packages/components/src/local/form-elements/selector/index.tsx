@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Select, MenuItem } from '@material-ui/core'
-import { camelCase, capitalize, kebabCase } from 'lodash'
+import { camelCase, capitalize } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -13,7 +13,7 @@ import InputContainer from '../../atoms/input-container'
 export const renderOptions = (options: Array<string | number>): Array<ReactElement> => options.map(option => (
   <MenuItem
     key={option}
-    value={kebabCase(option.toString())}
+    value={option.toString()}
   >
     {capitalize(option.toString())}
   </MenuItem>

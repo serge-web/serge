@@ -1,5 +1,10 @@
-import ColorOption from './color-option'
-import SergeHex from './serge-hex'
+import { AttributeTypes, ForceData } from '.'
+import ForceOption from './force-option'
+import { AttributeValues } from './attributes'
+import { SergeHex3 } from './serge-hex-3'
+import PlatformTypeData from './platform-type-data'
+import IconOption from './icon-option'
+import { MapAnnotation } from './map-annotation'
 
 interface Status {
   name: string,
@@ -11,16 +16,23 @@ interface Force {
   colour: string
 }
 
+export interface PerceivedType {
+  name: PlatformTypeData['name']
+  uniqid : PlatformTypeData['uniqid']
+}
+
 export interface PerceptionFormPopulate {
-  perceivedForce: Array<ColorOption>
-  perceivedType: Array<string>
+  perceivedForces: Array<ForceOption>
+  perceivedTypes: Array<PerceivedType>
 }
 
 export interface PerceptionFormValues {
   perceivedNameVal: string
-  perceivedForceVal: string
-  perceivedTypeVal: string
+  perceivedForceColor: ForceData['color'] | undefined
+  perceivedForceId: ForceData['uniqid'] | undefined
+  perceivedTypeId: PlatformTypeData['name'] | undefined
   assetId: string
+  iconURL: PlatformTypeData['icon']
 }
 
 export interface PerceptionFormData {
@@ -28,16 +40,27 @@ export interface PerceptionFormData {
   values: PerceptionFormValues
 }
 
+export interface MarkerFormPopulate {
+  forces: Array<ForceOption>
+  icons: Array<IconOption>
+}
+
+export interface MarkerFormData {
+  populate: MarkerFormPopulate
+  value: MapAnnotation
+}
+
 /** message for when player has planned new turn of data */
 export interface NewTurnValues {
   state: string
   speed?: number
-  route: Array<SergeHex<{}>>
+  route: Array<SergeHex3>
 }
 
 export interface PlanTurnFormPopulate {
   status: Array<Status>
   speed: Array<number>
+  attributes: AttributeTypes
 }
 
 export interface PlanTurnFormValues {
@@ -45,6 +68,7 @@ export interface PlanTurnFormValues {
   speedVal: number
   turnsVal: number
   condition: string
+  attributes: AttributeValues
 }
 
 export interface PlanTurnFormData {
@@ -56,17 +80,36 @@ export interface AdjudicateTurnFormPopulate {
   contactId: string
   status: Array<Status>
   speed: Array<number>
-  visibleTo: Array<ColorOption>
+  visibleTo: Array<ForceOption>
   condition: Array<string>
+  attributes: AttributeTypes
 }
 
 export interface VisibilityFormData {
   assetId: string
   name: string
   contactId: string
-  populate: Array<ColorOption>
-  values: Array<string>
+  availableForces: Array<ForceOption>
+  forceNames: Array<ForceData['name']>
   condition: Array<string>
   selectedCondition: string
 }
 
+/**
+ * Data for icon generation
+ */
+export interface IconDefinition {
+  forceColor: string
+  platformType: string
+  icon: string
+}
+
+/**
+ *  data for selection items for RCB
+ */
+export interface SelectOption {
+  /** value displayed */
+  name: string
+  /** fill-shade for marker */
+  colour: string
+}

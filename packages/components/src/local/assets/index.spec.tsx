@@ -37,6 +37,7 @@ const forces: Array<ForceData> = [
         condition: 'Full capability',
         perceptions: [],
         platformType: 'frigate',
+        platformTypeId: 'a3',
         position: 'S23',
         status: {
           state: 'Transiting',
@@ -79,6 +80,7 @@ it('Mapping renders correctly with AsseticonURL', () => {
     canSubmitOrders = {true}
     playerForce="Blue"
     phase={Phase.Planning}
+    infoMarkers={[]}
     turnNumber={5}
     platformTypesByKey={platformTypesByKey}
   />, { attachTo: div })

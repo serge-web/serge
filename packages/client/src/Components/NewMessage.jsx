@@ -5,9 +5,12 @@ import MessageCreator from '../Components/MessageCreator/MessageCreator'
 import DropdownInput from '../Components/Inputs/DropdownInput'
 import '@serge/themes/App.scss'
 import { usePrevious } from '@serge/helpers'
+import { useSelector } from 'react-redux'
+import { setActivityTime } from '@serge/config'
 
 const NewMessage = props => {
-  const { templates, curChannel, privateMessage, orderableChannel, generateNextReference } = props
+  const role = useSelector(state => state.playerLog.role)
+  const { templates, curChannel, privateMessage, orderableChannel, confirmCancel } = props
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
   const tab = useRef(null)
@@ -30,11 +33,16 @@ const NewMessage = props => {
 
   useEffect(() => {
     if (!prevTemplates) {
-      setSelectedSchema(templates[0].details)
+      if (templates.length) {
+        setSelectedSchema(templates[0].details)
+      } else {
+        console.warn('Zero templates received for channel ', curChannel)
+      }
     }
   }, [templates, prevTemplates])
 
   const onMessageSend = (e) => {
+    setActivityTime(role, 'New message')
     setTimeout(() => {
       tab.current.handleTriggerClick(e)
     }, 0)
@@ -47,7 +55,7 @@ const NewMessage = props => {
   }
 
   return (
-    <div className={classes}>
+    <div className={classes} style={{ zIndex: 1 }}>
       <Collapsible
         trigger={'New Message'}
         transitionTime={200}
@@ -59,8 +67,8 @@ const NewMessage = props => {
             <DropdownInput
               updateStore={setTemplate}
               selectOptions={allTemplates}
-              placeholder="Select message"
-              className="message-input"
+              placeholder='Select message'
+              className='message-input'
               data={JSON.stringify(selectedSchema)}
             />
           )
@@ -68,8 +76,8 @@ const NewMessage = props => {
         <MessageCreator
           schema={selectedSchema}
           curChannel={curChannel}
+          confirmCancel={!!confirmCancel}
           privateMessage={privateMessage}
-          generateNextReference={generateNextReference}
           onMessageSend={onMessageSend}
           onCancel={onCancel}
         />
@@ -81,11 +89,9 @@ export default NewMessage
 
 NewMessage.propTypes = {
   orderableChannel: PropTypes.bool,
+  // whether user has to confirm cancelling a new document
+  confirmCancel: PropTypes.bool,
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
-  privateMessage: PropTypes.bool.isRequired,
-  /**
-   * helper function, to generate a new reference for the indicated force
-   */
-  generateNextReference: PropTypes.func
+  privateMessage: PropTypes.bool.isRequired
 }

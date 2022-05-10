@@ -10,7 +10,7 @@ import { forces, platformTypes, platformTypesByKey, localMappingConstraints } fr
 import { RouteStore, Route as RouteType } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 
-const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
+const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
 const route: RouteType = store.routes[0] as RouteType
 
 const clearFromTurn = (turn: number): void => {
@@ -30,6 +30,7 @@ it('Mapping renders correctly with Route', () => {
     gameTurnTime = {72000}
     wargameInitiated={true}
     playerForce={'Blue'}
+    infoMarkers={[]}
     canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={2}

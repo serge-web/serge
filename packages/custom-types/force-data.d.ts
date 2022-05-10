@@ -17,11 +17,11 @@ export default interface ForceData {
   /** collection of assets (ships in maritime context) for this force */
   assets?: Array<Asset>,
   /* todo - eventually move to force ids, rather than names */
-  controlledBy?: Array<string>
+  controlledBy?: Array<ForceData['uniqid']>
   /** list of force IDs that can see assets of this force.
    *  todo - eventually move to force ids, rather than names
    */
-  visibleTo?: Array<string>
+  visibleTo?: Array<ForceData['uniqid']>
   /** 
    * whether this is an umpire force 
    */

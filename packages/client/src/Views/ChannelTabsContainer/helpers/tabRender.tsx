@@ -1,5 +1,5 @@
 import FlexLayout, { TabNode } from 'flexlayout-react'
-import { PlayerUi } from '@serge/custom-types'
+import { ChannelUI, PlayerUi } from '@serge/custom-types'
 import _ from 'lodash'
 import findChannelByName from './findChannelByName'
 
@@ -9,12 +9,12 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       const tabLayout = document.getElementsByClassName('flexlayout__layout')[0]
       const tabSetHeaderElms = tabLayout.getElementsByClassName('flexlayout__tabset')
       const tabSetContentElms = tabLayout.getElementsByClassName('flexlayout__tab')
-      
+
       let maximizedTabIdx = -1
       Array.from(tabSetHeaderElms).forEach((layout, idx) => {
         const style = layout.attributes.getNamedItem('style')
         if (!style) return
-        
+
         if (node.getModel().getMaximizedTabset()) {
           /**
            * If a maximized tabset exists, hide other tabsets that is not the maximized one
@@ -64,7 +64,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       })
     })
 
-    let channel: any;
+    let channel: ChannelUI | undefined
 
     const addMenuItemMsgCount = (className: string) => {
       if (!className) return
@@ -78,7 +78,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
                 menuItem.classList.add(className)
               }
             })
-          });
+          })
         })
       }
     }
@@ -87,16 +87,20 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       if (node.getClassName() !== className) {
         node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
-    };
+    }
 
     if (!_.isEmpty(state.channels)) {
       const matchedChannel = findChannelByName(state.channels, node.getName())
       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined
 
       if (channel !== undefined) {
-        const className = !channel.unreadMessageCount ?
-          '' : channel.unreadMessageCount < 9 ?
-            `unread-${channel.unreadMessageCount}` : 'unread-9plus'
+        const unreadMessageCount: number | undefined = channel.unreadMessageCount
+        let className: string = ''
+
+        if (typeof unreadMessageCount === 'number' && unreadMessageCount > 0) {
+          className = unreadMessageCount < 9 ? `unread-${unreadMessageCount}` : 'unread-9plus'
+        }
+
         setTimeout(() => {
           setUnreadClassName(className)
           addMenuItemMsgCount(className)

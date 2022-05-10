@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -14,8 +14,10 @@ import Input from '@material-ui/core/Input'
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { isNumber } from '@serge/helpers'
-import { PlanTurnFormValues, Status } from '@serge/custom-types'
+import { collateEditorData, isNumber } from '@serge/helpers'
+import { AttributeEditorData, AttributeType, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
+import Badge from '../atoms/badge'
+import AttributeEditor from '../attribute-editor'
 
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({
@@ -23,13 +25,24 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   turnPlanned, icon, plansSubmitted, deleteEmptyTaskGroup
 }) => {
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
+  const [attributes, setAttributes] = useState<AttributeEditorData[]>([])
+  const [attributeValues, setAttributeValues] = useState<AttributeValues>(formData.values.attributes)
+  const [attributeEditorIsOpen, setAttributeEditorIsOpen] = useState<boolean>(false)
 
   const { status, speed } = formData.populate
   const { statusVal, turnsVal, speedVal, condition } = formState
 
   const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
 
+  // whether the player can edit any of the attributes
+  const attributesAreEditable = canSubmitPlans && formData.populate.attributes && formData.populate.attributes.some((value: AttributeType) => value.editableByPlayer)
+
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
+
+  // initialise, from manager helper
+  useEffect(() => {
+    setAttributes(collateEditorData(attributeValues, formData.populate.attributes))
+  }, [attributeValues, formData.populate])
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -57,6 +70,16 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const attributesHandler = (attributes: AttributeValues): void => {
+    setAttributeValues(attributes)
+    setFormState(
+      {
+        ...formState,
+        attributes: attributes
+      }
+    )
+  }
+
   const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
   if (!speedInitialised) {
     setSpeedInitialised(true)
@@ -64,7 +87,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   }
 
   // Status has a different data model and requires it's own handler
-
   const statusHandler = (data: any): void => {
     // retrieve the new value
     const newState: string = data.target && data.target.value
@@ -81,6 +103,18 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     } else {
       console.warn('Unable to find state to match:' + newState)
     }
+  }
+
+  const openEditModal = (): void => {
+    setAttributeEditorIsOpen(true)
+  }
+
+  const closeModal = (): void => {
+    setAttributeEditorIsOpen(false)
+  }
+
+  const updateData = (data: AttributeValues): void => {
+    attributesHandler(data)
   }
 
   /** only enable the save button if this is a non-mobile state,
@@ -104,16 +138,17 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
    * we use `statusVal &&` guard check in the following block
    */
   return <div className={styles.main}>
+    <AttributeEditor isOpen={attributeEditorIsOpen} onClose={closeModal} onSave={updateData} data={attributes} />
     <TitleWithIcon
       forceColor={icon.forceColor}
-      platformType={icon.platformType}
+      icon={icon.icon}
     >
       {formHeader}
       { deleteEmptyTaskGroup &&
         <Button onClick={deleteEmptyTaskGroup}>Group Empty - <b>Delete</b></Button>
       }
       { plansSubmitted &&
-       <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
     <FormGroup title="State" align="right">
@@ -140,14 +175,19 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       : <FormGroup title="For">
         <Input className={clInput} disabled={formDisabled} name="turns" value={turnsVal} onChange={changeHandler}/>
         <span className={styles.text}>turns</span>
-        {/*
-          <TextInput
-            label="For"
-            name="turns"
-            value={turnsVal}
-            updateState={changeHandler}
-          />
-        */}
+      </FormGroup>
+    }
+    {attributes && attributes.length > 0 &&
+      <FormGroup title="Attributes" titlePosition="absolute">
+        <div className={styles.attributelist}>
+          { attributes.map((item: AttributeEditorData): ReactElement => {
+            const label = item.nameRead + item.valueRead
+            return <Badge title={item.description} key={item.attrId} allCaps={false} label={label}/>
+          })}
+          { attributesAreEditable &&
+            <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
+          }
+        </div>
       </FormGroup>
     }
     <FormGroup title="Condition">

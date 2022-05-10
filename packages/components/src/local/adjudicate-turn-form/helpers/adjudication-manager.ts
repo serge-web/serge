@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData, AttributeValues } from '@serge/custom-types'
 import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
@@ -14,7 +14,6 @@ class AdjudicationManager {
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
   closePlanningForm: { (): void }
-  iconData: {forceColor: string, platformType: string}
   formData: AdjudicateTurnFormPopulate
   formHeader: string
   turn: number
@@ -36,7 +35,6 @@ class AdjudicationManager {
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
     closePlanningForm: {(): void},
-    iconData: {forceColor: string, platformType: string},
     formData: AdjudicateTurnFormPopulate) {
     this.store = store
     this.platforms = platforms
@@ -45,7 +43,6 @@ class AdjudicationManager {
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
     this.closePlanningForm = closePlanningForm
-    this.iconData = iconData
     this.formData = formData
     this.formHeader = formHeader
     this.uniqid = uniqid
@@ -60,9 +57,8 @@ class AdjudicationManager {
   getPlatformDetails (): PlatformTypeData {
     if (this.platformDetails === undefined) {
       const selected: Route | undefined = this.store.selected
-      if (selected) {
-        const pType = selected.platformType
-        this.platformDetails = findPlatformTypeFor(this.platforms, pType)
+      if (selected && selected.platformTypeId) {
+        this.platformDetails = findPlatformTypeFor(this.platforms, '', selected.platformTypeId)
       }
     }
     if (this.platformDetails !== undefined) return this.platformDetails
@@ -94,6 +90,18 @@ class AdjudicationManager {
       }
     }
     return undefined
+  }
+
+  currentAttributeValues (): AttributeValues {
+    const selected: Route | undefined = this && this.store && this.store.selected
+    return selected ? selected.attributes : []
+  }
+
+  setCurrentAttributes (attributes: AttributeValues): void {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      selected.attributes = attributes
+    }
   }
 
   /** indicate the planned speed of the selected asset */
@@ -175,9 +183,8 @@ class AdjudicationManager {
         return selected.currentStatus
       } else {
         // no current status, use the first one
-
-        // get the platform type
-        const platform = findPlatformTypeFor(this.platforms, selected.platformType)
+        // do we know the platform type
+        const platform = selected.platformTypeId && findPlatformTypeFor(this.platforms, '', selected.platformTypeId)
         if (platform) {
           const defaultState: State = platform.states[0]
           // create new state
@@ -334,14 +341,17 @@ class AdjudicationManager {
   readyForDragging (): void {
     // convert the data object
     const state: Status | undefined = this.plannedState()
-    const status: RouteStatus = this.currentStatus()
     if (state) {
+      const status: RouteStatus = this.currentStatus()
+      const route: Route | undefined = this.store.selected
+      const attributes: AttributeValues = (route && route.attributes) || []
       // ok, start planning
       const turnData: PlanTurnFormValues = {
         statusVal: state,
         speedVal: status.speedKts ? status.speedKts : 0,
         turnsVal: 1,
-        condition: this.currentCondition()
+        condition: this.currentCondition(),
+        attributes: attributes
       }
       this.turnPlanned(turnData)
     }

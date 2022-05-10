@@ -6,12 +6,15 @@ interface CssExports {
   'button': string;
   'delete-btn': string;
   'drag': string;
+  'horizontal': string;
+  'horizontallist': string;
   'item': string;
   'li': string;
   'main': string;
   'overlap': string;
   'presection': string;
   'section': string;
+  'trash-icon': string;
   'value-label': string;
 }
 export const cssExports: CssExports;

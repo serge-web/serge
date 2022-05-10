@@ -11,22 +11,22 @@ import ChatMessage from '../../molecules/chat-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { formatTurn } from '@serge/helpers'
 /* Render component */
-export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, isUmpire, playerForce, chatContainerHeight, turnPresentation }: PropTypes) => {
+export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, isUmpire, playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread }: PropTypes) => {
   // cast messages, for type-checking
   const cMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
   const height = chatContainerHeight || 280
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
-        <ForcesInChannel colors={colors} icons={icons} />
+        <ForcesInChannel messages={messages} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
       </Box>
-      <Box ml={2} className={styles['messages-list']} style={{ height: `calc(100vh - ${height}px)` }} flexDirection="column-reverse" display="flex">
+      <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100vh - ${height}px)` }} flexDirection="column-reverse" display="flex">
         {
           cMessages && cMessages.map((message, key) => {
             if (message.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${message.gameTurn}-turnmarker-${key}`}>
-                  <p className={styles['turn-marker']}>Turn { formatTurn(message.gameTurn, turnPresentation) }</p>
+                  <p className={styles['turn-marker']}>Turn {formatTurn(message.gameTurn, turnPresentation)}</p>
                 </Box>
               )
             } else {
@@ -37,11 +37,13 @@ export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors,
                     maxWidth={'60%'}
                     minWidth={'40%'}
                     display="inline-block"
-                    style={{ float: chatMsg.details.from.force === playerForce ? 'right' : 'left' }}
+                    style={{ float: chatMsg.details.from.roleId === playerRole ? 'right' : 'left' }}
                   >
                     <ChatMessage
                       isUmpire={isUmpire}
-                      isOwner={chatMsg.details.from.force === playerForce} message={message}
+                      isOwner={chatMsg.details.from.force === playerForce}
+                      message={message}
+                      markUnread={markUnread}
                     />
                   </Box>
                 </Box>

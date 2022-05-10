@@ -1,9 +1,9 @@
 import moment from 'moment'
 import umpireForceTemplate from './umpireForce'
-import { ADJUDICATION_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE, wargameSettings } from '@serge/config'
 
 export default {
-  _id: '_local/settings',
+  _id: wargameSettings,
   wargameTitle: '',
   data: {
     overview: {
@@ -16,21 +16,18 @@ export default {
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      complete: false,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForceTemplate],
       selectedForce: '',
-      complete: false,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: [],
       selectedChannel: '',
-      complete: false,
       dirty: false
     }
   },

@@ -1,12 +1,11 @@
 import uniqid from 'uniqid'
-
-import PouchDB from 'pouchdb'
 import {
   databasePath,
   MSG_STORE
 } from '../consts'
+import DbProvider from './db'
 
-var db = new PouchDB(databasePath + MSG_STORE)
+var db = new DbProvider(databasePath + MSG_STORE)
 
 export const addMessage = (messageDetail, schema) => {
   return new Promise((resolve, reject) => {
@@ -70,12 +69,8 @@ export const duplicateMessageInDb = (id) => {
 
 export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true })
-      .then((res) => {
-        let results = res.rows.map((a) => a.doc)
-        results = results.filter((a) => !a.hasOwnProperty('_deleted') && a.hasOwnProperty('details'))
-        resolve(results)
-      })
+    db.allDocs()
+      .then((res) => resolve(res))
       .catch((err) => {
         reject(err)
       })
