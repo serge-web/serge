@@ -915,7 +915,7 @@ const wargame: Wargame = {
                 "description": "description for the second annotation",
                 "icon": "marker_general.svg",
                 "label": "second marker",
-                "location": "8918aab747bffff",
+                "location": "8918a84db3bffff",
                 "visibleTo": ["Blue-1"]
             }]
         },
