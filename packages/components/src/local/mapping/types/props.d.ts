@@ -119,4 +119,8 @@ export default interface PropTypes {
    * API call when running from StoryBook
    */
   fetchOverride? : {(url: string): any}
-}
+  /** declutter method to use. This allows us to
+   * disable for testing
+   */
+  declutter? : {(data: DeclutterData, diamMins: number): DeclutterData}
+  }

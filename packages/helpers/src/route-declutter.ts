@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn, MapAnnotations } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 
 interface ClusterSetter {
@@ -118,6 +118,16 @@ const routeDeclutter = (store: RouteStore, tileDiameterMins: number): RouteStore
   spreadClusters(clusters, tileDiameterMins)
 
   return modified
+}
+
+export interface DeclutterData {
+  routes: RouteStore
+  markers: MapAnnotations
+}
+
+export const routeDeclutter2 = (data: DeclutterData, tileDiameterMins: number): DeclutterData => {
+  console.log('declutter 2', data, tileDiameterMins)
+  return data
 }
 
 export default routeDeclutter
