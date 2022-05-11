@@ -57,6 +57,7 @@ export default {
   argTypes: {
     doDeclutter: {
       name: 'Declutter markers',
+      defaultValue: false,
       control: {
         type: 'boolean'
       }
@@ -84,11 +85,12 @@ const Template: Story<StoryPropTypes> = (args) => {
     doDeclutter,
     ...props
   } = args
+  console.log('index5', doDeclutter)
 
   const declutter = (data: DeclutterData, diamMins: number): DeclutterData => {
     return doDeclutter ? routeDeclutter2(data, diamMins) : dummyDeclutter2(data)
   }
-  console.log('declutter', doDeclutter)
+  console.log('do declutter', doDeclutter)
   return (
     <Mapping
       declutter={declutter}
@@ -128,9 +130,9 @@ NaturalEarth.args = {
   mappingConstraints: localConstraints,
   children: (
     <>
+      <InfoMarkers/>
       <HexGrid />
       <Assets />
-      <InfoMarkers/>
     </>
   )
 }

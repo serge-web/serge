@@ -153,7 +153,7 @@ const wargame: Wargame = {
                             "plannedTurns": [
                                 {
                                     "route": [
-                                        "8918aab709bffff"
+                                        "8918a84db3bffff"
                                     ],
                                     "status": {
                                         "speedKts": 20,

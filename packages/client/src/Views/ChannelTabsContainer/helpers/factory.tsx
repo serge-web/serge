@@ -157,8 +157,8 @@ const factory = (state: PlayerUi): Factory => {
       wargameInitiated={state.wargameInitiated}
       platformTypesByKey={state.allPlatformTypesByKey}
     >
-      <Assets />
       <InfoMarkers/>
+      <Assets />
       <HexGrid />
     </Mapping>
 
