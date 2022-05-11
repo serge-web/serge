@@ -15,9 +15,9 @@ it('Provides valid planned for multi-point planned with filter', () => {
   expect(store).toBeTruthy()
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
-  expect(route && route.currentLocation).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
+  expect(route && route.currentLocation2).toBeTruthy()
+  if (route && route.currentLocation2) {
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.plannedTrimmed)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -33,8 +33,8 @@ it('Provides valid planned for multi-point including static steps planned withou
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.selected
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
+  if (route && route.currentLocation2) {
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.planned)
     expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -50,8 +50,8 @@ it('Provides valid planned for multi-point planned without filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
+  if (route && route.currentLocation2) {
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.planned)
     expect(data.turnEnds.length).toEqual(5)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -83,8 +83,8 @@ it('Provides valid planned for single-point planned with filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
+  if (route && route.currentLocation2) {
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.plannedTrimmed)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -100,8 +100,8 @@ it('Provides valid planned for single-point planned without filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
+  if (route && route.currentLocation2) {
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.planned)
     expect(data.turnEnds.length).toEqual(5)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)

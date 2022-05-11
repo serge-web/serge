@@ -271,7 +271,12 @@ export const Mapping: React.FC<PropTypes> = ({
     if (mappingConstraintState) {
       const clutterFunc = declutter ? declutter : routeDeclutter2
       const data: DeclutterData = { routes: store, markers: infoMarkersState }
-      const declutteredData = clutterFunc(data, mappingConstraintState.tileDiameterMins)
+      // sort out the cell diameter
+      const cellRef = store.routes[0].currentPosition
+      const cellRes = h3.h3GetResolution(cellRef)
+      const edgeLengthM = h3.edgeLength(cellRes, 'm')
+      const diamMins = edgeLengthM / 1852.0 * 2
+      const declutteredData = clutterFunc(data, diamMins)
       setViewAsRouteStore(declutteredData.routes)
       setInfoMarkersState(declutteredData.markers)
     }

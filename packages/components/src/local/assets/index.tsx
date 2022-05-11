@@ -64,7 +64,7 @@ export const Assets: React.FC<{}> = () => {
         )
 
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
-          const position: L.LatLng | undefined = route.currentLocation // (cell && cell.centreLatLng) || undefined // route.currentLocation
+          const position: L.LatLng | undefined = route.currentLocation2 // (cell && cell.centreLatLng) || undefined // route.currentLocation
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force

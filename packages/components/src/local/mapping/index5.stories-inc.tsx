@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { DeclutterData, deepCopy, platformTypeNameToKey, routeDeclutter2 } from '@serge/helpers'
+import { DeclutterData, deepCopy, dummyDeclutter2, platformTypeNameToKey, routeDeclutter2 } from '@serge/helpers'
 import { MappingConstraints, MilliTurns, PlatformTypeData } from '@serge/custom-types'
 
 // Import component files
@@ -84,8 +84,9 @@ const Template: Story<StoryPropTypes> = (args) => {
     doDeclutter,
     ...props
   } = args
+
   const declutter = (data: DeclutterData, diamMins: number): DeclutterData => {
-    return doDeclutter ? routeDeclutter2(data, diamMins) : data
+    return doDeclutter ? routeDeclutter2(data, diamMins) : dummyDeclutter2(data)
   }
   console.log('declutter', doDeclutter)
   return (
@@ -98,6 +99,15 @@ const Template: Story<StoryPropTypes> = (args) => {
 }
 
 const timeStep = (overview.gameTurnTime as MilliTurns).millis
+
+// mangle the data - to cause requirement for declutter
+const sameLoc = forces[1].assets && forces[1].assets[0].position
+if(sameLoc) {
+  annotations[1].location = sameLoc
+  if (forces[1].assets) {
+    forces[1].assets[1].position = sameLoc
+  }
+}
 
 /**
  * DEFAULT VIEW
