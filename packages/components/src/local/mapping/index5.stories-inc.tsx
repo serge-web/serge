@@ -85,7 +85,6 @@ const Template: Story<StoryPropTypes> = (args) => {
     doDeclutter,
     ...props
   } = args
-  console.log('index5', doDeclutter)
 
   const declutter = (data: DeclutterData, diamMins: number): DeclutterData => {
     return doDeclutter ? routeDeclutter2(data, diamMins) : dummyDeclutter2(data)

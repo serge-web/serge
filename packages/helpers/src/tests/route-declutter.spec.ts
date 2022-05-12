@@ -4,7 +4,7 @@
 import { forces, platformTypes } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
-import { routeDeclutter2, DeclutterData } from '../route-declutter'
+import { routeDeclutter, DeclutterData } from '../route-declutter'
 
 import { RouteStore, Route, RouteTurn, MapAnnotations } from '@serge/custom-types'
 import { Phase } from '@serge/config'
@@ -41,7 +41,7 @@ it('dont declutter last point on selected track', () => {
   expect(fisherLast).toBeTruthy()
 
   // ok, now de-clutter
-  const cleaned: DeclutterData = routeDeclutter2({ routes: store, markers: markers }, 0.5)
+  const cleaned: DeclutterData = routeDeclutter({ routes: store, markers: markers }, 0.5)
   expect(cleaned).toBeTruthy()
 
   // check dhow location & end of fisher planned match
@@ -94,7 +94,7 @@ it('declutter last point on un-selected track', () => {
   expect(fisherLast).toBeTruthy()
 
   // ok, now de-clutter
-  const cleaned: DeclutterData = routeDeclutter2({ routes: store, markers: markers }, 0.5)
+  const cleaned: DeclutterData = routeDeclutter({ routes: store, markers: markers }, 0.5)
   expect(cleaned).toBeTruthy()
 
   // check dhow location & end of fisher planned match

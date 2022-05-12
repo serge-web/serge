@@ -8,7 +8,7 @@ interface ClusterSetter {
   (newLoc: L.LatLng): void
 }
 
-interface Cluster2 {
+interface Cluster {
   /** the cell we're refering to */
   hex: string
   /** methods to update subject items */
@@ -23,8 +23,8 @@ interface Cluster2 {
   ids: Array<string>
 }
 
-const storeInCluster2 = (store: Array<Cluster2>, setter: ClusterSetter, position: string, id: string): void => {
-  let cluster: Cluster2 | undefined = store.find(cluster => cluster.hex === position)
+const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: string, id: string): void => {
+  let cluster: Cluster | undefined = store.find(cluster => cluster.hex === position)
   if (cluster === undefined) {
     cluster = {
       hex: position,
@@ -40,8 +40,8 @@ const storeInCluster2 = (store: Array<Cluster2>, setter: ClusterSetter, position
   }
 }
 
-const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: string | undefined): Array<Cluster2> => {
-  const res: Array<Cluster2> = []
+const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: string | undefined): Array<Cluster> => {
+  const res: Array<Cluster> = []
   // loop through store
   routes.routes.forEach((route: Route) => {
     // start with location
@@ -49,7 +49,7 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
-      storeInCluster2(res, updateAssetLocation, route.currentPosition, route.name + '_pos')
+      storeInCluster(res, updateAssetLocation, route.currentPosition, route.name + '_pos')
     }
 
     // we apply the same processing to planned and plannedTrimmed, so wrap
@@ -71,7 +71,7 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
               // this is the selected track, and we're on the last step of the last turn
               // so don't declutter it
             } else {
-              storeInCluster2(res, updateThisStep, thisPos, route.name + '_p_' + stepCtr)
+              storeInCluster(res, updateThisStep, thisPos, route.name + '_p_' + stepCtr)
             }
           }
         }
@@ -94,7 +94,7 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
               step.locations[ctr] = newLoc
             }
           }
-          storeInCluster2(res, updateThisStep, thisPos, route.name + '_h_' + ctr)
+          storeInCluster(res, updateThisStep, thisPos, route.name + '_h_' + ctr)
         }
       }
     })
@@ -106,15 +106,15 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
     const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
       marker.position = newLoc
     }
-    storeInCluster2(res, updateThisStep, thisPos, marker.uniqid)
+    storeInCluster(res, updateThisStep, thisPos, marker.uniqid)
   })
 
   return res
 }
 
 /** don't spread the clusters, just put them in the centre */
-const dummySpreadClusters2 = (clusters: Array<Cluster2>): void => {
-  clusters.forEach((cluster: Cluster2) => {
+const dummySpreadClusters = (clusters: Array<Cluster>): void => {
+  clusters.forEach((cluster: Cluster) => {
     if (cluster.setters.length > 1) {
       const centreArr = h3ToGeo(cluster.hex)
       const centre = L.latLng(centreArr[0], centreArr[1])
@@ -127,8 +127,8 @@ const dummySpreadClusters2 = (clusters: Array<Cluster2>): void => {
     }
   })
 }
-const spreadClusters2 = (clusters: Array<Cluster2>, tileDiameterMins: number): void => {
-  clusters.forEach((cluster: Cluster2) => {
+const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
+  clusters.forEach((cluster: Cluster) => {
     const len = cluster.ids.length
     if (len > 1) {
       const centreArr = h3ToGeo(cluster.hex)
@@ -153,8 +153,7 @@ export interface DeclutterData {
   markers: MapAnnotations
 }
 
-/** don't declutter the data, just put the markers at the centre of the cell */
-export const dummyDeclutter2 = (data: DeclutterData): DeclutterData => {
+const doDeclutter = (data: DeclutterData, dummy: boolean, tileDiameterMins?: number): DeclutterData => {
   // take deep copy
   const routes: RouteStore = cloneDeep(data.routes)
   const markers: MapAnnotations = cloneDeep(data.markers)
@@ -163,28 +162,24 @@ export const dummyDeclutter2 = (data: DeclutterData): DeclutterData => {
   const selected: string | undefined = routes.selected && routes.selected.uniqid
 
   // find all clusters
-  const clusters: Array<Cluster2> = findLocations2(routes, markers, selected)
+  const clusters: Array<Cluster> = findLocations(routes, markers, selected)
 
   // now spread out the clusters (note: we're already working with a clone)
-  dummySpreadClusters2(clusters)
+  if (dummy) {
+    dummySpreadClusters(clusters)
+  } else {
+    tileDiameterMins && spreadClusters(clusters, tileDiameterMins)
+  }
 
   return { routes: routes, markers: markers }
 }
 
+/** don't declutter the data, just put the markers at the centre of the cell */
+export const dummyDeclutter = (data: DeclutterData): DeclutterData => {
+  return doDeclutter(data, true)
+}
+
 /** declutter these map objects */
-export const routeDeclutter2 = (data: DeclutterData, tileDiameterMins: number): DeclutterData => {
-  // take deep copy
-  const routes: RouteStore = cloneDeep(data.routes)
-  const markers: MapAnnotations = cloneDeep(data.markers)
-
-  // get the id of the selected asset
-  const selected: string | undefined = routes.selected && routes.selected.uniqid
-
-  // find all clusters
-  const clusters: Array<Cluster2> = findLocations2(routes, markers, selected)
-
-  // now spread out the clusters (note: we're already working with a clone)
-  spreadClusters2(clusters, tileDiameterMins)
-
-  return { routes: routes, markers: markers }
+export const routeDeclutter = (data: DeclutterData, tileDiameterMins: number): DeclutterData => {
+  return doDeclutter(data, false, tileDiameterMins)
 }
