@@ -11,7 +11,6 @@ import { platformTypesByKey, localMappingConstraints, watuWargame } from '@serge
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
-
 it('Mapping renders correctly with HexGrid', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
