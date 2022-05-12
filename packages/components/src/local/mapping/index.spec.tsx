@@ -6,7 +6,10 @@ import Mapping from './index'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { forces, platformTypes, localMappingConstraints, platformTypesByKey } from '@serge/mocks'
+import { watuWargame, smallScaleMappingConstraints, platformTypesByKey } from '@serge/mocks'
+
+const forces = watuWargame.data.forces.forces
+const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 it('Mapping renders correctly', () => {
   const div = document.createElement('div')
@@ -15,7 +18,7 @@ it('Mapping renders correctly', () => {
   // Using enzyme's 'mount' to solve issues with Leaflet requiring access to the DOM and other features not
   // provided by react.render.
   const tree = mount(<Mapping
-    mappingConstraints = {localMappingConstraints}
+    mappingConstraints = {smallScaleMappingConstraints}
     forces = {forces}
     gameTurnTime = {72000}
     wargameInitiated = {true}

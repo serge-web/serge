@@ -274,6 +274,9 @@ export const Mapping: React.FC<PropTypes> = ({
       // sort out the cell diameter
       const cellRef = store.routes[0].currentPosition
       const cellRes = h3.h3GetResolution(cellRef)
+      if (cellRes === -1) {
+        console.warn('Unable to recognise resolution for cell', cellRef)
+      }
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)

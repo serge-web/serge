@@ -6,64 +6,10 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
-import { ForceData } from '@serge/custom-types'
+import { platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
 
-const forces: Array<ForceData> = [
-  {
-    color: '#FCFBEE',
-    dirty: false,
-    iconURL: 'images/default_img/umpireDefault.png',
-    name: 'White',
-    overview: 'Umpire force.',
-    roles: [
-      {
-        roleId: 'r12345GC',
-        isGameControl: true,
-        isInsightViewer: true,
-        isObserver: true,
-        name: 'Game Control',
-        isRFIManager: true
-      }
-    ],
-    umpire: true,
-    uniqid: 'umpire'
-  },
-  {
-    assets: [
-      {
-        name: 'HMS DEVONSHIRE',
-        contactId: 'C043',
-        condition: 'Full capability',
-        perceptions: [],
-        platformType: 'frigate',
-        platformTypeId: 'a3',
-        position: 'S23',
-        status: {
-          state: 'Transiting',
-          speedKts: 20
-        },
-        uniqid: 'a0pra00001'
-      }
-    ],
-    color: '#00F',
-    dirty: false,
-    iconURL: 'images/default_img/umpireDefault.png',
-    name: 'Blue',
-    overview: 'Blue force.',
-    roles: [
-      {
-        roleId: 'r12345CO',
-        isGameControl: false,
-        isInsightViewer: false,
-        isObserver: false,
-        name: 'CO'
-      }
-    ],
-    umpire: false,
-    uniqid: 'Blue'
-  }
-]
+const forces = watuWargame.data.forces.forces
+const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 it('Mapping renders correctly with AsseticonURL', () => {
   const div = document.createElement('div')
