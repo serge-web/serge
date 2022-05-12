@@ -3,25 +3,41 @@ import { RouteStore, Route, RouteTurn, MapAnnotations, MapAnnotation } from '@se
 import { cloneDeep } from 'lodash'
 import { h3ToGeo } from 'h3-js'
 
+/** signature of method to update location */
 interface ClusterSetter {
   (newLoc: L.LatLng): void
 }
 
 interface Cluster2 {
+  /** the cell we're refering to */
   hex: string
+  /** methods to update subject items */
   setters: Array<ClusterSetter>
+  /** indexes of features.  We need this because of
+   * special processing for planned turns. We both have a
+   * full plannedTurns and a plannedTurnsTrimmed, but
+   * will only ever display one of them. This makes
+   * it look like there are twice as many turns as we expect,
+   * which confuses the spacing algorithm
+   */
+  ids: Array<string>
 }
 
-const storeInCluster2 = (store: Array<Cluster2>, setter: ClusterSetter, position: string): void => {
+const storeInCluster2 = (store: Array<Cluster2>, setter: ClusterSetter, position: string, id: string): void => {
   let cluster: Cluster2 | undefined = store.find(cluster => cluster.hex === position)
   if (cluster === undefined) {
     cluster = {
       hex: position,
-      setters: []
+      setters: [],
+      ids: []
     }
     store.push(cluster)
   }
   cluster.setters.push(setter)
+  // only add the id if it isn't present
+  if (!cluster.ids.includes(id)) {
+    cluster.ids.push(id)
+  }
 }
 
 const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: string | undefined): Array<Cluster2> => {
@@ -33,15 +49,15 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
-      storeInCluster2(res, updateAssetLocation, route.currentPosition)
+      storeInCluster2(res, updateAssetLocation, route.currentPosition, route.name + '_pos')
     }
 
     // we apply the same processing to planned and plannedTrimmed, so wrap
     // it in a function
-    const tidyList = (route: RouteTurn[], uniqid: string) => {
-      const numSteps: number = route.length
+    const tidyList = (turns: RouteTurn[], uniqid: string) => {
+      const numSteps: number = turns.length
       for (let stepCtr = 0; stepCtr < numSteps; stepCtr++) {
-        const step: RouteTurn = route[stepCtr]
+        const step: RouteTurn = turns[stepCtr]
         if (step.locations && step.route) {
           const len = step.locations.length
           for (let ctr = 0; ctr < len; ctr++) {
@@ -55,7 +71,7 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
               // this is the selected track, and we're on the last step of the last turn
               // so don't declutter it
             } else {
-              storeInCluster2(res, updateThisStep, thisPos)
+              storeInCluster2(res, updateThisStep, thisPos, route.name + '_p_' + stepCtr)
             }
           }
         }
@@ -78,7 +94,7 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
               step.locations[ctr] = newLoc
             }
           }
-          storeInCluster2(res, updateThisStep, thisPos)
+          storeInCluster2(res, updateThisStep, thisPos, route.name + '_h_' + ctr)
         }
       }
     })
@@ -90,7 +106,7 @@ const findLocations2 = (routes: RouteStore, markers: MapAnnotations, selected: s
     const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
       marker.position = newLoc
     }
-    storeInCluster2(res, updateThisStep, thisPos)
+    storeInCluster2(res, updateThisStep, thisPos, marker.uniqid)
   })
 
   return res
@@ -113,12 +129,11 @@ const dummySpreadClusters2 = (clusters: Array<Cluster2>): void => {
 }
 const spreadClusters2 = (clusters: Array<Cluster2>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster2) => {
-    if (cluster.setters.length > 1) {
+    const len = cluster.ids.length
+    if (len > 1) {
       const centreArr = h3ToGeo(cluster.hex)
       const centre = L.latLng(centreArr[0], centreArr[1])
       const gridDelta = tileDiameterMins / 60 / 4
-      // ok, go for it
-      const len = cluster.setters.length
       // note: we start at 1, since we let the first one stay in the middle
       for (let ctr = 0; ctr < len; ctr++) {
         const thisAngleDegs = ctr * (360.0 / (len))
