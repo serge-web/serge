@@ -20,14 +20,14 @@
     "xml-js": "^1.6.11"
   },
   "resolutions": {
-    "@types/react": "^16.14.5"
+    "@types/react": "^16.14.5",
+    "node-sass": "^7.0.1"
   },
   "scripts": {
     "start": "yarn run-p start-*",
     "start-client": "lerna run start --scope @serge/client --stream",
     "start-server": "lerna run start --scope @serge/server --stream",
     "watch": "lerna run watch --stream",
-    "sass-watcher": "node scripts/sass-watcher.js",
     "rebuild": "yarn build && yarn start",
     "dev": "yarn component-dev & yarn start",
     "develop": "lerna run watch --scope @serge/config & lerna run watch --scope @serge/components & lerna run watch --scope @serge/helpers & lerna run develop --scope @serge/client --stream & yarn start-server",
@@ -37,7 +37,7 @@
     "lint": "lerna run lint --stream",
     "storybook": "lerna run storybook --scope @serge/components --stream",
     "build-storybook": "lerna run build-storybook --scope @serge/components --stream",
-    "build": "yarn sass-watcher & lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream",
+    "build": "lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream",
     "pkg-build": "yarn build && lerna run start --scope @serge/executable --stream",
     "component-build": "lerna run build --scope @serge/components --stream",
     "component-dev": "yarn component-build & lerna run watch --parallel --scope @serge/components",
