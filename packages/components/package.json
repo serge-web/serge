@@ -9,6 +9,7 @@
     "build": "rimraf build && yarn copy && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup",
     "watch": "run-p watch:*",
     "watch:ts": "tsc --watch",
+    "watch:style": "sass-watcher ./src -o ./build --watch --ext scss",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "copy-assets": "copyfiles -u 4 src/local/asset-icon/counters/*.svg ../client/public/assets/counters",
     "copy-assets-storybook": "copyfiles -u 4 src/local/asset-icon/counters/*.svg static/assets/counters",
