@@ -90,7 +90,6 @@ const Template: Story<StoryPropTypes> = (args) => {
   const declutter = (data: DeclutterData, diamMins: number): DeclutterData => {
     return doDeclutter ? routeDeclutter2(data, diamMins) : dummyDeclutter2(data)
   }
-  console.log('do declutter', doDeclutter)
   return (
     <Mapping
       declutter={declutter}
@@ -104,7 +103,7 @@ const timeStep = (overview.gameTurnTime as MilliTurns).millis
 
 // mangle the data - to cause requirement for declutter
 const sameLoc = forces[1].assets && forces[1].assets[0].position
-if(sameLoc) {
+if (sameLoc) {
   annotations[1].location = sameLoc
   if (forces[1].assets) {
     forces[1].assets[1].position = sameLoc
@@ -123,7 +122,7 @@ NaturalEarth.args = {
   platforms: platformTypes,
   infoMarkers: annotations,
   wargameInitiated: true,
-  playerForce:forces[0].uniqid,
+  playerForce: forces[0].uniqid,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: true,
@@ -136,4 +135,3 @@ NaturalEarth.args = {
     </>
   )
 }
-

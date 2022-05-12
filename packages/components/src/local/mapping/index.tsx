@@ -269,7 +269,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const declutterRouteStore = (store: RouteStore): void => {
     if (mappingConstraintState) {
-      const clutterFunc = declutter ? declutter : routeDeclutter2
+      const clutterFunc = declutter || routeDeclutter2
       const data: DeclutterData = { routes: store, markers: infoMarkersState }
       // sort out the cell diameter
       const cellRef = store.routes[0].currentPosition
