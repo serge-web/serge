@@ -160,7 +160,18 @@ const wargame: Wargame = {
                                         "state": "Transiting"
                                     },
                                     "turn": 1
+                                },
+                                {
+                                    "route": [
+                                        "8918a84db33ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 5,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 2
                                 }
+
                             ],
                             "platformTypeId": "a6",
                             "attributeValues": [
@@ -212,7 +223,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformTypeId": "a8",
-                            "position": "8918aab663bffff",
+                            "position": "8918aab7547ffff",
                             "uniqid": "a0prbr1141"
                         },
                         {
