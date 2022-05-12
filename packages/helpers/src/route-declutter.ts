@@ -13,31 +13,18 @@ interface Cluster {
   hex: string
   /** methods to update subject items */
   setters: Array<ClusterSetter>
-  /** indexes of features.  We need this because of
-   * special processing for planned turns. We both have a
-   * full plannedTurns and a plannedTurnsTrimmed, but
-   * will only ever display one of them. This makes
-   * it look like there are twice as many turns as we expect,
-   * which confuses the spacing algorithm
-   */
-  ids: Array<string>
 }
 
-const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: string, id: string): void => {
+const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: string): void => {
   let cluster: Cluster | undefined = store.find(cluster => cluster.hex === position)
   if (cluster === undefined) {
     cluster = {
       hex: position,
-      setters: [],
-      ids: []
+      setters: []
     }
     store.push(cluster)
   }
   cluster.setters.push(setter)
-  // only add the id if it isn't present
-  if (!cluster.ids.includes(id)) {
-    cluster.ids.push(id)
-  }
 }
 
 const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: string | undefined): Array<Cluster> => {
@@ -49,7 +36,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
-      storeInCluster(res, updateAssetLocation, route.currentPosition, route.name + '_pos')
+      storeInCluster(res, updateAssetLocation, route.currentPosition)
     }
 
     // we apply the same processing to planned and plannedTrimmed, so wrap
@@ -71,7 +58,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
               // this is the selected track, and we're on the last step of the last turn
               // so don't declutter it
             } else {
-              storeInCluster(res, updateThisStep, thisPos, route.name + '_p_' + stepCtr)
+              storeInCluster(res, updateThisStep, thisPos)
             }
           }
         }
@@ -94,7 +81,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
               step.locations[ctr] = newLoc
             }
           }
-          storeInCluster(res, updateThisStep, thisPos, route.name + '_h_' + ctr)
+          storeInCluster(res, updateThisStep, thisPos)
         }
       }
     })
@@ -106,7 +93,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
     const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
       marker.position = newLoc
     }
-    storeInCluster(res, updateThisStep, thisPos, marker.uniqid)
+    storeInCluster(res, updateThisStep, thisPos)
   })
 
   return res
@@ -129,7 +116,7 @@ const dummySpreadClusters = (clusters: Array<Cluster>): void => {
 }
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
-    const len = cluster.ids.length
+    const len = cluster.setters.length
     if (len > 1) {
       const centreArr = h3ToGeo(cluster.hex)
       const centre = L.latLng(centreArr[0], centreArr[1])
