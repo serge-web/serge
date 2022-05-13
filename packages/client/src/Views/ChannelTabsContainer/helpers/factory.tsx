@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelTypes, ChannelUI } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelTypes, ChannelUI, ChannelMapping } from '@serge/custom-types'
 import {
   FORCE_LAYDOWN,
   PERCEPTION_OF_CONTACT,
@@ -140,7 +140,7 @@ const factory = (state: PlayerUi): Factory => {
     // note: we have to convert the bounds that comes from the database
     // from a number array to a Leaflet bounds object.
     // Render the map
-    const renderMap = (channelid: string) => <Mapping
+    const renderMap = (channelid: string, channel?: ChannelMapping) => <Mapping
       mappingConstraints={mappingConstraints}
       forces={state.allForces}
       mapBar={true}
@@ -152,6 +152,7 @@ const factory = (state: PlayerUi): Factory => {
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       canSubmitOrders={canSubmitOrders}
       channelID={channelid}
+      channel={channel}
       mapPostBack={mapPostBack}
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
@@ -184,7 +185,7 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_CHAT:
           return <ChatChannel channelId={matchedChannel[0]} />
         case CHANNEL_MAPPING:
-          return renderMap(node.getId())
+          return renderMap(node.getId(), matchedChannel[1].cData as ChannelMapping)
         case CHANNEL_CUSTOM:
           return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
         default:
@@ -192,7 +193,7 @@ const factory = (state: PlayerUi): Factory => {
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {
-        return renderMap(node.getId())
+        return renderMap(node.getId(), undefined)
       } else if (matchedChannel.length) {
         // find out if channel just contains chat template
         if (isChatChannel(channelDefinition)) {

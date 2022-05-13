@@ -1,6 +1,7 @@
 import Role from './role'
 import ForceData from './force-data'
-import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from '@serge/config'
+import { CONTROL_ALL, CONTROL_NONE, CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from '@serge/config'
+import Asset from './asset'
 
 export interface ParticipantTemplate {
   _id: string,
@@ -35,7 +36,11 @@ export interface ParticipantChat extends CoreParticipant {
 /** participation in mapping channels */
 export interface ParticipantMapping extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_MAPPING
-  // TODO: add properties such as `can submit orders` or `can adjudicate`
+  /** the assets from this force which this participant controls,
+   * or "All" value to control all not otherwise controlled.
+   * Leaving the array empty means the player has read-only access
+   */
+  controls?: Array<Asset['uniqid']> | typeof CONTROL_ALL | typeof CONTROL_NONE
 }
 
 /** participation in collaborative editing channels */

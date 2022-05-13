@@ -144,6 +144,12 @@ export const settings = 'settings'
 // default name for role name
 export const NEW_ROLE = 'New Role'
 
+/** flag to indicate a role can control all assets */
+export const CONTROL_ALL = 'control-all'
+
+/** flag to indicate a role can control no assets */
+export const CONTROL_NONE = 'control-none'
+
 // 
 /** there has been some user interaction, so log the current time
  * The storage we're using is shared across browser tabs, so previously

@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -98,6 +98,10 @@ export default interface PropTypes {
    * The channel ID passed down from the client application (optional)
    */
   channelID?: string | number
+  /** details of the channel (used to determine
+   * whco can provide plans) 
+   */
+  channel?: ChannelMapping
   /**
    * The method for posting messages out of the mapping component
    */
