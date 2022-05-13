@@ -275,7 +275,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset, viewAsForce])
 
   const declutterRouteStore = (store: RouteStore): void => {
-    if (mappingConstraintState) {
+    if (store.routes.length) {
       const clutterFunc = declutter || routeDeclutter2
 
       const data: DeclutterData = { routes: store, markers: infoMarkersState }
@@ -288,9 +288,9 @@ export const Mapping: React.FC<PropTypes> = ({
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
-
+  
       setViewAsRouteStore(declutteredData.routes)
-      setInfoMarkersState(declutteredData.markers)
+      setInfoMarkersState(declutteredData.markers)  
     }
   }
 
