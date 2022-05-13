@@ -8,7 +8,7 @@ import Mapping from '../mapping'
 import MapBar from '.'
 
 /* Import mock data */
-import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
+import { forces, platformTypes, localMappingConstraints } from '@serge/mocks'
 
 it('Mapping renders correctly with AssetIcon', () => {
   const div = document.createElement('div')
@@ -23,7 +23,6 @@ it('Mapping renders correctly with AssetIcon', () => {
     wargameInitiated = {true}
     platforms = {platformTypes}
     infoMarkers={[]}
-    platformTypesByKey = {platformTypesByKey}
     playerForce = 'blue'
     canSubmitOrders = {false}
     phase={Phase.Planning}

@@ -6,7 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
+import { localMappingConstraints, watuWargame } from '@serge/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
@@ -28,7 +28,6 @@ it('Mapping renders correctly with HexGrid', () => {
     canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={5}
-    platformTypesByKey={platformTypesByKey}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

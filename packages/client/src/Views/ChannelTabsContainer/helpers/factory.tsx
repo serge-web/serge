@@ -155,7 +155,6 @@ const factory = (state: PlayerUi): Factory => {
       mapPostBack={mapPostBack}
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
-      platformTypesByKey={state.allPlatformTypesByKey}
     >
       <InfoMarkers/>
       <Assets />

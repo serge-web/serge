@@ -6,7 +6,7 @@ import Mapping from './index'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { watuWargame, smallScaleMappingConstraints, platformTypesByKey } from '@serge/mocks'
+import { watuWargame, smallScaleMappingConstraints } from '@serge/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
@@ -26,7 +26,6 @@ it('Mapping renders correctly', () => {
     infoMarkers={[]}
     canSubmitOrders = {true}
     platforms = {platformTypes}
-    platformTypesByKey={platformTypesByKey}
     phase = {Phase.Planning}
     turnNumber = {4}
   />, { attachTo: div })

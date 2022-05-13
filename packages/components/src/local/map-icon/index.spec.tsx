@@ -1,7 +1,7 @@
 /* global it expect */
 import { Phase } from '@serge/config'
 /* Import mock data */
-import { forces, localMappingConstraints, platformTypes, platformTypesByKey } from '@serge/mocks'
+import { forces, localMappingConstraints, platformTypes } from '@serge/mocks'
 import { mount } from 'enzyme'
 import L from 'leaflet'
 import React from 'react'
@@ -21,7 +21,6 @@ it('Mapping renders correctly with AssetIcon', () => {
     infoMarkers={[]}
     wargameInitiated={true}
     platforms={platformTypes}
-    platformTypesByKey={platformTypesByKey}
     playerForce='blue'
     canSubmitOrders={true}
     phase={Phase.Planning}

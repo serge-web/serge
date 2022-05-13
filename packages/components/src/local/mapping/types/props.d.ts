@@ -27,11 +27,6 @@ export default interface PropTypes {
    * use `findPlatformTypeFor` method to retrieve platform type
    */
   platforms: PlatformTypeData[]
-  /**
-   * platforms for this wargame
-   * @deprecated - just stick with array
-   */
-  platformTypesByKey: { [property: string]: PlatformTypeData}
   /** current player's force (force-id)
    *
   */

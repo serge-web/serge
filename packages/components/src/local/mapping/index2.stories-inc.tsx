@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 /* Import mock data */
-import { platformTypes, preInitialisedForces, localMappingConstraints, platformTypesByKey } from '@serge/mocks'
+import { platformTypes, preInitialisedForces, localMappingConstraints } from '@serge/mocks'
 
 import { deepCopy } from '@serge/helpers'
 
@@ -122,7 +122,6 @@ Default.args = {
   playerForce: 'Blue',
   canSubmitOrders: false,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   phase: Phase.Adjudication,
   turnNumber: 5,
   mapBar: true

@@ -80,8 +80,7 @@ export { default as usePrevious } from './use-previous'
 export { default as visibleTo } from './visible-to'
 export { default as generateHashCode } from './generate-hash-code'
 export {
-  createAssetBasedOnPlatformType,
-  platformTypeNameToKey
+  createAssetBasedOnPlatformType
 } from './create-asset-based-on-platform-type'
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
