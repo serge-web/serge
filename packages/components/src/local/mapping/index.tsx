@@ -92,6 +92,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   channelID,
+  channel,
   mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => { console.log('mapPostBack', messageType, channelID, payload) },
   declutter,
   children,
@@ -100,6 +101,7 @@ export const Mapping: React.FC<PropTypes> = ({
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
   const [infoMarkersState, setInfoMarkersState] = useState<MapAnnotations>(infoMarkers)
+  const [visibleInfoMarkers, setVisibleInfoMarkers] = useState<MapAnnotations>([])
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [selectedMarker, setSelectedMarker] = useState<MapAnnotation['uniqid'] | undefined>(undefined)
@@ -237,6 +239,20 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [forces])
 
+  const filterMarkers = (markers: MapAnnotations, playerForce: string, viewAsForce: string): MapAnnotations => {
+    const force = playerForce === UMPIRE_FORCE ? viewAsForce : playerForce
+    if (viewAsForce === UMPIRE_FORCE) {
+      return markers
+    } else {
+      return markers.filter((marker: MapAnnotation) => marker.visibleTo.includes(force))
+    }
+  }
+
+  /** control which markers are visible */
+  useEffect(() => {
+    const markers = filterMarkers(infoMarkersState, playerForce, viewAsForce)
+    setVisibleInfoMarkers(markers)
+  }, [infoMarkersState, viewAsForce, playerForce])
   /**
    * generate the set of routes visible to this player, for display
    * in the Force Overview panel
@@ -245,38 +261,20 @@ export const Mapping: React.FC<PropTypes> = ({
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
+      console.log('mapping route store')
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
+      const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
-      setRouteStore(store)
+      declutterRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
-
-  /**
-   * generate the set of routes visible to this player, for display
-   * in the Force Overview panel
-   */
-  useEffect(() => {
-    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
-    // we modify the routeStore
-    if (forcesState && h3gridCells && routeStore.routes.length) {
-      // if this is umpire and we have view as
-      if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
-        // ok, produce customised version
-        const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, viewAsForce, platforms,
-          filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
-        declutterRouteStore(vStore)
-      } else {
-        // just use normal route store
-        declutterRouteStore(routeStore)
-      }
-    }
-  }, [routeStore, viewAsForce])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset, viewAsForce])
 
   const declutterRouteStore = (store: RouteStore): void => {
     if (mappingConstraintState) {
       const clutterFunc = declutter || routeDeclutter2
+
+
       const data: DeclutterData = { routes: store, markers: infoMarkersState }
       // sort out the cell diameter
       const cellRef = store.routes[0].currentPosition
@@ -287,6 +285,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
+      
       setViewAsRouteStore(declutteredData.routes)
       setInfoMarkersState(declutteredData.markers)
     }
@@ -705,7 +704,7 @@ export const Mapping: React.FC<PropTypes> = ({
     h3gridCells,
     h3Resolution,
     forces: forcesState,
-    infoMarkers: infoMarkersState,
+    infoMarkers: visibleInfoMarkers,
     markerIcons: markerIcons,
     platforms,
     playerForce,
