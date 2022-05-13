@@ -131,6 +131,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
 
+  console.log('delete me', channel)
+
   // only update bounds if they're different to the current one
   useEffect(() => {
     if (mappingConstraintState) {
@@ -276,7 +278,6 @@ export const Mapping: React.FC<PropTypes> = ({
     if (mappingConstraintState) {
       const clutterFunc = declutter || routeDeclutter2
 
-
       const data: DeclutterData = { routes: store, markers: infoMarkersState }
       // sort out the cell diameter
       const cellRef = store.routes[0].currentPosition
@@ -287,7 +288,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
-      
+
       setViewAsRouteStore(declutteredData.routes)
       setInfoMarkersState(declutteredData.markers)
     }

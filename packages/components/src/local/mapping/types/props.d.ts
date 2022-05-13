@@ -99,7 +99,7 @@ export default interface PropTypes {
    */
   channelID?: string | number
   /** details of the channel (used to determine
-   * whco can provide plans) 
+   * whco can provide plans)
    */
   channel?: ChannelMapping
   /**
