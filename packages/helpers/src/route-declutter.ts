@@ -8,23 +8,42 @@ interface ClusterSetter {
   (newLoc: L.LatLng): void
 }
 
+interface IndexedSetter {
+  index: string
+  setter: ClusterSetter
+}
+
+
 interface Cluster {
   /** the cell we're refering to */
   hex: string
   /** methods to update subject items */
-  setters: Array<ClusterSetter>
+  setters: Array<IndexedSetter>
+  /** indexes of features.  We need this because of
+   * special processing for planned turns. We both have a
+   * full plannedTurns and a plannedTurnsTrimmed, but
+   * will only ever display one of them. This makes
+   * it look like there are twice as many turns as we expect,
+   * which confuses the spacing algorithm
+   */
+  ids: Array<string>
 }
 
-const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: string): void => {
+const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: string, id: string): void => {
   let cluster: Cluster | undefined = store.find(cluster => cluster.hex === position)
   if (cluster === undefined) {
     cluster = {
       hex: position,
-      setters: []
+      setters: [],
+      ids: []
     }
     store.push(cluster)
   }
-  cluster.setters.push(setter)
+  cluster.setters.push({ index: id, setter: setter })
+  // only add the id if it isn't present
+  if (!cluster.ids.includes(id)) {
+    cluster.ids.push(id)
+  }
 }
 
 const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: string | undefined): Array<Cluster> => {
@@ -36,7 +55,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
-      storeInCluster(res, updateAssetLocation, route.currentPosition)
+      storeInCluster(res, updateAssetLocation, route.currentPosition, route.name + '_pos')
     }
 
     // we apply the same processing to planned and plannedTrimmed, so wrap
@@ -58,7 +77,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
               // this is the selected track, and we're on the last step of the last turn
               // so don't declutter it
             } else {
-              storeInCluster(res, updateThisStep, thisPos)
+              storeInCluster(res, updateThisStep, thisPos, route.name + '_p_' + stepCtr)
             }
           }
         }
@@ -81,7 +100,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
               step.locations[ctr] = newLoc
             }
           }
-          storeInCluster(res, updateThisStep, thisPos)
+          storeInCluster(res, updateThisStep, thisPos, route.name + '_h_' + ctr)
         }
       }
     })
@@ -93,7 +112,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
     const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
       marker.position = newLoc
     }
-    storeInCluster(res, updateThisStep, thisPos)
+    storeInCluster(res, updateThisStep, thisPos, marker.uniqid)
   })
 
   return res
@@ -109,26 +128,29 @@ const dummySpreadClusters = (clusters: Array<Cluster>): void => {
       const len = cluster.setters.length
       // note: we start at 1, since we let the first one stay in the middle
       for (let ctr = 0; ctr < len; ctr++) {
-        cluster.setters[ctr](centre)
+        cluster.setters[ctr].setter(centre)
       }
     }
   })
 }
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
-    const len = cluster.setters.length
-    if (len > 1) {
+    const idLen = cluster.ids.length
+    if (idLen > 1) {
       const centreArr = h3ToGeo(cluster.hex)
       const centre = L.latLng(centreArr[0], centreArr[1])
       const gridDelta = tileDiameterMins / 60 / 4
       // note: we start at 1, since we let the first one stay in the middle
-      for (let ctr = 0; ctr < len; ctr++) {
-        const thisAngleDegs = ctr * (360.0 / (len))
+      for (let ctr = 0; ctr < idLen; ctr++) {
+        const thisAngleDegs = ctr * (360.0 / (idLen))
         const thisAngleRads = (thisAngleDegs) / 180 * Math.PI
         const newLat = centre.lat + gridDelta * Math.sin(thisAngleRads)
         const newLng = centre.lng + gridDelta * Math.cos(thisAngleRads)
         const newLoc = L.latLng(newLat, newLng)
-        cluster.setters[ctr](newLoc)
+        // get setters with this id
+        const thisId = cluster.ids[ctr]
+        const setters = cluster.setters.filter((setter: IndexedSetter) => setter.index === thisId)
+        setters.forEach((setter: IndexedSetter) => setter.setter(newLoc))
       }
     }
   })

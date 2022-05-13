@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { DeclutterData, deepCopy, dummyDeclutter2, platformTypeNameToKey, routeDeclutter2 } from '@serge/helpers'
-import { MappingConstraints, MilliTurns, PlatformTypeData } from '@serge/custom-types'
+import { DeclutterData, deepCopy, dummyDeclutter2, routeDeclutter2 } from '@serge/helpers'
+import { MappingConstraints, MilliTurns } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -25,11 +25,6 @@ const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
-
-const platformTypesByKey = {}
-platformTypes.forEach((plat: PlatformTypeData) => {
-  platformTypesByKey[platformTypeNameToKey(plat.name)] = plat
-})
 
 async function fetchMock (): Promise<any> {
   return {
@@ -117,7 +112,6 @@ NaturalEarth.args = {
   forces: forces,
   gameTurnTime: timeStep,
   canSubmitOrders: true,
-  platformTypesByKey: platformTypesByKey,
   platforms: platformTypes,
   infoMarkers: annotations,
   wargameInitiated: true,
