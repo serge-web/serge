@@ -6,12 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-<<<<<<< HEAD
-import { platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
-=======
-import { platformTypes, localMappingConstraints } from '@serge/mocks'
-import { ForceData } from '@serge/custom-types'
->>>>>>> develop
+import { localMappingConstraints, watuWargame } from '@serge/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
