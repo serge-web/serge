@@ -1,12 +1,7 @@
-import { kebabCase } from 'lodash'
 import { Asset, AttributeTypes, NumberAttributeType, NumberAttributeValue, PlatformTypeData } from '@serge/custom-types'
 import uniqid from 'uniqid'
 import generateHashCode from './generate-hash-code'
 import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-
-export const platformTypeNameToKey = (name: string): string => {
-  return kebabCase(name.toLowerCase())
-}
 
 export const generateAssetId = (): string => {
   return 'a' + uniqid.time()

@@ -8,7 +8,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { forces, platformTypes, platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
+import { forces, platformTypes, localMappingConstraints, watuWargame } from '@serge/mocks'
 import { MapAnnotation } from '@serge/custom-types'
 import { h3ToGeo } from 'h3-js'
 
@@ -30,7 +30,6 @@ it('Mapping renders correctly with AssetIcon', () => {
     wargameInitiated = {true}
     platforms = {platformTypes}
     infoMarkers={[]}
-    platformTypesByKey={platformTypesByKey}
     playerForce = 'blue'
     canSubmitOrders = {true}
     phase = {Phase.Planning}

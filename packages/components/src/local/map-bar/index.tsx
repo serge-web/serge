@@ -67,7 +67,6 @@ export const MapBar: React.FC = () => {
     canSubmitOrders,
     phase,
     platforms,
-    platformTypesByKey,
     forces,
     showMapBar,
     turnNumber,
@@ -420,7 +419,6 @@ export const MapBar: React.FC = () => {
           <WorldState
             name={stateFormTitle}
             phase={phase}
-            platformTypesByKey={platformTypesByKey}
             isUmpire={playerForce === UMPIRE_FORCE}
             playerForce={playerForce}
             infoMarkers={infoMarkers}

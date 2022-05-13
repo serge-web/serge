@@ -6,7 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { platformTypes, platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
+import { platformTypes, localMappingConstraints, watuWargame } from '@serge/mocks'
 import InfoMarkers from '.'
 
 const forces = watuWargame.data.forces.forces
@@ -28,7 +28,6 @@ it('Mapping renders correctly with AsseticonURL', () => {
     playerForce="Blue"
     phase={Phase.Planning}
     turnNumber={5}
-    platformTypesByKey={platformTypesByKey}
     infoMarkers={markers}
   ><InfoMarkers/></Mapping>, { attachTo: div })
 
