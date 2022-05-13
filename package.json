@@ -20,7 +20,8 @@
     "xml-js": "^1.6.11"
   },
   "resolutions": {
-    "@types/react": "^16.14.5"
+    "@types/react": "^16.14.5",
+    "node-sass": "^7.0.1"
   },
   "scripts": {
     "start": "yarn run-p start-*",
