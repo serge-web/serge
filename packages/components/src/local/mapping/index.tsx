@@ -239,6 +239,9 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [forces])
 
+  /** convenience function to filter info markers to those
+   * visible for the player force (or view-as-force)
+   */
   const filterMarkers = (markers: MapAnnotations, playerForce: string, viewAsForce: string): MapAnnotations => {
     const force = playerForce === UMPIRE_FORCE ? viewAsForce : playerForce
     if (viewAsForce === UMPIRE_FORCE) {
@@ -261,7 +264,6 @@ export const Mapping: React.FC<PropTypes> = ({
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
-      console.log('mapping route store')
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse,
