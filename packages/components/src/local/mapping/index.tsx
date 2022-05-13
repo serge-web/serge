@@ -288,9 +288,9 @@ export const Mapping: React.FC<PropTypes> = ({
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
-  
+
       setViewAsRouteStore(declutteredData.routes)
-      setInfoMarkersState(declutteredData.markers)  
+      setInfoMarkersState(declutteredData.markers)
     }
   }
 
