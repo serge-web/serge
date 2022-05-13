@@ -13,9 +13,9 @@ it('Provides valid planned markers for multi-point planned route without filter'
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
+  if (route && route.currentLocation2) {
     let turnToDelete = 0
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.planned)
     expect(data.turnEnds.length).toEqual(5)
     const clearTurn = (turnNumber: number): void => {
       turnToDelete = turnNumber

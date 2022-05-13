@@ -15,8 +15,8 @@ it('Provides valid history for single-point history with filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
+  if (route && route.currentLocation2) {
+    const data: RouteData = historicRoutesFor(route.currentLocation2, route.history)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -30,8 +30,8 @@ it('Provides valid history for multi-point history with filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
+  if (route && route.currentLocation2) {
+    const data: RouteData = historicRoutesFor(route.currentLocation2, route.history)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -45,8 +45,8 @@ it('Provides valid history for single-point history without filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
+  if (route && route.currentLocation2) {
+    const data: RouteData = historicRoutesFor(route.currentLocation2, route.history)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)
     expect(data.turnEnds[0].current.pos.lng).toEqual(lngVal)
@@ -60,8 +60,8 @@ it('Provides valid history for multi-point history without filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
-    const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
+  if (route && route.currentLocation2) {
+    const data: RouteData = historicRoutesFor(route.currentLocation2, route.history)
 
     expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(latVal)

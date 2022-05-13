@@ -17,6 +17,10 @@ export interface MapAnnotation {
    * 
    */
   location: string
+  /** position of marker(populated at 
+   * runtime by serge) 
+   */
+  position?: L.LatLng 
   /* which forces see this label 
    * uniqid
    */

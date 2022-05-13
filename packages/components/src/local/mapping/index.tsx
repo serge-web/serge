@@ -17,7 +17,6 @@ import { createGridH3 } from './helpers/h3-helpers'
 import {
   roundToNearest,
   routeCreateStore,
-  routeDeclutter,
   routeAddSteps,
   routeSetCurrent,
   routeGetLatestPosition,
@@ -26,7 +25,9 @@ import {
   findAsset,
   routeSetLaydown,
   enumFromString,
-  turnTimeAsMillis
+  turnTimeAsMillis,
+  routeDeclutter2,
+  DeclutterData
 } from '@serge/helpers'
 
 /* Import Types */
@@ -92,6 +93,7 @@ export const Mapping: React.FC<PropTypes> = ({
   planningConstraintsProp,
   channelID,
   mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => { console.log('mapPostBack', messageType, channelID, payload) },
+  declutter,
   children,
   fetchOverride
 }) => {
@@ -274,8 +276,19 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const declutterRouteStore = (store: RouteStore): void => {
     if (mappingConstraintState) {
-      const declutteredStore = routeDeclutter(store, mappingConstraintState.tileDiameterMins)
-      setViewAsRouteStore(declutteredStore)
+      const clutterFunc = declutter || routeDeclutter2
+      const data: DeclutterData = { routes: store, markers: infoMarkersState }
+      // sort out the cell diameter
+      const cellRef = store.routes[0].currentPosition
+      const cellRes = h3.h3GetResolution(cellRef)
+      if (cellRes === -1) {
+        console.warn('Unable to recognise resolution for cell', cellRef)
+      }
+      const edgeLengthM = h3.edgeLength(cellRes, 'm')
+      const diamMins = edgeLengthM / 1852.0 * 2
+      const declutteredData: DeclutterData = clutterFunc(data, diamMins)
+      setViewAsRouteStore(declutteredData.routes)
+      setInfoMarkersState(declutteredData.markers)
     }
   }
 

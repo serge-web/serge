@@ -156,8 +156,8 @@ const factory = (state: PlayerUi): Factory => {
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
     >
-      <Assets />
       <InfoMarkers/>
+      <Assets />
       <HexGrid />
     </Mapping>
 

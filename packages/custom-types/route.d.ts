@@ -58,8 +58,10 @@ export default interface Route {
   currentStatus: RouteStatus,
   /** current position of this asset */
   currentPosition: string,
-  /** current position of this asset */
-  currentLocation: L.LatLng | undefined,
+  /** current position of this asset
+   * populated in the `declutter` phase
+   */
+  currentLocation2?: L.LatLng | undefined,
   /** original position, used to determine if moved in force laydown */
   originalPosition?: string,
   /** status of laydown */
