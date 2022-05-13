@@ -37,8 +37,6 @@ import {
 } from '../../consts'
 import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
-import { platformTypeNameToKey } from '@serge/helpers'
-
 export const initialState: PlayerUi = {
   selectedForce: undefined,
   selectedRole: '',
@@ -71,7 +69,6 @@ export const initialState: PlayerUi = {
   markerIcons: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
-  allPlatformTypesByKey: {},
   showObjective: false,
   updateMessageState: false,
   wargameInitiated: false,
@@ -133,21 +130,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       if (data.platform_types) {
         // @ts-ignore
         newState.allPlatformTypes = data.platform_types.platformTypes
-        newState.allPlatformTypesByKey = {}
-        // @ts-ignore
-        for (const platformType of data.platform_types.platformTypes) {
-          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
-        }
       }
       // TODO: remove this ^^
 
       if (data.platformTypes) {
         newState.allPlatformTypes = data.platformTypes.platformTypes
-        // don't need any more to do loop find when we need to get platformType based on Asset.platformType
-        newState.allPlatformTypesByKey = {}
-        for (const platformType of data.platformTypes.platformTypes) {
-          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
-        }
       }
       getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break

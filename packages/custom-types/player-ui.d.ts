@@ -58,14 +58,9 @@ export default interface PlayerUi {
   allForces: Array<ForceData>,
   allTemplatesByKey: TemplateBodysByKey,
   /** descriptions of platforms available in current wargame */
-  /**
-   * @deprecated allPlatformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+  /*
    */
   allPlatformTypes: Array<PlatformTypeData>,
-  /** descriptions of platforms available in current wargame easy access by [platformType.name]: PlatformType */
-  allPlatformTypesByKey: {
-    [property: string]: PlatformTypeData
-  }
   showObjective: boolean,
   updateMessageState: boolean,
   /** whether wargame changes stored as new documents (true) or whether

@@ -27,11 +27,6 @@ export default interface MappingContext {
    */
   platforms: PlatformTypeData[]
   /**
-   * object of platforms within this wargame by Asset.platformType keys
-   * @deprecate it, we're indexing by type-name, which could change.
-   */
-  platformTypesByKey: { [property: string]: PlatformTypeData }
-  /**
    * force for current player
    */
   playerForce: ForceData['uniqid']

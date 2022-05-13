@@ -2,7 +2,7 @@
 import { Domain, Phase } from '@serge/config'
 import { MappingConstraints, MessageMap } from '@serge/custom-types'
 /* Import mock data */
-import { forces, localMappingConstraints, platformTypes, platformTypesByKey, smallForces } from '@serge/mocks'
+import { forces, localMappingConstraints, platformTypes, smallForces } from '@serge/mocks'
 import { boolean } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import L from 'leaflet'
@@ -179,7 +179,6 @@ Default.args = {
   gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: false
@@ -194,7 +193,6 @@ WithMapBar.args = {
   gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   phase: Phase.Adjudication,
   turnNumber: 5
 }
@@ -212,7 +210,6 @@ WithMarker.args = {
   canSubmitOrders: false,
   mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   gameTurnTime: 72000,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -252,7 +249,6 @@ WithAssets.args = {
   forces: forces,
   platforms: platformTypes,
   mappingConstraints: localMappingConstraints,
-  platformTypesByKey: platformTypesByKey,
   turnNumber: 2,
   mapPostBack: mapPostBack,
   children: (
@@ -271,7 +267,6 @@ WithLimitedAssets.args = {
   forces: smallForces,
   platforms: platformTypes,
   mappingConstraints: localMappingConstraints,
-  platformTypesByKey: platformTypesByKey,
   turnNumber: 2,
   mapPostBack: mapPostBack,
   children: (
@@ -291,7 +286,6 @@ WithGrid.args = {
   forces: forces,
   platforms: platformTypes,
   mappingConstraints: localMappingConstraints,
-  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
   playerForce: 'Blue',
@@ -329,7 +323,6 @@ OpenStreetMap.args = {
   playerForce: 'Blue',
   canSubmitOrders: false,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: false
@@ -345,7 +338,6 @@ WithPhases.args = {
   canSubmitOrders: false,
   mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   mapPostBack: mapPostBack,
   turnNumber: 5,
   children: <Assets />
