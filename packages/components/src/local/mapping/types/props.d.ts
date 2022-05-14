@@ -27,11 +27,6 @@ export default interface PropTypes {
    * use `findPlatformTypeFor` method to retrieve platform type
    */
   platforms: PlatformTypeData[]
-  /**
-   * platforms for this wargame
-   * @deprecated - just stick with array
-   */
-  platformTypesByKey: { [property: string]: PlatformTypeData}
   /** current player's force (force-id)
    *
   */
@@ -119,4 +114,8 @@ export default interface PropTypes {
    * API call when running from StoryBook
    */
   fetchOverride? : {(url: string): any}
-}
+  /** declutter method to use. This allows us to
+   * disable for testing
+   */
+  declutter? : {(data: DeclutterData, diamMins: number): DeclutterData}
+  }

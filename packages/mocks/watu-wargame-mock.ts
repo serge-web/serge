@@ -153,14 +153,25 @@ const wargame: Wargame = {
                             "plannedTurns": [
                                 {
                                     "route": [
-                                        "8918aab709bffff"
+                                        "8918a84db3bffff"
                                     ],
                                     "status": {
                                         "speedKts": 20,
                                         "state": "Transiting"
                                     },
                                     "turn": 1
+                                },
+                                {
+                                    "route": [
+                                        "8918a84db33ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 5,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 2
                                 }
+
                             ],
                             "platformTypeId": "a6",
                             "attributeValues": [
@@ -212,7 +223,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "platformTypeId": "a8",
-                            "position": "8918aab663bffff",
+                            "position": "8918aab7547ffff",
                             "uniqid": "a0prbr1141"
                         },
                         {
@@ -915,8 +926,8 @@ const wargame: Wargame = {
                 "description": "description for the second annotation",
                 "icon": "marker_general.svg",
                 "label": "second marker",
-                "location": "8918aab747bffff",
-                "visibleTo": ["Blue-1"]
+                "location": "8918a84db3bffff",
+                "visibleTo": ["Blue-1", "Red-1"]
             }]
         },
         "annotationIcons": {

@@ -18,7 +18,7 @@ const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid3 |
     route.currentPosition = location
     const cell = grid && hexNamed(location, grid)
     if (cell) {
-      route.currentLocation = cell.centreLatLng
+      route.currentLocation2 = cell.centreLatLng
     }
 
     // update the phase

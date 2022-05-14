@@ -67,7 +67,7 @@ export { default as roundToNearest } from './roundToNearest'
 export { default as routeAddSteps } from './route-add-steps'
 export { default as routeClearFromStep } from './route-clear-from-step'
 export { default as routeCreateStore } from './route-create-store'
-export { default as routeDeclutter } from './route-declutter'
+export { routeDeclutter as routeDeclutter2, dummyDeclutter as dummyDeclutter2, DeclutterData } from './route-declutter'
 export { default as routeSetCurrent } from './route-set-current'
 export { default as routeSetLaydown } from './route-set-laydown'
 export { default as routeGetLatestPosition } from './route-get-latest-position'
@@ -80,8 +80,7 @@ export { default as usePrevious } from './use-previous'
 export { default as visibleTo } from './visible-to'
 export { default as generateHashCode } from './generate-hash-code'
 export {
-  createAssetBasedOnPlatformType,
-  platformTypeNameToKey
+  createAssetBasedOnPlatformType
 } from './create-asset-based-on-platform-type'
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'

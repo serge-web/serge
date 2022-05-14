@@ -25,6 +25,7 @@ export default interface MappingConstraints {
   cellLabelsStyle?: CellLabelStyle | string
   /**
    * diameter of tiles in use (nautical miles)
+   * @deprecated - replaced by H3 definition
    */
   tileDiameterMins: number,
   /**

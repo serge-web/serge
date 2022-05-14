@@ -67,7 +67,7 @@ export const InfoMarkers: React.FC<{}> = () => {
   return <>
     <LayerGroup key='info-markers' >{visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
       const coords = h3ToGeo(marker.location)
-      const location = L.latLng(coords[0], coords[1])
+      const location = marker.position || L.latLng(coords[0], coords[1])
       return <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler} />
     })}
     </LayerGroup>

@@ -36,7 +36,6 @@ const playerUi: PlayerUi = {
   },
   selectedRole: 'rdj8bx6xw',
   selectedRoleName: 'CO',
-  allPlatformTypesByKey: {},
   isObserver: false,
   canSubmitPlans: false,
   currentTurn: 57,

@@ -10,7 +10,7 @@ import Mapping from '../mapping'
 import { Domain, Phase } from '@serge/config'
 
 /* Import mock data */
-import { watuWargame, platformTypesByKey } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
 import { MappingConstraints } from '@serge/custom-types'
 
 const forces = watuWargame.data.forces.forces
@@ -55,7 +55,6 @@ export const Default: React.FC = () => <Mapping
   playerForce={forces[1].uniqid}
   canSubmitOrders = {true}
   platforms={platformTypes || []}
-  platformTypesByKey={platformTypesByKey}
   phase={Phase.Adjudication}
   turnNumber={5}
 />
