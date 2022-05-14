@@ -290,6 +290,10 @@ export const MapBar: React.FC = () => {
     mapPostBack(DELETE_PLATFORM, payload, channelID)
   }
 
+  const closeForm = (): void => {
+    setSelectedMarker('')
+  }
+
   /* TODO: This should be refactored into a helper */
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
@@ -309,7 +313,8 @@ export const MapBar: React.FC = () => {
         const data = collateMarkerFormData(marker, markerIcons, forces)
         return <MarkerForm
           formData={data}
-          mapPostBack={mapPostBack} />
+          mapPostBack={mapPostBack}
+          closeForm={closeForm} />
       } else {
         // ok, return a marker form
         return <></>
@@ -375,10 +380,8 @@ export const MapBar: React.FC = () => {
           mapPostBack={mapPostBack}
           channelID={channelID} />
       default:
-      {
         console.warn('failed to create form for ', form)
         return <></>
-      }
     }
   }
 

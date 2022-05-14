@@ -12,6 +12,9 @@ interface CssExports {
   'red': string;
   'select': string;
   'selected': string;
+  'description': string;
+  'radius': string;
+  'button-group': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

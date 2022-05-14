@@ -1,6 +1,6 @@
-import { Button } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 import { MapAnnotation } from '@serge/custom-types'
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import FormGroup from '../form-elements/form-group'
 import RCB from '../form-elements/rcb'
 import TitleWithIcon from '../form-elements/title-with-icon'
@@ -12,7 +12,7 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Render component */
-export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack }) => {
+export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
 
   const props = useContext(MapContext).props
@@ -20,11 +20,13 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack }) => {
 
   const { forces } = formData.populate
 
-  const changeHandler = (e: any): void => {
-    setFormState(formState)
-    console.log('marker form', e)
-    //  setVisibleTo(e.value)
+  const changeHandler = (formStateValue: any): void => {
+    setFormState({ ...formState, ...formStateValue })
   }
+
+  useEffect(() => {
+    setFormState({ ...formData.value, shadeRadius: 0 })
+  }, [formData.value])
 
   // /** the forces from props has changed */
   // useEffect(() => {
@@ -97,20 +99,37 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack }) => {
     }
   }
 
+  const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, description: e.target.value })
+  }
+
+  const onRadiusChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, shadeRadius: Number(e.target.value) })
+  }
+
   return <div className={styles.marker}>
     <div>
       <TitleWithIcon
         forceColor={formState.color}
         icon={formState.icon}
       >
-        { formData.value.label }
+        {formData.value.label}
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
-        <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+        <div className={styles.description}>
+          <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
+        </div>
+        <FormGroup title='Visible to' align='right'>
+          <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+        </FormGroup>
+        <FormGroup title='Radius' align='right'>
+          <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius} onInput={onRadiusChange} />
         </FormGroup>
       </fieldset>
-      <Button onClick={submitForm} className={styles.button}>Save</Button>
+      <div className={styles['button-group']}>
+        <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Canel</Button>
+        <Button onClick={submitForm} color='primary' variant='contained' className={styles.button}>Save</Button>
+      </div>
     </div>
   </div>
 }

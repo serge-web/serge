@@ -3,11 +3,8 @@
 .fieldset {
   border: transparent;
 
-  input,
-  label,
-  div,
-  svg {
-    color: #fff !important;
+  label {
+    color: #fff;
   }
 }
 
@@ -53,11 +50,13 @@
 }
 
 .button {
-  align-self: flex-end;
-  background-color: #54667c !important;
-  margin: 0 0.5rem 1rem 1rem !important;
-  color: #fff !important;
-  padding: 2px 8px !important;
+  width: 120px;
+  margin-left: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .asset-icon {
@@ -100,9 +99,25 @@
     border: 0;
     padding: 0;
   }
+}
 
-  // put space between action buttons
-  button + button {
-    margin-left: 1rem;
+.description {
+  background-color: #fff;
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
+}
+
+.radius {
+  background-color: #fff;
+  border-radius: 5px;
+  width: 30%;
+  margin-right: 20% !important;
+
+  div {
+    padding: 0 5px 0 5px;
+    color: #000;
   }
 }

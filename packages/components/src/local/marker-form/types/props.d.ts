@@ -6,6 +6,10 @@ export default interface PropTypes {
    */
   formData: MarkerFormData
   /**
+   * close form
+   */
+  closeForm?: () => void
+  /**
    * The method for posting messages out of the mapping component
    */
   mapPostBack?: MapPostBack
