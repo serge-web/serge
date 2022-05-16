@@ -22,7 +22,8 @@ import {
   MessageSubmitPlans,
   MessageForceLaydown,
   MessageDeletePlatform,
-  MapAnnotation
+  MapAnnotation,
+  MessageUpdateMarker
 } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE } from '@serge/config'
 
@@ -294,6 +295,11 @@ export const MapBar: React.FC = () => {
     setSelectedMarker('')
   }
 
+  const onMarkerPostback = (messageType: string, data: MessageUpdateMarker): void => {
+    mapPostBack && mapPostBack(messageType, data, channelID)
+    closeForm()
+  }
+
   /* TODO: This should be refactored into a helper */
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
@@ -313,7 +319,7 @@ export const MapBar: React.FC = () => {
         const data = collateMarkerFormData(marker, markerIcons, forces)
         return <MarkerForm
           formData={data}
-          mapPostBack={mapPostBack}
+          mapPostBack={onMarkerPostback}
           closeForm={closeForm} />
       } else {
         // ok, return a marker form
@@ -356,7 +362,7 @@ export const MapBar: React.FC = () => {
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         const actualAsset = findAsset(forces, selectedAsset.uniqid)
         // is this an empty task group?
-        const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length === 0
+        const emptyVessel = !actualAsset || !actualAsset.comprising || actualAsset.comprising.length === 0
         const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel)
           ? deleteEmptyTaskGroup : undefined
         return <PlanTurnForm

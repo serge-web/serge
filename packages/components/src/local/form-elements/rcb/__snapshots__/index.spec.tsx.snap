@@ -2,10 +2,10 @@
 
 exports[`CheckboxType renders correctly 1`] = `
 <section
-  className="input-container"
+  className="input-container input-container"
 >
   <div
-    className="MuiBox-root MuiBox-root-1 input-label"
+    className="MuiBox-root MuiBox-root-7 input-label"
   >
     Visible to
   </div>
@@ -15,7 +15,7 @@ exports[`CheckboxType renders correctly 1`] = `
   >
     <span
       aria-disabled={false}
-      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-3 Mui-checked MuiIconButton-colorSecondary"
+      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root makeStyles-root-1 makeStyles-root-3 MuiCheckbox-colorSecondary PrivateSwitchBase-checked-9 Mui-checked makeStyles-checked-2 makeStyles-checked-4 MuiIconButton-colorSecondary"
       onBlur={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
@@ -34,7 +34,7 @@ exports[`CheckboxType renders correctly 1`] = `
       >
         <input
           checked={true}
-          className="PrivateSwitchBase-input-5"
+          className="PrivateSwitchBase-input-11"
           data-indeterminate={false}
           name="visibleTo"
           onChange={[Function]}
@@ -43,7 +43,7 @@ exports[`CheckboxType renders correctly 1`] = `
         />
         <svg
           aria-hidden={true}
-          className="MuiSvgIcon-root"
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -65,7 +65,7 @@ exports[`CheckboxType renders correctly 1`] = `
   >
     <span
       aria-disabled={false}
-      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root makeStyles-root-1 makeStyles-root-5 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
       onBlur={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
@@ -84,7 +84,7 @@ exports[`CheckboxType renders correctly 1`] = `
       >
         <input
           checked={false}
-          className="PrivateSwitchBase-input-5"
+          className="PrivateSwitchBase-input-11"
           data-indeterminate={false}
           name="visibleTo"
           onChange={[Function]}
@@ -93,7 +93,7 @@ exports[`CheckboxType renders correctly 1`] = `
         />
         <svg
           aria-hidden={true}
-          className="MuiSvgIcon-root"
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -114,10 +114,10 @@ exports[`CheckboxType renders correctly 1`] = `
 
 exports[`Number data renders correctly 1`] = `
 <section
-  className="input-container"
+  className="input-container input-container"
 >
   <div
-    className="MuiBox-root MuiBox-root-10 input-label"
+    className="MuiBox-root MuiBox-root-26 input-label"
   >
     Visible to
   </div>
@@ -132,7 +132,7 @@ exports[`Number data renders correctly 1`] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -151,14 +151,14 @@ exports[`Number data renders correctly 1`] = `
         >
           <input
             checked={false}
-            className="PrivateSwitchBase-input-5"
+            className="PrivateSwitchBase-input-11"
             name="visibleTo"
             onChange={[Function]}
             type="radio"
             value={1}
           />
           <div
-            className="PrivateRadioButtonIcon-root-7"
+            className="PrivateRadioButtonIcon-root-17"
           >
             <svg
               aria-hidden={true}
@@ -172,7 +172,7 @@ exports[`Number data renders correctly 1`] = `
             </svg>
             <svg
               aria-hidden={true}
-              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-8"
+              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-18"
               focusable="false"
               viewBox="0 0 24 24"
             >
@@ -195,7 +195,7 @@ exports[`Number data renders correctly 1`] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -214,14 +214,14 @@ exports[`Number data renders correctly 1`] = `
         >
           <input
             checked={false}
-            className="PrivateSwitchBase-input-5"
+            className="PrivateSwitchBase-input-11"
             name="visibleTo"
             onChange={[Function]}
             type="radio"
             value={2}
           />
           <div
-            className="PrivateRadioButtonIcon-root-7"
+            className="PrivateRadioButtonIcon-root-17"
           >
             <svg
               aria-hidden={true}
@@ -235,7 +235,7 @@ exports[`Number data renders correctly 1`] = `
             </svg>
             <svg
               aria-hidden={true}
-              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-8"
+              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-18"
               focusable="false"
               viewBox="0 0 24 24"
             >
@@ -258,7 +258,7 @@ exports[`Number data renders correctly 1`] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -277,14 +277,14 @@ exports[`Number data renders correctly 1`] = `
         >
           <input
             checked={false}
-            className="PrivateSwitchBase-input-5"
+            className="PrivateSwitchBase-input-11"
             name="visibleTo"
             onChange={[Function]}
             type="radio"
             value={3}
           />
           <div
-            className="PrivateRadioButtonIcon-root-7"
+            className="PrivateRadioButtonIcon-root-17"
           >
             <svg
               aria-hidden={true}
@@ -298,7 +298,7 @@ exports[`Number data renders correctly 1`] = `
             </svg>
             <svg
               aria-hidden={true}
-              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-8"
+              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-18"
               focusable="false"
               viewBox="0 0 24 24"
             >
@@ -321,10 +321,10 @@ exports[`Number data renders correctly 1`] = `
 
 exports[`RadioType renders correctly 1`] = `
 <section
-  className="input-container"
+  className="input-container input-container"
 >
   <div
-    className="MuiBox-root MuiBox-root-6 input-label"
+    className="MuiBox-root MuiBox-root-16 input-label"
   >
     Visible to
   </div>
@@ -339,7 +339,7 @@ exports[`RadioType renders correctly 1`] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-3 Mui-checked MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-9 Mui-checked MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -358,14 +358,14 @@ exports[`RadioType renders correctly 1`] = `
         >
           <input
             checked={true}
-            className="PrivateSwitchBase-input-5"
+            className="PrivateSwitchBase-input-11"
             name="visibleTo"
             onChange={[Function]}
             type="radio"
             value="Red"
           />
           <div
-            className="PrivateRadioButtonIcon-root-7 PrivateRadioButtonIcon-checked-9"
+            className="PrivateRadioButtonIcon-root-17 PrivateRadioButtonIcon-checked-19"
           >
             <svg
               aria-hidden={true}
@@ -379,7 +379,7 @@ exports[`RadioType renders correctly 1`] = `
             </svg>
             <svg
               aria-hidden={true}
-              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-8"
+              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-18"
               focusable="false"
               viewBox="0 0 24 24"
             >
@@ -405,7 +405,7 @@ exports[`RadioType renders correctly 1`] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-2 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -424,14 +424,14 @@ exports[`RadioType renders correctly 1`] = `
         >
           <input
             checked={false}
-            className="PrivateSwitchBase-input-5"
+            className="PrivateSwitchBase-input-11"
             name="visibleTo"
             onChange={[Function]}
             type="radio"
             value="Blue"
           />
           <div
-            className="PrivateRadioButtonIcon-root-7"
+            className="PrivateRadioButtonIcon-root-17"
           >
             <svg
               aria-hidden={true}
@@ -445,7 +445,7 @@ exports[`RadioType renders correctly 1`] = `
             </svg>
             <svg
               aria-hidden={true}
-              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-8"
+              className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-18"
               focusable="false"
               viewBox="0 0 24 24"
             >

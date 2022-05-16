@@ -15,8 +15,8 @@ import {
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
   CHANNEL_CHAT,
-  UPDATE_MARKER
-  , Domain 
+  UPDATE_MARKER,
+  Domain
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -156,7 +156,7 @@ const factory = (state: PlayerUi): Factory => {
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
     >
-      <InfoMarkers/>
+      <InfoMarkers />
       <Assets />
       <HexGrid />
     </Mapping>

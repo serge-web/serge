@@ -18,8 +18,8 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   setActivityTime,
-  MARK_ALL_AS_UNREAD
-  , FEEDBACK_MESSAGE 
+  MARK_ALL_AS_UNREAD,
+  FEEDBACK_MESSAGE
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
@@ -36,8 +36,8 @@ import {
   MessageInfoType,
   MessageDetailsFrom,
   MessageMap,
-  TemplateBodysByKey, 
-  PlayerUiActionTypes 
+  TemplateBodysByKey,
+  PlayerUiActionTypes
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({

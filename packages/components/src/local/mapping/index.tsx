@@ -732,7 +732,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     clearFromTurn,
     cancelRoutePlanning,
-    mapPostBack: mapPostBack,
+    mapPostBack,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,

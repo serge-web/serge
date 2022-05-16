@@ -1,5 +1,6 @@
 import { Button, TextField } from '@material-ui/core'
-import { MapAnnotation } from '@serge/custom-types'
+import { UPDATE_MARKER } from '@serge/config'
+import { MapAnnotation, MessageUpdateMarker } from '@serge/custom-types'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import FormGroup from '../form-elements/form-group'
 import RCB from '../form-elements/rcb'
@@ -25,7 +26,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
   }
 
   useEffect(() => {
-    setFormState({ ...formData.value, shadeRadius: 0 })
+    setFormState({ ...formData.value })
   }, [formData.value])
 
   // /** the forces from props has changed */
@@ -82,20 +83,11 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
 
   const submitForm = (): void => {
     if (mapPostBack !== undefined) {
-      // const force = perceivedForces.find((force: ForceOption) => force.name === perceivedForceName)
-      // const payload: MessagePerceptionOfContact = {
-      //   // generate force id from force name
-      //   messageType: PERCEPTION_OF_CONTACT,
-      //   perception: {
-      //     by: playerForce,
-      //     force: force && force.id ? force.id : undefined,
-      //     typeId: formState.perceivedTypeId,
-      //     name: formState.perceivedNameVal
-      //   },
-      //   assetId: formState.assetId
-      // }
-      // console.log('state', payload)
-      // mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
+      const payload: MessageUpdateMarker = {
+        messageType: UPDATE_MARKER,
+        marker: formState
+      }
+      mapPostBack(UPDATE_MARKER, payload)
     }
   }
 
@@ -123,7 +115,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
           <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
         </FormGroup>
         <FormGroup title='Radius' align='right'>
-          <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius} onInput={onRadiusChange} />
+          <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />
         </FormGroup>
       </fieldset>
       <div className={styles['button-group']}>
