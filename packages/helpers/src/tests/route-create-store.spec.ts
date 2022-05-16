@@ -29,7 +29,7 @@ it('can create route under control as umpire ', () => {
   expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(2)
   expect(route.original.length).toEqual(2)
-  expect(route.underControl).toBeFalsy()
+  expect(route.underControlByThisForce).toBeFalsy()
 
   expect(route.visibleTo).toBeTruthy()
   expect(route.visibleTo.length).toEqual(1)
@@ -504,7 +504,7 @@ it('creates routes for assets in new laydown structure in pre-init', () => {
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
   expect(route.laydownPhase).toEqual(LaydownPhases.Immobile) // no route present, so can't have moved
-  expect(route.underControl).toBeFalsy()
+  expect(route.underControlByThisForce).toBeFalsy()
 })
 
 it('creates routes for assets in legacy structure in pre-init', () => {
@@ -528,7 +528,7 @@ it('creates routes for assets in legacy structure in pre-init', () => {
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
   expect(route.laydownPhase).toEqual(LaydownPhases.Immobile)
-  expect(route.underControl).toBeFalsy()
+  expect(route.underControlByThisForce).toBeFalsy()
 })
 
 it('creates routes for assets in legacy structure in post-init', () => {
@@ -552,5 +552,5 @@ it('creates routes for assets in legacy structure in post-init', () => {
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
   expect(route.laydownPhase).toEqual(LaydownPhases.Immobile)
-  expect(route.underControl).toBeFalsy()
+  expect(route.underControlByThisForce).toBeFalsy()
 })

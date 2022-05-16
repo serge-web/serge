@@ -250,7 +250,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {Asset} asset single asset
  * @param {Phase} phase current game phase
  * @param {string} color color for rendering this asset
- * @param {boolean} underControl whether the player is controlling this asset
+ * @param {boolean} underControlForce whether the player is controlling this asset
  * @param {boolean} visibleToThisForce whether this force can see this asset
  * @param {string} actualForceId the true force for the asset
  * @param {string} perceivedForce the perceived force of the asset
@@ -271,7 +271,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
+  underControlForce: boolean, underControlRole: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
   perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
@@ -293,8 +293,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControlForce, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControlForce, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
 
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
@@ -302,7 +302,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const condition: string = asset.condition
 
-  const laydownPhase = underControl
+  const laydownPhase = underControlForce
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
     : LaydownPhases.Immobile
 
@@ -311,7 +311,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     name: perceivedName,
     selected: isSelected,
     platformTypeId: perceivedTypeId,
-    underControl: underControl,
+    underControlByThisForce: underControlForce,
+    underControlByThisRole: underControlRole,
     visibleToThisForce: visibleToThisForce,
     perceivedForceId: perceivedForce,
     perceivedForceColor: color,
