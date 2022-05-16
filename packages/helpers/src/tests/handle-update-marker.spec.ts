@@ -50,7 +50,7 @@ describe('handle update marker', () => {
     const res = handleUpdateMarker(message, markers)
     expect(res).toBeTruthy()
     expect(res.length).toEqual(3)
-    expect(res[1].uniqid).toEqual('marker-two')
+    expect(res[1].uniqid).toEqual('marker-three')
     expect(res[1].label).toEqual('new label text')
     expect(res[1].location).toEqual('A13')
   })
