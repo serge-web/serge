@@ -59,7 +59,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
   }, [marker.icon, marker.color])
 
   useEffect(() => {
-    if(marker.shadeRadius && marker.shadeRadius > 0) {
+    if (marker.shadeRadius && marker.shadeRadius > 0) {
       // generate ring
       const ring = kRing(locationHex, marker.shadeRadius)
       const hull2 = h3SetToMultiPolygon(ring, true)

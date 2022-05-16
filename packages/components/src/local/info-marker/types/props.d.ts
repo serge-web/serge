@@ -10,7 +10,7 @@ export default interface PropTypes {
    * location of marker
    */
   location: L.LatLng
-  /** 
+  /**
    * hex coord for location, used for ploting ring
    */
   locationHex: string
