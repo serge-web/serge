@@ -34,7 +34,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     canSubmitOrders = {true}
     phase = {Phase.Planning}
     turnNumber={5}
-  ><InfoMarker location={location} marker={marker} /></Mapping>, { attachTo: div })
+  ><InfoMarker location={location} locationHex={(marker && marker.location) || 'aa'} marker={marker} /></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

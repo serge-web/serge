@@ -9,7 +9,7 @@ const wMarkers = (watuWargame.data.annotations && watuWargame.data.annotations.a
 describe('handle update marker', () => {
   it('new marker', () => {
     // check previous length
-    expect(wMarkers.length).toEqual(2)
+    expect(wMarkers.length).toEqual(3)
     const markers = deepCopy(wMarkers)
     const newMarker: MapAnnotation = {
       uniqid: 'aaaa',
@@ -26,13 +26,13 @@ describe('handle update marker', () => {
     }
     const res = handleUpdateMarker(message, markers)
     expect(res).toBeTruthy()
-    expect(res.length).toEqual(3)
-    expect(res[2].uniqid).toEqual('aaaa')
+    expect(res.length).toEqual(4)
+    expect(res[3].uniqid).toEqual('aaaa')
   })
 
   it('moved marker', () => {
     // check previous length
-    expect(wMarkers.length).toEqual(2)
+    expect(wMarkers.length).toEqual(3)
     const markers: MapAnnotations = deepCopy(wMarkers)
     // check id
     expect(markers[1].uniqid).toEqual('marker-two')
@@ -49,7 +49,7 @@ describe('handle update marker', () => {
     }
     const res = handleUpdateMarker(message, markers)
     expect(res).toBeTruthy()
-    expect(res.length).toEqual(2)
+    expect(res.length).toEqual(3)
     expect(res[1].uniqid).toEqual('marker-two')
     expect(res[1].label).toEqual('new label text')
     expect(res[1].location).toEqual('A13')
