@@ -314,7 +314,8 @@ export const MapBar: React.FC = () => {
       if (selectedMarker && userIsUmpire) {
         const marker = infoMarkers.find((item: MapAnnotation) => item.uniqid === selectedMarker)
         if (!marker) {
-          throw new Error('Failed to find marker with id:' + selectedMarker)
+          // add new infomarker and drag it
+          return <></>
         }
         const data = collateMarkerFormData(marker, markerIcons, forces)
         return <MarkerForm
