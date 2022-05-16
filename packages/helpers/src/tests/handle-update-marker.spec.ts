@@ -27,7 +27,7 @@ describe('handle update marker', () => {
     const res = handleUpdateMarker(message, markers)
     expect(res).toBeTruthy()
     expect(res.length).toEqual(4)
-    expect(res[2].uniqid).toEqual('aaaa')
+    expect(res[3].uniqid).toEqual('aaaa')
   })
 
   it('moved marker', () => {
