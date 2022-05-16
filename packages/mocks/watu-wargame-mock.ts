@@ -918,6 +918,7 @@ const wargame: Wargame = {
                 "description": "description for the annotation",
                 "icon": "marker_unknown.svg",
                 "label": "first marker",
+                "shadeRadius": 2,
                 "location": "8918aab76abffff",
                 "visibleTo": ["Blue-1"]
             },{
@@ -925,9 +926,19 @@ const wargame: Wargame = {
                 "color": "#099",
                 "description": "description for the second annotation",
                 "icon": "marker_general.svg",
+                "shadeRadius": 5,
                 "label": "second marker",
                 "location": "8918a84db3bffff",
                 "visibleTo": ["Blue-1", "Red-1"]
+            },{
+                "uniqid": "marker-three",
+                "color": "#909",
+                "description": "description for the third annotation",
+                "icon": "marker_audio.svg",
+                "shadeRadius": 0,
+                "label": "third marker",
+                "location": "8918aab2b0bffff",
+                "visibleTo": ["Red-1"]
             }]
         },
         "annotationIcons": {
