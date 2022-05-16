@@ -232,7 +232,7 @@ const wargame: Wargame = {
                             "history": [
                                 {
                                     "route": [
-                                        "8318d2fffffffff"
+                                        "8918aab648bffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
@@ -242,7 +242,7 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "route": [
-                                        "8318d4fffffffff"
+                                        "8918aab6447ffff"
                                     ],
                                     "status": {
                                         "speedKts": 10,
@@ -255,7 +255,7 @@ const wargame: Wargame = {
                             "name": "SSN-2",
                             "perceptions": [],
                             "platformTypeId": "a8",
-                            "position": "8318f2fffffffff",
+                            "position": "8918aab66bbffff",
                             "uniqid": "a0a975y4221"
                         }
                     ],
