@@ -75,6 +75,7 @@ export const Mapping: React.FC<PropTypes> = ({
   mapBar,
   forces,
   playerForce,
+  playerRole,
   canSubmitOrders,
   platforms,
   infoMarkers,
@@ -131,7 +132,9 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
 
-  console.log('delete me', channel)
+  if (!channel) {
+    console.warn('Channel is missing from mapping component')
+  }
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -191,6 +194,8 @@ export const Mapping: React.FC<PropTypes> = ({
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
+
+    console.log('set selected route', id, store.routes)
 
     // if we are in turn 0 adjudication phase, we have special processing, since
     // the player may be doing force laydown
@@ -268,11 +273,11 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, 'role-id',
-        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing',
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
       declutterRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset, viewAsForce])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset, viewAsForce, routeStore])
 
   const declutterRouteStore = (store: RouteStore): void => {
     if (store.routes.length) {

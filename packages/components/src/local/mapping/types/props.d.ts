@@ -29,8 +29,12 @@ export default interface PropTypes {
   platforms: PlatformTypeData[]
   /** current player's force (force-id)
    *
-  */
+   */
   playerForce: ForceData['uniqid']
+  /** current player's role (role-id)
+   *
+   */
+  playerRole?: Role['roleId']
   /**
    * if the current player can submit orders
    */

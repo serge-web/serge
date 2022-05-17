@@ -36,6 +36,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['
  * @param {boolean} filterHistorySteps whether to filter the history steps to only one
  * @param {boolean} wargameInitiated whether this wargame has been initated yet
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
+ * @param {ChannelMapping} channel mapping channel description, indicates who has what control
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'], playerRole: Role['roleId'],
@@ -90,7 +91,9 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
           // sort out if this role can control this asset
-          const controlledByThisRole = (channel && canControlAsset(channel , force, asset.uniqid, playerForceId, playerRole)) || false
+          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerForceId, playerRole)) || false
+
+          console.log('cont by this force', !!channel, asset.name, controlled, controlledByThisRole, playerForceId, playerRole)
 
           if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes

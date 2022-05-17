@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { deepCopy } from '@serge/helpers'
-import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MilliTurns } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MilliTurns, Role } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -24,7 +24,6 @@ const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
-
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 async function fetchMock (): Promise<any> {
@@ -33,7 +32,12 @@ async function fetchMock (): Promise<any> {
   }
 }
 
-const forceList = forces.map((force: ForceData) => force.uniqid)
+const allRoles: string[] = []
+forces.forEach((force: ForceData) => {
+  force.roles.forEach((role: Role) => {
+    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
+  })
+})
 
 export default {
   title: 'local/Mapping/SmallScale',
@@ -53,12 +57,12 @@ export default {
     }
   },
   argTypes: {
-    playerForce: {
+    playerRole: {
       name: 'View as',
-      defaultValue: forceList[0],
+      defaultValue: allRoles[0],
       control: {
-        type: 'radio',
-        options: forceList
+        type: 'select',
+        options: allRoles
       }
     },
     phase: {
@@ -115,13 +119,19 @@ interface StoryPropTypes extends MappingPropTypes {
 
 const Template: Story<StoryPropTypes> = (args) => {
   const {
+    playerRole,
     playerForce,
     phase,
     ...props
   } = args
+  const roleStr: string = playerRole
+  const ind = roleStr.indexOf(' ~ ')
+  const force = roleStr.substring(0, ind)
+  const role = roleStr.substring(ind + 3)
   return (
     <Mapping
-      playerForce={playerForce}
+      playerForce={force}
+      playerRole={role}
       fetchOverride={fetchMock}
       phase={phase}
       {...props}

@@ -150,6 +150,7 @@ const factory = (state: PlayerUi): Factory => {
       infoMarkers={state.infoMarkers}
       markerIcons={state.markerIcons}
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
+      playerRole={state.selectedRole}
       canSubmitOrders={canSubmitOrders}
       channelID={channelid}
       channel={channel}
