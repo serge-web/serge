@@ -10,7 +10,7 @@ import { RouteStore } from '@serge/custom-types'
 import { Phase } from '@serge/config'
 
 it('can set selected route', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', platformTypes, false, false)
 
   const idOne = 'a0pra00003'
   const idTwo = 'a0pra000201'

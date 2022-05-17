@@ -13,7 +13,6 @@ interface IndexedSetter {
   setter: ClusterSetter
 }
 
-
 interface Cluster {
   /** the cell we're refering to */
   hex: string
@@ -49,7 +48,7 @@ const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: 
 const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: string | undefined): Array<Cluster> => {
   const res: Array<Cluster> = []
   // loop through store
-  routes.routes.forEach((route: Route) => {
+  routes.routes && routes.routes.forEach((route: Route) => {
     // start with location
     if (route.currentPosition) {
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
@@ -107,7 +106,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
   })
 
   // and the markers
-  markers.forEach((marker: MapAnnotation) => {
+  markers && markers.forEach((marker: MapAnnotation) => {
     const thisPos: string = marker.location
     const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
       marker.position = newLoc

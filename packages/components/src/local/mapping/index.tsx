@@ -268,7 +268,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse,
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, 'role-id',
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       declutterRouteStore(store)
     }

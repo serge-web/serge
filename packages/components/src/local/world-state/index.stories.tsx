@@ -80,7 +80,7 @@ const Template: Story<WorldStatePropTypes> = (args) => {
     Red: 'Red'
   }
   const forceName = forceNames[viewAs]
-  const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, platformTypes, false, false)
+  const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, 'role-id', platformTypes, false, false)
   return <WorldState store={{ ...storeProp }} {...props} />
 }
 

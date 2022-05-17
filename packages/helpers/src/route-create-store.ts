@@ -1,12 +1,13 @@
 
 import L from 'leaflet'
-import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping } from '@serge/custom-types'
+import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
+import { canControlAsset } from './can-control-asset'
 
 /** determine which forces this player can control
  * @param {ForceData[]} forces array of forces
@@ -37,7 +38,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'],
+const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'], playerRole: Role['roleId'],
   platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
   filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping): RouteStore => {
   const store: RouteStore = { routes: [] }
@@ -60,7 +61,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     // are all asset of this force visible to me?
     const visibleToThisPlayer: boolean = force.visibleTo != null && force.visibleTo.includes(playerForceId)
 
-    // do I actually control this platform type?
+    // do I have any control over assets of this force?
     const controlled = thisForce === playerForceId || controls.includes(thisForce)
 
     if (force.assets) {
@@ -89,7 +90,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
           // sort out if this role can control this asset
-          const controlledByThisRole = !!(channel && false)
+          const controlledByThisRole = (channel && canControlAsset(channel , force, asset.uniqid, playerForceId, playerRole)) || false
 
           if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes

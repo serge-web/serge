@@ -4,6 +4,7 @@
  ***/
 
 export { default as calcAllowableCells } from './allowable-cells'
+export { default as canControlAsset } from './can-control-asset'
 export { default as capitalize } from './capitalize'
 export { default as checkIfDestroyed } from './check-if-destroyed'
 export { default as checkUnique } from './check-unique'
