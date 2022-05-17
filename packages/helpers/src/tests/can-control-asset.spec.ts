@@ -23,7 +23,7 @@ describe('can control asset:', () => {
     expect(!!whiteForce).toBeTruthy()
     expect(!!blueCO).toBeTruthy()
     expect(!!blueNortRole).toBeTruthy()
-  }
+  })
   // it('I not named as controlling asset', () => {
   //   expect(canControlAsset(channel, BlueForce, blueAsset1, BlueForce, BlueComms)).toBeFalsy()
   // })
