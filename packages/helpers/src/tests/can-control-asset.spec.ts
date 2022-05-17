@@ -3,7 +3,6 @@ import deepCopy from '../deep-copy'
 import canControlAsset from '../can-control-asset'
 import { ForceData, Role, Wargame } from '@serge/custom-types'
 
-
 const game: Wargame = deepCopy(watuWargame)
 const blueForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'Blue-1')
 const redForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'Red-1')
