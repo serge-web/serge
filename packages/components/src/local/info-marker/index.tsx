@@ -4,9 +4,10 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 import unfetch from 'node-fetch'
 import React, { useContext, useEffect, useState } from 'react'
-import { Marker, Tooltip } from 'react-leaflet'
+import { Marker, Tooltip, Polygon } from 'react-leaflet'
 import xmljs from 'xml-js'
 import { getIconClassname } from '../asset-icon'
+import { h3SetToMultiPolygon, kRing } from 'h3-js'
 /* Import context */
 import { MapContext } from '../mapping'
 /* Import Stylesheet */
@@ -20,10 +21,13 @@ const fetch = unfetch.bind(window)
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location,
+  locationHex,
   dragged
 }) => {
   const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
+
+  const [radiusPoly, setRadiusPoly] = useState<L.LatLng[]>([])
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
@@ -54,6 +58,18 @@ export const InfoMarker: React.FC<PropTypes> = ({
       })
   }, [marker.icon, marker.color])
 
+  useEffect(() => {
+    if (marker.shadeRadius && marker.shadeRadius > 0) {
+      // generate ring
+      const ring = kRing(locationHex, marker.shadeRadius)
+      const hull2 = h3SetToMultiPolygon(ring, true)
+      const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+      setRadiusPoly(h3points)
+    } else {
+      setRadiusPoly([])
+    }
+  }, [marker, locationHex])
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     html: `<div class='${className} ${styles['asset-icon-with-image']}' style="border: 2px solid ${marker.color}">${svgContent}</div>`
@@ -78,6 +94,12 @@ export const InfoMarker: React.FC<PropTypes> = ({
   }
 
   return <>
+    <Polygon
+      key={'radius_' + marker.uniqid}
+      color={marker.color}
+      positions={radiusPoly}
+      className={styles['radius-line']}
+    />
     <Marker draggable={markerIsDraggable} ondragend={dragEnd} key={marker.uniqid} position={location} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{marker.description}</Tooltip>
     </Marker>

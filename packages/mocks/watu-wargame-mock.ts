@@ -141,7 +141,7 @@ const wargame: Wargame = {
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
                     "name": "Green Force",
-                    "controlledBy": ["umpire"],
+                    "controlledBy": "umpire",
                     "overview": "Green force.",
                     "roles": [],
                     "umpire": false,
@@ -259,7 +259,7 @@ const wargame: Wargame = {
                             "history": [
                                 {
                                     "route": [
-                                        "8318d2fffffffff"
+                                        "8918aab648bffff"
                                     ],
                                     "status": {
                                         "speedKts": 12,
@@ -269,7 +269,7 @@ const wargame: Wargame = {
                                 },
                                 {
                                     "route": [
-                                        "8318d4fffffffff"
+                                        "8918aab6447ffff"
                                     ],
                                     "status": {
                                         "speedKts": 10,
@@ -282,7 +282,7 @@ const wargame: Wargame = {
                             "name": "SSN-2",
                             "perceptions": [],
                             "platformTypeId": "a8",
-                            "position": "8318f2fffffffff",
+                            "position": "8918aab66bbffff",
                             "uniqid": "a0a975y4221"
                         }
                     ],
@@ -945,6 +945,7 @@ const wargame: Wargame = {
                 "description": "description for the annotation",
                 "icon": "marker_unknown.svg",
                 "label": "first marker",
+                "shadeRadius": 2,
                 "location": "8918aab76abffff",
                 "visibleTo": ["Blue-1"]
             },{
@@ -952,9 +953,19 @@ const wargame: Wargame = {
                 "color": "#099",
                 "description": "description for the second annotation",
                 "icon": "marker_general.svg",
+                "shadeRadius": 5,
                 "label": "second marker",
                 "location": "8918a84db3bffff",
                 "visibleTo": ["Blue-1", "Red-1"]
+            },{
+                "uniqid": "marker-three",
+                "color": "#909",
+                "description": "description for the third annotation",
+                "icon": "marker_audio.svg",
+                "shadeRadius": 0,
+                "label": "third marker",
+                "location": "8918aab2b0bffff",
+                "visibleTo": ["Red-1"]
             }]
         },
         "annotationIcons": {

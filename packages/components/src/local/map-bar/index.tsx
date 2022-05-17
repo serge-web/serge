@@ -151,7 +151,7 @@ export const MapBar: React.FC = () => {
           if (canSubmitOrders) {
             // see if it has any forces that laydown
             const needsLaydown = routeStore.routes.find((route: Route) => {
-              return route.underControl && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
+              return route.underControlByThisRole && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
             })
             formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
             submitTitle = needsLaydown ? 'Submit Force Laydown' : ''
@@ -191,7 +191,7 @@ export const MapBar: React.FC = () => {
     } else if (phase === PLANNING_PHASE) {
       // Player has finished planning process, and now
       // wants to submit them
-      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
+      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControlByThisRole)
       const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
       mapPostBack(SUBMIT_PLANS, orders, channelID)
     } else if (turnNumber === 0) {

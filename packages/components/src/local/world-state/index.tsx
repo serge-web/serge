@@ -38,27 +38,27 @@ export const WorldState: React.FC<PropTypes> = ({
       case WorldStatePanels.Control: {
         if (phase === PLANNING_PHASE) {
           // in planning phase, umpire only gets assets they control
-          setTmpRoutes(store.routes.filter(r => r.underControl))
+          setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
         } else {
           // check turn number, in case we're in laydown
           if (turnNumber === 0) {
             // in laydown phase, umpire only gets assets they control
-            setTmpRoutes(store.routes.filter(r => r.underControl))
+            setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
           } else {
             // umpire gets all, player only gets theirs
-            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControlByThisForce))
           }
         }
         break
       }
       case WorldStatePanels.Visibility: {
         // umpire gets all, player only gets theirs
-        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControl))
+        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControlByThisForce))
         break
       }
       case WorldStatePanels.ControlledBy: {
         // umpire gets theirss
-        setTmpRoutes(store.routes.filter(r => r.underControl))
+        setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
         break
       }
       case WorldStatePanels.Markers: {
