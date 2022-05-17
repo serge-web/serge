@@ -118,8 +118,8 @@ export const MapBar: React.FC = () => {
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
-          selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+        const newForm = assetDialogFor(playerForce, selectedAsset.visibleTo,
+          phase, worldStatePanel, turnNumber, routeStore.selected.destroyed, routeStore.selected.underControlByThisRole)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -318,8 +318,8 @@ export const MapBar: React.FC = () => {
     if (!routeStore || !routeStore.selected) {
       throw new Error('No route selected')
     }
-    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
-      selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+    const form = assetDialogFor(playerForce, selectedAsset.visibleTo,
+      phase, worldStatePanel, turnNumber, routeStore.selected.destroyed, routeStore.selected.underControlByThisRole)
     const platformIcon = selectedAsset.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
     const platformName = selectedAsset.typeId === UNKNOWN_TYPE ? 'Unknown' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').name
     const iconData = {
