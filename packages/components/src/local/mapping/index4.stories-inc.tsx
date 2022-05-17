@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { deepCopy } from '@serge/helpers'
-import { ForceData, MappingConstraints, MilliTurns } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MilliTurns } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -23,6 +23,7 @@ const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platfo
 const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
+const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -140,6 +141,7 @@ NaturalEarth.args = {
   canSubmitOrders: true,
   platforms: platformTypes,
   infoMarkers: annotations,
+  channel: mapChannel,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -159,6 +161,7 @@ OpenStreetMap.args = {
   gameTurnTime: timeStep,
   canSubmitOrders: true,
   platforms: platformTypes,
+  channel: mapChannel,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -176,6 +179,7 @@ DetailedCells.args = {
   forces: forces,
   gameTurnTime: timeStep,
   canSubmitOrders: true,
+  channel: mapChannel,
   platforms: platformTypes,
   wargameInitiated: true,
   turnNumber: 5,
