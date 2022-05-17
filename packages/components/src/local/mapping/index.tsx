@@ -281,7 +281,7 @@ export const Mapping: React.FC<PropTypes> = ({
   /**
    * the route-store has changed for some reason. So, declutter it
    */
-   useEffect(() => {
+  useEffect(() => {
     if (routeStore.routes.length) {
       const clutterFunc = declutter || routeDeclutter2
 
@@ -300,7 +300,6 @@ export const Mapping: React.FC<PropTypes> = ({
       setInfoMarkersState(declutteredData.markers)
     }
   }, [routeStore])
-  
 
   /**
    * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that

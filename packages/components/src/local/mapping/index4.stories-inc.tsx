@@ -120,6 +120,7 @@ interface StoryPropTypes extends MappingPropTypes {
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     playerRole,
+    // @typescript-eslint/no-unused-vars
     playerForce,
     phase,
     ...props
