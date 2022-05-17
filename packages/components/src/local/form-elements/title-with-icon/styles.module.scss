@@ -3,7 +3,13 @@
   display: flex;
   align-items: center;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  color: #fff;
+  justify-content: space-between;
+}
+
+.title {
+  div {
+    color: #fff;
+  }
 }
 
 .main h2 {

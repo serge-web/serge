@@ -99,13 +99,18 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
     setFormState({ ...formState, shadeRadius: Number(e.target.value) })
   }
 
+  const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState({ ...formState, label: e.target.value })
+  }
+
   return <div className={styles.marker}>
     <div>
       <TitleWithIcon
         forceColor={formState.color}
         icon={formState.icon}
+        onTitleChange={onTitleChange}
       >
-        {formData.value.label}
+        {formState.label}
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
         <div className={styles.description}>
