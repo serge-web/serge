@@ -67,7 +67,7 @@ const wargame: Wargame = {
                             "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": ["blueCO"],
-                            "subscriptionId": "nortCO-control",
+                            "subscriptionId": "blue-CO-control-all",
                             "pType": "ParticipantMapping",
                             "controls": ["control-all"]
                         },
@@ -138,6 +138,21 @@ const wargame: Wargame = {
                 },
                 {
                     "color": "#FCFBEE",
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C`26",
+                            "history": [],
+                            "locationPending": true,
+                            "name": "MERCH",
+                            "perceptions": [],
+                            "plannedTurns": [],
+                            "platformTypeId": "a13",
+                            "attributeValues": [],
+                            "position": "8918aab7004ffff",
+                            "uniqid": "merchID"
+                        }
+                    ],
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
                     "name": "Green Force",
@@ -251,7 +266,7 @@ const wargame: Wargame = {
                             ],
                             "platformTypeId": "a8",
                             "position": "8918aab7547ffff",
-                            "uniqid": "a0prbr1141"
+                            "uniqid": "talnID"
                         },
                         {
                             "condition": "Working",
@@ -384,7 +399,7 @@ const wargame: Wargame = {
                             "isInsightViewer": false,
                             "isObserver": false,
                             "name": "CO",
-                            "roleId": "rks5zfzdi"
+                            "roleId": "red-CO"
                         },
                         {
                             "canSubmitPlans": false,

@@ -15,7 +15,6 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, 
   const isMyForce = assetForce.uniqid === roleForce
 
   const parts = channel.participants
-
   if (controlThisForce || isMyForce) {
     // ok, our force is responsible for assets of this force
 
@@ -30,7 +29,7 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, 
       return true
     } else {
       // we're not the named controller. Do we have "general" control of the relevant asset?
-      const ownsAll = parts.find((part: ParticipantMapping) => part.roles && part.roles.includes(role) && !!part.controls)
+      const ownsAll = parts.find((part: ParticipantMapping) => part.roles && part.roles.includes(role) && (!part.controls || (part.controls.length === 0)))
       return !!ownsAll
     }
   } else {
