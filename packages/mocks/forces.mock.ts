@@ -1277,9 +1277,7 @@ export const forces: ForceData[] = [
       }
     ],
     color: '#0F0',
-    controlledBy: [
-      'umpire'
-    ],
+    controlledBy: 'umpire',
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
     name: 'Green Force',

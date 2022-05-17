@@ -681,7 +681,7 @@
 				}
 			],
 			"color": "#0F0",
-			"controlledBy": ["umpire"],
+			"controlledBy": "umpire",
 			"dirty": false,
 			"icon": "default_img/umpireDefault.png",
 			"name": "Green",

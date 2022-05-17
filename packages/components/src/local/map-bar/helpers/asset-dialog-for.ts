@@ -17,13 +17,13 @@ const assetDialogFor = (
   playerForce: string,
   assetForce: string,
   assetVisibleTo: Array<string> | undefined,
-  assetControlledBy: Array<string> | undefined,
+  assetControlledBy: string | undefined,
   gamePhase: Phase,
   panel: WorldStatePanels,
   turnNumber: number,
   assetDestroyed: boolean): MapBarForms | undefined => {
   const myForce = assetForce.toLowerCase() === playerForce.toLowerCase()
-  const forceThatIControl = assetControlledBy != null && assetControlledBy.includes(playerForce)
+  const forceThatIControl = assetControlledBy === playerForce
   const canControl: boolean = myForce || forceThatIControl
   const isUmpire = playerForce.toLowerCase() === UMPIRE_FORCE
   switch (gamePhase) {

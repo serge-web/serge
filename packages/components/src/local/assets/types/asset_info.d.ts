@@ -25,7 +25,7 @@ export default interface AssetInfo {
   selected: boolean
   visibleTo: Array<string>
   readonly uniqid: string
-  controlledBy?: Array<string>
+  controlledBy?: string
   laydownPhase?: LaydownPhases
   attributes: AttributeValues
   /** details of orientations to show */
