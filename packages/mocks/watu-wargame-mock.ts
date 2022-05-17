@@ -145,7 +145,7 @@ const wargame: Wargame = {
                     "uniqid": "umpire"
                 },
                 {
-                    "color": "#FCFBEE",
+                    "color": "#0d0",
                     "assets": [
                         {
                             "condition": "Working",
@@ -157,7 +157,7 @@ const wargame: Wargame = {
                             "plannedTurns": [],
                             "platformTypeId": "a13",
                             "attributeValues": [],
-                            "position": "8918aab7004ffff",
+                            "position": "8918a84d94fffff",
                             "uniqid": "merchID"
                         }
                     ],
