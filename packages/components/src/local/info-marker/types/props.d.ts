@@ -11,6 +11,10 @@ export default interface PropTypes {
    */
   location: L.LatLng
   /**
+   * hex coord for location, used for ploting ring
+   */
+  locationHex: string
+  /**
    * drag handler. Undefined if not draggabpe
    */
   dragged?: {(location: L.LatLng): void}
