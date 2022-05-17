@@ -145,32 +145,6 @@ const wargame: Wargame = {
                     "uniqid": "umpire"
                 },
                 {
-                    "color": "#0d0",
-                    "assets": [
-                        {
-                            "condition": "Working",
-                            "contactId": "C`26",
-                            "history": [],
-                            "locationPending": true,
-                            "name": "MERCH",
-                            "perceptions": [],
-                            "plannedTurns": [],
-                            "platformTypeId": "a13",
-                            "attributeValues": [],
-                            "position": "8918a84d94fffff",
-                            "uniqid": "merchID"
-                        }
-                    ],
-                    "dirty": false,
-                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
-                    "name": "Green Force",
-                    "controlledBy": "umpire",
-                    "overview": "Green force.",
-                    "roles": [],
-                    "umpire": false,
-                    "uniqid": "green"
-                },
-                {
                     "assets": [
                         {
                             "condition": "Working",
@@ -458,6 +432,32 @@ const wargame: Wargame = {
                     "umpire": false,
                     "uniqid": "Red-1",
                     "visibleTo": []
+                },
+                {
+                    "color": "#0d0",
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C`26",
+                            "history": [],
+                            "locationPending": true,
+                            "name": "MERCH",
+                            "perceptions": [],
+                            "plannedTurns": [],
+                            "platformTypeId": "a13",
+                            "attributeValues": [],
+                            "position": "8918a84d94fffff",
+                            "uniqid": "merchID"
+                        }
+                    ],
+                    "dirty": false,
+                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
+                    "name": "Green Force",
+                    "controlledBy": "umpire",
+                    "overview": "Green force.",
+                    "roles": [],
+                    "umpire": false,
+                    "uniqid": "green"
                 }
             ],
             "name": "Forces",
