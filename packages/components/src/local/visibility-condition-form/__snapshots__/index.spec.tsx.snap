@@ -8,9 +8,28 @@ exports[`VisibilityForm renders correctly 1`] = `
     <div
       className="main"
     >
-      <h2>
-        C345 -  asset-name
-      </h2>
+      <div
+        className="MuiFormControl-root MuiTextField-root title"
+      >
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-1 MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiInput-input"
+            disabled={false}
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+            value="C345 -  asset-name"
+          />
+        </div>
+      </div>
       <div
         className="icon"
       >
@@ -58,7 +77,7 @@ exports[`VisibilityForm renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root makeStyles-root-1 makeStyles-root-3 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root makeStyles-root-2 makeStyles-root-4 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -77,7 +96,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                 >
                   <input
                     checked={false}
-                    className="PrivateSwitchBase-input-10"
+                    className="PrivateSwitchBase-input-11"
                     data-indeterminate={false}
                     name="visibleTo"
                     onChange={[Function]}
@@ -110,7 +129,7 @@ exports[`VisibilityForm renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root makeStyles-root-1 makeStyles-root-5 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root makeStyles-root-2 makeStyles-root-6 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -129,7 +148,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                 >
                   <input
                     checked={false}
-                    className="PrivateSwitchBase-input-10"
+                    className="PrivateSwitchBase-input-11"
                     data-indeterminate={false}
                     name="visibleTo"
                     onChange={[Function]}
