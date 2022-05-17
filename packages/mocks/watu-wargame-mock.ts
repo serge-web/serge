@@ -56,6 +56,22 @@ const wargame: Wargame = {
                             "pType": "ParticipantMapping"
                         },
                         {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": ["nortCO"],
+                            "subscriptionId": "nortCO-control",
+                            "pType": "ParticipantMapping",
+                            "controls": ["nortID"]
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": ["blueCO"],
+                            "subscriptionId": "nortCO-control",
+                            "pType": "ParticipantMapping",
+                            "controls": ["control-all"]
+                        },
+                        {
                             "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": [],
@@ -119,6 +135,17 @@ const wargame: Wargame = {
                     ],
                     "umpire": true,
                     "uniqid": "umpire"
+                },
+                {
+                    "color": "#FCFBEE",
+                    "dirty": false,
+                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
+                    "name": "Green Force",
+                    "controlledBy": ["umpire"],
+                    "overview": "Green force.",
+                    "roles": [],
+                    "umpire": false,
+                    "uniqid": "green"
                 },
                 {
                     "assets": [
@@ -187,7 +214,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "position": "8918aab7003ffff",
-                            "uniqid": "a034a22t5431"
+                            "uniqid": "nortID"
                         },
                         {
                             "condition": "Working",
@@ -272,7 +299,7 @@ const wargame: Wargame = {
                             "isInsightViewer": false,
                             "isObserver": false,
                             "name": "CO",
-                            "roleId": "rks5zfzd6"
+                            "roleId": "blueCO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -280,8 +307,8 @@ const wargame: Wargame = {
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B5",
-                            "roleId": "rks5zfzdb"
+                            "name": "NORT CO",
+                            "roleId": "nortCO"
                         },
                         {
                             "canSubmitPlans": false,

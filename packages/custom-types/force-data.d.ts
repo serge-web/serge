@@ -16,7 +16,9 @@ export default interface ForceData {
   dirty: boolean,
   /** collection of assets (ships in maritime context) for this force */
   assets?: Array<Asset>,
-  /* todo - eventually move to force ids, rather than names */
+  /* @TODO: - eventually move to force ids, rather than names.
+   * FIXME: it should just take a single force id, not an array
+   */
   controlledBy?: Array<ForceData['uniqid']>
   /** list of force IDs that can see assets of this force.
    *  todo - eventually move to force ids, rather than names
