@@ -1,4 +1,25 @@
 import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from '@serge/custom-types'
+import { CONTROL_ALL } from '@serge/config'
+
+const controlThis = (parts: ParticipantMapping[], roleForce: string, role: string): boolean => {
+  const ownsAll = parts.find((part: ParticipantMapping) => {
+    if (part.forceUniqid === roleForce) {
+      // ok, this participation relates to this force
+      if (part.roles && part.roles.includes(role)) {
+        // ok, this membership relates to us
+        if (part.controls && part.controls.includes(CONTROL_ALL)) {
+          // double-check data quality
+          if (part.roles.length !== 1) {
+            console.error('For controlling assets, only one role should be present')
+          }
+          return true
+        }
+      }
+    }
+    return false
+  })
+  return !!ownsAll
+}
 
 /** determine if this role can control the asset in question
  * @param {ForceData[]} channel definition of this channel
@@ -29,8 +50,7 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, 
       return true
     } else {
       // we're not the named controller. Do we have "general" control of the relevant asset?
-      const ownsAll = parts.find((part: ParticipantMapping) => part.roles && part.roles.includes(role) && (!part.controls || (part.controls.length === 0)))
-      return !!ownsAll
+      return controlThis(parts, roleForce, role)
     }
   } else {
     return false

@@ -46,7 +46,15 @@ const wargame: Wargame = {
                             "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": [],
-                            "subscriptionId": "zit48h"
+                            "subscriptionId": "white-view"
+                        },
+                        {
+                            "force": "White",
+                            "pType": "ParticipantMapping",
+                            "forceUniqid": "umpire",
+                            "roles": ["umpire-GC"],
+                            "controls": ["control-all"],
+                            "subscriptionId": "white-controle"
                         },
                         {
                             "force": "CTF B",
@@ -103,7 +111,7 @@ const wargame: Wargame = {
                             "isObserver": true,
                             "isRFIManager": false,
                             "name": "Game Control",
-                            "roleId": "rks5zfzd2"
+                            "roleId": "umpire-GC"
                         },
                         {
                             "canSubmitPlans": false,
