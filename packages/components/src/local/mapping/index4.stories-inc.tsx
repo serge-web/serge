@@ -125,6 +125,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     ...props
   } = args
   const roleStr: string = playerRole
+  // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)

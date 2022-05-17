@@ -195,8 +195,6 @@ export const Mapping: React.FC<PropTypes> = ({
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
 
-    console.log('set selected route', id, store.routes)
-
     // if we are in turn 0 adjudication phase, we have special processing, since
     // the player may be doing force laydown
     if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
@@ -263,6 +261,7 @@ export const Mapping: React.FC<PropTypes> = ({
     const markers = filterMarkers(infoMarkersState, playerForce, viewAsForce)
     setVisibleInfoMarkers(markers)
   }, [infoMarkersState, viewAsForce, playerForce])
+
   /**
    * generate the set of routes visible to this player, for display
    * in the Force Overview panel
@@ -275,17 +274,20 @@ export const Mapping: React.FC<PropTypes> = ({
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing',
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
-      declutterRouteStore(store)
+      setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset, viewAsForce, routeStore])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
 
-  const declutterRouteStore = (store: RouteStore): void => {
-    if (store.routes.length) {
+  /**
+   * the route-store has changed for some reason. So, declutter it
+   */
+   useEffect(() => {
+    if (routeStore.routes.length) {
       const clutterFunc = declutter || routeDeclutter2
 
-      const data: DeclutterData = { routes: store, markers: infoMarkersState }
+      const data: DeclutterData = { routes: routeStore, markers: infoMarkersState }
       // sort out the cell diameter
-      const cellRef = store.routes[0].currentPosition
+      const cellRef = routeStore.routes[0].currentPosition
       const cellRes = h3.h3GetResolution(cellRef)
       if (cellRes === -1) {
         console.warn('Unable to recognise resolution for cell', cellRef)
@@ -297,7 +299,8 @@ export const Mapping: React.FC<PropTypes> = ({
       setViewAsRouteStore(declutteredData.routes)
       setInfoMarkersState(declutteredData.markers)
     }
-  }
+  }, [routeStore])
+  
 
   /**
    * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that

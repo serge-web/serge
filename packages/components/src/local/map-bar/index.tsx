@@ -115,7 +115,6 @@ export const MapBar: React.FC = () => {
 
     // Selects the current asset. Note: this was in a selectedAsset useEffect, but it's been put in here,
     // since the routeStore will update on a new selected asset
-    console.log('map bar', selectedAsset, routeStore.selected)
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
