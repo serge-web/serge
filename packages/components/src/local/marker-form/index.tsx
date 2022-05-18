@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Render component */
-export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeForm }) => {
+export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
 
   const props = useContext(MapContext).props
@@ -86,7 +86,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
       messageType: UPDATE_MARKER,
       marker: formState
     }
-    mapPostBack(UPDATE_MARKER, payload)
+    updateMarker(UPDATE_MARKER, payload)
   }
 
   const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
