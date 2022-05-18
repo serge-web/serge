@@ -1,5 +1,5 @@
 import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from '@serge/custom-types'
-import { CONTROL_ALL } from '@serge/config'
+import { CONTROL_ALL, CONTROL_NONE } from '@serge/config'
 
 const controlThis = (parts: ParticipantMapping[], roleForce: string, role: string): boolean => {
   const ownsAll = parts.find((part: ParticipantMapping) => {
@@ -19,6 +19,15 @@ const controlThis = (parts: ParticipantMapping[], roleForce: string, role: strin
     return false
   })
   return !!ownsAll
+}
+
+export const canControlAnyAsset = (channel: ChannelMapping, roleForce: ForceData['uniqid'], role: Role['roleId']): boolean => {
+  const myForceParticiions = channel.participants.filter((part: ParticipantMapping) => part.forceUniqid === roleForce)
+  const singleRoleParticipations = myForceParticiions.filter((part: ParticipantMapping) => part.roles && part.roles.length === 1)
+  const myParticipations = singleRoleParticipations.filter((part: ParticipantMapping) => part.roles[0] === role)
+  const myControls = myParticipations.filter((part: ParticipantMapping) => part.controls && part.controls.length)
+  const myValidControls = myControls.filter((part: ParticipantMapping) => part.controls !== [CONTROL_NONE])
+  return myValidControls && myValidControls.length > 0
 }
 
 /** determine if this role can control the asset in question

@@ -1,6 +1,6 @@
 import { watuWargame } from '@serge/mocks'
 import deepCopy from '../deep-copy'
-import canControlAsset from '../can-control-asset'
+import canControlAsset, { canControlAnyAsset } from '../can-control-asset'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from '@serge/custom-types'
 
 const game: Wargame = deepCopy(watuWargame)
@@ -11,6 +11,7 @@ const greenForce: ForceData | undefined = game.data.forces.forces.find((force: F
 
 const blueCO: Role | undefined = blueForce && blueForce.roles.find((role: Role) => role.roleId === 'blueCO')
 const blueNortRole: Role | undefined = blueForce && blueForce.roles.find((role: Role) => role.roleId === 'nortCO')
+const blueComms: Role | undefined = blueForce && blueForce.roles.find((role: Role) => role.roleId === 'blue-comms')
 const redCO: Role | undefined = redForce && redForce.roles.find((role: Role) => role.roleId === 'red-CO')
 const whiteUmpire: Role | undefined = whiteForce && whiteForce.roles.find((role: Role) => role.roleId === 'umpire-GC')
 const talnAsset: Asset | undefined = blueForce && blueForce.assets?.find((asset: Asset) => asset.uniqid === 'talnID')
@@ -26,10 +27,29 @@ describe('can control asset:', () => {
     expect(canControlAsset).toBeTruthy()
     // check blue CO has control all
     expect(blueForce && redForce && whiteForce && greenForce).toBeTruthy()
-    expect(blueCO && blueNortRole && redCO && whiteUmpire).toBeTruthy()
+    expect(blueCO && blueNortRole && blueComms && redCO && whiteUmpire).toBeTruthy()
     expect(channel).toBeTruthy()
     expect(nortAsset && talnAsset && greenAsset).toBeTruthy()
   })
+  // CONTROL ANY ASSET
+  it('I am not specified as controller for any asset', () => {
+    if (channel && blueForce && blueComms) {
+      expect(canControlAnyAsset(channel, blueForce.uniqid, blueComms.roleId)).toBeFalsy()
+    }
+  })
+  it('I am specified as controller for specific asset', () => {
+    if (channel && blueForce && blueNortRole) {
+      expect(canControlAnyAsset(channel, blueForce.uniqid, blueNortRole.roleId)).toBeTruthy()
+    }
+  })
+  it('I am specified as controller for remaining asset', () => {
+    if (channel && blueForce && blueCO) {
+      expect(canControlAnyAsset(channel, blueForce.uniqid, blueCO.roleId)).toBeTruthy()
+    }
+  })
+
+
+  // CAN CONTROL SPECIFIC ASSET
   it('I not named as controlling asset, but I am from controlling force', () => {
     if (channel && blueForce && talnAsset && blueNortRole) {
       expect(canControlAsset(channel, blueForce, talnAsset.uniqid, blueForce.uniqid, blueNortRole.roleId)).toBeFalsy()
