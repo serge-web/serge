@@ -4,17 +4,17 @@ interface CssExports {
   'asset-icon': string;
   'blue': string;
   'button': string;
+  'button-group': string;
+  'description': string;
   'fieldset': string;
   'form-header': string;
   'green': string;
   'input-container': string;
   'marker': string;
+  'radius': string;
   'red': string;
   'select': string;
   'selected': string;
-  'description': string;
-  'radius': string;
-  'button-group': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -2,8 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'color-box': string;
-  'selected': string;
   'input-container': string;
+  'selected': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
