@@ -82,13 +82,11 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
   // }
 
   const submitForm = (): void => {
-    if (mapPostBack !== undefined) {
-      const payload: MessageUpdateMarker = {
-        messageType: UPDATE_MARKER,
-        marker: formState
-      }
-      mapPostBack(UPDATE_MARKER, payload)
+    const payload: MessageUpdateMarker = {
+      messageType: UPDATE_MARKER,
+      marker: formState
     }
+    mapPostBack(UPDATE_MARKER, payload)
   }
 
   const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {

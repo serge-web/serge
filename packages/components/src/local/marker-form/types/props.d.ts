@@ -8,9 +8,9 @@ export default interface PropTypes {
   /**
    * close form
    */
-  closeForm?: () => void
+  closeForm: () => void
   /**
    * The method for posting messages out of the mapping component
    */
-  mapPostBack?: (messageType: string, payload: MessageUpdateMarker) => void
+  mapPostBack: (messageType: string, payload: MessageUpdateMarker) => void
 }
