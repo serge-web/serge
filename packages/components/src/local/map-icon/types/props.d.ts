@@ -46,9 +46,9 @@ export default interface PropTypes {
    */
   status?: RouteStatus
   /**
-   * the list of forces that can control this asset
+   * the force that can control this asset
    */
-  controlledBy?: Array<string>
+  controlledBy?: string
   /**
    * A list of forces able to see the asset
    */

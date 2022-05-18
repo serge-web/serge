@@ -16,7 +16,7 @@ import { h3ToGeo } from 'h3-js'
 export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['uniqid']): Array<ForceData['uniqid']> => {
   const res: Array<ForceData['uniqid']> = []
   forces.forEach((force: ForceData) => {
-    if (force.controlledBy && force.controlledBy.includes(playerForce)) {
+    if (force.controlledBy && force.controlledBy === playerForce) {
       res.push(force.uniqid)
     }
   })

@@ -8,7 +8,6 @@ const selected: SelectedAsset = {
   contactId: 'C345',
   typeId: 'a3',
   forceId: forces[1].uniqid,
-  controlledBy: [],
   condition: 'Full capability',
   visibleTo: [forces[2].uniqid, forces[3].uniqid],
   status: {
