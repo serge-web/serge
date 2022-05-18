@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { deepCopy } from '@serge/helpers'
+import { canControlAnyAsset, deepCopy } from '@serge/helpers'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MilliTurns, Role } from '@serge/custom-types'
 
 // Import component files
@@ -122,6 +122,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     playerRole,
     // @typescript-eslint/no-unused-vars
     playerForce,
+    canSubmitOrders,
     phase,
     ...props
   } = args
@@ -130,9 +131,11 @@ const Template: Story<StoryPropTypes> = (args) => {
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
+  const canSubmit = canControlAnyAsset(mapChannel, force, role)
   return (
     <Mapping
       playerForce={force}
+      canSubmitOrders={canSubmit}
       playerRole={role}
       fetchOverride={fetchMock}
       phase={phase}
@@ -150,7 +153,6 @@ export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
   platforms: platformTypes,
   infoMarkers: annotations,
   channel: mapChannel,
@@ -171,7 +173,6 @@ export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
   platforms: platformTypes,
   channel: mapChannel,
   wargameInitiated: true,
@@ -190,7 +191,6 @@ export const DetailedCells = Template.bind({})
 DetailedCells.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
   channel: mapChannel,
   platforms: platformTypes,
   wargameInitiated: true,
