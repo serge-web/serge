@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { deepCopy } from '@serge/helpers'
-import { ForceData, MappingConstraints, MilliTurns } from '@serge/custom-types'
+import { ForceData, MappingConstraints, MessageMap, MilliTurns } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -105,6 +105,10 @@ detailedConstraints.tileLayer = {
 detailedConstraints.gridCellsURL = `${serverPath}atlantic-detailed.json`
 detailedConstraints.tileDiameterMins = 30
 
+const mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => {
+  console.log('index4 postBack', messageType, payload, channelID)
+}
+
 interface StoryPropTypes extends MappingPropTypes {
   showAllowableCells?: boolean
   allowableOrigin?: string
@@ -123,6 +127,7 @@ const Template: Story<StoryPropTypes> = (args) => {
       playerForce={playerForce}
       fetchOverride={fetchMock}
       phase={phase}
+      mapPostBack={mapPostBack}
       {...props}
     />
   )
@@ -159,6 +164,7 @@ OpenStreetMap.args = {
   gameTurnTime: timeStep,
   canSubmitOrders: true,
   platforms: platformTypes,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -177,6 +183,7 @@ DetailedCells.args = {
   gameTurnTime: timeStep,
   canSubmitOrders: true,
   platforms: platformTypes,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
