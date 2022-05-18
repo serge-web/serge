@@ -25,7 +25,7 @@ import {
   MapAnnotation,
   MessageUpdateMarker
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -78,6 +78,7 @@ export const MapBar: React.FC = () => {
     setSelectedMarker,
     channelID,
     mapPostBack,
+    updateMarker,
     routeStore,
     setRouteStore,
     turnPlanned,
@@ -296,7 +297,14 @@ export const MapBar: React.FC = () => {
   }
 
   const onMarkerPostback = (messageType: string, data: MessageUpdateMarker): void => {
-    mapPostBack && mapPostBack(messageType, data, channelID)
+    if (messageType === UPDATE_MARKER) {
+      // note: we're not immediately calling mapPostBack
+      // because we only transmit the data "live" in planning phase.
+      // this is handled in updateMarker callback
+      updateMarker && updateMarker(data.marker)
+    } else {
+      console.warn('Marker postback received wrong type of message')
+    }
     closeForm()
   }
 
