@@ -48,7 +48,6 @@ describe('can control asset:', () => {
     }
   })
 
-
   // CAN CONTROL SPECIFIC ASSET
   it('I not named as controlling asset, but I am from controlling force', () => {
     if (channel && blueForce && talnAsset && blueNortRole) {
@@ -68,6 +67,11 @@ describe('can control asset:', () => {
   it('I control remaining assets', () => {
     if (channel && blueForce && talnAsset && blueCO) {
       expect(canControlAsset(channel, blueForce, talnAsset.uniqid, blueForce.uniqid, blueCO.roleId)).toBeTruthy()
+    }
+  })
+  it('I control remaining assets but not a claimed one', () => {
+    if (channel && blueForce && nortAsset && blueCO) {
+      expect(canControlAsset(channel, blueForce, nortAsset.uniqid, blueForce.uniqid, blueCO.roleId)).toBeFalsy()
     }
   })
   it('I control remaining asset of controlled force', () => {

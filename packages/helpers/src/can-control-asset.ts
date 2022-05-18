@@ -50,13 +50,13 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, 
 
     // see if anyone is named as controlling this asset
     const namedController = parts.find((part: ParticipantMapping) => part.controls && part.controls.includes(asset))
-    if (namedController && namedController.roles && namedController.roles.includes(role)) {
+    if (namedController && namedController.roles) {
       // check data
       if (namedController.roles.length !== 1) {
         console.error('If an asset is being controlled, only one role should be specified')
       }
-      // ok, we're the named controller
-      return true
+      // ok, are we the named controller?
+      return namedController.roles.includes(role)
     } else {
       // we're not the named controller. Do we have "general" control of the relevant asset?
       return controlThis(parts, roleForce, role)
