@@ -296,7 +296,7 @@ export const MapBar: React.FC = () => {
     setSelectedMarker('')
   }
 
-  const onMarkerPostback = (messageType: string, data: MessageUpdateMarker): void => {
+  const updateMarkerPostback = (messageType: string, data: MessageUpdateMarker): void => {
     if (messageType === UPDATE_MARKER) {
       // note: we're not immediately calling mapPostBack
       // because we only transmit the data "live" in planning phase.
@@ -328,7 +328,7 @@ export const MapBar: React.FC = () => {
         const data = collateMarkerFormData(marker, markerIcons, forces)
         return <MarkerForm
           formData={data}
-          mapPostBack={onMarkerPostback}
+          updateMarker={updateMarkerPostback}
           closeForm={closeForm} />
       } else {
         // ok, return a marker form
