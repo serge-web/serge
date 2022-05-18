@@ -99,7 +99,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack, closeFo
     setFormState({ ...formState, shadeRadius: Number(e.target.value) })
   }
 
-  const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormState({ ...formState, label: e.target.value })
   }
 
