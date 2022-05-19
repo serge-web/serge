@@ -22,11 +22,11 @@ const controlThis = (parts: ParticipantMapping[], roleForce: string, role: strin
 }
 
 export const canControlAnyAsset = (channel: ChannelMapping, roleForce: ForceData['uniqid'], role: Role['roleId']): boolean => {
-  const myForceParticiions = channel.participants.filter((part: ParticipantMapping) => part.forceUniqid === roleForce)
-  const singleRoleParticipations = myForceParticiions.filter((part: ParticipantMapping) => part.roles && part.roles.length === 1)
+  const myForceParticitions = channel.participants.filter((part: ParticipantMapping) => part.forceUniqid === roleForce)
+  const singleRoleParticipations = myForceParticitions.filter((part: ParticipantMapping) => part.roles && part.roles.length === 1)
   const myParticipations = singleRoleParticipations.filter((part: ParticipantMapping) => part.roles[0] === role)
-  const myControls = myParticipations.filter((part: ParticipantMapping) => part.controls && part.controls.length)
-  const myValidControls = myControls.filter((part: ParticipantMapping) => part.controls !== [CONTROL_NONE])
+  const myControls = myParticipations.filter((part: ParticipantMapping) => part.controls && part.controls.length > 0)
+  const myValidControls = myControls.filter((part: ParticipantMapping) => part.controls && part.controls[0] !== CONTROL_NONE)
   return myValidControls && myValidControls.length > 0
 }
 
