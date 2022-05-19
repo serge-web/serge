@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { Select, MenuItem } from '@material-ui/core'
-import { camelCase, capitalize } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -15,7 +14,7 @@ export const renderOptions = (options: Array<string | number>): Array<ReactEleme
     key={option}
     value={option.toString()}
   >
-    {capitalize(option.toString())}
+    {option.toString()}
   </MenuItem>
 ))
 
@@ -23,7 +22,7 @@ export const renderOptions = (options: Array<string | number>): Array<ReactEleme
 export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState, className, selectClassName }: PropTypes) => {
   const handleChange = (event: any): void => updateState(event.target.value)
 
-  const inputName = name || camelCase(label)
+  const inputName = name || label
 
   return <InputContainer label={label} className={className}>
     <Select labelId={label} id={inputName} value={selected} onChange={handleChange} className={selectClassName}>

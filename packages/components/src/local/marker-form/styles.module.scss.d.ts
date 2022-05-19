@@ -4,11 +4,15 @@ interface CssExports {
   'asset-icon': string;
   'blue': string;
   'button': string;
+  'button-group': string;
+  'description': string;
   'fieldset': string;
+  'force-color': string;
   'form-header': string;
   'green': string;
   'input-container': string;
   'marker': string;
+  'radius': string;
   'red': string;
   'select': string;
   'selected': string;

@@ -11,6 +11,7 @@ import { platformTypes, watuWargame } from '@serge/mocks'
 const store: RouteStore = { routes: [] }
 const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []
 const force = watuWargame.data.forces.forces[0].uniqid
+const markerIcons = watuWargame.data.annotationIcons ? watuWargame.data.annotationIcons.markers : []
 
 it('WorldState renders correctly', () => {
   const tree = renderer
@@ -18,7 +19,7 @@ it('WorldState renders correctly', () => {
       selectedMarker={undefined} platforms={platformTypes} playerForce={force} infoMarkers={infoMarkers}
       phase={ADJUDICATION_PHASE} turnNumber={2}
       panel={WorldStatePanels.Control} canSubmitOrders={true}
-      plansSubmitted={false} isUmpire={true} store={store} name="test" />)
+      plansSubmitted={false} isUmpire={true} store={store} name="test" markerIcons={markerIcons} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

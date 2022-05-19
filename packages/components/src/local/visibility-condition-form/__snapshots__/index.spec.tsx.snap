@@ -8,9 +8,28 @@ exports[`VisibilityForm renders correctly 1`] = `
     <div
       className="main"
     >
-      <h2>
-        C345 -  asset-name
-      </h2>
+      <div
+        className="MuiFormControl-root MuiTextField-root title"
+      >
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-1 MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiInput-input"
+            disabled={false}
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+            value="C345 -  asset-name"
+          />
+        </div>
+      </div>
       <div
         className="icon"
       >
@@ -49,16 +68,16 @@ exports[`VisibilityForm renders correctly 1`] = `
           className="container main-container align-right"
         >
           <section
-            className="input-container"
+            className="input-container input-container"
           >
             
             <label
-              className="MuiFormControlLabel-root selected"
+              className="MuiFormControlLabel-root"
               title="Red Force"
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root makeStyles-root-2 makeStyles-root-4 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -76,22 +95,22 @@ exports[`VisibilityForm renders correctly 1`] = `
                   className="MuiIconButton-label"
                 >
                   <input
-                    checked={true}
-                    className="PrivateSwitchBase-input-4"
+                    checked={false}
+                    className="PrivateSwitchBase-input-11"
                     data-indeterminate={false}
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="Red Force"
+                    value="Red"
                   />
                   <svg
                     aria-hidden={true}
-                    className="MuiSvgIcon-root"
+                    className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
                     />
                   </svg>
                 </span>
@@ -100,25 +119,17 @@ exports[`VisibilityForm renders correctly 1`] = `
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
               >
                 <span>
-                  <span
-                    className="color-box"
-                    style={
-                      Object {
-                        "backgroundColor": "#F00",
-                      }
-                    }
-                  />
                   Red Force
                 </span>
               </span>
             </label>
             <label
-              className="MuiFormControlLabel-root selected"
+              className="MuiFormControlLabel-root"
               title="Green Force"
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root makeStyles-root-2 makeStyles-root-6 MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -136,22 +147,22 @@ exports[`VisibilityForm renders correctly 1`] = `
                   className="MuiIconButton-label"
                 >
                   <input
-                    checked={true}
-                    className="PrivateSwitchBase-input-4"
+                    checked={false}
+                    className="PrivateSwitchBase-input-11"
                     data-indeterminate={false}
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="Green Force"
+                    value="Green"
                   />
                   <svg
                     aria-hidden={true}
-                    className="MuiSvgIcon-root"
+                    className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
                     />
                   </svg>
                 </span>
@@ -160,14 +171,6 @@ exports[`VisibilityForm renders correctly 1`] = `
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
               >
                 <span>
-                  <span
-                    className="color-box"
-                    style={
-                      Object {
-                        "backgroundColor": "#0F0",
-                      }
-                    }
-                  />
                   Green Force
                 </span>
               </span>

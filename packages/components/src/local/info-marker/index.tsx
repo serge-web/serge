@@ -14,6 +14,7 @@ import { MapContext } from '../mapping'
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
+import { IconOption } from '@serge/custom-types'
 
 const fetch = unfetch.bind(window)
 
@@ -22,7 +23,8 @@ export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location,
   locationHex,
-  dragged
+  dragged,
+  icons
 }) => {
   const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
@@ -45,18 +47,22 @@ export const InfoMarker: React.FC<PropTypes> = ({
   const className = getIconClassname('', isSelected)
 
   useEffect(() => {
-    fetch(`/assets/counters/${marker.icon || 'unknown.svg'}`, { method: 'GET' })
-      .then(res => res.text())
-      .then(text => {
-        const option = { compact: true }
-        const svgJson = JSON.parse(xmljs.xml2json(text, option))
-        const attributes = get(svgJson, 'svg.g.path._attributes')
-        attributes.style = `fill: ${marker.color}`
-        set(svgJson, 'svg.g.path._attributes', attributes)
-        const svgXml = xmljs.json2xml(svgJson, option)
-        setSvgContent(svgXml)
-      })
-  }, [marker.icon, marker.color])
+    if (icons) {
+      const iconOption = icons.find((icon: IconOption) => icon.uniqid === marker.iconId)
+      const iconURL = iconOption && iconOption.icon
+      fetch(`/assets/counters/${iconURL || 'unknown.svg'}`, { method: 'GET' })
+        .then(res => res.text())
+        .then(text => {
+          const option = { compact: true }
+          const svgJson = JSON.parse(xmljs.xml2json(text, option))
+          const attributes = get(svgJson, 'svg.g.path._attributes')
+          attributes.style = `fill: ${marker.color}`
+          set(svgJson, 'svg.g.path._attributes', attributes)
+          const svgXml = xmljs.json2xml(svgJson, option)
+          setSvgContent(svgXml)
+        })
+    }
+  }, [marker.iconId, marker.color, icons])
 
   useEffect(() => {
     if (marker.shadeRadius && marker.shadeRadius > 0) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { canControlAnyAsset, deepCopy } from '@serge/helpers'
-import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MilliTurns, Role } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, MessageMap, ForceData, MappingConstraints, MilliTurns, Role } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -24,6 +24,8 @@ const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
+const icons = (watuWargame.data.annotationIcons && watuWargame.data.annotationIcons.markers) || []
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 async function fetchMock (): Promise<any> {
@@ -110,6 +112,10 @@ detailedConstraints.tileLayer = {
 detailedConstraints.gridCellsURL = `${serverPath}atlantic-detailed.json`
 detailedConstraints.tileDiameterMins = 30
 
+const mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => {
+  console.log('index4 postBack', messageType, payload, channelID)
+}
+
 interface StoryPropTypes extends MappingPropTypes {
   showAllowableCells?: boolean
   allowableOrigin?: string
@@ -139,7 +145,9 @@ const Template: Story<StoryPropTypes> = (args) => {
       canSubmitOrders={canSubmit}
       playerRole={role}
       fetchOverride={fetchMock}
+      markerIcons={icons}
       phase={phase}
+      mapPostBack={mapPostBack}
       {...props}
     />
   )
@@ -176,6 +184,7 @@ OpenStreetMap.args = {
   gameTurnTime: timeStep,
   platforms: platformTypes,
   channel: mapChannel,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -194,6 +203,7 @@ DetailedCells.args = {
   gameTurnTime: timeStep,
   channel: mapChannel,
   platforms: platformTypes,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,

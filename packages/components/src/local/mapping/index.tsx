@@ -104,8 +104,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [infoMarkersState, setInfoMarkersState] = useState<MapAnnotations>(infoMarkers)
   const [visibleInfoMarkers, setVisibleInfoMarkers] = useState<MapAnnotations>([])
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
-  const [selectedMarker, setSelectedMarker] = useState<MapAnnotation['uniqid'] | undefined>(undefined)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined>(undefined)
+  const [selectedMarker, setSelectedMarker] = useState<string | undefined>(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [h3Resolution, setH3Resolution] = useState<number>(3)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
@@ -636,7 +636,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const marker: MapAnnotation = {
         uniqid: uniqid('a'),
         color: '#f00',
-        icon: 'unknown.svg',
+        iconId: 'unk',
         label: 'pending label',
         description: 'pending description',
         visibleTo: [],
@@ -741,7 +741,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     clearFromTurn,
     cancelRoutePlanning,
-    mapPostBack: mapPostBack,
+    mapPostBack,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,

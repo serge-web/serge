@@ -1,4 +1,4 @@
-import { MarkerFormData, MapPostBack } from '@serge/custom-types'
+import { MarkerFormData, MessageUpdateMarker } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -6,7 +6,11 @@ export default interface PropTypes {
    */
   formData: MarkerFormData
   /**
-   * The method for posting messages out of the mapping component
+   * close form
    */
-  mapPostBack?: MapPostBack
+  closeForm: () => void
+  /**
+   * Handle to update a marker
+   */
+  updateMarker: (messageType: string, payload: MessageUpdateMarker) => void
 }

@@ -19,12 +19,12 @@ import {
   ACTIVITY_TIME,
   ACTIVITY_TYPE,
   SERGE_INFO,
-  INFO_MESSAGE, 
-  FEEDBACK_MESSAGE, 
+  INFO_MESSAGE,
+  FEEDBACK_MESSAGE,
   CUSTOM_MESSAGE,
   UPDATE_MARKER,
   STATE_OF_WORLD,
-  hiddenPrefix 
+  hiddenPrefix
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -130,7 +130,7 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
       dispatch(setLatestFeedbackMessage(feedbackM))
     } else if (doc.messageType === COUNTER_MESSAGE) {
       // eslint-disable-next-line no-useless-return
-      return 
+      return
     } else {
       // @ts-ignore: TODO: check this case
       dispatch(setLatestWargameMessage(doc))
@@ -548,7 +548,7 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
     updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
 
     if (updatedData.forces.forces.length === 0) {
-      updatedData.channels = { 
+      updatedData.channels = {
         name: 'Channels',
         channels: [],
         selectedChannel: '',
@@ -568,7 +568,7 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
-    updatedData.forces.selectedForce = duplicate as any 
+    updatedData.forces.selectedForce = duplicate as any
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -797,18 +797,6 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     isOpen: false,
     hasBeenRead: false
   }
-
-  // db.put({
-  //   _id: new Date().toISOString(),
-  //   details,
-  //   // defined constat for messages, it's not same as message.details.messageType,
-  //   // ex for all template based messages will be used CUSTOM_MESSAGE Type
-  //   messageType: details.messageType,
-  //   message
-  // }).catch((err) => {
-  //   console.log(err)
-  //   return err
-  // })
   db.put(customMessage).catch((err) => {
     console.log(err)
     return err
@@ -856,7 +844,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           // apply the reducer to this wargame
           res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         }
-          
+
         // store the new verison
         return createLatestWargameRevision(dbName, res)
       }).then((res) => {

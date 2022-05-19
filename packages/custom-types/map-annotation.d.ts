@@ -25,10 +25,10 @@ export interface MapAnnotation {
    * uniqid
    */
   visibleTo: ForceData['uniqid'][]
-  /** type of icon to display
+  /** id of icon to display
    * 
    */
-  icon: string
+  iconId: IconOption['uniqid']
   /** color of icon
    * 
    */
