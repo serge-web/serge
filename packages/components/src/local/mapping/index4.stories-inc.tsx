@@ -23,6 +23,7 @@ const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platfo
 const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
+const icons = (watuWargame.data.annotationIcons && watuWargame.data.annotationIcons.markers) || []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -126,6 +127,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     <Mapping
       playerForce={playerForce}
       fetchOverride={fetchMock}
+      markerIcons={icons}
       phase={phase}
       mapPostBack={mapPostBack}
       {...props}
