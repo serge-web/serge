@@ -43,7 +43,6 @@ export const initialState: PlayerUi = {
   selectedRoleName: '',
   isObserver: false,
   isUmpire: false,
-  canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
