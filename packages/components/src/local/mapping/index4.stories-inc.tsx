@@ -28,6 +28,8 @@ const icons = (watuWargame.data.annotationIcons && watuWargame.data.annotationIc
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
+console.clear()
+
 async function fetchMock (): Promise<any> {
   return {
     json: (): any => data
