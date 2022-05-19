@@ -10,4 +10,8 @@ export default interface IconOption extends FormOption {
    * url for SVG icon
    */
   icon: string
+  /**
+   * id for icon (having icon allows name to be changed)
+   */
+  uniqid?: string
 }
