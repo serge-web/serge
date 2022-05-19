@@ -1,9 +1,10 @@
 import { Button, TextField } from '@material-ui/core'
 import { UPDATE_MARKER } from '@serge/config'
-import { MapAnnotation, MessageUpdateMarker } from '@serge/custom-types'
+import { IconOption, MapAnnotation, MessageUpdateMarker } from '@serge/custom-types'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import FormGroup from '../form-elements/form-group'
 import RCB from '../form-elements/rcb'
+import Selector from '../form-elements/selector'
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -15,11 +16,17 @@ import PropTypes from './types/props'
 /* Render component */
 export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
+  const [iconName, setIconName] = useState<string>(formState.icon)
+  
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
-  const { forces } = formData.populate
+  const { forces, icons } = formData.populate
+
+  const iconNames: string[] = icons ? icons.map((p: IconOption): string => p.icon) : []
+
+  console.log('icon form', formState.icon, iconNames)
 
   const changeHandler = (formStateValue: any): void => {
     setFormState({ ...formState, ...formStateValue })
@@ -29,57 +36,18 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     setFormState({ ...formData.value })
   }, [formData.value])
 
-  // /** the forces from props has changed */
-  // useEffect(() => {
-  //   if (formState.perceivedTypeId && formState.perceivedTypeId !== UNKNOWN_TYPE) {
-  //     const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
-  //     if (typeDetails) {
-  //       if (typeName !== typeDetails.name) {
-  //         setTypeName(typeDetails.name)
-  //       }
-  //     } else {
-  //       throw new Error('failed to find platform type' + formState.perceivedTypeId)
-  //     }
-  //   } else {
-  //     if (typeName !== unknownStr) {
-  //       setTypeName(unknownStr)
-  //     }
-  //   }
-  // }, [formState])
-
-  // const nameHandler = (e: HTMLInputElement): void => {
-  //   const { value } = e
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedNameVal: value
-  //     }
-  //   )
-  // }
-
-  // const forceHandler = (e: HTMLInputElement): void => {
-  //   const { value } = e
-  //   const force = perceivedForces.find((force: ForceOption) => force.name === value)
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedForceId: force && force.id ? force.id : undefined
-  //     }
-  //   )
-  // }
-
-  // const typeHandler = (data: string): void => {
-  //   // get the id
-  //   const typeDetails = perceivedTypes.find((p: PerceivedType) => p.name === data)
-  //   const typeId = data === unknownStr ? undefined : typeDetails && typeDetails.uniqid
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedTypeId: typeId
-  //     }
-  //   )
-  //   setTypeName(data)
-  // }
+  const typeHandler = (data: string): void => {
+    // get the id
+    const selectedIcon = icons.find((p: IconOption) => p.icon === data)
+    const iconName = (selectedIcon && selectedIcon.icon) || ''
+    setFormState(
+      {
+        ...formState,
+        icon: iconName
+      }
+    )
+    setIconName(data)
+  }
 
   const submitForm = (): void => {
     const payload: MessageUpdateMarker = {
@@ -114,6 +82,9 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         <div className={styles.description}>
           <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
         </div>
+        <FormGroup title='icon type' align='right'>
+          <Selector label="" name='iconType' options={iconNames} selected={iconName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+        </FormGroup>
         <FormGroup title='Visible to' align='right'>
           <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
         </FormGroup>
