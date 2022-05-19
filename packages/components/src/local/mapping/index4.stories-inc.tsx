@@ -122,6 +122,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     playerRole,
     // @typescript-eslint/no-unused-vars
     playerForce,
+    // @typescript-eslint/no-unused-vars
     canSubmitOrders,
     phase,
     ...props
