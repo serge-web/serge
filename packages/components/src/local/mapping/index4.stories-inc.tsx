@@ -127,7 +127,6 @@ const Template: Story<StoryPropTypes> = (args) => {
     <Mapping
       playerForce={playerForce}
       fetchOverride={fetchMock}
-      markerIcons={icons}
       phase={phase}
       mapPostBack={mapPostBack}
       {...props}
@@ -147,6 +146,7 @@ NaturalEarth.args = {
   canSubmitOrders: true,
   platforms: platformTypes,
   infoMarkers: annotations,
+  markerIcons: icons,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -167,6 +167,7 @@ OpenStreetMap.args = {
   canSubmitOrders: true,
   platforms: platformTypes,
   infoMarkers: annotations,
+  markerIcons: icons,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -186,6 +187,7 @@ DetailedCells.args = {
   canSubmitOrders: true,
   platforms: platformTypes,
   infoMarkers: annotations,
+  markerIcons: icons,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
