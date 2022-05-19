@@ -1,7 +1,7 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Confirm } from '@serge/components'
 import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations } from '@serge/custom-types'
+import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations, IconOption } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
@@ -21,7 +21,7 @@ export const WorldState: React.FC<PropTypes> = ({
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback,
-  infoMarkers, playerForce
+  infoMarkers, playerForce, markerIcons
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
   const [markers, setMarkers] = useState<MapAnnotations>([])
@@ -116,7 +116,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const canBeSelected = true
     const marker = item as MapAnnotation
     const forceColor = marker.color
-    const imageSrc = marker.icon
+    const imageSrc = markerIcons.find((icon: IconOption) => icon.uniqid === marker.iconId) || ''
     const isSelected = marker.uniqid === selectedMarker
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>

@@ -16,14 +16,15 @@ import PropTypes from './types/props'
 /* Render component */
 export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
-  const [iconName, setIconName] = useState<string>(formState.icon)
+  const [iconName, setIconName] = useState<string>('')
+  const [iconURL, setIconURL] = useState<string>(formState.iconId)
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
   const { forces, icons } = formData.populate
 
-  const iconNames: string[] = icons ? icons.map((p: IconOption): string => p.icon) : []
+  const iconNames: string[] = icons ? icons.map((p: IconOption): string => p.name) : []
 
   const changeHandler = (formStateValue: any): void => {
     setFormState({ ...formState, ...formStateValue })
@@ -33,19 +34,24 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     setFormState({ ...formData.value })
   }, [formData.value])
 
+  useEffect(() => {
+    // get the id
+    const selectedIcon = icons.find((p: IconOption) => p.uniqid === formState.iconId)
+    const iconName = (selectedIcon && selectedIcon.name) || ''
+    const iconURL = (selectedIcon && selectedIcon.icon) || ''
+    setIconName(iconName)
+    setIconURL(iconURL)
+  }, [formState.iconId])
+
   const typeHandler = (data: string): void => {
     // get the id
-    const selectedIcon = icons.find((p: IconOption) => p.icon === data)
-    const iconName = (selectedIcon && selectedIcon.icon) || ''
-    const iconId = (selectedIcon && selectedIcon.uniqid || '')
+    const selectedIcon = icons.find((p: IconOption) => p.name === data)
     setFormState(
       {
         ...formState,
-        icon: iconName,
-        iconId: iconId
+        iconId: (selectedIcon && selectedIcon.uniqid) || ''
       }
     )
-    setIconName(data)
   }
 
   const submitForm = (): void => {
@@ -72,7 +78,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     <div>
       <TitleWithIcon
         forceColor={formState.color}
-        icon={formState.icon}
+        icon={iconURL}
         onTitleChange={onTitleChange}
       >
         {formState.label}

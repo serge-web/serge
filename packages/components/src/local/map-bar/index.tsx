@@ -440,6 +440,7 @@ export const MapBar: React.FC = () => {
             isUmpire={playerForce === UMPIRE_FORCE}
             playerForce={playerForce}
             infoMarkers={infoMarkers}
+            markerIcons={markerIcons}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}
             platforms={platforms}

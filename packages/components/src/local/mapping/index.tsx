@@ -627,7 +627,6 @@ export const Mapping: React.FC<PropTypes> = ({
       const marker: MapAnnotation = {
         uniqid: uniqid('a'),
         color: '#f00',
-        icon: 'unknown.svg',
         iconId: 'unk',
         label: 'pending label',
         description: 'pending description',
