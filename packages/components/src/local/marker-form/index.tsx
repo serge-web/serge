@@ -56,6 +56,11 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
 
   const toggleColorPicker = () => {
     console.warn('open color editor')
+    // make some forced change
+    setFormState({
+      ...formState,
+      color: '#0f3'
+    })
   }
 
   const submitForm = (): void => {
