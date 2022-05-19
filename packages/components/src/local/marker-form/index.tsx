@@ -54,6 +54,11 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     )
   }
 
+
+  const toggleColorPicker = () => {
+    console.warn('open color editor')
+  };
+
   const submitForm = (): void => {
     const payload: MessageUpdateMarker = {
       messageType: UPDATE_MARKER,
@@ -89,6 +94,9 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         </div>
         <FormGroup title='icon type' align='right'>
           <Selector label="" name='iconType' options={iconNames} selected={iconName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+        </FormGroup>
+        <FormGroup title='icon color' align='right'>
+          <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
         </FormGroup>
         <FormGroup title='Visible to' align='right'>
           <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />

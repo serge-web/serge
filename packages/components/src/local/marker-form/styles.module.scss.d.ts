@@ -7,6 +7,7 @@ interface CssExports {
   'button-group': string;
   'description': string;
   'fieldset': string;
+  'force-color': string;
   'form-header': string;
   'green': string;
   'input-container': string;
