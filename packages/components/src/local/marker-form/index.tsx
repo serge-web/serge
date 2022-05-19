@@ -17,7 +17,6 @@ import PropTypes from './types/props'
 export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
   const [iconName, setIconName] = useState<string>(formState.icon)
-  
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null

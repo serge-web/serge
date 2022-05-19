@@ -25,7 +25,7 @@ exports[`Selector renders correctly 1`] = `
       role="button"
       tabIndex={0}
     >
-      Item2
+      item2
     </div>
     <input
       aria-hidden={true}
