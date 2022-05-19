@@ -31,17 +31,15 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
   }
 
   useEffect(() => {
-    setFormState({ ...formData.value })
-  }, [formData.value])
-
-  useEffect(() => {
-    // get the id
-    const selectedIcon = icons.find((p: IconOption) => p.uniqid === formState.iconId)
-    const iconName = (selectedIcon && selectedIcon.name) || ''
-    const iconURL = (selectedIcon && selectedIcon.icon) || ''
-    setIconName(iconName)
-    setIconURL(iconURL)
-  }, [formState.iconId])
+    if (icons) {
+      // get the id
+      const selectedIcon = icons.find((p: IconOption) => p.uniqid === formState.iconId)
+      const iconName = (selectedIcon && selectedIcon.name) || ''
+      const iconURL = (selectedIcon && selectedIcon.icon) || ''
+      setIconName(iconName)
+      setIconURL(iconURL)
+    }
+  }, [formState.iconId, icons])
 
   const typeHandler = (data: string): void => {
     // get the id
