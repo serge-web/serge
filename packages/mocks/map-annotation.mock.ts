@@ -7,6 +7,7 @@ export const infoMarker: MapAnnotation = {
   location: 'a12',
   visibleTo: [],
   icon: 'unknown.svg',
+  iconId: 'unk',
   color: '#f00'
 }
 

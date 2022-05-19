@@ -11,7 +11,7 @@ export default interface IconOption extends FormOption {
    */
   icon: string
   /**
-   * id for icon (having icon allows name to be changed)
+   * id for the icon (to allow renaming)
    */
-  uniqid?: string
+  uniqid: string
 }

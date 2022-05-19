@@ -25,8 +25,6 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
 
   const iconNames: string[] = icons ? icons.map((p: IconOption): string => p.icon) : []
 
-  console.log('icon form', formState.icon, iconNames)
-
   const changeHandler = (formStateValue: any): void => {
     setFormState({ ...formState, ...formStateValue })
   }
@@ -39,10 +37,12 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     // get the id
     const selectedIcon = icons.find((p: IconOption) => p.icon === data)
     const iconName = (selectedIcon && selectedIcon.icon) || ''
+    const iconId = (selectedIcon && selectedIcon.uniqid || '')
     setFormState(
       {
         ...formState,
-        icon: iconName
+        icon: iconName,
+        iconId: iconId
       }
     )
     setIconName(data)

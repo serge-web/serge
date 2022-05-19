@@ -29,6 +29,10 @@ export interface MapAnnotation {
    * 
    */
   icon: string
+  /** id of icon to display
+   * 
+   */
+  iconId: IconOption['uniqid']
   /** color of icon
    * 
    */
