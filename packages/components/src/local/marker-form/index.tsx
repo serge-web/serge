@@ -54,10 +54,9 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     )
   }
 
-
   const toggleColorPicker = () => {
     console.warn('open color editor')
-  };
+  }
 
   const submitForm = (): void => {
     const payload: MessageUpdateMarker = {

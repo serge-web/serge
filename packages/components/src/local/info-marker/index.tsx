@@ -50,7 +50,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
     if (icons) {
       const iconOption = icons.find((icon: IconOption) => icon.uniqid === marker.iconId)
       const iconURL = iconOption && iconOption.icon
-        fetch(`/assets/counters/${iconURL || 'unknown.svg'}`, { method: 'GET' })
+      fetch(`/assets/counters/${iconURL || 'unknown.svg'}`, { method: 'GET' })
         .then(res => res.text())
         .then(text => {
           const option = { compact: true }
@@ -60,7 +60,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
           set(svgJson, 'svg.g.path._attributes', attributes)
           const svgXml = xmljs.json2xml(svgJson, option)
           setSvgContent(svgXml)
-        })  
+        })
     }
   }, [marker.iconId, marker.color, icons])
 
