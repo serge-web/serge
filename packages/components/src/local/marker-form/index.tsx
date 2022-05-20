@@ -8,6 +8,7 @@ import Selector from '../form-elements/selector'
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
+import ColorPicker from './color-picker'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Types */
@@ -18,7 +19,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
   const [iconName, setIconName] = useState<string>('')
   const [iconURL, setIconURL] = useState<string>(formState.iconId)
-
+  const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
@@ -52,13 +53,8 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     )
   }
 
-  const toggleColorPicker = () => {
-    console.warn('open color editor')
-    // make some forced change
-    setFormState({
-      ...formState,
-      color: '#0f3'
-    })
+  const toggleColorPicker = (e: React.MouseEvent<HTMLDivElement>): void => {
+    setAnchorElm(e.currentTarget)
   }
 
   const submitForm = (): void => {
@@ -81,36 +77,45 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     setFormState({ ...formState, label: e.target.value })
   }
 
+  const closeColorPicker = (): void => setAnchorElm(null)
+
+  const changeIconColor = (color: string): void => {
+    setFormState({
+      ...formState,
+      color
+    })
+    closeColorPicker()
+  }
+
   return <div className={styles.marker}>
-    <div>
-      <TitleWithIcon
-        forceColor={formState.color}
-        icon={iconURL}
-        onTitleChange={onTitleChange}
-      >
-        {formState.label}
-      </TitleWithIcon>
-      <fieldset className={styles.fieldset}>
-        <div className={styles.description}>
-          <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
-        </div>
-        <FormGroup title='icon type' align='right'>
-          <Selector label="" name='iconType' options={iconNames} selected={iconName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
-        </FormGroup>
-        <FormGroup title='icon color' align='right'>
-          <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
-        </FormGroup>
-        <FormGroup title='Visible to' align='right'>
-          <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
-        </FormGroup>
-        <FormGroup title='Radius' align='right'>
-          <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />
-        </FormGroup>
-      </fieldset>
-      <div className={styles['button-group']}>
-        <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Canel</Button>
-        <Button onClick={submitForm} color='primary' variant='contained' className={styles.button}>Save</Button>
+    <ColorPicker anchorElm={anchorElm} onClose={closeColorPicker} switchColor={changeIconColor} />
+    <TitleWithIcon
+      forceColor={formState.color}
+      icon={iconURL}
+      onTitleChange={onTitleChange}
+    >
+      {formState.label}
+    </TitleWithIcon>
+    <fieldset className={styles.fieldset}>
+      <div className={styles.description}>
+        <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
       </div>
+      <FormGroup title='icon type' align='right'>
+        <Selector label="" name='iconType' options={iconNames} selected={iconName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+      </FormGroup>
+      <FormGroup title='icon color' align='right'>
+        <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
+      </FormGroup>
+      <FormGroup title='Visible to' align='right'>
+        <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+      </FormGroup>
+      <FormGroup title='Radius' align='right'>
+        <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />
+      </FormGroup>
+    </fieldset>
+    <div className={styles['button-group']}>
+      <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Canel</Button>
+      <Button onClick={submitForm} color='primary' variant='contained' className={styles.button}>Save</Button>
     </div>
   </div>
 }
