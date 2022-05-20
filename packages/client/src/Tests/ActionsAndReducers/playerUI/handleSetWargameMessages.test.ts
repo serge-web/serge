@@ -73,10 +73,12 @@ const playerUi: PlayerUi = {
     {
       name: 'Blue Chat',
       uniqid: 'channel-k16fgs63',
+      channelType: 'ChannelCustom',
       participants: [
         {
           force: 'Blue',
           forceUniqid: 'force-k16fdykj',
+          pType: 'ParticipantCustom',
           roles: [],
           templates: [
             {
@@ -91,11 +93,13 @@ const playerUi: PlayerUi = {
     },
     {
       name: 'Blue HQ',
+      channelType: 'ChannelCustom',
       uniqid: 'channel-k16fheej',
       participants: [
         {
           force: 'Blue',
           forceUniqid: 'force-k16fdykj',
+          pType: 'ParticipantCustom',
           roles: [],
           templates: [
             {
@@ -109,6 +113,7 @@ const playerUi: PlayerUi = {
         {
           force: 'White',
           forceUniqid: 'umpire',
+          pType: 'ParticipantCustom',
           roles: [
             'rk16ffhn2'
           ],
@@ -126,9 +131,11 @@ const playerUi: PlayerUi = {
     {
       name: 'Mapping',
       uniqid: 'channel-k4cnw3nr',
+      channelType: 'ChannelCustom',
       participants: [
         {
           force: 'White',
+          pType: 'ParticipantCustom',
           forceUniqid: 'umpire',
           roles: [],
           templates: [],
@@ -137,6 +144,7 @@ const playerUi: PlayerUi = {
         },
         {
           force: 'Blue',
+          pType: 'ParticipantCustom',
           forceUniqid: 'force-k16fdykj',
           roles: [],
           templates: [],
