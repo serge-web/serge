@@ -116,12 +116,13 @@ export const WorldState: React.FC<PropTypes> = ({
     const canBeSelected = true
     const marker = item as MapAnnotation
     const forceColor = marker.color
-    const imageSrc = markerIcons.find((icon: IconOption) => icon.uniqid === marker.iconId) || ''
+    const imageIcon = markerIcons.find((icon: IconOption) => icon.uniqid === marker.iconId)
+    const imageURL = imageIcon ? imageIcon.icon : ''
     const isSelected = marker.uniqid === selectedMarker
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>
-          <AssetIcon color={forceColor} isSelected={isSelected} imageSrc={imageSrc} />
+          <AssetIcon color={forceColor} isSelected={isSelected} imageSrc={imageURL} />
         </div>
         <div className={styles['item-content']}>
           <p>{marker.label}</p>
