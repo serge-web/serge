@@ -1,8 +1,8 @@
+import { it, expect } from '@jest/globals'
 import { ForceData, MessageSubmitPlans } from '@serge/custom-types'
 import {
   SUBMIT_PLANS
 } from '@serge/config'
-/* global it expect */
 import handlePlansSubmittedChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import findAsset from '../../../Helpers/findAsset'
 
