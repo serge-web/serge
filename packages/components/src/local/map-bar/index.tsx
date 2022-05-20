@@ -120,8 +120,8 @@ export const MapBar: React.FC = () => {
     if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
-          selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+        const newForm = assetDialogFor(playerForce, selectedAsset.visibleTo,
+          phase, worldStatePanel, turnNumber, routeStore.selected.destroyed, routeStore.selected.underControlByThisRole)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -153,7 +153,7 @@ export const MapBar: React.FC = () => {
           if (canSubmitOrders) {
             // see if it has any forces that laydown
             const needsLaydown = routeStore.routes.find((route: Route) => {
-              return route.underControl && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
+              return route.underControlByThisRole && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
             })
             formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
             submitTitle = needsLaydown ? 'Submit Force Laydown' : ''
@@ -193,7 +193,7 @@ export const MapBar: React.FC = () => {
     } else if (phase === PLANNING_PHASE) {
       // Player has finished planning process, and now
       // wants to submit them
-      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
+      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControlByThisRole)
       const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
       mapPostBack(SUBMIT_PLANS, orders, channelID)
     } else if (turnNumber === 0) {
@@ -338,8 +338,8 @@ export const MapBar: React.FC = () => {
     if (!routeStore || !routeStore.selected) {
       throw new Error('No route selected')
     }
-    const form = assetDialogFor(playerForce, selectedAsset.forceId, selectedAsset.visibleTo,
-      selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
+    const form = assetDialogFor(playerForce, selectedAsset.visibleTo,
+      phase, worldStatePanel, turnNumber, routeStore.selected.destroyed, routeStore.selected.underControlByThisRole)
     const platformIcon = selectedAsset.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
     const platformName = selectedAsset.typeId === UNKNOWN_TYPE ? 'Unknown' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').name
     const iconData = {

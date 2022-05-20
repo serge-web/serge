@@ -464,6 +464,21 @@ export const platformTypes: PlatformTypeData[] = [
     ],
     travelMode: 'sea',
     "uniqid": "a13"
+  }, {
+    "conditions": [
+        "Working",
+        "Inactive"
+    ],
+    "icon": "datum.svg",
+    "name": "datum",
+    "states": [
+        {
+            "mobile": true,
+            "name": "Active"
+        }
+    ],
+    "travelMode": "air",
+    "uniqid": "a14"
   }
 ]
 

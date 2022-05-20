@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, ChannelTypes, ChannelUI } from '@serge/custom-types'
+import { MessageMap, PlayerUi, MappingConstraints, ChannelTypes, ChannelUI, ChannelMapping } from '@serge/custom-types'
 import {
   FORCE_LAYDOWN,
   PERCEPTION_OF_CONTACT,
@@ -18,7 +18,7 @@ import {
   UPDATE_MARKER,
   Domain
 } from '@serge/config'
-import { sendMapMessage, isChatChannel } from '@serge/helpers'
+import { sendMapMessage, isChatChannel, canControlAnyAsset } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
@@ -29,17 +29,6 @@ import findChannelByName from './findChannelByName'
 import CollabChannel from '../../../Components/CollabChannel'
 
 type Factory = (node: TabNode) => React.ReactNode
-
-/** utility to find the role for this role name */
-const findRole = (roleId: string, forceData: ForceData | undefined): Role => {
-  if (forceData) {
-    const role = forceData.roles.find((role: Role) => role.roleId === roleId)
-    if (role) {
-      return role
-    }
-  }
-  throw new Error('Role not found for id:' + roleId)
-}
 
 /** convert phase as a string to the enum type
  * Note: we were using Phase[state.phase], but it only
@@ -123,10 +112,6 @@ const factory = (state: PlayerUi): Factory => {
       return node.isVisible()
     }
 
-    // sort out if role can submit orders
-    const role: Role = findRole(state.selectedRole, state.selectedForce)
-    const canSubmitOrders: boolean = !!role.canSubmitPlans
-
     /**
      * If a maximized tabset exists but the current tabset node is not this one
      * Do not render it
@@ -140,7 +125,7 @@ const factory = (state: PlayerUi): Factory => {
     // note: we have to convert the bounds that comes from the database
     // from a number array to a Leaflet bounds object.
     // Render the map
-    const renderMap = (channelid: string) => <Mapping
+    const renderMap = (channelid: string, canSubmitOrders: boolean, channel?: ChannelMapping) => <Mapping
       mappingConstraints={mappingConstraints}
       forces={state.allForces}
       mapBar={true}
@@ -150,8 +135,10 @@ const factory = (state: PlayerUi): Factory => {
       infoMarkers={state.infoMarkers}
       markerIcons={state.markerIcons}
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
+      playerRole={state.selectedRole}
       canSubmitOrders={canSubmitOrders}
       channelID={channelid}
+      channel={channel}
       mapPostBack={mapPostBack}
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
@@ -183,8 +170,12 @@ const factory = (state: PlayerUi): Factory => {
           return <CollabChannel channelId={matchedChannel[0]} />
         case CHANNEL_CHAT:
           return <ChatChannel channelId={matchedChannel[0]} />
-        case CHANNEL_MAPPING:
-          return renderMap(node.getId())
+        case CHANNEL_MAPPING: {
+          const playerForce = state.selectedForce ? state.selectedForce.uniqid : ''
+          const channel = matchedChannel[1].cData as ChannelMapping
+          const canControlSomething = channel && canControlAnyAsset(channel, playerForce, state.selectedRole)
+          return renderMap(node.getId(), canControlSomething, channel)
+        }
         case CHANNEL_CUSTOM:
           return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
         default:
@@ -192,7 +183,8 @@ const factory = (state: PlayerUi): Factory => {
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {
-        return renderMap(node.getId())
+        console.warn('Warning - cannot handle role permissions for legacy channel')
+        return renderMap(node.getId(), false, undefined)
       } else if (matchedChannel.length) {
         // find out if channel just contains chat template
         if (isChatChannel(channelDefinition)) {

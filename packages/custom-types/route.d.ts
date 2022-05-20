@@ -33,7 +33,9 @@ export default interface Route {
   /** platform type id */
   platformTypeId: PlatformTypeData['uniqid'] | undefined
   /** whether this asset is under control of current player's force */
-  underControl: boolean,
+  underControlByThisForce: boolean,
+  /** whether this asset is under control of current player role */
+  underControlByThisRole: boolean,
   /** whether this asset is visible to current player's force */
   visibleToThisForce: boolean;
   /** id force for this platform (perceived or real) */

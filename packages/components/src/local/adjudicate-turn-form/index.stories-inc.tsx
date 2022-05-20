@@ -25,7 +25,7 @@ export default {
 }
 
 // prepare some routes, and a selected item
-const baseStore: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false, undefined)
+const baseStore: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', '', platformTypes, false, false, undefined)
 const frigateId = 'a0pra00001'
 const store: RouteStore = routeSetCurrent(frigateId, baseStore)
 

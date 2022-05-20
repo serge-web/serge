@@ -1,12 +1,13 @@
 
 import L from 'leaflet'
-import { RouteStore, Route, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
+import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
+import { canControlAsset } from './can-control-asset'
 
 /** determine which forces this player can control
  * @param {ForceData[]} forces array of forces
@@ -35,11 +36,12 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['
  * @param {boolean} filterHistorySteps whether to filter the history steps to only one
  * @param {boolean} wargameInitiated whether this wargame has been initated yet
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
+ * @param {ChannelMapping} channel mapping channel description, indicates who has what control
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'],
+const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'], playerRole: Role['roleId'],
   platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
-  filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore): RouteStore => {
+  filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping): RouteStore => {
   const store: RouteStore = { routes: [] }
 
   const controls: Array<string> = forcesControlledBy(forces, playerForceId)
@@ -60,7 +62,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     // are all asset of this force visible to me?
     const visibleToThisPlayer: boolean = force.visibleTo != null && force.visibleTo.includes(playerForceId)
 
-    // do I actually control this platform type?
+    // do I have any control over assets of this force?
     const controlled = thisForce === playerForceId || controls.includes(thisForce)
 
     if (force.assets) {
@@ -88,13 +90,16 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
+          // sort out if this role can control this asset
+          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerForceId, playerRole)) || false
+
           if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
             // if it's the selected asset, we plot all future steps
             const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
-              controlled, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
+              controlled, controlledByThisRole, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
               platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
               true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
@@ -123,7 +128,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   // note: compiler/linter forcing us to re-check asset.position
                   if (asset.position && perceptions) {
                     // create route for this asset
-                    const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, false, force.uniqid, perceptions.forceId,
+                    const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, false, false, force.uniqid, perceptions.forceId,
                       perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                       false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
@@ -138,7 +143,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   thisForce, asset.platformTypeId, asset.perceptions)
                 if (perceptions) {
                   // create route for this asset
-                  const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, false, force.uniqid, perceptions.forceId,
+                  const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, false, false, force.uniqid, perceptions.forceId,
                     perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                     false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                   store.routes.push(newRoute)
