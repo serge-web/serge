@@ -832,58 +832,6 @@ exports[`SettingForces component: renders correctly 1`] = `
                                               />
                                             </div>
                                           </div>
-                                          <div
-                                            className="role-item"
-                                          >
-                                            <span
-                                              className="MuiSwitch-root MuiSwitch-sizeSmall"
-                                            >
-                                              <span
-                                                aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-15 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-23 MuiSwitch-colorSecondary PrivateSwitchBase-checked-16 Mui-checked WithStyles(ForwardRef(Switch))-checked-24"
-                                                onBlur={[Function]}
-                                                onDragLeave={[Function]}
-                                                onFocus={[Function]}
-                                                onKeyDown={[Function]}
-                                                onKeyUp={[Function]}
-                                                onMouseDown={[Function]}
-                                                onMouseLeave={[Function]}
-                                                onMouseUp={[Function]}
-                                                onTouchEnd={[Function]}
-                                                onTouchMove={[Function]}
-                                                onTouchStart={[Function]}
-                                                tabIndex={null}
-                                              >
-                                                <span
-                                                  className="MuiIconButton-label"
-                                                >
-                                                  <input
-                                                    checked={true}
-                                                    className="PrivateSwitchBase-input-18 MuiSwitch-input"
-                                                    onChange={[Function]}
-                                                    type="checkbox"
-                                                  />
-                                                  <span
-                                                    className="MuiSwitch-thumb"
-                                                  />
-                                                </span>
-                                                <span
-                                                  className="MuiTouchRipple-root"
-                                                />
-                                              </span>
-                                              <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-25"
-                                              />
-                                            </span>
-                                            <div
-                                              className="role-title title-center"
-                                              title="Can submit mapping plans"
-                                            >
-                                              <svg
-                                                className="svg-inline--fa fa-directions"
-                                              />
-                                            </div>
-                                          </div>
                                         </div>
                                         <span />
                                       </section>
@@ -1165,50 +1113,6 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                     checked={true}
                                                     className="PrivateSwitchBase-input-18 MuiSwitch-input"
                                                     disabled={false}
-                                                    onChange={[Function]}
-                                                    type="checkbox"
-                                                  />
-                                                  <span
-                                                    className="MuiSwitch-thumb"
-                                                  />
-                                                </span>
-                                                <span
-                                                  className="MuiTouchRipple-root"
-                                                />
-                                              </span>
-                                              <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-25"
-                                              />
-                                            </span>
-                                          </div>
-                                          <div
-                                            className="role-item"
-                                          >
-                                            <span
-                                              className="MuiSwitch-root MuiSwitch-sizeSmall"
-                                            >
-                                              <span
-                                                aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-15 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-23 MuiSwitch-colorSecondary PrivateSwitchBase-checked-16 Mui-checked WithStyles(ForwardRef(Switch))-checked-24"
-                                                onBlur={[Function]}
-                                                onDragLeave={[Function]}
-                                                onFocus={[Function]}
-                                                onKeyDown={[Function]}
-                                                onKeyUp={[Function]}
-                                                onMouseDown={[Function]}
-                                                onMouseLeave={[Function]}
-                                                onMouseUp={[Function]}
-                                                onTouchEnd={[Function]}
-                                                onTouchMove={[Function]}
-                                                onTouchStart={[Function]}
-                                                tabIndex={null}
-                                              >
-                                                <span
-                                                  className="MuiIconButton-label"
-                                                >
-                                                  <input
-                                                    checked={true}
-                                                    className="PrivateSwitchBase-input-18 MuiSwitch-input"
                                                     onChange={[Function]}
                                                     type="checkbox"
                                                   />
@@ -1897,6 +1801,48 @@ exports[`SettingForces component: renders correctly 1`] = `
                                     className="icon-box-name"
                                   >
                                     Merchant vessel
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="datum"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="datum"
+                                                className="img"
+                                                src="/assets/counters/datum.svg"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    datum
                                   </div>
                                 </div>
                               </div>

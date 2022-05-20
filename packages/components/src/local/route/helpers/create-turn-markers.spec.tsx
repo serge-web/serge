@@ -9,7 +9,7 @@ import createTurnMarkers from './create-turn-markers'
 import { Phase } from '@serge/config'
 
 it('Provides valid planned markers for multi-point planned route without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', 'role-id', platformTypes, false, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()

@@ -1,7 +1,7 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Confirm } from '@serge/components'
 import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations } from '@serge/custom-types'
+import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations, IconOption } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
@@ -21,7 +21,7 @@ export const WorldState: React.FC<PropTypes> = ({
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback,
-  infoMarkers, playerForce
+  infoMarkers, playerForce, markerIcons
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
   const [markers, setMarkers] = useState<MapAnnotations>([])
@@ -38,27 +38,27 @@ export const WorldState: React.FC<PropTypes> = ({
       case WorldStatePanels.Control: {
         if (phase === PLANNING_PHASE) {
           // in planning phase, umpire only gets assets they control
-          setTmpRoutes(store.routes.filter(r => r.underControl))
+          setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
         } else {
           // check turn number, in case we're in laydown
           if (turnNumber === 0) {
             // in laydown phase, umpire only gets assets they control
-            setTmpRoutes(store.routes.filter(r => r.underControl))
+            setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
           } else {
             // umpire gets all, player only gets theirs
-            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControlByThisForce))
           }
         }
         break
       }
       case WorldStatePanels.Visibility: {
         // umpire gets all, player only gets theirs
-        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControl))
+        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControlByThisForce))
         break
       }
       case WorldStatePanels.ControlledBy: {
         // umpire gets theirss
-        setTmpRoutes(store.routes.filter(r => r.underControl))
+        setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
         break
       }
       case WorldStatePanels.Markers: {
@@ -116,12 +116,13 @@ export const WorldState: React.FC<PropTypes> = ({
     const canBeSelected = true
     const marker = item as MapAnnotation
     const forceColor = marker.color
-    const imageSrc = marker.icon
+    const imageIcon = markerIcons.find((icon: IconOption) => icon.uniqid === marker.iconId)
+    const imageURL = imageIcon ? imageIcon.icon : ''
     const isSelected = marker.uniqid === selectedMarker
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>
-          <AssetIcon color={forceColor} isSelected={isSelected} imageSrc={imageSrc} />
+          <AssetIcon color={forceColor} isSelected={isSelected} imageSrc={imageURL} />
         </div>
         <div className={styles['item-content']}>
           <p>{marker.label}</p>
@@ -134,7 +135,10 @@ export const WorldState: React.FC<PropTypes> = ({
   const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
     // determine if this asset can be selected. We only allow assets at the top level
     // to be selected, since child elements are "managed" by the parent
-    const canBeSelected: boolean = depth && depth.length === 0
+    const atTopLevel: boolean = depth && depth.length === 0
+
+    // check if this player can select this item
+    const underControl = item.underControlByThisRole
 
     // const item = routeItem as PlannedRoute
 
@@ -151,6 +155,9 @@ export const WorldState: React.FC<PropTypes> = ({
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
+
+    // so, is it clickable?
+    const canBeSelected = (underControl && atTopLevel) || inAdjudication
 
     let isDestroyed: boolean | undefined = false
     let imageSrc: string | undefined
@@ -180,7 +187,7 @@ export const WorldState: React.FC<PropTypes> = ({
           <p>{item.name}</p>
           <p>{fullDescription}</p>
         </div>
-        {(panel === WorldStatePanels.Control) && depth.length === 0 && <div className={styles['item-check']}>
+        {(panel === WorldStatePanels.Control) && depth.length === 0 && (underControl || inAdjudication) && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
           {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
         </div>}

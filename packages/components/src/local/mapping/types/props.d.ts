@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -29,8 +29,12 @@ export default interface PropTypes {
   platforms: PlatformTypeData[]
   /** current player's force (force-id)
    *
-  */
+   */
   playerForce: ForceData['uniqid']
+  /** current player's role (role-id)
+   *
+   */
+  playerRole?: Role['roleId']
   /**
    * if the current player can submit orders
    */
@@ -98,6 +102,10 @@ export default interface PropTypes {
    * The channel ID passed down from the client application (optional)
    */
   channelID?: string | number
+  /** details of the channel (used to determine
+   * whco can provide plans)
+   */
+  channel?: ChannelMapping
   /**
    * The method for posting messages out of the mapping component
    */

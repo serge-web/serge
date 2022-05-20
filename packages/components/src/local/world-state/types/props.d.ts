@@ -15,6 +15,10 @@ export default interface PropTypes {
    */
   infoMarkers: MapAnnotations
   /**
+   * details of icons
+   */
+  markerIcons: AnnotationIcons
+  /**
    * list of platform types. Use findPlatformForType() method to retrieve platform type
    */
   platforms: PlatformTypeData[]

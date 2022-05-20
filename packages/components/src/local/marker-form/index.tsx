@@ -1,8 +1,10 @@
-import { Button } from '@material-ui/core'
-import { MapAnnotation } from '@serge/custom-types'
-import React, { useContext, useState } from 'react'
+import { Button, TextField } from '@material-ui/core'
+import { UPDATE_MARKER } from '@serge/config'
+import { IconOption, MapAnnotation, MessageUpdateMarker } from '@serge/custom-types'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import FormGroup from '../form-elements/form-group'
 import RCB from '../form-elements/rcb'
+import Selector from '../form-elements/selector'
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -12,105 +14,107 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Render component */
-export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack }) => {
+export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
+  const [iconName, setIconName] = useState<string>('')
+  const [iconURL, setIconURL] = useState<string>(formState.iconId)
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
-  const { forces } = formData.populate
+  const { forces, icons } = formData.populate
 
-  const changeHandler = (e: any): void => {
-    setFormState(formState)
-    console.log('marker form', e)
-    //  setVisibleTo(e.value)
+  if (icons === undefined) {
+    console.warn('marker form - marker icons missing:', icons)
   }
 
-  // /** the forces from props has changed */
-  // useEffect(() => {
-  //   if (formState.perceivedTypeId && formState.perceivedTypeId !== UNKNOWN_TYPE) {
-  //     const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
-  //     if (typeDetails) {
-  //       if (typeName !== typeDetails.name) {
-  //         setTypeName(typeDetails.name)
-  //       }
-  //     } else {
-  //       throw new Error('failed to find platform type' + formState.perceivedTypeId)
-  //     }
-  //   } else {
-  //     if (typeName !== unknownStr) {
-  //       setTypeName(unknownStr)
-  //     }
-  //   }
-  // }, [formState])
+  const iconNames: string[] = icons ? icons.map((p: IconOption): string => p.name) : []
 
-  // const nameHandler = (e: HTMLInputElement): void => {
-  //   const { value } = e
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedNameVal: value
-  //     }
-  //   )
-  // }
+  const changeHandler = (formStateValue: any): void => {
+    setFormState({ ...formState, ...formStateValue })
+  }
 
-  // const forceHandler = (e: HTMLInputElement): void => {
-  //   const { value } = e
-  //   const force = perceivedForces.find((force: ForceOption) => force.name === value)
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedForceId: force && force.id ? force.id : undefined
-  //     }
-  //   )
-  // }
+  useEffect(() => {
+    if (icons) {
+      // get the id
+      const selectedIcon = icons.find((p: IconOption) => p.uniqid === formState.iconId)
+      const iconName = (selectedIcon && selectedIcon.name) || ''
+      const iconURL = (selectedIcon && selectedIcon.icon) || ''
+      setIconName(iconName)
+      setIconURL(iconURL)
+    }
+  }, [formState.iconId, icons])
 
-  // const typeHandler = (data: string): void => {
-  //   // get the id
-  //   const typeDetails = perceivedTypes.find((p: PerceivedType) => p.name === data)
-  //   const typeId = data === unknownStr ? undefined : typeDetails && typeDetails.uniqid
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedTypeId: typeId
-  //     }
-  //   )
-  //   setTypeName(data)
-  // }
+  const typeHandler = (data: string): void => {
+    // get the id
+    const selectedIcon = icons.find((p: IconOption) => p.name === data)
+    setFormState(
+      {
+        ...formState,
+        iconId: (selectedIcon && selectedIcon.uniqid) || ''
+      }
+    )
+  }
+
+  const toggleColorPicker = () => {
+    console.warn('open color editor')
+    // make some forced change
+    setFormState({
+      ...formState,
+      color: '#0f3'
+    })
+  }
 
   const submitForm = (): void => {
-    if (mapPostBack !== undefined) {
-      // const force = perceivedForces.find((force: ForceOption) => force.name === perceivedForceName)
-      // const payload: MessagePerceptionOfContact = {
-      //   // generate force id from force name
-      //   messageType: PERCEPTION_OF_CONTACT,
-      //   perception: {
-      //     by: playerForce,
-      //     force: force && force.id ? force.id : undefined,
-      //     typeId: formState.perceivedTypeId,
-      //     name: formState.perceivedNameVal
-      //   },
-      //   assetId: formState.assetId
-      // }
-      // console.log('state', payload)
-      // mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
+    const payload: MessageUpdateMarker = {
+      messageType: UPDATE_MARKER,
+      marker: formState
     }
+    updateMarker(UPDATE_MARKER, payload)
+  }
+
+  const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, description: e.target.value })
+  }
+
+  const onRadiusChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, shadeRadius: Number(e.target.value) })
+  }
+
+  const onTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, label: e.target.value })
   }
 
   return <div className={styles.marker}>
     <div>
       <TitleWithIcon
         forceColor={formState.color}
-        icon={formState.icon}
+        icon={iconURL}
+        onTitleChange={onTitleChange}
       >
-        { formData.value.label }
+        {formState.label}
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
-        <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+        <div className={styles.description}>
+          <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
+        </div>
+        <FormGroup title='icon type' align='right'>
+          <Selector label="" name='iconType' options={iconNames} selected={iconName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+        </FormGroup>
+        <FormGroup title='icon color' align='right'>
+          <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
+        </FormGroup>
+        <FormGroup title='Visible to' align='right'>
+          <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+        </FormGroup>
+        <FormGroup title='Radius' align='right'>
+          <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />
         </FormGroup>
       </fieldset>
-      <Button onClick={submitForm} className={styles.button}>Save</Button>
+      <div className={styles['button-group']}>
+        <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Canel</Button>
+        <Button onClick={submitForm} color='primary' variant='contained' className={styles.button}>Save</Button>
+      </div>
     </div>
   </div>
 }

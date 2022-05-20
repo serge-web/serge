@@ -15,6 +15,7 @@ export default interface Role {
   isInsightViewer: boolean,
   /**
    * whether this role can submit plans from the Mapping component
+   * @deprecated now that we have per role permissions in mapping channel
    */
   canSubmitPlans?: boolean
   /** 

@@ -2,7 +2,7 @@
 
 exports[`CheckboxType renders correctly 1`] = `
 <section
-  className="input-container"
+  className="input-container input-container"
 >
   <div
     className="MuiBox-root MuiBox-root-1 input-label"
@@ -114,7 +114,7 @@ exports[`CheckboxType renders correctly 1`] = `
 
 exports[`Number data renders correctly 1`] = `
 <section
-  className="input-container"
+  className="input-container input-container"
 >
   <div
     className="MuiBox-root MuiBox-root-10 input-label"
@@ -321,7 +321,7 @@ exports[`Number data renders correctly 1`] = `
 
 exports[`RadioType renders correctly 1`] = `
 <section
-  className="input-container"
+  className="input-container input-container"
 >
   <div
     className="MuiBox-root MuiBox-root-6 input-label"

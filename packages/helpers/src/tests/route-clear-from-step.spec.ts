@@ -10,7 +10,7 @@ import { Phase } from '@serge/config'
 import { RouteStore } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', platformTypes, false, false)
 
   const idOne = 'a0pra00003'
 

@@ -46,7 +46,15 @@ const wargame: Wargame = {
                             "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": [],
-                            "subscriptionId": "zit48h"
+                            "subscriptionId": "white-view"
+                        },
+                        {
+                            "force": "White",
+                            "pType": "ParticipantMapping",
+                            "forceUniqid": "umpire",
+                            "roles": ["umpire-GC"],
+                            "controls": ["control-all"],
+                            "subscriptionId": "white-controle"
                         },
                         {
                             "force": "CTF B",
@@ -54,6 +62,22 @@ const wargame: Wargame = {
                             "roles": [],
                             "subscriptionId": "w9lmf",
                             "pType": "ParticipantMapping"
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": ["nortCO"],
+                            "subscriptionId": "nortCO-control",
+                            "pType": "ParticipantMapping",
+                            "controls": ["nortID"]
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": ["blueCO"],
+                            "subscriptionId": "blue-CO-control-all",
+                            "pType": "ParticipantMapping",
+                            "controls": ["control-all"]
                         },
                         {
                             "force": "CTF Y",
@@ -87,7 +111,7 @@ const wargame: Wargame = {
                             "isObserver": true,
                             "isRFIManager": false,
                             "name": "Game Control",
-                            "roleId": "rks5zfzd2"
+                            "roleId": "umpire-GC"
                         },
                         {
                             "canSubmitPlans": false,
@@ -187,7 +211,7 @@ const wargame: Wargame = {
                                 }
                             ],
                             "position": "8918aab7003ffff",
-                            "uniqid": "a034a22t5431"
+                            "uniqid": "nortID"
                         },
                         {
                             "condition": "Working",
@@ -224,7 +248,7 @@ const wargame: Wargame = {
                             ],
                             "platformTypeId": "a8",
                             "position": "8918aab7547ffff",
-                            "uniqid": "a0prbr1141"
+                            "uniqid": "talnID"
                         },
                         {
                             "condition": "Working",
@@ -272,7 +296,7 @@ const wargame: Wargame = {
                             "isInsightViewer": false,
                             "isObserver": false,
                             "name": "CO",
-                            "roleId": "rks5zfzd6"
+                            "roleId": "blueCO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -280,8 +304,8 @@ const wargame: Wargame = {
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B5",
-                            "roleId": "rks5zfzdb"
+                            "name": "NORT CO",
+                            "roleId": "nortCO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -357,7 +381,7 @@ const wargame: Wargame = {
                             "isInsightViewer": false,
                             "isObserver": false,
                             "name": "CO",
-                            "roleId": "rks5zfzdi"
+                            "roleId": "red-CO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -408,6 +432,32 @@ const wargame: Wargame = {
                     "umpire": false,
                     "uniqid": "Red-1",
                     "visibleTo": []
+                },
+                {
+                    "color": "#0d0",
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C`26",
+                            "history": [],
+                            "locationPending": true,
+                            "name": "MERCH",
+                            "perceptions": [],
+                            "plannedTurns": [],
+                            "platformTypeId": "a13",
+                            "attributeValues": [],
+                            "position": "8918a84d94fffff",
+                            "uniqid": "merchID"
+                        }
+                    ],
+                    "dirty": false,
+                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
+                    "name": "Green Force",
+                    "controlledBy": "umpire",
+                    "overview": "Green force.",
+                    "roles": [],
+                    "umpire": false,
+                    "uniqid": "green"
                 }
             ],
             "name": "Forces",
@@ -916,7 +966,7 @@ const wargame: Wargame = {
                 "uniqid": "marker-one",
                 "color": "#f00",
                 "description": "description for the annotation",
-                "icon": "marker_unknown.svg",
+                "iconId": "unk",
                 "label": "first marker",
                 "shadeRadius": 2,
                 "location": "8918aab76abffff",
@@ -925,7 +975,7 @@ const wargame: Wargame = {
                 "uniqid": "marker-two",
                 "color": "#099",
                 "description": "description for the second annotation",
-                "icon": "marker_general.svg",
+                "iconId": "gen",
                 "shadeRadius": 5,
                 "label": "second marker",
                 "location": "8918a84db3bffff",
@@ -934,7 +984,7 @@ const wargame: Wargame = {
                 "uniqid": "marker-three",
                 "color": "#909",
                 "description": "description for the third annotation",
-                "icon": "marker_audio.svg",
+                "iconId": "aud",
                 "shadeRadius": 0,
                 "label": "third marker",
                 "location": "8918aab2b0bffff",
@@ -942,15 +992,15 @@ const wargame: Wargame = {
             }]
         },
         "annotationIcons": {
-            "markers": [{"name": "Unknown","icon": "marker_unknown.svg"}, 
-                {"name": "Audio-Visual", "icon": "marker_audio_visual.svg"},
-                {"name": "Audio", "icon": "marker_audio.svg"},
-                {"name": "Flash", "icon": "marker_flash.svg"},
-                {"name": "General", "icon": "marker_general.svg"},
-                {"name": "Periscope", "icon": "marker_periscope.svg"},
-                {"name": "Plume", "icon": "marker_plume.svg"},
-                {"name": "Wake", "icon": "marker_wake.svg"},
-                {"name": "Visual", "icon": "marker_visual.svg"}
+            "markers": [{"uniqid": "unk", "name": "Unknown","icon": "marker_unknown.svg"}, 
+                {"uniqid": "a/v", "name": "Audio-Visual", "icon": "marker_audio_visual.svg"},
+                {"uniqid": "aud", "name": "Audio", "icon": "marker_audio.svg"},
+                {"uniqid": "flsh", "name": "Flash", "icon": "marker_flash.svg"},
+                {"uniqid": "gen", "name": "General", "icon": "marker_general.svg"},
+                {"uniqid": "peri", "name": "Periscope", "icon": "marker_periscope.svg"},
+                {"uniqid": "plum", "name": "Plume", "icon": "marker_plume.svg"},
+                {"uniqid": "wak", "name": "Wake", "icon": "marker_wake.svg"},
+                {"uniqid": "vis", "name": "Visual", "icon": "marker_visual.svg"}
             ]}
     },
     "gameTurn": 3,

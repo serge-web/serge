@@ -17,7 +17,7 @@ describe('handle update marker', () => {
       description: 'the description',
       location: 'A12',
       visibleTo: [watuWargame.data.forces.forces[1].uniqid],
-      icon: 'unknown.svg',
+      iconId: 'unk',
       color: '#f33'
     }
     const message: MessageUpdateMarker = {

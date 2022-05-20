@@ -18,4 +18,8 @@ export default interface PropTypes {
    * drag handler. Undefined if not draggabpe
    */
   dragged?: {(location: L.LatLng): void}
+  /**
+   * list of icons
+   */
+  icons: AnnotationIcons
 }

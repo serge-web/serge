@@ -21,7 +21,8 @@ export const InfoMarkers: React.FC<{}> = () => {
     infoMarkers,
     h3Resolution,
     selectedMarker,
-    updateMarker
+    updateMarker,
+    markerIcons
   } = props
 
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
@@ -68,7 +69,7 @@ export const InfoMarkers: React.FC<{}> = () => {
     <LayerGroup key='info-markers' >{visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
       const coords = h3ToGeo(marker.location)
       const location = marker.position || L.latLng(coords[0], coords[1])
-      return <InfoMarker key={marker.uniqid} marker={marker} locationHex={marker.location} location={location} dragged={dragHandler} />
+      return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={location} dragged={dragHandler} />
     })}
     </LayerGroup>
   </>

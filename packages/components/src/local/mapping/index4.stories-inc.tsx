@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { deepCopy } from '@serge/helpers'
-import { ForceData, MappingConstraints, MilliTurns } from '@serge/custom-types'
+import { canControlAnyAsset, deepCopy } from '@serge/helpers'
+import { ChannelMapping, ChannelTypes, MessageMap, ForceData, MappingConstraints, MilliTurns, Role } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -23,8 +23,12 @@ const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platfo
 const overview = watuWargame.data.overview
 const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
+const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
+const icons = (watuWargame.data.annotationIcons && watuWargame.data.annotationIcons.markers) || []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
+
+console.clear()
 
 async function fetchMock (): Promise<any> {
   return {
@@ -32,7 +36,12 @@ async function fetchMock (): Promise<any> {
   }
 }
 
-const forceList = forces.map((force: ForceData) => force.uniqid)
+const allRoles: string[] = []
+forces.forEach((force: ForceData) => {
+  force.roles.forEach((role: Role) => {
+    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
+  })
+})
 
 export default {
   title: 'local/Mapping/SmallScale',
@@ -52,12 +61,12 @@ export default {
     }
   },
   argTypes: {
-    playerForce: {
+    playerRole: {
       name: 'View as',
-      defaultValue: forceList[0],
+      defaultValue: allRoles[0],
       control: {
-        type: 'radio',
-        options: forceList
+        type: 'select',
+        options: allRoles
       }
     },
     phase: {
@@ -105,6 +114,10 @@ detailedConstraints.tileLayer = {
 detailedConstraints.gridCellsURL = `${serverPath}atlantic-detailed.json`
 detailedConstraints.tileDiameterMins = 30
 
+const mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => {
+  console.log('index4 postBack', messageType, payload, channelID)
+}
+
 interface StoryPropTypes extends MappingPropTypes {
   showAllowableCells?: boolean
   allowableOrigin?: string
@@ -114,15 +127,29 @@ interface StoryPropTypes extends MappingPropTypes {
 
 const Template: Story<StoryPropTypes> = (args) => {
   const {
+    playerRole,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     playerForce,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    canSubmitOrders,
     phase,
     ...props
   } = args
+  const roleStr: string = playerRole
+  // separate out the two elements of the combined role
+  const ind = roleStr.indexOf(' ~ ')
+  const force = roleStr.substring(0, ind)
+  const role = roleStr.substring(ind + 3)
+  const canSubmit = canControlAnyAsset(mapChannel, force, role)
   return (
     <Mapping
-      playerForce={playerForce}
+      playerForce={force}
+      canSubmitOrders={canSubmit}
+      playerRole={role}
       fetchOverride={fetchMock}
+      markerIcons={icons}
       phase={phase}
+      mapPostBack={mapPostBack}
       {...props}
     />
   )
@@ -137,9 +164,9 @@ export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
   platforms: platformTypes,
   infoMarkers: annotations,
+  channel: mapChannel,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -157,8 +184,9 @@ export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
   platforms: platformTypes,
+  channel: mapChannel,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -175,8 +203,9 @@ export const DetailedCells = Template.bind({})
 DetailedCells.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
+  channel: mapChannel,
   platforms: platformTypes,
+  infoMarkers: annotations,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,

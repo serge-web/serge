@@ -28,7 +28,6 @@ export default interface PlayerUi {
   isObserver: boolean,
   /** player is from umpire force */
   isUmpire: boolean,
-  canSubmitPlans: boolean,
   isGameControl: boolean,
   currentTurn: number,
   turnPresentation?: TurnFormats,

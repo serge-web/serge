@@ -416,55 +416,6 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                     />
                                   </div>
                                 </div>
-                                <div
-                                  className="role-item"
-                                >
-                                  <span
-                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
-                                  >
-                                    <span
-                                      aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
-                                      onBlur={[Function]}
-                                      onDragLeave={[Function]}
-                                      onFocus={[Function]}
-                                      onKeyDown={[Function]}
-                                      onKeyUp={[Function]}
-                                      onMouseDown={[Function]}
-                                      onMouseLeave={[Function]}
-                                      onMouseUp={[Function]}
-                                      onTouchEnd={[Function]}
-                                      onTouchMove={[Function]}
-                                      onTouchStart={[Function]}
-                                      tabIndex={null}
-                                    >
-                                      <span
-                                        className="MuiIconButton-label"
-                                      >
-                                        <input
-                                          checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
-                                          onChange={[Function]}
-                                          type="checkbox"
-                                        />
-                                        <span
-                                          className="MuiSwitch-thumb"
-                                        />
-                                      </span>
-                                    </span>
-                                    <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
-                                    />
-                                  </span>
-                                  <div
-                                    className="role-title title-center"
-                                    title="Can submit mapping plans"
-                                  >
-                                    <svg
-                                      className="svg-inline--fa fa-directions"
-                                    />
-                                  </div>
-                                </div>
                               </div>
                               <span />
                             </section>
@@ -737,47 +688,6 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                           checked={true}
                                           className="PrivateSwitchBase-input-14 MuiSwitch-input"
                                           disabled={false}
-                                          onChange={[Function]}
-                                          type="checkbox"
-                                        />
-                                        <span
-                                          className="MuiSwitch-thumb"
-                                        />
-                                      </span>
-                                    </span>
-                                    <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
-                                    />
-                                  </span>
-                                </div>
-                                <div
-                                  className="role-item"
-                                >
-                                  <span
-                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
-                                  >
-                                    <span
-                                      aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
-                                      onBlur={[Function]}
-                                      onDragLeave={[Function]}
-                                      onFocus={[Function]}
-                                      onKeyDown={[Function]}
-                                      onKeyUp={[Function]}
-                                      onMouseDown={[Function]}
-                                      onMouseLeave={[Function]}
-                                      onMouseUp={[Function]}
-                                      onTouchEnd={[Function]}
-                                      onTouchMove={[Function]}
-                                      onTouchStart={[Function]}
-                                      tabIndex={null}
-                                    >
-                                      <span
-                                        className="MuiIconButton-label"
-                                      >
-                                        <input
-                                          checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
                                           onChange={[Function]}
                                           type="checkbox"
                                         />

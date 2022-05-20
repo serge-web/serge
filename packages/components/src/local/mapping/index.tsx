@@ -75,6 +75,7 @@ export const Mapping: React.FC<PropTypes> = ({
   mapBar,
   forces,
   playerForce,
+  playerRole,
   canSubmitOrders,
   platforms,
   infoMarkers,
@@ -92,6 +93,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   channelID,
+  channel,
   mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => { console.log('mapPostBack', messageType, channelID, payload) },
   declutter,
   children,
@@ -100,9 +102,10 @@ export const Mapping: React.FC<PropTypes> = ({
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
   const [infoMarkersState, setInfoMarkersState] = useState<MapAnnotations>(infoMarkers)
+  const [visibleInfoMarkers, setVisibleInfoMarkers] = useState<MapAnnotations>([])
   const [showMapBar, setShowMapBar] = useState<boolean>(mapBar !== undefined ? mapBar : true)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
-  const [selectedMarker, setSelectedMarker] = useState<MapAnnotation['uniqid'] | undefined>(undefined)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined>(undefined)
+  const [selectedMarker, setSelectedMarker] = useState<string | undefined>(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [h3Resolution, setH3Resolution] = useState<number>(3)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
@@ -128,6 +131,10 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
 
   const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
+
+  if (!channel) {
+    console.warn('Channel is missing from mapping component')
+  }
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -237,6 +244,24 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [forces])
 
+  /** convenience function to filter info markers to those
+   * visible for the player force (or view-as-force)
+   */
+  const filterMarkers = (markers: MapAnnotations, playerForce: string, viewAsForce: string): MapAnnotations => {
+    const force = playerForce === UMPIRE_FORCE ? viewAsForce : playerForce
+    if (viewAsForce === UMPIRE_FORCE) {
+      return markers
+    } else {
+      return markers.filter((marker: MapAnnotation) => marker.visibleTo.includes(force))
+    }
+  }
+
+  /** control which markers are visible */
+  useEffect(() => {
+    const markers = filterMarkers(infoMarkersState, playerForce, viewAsForce)
+    setVisibleInfoMarkers(markers)
+  }, [infoMarkersState, viewAsForce, playerForce])
+
   /**
    * generate the set of routes visible to this player, for display
    * in the Force Overview panel
@@ -246,40 +271,23 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
-        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
+      const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing',
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
 
   /**
-   * generate the set of routes visible to this player, for display
-   * in the Force Overview panel
+   * the route-store has changed for some reason. So, declutter it
    */
   useEffect(() => {
-    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
-    // we modify the routeStore
-    if (forcesState && h3gridCells && routeStore.routes.length) {
-      // if this is umpire and we have view as
-      if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
-        // ok, produce customised version
-        const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, viewAsForce, platforms,
-          filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
-        declutterRouteStore(vStore)
-      } else {
-        // just use normal route store
-        declutterRouteStore(routeStore)
-      }
-    }
-  }, [routeStore, viewAsForce])
-
-  const declutterRouteStore = (store: RouteStore): void => {
-    if (mappingConstraintState) {
+    if (routeStore.routes.length) {
       const clutterFunc = declutter || routeDeclutter2
-      const data: DeclutterData = { routes: store, markers: infoMarkersState }
+
+      const data: DeclutterData = { routes: routeStore, markers: infoMarkersState }
       // sort out the cell diameter
-      const cellRef = store.routes[0].currentPosition
+      const cellRef = routeStore.routes[0].currentPosition
       const cellRes = h3.h3GetResolution(cellRef)
       if (cellRes === -1) {
         console.warn('Unable to recognise resolution for cell', cellRef)
@@ -287,10 +295,11 @@ export const Mapping: React.FC<PropTypes> = ({
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
+
       setViewAsRouteStore(declutteredData.routes)
       setInfoMarkersState(declutteredData.markers)
     }
-  }
+  }, [routeStore])
 
   /**
    * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that
@@ -627,7 +636,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const marker: MapAnnotation = {
         uniqid: uniqid('a'),
         color: '#f00',
-        icon: 'unknown.svg',
+        iconId: 'unk',
         label: 'pending label',
         description: 'pending description',
         visibleTo: [],
@@ -705,7 +714,7 @@ export const Mapping: React.FC<PropTypes> = ({
     h3gridCells,
     h3Resolution,
     forces: forcesState,
-    infoMarkers: infoMarkersState,
+    infoMarkers: visibleInfoMarkers,
     markerIcons: markerIcons,
     platforms,
     playerForce,
@@ -732,7 +741,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     clearFromTurn,
     cancelRoutePlanning,
-    mapPostBack: mapPostBack,
+    mapPostBack,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,
