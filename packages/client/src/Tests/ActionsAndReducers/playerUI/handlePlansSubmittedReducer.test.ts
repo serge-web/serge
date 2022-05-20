@@ -167,12 +167,14 @@ it('correctly updates planned states', () => {
   // check it has no planned states
   const updated = handlePlansSubmittedChanges(payload, allForces)
   expect(updated).toBeTruthy()
-  if (alpha && alpha.plannedTurns) {
+  if (alpha.plannedTurns) {
     expect(alpha.name).toEqual('alpha')
     expect(alpha.plannedTurns).toBeTruthy()
     expect(alpha.plannedTurns.length).toEqual(3)
     if (alpha.plannedTurns[0].route) {
       expect(alpha.plannedTurns[0].route.length).toEqual(4)
     }
+  } else {
+    expect('cannot find platform alpha').toBeFalsy()
   }
 })
