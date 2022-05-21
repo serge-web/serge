@@ -31,7 +31,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const [checkedArray, updateCheckedArray] = useState<Array<SelectionItem>>([])
 
   // NOTE: we only allow an object for options if force is true
-  const firstOption = options && options.length && options[0]
+  const firstOption = options.length && options[0]
   if (firstOption) {
     if (typeof firstOption === 'object' && !force) {
       throw new Error('RCB control only accept objects as options if force flag is true:' + firstOption)
