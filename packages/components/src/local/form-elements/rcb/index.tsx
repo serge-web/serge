@@ -1,5 +1,7 @@
 import { FormControlLabel, RadioGroup } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import { FormOption } from '@serge/custom-types'
+import cx from 'classnames'
 import { camelCase } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import InputContainer from '../../atoms/input-container'
@@ -9,12 +11,23 @@ import { componentSelector, ConditionalWrapper } from './helpers'
 import styles from './styles.module.scss'
 /* Import types */
 import PropTypes from './types/props'
-import cx from 'classnames'
+
+const buildStyles = (options: any[]): any => {
+  const opts = {}
+  options.forEach((option, idx) => {
+    opts[`root-${idx}`] = {}
+    opts[`checked-${idx}`] = {}
+    opts[`checked-${idx}`]['&$checked'] = {}
+    opts[`root-${idx}`].color = `${option.colour} !important`
+    opts[`checked-${idx}`]['&$checked'].color = option.colour
+  })
+  return makeStyles(opts)
+}
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
   type SelectionItem = { name: number | string, selected: boolean }
-
+  const classes = buildStyles(options)()
   const [checkedArray, updateCheckedArray] = useState<Array<SelectionItem>>([])
 
   // NOTE: we only allow an object for options if force is true
@@ -82,14 +95,15 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
       wrapper={(children: any): React.ReactNode => <RadioGroup row={compact} aria-label={label} name={inputName} value={valueFor(value)} onChange={handleRadio}>{children}</RadioGroup>}
     >
       {
-        options.map((option: any) => {
+        options.map((option, idx) => {
           const o = option.id || option
           const selected = getSelected(o)
+          const childClass = { root: classes[`root-${idx}`], checked: classes[`checked-${idx}`] }
           return <FormControlLabel
             key={option.name || option.toString()}
             labelPlacement={labelPlacement}
             title={option.name || option.toString()}
-            control={componentSelector(type, option, selected, handleCheckbox, inputName)}
+            control={componentSelector(type, option, selected, handleCheckbox, inputName, childClass)}
             label={getLabel(option)}
             value={option.name || option}
             className={selected ? styles.selected : ''}
