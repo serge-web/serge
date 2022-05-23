@@ -340,7 +340,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         <TableCell>Force</TableCell>
                         <TableCell align="center">Restrict access to specific roles</TableCell>
                         {isCustom &&
-                          <TableCell align="center">Templates</TableCell>
+                          <TableCell align="left">Templates</TableCell>
+                        }
+                        { isMapping &&
+                          <TableCell align="left">Controls</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>

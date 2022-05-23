@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, CONTROL_NONE, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
 import { ChannelCollab, ChannelTypes, ForceData } from '@serge/custom-types'
 import { ChannelChat, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
@@ -61,7 +61,8 @@ const createChannel = (
           forceUniqid: defaultForce.uniqid,
           roles: [],
           subscriptionId: generateSubscriptionId(),
-          pType: PARTICIPANT_MAPPING
+          pType: PARTICIPANT_MAPPING,
+          controls: [CONTROL_NONE]
         }
         const res: ChannelMapping = {
           uniqid: uniqid.time(),

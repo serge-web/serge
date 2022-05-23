@@ -1,4 +1,5 @@
-import { ForceData, ParticipantMapping } from '@serge/custom-types'
+import { CONTROL_NONE } from '@serge/config'
+import { Asset, ForceData, ParticipantMapping } from '@serge/custom-types'
 import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
 
 export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): Array<Item> => {
@@ -25,6 +26,20 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): 
     }
   }
 
+  const assetOptions: Array<Option> = []
+  forces.forEach((force: ForceData) => {
+    if (force.assets && force.assets.length) {
+      assetOptions.push({ name: force.name + ' - ALL', uniqid: '-' + force.uniqid })
+      force.assets.forEach((asset: Asset) => {
+        assetOptions.push({ name: force.name + ' - ' + asset.name, uniqid: asset.uniqid })
+      })
+    }
+  })
+  assetOptions.push({ name: 'Controls no assets', uniqid: CONTROL_NONE })
+
+  //  const controls: string[] | typeof CONTROL_ALL | typeof CONTROL_NONE = nextParticipant.controls || []
+  const activeControls: Array<number> = []
+
   // get selected roles
   const partRoles: string[] = nextParticipant.roles
   const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
@@ -46,6 +61,14 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): 
       multiple: true,
       options: roleOptions,
       uniqid: 'access',
+      type: EDITABLE_SELECT_ITEM
+    },
+    {
+      active: activeControls,
+      emptyTitle: 'No assets',
+      multiple: true,
+      options: assetOptions,
+      uniqid: 'assets',
       type: EDITABLE_SELECT_ITEM
     },
     ...additionalFields

@@ -1,4 +1,4 @@
-import { CollaborativePermission, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from '@serge/config'
+import { CollaborativePermission, CONTROL_NONE, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from '@serge/config'
 import { ParticipantCollab } from '@serge/custom-types'
 import { ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 
@@ -22,7 +22,8 @@ export const defaultParticipantChat: ParticipantChat = {
 
 export const defaultParticipantMapping: ParticipantMapping = {
   ...defaultCoreParticipant,
-  pType: PARTICIPANT_MAPPING
+  pType: PARTICIPANT_MAPPING,
+  controls: [CONTROL_NONE]
 }
 
 export const defaultParticipantCollab: ParticipantCollab = {
