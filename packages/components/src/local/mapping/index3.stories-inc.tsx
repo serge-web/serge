@@ -1,21 +1,19 @@
-import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
-import { deepCopy } from '@serge/helpers'
-import { MappingConstraints } from '@serge/custom-types'
-
-// Import component files
-import Mapping from './index'
-import MappingPropTypes from './types/props'
-import docs from './README.md'
-import Assets from '../assets'
-import { HexGrid } from '../hex-grid'
-
 // import data types
 import { CellLabelStyle, Domain, Phase, serverPath } from '@serge/config'
-
+import { MappingConstraints } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { atlanticForces, platformTypes } from '@serge/mocks'
+import { Story } from '@storybook/react/types-6-0'
+import React from 'react'
+import Assets from '../assets'
+import { HexGrid } from '../hex-grid'
 import data from './data/atlantic-cells'
+// Import component files
+import Mapping from './index'
+import docs from './README.md'
+import MappingPropTypes from './types/props'
+
 // TODO: here is the 'master' version of the cells,
 // in the @serge/data package
 // import * as data from '../../../../data/atlantic-cells.json'
