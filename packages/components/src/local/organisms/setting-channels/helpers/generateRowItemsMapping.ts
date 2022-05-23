@@ -1,4 +1,4 @@
-import { CONTROL_NONE } from '@serge/config'
+import { CONTROL_ALL, CONTROL_NONE } from '@serge/config'
 import { Asset, ForceData, ParticipantMapping } from '@serge/custom-types'
 import { EDITABLE_SELECT_ITEM, Item, Option } from '../../../molecules/editable-row'
 
@@ -28,17 +28,27 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): 
 
   const assetOptions: Array<Option> = []
   forces.forEach((force: ForceData) => {
-    if (force.assets && force.assets.length) {
-      assetOptions.push({ name: force.name + ' - ALL', uniqid: '-' + force.uniqid })
+    if (nextParticipant.forceUniqid === force.uniqid && force.assets && force.assets.length) {
       force.assets.forEach((asset: Asset) => {
         assetOptions.push({ name: force.name + ' - ' + asset.name, uniqid: asset.uniqid })
       })
     }
   })
   assetOptions.push({ name: 'Controls no assets', uniqid: CONTROL_NONE })
+  assetOptions.push({ name: 'Controls all assets', uniqid: CONTROL_ALL })
 
   //  const controls: string[] | typeof CONTROL_ALL | typeof CONTROL_NONE = nextParticipant.controls || []
   const activeControls: Array<number> = []
+  const controls = nextParticipant.controls || []
+  assetOptions.forEach((option: Option, index: number) => {
+    const id = option.uniqid
+    if (Array.isArray(controls)) {
+      const contArr = controls as string[]
+      if (contArr.includes(id)) {
+        activeControls.push(index)
+      }
+    }
+  })
 
   // get selected roles
   const partRoles: string[] = nextParticipant.roles
