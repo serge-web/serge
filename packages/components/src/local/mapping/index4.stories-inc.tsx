@@ -1,22 +1,19 @@
-import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
-import { canControlAnyAsset, deepCopy } from '@serge/helpers'
-import { ChannelMapping, ChannelTypes, MessageMap, ForceData, MappingConstraints, MilliTurns, Role } from '@serge/custom-types'
-
-// Import component files
-import Mapping from './index'
-import MappingPropTypes from './types/props'
-import docs from './README.md'
-import Assets from '../assets'
-import { HexGrid } from '../hex-grid'
-
 // import data types
 import { Phase, serverPath } from '@serge/config'
-
+import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role } from '@serge/custom-types'
+import { canControlAnyAsset, deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
-import data from './data/atlantic-cells'
+import { Story } from '@storybook/react/types-6-0'
+import React from 'react'
+import Assets from '../assets'
+import { HexGrid } from '../hex-grid'
 import InfoMarkers from '../info-markers'
+import data from './data/atlantic-cells'
+// Import component files
+import Mapping from './index'
+import docs from './README.md'
+import MappingPropTypes from './types/props'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
@@ -147,7 +144,6 @@ const Template: Story<StoryPropTypes> = (args) => {
       canSubmitOrders={canSubmit}
       playerRole={role}
       fetchOverride={fetchMock}
-      markerIcons={icons}
       phase={phase}
       mapPostBack={mapPostBack}
       {...props}
@@ -166,6 +162,7 @@ NaturalEarth.args = {
   gameTurnTime: timeStep,
   platforms: platformTypes,
   infoMarkers: annotations,
+  markerIcons: icons,
   channel: mapChannel,
   wargameInitiated: true,
   turnNumber: 5,
@@ -187,6 +184,7 @@ OpenStreetMap.args = {
   platforms: platformTypes,
   channel: mapChannel,
   infoMarkers: annotations,
+  markerIcons: icons,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
@@ -206,6 +204,7 @@ DetailedCells.args = {
   channel: mapChannel,
   platforms: platformTypes,
   infoMarkers: annotations,
+  markerIcons: icons,
   wargameInitiated: true,
   turnNumber: 5,
   mapBar: true,
