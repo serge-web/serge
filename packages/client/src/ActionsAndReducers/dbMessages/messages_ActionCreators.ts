@@ -6,8 +6,6 @@ import check from 'check-types'
 import * as messagesApi from '../../api/messages_api'
 
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { setCurrentViewFromURI } from '../setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { MESSAGE_LIBRARY_ROUTE } from '../../consts'
 import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from '@serge/custom-types'
 
 const DBMessageSaveStatus = (status: string): MessagesActionTypes => ({
@@ -57,7 +55,6 @@ export const createMessage = (message: RequestForInformation, schema: {}) => {
         const messages = await messagesApi.getAllMessagesFromDb()
         dispatch(DBSaveMessageArray(messages))
         dispatch(loadingDBMessageCreate(false))
-        dispatch(setCurrentViewFromURI(MESSAGE_LIBRARY_ROUTE))
       }
     } catch (e) {
       dispatch(loadingDBMessageCreate(false))
@@ -105,7 +102,6 @@ export const updateMessage = (message: RequestForInformation, id: string) => {
         dispatch(DBSaveMessagePreview(message))
         dispatch(DBSaveMessageArray(messages))
         dispatch(loadingDBMessageCreate(false))
-        dispatch(setCurrentViewFromURI(MESSAGE_LIBRARY_ROUTE))
       }
     } catch (e) {
       // CREATE ERROR WARNING MESSAGE
