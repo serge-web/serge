@@ -20,6 +20,7 @@
   padding: inherit;
   border-radius: 1vmin;
   margin-top: 1vmin;
+  margin: 0 10px;
 
   h2 {
     @include typo-primary;
@@ -129,8 +130,24 @@
 .force-color {
   align-self: center;
   height: 32px;
-  margin: 0 20px;
+  margin: 0 10px;
   width: 64px;
   border: 1px solid #000;
   cursor: pointer;
+}
+
+.icon-color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  cursor: pointer;
+}
+
+.color-indicator {
+  display: block;
+  height: 5px;
+  width: 100%;
+  margin-top: 5px;
+  background-color: white;
 }

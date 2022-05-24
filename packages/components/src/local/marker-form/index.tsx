@@ -1,3 +1,6 @@
+import { faFill } from '@fortawesome/free-solid-svg-icons'
+/* Import Icons */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
 import { UPDATE_MARKER } from '@serge/config'
 import { IconOption, MapAnnotation, MessageUpdateMarker } from '@serge/custom-types'
@@ -107,6 +110,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         <Selector label="" name='iconType' options={icons} selected={formState.iconId} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
       </FormGroup>
       <FormGroup title='icon color' align='right'>
+        <div className={styles['icon-color']} onClick={toggleColorPicker}>
+          <FontAwesomeIcon icon={faFill} />
+          <div className={styles['color-indicator']} style={{ backgroundColor: formState.color }}></div>
+        </div>
         <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
       </FormGroup>
       <FormGroup title='Visible to' align='right'>
