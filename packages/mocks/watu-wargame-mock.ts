@@ -90,8 +90,16 @@ const wargame: Wargame = {
                         {
                             "force": "CTF Y",
                             "forceUniqid": "Red-1",
+                            "roles": ["red-CO"],
+                            "subscriptionId": "red-co-all",
+                            "controls": ["control-all:Red-1"],
+                            "pType": "ParticipantMapping"
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "Red-1",
                             "roles": [],
-                            "subscriptionId": "x0kbe",
+                            "subscriptionId": "red-viewers",
                             "pType": "ParticipantMapping"
                         }
                     ],
@@ -179,7 +187,7 @@ const wargame: Wargame = {
                                     "turn": 2
                                 }
                             ],
-                            "locationPending": true,
+                            "locationPending": false,
                             "name": "NORT",
                             "perceptions": [],
                             "plannedTurns": [

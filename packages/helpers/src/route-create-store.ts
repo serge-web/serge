@@ -7,7 +7,7 @@ import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
-import { canControlAsset } from './can-control-asset'
+import { canControlAsset, underControlByThisForce } from './can-control-asset'
 
 /** process the forces, to create a route store - used to manage
  * display and edits to planned routes
@@ -46,9 +46,6 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     // are all asset of this force visible to me?
     const visibleToThisPlayer: boolean = force.visibleTo != null && force.visibleTo.includes(playerForceId)
 
-    // do I have any control over assets of this force?
-    const controlled = true // TODO: use new control test // thisForce === playerForceId || controls.includes(thisForce)
-
     if (force.assets) {
       // loop through assets
       force.assets.forEach((asset: Asset) => {
@@ -60,8 +57,12 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // or are we admin in adjudication?
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
+          // sort out if this role can control this asset
+          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerRole)) || false
+          const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
+
           // keep existing route if this is for one of our assets, otherwise use the incoming one
-          const existingRoute: Route | undefined = controlled || adminInAdj ? existingRouteBase : undefined
+          const existingRoute: Route | undefined = controlledByThisForce || adminInAdj ? existingRouteBase : undefined
 
           // dummy location, used if we don't have grid (such as in test)
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
@@ -74,16 +75,13 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
-          // sort out if this role can control this asset
-          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerRole)) || false
-
-          if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
+          if (controlledByThisForce || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
             // if it's the selected asset, we plot all future steps
             const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
-              controlled, controlledByThisRole, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
+              controlledByThisForce, controlledByThisRole, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
               platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
               true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
@@ -112,7 +110,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   // note: compiler/linter forcing us to re-check asset.position
                   if (asset.position && perceptions) {
                     // create route for this asset
-                    const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, false, false, force.uniqid, perceptions.forceId,
+                    const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, controlledByThisForce, false, false, force.uniqid, perceptions.forceId,
                       perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                       false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
@@ -127,7 +125,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   thisForce, asset.platformTypeId, asset.perceptions)
                 if (perceptions) {
                   // create route for this asset
-                  const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, false, false, force.uniqid, perceptions.forceId,
+                  const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, controlledByThisForce, false, false, force.uniqid, perceptions.forceId,
                     perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                     false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                   store.routes.push(newRoute)

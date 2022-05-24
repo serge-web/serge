@@ -8,6 +8,19 @@ export const canControlAnyAsset = (channel: ChannelMapping, role: Role['roleId']
   return myControls && myControls.length > 0
 }
 
+export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['uniqid'], assetForce: ForceData['uniqid'], roleForce: ForceData['uniqid']): boolean => {
+  const controlAllString = CONTROL_ALL + assetForce
+  const controlAllTheseAssets = channel.participants.find((part:ParticipantMapping) => part.controls && part.controls.includes(controlAllString))
+  if (controlAllTheseAssets) {
+    // check it's an asset from this force
+    return controlAllTheseAssets.forceUniqid === roleForce
+  } else {
+    // see if we an asset from our force controls this asset
+    const controlsThisAsset = channel.participants.find((part:ParticipantMapping) => part.controls && part.controls.includes(asset))
+    return !!controlsThisAsset && (controlsThisAsset.forceUniqid === roleForce)
+  }
+}
+
 /** determine if this role can control the asset in question
  * @param {ForceData[]} channel definition of this channel
  * @param {string} asset uniqid for asset

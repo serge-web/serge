@@ -1,6 +1,6 @@
 import { watuWargame } from '@serge/mocks'
 import deepCopy from '../deep-copy'
-import canControlAsset, { canControlAnyAsset } from '../can-control-asset'
+import canControlAsset, { canControlAnyAsset, underControlByThisForce } from '../can-control-asset'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from '@serge/custom-types'
 
 const game: Wargame = deepCopy(watuWargame)
@@ -21,8 +21,6 @@ const greenAsset1: Asset | undefined = greenForce && greenForce.assets && greenF
 const greenAsset2: Asset | undefined = greenForce && greenForce.assets && greenForce.assets[1]
 const channel: ChannelMapping | undefined = game.data.channels.channels.find((chann: ChannelTypes) => chann.channelType === 'mapping') as ChannelMapping
 
-// note: we need to handle cases where force assets are controlled by another force
-
 describe('can control asset:', () => {
   it('configured as expected', () => {
     expect(game).toBeTruthy()
@@ -33,6 +31,25 @@ describe('can control asset:', () => {
     expect(channel).toBeTruthy()
     expect(nortAsset && talnAsset && greenAsset1 && greenAsset2).toBeTruthy()
   })
+
+  // CONTROLLED BY THIS
+  it('I control this specific asset and this force in general', () => {
+    if (channel && blueForce && talnAsset && nortAsset && greenAsset1 && whiteForce && greenForce) {
+      expect(underControlByThisForce(channel, talnAsset.uniqid, blueForce.uniqid, blueForce.uniqid)).toBeTruthy()
+      expect(underControlByThisForce(channel, nortAsset.uniqid, blueForce.uniqid, blueForce.uniqid)).toBeTruthy()
+      // and some we don't contorl
+      expect(underControlByThisForce(channel, greenAsset1.uniqid, greenForce.uniqid, blueForce.uniqid)).toBeFalsy()
+      // and umpire control
+      expect(underControlByThisForce(channel, greenAsset1.uniqid, greenForce.uniqid, whiteForce.uniqid)).toBeTruthy()
+    }
+  })
+  it('I do not control this specific asset and this force in general', () => {
+    if (channel && redForce && blueForce && talnAsset && nortAsset) {
+      expect(underControlByThisForce(channel, talnAsset.uniqid, blueForce.uniqid, redForce.uniqid)).toBeFalsy()
+      expect(underControlByThisForce(channel, nortAsset.uniqid, blueForce.uniqid, redForce.uniqid)).toBeFalsy()
+    }
+  })
+
   // CONTROL ANY ASSET
   it('I am not specified as controller for any asset', () => {
     if (channel && blueForce && blueComms) {

@@ -345,7 +345,7 @@ it('route displays all hosted & comprising assets for blue force with filtered p
 
 it('route displays all hosted & comprising assets for blue force', () => {
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, 'role-id', platformTypes, false, false)
-  expect(store.routes.length).toEqual(11)
+  expect(store.routes.length).toEqual(12)
 
   // get the host platform
   const frigate = store.routes[1]
