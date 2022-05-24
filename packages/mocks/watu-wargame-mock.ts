@@ -474,7 +474,6 @@ const wargame: Wargame = {
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
                     "name": "Green Force",
-                    "controlledBy": "umpire",
                     "overview": "Green force.",
                     "roles": [],
                     "umpire": false,

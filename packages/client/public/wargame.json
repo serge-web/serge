@@ -227,7 +227,6 @@
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "Blue2",
-				"controlledBy": "umpire",
 				"overview": "Blue force.",
 				"roles": [{
 					"isGameControl":false,
@@ -1669,7 +1668,6 @@
 					}
 				],
 				"color": "#0F0",
-				"controlledBy": "umpire",
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "Green",

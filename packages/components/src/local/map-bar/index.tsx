@@ -235,7 +235,6 @@ export const MapBar: React.FC = () => {
         contactId: asset.contactId,
         typeId: asset.platformTypeId,
         forceId: force.uniqid,
-        controlledBy: force.controlledBy,
         condition: asset.condition,
         visibleTo: visibleToArr,
         status: asset.status,

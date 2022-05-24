@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash'
 /* Import mock data */
 import { forces, platformTypes, preInitialisedForces } from '@serge/mocks'
 
-import routeCreateStore, { forcesControlledBy } from '../route-create-store'
+import routeCreateStore from '../route-create-store'
 
 import { Phase, LaydownPhases, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 
@@ -14,10 +14,7 @@ const umpireForce = forces[0].uniqid
 const blueForce = forces[1].uniqid
 const redForce = forces[2].uniqid
 
-it('determines correct controlled routes', () => {
-  expect(forcesControlledBy(forces, 'Blue')).toEqual([])
-  expect(forcesControlledBy(forces, 'umpire')).toEqual(['Green'])
-})
+// TODO: new tests for controlled by
 
 it('can create route under control as umpire ', () => {
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce, 'role-id', platformTypes, false, false)

@@ -39,7 +39,7 @@ export const canControlAnyAsset = (channel: ChannelMapping, roleForce: ForceData
 export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, asset: Asset['uniqid'],
   roleForce: ForceData['uniqid'], role: Role['roleId']): boolean => {
   // check if assets of this force can be controlled by me
-  const controlThisForce = assetForce.controlledBy && assetForce.controlledBy.includes(roleForce)
+  const controlThisForce = false // TODO: alternateve strategy for 3rd party control
 
   // check if this asset is from my force
   const isMyForce = assetForce.uniqid === roleForce

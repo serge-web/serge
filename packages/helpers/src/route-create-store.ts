@@ -9,21 +9,6 @@ import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
 import { canControlAsset } from './can-control-asset'
 
-/** determine which forces this player can control
- * @param {ForceData[]} forces array of forces
- * @param {string} playerForce uniqid for player force
- * @returns {string[]} list of forces this player can control
- */
-export const forcesControlledBy = (forces: ForceData[], playerForce: ForceData['uniqid']): Array<ForceData['uniqid']> => {
-  const res: Array<ForceData['uniqid']> = []
-  forces.forEach((force: ForceData) => {
-    if (force.controlledBy && force.controlledBy === playerForce) {
-      res.push(force.uniqid)
-    }
-  })
-  return res
-}
-
 /** process the forces, to create a route store - used to manage
  * display and edits to planned routes
  * @param {string | undefined} selectedId uniqid for selected asset
@@ -44,7 +29,6 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
   filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping): RouteStore => {
   const store: RouteStore = { routes: [] }
 
-  const controls: Array<string> = forcesControlledBy(forces, playerForceId)
   const forceColorList: Array<ForceStyle> = forceColors(forces)
 
   const undefinedColor: ForceStyle = {
@@ -63,7 +47,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     const visibleToThisPlayer: boolean = force.visibleTo != null && force.visibleTo.includes(playerForceId)
 
     // do I have any control over assets of this force?
-    const controlled = thisForce === playerForceId || controls.includes(thisForce)
+    const controlled = true // TODO: use new control test // thisForce === playerForceId || controls.includes(thisForce)
 
     if (force.assets) {
       // loop through assets

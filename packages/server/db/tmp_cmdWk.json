@@ -1739,7 +1739,6 @@
                     "overview": "An overview written here..",
                     "roles": [],
                     "umpire": false,
-                    "controlledBy": "umpire",
                     "uniqid": "Green"
                 }
             ],
