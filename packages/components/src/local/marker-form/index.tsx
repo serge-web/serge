@@ -17,38 +17,37 @@ import PropTypes from './types/props'
 /* Render component */
 export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
-  const [iconName, setIconName] = useState<string>('')
   const [iconURL, setIconURL] = useState<string>(formState.iconId)
   const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
-  const { forces, icons } = formData.populate
+  const { forces, icons = [] } = formData.populate
 
   if (icons === undefined) {
     console.warn('marker form - marker icons missing:', icons)
   }
-
-  const iconNames: string[] = icons ? icons.map((p: IconOption): string => p.name) : []
 
   const changeHandler = (formStateValue: any): void => {
     setFormState({ ...formState, ...formStateValue })
   }
 
   useEffect(() => {
+    setFormState(formData.value)
+  }, [formData.value.uniqid])
+
+  useEffect(() => {
     if (icons) {
       // get the id
       const selectedIcon = icons.find((p: IconOption) => p.uniqid === formState.iconId)
-      const iconName = (selectedIcon && selectedIcon.name) || ''
       const iconURL = (selectedIcon && selectedIcon.icon) || ''
-      setIconName(iconName)
       setIconURL(iconURL)
     }
   }, [formState.iconId, icons])
 
   const typeHandler = (data: string): void => {
     // get the id
-    const selectedIcon = icons.find((p: IconOption) => p.name === data)
+    const selectedIcon = icons.find((p: IconOption) => p.uniqid === data)
     setFormState(
       {
         ...formState,
@@ -105,7 +104,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
       </div>
       <FormGroup title='icon type' align='right'>
-        <Selector label="" name='iconType' options={iconNames} selected={iconName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+        <Selector label="" name='iconType' options={icons} selected={formState.iconId} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
       </FormGroup>
       <FormGroup title='icon color' align='right'>
         <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
