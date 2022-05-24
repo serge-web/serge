@@ -1,3 +1,5 @@
+import { IconOption } from '@serge/custom-types'
+
 export default interface PropTypes {
   /**
    * The label to show on the form section
@@ -11,7 +13,7 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: Array<string | number>
+  options: Array<string | number | IconOption>
   /**
    * The value to set the 'selected' parameter to
    */
