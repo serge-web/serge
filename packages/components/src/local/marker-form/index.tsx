@@ -24,7 +24,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
 
   const { forces, icons = [] } = formData.populate
 
-  if (icons === undefined) {
+  if (!icons.length) {
     console.warn('marker form - marker icons missing:', icons)
   }
 
