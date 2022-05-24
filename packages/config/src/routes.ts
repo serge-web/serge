@@ -1,6 +1,5 @@
 export const ADMIN_ROUTE = '/serge/admin'
 export const MESSAGE_TEMPLATE_ROUTE = '/serge/messageTemplates'
-export const MESSAGE_LIBRARY_ROUTE = '/serge/messageLibrary'
 export const MESSAGE_CREATOR_BASE_ROUTE = '/serge/messageCreator'
 export const CREATE_TEMPLATE_ROUTE = '/create/template'
 export const EDIT_TEMPLATE_ROUTE = '/edit/template'
