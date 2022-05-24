@@ -54,7 +54,15 @@ const wargame: Wargame = {
                             "forceUniqid": "umpire",
                             "roles": ["umpire-GC"],
                             "controls": ["control-all:green-force"],
-                            "subscriptionId": "white-controle"
+                            "subscriptionId": "white-control-green-all"
+                        },
+                        {
+                            "force": "White",
+                            "pType": "ParticipantMapping",
+                            "forceUniqid": "umpire",
+                            "roles": ["umpire-blue-hq"],
+                            "controls": ["merchID2"],
+                            "subscriptionId": "white-control-green-asset"
                         },
                         {
                             "force": "CTF B",
@@ -129,7 +137,7 @@ const wargame: Wargame = {
                             "isObserver": false,
                             "isRFIManager": false,
                             "name": "Blue HHQ",
-                            "roleId": "rks5zfzd4"
+                            "roleId": "umpire-blue-hq"
                         },
                         {
                             "canSubmitPlans": false,
@@ -438,16 +446,29 @@ const wargame: Wargame = {
                     "assets": [
                         {
                             "condition": "Working",
-                            "contactId": "C`26",
+                            "contactId": "C526",
                             "history": [],
                             "locationPending": true,
-                            "name": "MERCH",
+                            "name": "MERCH 1",
                             "perceptions": [],
                             "plannedTurns": [],
                             "platformTypeId": "a13",
                             "attributeValues": [],
                             "position": "8918a84d94fffff",
                             "uniqid": "merchID"
+                        }, 
+                        {
+                            "condition": "Working",
+                            "contactId": "C926",
+                            "history": [],
+                            "locationPending": true,
+                            "name": "MERCH 2",
+                            "perceptions": [],
+                            "plannedTurns": [],
+                            "platformTypeId": "a13",
+                            "attributeValues": [],
+                            "position": "8918aab6623ffff",
+                            "uniqid": "merchID2"
                         }
                     ],
                     "dirty": false,
