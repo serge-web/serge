@@ -7,7 +7,7 @@ const game: Wargame = deepCopy(watuWargame)
 const blueForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'Blue-1')
 const redForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'Red-1')
 const whiteForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'umpire')
-const greenForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'green')
+const greenForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'green-force')
 
 const blueCO: Role | undefined = blueForce && blueForce.roles.find((role: Role) => role.roleId === 'blueCO')
 const blueNortRole: Role | undefined = blueForce && blueForce.roles.find((role: Role) => role.roleId === 'nortCO')
