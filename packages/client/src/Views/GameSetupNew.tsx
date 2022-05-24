@@ -326,8 +326,10 @@ const AdminGameSetup = () => {
   }, [currentTab])
 
   const getSelectedChannel = () => {
-    const { uniqid } = channels.selectedChannel as { uniqid: string }
-    return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    if (channels.selectedChannel) {
+      const { uniqid } = channels.selectedChannel as { uniqid: string }
+      return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    }
   }
 
   return (
