@@ -6,7 +6,6 @@ import * as messagesApi from '../../../api/messages_api'
 import machineryFailure from '../../../Schemas/machinery_failure.json'
 import * as Globals from '@serge/config'
 import { messagesReducer } from '../../../ActionsAndReducers/dbMessages/messages_Reducer'
-import { MESSAGE_LIBRARY_ROUTE } from '../../../consts'
 
 const mockStore = configureStore([thunk])
 
@@ -63,8 +62,7 @@ describe('message actions', () => {
         }
       },
       { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false },
-      { type: Globals.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_LIBRARY_ROUTE }
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false }
     ]
 
     const store = mockStore({})
@@ -107,8 +105,7 @@ describe('message actions', () => {
       },
       { type: Globals.DB_RETURNED_MESSAGE, payload: {} },
       { type: Globals.DB_MESSAGE_SAVED, payload: [{ message: 'message' }] },
-      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false },
-      { type: Globals.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_LIBRARY_ROUTE }
+      { type: Globals.DB_MESSAGE_CREATION_LOADING, isLoading: false }
     ]
 
     const store = mockStore({})
