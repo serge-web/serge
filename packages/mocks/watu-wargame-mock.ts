@@ -53,7 +53,7 @@ const wargame: Wargame = {
                             "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": ["umpire-GC"],
-                            "controls": ["control-all"],
+                            "controls": ["control-all:green-force"],
                             "subscriptionId": "white-controle"
                         },
                         {
@@ -457,7 +457,7 @@ const wargame: Wargame = {
                     "overview": "Green force.",
                     "roles": [],
                     "umpire": false,
-                    "uniqid": "green"
+                    "uniqid": "green-force"
                 }
             ],
             "name": "Forces",
