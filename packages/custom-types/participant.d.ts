@@ -1,6 +1,6 @@
 import Role from './role'
 import ForceData from './force-data'
-import { CONTROL_ALL, CONTROL_NONE, CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from '@serge/config'
 import Asset from './asset'
 
 export interface ParticipantTemplate {

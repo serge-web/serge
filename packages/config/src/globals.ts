@@ -145,10 +145,7 @@ export const settings = 'settings'
 export const NEW_ROLE = 'New Role'
 
 /** flag to indicate a role can control all assets */
-export const CONTROL_ALL = 'control-all'
-
-/** flag to indicate a role can control no assets */
-export const CONTROL_NONE = 'control-none'
+export const CONTROL_ALL = 'control-all:'
 
 // 
 /** there has been some user interaction, so log the current time

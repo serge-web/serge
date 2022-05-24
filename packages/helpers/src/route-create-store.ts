@@ -75,7 +75,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
           // sort out if this role can control this asset
-          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerForceId, playerRole)) || false
+          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerRole)) || false
 
           if (controlled || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes

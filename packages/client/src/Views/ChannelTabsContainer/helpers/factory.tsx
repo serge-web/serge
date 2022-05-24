@@ -171,9 +171,8 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_CHAT:
           return <ChatChannel channelId={matchedChannel[0]} />
         case CHANNEL_MAPPING: {
-          const playerForce = state.selectedForce ? state.selectedForce.uniqid : ''
           const channel = matchedChannel[1].cData as ChannelMapping
-          const canControlSomething = channel && canControlAnyAsset(channel, playerForce, state.selectedRole)
+          const canControlSomething = channel && canControlAnyAsset(channel, state.selectedRole)
           return renderMap(node.getId(), canControlSomething, channel)
         }
         case CHANNEL_CUSTOM:

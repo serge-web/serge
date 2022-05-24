@@ -137,7 +137,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
-  const canSubmit = canControlAnyAsset(mapChannel, force, role)
+  const canSubmit = canControlAnyAsset(mapChannel, role)
   return (
     <Mapping
       playerForce={force}

@@ -85,7 +85,7 @@ const wargame: Wargame = {
                             "roles": ["blueCO"],
                             "subscriptionId": "blue-CO-control-all",
                             "pType": "ParticipantMapping",
-                            "controls": ["control-all"]
+                            "controls": ["control-all:Blue-1"]
                         },
                         {
                             "force": "CTF Y",
