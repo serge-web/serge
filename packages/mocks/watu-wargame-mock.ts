@@ -470,7 +470,7 @@ const wargame: Wargame = {
                             "perceptions": [
                                 {
                                     "by": "Red",
-                                    "force": "Blue",
+                                    "force": "Blue-1",
                                     "name": "BRIT",
                                     "typeId": "a11"
                                 }
@@ -568,7 +568,7 @@ const wargame: Wargame = {
                             "platformType": "agi",
                             "platformTypeId": "a15",
                             "position": "8918a84db3bffff",
-                            "uniqid": "a0a45988ty54351"
+                            "uniqid": "red-AGI"
                         },
                         {
                             "condition": "Working",
@@ -578,6 +578,11 @@ const wargame: Wargame = {
                                     "state": "Landed"
                                 },
                                 "turn": 1
+                            }, {
+                                "status": {
+                                    "state": "Refueling"
+                                },
+                                "turn": 2
                             }],
                             "locationPending": true,
                             "name": "MPA 2",
@@ -602,7 +607,7 @@ const wargame: Wargame = {
 
                             ], "platformTypeId": "a11",
                             "position": "8918a84db33ffff",
-                            "uniqid": "a03322ty344331"
+                            "uniqid": "red-mpa-2"
                         }
                     ],
                     "color": "#f00",

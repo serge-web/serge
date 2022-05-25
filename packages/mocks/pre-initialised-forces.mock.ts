@@ -159,7 +159,7 @@ const forces: ForceData[] = [
             }
         ],
         umpire: false,
-        uniqid: "Blue"
+        uniqid: "Blue-1"
     },
     {
         assets: [
@@ -244,7 +244,7 @@ const forces: ForceData[] = [
             }
         ],
         umpire: false,
-        uniqid: "Red"
+        uniqid: "Red-1"
     },
     {
         assets: [
@@ -320,7 +320,7 @@ const forces: ForceData[] = [
             }
         ],
         umpire: false,
-        uniqid: "Green"
+        uniqid: "green-force"
     }
 ];
 

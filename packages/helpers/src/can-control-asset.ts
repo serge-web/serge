@@ -46,7 +46,10 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, 
     if (generalControlOfThisForce && generalControlOfThisForce.roles.length === 1) {
       return generalControlOfThisForce.roles[0] === role
     } else {
-      console.warn('Warning no named controller for un-claimed assets of force ', assetForce.name)
+      console.warn('Warning no named controller for un-claimed assets of force ', assetForce.name, assetForce.uniqid, controlAllString)
+      console.table(parts.map((value: ParticipantMapping) => {
+        return { name: value.subscriptionId, control: value.controls }
+      }))
       return false
     }
   }
