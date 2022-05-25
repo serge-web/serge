@@ -29,6 +29,10 @@ export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
 
 // special platform-type name, used for task group. Must match `platform-types` definition
 export const TASK_GROUP = 'task-group'
+
+/*
+ * type for DATUM. @deprecated - since replaced with information-markers
+ */
 export const DATUM = 'datum'
 
 // series of constants used for `messageType` when sending map events
