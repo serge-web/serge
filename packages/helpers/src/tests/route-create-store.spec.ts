@@ -16,12 +16,13 @@ const mappingChan = watuWargame.data.channels.channels[1] as ChannelMapping
 const umpireForce = forces[0]
 const blueForce = forces[1]
 const redForce = forces[2]
+const greenForce = forces[3]
 const showSteps = false
 
 // check we have unput data
 it('check test dependencies', () => {
   expect(cloneDeep).toBeTruthy()
-  expect(blueForce && redForce).toBeTruthy()
+  expect(blueForce && redForce && mappingChan && umpireForce && greenForce && !showSteps).toBeTruthy()
   expect(LaydownPhases && UNKNOWN_TYPE).toBeTruthy()
   expect(preInitialisedForces).toBeTruthy()
   const dummy1 = {} as RouteChild
@@ -32,128 +33,130 @@ it('check test dependencies', () => {
   expect(dummy3).toBeTruthy()
 })
 
-// TODO: new tests for controlled by
-it('can create route under control as umpire ', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
-    platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
-  expect(store.routes.length).toEqual(7)
+// // TODO: new tests for controlled by
+// it('can create route under control as umpire ', () => {
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
+//     platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
+//   expect(store.routes.length).toEqual(7)
 
-  // check inside a route
-  const route: Route = store.routes[0]
-  expect(route.uniqid).toEqual('nortID')
-  expect(route.history.length).toEqual(3)
-  expect(route.planned.length).toEqual(2)
-  expect(route.original.length).toEqual(2)
-  expect(route.underControlByThisForce).toBeFalsy()
+//   // check inside a route
+//   const route: Route = store.routes[0]
+//   expect(route.uniqid).toEqual('nortID')
+//   expect(route.history.length).toEqual(3)
+//   expect(route.planned.length).toEqual(2)
+//   expect(route.original.length).toEqual(2)
+//   expect(route.underControlByThisForce).toBeFalsy()
 
-  expect(route.visibleTo).toBeTruthy()
-  expect(route.visibleTo.length).toEqual(1)
-  expect(route.visibleTo[0]).toEqual('Red-2')
+//   expect(route.visibleTo).toBeTruthy()
+//   expect(route.visibleTo.length).toEqual(1)
+//   expect(route.visibleTo[0]).toEqual('Red-2')
 
-  expect(route.condition).toEqual('Working')
-})
+//   expect(route.condition).toEqual('Working')
+// })
 
-it('can create route with static steps under control as umpire in playing phase', () => {
-  const store: RouteStore = routeCreateStore('nortID', Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
-    platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
-  expect(store.routes.length).toEqual(7)
+// it('can create route with static steps under control as umpire in playing phase', () => {
+//   const store: RouteStore = routeCreateStore('nortID', Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
+//     platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
+//   expect(store.routes.length).toEqual(7)
 
-  // check inside a route
-  const route: Route | undefined = store.selected
+//   // check inside a route
+//   const route: Route | undefined = store.selected
 
-  if (route) {
-    expect(route.uniqid).toEqual('nortID')
-    expect(route.history.length).toEqual(3)
-    // check non-mobile points looks how we expect
-    expect(route.history[0].route).toBeTruthy()
-    expect(route.history[1].route).toBeUndefined()
-    expect(route.history[2].route).toBeTruthy()
-    expect(route.planned.length).toEqual(2)
-    expect(route.planned[0].route).toBeTruthy()
-    expect(route.planned[1].route).toBeUndefined()
-    expect(route.original.length).toEqual(2)
-  }
-})
+//   if (route) {
+//     expect(route.uniqid).toEqual('nortID')
+//     expect(route.history.length).toEqual(3)
+//     // check non-mobile points looks how we expect
+//     expect(route.history[0].route).toBeTruthy()
+//     expect(route.history[1].route).toBeUndefined()
+//     expect(route.history[2].route).toBeTruthy()
+//     expect(route.planned.length).toEqual(2)
+//     expect(route.planned[0].route).toBeTruthy()
+//     expect(route.planned[1].route).toBeUndefined()
+//     expect(route.original.length).toEqual(2)
+//   }
+// })
 
-it('can create route under control as umpire in playing phase', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
-    platformTypes, false, false, undefined, undefined, mappingChan)
-  expect(store.routes.length).toEqual(13)
+// it('can create route under control as umpire in playing phase', () => {
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
+//     platformTypes, false, false, undefined, undefined, mappingChan)
+//   expect(store.routes.length).toEqual(7)
 
-  // check inside a route
-  const route: Route = store.routes[1]
-  expect(route.uniqid).toEqual('a0pra00001')
-  expect(route.history.length).toEqual(1)
-  expect(route.planned.length).toEqual(2)
-  expect(route.original.length).toEqual(2)
-  expect(route.selected).toBeFalsy()
-})
+//   // check inside a route
+//   const route: Route = store.routes[1]
+//   expect(route.uniqid).toEqual('talnID')
+//   expect(route.history.length).toEqual(3)
+//   expect(route.planned.length).toEqual(0)
+//   expect(route.original.length).toEqual(0)
+//   expect(route.selected).toBeFalsy()
+// })
 
 // it('can create route for un-recognised type', () => {
 //   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId,
 //     platformTypes, false, false, undefined, undefined, mappingChan)
 
-//   expect(store.routes.length).toEqual(11)
+//   expect(store.routes.length).toEqual(5)
 
 //   // check inside a route
-//   const dhow: Route = store.routes[4]
-//   expect(dhow.uniqid).toEqual('a0pra000100')
-//   expect(dhow.color).toEqual('#999')
-//   expect(dhow.name).toEqual('C065') // contact number, since it's not perceived
+//   const mpa2: Route = store.routes[4]
+//   expect(mpa2.uniqid).toEqual('a03322ty344331')
+//   expect(mpa2.color).toEqual('#f00')
+//   expect(mpa2.name).toEqual('C442') // contact number, since it's not perceived
 
 //   // should not create planned steps for non-blue platform
-//   expect(dhow.planned.length).toEqual(0)
+//   expect(mpa2.planned.length).toEqual(0)
 
 //   // should not create visible or condition elements for Blue force
-//   expect(dhow.visibleTo.length).toEqual(0)
-//   expect(dhow.condition).toEqual('Full capability')
+//   expect(mpa2.visibleTo.length).toEqual(0)
+//   expect(mpa2.condition).toEqual('Working')
 // })
 
 // it('create full history & planned for blue unit', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false)
-//   expect(store.routes.length).toEqual(11)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId,
+//     platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
+
+//   expect(store.routes.length).toEqual(5)
+
+//   // console.table(store.routes.map((route: Route) => {
+//   //   return {
+//   //     name: route.name,
+//   //     perceptions: route.perceivedForceId,
+//   //     type: route.uniqid
+//   //   }
+//   // }))
 
 //   // check a blue route
-//   const group: Route = store.routes[0]
-//   expect(group.color).toEqual('#00F')
-//   expect(group.name).toEqual('CTF 511')
-//   expect(group.history.length).toEqual(3)
-//   expect(group.planned.length).toEqual(2)
+//   const nort: Route = store.routes[0]
+//   expect(nort.color).toEqual('#00aaff')
+//   expect(nort.name).toEqual('NORT')
+//   expect(nort.history.length).toEqual(3)
+//   expect(nort.planned.length).toEqual(2)
 
 //   // check inside a route
-//   const dhow: Route = store.routes[4]
-//   expect(dhow.history.length).toEqual(3)
+//   const mpa: Route = store.routes[4]
+//   expect(mpa.history.length).toEqual(1)
 //   // should not create planned steps for non-blue platform
-//   expect(dhow.planned.length).toEqual(0)
+//   expect(mpa.planned.length).toEqual(0)
+
+//   // double-check that real MPA has planned turns
+//   const mpaHasPlannedturns = redForce.assets && redForce.assets[1].plannedTurns && redForce.assets[1].plannedTurns.length > 0
+//   expect(mpaHasPlannedturns).toBeTruthy()
 // })
 
 // it('create trimmed history & full planned for selected blue unit', () => {
-//   const frigateId = 'a0pra00001'
-//   const store: RouteStore = routeCreateStore(frigateId, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, false)
-//   expect(store.routes.length).toEqual(11)
+//   const frigateId = 'nortID'
+//   const store: RouteStore = routeCreateStore(frigateId, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, false, undefined, undefined, mappingChan)
+//   expect(store.routes.length).toEqual(5)
 
 //   // check selected route
 //   const frigate: Route | undefined = store.selected
 //   expect(frigate).toBeTruthy()
 //   if (frigate) {
-//     expect(frigate.name).toEqual('Frigate')
+//     expect(frigate.name).toEqual('NORT')
 //     expect(frigate.history.length).toEqual(1)
 //     expect(frigate.planned.length).toEqual(2)
 //     expect(frigate.plannedTrimmed.length).toEqual(2)
+//     expect(frigate.plannedTurnsCount).toEqual(2)
 //     expect(frigate.selected).toBeTruthy()
-//   }
-
-//   // check a blue route other than frigate (it should have full length route)
-//   const tankerId = 'a0pra00003'
-//   const tanker: Route | undefined = store.routes.find(route => route.uniqid === tankerId)
-//   expect(tanker).toBeTruthy()
-//   if (tanker) {
-//     expect(tanker.name).toEqual('Tanker')
-//     expect(tanker.history.length).toEqual(1)
-//     expect(tanker.planned.length).toEqual(3)
-//     expect(tanker.plannedTrimmed.length).toEqual(3)
-//     expect(tanker.plannedTurnsCount).toEqual(3)
-//     expect(tanker.selected).toBeFalsy()
 //   }
 
 //   // check no other routes set as selected
@@ -164,9 +167,9 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('create trimmed history & trimmed planned for without selected blue unit', () => {
-//   const frigateId = 'a0pra00001'
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true)
-//   expect(store.routes.length).toEqual(11)
+//   const frigateId = 'nortID'
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mappingChan)
+//   expect(store.routes.length).toEqual(5)
 
 //   expect(store.selected).toBeUndefined()
 
@@ -174,7 +177,7 @@ it('can create route under control as umpire in playing phase', () => {
 //   const frigate: Route | undefined = store.routes.find(route => route.uniqid === frigateId)
 //   expect(frigate).toBeTruthy()
 //   if (frigate) {
-//     expect(frigate.name).toEqual('Frigate')
+//     expect(frigate.name).toEqual('NORT')
 //     expect(frigate.history.length).toEqual(1)
 //     expect(frigate.planned.length).toEqual(2)
 //     expect(frigate.plannedTrimmed.length).toEqual(1)
@@ -182,149 +185,150 @@ it('can create route under control as umpire in playing phase', () => {
 //   }
 // })
 
-// it('create trimmed history & trimmed planned for without selected red unit', () => {
-//   const frigateId = 'a0pra00001'
-//   const dhowId = 'a0pra000100'
-//   const store: RouteStore = routeCreateStore(dhowId, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true)
-//   expect(store.routes.length).toEqual(11)
+it('create trimmed history & trimmed planned for without selected red unit', () => {
+  const frigateId = 'nortID'
+  const mpaID = 'a03322ty344331'
+  const store: RouteStore = routeCreateStore(mpaID, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mappingChan)
+  expect(store.routes.length).toEqual(5)
 
-//   expect(store.selected).toBeDefined()
+  expect(store.selected).toBeDefined()
 
-//   // check a blue route
-//   const frigate: Route | undefined = store.routes.find(route => route.uniqid === frigateId)
-//   expect(frigate).toBeTruthy()
-//   if (frigate) {
-//     expect(frigate.name).toEqual('Frigate')
-//     expect(frigate.history.length).toEqual(1)
-//     expect(frigate.planned.length).toEqual(2)
-//     expect(frigate.plannedTrimmed.length).toEqual(1)
-//   }
+  // check a blue route
+  const frigate: Route | undefined = store.routes.find(route => route.uniqid === frigateId)
+  expect(frigate).toBeTruthy()
+  if (frigate) {
+    expect(frigate.name).toEqual('NORT')
+    expect(frigate.history.length).toEqual(1)
+    expect(frigate.planned.length).toEqual(2)
+    expect(frigate.plannedTrimmed.length).toEqual(1)
+  }
 
-//   // check a red route
-//   const dhow: Route | undefined = store.routes.find(route => route.uniqid === dhowId)
-//   expect(dhow).toBeTruthy()
-//   if (dhow) {
-//     expect(dhow.name).toEqual('C065')
-//     expect(dhow.history.length).toEqual(1)
-//     expect(dhow.plannedTrimmed.length).toEqual(0)
-//     expect(dhow.planned.length).toEqual(0)
-//   }
-// })
+  // check a red route
+  const mpa: Route | undefined = store.routes.find(route => route.uniqid === mpaID)
+  expect(mpa).toBeTruthy()
+  if (mpa) {
+    expect(mpa.name).toEqual('C442')
+    expect(mpa.history.length).toEqual(1)
+    expect(mpa.plannedTrimmed.length).toEqual(0)
+    expect(mpa.planned.length).toEqual(0)
+  }
+})
 
-// it('create trimmed history & planned for blue unit', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true)
-//   expect(store.routes.length).toEqual(11)
+it('create trimmed history & planned for blue unit', () => {
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mappingChan)
+  expect(store.routes.length).toEqual(5)
 
-//   // check a blue route
-//   const group: Route = store.routes[0]
-//   expect(group.color).toEqual('#00F')
-//   expect(group.name).toEqual('CTF 511')
-//   expect(group.history.length).toEqual(1)
-//   expect(group.planned.length).toEqual(2)
-//   expect(group.plannedTrimmed.length).toEqual(1)
+  // check a blue route
+  const nort: Route = store.routes[0]
+  expect(nort.color).toEqual('#00aaff')
+  expect(nort.name).toEqual('NORT')
+  expect(nort.history.length).toEqual(1)
+  expect(nort.planned.length).toEqual(2)
+  expect(nort.plannedTrimmed.length).toEqual(1)
 
-//   // check inside a route
-//   const dhow: Route = store.routes[4]
-//   // should not create planned steps for non-blue platform
-//   expect(dhow.planned.length).toEqual(0)
-// })
+  // check inside a route
+  const mpa: Route = store.routes[4]
+  // should not create planned steps for non-blue platform
+  expect(mpa.planned.length).toEqual(0)
+})
 
-// it('create trimmed history & planned for blue unit but with full num of turns in attribute', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true)
-//   expect(store.routes.length).toEqual(11)
+it('create trimmed history & planned for blue unit but with full num of turns in attribute', () => {
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mappingChan)
+  expect(store.routes.length).toEqual(5)
 
-//   // check a blue route
-//   const group: Route = store.routes[0]
-//   expect(group.color).toEqual('#00F')
-//   expect(group.name).toEqual('CTF 511')
-//   expect(group.history.length).toEqual(1)
-//   expect(group.plannedTrimmed.length).toEqual(1)
-//   expect(group.planned.length).toEqual(2)
-//   // the full number of planned turns should still be returned here
-//   expect(group.plannedTurnsCount).toEqual(2)
-// })
+  // check a blue route
+  const group: Route = store.routes[0]
+  expect(group.color).toEqual('#00aaff')
+  expect(group.name).toEqual('NORT')
+  expect(group.history.length).toEqual(1)
+  expect(group.plannedTrimmed.length).toEqual(1)
+  expect(group.planned.length).toEqual(2)
+  // the full number of planned turns should still be returned here
+  expect(group.plannedTurnsCount).toEqual(2)
+})
 
-// it('can create route as umpire in planning mode', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false)
-//   expect(store.routes.length).toEqual(13)
+it('can create route as umpire in planning mode', () => {
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mappingChan)
+  expect(store.routes.length).toEqual(7)
 
-//   // check inside a route
-//   const route: Route = store.routes[1]
-//   expect(route.uniqid).toEqual('a0pra00001')
-//   expect(route.history.length).toEqual(1)
-//   expect(route.planned.length).toEqual(2)
-//   expect(route.plannedTrimmed.length).toEqual(2)
-//   expect(route.original.length).toEqual(2)
-// })
+  // check inside a route
+  const route: Route = store.routes[0]
+  expect(route.uniqid).toEqual('nortID')
+  expect(route.history.length).toEqual(3)
+  expect(route.planned.length).toEqual(2)
+  expect(route.plannedTrimmed.length).toEqual(2)
+  expect(route.original.length).toEqual(2)
+})
 
-// it('can create route as umpire in planning mode, filtering planned points', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, true, true)
-//   expect(store.routes.length).toEqual(13)
+it('can create route as umpire in planning mode, filtering planned points', () => {
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mappingChan)
+  expect(store.routes.length).toEqual(7)
 
-//   // check inside a route
-//   const route: Route = store.routes[1]
-//   expect(route.uniqid).toEqual('a0pra00001')
-//   expect(route.history.length).toEqual(1)
-//   expect(route.planned.length).toEqual(2)
-//   expect(route.plannedTrimmed.length).toEqual(1)
-//   expect(route.original.length).toEqual(2)
-// })
+  // check inside a route
+  const route: Route = store.routes[0]
+  expect(route.uniqid).toEqual('nortID')
+  expect(route.history.length).toEqual(1)
+  expect(route.planned.length).toEqual(2)
+  expect(route.plannedTrimmed.length).toEqual(1)
+  expect(route.original.length).toEqual(2)
+})
 
-// it('support new way of storing past steps', () => {
-//   const forcesClone = cloneDeep(forces)
-//   const redForce: ForceData = forcesClone[2]
-//   if (redForce && redForce.assets) {
-//     const asset: Asset = redForce.assets[0]
-//     // switch history for one using new structure (that includes all steps)
-//     asset.history = [
-//       {
-//         route: [
-//           'N16',
-//           'M16'
-//         ],
-//         status: {
-//           speedKts: 20,
-//           state: 'Transiting'
-//         },
-//         turn: 5
-//       },
-//       {
-//         route: [
-//           'M16',
-//           'L16'
-//         ],
-//         status: {
-//           speedKts: 10,
-//           state: 'Transiting'
-//         },
-//         turn: 6
-//       }
-//     ]
+it('support new way of storing past steps', () => {
+  const forcesClone = cloneDeep(forces)
+  const redForce: ForceData = forcesClone[2]
+  if (redForce && redForce.assets) {
+    const asset: Asset = redForce.assets[0]
+    const subjectId = asset.uniqid
+    // switch history for one using new structure (that includes all steps)
+    asset.history = [
+      {
+        route: [
+          'N16',
+          'M16'
+        ],
+        status: {
+          speedKts: 20,
+          state: 'Transiting'
+        },
+        turn: 5
+      },
+      {
+        route: [
+          'M16',
+          'L16'
+        ],
+        status: {
+          speedKts: 10,
+          state: 'Transiting'
+        },
+        turn: 6
+      }
+    ]
 
-//     const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesClone, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false)
-//     expect(store.routes.length).toEqual(13)
+    const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesClone, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mappingChan)
+    expect(store.routes.length).toEqual(7)
 
-//     // check inside a route
-//     const route: Route = store.routes[4]
-//     expect(route.uniqid).toEqual('a0pra000100')
-//     expect(route.history.length).toEqual(2)
-//     expect(route.history[0].turn).toEqual(5)
-//     expect(route.history[0].route).toBeDefined()
-//     if (route.history[0].route) {
-//       expect(route.history[0].route.length).toEqual(2)
-//     }
-//   } else {
-//     throw new Error('failed to find red asset')
-//   }
-// })
+    // check inside a route
+    const route: Route = store.routes[3]
+    expect(route.uniqid).toEqual(subjectId)
+    expect(route.history.length).toEqual(2)
+    expect(route.history[0].turn).toEqual(5)
+    expect(route.history[0].route).toBeDefined()
+    if (route.history[0].route) {
+      expect(route.history[0].route.length).toEqual(2)
+    }
+  } else {
+    throw new Error('failed to find red asset')
+  }
+})
 
 // it('route displays all hosted & comprising assets for white force', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false)
-//   expect(store.routes.length).toEqual(13)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mappingChan)
+//   expect(store.routes.length).toEqual(7)
 
 //   // get the host platform
 //   const frigate: Route = store.routes[1]
-//   expect(frigate.uniqid).toEqual('a0pra00001')
+//   expect(frigate.uniqid).toEqual('talnID')
 
 //   // find hosted platforms
 //   const hosting: Array<RouteChild> = frigate.hosting
@@ -351,7 +355,7 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('route displays all hosted & comprising assets for blue force with filtered planned routes', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(11)
 
 //   // get the host platform
@@ -364,7 +368,7 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('route displays all hosted & comprising assets for blue force', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(12)
 
 //   // get the host platform
@@ -404,7 +408,7 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('route displays perceived hosted assets in tree for red force', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mappingChan)
 
 //   expect(store.routes.length).toEqual(9)
 //   // try the host platform in the task group
@@ -448,7 +452,7 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('route displays perceived comprised assets in flat layer for red force', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false undefined, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(9)
 
 //   // the first route should be for the frigate in the task group
@@ -467,7 +471,7 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('route displays full history for asset in red force', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, false, true)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, false, true undefined, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(9)
 
 //   // find the dhow
@@ -484,7 +488,7 @@ it('can create route under control as umpire in playing phase', () => {
 // })
 
 // it('route displays single step of history for asset in red force', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false undefined, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(9)
 
 //   // find the dhow
@@ -511,7 +515,7 @@ it('can create route under control as umpire in playing phase', () => {
 //   }
 //   blue.assets[2].position = 'G23'
 
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, false, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(1) // only one route has a position
 
 //   // check inside the route with a position
@@ -535,7 +539,7 @@ it('can create route under control as umpire in playing phase', () => {
 //   }
 //   blue.assets[2].position = 'G23'
 
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, false, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(13) // only one route has a position
 
 //   // check inside the route with a position
@@ -559,7 +563,7 @@ it('can create route under control as umpire in playing phase', () => {
 //   }
 //   blue.assets[2].position = 'G23'
 
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, false)
+//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, platformTypes, false, false, false, undefined, mappingChan)
 //   expect(store.routes.length).toEqual(13) // only one route has a position
 
 //   // check inside the route with a position

@@ -384,22 +384,33 @@ const wargame: Wargame = {
                         {
                             "condition": "Working",
                             "contactId": "C442",
-                            "history": [],
+                            "history": [{
+                                "status": {
+                                    "state": "Landed"
+                                },
+                                "turn": 1}],
                             "locationPending": true,
                             "name": "MPA 2",
                             "perceptions": [
                                 {
                                     "by": "Blue-1",
                                     "force": "Red-1",
-                                    "typeId": "a12",
-                                    "name": "MPA 2"
+                                    "typeId": "a12"
                                 },
                                 {
                                     "by": "Blue-2",
                                     "force": "Red-1"
                                 }
                             ],
-                            "platformTypeId": "a11",
+                            "plannedTurns": [
+                                {
+                                    "status": {
+                                        "state": "Landed"
+                                    },
+                                    "turn": 2
+                                }
+
+                            ],                            "platformTypeId": "a11",
                             "position": "8918a84db33ffff",
                             "uniqid": "a03322ty344331"
                         }
