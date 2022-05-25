@@ -60,9 +60,9 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
         } else {
           assetState.history = [first]
         }
+        assetState.plannedTurns = planned
+        assetState.newState = first.status
       }
-      assetState.plannedTurns = planned
-      assetState.newState = route.currentStatus
     }
     forceArray.assets.push(assetState)
   })

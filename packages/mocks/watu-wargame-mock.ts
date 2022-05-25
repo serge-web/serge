@@ -355,7 +355,7 @@ const wargame: Wargame = {
                             "platformTypeId": "a8",
                             "position": "8918aab66bbffff",
                             "uniqid": "a0a975y4221"
-                        },{
+                        }, {
                             "condition": "Full capability",
                             "contactId": "C713",
                             "history": [
@@ -455,7 +455,7 @@ const wargame: Wargame = {
                                     "history": [],
                                     "name": "MCM Delta",
                                     "perceptions": [
-                                       { "by": "Red-1", "force": "Blue-1", "name": "Blue MCM", "typeId" : "a9" }
+                                        { "by": "Red-1", "force": "Blue-1", "name": "Blue MCM", "typeId": "a9" }
                                     ],
                                     "platformType": "MCMV",
                                     "platformTypeId": "a9",
@@ -552,7 +552,18 @@ const wargame: Wargame = {
                         {
                             "condition": "Working",
                             "contactId": "C122",
-                            "history": [],
+                            "history": [{
+                                "status": {
+                                    "state": "Moored 1"
+                                },
+                                "turn": 1
+                            },
+                            {
+                                "status": {
+                                    "state": "Scanning 1"
+                                },
+                                "turn": 2
+                            }],
                             "locationPending": true,
                             "name": "AGI",
                             "perceptions": [
@@ -565,6 +576,22 @@ const wargame: Wargame = {
                                     "force": "Red-1"
                                 }
                             ],
+                            "plannedTurns": [
+                                {
+                                    "route": [
+                                        "8918a84db47ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 12,
+                                        "state": "Transiting a"
+                                    },
+                                    "turn": 3
+                                }, {
+                                    "status": {
+                                        "state": "Moored"
+                                    },
+                                    "turn": 4
+                                }],
                             "platformType": "agi",
                             "platformTypeId": "a15",
                             "position": "8918a84db3bffff",
