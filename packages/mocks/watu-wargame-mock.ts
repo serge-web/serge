@@ -193,40 +193,40 @@ const wargame: Wargame = {
                             ],
                             "hosting": [
                                 {
-                                  "condition": "Full capability",
-                                  "contactId": "C572",
-                                  "history": [],
-                                  "name": "Merlin",
-                                  "perceptions": [
-                                    {
-                                      "by": "Red",
-                                      "force": "Blue",
-                                      "typeId": "a8"
-                                    }
-                                  ],
-                                  "plannedTurns": [],
-                                  "platformType": "helicopter",
-                                  "platformTypeId": "a8",
-                                  "status": {
-                                    "state": "Landed"
-                                  },
-                                  "uniqid": "nort-merlin"
+                                    "condition": "Full capability",
+                                    "contactId": "C572",
+                                    "history": [],
+                                    "name": "Merlin",
+                                    "perceptions": [
+                                        {
+                                            "by": "Red",
+                                            "force": "Blue",
+                                            "typeId": "a8"
+                                        }
+                                    ],
+                                    "plannedTurns": [],
+                                    "platformType": "helicopter",
+                                    "platformTypeId": "a8",
+                                    "status": {
+                                        "state": "Landed"
+                                    },
+                                    "uniqid": "nort-merlin"
                                 },
                                 {
-                                  "condition": "Full capability",
-                                  "contactId": "C591",
-                                  "history": [],
-                                  "name": "Dart 42",
-                                  "perceptions": [],
-                                  "plannedTurns": [],
-                                  "platformType": "Unmanned-Airborne-Vehicle",
-                                  "platformTypeId": "a10",
-                                  "status": {
-                                    "state": "Landed"
-                                  },
-                                  "uniqid": "nort-dart"
+                                    "condition": "Full capability",
+                                    "contactId": "C591",
+                                    "history": [],
+                                    "name": "Dart 42",
+                                    "perceptions": [],
+                                    "plannedTurns": [],
+                                    "platformType": "Unmanned-Airborne-Vehicle",
+                                    "platformTypeId": "a10",
+                                    "status": {
+                                        "state": "Landed"
+                                    },
+                                    "uniqid": "nort-dart"
                                 }
-                              ],
+                            ],
                             "locationPending": false,
                             "name": "NORT",
                             "perceptions": [
@@ -353,298 +353,155 @@ const wargame: Wargame = {
                             "platformTypeId": "a8",
                             "position": "8918aab66bbffff",
                             "uniqid": "a0a975y4221"
-                        },
-                         {
-        condition: 'Full capability',
-        contactId: 'C713',
-        history: [
-          {
-            route: ['R23'],
-            status: {
-              speedKts: 10,
-              state: 'Transiting'
-            },
-            turn: 0
-          },
-          {
-            route: ['P22'],
-            status: {
-              speedKts: 20,
-              state: 'Transiting'
-            },
-            turn: 1
-          },
-          {
-            route: ['P21'],
-            status: {
-              speedKts: 30,
-              state: 'Transiting'
-            },
-            turn: 2
-          }
-        ],
-        comprising: [
-            {
-              condition: 'Full capability',
-              contactId: 'C964',
-              history: [
-              ],
-              name: 'Frigate A',
-              perceptions: [{
-                by: 'Red',
-                force: 'Blue',
-                name: 'Frigate A Perceived Name'
-              }],
-              platformType: 'frigate',
-              platformTypeId : 'a3',
-              hosting: [
-                {
-                  condition: 'Full capability',
-                  contactId: 'C721',
-                  history: [
-                  ],
-                  name: 'Dart 45',
-                  perceptions: [{
-                    by: 'Red',
-                    force: 'Blue',
-                    name: 'Unknown UAV',
-                    typeId: 'a10'
-                  }],
-                      plannedTurns: [],
-                  platformType: 'Unmanned-Airborne-Vehicle',
-                  platformTypeId : 'a10',
-                  status: {
-                    state: 'Landed'
-                  },
-                  uniqid: 'a0pra43302'
-                },
-                {
-                  condition: 'Full capability',
-                  contactId: 'C932',
-                  history: [
-                  ],
-                  name: 'Dart 46',
-                  perceptions: [],
-                  plannedTurns: [],
-                  platformType: 'Unmanned-Airborne-Vehicle',
-                  platformTypeId : 'a10',
-                  status: {
-                    state: 'Landed'
-                  },
-                  uniqid: 'a0pra17943'
-                }
-              ],
-              status: {
-                speedKts: 20,
-                state: 'Transiting'
-              },
-              uniqid: 'a0prbr6441'
-            },
-            {
-              condition: 'Full capability',
-              contactId: 'C653',
-              history: [
-              ],
-              name: 'MCM Delta',
-              perceptions: [],
-              platformType: 'MCMV',
-              platformTypeId : 'a7',
-              status: {
-                speedKts: 20,
-                state: 'Transiting'
-              },
-                uniqid: 'a0traa6790'
-            }
-        ],
-        name: 'CTF 511',
-        perceptions: [{
-          by: 'Red',
-          force: 'Blue',
-          name: 'BRIT',
-          typeId: 'a11'
-        }],
-        plannedTurns: [
-          {
-            route: [
-              'Q19',
-              'Q18'
-            ],
-            status: {
-              speedKts: 20,
-              state: 'Transiting'
-            },
-            turn: 4
-          },
-          {
-            route: [
-              'Q17',
-              'P16'
-            ],
-            status: {
-              speedKts: 20,
-              state: 'Transiting'
-            },
-            turn: 5
-          }
-        ],
-        platformType: 'task-group',
-        platformTypeId : 'a11',
-        position: 'P19',
-        status: {
-          speedKts: 20,
-          state: 'Transiting'
-        },
-        uniqid: 'a0pra5431'
-      }, {
-        "condition": "Full capability",
-        "contactId": "C713",
-        "history": [
-          {
-            "route": [
-              "R23"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 0
-          },
-          {
-            "route": [
-              "P22"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 1
-          },
-          {
-            "route": [
-              "P21"
-            ],
-            "status": {
-              "speedKts": 30,
-              "state": "Transiting"
-            },
-            "turn": 2
-          }
-        ],
-        "comprising": [
-          {
-            "condition": "Full capability",
-            "contactId": "C964",
-            "history": [],
-            "name": "Frigate A",
-            "perceptions": [
-              {
-                "by": "Red",
-                "force": "Blue",
-                "name": "Frigate A Perceived Name"
-              }
-            ],
-            "platformType": "frigate",
-            "platformTypeId": "a3",
-            "hosting": [
-              {
-                "condition": "Full capability",
-                "contactId": "C721",
-                "history": [],
-                "name": "Dart 45",
-                "perceptions": [
-                  {
-                    "by": "Red",
-                    "force": "Blue",
-                    "name": "Unknown UAV",
-                    "typeId": "a10"
-                  }
-                ],
-                "plannedTurns": [],
-                "platformType": "Unmanned-Airborne-Vehicle",
-                "platformTypeId": "a10",
-                "status": {
-                  "state": "Landed"
-                },
-                "uniqid": "a0pra43302"
-              },
-              {
-                "condition": "Full capability",
-                "contactId": "C932",
-                "history": [],
-                "name": "Dart 46",
-                "perceptions": [],
-                "plannedTurns": [],
-                "platformType": "Unmanned-Airborne-Vehicle",
-                "platformTypeId": "a10",
-                "status": {
-                  "state": "Landed"
-                },
-                "uniqid": "a0pra17943"
-              }
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "uniqid": "a0prbr6441"
-          },
-          {
-            "condition": "Full capability",
-            "contactId": "C653",
-            "history": [],
-            "name": "MCM Delta",
-            "perceptions": [],
-            "platformType": "MCMV",
-            "platformTypeId": "a7",
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "uniqid": "a0traa6790"
-          }
-        ],
-        "name": "CTF 511",
-        "perceptions": [
-          {
-            "by": "Red",
-            "force": "Blue",
-            "name": "BRIT",
-            "typeId": "a11"
-          }
-        ],
-        "plannedTurns": [
-          {
-            "route": [
-              "Q19",
-              "Q18"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 4
-          },
-          {
-            "route": [
-              "Q17",
-              "P16"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 5
-          }
-        ],
-        "platformType": "task-group",
-        "platformTypeId": "a11",
-        "position": "P19",
-        "status": {
-          "speedKts": 20,
-          "state": "Transiting"
-        },
-        "uniqid": "a0pra5431"
-      }
+                        },{
+                            "condition": "Full capability",
+                            "contactId": "C713",
+                            "history": [
+                                {
+                                    "route": [
+                                        "8918aab0c2fffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 10,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 0
+                                },
+                                {
+                                    "route": [
+                                        "8918aab08b3ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 1
+                                },
+                                {
+                                    "route": [
+                                        "8918aab0d63ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 30,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 2
+                                }
+                            ],
+                            "comprising": [
+                                {
+                                    "condition": "Full capability",
+                                    "contactId": "C964",
+                                    "history": [],
+                                    "name": "Frigate A",
+                                    "perceptions": [
+                                        {
+                                            "by": "Red",
+                                            "force": "Blue",
+                                            "name": "Frigate A Perceived Name"
+                                        }
+                                    ],
+                                    "platformType": "frigate",
+                                    "platformTypeId": "a3",
+                                    "hosting": [
+                                        {
+                                            "condition": "Full capability",
+                                            "contactId": "C721",
+                                            "history": [],
+                                            "name": "Dart 45",
+                                            "perceptions": [
+                                                {
+                                                    "by": "Red",
+                                                    "force": "Blue",
+                                                    "name": "Unknown UAV",
+                                                    "typeId": "a10"
+                                                }
+                                            ],
+                                            "plannedTurns": [],
+                                            "platformType": "Unmanned-Airborne-Vehicle",
+                                            "platformTypeId": "a10",
+                                            "status": {
+                                                "state": "Landed"
+                                            },
+                                            "uniqid": "a0pra43302"
+                                        },
+                                        {
+                                            "condition": "Full capability",
+                                            "contactId": "C932",
+                                            "history": [],
+                                            "name": "Dart 46",
+                                            "perceptions": [],
+                                            "plannedTurns": [],
+                                            "platformType": "Unmanned-Airborne-Vehicle",
+                                            "platformTypeId": "a10",
+                                            "status": {
+                                                "state": "Landed"
+                                            },
+                                            "uniqid": "a0pra17943"
+                                        }
+                                    ],
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
+                                    "uniqid": "a0prbr6441"
+                                },
+                                {
+                                    "condition": "Full capability",
+                                    "contactId": "C653",
+                                    "history": [],
+                                    "name": "MCM Delta",
+                                    "perceptions": [],
+                                    "platformType": "MCMV",
+                                    "platformTypeId": "a7",
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
+                                    "uniqid": "a0traa6790"
+                                }
+                            ],
+                            "name": "CTF 511",
+                            "perceptions": [
+                                {
+                                    "by": "Red",
+                                    "force": "Blue",
+                                    "name": "BRIT",
+                                    "typeId": "a11"
+                                }
+                            ],
+                            "plannedTurns": [
+                                {
+                                    "route": [
+                                        "8918aab0dafffff",
+                                        "8918aab0db7ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 4
+                                },
+                                {
+                                    "route": [
+                                        "8918aab766fffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 5
+                                }
+                            ],
+                            "platformType": "task-group",
+                            "platformTypeId": "a16",
+                            "position": "8918aab0d07ffff",
+                            "status": {
+                                "speedKts": 20,
+                                "state": "Transiting"
+                            },
+                            "uniqid": "a0pra5431"
+                        }
                     ],
                     "color": "#00aaff",
                     "cssClass": "blue-1",
@@ -715,7 +572,8 @@ const wargame: Wargame = {
                                 "status": {
                                     "state": "Landed"
                                 },
-                                "turn": 1}],
+                                "turn": 1
+                            }],
                             "locationPending": true,
                             "name": "MPA 2",
                             "perceptions": [
@@ -737,7 +595,7 @@ const wargame: Wargame = {
                                     "turn": 2
                                 }
 
-                            ],                            "platformTypeId": "a11",
+                            ], "platformTypeId": "a11",
                             "position": "8918a84db33ffff",
                             "uniqid": "a03322ty344331"
                         }
