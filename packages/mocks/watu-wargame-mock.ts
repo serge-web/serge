@@ -199,8 +199,8 @@ const wargame: Wargame = {
                                     "name": "Merlin",
                                     "perceptions": [
                                         {
-                                            "by": "Red",
-                                            "force": "Blue",
+                                            "by": "Red-1",
+                                            "force": "Blue-1",
                                             "typeId": "a8"
                                         }
                                     ],
@@ -231,7 +231,7 @@ const wargame: Wargame = {
                             "name": "NORT",
                             "perceptions": [
                                 {
-                                    "by": "Red-2",
+                                    "by": "Red-1",
                                     "force": "Blue-1",
                                     "typeId": "a4"
                                 }
@@ -310,7 +310,9 @@ const wargame: Wargame = {
                             "perceptions": [
                                 {
                                     "by": "Red-1",
-                                    "force": "Blue-1"
+                                    "force": "Blue-1",
+                                    "name": "Blue Warship",
+                                    "typeId": "a3"
                                 },
                                 {
                                     "by": "Red-2",
@@ -396,9 +398,10 @@ const wargame: Wargame = {
                                     "name": "Frigate A",
                                     "perceptions": [
                                         {
-                                            "by": "Red",
-                                            "force": "Blue",
-                                            "name": "Frigate A Perceived Name"
+                                            "by": "Red-1",
+                                            "force": "Blue-1",
+                                            "name": "Frigate A Perceived Name",
+                                            "typeId": "a3"
                                         }
                                     ],
                                     "platformType": "frigate",
@@ -411,8 +414,8 @@ const wargame: Wargame = {
                                             "name": "Dart 45",
                                             "perceptions": [
                                                 {
-                                                    "by": "Red",
-                                                    "force": "Blue",
+                                                    "by": "Red-1",
+                                                    "force": "Blue-1",
                                                     "name": "Unknown UAV",
                                                     "typeId": "a10"
                                                 }
@@ -423,7 +426,7 @@ const wargame: Wargame = {
                                             "status": {
                                                 "state": "Landed"
                                             },
-                                            "uniqid": "a0pra43302"
+                                            "uniqid": "tg-frig-uav1"
                                         },
                                         {
                                             "condition": "Full capability",
@@ -444,21 +447,23 @@ const wargame: Wargame = {
                                         "speedKts": 20,
                                         "state": "Transiting"
                                     },
-                                    "uniqid": "a0prbr6441"
+                                    "uniqid": "tg-frigate"
                                 },
                                 {
                                     "condition": "Full capability",
                                     "contactId": "C653",
                                     "history": [],
                                     "name": "MCM Delta",
-                                    "perceptions": [],
+                                    "perceptions": [
+                                       { "by": "Red-1", "force": "Blue-1", "name": "Blue MCM", "typeId" : "a9" }
+                                    ],
                                     "platformType": "MCMV",
-                                    "platformTypeId": "a7",
+                                    "platformTypeId": "a9",
                                     "status": {
                                         "speedKts": 20,
                                         "state": "Transiting"
                                     },
-                                    "uniqid": "a0traa6790"
+                                    "uniqid": "tg-mcm"
                                 }
                             ],
                             "name": "CTF 511",
@@ -1014,18 +1019,19 @@ const wargame: Wargame = {
                 },
                 {
                     "conditions": [
-                        "Working",
+                        "Clearing",
+                        "Transiting",
                         "Inactive"
                     ],
-                    "icon": "datum.svg",
-                    "name": "datum",
+                    "icon": "mvmv.svg",
+                    "name": "MCMV",
                     "states": [
                         {
                             "mobile": true,
                             "name": "Active"
                         }
                     ],
-                    "travelMode": "air",
+                    "travelMode": "sea",
                     "uniqid": "a9"
                 },
                 {
