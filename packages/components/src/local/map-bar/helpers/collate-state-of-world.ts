@@ -52,7 +52,7 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
           const lastCell = first.route[first.route.length - 1]
           assetState.position = lastCell
         }
-        
+
         // and history itself
         if (assetState.history) {
           // append it

@@ -14,11 +14,9 @@ const mappingChan = watuWargame.data.channels.channels[1] as ChannelMapping
 const showSteps = false
 const redForce = forces[2]
 
-
 it('dependencies present', () => {
   expect(redForce).toBeTruthy()
 })
-
 
 it('correctly updates perceptions for new forces', () => {
   const res = updatePerceptions(['Red', 'Green'], [{ by: 'Blue' }])
