@@ -46,10 +46,14 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
       // remove the first item from planned route
       const planned = deepCopy(route.planned)
       const first: RouteTurn | undefined = planned.shift()
-      if (first && first.route) {
-        const lastCell = first.route[first.route.length - 1]
-        assetState.position = lastCell
-        // produce new history
+      if (first) {
+        if (first.route) {
+          // move platform along
+          const lastCell = first.route[first.route.length - 1]
+          assetState.position = lastCell
+        }
+        
+        // and history itself
         if (assetState.history) {
           // append it
           assetState.history.push(first)
