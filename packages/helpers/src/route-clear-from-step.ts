@@ -16,8 +16,6 @@ const routeClearFromStep = (store: RouteStore, selectedId: string, stepNumber: n
     // ok, sort out the planned steps
     const planned: RouteTurn[] = route.planned
 
-    console.log('clear', planned, planned.length)
-
     // note: in some test situations, the planned steps are so far in the future
     // that all get deleted. Explain that with a comment
     if (planned.length > 0) {
