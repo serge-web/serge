@@ -75,19 +75,19 @@ it('can create route with static steps under control as umpire in playing phase'
   }
 })
 
-// it('can create route under control as umpire in playing phase', () => {
-//   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
-//     platformTypes, false, false, undefined, undefined, mappingChan)
-//   expect(store.routes.length).toEqual(13)
+it('can create route under control as umpire in playing phase', () => {
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireForce.uniqid, umpireForce.roles[0].roleId,
+    platformTypes, false, false, undefined, undefined, mappingChan)
+  expect(store.routes.length).toEqual(13)
 
-//   // check inside a route
-//   const route: Route = store.routes[1]
-//   expect(route.uniqid).toEqual('a0pra00001')
-//   expect(route.history.length).toEqual(1)
-//   expect(route.planned.length).toEqual(2)
-//   expect(route.original.length).toEqual(2)
-//   expect(route.selected).toBeFalsy()
-// })
+  // check inside a route
+  const route: Route = store.routes[1]
+  expect(route.uniqid).toEqual('a0pra00001')
+  expect(route.history.length).toEqual(1)
+  expect(route.planned.length).toEqual(2)
+  expect(route.original.length).toEqual(2)
+  expect(route.selected).toBeFalsy()
+})
 
 // it('can create route for un-recognised type', () => {
 //   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId,
