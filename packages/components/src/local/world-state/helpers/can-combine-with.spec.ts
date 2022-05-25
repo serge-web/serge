@@ -5,7 +5,7 @@ import { Phase } from '@serge/config'
 
 import canCombineWith from './can-combine-with'
 import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
-import { Asset, ForceData, RouteStore } from '@serge/custom-types'
+import { ChannelTypes, ForceData, RouteStore } from '@serge/custom-types'
 
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const forces = watuWargame.data.forces.forces
@@ -18,7 +18,6 @@ const setLocation = (forces: ForceData[], assetID: string, location: string): vo
 
 it('returns correct combine with answers', () => {
   const myForces = deepCopy(forces)
-
 
   // put the tanker in the same cell as the frigate
   const blueForce: ForceData = myForces[1]
