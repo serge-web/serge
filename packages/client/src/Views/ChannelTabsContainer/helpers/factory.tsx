@@ -18,7 +18,7 @@ import {
   UPDATE_MARKER,
   Domain
 } from '@serge/config'
-import { sendMapMessage, isChatChannel, canControlAnyAsset } from '@serge/helpers'
+import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
@@ -125,7 +125,7 @@ const factory = (state: PlayerUi): Factory => {
     // note: we have to convert the bounds that comes from the database
     // from a number array to a Leaflet bounds object.
     // Render the map
-    const renderMap = (channelid: string, canSubmitOrders: boolean, channel?: ChannelMapping) => <Mapping
+    const renderMap = (channelid: string, channel?: ChannelMapping) => <Mapping
       mappingConstraints={mappingConstraints}
       forces={state.allForces}
       mapBar={true}
@@ -172,8 +172,7 @@ const factory = (state: PlayerUi): Factory => {
           return <ChatChannel channelId={matchedChannel[0]} />
         case CHANNEL_MAPPING: {
           const channel = matchedChannel[1].cData as ChannelMapping
-          const canControlSomething = channel && canControlAnyAsset(channel, state.selectedRole)
-          return renderMap(node.getId(), canControlSomething, channel)
+          return renderMap(node.getId(), channel)
         }
         case CHANNEL_CUSTOM:
           return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
@@ -182,8 +181,7 @@ const factory = (state: PlayerUi): Factory => {
       }
     } else {
       if (channelName === CHANNEL_MAPPING) {
-        console.warn('Warning - cannot handle role permissions for legacy channel')
-        return renderMap(node.getId(), false, undefined)
+        return renderMap(node.getId(), undefined)
       } else if (matchedChannel.length) {
         // find out if channel just contains chat template
         if (isChatChannel(channelDefinition)) {
