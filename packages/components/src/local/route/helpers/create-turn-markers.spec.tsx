@@ -15,7 +15,7 @@ const blueCo = forces[1].roles[0]
 const showSteps = false
 
 it('Provides valid planned markers for multi-point planned route without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, forces[1].uniqid, blueCo.roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, forces[1].uniqid, blueCo.roleId, false,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'nortID')

@@ -17,7 +17,7 @@ const blueCo = blueForce.roles[0]
 const showSteps = false
 
 it('can set selected route', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueCo.roleId, platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueCo.roleId, false, platformTypes, showSteps, showSteps, undefined, undefined, mappingChan)
 
   const idOne = blueForce.assets ? blueForce.assets[2].uniqid : 'aa'
   const idTwo = blueForce.assets ? blueForce.assets[1].uniqid : 'bb'

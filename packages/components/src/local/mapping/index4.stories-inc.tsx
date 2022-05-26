@@ -1,7 +1,7 @@
 // import data types
 import { Phase, serverPath } from '@serge/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role } from '@serge/custom-types'
-import { canControlAnyAsset, deepCopy } from '@serge/helpers'
+import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
@@ -137,11 +137,11 @@ const Template: Story<StoryPropTypes> = (args) => {
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
-  const canSubmit = canControlAnyAsset(mapChannel, role)
+  const isGameControlRole = roleStr === allRoles[0]
   return (
     <Mapping
       playerForce={force}
-      isGameControl={canSubmit}
+      isGameControl={isGameControlRole}
       playerRole={role}
       fetchOverride={fetchMock}
       phase={phase}

@@ -14,7 +14,9 @@ import { canControlAsset, underControlByThisForce } from './can-control-asset'
  * @param {string | undefined} selectedId uniqid for selected asset
  * @param {Phase} phase current game phase
  * @param {ForceData[]} forces array of forces
- * @param {string} playerForceId uniqid for player force
+ * @param {ForceData['uniqid']} playerForceId uniqid for player force
+ * @param {Role['roleId']} playerRole uniqid for player force
+ * @param {Role['isGameControl']} isGameControl uniqid for player force
  * @param {PlatformTypeData[]} platformTypes descriptions for all types of platform
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
@@ -24,8 +26,8 @@ import { canControlAsset, underControlByThisForce } from './can-control-asset'
  * @param {ChannelMapping} channel mapping channel description, indicates who has what control
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'], playerRole: Role['roleId'],
-  platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
+const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'],
+  playerRole: Role['roleId'], isGameControl: Role['isGameControl'], platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
   filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping): RouteStore => {
   const store: RouteStore = { routes: [] }
 
@@ -58,8 +60,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
           // sort out if this role can control this asset
-          const isGameControl = adminInAdj // TODO: pass in as parameter
-          const controlledByThisRole = isGameControl || (channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)) || false
+          const gcInAdjudicate = adminInAdj && isGameControl
+          const controlledByThisRole = gcInAdjudicate || (channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)) || false
           const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one

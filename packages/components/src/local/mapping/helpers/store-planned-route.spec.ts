@@ -18,7 +18,7 @@ it('Stores the extended planned route', () => {
   const frigateId = 'nortID'
 
   // create the route store
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, false, platformTypes, false, false, undefined, undefined, mapChannel)
   expect(store).toBeTruthy()
 
   // set the frigate as selected
@@ -66,7 +66,7 @@ it('Stores the shortened planned route', () => {
   const frigateId = 'nortID'
 
   // create the route store
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, false, platformTypes,
     false, false, undefined, undefined, mapChannel)
   expect(store).toBeTruthy()
 

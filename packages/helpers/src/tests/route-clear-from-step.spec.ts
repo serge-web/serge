@@ -16,7 +16,7 @@ const blueCo = forces[1].roles[0]
 const showSteps = false
 
 it('clear route from selected step', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, forces[1].uniqid, blueCo.roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, forces[1].uniqid, blueCo.roleId, false,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
 
   const idOne = store.routes[0].uniqid

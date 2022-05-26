@@ -34,7 +34,7 @@ it('returns correct combine with answers', () => {
   // put task group once cell away
   setLocation(myForces, groupId, '83182afffffffff')
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, myForces, blueForce.uniqid, blueForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, myForces, blueForce.uniqid, blueForce.roles[0].roleId, false, platformTypes, false, false, undefined, undefined, mapChannel)
 
   // when component first renders, there isn't anything selected, so id of '-1' is used
   const UNSELECTED_ID = -1

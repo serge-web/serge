@@ -16,7 +16,7 @@ const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platform
 const redForce = forces[2]
 
 it('Provides valid planned for multi-point planned with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, true, undefined, undefined, mapChannel)
   expect(store).toBeTruthy()
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.name === 'AGI')
@@ -34,7 +34,7 @@ it('Provides valid planned for multi-point planned with filter', () => {
 })
 
 it('Provides valid planned for multi-point including static steps planned without filter', () => {
-  const store: RouteStore = routeCreateStore('red-AGI', Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore('red-AGI', Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.selected
   expect(route).toBeTruthy()
@@ -51,7 +51,7 @@ it('Provides valid planned for multi-point including static steps planned withou
 })
 
 it('Provides valid planned for multi-point planned without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()
@@ -75,7 +75,7 @@ it('Provides valid planned for multi-point planned without filter', () => {
 })
 
 it('Provides valid planned for single-point planned with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, true, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, true, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()
@@ -92,7 +92,7 @@ it('Provides valid planned for single-point planned with filter', () => {
 })
 
 it('Provides valid planned for single-point planned without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()

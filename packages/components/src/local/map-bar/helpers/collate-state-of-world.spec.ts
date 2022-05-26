@@ -56,7 +56,7 @@ it('world gets moved forward with existing history', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, true,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
 
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
@@ -95,7 +95,7 @@ it('world gets moved forward without existing history', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, redForce.uniqid, redForce.roles[0].roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, redForce.uniqid, redForce.roles[0].roleId, true,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3, markers)
   const stateOfWorld: StateOfWorld = message.state
@@ -128,7 +128,7 @@ it('world gets moved forward with destroyed asset', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
 
   // mangle a route
@@ -171,7 +171,7 @@ it('world gets moved forward with modified vis & condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
 
   // modify route for AGI
@@ -207,7 +207,7 @@ it('world gets moved forward with empty condition', () => {
     expect(false).toBeTruthy()
   }
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId,
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false,
     platformTypes, showSteps, showSteps, false, undefined, mappingChan)
 
   // modify route for AGI

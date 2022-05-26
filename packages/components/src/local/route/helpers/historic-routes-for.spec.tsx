@@ -16,7 +16,7 @@ const latVal = 50.24310600328171
 const lngVal = -19.467288440193588
 
 it('Provides valid history for single-point history with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()
@@ -31,7 +31,7 @@ it('Provides valid history for single-point history with filter', () => {
 })
 
 it('Provides valid history for multi-point history with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, true, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, true, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()
@@ -46,7 +46,7 @@ it('Provides valid history for multi-point history with filter', () => {
 })
 
 it('Provides valid history for single-point history without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, false, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()
@@ -61,7 +61,7 @@ it('Provides valid history for single-point history without filter', () => {
 })
 
 it('Provides valid history for multi-point history without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, platformTypes, false, false, undefined, undefined, mapChannel)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, redForce.uniqid, redForce.roles[0].roleId, false, platformTypes, false, false, undefined, undefined, mapChannel)
   expect(store.routes.length).toEqual(6)
   const route: Route | undefined = store.routes.find(route => route.uniqid === 'red-AGI')
   expect(route).toBeTruthy()

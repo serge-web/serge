@@ -13,7 +13,7 @@ import { routeCreateStore } from '@serge/helpers'
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
-const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', platformTypes, false, false)
+const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', false, platformTypes, false, false)
 const route: RouteType = store.routes[0] as RouteType
 
 const clearFromTurn = (turn: number): void => {
