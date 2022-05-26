@@ -27,7 +27,7 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): 
   }
 
   const assetOptions: Array<Option> = []
-  /** 
+  /**
    * utility function, to re-use list generation code in both cases
    */
   const addItem = (force: ForceData, myForce: ForceData['uniqid'], match: boolean) => {

@@ -11,13 +11,13 @@ export const checkForSaveProblems = (nextItems: Array<Item>): string | undefined
     console.log('dummy')
   }
   // is this participation controlling something?
-  if(controls.active && controls.active.length > 0) {
-    if(!access.active || access.active.length === 0) {
+  if (controls.active && controls.active.length > 0) {
+    if (!access.active || access.active.length === 0) {
       // there zero roles, provided, but one must be
-      return "Role must be provided when asset control specified"
-    } else if(access.active.length > 1) {
+      return 'Role must be provided when asset control specified'
+    } else if (access.active.length > 1) {
       // there is more than one role specified, we can't allow that
-      return "Only one role can be specified if controlling assets"
+      return 'Only one role can be specified if controlling assets'
     }
   }
   return undefined
@@ -34,7 +34,7 @@ export default (forces: Array<ForceData>, nextItems: Array<Item>, participant: P
   const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (
     selectedForce.roles[key].roleId
   )) : []
-  
+
   // find who the control is controlling
   const selectedControls = controls.active
   const options = controls.options

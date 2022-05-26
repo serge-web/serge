@@ -95,7 +95,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setSelectedChannelState(channels[selectedItem])
   }, [selectedItem])
 
-
   const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
     onSidebarClick && onSidebarClick(_item as ChannelTypes)
