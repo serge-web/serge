@@ -52,7 +52,7 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): 
   // produce list of selected control entries
   const activeControls: Array<number> = []
   const controls = nextParticipant.controls || []
-  controls && assetOptions.forEach((option: Option, index: number) => {
+  controls.length > 0 && assetOptions.forEach((option: Option, index: number) => {
     if (controls.includes(option.uniqid)) {
       activeControls.push(index)
     }
