@@ -30,7 +30,6 @@ export const WorldState: React.FC<PropTypes> = ({
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
 
-
   useEffect(() => {
     setCanSubmit(tmpRoutes.filter((route: Route) => route.underControlByThisRole).length > 0)
   }, [tmpRoutes])

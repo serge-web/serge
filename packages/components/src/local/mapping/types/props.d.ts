@@ -36,7 +36,7 @@ export default interface PropTypes {
    */
   playerRole?: Role['roleId']
   /**
-   * if the current player is game control - and if they can 
+   * if the current player is game control - and if they can
    * add information markers
    */
   isGameControl: boolean
