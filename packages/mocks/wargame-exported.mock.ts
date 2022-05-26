@@ -186,7 +186,6 @@ const game: Wargame = {
               isGameControl: true,
               isInsightViewer: true,
               isRFIManager: true,
-              canSubmitPlans: true,
               isObserver: true,
               name: 'Game Control'
             }
@@ -516,7 +515,6 @@ const game: Wargame = {
             {
               roleId: 'rkrff6f5e',
               isGameControl: false,
-              canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO'
@@ -524,7 +522,6 @@ const game: Wargame = {
             {
               roleId: 'rkrlwgg5g',
               isGameControl: false,
-              canSubmitPlans: false,
               isInsightViewer: false,
               isObserver: false,
               name: 'Comms'
@@ -786,7 +783,6 @@ const game: Wargame = {
             {
               roleId: 'rkeew6f5e',
               isGameControl: false,
-              canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO'
@@ -1441,7 +1437,6 @@ const game: Wargame = {
             {
               roleId: 'rkrlwff5e',
               isGameControl: false,
-              canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO'

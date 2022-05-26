@@ -11,7 +11,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkr776f5e',
-                canSubmitPlans: true,
                 isGameControl: true,
                 isInsightViewer: true,
                 isObserver: true,
@@ -143,7 +142,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkr886f5e',
-                canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -151,7 +149,6 @@ const forces: ForceData[] = [
             },
           {
                 roleId: 'rk888w6f6e',
-                canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -228,7 +225,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkrlw6f99e',
-                canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -236,7 +232,6 @@ const forces: ForceData[] = [
             },
           {
                 roleId: 'rkr996f5emms',
-                canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -312,7 +307,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkrlaaf5e',
-                canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,

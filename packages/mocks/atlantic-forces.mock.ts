@@ -320,7 +320,6 @@ export const forces: ForceData[] = [
     "roles": [
       {
         "roleId": "rk116f5e",
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,

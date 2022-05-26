@@ -121,7 +121,6 @@ const wargame: Wargame = {
                     "overview": "Umpire force.",
                     "roles": [
                         {
-                            "canSubmitPlans": true,
                             "isGameControl": true,
                             "isInsightViewer": true,
                             "isObserver": true,
@@ -130,7 +129,6 @@ const wargame: Wargame = {
                             "roleId": "umpire-GC"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": true,
                             "isObserver": false,
@@ -139,7 +137,6 @@ const wargame: Wargame = {
                             "roleId": "rks5zfzd3"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -148,7 +145,6 @@ const wargame: Wargame = {
                             "roleId": "umpire-blue-hq"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -516,7 +512,6 @@ const wargame: Wargame = {
                     "overview": "An overview written here..",
                     "roles": [
                         {
-                            "canSubmitPlans": true,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -524,7 +519,6 @@ const wargame: Wargame = {
                             "roleId": "blueCO"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -533,7 +527,6 @@ const wargame: Wargame = {
                             "roleId": "nortCO"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -645,7 +638,6 @@ const wargame: Wargame = {
                     "overview": "An overview written here..",
                     "roles": [
                         {
-                            "canSubmitPlans": true,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -653,7 +645,6 @@ const wargame: Wargame = {
                             "roleId": "red-CO"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -662,7 +653,6 @@ const wargame: Wargame = {
                             "roleId": "rks5zfzdj"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -671,7 +661,6 @@ const wargame: Wargame = {
                             "roleId": "rks5zfzdk"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -680,7 +669,6 @@ const wargame: Wargame = {
                             "roleId": "rks5zfzdl"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
@@ -689,7 +677,6 @@ const wargame: Wargame = {
                             "roleId": "rks5zfzdm"
                         },
                         {
-                            "canSubmitPlans": false,
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,

@@ -9,7 +9,6 @@ export const forces: ForceData[] = [
     "overview": "Umpire force.",
     "roles": [
       {
-        "canSubmitPlans": true,
         "isGameControl": true,
         "isInsightViewer": true,
         "isObserver": true,
@@ -18,7 +17,6 @@ export const forces: ForceData[] = [
         "roleId": "rks5zfzd2"
       },
       {
-        "canSubmitPlans": false,
         "isGameControl": false,
         "isInsightViewer": true,
         "isObserver": false,
@@ -186,7 +184,6 @@ export const forces: ForceData[] = [
     "overview": "An overview written here..",
     "roles": [
       {
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -194,7 +191,6 @@ export const forces: ForceData[] = [
         "roleId": "rks5zfzd6"
       },
       {
-        "canSubmitPlans": false,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -249,7 +245,6 @@ export const forces: ForceData[] = [
     "overview": "An overview written here..",
     "roles": [
       {
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -257,7 +252,6 @@ export const forces: ForceData[] = [
         "roleId": "rks5zfzdi"
       },
       {
-        "canSubmitPlans": false,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
