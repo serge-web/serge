@@ -75,8 +75,8 @@ export const Mapping: React.FC<PropTypes> = ({
   mapBar,
   forces,
   playerForce,
+  isGameControl,
   playerRole,
-  canSubmitOrders,
   platforms,
   infoMarkers,
   markerIcons,
@@ -158,7 +158,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // only update bounds if they're different to the current one
   useEffect(() => {
     // TODO: we should only be allowing this for the Game Control
-    setShowAddInfo((playerForce === UMPIRE_FORCE) && canSubmitOrders)
+    setShowAddInfo((playerForce === UMPIRE_FORCE) && isGameControl)
   }, [phase, playerForce])
 
   // if marker is selected, clear the asset
@@ -199,7 +199,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // the player may be doing force laydown
     if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
       const layPhase = store.selected.laydownPhase
-      if (layPhase && canSubmitOrders) {
+      if (layPhase && isGameControl) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
           const pType = findPlatformTypeFor(platforms, '', asset.platformTypeId)
@@ -272,7 +272,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing',
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
       setRouteStore(store)
     }
@@ -718,7 +718,6 @@ export const Mapping: React.FC<PropTypes> = ({
     markerIcons: markerIcons,
     platforms,
     playerForce,
-    canSubmitOrders,
     phase,
     turnNumber,
     planningConstraints,

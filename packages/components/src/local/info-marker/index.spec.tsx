@@ -32,7 +32,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     platforms = {platformTypes}
     infoMarkers={[]}
     playerForce = 'blue'
-    canSubmitOrders = {true}
+    isGameControl = {true}
     phase = {Phase.Planning}
     turnNumber={5}
   ><InfoMarker location={location} icons={icons} locationHex={(marker && marker.location) || 'aa'} marker={marker} /></Mapping>, { attachTo: div })

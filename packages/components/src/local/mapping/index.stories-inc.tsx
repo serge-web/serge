@@ -177,7 +177,7 @@ Default.args = {
   forces: forces,
   playerForce: 'Blue',
   gameTurnTime: 72000,
-  canSubmitOrders: false,
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -191,7 +191,7 @@ WithMapBar.args = {
   forces: forces,
   mappingConstraints: localMappingConstraints,
   gameTurnTime: 72000,
-  canSubmitOrders: false,
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,
   turnNumber: 5
@@ -207,7 +207,7 @@ export const WithMarker = Template
 WithMarker.args = {
   forces: forces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
   gameTurnTime: 72000,
@@ -289,7 +289,7 @@ WithGrid.args = {
   phase: Phase.Planning,
   turnNumber: 5,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   mapBar: false,
   children: <HexGrid />
 }
@@ -304,7 +304,7 @@ WithAllowableRange.args = {
   phase: Phase.Planning,
   mappingConstraints: localMappingConstraints,
   turnNumber: 5,
-  canSubmitOrders: false,
+  isGameControl: false,
   playerForce: 'Blue',
   mapBar: false,
   planningRangeProp: 3,
@@ -321,7 +321,7 @@ OpenStreetMap.args = {
   mappingConstraints: osmMappingConstraints,
   forces: forces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -335,7 +335,7 @@ OpenStreetMap.args = {
 export const WithPhases = Template
 WithPhases.args = {
   forces: forces,
-  canSubmitOrders: false,
+  isGameControl: false,
   mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
   mapPostBack: mapPostBack,

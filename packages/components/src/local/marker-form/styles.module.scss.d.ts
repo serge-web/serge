@@ -5,11 +5,13 @@ interface CssExports {
   'blue': string;
   'button': string;
   'button-group': string;
+  'color-indicator': string;
   'description': string;
   'fieldset': string;
   'force-color': string;
   'form-header': string;
   'green': string;
+  'icon-color': string;
   'input-container': string;
   'marker': string;
   'radius': string;
