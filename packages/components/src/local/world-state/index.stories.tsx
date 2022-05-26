@@ -32,9 +32,6 @@ export default {
     }
   },
   argTypes: {
-    canSubmitOrders: {
-      description: 'Show other platforms'
-    },
     phase: {
       description: 'Game phase',
       control: {
