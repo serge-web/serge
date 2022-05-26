@@ -34,7 +34,7 @@ it('Mapping renders correctly with Route', () => {
     wargameInitiated={true}
     playerForce={'Blue'}
     infoMarkers={[]}
-    canSubmitOrders = {true}
+    isGameControl = {true}
     phase={Phase.Planning}
     turnNumber={2}
   >

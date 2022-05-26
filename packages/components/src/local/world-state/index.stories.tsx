@@ -89,7 +89,6 @@ WithPhases.args = {
   panel: WorldStatePanels.Control,
   isUmpire: false,
   plansSubmitted: false,
-  canSubmitOrders: true,
   turnNumber: 1,
   phase: Phase.Planning,
   submitTitle: 'Submit',

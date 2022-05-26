@@ -58,6 +58,8 @@ export const MapBar: React.FC = () => {
   const [secondaryStateTitle, setSecondaryStateTitle] = useState<string | undefined>(undefined)
   const [userIsUmpire, setUserIsUmpire] = useState<boolean | undefined>(undefined)
 
+  const [canSubmitOrdersForThisAsset, setCanSubmitOrdersForThisAsset] = useState<boolean>(false)
+
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
 
   /* Pull in the context from MappingContext */
@@ -65,7 +67,6 @@ export const MapBar: React.FC = () => {
   if (typeof props === 'undefined') return null
   const {
     playerForce,
-    canSubmitOrders,
     phase,
     platforms,
     forces,
@@ -128,6 +129,9 @@ export const MapBar: React.FC = () => {
         setHidePlanningForm(false)
         setCurrentForm(newForm)
         setCurrentAssetName(selectedAsset.name)
+
+        // determine if this player can control the asset
+        setCanSubmitOrdersForThisAsset(routeStore.selected.underControlByThisRole)
       } else {
         setCurrentAssetName('Pending')
       }
@@ -150,7 +154,7 @@ export const MapBar: React.FC = () => {
       if (phase === ADJUDICATION_PHASE) {
         if (turnNumber === 0) {
           // see if player can submit orders
-          if (canSubmitOrders) {
+          if (canSubmitOrdersForThisAsset) {
             // see if it has any forces that laydown
             const needsLaydown = routeStore.routes.find((route: Route) => {
               return route.underControlByThisRole && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
@@ -363,10 +367,10 @@ export const MapBar: React.FC = () => {
           manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
           icon={iconData}
-          canSubmitPlans={canSubmitOrders} />
+          canSubmitPlans={canSubmitOrdersForThisAsset} />
       }
       case MapBarForms.Planning: {
-        const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
+        const canSubmit = canSubmitOrdersForThisAsset && phase === PLANNING_PHASE
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         const actualAsset = findAsset(forces, selectedAsset.uniqid)
         // is this an empty task group?
@@ -440,7 +444,6 @@ export const MapBar: React.FC = () => {
             playerForce={playerForce}
             infoMarkers={infoMarkers}
             markerIcons={markerIcons}
-            canSubmitOrders={canSubmitOrders}
             store={routeStore}
             platforms={platforms}
             panel={worldStatePanel}

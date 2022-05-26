@@ -58,7 +58,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
           // sort out if this role can control this asset
-          const controlledByThisRole = (channel && canControlAsset(channel, force, asset.uniqid, playerRole)) || false
+          const isGameControl = adminInAdj // TODO: pass in as parameter
+          const controlledByThisRole = isGameControl || (channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)) || false
           const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one

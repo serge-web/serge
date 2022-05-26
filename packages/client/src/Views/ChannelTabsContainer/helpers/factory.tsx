@@ -136,7 +136,7 @@ const factory = (state: PlayerUi): Factory => {
       markerIcons={state.markerIcons}
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       playerRole={state.selectedRole}
-      canSubmitOrders={canSubmitOrders}
+      isGameControl={state.isGameControl}
       channelID={channelid}
       channel={channel}
       mapPostBack={mapPostBack}

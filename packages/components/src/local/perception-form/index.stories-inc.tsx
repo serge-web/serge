@@ -53,7 +53,7 @@ export const Default: React.FC = () => <Mapping
   wargameInitiated={true}
   infoMarkers={infoMarkers}
   playerForce={forces[1].uniqid}
-  canSubmitOrders = {true}
+  isGameControl = {true}
   platforms={platformTypes || []}
   phase={Phase.Adjudication}
   turnNumber={5}

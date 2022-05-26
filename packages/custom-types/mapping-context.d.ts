@@ -1,7 +1,7 @@
 import { Phase, Domain, CellLabelStyle } from '@serge/config'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
+import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3, Role } from '.'
 import { MapAnnotations, MapAnnotation, AnnotationIcons } from './map-annotation'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
@@ -30,10 +30,10 @@ export default interface MappingContext {
    * force for current player
    */
   playerForce: ForceData['uniqid']
-  /** 
-   * if the current player can submit orders
+  /** whether current role is game-contrl
+   * (and able to edit info markers)
    */
-  canSubmitOrders: boolean
+  isGameControl?: Role['isGameControl']
   /**
    * phase of current game
    */

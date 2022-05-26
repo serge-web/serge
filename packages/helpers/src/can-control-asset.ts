@@ -22,12 +22,13 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
 }
 
 /** determine if this role can control the asset in question
- * @param {ForceData[]} channel definition of this channel
- * @param {string} asset uniqid for asset
- * @param {string} role uniqid for current role
+ * @param {ChannelMapping} channel definition of this channel
+ * @param {ForceData['uniqid']} assetForce force for this asset
+ * @param {Asset['uniqid']} asset uniqid for asset
+ * @param {Role['roleId']} role uniqid for current role
  * @returns {string[]} list of forces this player can control
  */
-export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, asset: Asset['uniqid'], role: Role['roleId']): boolean => {
+export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData['uniqid'], asset: Asset['uniqid'], role: Role['roleId']): boolean => {
   const parts = channel.participants
 
   // see if anyone is named as controlling this asset
@@ -41,12 +42,12 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData, 
     return namedController.roles.includes(role)
   } else {
     // the asset doesn't have a named controller. Do we have "general" control of the relevant force?
-    const controlAllString = CONTROL_ALL + assetForce.uniqid
+    const controlAllString = CONTROL_ALL + assetForce
     const generalControlOfThisForce = parts.find((part: ParticipantMapping) => part.controls && part.controls.includes(controlAllString))
     if (generalControlOfThisForce && generalControlOfThisForce.roles.length === 1) {
       return generalControlOfThisForce.roles[0] === role
     } else {
-      console.warn('Warning no named controller for un-claimed assets of force ', assetForce.name, assetForce.uniqid, controlAllString)
+      console.warn('Warning no named controller for un-claimed assets of force ', assetForce, controlAllString)
       console.table(parts.map((value: ParticipantMapping) => {
         return { name: value.subscriptionId, control: value.controls }
       }))

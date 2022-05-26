@@ -128,7 +128,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     playerForce,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    canSubmitOrders,
+    isGameControl,
     phase,
     ...props
   } = args
@@ -141,7 +141,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   return (
     <Mapping
       playerForce={force}
-      canSubmitOrders={canSubmit}
+      isGameControl={canSubmit}
       playerRole={role}
       fetchOverride={fetchMock}
       phase={phase}

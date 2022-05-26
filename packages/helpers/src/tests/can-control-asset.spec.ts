@@ -70,46 +70,46 @@ describe('can control asset:', () => {
   // CAN CONTROL SPECIFIC ASSET
   it('I not named as controlling asset, but I am from controlling force', () => {
     if (channel && blueForce && talnAsset && blueNortRole) {
-      expect(canControlAsset(channel, blueForce, talnAsset.uniqid, blueNortRole.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, blueForce.uniqid, talnAsset.uniqid, blueNortRole.roleId)).toBeFalsy()
     }
   })
   it('I not named as controlling asset,and Im not from controlling force', () => {
     if (channel && blueForce && redForce && talnAsset && redCO) {
-      expect(canControlAsset(channel, blueForce, talnAsset.uniqid, redCO.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, blueForce.uniqid, talnAsset.uniqid, redCO.roleId)).toBeFalsy()
     }
   })
   it('I am named as controlling asset', () => {
     if (channel && blueForce && redForce && nortAsset && blueNortRole) {
-      expect(canControlAsset(channel, blueForce, nortAsset.uniqid, blueNortRole.roleId)).toBeTruthy()
+      expect(canControlAsset(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId)).toBeTruthy()
     }
   })
   it('I control remaining assets', () => {
     if (channel && blueForce && talnAsset && blueCO && blueNortRole) {
-      expect(canControlAsset(channel, blueForce, talnAsset.uniqid, blueCO.roleId)).toBeTruthy()
-      expect(canControlAsset(channel, blueForce, talnAsset.uniqid, blueNortRole.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, blueForce.uniqid, talnAsset.uniqid, blueCO.roleId)).toBeTruthy()
+      expect(canControlAsset(channel, blueForce.uniqid, talnAsset.uniqid, blueNortRole.roleId)).toBeFalsy()
     }
   })
   it('I control remaining assets but not a claimed one', () => {
     if (channel && blueForce && nortAsset && blueCO && blueNortRole) {
-      expect(canControlAsset(channel, blueForce, nortAsset.uniqid, blueCO.roleId)).toBeFalsy()
-      expect(canControlAsset(channel, blueForce, nortAsset.uniqid, blueNortRole.roleId)).toBeTruthy()
+      expect(canControlAsset(channel, blueForce.uniqid, nortAsset.uniqid, blueCO.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId)).toBeTruthy()
     }
   })
   it('I control specific asset of controlled force', () => {
     if (channel && greenForce && greenAsset2 && whiteBlueHQ && whiteUmpire && whiteForce) {
-      expect(canControlAsset(channel, greenForce, greenAsset2.uniqid, whiteBlueHQ.roleId)).toBeTruthy()
-      expect(canControlAsset(channel, greenForce, greenAsset2.uniqid, whiteUmpire.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, greenForce.uniqid, greenAsset2.uniqid, whiteBlueHQ.roleId)).toBeTruthy()
+      expect(canControlAsset(channel, greenForce.uniqid, greenAsset2.uniqid, whiteUmpire.roleId)).toBeFalsy()
     }
   })
   it('I control remaining asset of controlled force', () => {
     if (channel && greenForce && greenAsset1 && whiteUmpire && whiteBlueHQ && whiteForce) {
-      expect(canControlAsset(channel, greenForce, greenAsset1.uniqid, whiteUmpire.roleId)).toBeTruthy()
-      expect(canControlAsset(channel, greenForce, greenAsset1.uniqid, whiteBlueHQ.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, greenForce.uniqid, greenAsset1.uniqid, whiteUmpire.roleId)).toBeTruthy()
+      expect(canControlAsset(channel, greenForce.uniqid, greenAsset1.uniqid, whiteBlueHQ.roleId)).toBeFalsy()
     }
   })
   it('Cannot control remaining asset of force I do not control', () => {
     if (channel && blueForce && talnAsset && whiteUmpire && whiteForce) {
-      expect(canControlAsset(channel, blueForce, talnAsset.uniqid, whiteUmpire.roleId)).toBeFalsy()
+      expect(canControlAsset(channel, blueForce.uniqid, talnAsset.uniqid, whiteUmpire.roleId)).toBeFalsy()
     }
   })
 })

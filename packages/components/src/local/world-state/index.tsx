@@ -17,7 +17,7 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById, setSelectedMarkerById, selectedMarker,
+  name, store, platforms, phase, isUmpire, setSelectedAssetById, setSelectedMarkerById, selectedMarker,
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback,
@@ -26,13 +26,18 @@ export const WorldState: React.FC<PropTypes> = ({
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
   const [markers, setMarkers] = useState<MapAnnotations>([])
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [canSubmit, setCanSubmit] = useState<boolean>(false)
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
+
+
+  useEffect(() => {
+    setCanSubmit(tmpRoutes.filter((route: Route) => route.underControlByThisRole).length > 0)
+  }, [tmpRoutes])
 
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
-
   useEffect(() => {
     switch (panel) {
       case WorldStatePanels.Control: {
@@ -173,7 +178,7 @@ export const WorldState: React.FC<PropTypes> = ({
       imageSrc = 'unknown.svg'
     }
 
-    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
+    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmit && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
@@ -204,7 +209,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // player can drag items in planning phase if they can submit orders, or umpire can do it
   // in adjudication or planning phase
-  const canDragItems = (!isMarkers) && (isUmpire || (phase === PLANNING_PHASE && canSubmitOrders))
+  const canDragItems = (!isMarkers) && (isUmpire || (phase === PLANNING_PHASE && canSubmit))
 
   const itemRenderer = isMarkers ? renderMarkers : renderContent
 
@@ -254,7 +259,7 @@ export const WorldState: React.FC<PropTypes> = ({
           }
         }}
       />
-      {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
+      {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmit &&
         <div className={styles.submit}>
           {secondaryButtonLabel &&
             <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>
