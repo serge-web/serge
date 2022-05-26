@@ -5,9 +5,12 @@ import SettingChannels from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 import { ChannelTypes } from './types/props'
-import { WargameExportedMock, MessageTemplatesMock } from '@serge/mocks'
+import { watuWargame, MessageTemplatesMock } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+
+const channels = watuWargame.data.channels.channels
+const forces = watuWargame.data.forces.forces
 
 export default {
   title: 'local/organisms/SettingChannels',
@@ -24,13 +27,13 @@ export default {
 export const Default: React.FC = () => {
   // the channels child element may theoretically be undefined, we
   // make the compiler happy
-  if (WargameExportedMock.data.channels.channels === undefined) {
+  if (channels === undefined) {
     return <div/>
   }
-  const [channels, setChannels] = useState<Array<ChannelTypes>>(WargameExportedMock.data.channels.channels)
+  const [channelData, setChannelData] = useState<Array<ChannelTypes>>(channels)
 
   const handleChangeChannels = (updates: { channels: Array<ChannelTypes> }): void => {
-    setChannels(updates.channels)
+    setChannelData(updates.channels)
   }
 
   const handleOnSave = (updates: ChannelTypes): void => {
@@ -45,8 +48,8 @@ export const Default: React.FC = () => {
     onCreate={handleCreate}
     onChange={handleChangeChannels}
     onSave={handleOnSave}
-    channels={channels}
-    forces={WargameExportedMock.data.forces.forces}
+    channels={channelData}
+    forces={forces}
     messageTemplates={MessageTemplatesMock}
   />
 }
