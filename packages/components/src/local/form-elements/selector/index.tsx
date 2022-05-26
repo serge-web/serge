@@ -25,7 +25,7 @@ export const renderOptions = (options: Array<string | number | IconOption>): Arr
       key={iconOption.uniqid}
       value={iconOption.uniqid}
     >
-      <span className={styles.menuItem}>
+      <span className={styles.menuitem}>
         {iconOption.name}
         <span className={styles.icon}><AssetIcon color={iconOption.colour} isSelected={false} imageSrc={iconOption.icon} /></span>
       </span>

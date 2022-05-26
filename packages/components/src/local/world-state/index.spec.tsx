@@ -18,7 +18,7 @@ it('WorldState renders correctly', () => {
     .create(<WorldState
       selectedMarker={undefined} platforms={platformTypes} playerForce={force} infoMarkers={infoMarkers}
       phase={ADJUDICATION_PHASE} turnNumber={2}
-      panel={WorldStatePanels.Control} canSubmitOrders={true}
+      panel={WorldStatePanels.Control}
       plansSubmitted={false} isUmpire={true} store={store} name="test" markerIcons={markerIcons} />)
     .toJSON()
   expect(tree).toMatchSnapshot()

@@ -4,7 +4,9 @@ import React, { useState } from 'react'
 import RolesAccordion from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { forces as forcesMock } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
+
+const forcesMock = watuWargame.data.forces.forces
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

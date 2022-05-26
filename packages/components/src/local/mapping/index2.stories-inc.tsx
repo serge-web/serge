@@ -120,7 +120,7 @@ Default.args = {
   gameTurnTime: 72000,
   mappingConstraints: localMappingConstraints,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,
   turnNumber: 5,

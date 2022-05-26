@@ -4,9 +4,11 @@ import React, { useState } from 'react'
 import SettingsForceOverview from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { forces as forcesMock } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '300px' }}>{storyFn()}</div>
+
+const forcesMock = watuWargame.data.forces.forces
 
 export default {
   title: 'local/organisms/SettingForces/SettingsForceOverview',
