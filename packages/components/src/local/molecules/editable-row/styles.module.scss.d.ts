@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'center': string;
+  'cells': string;
   'clip': string;
   'clips': string;
   'input-box': string;
