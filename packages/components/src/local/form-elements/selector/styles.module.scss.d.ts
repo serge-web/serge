@@ -2,7 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'icon': string;
-  'menuItem': string;
+  'menuitem': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
