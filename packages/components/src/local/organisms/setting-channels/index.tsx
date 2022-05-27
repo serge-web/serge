@@ -20,9 +20,11 @@ import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping 
 import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
-import Confirm from '../../atoms/confirm'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
+import Confirm from '../../atoms/confirm'
+// import { CircleOutlined } from '@material-ui/icons'
+import { CustomDialog } from '../../atoms/custom-dialog'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
@@ -34,18 +36,17 @@ import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCus
 import generateRowItemsChat from './helpers/generateRowItemsChat'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import generateRowItemsCustom from './helpers/generateRowItemsCustom'
+import generateRowItemsMapping from './helpers/generateRowItemsMapping'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged } from './helpers/messageCollabUtils'
 import rowToParticipantChat from './helpers/rowToParticipantChat'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
 import rowToParticipantCustom from './helpers/rowToParticipantCustom'
+import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToParticipantMapping'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes, { ChannelTypes } from './types/props'
-import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToParticipantMapping'
-import generateRowItemsMapping from './helpers/generateRowItemsMapping'
-// import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({
@@ -85,6 +86,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   /** init data for collab panel controls */
   const messagesValues = getMessagesValues(isCollab, selectedChannelState)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
+  const [problems, setProblems] = useState<string>('')
 
   useEffect(() => {
     /** on changes channel, update the message data local */
@@ -210,8 +212,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
             // do check
             const problems = checkForSaveProblems(row)
             if (problems) {
-              // TODO: show the returned string in a modal panel
-              console.warn('mapping save problem', problems)
+              setProblems(problems)
             } else {
               nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
             }
@@ -238,18 +239,20 @@ export const SettingChannels: React.FC<PropTypes> = ({
           : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
             : isMapping ? generateRowItemsMapping(forces, participant as ParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
-        return <EditableRow
-          onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
-          key={participant.subscriptionId}
-          onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
-            return handleChangeRow(nextItems, /* itKey, */ participant)
-          }}
-          onSave={handleSaveRow}
-          items={items}
-          defaultMode='view'
-          actions={true}
-          participantKey={key}
-        />
+        return <>
+          <EditableRow
+            onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
+            key={participant.subscriptionId}
+            onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
+              return handleChangeRow(nextItems, /* itKey, */ participant)
+            }}
+            onSave={handleSaveRow}
+            items={items}
+            defaultMode='view'
+            actions={true}
+            participantKey={key}
+          />
+        </>
       })
     }
 
@@ -354,7 +357,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         {isCustom &&
                           <TableCell align="left">Templates</TableCell>
                         }
-                        { isMapping &&
+                        {isMapping &&
                           <TableCell align="left">Controls</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
@@ -548,6 +551,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   return (
     <AdminContent>
+      <CustomDialog
+        isOpen={!!problems}
+        header={'Error'}
+        cancelBtnText={'OK'}
+        onClose={(): void => setProblems('')}
+        content={problems}
+      />
       <Confirm
         isOpen={participantKey !== -1}
         title="Delete Participation"
