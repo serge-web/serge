@@ -80,10 +80,10 @@ export const EditableRow: React.FC<PropTypes> = ({
     // we need a more robust way of collating read-only list, to handle some `undefined` fields
     // note: we appear to get the undefined fields because in the rendering process
     // a custom channel is being rendered as a collab one.  This isn't apparent to the user
-    const readValues = value.length ? value.map(itemKey => {
+    const readValues = value.length ? value.map((itemKey, idx) => {
       if (itemKey !== undefined) {
         if (presentAsList) {
-          return <div>{item.options[itemKey].name}</div>
+          return <div key={`${itemKey}-${idx}`}>{item.options[itemKey].name}</div>
         }
         return item.options[itemKey].name
       }
