@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 /* Import Components */
 import Select from '@material-ui/core/Select'
-import { makeStyles, createStyles } from '@material-ui/styles'
+import { createStyles, makeStyles } from '@material-ui/styles'
 import cx from 'classnames'
 import React, { ReactNode, useEffect, useState } from 'react'
 /* Import Styles */
@@ -31,7 +31,8 @@ export const EditableRow: React.FC<PropTypes> = ({
   onRemove,
   noSwitchOnReset,
   isGenerator,
-  participantKey = -1
+  participantKey = -1,
+  presentAsList
 }) => {
   const [backup, setBackup] = useState(items)
   const [itemsLocal, setItemsLocal] = useState(items)
@@ -80,9 +81,14 @@ export const EditableRow: React.FC<PropTypes> = ({
     // note: we appear to get the undefined fields because in the rendering process
     // a custom channel is being rendered as a collab one.  This isn't apparent to the user
     const readValues = value.length ? value.map(itemKey => {
-      return itemKey !== undefined && item.options[itemKey].name
-    }
-    ).join(', ') : item.emptyTitle
+      if (itemKey !== undefined) {
+        if (presentAsList) {
+          return <div>{item.options[itemKey].name}</div>
+        }
+        return item.options[itemKey].name
+      }
+      return ''
+    }) : item.emptyTitle
 
     return mode === 'edit' ? <>
       <div className={cx(styles['input-box'], styles.cells)}>
@@ -123,7 +129,7 @@ export const EditableRow: React.FC<PropTypes> = ({
         </FormControl>
       </div>
     </> : <>
-      <div className={cx(styles['input-box'], styles.cells)}>
+      <div className={cx(styles['input-box'], styles.cells, presentAsList && styles.list)}>
         {readValues}
       </div>
     </>

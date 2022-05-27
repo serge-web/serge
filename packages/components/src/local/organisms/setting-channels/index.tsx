@@ -249,6 +249,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           defaultMode='view'
           actions={true}
           participantKey={key}
+          presentAsList
         />
       })
     }
@@ -354,7 +355,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         {isCustom &&
                           <TableCell align="left">Templates</TableCell>
                         }
-                        { isMapping &&
+                        {isMapping &&
                           <TableCell align="left">Controls</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>

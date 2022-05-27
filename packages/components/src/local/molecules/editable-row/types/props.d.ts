@@ -34,4 +34,5 @@ export default interface PropTypes {
   noSwitchOnReset?: boolean
   isGenerator?: boolean
   participantKey?: number
+  presentAsList?: boolean
 }
