@@ -69,6 +69,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [open, setOpen] = useState(false)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
+  const [problems, setProblems] = useState<string>('')
 
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
@@ -86,7 +87,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
   /** init data for collab panel controls */
   const messagesValues = getMessagesValues(isCollab, selectedChannelState)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
-  const [problems, setProblems] = useState<string>('')
 
   useEffect(() => {
     /** on changes channel, update the message data local */
@@ -213,6 +213,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
             const problems = checkForSaveProblems(row)
             if (problems) {
               setProblems(problems)
+              return
             } else {
               nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
             }
