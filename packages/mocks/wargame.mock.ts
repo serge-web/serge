@@ -67,8 +67,7 @@ const wargame: Wargame = {
               isGameControl: true,
               isObserver: true,
               isInsightViewer: true,
-              isRFIManager: true,
-              canSubmitPlans: true
+              isRFIManager: true
             }
           ],
           iconURL: "http://localhost:8080/default_img/umpireDefault.png",

@@ -260,7 +260,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                       </th>
                       <th
                         aria-sort={null}
-                        className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+                        className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
                         scope="col"
                       >
                         Restrict access to specific roles
@@ -283,7 +283,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           White
                         </div>
@@ -292,7 +292,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           All roles
                         </div>
@@ -301,7 +301,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           Chat if empty
                         </div>
@@ -371,7 +371,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           Red
                         </div>
@@ -380,7 +380,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           All roles
                         </div>
@@ -389,7 +389,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           Chat if empty
                         </div>
@@ -459,7 +459,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           Blue
                         </div>
@@ -468,7 +468,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           All roles
                         </div>
@@ -477,7 +477,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           Chat if empty
                         </div>
@@ -552,7 +552,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           <div
                             className="MuiFormControl-root"
@@ -603,7 +603,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           <div
                             className="MuiFormControl-root"
@@ -656,7 +656,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box center"
+                          className="input-box cells"
                         >
                           <div
                             className="MuiFormControl-root"

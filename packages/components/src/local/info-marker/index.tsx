@@ -35,13 +35,14 @@ export const InfoMarker: React.FC<PropTypes> = ({
   if (typeof props === 'undefined') return null
   const {
     setShowMapBar, setSelectedMarker, selectedMarker, clearMapSelection,
-    playerForce, canSubmitOrders
+    playerForce, isGameControl
   } = props
 
   useEffect(() => {
     const isUmpire = playerForce === UMPIRE_FORCE
-    setMarkerIsDraggable(isUmpire && canSubmitOrders && !!selectedMarker && selectedMarker === marker.uniqid)
-  }, [selectedMarker, marker, playerForce, canSubmitOrders])
+    const isGC = isGameControl || false
+    setMarkerIsDraggable(isUmpire && isGC && !!selectedMarker && selectedMarker === marker.uniqid)
+  }, [selectedMarker, marker, playerForce, isGameControl])
 
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)

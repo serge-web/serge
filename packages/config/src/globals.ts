@@ -29,6 +29,10 @@ export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
 
 // special platform-type name, used for task group. Must match `platform-types` definition
 export const TASK_GROUP = 'task-group'
+
+/*
+ * type for DATUM. @deprecated - since replaced with information-markers
+ */
 export const DATUM = 'datum'
 
 // series of constants used for `messageType` when sending map events
@@ -145,10 +149,7 @@ export const settings = 'settings'
 export const NEW_ROLE = 'New Role'
 
 /** flag to indicate a role can control all assets */
-export const CONTROL_ALL = 'control-all'
-
-/** flag to indicate a role can control no assets */
-export const CONTROL_NONE = 'control-none'
+export const CONTROL_ALL = 'control-all:'
 
 // 
 /** there has been some user interaction, so log the current time

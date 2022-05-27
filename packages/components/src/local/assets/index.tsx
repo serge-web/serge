@@ -102,7 +102,6 @@ export const Assets: React.FC<{}> = () => {
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
-                controlledBy: assetForce.controlledBy,
                 laydownPhase: laydownPhase,
                 attributes: attributes,
                 orientationData: orientData
@@ -131,7 +130,6 @@ export const Assets: React.FC<{}> = () => {
         selected={asset.selected}
         condition={asset.condition}
         status={asset.status}
-        controlledBy={asset.controlledBy}
         visibleTo={asset.visibleTo}
         force={asset.force}
         perceivedForceColor={asset.perceivedForceColor}
