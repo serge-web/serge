@@ -5,8 +5,8 @@ interface CssExports {
   'clip': string;
   'clips': string;
   'input-box': string;
-  'td': string;
   'list': string;
+  'td': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
