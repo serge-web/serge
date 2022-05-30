@@ -34,8 +34,8 @@ export default interface PropTypes {
   noSwitchOnReset?: boolean
   isGenerator?: boolean
   participantKey?: number
-  /** 
-   * for multiple selection entries, display then as a 
+  /**
+   * for multiple selection entries, display then as a
    * vertical list
    */
   presentAsList?: boolean
