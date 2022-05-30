@@ -283,16 +283,18 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
-                          White
+                          <div>
+                            White
+                          </div>
                         </div>
                       </td>
                       <td
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
                           All roles
                         </div>
@@ -301,7 +303,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
                           Chat if empty
                         </div>
@@ -371,16 +373,18 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
-                          Red
+                          <div>
+                            Red
+                          </div>
                         </div>
                       </td>
                       <td
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
                           All roles
                         </div>
@@ -389,7 +393,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
                           Chat if empty
                         </div>
@@ -459,16 +463,18 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
-                          Blue
+                          <div>
+                            Blue
+                          </div>
                         </div>
                       </td>
                       <td
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
                           All roles
                         </div>
@@ -477,7 +483,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
                         className="td"
                       >
                         <div
-                          className="input-box cells"
+                          className="input-box cells list"
                         >
                           Chat if empty
                         </div>
