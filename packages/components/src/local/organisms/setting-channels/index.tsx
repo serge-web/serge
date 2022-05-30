@@ -240,21 +240,19 @@ export const SettingChannels: React.FC<PropTypes> = ({
           : isChat ? generateRowItemsChat(forces, participant as ParticipantChat)
             : isMapping ? generateRowItemsMapping(forces, participant as ParticipantMapping) : generateRowItemsCustom(messageTemplatesOptions, forces, participant as ParticipantCustom)
 
-        return <>
-          <EditableRow
-            onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
-            key={participant.subscriptionId}
-            onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
-              return handleChangeRow(nextItems, /* itKey, */ participant)
-            }}
-            onSave={handleSaveRow}
-            items={items}
-            defaultMode='view'
-            actions={true}
-            participantKey={key}
-            presentAsList
-            />
-        </>
+        return <EditableRow
+          onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
+          key={participant.subscriptionId}
+          onChange={(nextItems: Array<RowItem> /* , itKey: number */): Array<RowItem> => {
+            return handleChangeRow(nextItems, /* itKey, */ participant)
+          }}
+          onSave={handleSaveRow}
+          items={items}
+          defaultMode='view'
+          actions={true}
+          participantKey={key}
+          presentAsList
+        />
       })
     }
 
