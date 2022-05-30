@@ -127,7 +127,6 @@
 					"isInsightViewer": true,
 					"isObserver": true,
 					"isRFIManager": true,
-					"canSubmitPlans": true,
 					"name": "Game Control",
 					"roleId": "r65464"
 				}],
@@ -189,7 +188,6 @@
 					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
-					"canSubmitPlans": true,
 					"name": "CO",
 					"roleId": "r15464"
 				}],
@@ -227,13 +225,11 @@
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "Blue2",
-				"controlledBy": "umpire",
 				"overview": "Blue force.",
 				"roles": [{
 					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
-					"canSubmitPlans": true,
 					"name": "CO",
 					"roleId": "r6325464"
 				}],
@@ -396,7 +392,6 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"name": "CO",
-					"canSubmitPlans": true,
 					"roleId": "r643575464"
 				}],
 				"umpire": false,
@@ -1669,7 +1664,6 @@
 					}
 				],
 				"color": "#0F0",
-				"controlledBy": "umpire",
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "Green",
@@ -1679,7 +1673,6 @@
 						"isGameControl":false,
 						"isInsightViewer": false,
 						"isObserver": false,
-						"canSubmitPlans": true,
 						"name": "CO",
 						"roleId": "r6325464"
 					}

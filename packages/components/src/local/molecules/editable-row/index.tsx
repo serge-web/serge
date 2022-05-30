@@ -85,7 +85,7 @@ export const EditableRow: React.FC<PropTypes> = ({
     ).join(', ') : item.emptyTitle
 
     return mode === 'edit' ? <>
-      <div className={cx(styles['input-box'], styles.center)}>
+      <div className={cx(styles['input-box'], styles.cells)}>
         <FormControl>
           {item.title && <InputLabel id={item.uniqid}>{item.title}</InputLabel>}
           <Select
@@ -123,7 +123,7 @@ export const EditableRow: React.FC<PropTypes> = ({
         </FormControl>
       </div>
     </> : <>
-      <div className={cx(styles['input-box'], styles.center)}>
+      <div className={cx(styles['input-box'], styles.cells)}>
         {readValues}
       </div>
     </>
@@ -154,7 +154,7 @@ export const EditableRow: React.FC<PropTypes> = ({
       setItemsLocal(onChange(newItems, itemKey))
     }
 
-    return <div className={cx(styles['input-box'], styles.center)}>
+    return <div className={cx(styles['input-box'], styles.cells)}>
       <FormControl>
         {item.title && <FormLabel id={item.uniqid}>{item.title}</FormLabel>}
         <FormGroup>

@@ -111,7 +111,7 @@ export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: forces,
   gameTurnTime: timeStep,
-  canSubmitOrders: true,
+  isGameControl: true,
   platforms: platformTypes,
   infoMarkers: annotations,
   wargameInitiated: true,

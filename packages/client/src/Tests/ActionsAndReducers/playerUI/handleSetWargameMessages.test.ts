@@ -37,7 +37,6 @@ const playerUi: PlayerUi = {
   selectedRole: 'rdj8bx6xw',
   selectedRoleName: 'CO',
   isObserver: false,
-  canSubmitPlans: false,
   currentTurn: 57,
   phase: 'adjudication',
   gameDate: '2019-10-29T02:02',

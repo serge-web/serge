@@ -11,13 +11,11 @@ const selectedForce: ForceData = {
       roleId: 'pkszmzgl4ac',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false,
-      canSubmitPlans: true
+      isInsightViewer: false
     },
     {
       roleId: 'pkszmzgl4ad',
       name: 'Game Control',
-      canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,
@@ -33,13 +31,11 @@ const selectedForceRevised: ForceData = {
       roleId: 'pkszmzgl4',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false,
-      canSubmitPlans: true
+      isInsightViewer: false
     },
     {
       roleId: 'pkszmzgl4a',
       name: 'Game Control',
-      canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,
@@ -48,7 +44,6 @@ const selectedForceRevised: ForceData = {
     {
       roleId: 'rkr666f5e',
       name: 'CO',
-      canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,
@@ -64,13 +59,11 @@ const selectedForceRevisedNew: ForceData = {
       roleId: 'rkrl55f5ec',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false,
-      canSubmitPlans: true
+      isInsightViewer: false
     },
     {
       roleId: 'rkrl55f5ed',
       name: 'Game Control',
-      canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,
@@ -79,7 +72,6 @@ const selectedForceRevisedNew: ForceData = {
     {
       roleId: 'rkr666f5e',
       name: 'CO',
-      canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,

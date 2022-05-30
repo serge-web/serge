@@ -38,10 +38,6 @@ export default interface PropTypes {
    * force for this player
    */
   playerForce: ForceData['uniqid']
-  /** whether this player can submit ordres
-   *
-   */
-  canSubmitOrders: boolean
   /**
    * the title of the submit button
    */

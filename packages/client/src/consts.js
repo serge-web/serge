@@ -110,8 +110,7 @@ export const forceTemplate = {
       roleId: `p${uniqId.time()}`,
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false,
-      canSubmitPlans: true
+      isInsightViewer: false
     }
   ],
   iconURL: serverPath + 'default_img/forceDefault.png',
@@ -130,8 +129,7 @@ export const umpireForceTemplate = {
       roleId: `p${uniqId.time()}`,
       isGameControl: true,
       isObserver: true,
-      isInsightViewer: true,
-      canSubmitPlans: true
+      isInsightViewer: true
     }
   ],
   iconURL: serverPath + 'default_img/umpireDefault.png',
