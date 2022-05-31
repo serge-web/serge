@@ -1,9 +1,9 @@
-import { Phase, Domain, CellLabelStyle } from '@serge/config'
+import { CellLabelStyle, Phase } from '@serge/config'
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
+import { ForceData, MapPostBack, NewTurnValues, PlanTurnFormValues, PlatformTypeData, Role, RouteStore, SergeGrid3 } from '.'
+import { AnnotationIcons, MapAnnotation, MapAnnotations } from './map-annotation'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3, Role } from '.'
-import { MapAnnotations, MapAnnotation, AnnotationIcons } from './map-annotation'
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
  * mapping context, shared with child elements
@@ -162,10 +162,6 @@ export default interface MappingContext {
    * update whether plans have been submitted
    */
   setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
-  /** 
-   * domain for this wargame 
-   */
-  domain: Domain
   /**
    * series of polygon areas, to be shaded
    */

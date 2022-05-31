@@ -1,7 +1,7 @@
 import { Terrain } from '@serge/config'
 import { FeatureCollection, Feature, MultiPolygon } from 'geojson'
 import L from 'leaflet'
-import { TerrainType, typeFor } from '../../mapping/helpers/create-grid-from-geojson'
+import typeFor, { TerrainType } from '../../mapping/helpers/create-grid-from-geojson'
 
 export interface TerrainPolygons {
   terrain: TerrainType
