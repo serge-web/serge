@@ -7,7 +7,7 @@ import docs from './README.md'
 import Mapping from '../mapping'
 
 // import data types
-import { Domain, Phase } from '@serge/config'
+import { Phase } from '@serge/config'
 
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
@@ -20,13 +20,12 @@ const localMappingConstraints = watuWargame.data.overview.mapConstraints
 const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []
 
 const dummyConstrants: MappingConstraints = {
-  tileDiameterMins: 12,
   minZoom: 12,
   maxZoom: 12,
   bounds: [[12, 13], [14, 25]],
   maxNativeZoom: 12,
   minZoomHexes: 32,
-  targetDataset: Domain.ATLANTIC
+  h3res: 3,
 }
 
 export default {

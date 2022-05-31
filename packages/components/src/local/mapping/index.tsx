@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING
+  LAYDOWN_TURN, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -129,8 +129,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
-
-  const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
 
   if (!channel) {
     console.warn('Channel is missing from mapping component')
@@ -507,10 +505,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (!mappingConstraintState) {
       throw new Error('Cannot calculate distance without mapping constraints')
     }
-    const minsToM = (mins: number): number => {
-      return mins * 1862
-    }
-    const tileRadiusM = mappingConstraintState.h3res ? h3.edgeLength(mappingConstraintState.h3res, 'm') : minsToM(mappingConstraintState.tileDiameterMins)
+    const tileRadiusM = h3.edgeLength(mappingConstraintState.h3res, 'm')
     const tileDiameterM = tileRadiusM * 2
     return tileDiameterM * 0.75
   }
@@ -748,7 +743,6 @@ export const Mapping: React.FC<PropTypes> = ({
     groupHostPlatform: groupHostPlatformLocal,
     plansSubmitted,
     setPlansSubmitted,
-    domain: domain,
     polygonAreas,
     panTo,
     cellLabelStyle,
