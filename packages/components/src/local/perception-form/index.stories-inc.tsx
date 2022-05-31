@@ -23,7 +23,7 @@ const dummyConstrants: MappingConstraints = {
   minZoom: 12,
   maxZoom: 12,
   bounds: [[12, 13], [14, 25]],
-  maxNativeZoom: 12
+  maxNativeZoom: 12,
   h3res: 3
 }
 

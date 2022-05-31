@@ -29,17 +29,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Sets default timezone for momentJS in tests.">
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-overview/index.stories.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/perception-form/index.stories-inc.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/perception-form/index.stories-inc.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +56,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/packages/e2e/package.json" />
   </component>
@@ -73,26 +67,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.detected.package.stylelint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.standard" value="project" />
-    <property name="node.js.path.for.package.stylelint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.standard" value="$PROJECT_DIR$/node_modules/standard" />
-    <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/node_modules/stylelint" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
-    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v12.22.1/bin/node" />
-    <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/ian/git/serge",
+    "nodejs_package_manager_path": "yarn"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/packages/helpers" />
@@ -232,6 +215,7 @@
       <workItem from="1618584050787" duration="1411000" />
       <workItem from="1618591905240" duration="1540000" />
       <workItem from="1618593920463" duration="2931000" />
+      <workItem from="1654002975761" duration="7000" />
     </task>
     <task id="LOCAL-00066" summary="Add Channel Messages List organism">
       <created>1601863472723</created>
@@ -602,10 +586,8 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Refactor image dropzone component" />
     <MESSAGE value="Implement image dropzone component" />
