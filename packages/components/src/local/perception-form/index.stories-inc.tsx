@@ -25,7 +25,7 @@ const dummyConstrants: MappingConstraints = {
   bounds: [[12, 13], [14, 25]],
   maxNativeZoom: 12,
   minZoomHexes: 32,
-  h3res: 3,
+  h3res: 3
 }
 
 export default {
