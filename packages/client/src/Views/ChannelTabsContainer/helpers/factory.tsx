@@ -49,7 +49,6 @@ const factory = (state: PlayerUi): Factory => {
     minZoom: 8,
     maxZoom: 13,
     maxNativeZoom: 12,
-    minZoomHexes: 8,
     h3res: 3
   }
 

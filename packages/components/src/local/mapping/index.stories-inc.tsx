@@ -123,8 +123,7 @@ const osmMappingConstraints: MappingConstraints = {
   },
   minZoom: 8,
   maxZoom: 13,
-  maxNativeZoom: 12,
-  minZoomHexes: 8
+  maxNativeZoom: 12
 }
 
 const Template: Story<StoryPropTypes> = (args) => {

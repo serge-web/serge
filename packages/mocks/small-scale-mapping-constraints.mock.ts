@@ -7,8 +7,7 @@ export const mappingConstraints: MappingConstraints = {
     h3res: 7,
     maxNativeZoom: 7,
     maxZoom: 12,
-    minZoom: 5,
-    minZoomHexes: 6
+    minZoom: 5
   }
 
 

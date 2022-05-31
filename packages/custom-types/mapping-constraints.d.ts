@@ -28,11 +28,6 @@ export default interface MappingConstraints {
    */
   tileLayer?: TileLayerDefinition
   /** 
-   * min zoom to display hexes 
-   * @deprecated
-   */
-  minZoomHexes: number
-  /** 
    * min zoom level to allow
    */
   minZoom: number

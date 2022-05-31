@@ -98,8 +98,7 @@ const atlanticConstraints: MappingConstraints = {
   minZoom: 3,
   h3res: 3,
   gridCellsURL: `${serverPath}cells/atlantic-cells-6k.json`,
-  polygonAreasURL: `${serverPath}cells/atlantic-polygons.json`,
-  minZoomHexes: 8
+  polygonAreasURL: `${serverPath}cells/atlantic-polygons.json`
 }
 
 const localConstraints: MappingConstraints = deepCopy(atlanticConstraints)
