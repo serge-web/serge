@@ -18,7 +18,6 @@ const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platfor
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const localMappingConstraints = mapChannel.constraints
 
-
 const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []
 
 const dummyConstrants: MappingConstraints = {

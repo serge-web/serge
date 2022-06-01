@@ -25,7 +25,6 @@ const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelType
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 const mapping = mapChannel.constraints
 
-
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 async function fetchMock (): Promise<any> {
