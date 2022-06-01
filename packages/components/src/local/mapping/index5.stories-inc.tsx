@@ -1,7 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { DeclutterData, deepCopy, dummyDeclutter2, routeDeclutter2 } from '@serge/helpers'
-import { MappingConstraints, MilliTurns } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, MappingConstraints, MilliTurns } from '@serge/custom-types'
 
 // Import component files
 import Mapping from './index'
@@ -21,8 +21,10 @@ import InfoMarkers from '../info-markers'
 const forces = watuWargame.data.forces.forces
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 const overview = watuWargame.data.overview
-const mapping = overview.mapConstraints
+const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
+const mapping = mapChannel.constraints
+
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
