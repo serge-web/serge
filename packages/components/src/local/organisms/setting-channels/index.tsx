@@ -389,7 +389,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         <TableCell align="left">Restrict access to specific roles</TableCell>
                         <TableCell align="left">Controls</TableCell>
                         <TableCell align="right">Actions</TableCell>
-                    </TableRow>
+                      </TableRow>
                     </TableHead>
                     <TableBody>
                       {renderTableBody(data)}
