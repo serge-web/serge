@@ -3,7 +3,7 @@ import { CellLabelStyle, Phase, serverPath } from '@serge/config'
 import { MappingConstraints } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
-import { atlanticForces, platformTypes } from '@serge/mocks'
+import { cmdWkWargame} from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'
@@ -17,6 +17,9 @@ import MappingPropTypes from './types/props'
 // TODO: here is the 'master' version of the cells,
 // in the @serge/data package
 // import * as data from '../../../../data/atlantic-cells.json'
+
+const atlanticForces = cmdWkWargame.data.forces.forces
+const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platformTypes.platformTypes : []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 

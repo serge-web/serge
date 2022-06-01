@@ -303,7 +303,7 @@ const game: Wargame = {
                 30
               ]
             ],
-            "h3res": 5,
+            "h3res": 3,
             "gridCellsURL": "cells/atlantic-cells-6k.json",
             "maxNativeZoom": 7,
             "maxZoom": 10,
