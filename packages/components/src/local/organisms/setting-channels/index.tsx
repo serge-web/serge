@@ -84,6 +84,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const channelAsLegacy = selectedChannelState as any
   const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
 
+  // representation of channel, in more specific types
+  const mappingChannel: ChannelMapping | undefined | false = isMapping && selectedChannelState as ChannelMapping
+
   /** init data for collab panel controls */
   const messagesValues = getMessagesValues(isCollab, selectedChannelState)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
@@ -346,7 +349,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         </div>
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section, styles.table)}>
-            {!isCollab &&
+            {!isCollab && !isMapping &&
               <FormGroup placeholder="Participants and messages">
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
@@ -356,9 +359,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         <TableCell align="left">Restrict access to specific roles</TableCell>
                         {isCustom &&
                           <TableCell align="left">Templates</TableCell>
-                        }
-                        {isMapping &&
-                          <TableCell align="left">Controls</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
@@ -373,11 +373,40 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
+            {isMapping &&
+              <FormGroup>
+                <Paper className={styles.pager}>
+                  <div className={styles['control-groups']}>
+                    <div>Controls for <em>Mapping Constraints</em> go in here</div>
+                    <div>Sample bounds:{mappingChannel && mappingChannel.constraints.bounds}</div>
+                  </div>
+                </Paper>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Force</TableCell>
+                        <TableCell align="left">Restrict access to specific roles</TableCell>
+                        <TableCell align="left">Controls</TableCell>
+                        <TableCell align="right">Actions</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {renderTableBody(data)}
+                    </TableBody>
+                    <TableFooter>
+                      {renderTableFooter()}
+                    </TableFooter>
+                  </Table>
+                </TableContainer>
+
+              </FormGroup>
+            }
             {isCollab &&
               <FormGroup>
                 <Paper className={styles.pager}>
                   <div className={styles['control-groups']}>
-
+                    COLLAB NESSAGE
                     <MessageGroup
                       title="Message Templates"
                       multiple={false}

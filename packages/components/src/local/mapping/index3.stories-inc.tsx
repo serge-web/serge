@@ -3,7 +3,7 @@ import { CellLabelStyle, Phase, serverPath } from '@serge/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
-import { cmdWkWargame} from '@serge/mocks'
+import { cmdWkWargame } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'
@@ -29,7 +29,6 @@ async function fetchMock (): Promise<any> {
     json: (): any => data
   }
 }
-
 
 const allRoles: string[] = []
 atlanticForces.forEach((force: ForceData) => {
@@ -138,6 +137,7 @@ interface StoryPropTypes extends MappingPropTypes {
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     playerRole,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     playerForce,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isGameControl,
