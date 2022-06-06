@@ -1,9 +1,9 @@
 // import data types
 import { CellLabelStyle, Phase, serverPath } from '@serge/config'
-import { MappingConstraints } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
-import { atlanticForces, platformTypes } from '@serge/mocks'
+import { cmdWkWargame } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'
@@ -18,6 +18,10 @@ import MappingPropTypes from './types/props'
 // in the @serge/data package
 // import * as data from '../../../../data/atlantic-cells.json'
 
+const atlanticForces = cmdWkWargame.data.forces.forces
+const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platformTypes.platformTypes : []
+const mapChannel = cmdWkWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 async function fetchMock (): Promise<any> {
@@ -25,6 +29,13 @@ async function fetchMock (): Promise<any> {
     json: (): any => data
   }
 }
+
+const allRoles: string[] = []
+atlanticForces.forEach((force: ForceData) => {
+  force.roles.forEach((role: Role) => {
+    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
+  })
+})
 
 export default {
   title: 'local/Mapping/Atlantic',
@@ -44,16 +55,12 @@ export default {
     }
   },
   argTypes: {
-    playerForce: {
+    playerRole: {
       name: 'View as',
+      defaultValue: allRoles[0],
       control: {
-        type: 'radio',
-        defaultValue: 'Blue',
-        options: [
-          'White',
-          'Blue',
-          'Red'
-        ]
+        type: 'select',
+        options: allRoles
       }
     },
     phase: {
@@ -129,17 +136,24 @@ interface StoryPropTypes extends MappingPropTypes {
 
 const Template: Story<StoryPropTypes> = (args) => {
   const {
+    playerRole,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     playerForce,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    isGameControl,
     ...props
   } = args
-  const forceNames = {
-    White: 'umpire',
-    Blue: 'Blue',
-    Red: 'Red'
-  }
+  const roleStr: string = playerRole
+  // separate out the two elements of the combined role
+  const ind = roleStr.indexOf(' ~ ')
+  const force = roleStr.substring(0, ind)
+  const role = roleStr.substring(ind + 3)
+  const isGameControlRole = roleStr === allRoles[0]
   return (
     <Mapping
-      playerForce={forceNames[playerForce]}
+      playerForce={force}
+      isGameControl={isGameControlRole}
+      playerRole={role}
       fetchOverride={fetchMock}
       {...props}
     />
@@ -158,6 +172,8 @@ NaturalEarth.args = {
   gameTurnTime: twoFourHours,
   isGameControl: true,
   platforms: platformTypes,
+  markerIcons: [],
+  channel: mapChannel,
   phase: Phase.Planning,
   wargameInitiated: true,
   turnNumber: 5,
@@ -179,6 +195,8 @@ OpenStreetMap.args = {
   isGameControl: true,
   platforms: platformTypes,
   wargameInitiated: true,
+  markerIcons: [],
+  channel: mapChannel,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: true,
@@ -198,6 +216,8 @@ DetailedCells.args = {
   gameTurnTime: twoFourHours,
   isGameControl: true,
   platforms: platformTypes,
+  markerIcons: [],
+  channel: mapChannel,
   phase: Phase.Planning,
   wargameInitiated: true,
   turnNumber: 5,

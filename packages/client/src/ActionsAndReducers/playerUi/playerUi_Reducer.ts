@@ -109,7 +109,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.timeWarning = data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
-      newState.mappingConstaints = action.payload.data.overview.mapConstraints
 
       // temporary workaround to remove duplicate channel definitions
       // TODO: delete workaround once fix in place

@@ -22,6 +22,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     wargameInitiated={true}
     platforms={platformTypes}
     playerForce='blue'
+    markerIcons={[]}
     isGameControl={true}
     phase={Phase.Planning}
     turnNumber={5}

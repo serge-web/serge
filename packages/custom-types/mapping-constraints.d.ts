@@ -10,7 +10,7 @@ export interface TileLayerDefinition {
  */
 export default interface MappingConstraints {
   /** 
-   * bounding rectangle 
+   * bounding rectangle [lat, lng]
    */
   bounds: [[number, number], [number, number]],
   /** 
