@@ -1039,7 +1039,7 @@ const wargame: Wargame = {
                         "Transiting",
                         "Inactive"
                     ],
-                    "icon": "mvmv.svg",
+                    "icon": "mcmv.svg",
                     "name": "MCMV",
                     "states": [
                         {
