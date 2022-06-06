@@ -428,7 +428,6 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
 
 export const saveAnnotation = (dbName: string, data: AnnotationMarkerData): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
-    console.log('test', res, data)
     const newDoc: Wargame = deepCopy(res)
     newDoc.data.annotationIcons = data
     return updateWargame(newDoc, dbName)

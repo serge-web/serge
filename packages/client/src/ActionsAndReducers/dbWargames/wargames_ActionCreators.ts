@@ -446,7 +446,6 @@ export const updateWargameVisible = (dbName: string) => {
 }
 
 export const deleteAnnotation = (dbName: string, annotation: IconOption) => {
-  console.log('testDbName', dbName, 'testAn')
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteAnnotation(dbName, annotation)
     
