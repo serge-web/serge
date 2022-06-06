@@ -1,5 +1,5 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
-import { ChannelCollab, ChannelTypes, ForceData } from '@serge/custom-types'
+import { CellLabelStyle, CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
+import { ChannelCollab, ChannelTypes, ForceData, MappingConstraints } from '@serge/custom-types'
 import { ChannelChat, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import uniqid from 'uniqid'
@@ -63,11 +63,20 @@ const createChannel = (
           subscriptionId: generateSubscriptionId(),
           pType: PARTICIPANT_MAPPING
         }
+        const defaultMapConstraints: MappingConstraints = {
+          bounds: [[60, -10], [50, 0]],
+          h3res: 6,
+          cellLabelsStyle: CellLabelStyle.X_Y_LABELS,
+          minZoom: 3,
+          maxZoom: 10,
+          maxNativeZoom: 8
+        }
         const res: ChannelMapping = {
           uniqid: uniqid.time(),
           name: generateChannelName(channels),
           channelType: CHANNEL_MAPPING,
-          participants: [participant]
+          participants: [participant],
+          constraints: defaultMapConstraints
         }
         return res
       }

@@ -120,6 +120,7 @@ Default.args = {
   gameTurnTime: 72000,
   mappingConstraints: localMappingConstraints,
   playerForce: 'Blue',
+  markerIcons: [],
   isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,

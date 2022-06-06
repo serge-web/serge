@@ -23,6 +23,4 @@ export default interface WargameOverview {
   showAccessCodes: boolean,
   /** whether this page has unsaved edits */
   dirty: boolean
-  /** dimensions of the map */
-  mapConstraints?: MappingConstraints
 }

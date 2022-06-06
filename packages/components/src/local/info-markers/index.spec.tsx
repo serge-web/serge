@@ -23,6 +23,7 @@ it('Mapping renders correctly with AsseticonURL', () => {
     forces={forces}
     gameTurnTime = {72000}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     isGameControl = {true}
     playerForce="Blue"
