@@ -22,6 +22,7 @@ it('Mapping renders correctly with HexGrid', () => {
     forces={forces}
     gameTurnTime = {72000}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     playerForce={'Blue'}
     infoMarkers={[]}

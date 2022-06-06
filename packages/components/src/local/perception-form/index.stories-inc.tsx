@@ -50,6 +50,7 @@ export const Default: React.FC = () => <Mapping
   forces={forces}
   gameTurnTime = {72000}
   wargameInitiated={true}
+  markerIcons= {[]}
   infoMarkers={infoMarkers}
   playerForce={forces[1].uniqid}
   isGameControl = {true}

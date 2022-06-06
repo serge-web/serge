@@ -24,6 +24,7 @@ const overview = watuWargame.data.overview
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 const mapping = mapChannel.constraints
+const icons = watuWargame.data.annotationIcons ? watuWargame.data.annotationIcons.markers : []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -115,7 +116,9 @@ NaturalEarth.args = {
   isGameControl: true,
   platforms: platformTypes,
   infoMarkers: annotations,
+  markerIcons: icons,
   wargameInitiated: true,
+  channel: mapChannel,
   playerForce: forces[0].uniqid,
   phase: Phase.Planning,
   turnNumber: 5,
