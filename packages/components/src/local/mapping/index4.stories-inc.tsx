@@ -18,10 +18,10 @@ import MappingPropTypes from './types/props'
 const forces = watuWargame.data.forces.forces
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 const overview = watuWargame.data.overview
-const mapping = overview.mapConstraints
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const icons = (watuWargame.data.annotationIcons && watuWargame.data.annotationIcons.markers) || []
+const mapping = mapChannel.constraints
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 

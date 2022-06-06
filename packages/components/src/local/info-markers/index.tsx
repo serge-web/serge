@@ -52,7 +52,7 @@ export const InfoMarkers: React.FC<{}> = () => {
    * filter the set of visible markers
    */
   useEffect(() => {
-    if (infoMarkers) {
+    if (infoMarkers && infoMarkers.length) {
       if (isUmpire) {
         // include all
         setVisibleMarkers(infoMarkers)
@@ -66,7 +66,7 @@ export const InfoMarkers: React.FC<{}> = () => {
   }, [infoMarkers, isUmpire])
 
   return <>
-    <LayerGroup key='info-markers' >{visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
+    <LayerGroup key='info-markers' >{visibleMarkers.map((marker: MapAnnotation) => {
       const coords = h3ToGeo(marker.location)
       const location = marker.position || L.latLng(coords[0], coords[1])
       return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={location} dragged={dragHandler} />

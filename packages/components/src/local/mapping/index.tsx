@@ -250,7 +250,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (viewAsForce === UMPIRE_FORCE) {
       return markers
     } else {
-      return markers.filter((marker: MapAnnotation) => marker.visibleTo.includes(force))
+      return markers ? markers.filter((marker: MapAnnotation) => marker.visibleTo.includes(force)) : []
     }
   }
 

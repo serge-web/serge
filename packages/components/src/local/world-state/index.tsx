@@ -67,7 +67,7 @@ export const WorldState: React.FC<PropTypes> = ({
       }
       case WorldStatePanels.Markers: {
         // see which markers are visible to players of this force
-        const visMarkers = isUmpire ? infoMarkers : infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((forceId: string) => forceId === playerForce))
+        const visMarkers = isUmpire ? infoMarkers : infoMarkers ? infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((forceId: string) => forceId === playerForce)) : []
         setMarkers(visMarkers)
         break
       }

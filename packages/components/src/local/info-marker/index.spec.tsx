@@ -29,6 +29,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     forces = {forces}
     gameTurnTime = {72000}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     infoMarkers={[]}
     playerForce = 'blue'
