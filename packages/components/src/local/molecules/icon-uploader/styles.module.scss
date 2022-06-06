@@ -16,24 +16,30 @@
     display: block;
   }
 }
+
 .main {
   @include main();
 }
+
 .annotation {
   @include main();
+  color: #808080;
   cursor: pointer;
   font-size: 22px;
   flex-direction: column;
 }
+
 .icon {
   @include icon();
   width: 40px;
   height: 40px;
 }
+
 .annotationicon {
   @include icon();
   margin-bottom: 10px;
 }
+
 .modal {
   position: absolute;
   width: 100%;
@@ -45,6 +51,7 @@
   justify-content: center;
   z-index: 20;
 }
+
 .modal-bg {
   background: rgba(0, 0, 0, 0.35);
   position: absolute;
@@ -53,6 +60,7 @@
   top: 0;
   width: 100%;
 }
+
 .modal-content {
   position: relative;
   display: block;
