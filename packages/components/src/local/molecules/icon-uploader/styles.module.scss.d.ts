@@ -4,6 +4,8 @@ interface CssExports {
   'dropzone-content': string;
   'icon': string;
   'main': string;
+  'annotation': string;
+  'annotationicon': string;
   'modal': string;
   'modal-bg': string;
   'modal-content': string;

@@ -14,7 +14,9 @@ import {
   WargameActionTypes,
   WargameDispatch,
   WargameOverview,
-  WargameRevision
+  WargameRevision,
+  IconOption,
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
@@ -291,6 +293,18 @@ export const savePlatformTypes = (dbName: string, data: PlatformType) => {
   }
 }
 
+export const saveAnnotation = (dbName: string, data: AnnotationMarkerData) => {
+  return async (dispatch: WargameDispatch) => {
+    const wargame = await wargamesApi.saveAnnotation(dbName, data)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification('Annotation types saved.', 'success'))
+  }
+}
+
 export const updateForces = (dbName: string, newData: ForceData[]) => {
   return async (dispatch: WargameDispatch) => {
     await wargamesApi.saveForces(dbName, newData)
@@ -428,5 +442,26 @@ export const updateWargameVisible = (dbName: string) => {
     await wargamesApi.updateWargameVisible(dbName)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
+  }
+}
+
+export const deleteAnnotation = (dbName: string, annotation: IconOption) => {
+  console.log('testDbName', dbName, 'testAn')
+  return async (dispatch: WargameDispatch) => {
+    const wargame = await wargamesApi.deleteAnnotation(dbName, annotation)
+    
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification(`Annotation type '${annotation.name}' deleted.`, 'success'))
+  }
+}
+
+export const duplicateAnnotation = (dbName: string, annotation: IconOption) => {
+  return async (dispatch: WargameDispatch) => {
+    const wargame = await wargamesApi.duplicateAnnotation(dbName, annotation)
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Annotation type duplicated.', 'success'))
   }
 }
