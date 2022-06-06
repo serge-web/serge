@@ -52,12 +52,12 @@ export const InfoMarkers: React.FC<{}> = () => {
    * filter the set of visible markers
    */
   useEffect(() => {
-    if (infoMarkers) {
+    if (infoMarkers && infoMarkers.length) {
       if (isUmpire) {
         // include all
         setVisibleMarkers(infoMarkers)
       } else {
-        const visibleMarkers = infoMarkers ? infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((value: string) => value === playerForce)) : []
+        const visibleMarkers = infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((value: string) => value === playerForce))
         setVisibleMarkers(visibleMarkers)
       }
     } else {
