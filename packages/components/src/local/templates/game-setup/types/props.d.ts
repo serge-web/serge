@@ -2,7 +2,7 @@ import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { WargameOverview } from '../../../organisms/setting-overview'
 import { ChannelTypes } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
-import { ForceData, PlatformType, PlatformTypeData } from '@serge/custom-types'
+import { ForceData, PlatformType, PlatformTypeData, AnnotationMarkerData, IconOption } from '@serge/custom-types'
 
 export default interface Props extends AdminLayoutProps {
   /**
@@ -21,6 +21,10 @@ export default interface Props extends AdminLayoutProps {
    * Channels, retrieved from database
    */
   channels: Array<ChannelTypes>
+   /**
+   * annotation types, retrieved from database
+   */
+      annotation?: AnnotationMarkerData
   /**
    * Callback on overview setting change events
    */
@@ -116,4 +120,17 @@ export default interface Props extends AdminLayoutProps {
    */
   customDeleteHandler?: (role: Role) => void
   onDeleteAsset?: () => void
+   /**
+   * Callback on annotation types setting change events
+   */
+  onAnnotationChange: (annotation: AnnotationMarkerData) => void
+   /**
+   * Callback on annotation type delete button click events
+   */
+  onDeleteAnnotation?: (annotation: IconOption) => void
+   /**
+   * Callback on annotation type duplicate button click events
+   */
+  onDuplicateAnnotation?: (annotation: IconOption) => void
+
 }

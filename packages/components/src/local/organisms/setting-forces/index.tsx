@@ -171,7 +171,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             }} />
           </div>
           <div className={styles.col} style={{ textDecoration: 'underline' }}>
-            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
+            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
               handleChangeForce({ ...data, icon })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>

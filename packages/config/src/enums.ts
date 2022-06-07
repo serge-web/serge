@@ -178,5 +178,6 @@ export enum AdminTabs {
   Overview = 'overview',
   PlatformTypes = 'platformTypes',
   Forces = 'forces',
-  Channels = 'channels'
+  Channels = 'channels',
+  Annotations = 'annotationIcons'
 };

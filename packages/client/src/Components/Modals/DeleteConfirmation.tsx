@@ -1,11 +1,12 @@
 import { Confirm } from '@serge/components'
-import { RootState, ForceData, ModalData, RoleType, PlatformType } from '@serge/custom-types'
+import { RootState, ForceData, ModalData, RoleType, PlatformType, IconOption } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   clearWargames,
   deletePlatformType,
+  deleteAnnotation,
   deleteSelectedAsset,
   deleteSelectedChannel,
   deleteSelectedForce,
@@ -17,7 +18,7 @@ const DeleteModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)
-
+  
   if (!currentModal.data) {
     return <></>
   }
@@ -57,6 +58,10 @@ const DeleteModal = () => {
       }
       case 'platformType': {
         if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data as PlatformType))
+        break
+      }
+      case 'annotation': {
+        if (wargame.currentWargame) dispatch(deleteAnnotation(wargame.currentWargame, data as IconOption))
         break
       }
       default: {

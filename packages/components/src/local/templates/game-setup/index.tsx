@@ -6,6 +6,7 @@ import SettingChannels from '../../organisms/setting-channels'
 import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
 import SettingPlatformTypes from '../../organisms/setting-platform-types'
+import SettingAnnotations from '../../organisms/setting-annotation'
 import Props from './types/props'
 
 /* Render component */
@@ -42,10 +43,13 @@ export const GameSetup: React.FC<Props> = ({
   onWargameInitiate,
   iconUploadUrl,
   customDeleteHandler,
-  onDeleteAsset
+  onDeleteAsset,
+  annotation,
+  onAnnotationChange,
+  onDeleteAnnotation,
+  onDuplicateAnnotation
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
-
   return (
     <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} onPressBack={onPressBack} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
@@ -103,6 +107,18 @@ export const GameSetup: React.FC<Props> = ({
               forces={forces}
               selectedChannel={selectedChannel}
               messageTemplates={messageTemplates}
+            />
+          )
+        }
+        {
+          currentActiveTab === AdminTabs.Annotations && (
+            <SettingAnnotations
+              iconUploadUrl={iconUploadUrl}
+              annotation={annotation}
+              onChange={onAnnotationChange}
+              onSave={onSave}
+              onDelete={onDeleteAnnotation}
+              onDuplicate={onDuplicateAnnotation}
             />
           )
         }
