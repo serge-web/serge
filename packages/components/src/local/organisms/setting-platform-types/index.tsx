@@ -174,7 +174,6 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const renderContent = (): React.ReactNode => {
     if (!localPlatformType.platformTypes[selectedItem]) return null
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
-
     const handleChangeName = (name: string): void => {
       handleChangePlatformTypeData({ ...data, name }, selectedItem)
     }
@@ -288,7 +287,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             />
           </div>
           <div className={styles.col}>
-            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
+            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.uniqid}>Fixed id:{data.uniqid}</div>
           <div className={styles.actions}>
