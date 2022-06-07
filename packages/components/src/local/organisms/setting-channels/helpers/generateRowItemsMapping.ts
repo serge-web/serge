@@ -30,7 +30,7 @@ export default (forces: Array<ForceData>, nextParticipant: ParticipantMapping): 
   /**
    * utility function, to re-use list generation code in both cases
    */
-  const addItem = (force: ForceData, myForce: ForceData['uniqid'], match: boolean) => {
+  const addItem = (force: ForceData, myForce: ForceData['uniqid'], match: boolean): void => {
     if (force.assets) {
       if ((match && myForce === force.uniqid) || (!match && myForce !== force.uniqid)) {
         assetOptions.push({ name: 'All unclaimed for ' + force.name, uniqid: CONTROL_ALL + force.uniqid })

@@ -32,6 +32,7 @@ it('Mapping renders correctly with Route', () => {
     forces={forces}
     gameTurnTime = {72000}
     wargameInitiated={true}
+    markerIcons= {[]}
     playerForce={'Blue'}
     infoMarkers={[]}
     isGameControl = {true}

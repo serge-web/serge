@@ -10,15 +10,6 @@ export enum Phase {
   Adjudication = 'adjudication'
 }
 
-/** TODO: remove this
- * Temporary classifier for which dataset is in use
- */
-export enum Domain {
-  ATLANTIC = 'Atlantic',
-  GULF = 'Gulf'
-}
-
-
 /** increasing permissions in a collaborative editing channel
  */
 export enum CollaborativePermission {

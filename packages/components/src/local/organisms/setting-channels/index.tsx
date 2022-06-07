@@ -20,9 +20,11 @@ import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping 
 import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
-import Confirm from '../../atoms/confirm'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
+import Confirm from '../../atoms/confirm'
+// import { CircleOutlined } from '@material-ui/icons'
+import { CustomDialog } from '../../atoms/custom-dialog'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
@@ -34,18 +36,17 @@ import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCus
 import generateRowItemsChat from './helpers/generateRowItemsChat'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import generateRowItemsCustom from './helpers/generateRowItemsCustom'
+import generateRowItemsMapping from './helpers/generateRowItemsMapping'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged } from './helpers/messageCollabUtils'
 import rowToParticipantChat from './helpers/rowToParticipantChat'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
 import rowToParticipantCustom from './helpers/rowToParticipantCustom'
+import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToParticipantMapping'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes, { ChannelTypes } from './types/props'
-import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToParticipantMapping'
-import generateRowItemsMapping from './helpers/generateRowItemsMapping'
-// import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({
@@ -68,6 +69,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [open, setOpen] = useState(false)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
+  const [problems, setProblems] = useState<string>('')
 
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
@@ -81,6 +83,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const isMapping = selectedChannelState && selectedChannelState.channelType === CHANNEL_MAPPING
   const channelAsLegacy = selectedChannelState as any
   const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
+
+  // representation of channel, in more specific types
+  const mappingChannel: ChannelMapping | undefined | false = isMapping && selectedChannelState as ChannelMapping
 
   /** init data for collab panel controls */
   const messagesValues = getMessagesValues(isCollab, selectedChannelState)
@@ -210,8 +215,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
             // do check
             const problems = checkForSaveProblems(row)
             if (problems) {
-              // TODO: show the returned string in a modal panel
-              console.warn('mapping save problem', problems)
+              setProblems(problems)
+              return
             } else {
               nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
             }
@@ -249,6 +254,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           defaultMode='view'
           actions={true}
           participantKey={key}
+          presentAsList
         />
       })
     }
@@ -343,7 +349,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         </div>
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section, styles.table)}>
-            {!isCollab &&
+            {!isCollab && !isMapping &&
               <FormGroup placeholder="Participants and messages">
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
@@ -353,9 +359,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                         <TableCell align="left">Restrict access to specific roles</TableCell>
                         {isCustom &&
                           <TableCell align="left">Templates</TableCell>
-                        }
-                        { isMapping &&
-                          <TableCell align="left">Controls</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
@@ -370,11 +373,40 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
+            {isMapping &&
+              <FormGroup>
+                <Paper className={styles.pager}>
+                  <div className={styles['control-groups']}>
+                    <div>Controls for <em>Mapping Constraints</em> go in here</div>
+                    <div>Sample bounds:{mappingChannel && mappingChannel.constraints.bounds}</div>
+                  </div>
+                </Paper>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Force</TableCell>
+                        <TableCell align="left">Restrict access to specific roles</TableCell>
+                        <TableCell align="left">Controls</TableCell>
+                        <TableCell align="right">Actions</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {renderTableBody(data)}
+                    </TableBody>
+                    <TableFooter>
+                      {renderTableFooter()}
+                    </TableFooter>
+                  </Table>
+                </TableContainer>
+
+              </FormGroup>
+            }
             {isCollab &&
               <FormGroup>
                 <Paper className={styles.pager}>
                   <div className={styles['control-groups']}>
-
+                    COLLAB NESSAGE
                     <MessageGroup
                       title="Message Templates"
                       multiple={false}
@@ -548,6 +580,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   return (
     <AdminContent>
+      <CustomDialog
+        isOpen={!!problems}
+        header={'Error'}
+        cancelBtnText={'OK'}
+        onClose={(): void => setProblems('')}
+        content={problems}
+      />
       <Confirm
         isOpen={participantKey !== -1}
         title="Delete Participation"

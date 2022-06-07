@@ -22,6 +22,7 @@ it('Mapping renders correctly', () => {
     forces = {forces}
     gameTurnTime = {72000}
     wargameInitiated = {true}
+    markerIcons={[]}
     playerForce = 'Blue'
     infoMarkers={[]}
     isGameControl = {true}
