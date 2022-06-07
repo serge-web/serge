@@ -67,9 +67,9 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   useEffect(() => {
     // get the new selected object (since the force has been cloned)
-    if(selectedAssetItem && selectedForce.assets) {
+    if (selectedAssetItem && selectedForce.assets) {
       const item = selectedForce.assets.find((asset: Asset) => asset.uniqid === selectedAssetItem.uniqid)
-      item && setSelectedAssetItem(item) 
+      item && setSelectedAssetItem(item)
     }
   }, [selectedForce])
 
