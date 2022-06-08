@@ -160,8 +160,11 @@ export const WorldState: React.FC<PropTypes> = ({
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
+    // any player can access element in visibility panel
+    const inVisibilityPanel = panel === WorldStatePanels.Visibility
+
     // so, is it clickable?
-    const canBeSelected = (underControl && atTopLevel) || inAdjudication
+    const canBeSelected = (underControl && atTopLevel) || inAdjudication || inVisibilityPanel
 
     let isDestroyed: boolean | undefined = false
     let imageSrc: string | undefined
