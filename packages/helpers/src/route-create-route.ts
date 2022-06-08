@@ -159,11 +159,11 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  * @param {Phase} phase current game phase
  * @param {boolean} wargameInitiated whether wargame has been initiated
  * @param {string} currentPosition the current asset position, from route or asset
- * @param {laydownTypes | boolean} locationPending the flag for laydown pending (or marker for Umpire/Force laydown)
+ * @param {laydownTypes | string} locationPending the flag for laydown pending (or marker for Umpire/Force laydown)
  * @param {string} original position the original position for the asset
  * @param {Route} route current route description, potentially including location of laid-down asset
  */
-const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | boolean,
+const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | string,
   originalPosition?: string, route?: Route): LaydownPhases => {
   if (phase !== Phase.Adjudication) {
     // ok, we only do laydown in adjudication phase
@@ -171,27 +171,6 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
   } else if (locationPending === undefined) {
     if (wargameInitated) {
       return LaydownPhases.NotInLaydown
-    } else {
-      return LaydownPhases.Immobile
-    }
-  } else if (typeof locationPending === 'boolean') {
-    // TODO - remove support for this legacy construct (boolean)
-    if (wargameInitated) {
-      // TODO: we're getting assets with laydown-phase flag
-      // after game has started. In the longer term we
-      // probably need to clear laydown flags when game is
-      // initiated. For now we'll just ignore the value
-      // console.log('ignoring laydown status')
-      // return LaydownPhases.NotInLaydown
-      const routePos = route && route.currentPosition
-      const currentPos = routePos || currentPosition
-      if (currentPos !== originalPosition) {
-        // on map, but still can be moved
-        return LaydownPhases.Moved
-      } else {
-        // not on map yet
-        return LaydownPhases.Unmoved
-      }
     } else {
       return LaydownPhases.Immobile
     }
