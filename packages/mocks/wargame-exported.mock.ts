@@ -1453,7 +1453,7 @@ const game: Wargame = {
       dirty: false,
       gameDate: '2020-01-07T13:18',
       gameDescription: 'Sample MWARC Wargame',
-      gameTurnTime: 5400000,
+      gameTurnTime: { "unit": "millis", "millis": 5400000 },
       name: 'Overview - settings',
       realtimeTurnTime: 600000,
       showAccessCodes: true,

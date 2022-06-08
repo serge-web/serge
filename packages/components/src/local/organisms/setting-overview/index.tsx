@@ -1,39 +1,39 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Checkbox, FormControlLabel, Input } from '@material-ui/core'
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+/* Import const */
+import { TurnFormats } from '@serge/config'
+import { GameTurnLength, MilliTurns, MonthTurns, YearTurns } from '@serge/custom-types'
+import { isObjectEquivalent, usePrevious } from '@serge/helpers'
 import cx from 'classnames'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import Flatpickr from 'react-flatpickr'
+/* Import Components */
+import MaskedInput from 'react-maskedinput'
+import Button from '../../atoms/button'
+import FormGroup from '../../atoms/form-group-shadow'
+import TextInput from '../../atoms/text-input'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import Flatpickr from 'react-flatpickr'
-
+/* Import Styles */
+import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes, { WargameOverview } from './types/props'
 
-/* Import Styles */
-import styles from './styles.module.scss'
 
-/* Import const */
-import { TurnFormats } from '@serge/config'
 
-/* Import Components */
-import MaskedInput from 'react-maskedinput'
-import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
-import { usePrevious, isObjectEquivalent } from '@serge/helpers'
-import Button from '../../atoms/button'
-import Select from '@material-ui/core/Select'
-import FormControl from '@material-ui/core/FormControl'
-import TextInput from '../../atoms/text-input'
-import FormGroup from '../../atoms/form-group-shadow'
-import { GameTurnLength } from '@serge/custom-types'
-import MenuItem from '@material-ui/core/MenuItem'
+
+
 
 /* Render component */
 export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const [timeKey, setTimeKey] = useState({
     gameDate: 0,
-    gameTurnTime: 0,
+    gameTurnTime: { unit: "millis", millis: 72000 },
     realtimeTurnTime: 0,
     timeWarning: 0
   })
@@ -134,12 +134,13 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
       case 'number' :
         return millisecondsToDDHHMMSS(turnTime as number)
       default: {
-        // // ok, it's an object, handle it
-        // if(turnTime instanceof MilliTurns) {
-        //   const milliTurn: MilliTurns = turnTime
-        //   return millisecondsToDDHHMMSS(turnTime.millis)
-        // }
-        return '1'
+        const turnVal: MilliTurns | MonthTurns | YearTurns = turnTime
+        switch (turnVal.unit) {
+          case 'millis': 
+            return millisecondsToDDHHMMSS(turnVal.millis)
+          default:
+            return '0000000'
+        }
       }
     }
   }
@@ -208,7 +209,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
-                key={timeKey.gameTurnTime}
+                key={timeKey.gameTurnTime.unit}
                 mask="11 11 11 11"
                 name="gameTurnTime"
                 id="gameTurnTime"

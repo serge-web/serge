@@ -21,5 +21,5 @@ export interface YearTurns extends TurnLengthType {
 }
 
 /** different ways of expressing turn length */
-export type GameTurnLength = number | MilliTurns | MonthTurns | YearTurns
+export type GameTurnLength = MilliTurns | MonthTurns | YearTurns
 
