@@ -152,7 +152,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
    * this trick to avoid the react-test-renderer render the value prop on testing
    */
   const flatpickrValueProp: any = {}
-  if (!ignoreFlatpickrSnapshot && overview && overview.gameDate) {
+  if (!ignoreFlatpickrSnapshot && overview.gameDate) {
     flatpickrValueProp.value = overview.gameDate
   }
 
