@@ -1,4 +1,5 @@
 /* global it expect */
+import { GameTurnLength } from '@serge/custom-types'
 import { toMasked, fromMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
 
 describe('turn time to masked string:', () => {
@@ -9,6 +10,8 @@ describe('turn time to masked string:', () => {
     expect(toMasked({ unit: 'millis', millis: 20000 * 20000 })).toEqual('00 00 04 15 06 40')
     expect(toMasked({ unit: 'months', months: 5 })).toEqual('00 05 00 00 00 00')
     expect(toMasked({ unit: 'months', months: 15 })).toEqual('01 03 00 00 00 00')
+    // special case - just in case method receives legacy value in millis
+    expect(toMasked(20000 as unknown as GameTurnLength)).toEqual('00 00 00 00 00 20')
   })
 })
 
