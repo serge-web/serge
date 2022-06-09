@@ -46,7 +46,7 @@ export const toMasked = (turnTime: GameTurnLength): string => {
       return '00 00 ' + days + ' ' + hours + ' ' + minutes + ' ' + seconds
     }
 
-    // SPECIAL HANDLING: just in case we have integer turn time 
+    // SPECIAL HANDLING: just in case we have integer turn time
     // in legacy wargame, that doesn't match current type spec
     const legacyType = turnTime as unknown
     if (isInteger(legacyType)) {
