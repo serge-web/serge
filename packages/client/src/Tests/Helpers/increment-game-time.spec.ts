@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment'
-import { MilliTurns, MonthTurns, YearTurns } from '@serge/custom-types'
+import { MilliTurns, MonthTurns } from '@serge/custom-types'
 import incrementGameTime from '../../Helpers/increment-game-time'
 
 const startTime: Moment = moment('2013-02-08 09:30:26')
@@ -29,13 +29,5 @@ describe('increment turn time:', () => {
       months: 2
     }
     expect(moment(incrementGameTime(startStr, turns)).format(formatStr)).toEqual('2013-04-08T09:30:26')
-  })
-
-  it('increments using years', () => {
-    const turns: YearTurns = {
-      unit: 'years',
-      years: 2
-    }
-    expect(moment(incrementGameTime(startStr, turns)).format(formatStr)).toEqual('2015-02-08T09:30:26')
   })
 })

@@ -7,11 +7,14 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { WargameExportedMock } from '@serge/mocks'
 import { WargameOverview } from './types/props'
-import { MilliTurns, MonthTurns, YearTurns } from '@serge/custom-types'
+import { GameTurnLength, MilliTurns, MonthTurns } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-const millis: MilliTurns = {unit: 'millis', millis: 10000}
+const tenKmillis: MilliTurns = {unit: 'millis', millis: 10000}
+const sixMonths: MonthTurns =  {unit: 'months', months: 6}
+const seventeenMonths: MonthTurns =  {unit: 'months', months: 18}
+const items = { tenKmillis, sixMonths, eighteenMonths: seventeenMonths}
 
 export default {
   title: 'local/organisms/SettingOverview',
@@ -26,13 +29,13 @@ export default {
   argTypes: {
     turnTime: {
       name: 'Turn Time',
+      options: Object.keys(items),
+      mapping: items,
       control: {
         type: 'radio',
-        default: millis,
-        options: {
-          tenKMillis: millis,
-          sixMonths: {unit: 'months', millis: 6},
-          twoYears: {unit: 'years', millis: 2}
+        control: {
+          type: 'radio',
+          labels: { tenKmillis: '10k millis', sixMonths: '6 months', seventeenMonths: '17 months'}
         }
       }
     },
@@ -45,7 +48,7 @@ export default {
 }
 
 interface StoryPropTypes {
-  turnTime:  MilliTurns | MonthTurns | YearTurns
+  turnTime:  GameTurnLength
 }
 
 const Template: Story<StoryPropTypes> = (args) => {
@@ -65,7 +68,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   const initiateWargame = (): void => {
     console.log('Initiating wargame')
   }
-  console.log('turn time', turnTime)
+  console.log('turn time', turnTime, overview.gameTurnTime)
   overview.gameTurnTime = turnTime
   return (
     // @ts-ignore it thinks we're missing wargame initiated, but storybook is providing that

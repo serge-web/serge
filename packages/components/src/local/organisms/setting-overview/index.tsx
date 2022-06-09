@@ -6,7 +6,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 /* Import const */
 import { TurnFormats } from '@serge/config'
-import { GameTurnLength, MilliTurns, MonthTurns, YearTurns } from '@serge/custom-types'
 import { isObjectEquivalent, usePrevious } from '@serge/helpers'
 import cx from 'classnames'
 import React, { ChangeEvent, useEffect, useState } from 'react'
@@ -18,6 +17,8 @@ import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
+import { toMasked, fromMasked} from './helpers/turnTimeToYYMMDDHHMMSS'
+
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
@@ -52,9 +53,19 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     setDirty(updates)
   }
 
+  const updateTurnLength = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = e.target
+    console.log('gane turn time', value, fromMasked(value))
+    const val = fromMasked(value)
+    const updates = { ...overview, gameTurnTime: val}
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
+    console.log('game actual time', value, fromMasked(value))
 
     const checkZero = (/^0+$/).test(value.replace(/\s/g, ''))
     if (value.length === 0 || checkZero) {
@@ -125,20 +136,6 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     }
   }, [initialOverview])
 
-  const genTurnLength = (turnTime: GameTurnLength): string => {
-    if (turnTime) {
-      const turnVal: MilliTurns | MonthTurns | YearTurns = turnTime
-      switch (turnVal.unit) {
-        case 'millis': 
-          return millisecondsToDDHHMMSS(turnVal.millis)
-        default:
-          return '0000000'
-      }  
-    } else {
-      return '123456'
-    }
-  }
-
   /**
    * this component work perfectly, but
    * we have an issue with the snapshot testing: Flatpickr.setDate is not a fucntion
@@ -146,9 +143,11 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
    * this trick to avoid the react-test-renderer render the value prop on testing
    */
   const flatpickrValueProp: any = {}
-  if (!ignoreFlatpickrSnapshot) {
+  if (!ignoreFlatpickrSnapshot && overview && overview.gameDate) {
     flatpickrValueProp.value = overview.gameDate
   }
+
+  console.log('overview', overview.gameTurnTime, toMasked(overview.gameTurnTime))
 
   return <div className={styles.main}>
     <div className={styles.row}>
@@ -199,18 +198,18 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
           </div>
           <div className={styles.group}>
             <label className={styles.label} htmlFor='gameTurnTime'>
-              Wargame turn time (DD HH MM SS)
+              Wargame turn time<br/>(YY MM DD HH MM SS)
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
                 key={timeKey.gameTurnTime.unit}
-                mask="11 11 11 11"
+                mask="11 11 11 11 11 11"
                 name="gameTurnTime"
                 id="gameTurnTime"
-                placeholder="DD HH MM SS"
-                onChange={updateGameTime}
+                placeholder="YY MM DD HH MM SS"
+                onChange={updateTurnLength}
                 className='MuiInputBase-input MuiInput-input'
-                value={genTurnLength(overview.gameTurnTime)}
+                value={toMasked(overview.gameTurnTime)}
                 onBlur={replacePrevTime}
               />}
             </div>

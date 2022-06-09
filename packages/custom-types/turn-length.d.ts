@@ -14,12 +14,6 @@ export interface MonthTurns extends TurnLengthType {
   months: number
 }
 
-/** express turn length in years */
-export interface YearTurns extends TurnLengthType {
-  unit: 'years',
-  years: number
-}
-
 /** different ways of expressing turn length */
-export type GameTurnLength = MilliTurns | MonthTurns | YearTurns
+export type GameTurnLength = MilliTurns | MonthTurns
 
