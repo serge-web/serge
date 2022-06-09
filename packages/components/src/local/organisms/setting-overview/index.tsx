@@ -55,11 +55,19 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
 
   const updateTurnLength = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
-    console.log('gane turn time', value, fromMasked(value))
+    console.log('game turn time', value, fromMasked(value))
     const val = fromMasked(value)
-    const updates = { ...overview, gameTurnTime: val}
-    setOverview(updates)
-    setDirty(updates)
+    if (val) {
+      const updates = { ...overview, gameTurnTime: val}
+      setOverview(updates)
+      setDirty(updates)  
+    } else {
+      const prevData = { gameTurnTime: prevOverview ? prevOverview.gameTurnTime : initialOverview.gameTurnTime }
+      // forcefully re-render with previous value
+      setTimeKey({ ...timeKey, gameTurnTime: prevData.gameTurnTime })
+      setOverview({ ...overview, ...prevData })
+
+    }
   }
 
   const prevOverview = usePrevious(overview)
