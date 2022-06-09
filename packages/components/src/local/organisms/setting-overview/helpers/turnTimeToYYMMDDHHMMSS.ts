@@ -1,8 +1,7 @@
-import { GameTurnLength } from "@serge/custom-types"
-
+import { GameTurnLength } from '@serge/custom-types'
 
 export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
-  const time: Array<number> = [parseInt(turnTime.slice(0, 2)), parseInt(turnTime.slice(3, 5)), parseInt(turnTime.slice(6, 8)), 
+  const time: Array<number> = [parseInt(turnTime.slice(0, 2)), parseInt(turnTime.slice(3, 5)), parseInt(turnTime.slice(6, 8)),
     parseInt(turnTime.slice(9, 11)), parseInt(turnTime.slice(12, 14)), parseInt(turnTime.slice(15, 17))]
   const [years, months, days, hrs, mins, secs] = time
 
@@ -15,11 +14,11 @@ export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
       mins * 60 * 1000 +
       hrs * 60 * 60 * 1000 +
       days * 24 * 60 * 60 * 1000
-    return { unit: 'millis', millis: val}
+    return { unit: 'millis', millis: val }
   } else if (hasMonths && !hasMillis) {
     // ok, calc in months
     const val = years * 12 + months
-    return { unit: 'months', months: val}
+    return { unit: 'months', months: val }
   } else {
     console.warn('Can only have year/mon or day/hr/min/sec', hasMonths, hasMillis, turnTime)
     return undefined
@@ -40,13 +39,13 @@ export const toMasked = (turnTime: GameTurnLength): string => {
         minutes = minutes % 60
         days = Math.floor(hours / 24)
         hours = hours % 24
-      
+
         days = days < 10 ? '0' + days : days.toString()
         hours = hours < 10 ? '0' + hours : hours.toString()
         minutes = minutes < 10 ? '0' + minutes : minutes.toString()
         seconds = seconds < 10 ? '0' + seconds : seconds.toString()
-      
-        return '00 00 ' + days + ' ' + hours + ' ' + minutes + ' ' + seconds    
+
+        return '00 00 ' + days + ' ' + hours + ' ' + minutes + ' ' + seconds
       }
       case 'months': {
         const monthVal = turnTime.months
@@ -57,9 +56,9 @@ export const toMasked = (turnTime: GameTurnLength): string => {
         months = months < 10 ? '0' + months : months.toString()
         return years + ' ' + months + ' 00 00 00 00'
       }
-      default: 
+      default:
         return 'unknown'
-    }  
+    }
   } else {
     return 'missing'
   }

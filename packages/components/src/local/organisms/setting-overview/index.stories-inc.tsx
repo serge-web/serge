@@ -11,10 +11,10 @@ import { GameTurnLength, MilliTurns, MonthTurns } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-const tenKmillis: MilliTurns = {unit: 'millis', millis: 10000}
-const sixMonths: MonthTurns =  {unit: 'months', months: 6}
-const seventeenMonths: MonthTurns =  {unit: 'months', months: 18}
-const items = { tenKmillis, sixMonths, eighteenMonths: seventeenMonths}
+const tenKmillis: MilliTurns = { unit: 'millis', millis: 10000 }
+const sixMonths: MonthTurns = { unit: 'months', months: 6 }
+const seventeenMonths: MonthTurns = { unit: 'months', months: 18 }
+const items = { tenKmillis, sixMonths, eighteenMonths: seventeenMonths }
 
 export default {
   title: 'local/organisms/SettingOverview',
@@ -35,7 +35,7 @@ export default {
         type: 'radio',
         control: {
           type: 'radio',
-          labels: { tenKmillis: '10k millis', sixMonths: '6 months', seventeenMonths: '17 months'}
+          labels: { tenKmillis: '10k millis', sixMonths: '6 months', seventeenMonths: '17 months' }
         }
       }
     },
@@ -48,13 +48,13 @@ export default {
 }
 
 interface StoryPropTypes {
-  turnTime:  GameTurnLength
+  turnTime: GameTurnLength
 }
 
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    turnTime,
+    turnTime
   } = args
 
   const { overview } = WargameExportedMock.data
@@ -84,4 +84,4 @@ const Template: Story<StoryPropTypes> = (args) => {
 /**
  * DEFAULT VIEW
  */
- export const Default = Template.bind({})
+export const Default = Template.bind({})

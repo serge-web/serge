@@ -17,7 +17,7 @@ import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
-import { toMasked, fromMasked} from './helpers/turnTimeToYYMMDDHHMMSS'
+import { toMasked, fromMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -25,12 +25,14 @@ import styles from './styles.module.scss'
 import PropTypes, { WargameOverview } from './types/props'
 
 /* Render component */
-export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, 
-  initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
+export const SettingOverview: React.FC<PropTypes> = ({
+  overview: initialOverview, onSave, onChange,
+  initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot
+}) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const [timeKey, setTimeKey] = useState({
     gameDate: 0,
-    gameTurnTime: { unit: "millis", millis: 72000 },
+    gameTurnTime: { unit: 'millis', millis: 72000 },
     realtimeTurnTime: 0,
     timeWarning: 0
   })
@@ -58,15 +60,14 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     console.log('game turn time', value, fromMasked(value))
     const val = fromMasked(value)
     if (val) {
-      const updates = { ...overview, gameTurnTime: val}
+      const updates = { ...overview, gameTurnTime: val }
       setOverview(updates)
-      setDirty(updates)  
+      setDirty(updates)
     } else {
       const prevData = { gameTurnTime: prevOverview ? prevOverview.gameTurnTime : initialOverview.gameTurnTime }
       // forcefully re-render with previous value
       setTimeKey({ ...timeKey, gameTurnTime: prevData.gameTurnTime })
       setOverview({ ...overview, ...prevData })
-
     }
   }
 
