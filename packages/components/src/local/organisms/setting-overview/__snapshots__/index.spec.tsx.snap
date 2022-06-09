@@ -151,7 +151,9 @@ exports[`SettingOverview component: renders correctly 1`] = `
               className="label"
               htmlFor="gameTurnTime"
             >
-              Wargame turn time (DD HH MM SS)
+              Wargame turn time
+              <br />
+              (YY MM DD HH MM SS)
             </label>
             <div
               className="MuiInputBase-root MuiInput-root MuiInput-underline"
@@ -159,17 +161,17 @@ exports[`SettingOverview component: renders correctly 1`] = `
               <input
                 className="MuiInputBase-input MuiInput-input"
                 id="gameTurnTime"
-                mask="11 11 11 11"
-                maxLength={11}
+                mask="11 11 11 11 11 11"
+                maxLength={17}
                 name="gameTurnTime"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
                 onKeyPress={[Function]}
                 onPaste={[Function]}
-                placeholder="DD HH MM SS"
-                size={11}
-                value="00 01 30 00"
+                placeholder="YY MM DD HH MM SS"
+                size={17}
+                value="00 00 00 01 30 00"
               />
             </div>
           </div>
