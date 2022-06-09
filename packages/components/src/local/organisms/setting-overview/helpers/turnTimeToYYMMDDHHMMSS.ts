@@ -1,4 +1,5 @@
 import { GameTurnLength } from '@serge/custom-types'
+import { isInteger } from 'lodash'
 
 export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
   const time: Array<number> = [parseInt(turnTime.slice(0, 2)), parseInt(turnTime.slice(3, 5)), parseInt(turnTime.slice(6, 8)),
@@ -27,25 +28,35 @@ export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
 
 export const toMasked = (turnTime: GameTurnLength): string => {
   if (turnTime) {
+    // we need to do this twice, so refactor to function
+    const fromMillis = (millis: number): string => {
+      let days, hours, minutes, seconds
+      seconds = Math.floor(millis / 1000)
+      minutes = Math.floor(seconds / 60)
+      seconds = seconds % 60
+      hours = Math.floor(minutes / 60)
+      minutes = minutes % 60
+      days = Math.floor(hours / 24)
+      hours = hours % 24
+      // pad integers
+      days = days < 10 ? '0' + days : days.toString()
+      hours = hours < 10 ? '0' + hours : hours.toString()
+      minutes = minutes < 10 ? '0' + minutes : minutes.toString()
+      seconds = seconds < 10 ? '0' + seconds : seconds.toString()
+      return '00 00 ' + days + ' ' + hours + ' ' + minutes + ' ' + seconds
+    }
+
+    // SPECIAL HANDLING: just in case we have integer turn time 
+    // in legacy wargame, that doesn't match current type spec
+    const legacyType = turnTime as unknown
+    if (isInteger(legacyType)) {
+      const millis = legacyType as number
+      return fromMillis(millis)
+    }
     switch (turnTime.unit) {
       case 'millis': {
         const milliseconds = turnTime.millis
-
-        let days, hours, minutes, seconds
-        seconds = Math.floor(milliseconds / 1000)
-        minutes = Math.floor(seconds / 60)
-        seconds = seconds % 60
-        hours = Math.floor(minutes / 60)
-        minutes = minutes % 60
-        days = Math.floor(hours / 24)
-        hours = hours % 24
-
-        days = days < 10 ? '0' + days : days.toString()
-        hours = hours < 10 ? '0' + hours : hours.toString()
-        minutes = minutes < 10 ? '0' + minutes : minutes.toString()
-        seconds = seconds < 10 ? '0' + seconds : seconds.toString()
-
-        return '00 00 ' + days + ' ' + hours + ' ' + minutes + ' ' + seconds
+        return fromMillis(milliseconds)
       }
       case 'months': {
         const monthVal = turnTime.months
