@@ -23,13 +23,9 @@ import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes, { WargameOverview } from './types/props'
 
-
-
-
-
-
 /* Render component */
-export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
+export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, 
+  initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const [timeKey, setTimeKey] = useState({
     gameDate: 0,
@@ -130,18 +126,16 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
   }, [initialOverview])
 
   const genTurnLength = (turnTime: GameTurnLength): string => {
-    switch (typeof turnTime) {
-      case 'number' :
-        return millisecondsToDDHHMMSS(turnTime as number)
-      default: {
-        const turnVal: MilliTurns | MonthTurns | YearTurns = turnTime
-        switch (turnVal.unit) {
-          case 'millis': 
-            return millisecondsToDDHHMMSS(turnVal.millis)
-          default:
-            return '0000000'
-        }
-      }
+    if (turnTime) {
+      const turnVal: MilliTurns | MonthTurns | YearTurns = turnTime
+      switch (turnVal.unit) {
+        case 'millis': 
+          return millisecondsToDDHHMMSS(turnVal.millis)
+        default:
+          return '0000000'
+      }  
+    } else {
+      return '123456'
     }
   }
 
