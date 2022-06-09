@@ -57,13 +57,14 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
   const updateTurnLength = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
-    console.log('game turn time', value, fromMasked(value))
     const val = fromMasked(value)
+    // was code able to parse string?
     if (val) {
       const updates = { ...overview, gameTurnTime: val }
       setOverview(updates)
       setDirty(updates)
     } else {
+      // nope, reinstate previous value
       const prevData = { gameTurnTime: prevOverview ? prevOverview.gameTurnTime : initialOverview.gameTurnTime }
       // forcefully re-render with previous value
       setTimeKey({ ...timeKey, gameTurnTime: prevData.gameTurnTime })
@@ -74,7 +75,6 @@ export const SettingOverview: React.FC<PropTypes> = ({
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
-    console.log('game actual time', value, fromMasked(value))
 
     const checkZero = (/^0+$/).test(value.replace(/\s/g, ''))
     if (value.length === 0 || checkZero) {
@@ -155,8 +155,6 @@ export const SettingOverview: React.FC<PropTypes> = ({
   if (!ignoreFlatpickrSnapshot && overview && overview.gameDate) {
     flatpickrValueProp.value = overview.gameDate
   }
-
-  console.log('overview', overview.gameTurnTime, toMasked(overview.gameTurnTime))
 
   return <div className={styles.main}>
     <div className={styles.row}>

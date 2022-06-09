@@ -19,5 +19,6 @@ describe('turn time from masked string:', () => {
     expect(fromMasked('00 00 04 15 06 40')).toEqual({ unit: 'millis', millis: 20000 * 20000 })
     expect(fromMasked('00 03 00 00 00 00')).toEqual({ unit: 'months', months: 3 })
     expect(fromMasked('01 03 00 00 00 00')).toEqual({ unit: 'months', months: 15 })
+    expect(fromMasked('00 00 00 00 00 00')).toEqual(undefined)
   })
 })

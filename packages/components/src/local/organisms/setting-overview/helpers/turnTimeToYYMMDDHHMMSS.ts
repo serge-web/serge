@@ -15,12 +15,12 @@ export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
       hrs * 60 * 60 * 1000 +
       days * 24 * 60 * 60 * 1000
     return { unit: 'millis', millis: val }
-  } else if (hasMonths && !hasMillis) {
+  } else if (hasMonths) {
     // ok, calc in months
     const val = years * 12 + months
     return { unit: 'months', months: val }
   } else {
-    console.warn('Can only have year/mon or day/hr/min/sec', hasMonths, hasMillis, turnTime)
+    console.warn('Cannot process all zeroes', turnTime)
     return undefined
   }
 }
