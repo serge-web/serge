@@ -48,7 +48,7 @@ export default {
 export const Default: React.FC = () => <Mapping
   mappingConstraints = {localMappingConstraints || dummyConstrants}
   forces={forces}
-  gameTurnTime = {72000}
+  gameTurnTime = {{ unit: 'millis', millis: 72000 }}
   wargameInitiated={true}
   markerIcons= {[]}
   infoMarkers={infoMarkers}

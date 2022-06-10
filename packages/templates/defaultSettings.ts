@@ -10,7 +10,7 @@ export default {
       name: 'Overview - settings',
       gameDescription: '',
       // spatialRepresentation: '',
-      gameTurnTime: 43200000,
+      gameTurnTime: { "unit": "millis", "millis": 43200000 },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
       // turnStrategy: '',

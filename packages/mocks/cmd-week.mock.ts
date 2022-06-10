@@ -1217,12 +1217,12 @@ const game: Wargame = {
       "dirty": false,
       "gameDate": "2021-05-13T16:12",
       "gameDescription": "",
-      "gameTurnTime": 43200000,
+      "gameTurnTime": { "unit": "millis", "millis": 43200000 },
       "name": "Overview - settings",
       "realtimeTurnTime": 300000,
       "showAccessCodes": true,
       "timeWarning": 60000,
-      "turnPresentation": "Turn-Pairs"
+      "turnPresentation": "Turn-Pair-Letters"
     },
     "platformTypes": {
       "dirty": false,

@@ -169,7 +169,7 @@ export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
-  gameTurnTime: twoFourHours,
+  gameTurnTime: { unit: 'millis', millis: twoFourHours },
   isGameControl: true,
   platforms: platformTypes,
   markerIcons: [],
