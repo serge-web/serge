@@ -1,5 +1,5 @@
 // import data types
-import { Phase, UMPIRE_LAYDOWN } from '@serge/config'
+import { LaydownTypes, Phase } from '@serge/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
@@ -31,12 +31,12 @@ console.clear()
 const blueF = forces[1]
 const blue1 = blueF.assets && blueF.assets[0]
 if (blue1) {
-  blue1.locationPending = 'Umpire laydown'
+  blue1.locationPending = LaydownTypes.UmpireLaydown
   blue1.position = undefined
 } 
 const blue2 = blueF.assets && blueF.assets[1]
 if (blue2) { 
-  blue2.locationPending = 'Force laydown'
+  blue2.locationPending = LaydownTypes.ForceLaydown
   blue2.position = undefined
 }
 

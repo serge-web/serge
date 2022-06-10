@@ -307,7 +307,6 @@ const wargame: Wargame = {
                                 },
                                 "turn": 3
                             }],
-                            "locationPending": true,
                             "name": "TALN",
                             "attributeValues": [
                                 {
@@ -358,7 +357,6 @@ const wargame: Wargame = {
                                     "turn": 2
                                 }
                             ],
-                            "locationPending": true,
                             "name": "SSN-2",
                             "perceptions": [],
                             "platformTypeId": "a8",
@@ -570,7 +568,6 @@ const wargame: Wargame = {
                                 },
                                 "turn": 2
                             }],
-                            "locationPending": true,
                             "name": "AGI",
                             "perceptions": [
                                 {
@@ -617,7 +614,6 @@ const wargame: Wargame = {
                                 },
                                 "turn": 2
                             }],
-                            "locationPending": true,
                             "name": "MPA 2",
                             "perceptions": [
                                 {
@@ -709,7 +705,6 @@ const wargame: Wargame = {
                             "condition": "Working",
                             "contactId": "C526",
                             "history": [],
-                            "locationPending": true,
                             "name": "MERCH 1",
                             "perceptions": [],
                             "plannedTurns": [],
@@ -722,7 +717,6 @@ const wargame: Wargame = {
                             "condition": "Working",
                             "contactId": "C926",
                             "history": [],
-                            "locationPending": true,
                             "name": "MERCH 2",
                             "perceptions": [],
                             "plannedTurns": [],
