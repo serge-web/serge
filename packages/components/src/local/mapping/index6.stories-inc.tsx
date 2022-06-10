@@ -1,6 +1,6 @@
 // import data types
-import { Phase, serverPath } from '@serge/config'
-import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role } from '@serge/custom-types'
+import { Phase, UMPIRE_LAYDOWN } from '@serge/config'
+import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
@@ -26,6 +26,19 @@ const mapping = mapChannel.constraints
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 console.clear()
+
+// suitably mangle the data
+const blueF = forces[1]
+const blue1 = blueF.assets && blueF.assets[0]
+if (blue1) {
+  blue1.locationPending = 'Umpire laydown'
+  blue1.position = undefined
+} 
+const blue2 = blueF.assets && blueF.assets[1]
+if (blue2) { 
+  blue2.locationPending = 'Force laydown'
+  blue2.position = undefined
+}
 
 async function fetchMock (): Promise<any> {
   return {
@@ -77,6 +90,13 @@ export default {
         ]
       }
     },
+    turnNumber: {
+      name: 'Turn number',
+      defaultValue: 0,
+      control: {
+        type: 'number'
+      }
+    },
     wargameInitiated: {
       name: 'Wargame has been initiated',
       control: {
@@ -116,6 +136,8 @@ const Template: Story<StoryPropTypes> = (args) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isGameControl,
     phase,
+    wargameInitiated,
+    turnNumber,
     ...props
   } = args
   const roleStr: string = playerRole
@@ -130,6 +152,8 @@ const Template: Story<StoryPropTypes> = (args) => {
       isGameControl={isGameControlRole}
       playerRole={role}
       fetchOverride={fetchMock}
+      wargameInitiated={wargameInitiated}
+      turnNumber={turnNumber}
       phase={phase}
       mapPostBack={mapPostBack}
       {...props}
@@ -148,8 +172,6 @@ NaturalEarth.args = {
   infoMarkers: annotations,
   markerIcons: icons,
   channel: mapChannel,
-  wargameInitiated: true,
-  turnNumber: 5,
   mapBar: true,
   mappingConstraints: localConstraints,
   children: (

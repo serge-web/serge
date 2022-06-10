@@ -237,7 +237,6 @@ const wargame: Wargame = {
                                     "uniqid": "nort-dart"
                                 }
                             ],
-                            "locationPending": false,
                             "name": "NORT",
                             "perceptions": [
                                 {
