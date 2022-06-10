@@ -937,7 +937,7 @@ const wargame = {
         overview: {
           name: 'Overview - settings',
           gameDescription: '',
-          gameTurnTime: { unit: 'millis', millis: 43200000 },
+          gameTurnTime: { unit: 'millis', millis: 432000 },
           realtimeTurnTime: 300000,
           timeWarning: 60000,
           gameDate: '2019-09-30T14:02:13+01:00',
@@ -1196,7 +1196,7 @@ const wargame = {
     overview: {
       name: 'Overview - settings',
       gameDescription: '',
-      gameTurnTime: { unit: 'millis', millis: 43200000 },
+      gameTurnTime: { unit: 'millis', millis: 43200 },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
       gameDate: '2019-10-01T14:02',
