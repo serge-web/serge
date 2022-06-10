@@ -21,10 +21,13 @@ const useStyles = makeStyles({
 /* Render component */
 export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, icon, onTitleChange }) => {
   const classes = useStyles()
-
   return (
     <div className={styles.main}>
-      <TextField value={children} className={styles.title} InputProps={{ className: classes.underline }} onInput={onTitleChange} />
+      {
+        onTitleChange
+          ? <TextField value={children} className={styles.title} InputProps={{ className: classes.underline }} onInput={onTitleChange} />
+          : <div className={styles.title}><div>{children}</div></div>
+      }
       <div className={styles.icon}>
         <AssetIcon color={forceColor} isSelected={false} imageSrc={icon} />
       </div>
