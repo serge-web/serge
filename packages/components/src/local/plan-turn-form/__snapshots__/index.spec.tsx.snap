@@ -8,31 +8,10 @@ exports[`PlanTurnForm renders correctly 1`] = `
     className="main"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root title"
+      className="title"
     >
-      <div
-        className="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-1 MuiInputBase-formControl MuiInput-formControl"
-        onClick={[Function]}
-      >
-        <input
-          aria-invalid={false}
-          autoFocus={false}
-          className="MuiInputBase-input MuiInput-input"
-          disabled={false}
-          onAnimationStart={[Function]}
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          required={false}
-          type="text"
-          value={
-            Array [
-              "Planning header",
-              undefined,
-              false,
-            ]
-          }
-        />
+      <div>
+        Planning header
       </div>
     </div>
     <div
