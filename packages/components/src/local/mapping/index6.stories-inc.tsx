@@ -33,9 +33,9 @@ const blue1 = blueF.assets && blueF.assets[0]
 if (blue1) {
   blue1.locationPending = LaydownTypes.UmpireLaydown
   blue1.position = undefined
-} 
+}
 const blue2 = blueF.assets && blueF.assets[1]
-if (blue2) { 
+if (blue2) {
   blue2.locationPending = LaydownTypes.ForceLaydown
   blue2.position = undefined
 }
@@ -182,4 +182,3 @@ NaturalEarth.args = {
     </>
   )
 }
-
