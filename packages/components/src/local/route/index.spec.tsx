@@ -13,7 +13,7 @@ import { routeCreateStore } from '@serge/helpers'
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
-const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', platformTypes, false, false)
+const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', false, platformTypes, false, false)
 const route: RouteType = store.routes[0] as RouteType
 
 const clearFromTurn = (turn: number): void => {
@@ -30,11 +30,12 @@ it('Mapping renders correctly with Route', () => {
     mappingConstraints = {localMappingConstraints}
     platforms = {platformTypes}
     forces={forces}
-    gameTurnTime = {72000}
+    gameTurnTime = {{ unit: 'millis', millis: 72000 }}
     wargameInitiated={true}
+    markerIcons= {[]}
     playerForce={'Blue'}
     infoMarkers={[]}
-    canSubmitOrders = {true}
+    isGameControl = {true}
     phase={Phase.Planning}
     turnNumber={2}
   >

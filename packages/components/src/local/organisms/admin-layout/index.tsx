@@ -29,7 +29,8 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
     AdminTabs.Overview,
     AdminTabs.PlatformTypes,
     AdminTabs.Forces,
-    AdminTabs.Channels
+    AdminTabs.Channels,
+    AdminTabs.Annotations
   ]
 
   const renderContainer = (reqWargame: Wargame): React.ReactNode => {

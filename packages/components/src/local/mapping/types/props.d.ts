@@ -21,7 +21,7 @@ export default interface PropTypes {
   /**
    * icons to use for info markers
    */
-  markerIcons?: AnnotationIcons
+  markerIcons: AnnotationIcons
   /**
    *  platforms for this wargame.
    * use `findPlatformTypeFor` method to retrieve platform type
@@ -36,9 +36,10 @@ export default interface PropTypes {
    */
   playerRole?: Role['roleId']
   /**
-   * if the current player can submit orders
+   * if the current player is game control - and if they can
+   * add information markers
    */
-  canSubmitOrders: boolean
+  isGameControl: boolean
   /** current phase of game
    *
   */

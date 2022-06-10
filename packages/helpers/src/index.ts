@@ -3,7 +3,6 @@
  * To generate an updated version, please run `yarn genreg`
  ***/
 
-export { default as calcAllowableCells } from './allowable-cells'
 export { default as canControlAsset, canControlAnyAsset } from './can-control-asset'
 export { default as capitalize } from './capitalize'
 export { default as checkIfDestroyed } from './check-if-destroyed'
@@ -62,7 +61,6 @@ export {
   checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
-export { default as plannedRouteFor } from './planned-route-for'
 export { default as plannedRouteFor3 } from './planned-route-for-3'
 export { default as roundToNearest } from './roundToNearest'
 export { default as routeAddSteps } from './route-add-steps'

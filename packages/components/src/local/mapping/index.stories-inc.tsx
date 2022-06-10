@@ -1,5 +1,5 @@
 // import data types
-import { Domain, Phase } from '@serge/config'
+import { Phase } from '@serge/config'
 import { MappingConstraints, MessageMap } from '@serge/custom-types'
 /* Import mock data */
 import { forces, localMappingConstraints, platformTypes, smallForces } from '@serge/mocks'
@@ -63,16 +63,6 @@ export default {
         ]
       }
     },
-    tileDiameterMins: {
-      name: 'Tile diameter, nm',
-      control: {
-        type: 'range',
-        defaultValue: 5,
-        min: 1,
-        max: 15,
-        step: 1
-      }
-    },
     planningRangeProp: {
       name: 'Platform range',
       control: {
@@ -126,16 +116,14 @@ interface StoryPropTypes extends MappingPropTypes {
 
 const osmMappingConstraints: MappingConstraints = {
   bounds: [[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]],
-  tileDiameterMins: 5,
+  h3res: 3,
   tileLayer: {
     url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
     attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
   },
   minZoom: 8,
   maxZoom: 13,
-  maxNativeZoom: 12,
-  minZoomHexes: 8,
-  targetDataset: Domain.GULF
+  maxNativeZoom: 12
 }
 
 const Template: Story<StoryPropTypes> = (args) => {
@@ -176,8 +164,9 @@ Default.args = {
   mappingConstraints: localMappingConstraints,
   forces: forces,
   playerForce: 'Blue',
-  gameTurnTime: 72000,
-  canSubmitOrders: false,
+  gameTurnTime: { unit: 'millis', millis: 72000 },
+  markerIcons: [],
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -190,8 +179,9 @@ export const WithMapBar = Template
 WithMapBar.args = {
   forces: forces,
   mappingConstraints: localMappingConstraints,
-  gameTurnTime: 72000,
-  canSubmitOrders: false,
+  gameTurnTime: { unit: 'millis', millis: 72000 },
+  markerIcons: [],
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,
   turnNumber: 5
@@ -207,10 +197,10 @@ export const WithMarker = Template
 WithMarker.args = {
   forces: forces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
-  gameTurnTime: 72000,
+  gameTurnTime: { unit: 'millis', millis: 72000 },
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: false,
@@ -289,7 +279,7 @@ WithGrid.args = {
   phase: Phase.Planning,
   turnNumber: 5,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   mapBar: false,
   children: <HexGrid />
 }
@@ -304,7 +294,7 @@ WithAllowableRange.args = {
   phase: Phase.Planning,
   mappingConstraints: localMappingConstraints,
   turnNumber: 5,
-  canSubmitOrders: false,
+  isGameControl: false,
   playerForce: 'Blue',
   mapBar: false,
   planningRangeProp: 3,
@@ -321,7 +311,7 @@ OpenStreetMap.args = {
   mappingConstraints: osmMappingConstraints,
   forces: forces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -335,7 +325,7 @@ OpenStreetMap.args = {
 export const WithPhases = Template
 WithPhases.args = {
   forces: forces,
-  canSubmitOrders: false,
+  isGameControl: false,
   mappingConstraints: localMappingConstraints,
   platforms: platformTypes,
   mapPostBack: mapPostBack,

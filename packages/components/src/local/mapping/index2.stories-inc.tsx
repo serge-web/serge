@@ -117,10 +117,11 @@ newForces[1].assets[0].position = 'G12'
 export const Default = Template
 Default.args = {
   forces: newForces,
-  gameTurnTime: 72000,
+  gameTurnTime: { unit: 'millis', millis: 72000 },
   mappingConstraints: localMappingConstraints,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  markerIcons: [],
+  isGameControl: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,
   turnNumber: 5,

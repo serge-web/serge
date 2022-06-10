@@ -1,11 +1,15 @@
 /* global it expect */
 /* Import mock data */
-import { forces, platformTypes } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
 import { Phase } from '@serge/config'
 
 import canCombineWith from './can-combine-with'
 import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
-import { ForceData, RouteStore } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, ForceData, RouteStore } from '@serge/custom-types'
+
+const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
+const forces = watuWargame.data.forces.forces
+const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 const setLocation = (forces: ForceData[], assetID: string, location: string): void => {
   const asset = findAsset(forces, assetID)
@@ -16,23 +20,21 @@ it('returns correct combine with answers', () => {
   const myForces = deepCopy(forces)
 
   // put the tanker in the same cell as the frigate
-  if (myForces[1].assets) {
-    myForces[1].assets[3].position = myForces[1].assets[1].position
-  }
+  const blueForce: ForceData = myForces[1]
 
-  const tankerId = 'a0pra00003'
-  const frigateId = 'a0pra00001'
+  const talnID = 'talnID'
+  const frigateId = 'nortID'
   const groupId = 'a0pra5431'
   const merlinId = 'a0pra11002'
 
   // frigate / tanker in same cell
   setLocation(myForces, frigateId, '831801fffffffff')
-  setLocation(myForces, tankerId, '831801fffffffff')
+  setLocation(myForces, talnID, '831801fffffffff')
 
   // put task group once cell away
   setLocation(myForces, groupId, '83182afffffffff')
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, myForces, 'Blue', 'role-id', platformTypes, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, myForces, blueForce.uniqid, blueForce.roles[0].roleId, false, platformTypes, false, false, undefined, undefined, mapChannel)
 
   // when component first renders, there isn't anything selected, so id of '-1' is used
   const UNSELECTED_ID = -1
@@ -44,8 +46,8 @@ it('returns correct combine with answers', () => {
   expect(canCombineWith(store, UNSELECTED_ID, groupId, [], 'group')).toBeTruthy()
 
   // let platforms in same cell be draggable
-  expect(canCombineWith(store, tankerId, frigateId, [], 'group')).toBeTruthy()
-  expect(canCombineWith(store, frigateId, tankerId, [], 'group')).toBeTruthy()
+  expect(canCombineWith(store, talnID, frigateId, [], 'group')).toBeTruthy()
+  expect(canCombineWith(store, frigateId, talnID, [], 'group')).toBeTruthy()
 
   // if they're not in same cell, they're not draggable
   expect(canCombineWith(store, frigateId, groupId, [], 'group')).toBeFalsy()

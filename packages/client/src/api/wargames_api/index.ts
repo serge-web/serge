@@ -57,7 +57,9 @@ import {
   MessageUpdateMarker,
   MapAnnotationData,
   MessageStateOfWorld,
-  WargameRevision
+  WargameRevision,
+  IconOption,
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
 import {
@@ -395,6 +397,7 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType): 
 }
 
 export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
+  console.log('current', currentPlatformType)
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
@@ -419,6 +422,14 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     newDoc.data.platformTypes = data
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const saveAnnotation = (dbName: string, data: AnnotationMarkerData): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    newDoc.data.annotationIcons = data
     return updateWargame(newDoc, dbName)
   })
 }
@@ -882,4 +893,37 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
       }).catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
+}
+
+export const deleteAnnotation = (dbName: string, annotation: IconOption): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+
+    if (newDoc.data.annotationIcons) {
+      newDoc.data.annotationIcons.markers = newDoc.data.annotationIcons.markers.filter((annotationDelete) => annotationDelete.name !== annotation.name)
+    } else {
+      console.warn('Trying to delete platform types, but structure is empty')
+    }
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption) => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc = deepCopy(res)
+    const updatedData = newDoc.data
+    if (updatedData.annotations) {
+      const annotation = updatedData.annotationIcons.markers || []
+      const annotationIndex = annotation.findIndex((annotation: IconOption) => annotation.name === currentAnnation.name)
+      const duplicatedAnnation = deepCopy(currentAnnation)
+      const uniq = uniqid.time()
+
+      duplicatedAnnation.name = `${duplicatedAnnation.name}-${uniq}`
+      
+      annotation.splice(annotationIndex, 0, duplicatedAnnation)
+      updatedData.annotationIcons.markers = annotation
+    }
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
 }

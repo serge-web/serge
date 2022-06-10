@@ -32,9 +32,6 @@ export default {
     }
   },
   argTypes: {
-    canSubmitOrders: {
-      description: 'Show other platforms'
-    },
     phase: {
       description: 'Game phase',
       control: {
@@ -80,7 +77,7 @@ const Template: Story<WorldStatePropTypes> = (args) => {
     Red: 'Red'
   }
   const forceName = forceNames[viewAs]
-  const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, 'role-id', platformTypes, false, false)
+  const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, 'role-id', false, platformTypes, false, false)
   return <WorldState store={{ ...storeProp }} {...props} />
 }
 
@@ -89,7 +86,6 @@ WithPhases.args = {
   panel: WorldStatePanels.Control,
   isUmpire: false,
   plansSubmitted: false,
-  canSubmitOrders: true,
   turnNumber: 1,
   phase: Phase.Planning,
   submitTitle: 'Submit',

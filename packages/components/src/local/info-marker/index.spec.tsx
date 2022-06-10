@@ -27,12 +27,13 @@ it('Mapping renders correctly with AssetIcon', () => {
   const tree = location && mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces = {forces}
-    gameTurnTime = {72000}
+    gameTurnTime = {{ unit: 'millis', millis: 72000 }}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     infoMarkers={[]}
     playerForce = 'blue'
-    canSubmitOrders = {true}
+    isGameControl = {true}
     phase = {Phase.Planning}
     turnNumber={5}
   ><InfoMarker location={location} icons={icons} locationHex={(marker && marker.location) || 'aa'} marker={marker} /></Mapping>, { attachTo: div })

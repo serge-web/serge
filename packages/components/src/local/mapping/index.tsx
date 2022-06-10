@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING
+  LAYDOWN_TURN, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -75,8 +75,8 @@ export const Mapping: React.FC<PropTypes> = ({
   mapBar,
   forces,
   playerForce,
+  isGameControl,
   playerRole,
-  canSubmitOrders,
   platforms,
   infoMarkers,
   markerIcons,
@@ -130,8 +130,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
 
-  const domain = (mappingConstraintState && enumFromString(Domain, mappingConstraintState.targetDataset)) || Domain.ATLANTIC
-
   if (!channel) {
     console.warn('Channel is missing from mapping component')
   }
@@ -158,7 +156,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // only update bounds if they're different to the current one
   useEffect(() => {
     // TODO: we should only be allowing this for the Game Control
-    setShowAddInfo((playerForce === UMPIRE_FORCE) && canSubmitOrders)
+    setShowAddInfo((playerForce === UMPIRE_FORCE) && isGameControl)
   }, [phase, playerForce])
 
   // if marker is selected, clear the asset
@@ -199,7 +197,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // the player may be doing force laydown
     if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
       const layPhase = store.selected.laydownPhase
-      if (layPhase && canSubmitOrders) {
+      if (layPhase && isGameControl) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
           const pType = findPlatformTypeFor(platforms, '', asset.platformTypeId)
@@ -252,7 +250,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (viewAsForce === UMPIRE_FORCE) {
       return markers
     } else {
-      return markers.filter((marker: MapAnnotation) => marker.visibleTo.includes(force))
+      return markers ? markers.filter((marker: MapAnnotation) => marker.visibleTo.includes(force)) : []
     }
   }
 
@@ -272,7 +270,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing',
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
       setRouteStore(store)
     }
@@ -507,10 +505,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (!mappingConstraintState) {
       throw new Error('Cannot calculate distance without mapping constraints')
     }
-    const minsToM = (mins: number): number => {
-      return mins * 1862
-    }
-    const tileRadiusM = mappingConstraintState.h3res ? h3.edgeLength(mappingConstraintState.h3res, 'm') : minsToM(mappingConstraintState.tileDiameterMins)
+    const tileRadiusM = h3.edgeLength(mappingConstraintState.h3res, 'm')
     const tileDiameterM = tileRadiusM * 2
     return tileDiameterM * 0.75
   }
@@ -718,7 +713,6 @@ export const Mapping: React.FC<PropTypes> = ({
     markerIcons: markerIcons,
     platforms,
     playerForce,
-    canSubmitOrders,
     phase,
     turnNumber,
     planningConstraints,
@@ -749,7 +743,6 @@ export const Mapping: React.FC<PropTypes> = ({
     groupHostPlatform: groupHostPlatformLocal,
     plansSubmitted,
     setPlansSubmitted,
-    domain: domain,
     polygonAreas,
     panTo,
     cellLabelStyle,

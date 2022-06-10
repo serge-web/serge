@@ -320,7 +320,6 @@ export const forces: ForceData[] = [
     "roles": [
       {
         "roleId": "rk116f5e",
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -821,7 +820,6 @@ export const forces: ForceData[] = [
       }
     ],
     "color": "#0F0",
-    "controlledBy": "umpire",
     "dirty": false,
     "iconURL": "default_img/umpireDefault.png",
     "name": "Green",

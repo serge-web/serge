@@ -16,7 +16,7 @@ const markers: MapAnnotations = []
 it('dont declutter last point on selected track', () => {
   const fisherAId = 'a0pra000202'
   const dhowAId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(fisherAId, Phase.Adjudication, forces, umpireId, 'role-id', platformTypes, true, true)
+  const store: RouteStore = routeCreateStore(fisherAId, Phase.Adjudication, forces, umpireId, 'role-id', false, platformTypes, false, false, undefined, undefined, undefined)
 
   expect(store.routes.length).toEqual(13)
 
@@ -69,7 +69,7 @@ it('dont declutter last point on selected track', () => {
 it('declutter last point on un-selected track', () => {
   const fisherAId = 'a0pra000202'
   const dhowAId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireId, 'role-id', platformTypes, true, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, umpireId, 'role-id', false, platformTypes, false, false, undefined, undefined, undefined)
 
   expect(store.routes.length).toEqual(13)
 

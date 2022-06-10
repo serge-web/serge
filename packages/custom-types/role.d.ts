@@ -13,11 +13,6 @@ export default interface Role {
    * whether this role can view user insights/feedback (umpire force only)
    */
   isInsightViewer: boolean,
-  /**
-   * whether this role can submit plans from the Mapping component
-   * @deprecated now that we have per role permissions in mapping channel
-   */
-  canSubmitPlans?: boolean
   /** 
    * whether this role can manage (release) RFIs 
    */

@@ -77,11 +77,13 @@ export const SettingForces: React.FC<PropTypes> = ({
     }
 
     const onSaveForce = (): void => {
-      if (!selectedForce) {
+      const currentForce = selectedItem >= 0 && forcesData[selectedItem]
+      if (!currentForce) {
+        console.log('do not have selected force. Not saving', selectedItem)
         return
       }
       const attributeErrors: string[] = []
-      selectedForce.assets && selectedForce.assets.forEach((asset: Asset) => {
+      currentForce.assets && currentForce.assets.forEach((asset: Asset) => {
         const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
         // check for extra attributes
         const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
@@ -129,10 +131,10 @@ export const SettingForces: React.FC<PropTypes> = ({
         // If not, just save the forcesData
         if (attributeErrors.length) {
           forcesData.some(force => {
-            if (force.uniqid === selectedForce.uniqid && force.assets) {
+            if (force.uniqid === currentForce.uniqid && force.assets) {
               force.assets.forEach((asset, idx) => {
-                if (selectedForce.assets) {
-                  asset.attributeValues = selectedForce.assets[idx].attributeValues
+                if (currentForce.assets) {
+                  asset.attributeValues = currentForce.assets[idx].attributeValues
                 }
               })
               return true
@@ -169,7 +171,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             }} />
           </div>
           <div className={styles.col} style={{ textDecoration: 'underline' }}>
-            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
+            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
               handleChangeForce({ ...data, icon })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>

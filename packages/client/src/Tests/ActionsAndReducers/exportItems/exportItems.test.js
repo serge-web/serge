@@ -1,7 +1,5 @@
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { createMessageExportItem } from '../../../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
-import { exportItems } from '../../../ActionsAndReducers/ExportItems/ExportItems_Reducer'
 import * as ActionConstants from '@serge/config'
 
 const mockStore = configureStore([thunk])
@@ -87,7 +85,7 @@ const wargame = {
         overview: {
           name: 'Overview - settings',
           gameDescription: '',
-          gameTurnTime: 43200000,
+          gameTurnTime: { unit: 'millis', millis: 432000 },
           realtimeTurnTime: 300000,
           timeWarning: 60000,
           gameDate: '2019-10-01T14:02',
@@ -417,7 +415,7 @@ const wargame = {
         overview: {
           name: 'Overview - settings',
           gameDescription: '',
-          gameTurnTime: 43200000,
+          gameTurnTime: { unit: 'millis', millis: 43200 },
           realtimeTurnTime: 300000,
           timeWarning: 60000,
           gameDate: '2019-10-01T02:02',
@@ -678,7 +676,7 @@ const wargame = {
         overview: {
           name: 'Overview - settings',
           gameDescription: '',
-          gameTurnTime: 43200000,
+          gameTurnTime: { unit: 'millis', millis: 432000 },
           realtimeTurnTime: 300000,
           timeWarning: 60000,
           gameDate: '2019-10-01T02:02',
@@ -939,7 +937,7 @@ const wargame = {
         overview: {
           name: 'Overview - settings',
           gameDescription: '',
-          gameTurnTime: 43200000,
+          gameTurnTime: { unit: 'millis', millis: 432000 },
           realtimeTurnTime: 300000,
           timeWarning: 60000,
           gameDate: '2019-09-30T14:02:13+01:00',
@@ -1198,7 +1196,7 @@ const wargame = {
     overview: {
       name: 'Overview - settings',
       gameDescription: '',
-      gameTurnTime: 43200000,
+      gameTurnTime: { unit: 'millis', millis: 43200 },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
       gameDate: '2019-10-01T14:02',

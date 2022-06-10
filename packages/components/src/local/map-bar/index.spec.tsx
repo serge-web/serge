@@ -23,8 +23,9 @@ it('Mapping renders correctly with AssetIcon', () => {
     wargameInitiated = {true}
     platforms = {platformTypes}
     infoMarkers={[]}
+    markerIcons={[]}
     playerForce = 'blue'
-    canSubmitOrders = {false}
+    isGameControl = {false}
     phase={Phase.Planning}
     turnNumber={5}
   ><MapBar /></Mapping>, { attachTo: div })

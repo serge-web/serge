@@ -20,12 +20,13 @@ it('Mapping renders correctly with HexGrid', () => {
   const tree = mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces={forces}
-    gameTurnTime = {72000}
+    gameTurnTime = {{ unit: 'millis', millis: 72000 }}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     playerForce={'Blue'}
     infoMarkers={[]}
-    canSubmitOrders = {true}
+    isGameControl = {true}
     phase={Phase.Planning}
     turnNumber={5}
   />, { attachTo: div })

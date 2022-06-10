@@ -20,9 +20,11 @@ import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping 
 import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
-import Confirm from '../../atoms/confirm'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
+import Confirm from '../../atoms/confirm'
+// import { CircleOutlined } from '@material-ui/icons'
+import { CustomDialog } from '../../atoms/custom-dialog'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
@@ -34,18 +36,17 @@ import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCus
 import generateRowItemsChat from './helpers/generateRowItemsChat'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import generateRowItemsCustom from './helpers/generateRowItemsCustom'
+import generateRowItemsMapping from './helpers/generateRowItemsMapping'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged } from './helpers/messageCollabUtils'
 import rowToParticipantChat from './helpers/rowToParticipantChat'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
 import rowToParticipantCustom from './helpers/rowToParticipantCustom'
+import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToParticipantMapping'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
 import PropTypes, { ChannelTypes } from './types/props'
-import rowToParticipantMapping from './helpers/rowToParticipantMapping'
-import generateRowItemsMapping from './helpers/generateRowItemsMapping'
-// import { CircleOutlined } from '@material-ui/icons'
 
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({
@@ -58,15 +59,17 @@ export const SettingChannels: React.FC<PropTypes> = ({
   channels,
   forces,
   messageTemplates,
-  selectedChannel
+  selectedChannel: originalChannel
 }) => {
-  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
+  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === originalChannel?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))
+  const [selectedChannelState, setSelectedChannelState] = useState<ChannelTypes | undefined>(originalChannel)
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
+  const [problems, setProblems] = useState<string>('')
 
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
@@ -74,21 +77,28 @@ export const SettingChannels: React.FC<PropTypes> = ({
     value: template
   }))
 
-  const isCollab = isCollabChannel(selectedChannel)
-  const isChat = selectedChannel && selectedChannel.channelType === CHANNEL_CHAT
-  const isCustom = selectedChannel && selectedChannel.channelType === CHANNEL_CUSTOM
-  const isMapping = selectedChannel && selectedChannel.channelType === CHANNEL_MAPPING
-  const channelAsLegacy = selectedChannel as any
+  const isCollab = isCollabChannel(selectedChannelState)
+  const isChat = selectedChannelState && selectedChannelState.channelType === CHANNEL_CHAT
+  const isCustom = selectedChannelState && selectedChannelState.channelType === CHANNEL_CUSTOM
+  const isMapping = selectedChannelState && selectedChannelState.channelType === CHANNEL_MAPPING
+  const channelAsLegacy = selectedChannelState as any
   const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
 
+  // representation of channel, in more specific types
+  const mappingChannel: ChannelMapping | undefined | false = isMapping && selectedChannelState as ChannelMapping
+
   /** init data for collab panel controls */
-  const messagesValues = getMessagesValues(isCollab, selectedChannel)
+  const messagesValues = getMessagesValues(isCollab, selectedChannelState)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
 
   useEffect(() => {
     /** on changes channel, update the message data local */
     setMessageLocal(messagesValues)
-  }, [selectedChannel])
+  }, [selectedChannelState])
+
+  useEffect(() => {
+    setSelectedChannelState(channels[selectedItem])
+  }, [selectedItem])
 
   const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
@@ -172,15 +182,15 @@ export const SettingChannels: React.FC<PropTypes> = ({
         const nextParticipant = rowToParticipantMapping(forces, nextItems, participant as ParticipantMapping)
         return generateRowItemsMapping(forces, nextParticipant)
       }
-      console.warn('Not handled changed row for ', selectedChannel?.name)
+      console.warn('Not handled changed row for ', selectedChannelState?.name)
       return []
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
-      if (selectedChannel) {
+      if (selectedChannelState) {
         handleSaveRows([
           ...data.participants,
-          createParticipant(messageTemplatesOptions, forces, rowItems, selectedChannel.channelType)
+          createParticipant(messageTemplatesOptions, forces, rowItems, selectedChannelState.channelType)
         ])
       } else {
         console.warn('Can`t create new participant, no current channel')
@@ -202,7 +212,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
           } else if (isChat) {
             nextParticipants[pKey] = rowToParticipantChat(forces, row, participant as ParticipantChat)
           } else if (isMapping) {
-            nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
+            // do check
+            const problems = checkForSaveProblems(row)
+            if (problems) {
+              setProblems(problems)
+              return
+            } else {
+              nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
+            }
           } else {
             nextParticipants[pKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           }
@@ -237,6 +254,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           defaultMode='view'
           actions={true}
           participantKey={key}
+          presentAsList
         />
       })
     }
@@ -331,16 +349,16 @@ export const SettingChannels: React.FC<PropTypes> = ({
         </div>
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section, styles.table)}>
-            {!isCollab &&
+            {!isCollab && !isMapping &&
               <FormGroup placeholder="Participants and messages">
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="center">Restrict access to specific roles</TableCell>
+                        <TableCell align="left">Restrict access to specific roles</TableCell>
                         {isCustom &&
-                          <TableCell align="center">Templates</TableCell>
+                          <TableCell align="left">Templates</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
@@ -355,11 +373,40 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
+            {isMapping &&
+              <FormGroup>
+                <Paper className={styles.pager}>
+                  <div className={styles['control-groups']}>
+                    <div>Controls for <em>Mapping Constraints</em> go in here</div>
+                    <div>Sample bounds:{mappingChannel && mappingChannel.constraints.bounds}</div>
+                  </div>
+                </Paper>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Force</TableCell>
+                        <TableCell align="left">Restrict access to specific roles</TableCell>
+                        <TableCell align="left">Controls</TableCell>
+                        <TableCell align="right">Actions</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {renderTableBody(data)}
+                    </TableBody>
+                    <TableFooter>
+                      {renderTableFooter()}
+                    </TableFooter>
+                  </Table>
+                </TableContainer>
+
+              </FormGroup>
+            }
             {isCollab &&
               <FormGroup>
                 <Paper className={styles.pager}>
                   <div className={styles['control-groups']}>
-
+                    COLLAB NESSAGE
                     <MessageGroup
                       title="Message Templates"
                       multiple={false}
@@ -396,7 +443,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <div className={styles['control-groups']}>
                       <MessageGroup
                         title='Request Changes'
-                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannelState)}
                         multiple={false}
                         onChange={(val: string[]): void => onRequestChanged(val, 'add')}
                         onDelete={(val: string[]): void => onRequestChanged(val, 'delete')}
@@ -405,7 +452,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='Approve'
-                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannelState)}
                         multiple={false}
                         onChange={(val: string[]): void => onApproveChanged(val, 'add')}
                         onDelete={(val: string[]): void => onApproveChanged(val, 'delete')}
@@ -414,7 +461,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='Release'
-                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannelState)}
                         multiple={false}
                         onChange={(val: string[]): void => onReleaseChanged(val, 'add')}
                         onDelete={(val: string[]): void => onReleaseChanged(val, 'delete')}
@@ -533,6 +580,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   return (
     <AdminContent>
+      <CustomDialog
+        isOpen={!!problems}
+        header={'Error'}
+        cancelBtnText={'OK'}
+        onClose={(): void => setProblems('')}
+        content={problems}
+      />
       <Confirm
         isOpen={participantKey !== -1}
         title="Delete Participation"
