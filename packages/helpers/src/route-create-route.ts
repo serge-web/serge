@@ -163,14 +163,20 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  * @param {string} original position the original position for the asset
  * @param {Route} route current route description, potentially including location of laid-down asset
  */
-const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | string,
+export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | string,
   originalPosition?: string, route?: Route): LaydownPhases => {
   if (phase !== Phase.Adjudication) {
     // ok, we only do laydown in adjudication phase
     return LaydownPhases.NotInLaydown
   } else if (locationPending === undefined) {
-    if (wargameInitated) {
-      return LaydownPhases.NotInLaydown
+    if (currentPosition === undefined) {
+      if (wargameInitated) {
+        // assume player laydown, if wargame initiated
+        return LaydownPhases.NotInLaydown
+      } else {
+        // assume umpire laydown
+        return LaydownPhases.Immobile
+      }
     } else {
       return LaydownPhases.Immobile
     }
@@ -181,7 +187,6 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
         switch (locationPending) {
           case LaydownTypes.UmpireLaydown:
             // if we're initiated then the player/umpire can't move it
-            console.warn('warning - encountered umpire lockdown after wargame initiated')
             return LaydownPhases.Immobile
           case LaydownTypes.ForceLaydown: {
             const routePos = route && route.currentPosition
@@ -208,6 +213,10 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
           // if we're not initiated then the umpire can't move it
           return LaydownPhases.Immobile
         case LaydownTypes.UmpireLaydown: {
+          if (!currentPosition) {
+            // umpire doing laydown, but existing position not known
+            return LaydownPhases.Unmoved
+          }
           const routePos = route && route.currentPosition
           const currentPos = routePos || currentPosition
           if (currentPos !== originalPosition) {
