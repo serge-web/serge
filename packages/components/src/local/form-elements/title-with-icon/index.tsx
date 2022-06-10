@@ -24,8 +24,8 @@ export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, icon,
   return (
     <div className={styles.main}>
       {
-        onTitleChange ? 
-          <TextField value={children} className={styles.title} InputProps={{ className: classes.underline }} onInput={onTitleChange} />
+        onTitleChange
+          ? <TextField value={children} className={styles.title} InputProps={{ className: classes.underline }} onInput={onTitleChange} />
           : <div className={styles.title}><div>{children}</div></div>
       }
       <div className={styles.icon}>
