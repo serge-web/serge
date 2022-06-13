@@ -266,6 +266,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   wargameInitiated: boolean): Route => {
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
+  console.log('create route', underControlForce, underControlRole)
+
   const showHistory = asset.platformTypeId !== DATUM
 
   // store the potentially modified route data

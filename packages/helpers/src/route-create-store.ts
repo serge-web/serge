@@ -1,7 +1,7 @@
 
 import L from 'leaflet'
 import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
-import routeCreateRoute from './route-create-route'
+import routeCreateRoute, { laydownPhaseFor } from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
@@ -52,6 +52,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
       // loop through assets
       force.assets.forEach((asset: Asset) => {
         // we can only do this for assets with a position
+        in laydownPhaseFor, we will have assets without position - that needs to be handled
         if (asset.position) {
           // see if there is an existing planned route for this asset
           const existingRouteBase: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)

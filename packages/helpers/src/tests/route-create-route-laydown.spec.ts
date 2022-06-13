@@ -62,5 +62,5 @@ it('correctly sets laydown status for umpire', () => {
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, whiteForce, umpireRole, true,
     platformTypes, showSteps, showSteps, notInitiated, undefined, mappingChan)
   expect(store).toBeTruthy()
-//  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Unmoved)
+  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Unmoved)
 })
