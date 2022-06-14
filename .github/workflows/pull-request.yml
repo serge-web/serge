@@ -57,6 +57,13 @@ jobs:
           name: macos_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_macos.zip
           if-no-files-found: error
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos_executable_arm64
+          path: /home/runner/work/serge/serge/packages/executable/builds/*_macos_arm64.zip
+          if-no-files-found: error
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
