@@ -165,6 +165,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  */
 export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | string,
   originalPosition?: string, route?: Route): LaydownPhases => {
+//   console.log('laydown phase for', phase, wargameInitated, currentPosition, locationPending, originalPosition, route)
   if (phase !== Phase.Adjudication) {
     // ok, we only do laydown in adjudication phase
     return LaydownPhases.NotInLaydown
@@ -261,12 +262,12 @@ export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentP
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   underControlForce: boolean, underControlRole: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
   perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
-  currentLocation: L.LatLng, includePlanned: boolean,
+  currentLocation: L.LatLng | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
-  console.log('create route', underControlForce, underControlRole)
+  //  console.log('create route', asset.name, asset.locationPending, asset.position, underControlForce, underControlRole)
 
   const showHistory = asset.platformTypeId !== DATUM
 
@@ -292,7 +293,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const condition: string = asset.condition
 
-  const laydownPhase = underControlForce
+  const laydownPhase = underControlRole
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
     : LaydownPhases.Immobile
 

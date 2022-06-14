@@ -2,19 +2,19 @@
 import L from 'leaflet'
 import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
-import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
+import { ADJUDICATION_PHASE, LaydownTypes, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
 import { canControlAsset, underControlByThisForce } from './can-control-asset'
 
-const locationFor = (position: string, existingRoute?: Route): L.LatLng | string => {
+const locationFor = (position: string, existingRoute?: Route): L.LatLng | undefined => {
   if (existingRoute) {
-    return existingRoute.currentPosition
+    return existingRoute.currentLocation2
   } else {
     if (position === 'pending') {
-      return 'pending'
+      return undefined
     } else {
       const h3loc: number[] | undefined = (position && h3ToGeo(position)) || undefined
       const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
@@ -67,6 +67,12 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     if (force.assets) {
       // loop through assets
       force.assets.forEach((asset: Asset) => {
+        // if it's waiting for laydown, we provide position as pending
+        const assetInLaydown = asset.locationPending && asset.locationPending !== LaydownTypes.Fixed
+        if (!asset.position && assetInLaydown) {
+          asset.position = 'pending'
+        }
+
         // we can only do this for assets with a position
         if (asset.position) {
           // see if there is an existing planned route for this asset
@@ -77,7 +83,16 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           // sort out if this role can control this asset
           const gcInAdjudicate = adminInAdj && isGameControl
-          const controlledByThisRole = gcInAdjudicate || (channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)) || false
+
+          // special case for asset requiring laydown at start of game
+          const layType = asset.locationPending
+          const umpireLaydownInUnInitialisedGame = !wargameInitiated && isGameControl && layType === LaydownTypes.UmpireLaydown
+          const forceplayerLaydownInInitialisedGame = wargameInitiated && layType === LaydownTypes.ForceLaydown
+
+          const notUmpireLockdownAndUnderPlayerControl = !umpireLaydownInUnInitialisedGame && channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)
+
+          const controlledByThisRole = gcInAdjudicate || notUmpireLockdownAndUnderPlayerControl ||
+            umpireLaydownInUnInitialisedGame || false
           const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
@@ -89,6 +104,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
+          console.log('collate route', asset.name, asset.locationPending, notUmpireLockdownAndUnderPlayerControl, umpireLaydownInUnInitialisedGame, forceplayerLaydownInInitialisedGame, controlledByThisForce, controlledByThisRole)
+
           if (controlledByThisForce || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
             // if it's the selected asset, we plot all future steps
@@ -96,7 +113,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
               controlledByThisForce, controlledByThisRole, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
-              platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
+              platformTypes, playerForceId, asset.status, asset.position, assetLocation,
               true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
             if (existingRoute) {
@@ -125,7 +142,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   if (asset.position && perceptions) {
                     // create route for this asset
                     const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, controlledByThisForce, false, false, force.uniqid, perceptions.forceId,
-                      perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
+                      perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, asset.position, assetLocation,
                       false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
                   }
@@ -140,7 +157,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                 if (perceptions) {
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, controlledByThisForce, false, false, force.uniqid, perceptions.forceId,
-                    perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
+                    perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, asset.position, assetLocation,
                     false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                   store.routes.push(newRoute)
                 }

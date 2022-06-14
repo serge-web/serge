@@ -5,7 +5,7 @@ import { watuWargame } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 
-import { ChannelMapping, RouteStore } from '@serge/custom-types'
+import { ChannelMapping, Route, RouteStore } from '@serge/custom-types'
 import { LaydownPhases, LaydownTypes, Phase } from '@serge/config'
 import { laydownPhaseFor } from '../route-create-route'
 
@@ -26,6 +26,12 @@ if (blue2) {
   blue2.locationPending = LaydownTypes.ForceLaydown
   blue2.position = undefined
 }
+
+console.log('before test', blueF.assets && blueF.assets[0].name)
+
+// blueF.assets = blueF.assets ? [blueF.assets[0]] : []
+// forces[2].assets = []
+forces[3].assets = []
 
 it('determines correct laydown phase', () => {
   const notInitiated = false
@@ -54,13 +60,50 @@ it('determines correct laydown phase', () => {
     LaydownTypes.Fixed, undefined, undefined)).toEqual(LaydownPhases.Immobile)
 })
 
-it('correctly sets laydown status for umpire', () => {
+it('correctly sets laydown status for player in non-init', () => {
   // first version is umpure in non-initited wargame
   const notInitiated = false
+  const isGameControl = false
+  const blueForce = forces[1].uniqid
+  const blueCO = forces[1].roles[0].roleId
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce, blueCO, isGameControl,
+    platformTypes, showSteps, showSteps, notInitiated, undefined, mappingChan)
+  expect(store).toBeTruthy()
+  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[0].asset.locationPending).toEqual(LaydownTypes.UmpireLaydown)
+
+  expect(store.routes[1].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[1].asset.locationPending).toEqual(LaydownTypes.ForceLaydown)
+
+  expect(store.routes[2].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[2].asset.locationPending).toEqual(undefined)
+})
+
+it('correctly sets laydown status for umpire in init', () => {
+  // first version is umpure in non-initited wargame
+  const initiated = true
   const whiteForce = forces[0].uniqid
   const umpireRole = forces[0].roles[0].roleId
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, whiteForce, umpireRole, true,
-    platformTypes, showSteps, showSteps, notInitiated, undefined, mappingChan)
+    platformTypes, showSteps, showSteps, initiated, undefined, mappingChan)
   expect(store).toBeTruthy()
-  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Unmoved)
+  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[0].asset.locationPending).toEqual(LaydownTypes.UmpireLaydown)
+
+  expect(store.routes[1].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[1].asset.locationPending).toEqual(LaydownTypes.ForceLaydown)
+
+  expect(store.routes[2].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[2].asset.locationPending).toEqual(undefined)
+  console.table(routesAsArray(store.routes))
 })
+
+export const routesAsArray = (routes: Route[]): any[] => {
+  return routes.map((route: Route) => {
+    return [route.name,
+      route.asset.locationPending,
+      route.laydownPhase,
+      route.currentPosition
+    ]
+  })
+}

@@ -64,9 +64,10 @@ export default interface Route {
    */
   currentPosition: string | 'pending',
   /** current position of this asset
-   * populated in the `declutter` phase
+   * populated in the `declutter` phase. May be
+   * undefined if position unknown (pending)
    */
-  currentLocation2?: L.LatLng | undefined | 'pending',
+  currentLocation2?: L.LatLng | undefined,
   /** original position, used to determine if moved in force laydown */
   originalPosition?: string,
   /** status of laydown */

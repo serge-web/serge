@@ -1,5 +1,5 @@
 import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from '@serge/custom-types'
-import { CONTROL_ALL } from '@serge/config'
+import { CONTROL_ALL, LaydownTypes, Phase } from '@serge/config'
 
 export const canControlAnyAsset = (channel: ChannelMapping, role: Role['roleId']): boolean => {
   const singleRoleParticipations = channel.participants.filter((part: ParticipantMapping) => part.roles && part.roles.length === 1)
@@ -18,6 +18,26 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
     // see if we an asset from our force controls this asset
     const controlsThisAsset = channel.participants.find((part:ParticipantMapping) => part.controls && part.controls.includes(asset))
     return !!controlsThisAsset && (controlsThisAsset.forceUniqid === roleForce)
+  }
+}
+
+export const canControlAssetExtended = (channel: ChannelMapping, assetForce: string,
+  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes, phase: Phase): boolean => {
+  const canControlAccordingToChannelDef = canControlAsset(channel, assetForce, assetId, roleId)
+  if (laydown && laydown !== LaydownTypes.Fixed) {
+    switch (laydown) {
+      case LaydownTypes.UmpireLaydown:
+        return isGameControl && !wargameInitiated
+      case LaydownTypes.ForceLaydown:
+        return canControlAccordingToChannelDef && wargameInitiated
+    }
+  } else {
+    switch (phase) {
+      case Phase.Adjudication :
+        return isGameControl
+      case Phase.Planning :
+        return canControlAccordingToChannelDef
+    }
   }
 }
 

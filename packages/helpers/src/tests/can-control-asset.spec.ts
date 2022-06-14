@@ -1,7 +1,8 @@
 import { watuWargame } from '@serge/mocks'
 import deepCopy from '../deep-copy'
-import canControlAsset, { canControlAnyAsset, underControlByThisForce } from '../can-control-asset'
+import canControlAsset, { canControlAnyAsset, underControlByThisForce, canControlAssetExtended } from '../can-control-asset'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from '@serge/custom-types'
+import { LaydownTypes, Phase } from '@serge/config'
 
 const game: Wargame = deepCopy(watuWargame)
 const blueForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'Blue-1')
@@ -110,6 +111,55 @@ describe('can control asset:', () => {
   it('Cannot control remaining asset of force I do not control', () => {
     if (channel && blueForce && talnAsset && whiteUmpire && whiteForce) {
       expect(canControlAsset(channel, blueForce.uniqid, talnAsset.uniqid, whiteUmpire.roleId)).toBeFalsy()
+    }
+  })
+})
+
+describe('can control asset - exteded:', () => {
+  it('I control remaining asset of controlled force', () => {
+    if (channel && greenForce && greenAsset1 && whiteUmpire && whiteBlueHQ && whiteForce) {
+      if (channel && blueForce && redForce && nortAsset && blueNortRole) {
+        // game not init, in adjudicate phase
+        const wargameInitated = false
+        const phase = Phase.Adjudication
+
+        // is game control, in umpire laydown
+        expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
+          wargameInitated, true, LaydownTypes.UmpireLaydown, phase)).toBeTruthy()
+
+        // is game control, in force laydown
+        expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
+          wargameInitated, true, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
+
+        // not game control, in umpire laydown
+        expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
+          wargameInitated, false, LaydownTypes.UmpireLaydown, phase)).toBeFalsy()
+
+        // not game control, in force laydown
+        expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
+          wargameInitated, false, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
+      }
+      if (channel && blueForce && redForce && nortAsset && blueNortRole) {
+        // game initiated, in adjudicate phase
+        const wargameInitated = true
+        const phase = Phase.Adjudication
+
+        // is game control, in umpire laydown
+        expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
+          wargameInitated, true, LaydownTypes.UmpireLaydown, phase)).toBeFalsy()
+
+        // is game control, in force laydown
+        expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
+          wargameInitated, true, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
+
+        // not game control, in umpire laydown
+        expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
+          wargameInitated, false, LaydownTypes.UmpireLaydown, phase)).toBeFalsy()
+
+        // not game control, in force laydown
+        expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
+          wargameInitated, false, LaydownTypes.ForceLaydown, phase)).toBeTruthy()
+      }
     }
   })
 })
