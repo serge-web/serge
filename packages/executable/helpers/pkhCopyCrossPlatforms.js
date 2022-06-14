@@ -26,6 +26,13 @@ const nodeFiles = [
     fileSqlNode: 'node_sqlite3.node'
   },
   {
+    name: 'executable-macos',
+    pathExec: buildTmpDir,
+    pathSqlNode: `${sqlite3NodeDir}/mac-arm64`,
+    fileExec: 'executable-macos',
+    fileSqlNode: 'node_sqlite3.node'
+  },
+  {
     name: 'executable-win',
     pathExec: buildTmpDir,
     pathSqlNode: `${sqlite3NodeDir}/win`,
@@ -35,7 +42,7 @@ const nodeFiles = [
 ]
 
 const buildDir = path.resolve(process.cwd(), 'builds')
-const finalDir = [`${buildDir}/linux`, `${buildDir}/macos`, `${buildDir}/win`]
+const finalDir = [`${buildDir}/linux`, `${buildDir}/macos`, `${buildDir}/macos-arm64`, `${buildDir}/win`]
 
 /**
  * remove the old one
@@ -98,8 +105,10 @@ Promise.all(promises).then(() => {
     let outputPath = `${zipPath}/SERGE_${getDate()}`
     if (dir.indexOf('linux') !== -1) {
       outputPath += '_linux.zip'
-    } else if (dir.indexOf('macos') !== -1) {
+    } else if (dir.indexOf('macos') !== -1 && dir.indexOf('macos-arm64') === -1) {
       outputPath += '_macos.zip'
+    } else if (dir.indexOf('macos-arm64') !== -1) {
+      outputPath += '_macos_arm64.zip'
     } else {
       outputPath += '_win64.zip'
     }
@@ -114,7 +123,7 @@ Promise.all(promises).then(() => {
  * get date format yyyyddmm
  * @returns string
  */
-function getDate () {
+function getDate() {
   const d = new Date()
   const yyyy = d.getFullYear()
   const month = d.getMonth() + 1
@@ -128,7 +137,7 @@ function getDate () {
  * @param {String} out
  * @returns {Promise}
  */
-function zipDirectory (source, out) {
+function zipDirectory(source, out) {
   const archive = archiver('zip', { zlib: { level: 9 } })
   const stream = fs.createWriteStream(out)
 
