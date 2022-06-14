@@ -13,7 +13,6 @@
   "bin": "../server/bin.js",
   "pkg": {
     "assets": [
-      "../../node_modules/sqlite3/lib/binding/**/*",
       "../client/build/**/*",
       "../server/**/*",
       "../data/*"
