@@ -7,7 +7,7 @@ import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
-import { canControlAsset, underControlByThisForce } from './can-control-asset'
+import { canControlAssetExtended, underControlByThisForce } from './can-control-asset'
 
 const locationFor = (position: string, existingRoute?: Route): L.LatLng | undefined => {
   if (existingRoute) {
@@ -82,18 +82,20 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
           // sort out if this role can control this asset
-          const gcInAdjudicate = adminInAdj && isGameControl
+          //          const gcInAdjudicate = adminInAdj && isGameControl
 
           // special case for asset requiring laydown at start of game
-          const layType = asset.locationPending
-          const umpireLaydownInUnInitialisedGame = !wargameInitiated && isGameControl && layType === LaydownTypes.UmpireLaydown
-          const forceplayerLaydownInInitialisedGame = wargameInitiated && layType === LaydownTypes.ForceLaydown
+          // const layType = asset.locationPending
+          // const umpireLaydownInUnInitialisedGame = !wargameInitiated && isGameControl && layType === LaydownTypes.UmpireLaydown
+          // const forceplayerLaydownInInitialisedGame = wargameInitiated && layType === LaydownTypes.ForceLaydown
 
-          const notUmpireLockdownAndUnderPlayerControl = !umpireLaydownInUnInitialisedGame && channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)
-
-          const controlledByThisRole = gcInAdjudicate || notUmpireLockdownAndUnderPlayerControl ||
-            umpireLaydownInUnInitialisedGame || false
           const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
+          const controlledByThisRole = canControlAssetExtended(channel, force.uniqid, asset.uniqid, playerRole, localWargameInitiated, isGameControl, asset.locationPending, phase)
+
+          // const notUmpireLockdownAndUnderPlayerControl = !umpireLaydownInUnInitialisedGame && channel && canControlAsset()
+
+          // const controlledByThisRole = gcInAdjudicate || notUmpireLockdownAndUnderPlayerControl ||
+          //   umpireLaydownInUnInitialisedGame || false
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
           const existingRoute: Route | undefined = controlledByThisForce || adminInAdj ? existingRouteBase : undefined
@@ -104,7 +106,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
-          console.log('collate route', asset.name, asset.locationPending, notUmpireLockdownAndUnderPlayerControl, umpireLaydownInUnInitialisedGame, forceplayerLaydownInInitialisedGame, controlledByThisForce, controlledByThisRole)
+          console.log('collate route', asset.name, asset.locationPending, controlledByThisForce, controlledByThisRole)
 
           if (controlledByThisForce || visibleToThisPlayer || playerForceId === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes

@@ -21,9 +21,9 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
   }
 }
 
-export const canControlAssetExtended = (channel: ChannelMapping, assetForce: string,
-  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes, phase: Phase): boolean => {
-  const canControlAccordingToChannelDef = canControlAsset(channel, assetForce, assetId, roleId)
+export const canControlAssetExtended = (channel: ChannelMapping | undefined, assetForce: string,
+  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes | undefined, phase: Phase): boolean => {
+  const canControlAccordingToChannelDef = !!(channel && canControlAsset(channel, assetForce, assetId, roleId))
   if (laydown && laydown !== LaydownTypes.Fixed) {
     switch (laydown) {
       case LaydownTypes.UmpireLaydown:
