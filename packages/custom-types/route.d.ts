@@ -58,12 +58,15 @@ export default interface Route {
   history: Array<RouteTurn>,
   /** current status of this asset */
   currentStatus: RouteStatus,
-  /** current position of this asset */
-  currentPosition: string,
+  /** current position of this asset, or 'pending'
+   * if we're waiting for umpire/player to provide
+   * initial position
+   */
+  currentPosition: string | 'pending',
   /** current position of this asset
    * populated in the `declutter` phase
    */
-  currentLocation2?: L.LatLng | undefined,
+  currentLocation2?: L.LatLng | undefined | 'pending',
   /** original position, used to determine if moved in force laydown */
   originalPosition?: string,
   /** status of laydown */

@@ -1,13 +1,29 @@
 
 import L from 'leaflet'
 import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
-import routeCreateRoute, { laydownPhaseFor } from './route-create-route'
+import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
 import { canControlAsset, underControlByThisForce } from './can-control-asset'
+
+const locationFor = (position: string, existingRoute?: Route): L.LatLng | string => {
+  if (existingRoute) {
+    return existingRoute.currentPosition
+  } else {
+    if (position === 'pending') {
+      return 'pending'
+    } else {
+      const h3loc: number[] | undefined = (position && h3ToGeo(position)) || undefined
+      const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
+      // dummy location, used if we don't have grid (such as in test)
+      const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
+      return h3locLatlng || dummyLocation
+    }
+  }
+}
 
 /** process the forces, to create a route store - used to manage
  * display and edits to planned routes
@@ -52,7 +68,6 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
       // loop through assets
       force.assets.forEach((asset: Asset) => {
         // we can only do this for assets with a position
-        in laydownPhaseFor, we will have assets without position - that needs to be handled
         if (asset.position) {
           // see if there is an existing planned route for this asset
           const existingRouteBase: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
@@ -68,13 +83,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
           const existingRoute: Route | undefined = controlledByThisForce || adminInAdj ? existingRouteBase : undefined
 
-          // dummy location, used if we don't have grid (such as in test)
-          const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
-          // sort out location.
-          const assetPosition: string = (existingRoute && existingRoute.currentPosition) || asset.position
-          const h3loc: number[] | undefined = (asset.position && h3ToGeo(asset.position)) || undefined
-          const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
-          const assetLocation: L.LatLng = (h3locLatlng) || dummyLocation
+          // sort out location
+          const assetLocation = locationFor(asset.position, existingRoute)
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
