@@ -22,7 +22,7 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
 }
 
 export const canControlAssetExtended = (channel: ChannelMapping | undefined, assetForce: string,
-  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes | undefined, phase: Phase): boolean => {
+  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes | string | undefined, phase: Phase): boolean => {
   const canControlAccordingToChannelDef = !!(channel && canControlAsset(channel, assetForce, assetId, roleId))
   if (laydown && laydown !== LaydownTypes.Fixed) {
     switch (laydown) {
@@ -30,6 +30,10 @@ export const canControlAssetExtended = (channel: ChannelMapping | undefined, ass
         return isGameControl && !wargameInitiated
       case LaydownTypes.ForceLaydown:
         return canControlAccordingToChannelDef && wargameInitiated
+      default:
+        // this shouldn't happen, since the string should match
+        // one of the above
+        return false
     }
   } else {
     switch (phase) {

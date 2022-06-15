@@ -27,8 +27,6 @@ if (blue2) {
   blue2.position = undefined
 }
 
-console.log('before test', blueF.assets && blueF.assets[0].name)
-
 // blueF.assets = blueF.assets ? [blueF.assets[0]] : []
 // forces[2].assets = []
 forces[3].assets = []
@@ -95,7 +93,7 @@ it('correctly sets laydown status for umpire in init', () => {
 
   expect(store.routes[2].laydownPhase).toEqual(LaydownPhases.Immobile)
   expect(store.routes[2].asset.locationPending).toEqual(undefined)
-  console.table(routesAsArray(store.routes))
+//  console.table(routesAsArray(store.routes))
 })
 
 export const routesAsArray = (routes: Route[]): any[] => {
