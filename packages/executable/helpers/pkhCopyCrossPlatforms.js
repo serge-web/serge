@@ -21,14 +21,14 @@ const nodeFiles = [
   {
     name: 'executable-macos',
     pathExec: buildTmpDir,
-    pathSqlNode: `${sqlite3NodeDir}/mac`,
+    pathSqlNode: `${sqlite3NodeDir}/mac-arm64`,
     fileExec: 'executable-macos',
     fileSqlNode: 'node_sqlite3.node'
   },
   {
     name: 'executable-macos',
     pathExec: buildTmpDir,
-    pathSqlNode: `${sqlite3NodeDir}/mac-arm64`,
+    pathSqlNode: `${sqlite3NodeDir}/mac`,
     fileExec: 'executable-macos',
     fileSqlNode: 'node_sqlite3.node'
   },
@@ -42,7 +42,7 @@ const nodeFiles = [
 ]
 
 const buildDir = path.resolve(process.cwd(), 'builds')
-const finalDir = [`${buildDir}/linux`, `${buildDir}/macos`, `${buildDir}/macos-arm64`, `${buildDir}/win`]
+const finalDir = [`${buildDir}/linux`, `${buildDir}/macos-arm64`, `${buildDir}/macos`, `${buildDir}/win`]
 
 /**
  * remove the old one
@@ -105,10 +105,10 @@ Promise.all(promises).then(() => {
     let outputPath = `${zipPath}/SERGE_${getDate()}`
     if (dir.indexOf('linux') !== -1) {
       outputPath += '_linux.zip'
-    } else if (dir.indexOf('macos') !== -1 && dir.indexOf('macos-arm64') === -1) {
-      outputPath += '_macos.zip'
     } else if (dir.indexOf('macos-arm64') !== -1) {
       outputPath += '_macos_arm64.zip'
+    } else if (dir.indexOf('macos') !== -1) {
+      outputPath += '_macos.zip'
     } else {
       outputPath += '_win64.zip'
     }
