@@ -21,19 +21,12 @@ const nodeFiles = [
   {
     name: 'executable-macos',
     pathExec: buildTmpDir,
-    pathSqlNode: `${sqlite3NodeDir}/mac-arm64`,
-    fileExec: 'executable-macos-arm64',
-    fileSqlNode: 'node_sqlite3.node'
-  },
-  {
-    name: 'executable-macos',
-    pathExec: buildTmpDir,
     pathSqlNode: `${sqlite3NodeDir}/mac`,
     fileExec: 'executable-macos',
     fileSqlNode: 'node_sqlite3.node'
   },
   {
-    name: 'executable-win.exe',
+    name: 'executable-win',
     pathExec: buildTmpDir,
     pathSqlNode: `${sqlite3NodeDir}/win`,
     fileExec: 'executable-win.exe',
@@ -42,7 +35,7 @@ const nodeFiles = [
 ]
 
 const buildDir = path.resolve(process.cwd(), 'builds')
-const finalDir = [`${buildDir}/linux`, `${buildDir}/macos-arm64`, `${buildDir}/macos`, `${buildDir}/win`]
+const finalDir = [`${buildDir}/linux`, `${buildDir}/macos`, `${buildDir}/win`]
 
 /**
  * remove the old one
@@ -63,29 +56,28 @@ if (!fs.existsSync(buildDir)) {
 
 /**
  * find exec and sqlite3.node file then copy to build
- * @param {*} file 
- * @param {*} path 
- * @param {*} prefix 
- * @param {*} finalDir 
- * @param {*} fileExec 
- * @returns 
+ * @param {*} file
+ * @param {*} path
+ * @param {*} prefix
+ * @param {*} finalDir
+ * @param {*} cb
  */
-const findAndCopy = async (file, path, prefix, finalDir, fileExec) => {
+const findAndCopy = async (file, path, prefix, finalDir) => {
   return new Promise((resolve, reject) => {
     find.file(file, path, (files) => {
       if (files.length) {
-        console.log(`${prefix} file "${fileExec || file}" was founded`)
+        console.log(`${prefix} file "${file}" was founded`)
         console.log(`${prefix} copying to ${finalDir}...`)
-        fs.copyFile(files[0], `${finalDir}/${fileExec || file}`, err => {
+        fs.copyFile(files[0], `${finalDir}/${file}`, err => {
           if (err) {
             reject(err)
           } else {
-            console.log(`${prefix} ${fileExec || file} successfully copied`)
+            console.log(`${prefix} ${file} successfully copied`)
             resolve()
           }
         })
       } else {
-        console.log(`${prefix} file "${fileExec || file}" not found`)
+        console.log(`${prefix} file "${file}" not found`)
         reject(Error('File not found'))
       }
     })
@@ -95,7 +87,7 @@ const findAndCopy = async (file, path, prefix, finalDir, fileExec) => {
 const promises = nodeFiles.map(async (nodeFile, idx) => {
   const { name, pathExec, pathSqlNode, fileExec, fileSqlNode } = nodeFile
   const prefix = `[${idx + 1}/${nodeFiles.length}] ${name}:`
-  await findAndCopy(name, pathExec, prefix, finalDir[idx], fileExec)
+  await findAndCopy(fileExec, pathExec, prefix, finalDir[idx])
   await findAndCopy(fileSqlNode, pathSqlNode, prefix, finalDir[idx])
 })
 
@@ -106,8 +98,6 @@ Promise.all(promises).then(() => {
     let outputPath = `${zipPath}/SERGE_${getDate()}`
     if (dir.indexOf('linux') !== -1) {
       outputPath += '_linux.zip'
-    } else if (dir.indexOf('macos-arm64') !== -1) {
-      outputPath += '_macos_arm64.zip'
     } else if (dir.indexOf('macos') !== -1) {
       outputPath += '_macos.zip'
     } else {
@@ -124,7 +114,7 @@ Promise.all(promises).then(() => {
  * get date format yyyyddmm
  * @returns string
  */
-function getDate() {
+function getDate () {
   const d = new Date()
   const yyyy = d.getFullYear()
   const month = d.getMonth() + 1
@@ -138,7 +128,7 @@ function getDate() {
  * @param {String} out
  * @returns {Promise}
  */
-function zipDirectory(source, out) {
+function zipDirectory (source, out) {
   const archive = archiver('zip', { zlib: { level: 9 } })
   const stream = fs.createWriteStream(out)
 
