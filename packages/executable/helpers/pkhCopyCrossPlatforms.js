@@ -22,7 +22,7 @@ const nodeFiles = [
     name: 'executable-macos',
     pathExec: buildTmpDir,
     pathSqlNode: `${sqlite3NodeDir}/mac-arm64`,
-    fileExec: 'executable-macos',
+    fileExec: 'executable-macos-arm64',
     fileSqlNode: 'node_sqlite3.node'
   },
   {
@@ -33,7 +33,7 @@ const nodeFiles = [
     fileSqlNode: 'node_sqlite3.node'
   },
   {
-    name: 'executable-win',
+    name: 'executable-win.exe',
     pathExec: buildTmpDir,
     pathSqlNode: `${sqlite3NodeDir}/win`,
     fileExec: 'executable-win.exe',
@@ -63,28 +63,29 @@ if (!fs.existsSync(buildDir)) {
 
 /**
  * find exec and sqlite3.node file then copy to build
- * @param {*} file
- * @param {*} path
- * @param {*} prefix
- * @param {*} finalDir
- * @param {*} cb
+ * @param {*} file 
+ * @param {*} path 
+ * @param {*} prefix 
+ * @param {*} finalDir 
+ * @param {*} fileExec 
+ * @returns 
  */
-const findAndCopy = async (file, path, prefix, finalDir) => {
+const findAndCopy = async (file, path, prefix, finalDir, fileExec) => {
   return new Promise((resolve, reject) => {
     find.file(file, path, (files) => {
       if (files.length) {
-        console.log(`${prefix} file "${file}" was founded`)
+        console.log(`${prefix} file "${fileExec || file}" was founded`)
         console.log(`${prefix} copying to ${finalDir}...`)
-        fs.copyFile(files[0], `${finalDir}/${file}`, err => {
+        fs.copyFile(files[0], `${finalDir}/${fileExec || file}`, err => {
           if (err) {
             reject(err)
           } else {
-            console.log(`${prefix} ${file} successfully copied`)
+            console.log(`${prefix} ${fileExec || file} successfully copied`)
             resolve()
           }
         })
       } else {
-        console.log(`${prefix} file "${file}" not found`)
+        console.log(`${prefix} file "${fileExec || file}" not found`)
         reject(Error('File not found'))
       }
     })
@@ -94,7 +95,7 @@ const findAndCopy = async (file, path, prefix, finalDir) => {
 const promises = nodeFiles.map(async (nodeFile, idx) => {
   const { name, pathExec, pathSqlNode, fileExec, fileSqlNode } = nodeFile
   const prefix = `[${idx + 1}/${nodeFiles.length}] ${name}:`
-  await findAndCopy(fileExec, pathExec, prefix, finalDir[idx])
+  await findAndCopy(name, pathExec, prefix, finalDir[idx], fileExec)
   await findAndCopy(fileSqlNode, pathSqlNode, prefix, finalDir[idx])
 })
 
