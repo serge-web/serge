@@ -67,11 +67,17 @@ export const InfoMarker: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (marker.shadeRadius && marker.shadeRadius > 0) {
-      // generate ring
-      const ring = kRing(locationHex, marker.shadeRadius)
-      const hull2 = h3SetToMultiPolygon(ring, true)
-      const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
-      setRadiusPoly(h3points)
+      // note: intermittent issue where location hex is pending
+      if(locationHex === 'pending') {
+        console.warn('Info marker has "pending" location')
+        setRadiusPoly([])
+      } else {
+        // generate ring
+        const ring = kRing(locationHex, marker.shadeRadius)
+        const hull2 = h3SetToMultiPolygon(ring, true)
+        const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+        setRadiusPoly(h3points)
+      }
     } else {
       setRadiusPoly([])
     }
