@@ -113,7 +113,21 @@ export const Assets: React.FC<{}> = () => {
           }
         }
       })
-      setAssets(tmpAssets)
+
+      // ok, if we have any assets with pending locations, we need to put them into the box
+      const pendingAssets = tmpAssets.filter((asset: AssetInfo) => asset.position === undefined)
+      if (pendingAssets) {
+        console.table(pendingAssets)
+        // sort out the area of coverage for whole map
+
+        // sort out centre top cell
+
+        // sort out h
+      }
+
+      const validAssets = tmpAssets.filter((asset: AssetInfo) => asset.position !== undefined)
+
+      setAssets(validAssets)
     }
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
