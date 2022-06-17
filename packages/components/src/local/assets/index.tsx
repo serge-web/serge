@@ -27,10 +27,12 @@ export const Assets: React.FC<{}> = () => {
     phase,
     clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
     platforms,
-    map
+    map,
+    viewport
   } = props
 
-  const [assets, setAssets] = useState<AssetInfo[]>([])
+  const [visibleAssets, setVisibleAssets] = useState<AssetInfo[]>([])
+  const [positionedAssets, setPositionedAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
   /**
@@ -114,25 +116,40 @@ export const Assets: React.FC<{}> = () => {
         }
       })
 
-      // ok, if we have any assets with pending locations, we need to put them into the box
-      const pendingAssets = tmpAssets.filter((asset: AssetInfo) => asset.position === undefined)
-      if (pendingAssets) {
-        console.table(pendingAssets)
-        // sort out the area of coverage for whole map
-
-        // sort out centre top cell
-
-        // sort out h
-      }
-
-      const validAssets = tmpAssets.filter((asset: AssetInfo) => asset.position !== undefined)
-
-      setAssets(validAssets)
+      setVisibleAssets(tmpAssets)
     }
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
+  /**
+   * if we have any assets with location pending, 
+   * and we're in the correct game phase, put them in the location pending 
+   * pen
+   */
+   useEffect(() => {
+      // find pending assets
+      const pendingAssets = visibleAssets.filter((asset: AssetInfo) => asset.position === undefined)
+
+      // find bounds of viewport
+      console.log('viewport', viewport)
+
+      if (pendingAssets && pendingAssets.length) {
+
+        // work out how far to come in from top-right corner
+
+        // generate ring around top-right corner
+
+        // filter for cells to bottom-left
+
+        // assign pending assets to cells
+
+      }
+
+      const validAssets = visibleAssets.filter((asset: AssetInfo) => asset.position !== undefined)
+      setPositionedAssets(validAssets)
+  }, [visibleAssets, viewport])
+
   return <>
-    <LayerGroup>{assets && assets.map((asset: AssetInfo) => {
+    <LayerGroup>{positionedAssets && positionedAssets.map((asset: AssetInfo) => {
       return <MapIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
