@@ -1,4 +1,4 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHANNEL_CHAT } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
@@ -11,7 +11,11 @@ import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { CoreParticipant } from '@serge/custom-types/participant'
 
-/** a message has been received. Put it into the correct channel */
+/** a message has been received. Put it into the correct channel
+ * @param { SetWargameMessage } data
+ * @param { string } channel id of the cahnnel
+ * @param { MessageCustom } payload the new message
+ */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
   const sourceRole: string = payload.details.from.roleId
   const logger: PlayerMessage = {
@@ -44,11 +48,18 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       })
     }
 
-    theChannel.messages.unshift({
+    const newObj: MessageChannel = {
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
-    })
+    }
+    if (theChannel.cData.channelType === CHANNEL_CHAT) {
+      // note: for chat channel we put new messages at top, for other
+      // channels they go at the bottom
+      theChannel.messages.push(newObj)
+    } else {
+      theChannel.messages.unshift(newObj)
+    }
 
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
