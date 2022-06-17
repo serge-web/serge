@@ -28,7 +28,7 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
       return title === '' || title.toLowerCase().includes(wargameQuery.toLowerCase())
     } else {
       // Note: workaround for runtime crash, whether either title or wargameQuery is undefined
-      // If the query object is empty, then there isn't a query. 
+      // If the query object is empty, then there isn't a query.
       // If the game has an empty title, we need to display it, so the player can open it, to set a title.
       return true
     }
