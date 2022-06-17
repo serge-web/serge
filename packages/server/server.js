@@ -149,15 +149,6 @@ const runServer = (
     fs.writeFile(image, req.body, err => console.log(err))
 
     res.status(200).send({ path: imagePath })
-    // const buff = Buffer.from(req.body, 'utf8').toString()
-    // const newBuff = buff.replace('data:image/png;base64,', '')
-    // const imageName = `${uniqid.time('icon-')}.png`
-    // const imagePath = `${imgDir}/${imageName}`
-    // fs.writeFile(imagePath, newBuff, 'base64', err => console.log(err))
-
-    // let imageFullPath = `${req.headers.host}/getIcon/${imageName}`
-    // if (!/https?/.test(imageFullPath)) imageFullPath = '//' + imageFullPath
-    // res.status(200).send({ path: imageFullPath })
   })
 
   app.get('/getIcon/:icon', (req, res) => {
@@ -168,13 +159,11 @@ const runServer = (
     res.sendFile(path.join(__dirname, '../', 'img', req.params.icon))
   })
 
-  app.use('/saveLogo', express.raw({ type: 'image/png', limit: '100kb' }))
+  app.use('/saveLogo', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '100kb' }))
   app.post('/saveLogo', (req, res) => {
-    const image = `${imgDir}/${uniqid.time('logo-')}.png`
-
-    fs.writeFile(image, req.body, err => console.log(err))
-
-    res.status(200).send({ path: image })
+    const imagePath = `${imgDir}/${uniqid.time('logo-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
+    fs.writeFile(imagePath, req.body, err => console.log(err))
+    res.status(200).send({ path: imagePath })
   })
 
   if (remoteServer) {
