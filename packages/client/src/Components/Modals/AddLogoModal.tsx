@@ -12,7 +12,7 @@ const AddLogoModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
 
-  const saveLogo = (file: string) => {
+  const saveLogo = (_: string, file: File) => {
     dispatch(saveSergeLogo(file))
     dispatch(modalAction.close())
   }
