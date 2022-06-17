@@ -1,4 +1,4 @@
-import { ADJUDICATION_PHASE, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
+import { ADJUDICATION_PHASE, LaydownPhases, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 import { ForceData, PerceivedTypes, Route as RouteType } from '@serge/custom-types'
 import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
@@ -125,9 +125,13 @@ export const Assets: React.FC<{}> = () => {
    * and we're in the correct game phase, put them in the location pending 
    * pen
    */
-   useEffect(() => {
+  useEffect(() => {
+    const draggable = (phase?: LaydownPhases): boolean => {
+      return !!phase
+    }
+
       // find pending assets
-      const pendingAssets = visibleAssets.filter((asset: AssetInfo) => asset.position === undefined)
+      const pendingAssets = visibleAssets.filter((asset: AssetInfo) => draggable(asset.laydownPhase))
 
       // find bounds of viewport
       console.log('viewport', viewport)
