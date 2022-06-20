@@ -37,7 +37,18 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
 
   switch (action.type) {
     case ActionConstant.ALL_WARGAME_NAMES_SAVED:
-      newState.wargameList = action.payload || []
+      console.log('wargames reducer', action.payload)
+      const originalList = action.payload || []
+      const anyList = originalList as any[]
+      const safeList = anyList.filter((game: any) => {
+        if (game.wargameTitle || game.title) {
+          return true
+        } else {
+          console.warn('Warning Data not found for', game.name, ' potentially corrupt')
+          return false
+        }
+      })
+      newState.wargameList = safeList
       return newState
 
     case ActionConstant.SET_CURRENT_WARGAME:
