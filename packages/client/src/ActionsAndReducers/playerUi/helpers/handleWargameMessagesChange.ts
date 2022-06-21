@@ -17,6 +17,11 @@ import {
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
+  // if it's not a message, it's info type - flag it
+  if (payload && payload.messageType === undefined) {
+    const anyPayload = payload as any
+    anyPayload.messageType = INFO_MESSAGE_CLIPPED
+  }
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
     newState.allTemplatesByKey, newState.allForces, newState.playerMessageLog)

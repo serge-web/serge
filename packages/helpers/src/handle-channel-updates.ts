@@ -2,7 +2,7 @@ import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MES
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
+  Role, ChannelTypes, PlayerMessage, PlayerMessageLog, Wargame, WargameData
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -202,7 +202,7 @@ const handleChannelUpdates = (
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined,
-  allChannels: ChannelTypes[],
+  _allChannels: ChannelTypes[],
   selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
@@ -221,10 +221,13 @@ const handleChannelUpdates = (
 
   // is this an information (wargame) update, or a channel message?
   if (payload.messageType === INFO_MESSAGE_CLIPPED) {
-    // this message is a new version of the wargame document
+    // this message is a new version of the wargame document,
+    // cast it to the correct type
+    const wargame = payload as any as Wargame
+    const channelData = wargame.data.channels.channels
 
     // create any new channels & add to current channel
-    allChannels.forEach((channel: ChannelTypes) => {
+    channelData.forEach((channel: ChannelTypes) => {
       if (channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
