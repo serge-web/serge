@@ -21,6 +21,7 @@ export const PlayerStateProvider = ({ children }: { children: React.ReactNode })
 
 export const usePlayerUiState = (): PlayerUi => {
   const context = useContext(PlayerStateContext)
+  context.chatChannel.messages = context.chatChannel.messages.filter((messages, index, self) => self.findIndex(v2 => (v2._id === messages._id)) === index)
   if (context === undefined) {
     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')
   }

@@ -67,7 +67,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
   // what data is stored in the the channels dictionary
-  const messages = state.channels[channelId].messages as any
+  const messages = state.channels[channelId].messages?.filter((messages, index, self) => self.findIndex(v2 => (v2._id === messages._id)) === index) as any
   
   const onRead = (detail: MessageCustom): void => {
     dispatch(openMessage(channelId, detail))
