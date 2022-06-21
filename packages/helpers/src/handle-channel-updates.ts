@@ -53,16 +53,24 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       hasBeenRead: false,
       isOpen: false
     }
-    if (theChannel.cData.channelType === CHANNEL_CHAT) {
-      // note: for chat channel we put new messages at top, for other
-      // channels they go at the bottom
-      theChannel.messages.push(newObj)
-    } else {
-      theChannel.messages.unshift(newObj)
-    }
 
-    // update message count
-    theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+    // check the channel doesn't already contain the message
+    // we can mistakenly register for updates twice, which gives the appearance
+    // of duplicate messages
+    const present = theChannel.messages.some((msg: MessageChannel) => msg._id === payload._id)
+    if (!present) {
+      if (theChannel.cData.channelType === CHANNEL_CHAT) {
+        // note: for chat channel we put new messages at top, for other
+        // channels they go at the bottom
+        theChannel.messages.push(newObj)
+      } else {
+        theChannel.messages.unshift(newObj)
+      }
+      // update message count
+      theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+    } else {
+      console.log('skipping message', payload)
+    }
   }
 }
 
