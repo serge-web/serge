@@ -68,8 +68,6 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       }
       // update message count
       theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
-    } else {
-      console.log('skipping message', payload)
     }
   }
 }
