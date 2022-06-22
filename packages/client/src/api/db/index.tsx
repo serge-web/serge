@@ -17,20 +17,32 @@ import {
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
+  // track the most recently received message
+  message_ID: string
 
   constructor (databasePath: string) {
     this.provider = {
       db: databasePath
     }
     this.name = databasePath
+    this.message_ID = '' 
   }
 
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
-    socket.on('changes', data => {
-      const doc = data as Message
-      listener(doc)
-    })
+    const listenerMessage = (data: MessageCustom) => {
+      // have we just received this message?
+      if (this.message_ID === data._id) {
+        // yes - stop listening on this socket
+        socket.off('changes', listenerMessage) 
+      } else {
+        // no, handle the message
+        listener(data)
+        // and cache the id
+        this.message_ID = data._id 
+      }
+    }
+    socket.on('changes', listenerMessage)
   }
 
   destroy (): void {
