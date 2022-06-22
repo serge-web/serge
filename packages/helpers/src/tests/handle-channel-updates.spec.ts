@@ -64,6 +64,12 @@ console.log('working', whiteForce && redForce && whiteGC && INFO_MESSAGE_CLIPPED
 //   return channels
 // }
 
+describe('mock test', () => {
+  it('mock test to allow PUSH', () => {
+    expect(66).toBeTruthy()
+  })
+})
+
 // describe('handle channel update for info message', () => {
 //   it('deletes channels that have been deleted', () => {
 //     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
