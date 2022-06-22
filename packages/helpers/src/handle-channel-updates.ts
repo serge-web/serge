@@ -306,19 +306,17 @@ const handleChannelUpdates = (
         if (forceColors !== thisChannel.forceColors) {
           thisChannel.forceColors = forceColors
         }
-      }
-      // channel will now exist, get shortcut
-      const thisChannel: ChannelUI = res.channels[channelId]
 
-      // check if this is a collab channel, since we don't fire turn markers into collab channels
-      const collabChannel = thisChannel.cData && thisChannel.cData.channelType === CHANNEL_COLLAB
+        // check if this is a collab channel, since we don't fire turn markers into collab channels
+        const collabChannel = thisChannel.cData && thisChannel.cData.channelType === CHANNEL_COLLAB
 
-      // check if we're missing a turn marker for this turn
-      if (thisChannel.messages && !collabChannel) {
-        if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
-          // no messages, or no turn marker found, create one
-          const message: MessageChannel = clipInfoMEssage(wargame, false)
-          thisChannel.messages.unshift(message)
+        // check if we're missing a turn marker for this turn
+        if (thisChannel.messages && !collabChannel) {
+          if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
+            // no messages, or no turn marker found, create one
+            const message: MessageChannel = clipInfoMEssage(wargame, false)
+            thisChannel.messages.unshift(message)
+          }
         }
       }
     }
