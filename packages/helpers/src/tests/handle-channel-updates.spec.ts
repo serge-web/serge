@@ -1,29 +1,29 @@
 // import handleChannelUpdates from '../handle-channel-updates'
-import {
-  ForceData, Role // , PlayerUiChatChannel, // PlayerUiChannels, SetWargameMessage,
-  // ChannelTypes , MessageChannel, PlayerMessageLog //, MessageInfoTypeClipped, MessageCustom, ChannelCustom, ChannelUI
-} from '@serge/custom-types'
-import { forces /* , InfoMessagesMock, GameMessagesMock, MessageTemplatesMock,  GameChannels2, MessageTemplatesMockByKey  */ } from '@serge/mocks'
+// import {
+//   ForceData, Role  , PlayerUiChatChannel, PlayerUiChannels, SetWargameMessage,
+//  ChannelTypes , MessageChannel, PlayerMessageLog, MessageInfoTypeClipped, MessageCustom, ChannelCustom, ChannelUI
+// } from '@serge/custom-types'
+// import { /* forces , InfoMessagesMock, GameMessagesMock, MessageTemplatesMock,  GameChannels2, MessageTemplatesMockByKey  */ } from '@serge/mocks'
 // import deepCopy from '../deep-copy'
-import { INFO_MESSAGE_CLIPPED /* , CHAT_CHANNEL_ID */, CUSTOM_MESSAGE, PARTICIPANT_CUSTOM, CHANNEL_CUSTOM } from '@serge/config'
+// import { INFO_MESSAGE_CLIPPED /* , CHAT_CHANNEL_ID */, CUSTOM_MESSAGE, PARTICIPANT_CUSTOM, CHANNEL_CUSTOM } from '@serge/config'
 // import { getParticipantStates } from '../participant-states'
 
-const whiteGC: Role = forces[0].roles[0]
+// const whiteGC: Role = forces[0].roles[0]
 
 // const adminMessages: MessageChannel[] = GameMessagesMock
 // const chatTemplate = MessageTemplateshandMock.find((template: any) => template.name === 'Chat') || { a: 'chat' }
 // const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chatTemplate, messages: adminMessages }
-const allForces: ForceData[] = forces
-const whiteForce: ForceData = allForces[0]
+// const allForces: ForceData[] = forces
+// const whiteForce: ForceData = allForces[0]
 // const blueForce: ForceData = allForces[1]
-const redForce: ForceData = allForces[2]
+// const redForce: ForceData = allForces[2]
 // const allChannels: ChannelTypes[] = GameChannels2
 // const selectedRole = allForces[1].roles[0].name
 // const isObserver = false
 // const allTemplates = MessageTemplatesMockByKey
 // const playerMessageLog: PlayerMessageLog = {}
 
-console.log('working', whiteForce && redForce && whiteGC && INFO_MESSAGE_CLIPPED && CUSTOM_MESSAGE && PARTICIPANT_CUSTOM && CHANNEL_CUSTOM)
+// console.log('working', INFO_MESSAGE_CLIPPED && CUSTOM_MESSAGE && PARTICIPANT_CUSTOM && CHANNEL_CUSTOM)
 
 // const getUIChannels = (allChannels: ChannelTypes[], forceId: string, isObserver: boolean): PlayerUiChannels => {
 //   const channels: PlayerUiChannels = {}
