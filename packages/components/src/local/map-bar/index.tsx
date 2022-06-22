@@ -311,6 +311,20 @@ export const MapBar: React.FC = () => {
     closeForm()
   }
 
+  const deleteMarkerPostback = (messageType: string, data: MessageUpdateMarker): void => {
+    console.warn('Deleting marker not implemented', messageType, data)
+    // if (messageType === UPDATE_MARKER) {
+    //   // note: we're not immediately calling mapPostBack
+    //   // because we only transmit the data "live" in planning phase.
+    //   // this is handled in updateMarker callback
+    //   updateMarker && updateMarker(data.marker)
+    // } else {
+    //   console.warn('Marker postback received wrong type of message')
+    // }
+    closeForm()
+  }
+
+
   /* TODO: This should be refactored into a helper */
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
@@ -332,6 +346,7 @@ export const MapBar: React.FC = () => {
         return <MarkerForm
           formData={data}
           updateMarker={updateMarkerPostback}
+          deleteMarker={deleteMarkerPostback}
           closeForm={closeForm} />
       } else {
         // ok, return a marker form

@@ -10,7 +10,11 @@ export default interface PropTypes {
    */
   closeForm: () => void
   /**
-   * Handle to update a marker
+   * Handler to update a marker
    */
   updateMarker: (messageType: string, payload: MessageUpdateMarker) => void
-}
+  /**
+   * Handler to delete a marker
+   */
+  deleteMarker: (messageType: string, payload: MessageUpdateMarker) => void
+  }

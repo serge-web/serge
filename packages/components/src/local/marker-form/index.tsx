@@ -1,4 +1,4 @@
-import { faFill } from '@fortawesome/free-solid-svg-icons'
+import { faFill, faTrash } from '@fortawesome/free-solid-svg-icons'
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
@@ -71,6 +71,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     updateMarker(UPDATE_MARKER, payload)
   }
 
+  const deleteMarker = (): void => {
+    console.log('handler to delete marker')
+  }
+
   const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormState({ ...formState, description: e.target.value })
   }
@@ -124,7 +128,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
       </FormGroup>
     </fieldset>
     <div className={styles['button-group']}>
-      <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Canel</Button>
+      <div onClick={deleteMarker}>
+        <FontAwesomeIcon icon={faTrash} />
+      </div>
+      <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Cancel</Button>
       <Button onClick={submitForm} color='primary' variant='contained' className={styles.button}>Save</Button>
     </div>
   </div>
