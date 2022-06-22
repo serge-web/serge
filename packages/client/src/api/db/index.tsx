@@ -17,20 +17,25 @@ import {
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
+  message_ID: string
 
   constructor (databasePath: string) {
     this.provider = {
       db: databasePath
     }
     this.name = databasePath
+    this.message_ID = '' 
   }
 
+  // reset socket room before repeating  
+  // of dublicate messages
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
-    socket.on('changes', data => {
-      const doc = data as Message
-      listener(doc)
-    })
+    const listenerMessage = (data: MessageCustom) => {
+      this.message_ID !== data._id ? listener(data) : socket.off('changes', listenerMessage) 
+      this.message_ID = data._id 
+    }
+    socket.on('changes', listenerMessage)
   }
 
   destroy (): void {
