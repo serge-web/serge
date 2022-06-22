@@ -324,7 +324,6 @@ export const MapBar: React.FC = () => {
     closeForm()
   }
 
-
   /* TODO: This should be refactored into a helper */
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
