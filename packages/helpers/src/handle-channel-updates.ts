@@ -94,8 +94,7 @@ export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId
 
 export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
   if (message.messageType !== undefined && message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
-    console.warn('wrong message type', message)
-    // throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
+    throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
   }
   return {
     messageType: INFO_MESSAGE_CLIPPED,
