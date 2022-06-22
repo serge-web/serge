@@ -17,6 +17,7 @@ import {
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
+  // track the most recently received message
   message_ID: string
 
   constructor (databasePath: string) {
@@ -27,13 +28,19 @@ export class DbProvider implements DbProviderInterface {
     this.message_ID = '' 
   }
 
-  // reset socket room before repeating  
-  // of dublicate messages
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
     const listenerMessage = (data: MessageCustom) => {
-      this.message_ID !== data._id ? listener(data) : socket.off('changes', listenerMessage) 
-      this.message_ID = data._id 
+      // have we just received this message?
+      if (this.message_ID === data._id) {
+        // yes - stop listening on this socket
+        socket.off('changes', listenerMessage) 
+      } else {
+        // no, handle the message
+        listener(data)
+        // and cache the id
+        this.message_ID = data._id 
+      }
     }
     socket.on('changes', listenerMessage)
   }
