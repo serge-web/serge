@@ -22,14 +22,15 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types'
+import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
 import {
-  handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
   markUnread,
   closeMessage,
-  markAllMessageState
+  markAllMessageState,
+  handleWargameUpdate,
+  handleNewMessage
 } from './helpers/handleWargameMessagesChange'
 
 import {
@@ -168,16 +169,21 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_LATEST_WARGAME_MESSAGE:
       // TODO: decide if it's a wargame change or a new message
-      // const anyPayload = action.payload as any
-      // if (anyPayload.data) {
-      //   // wargame change
-      // } else {
-      //   // process new message
-      // }
-      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
-      newState.channels = changedLatestState.channels
-      newState.chatChannel = changedLatestState.chatChannel
-      newState.playerMessageLog = changedLatestState.playerMessageLog
+      const anyPayload = action.payload as any
+      if (anyPayload.data) {
+        // wargame change
+        const wargame = anyPayload as Wargame
+        const changedLatestState = handleWargameUpdate(wargame, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      } else {
+        // process new message
+        const changedLatestState = handleNewMessage(action.payload, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      }
       break
 
     case SET_ALL_MESSAGES:

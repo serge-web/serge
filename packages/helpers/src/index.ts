@@ -30,6 +30,7 @@ export { default as groupHostPlatform } from './group-host-platform'
 export {
   default as handleChannelUpdates,
   handleAllInitialChannelMessages,
+  handleNewMessageData,
   clipInfoMEssage
 } from './handle-channel-updates'
 export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
