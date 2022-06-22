@@ -24,7 +24,7 @@ const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
 const playerMessageLog: PlayerMessageLog = {}
 
-console.log('working', whiteForce && redForce && whiteGC && INFO_MESSAGE_CLIPPED && CUSTOM_MESSAGE && PARTICIPANT_CUSTOM && CHANNEL_CUSTOM )
+console.log('working', whiteForce && redForce && whiteGC && INFO_MESSAGE_CLIPPED && CUSTOM_MESSAGE && PARTICIPANT_CUSTOM && CHANNEL_CUSTOM)
 
 const getUIChannels = (allChannels: ChannelTypes[], forceId: string, isObserver: boolean): PlayerUiChannels => {
   const channels: PlayerUiChannels = {}
@@ -35,8 +35,7 @@ const getUIChannels = (allChannels: ChannelTypes[], forceId: string, isObserver:
       observing,
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, MessageTemplatesMockByKey)
-  
-  
+
     if (isObserver || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
@@ -46,7 +45,7 @@ const getUIChannels = (allChannels: ChannelTypes[], forceId: string, isObserver:
         forceIcons.push((force && force.iconURL) || force?.icon)
         forceColors.push((force && force.color) || '#FFF')
       }
-  
+
       // grow the existing channel definition to include the new UI-focussed entries
       const messages: MessageChannel[] = []
       const newChannel: ChannelUI = {
@@ -112,34 +111,35 @@ describe('handle channel update for info message', () => {
     expect(res2).toBeTruthy()
     expect(Object.keys(res2.channels).length).toEqual(4)
   })
+})
 
-  // it('updates observer status', () => {
-  //   const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
-  //   const isObserver = true
+// it('updates observer status', () => {
+//   const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
+//   const isObserver = true
 
-  //   // change channel so we're not a member
-  //   const limWhiteRoles: ChannelTypes[] = deepCopy(allChannels)
-  //   limWhiteRoles[0].participants[0].roles = [whiteGC.roleId]
+//   // change channel so we're not a member
+//   const limWhiteRoles: ChannelTypes[] = deepCopy(allChannels)
+//   limWhiteRoles[0].participants[0].roles = [whiteGC.roleId]
 
-  //   const tmpChannels = getUIChannels(allChannels, blueForce.uniqid, isObserver)
+//   const tmpChannels = getUIChannels(allChannels, blueForce.uniqid, isObserver)
 
-  //   const res: SetWargameMessage = handleChannelUpdates(payload, tmpChannels, chatChannel, whiteForce,
-  //     limWhiteRoles, selectedRole, isObserver, allTemplates, allForces, playerMessageLog)
+//   const res: SetWargameMessage = handleChannelUpdates(payload, tmpChannels, chatChannel, whiteForce,
+//     limWhiteRoles, selectedRole, isObserver, allTemplates, allForces, playerMessageLog)
 
-  //   expect(res).toBeTruthy()
-  //   expect(Object.keys(res.channels).length).toEqual(5)
+//   expect(res).toBeTruthy()
+//   expect(Object.keys(res.channels).length).toEqual(5)
 
-  //   // we're no longer an observer
-  //   const notObserver = false
-  //   const tmpChannels2 = getUIChannels(allChannels, blueForce.uniqid, notObserver)
+//   // we're no longer an observer
+//   const notObserver = false
+//   const tmpChannels2 = getUIChannels(allChannels, blueForce.uniqid, notObserver)
 
-  //   // regenerate channels, now we're not an observer
-  //   const res2: SetWargameMessage = handleChannelUpdates(payload, tmpChannels2, chatChannel, whiteForce,
-  //     limWhiteRoles, selectedRole, notObserver, allTemplates, allForces, playerMessageLog)
+//   // regenerate channels, now we're not an observer
+//   const res2: SetWargameMessage = handleChannelUpdates(payload, tmpChannels2, chatChannel, whiteForce,
+//     limWhiteRoles, selectedRole, notObserver, allTemplates, allForces, playerMessageLog)
 
-  //   expect(res2).toBeTruthy()
-  //   expect(Object.keys(res2.channels).length).toEqual(3)
-  // })
+//   expect(res2).toBeTruthy()
+//   expect(Object.keys(res2.channels).length).toEqual(3)
+// })
 
 //   it('keeps us in channels were just an observer for', () => {
 //     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
