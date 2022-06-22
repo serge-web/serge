@@ -2,7 +2,7 @@ import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MES
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
+  Role, ChannelTypes, PlayerMessage, PlayerMessageLog, Wargame
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -53,16 +53,22 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       hasBeenRead: false,
       isOpen: false
     }
-    if (theChannel.cData.channelType === CHANNEL_CHAT) {
-      // note: for chat channel we put new messages at top, for other
-      // channels they go at the bottom
-      theChannel.messages.push(newObj)
-    } else {
-      theChannel.messages.unshift(newObj)
-    }
 
-    // update message count
-    theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+    // check the channel doesn't already contain the message
+    // we can mistakenly register for updates twice, which gives the appearance
+    // of duplicate messages
+    const present = theChannel.messages.some((msg: MessageChannel) => msg._id === payload._id)
+    if (!present) {
+      if (theChannel.cData.channelType === CHANNEL_CHAT) {
+        // note: for chat channel we put new messages at top, for other
+        // channels they go at the bottom
+        theChannel.messages.push(newObj)
+      } else {
+        theChannel.messages.unshift(newObj)
+      }
+      // update message count
+      theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+    }
   }
 }
 
@@ -87,7 +93,7 @@ export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId
 )
 
 export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
-  if (message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
+  if (message.messageType !== undefined && message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
     throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
   }
   return {
@@ -196,7 +202,7 @@ const handleChannelUpdates = (
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined,
-  allChannels: ChannelTypes[],
+  _allChannels: ChannelTypes[],
   selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
@@ -214,11 +220,15 @@ const handleChannelUpdates = (
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
   // is this an information (wargame) update, or a channel message?
-  if (payload.messageType === INFO_MESSAGE_CLIPPED) {
-    // this message is a new version of the wargame document
+  const anyPay = payload as any
+  if (payload.messageType === undefined || anyPay.messageType === INFO_MESSAGE) {
+    // this message is a new version of the wargame document,
+    // cast it to the correct type
+    const wargame = payload as any as Wargame
+    const channelData = wargame.data.channels.channels
 
     // create any new channels & add to current channel
-    allChannels.forEach((channel: ChannelTypes) => {
+    channelData.forEach((channel: ChannelTypes) => {
       if (channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
@@ -292,15 +302,11 @@ const handleChannelUpdates = (
 
         // check if we're missing a turn marker for this turn
         if (thisChannel.messages && !collabChannel) {
-          if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
+          if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === wargame.gameTurn)) {
             // no messages, or no turn marker found, create one
-            const message: MessageChannel = clipInfoMEssage(payload, false)
-
-            // if messages array is missing, create one
-            // NO: we've already established this can't be missing
-            // if (!thisChannel.messages) {
-            //   thisChannel.messages = []
-            // }
+            const anyPayload = payload as any
+            const typedPayload = anyPayload as MessageInfoType
+            const message: MessageChannel = clipInfoMEssage(typedPayload, false)
             thisChannel.messages.unshift(message)
           }
         }
@@ -313,6 +319,8 @@ const handleChannelUpdates = (
       // it must have been deleted
       delete res.channels[key]
     }
+  } else if (payload.messageType === INFO_MESSAGE_CLIPPED) {
+    // probably just ignore it
   } else {
     handleNonInfoMessage(res, payload.details.channel, payload)
   }

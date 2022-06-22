@@ -167,6 +167,13 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
+      // TODO: decide if it's a wargame change or a new message
+      // const anyPayload = action.payload as any
+      // if (anyPayload.data) {
+      //   // wargame change
+      // } else {
+      //   // process new message
+      // }
       const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
