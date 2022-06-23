@@ -3,8 +3,8 @@ import { faFill, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
 import { Confirm } from '@serge/components'
-import { UPDATE_MARKER } from '@serge/config'
-import { IconOption, MapAnnotation, MessageUpdateMarker } from '@serge/custom-types'
+import { UPDATE_MARKER, DELETE_MARKER } from '@serge/config'
+import { IconOption, MapAnnotation } from '@serge/custom-types'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import FormGroup from '../form-elements/form-group'
 import RCB from '../form-elements/rcb'
@@ -66,15 +66,11 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
   }
 
   const submitForm = (): void => {
-    const payload: MessageUpdateMarker = {
-      messageType: UPDATE_MARKER,
-      marker: formState
-    }
-    updateMarker(UPDATE_MARKER, payload)
+    updateMarker(UPDATE_MARKER, formState)
   }
 
-  const deleteMarker = (): void => {
-    console.log('handler to delete marker')
+  const deleteMarkerHandler = (): void => {
+    updateMarker(DELETE_MARKER, formState)
   }
 
   const toggleDeleteMarker = (): void => setOpen(!isOpen)
@@ -106,7 +102,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
       isOpen={isOpen}
       message='Are you sure you wish to delete this marker?'
       onCancel={toggleDeleteMarker}
-      onConfirm={deleteMarker}
+      onConfirm={deleteMarkerHandler}
     />
     <ColorPicker anchorElm={anchorElm} onClose={closeColorPicker} switchColor={changeIconColor} />
     <TitleWithIcon

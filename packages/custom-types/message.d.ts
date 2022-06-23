@@ -15,7 +15,8 @@ import {
   DELETE_PLATFORM,
   UPDATE_MARKER,
   CollaborativeMessageStates,
-  COUNTER_MESSAGE
+  COUNTER_MESSAGE,
+  DELETE_MARKER
 } from '@serge/config'
 
 import Perception from './perception'
@@ -266,6 +267,11 @@ export interface MessageUpdateMarker {
   readonly marker: MapAnnotation
 }
 
+export interface MessageDeleteMarker {
+  readonly messageType: typeof DELETE_MARKER,
+  readonly marker: MapAnnotation['uniqid']
+}
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -275,7 +281,8 @@ export type MessageMap = MessageForceLaydown |
   MessageLeaveTaskGroup |
   MessageHostPlatform |
   MessageDeletePlatform |
-  MessageUpdateMarker 
+  MessageUpdateMarker |
+  MessageDeleteMarker
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom

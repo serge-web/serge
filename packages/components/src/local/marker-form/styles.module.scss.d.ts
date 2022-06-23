@@ -6,6 +6,7 @@ interface CssExports {
   'button': string;
   'button-group': string;
   'color-indicator': string;
+  'delete-marker-btn': string;
   'description': string;
   'fieldset': string;
   'force-color': string;
@@ -18,7 +19,6 @@ interface CssExports {
   'red': string;
   'select': string;
   'selected': string;
-  'delete-marker-btn': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
