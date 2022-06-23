@@ -303,7 +303,7 @@ export const MapBar: React.FC = () => {
       // note: we're not immediately calling mapPostBack
       // because we only transmit the data "live" in planning phase.
       // this is handled in updateMarker callback
-      updateMarker && updateMarker(messageType,marker)
+      updateMarker && updateMarker(messageType, marker)
     } else {
       console.warn('Marker postback received wrong type of message')
     }

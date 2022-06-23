@@ -640,7 +640,7 @@ export const Mapping: React.FC<PropTypes> = ({
             }
             mapPostBack(event, message, CHANNEL_MAPPING)
             break
-          }    
+          }
         }
       }
     }
