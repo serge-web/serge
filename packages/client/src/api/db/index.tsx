@@ -32,8 +32,9 @@ export class DbProvider implements DbProviderInterface {
     const socket = io(socketPath)
     const listenerMessage = (data: MessageCustom) => {
       // have we just received this message?
-      if (this.message_ID === data._id) {
+      if ((data._id !== 'initial_wargame') && (this.message_ID === data._id)) {
         // yes - stop listening on this socket
+        console.warn('stopping listening for', data._id)
         socket.off('changes', listenerMessage) 
       } else {
         // no, handle the message
