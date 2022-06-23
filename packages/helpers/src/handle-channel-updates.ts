@@ -2,7 +2,7 @@ import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MES
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerMessage, PlayerMessageLog, Wargame
+  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -92,9 +92,9 @@ export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}-${id}`) === 'read'
 )
 
-export const clipInfoMEssage = (message: Wargame | MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
-  if (message.messageType !== undefined && message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
-    throw new TypeError(`Message should be INFO_MESSAGE: "${message.messageType}" type`)
+export const clipInfoMEssage = (gameTurn: number, messageType: string | undefined, id: string | undefined, hasBeenRead = false): MessageInfoTypeClipped => {
+  if (messageType !== undefined && messageType !== INFO_MESSAGE && messageType !== INFO_MESSAGE_CLIPPED) {
+    throw new TypeError(`Message should be INFO_MESSAGE: "${messageType}" type`)
   }
   return {
     messageType: INFO_MESSAGE_CLIPPED,
@@ -102,10 +102,10 @@ export const clipInfoMEssage = (message: Wargame | MessageInfoType | MessageInfo
       channel: `infoTypeChannelMarker${uniqId.time()}`
     },
     infoType: true,
-    gameTurn: message.gameTurn,
+    gameTurn: gameTurn,
     isOpen: false,
     hasBeenRead,
-    _id: message._id
+    _id: id
   }
 }
 
@@ -125,7 +125,7 @@ export const handleAllInitialChannelMessages = (
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
     if (message.messageType === INFO_MESSAGE) {
-      return clipInfoMEssage(message, hasBeenRead)
+      return clipInfoMEssage(message.gameTurn, message.messageType, message._id, hasBeenRead)
     } else {
       return {
         ...message,
@@ -217,12 +217,12 @@ export const handleNewMessageData = (
 }
 
 const handleChannelUpdates = (
-  wargame: Wargame,
+  allChannels: ChannelTypes[],
+  messageId: string,
   gameTurn: number,
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined,
-  _allChannels: ChannelTypes[],
   selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
@@ -240,8 +240,7 @@ const handleChannelUpdates = (
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
   // create any new channels & add to current channel
-  const channelData = wargame.data.channels.channels
-  channelData.forEach((channel: ChannelTypes) => {
+  allChannels.forEach((channel: ChannelTypes) => {
     if (channel.uniqid === undefined) {
       console.error('Received channel without uniqid')
     }
@@ -314,7 +313,7 @@ const handleChannelUpdates = (
         if (thisChannel.messages && !collabChannel) {
           if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
             // no messages, or no turn marker found, create one
-            const message: MessageChannel = clipInfoMEssage(wargame, false)
+            const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
             thisChannel.messages.unshift(message)
           }
         }

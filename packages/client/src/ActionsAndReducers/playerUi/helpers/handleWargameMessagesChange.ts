@@ -21,8 +21,8 @@ import {
 export const handleWargameUpdate = (payload: Wargame, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
-  const res: SetWargameMessage = handleChannelUpdates(payload, payload.gameTurn, newState.channels, newState.chatChannel,
-    newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
+  const res: SetWargameMessage = handleChannelUpdates(payload.data.channels.channels, payload._id, payload.gameTurn, newState.channels, newState.chatChannel,
+    newState.selectedForce, newState.selectedRole, newState.isObserver,
     newState.allTemplatesByKey, newState.allForces, newState.playerMessageLog)
   return res
 }
