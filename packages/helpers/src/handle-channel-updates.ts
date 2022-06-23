@@ -209,6 +209,12 @@ export const handleNewMessageData = (
   }
   if (payload.messageType === INFO_MESSAGE_CLIPPED) {
     // just push it into the channel, or ignore it?
+    const channelId = payload.details.channel
+    const channel = channels[channelId]
+    if (!channel.messages) {
+      channel.messages = []
+    }
+    channel.messages.unshift(payload)
   } else {
     handleNonInfoMessage(res, payload.details.channel, payload)
   }
@@ -233,7 +239,6 @@ const handleChannelUpdates = (
     chatChannel: { ...chatChannel },
     playerMessageLog: deepCopy(playerMessageLog)
   }
-
   // keep track of the channels that have been processed. We'll delete the other later
   const unprocessedChannels: PlayerUiChannels = { ...channels }
 
