@@ -3,7 +3,9 @@ import {
   databasePath,
   socketPath,
   replicate,
-  deletePath
+  deletePath,
+  wargameSettings,
+  settings
 } from '@serge/config'
 import { Message, MessageCustom, Wargame } from '@serge/custom-types'
 import { io } from 'socket.io-client'
@@ -31,8 +33,10 @@ export class DbProvider implements DbProviderInterface {
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
     const listenerMessage = (data: MessageCustom) => {
+      // we use two special names for the wargame document
+      const specialFiles = [wargameSettings, settings]
       // have we just received this message?
-      if ((data._id !== 'initial_wargame') && (this.message_ID === data._id)) {
+      if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
         // yes - stop listening on this socket
         console.warn('stopping listening for', data._id)
         socket.off('changes', listenerMessage) 
