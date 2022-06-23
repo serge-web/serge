@@ -18,6 +18,7 @@ interface CssExports {
   'red': string;
   'select': string;
   'selected': string;
+  'delete-marker-btn': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
