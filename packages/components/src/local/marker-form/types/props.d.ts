@@ -1,7 +1,6 @@
 import { DELETE_MARKER, UPDATE_MARKER } from '@serge/config'
 import { MarkerFormData } from '@serge/custom-types'
 
-
 export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
