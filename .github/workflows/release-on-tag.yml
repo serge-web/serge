@@ -11,13 +11,15 @@ on:
     branches:
       - master
       - develop
+    tags:        
+      - '*'     
 
 jobs:
   test:
   
     name: Build/Test validation
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [16.x]
@@ -45,6 +47,5 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: /home/runner/work/serge/serge/packages/executable/builds/*.zip
