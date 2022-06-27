@@ -52,6 +52,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const colors = [
     '#0F0'
   ]
+  const names = [
+    'Blue'
+  ]
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -75,6 +78,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     icons={icons}
     playerForceId={playerForceId}
     colors={colors}
+    names={names}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
     isUmpire={true}
