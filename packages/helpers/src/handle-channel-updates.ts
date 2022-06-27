@@ -167,7 +167,7 @@ export const handleAllInitialChannelMessages = (
       const forceColors: string[] = []
       for (const { forceUniqid } of channel.participants) {
         const force = allForces.find((force) => force.uniqid === forceUniqid)
-        forceIcons.push((force && force.iconURL) || force?.icon)
+        forceIcons.push(force && (force.iconURL || force.icon))
         forceColors.push((force && force.color) || '#FFF')
       }
 
