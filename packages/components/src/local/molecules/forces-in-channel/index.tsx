@@ -9,15 +9,15 @@ import styles from './styles.module.scss'
 import Props from './types/props'
 
 /* Render component */
-export const ForcesInChannel: React.FC<Props> = ({ icons, colors, onMarkAllAsRead, messages = [] }: Props) => {
+export const ForcesInChannel: React.FC<Props> = ({ icons, colors, names, onMarkAllAsRead, messages = [] }: Props) => {
   const isAllMsgHasBeenRead = messages.every(msg => msg.hasBeenRead)
-
   return (
     <div className={styles['forces-in-channel']}>
       {icons &&
         icons.map((url, i) => {
           return <img
             key={`indicator${i}`}
+            title={names ? names[i] : 'missing'}
             className={`${styles['force-indicator']} ${styles['role-icon']}`}
             style={{
               ...(colors[i] && { borderColor: colors[i], backgroundColor: colors[i] })

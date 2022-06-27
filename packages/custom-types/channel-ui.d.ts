@@ -18,4 +18,5 @@ export default interface ChannelUI {
   unreadMessageCount?: number
   forceIcons?: Array<any>
   forceColors?: Array<string>
+  forceNames?: Array<string
 }
