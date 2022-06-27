@@ -26,10 +26,11 @@ export const Default: React.FC = () => {
   const names = [
     'Blue'
   ]
-return (
+  return (
     <ForcesInChannel
       icons={icons}
       colors={colors}
+      names={names}
       onMarkAllAsRead={(): void => window.alert('Mark all as read')}
     />
   )
@@ -51,7 +52,7 @@ export const MultipleForces: React.FC = () => {
     'Green',
     'Blue'
   ]
-return (
+  return (
     <ForcesInChannel
       icons={icons}
       colors={colors}
