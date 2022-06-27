@@ -10,6 +10,10 @@ export default interface Props {
    */
   colors: Array<string>
   /**
+   * List of force names
+   */
+  names: Array<string>
+   /**
    * Callback on mark all as read button click event
    */
   onMarkAllAsRead?: { (): void }
