@@ -19,7 +19,7 @@ describe('ChatMessagesList renders correctly', () => {
     ]
     const names = [
       'Blue'
-    ]    
+    ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: ChatMessage[] = [{
       messageType: CHAT_MESSAGE,
