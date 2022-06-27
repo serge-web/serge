@@ -1,4 +1,4 @@
-import handleChannelUpdates, { handleAllInitialChannelMessages } from '../handle-channel-updates'
+import { handleAllInitialChannelMessages, handleNewMessageData } from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
   ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerMessageLog
@@ -70,7 +70,7 @@ describe('handle new message into RFI channel', () => {
       lastUpdated: '2020-03-25T15:08:47.540Z',
       status: CollaborativeMessageStates.Closed
     }
-    const payload2: MessageChannel = {
+    const payload2: MessageCustom = {
       ...msg,
       _id: 'id_2z',
       details: {
@@ -79,8 +79,7 @@ describe('handle new message into RFI channel', () => {
       }
     }
 
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces, playerMessageLog)
+    const res2: SetWargameMessage = handleNewMessageData(payload2, res.channels, res.chatChannel, playerMessageLog)
 
     const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()

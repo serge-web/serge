@@ -40,7 +40,7 @@ const playerUi: PlayerUi = {
   currentTurn: 57,
   phase: 'adjudication',
   gameDate: '2019-10-29T02:02',
-  gameTurnTime: 43200000,
+  gameTurnTime: { unit: 'millis', millis: 43200000 },
   realtimeTurnTime: 300000,
   turnEndTime: '',
   adjudicationStartTime: '2020-09-30T09:17:56+07:00',

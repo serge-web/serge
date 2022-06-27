@@ -4,7 +4,7 @@ import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce, handleUpdateMarker } from '@serge/helpers'
+import { deleteRoleAndParts, duplicateThisForce, handleUpdateMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -47,6 +47,7 @@ import {
   MessageFeedback,
   MessageStructure,
   MessageCustom,
+  MessageChannel,
   MessageMap,
   GameTurnLength,
   ChannelTypes,
@@ -123,7 +124,9 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
     if (doc.messageType === INFO_MESSAGE) {
       const infoM = doc as MessageInfoType
       dispatch(setCurrentWargame(doc as Wargame))
-      dispatch(setLatestWargameMessage(clipInfoMEssage(infoM)))
+      const asAny = infoM as any
+      const asMsg = asAny as MessageChannel
+      dispatch(setLatestWargameMessage(asMsg))
       return
     }
 

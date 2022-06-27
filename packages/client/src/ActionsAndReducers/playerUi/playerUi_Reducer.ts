@@ -22,14 +22,15 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types'
+import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
 import {
-  handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
   markUnread,
   closeMessage,
-  markAllMessageState
+  markAllMessageState,
+  handleWargameUpdate,
+  handleNewMessage
 } from './helpers/handleWargameMessagesChange'
 
 import {
@@ -48,7 +49,7 @@ export const initialState: PlayerUi = {
   turnPresentation: TurnFormats.Natural,
   phase: '',
   gameDate: '',
-  gameTurnTime: 0,
+  gameTurnTime: { unit: 'millis', millis: 0 },
   timeWarning: 0,
   realtimeTurnTime: 0,
   turnEndTime: '0',
@@ -167,10 +168,22 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
-      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
-      newState.channels = changedLatestState.channels
-      newState.chatChannel = changedLatestState.chatChannel
-      newState.playerMessageLog = changedLatestState.playerMessageLog
+      const anyPayload = action.payload as any
+      if (anyPayload.data) {
+        // wargame change
+        const wargame = anyPayload as Wargame
+        newState.allChannels = wargame.data.channels.channels
+        const changedLatestState = handleWargameUpdate(wargame, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      } else {
+        // process new message
+        const changedLatestState = handleNewMessage(action.payload, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      }
       break
 
     case SET_ALL_MESSAGES:
