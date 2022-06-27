@@ -155,12 +155,6 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    const isCollab = channel.channelType === CHANNEL_COLLAB
-
-    const filterMessages = () => {
-      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
-    }
-
     if (isObserver || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
@@ -171,7 +165,9 @@ export const handleAllInitialChannelMessages = (
         forceColors.push((force && force.color) || '#FFF')
       }
 
-      const messages = filterMessages()
+      const isCollab = channel.channelType === CHANNEL_COLLAB
+      const messages = messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
+
       // grow the existing channel definition to include the new UI-focussed entries
       const newChannel: ChannelUI = {
         name: channel.name,
