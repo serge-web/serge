@@ -4,7 +4,7 @@ import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { deleteRoleAndParts, duplicateThisForce, handleUpdateMarker } from '@serge/helpers'
+import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -24,7 +24,8 @@ import {
   CUSTOM_MESSAGE,
   UPDATE_MARKER,
   STATE_OF_WORLD,
-  hiddenPrefix
+  hiddenPrefix,
+  DELETE_MARKER
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -72,6 +73,7 @@ import {
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
+import { MessageDeleteMarker } from '@serge/custom-types/message'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -846,6 +848,10 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageUpdateMarker = message
           res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === DELETE_MARKER) {
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageDeleteMarker = message
+          res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message

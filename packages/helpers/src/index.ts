@@ -35,6 +35,7 @@ export {
 } from './handle-channel-updates'
 export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
 export { default as handleUpdateMarker } from './handle-update-marker'
+export { default as handleDeleteMarker } from './handle-delete-marker'
 export { default as hexNamed } from './hex-named'
 export { default as isChatChannel } from './is-chat-channel'
 export { default as findEmptyRolenames } from './find-empty-rolenames'
