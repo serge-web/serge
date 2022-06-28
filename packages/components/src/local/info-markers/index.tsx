@@ -9,6 +9,7 @@ import { ForceData } from '@serge/custom-types'
 import { MapAnnotations, MapAnnotation } from '@serge/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
 import { geoToH3, h3ToGeo } from 'h3-js'
+import { UPDATE_MARKER } from '@serge/config'
 
 /* Render component */
 export const InfoMarkers: React.FC<{}> = () => {
@@ -45,7 +46,7 @@ export const InfoMarkers: React.FC<{}> = () => {
     }
     const newLocation = geoToH3(location.lat, location.lng, h3Resolution)
     marker.location = newLocation
-    updateMarker && updateMarker(marker)
+    updateMarker && updateMarker(UPDATE_MARKER, marker)
   }
 
   /**
