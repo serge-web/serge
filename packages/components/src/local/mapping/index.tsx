@@ -737,6 +737,7 @@ export const Mapping: React.FC<PropTypes> = ({
     markerIcons: markerIcons,
     platforms,
     playerForce,
+    isGameControl,
     phase,
     turnNumber,
     planningConstraints,
