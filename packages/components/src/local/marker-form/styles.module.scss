@@ -151,3 +151,11 @@
   margin-top: 5px;
   background-color: #fff;
 }
+
+.delete-marker-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25%;
+  cursor: pointer;
+}

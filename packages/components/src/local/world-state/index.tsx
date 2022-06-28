@@ -72,7 +72,7 @@ export const WorldState: React.FC<PropTypes> = ({
         break
       }
     }
-  }, [store, phase, panel])
+  }, [store, phase, panel, infoMarkers])
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {

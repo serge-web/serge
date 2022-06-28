@@ -1,6 +1,6 @@
 const listeners = {}
 let addListenersQueue = []
-
+let wargameName = ''
 const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
@@ -32,7 +32,7 @@ const couchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit('changes', result.doc))
+    }).on('change', (result) => io.emit(wargameName, result.doc))
   }
 
   // check listeners queue to add a new listenr
@@ -74,6 +74,7 @@ const couchDb = (app, io, pouchOptions) => {
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new CouchDB(couchDbURL(databaseName))
     const putData = req.body
+    wargameName = req.params.wargame
 
     if (!listeners[databaseName]) {
       addListenersQueue.push(databaseName)
