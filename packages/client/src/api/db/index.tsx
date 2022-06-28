@@ -39,7 +39,7 @@ export class DbProvider implements DbProviderInterface {
       if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
         // yes - stop listening on this socket
         console.warn('stopping listening for', data._id)
-        socket.off('changes', listenerMessage) 
+        socket.off(this.getDbName(), listenerMessage) 
       } else {
         // no, handle the message
         listener(data)
@@ -47,7 +47,7 @@ export class DbProvider implements DbProviderInterface {
         this.message_ID = data._id 
       }
     }
-    socket.on('changes', listenerMessage)
+    socket.on(this.getDbName(), listenerMessage)
   }
 
   destroy (): void {
