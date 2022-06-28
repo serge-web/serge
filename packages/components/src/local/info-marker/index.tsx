@@ -68,7 +68,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
   useEffect(() => {
     if (marker.shadeRadius && marker.shadeRadius > 0) {
       // note: intermittent issue where location hex is pending
-      if(locationHex === 'pending') {
+      if (locationHex === 'pending') {
         console.warn('Info marker has "pending" location')
         setRadiusPoly([])
       } else {

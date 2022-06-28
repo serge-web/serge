@@ -4,7 +4,7 @@ import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
 import L from 'leaflet'
 import React, { useContext, useEffect, useState } from 'react'
-import { LayerGroup } from 'react-leaflet'
+import { LayerGroup, Polygon } from 'react-leaflet'
 import MapIcon from '../map-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -12,6 +12,7 @@ import { Route } from '../route'
 import orientationFor from './helpers/orientation-for'
 /* Import Types */
 import AssetInfo, { OrientationData } from './types/asset_info'
+import * as h3 from 'h3-js'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -28,12 +29,15 @@ export const Assets: React.FC<{}> = () => {
     clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
     platforms,
     map,
-    viewport
+    viewport,
+    h3Resolution
   } = props
 
   const [visibleAssets, setVisibleAssets] = useState<AssetInfo[]>([])
   const [positionedAssets, setPositionedAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
+
+  const [tmpPolyLine, setTmpPolyLine] = useState<L.LatLng[]>([])
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
@@ -121,35 +125,69 @@ export const Assets: React.FC<{}> = () => {
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
   /**
-   * if we have any assets with location pending, 
-   * and we're in the correct game phase, put them in the location pending 
+   * if we have any assets with location pending,
+   * and we're in the correct game phase, put them in the location pending
    * pen
    */
   useEffect(() => {
     const draggable = (phase?: LaydownPhases): boolean => {
-      return !!phase
+      return !!phase && phase === LaydownPhases.Unmoved
     }
 
-      // find pending assets
-      const pendingAssets = visibleAssets.filter((asset: AssetInfo) => draggable(asset.laydownPhase))
+    // find pending assets
+    const pendingAssets = visibleAssets.filter((asset: AssetInfo) => draggable(asset.laydownPhase))
 
+    if (pendingAssets && pendingAssets.length && viewport) {
       // find bounds of viewport
-      console.log('viewport', viewport)
+      const centre = viewport.getCenter()
+      const north = viewport.getNorth()
+      const east = viewport.getEast()
+      const demiWid = east - centre.lng
+      const qtrWid = demiWid / 2
+      const demiHt = north - centre.lat
+      const qtrHt = demiHt / 2
+      const topEdge = north - qtrHt / 4
+      const origin = L.latLng(topEdge, centre.lng + qtrWid)
 
-      if (pendingAssets && pendingAssets.length) {
+      const oCell = h3.geoToH3(origin.lat, origin.lng, h3Resolution)
 
-        // work out how far to come in from top-right corner
+      const numRings = Math.ceil(pendingAssets.length / 3) + 1 
 
-        // generate ring around top-right corner
-
-        // filter for cells to bottom-left
-
-        // assign pending assets to cells
-
+      // work out in rings, until we have enough 
+      let allCells: string[] = []
+      for (let i=0; i<numRings; i++) {
+        const cells = h3.hexRing(oCell, i)
+        allCells = allCells.concat(cells)
       }
 
-      const validAssets = visibleAssets.filter((asset: AssetInfo) => asset.position !== undefined)
-      setPositionedAssets(validAssets)
+      // get cells beneath north edge
+      const allSouthCells = allCells.filter((index: string) => {
+        const centre = h3.h3ToGeo(index)
+        return centre[0] <= topEdge
+      })
+      allSouthCells.unshift(oCell)
+      
+      const southCells = allSouthCells.slice(0, pendingAssets.length)
+
+      console.log('pending', pendingAssets.length, allCells.length, southCells.length)
+
+
+      // now generate the hull around valid cells
+      const hull2 = h3.h3SetToMultiPolygon(southCells, true)
+      const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+
+      // and store as polyline
+      setTmpPolyLine(h3points)
+
+      // assign pending assets to cells
+      pendingAssets.forEach((asset: AssetInfo, i: number) => {
+        const newPos = h3.h3ToGeo(southCells[i])
+        asset.position = L.latLng(newPos[0], newPos[1])
+      })
+    }
+
+    const validAssets = visibleAssets.filter((asset: AssetInfo) => asset.position !== undefined)
+    setPositionedAssets(validAssets)
   }, [visibleAssets, viewport])
 
   return <>
@@ -174,7 +212,15 @@ export const Assets: React.FC<{}> = () => {
         map={map}
         locationPending={!!asset.laydownPhase} />
     })}
-
+    {
+        <Polygon
+        key={'tmp_hex_history_' + name}
+        positions={tmpPolyLine}
+        color={'#ddd'}
+        weight={5}
+      />
+    
+    }
     {
       viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
         <Route name={'test'}

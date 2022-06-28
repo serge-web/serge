@@ -1,6 +1,6 @@
 // import data types
 import { LaydownTypes, Phase } from '@serge/config'
-import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from '@serge/custom-types'
+import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
@@ -29,6 +29,8 @@ console.clear()
 
 // suitably mangle the data
 const blueF = forces[1]
+const redF = forces[2]
+const greenF = forces[3]
 const blue1 = blueF.assets && blueF.assets[0]
 if (blue1) {
   blue1.locationPending = LaydownTypes.UmpireLaydown
@@ -39,6 +41,22 @@ if (blue2) {
   blue2.locationPending = LaydownTypes.ForceLaydown
   blue2.position = undefined
 }
+
+const red1 = redF.assets && redF.assets[0]
+if (red1) {
+  red1.locationPending = LaydownTypes.ForceLaydown
+  red1.position = undefined
+}
+const red2 = redF.assets && redF.assets[1]
+if (red2) {
+  red2.locationPending = LaydownTypes.UmpireLaydown
+  red2.position = undefined
+}
+
+greenF.assets && greenF.assets.forEach((asset: Asset) => {
+  asset.locationPending = LaydownTypes.UmpireLaydown
+  asset.position = undefined
+})
 
 async function fetchMock (): Promise<any> {
   return {
@@ -99,6 +117,7 @@ export default {
     },
     wargameInitiated: {
       name: 'Wargame has been initiated',
+      defaultValue: false,
       control: {
         type: 'boolean'
       }
