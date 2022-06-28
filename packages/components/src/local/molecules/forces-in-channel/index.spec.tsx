@@ -13,11 +13,15 @@ describe('ForcesInChannel component:', () => {
     const colors = [
       '#00F'
     ]
+    const names = [
+      'Blue'
+    ]
     const tree = renderer
       .create(
         <ForcesInChannel
           icons={icons}
           colors={colors}
+          names={names}
           onMarkAllAsRead={(): void => window.alert('Mark all as read')}
         />
       )

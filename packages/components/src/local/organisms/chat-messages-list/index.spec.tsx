@@ -17,6 +17,9 @@ describe('ChatMessagesList renders correctly', () => {
     const colors = [
       '#F00'
     ]
+    const names = [
+      'Blue'
+    ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: ChatMessage[] = [{
       messageType: CHAT_MESSAGE,
@@ -38,7 +41,7 @@ describe('ChatMessagesList renders correctly', () => {
       _id: '2020-09-18T05:41:17.349Z'
     }]
     const tree = renderer
-      .create(<ChatMessagesList isUmpire={true} playerRole={'r345'} playerForce={'Blue'} messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<ChatMessagesList isUmpire={true} names={names} playerRole={'r345'} playerForce={'Blue'} messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

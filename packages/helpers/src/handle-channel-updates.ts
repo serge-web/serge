@@ -155,23 +155,21 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    const isCollab = channel.channelType === CHANNEL_COLLAB
-
-    const filterMessages = () => {
-      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
-    }
-
     if (isObserver || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
       const forceColors: string[] = []
+      const forceNames: string[] = []
       for (const { forceUniqid } of channel.participants) {
         const force = allForces.find((force) => force.uniqid === forceUniqid)
-        forceIcons.push((force && force.iconURL) || force?.icon)
+        forceIcons.push(force && (force.iconURL || force.icon))
         forceColors.push((force && force.color) || '#FFF')
+        forceNames.push((force && force.name) || 'PENDING')
       }
 
-      const messages = filterMessages()
+      const isCollab = channel.channelType === CHANNEL_COLLAB
+      const messages = messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
+
       // grow the existing channel definition to include the new UI-focussed entries
       const newChannel: ChannelUI = {
         name: channel.name,
@@ -179,6 +177,7 @@ export const handleAllInitialChannelMessages = (
         templates: templates,
         forceIcons,
         forceColors,
+        forceNames,
         messages,
         unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing,
@@ -311,6 +310,15 @@ const handleChannelUpdates = (
         })
         if (forceColors !== thisChannel.forceColors) {
           thisChannel.forceColors = forceColors
+        }
+
+        // force names
+        const forceNames = cParts && cParts.map((participant) => {
+          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+          return (force && force.name) || 'pending'
+        })
+        if (forceNames !== thisChannel.forceNames) {
+          thisChannel.forceNames = forceNames
         }
 
         // check if this is a collab channel, since we don't fire turn markers into collab channels
