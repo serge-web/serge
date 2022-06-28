@@ -61,6 +61,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
 
   const icons = state.channels[channelId].forceIcons || []
   const colors = state.channels[channelId].forceColors || []
+  const names = state.channels[channelId].forceNames || []
   const isUmpire = state.selectedForce && state.selectedForce.umpire
   const observing = !!state.channels[channelId].observing
 
@@ -91,6 +92,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             isUmpire={true}
             icons={icons}
             colors={colors}
+            names={names}
             onMarkAllAsRead={markAllAsReadLocal}
             turnPresentation={state.turnPresentation}
             onUnread={handleUnreadMessage}
@@ -104,6 +106,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             isUmpire={!!isUmpire}
             icons={icons}
             colors={colors}
+            names={names}
             chatContainerHeight={chatContainerHeight}
             observing={observing}
             markUnread={handleUnreadMessage}

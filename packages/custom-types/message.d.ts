@@ -23,7 +23,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Role from './role'
-import { Force, ForceRole, StateOfWorld, ForceData } from '.'
+import { Force, ForceRole, StateOfWorld, ForceData, ChannelCore } from '.'
 import Wargame from './wargame'
 import { MapAnnotation } from './map-annotation'
 
@@ -195,7 +195,7 @@ export interface MessageInfoTypeClipped {
   readonly messageType: typeof INFO_MESSAGE_CLIPPED,
   details: {
     /** id of channel `infoTypeChannelMarker${uniqId.time()}` */
-    channel: string
+    channel: ChannelCore['uniqid']
   },
   infoType: boolean,
   gameTurn: number,
