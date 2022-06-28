@@ -602,23 +602,23 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const updateMarker = (event: string, marker: MapAnnotation): void => {
-    // start off by updating the local data
-    const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
-    switch (event) {
-      case UPDATE_MARKER: {
-        others.push(marker)
-        break
-      }
-      case DELETE_MARKER: {
-        // don't do anything
-      }
-    }
-    setInfoMarkersState(others)
-    // now do the external update, depending on which phase this is
+    // do the external update, depending on which phase this is
     // check which phase we're in
     switch (phase) {
       case Phase.Adjudication: {
-        // no further action- it will get caught up in new world state
+        // start off by updating the local data. We don't transmit the change,
+        // since it will get caught up with sending new state of world
+        const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
+        switch (event) {
+          case UPDATE_MARKER: {
+            others.push(marker)
+            break
+          }
+          case DELETE_MARKER: {
+            // don't do anything
+          }
+        }
+        setInfoMarkersState(others)
         break
       }
       case Phase.Planning: {
