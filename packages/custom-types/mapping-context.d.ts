@@ -33,7 +33,7 @@ export default interface MappingContext {
   /** whether current role is game-contrl
    * (and able to edit info markers)
    */
-  isGameControl?: Role['isGameControl']
+  isGameControl: Role['isGameControl']
   /**
    * phase of current game
    */
