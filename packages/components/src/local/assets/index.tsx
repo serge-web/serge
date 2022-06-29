@@ -236,7 +236,7 @@ export const Assets: React.FC<{}> = () => {
         locationPending={forLaydown(asset.laydownPhase)} />
     })}
     {
-      penCentre && 
+      penCentre &&
       <>
         <Polygon
           key={'pending_area'}
@@ -247,15 +247,15 @@ export const Assets: React.FC<{}> = () => {
           lineJoin={'round'}
         />
         <Marker
-        key={'pen-title'}
-        position={penCentre}
-        width='120'
-        icon={L.divIcon({
-          html: 'Laydown pen',
-          className: styles['pending-area'],
-          iconSize: [80, 50],
-          iconAnchor: [40, 10]
-        })} />
+          key={'pen-title'}
+          position={penCentre}
+          width='120'
+          icon={L.divIcon({
+            html: 'Laydown pen',
+            className: styles['pending-area'],
+            iconSize: [80, 50],
+            iconAnchor: [40, 10]
+          })} />
       </>
     }
     {
