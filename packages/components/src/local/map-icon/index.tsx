@@ -72,14 +72,18 @@ export const MapIcon: React.FC<PropTypes> = ({
   // get top orient marker in the list
   const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
 
+  // Note: use `locationPending` boolean flag to decide whether icon should flash
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
+    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
   })
+
+
+ 
 
   return <>
     <LayerGroup key={'hex_polygons3'} >{
-      /* not too many cells visible, show hex outlines */
       map && orientationData && orientationData.map((cell: OrientationData, index: number) => {
         const orientRads = (90 - cell.orientation) * Math.PI / 180.0
         // const orientRads = 190.0 * Math.PI / 180.0
