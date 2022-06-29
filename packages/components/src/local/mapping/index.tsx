@@ -511,12 +511,12 @@ export const Mapping: React.FC<PropTypes> = ({
     // give it the new position
     asset.position = cell
 
-    // we're going to re-create the routes. That code relies no position 
+    // we're going to re-create the routes. That code relies no position
     // being `pending` to determine if the asset has been moved.
     // so - check for assets that are un-moved, and clear their position
     const withPos = routeStore.routes.filter((route: Route) => route.currentPosition)
     withPos.forEach((route: Route) => {
-      if(route.laydownPhase === LaydownPhases.Unmoved) {
+      if (route.laydownPhase === LaydownPhases.Unmoved) {
         route.currentPosition = 'pending'
         route.currentLocation2 = undefined
       }

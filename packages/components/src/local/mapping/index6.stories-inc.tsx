@@ -32,7 +32,7 @@ const sortAsset = (asset?: Asset, lType?: LaydownTypes) => {
     asset.locationPending = lType
     asset.position = undefined
     asset.history = undefined
-    asset.plannedTurns = undefined  
+    asset.plannedTurns = undefined
   }
 }
 
