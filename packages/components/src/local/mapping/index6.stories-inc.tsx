@@ -27,35 +27,26 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 
 console.clear()
 
+const sortAsset = (asset?: Asset, lType?: LaydownTypes) => {
+  if (asset) {
+    asset.locationPending = lType
+    asset.position = undefined
+    asset.history = undefined
+    asset.plannedTurns = undefined  
+  }
+}
+
 // suitably mangle the data
 const blueF = forces[1]
 const redF = forces[2]
 const greenF = forces[3]
-const blue1 = blueF.assets && blueF.assets[0]
-if (blue1) {
-  blue1.locationPending = LaydownTypes.UmpireLaydown
-  blue1.position = undefined
-}
-const blue2 = blueF.assets && blueF.assets[1]
-if (blue2) {
-  blue2.locationPending = LaydownTypes.ForceLaydown
-  blue2.position = undefined
-}
-
-const red1 = redF.assets && redF.assets[0]
-if (red1) {
-  red1.locationPending = LaydownTypes.ForceLaydown
-  red1.position = undefined
-}
-const red2 = redF.assets && redF.assets[1]
-if (red2) {
-  red2.locationPending = LaydownTypes.UmpireLaydown
-  red2.position = undefined
-}
+sortAsset(blueF.assets && blueF.assets[0], LaydownTypes.UmpireLaydown)
+sortAsset(blueF.assets && blueF.assets[1], LaydownTypes.ForceLaydown)
+sortAsset(redF.assets && redF.assets[0], LaydownTypes.ForceLaydown)
+sortAsset(redF.assets && redF.assets[1], LaydownTypes.UmpireLaydown)
 
 greenF.assets && greenF.assets.forEach((asset: Asset) => {
-  asset.locationPending = LaydownTypes.UmpireLaydown
-  asset.position = undefined
+  sortAsset(asset, LaydownTypes.UmpireLaydown)
 })
 
 async function fetchMock (): Promise<any> {

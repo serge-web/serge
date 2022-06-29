@@ -119,7 +119,7 @@ export const MapIcon: React.FC<PropTypes> = ({
       })}
     </LayerGroup>
 
-    <Marker opacity={locationPending ? 0.3 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
+    <Marker draggable={locationPending} opacity={locationPending ? 0.3 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
   </>
