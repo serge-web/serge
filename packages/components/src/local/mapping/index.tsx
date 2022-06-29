@@ -272,7 +272,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      console.log('store', routeStore.selected && routeStore.selected.currentLocation2, routeStore.selected && routeStore.selected.originalPosition )
+      console.log('store', routeStore.selected && routeStore.selected.currentLocation2, routeStore.selected && routeStore.selected.originalPosition)
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
       setRouteStore(store)
