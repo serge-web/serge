@@ -33,7 +33,7 @@ export default interface MappingContext {
   /** whether current role is game-contrl
    * (and able to edit info markers)
    */
-  isGameControl?: Role['isGameControl']
+  isGameControl: Role['isGameControl']
   /**
    * phase of current game
    */
@@ -85,7 +85,7 @@ export default interface MappingContext {
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
-  updateMarker?: {(marker: MapAnnotation): void}
+  updateMarker?: {(event: string, marker: MapAnnotation): void}
    /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
