@@ -131,9 +131,9 @@ const factory = (state: PlayerUi): Factory => {
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
     >
+      <HexGrid />
       <InfoMarkers />
       <Assets />
-      <HexGrid />
     </Mapping>
 
     if (_.isEmpty(state.channels)) return

@@ -267,16 +267,13 @@ export const Mapping: React.FC<PropTypes> = ({
    * in the Force Overview panel
    */
   useEffect(() => {
-    console.log('about to update routes', forcesState, h3gridCells)
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      console.log('before new routes', routeStore.selected && routeStore.selected.laydownPhase)
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
-      console.log('after new routes', store.selected && store.selected.laydownPhase)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -522,7 +519,8 @@ export const Mapping: React.FC<PropTypes> = ({
       }
     })
 
-    // and force update of routes
+    // and force update of routes. Note: I need to create `deepCopy` in order
+    // for react to observe new state
     setForcesState(deepCopy(forcesState))
 
     // TODO: working here

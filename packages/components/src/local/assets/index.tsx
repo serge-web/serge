@@ -4,7 +4,7 @@ import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
 import L from 'leaflet'
 import React, { useContext, useEffect, useState } from 'react'
-import { LayerGroup, Polygon } from 'react-leaflet'
+import { LayerGroup, Marker, Polygon } from 'react-leaflet'
 import MapIcon from '../map-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -13,6 +13,7 @@ import orientationFor from './helpers/orientation-for'
 /* Import Types */
 import AssetInfo, { OrientationData } from './types/asset_info'
 import * as h3 from 'h3-js'
+import styles from './styles.module.scss'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -39,6 +40,7 @@ export const Assets: React.FC<{}> = () => {
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
   const [pendingArea, setPendingArea] = useState<L.LatLng[]>([])
+  const [penCentre, setPenCentre] = useState<L.LatLng | undefined>(undefined)
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
@@ -156,8 +158,14 @@ export const Assets: React.FC<{}> = () => {
       // get the h3 cell at the centre of where we're looking
       const oCell = h3.geoToH3(topEdge, centre.lng + qtrWid, h3Resolution)
 
+      // find the centre of the cell
+      const cellCentre = h3.h3ToGeo(oCell)
+      setPenCentre(L.latLng(cellCentre[0], cellCentre[1]))
+
+      const centreOriginLat = cellCentre[0]
+
       // how many rings to we need to accommodate the pending assets?
-      const numRings = Math.ceil(pendingAssets.length / 3)
+      const numRings = Math.ceil(pendingAssets.length / 3) + 1
 
       // work out in rings, until we have enough.
       // Note: we start at ring 1, since we manually push in the origin cell
@@ -171,25 +179,29 @@ export const Assets: React.FC<{}> = () => {
       // get cells beneath north edge
       const allSouthCells = allCells.filter((index: string) => {
         const centre = h3.h3ToGeo(index)
-        return centre[0] <= topEdge
+        return centre[0] <= centreOriginLat
       })
-      // note: we manually inject the origin cell, since it may have failed the
-      // note: < topEdge test
-      allSouthCells.unshift(oCell)
 
       // reduce the list of cells to just those we know we need
       const southCells = allSouthCells.slice(0, pendingAssets.length)
-
-      // now generate the hull around valid cells
-      const hull1 = h3.h3SetToMultiPolygon(southCells, true)
-      const h3points1 = hull1[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
-      setPendingArea(h3points1)
 
       // assign pending assets to cells
       pendingAssets.forEach((asset: AssetInfo, i: number) => {
         const newPos = h3.h3ToGeo(southCells[i])
         asset.position = L.latLng(newPos[0], newPos[1])
       })
+
+      // now generate the hull around valid cells
+      // note: we manually inject the origin cell, since it may have failed the
+      // note: < topEdge test (putting oCell back in the area)
+      southCells.unshift(oCell)
+      const hull1 = h3.h3SetToMultiPolygon(southCells, true)
+      const h3points1 = hull1[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+      setPendingArea(h3points1)
+    } else {
+      // clear the pending area
+      setPenCentre(undefined)
+      setPendingArea([])
     }
 
     const validAssets = visibleAssets.filter((asset: AssetInfo) => asset.position !== undefined)
@@ -224,12 +236,27 @@ export const Assets: React.FC<{}> = () => {
         locationPending={forLaydown(asset.laydownPhase)} />
     })}
     {
-      <Polygon
-        key={'tmp_hex_history'}
-        positions={pendingArea}
-        color={'#ddd'}
-        weight={2}
-      />
+      penCentre && 
+      <>
+        <Polygon
+          key={'pending_area'}
+          positions={pendingArea}
+          color={'#aaa'}
+          opacity={1.0}
+          weight={2}
+          lineJoin={'round'}
+        />
+        <Marker
+        key={'pen-title'}
+        position={penCentre}
+        width='120'
+        icon={L.divIcon({
+          html: 'Laydown pen',
+          className: styles['pending-area'],
+          iconSize: [80, 50],
+          iconAnchor: [40, 10]
+        })} />
+      </>
     }
     {
       viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
