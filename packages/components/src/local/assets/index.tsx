@@ -151,11 +151,11 @@ export const Assets: React.FC<{}> = () => {
 
       const oCell = h3.geoToH3(origin.lat, origin.lng, h3Resolution)
 
-      const numRings = Math.ceil(pendingAssets.length / 3) + 1 
+      const numRings = Math.ceil(pendingAssets.length / 3) + 1
 
-      // work out in rings, until we have enough 
+      // work out in rings, until we have enough
       let allCells: string[] = []
-      for (let i=0; i<numRings; i++) {
+      for (let i = 0; i < numRings; i++) {
         const cells = h3.hexRing(oCell, i)
         allCells = allCells.concat(cells)
       }
@@ -166,11 +166,10 @@ export const Assets: React.FC<{}> = () => {
         return centre[0] <= topEdge
       })
       allSouthCells.unshift(oCell)
-      
+
       const southCells = allSouthCells.slice(0, pendingAssets.length)
 
       console.log('pending', pendingAssets.length, allCells.length, southCells.length)
-
 
       // now generate the hull around valid cells
       const hull2 = h3.h3SetToMultiPolygon(southCells, true)
@@ -213,13 +212,13 @@ export const Assets: React.FC<{}> = () => {
         locationPending={!!asset.laydownPhase} />
     })}
     {
-        <Polygon
+      <Polygon
         key={'tmp_hex_history_' + name}
         positions={tmpPolyLine}
         color={'#ddd'}
         weight={5}
       />
-    
+
     }
     {
       viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
