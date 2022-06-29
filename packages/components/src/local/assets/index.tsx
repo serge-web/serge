@@ -37,8 +37,8 @@ export const Assets: React.FC<{}> = () => {
   const [positionedAssets, setPositionedAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
-  const [tmpPolyLine, setTmpPolyLine] = useState<L.LatLng[]>([])
-
+  const [pendingArea, setPendingArea] = useState<L.LatLng[]>([])
+ 
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
@@ -124,18 +124,23 @@ export const Assets: React.FC<{}> = () => {
     }
   }, [h3gridCells, forces, playerForce, viewAsRouteStore])
 
+  const forLaydown = (phase?: LaydownPhases): boolean => {
+    return !!phase && (phase === LaydownPhases.Unmoved || phase === LaydownPhases.Moved)
+  }
+
+
   /**
    * if we have any assets with location pending,
    * and we're in the correct game phase, put them in the location pending
    * pen
    */
   useEffect(() => {
-    const draggable = (phase?: LaydownPhases): boolean => {
+    const inPendingPen = (phase?: LaydownPhases): boolean => {
       return !!phase && phase === LaydownPhases.Unmoved
     }
 
     // find pending assets
-    const pendingAssets = visibleAssets.filter((asset: AssetInfo) => draggable(asset.laydownPhase))
+    const pendingAssets = visibleAssets.filter((asset: AssetInfo) => inPendingPen(asset.laydownPhase))
 
     if (pendingAssets && pendingAssets.length && viewport) {
       // find bounds of viewport
@@ -147,15 +152,18 @@ export const Assets: React.FC<{}> = () => {
       const demiHt = north - centre.lat
       const qtrHt = demiHt / 2
       const topEdge = north - qtrHt / 4
-      const origin = L.latLng(topEdge, centre.lng + qtrWid)
 
-      const oCell = h3.geoToH3(origin.lat, origin.lng, h3Resolution)
+      // get the h3 cell at the centre of where we're looking
+      const oCell = h3.geoToH3(topEdge, centre.lng + qtrWid, h3Resolution)
 
-      const numRings = Math.ceil(pendingAssets.length / 3) + 1
+      // how many rings to we need to accommodate the pending assets?
+      const numRings = Math.ceil(pendingAssets.length / 3)
 
-      // work out in rings, until we have enough
+      // work out in rings, until we have enough. 
+      // Note: we start at ring 1, since we manually push in the origin cell
+      // Note: later on
       let allCells: string[] = []
-      for (let i = 0; i < numRings; i++) {
+      for (let i = 1; i < numRings; i++) {
         const cells = h3.hexRing(oCell, i)
         allCells = allCells.concat(cells)
       }
@@ -165,19 +173,18 @@ export const Assets: React.FC<{}> = () => {
         const centre = h3.h3ToGeo(index)
         return centre[0] <= topEdge
       })
+      // note: we manually inject the origin cell, since it may have failed the
+      // note: < topEdge test
       allSouthCells.unshift(oCell)
 
+      // reduce the list of cells to just those we know we need
       const southCells = allSouthCells.slice(0, pendingAssets.length)
 
-      console.log('pending', pendingAssets.length, allCells.length, southCells.length)
-
       // now generate the hull around valid cells
-      const hull2 = h3.h3SetToMultiPolygon(southCells, true)
-      const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
-
-      // and store as polyline
-      setTmpPolyLine(h3points)
-
+      const hull1 = h3.h3SetToMultiPolygon(southCells, true)
+      const h3points1 = hull1[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+      setPendingArea(h3points1)
+      
       // assign pending assets to cells
       pendingAssets.forEach((asset: AssetInfo, i: number) => {
         const newPos = h3.h3ToGeo(southCells[i])
@@ -209,16 +216,15 @@ export const Assets: React.FC<{}> = () => {
         imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
-        locationPending={!!asset.laydownPhase} />
+        locationPending={forLaydown(asset.laydownPhase)} />
     })}
     {
       <Polygon
-        key={'tmp_hex_history_' + name}
-        positions={tmpPolyLine}
+        key={'tmp_hex_history'}
+        positions={pendingArea}
         color={'#ddd'}
-        weight={5}
+        weight={2}
       />
-
     }
     {
       viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
