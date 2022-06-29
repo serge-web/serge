@@ -1,6 +1,6 @@
 import { UNKNOWN_TYPE } from '@serge/config'
 import { SelectedAsset } from '@serge/custom-types'
-import L from 'leaflet'
+import L, { DragEndEvent } from 'leaflet'
 import { capitalize } from 'lodash'
 import React, { useContext, useMemo } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -13,6 +13,7 @@ import { MapContext } from '../mapping'
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
+import * as h3 from 'h3-js'
 
 /* Render component */
 export const MapIcon: React.FC<PropTypes> = ({
@@ -32,14 +33,21 @@ export const MapIcon: React.FC<PropTypes> = ({
   imageSrc,
   attributes,
   orientationData,
-  map
+  map,
+  markerDropped
 }) => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
-  const { setShowMapBar, setSelectedAsset, selectedAsset, clearMapSelection } = props
+  const { setShowMapBar, setSelectedAsset, selectedAsset, clearMapSelection, h3Resolution } = props
 
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
   const className = getIconClassname('', isDestroyed, selected)
+
+  const markerDroppedLocal = (e: DragEndEvent): void => {
+    const newPos: L.LatLng = e.target.getLatLng()
+    const newCell = h3.geoToH3(newPos.lat, newPos.lng, h3Resolution)
+    markerDropped && markerDropped(newCell, uniqid)
+  }
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -119,7 +127,7 @@ export const MapIcon: React.FC<PropTypes> = ({
       })}
     </LayerGroup>
 
-    <Marker draggable={locationPending} opacity={locationPending ? 0.3 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
+    <Marker ondragend={markerDroppedLocal} draggable={locationPending} opacity={locationPending ? 0.3 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
   </>

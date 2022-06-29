@@ -30,7 +30,8 @@ export const Assets: React.FC<{}> = () => {
     platforms,
     map,
     viewport,
-    h3Resolution
+    h3Resolution,
+    assetLaydown
   } = props
 
   const [visibleAssets, setVisibleAssets] = useState<AssetInfo[]>([])
@@ -195,6 +196,10 @@ export const Assets: React.FC<{}> = () => {
     setPositionedAssets(validAssets)
   }, [visibleAssets, viewport])
 
+  const markerDropped = (cell: string, assetId: string): void => {
+    assetLaydown && assetLaydown(cell, assetId)
+  }
+
   return <>
     <LayerGroup>{positionedAssets && positionedAssets.map((asset: AssetInfo) => {
       return <MapIcon
@@ -215,6 +220,7 @@ export const Assets: React.FC<{}> = () => {
         imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
+        markerDropped={markerDropped}
         locationPending={forLaydown(asset.laydownPhase)} />
     })}
     {

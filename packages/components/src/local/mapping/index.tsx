@@ -27,7 +27,8 @@ import {
   enumFromString,
   turnTimeAsMillis,
   routeDeclutter2,
-  DeclutterData
+  DeclutterData,
+  deepCopy
 } from '@serge/helpers'
 
 /* Import Types */
@@ -266,13 +267,16 @@ export const Mapping: React.FC<PropTypes> = ({
    * in the Force Overview panel
    */
   useEffect(() => {
+    console.log('about to update routes', forcesState, h3gridCells)
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
+      console.log('before new routes', routeStore.selected && routeStore.selected.laydownPhase)
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
+      console.log('after new routes', store.selected && store.selected.laydownPhase)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -499,6 +503,31 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlanningConstraints(undefined)
   }
 
+  /** handler for asset being moved during laydown phase */
+  const assetLaydown = (cell: string, uniqid: Asset['uniqid']): void => {
+    console.log('asset moved in laydown', cell, uniqid)
+    // get the asset
+    const asset = findAsset(forcesState, uniqid)
+    // give it the new position
+    asset.position = cell
+
+    // we're going to re-create the routes. That code relies no position 
+    // being `pending` to determine if the asset has been moved.
+    // so - check for assets that are un-moved, and clear their position
+    const withPos = routeStore.routes.filter((route: Route) => route.currentPosition)
+    withPos.forEach((route: Route) => {
+      if(route.laydownPhase === LaydownPhases.Unmoved) {
+        route.currentPosition = 'pending'
+        route.currentLocation2 = undefined
+      }
+    })
+
+    // and force update of routes
+    setForcesState(deepCopy(forcesState))
+
+    // TODO: working here
+  }
+
   const calcDistanceBetweenCentresM = (): number => {
     if (!mappingConstraintState) {
       throw new Error('Cannot calculate distance without mapping constraints')
@@ -538,7 +567,6 @@ export const Mapping: React.FC<PropTypes> = ({
           if (gameTurnTime === 0) {
             console.error('Cannot plan route with zero game turn time')
             window.alert('Cannot plan route with zero game turn time')
-            // TODO: also display notification in UI
           }
 
           const distanceBetweenTileCentresM = calcDistanceBetweenCentresM()
@@ -744,6 +772,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedMarker,
     setSelectedAsset,
     updateMarker,
+    assetLaydown,
     clearMapSelection,
     viewport,
     zoomLevel,
