@@ -38,7 +38,7 @@ export const Assets: React.FC<{}> = () => {
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
   const [pendingArea, setPendingArea] = useState<L.LatLng[]>([])
- 
+
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
@@ -128,7 +128,6 @@ export const Assets: React.FC<{}> = () => {
     return !!phase && (phase === LaydownPhases.Unmoved || phase === LaydownPhases.Moved)
   }
 
-
   /**
    * if we have any assets with location pending,
    * and we're in the correct game phase, put them in the location pending
@@ -159,7 +158,7 @@ export const Assets: React.FC<{}> = () => {
       // how many rings to we need to accommodate the pending assets?
       const numRings = Math.ceil(pendingAssets.length / 3)
 
-      // work out in rings, until we have enough. 
+      // work out in rings, until we have enough.
       // Note: we start at ring 1, since we manually push in the origin cell
       // Note: later on
       let allCells: string[] = []
@@ -184,7 +183,7 @@ export const Assets: React.FC<{}> = () => {
       const hull1 = h3.h3SetToMultiPolygon(southCells, true)
       const h3points1 = hull1[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
       setPendingArea(h3points1)
-      
+
       // assign pending assets to cells
       pendingAssets.forEach((asset: AssetInfo, i: number) => {
         const newPos = h3.h3ToGeo(southCells[i])
