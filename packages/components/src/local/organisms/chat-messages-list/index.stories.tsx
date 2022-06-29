@@ -59,6 +59,9 @@ const Template: Story<Props> = (args) => {
   const colors = [
     '#0F0'
   ]
+  const names = [
+    'Blue'
+  ]
   const { playerForce, isUmpire } = args
   return <ChatMessagesList
     messages={messages}
@@ -67,6 +70,7 @@ const Template: Story<Props> = (args) => {
     playerRole={playerRole}
     isUmpire={isUmpire}
     colors={colors}
+    names={names}
   />
 }
 

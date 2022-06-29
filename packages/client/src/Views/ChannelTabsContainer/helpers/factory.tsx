@@ -1,5 +1,5 @@
 import React from 'react'
-import { MessageMap, PlayerUi, MappingConstraints, ChannelTypes, ChannelUI, ChannelMapping } from '@serge/custom-types'
+import { MessageMap, PlayerUi, MappingConstraints, ChannelUI, ChannelMapping } from '@serge/custom-types'
 import {
   FORCE_LAYDOWN,
   PERCEPTION_OF_CONTACT,
@@ -15,7 +15,8 @@ import {
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
   CHANNEL_CHAT,
-  UPDATE_MARKER
+  UPDATE_MARKER,
+  DELETE_MARKER
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -23,9 +24,9 @@ import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_Ac
 import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
 import _ from 'lodash'
 import ChatChannel from '../../../Components/ChatChannel'
-import findChannelByName from './findChannelByName'
 
 import CollabChannel from '../../../Components/CollabChannel'
+import findChannelByID from './findChannelByID'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -47,6 +48,9 @@ const factory = (state: PlayerUi): Factory => {
     switch (form) {
       case UPDATE_MARKER:
         sendMapMessage(UPDATE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        break
+      case DELETE_MARKER:
+        sendMapMessage(DELETE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
         break
       case FORCE_LAYDOWN:
         sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
@@ -134,45 +138,44 @@ const factory = (state: PlayerUi): Factory => {
 
     if (_.isEmpty(state.channels)) return
 
-    const matchedChannel = findChannelByName(state.channels, node.getName())
+    const matchedChannel = findChannelByID(state.channels, node.getId())
     if (!matchedChannel || !renderThisChannel(matchedChannel[1])) {
       return null
     }
     const channelName = node.getName().toLowerCase()
-    const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-
+    const channelDefinition = state.allChannels.find((channel) => channel.uniqid === node.getId())
     if (!channelDefinition) {
-      throw new Error('Failed to find channel with id:' + node.getName())
-    }
-
-    // sort out if it's a modern channel
-    const v3Channel = channelDefinition as unknown as ChannelTypes
-    const isV3 = !!v3Channel.channelType
-    if (isV3) {
-      switch (v3Channel.channelType) {
-        case CHANNEL_COLLAB:
-          return <CollabChannel channelId={matchedChannel[0]} />
-        case CHANNEL_CHAT:
-          return <ChatChannel channelId={matchedChannel[0]} />
-        case CHANNEL_MAPPING: {
-          const channel = matchedChannel[1].cData as ChannelMapping
-          const constraints = channel.constraints
-          return renderMap(node.getId(), constraints, channel)
-        }
-        case CHANNEL_CUSTOM:
-          return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
-        default:
-          console.log('not yet handling', v3Channel)
-      }
+      throw new Error('Failed to find channel with id:' + node.getId())
     } else {
-      if (channelName === CHANNEL_MAPPING) {
-        return <div>Legacy mapping channel not supported</div>
-      } else if (matchedChannel.length) {
-        // find out if channel just contains chat template
-        if (isChatChannel(channelDefinition)) {
-          return <ChatChannel channelId={matchedChannel[0]} />
-        } else {
-          console.log('Not rendering channel for ', channelDefinition)
+      // sort out if it's a modern channel
+      const v3Channel = channelDefinition
+      const isV3 = !!v3Channel.channelType
+      if (isV3) {
+        switch (v3Channel.channelType) {
+          case CHANNEL_COLLAB:
+            return <CollabChannel channelId={matchedChannel[0]} />
+          case CHANNEL_CHAT:
+            return <ChatChannel channelId={matchedChannel[0]} />
+          case CHANNEL_MAPPING: {
+            const channel = matchedChannel[1].cData as ChannelMapping
+            const constraints = channel.constraints
+            return renderMap(node.getId(), constraints, channel)
+          }
+          case CHANNEL_CUSTOM:
+            return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
+          default:
+            console.log('not yet handling', v3Channel)
+        }
+      } else {
+        if (channelName === CHANNEL_MAPPING) {
+          return <div>Legacy mapping channel not supported</div>
+        } else if (matchedChannel.length) {
+          // find out if channel just contains chat template
+          if (isChatChannel(channelDefinition)) {
+            return <ChatChannel channelId={matchedChannel[0]} />
+          } else {
+            console.log('Not rendering channel for ', channelDefinition)
+          }
         }
       }
     }

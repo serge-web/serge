@@ -12,7 +12,7 @@ import Props from './types/props'
 /* Render component */
 export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
   // (temporarily) put password in box, to make testing quicker in dev
-  const providePassword = true
+  const providePassword = false
   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')
   const gameInfo = useSelector((state: RootState) => state.gameInfo)
 

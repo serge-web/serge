@@ -1,4 +1,5 @@
-import { MarkerFormData, MessageUpdateMarker } from '@serge/custom-types'
+import { DELETE_MARKER, UPDATE_MARKER } from '@serge/config'
+import { MarkerFormData } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -10,7 +11,7 @@ export default interface PropTypes {
    */
   closeForm: () => void
   /**
-   * Handle to update a marker
+   * Handler to update a marker
    */
-  updateMarker: (messageType: string, payload: MessageUpdateMarker) => void
-}
+  updateMarker: (messageType: typeof UPDATE_MARKER | typeof DELETE_MARKER, marker: MapAnnotation) => void
+  }

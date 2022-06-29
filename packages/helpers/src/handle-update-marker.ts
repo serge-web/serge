@@ -3,7 +3,7 @@ import deepCopy from './deep-copy'
 
 /** create/remove perceptions for assets */
 
-export default (message: MessageUpdateMarker, infoMarkers: MapAnnotations): MapAnnotations => {
+const handler = (message: MessageUpdateMarker, infoMarkers: MapAnnotations): MapAnnotations => {
   const markersCope = deepCopy(infoMarkers)
   const marker = message.marker
   let found = false
@@ -24,3 +24,5 @@ export default (message: MessageUpdateMarker, infoMarkers: MapAnnotations): MapA
   }
   return update
 }
+
+export default handler

@@ -3,7 +3,9 @@ import {
   databasePath,
   socketPath,
   replicate,
-  deletePath
+  deletePath,
+  wargameSettings,
+  settings
 } from '@serge/config'
 import { Message, MessageCustom, Wargame } from '@serge/custom-types'
 import { io } from 'socket.io-client'
@@ -17,20 +19,35 @@ import {
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
+  // track the most recently received message
+  message_ID: string
 
   constructor (databasePath: string) {
     this.provider = {
       db: databasePath
     }
     this.name = databasePath
+    this.message_ID = '' 
   }
 
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
-    socket.on('changes', data => {
-      const doc = data as Message
-      listener(doc)
-    })
+    const listenerMessage = (data: MessageCustom) => {
+      // we use two special names for the wargame document
+      const specialFiles = [wargameSettings, settings]
+      // have we just received this message?
+      if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
+        // yes - stop listening on this socket
+        console.warn('stopping listening for', data._id)
+        socket.off(this.getDbName(), listenerMessage) 
+      } else {
+        // no, handle the message
+        listener(data)
+        // and cache the id
+        this.message_ID = data._id 
+      }
+    }
+    socket.on(this.getDbName(), listenerMessage)
   }
 
   destroy (): void {

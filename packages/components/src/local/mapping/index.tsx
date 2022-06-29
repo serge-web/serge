@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING
+  LAYDOWN_TURN, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -65,6 +65,7 @@ import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
+import { MessageDeleteMarker } from '@serge/custom-types/message'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -597,24 +598,47 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const updateMarker = (marker: MapAnnotation): void => {
-    const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
-    others.push(marker)
-    setInfoMarkersState(others)
+  const updateMarker = (event: string, marker: MapAnnotation): void => {
+    // do the external update, depending on which phase this is
     // check which phase we're in
     switch (phase) {
       case Phase.Adjudication: {
-        // no further action- it will get caught up in new world state
+        // start off by updating the local data. We don't transmit the change,
+        // since it will get caught up with sending new state of world
+        const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
+        switch (event) {
+          case UPDATE_MARKER: {
+            others.push(marker)
+            break
+          }
+          case DELETE_MARKER: {
+            // don't do anything
+          }
+        }
+        setInfoMarkersState(others)
         break
       }
       case Phase.Planning: {
-        // send the update out immediately
-        const message: MessageUpdateMarker = {
-          messageType: UPDATE_MARKER,
-          marker: marker
+        switch (event) {
+          case UPDATE_MARKER: {
+            // send the update out immediately
+            const message: MessageUpdateMarker = {
+              messageType: event,
+              marker: marker
+            }
+            mapPostBack(event, message, CHANNEL_MAPPING)
+            break
+          }
+          case DELETE_MARKER: {
+            // send the update out immediately
+            const message: MessageDeleteMarker = {
+              messageType: DELETE_MARKER,
+              marker: marker.uniqid
+            }
+            mapPostBack(event, message, CHANNEL_MAPPING)
+            break
+          }
         }
-        mapPostBack(UPDATE_MARKER, message, CHANNEL_MAPPING)
-        break
       }
     }
   }
@@ -710,6 +734,7 @@ export const Mapping: React.FC<PropTypes> = ({
     markerIcons: markerIcons,
     platforms,
     playerForce,
+    isGameControl,
     phase,
     turnNumber,
     planningConstraints,
