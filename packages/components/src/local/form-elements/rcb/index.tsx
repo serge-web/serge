@@ -16,10 +16,7 @@ const buildStyles = (options: any[]): any => {
   const opts = {}
   options.forEach((option, idx) => {
     opts[`root-${idx}`] = {}
-    opts[`checked-${idx}`] = {}
-    opts[`checked-${idx}`]['&$checked'] = {}
     opts[`root-${idx}`].color = `${option.colour} !important`
-    opts[`checked-${idx}`]['&$checked'].color = option.colour
   })
   return makeStyles(opts)
 }
