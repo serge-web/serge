@@ -118,7 +118,7 @@ describe('can control asset:', () => {
 describe('can control asset - exteded:', () => {
   it('I control remaining asset of controlled force', () => {
     if (channel && greenForce && greenAsset1 && whiteUmpire && whiteBlueHQ && whiteForce) {
-      if (channel && blueForce && redForce && nortAsset && blueNortRole) {
+      if (blueForce && redForce && nortAsset && blueNortRole) {
         // game not init, in adjudicate phase
         const wargameInitated = false
         const phase = Phase.Adjudication
@@ -139,7 +139,7 @@ describe('can control asset - exteded:', () => {
         expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
           wargameInitated, false, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
       }
-      if (channel && blueForce && redForce && nortAsset && blueNortRole) {
+      if (blueForce && redForce && nortAsset && blueNortRole) {
         // game initiated, in adjudicate phase
         const wargameInitated = true
         const phase = Phase.Adjudication
