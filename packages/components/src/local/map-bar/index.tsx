@@ -185,7 +185,7 @@ export const MapBar: React.FC = () => {
         setSecondaryStateTitle(undefined)
       }
     }
-  }, [phase, playerForce, turnNumber, routeStore])
+  }, [phase, playerForce, turnNumber, routeStore, canSubmitOrdersForThisAsset])
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {

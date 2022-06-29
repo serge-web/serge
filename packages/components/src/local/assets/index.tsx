@@ -55,6 +55,11 @@ export const Assets: React.FC<{}> = () => {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformTypeId, actualForceId, condition, laydownPhase, visibleToThisForce, attributes } = route
+
+        if (name === 'MERCH 2') {
+          console.log('assets', laydownPhase, route.originalPosition, route.currentPosition, route.currentLocation2)
+        }
+
         const thisPlatformType = findPlatformTypeFor(platforms, '', route.asset.platformTypeId)
         if (!thisPlatformType) {
           console.warn('Failed to find platform for', platformTypeId, platforms, route)
@@ -73,7 +78,7 @@ export const Assets: React.FC<{}> = () => {
         )
 
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
-          const position: L.LatLng | undefined = route.currentLocation2 // (cell && cell.centreLatLng) || undefined // route.currentLocation
+          const position: L.LatLng | undefined = route.currentLocation2
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
@@ -118,14 +123,14 @@ export const Assets: React.FC<{}> = () => {
               tmpAssets.push(assetInfo)
             }
           } else {
-            console.log('!! Failed to find cell numbered:', route.currentPosition)
+            console.log('!! Failed to find cell numbered:', position, route.currentPosition)
           }
         }
       })
 
       setVisibleAssets(tmpAssets)
     }
-  }, [h3gridCells, forces, playerForce, viewAsRouteStore])
+  }, [h3gridCells, playerForce, viewAsRouteStore])
 
   const forLaydown = (phase?: LaydownPhases): boolean => {
     return !!phase && (phase === LaydownPhases.Unmoved || phase === LaydownPhases.Moved)

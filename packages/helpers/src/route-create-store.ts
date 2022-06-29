@@ -10,7 +10,7 @@ import { h3ToGeo } from 'h3-js'
 import { canControlAssetExtended, underControlByThisForce } from './can-control-asset'
 
 const locationFor = (position: string, existingRoute?: Route): L.LatLng | undefined => {
-  if (existingRoute) {
+  if (existingRoute && existingRoute.currentLocation2 !== undefined) {
     return existingRoute.currentLocation2
   } else {
     if (position === 'pending') {
@@ -89,6 +89,10 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           // sort out location
           const assetLocation = locationFor(asset.position, existingRoute)
+
+          if (asset.name === 'MERCH 2') {
+            console.log('create store', asset.position, asset.locationPending, assetLocation, controlledByThisRole)
+          }
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false

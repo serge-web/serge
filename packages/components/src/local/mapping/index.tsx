@@ -272,6 +272,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
+      console.log('store', routeStore.selected && routeStore.selected.currentLocation2, routeStore.selected && routeStore.selected.originalPosition )
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
       setRouteStore(store)
@@ -507,6 +508,12 @@ export const Mapping: React.FC<PropTypes> = ({
     const asset = findAsset(forcesState, uniqid)
     // give it the new position
     asset.position = cell
+
+    // mark the route as moved
+    const theRoute = routeStore.selected
+    if (theRoute) {
+      theRoute.laydownPhase = LaydownPhases.Moved
+    }
 
     // we're going to re-create the routes. That code relies no position
     // being `pending` to determine if the asset has been moved.
