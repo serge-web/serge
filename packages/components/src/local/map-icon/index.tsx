@@ -73,14 +73,13 @@ export const MapIcon: React.FC<PropTypes> = ({
   const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
 
   // Note: use `locationPending` boolean flag to decide whether icon should flash
+  // Note: I've temporarily used `opacity` to show which are location pending (below), but it
+  // Note: should be removed once we've got blinking icons.
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
   })
-
-
- 
 
   return <>
     <LayerGroup key={'hex_polygons3'} >{
@@ -120,7 +119,7 @@ export const MapIcon: React.FC<PropTypes> = ({
       })}
     </LayerGroup>
 
-    <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
+    <Marker opacity={locationPending ? 0.3 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
   </>
