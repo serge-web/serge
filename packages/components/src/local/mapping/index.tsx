@@ -178,7 +178,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [infoMarkers])
 
   // convenience function, to help understand store contents
-  const doListing = (store: RouteStore) => {
+  const doListing = (store: RouteStore): void => {
     const laydown = store.routes.filter((route: Route) => route.laydownPhase && route.laydownPhase !== LaydownPhases.Immobile)
     const data = laydown.map((route: Route) => {
       return {

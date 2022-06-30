@@ -27,7 +27,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 
 console.clear()
 
-const sortAsset = (asset?: Asset, lType?: LaydownTypes) => {
+const sortAsset = (asset?: Asset, lType?: LaydownTypes): void => {
   if (asset) {
     asset.locationPending = lType
     asset.position = undefined

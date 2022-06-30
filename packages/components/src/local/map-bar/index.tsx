@@ -160,7 +160,7 @@ export const MapBar: React.FC = () => {
             const needsUmpireLaydown = routeStore.routes.find((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.UmpireLaydown)
             const needsForceLaydown = routeStore.routes.find((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.ForceLaydown)
             formTitle = (needsUmpireLaydown && 'Umpire Laydown') || (needsForceLaydown && 'Force Laydown') || 'My Forces'
-            submitTitle = myRoleControlsAsset && ((needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown')) || ''
+            submitTitle = (myRoleControlsAsset && ((needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown'))) || ''
           } else {
             formTitle = 'My Forces'
             submitTitle = ''
