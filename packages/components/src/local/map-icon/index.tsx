@@ -86,7 +86,7 @@ export const MapIcon: React.FC<PropTypes> = ({
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
+    html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
   })
 
   return <>
@@ -127,7 +127,7 @@ export const MapIcon: React.FC<PropTypes> = ({
       })}
     </LayerGroup>
 
-    <Marker ondragend={markerDroppedLocal} draggable={locationPending} opacity={locationPending ? 0.6 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
+    <Marker ondragend={markerDroppedLocal} draggable={markerDropped && locationPending} opacity={locationPending ? 0.6 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
   </>
