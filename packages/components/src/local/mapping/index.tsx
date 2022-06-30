@@ -177,6 +177,22 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [infoMarkers])
 
+  // convenience function, to help understand store contents
+  const doListing = (store: RouteStore) => {
+    const laydown = store.routes.filter((route: Route) => route.laydownPhase)
+    const data = laydown.map((route: Route) => {
+      return {
+        name: route.name,
+        la: route.laydownPhase,
+        origin: route.originalPosition,
+        current: route.currentPosition,
+        lat: route.currentLocation2 && route.currentLocation2.lat,
+        lng: route.currentLocation2 && route.currentLocation2.lng
+      }
+    })
+    console.table(data)
+  }
+
   // highlight the route for the selected asset
   useEffect(() => {
     // if an asset has been selected, then clear the selected marker
@@ -192,8 +208,10 @@ export const Mapping: React.FC<PropTypes> = ({
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
+    doListing(routeStore)
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
+    doListing(store)
 
     // if we are in turn 0 adjudication phase, we have special processing, since
     // the player may be doing force laydown
@@ -272,9 +290,10 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      console.log('store', routeStore.selected && routeStore.selected.currentLocation2, routeStore.selected && routeStore.selected.originalPosition)
+      doListing(routeStore)
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
+      doListing(routeStore)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -525,6 +544,9 @@ export const Mapping: React.FC<PropTypes> = ({
         route.currentLocation2 = undefined
       }
     })
+
+    // clear the selected flag
+    setSelectedAsset(undefined)
 
     // and force update of routes. Note: I need to create `deepCopy` in order
     // for react to observe new state

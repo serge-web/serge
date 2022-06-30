@@ -38,7 +38,18 @@ export const canControlAssetExtended = (channel: ChannelMapping | undefined, ass
   } else {
     switch (phase) {
       case Phase.Adjudication :
-        return isGameControl
+        if (wargameInitiated) {
+          return isGameControl
+        } else {
+          switch (laydown) {
+            case LaydownTypes.UmpireLaydown:
+              return isGameControl
+            case LaydownTypes.ForceLaydown:
+              return canControlAccordingToChannelDef
+            default:
+              return false
+          }
+        }
       case Phase.Planning :
         return canControlAccordingToChannelDef
     }

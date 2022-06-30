@@ -165,10 +165,6 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  */
 export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | string,
   originalPosition?: string, route?: Route): LaydownPhases => {
-//   console.log('laydown phase for', phase, wargameInitated, currentPosition, locationPending, originalPosition, route)
-  if (route && route.name === 'MERCH 2') {
-    console.log('create route - lay phase', route.name, originalPosition, route.currentPosition, locationPending)
-  }
   if (phase !== Phase.Adjudication) {
     // ok, we only do laydown in adjudication phase
     return LaydownPhases.NotInLaydown
@@ -297,10 +293,6 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const laydownPhase = underControlRole
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
     : LaydownPhases.Immobile
-
-  if (asset.name === 'MERCH 2') {
-    console.log('laydown', asset.name, underControlRole, laydownPhase, currentLocation)
-  }
 
   return {
     uniqid: asset.uniqid,

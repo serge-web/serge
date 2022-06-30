@@ -47,7 +47,7 @@ export const HexGrid: React.FC<{}> = () => {
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle,
-    mapBounds, h3Resolution
+    mapBounds, h3Resolution, turnNumber
   } = props
 
   // define detail cut-offs
@@ -344,7 +344,9 @@ export const HexGrid: React.FC<{}> = () => {
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
       // did we find cell?
       if (originCell) {
-        setOrigin(originCell.centreLatLng)
+        if (turnNumber > 0) {
+          setOrigin(originCell.centreLatLng)
+        }
 
         const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
@@ -418,11 +420,6 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableCells3(cellsAfterTurn)
 
           if (cellsAfterTurn.length > 0 && cellsAfterTurn.length <= 5000) {
-            // try to create convex polygon around cells, but only if there
-            // arent' too many cells
-            // const hull = generateOuterBoundary3(filteredCells)
-            // setAllowablePoly3(hull)
-
             // use h3 hull function
             const cellIndices = cellsAfterTurn.map((cell: SergeHex3): string => cell.index)
             const hull2 = h3SetToMultiPolygon(cellIndices, true)

@@ -81,7 +81,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // or are we admin in adjudication?
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
-          const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
+          const umpireForceInTurnZero = !localWargameInitiated && adminInAdj
+          const controlledByThisForce = umpireForceInTurnZero || (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
           const controlledByThisRole = canControlAssetExtended(channel, force.uniqid, asset.uniqid, playerRole, localWargameInitiated, isGameControl, asset.locationPending, phase)
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
@@ -89,10 +90,6 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           // sort out location
           const assetLocation = locationFor(asset.position, existingRoute)
-
-          if (asset.name === 'MERCH 2') {
-            console.log('create store', asset.position, asset.locationPending, assetLocation, controlledByThisRole)
-          }
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false

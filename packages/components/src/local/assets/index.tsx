@@ -56,10 +56,6 @@ export const Assets: React.FC<{}> = () => {
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformTypeId, actualForceId, condition, laydownPhase, visibleToThisForce, attributes } = route
 
-        if (name === 'MERCH 2') {
-          console.log('assets', laydownPhase, route.originalPosition, route.currentPosition, route.currentLocation2)
-        }
-
         const thisPlatformType = findPlatformTypeFor(platforms, '', route.asset.platformTypeId)
         if (!thisPlatformType) {
           console.warn('Failed to find platform for', platformTypeId, platforms, route)
@@ -238,7 +234,7 @@ export const Assets: React.FC<{}> = () => {
         attributes={asset.attributes}
         map={map}
         markerDropped={markerDropped}
-        locationPending={forLaydown(asset.laydownPhase)} />
+        locationPending={asset.selected && forLaydown(asset.laydownPhase)} />
     })}
     {
       penCentre &&

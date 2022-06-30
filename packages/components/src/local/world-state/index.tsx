@@ -47,7 +47,7 @@ export const WorldState: React.FC<PropTypes> = ({
           // check turn number, in case we're in laydown
           if (turnNumber === 0) {
             // in laydown phase, umpire only gets assets they control
-            setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
+            setTmpRoutes(store.routes.filter(r => r.underControlByThisRole))
           } else {
             // umpire gets all, player only gets theirs
             setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControlByThisForce))

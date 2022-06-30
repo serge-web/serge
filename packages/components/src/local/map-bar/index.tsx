@@ -24,7 +24,7 @@ import {
   MessageDeletePlatform,
   MapAnnotation
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -152,17 +152,18 @@ export const MapBar: React.FC = () => {
       let secondaryTitle = ''
       if (phase === ADJUDICATION_PHASE) {
         if (turnNumber === 0) {
+          const myForceControlsAsset = routeStore.routes.some((route: Route) => route.underControlByThisForce)
+          const myRoleControlsAsset = routeStore.routes.some((route: Route) => route.underControlByThisForce)
           // see if player can submit orders
-          if (canSubmitOrdersForThisAsset) {
-            // see if it has any forces that laydown
-            const needsLaydown = routeStore.routes.find((route: Route) => {
-              return route.underControlByThisRole && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
-            })
-            formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
-            submitTitle = needsLaydown ? 'Submit Force Laydown' : ''
+          if (myForceControlsAsset) {
+            // see if it has any assets that require umpire laydown
+            const needsUmpireLaydown = routeStore.routes.find((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.UmpireLaydown)
+            const needsForceLaydown = routeStore.routes.find((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.ForceLaydown)
+            formTitle = needsUmpireLaydown && 'Umpire Laydown' || needsForceLaydown && 'Force Laydown' || 'My Forces'
+            submitTitle = myRoleControlsAsset && (needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown') || ''
           } else {
-            formTitle = playerForce === UMPIRE_FORCE ? 'My Forces' : 'Force Laydown'
-            submitTitle = 'Submit Force Laydown'
+            formTitle = 'My Forces'
+            submitTitle = ''
           }
         } else {
           formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
@@ -185,7 +186,7 @@ export const MapBar: React.FC = () => {
         setSecondaryStateTitle(undefined)
       }
     }
-  }, [phase, playerForce, turnNumber, routeStore, canSubmitOrdersForThisAsset])
+  }, [phase, playerForce, turnNumber, routeStore])
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {

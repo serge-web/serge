@@ -6,7 +6,7 @@ import { watuWargame, preInitialisedForces } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 
-import { Phase, LaydownPhases, UNKNOWN_TYPE } from '@serge/config'
+import { Phase, LaydownPhases, UNKNOWN_TYPE, LaydownTypes } from '@serge/config'
 
 import { RouteStore, RouteChild, Route, ForceData, Asset, ChannelMapping } from '@serge/custom-types'
 
@@ -522,5 +522,7 @@ it('creates routes for assets in new laydown structure in pre-init', () => {
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
   expect(route.laydownPhase).toEqual(LaydownPhases.Unmoved) // no route present, so can't have moved
-  expect(route.underControlByThisForce).toBeFalsy()
+  expect(route.asset.locationPending).toEqual(LaydownTypes.UmpireLaydown)
+  expect(route.underControlByThisForce).toBeTruthy() // since we're GC in laydown
+  expect(route.underControlByThisRole).toBeTruthy() // since we're GC in laydown
 })
