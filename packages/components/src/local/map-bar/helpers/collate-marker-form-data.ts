@@ -1,4 +1,4 @@
-import { ForceOption, MarkerFormData, ForceData, MapAnnotation, AnnotationIcons } from '@serge/custom-types'
+import { ForceOption, MarkerFormData, ForceData, MapAnnotation, AnnotationIcons, IconOption } from '@serge/custom-types'
 import availableForces from './available-forces'
 
 /** determine which form to show on this click
@@ -10,11 +10,14 @@ import availableForces from './available-forces'
 const collateMarkerFormData = (marker: MapAnnotation, icons: AnnotationIcons, forces: ForceData[]): MarkerFormData => {
   // get the actual asset
   const availableForceList: ForceOption[] = availableForces(forces, false, true, undefined)
+  const selectedIcon = icons.find((p: IconOption) => p.uniqid === marker.iconId)
+  const iconURL = (selectedIcon && selectedIcon.icon) || ''
 
   const formData: MarkerFormData = {
     populate: {
       forces: availableForceList,
-      icons: icons
+      icons: icons,
+      iconURL
     },
     value: marker
   }
