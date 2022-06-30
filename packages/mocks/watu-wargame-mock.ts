@@ -41,7 +41,7 @@ const wargame: Wargame = {
                     "name": "mapping",
                     "channelType": "mapping",
                     "constraints": {
-                        "bounds": [[50.26, -19.6], [50.21, -19.40]],
+                        "bounds": [[50.252, -19.55], [50.22, -19.47]],
                         "cellLabelsStyle": "x_y_labels",
                         "gridCellsURL": "cells/atlantic-cells-6k.json",
                         "h3res": 9,
