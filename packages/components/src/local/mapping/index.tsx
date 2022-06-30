@@ -179,11 +179,11 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // convenience function, to help understand store contents
   const doListing = (store: RouteStore) => {
-    const laydown = store.routes.filter((route: Route) => route.laydownPhase)
+    const laydown = store.routes.filter((route: Route) => route.laydownPhase && route.laydownPhase !== LaydownPhases.Immobile)
     const data = laydown.map((route: Route) => {
       return {
         name: route.name,
-        la: route.laydownPhase,
+        phase: route.laydownPhase,
         origin: route.originalPosition,
         current: route.currentPosition,
         lat: route.currentLocation2 && route.currentLocation2.lat,
