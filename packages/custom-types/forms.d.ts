@@ -43,6 +43,7 @@ export interface PerceptionFormData {
 export interface MarkerFormPopulate {
   forces: Array<ForceOption>
   icons: Array<IconOption>
+  iconURL: string
 }
 
 export interface MarkerFormData {

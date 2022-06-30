@@ -22,12 +22,11 @@ import PropTypes from './types/props'
 export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
   const [isOpen, setOpen] = useState<boolean>(false)
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
-  const [iconURL, setIconURL] = useState<string>(formState.iconId)
   const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
-  const { forces, icons = [] } = formData.populate
+  const { forces, icons = [], iconURL } = formData.populate
 
   if (!icons.length) {
     console.warn('marker form - marker icons missing:', icons)
@@ -40,15 +39,6 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
   useEffect(() => {
     setFormState(formData.value)
   }, [formData.value.uniqid])
-
-  useEffect(() => {
-    if (icons) {
-      // get the id
-      const selectedIcon = icons.find((p: IconOption) => p.uniqid === formState.iconId)
-      const iconURL = (selectedIcon && selectedIcon.icon) || ''
-      setIconURL(iconURL)
-    }
-  }, [formState.iconId, icons])
 
   const typeHandler = (data: string): void => {
     // get the id
