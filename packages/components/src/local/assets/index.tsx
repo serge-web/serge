@@ -119,7 +119,7 @@ export const Assets: React.FC<{}> = () => {
               tmpAssets.push(assetInfo)
             }
           } else {
-            console.log('!! Failed to find cell numbered:', position, route.currentPosition)
+            console.log('!! Failed to find cell numbered:', position, route.currentPosition, route.name)
           }
         }
       })

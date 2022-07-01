@@ -9,19 +9,34 @@ import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
 import { canControlAssetExtended, underControlByThisForce } from './can-control-asset'
 
-const locationFor = (position: string, existingRoute?: Route): L.LatLng | undefined => {
-  if (existingRoute && existingRoute.currentLocation2 !== undefined) {
-    return existingRoute.currentLocation2
+/**
+ * Convert an h3 location to a lat/long
+ * @param position the current asset position
+ * @returns the lat-long for the asset
+ */
+const locationFor = (position: string | undefined): L.LatLng | undefined => {
+  if (position && position !== 'pending') {
+    const h3loc: number[] | undefined = (position && h3ToGeo(position)) || undefined
+    const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
+    // dummy location, used if we don't have grid (such as in test)
+    const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
+    return h3locLatlng || dummyLocation
   } else {
-    if (position === 'pending') {
-      return undefined
-    } else {
-      const h3loc: number[] | undefined = (position && h3ToGeo(position)) || undefined
-      const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
-      // dummy location, used if we don't have grid (such as in test)
-      const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
-      return h3locLatlng || dummyLocation
-    }
+    return undefined
+  }
+}
+
+/**
+ * find which position to use
+ * @param position original asset position
+ * @param existingRoute and current position
+ * @returns
+ */
+const positionFor = (position: string, existingRoute?: Route): string => {
+  if (existingRoute && existingRoute.currentPosition !== undefined) {
+    return existingRoute.currentPosition
+  } else {
+    return position
   }
 }
 
@@ -89,10 +104,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           const existingRoute: Route | undefined = controlledByThisForce || adminInAdj ? existingRouteBase : undefined
 
           // sort out location
-          const assetLocation = locationFor(asset.position, existingRoute)
-          if (asset.name === 'NORT' || asset.name === 'MERCH 2') {
-            console.log('create route', asset.name, existingRoute?.currentLocation2, asset.position, assetLocation)
-          }
+          const assetPosition = positionFor(asset.position, existingRoute)
+          const assetLocation = locationFor(assetPosition)
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
@@ -104,7 +117,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
             const newRoute: Route = routeCreateRoute(asset, phase, force.color,
               controlledByThisForce, controlledByThisRole, visibleToThisPlayer, force.uniqid, force.uniqid, asset.name, asset.platformTypeId,
-              platformTypes, playerForceId, asset.status, asset.position, assetLocation,
+              platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
               true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
             if (existingRoute) {
@@ -116,6 +129,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                 newRoute.condition = existingRoute.condition
               }
             }
+
             store.routes.push(newRoute)
           } else {
             // ok, special handling - if this is an organisation that comprises others. We return the tangible assets,
@@ -133,7 +147,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                   if (asset.position && perceptions) {
                     // create route for this asset
                     const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, controlledByThisForce, false, false, force.uniqid, perceptions.forceId,
-                      perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, asset.position, assetLocation,
+                      perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                       false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
                   }
@@ -148,7 +162,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                 if (perceptions) {
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, controlledByThisForce, false, false, force.uniqid, perceptions.forceId,
-                    perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, asset.position, assetLocation,
+                    perceptions.name, perceptions.typeId, platformTypes, playerForceId, asset.status, assetPosition, assetLocation,
                     false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                   store.routes.push(newRoute)
                 }

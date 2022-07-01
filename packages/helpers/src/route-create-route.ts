@@ -214,6 +214,7 @@ export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentP
           return LaydownPhases.Immobile
         case LaydownTypes.UmpireLaydown: {
           if (!currentPosition) {
+            console.log('pos missing, returning unmoved')
             // umpire doing laydown, but existing position not known
             return LaydownPhases.Unmoved
           }
@@ -224,6 +225,7 @@ export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentP
             return LaydownPhases.Moved
           } else {
             // not on map yet
+            console.log('current pos same as original post')
             return LaydownPhases.Unmoved
           }
         }

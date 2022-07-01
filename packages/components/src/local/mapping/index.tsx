@@ -22,7 +22,6 @@ import {
   routeGetLatestPosition,
   routeClearFromStep,
   findPlatformTypeFor,
-  findAsset,
   routeSetLaydown,
   enumFromString,
   turnTimeAsMillis,
@@ -177,22 +176,22 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [infoMarkers])
 
-  // convenience function, to help understand store contents
-  const doListing = (msg: string, store: RouteStore): void => {
-    const laydown = store.routes.filter((route: Route) => route.name === 'NORT' || route.name === 'MERCH 1' || route.name === 'MERCH 2')
-    const data = laydown.map((route: Route) => {
-      return {
-        name: route.name,
-        phase: route.laydownPhase,
-        origin: route.originalPosition,
-        current: route.currentPosition,
-        lat: route.currentLocation2 && route.currentLocation2.lat,
-        lng: route.currentLocation2 && route.currentLocation2.lng
-      }
-    })
-    console.log('---------------', msg, '-----------')
-    console.table(data)
-  }
+  // // convenience function, to help understand store contents
+  // const doListing = (msg: string, store: RouteStore): void => {
+  //   const laydown = store.routes.filter((route: Route) => route.name === 'NORT' || route.name === 'MERCH 1' || route.name === 'MERCH 2')
+  //   const data = laydown.map((route: Route) => {
+  //     return {
+  //       name: route.name,
+  //       phase: route.laydownPhase,
+  //       origin: route.originalPosition,
+  //       current: route.currentPosition,
+  //       lat: route.currentLocation2 && route.currentLocation2.lat,
+  //       lng: route.currentLocation2 && route.currentLocation2.lng
+  //     }
+  //   })
+  //   console.log('---------------', msg, '-----------')
+  //   console.table(data)
+  // }
 
   // highlight the route for the selected asset
   useEffect(() => {
@@ -209,10 +208,8 @@ export const Mapping: React.FC<PropTypes> = ({
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
-    doListing('before set current', routeStore)
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
-    doListing('after set current', store)
   }, [selectedAsset])
 
   /**
@@ -273,10 +270,8 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      doListing('before update routes', routeStore)
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
-      doListing('after update routes', routeStore)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -370,12 +365,10 @@ export const Mapping: React.FC<PropTypes> = ({
       if (turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
       } else {
-        doListing('before force laydown', routeStore)
         const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].index, h3gridCells)
         const newStore2: RouteStore = routeSetCurrent('', newStore)
         setRouteStore(newStore2)
         setSelectedAsset(undefined)
-        doListing('after force laydown', newStore2)
       }
     }
   }
@@ -506,29 +499,24 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   /** handler for asset being moved during laydown phase */
-  const assetLaydown = (cell: string, uniqid: Asset['uniqid']): void => {
-    console.log('asset moved in laydown', cell, uniqid)
-    // get the asset
-    const asset = findAsset(forcesState, uniqid)
-    // give it the new position
-    asset.position = cell
-
+  const assetLaydown = (cell: string, _uniqid: Asset['uniqid']): void => {
     // mark the route as moved
     const theRoute = routeStore.selected
     if (theRoute) {
       theRoute.laydownPhase = LaydownPhases.Moved
+      theRoute.currentPosition = cell
     }
 
-    // we're going to re-create the routes. That code relies no position
+    // we're going to re-create the routes. That code relies on position
     // being `pending` to determine if the asset has been moved.
     // so - check for assets that are un-moved, and clear their position
-    const withPos = routeStore.routes.filter((route: Route) => route.currentPosition)
-    withPos.forEach((route: Route) => {
-      if (route.laydownPhase === LaydownPhases.Unmoved) {
-        route.currentPosition = 'pending'
-        route.currentLocation2 = undefined
-      }
-    })
+    // const withPos = routeStore.routes.filter((route: Route) => route.currentPosition)
+    // withPos.forEach((route: Route) => {
+    //   if (route.laydownPhase === LaydownPhases.Unmoved) {
+    //     route.currentPosition = 'pending'
+    //     route.currentLocation2 = undefined
+    //   }
+    // })
 
     // clear the selected flag
     setSelectedAsset(undefined)
@@ -536,8 +524,6 @@ export const Mapping: React.FC<PropTypes> = ({
     // and force update of routes. Note: I need to create `deepCopy` in order
     // for react to observe new state
     setForcesState(deepCopy(forcesState))
-
-    // TODO: working here
   }
 
   const calcDistanceBetweenCentresM = (): number => {
