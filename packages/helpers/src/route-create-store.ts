@@ -90,6 +90,9 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           // sort out location
           const assetLocation = locationFor(asset.position, existingRoute)
+          if (asset.name === 'NORT' || asset.name === 'MERCH 2') {
+            console.log('create route', asset.name, existingRoute?.currentLocation2, asset.position, assetLocation)
+          }
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false

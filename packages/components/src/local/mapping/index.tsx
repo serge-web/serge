@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
+  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -178,8 +178,8 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [infoMarkers])
 
   // convenience function, to help understand store contents
-  const doListing = (store: RouteStore): void => {
-    const laydown = store.routes.filter((route: Route) => route.laydownPhase && route.laydownPhase !== LaydownPhases.Immobile)
+  const doListing = (msg: string, store: RouteStore): void => {
+    const laydown = store.routes.filter((route: Route) => route.name === 'NORT' || route.name === 'MERCH 1' || route.name === 'MERCH 2')
     const data = laydown.map((route: Route) => {
       return {
         name: route.name,
@@ -190,6 +190,7 @@ export const Mapping: React.FC<PropTypes> = ({
         lng: route.currentLocation2 && route.currentLocation2.lng
       }
     })
+    console.log('---------------', msg, '-----------')
     console.table(data)
   }
 
@@ -208,28 +209,10 @@ export const Mapping: React.FC<PropTypes> = ({
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
-    doListing(routeStore)
+    doListing('before set current', routeStore)
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
-    doListing(store)
-
-    // if we are in turn 0 adjudication phase, we have special processing, since
-    // the player may be doing force laydown
-    if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
-      const layPhase = store.selected.laydownPhase
-      if (layPhase && isGameControl) {
-        if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
-          const asset: Asset = findAsset(forces, store.selected.uniqid)
-          const pType = findPlatformTypeFor(platforms, '', asset.platformTypeId)
-          const moves: PlanMobileAsset = {
-            origin: store.selected.currentPosition,
-            travelMode: pType.travelMode,
-            status: LAYDOWN_TURN
-          }
-          setPlanningConstraints(moves)
-        }
-      }
-    }
+    doListing('after set current', store)
   }, [selectedAsset])
 
   /**
@@ -290,10 +273,10 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && h3gridCells && h3gridCells.length > 0) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
-      doListing(routeStore)
+      doListing('before update routes', routeStore)
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
-      doListing(routeStore)
+      doListing('after update routes', routeStore)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -387,10 +370,12 @@ export const Mapping: React.FC<PropTypes> = ({
       if (turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
       } else {
+        doListing('before force laydown', routeStore)
         const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].index, h3gridCells)
         const newStore2: RouteStore = routeSetCurrent('', newStore)
         setRouteStore(newStore2)
         setSelectedAsset(undefined)
+        doListing('after force laydown', newStore2)
       }
     }
   }
