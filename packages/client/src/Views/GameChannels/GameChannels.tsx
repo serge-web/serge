@@ -54,11 +54,8 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   const dispatch = usePlayerUiDispatch()
 
   const handleChangeTab = (node: TabNode): void => {
-    // Should call setState when the component loaded
-    setImmediate(() => {
-      setSelectedNode(node.getComponent() || '')
-      onTabChange(node)
-    })
+    setSelectedNode(node.getComponent() || '')
+    onTabChange(node)
   } 
 
   const openTourFn = () => {
