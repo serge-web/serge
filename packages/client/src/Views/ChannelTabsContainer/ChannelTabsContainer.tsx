@@ -18,6 +18,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
+  const [isRendered, setComponentRendered] = useState<boolean>(false)
+
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
@@ -91,7 +93,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
 
   const onRenderTab = (node: TabNode) => {
     tabRender(state)(node)
-    if (node.isVisible()) {
+    if (node.isVisible() && isRendered) {
       onTabChange(node)
     }
   }
@@ -107,6 +109,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
               onRenderTab={onRenderTab}
               onModelChange={() => {
                 setActivityTime(state.selectedRole, 'change tab')
+                setComponentRendered(true)
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />
