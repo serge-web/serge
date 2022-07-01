@@ -575,7 +575,7 @@ export const HexGrid: React.FC<{}> = () => {
   const dropped = (e: DragEndEvent): void => {
     setDragDestination3(undefined)
     setAllowableCells3([])
-  
+
     // Note: ok, we don't actually use the marker location, since
     // it may be outside the achievable area. Just
     // use the last point in the planning leg
@@ -664,7 +664,7 @@ export const HexGrid: React.FC<{}> = () => {
           setOriginHex3(lastCell)
           setPlanningRangeCells(remaining)
         }
-      }    
+      }
     }
   }
 
