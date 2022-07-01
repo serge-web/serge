@@ -16,11 +16,10 @@ import { canControlAssetExtended, underControlByThisForce } from './can-control-
  */
 const locationFor = (position: string | undefined): L.LatLng | undefined => {
   if (position && position !== 'pending') {
-    const h3loc: number[] | undefined = (position && h3ToGeo(position)) || undefined
-    const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
+    const h3loc: number[] = h3ToGeo(position)
     // dummy location, used if we don't have grid (such as in test)
     const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
-    return h3locLatlng || dummyLocation
+    return (h3loc && L.latLng(h3loc[0], h3loc[1])) || dummyLocation
   } else {
     return undefined
   }
