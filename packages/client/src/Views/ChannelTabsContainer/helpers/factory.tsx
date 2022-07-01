@@ -16,7 +16,8 @@ import {
   CHANNEL_CUSTOM,
   CHANNEL_CHAT,
   UPDATE_MARKER,
-  DELETE_MARKER
+  DELETE_MARKER,
+  UMPIRE_LAYDOWN
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
@@ -51,6 +52,9 @@ const factory = (state: PlayerUi): Factory => {
         break
       case DELETE_MARKER:
         sendMapMessage(DELETE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        break
+      case UMPIRE_LAYDOWN:
+        sendMapMessage(UMPIRE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
         break
       case FORCE_LAYDOWN:
         sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)

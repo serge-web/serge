@@ -103,7 +103,9 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   const plannedRoutesPending = (): boolean => {
-    if (phase === Phase.Adjudication && isUmpire) {
+    if (inLaydown) {
+      return tmpRoutes.some((route: Route) => route.laydownPhase === LaydownPhases.Unmoved)
+    } else if (phase === Phase.Adjudication && isUmpire) {
       return !!store.routes.find((route: Route) => route.adjudicationState !== PlanningStates.Saved)
     } else {
       return false
