@@ -194,11 +194,10 @@ export const MapBar: React.FC = () => {
       // collate laydown data
       const orders: MessageForceLaydown = collateForceLaydown(routeStore.routes)
       const laydownType = isGameControl ? UMPIRE_LAYDOWN : FORCE_LAYDOWN
-      const fixedOrders = { ...orders, messageType: laydownType}
+      const fixedOrders = { ...orders, messageType: laydownType }
       // send laydown
       mapPostBack(fixedOrders.messageType, orders, channelID)
-    }
-    else if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+    } else if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
       const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber, infoMarkers || [])
