@@ -158,8 +158,8 @@ export const MapBar: React.FC = () => {
           // see if player can submit orders
           if (myForceControlsAsset) {
             // see if it has any assets that require umpire laydown
-            const needsUmpireLaydown = routeStore.routes.find((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.UmpireLaydown)
-            const needsForceLaydown = routeStore.routes.find((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.ForceLaydown)
+            const needsUmpireLaydown = routeStore.routes.some((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.UmpireLaydown)
+            const needsForceLaydown = routeStore.routes.some((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.ForceLaydown)
             formTitle = (needsUmpireLaydown && 'Umpire Laydown') || (needsForceLaydown && 'Force Laydown') || 'My Forces'
             submitTitle = (myRoleControlsAsset && ((needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown'))) || ''
           } else {
