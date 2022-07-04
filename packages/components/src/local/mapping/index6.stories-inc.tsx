@@ -40,8 +40,9 @@ const sortAsset = (asset?: Asset, lType?: LaydownTypes): void => {
 const blueF = forces[1]
 const redF = forces[2]
 const greenF = forces[3]
-sortAsset(blueF.assets && blueF.assets[0], LaydownTypes.UmpireLaydown)
+sortAsset(blueF.assets && blueF.assets[0], LaydownTypes.ForceLaydown)
 sortAsset(blueF.assets && blueF.assets[1], LaydownTypes.ForceLaydown)
+sortAsset(blueF.assets && blueF.assets[2], LaydownTypes.UmpireLaydown)
 sortAsset(redF.assets && redF.assets[0], LaydownTypes.ForceLaydown)
 sortAsset(redF.assets && redF.assets[1], LaydownTypes.UmpireLaydown)
 
