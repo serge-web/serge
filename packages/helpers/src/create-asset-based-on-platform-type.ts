@@ -39,7 +39,7 @@ export const createAssetBasedOnPlatformType = (pType: PlatformTypeData): Asset =
     perceptions: [],
     condition: '',
     position: '',
-    locationPending: LaydownTypes.ForceLaydown,
+    locationPending: LaydownTypes.UmpireLaydown,
     attributeValues: attributes
   }
 }
