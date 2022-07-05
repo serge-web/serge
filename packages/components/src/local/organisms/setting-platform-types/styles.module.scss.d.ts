@@ -15,6 +15,7 @@ interface CssExports {
   'speedmodalcontent': string;
   'states-holder': string;
   'uniqid': string;
+  'attribute-header-icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
