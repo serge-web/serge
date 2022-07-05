@@ -79,23 +79,32 @@
   font-weight: 700;
   margin-bottom: 20px;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  padding-left: 25px;
+}
+
+.attribute-header-icon {
+  display: flex;
+  width: 100%;
 
   span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &:nth-child(1) {
-      min-width: 25%;
+      padding-left: 3%;
     }
     &:nth-child(2) {
-      width: 40px;
+      padding-left: 5%;
     }
     &:nth-child(3) {
-      width: 80px;
+      justify-content: flex-start;
+      margin-left: 20px;
+      padding-left: 5%;
     }
     &:nth-child(4) {
-      width: 380px;
-    }
-    &:nth-child(5) {
-      width: 80px;
+      padding-left: 52%;
     }
   }
 }
