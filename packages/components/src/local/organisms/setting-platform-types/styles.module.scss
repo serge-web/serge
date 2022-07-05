@@ -80,22 +80,48 @@
   margin-bottom: 20px;
   align-items: center;
   justify-content: center;
+  padding-left: 25px;
+}
+
+// build list of screen width
+$screens: 1450px;
+@for $i from 1 through 100 {
+  $screens: append($screens, #{1450 + $i * 200}px);
+}
+
+.attribute-header-icon {
+  display: flex;
+  width: 608px;
 
   span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &:nth-child(1) {
-      min-width: 25%;
+      padding-left: 1%;
+      @for $i from 1 through length($screens) {
+        @media screen and (min-width: nth($screens, $i)) {
+          padding-left: #{$i * 3 + "%"};
+        }
+      }
     }
     &:nth-child(2) {
-      width: 40px;
+      padding-left: 5%;
     }
     &:nth-child(3) {
-      width: 80px;
+      justify-content: flex-start;
+      margin-left: 20px;
+      padding-left: 5%;
     }
     &:nth-child(4) {
-      width: 380px;
-    }
-    &:nth-child(5) {
-      width: 80px;
+      padding-left: 50%;
+      @media screen and (min-width: 1300px) {
+        padding-left: 54%;
+      }
+      @media screen and (min-width: 1450px) {
+        padding-left: 56%;
+      }
     }
   }
 }
