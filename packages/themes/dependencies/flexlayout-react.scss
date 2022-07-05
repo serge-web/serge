@@ -132,7 +132,8 @@
   font-weight: bold;
   color: #ffffff;
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
-  border-style: solid;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-width: 1px;
   border-image-source: linear-gradient(to bottom, #3fb7ac, #9dfff1 36%, rgba(2, 37, 96, 0));
   border-image-slice: 1;
