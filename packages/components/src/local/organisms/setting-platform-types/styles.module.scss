@@ -101,6 +101,7 @@ $screens: 1450px;
     &:nth-child(1) {
       padding-left: 1%;
       @for $i from 1 through length($screens) {
+        /* stylelint-disable-next-line max-nesting-depth */
         @media screen and (min-width: nth($screens, $i)) {
           padding-left: #{$i * 3 + "%"};
         }
