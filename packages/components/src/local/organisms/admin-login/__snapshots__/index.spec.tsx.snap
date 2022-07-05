@@ -48,7 +48,7 @@ exports[`AdminLogin component: renders correctly 1`] = `
             onFocus={[Function]}
             required={false}
             type="password"
-            value=""
+            value="Nelson"
           />
         </div>
       </div>
