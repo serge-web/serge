@@ -128,6 +128,12 @@
   @include typo-secondary;
 }
 
+.flexlayout__tab_button--unselected {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: 	#1c3a55;
+}
+
 .flexlayout__tab_button--selected {
   font-weight: bold;
   color: #ffffff;
