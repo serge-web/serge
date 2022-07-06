@@ -153,15 +153,15 @@ export const MapBar: React.FC = () => {
       let secondaryTitle = ''
       if (phase === ADJUDICATION_PHASE) {
         if (turnNumber === 0) {
-          const myForceControlsAsset = routeStore.routes.some((route: Route) => route.underControlByThisForce)
-          const myRoleControlsAsset = routeStore.routes.some((route: Route) => route.underControlByThisForce)
+          const myForceControlsSomeAssets = routeStore.routes.some((route: Route) => route.underControlByThisForce)
+          const myRoleControlsSomeAssets = routeStore.routes.some((route: Route) => route.underControlByThisRole)
           // see if player can submit orders
-          if (myForceControlsAsset) {
+          if (myForceControlsSomeAssets) {
             // see if it has any assets that require umpire laydown
             const needsUmpireLaydown = routeStore.routes.some((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.UmpireLaydown)
             const needsForceLaydown = routeStore.routes.some((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.ForceLaydown)
             formTitle = (needsUmpireLaydown && 'Umpire Laydown') || (needsForceLaydown && 'Force Laydown') || 'My Forces'
-            submitTitle = (myRoleControlsAsset && ((needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown'))) || ''
+            submitTitle = (myRoleControlsSomeAssets && ((needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown'))) || ''
           } else {
             formTitle = 'My Forces'
             submitTitle = ''
