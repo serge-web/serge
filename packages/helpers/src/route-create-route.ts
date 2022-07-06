@@ -225,7 +225,6 @@ export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentP
             return LaydownPhases.Moved
           } else {
             // not on map yet
-            console.log('current pos same as original post')
             return LaydownPhases.Unmoved
           }
         }
