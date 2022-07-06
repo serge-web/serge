@@ -24,40 +24,23 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
 export const canControlAssetExtended = (channel: ChannelMapping | undefined, assetForce: string,
   assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes | string | undefined, phase: Phase): boolean => {
   const canControlAccordingToChannelDef = !!(channel && canControlAsset(channel, assetForce, assetId, roleId))
-  if (laydown && laydown !== LaydownTypes.Fixed) {
-    switch (laydown) {
-      case LaydownTypes.UmpireLaydown:
-        return isGameControl && !wargameInitiated
-      case LaydownTypes.ForceLaydown:
-        return canControlAccordingToChannelDef && wargameInitiated
-      default:
-        // this shouldn't happen, since the string should match
-        // one of the above
-        return false
-    }
-  } else {
-    switch (phase) {
-      case Phase.Adjudication :
-        switch (laydown) {
-          case LaydownTypes.UmpireLaydown:
+  switch (phase) {
+    case Phase.Adjudication :
+      switch (laydown) {
+        case LaydownTypes.UmpireLaydown:
+          if (wargameInitiated) {
+            throw new Error('Should not have umpire laydown for initiated wargame')
+          } else {
             return isGameControl
-          case LaydownTypes.ForceLaydown:
-            return canControlAccordingToChannelDef
-          default: {
-            // must be 'fixed' or missing
-            if (!wargameInitiated) {
-              // ok, if not in umpire laydown, no-one can control it
-              return false
-            } else {
-              // ok, game has been initiated.  Game Control
-              // controls all assets in adjudication phase
-              return isGameControl
-            }
           }
-        }
-      case Phase.Planning :
-        return canControlAccordingToChannelDef
-    }
+        case LaydownTypes.ForceLaydown:
+          return wargameInitiated && canControlAccordingToChannelDef
+        default:
+          // must be fixed, or missing. Treat as normal game adjudication
+          return wargameInitiated && isGameControl
+      }
+    case Phase.Planning:
+      return canControlAccordingToChannelDef
   }
 }
 
