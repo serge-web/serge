@@ -79,13 +79,13 @@ it('correctly sets laydown status for player in non-init', () => {
 
 it('correctly sets laydown status for umpire in init', () => {
   // first version is umpure in non-initited wargame
-  const initiated = true
+  const notInitiated = false
   const whiteForce = forces[0].uniqid
   const umpireRole = forces[0].roles[0].roleId
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, whiteForce, umpireRole, true,
-    platformTypes, showSteps, showSteps, initiated, undefined, mappingChan)
+    platformTypes, showSteps, showSteps, notInitiated, undefined, mappingChan)
   expect(store).toBeTruthy()
-  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Immobile)
+  expect(store.routes[0].laydownPhase).toEqual(LaydownPhases.Unmoved)
   expect(store.routes[0].asset.locationPending).toEqual(LaydownTypes.UmpireLaydown)
 
   expect(store.routes[1].laydownPhase).toEqual(LaydownPhases.Immobile)
