@@ -6,7 +6,7 @@ import { watuWargame, preInitialisedForces } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 
-import { Phase, LaydownPhases, UNKNOWN_TYPE } from '@serge/config'
+import { Phase, LaydownPhases, UNKNOWN_TYPE, LaydownTypes } from '@serge/config'
 
 import { RouteStore, RouteChild, Route, ForceData, Asset, ChannelMapping } from '@serge/custom-types'
 
@@ -505,15 +505,24 @@ it('creates routes for assets in new laydown structure in pre-init', () => {
   }
   blue.assets[2].position = 'G23'
 
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, true, platformTypes, false, false, false, undefined, mappingChan)
-  expect(store.routes.length).toEqual(1) // only one route has a position
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, umpireForce.uniqid, umpireForce.roles[0].roleId, true,
+    platformTypes, false, false, false, undefined, mappingChan)
+  expect(store.routes.length).toEqual(13) // only one route has a position
+
+  const validLocations = store.routes.filter((route: Route) => route.currentPosition !== 'pending')
+  expect(validLocations.length).toEqual(1)
+
+  const pendingLocations = store.routes.filter((route: Route) => route.currentPosition === 'pending')
+  expect(pendingLocations.length).toEqual(12)
 
   // check inside the route with a position
-  const route: Route = store.routes[0]
+  const route: Route = validLocations[0]
   expect(route.uniqid).toEqual('a0pra00002')
   expect(route.history.length).toEqual(0)
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
-  expect(route.laydownPhase).toEqual(LaydownPhases.Immobile) // no route present, so can't have moved
-  expect(route.underControlByThisForce).toBeFalsy()
+  expect(route.laydownPhase).toEqual(LaydownPhases.Unmoved) // no route present, so can't have moved
+  expect(route.asset.locationPending).toEqual(LaydownTypes.UmpireLaydown)
+  expect(route.underControlByThisForce).toBeTruthy() // since we're GC in laydown
+  expect(route.underControlByThisRole).toBeTruthy() // since we're GC in laydown
 })

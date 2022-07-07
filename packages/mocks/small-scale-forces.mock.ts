@@ -65,7 +65,6 @@ export const forces: ForceData[] = [
             "turn": 1
           }
         ],
-        "locationPending": true,
         "name": "SSN-1",
         "attributeValues": [
           {
@@ -126,7 +125,6 @@ export const forces: ForceData[] = [
             "turn": 1
           }
         ],
-        "locationPending": true,
         "name": "NORTH",
         "perceptions": [
           {
@@ -168,7 +166,6 @@ export const forces: ForceData[] = [
             "turn": 2
           }
         ],
-        "locationPending": true,
         "name": "SSN-2",
         "perceptions": [],
         "platformType": "ssn",
@@ -209,7 +206,6 @@ export const forces: ForceData[] = [
         "condition": "Working",
         "contactId": "C122",
         "history": [],
-        "locationPending": true,
         "name": "AGI",
         "perceptions": [],
         "platformType": "agi",
@@ -220,7 +216,6 @@ export const forces: ForceData[] = [
         "condition": "Working",
         "contactId": "C442",
         "history": [],
-        "locationPending": true,
         "name": "MPA 2",
         "perceptions": [
           {

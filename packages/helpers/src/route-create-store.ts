@@ -2,12 +2,42 @@
 import L from 'leaflet'
 import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
-import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
+import { ADJUDICATION_PHASE, LaydownTypes, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'
 import { h3ToGeo } from 'h3-js'
-import { canControlAsset, underControlByThisForce } from './can-control-asset'
+import { canControlAssetExtended, underControlByThisForce } from './can-control-asset'
+
+/**
+ * Convert an h3 location to a lat/long
+ * @param position the current asset position
+ * @returns the lat-long for the asset
+ */
+const locationFor = (position: string | undefined): L.LatLng | undefined => {
+  if (position && position !== 'pending') {
+    const h3loc: number[] = h3ToGeo(position)
+    // dummy location, used if we don't have grid (such as in test)
+    const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
+    return (h3loc && L.latLng(h3loc[0], h3loc[1])) || dummyLocation
+  } else {
+    return undefined
+  }
+}
+
+/**
+ * find which position to use
+ * @param position original asset position
+ * @param existingRoute and current position
+ * @returns
+ */
+const positionFor = (position: string, existingRoute?: Route): string => {
+  if (existingRoute && existingRoute.currentPosition !== undefined) {
+    return existingRoute.currentPosition
+  } else {
+    return position
+  }
+}
 
 /** process the forces, to create a route store - used to manage
  * display and edits to planned routes
@@ -28,7 +58,7 @@ import { canControlAsset, underControlByThisForce } from './can-control-asset'
  */
 const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'],
   playerRole: Role['roleId'], isGameControl: Role['isGameControl'], platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
-  filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping): RouteStore => {
+  filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping, turnNumber?: number): RouteStore => {
   const store: RouteStore = { routes: [] }
 
   const forceColorList: Array<ForceStyle> = forceColors(forces)
@@ -40,6 +70,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
   }
 
   const localWargameInitiated: boolean = (wargameInitiated === undefined) ? true : wargameInitiated
+  const localTurnNumber: number = turnNumber === undefined ? 0 : turnNumber
 
   forces.forEach((force: ForceData) => {
     // see if we control it
@@ -51,6 +82,12 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     if (force.assets) {
       // loop through assets
       force.assets.forEach((asset: Asset) => {
+        // if it's waiting for laydown, we provide position as pending
+        const assetInLaydown = asset.locationPending && asset.locationPending !== LaydownTypes.Fixed
+        if (!asset.position && assetInLaydown) {
+          asset.position = 'pending'
+        }
+
         // we can only do this for assets with a position
         if (asset.position) {
           // see if there is an existing planned route for this asset
@@ -59,21 +96,17 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
           // or are we admin in adjudication?
           const adminInAdj = playerForceId === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
 
-          // sort out if this role can control this asset
-          const gcInAdjudicate = adminInAdj && isGameControl
-          const controlledByThisRole = gcInAdjudicate || (channel && canControlAsset(channel, force.uniqid, asset.uniqid, playerRole)) || false
-          const controlledByThisForce = (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
+          const umpireForceInTurnZero = !localWargameInitiated && adminInAdj
+          const controlledByThisForce = umpireForceInTurnZero || (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
+          const controlledByThisRole = canControlAssetExtended(channel, force.uniqid, asset.uniqid, playerRole,
+            localWargameInitiated, isGameControl, asset.locationPending, phase, localTurnNumber)
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
           const existingRoute: Route | undefined = controlledByThisForce || adminInAdj ? existingRouteBase : undefined
 
-          // dummy location, used if we don't have grid (such as in test)
-          const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
-          // sort out location.
-          const assetPosition: string = (existingRoute && existingRoute.currentPosition) || asset.position
-          const h3loc: number[] | undefined = (asset.position && h3ToGeo(asset.position)) || undefined
-          const h3locLatlng: L.LatLng | undefined = (h3loc && L.latLng(h3loc[0], h3loc[1])) || undefined
-          const assetLocation: L.LatLng = (h3locLatlng) || dummyLocation
+          // sort out location
+          const assetPosition = positionFor(asset.position, existingRoute)
+          const assetLocation = locationFor(assetPosition)
 
           // is it the selected asset?
           const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
@@ -97,6 +130,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                 newRoute.condition = existingRoute.condition
               }
             }
+
             store.routes.push(newRoute)
           } else {
             // ok, special handling - if this is an organisation that comprises others. We return the tangible assets,

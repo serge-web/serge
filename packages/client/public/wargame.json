@@ -241,7 +241,6 @@
 						"name": "TARRADA",
 						"contactId": "C065", 
 						"condition": "Full capability",
-						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -253,7 +252,6 @@
 						"name": "JALABAH",
 						"contactId": "C105", 
 						"condition": "Full capability",
-						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -265,7 +263,7 @@
 						"name": "SANBUQ",
 						"contactId": "C008", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -277,7 +275,6 @@
 						"name": "WBIED-1",
 						"contactId": "C108", 
 						"condition": "Full capability",
-						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "torpedo",
@@ -289,7 +286,7 @@
 						"name": "WBIED-2",
 						"contactId": "C118", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "torpedo",
@@ -301,7 +298,7 @@
 						"name": "C14-1 Missile Boat",
 						"contactId": "C218", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fast-attack-craft",
@@ -313,7 +310,7 @@
 						"name": "C14-2 Missile Boat",
 						"contactId": "C101", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fast-attack-craft",
@@ -325,7 +322,7 @@
 						"name": "Osa",
 						"contactId": "C003", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fast-attack-craft",
@@ -337,7 +334,7 @@
 						"name": "Yevgenya",
 						"contactId": "C313", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "mcmv",
@@ -349,7 +346,7 @@
 						"name": "Coastal Radar A",
 						"contactId": "C064", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",
@@ -361,7 +358,7 @@
 						"name": "Coastal Radar B (No missiles)",
 						"contactId": "C076", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",
@@ -373,7 +370,7 @@
 						"name": "Coastal Radar C",
 						"contactId": "C476", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",

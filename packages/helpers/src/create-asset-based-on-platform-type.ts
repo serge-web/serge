@@ -1,7 +1,7 @@
 import { Asset, AttributeTypes, NumberAttributeType, NumberAttributeValue, PlatformTypeData } from '@serge/custom-types'
 import uniqid from 'uniqid'
 import generateHashCode from './generate-hash-code'
-import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes } from '@serge/config'
 
 export const generateAssetId = (): string => {
   return 'a' + uniqid.time()
@@ -39,7 +39,7 @@ export const createAssetBasedOnPlatformType = (pType: PlatformTypeData): Asset =
     perceptions: [],
     condition: '',
     position: '',
-    locationPending: false,
+    locationPending: LaydownTypes.UmpireLaydown,
     attributeValues: attributes
   }
 }

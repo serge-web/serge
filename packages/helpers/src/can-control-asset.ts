@@ -1,5 +1,5 @@
 import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from '@serge/custom-types'
-import { CONTROL_ALL } from '@serge/config'
+import { CONTROL_ALL, LaydownTypes, Phase } from '@serge/config'
 
 export const canControlAnyAsset = (channel: ChannelMapping, role: Role['roleId']): boolean => {
   const singleRoleParticipations = channel.participants.filter((part: ParticipantMapping) => part.roles && part.roles.length === 1)
@@ -18,6 +18,30 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
     // see if we an asset from our force controls this asset
     const controlsThisAsset = channel.participants.find((part:ParticipantMapping) => part.controls && part.controls.includes(asset))
     return !!controlsThisAsset && (controlsThisAsset.forceUniqid === roleForce)
+  }
+}
+
+export const canControlAssetExtended = (channel: ChannelMapping | undefined, assetForce: string,
+  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean,
+  laydown: LaydownTypes | string | undefined, phase: Phase, turnNumber: number): boolean => {
+  const canControlAccordingToChannelDef = !!(channel && canControlAsset(channel, assetForce, assetId, roleId))
+  switch (phase) {
+    case Phase.Adjudication :
+      switch (laydown) {
+        case LaydownTypes.UmpireLaydown:
+          if (wargameInitiated) {
+            throw new Error('Should not have umpire laydown for initiated wargame')
+          } else {
+            return isGameControl
+          }
+        case LaydownTypes.ForceLaydown:
+          return wargameInitiated && canControlAccordingToChannelDef
+        default:
+          // must be fixed, or missing. Treat as normal game adjudication
+          return (turnNumber > 0) && wargameInitiated && isGameControl
+      }
+    case Phase.Planning:
+      return canControlAccordingToChannelDef
   }
 }
 

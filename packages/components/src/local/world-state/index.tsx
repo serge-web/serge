@@ -47,7 +47,7 @@ export const WorldState: React.FC<PropTypes> = ({
           // check turn number, in case we're in laydown
           if (turnNumber === 0) {
             // in laydown phase, umpire only gets assets they control
-            setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
+            setTmpRoutes(store.routes.filter(r => r.underControlByThisRole))
           } else {
             // umpire gets all, player only gets theirs
             setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControlByThisForce))
@@ -103,7 +103,9 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   const plannedRoutesPending = (): boolean => {
-    if (phase === Phase.Adjudication && isUmpire) {
+    if (inLaydown) {
+      return tmpRoutes.some((route: Route) => route.laydownPhase === LaydownPhases.Unmoved)
+    } else if (phase === Phase.Adjudication && isUmpire) {
       return !!store.routes.find((route: Route) => route.adjudicationState !== PlanningStates.Saved)
     } else {
       return false
