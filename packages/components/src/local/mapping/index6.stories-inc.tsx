@@ -15,7 +15,7 @@ import Mapping from './index'
 import docs from './README.md'
 import MappingPropTypes from './types/props'
 
-const forces = watuWargame.data.forces.forces
+const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 const overview = watuWargame.data.overview
 const annotations = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []
