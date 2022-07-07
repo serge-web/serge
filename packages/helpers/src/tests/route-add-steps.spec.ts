@@ -8,8 +8,9 @@ import routeAddSteps from '../route-add-steps'
 import { Phase } from '@serge/config'
 
 import { ChannelMapping, RouteStore, RouteTurn } from '@serge/custom-types'
+import deepCopy from '../deep-copy'
 
-const forces = watuWargame.data.forces.forces
+const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 const mappingChan = watuWargame.data.channels.channels[1] as ChannelMapping
 const blueCo = forces[1].roles[0]
