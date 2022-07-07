@@ -271,7 +271,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
-        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel, turnNumber)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])

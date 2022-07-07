@@ -22,7 +22,8 @@ export const underControlByThisForce = (channel: ChannelMapping, asset: Asset['u
 }
 
 export const canControlAssetExtended = (channel: ChannelMapping | undefined, assetForce: string,
-  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean, laydown: LaydownTypes | string | undefined, phase: Phase): boolean => {
+  assetId: string, roleId: string, wargameInitiated: boolean, isGameControl: boolean,
+  laydown: LaydownTypes | string | undefined, phase: Phase, turnNumber: number): boolean => {
   const canControlAccordingToChannelDef = !!(channel && canControlAsset(channel, assetForce, assetId, roleId))
   switch (phase) {
     case Phase.Adjudication :
@@ -37,7 +38,7 @@ export const canControlAssetExtended = (channel: ChannelMapping | undefined, ass
           return wargameInitiated && canControlAccordingToChannelDef
         default:
           // must be fixed, or missing. Treat as normal game adjudication
-          return wargameInitiated && isGameControl
+          return (turnNumber > 0) && wargameInitiated && isGameControl
       }
     case Phase.Planning:
       return canControlAccordingToChannelDef
