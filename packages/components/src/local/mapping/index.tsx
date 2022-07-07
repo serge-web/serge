@@ -154,11 +154,10 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [mappingConstraintState])
 
-  // only update bounds if they're different to the current one
+  // control whether to allow provide the "Add info marker" button
   useEffect(() => {
-    // TODO: we should only be allowing this for the Game Control
     setShowAddInfo((playerForce === UMPIRE_FORCE) && isGameControl)
-  }, [phase, playerForce])
+  }, [playerForce, isGameControl])
 
   // if marker is selected, clear the asset
   useEffect(() => {
