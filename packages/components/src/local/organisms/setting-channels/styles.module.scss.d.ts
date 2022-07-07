@@ -3,8 +3,14 @@
 interface CssExports {
   'actions': string;
   'box': string;
+  'cell-lbl': string;
   'col': string;
+  'constraints-cell': string;
+  'constraints-icon': string;
   'control-groups': string;
+  'group-item': string;
+  'input': string;
+  'mapping-item-constraints': string;
   'message-content': string;
   'message-group': string;
   'message-title': string;
@@ -14,12 +20,6 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
-  'mapping-item-constraints': string;
-  'input': string;
-  'constraints-icon': string;
-  'constraints-cell': string;
-  'cell-lbl': string;
-  'group-item': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
