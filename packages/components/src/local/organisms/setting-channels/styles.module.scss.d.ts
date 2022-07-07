@@ -14,6 +14,12 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
+  'mapping-item-constraints': string;
+  'input': string;
+  'constraints-icon': string;
+  'constraints-cell': string;
+  'cell-lbl': string;
+  'group-item': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
