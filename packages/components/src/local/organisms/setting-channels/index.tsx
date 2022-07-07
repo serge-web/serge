@@ -285,21 +285,15 @@ export const SettingChannels: React.FC<PropTypes> = ({
         return (<></>)
       }
 
-      const updateMapConstraintsBounds = (value: string, key1: number, key2: number): void => {
+      const updateMapConstraintsBounds = (value: string, key: number[]): void => {
         const nextChannel = { ...mappingChannel }
-        nextChannel.constraints.bounds[key1][key2] = +value
+        nextChannel.constraints.bounds[key[0]][key[1]] = +value
         handleChangeChannel(nextChannel)
       }
 
-      const updateMapConstraintsZoom = (value: string, type: 'native' | 'min' | 'max'): void => {
+      const updateMapConstraintsZoom = (value: string, type: 'maxZoom' | 'minZoom' | 'maxNativeZoom'): void => {
         const nextChannel = { ...mappingChannel }
-        if (type === 'max') {
-          nextChannel.constraints.maxZoom = +value
-        } else if (type === 'min') {
-          nextChannel.constraints.minZoom = +value
-        } else {
-          nextChannel.constraints.maxNativeZoom = +value
-        }
+        nextChannel.constraints[type] = +value
         handleChangeChannel(nextChannel)
       }
 
@@ -328,6 +322,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         nextChannel.constraints.gridCellsURL = e.target.value
         handleChangeChannel(nextChannel)
       }
+
       const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = mappingChannel.constraints
 
       return (
@@ -353,7 +348,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={bounds[0][0]}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, 0, 0)}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [0, 0])}
                           />
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
@@ -362,7 +357,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={bounds[0][1]}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, 0, 1)}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [0, 1])}
                           />
                         </TableCell>
                       </TableRow>
@@ -376,7 +371,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={bounds[1][0]}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, 1, 0)}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [1, 0])}
                           />
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
@@ -385,7 +380,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={bounds[1][1]}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, 1, 1)}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [1, 1])}
                           />
                         </TableCell>
                       </TableRow>
@@ -408,7 +403,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={maxNativeZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'native')}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
                           />
                         </TableCell>
                       </TableRow>
@@ -425,7 +420,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={maxZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'max')}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxZoom')}
                           />
                         </TableCell>
                       </TableRow>
@@ -442,7 +437,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
                             value={minZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'min')}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'minZoom')}
                           />
                         </TableCell>
                       </TableRow>
