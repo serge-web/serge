@@ -19,7 +19,10 @@ interface CssExports {
   'constraints-icon': string;
   'constraints-cell': string;
   'cell-lbl': string;
-  'group-item': string;
+  'accordion-header': string;
+  'arrow-icon': string;
+  'accordion': string;
+  'accordion-details': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
