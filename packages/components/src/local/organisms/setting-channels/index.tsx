@@ -327,6 +327,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
         handleChangeChannel(nextChannel)
       }
 
+      const constraintsSummary = (): string => {
+        const constraints = mappingChannel.constraints
+        const bounds = 'Bounds:' + (constraints.bounds ? 'Y' : 'N')
+        const tiles = 'Tiles:' + (constraints.tileLayer ? 'Y' : 'N')
+        const cells = 'Cells:' + (constraints.gridCellsURL ? 'Y' : 'N')
+        return bounds + ' ' + tiles + ' ' + cells
+      }
+
       const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = mappingChannel.constraints
 
       return (
@@ -337,7 +345,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           >
             <div className={styles['accordion-title-group']}>
               <Typography className={styles['accordion-title']}>Proportions and Constraints</Typography>
-              <Typography className={styles['accordion-sub-title']}>Sub title here</Typography>
+              <Typography className={styles['accordion-sub-title']}>{constraintsSummary()}</Typography>
             </div>
           </AccordionSummary>
           <AccordionDetails className={styles['accordion-details']}>
