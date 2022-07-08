@@ -24,7 +24,7 @@ import {
   MessageDeletePlatform,
   MapAnnotation
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes, UMPIRE_LAYDOWN } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -66,6 +66,7 @@ export const MapBar: React.FC = () => {
   if (typeof props === 'undefined') return null
   const {
     playerForce,
+    isGameControl,
     phase,
     platforms,
     forces,
@@ -152,17 +153,18 @@ export const MapBar: React.FC = () => {
       let secondaryTitle = ''
       if (phase === ADJUDICATION_PHASE) {
         if (turnNumber === 0) {
+          const myForceControlsSomeAssets = routeStore.routes.some((route: Route) => route.underControlByThisForce)
+          const myRoleControlsSomeAssets = routeStore.routes.some((route: Route) => route.underControlByThisRole)
           // see if player can submit orders
-          if (canSubmitOrdersForThisAsset) {
-            // see if it has any forces that laydown
-            const needsLaydown = routeStore.routes.find((route: Route) => {
-              return route.underControlByThisRole && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
-            })
-            formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
-            submitTitle = needsLaydown ? 'Submit Force Laydown' : ''
+          if (myForceControlsSomeAssets) {
+            // see if it has any assets that require umpire laydown
+            const needsUmpireLaydown = routeStore.routes.some((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.UmpireLaydown)
+            const needsForceLaydown = routeStore.routes.some((route: Route) => route.asset.locationPending && route.asset.locationPending === LaydownTypes.ForceLaydown)
+            formTitle = (needsUmpireLaydown && 'Umpire Laydown') || (needsForceLaydown && 'Force Laydown') || 'My Forces'
+            submitTitle = (myRoleControlsSomeAssets && ((needsUmpireLaydown && 'Submit  Laydown') || (needsForceLaydown && 'Submit Laydown'))) || ''
           } else {
-            formTitle = playerForce === UMPIRE_FORCE ? 'My Forces' : 'Force Laydown'
-            submitTitle = 'Submit Force Laydown'
+            formTitle = 'My Forces'
+            submitTitle = ''
           }
         } else {
           formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
@@ -188,7 +190,14 @@ export const MapBar: React.FC = () => {
   }, [phase, playerForce, turnNumber, routeStore])
 
   const worldStateSubmitHandler = (): void => {
-    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+    if (turnNumber === 0) {
+      // collate laydown data
+      const orders: MessageForceLaydown = collateForceLaydown(routeStore.routes)
+      const laydownType = isGameControl ? UMPIRE_LAYDOWN : FORCE_LAYDOWN
+      const fixedOrders = { ...orders, messageType: laydownType }
+      // send laydown
+      mapPostBack(fixedOrders.messageType, orders, channelID)
+    } else if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
       const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber, infoMarkers || [])
@@ -199,11 +208,6 @@ export const MapBar: React.FC = () => {
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControlByThisRole)
       const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
       mapPostBack(SUBMIT_PLANS, orders, channelID)
-    } else if (turnNumber === 0) {
-      // collate laydown data
-      const orders: MessageForceLaydown = collateForceLaydown(routeStore.routes)
-      mapPostBack(FORCE_LAYDOWN, orders, channelID)
-      // send laydown
     }
     setPlansSubmitted(true)
   }

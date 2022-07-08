@@ -54,6 +54,10 @@ export default interface PropTypes {
    */
   locationPending?: boolean
   /**
+   *
+   */
+  markerDropped?: {(cell: string, uniqid: Asset['uniqid']): void}
+  /**
    * imageSrc custom icon for asset
    */
   imageSrc?: string

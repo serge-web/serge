@@ -344,7 +344,6 @@ export const forces: ForceData[] = [
             "turn": 0
           }
         ],
-        "locationPending": true,
         "name": "Dhow-A",
         "perceptions": [
           {
@@ -413,7 +412,6 @@ export const forces: ForceData[] = [
             "uniqid": "a0pra153102"
           }
         ],
-        "locationPending": true,
         "name": "Dhow-B",
         "perceptions": [
           {
@@ -468,7 +466,6 @@ export const forces: ForceData[] = [
             "turn": 2
           }
         ],
-        "locationPending": true,
         "name": "Dhow-C",
         "perceptions": [],
         "plannedTurns": [
@@ -523,7 +520,6 @@ export const forces: ForceData[] = [
             "turn": 2
           }
         ],
-        "locationPending": true,
         "name": "Missile-A",
         "perceptions": [],
         "plannedTurns": [],

@@ -101,7 +101,6 @@
 			"assets": [{
 					"name": "Dhow-A",
 					"condition": "Working",
-					"locationPending": true,
 					"perceptions": {
 						"Blue": {
 							"force": "Green",
@@ -116,7 +115,6 @@
 				{
 					"name": "Dhow-B",
 					"condition": "Working",
-					"locationPending": true,
 					"perceptions": {
 						"Blue": {
 							"force": "Green",
@@ -131,7 +129,6 @@
 				{
 					"name": "Dhow-C",
 					"condition": "Working",
-					"locationPending": true,
 					"perceptions": {},
 					"platformType": "fishing-vessel",
 					"position": "Q18",
@@ -141,7 +138,6 @@
 				{
 					"name": "Missile-A",
 					"condition": "Working",
-					"locationPending": true,
 					"perceptions": {},
 					"platformType": "coastal-radar-site",
 					"position": "Q12",

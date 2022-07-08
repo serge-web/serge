@@ -3,8 +3,14 @@
 interface CssExports {
   'actions': string;
   'box': string;
+  'cell-lbl': string;
   'col': string;
+  'constraints-cell': string;
+  'constraints-icon': string;
   'control-groups': string;
+  'group-item': string;
+  'input': string;
+  'mapping-item-constraints': string;
   'message-content': string;
   'message-group': string;
   'message-title': string;

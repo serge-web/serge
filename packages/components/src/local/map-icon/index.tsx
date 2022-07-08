@@ -1,6 +1,6 @@
 import { UNKNOWN_TYPE } from '@serge/config'
 import { SelectedAsset } from '@serge/custom-types'
-import L from 'leaflet'
+import L, { DragEndEvent } from 'leaflet'
 import { capitalize } from 'lodash'
 import React, { useContext, useMemo } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -13,6 +13,7 @@ import { MapContext } from '../mapping'
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
+import * as h3 from 'h3-js'
 
 /* Render component */
 export const MapIcon: React.FC<PropTypes> = ({
@@ -32,14 +33,21 @@ export const MapIcon: React.FC<PropTypes> = ({
   imageSrc,
   attributes,
   orientationData,
-  map
+  map,
+  markerDropped
 }) => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
-  const { setShowMapBar, setSelectedAsset, selectedAsset, clearMapSelection } = props
+  const { setShowMapBar, setSelectedAsset, selectedAsset, clearMapSelection, h3Resolution } = props
 
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
   const className = getIconClassname('', isDestroyed, selected)
+
+  const markerDroppedLocal = (e: DragEndEvent): void => {
+    const newPos: L.LatLng = e.target.getLatLng()
+    const newCell = h3.geoToH3(newPos.lat, newPos.lng, h3Resolution)
+    markerDropped && markerDropped(newCell, uniqid)
+  }
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -72,6 +80,10 @@ export const MapIcon: React.FC<PropTypes> = ({
   // get top orient marker in the list
   const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0
 
+  // Note: use `locationPending` boolean flag to decide whether icon should flash
+  // Note: I've temporarily used `opacity` to show which are location pending (below), but it
+  // Note: should be removed once we've got blinking icons.
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     html: `<div class='${className}' style="transform: rotate(${lastOrientation - 80}deg) translate(5px) rotate(-${lastOrientation - 80}deg); background-color: ${perceivedForceColor}">${assetIconComponentAsString}</div>`
@@ -79,7 +91,6 @@ export const MapIcon: React.FC<PropTypes> = ({
 
   return <>
     <LayerGroup key={'hex_polygons3'} >{
-      /* not too many cells visible, show hex outlines */
       map && orientationData && orientationData.map((cell: OrientationData, index: number) => {
         const orientRads = (90 - cell.orientation) * Math.PI / 180.0
         // const orientRads = 190.0 * Math.PI / 180.0
@@ -116,7 +127,7 @@ export const MapIcon: React.FC<PropTypes> = ({
       })}
     </LayerGroup>
 
-    <Marker key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
+    <Marker ondragend={markerDroppedLocal} draggable={markerDropped && locationPending} opacity={locationPending ? 0.6 : 1} key='asset-icon' position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{capitalize(tooltip)}</Tooltip>
     </Marker>
   </>

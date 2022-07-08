@@ -705,7 +705,6 @@ const game: Wargame = {
                   "turn": 0
                 }
               ],
-              "locationPending": true,
               "name": "Dhow-A",
               "perceptions": [
                 {
@@ -774,7 +773,6 @@ const game: Wargame = {
                   "uniqid": "a0pra153102"
                 }
               ],
-              "locationPending": true,
               "name": "Dhow-B",
               "perceptions": [
                 {
@@ -831,7 +829,6 @@ const game: Wargame = {
                   "turn": 2
                 }
               ],
-              "locationPending": true,
               "name": "Dhow-C",
               "perceptions": [],
               "plannedTurns": [
@@ -886,7 +883,6 @@ const game: Wargame = {
                   "turn": 2
                 }
               ],
-              "locationPending": true,
               "name": "Missile-A",
               "perceptions": [],
               "plannedTurns": [],

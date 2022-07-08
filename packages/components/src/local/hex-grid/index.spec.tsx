@@ -7,8 +7,9 @@ import { Phase } from '@serge/config'
 
 /* Import mock data */
 import { localMappingConstraints, watuWargame } from '@serge/mocks'
+import { deepCopy } from '@serge/helpers'
 
-const forces = watuWargame.data.forces.forces
+const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 it('Mapping renders correctly with HexGrid', () => {

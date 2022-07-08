@@ -1,6 +1,6 @@
 import { CellLabelStyle, Phase } from '@serge/config'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { ForceData, MapPostBack, NewTurnValues, PlanTurnFormValues, PlatformTypeData, Role, RouteStore, SergeGrid3 } from '.'
+import { Asset, ForceData, MapPostBack, NewTurnValues, PlanTurnFormValues, PlatformTypeData, Role, RouteStore, SergeGrid3 } from '.'
 import { AnnotationIcons, MapAnnotation, MapAnnotations } from './map-annotation'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
@@ -86,6 +86,10 @@ export default interface MappingContext {
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   updateMarker?: {(event: string, marker: MapAnnotation): void}
+  /**
+   *  handler for an asset being moved in laydown phase
+   **/
+  assetLaydown?: {(cell: string, uniqid: Asset['uniqid']): void}
    /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/

@@ -1,10 +1,10 @@
-import { ADJUDICATION_PHASE, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
+import { ADJUDICATION_PHASE, LaydownPhases, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 import { ForceData, PerceivedTypes, Route as RouteType } from '@serge/custom-types'
 import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
 import L from 'leaflet'
 import React, { useContext, useEffect, useState } from 'react'
-import { LayerGroup } from 'react-leaflet'
+import { LayerGroup, Marker, Polygon } from 'react-leaflet'
 import MapIcon from '../map-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -12,6 +12,8 @@ import { Route } from '../route'
 import orientationFor from './helpers/orientation-for'
 /* Import Types */
 import AssetInfo, { OrientationData } from './types/asset_info'
+import * as h3 from 'h3-js'
+import styles from './styles.module.scss'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -27,11 +29,18 @@ export const Assets: React.FC<{}> = () => {
     phase,
     clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
     platforms,
-    map
+    map,
+    viewport,
+    h3Resolution,
+    assetLaydown
   } = props
 
-  const [assets, setAssets] = useState<AssetInfo[]>([])
+  const [visibleAssets, setVisibleAssets] = useState<AssetInfo[]>([])
+  const [positionedAssets, setPositionedAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
+
+  const [pendingArea, setPendingArea] = useState<L.LatLng[]>([])
+  const [penCentre, setPenCentre] = useState<L.LatLng | undefined>(undefined)
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
@@ -46,6 +55,7 @@ export const Assets: React.FC<{}> = () => {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformTypeId, actualForceId, condition, laydownPhase, visibleToThisForce, attributes } = route
+
         const thisPlatformType = findPlatformTypeFor(platforms, '', route.asset.platformTypeId)
         if (!thisPlatformType) {
           console.warn('Failed to find platform for', platformTypeId, platforms, route)
@@ -64,7 +74,7 @@ export const Assets: React.FC<{}> = () => {
         )
 
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
-          const position: L.LatLng | undefined = route.currentLocation2 // (cell && cell.centreLatLng) || undefined // route.currentLocation
+          const position: L.LatLng | undefined = route.currentLocation2
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
@@ -109,16 +119,102 @@ export const Assets: React.FC<{}> = () => {
               tmpAssets.push(assetInfo)
             }
           } else {
-            console.log('!! Failed to find cell numbered:', route.currentPosition)
+            console.log('!! Failed to find cell numbered:', position, route.currentPosition, route.name)
           }
         }
       })
-      setAssets(tmpAssets)
+
+      setVisibleAssets(tmpAssets)
     }
-  }, [h3gridCells, forces, playerForce, viewAsRouteStore])
+  }, [h3gridCells, playerForce, viewAsRouteStore])
+
+  const forLaydown = (phase?: LaydownPhases): boolean => {
+    return !!phase && (phase === LaydownPhases.Unmoved || phase === LaydownPhases.Moved)
+  }
+
+  /**
+   * if we have any assets with location pending,
+   * and we're in the correct game phase, put them in the location pending
+   * pen
+   */
+  useEffect(() => {
+    const inPendingPen = (phase?: LaydownPhases): boolean => {
+      return !!phase && phase === LaydownPhases.Unmoved
+    }
+
+    // find pending assets
+    const pendingAssets = visibleAssets.filter((asset: AssetInfo) => inPendingPen(asset.laydownPhase))
+
+    if (pendingAssets && pendingAssets.length && viewport) {
+      // find bounds of viewport
+      const centre = viewport.getCenter()
+      const north = viewport.getNorth()
+      const east = viewport.getEast()
+      const demiWid = east - centre.lng
+      const qtrWid = demiWid / 2
+      const demiHt = north - centre.lat
+      const qtrHt = demiHt / 2
+      const topEdge = north - qtrHt / 4
+
+      // get the h3 cell at the centre of where we're looking
+      const oCell = h3.geoToH3(topEdge, centre.lng + qtrWid, h3Resolution)
+
+      // find the centre of the cell
+      const cellCentre = h3.h3ToGeo(oCell)
+      setPenCentre(L.latLng(cellCentre[0], cellCentre[1]))
+
+      const centreOriginLat = cellCentre[0]
+
+      // how many rings to we need to accommodate the pending assets?
+      const numRings = Math.ceil(pendingAssets.length / 3) + 1
+
+      // work out in rings, until we have enough.
+      // Note: we start at ring 1, since we manually push in the origin cell
+      // Note: later on
+      let allCells: string[] = []
+      for (let i = 1; i < numRings; i++) {
+        const cells = h3.hexRing(oCell, i)
+        allCells = allCells.concat(cells)
+      }
+
+      // get cells beneath north edge
+      const allSouthCells = allCells.filter((index: string) => {
+        const centre = h3.h3ToGeo(index)
+        return centre[0] <= centreOriginLat
+      })
+
+      // reduce the list of cells to just those we know we need
+      const southCells = allSouthCells.slice(0, pendingAssets.length)
+
+      // assign pending assets to cells
+      pendingAssets.forEach((asset: AssetInfo, i: number) => {
+        const newPos = h3.h3ToGeo(southCells[i])
+        asset.position = L.latLng(newPos[0], newPos[1])
+      })
+
+      // now generate the hull around valid cells
+      // note: we manually inject the origin cell, since it may have failed the
+      // note: < topEdge test (putting oCell back in the area)
+      southCells.unshift(oCell)
+      const hull1 = h3.h3SetToMultiPolygon(southCells, true)
+      const h3points1 = hull1[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+      setPendingArea(h3points1)
+    } else {
+      // clear the pending area
+      setPenCentre(undefined)
+      setPendingArea([])
+    }
+
+    const validAssets = visibleAssets.filter((asset: AssetInfo) => asset.position !== undefined)
+    setPositionedAssets(validAssets)
+  }, [visibleAssets, viewport])
+
+  const markerDropped = (cell: string, assetId: string): void => {
+    assetLaydown && assetLaydown(cell, assetId)
+  }
 
   return <>
-    <LayerGroup>{assets && assets.map((asset: AssetInfo) => {
+    <LayerGroup>{positionedAssets && positionedAssets.map((asset: AssetInfo) => {
       return <MapIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
@@ -137,9 +233,32 @@ export const Assets: React.FC<{}> = () => {
         imageSrc={asset.iconUrl}
         attributes={asset.attributes}
         map={map}
-        locationPending={!!asset.laydownPhase} />
+        markerDropped={markerDropped}
+        locationPending={asset.selected && forLaydown(asset.laydownPhase)} />
     })}
-
+    {
+      penCentre &&
+      <>
+        <Polygon
+          key={'pending_area'}
+          positions={pendingArea}
+          color={'#aaa'}
+          opacity={1.0}
+          weight={2}
+          lineJoin={'round'}
+        />
+        <Marker
+          key={'pen-title'}
+          position={penCentre}
+          width='120'
+          icon={L.divIcon({
+            html: 'Laydown pen',
+            className: styles['pending-area'],
+            iconSize: [80, 50],
+            iconAnchor: [40, 10]
+          })} />
+      </>
+    }
     {
       viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
         <Route name={'test'}

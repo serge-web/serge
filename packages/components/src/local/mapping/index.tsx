@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  LAYDOWN_TURN, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
+  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -22,12 +22,12 @@ import {
   routeGetLatestPosition,
   routeClearFromStep,
   findPlatformTypeFor,
-  findAsset,
   routeSetLaydown,
   enumFromString,
   turnTimeAsMillis,
   routeDeclutter2,
-  DeclutterData
+  DeclutterData,
+  deepCopy
 } from '@serge/helpers'
 
 /* Import Types */
@@ -154,11 +154,10 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [mappingConstraintState])
 
-  // only update bounds if they're different to the current one
+  // control whether to allow provide the "Add info marker" button
   useEffect(() => {
-    // TODO: we should only be allowing this for the Game Control
     setShowAddInfo((playerForce === UMPIRE_FORCE) && isGameControl)
-  }, [phase, playerForce])
+  }, [playerForce, isGameControl])
 
   // if marker is selected, clear the asset
   useEffect(() => {
@@ -175,6 +174,23 @@ export const Mapping: React.FC<PropTypes> = ({
       setInfoMarkersState(infoMarkers)
     }
   }, [infoMarkers])
+
+  // // convenience function, to help understand store contents
+  // const doListing = (msg: string, store: RouteStore): void => {
+  //   const laydown = store.routes.filter((route: Route) => route.name === 'NORT' || route.name === 'MERCH 1' || route.name === 'MERCH 2')
+  //   const data = laydown.map((route: Route) => {
+  //     return {
+  //       name: route.name,
+  //       phase: route.laydownPhase,
+  //       origin: route.originalPosition,
+  //       current: route.currentPosition,
+  //       lat: route.currentLocation2 && route.currentLocation2.lat,
+  //       lng: route.currentLocation2 && route.currentLocation2.lng
+  //     }
+  //   })
+  //   console.log('---------------', msg, '-----------')
+  //   console.table(data)
+  // }
 
   // highlight the route for the selected asset
   useEffect(() => {
@@ -193,24 +209,6 @@ export const Mapping: React.FC<PropTypes> = ({
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
-
-    // if we are in turn 0 adjudication phase, we have special processing, since
-    // the player may be doing force laydown
-    if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
-      const layPhase = store.selected.laydownPhase
-      if (layPhase && isGameControl) {
-        if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
-          const asset: Asset = findAsset(forces, store.selected.uniqid)
-          const pType = findPlatformTypeFor(platforms, '', asset.platformTypeId)
-          const moves: PlanMobileAsset = {
-            origin: store.selected.currentPosition,
-            travelMode: pType.travelMode,
-            status: LAYDOWN_TURN
-          }
-          setPlanningConstraints(moves)
-        }
-      }
-    }
   }, [selectedAsset])
 
   /**
@@ -272,7 +270,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
-        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel, turnNumber)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -285,12 +283,9 @@ export const Mapping: React.FC<PropTypes> = ({
       const clutterFunc = declutter || routeDeclutter2
 
       const data: DeclutterData = { routes: routeStore, markers: infoMarkersState }
+
       // sort out the cell diameter
-      const cellRef = routeStore.routes[0].currentPosition
-      const cellRes = h3.h3GetResolution(cellRef)
-      if (cellRes === -1) {
-        console.warn('Unable to recognise resolution for cell', cellRef)
-      }
+      const cellRes = mappingConstraintState.h3res
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
@@ -502,6 +497,34 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlanningConstraints(undefined)
   }
 
+  /** handler for asset being moved during laydown phase */
+  const assetLaydown = (cell: string, _uniqid: Asset['uniqid']): void => {
+    // mark the route as moved
+    const theRoute = routeStore.selected
+    if (theRoute) {
+      theRoute.laydownPhase = LaydownPhases.Moved
+      theRoute.currentPosition = cell
+    }
+
+    // we're going to re-create the routes. That code relies on position
+    // being `pending` to determine if the asset has been moved.
+    // so - check for assets that are un-moved, and clear their position
+    // const withPos = routeStore.routes.filter((route: Route) => route.currentPosition)
+    // withPos.forEach((route: Route) => {
+    //   if (route.laydownPhase === LaydownPhases.Unmoved) {
+    //     route.currentPosition = 'pending'
+    //     route.currentLocation2 = undefined
+    //   }
+    // })
+
+    // clear the selected flag
+    setSelectedAsset(undefined)
+
+    // and force update of routes. Note: I need to create `deepCopy` in order
+    // for react to observe new state
+    setForcesState(deepCopy(forcesState))
+  }
+
   const calcDistanceBetweenCentresM = (): number => {
     if (!mappingConstraintState) {
       throw new Error('Cannot calculate distance without mapping constraints')
@@ -541,7 +564,6 @@ export const Mapping: React.FC<PropTypes> = ({
           if (gameTurnTime === 0) {
             console.error('Cannot plan route with zero game turn time')
             window.alert('Cannot plan route with zero game turn time')
-            // TODO: also display notification in UI
           }
 
           const distanceBetweenTileCentresM = calcDistanceBetweenCentresM()
@@ -747,6 +769,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedMarker,
     setSelectedAsset,
     updateMarker,
+    assetLaydown,
     clearMapSelection,
     viewport,
     zoomLevel,
