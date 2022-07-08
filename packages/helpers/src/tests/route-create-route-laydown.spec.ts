@@ -8,8 +8,9 @@ import routeCreateStore from '../route-create-store'
 import { ChannelMapping, Route, RouteStore } from '@serge/custom-types'
 import { LaydownPhases, LaydownTypes, Phase } from '@serge/config'
 import { laydownPhaseFor } from '../route-create-route'
+import deepCopy from '../deep-copy'
 
-const forces = watuWargame.data.forces.forces
+const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 const mappingChan = watuWargame.data.channels.channels[1] as ChannelMapping
 const showSteps = false
