@@ -126,8 +126,18 @@
   background-color: #8595a5 !important;
 }
 
+.accordion-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .accordion-title {
   color: #fff;
+}
+
+.accordion-sub-title {
+  color: #fff;
+  font-size: small;
 }
 
 .arrow-icon {

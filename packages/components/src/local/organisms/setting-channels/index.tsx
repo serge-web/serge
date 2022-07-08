@@ -335,7 +335,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
             className={styles['accordion-header']}
             expandIcon={<FontAwesomeIcon icon={faCaretDown} className={styles['arrow-icon']} />}
           >
-            <Typography className={styles['accordion-title']}>Proportions and Constraints</Typography>
+            <div className={styles['accordion-title-group']}>
+              <Typography className={styles['accordion-title']}>Proportions and Constraints</Typography>
+              <Typography className={styles['accordion-sub-title']}>Sub title here</Typography>
+            </div>
           </AccordionSummary>
           <AccordionDetails className={styles['accordion-details']}>
             <div className={styles['control-groups']}>

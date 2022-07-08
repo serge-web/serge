@@ -28,7 +28,9 @@ interface CssExports {
   'accordion-header': string;
   'arrow-icon': string;
   'accordion': string;
+  'accordion-title-group': string;
   'accordion-details': string;
+  'accordion-sub-title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
