@@ -338,7 +338,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = mappingChannel.constraints
 
       return (
-        <Accordion className={styles['accordion']}>
+        <Accordion className={styles.accordion}>
           <AccordionSummary
             className={styles['accordion-header']}
             expandIcon={<FontAwesomeIcon icon={faCaretDown} className={styles['arrow-icon']} />}
@@ -465,30 +465,28 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     </TableBody>
                   </Table>
                 </FormGroup>
+                <FormGroup placeholder="H3">
+                  <Table aria-label="H3">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <span style={{ fontSize: 35, display: 'block', marginBottom: 5 }}>&#x2B22;</span>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={h3res}
+                            onInput={updateMapConstraintsH3Res}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
               </div>
-              <div className={styles['mapping-item-constraints']}>
-                <span style={{ width: '70%' }}>
-                  <FormGroup placeholder="H3">
-                    <Table aria-label="H3">
-                      <TableBody>
-                        <TableRow>
-                          <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                            <span style={{ fontSize: 35, display: 'block', marginBottom: 5 }}>&#x2B22;</span>
-                          </TableCell>
-                          <TableCell className={styles['constraints-cell']}>
-                            <TextField
-                              type='number'
-                              className={styles.input}
-                              InputProps={{ disableUnderline: true }}
-                              value={h3res}
-                              onInput={updateMapConstraintsH3Res}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </FormGroup>
-                </span>
+              <div className={cx(styles['mapping-item-constraints'], styles['col-2'])}>
                 <FormGroup placeholder="Tile Layer">
                   <Table aria-label="Tile Layer">
                     <TableBody>
