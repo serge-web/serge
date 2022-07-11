@@ -18,11 +18,12 @@ import {
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
-  TurnFormats
+  TurnFormats,
+  CHANNEL_MAPPING
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
 import {
   handleSetAllMessages,
   openMessage,
@@ -119,6 +120,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
         console.warn('Applied workaround to remove duplicate channel defs')
       }
       newState.allChannels = cleanChannels
+
+      // see if there are any mapping constraints
+      const mapChannel = allChannels.find((channel: ChannelTypes) => channel.channelType === CHANNEL_MAPPING) as ChannelMapping
+      newState.mappingConstraints = mapChannel ? mapChannel.constraints : undefined
 
       newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
