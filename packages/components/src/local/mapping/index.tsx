@@ -154,13 +154,14 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [mappingConstraintState])
 
-    // only update bounds if they're different to the current one
-    useEffect(() => {
-      if (mappingConstraints) {
+  // only update bounds if they're different to the current one
+  useEffect(() => {
+    if (mappingConstraints) {
+      if( mappingConstraints !== mappingConstraintState) {
         setMappingConstraintState(mappingConstraints)
-        console.log('new constraints', mappingConstraints.bounds[0], mappingConstraintState.bounds[0])
       }
-    }, [mappingConstraints])
+    }
+  }, [mappingConstraints])
 
   // control whether to allow provide the "Add info marker" button
   useEffect(() => {
@@ -363,9 +364,9 @@ export const Mapping: React.FC<PropTypes> = ({
       const resolution = mappingConstraintState.h3res || 3
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
       // check if we need to update, to reduce re-renders
-      if (cells.length != h3gridCells.length) {
+      if ((cells.length !== h3gridCells.length) || atlanticCells) {
         setH3Resolution(resolution)
-        setH3gridCells(cells)  
+        setH3gridCells(cells)
       }
     }
   }, [mapBounds, atlanticCells])
