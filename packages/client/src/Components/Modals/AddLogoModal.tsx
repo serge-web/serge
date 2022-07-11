@@ -12,7 +12,7 @@ const AddLogoModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
 
-  const saveLogo = (file: string) => {
+  const saveLogo = (_: string, file: File) => {
     dispatch(saveSergeLogo(file))
     dispatch(modalAction.close())
   }
@@ -25,9 +25,9 @@ const AddLogoModal = () => {
 
   return (
     <ModalWrapper>
-      <div className="display-text-wrapper">
+      <div className='display-text-wrapper'>
         <ImageDropzone
-          title="Add an image"
+          title='Add an image'
           limit={100000}
           onChange={saveLogo}
           onRejected={onRejected}

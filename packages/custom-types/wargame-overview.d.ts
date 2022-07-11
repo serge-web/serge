@@ -21,10 +21,6 @@ export default interface WargameOverview {
   gameDate: string,
   /** allow easy login, during game development/test */
   showAccessCodes: boolean,
-  /** whether all necessary data for this page is complete */
-  complete: boolean,
   /** whether this page has unsaved edits */
   dirty: boolean
-  /** dimensions of the map */
-  mapConstraints?: MappingConstraints
 }

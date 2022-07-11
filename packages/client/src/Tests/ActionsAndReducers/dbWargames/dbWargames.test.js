@@ -46,21 +46,18 @@ const tabs = {
       gameTurnTime: null,
       realtimeTurnTime: null,
       turnStrategy: ''
-    },
-    complete: false
+    }
   },
   1: {
     name: 'Forces',
     forces: [umpireForceTemplate],
     selectedForce: '',
-    complete: false,
     dirty: false
   },
   2: {
     name: 'Channels',
     channels: [],
     selectedChannel: '',
-    complete: false,
     dirty: false
   }
 }

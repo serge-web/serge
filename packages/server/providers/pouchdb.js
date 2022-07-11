@@ -1,6 +1,6 @@
 const listeners = {}
 let addListenersQueue = []
-
+let wargameName = ''
 const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
@@ -24,7 +24,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit('changes', result.doc))
+    }).on('change', (result) => io.emit(wargameName, result.doc))
   }
 
   // check listeners queue to add a new listenr
@@ -50,6 +50,7 @@ const pouchDb = (app, io, pouchOptions) => {
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
+    wargameName = req.params.wargame
 
     if (!listeners[databaseName]) {
       addListenersQueue.push(databaseName)
@@ -66,7 +67,15 @@ const pouchDb = (app, io, pouchOptions) => {
         if (err.status === 409) {
           return retryUntilWritten(db, doc)
         } else { // new doc
-          return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))
+          return db.put(doc)
+            .then(() => res.send({ msg: 'Saved', data: doc }))
+            .catch(() => {
+              const settingsDoc = {
+                ...doc,
+                _id: settings
+              }
+              return retryUntilWritten(db, settingsDoc)
+            })
         }
       })
     }
@@ -117,7 +126,7 @@ const pouchDb = (app, io, pouchOptions) => {
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
         const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings
+          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
         }, [])

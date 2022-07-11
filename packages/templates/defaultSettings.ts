@@ -10,27 +10,24 @@ export default {
       name: 'Overview - settings',
       gameDescription: '',
       // spatialRepresentation: '',
-      gameTurnTime: 43200000,
+      gameTurnTime: { "unit": "millis", "millis": 43200000 },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      complete: false,
       dirty: false
     },
     forces: {
       name: 'Forces',
       forces: [umpireForceTemplate],
       selectedForce: '',
-      complete: false,
       dirty: false
     },
     channels: {
       name: 'Channels',
       channels: [],
       selectedChannel: '',
-      complete: false,
       dirty: false
     }
   },

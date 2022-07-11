@@ -110,13 +110,11 @@
 				"uniqid": "channel-k53ti36p"
 			}
 	],
-		"complete": false,
 		"dirty": false,
 		"name": "Channels",
 		"selectedChannel": ""
 	},
 	"forces": {
-		"complete": true,
 		"dirty": false,
 		"forces": [{
 				"color": "#FCFBEE",
@@ -129,7 +127,6 @@
 					"isInsightViewer": true,
 					"isObserver": true,
 					"isRFIManager": true,
-					"canSubmitPlans": true,
 					"name": "Game Control",
 					"roleId": "r65464"
 				}],
@@ -191,7 +188,6 @@
 					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
-					"canSubmitPlans": true,
 					"name": "CO",
 					"roleId": "r15464"
 				}],
@@ -229,13 +225,11 @@
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "Blue2",
-				"controlledBy": ["umpire"],
 				"overview": "Blue force.",
 				"roles": [{
 					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
-					"canSubmitPlans": true,
 					"name": "CO",
 					"roleId": "r6325464"
 				}],
@@ -247,7 +241,6 @@
 						"name": "TARRADA",
 						"contactId": "C065", 
 						"condition": "Full capability",
-						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -259,7 +252,6 @@
 						"name": "JALABAH",
 						"contactId": "C105", 
 						"condition": "Full capability",
-						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -271,7 +263,7 @@
 						"name": "SANBUQ",
 						"contactId": "C008", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -283,7 +275,6 @@
 						"name": "WBIED-1",
 						"contactId": "C108", 
 						"condition": "Full capability",
-						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "torpedo",
@@ -295,7 +286,7 @@
 						"name": "WBIED-2",
 						"contactId": "C118", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "torpedo",
@@ -307,7 +298,7 @@
 						"name": "C14-1 Missile Boat",
 						"contactId": "C218", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fast-attack-craft",
@@ -319,7 +310,7 @@
 						"name": "C14-2 Missile Boat",
 						"contactId": "C101", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fast-attack-craft",
@@ -331,7 +322,7 @@
 						"name": "Osa",
 						"contactId": "C003", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "fast-attack-craft",
@@ -343,7 +334,7 @@
 						"name": "Yevgenya",
 						"contactId": "C313", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "mcmv",
@@ -355,7 +346,7 @@
 						"name": "Coastal Radar A",
 						"contactId": "C064", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",
@@ -367,7 +358,7 @@
 						"name": "Coastal Radar B (No missiles)",
 						"contactId": "C076", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",
@@ -379,7 +370,7 @@
 						"name": "Coastal Radar C",
 						"contactId": "C476", 
 						"condition": "Full capability",
-						"locationPending": true,
+						"locationPending": "Force laydown",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",
@@ -398,7 +389,6 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"name": "CO",
-					"canSubmitPlans": true,
 					"roleId": "r643575464"
 				}],
 				"umpire": false,
@@ -1671,7 +1661,6 @@
 					}
 				],
 				"color": "#0F0",
-				"controlledBy": ["umpire"],
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "Green",
@@ -1681,7 +1670,6 @@
 						"isGameControl":false,
 						"isInsightViewer": false,
 						"isObserver": false,
-						"canSubmitPlans": true,
 						"name": "CO",
 						"roleId": "r6325464"
 					}
@@ -1694,7 +1682,6 @@
 		"selectedForce": ""
 	},
 	"overview": {
-		"complete": true,
 		"dirty": false,
 		"gameDate": "2020-01-07T11:48:15+00:00",
 		"gameDescription": "Sample MWARC Wargame",
@@ -1705,7 +1692,6 @@
 		"timeWarning": 60000
 	},
 	"platform_types": {
-		"complete": false,
 		"dirty": false,
 		"name": "Platform Types",
 		"platformTypes": [{

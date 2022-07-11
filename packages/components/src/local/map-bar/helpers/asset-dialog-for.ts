@@ -15,16 +15,13 @@ import { MapBarForms } from './enums'
  */
 const assetDialogFor = (
   playerForce: string,
-  assetForce: string,
   assetVisibleTo: Array<string> | undefined,
-  assetControlledBy: Array<string> | undefined,
   gamePhase: Phase,
   panel: WorldStatePanels,
   turnNumber: number,
-  assetDestroyed: boolean): MapBarForms | undefined => {
-  const myForce = assetForce.toLowerCase() === playerForce.toLowerCase()
-  const forceThatIControl = assetControlledBy != null && assetControlledBy.includes(playerForce)
-  const canControl: boolean = myForce || forceThatIControl
+  assetDestroyed: boolean,
+  controlledByThisRole: boolean): MapBarForms | undefined => {
+  const canControl: boolean = controlledByThisRole
   const isUmpire = playerForce.toLowerCase() === UMPIRE_FORCE
   switch (gamePhase) {
     case Phase.Planning:

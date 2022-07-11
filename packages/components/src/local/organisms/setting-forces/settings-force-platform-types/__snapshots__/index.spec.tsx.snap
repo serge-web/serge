@@ -645,6 +645,48 @@ exports[`SettingForces component: renders correctly 1`] = `
                           Merchant vessel
                         </div>
                       </div>
+                      <div
+                        className="icon-item-main"
+                        data-id="datum"
+                      >
+                        <div
+                          className="icon-box-holder"
+                        >
+                          <div
+                            className="icon-box-content"
+                          >
+                            <div
+                              className="icon-box"
+                            >
+                              <div>
+                                <div
+                                  className="asset-icon-background"
+                                  style={
+                                    Object {
+                                      "backgroundColor": "#415b76",
+                                    }
+                                  }
+                                >
+                                  <div
+                                    className="asset-icon-with-image"
+                                  >
+                                    <img
+                                      alt="datum"
+                                      className="img"
+                                      src="/assets/counters/datum.svg"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="icon-box-name"
+                        >
+                          datum
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

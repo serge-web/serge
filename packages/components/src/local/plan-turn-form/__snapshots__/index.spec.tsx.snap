@@ -7,9 +7,13 @@ exports[`PlanTurnForm renders correctly 1`] = `
   <div
     className="main"
   >
-    <h2>
-      Planning header
-    </h2>
+    <div
+      className="title"
+    >
+      <div>
+        Planning header
+      </div>
+    </div>
     <div
       className="icon"
     >
@@ -191,7 +195,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
     </div>
   </div>
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-2 makeStyles-root-4 MuiButton-contained makeStyles-contained-3 makeStyles-contained-5"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

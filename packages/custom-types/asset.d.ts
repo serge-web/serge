@@ -40,9 +40,9 @@ export interface Asset {
   platformTypeId: PlatformTypeData['uniqid']
   /** if the player is allowed to change the position of this asset
    * during turn-zero of a wargame
-   * TODO: remove boolean format, it's just there for transition
+   * note: we allow string so it can be set in JSON
    */
-  locationPending?: LaydownTypes | boolean
+  locationPending?: LaydownTypes | 'Force laydown' | 'Umpire laydown' 
   /** whether this asset has been destroyoed
    * //TODO: move away from this, use condition
    */

@@ -6,7 +6,11 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
+import { localMappingConstraints, watuWargame } from '@serge/mocks'
+import { deepCopy } from '@serge/helpers'
+
+const forces = deepCopy(watuWargame.data.forces.forces)
+const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 it('Mapping renders correctly with HexGrid', () => {
   const div = document.createElement('div')
@@ -17,14 +21,15 @@ it('Mapping renders correctly with HexGrid', () => {
   const tree = mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces={forces}
-    gameTurnTime = {72000}
+    gameTurnTime = {{ unit: 'millis', millis: 72000 }}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     playerForce={'Blue'}
-    canSubmitOrders = {true}
+    infoMarkers={[]}
+    isGameControl = {true}
     phase={Phase.Planning}
     turnNumber={5}
-    platformTypesByKey={platformTypesByKey}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

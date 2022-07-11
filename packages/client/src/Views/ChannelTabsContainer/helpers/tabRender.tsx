@@ -1,7 +1,7 @@
 import FlexLayout, { TabNode } from 'flexlayout-react'
 import { ChannelUI, PlayerUi } from '@serge/custom-types'
 import _ from 'lodash'
-import findChannelByName from './findChannelByName'
+import findChannelByID from './findChannelByID'
 
 const tabRender = (state: PlayerUi): (node: TabNode) => void => {
   return (node: TabNode): void => {
@@ -64,7 +64,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       })
     })
 
-    let channel: ChannelUI | undefined;
+    let channel: ChannelUI | undefined
 
     const addMenuItemMsgCount = (className: string) => {
       if (!className) return
@@ -78,7 +78,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
                 menuItem.classList.add(className)
               }
             })
-          });
+          })
         })
       }
     }
@@ -87,10 +87,10 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       if (node.getClassName() !== className) {
         node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
-    };
+    }
 
     if (!_.isEmpty(state.channels)) {
-      const matchedChannel = findChannelByName(state.channels, node.getName())
+      const matchedChannel = findChannelByID(state.channels, node.getId())
       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined
 
       if (channel !== undefined) {

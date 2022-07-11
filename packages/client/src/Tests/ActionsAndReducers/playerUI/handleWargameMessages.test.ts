@@ -1,3 +1,4 @@
+import { describe, it, expect } from '@jest/globals'
 import reducer, { initialState } from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 import copyState from '../../../Helpers/copyStateHelper'
 import {
@@ -10,11 +11,9 @@ import { PlayerUi } from '@serge/custom-types'
 
 import { MARK_ALL_AS_READ } from '@serge/config'
 
-
 import { actionOpenMessage, actionCloseMessage, GameMessagesMock } from '@serge/mocks'
 
 describe('PlayerUi Message Actions', () => {
-
   it('Should set channelId and message to reducer', () => {
     expect(openMessage(actionOpenMessage.payload.channel, actionOpenMessage.payload.message)).toEqual(actionOpenMessage)
   })
@@ -32,17 +31,16 @@ describe('PlayerUi Message Actions', () => {
 
 const state: PlayerUi = {
   ...initialState,
-  "channels": {
+  channels: {
     [GameMessagesMock[0].details.channel]: {
       uniqid: '345345',
-      participants: [],
-      "name": "Blue Chat",
-      "templates": [],
-      "forceIcons": ["http://localhost:8080/default_img/forceDefault.png"],
-      "forceColors": ["#3dd0ff"],
-      "messages": GameMessagesMock,
-      "unreadMessageCount": GameMessagesMock.length,
-      "observing": false
+      name: 'Blue Chat',
+      templates: [],
+      forceIcons: ['http://localhost:8080/default_img/forceDefault.png'],
+      forceColors: ['#3dd0ff'],
+      messages: GameMessagesMock,
+      unreadMessageCount: GameMessagesMock.length,
+      observing: false
     }
   }
 }

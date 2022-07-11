@@ -6,6 +6,7 @@ interface CssExports {
   'form-inner': string;
   'inner': string;
   'map-bar': string;
+  'markers': string;
   'open': string;
   'rotated': string;
   'toggle': string;

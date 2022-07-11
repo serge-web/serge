@@ -9,5 +9,7 @@ export enum MapBarForms {
   /** player updating perception of target */
   Perception = 'perception',
   /** Umpire changing visibility of asset */
-  Visibility = 'visibility'
+  Visibility = 'visibility',
+  /** Umpire editing map annotation */
+  Marker = 'marker'
 }

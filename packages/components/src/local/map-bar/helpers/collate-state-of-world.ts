@@ -1,5 +1,5 @@
 import { STATE_OF_WORLD } from '@serge/config'
-import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld } from '@serge/custom-types'
+import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld, MapAnnotations } from '@serge/custom-types'
 import { padInteger, deepCopy } from '@serge/helpers'
 
 export const updatePerceptions = (visibleTo: Array<string>, current: Perception[]): Perception[] => {
@@ -16,7 +16,7 @@ export const updatePerceptions = (visibleTo: Array<string>, current: Perception[
   return removeNotPresent.concat(newPerceptions)
 }
 
-const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageStateOfWorld => {
+const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotations: MapAnnotations): MessageStateOfWorld => {
   const forces: Array<ForceState> = []
   routes.forEach((route: Route) => {
     const forceId: string = route.actualForceId
@@ -46,19 +46,23 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageS
       // remove the first item from planned route
       const planned = deepCopy(route.planned)
       const first: RouteTurn | undefined = planned.shift()
-      if (first && first.route) {
-        const lastCell = first.route[first.route.length - 1]
-        assetState.position = lastCell
-        // produce new history
+      if (first) {
+        if (first.route) {
+          // move platform along
+          const lastCell = first.route[first.route.length - 1]
+          assetState.position = lastCell
+        }
+
+        // and history itself
         if (assetState.history) {
           // append it
           assetState.history.push(first)
         } else {
           assetState.history = [first]
         }
+        assetState.plannedTurns = planned
+        assetState.newState = first.status
       }
-      assetState.plannedTurns = planned
-      assetState.newState = route.currentStatus
     }
     forceArray.assets.push(assetState)
   })
@@ -66,7 +70,8 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageS
   const res: StateOfWorld = {
     turn: turnNumber + 1,
     name: 'State of World T' + padInteger(turnNumber),
-    forces: forces
+    forces: forces,
+    mapAnnotations: annotations
   }
 
   const message: MessageStateOfWorld = {

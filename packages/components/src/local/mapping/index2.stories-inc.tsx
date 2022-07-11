@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 /* Import mock data */
-import { platformTypes, preInitialisedForces, localMappingConstraints, platformTypesByKey } from '@serge/mocks'
+import { platformTypes, preInitialisedForces, localMappingConstraints } from '@serge/mocks'
 
 import { deepCopy } from '@serge/helpers'
 
@@ -117,12 +117,12 @@ newForces[1].assets[0].position = 'G12'
 export const Default = Template
 Default.args = {
   forces: newForces,
-  gameTurnTime: 72000,
+  gameTurnTime: { unit: 'millis', millis: 72000 },
   mappingConstraints: localMappingConstraints,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  markerIcons: [],
+  isGameControl: false,
   platforms: platformTypes,
-  platformTypesByKey: platformTypesByKey,
   phase: Phase.Adjudication,
   turnNumber: 5,
   mapBar: true

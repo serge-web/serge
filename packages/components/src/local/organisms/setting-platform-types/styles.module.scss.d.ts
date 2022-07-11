@@ -3,6 +3,7 @@
 interface CssExports {
   'actions': string;
   'attribute-header': string;
+  'attribute-header-icon': string;
   'button': string;
   'cell': string;
   'col': string;

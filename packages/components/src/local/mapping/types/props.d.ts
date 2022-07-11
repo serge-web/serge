@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -17,25 +17,29 @@ export default interface PropTypes {
   /**
    * information markers
    */
-  infoMarkers?: MapAnnotations
+  infoMarkers: MapAnnotations
+  /**
+   * icons to use for info markers
+   */
+  markerIcons: AnnotationIcons
   /**
    *  platforms for this wargame.
    * use `findPlatformTypeFor` method to retrieve platform type
    */
   platforms: PlatformTypeData[]
-  /**
-   * platforms for this wargame
-   * @deprecated - just stick with array
-   */
-  platformTypesByKey: { [property: string]: PlatformTypeData}
   /** current player's force (force-id)
    *
-  */
-  playerForce: ForceData['uniqid']
-  /**
-   * if the current player can submit orders
    */
-  canSubmitOrders: boolean
+  playerForce: ForceData['uniqid']
+  /** current player's role (role-id)
+   *
+   */
+  playerRole?: Role['roleId']
+  /**
+   * if the current player is game control - and if they can
+   * add information markers
+   */
+  isGameControl: boolean
   /** current phase of game
    *
   */
@@ -99,6 +103,10 @@ export default interface PropTypes {
    * The channel ID passed down from the client application (optional)
    */
   channelID?: string | number
+  /** details of the channel (used to determine
+   * whco can provide plans)
+   */
+  channel?: ChannelMapping
   /**
    * The method for posting messages out of the mapping component
    */
@@ -115,4 +123,8 @@ export default interface PropTypes {
    * API call when running from StoryBook
    */
   fetchOverride? : {(url: string): any}
-}
+  /** declutter method to use. This allows us to
+   * disable for testing
+   */
+  declutter? : {(data: DeclutterData, diamMins: number): DeclutterData}
+  }

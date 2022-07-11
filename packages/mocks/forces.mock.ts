@@ -14,7 +14,6 @@ export const forces: ForceData[] = [
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
-        canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',
       }, 
@@ -23,7 +22,6 @@ export const forces: ForceData[] = [
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
-        canSubmitPlans: true,
         isObserver: true,
         name: 'RFI Manager',
       }
@@ -352,7 +350,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlw445e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO'
@@ -360,7 +357,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlw6f5emms',
         isGameControl: false,
-        canSubmitPlans: false,
         isInsightViewer: false,
         isObserver: false,
         name: 'Comms'
@@ -622,7 +618,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrl55f5e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO'
@@ -630,7 +625,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlss55f5e',
         isGameControl: false,
-        canSubmitPlans: false,
         isInsightViewer: false,
         isObserver: false,
         name: 'Logs'
@@ -1277,9 +1271,6 @@ export const forces: ForceData[] = [
       }
     ],
     color: '#0F0',
-    controlledBy: [
-      'umpire'
-    ],
     dirty: false,
     iconURL: 'images/default_img/umpireDefault.png',
     name: 'Green Force',
@@ -1288,7 +1279,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkr666f5e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO'
@@ -1296,7 +1286,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlss55f5e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'Game Control'

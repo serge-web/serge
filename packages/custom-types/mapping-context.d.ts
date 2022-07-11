@@ -1,9 +1,9 @@
-import { Phase, Domain, CellLabelStyle } from '@serge/config'
+import { CellLabelStyle, Phase } from '@serge/config'
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
+import { Asset, ForceData, MapPostBack, NewTurnValues, PlanTurnFormValues, PlatformTypeData, Role, RouteStore, SergeGrid3 } from '.'
+import { AnnotationIcons, MapAnnotation, MapAnnotations } from './map-annotation'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData, SergeGrid3 } from '.'
-import MapAnnotation, { MapAnnotations } from './map-annotation'
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 
 /**
  * mapping context, shared with child elements
@@ -27,18 +27,13 @@ export default interface MappingContext {
    */
   platforms: PlatformTypeData[]
   /**
-   * object of platforms within this wargame by Asset.platformType keys
-   * @deprecate it, we're indexing by type-name, which could change.
-   */
-  platformTypesByKey: { [property: string]: PlatformTypeData }
-  /**
    * force for current player
    */
   playerForce: ForceData['uniqid']
-  /** 
-   * if the current player can submit orders
+  /** whether current role is game-contrl
+   * (and able to edit info markers)
    */
-  canSubmitOrders: boolean
+  isGameControl: Role['isGameControl']
   /**
    * phase of current game
    */
@@ -88,6 +83,14 @@ export default interface MappingContext {
    */
   selectedMarker: MapAnnotation['uniqid'] | undefined
   /**
+   *  setter, to modify the currently selected asset (or to clear it)
+   **/
+  updateMarker?: {(event: string, marker: MapAnnotation): void}
+  /**
+   *  handler for an asset being moved in laydown phase
+   **/
+  assetLaydown?: {(cell: string, uniqid: Asset['uniqid']): void}
+   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
@@ -163,10 +166,6 @@ export default interface MappingContext {
    * update whether plans have been submitted
    */
   setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
-  /** 
-   * domain for this wargame 
-   */
-  domain: Domain
   /**
    * series of polygon areas, to be shaded
    */
@@ -176,7 +175,11 @@ export default interface MappingContext {
   /**
    * information markers
    */
-  infoMarkers?: MapAnnotations
+  infoMarkers: MapAnnotations
+  /** 
+   * icons for info markers
+   */
+  markerIcons: AnnotationIcons
   /** 
    * the leaflet map
    */

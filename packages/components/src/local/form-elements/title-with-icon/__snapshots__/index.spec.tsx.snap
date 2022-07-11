@@ -4,9 +4,13 @@ exports[`TitleWithIcon renders correctly 1`] = `
 <div
   className="main"
 >
-  <h2>
-    Test
-  </h2>
+  <div
+    className="title"
+  >
+    <div>
+      Test
+    </div>
+  </div>
   <div
     className="icon"
   >

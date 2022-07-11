@@ -3,9 +3,8 @@ import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
-import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce } from '@serge/helpers'
+import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -20,9 +19,13 @@ import {
   ACTIVITY_TIME,
   ACTIVITY_TYPE,
   SERGE_INFO,
-  INFO_MESSAGE, 
-  FEEDBACK_MESSAGE, 
-  CUSTOM_MESSAGE
+  INFO_MESSAGE,
+  FEEDBACK_MESSAGE,
+  CUSTOM_MESSAGE,
+  UPDATE_MARKER,
+  STATE_OF_WORLD,
+  hiddenPrefix,
+  DELETE_MARKER
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -45,13 +48,20 @@ import {
   MessageFeedback,
   MessageStructure,
   MessageCustom,
+  MessageChannel,
+  MessageMap,
   GameTurnLength,
   ChannelTypes,
   PlatformTypeData,
   Role,
   ParticipantTypes,
   ParticipantChat,
-  WargameRevision
+  MessageUpdateMarker,
+  MapAnnotationData,
+  MessageStateOfWorld,
+  WargameRevision,
+  IconOption,
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
 import {
@@ -59,9 +69,11 @@ import {
   ApiWargameDb,
   ListenNewMessageType
 } from './types.d'
-import { hiddenPrefix } from '@serge/config'
+
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
+import { MessageDeleteMarker } from '@serge/custom-types/message'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -83,7 +95,7 @@ const getNameFromPath = (dbPath: string): string => {
 const getWargameDbByName = (name: string): ApiWargameDbObject => {
   name = name.replace(hiddenPrefix, '')
   const dbObject = wargameDbStore.find((item) => item.name === name)
-  if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
+  if (dbObject === undefined) throw new Error(`wargame database with '${name}' not found`)
   return dbObject
 }
 
@@ -108,24 +120,28 @@ export const deleteWargame = (wargamePath: string): void => {
 }
 
 export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
-
   db.changes((msg) => {
     const doc = msg as Message
-      if (doc === undefined) return
-      if (doc.messageType === INFO_MESSAGE) {
-        dispatch(setCurrentWargame(doc as Wargame))
-        dispatch(setLatestWargameMessage(clipInfoMEssage(doc)))
-        return
-      }
+    if (doc === undefined) return
+    if (doc.messageType === INFO_MESSAGE) {
+      const infoM = doc as MessageInfoType
+      dispatch(setCurrentWargame(doc as Wargame))
+      const asAny = infoM as any
+      const asMsg = asAny as MessageChannel
+      dispatch(setLatestWargameMessage(asMsg))
+      return
+    }
 
-      if (doc.messageType === FEEDBACK_MESSAGE) {
-        dispatch(setLatestFeedbackMessage(doc))
-      } else if (doc.messageType === COUNTER_MESSAGE) {
-        return
-      } else {
-        // @ts-ignore: TODO: check this case
-        dispatch(setLatestWargameMessage(doc))
-      }
+    if (doc.messageType === FEEDBACK_MESSAGE) {
+      const feedbackM = doc as MessageFeedback
+      dispatch(setLatestFeedbackMessage(feedbackM))
+    } else if (doc.messageType === COUNTER_MESSAGE) {
+      // eslint-disable-next-line no-useless-return
+      return
+    } else {
+      // @ts-ignore: TODO: check this case
+      dispatch(setLatestWargameMessage(doc))
+    }
   })
 }
 
@@ -145,7 +161,7 @@ export const pingServer = (activityDetails: { wargame: string, role: string }): 
   return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }
   })
     .then((response: Response): Promise<any> => response.json())
@@ -154,7 +170,7 @@ export const pingServer = (activityDetails: { wargame: string, role: string }): 
     })
     .catch((err) => {
       console.log(err)
-      return "NOT_OK"
+      return 'NOT_OK'
     })
 }
 
@@ -177,7 +193,7 @@ export const getPlayerActivityLogs = () => {
 }
 
 export const populateWargame = (): Promise<string | Wargame[]> => {
-   return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
+  return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
@@ -216,18 +232,17 @@ export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
 }
 
-
 export const getIpAddress = (): Promise<{ ip: string }> => {
   return fetch(serverPath + 'getIp').then<{ ip: string }>((res) => res.json())
 }
 
-// TODO: Need to check component "ImageDropzone" it returns file with Any type
+// TODO: Need to check component 'ImageDropzone' it returns file with Any type
 // @ts-ignore
 export const saveIcon = (file) => {
   return fetch(serverPath + 'saveIcon', {
     method: 'POST',
     headers: {
-      'Content-Type': 'image/png',
+      'Content-Type': 'image/png'
     },
     body: file
   }).then((res) => res.json())
@@ -272,9 +287,10 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
     for (let index = 0; index < messages.length; index++) {
       const message = messages[index]
       if (message.messageType === INFO_MESSAGE) {
-        const nextDate = + new Date(message._id as string)
+        const realM = message as any
+        const nextDate = +new Date(realM._id as string)
         if (nextDate > lastDate) {
-          lastDate = nextDate;
+          lastDate = nextDate
           infoMessageIndex = index
         }
       }
@@ -348,7 +364,7 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: 
   return db.put({
     ...nextWargame,
     _id: dbDefaultSettings._id,
-    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format(),
+    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format()
   }).then(() => {
     return db.get(dbDefaultSettings._id) as Promise<Wargame>
   })
@@ -369,7 +385,6 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
   return getLatestWargameRevision(dbName).then((res) => {
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
-    wargame.data.overview.complete = calcComplete(data)
     return updateWargame(wargame, dbName)
   })
 }
@@ -387,6 +402,7 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType): 
 }
 
 export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
+  console.log('current', currentPlatformType)
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
@@ -400,7 +416,6 @@ export const duplicatePlatformType = (dbName: string, currentPlatformType: Platf
 
       platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)
       updatedData.platformTypes.platformTypes = platformTypes
-      updatedData.platformTypes.complete = calcComplete(platformTypes) && platformTypes.length !== 0
       updatedData.platformTypes.selectedType = duplicatedPlatformType
     }
 
@@ -416,24 +431,29 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   })
 }
 
-export const saveChannel = (dbName: string, newName: string, newData: ChannelTypes, oldName: string): Promise<Wargame> => {
+export const saveAnnotation = (dbName: string, data: AnnotationMarkerData): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    newDoc.data.annotationIcons = data
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const saveChannel = (dbName: string, newData: ChannelTypes): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
-    const channelNew = channels.every((channel: ChannelTypes) => channel.name !== oldName)
+    const channelNew = channels.every((channel: ChannelTypes) => channel.uniqid !== newData.uniqid)
 
     if (channelNew) {
-      const channelIndex = channels.findIndex((channel: ChannelTypes) => channel.uniqid === newData.uniqid)
-      if (channelIndex !== -1) channels.splice(channelIndex, 1)
-      channels.unshift({ ...newData, name: newName })
+      channels.unshift({ ...newData, name: newData.name })
     } else {
-      const channelIndex = channels.findIndex((channel) => channel.name === oldName)
-      channels.splice(channelIndex, 1, { ...newData, name: newName })
+      const channelIndex = channels.findIndex((channel) => channel.uniqid === newData.uniqid)
+      channels.splice(channelIndex, 1, { ...newData, name: newData.name })
     }
 
     updatedData.channels.channels = channels
-    updatedData.channels.complete = calcComplete(channels)
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -455,7 +475,6 @@ export const duplicateChannel = (dbName: string, channelUniqid: string): Promise
 
     channels.splice(channelIndex, 0, duplicateChannel)
     updatedData.channels.channels = channels
-    updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
     updatedData.channels.selectedChannel = duplicateChannel
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -467,7 +486,6 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
     const updatedData = newDoc.data
     const channels = updatedData.channels.channels || []
     updatedData.channels.channels = channels.filter((channel: ChannelTypes) => channel.uniqid != channelUniqid)
-    updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
@@ -481,19 +499,19 @@ export const saveForces = (dbName: string, newData: ForceData[]) => {
   })
 }
 
-export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
+export const saveForce = (dbName: string, newData: ForceData) => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
     const forces = updatedData.forces.forces
-    const forceNew = forces.every((force) => force.name !== oldName)
+    const forceNew = forces.every((force) => force.uniqid !== newData.uniqid)
 
     if (forceNew) {
-      forces.unshift({ ...newData, name: newName })
+      forces.unshift({ ...newData, name: newData.name })
     } else {
-      const forceIndex = forces.findIndex((force) => force.name === oldName)
+      const forceIndex = forces.findIndex((force) => force.uniqid === newData.uniqid)
       // forces.forceName = newName;
-      forces.splice(forceIndex, 1, { ...newData, name: newName })
+      forces.splice(forceIndex, 1, { ...newData, name: newData.name })
     }
 
     updatedData.forces.forces = forces
@@ -503,8 +521,6 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
     const forceCheck: ForceData[] = deepCopy(forces)
     const umpireIndex = forceCheck.findIndex((force) => force.umpire)
     forceCheck.splice(umpireIndex, 1)
-
-    updatedData.forces.complete = calcComplete(forceCheck)
 
     return updateWargame({ ...res, data: updatedData }, dbName)
     // if (newDoc.wargameInitiated) {
@@ -535,7 +551,7 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
 
     // remove participations for this force
     updatedData.channels.channels.forEach((channel: ChannelTypes) => {
-      // in the next time we're "tricking" the compiler into accepting the
+      // in the next time we're 'tricking' the compiler into accepting the
       // provided list.  We're not worried about the list being in the correct type
       // since all the entries came from that list
       const parts = channel.participants as ParticipantChat[]
@@ -548,12 +564,11 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
     updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
 
     if (updatedData.forces.forces.length === 0) {
-      updatedData.channels = { 
-      name: 'Channels',
-      channels: [],
-      selectedChannel: '',
-      complete: false,
-      dirty: false
+      updatedData.channels = {
+        name: 'Channels',
+        channels: [],
+        selectedChannel: '',
+        dirty: false
       }
     }
     return updateWargame({ ...res, data: updatedData }, dbName)
@@ -569,8 +584,7 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
-    updatedData.forces.complete = calcComplete(forces) && forces.length !== 0
-    updatedData.forces.selectedForce = duplicate as any 
+    updatedData.forces.selectedForce = duplicate as any
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -672,7 +686,7 @@ export const createLatestWargameRevision = (dbName: string, wargame: Wargame): P
     ...copiedData,
     _rev: undefined,
     _id: new Date().toISOString(),
-    messageType: INFO_MESSAGE,
+    messageType: INFO_MESSAGE
   }).then(() => {
     return getLatestWargameRevision(dbName)
   }).catch(rejectDefault)
@@ -731,24 +745,26 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 }
 
 const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails) => {
-  return new Promise(async(resolve): Promise<void> => {
-    if(message.details.messageType !== 'Chat') {
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve): Promise<void> => {
+    if (message.details.messageType !== 'Chat') {
       // default value for message counter
       message.message.counter = 1
 
       const counterIdExist = await db.allDocs().then(res => {
         const counters = res.reduce((messages: number[], message) => {
-          if(message['details'].from.force === details.from.force && message['message'].counter) messages.push(message['message'].counter)
-            return messages
-        },[])
-        const existId = res.find(message => message['_id'] === details.timestamp)
+          if (message.details.from.force === details.from.force && message.message.counter) messages.push(message.message.counter)
+          return messages
+        }, [])
+        const existId = res.find(message => message._id === details.timestamp)
 
         return [Math.max(...counters), existId]
       })
 
       const [counter, existId] = counterIdExist
 
-      const counterExist = existId ? existId['message'].counter : message.message.counter
+      // @ts-ignore
+      const counterExist = existId ? existId.message.counter : message.message.counter
 
       counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
       message.message.Reference = [message.details.from.force, message.message.counter].join('-')
@@ -783,7 +799,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 // @ts-ignore
-export const postNewMapMessage = (dbName, details, message) => {
+export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
 
@@ -797,34 +813,58 @@ export const postNewMapMessage = (dbName, details, message) => {
     isOpen: false,
     hasBeenRead: false
   }
-
-  // db.put({
-  //   _id: new Date().toISOString(),
-  //   details,
-  //   // defined constat for messages, it's not same as message.details.messageType,
-  //   // ex for all template based messages will be used CUSTOM_MESSAGE Type
-  //   messageType: details.messageType,
-  //   message
-  // }).catch((err) => {
-  //   console.log(err)
-  //   return err
-  // })
-
   db.put(customMessage).catch((err) => {
     console.log(err)
     return err
   })
 
+  /**
+   * annotations are optional. So, if they're unset, initialise them
+   */
+  const checkAnnotations = (annoData: MapAnnotationData | undefined): MapAnnotationData => {
+    if (typeof annoData === 'undefined') {
+      const newAnns: MapAnnotationData = {
+        annotations: []
+      }
+      return newAnns
+    } else {
+      return annoData
+    }
+  }
+
   // also make the modification to the wargame
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
-        if (!res.data.platformTypes)
+        if (!res.data.platformTypes) {
           throw new Error('Cannot handle force delta without platform types')
-          
-        // apply the reducer to this wargame
-        // @ts-ignore
-        res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
+        }
+
+        // special handling for marker message
+        if (message.messageType === UPDATE_MARKER) {
+          // ok - marker update - not force. If admin changes markers during planning phase,
+          // they get updated immediately, so we do that here.
+          // initialise annotations, if necessary
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageUpdateMarker = message
+          res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === DELETE_MARKER) {
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageDeleteMarker = message
+          res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === STATE_OF_WORLD) {
+          // ok, this needs to work on force AND info markers
+          const validMessage: MessageStateOfWorld = message
+          res.data.forces.forces = handleStateOfWorldChanges(validMessage, res.data.forces.forces)
+          // initialise annotations, if necessary
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          // we can just copy in the new markers
+          res.data.annotations.annotations = validMessage.state.mapAnnotations
+        } else {
+          // apply the reducer to this wargame
+          res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
+        }
+
         // store the new verison
         return createLatestWargameRevision(dbName, res)
       }).then((res) => {
@@ -840,6 +880,7 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     .then((res): Message[] => res.reduce((messages: Message[], res): Message[] => {
+      // @ts-ignore
       if (res && res.messageType !== COUNTER_MESSAGE) messages.push(res)
       return messages
     }, []))
@@ -861,4 +902,37 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
       }).catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
+}
+
+export const deleteAnnotation = (dbName: string, annotation: IconOption): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+
+    if (newDoc.data.annotationIcons) {
+      newDoc.data.annotationIcons.markers = newDoc.data.annotationIcons.markers.filter((annotationDelete) => annotationDelete.name !== annotation.name)
+    } else {
+      console.warn('Trying to delete platform types, but structure is empty')
+    }
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption) => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc = deepCopy(res)
+    const updatedData = newDoc.data
+    if (updatedData.annotations) {
+      const annotation = updatedData.annotationIcons.markers || []
+      const annotationIndex = annotation.findIndex((annotation: IconOption) => annotation.name === currentAnnation.name)
+      const duplicatedAnnation = deepCopy(currentAnnation)
+      const uniq = uniqid.time()
+
+      duplicatedAnnation.name = `${duplicatedAnnation.name}-${uniq}`
+      
+      annotation.splice(annotationIndex, 0, duplicatedAnnation)
+      updatedData.annotationIcons.markers = annotation
+    }
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
 }

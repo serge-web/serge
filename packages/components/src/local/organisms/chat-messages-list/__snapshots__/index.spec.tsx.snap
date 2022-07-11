@@ -18,6 +18,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
             "borderColor": "#F00",
           }
         }
+        title="Blue"
       />
       <button
         aria-describedby={null}

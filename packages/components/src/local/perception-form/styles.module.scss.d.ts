@@ -2,13 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'asset-icon': string;
-  'blue': string;
   'button': string;
   'fieldset': string;
   'form-header': string;
-  'green': string;
   'input-container': string;
-  'red': string;
   'select': string;
   'selected': string;
 }

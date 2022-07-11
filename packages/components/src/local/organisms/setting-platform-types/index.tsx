@@ -71,7 +71,6 @@ const useStyles = makeStyles({
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, onDuplicate, iconUploadUrl }) => {
   const { description, format, underline, units } = useStyles()
   const newPlatformType: PlatformType = {
-    complete: false,
     dirty: false,
     name: 'Platform Mock',
     selectedType: '',
@@ -147,7 +146,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
     return (
       <div className={styles.mobile}>
-        <MobileSwitch size='small' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
+        <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
         <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
         <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
         <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
@@ -175,7 +174,6 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   const renderContent = (): React.ReactNode => {
     if (!localPlatformType.platformTypes[selectedItem]) return null
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
-
     const handleChangeName = (name: string): void => {
       handleChangePlatformTypeData({ ...data, name }, selectedItem)
     }
@@ -289,7 +287,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             />
           </div>
           <div className={styles.col}>
-            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
+            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.uniqid}>Fixed id:{data.uniqid}</div>
           <div className={styles.actions}>
@@ -386,11 +384,14 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder='Attributes'>
               <div className={styles['attribute-header']}>
-                <span></span>
-                <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
-                <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
-                <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
-                <span><MoreInfo description='Number display format (e.g. 0.00, optional)'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
+                <div style={{ minWidth: '25%' }}></div>
+                <div style={{ minWidth: 30 }}></div>
+                <div className={styles['attribute-header-icon']}>
+                  <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
+                  <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
+                  <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                  <span><MoreInfo description='Number display format (e.g. 0.00, optional)'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
+                </div>
               </div>
               <SortableList
                 required

@@ -2,7 +2,7 @@ import Channel from './channel'
 import Force from './force'
 import WargameOverview from './wargame-overview'
 import PlatformType from './platform-type'
-import { MapAnnotationData } from './map-annotation'
+import { AnnotationMarkerData, MapAnnotationData } from './map-annotation'
 
 export default interface WargameData {
   overview: WargameOverview,
@@ -10,4 +10,5 @@ export default interface WargameData {
   channels: Channel,
   platformTypes?: PlatformType
   annotations?: MapAnnotationData
+  annotationIcons?: AnnotationMarkerData
 }

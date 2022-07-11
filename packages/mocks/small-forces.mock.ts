@@ -14,7 +14,6 @@ export const forces: ForceData[] = [
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: false,
-        canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',
       }, 
@@ -23,7 +22,6 @@ export const forces: ForceData[] = [
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
-        canSubmitPlans: true,
         isObserver: true,
         name: 'RFI Manager',
       }
@@ -151,7 +149,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlbbbf5e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
@@ -159,7 +156,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlwetf5e',
         isGameControl: false,
-        canSubmitPlans: false,
         isInsightViewer: false,
         isObserver: false,
         name: 'Logs',
@@ -254,7 +250,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlwcc5e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO'
@@ -320,9 +315,6 @@ export const forces: ForceData[] = [
       }
     ],
     color: '#0F0',
-    controlledBy: [
-      'umpire'
-    ],
     dirty: false,
     iconURL: 'default_img/umpireDefault.png',
     name: 'Green',
@@ -331,7 +323,6 @@ export const forces: ForceData[] = [
       {
         roleId: 'rkrlddf5e',
         isGameControl: false,
-        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO'

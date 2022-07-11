@@ -22,22 +22,21 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
 import {
-  handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
   markUnread,
   closeMessage,
-  markAllMessageState
-} from './helpers/handleWargameMessagesChange';
+  markAllMessageState,
+  handleWargameUpdate,
+  handleNewMessage
+} from './helpers/handleWargameMessagesChange'
 
 import {
-  CHAT_CHANNEL_ID,
+  CHAT_CHANNEL_ID
 } from '../../consts'
-import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
-
-import { platformTypeNameToKey } from '@serge/helpers'
+import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
 export const initialState: PlayerUi = {
   selectedForce: undefined,
@@ -45,13 +44,12 @@ export const initialState: PlayerUi = {
   selectedRoleName: '',
   isObserver: false,
   isUmpire: false,
-  canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
   gameDate: '',
-  gameTurnTime: 0,
+  gameTurnTime: { unit: 'millis', millis: 0 },
   timeWarning: 0,
   realtimeTurnTime: 0,
   turnEndTime: '0',
@@ -68,9 +66,9 @@ export const initialState: PlayerUi = {
   allChannels: [],
   allForces: [],
   infoMarkers: [],
+  markerIcons: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
-  allPlatformTypesByKey: {},
   showObjective: false,
   updateMessageState: false,
   wargameInitiated: false,
@@ -84,14 +82,13 @@ export const initialState: PlayerUi = {
   playerMessageLog: {}
 }
 
-
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T>(enm: { [s: string]: T }, value: string): T | undefined {
+  function enumFromString<T> (enm: { [s: string]: T }, value: string): T | undefined {
     return (Object.values(enm) as unknown as string[]).includes(value)
       ? value as unknown as T
-      : undefined;
+      : undefined
   }
 
   switch (action.type) {
@@ -113,40 +110,30 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.timeWarning = data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
-      newState.mappingConstaints = action.payload.data.overview.mapConstraints
 
       // temporary workaround to remove duplicate channel definitions
       // TODO: delete workaround once fix in place
       const allChannels = action.payload.data.channels.channels || []
       const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
-      if (allChannels.length != cleanChannels.length) {
+      if (allChannels.length !== cleanChannels.length) {
         console.warn('Applied workaround to remove duplicate channel defs')
       }
       newState.allChannels = cleanChannels
 
       newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
+      newState.markerIcons = (data.annotationIcons && data.annotationIcons.markers) || []
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
       if (data.platform_types) {
         // @ts-ignore
         newState.allPlatformTypes = data.platform_types.platformTypes
-        newState.allPlatformTypesByKey = {}
-        // @ts-ignore
-        for (const platformType of data.platform_types.platformTypes) {
-          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
-        }
       }
       // TODO: remove this ^^
 
       if (data.platformTypes) {
         newState.allPlatformTypes = data.platformTypes.platformTypes
-        // don't need any more to do loop find when we need to get platformType based on Asset.platformType
-        newState.allPlatformTypesByKey = {}
-        for (const platformType of data.platformTypes.platformTypes) {
-          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
-        }
       }
       getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break
@@ -181,10 +168,22 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
-      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
-      newState.channels = changedLatestState.channels
-      newState.chatChannel = changedLatestState.chatChannel
-      newState.playerMessageLog = changedLatestState.playerMessageLog
+      const anyPayload = action.payload as any
+      if (anyPayload.data) {
+        // wargame change
+        const wargame = anyPayload as Wargame
+        newState.allChannels = wargame.data.channels.channels
+        const changedLatestState = handleWargameUpdate(wargame, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      } else {
+        // process new message
+        const changedLatestState = handleNewMessage(action.payload, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      }
       break
 
     case SET_ALL_MESSAGES:
@@ -230,9 +229,9 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
   if (process.env.NODE_ENV === 'development') {
-    console.log('PlayerUI: ', action.type);
-    console.log('PlayerUI > Prev State: ', state);
-    console.log('PlayerUI > Next State: ', newState);
+    console.log('PlayerUI: ', action.type)
+    console.log('PlayerUI > Prev State: ', state)
+    console.log('PlayerUI > Next State: ', newState)
   }
 
   return newState

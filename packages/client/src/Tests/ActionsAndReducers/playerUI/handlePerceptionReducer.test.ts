@@ -1,27 +1,26 @@
+import { it, expect } from '@jest/globals'
 import { ForceData, MessagePerceptionOfContact } from '@serge/custom-types'
 import { PERCEPTION_OF_CONTACT } from '@serge/config'
-// TODO: change it to @serge/config
 
-/* global it expect */
 import handlePerceptionChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
 import findAsset from '../../../Helpers/findAsset'
 
 const payload1: MessagePerceptionOfContact = {
   assetId: 'C01',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Green', type: 'Frigate'}
+  perception: { by: 'Red', force: 'Green', type: 'Frigate' }
 }
 
 const payload2: MessagePerceptionOfContact = {
   assetId: 'C02',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Red', type: 'MPA'}
+  perception: { by: 'Red', force: 'Red', type: 'MPA' }
 }
 
 const payload3: MessagePerceptionOfContact = {
   assetId: 'C06',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Red', type: 'Fisher'}
+  perception: { by: 'Red', force: 'Red', type: 'Fisher' }
 }
 
 const allForces: ForceData[] = [
@@ -40,6 +39,9 @@ const allForces: ForceData[] = [
     assets: [
       {
         uniqid: 'C01',
+        contactId: 'C1334',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         name: 'alpha',
         perceptions: [{
           by: 'Red',
@@ -49,6 +51,9 @@ const allForces: ForceData[] = [
       },
       {
         name: 'bravo',
+        contactId: 'C154',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C02',
         perceptions: []
       }
@@ -66,6 +71,9 @@ const allForces: ForceData[] = [
     assets: [
       {
         name: 'charlie',
+        contactId: 'C134',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C03',
         perceptions: [{
           by: 'Blue',
@@ -75,6 +83,9 @@ const allForces: ForceData[] = [
       },
       {
         name: 'delta',
+        contactId: 'C135',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C04',
         perceptions: []
       }
@@ -92,6 +103,9 @@ const allForces: ForceData[] = [
     assets: [
       {
         name: 'echo',
+        contactId: 'C234',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C05',
         perceptions: [{
           by: 'Blue',
@@ -101,6 +115,9 @@ const allForces: ForceData[] = [
       },
       {
         uniqid: 'C06',
+        contactId: 'C334',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         name: 'foxtrot',
         perceptions: []
       }

@@ -15,11 +15,11 @@ import { MessageChannel, MessageCustom } from '@serge/custom-types'
 import { formatTurn } from '@serge/helpers'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, isUmpire, turnPresentation }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, names, icons, colors, onMarkAllAsRead, onRead, onUnread, isUmpire, turnPresentation }: PropTypes) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
-        <ForcesInChannel messages={messages} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
+        <ForcesInChannel messages={messages} names={names} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
       </Box>
       <Box ml={2} className={styles['messages-list']}>
         {

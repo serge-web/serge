@@ -1,7 +1,7 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Confirm } from '@serge/components'
 import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
+import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations, IconOption } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
@@ -17,56 +17,67 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, platforms, phase, isUmpire, setSelectedAssetById, setSelectedMarkerById, selectedMarker,
   submitTitle, submitForm, panel, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
-  plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
+  plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback,
+  infoMarkers, playerForce, markerIcons
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
+  const [markers, setMarkers] = useState<MapAnnotations>([])
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [canSubmit, setCanSubmit] = useState<boolean>(false)
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
+
+  useEffect(() => {
+    setCanSubmit(tmpRoutes.filter((route: Route) => route.underControlByThisRole).length > 0)
+  }, [tmpRoutes])
 
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
-
   useEffect(() => {
     switch (panel) {
       case WorldStatePanels.Control: {
         if (phase === PLANNING_PHASE) {
           // in planning phase, umpire only gets assets they control
-          setTmpRoutes(store.routes.filter(r => r.underControl))
+          setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
         } else {
           // check turn number, in case we're in laydown
           if (turnNumber === 0) {
             // in laydown phase, umpire only gets assets they control
-            setTmpRoutes(store.routes.filter(r => r.underControl))
+            setTmpRoutes(store.routes.filter(r => r.underControlByThisRole))
           } else {
             // umpire gets all, player only gets theirs
-            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControlByThisForce))
           }
         }
         break
       }
       case WorldStatePanels.Visibility: {
         // umpire gets all, player only gets theirs
-        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControl))
+        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControlByThisForce))
         break
       }
       case WorldStatePanels.ControlledBy: {
         // umpire gets theirss
-        setTmpRoutes(store.routes.filter(r => r.underControl))
+        setTmpRoutes(store.routes.filter(r => r.underControlByThisForce))
+        break
+      }
+      case WorldStatePanels.Markers: {
+        // see which markers are visible to players of this force
+        const visMarkers = isUmpire ? infoMarkers : infoMarkers ? infoMarkers.filter((marker: MapAnnotation) => marker.visibleTo.some((forceId: string) => forceId === playerForce)) : []
+        setMarkers(visMarkers)
         break
       }
     }
-  }, [store, phase, panel])
+  }, [store, phase, panel, infoMarkers])
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
-    if (setSelectedAssetById) {
-      setSelectedAssetById(id)
-    }
+    const handler = isMarkers ? setSelectedMarkerById : setSelectedAssetById
+    handler && handler(id)
   }
 
   const onConfirm = (): void => {
@@ -92,7 +103,9 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   const plannedRoutesPending = (): boolean => {
-    if (phase === Phase.Adjudication && isUmpire) {
+    if (inLaydown) {
+      return tmpRoutes.some((route: Route) => route.laydownPhase === LaydownPhases.Unmoved)
+    } else if (phase === Phase.Adjudication && isUmpire) {
       return !!store.routes.find((route: Route) => route.adjudicationState !== PlanningStates.Saved)
     } else {
       return false
@@ -105,10 +118,33 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
+  const renderMarkers = (item: GroupItem, _depth: Array<GroupItem> = []): JSX.Element => {
+    const canBeSelected = true
+    const marker = item as MapAnnotation
+    const forceColor = marker.color
+    const imageIcon = markerIcons.find((icon: IconOption) => icon.uniqid === marker.iconId)
+    const imageURL = imageIcon ? imageIcon.icon : ''
+    const isSelected = marker.uniqid === selectedMarker
+    return (
+      <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
+        <div className={styles['item-icon']}>
+          <AssetIcon color={forceColor} isSelected={isSelected} imageSrc={imageURL} />
+        </div>
+        <div className={styles['item-content']}>
+          <p>{marker.label}</p>
+          <p>{marker.description}</p>
+        </div>
+      </div>
+    )
+  }
+
   const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
     // determine if this asset can be selected. We only allow assets at the top level
     // to be selected, since child elements are "managed" by the parent
-    const canBeSelected: boolean = depth && depth.length === 0
+    const atTopLevel: boolean = depth && depth.length === 0
+
+    // check if this player can select this item
+    const underControl = item.underControlByThisRole
 
     // const item = routeItem as PlannedRoute
 
@@ -126,6 +162,12 @@ export const WorldState: React.FC<PropTypes> = ({
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
+    // any player can access element in visibility panel
+    const inVisibilityPanel = panel === WorldStatePanels.Visibility
+
+    // so, is it clickable?
+    const canBeSelected = (underControl && atTopLevel) || inAdjudication || inVisibilityPanel
+
     let isDestroyed: boolean | undefined = false
     let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
@@ -140,7 +182,7 @@ export const WorldState: React.FC<PropTypes> = ({
       imageSrc = 'unknown.svg'
     }
 
-    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
+    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmit && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
@@ -154,7 +196,7 @@ export const WorldState: React.FC<PropTypes> = ({
           <p>{item.name}</p>
           <p>{fullDescription}</p>
         </div>
-        {(panel === WorldStatePanels.Control) && depth.length === 0 && <div className={styles['item-check']}>
+        {(panel === WorldStatePanels.Control) && depth.length === 0 && (underControl || inAdjudication) && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
           {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
         </div>}
@@ -167,12 +209,18 @@ export const WorldState: React.FC<PropTypes> = ({
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type)
   }
 
+  const isMarkers = panel === WorldStatePanels.Markers
+
   // player can drag items in planning phase if they can submit orders, or umpire can do it
   // in adjudication or planning phase
-  const canDragItems = isUmpire || (phase === PLANNING_PHASE && canSubmitOrders)
+  const canDragItems = (!isMarkers) && (isUmpire || (phase === PLANNING_PHASE && canSubmit))
+
+  const itemRenderer = isMarkers ? renderMarkers : renderContent
+
+  const items = isMarkers ? markers : tmpRoutes
 
   return <>
-    <div className={styles['world-state']}>
+    <div className={styles['world-state']} data-tour="world-state">
       <h2 className={styles.title}>{customTitle}
         {plansSubmitted &&
           <div className='sub-title'>(Form disabled, {customTitle} submitted)</div>
@@ -180,8 +228,8 @@ export const WorldState: React.FC<PropTypes> = ({
       </h2>
 
       <Groups
-        items={tmpRoutes}
-        renderContent={renderContent}
+        items={items}
+        renderContent={itemRenderer}
         canOrganise={canDragItems}
         canCombineWith={canCombineWithLocal}
         onSet={(itemsLink: any, type: any, depth: any): void => {
@@ -215,7 +263,7 @@ export const WorldState: React.FC<PropTypes> = ({
           }
         }}
       />
-      {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
+      {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmit &&
         <div className={styles.submit}>
           {secondaryButtonLabel &&
             <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>

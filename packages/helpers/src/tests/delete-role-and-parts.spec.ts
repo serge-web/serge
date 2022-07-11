@@ -5,7 +5,7 @@ import { watuWargame } from '@serge/mocks'
 import { ParticipantChat, Wargame } from '@serge/custom-types'
 import _ from 'lodash'
 
-const blueForce = watuWargame.data.forces.forces[1]
+const blueForce = deepCopy(watuWargame.data.forces.forces[1])
 const blueCO = blueForce.roles[0]
 
 it('delete role:', () => {

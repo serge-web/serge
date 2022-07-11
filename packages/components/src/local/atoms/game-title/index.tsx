@@ -15,10 +15,14 @@ export const GameTitle: React.FC<Props> = React.forwardRef(({ initiated, title, 
     onClick && onClick(name)
   }
 
+  // unsure how, but we're getting wargames with missing short name.
+  // ensure a value is present
+  const safeName = shortName || 'Pending'
+
   return (
     <div className={styles['wargame-row']}>
       <FontAwesomeIcon
-        icon={shortName.startsWith(hiddenPrefix) ? faEyeSlash : faEye}
+        icon={safeName.startsWith(hiddenPrefix) ? faEyeSlash : faEye}
         className={styles['wargame-icon']}
       />
       <span className={styles['wargame-title']} onClick={handleOnClick} ref={ref}>

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
-import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates, setActivityTime } from "@serge/config";
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates, setActivityTime } from '@serge/config'
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -14,10 +14,9 @@ import { configDateTimeLocal } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
-flatpickr(".calendar")
+flatpickr('.calendar')
 
 const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, onMessageSend, onCancel, confirmCancel }) => {
-
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
   const privateMessageRef = createRef<HTMLTextAreaElement>()
@@ -35,7 +34,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
         forceColor: selectedForce.color,
         roleName: state.selectedRoleName,
         roleId: state.selectedRole,
-        iconURL: selectedForce.iconURL || (selectedForce.icon || ''),
+        iconURL: selectedForce.iconURL || (selectedForce.icon || '')
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
@@ -45,7 +44,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     const channel = channelUI.cData
 
     // special handling if this is a collab-channel
-    if(channel.channelType === CHANNEL_COLLAB) {
+    if (channel.channelType === CHANNEL_COLLAB) {
       // populate the metadata
       const channelCollab = channel as ChannelCollab
       
@@ -75,7 +74,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
   }
 
   const openConfirmPopup = (e: any): void => {
-    if(confirmCancel) {
+    if (confirmCancel) {
       setConfirmIsOpen(true)
     } else {
       onCancel && onCancel(e)
@@ -121,33 +120,33 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     let format = ''
     let defaultFieldName = ''
     switch (schema.format) {
-      case "datetime-local":
-        if (value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
-          format = "DD/MM/YYYY HH:MM"
-          defaultFieldName = "Datetime"
+      case 'datetime-local':
+        if (value == '' || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
+          format = 'DD/MM/YYYY HH:MM'
+          defaultFieldName = 'Datetime'
         }
         break
-      case "date":
-        if (value == "" || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
-          format = "DD/MM/YYYY"
-          defaultFieldName = "Date"
+      case 'date':
+        if (value == '' || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
+          format = 'DD/MM/YYYY'
+          defaultFieldName = 'Date'
         }
         break
-      case "time":
-        if (value == "" || !/^(\d{2}:\d{2})?$/.test(value)) {
-          format = "HH:MM"
-          defaultFieldName = "Time"
+      case 'time':
+        if (value == '' || !/^(\d{2}:\d{2})?$/.test(value)) {
+          format = 'HH:MM'
+          defaultFieldName = 'Time'
         }
         break
       default:
         return {}
     }
 
-    if (format !== "") {
-      let listFieldName = path.split('.')
-      let fieldName = listFieldName.length > 0 ? listFieldName[listFieldName.length - 1] : defaultFieldName
+    if (format !== '') {
+      const listFieldName = path.split('.')
+      const fieldName = listFieldName.length > 0 ? listFieldName[listFieldName.length - 1] : defaultFieldName
       // Errors must be an object with `path`, `property`, and `message`
-      let message = `${fieldName} must be in the format "${format}"`
+      const message = `${fieldName} must be in the format '${format}'`
       return {
         path: path,
         property: 'format',
@@ -164,8 +163,8 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     // multiple message type will repeat custom validators, reinitialize it for every instance
     JSONEditor.defaults.custom_validators = []
     JSONEditor.defaults.custom_validators.push(function (schema: { format: string }, value: string, path: any) {
-      let errors = []
-      let customValidationErrors = configCommonValidation(schema, value, path)
+      const errors = []
+      const customValidationErrors = configCommonValidation(schema, value, path)
       if (!_.isEmpty(customValidationErrors)) {
         errors.push(customValidationErrors)
       }
@@ -191,7 +190,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     <>
       <Confirm
         isOpen={confirmIsOpen}
-        message="Are you sure you wish to cancel this message?"
+        message='Are you sure you wish to cancel this message?'
         onCancel={onPopupCancel}
         onConfirm={onPopupConfirm}
       />

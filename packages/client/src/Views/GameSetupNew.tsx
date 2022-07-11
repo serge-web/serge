@@ -10,6 +10,7 @@ import {
   setCurrentTab,
   saveSettings,
   savePlatformTypes,
+  saveAnnotation,
   saveForce,
   saveChannel,
   setTabSaved,
@@ -20,13 +21,14 @@ import {
   saveWargameTitle,
   initiateWargame,
   duplicatePlatformType,
+  duplicateAnnotation,
   duplicateForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
-import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview } from '@serge/custom-types'
+import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from '@serge/custom-types'
 
 /**
  * TODOS:
@@ -62,10 +64,11 @@ const AdminGameSetup = () => {
     // @ts-ignore
     platform_types, // TODO: legacy name. To be deleted.
     forces,
-    channels
+    channels,
+    annotationIcons
   } = data
   const tabs = Object.keys(data)
-
+ 
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
@@ -96,7 +99,7 @@ const AdminGameSetup = () => {
   const isUniqueForceName = (force: ForceData) => {
     const selectedForce = forces.selectedForce
     return isUniqueName({
-      oldName: selectedForce,
+      oldName: selectedForce as string,
       newName: force.name,
       list: forces.forces,
       label: 'Force'
@@ -150,15 +153,19 @@ const AdminGameSetup = () => {
     if (currentWargame) dispatch(savePlatformTypes(currentWargame, platformTypes))
   }
 
+  const handleSaveAnnotation = (annotation: AnnotationMarkerData) => {
+    if (currentWargame) dispatch(saveAnnotation(currentWargame, annotation))
+  }
+
   const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
-    const selectedForceId = selectedForce
-    const newForceData = newForces.find(force => force.uniqid === selectedForceId)
+    const { uniqid } = selectedForce as ForceData
+    const newForceData = newForces.find(force => force.uniqid === uniqid)
     if (newForceData) {
       const forceOverview = newForceData.overview
       const forceName = newForceData.name
       // @ts-ignore
-      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
+      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === uniqid).overview
   
       const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
       if (empForceRoleNames.length > 0) {
@@ -174,13 +181,11 @@ const AdminGameSetup = () => {
   
       if (typeof forceName === 'string' && forceName.length > 0) {
         if (!isUniqueForceName(newForceData)) return
-        const selectedForce = forces.selectedForce
-        if (currentWargame) dispatch(saveForce(currentWargame, forceName, newForceData, selectedForce))
+        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
       }
   
       if (forceName === null) {
-        const selectedForce = forces.selectedForce
-        if (currentWargame) dispatch(saveForce(currentWargame, selectedForce, newForceData, selectedForce))
+        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
       } else if (forceName.length === 0) {
         dispatch(addNotification('No Force Name', 'warning'))
       }
@@ -189,7 +194,6 @@ const AdminGameSetup = () => {
 
   const handleSaveChannel = (channel: ChannelTypes) => {
     const channelName = channel.name
-    const selectedChannelName = channels.selectedChannel
     const selectedChannelId = channel.uniqid
     const newChannelData = channels.channels.find((c) => c.uniqid === selectedChannelId)
 
@@ -198,18 +202,18 @@ const AdminGameSetup = () => {
         if (!isUniqueChannelName(channel)) return
   
         dispatch(setTabSaved())
-        dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName as string))
+        dispatch(saveChannel(currentWargame, newChannelData))
       }
   
       if (channelName === null) {
-        dispatch(saveChannel(currentWargame, selectedChannelName as string, newChannelData, selectedChannelName as string))
+        dispatch(saveChannel(currentWargame, newChannelData))
       } else if (channelName.length === 0) {
         window.alert('no channel name')
       }
     }
   }
 
-  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes) => {
+  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes | AnnotationIcons) => {
     let saveAction
     switch (currentTab) {
       case AdminTabs.Overview:
@@ -224,6 +228,9 @@ const AdminGameSetup = () => {
       case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
+      case AdminTabs.Annotations:
+        saveAction = handleSaveAnnotation
+        break  
       default:
         saveAction = console.error
         break
@@ -246,7 +253,7 @@ const AdminGameSetup = () => {
       template.roles.forEach(role => {
         role.roleId = getUniquePasscode(forces.forces, 'p')
       })
-      if (currentWargame) dispatch(saveForce(currentWargame, id, template, id))
+      if (currentWargame) dispatch(saveForce(currentWargame, template))
     }
   }
 
@@ -265,7 +272,7 @@ const AdminGameSetup = () => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      if (currentWargame) dispatch(saveChannel(currentWargame, id, createdChannel, id))
+      if (currentWargame) dispatch(saveChannel(currentWargame, createdChannel))
     }
   }
 
@@ -329,8 +336,25 @@ const AdminGameSetup = () => {
   }, [currentTab])
 
   const getSelectedChannel = () => {
-    const { uniqid } = channels.selectedChannel as { uniqid: string }
-    return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    if (channels.selectedChannel) {
+      const { uniqid } = channels.selectedChannel as { uniqid: string }
+      return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    }
+  }
+
+  const onDeleteAnnotation = (data: IconOption) => {
+    dispatch(modalAction.open('confirmDelete', {
+      type: 'annotation',
+      data,
+      customMessages: {
+        title: `Delete '${data.name}'`,
+        message: 'Are you sure you want to permanently delete this annotation Type?'
+      }
+    }))
+  }
+
+  const onDuplicateAnnotation = (data: IconOption) => {
+    if (currentWargame) dispatch(duplicateAnnotation(currentWargame, data))
   }
 
   return (
@@ -368,6 +392,10 @@ const AdminGameSetup = () => {
       iconUploadUrl={iconUploaderPath}
       customDeleteHandler={handleDeleteGameControl}
       onDeleteAsset={onDeleteAsset}
+      onDeleteAnnotation={onDeleteAnnotation}
+      onDuplicateAnnotation={onDuplicateAnnotation}
+      onAnnotationChange={handleFormChange}
+      annotation={annotationIcons}
     />
   )
 }

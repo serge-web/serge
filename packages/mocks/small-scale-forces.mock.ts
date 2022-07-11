@@ -9,7 +9,6 @@ export const forces: ForceData[] = [
     "overview": "Umpire force.",
     "roles": [
       {
-        "canSubmitPlans": true,
         "isGameControl": true,
         "isInsightViewer": true,
         "isObserver": true,
@@ -18,7 +17,6 @@ export const forces: ForceData[] = [
         "roleId": "rks5zfzd2"
       },
       {
-        "canSubmitPlans": false,
         "isGameControl": false,
         "isInsightViewer": true,
         "isObserver": false,
@@ -67,7 +65,6 @@ export const forces: ForceData[] = [
             "turn": 1
           }
         ],
-        "locationPending": true,
         "name": "SSN-1",
         "attributeValues": [
           {
@@ -128,7 +125,6 @@ export const forces: ForceData[] = [
             "turn": 1
           }
         ],
-        "locationPending": true,
         "name": "NORTH",
         "perceptions": [
           {
@@ -170,7 +166,6 @@ export const forces: ForceData[] = [
             "turn": 2
           }
         ],
-        "locationPending": true,
         "name": "SSN-2",
         "perceptions": [],
         "platformType": "ssn",
@@ -186,7 +181,6 @@ export const forces: ForceData[] = [
     "overview": "An overview written here..",
     "roles": [
       {
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -194,7 +188,6 @@ export const forces: ForceData[] = [
         "roleId": "rks5zfzd6"
       },
       {
-        "canSubmitPlans": false,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -213,7 +206,6 @@ export const forces: ForceData[] = [
         "condition": "Working",
         "contactId": "C122",
         "history": [],
-        "locationPending": true,
         "name": "AGI",
         "perceptions": [],
         "platformType": "agi",
@@ -224,7 +216,6 @@ export const forces: ForceData[] = [
         "condition": "Working",
         "contactId": "C442",
         "history": [],
-        "locationPending": true,
         "name": "MPA 2",
         "perceptions": [
           {
@@ -249,7 +240,6 @@ export const forces: ForceData[] = [
     "overview": "An overview written here..",
     "roles": [
       {
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -257,7 +247,6 @@ export const forces: ForceData[] = [
         "roleId": "rks5zfzdi"
       },
       {
-        "canSubmitPlans": false,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,

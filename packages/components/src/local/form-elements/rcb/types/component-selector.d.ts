@@ -4,6 +4,7 @@ export default interface ComponentSelector {
     option: number | string | FormOption,
     value: any,
     postBack: any,
-    name?: string
+    name?: string,
+    classes?: any,
   ): any
 }

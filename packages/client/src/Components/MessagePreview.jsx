@@ -11,7 +11,7 @@ const Fragment = React.Fragment
 class MessagePreview extends Component {
   createObjItem (pair) {
     const that = this
-    return <span key={`objItem--${pair[0]}-${pair[1]}`} className="group-section">{ that.deconstructObj(pair[1]) }</span>
+    return <span key={`objItem--${pair[0]}-${pair[1]}`} className='group-section'>{ that.deconstructObj(pair[1]) }</span>
   }
 
   createBoolItem (pair) {

@@ -13,16 +13,19 @@ import {
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
   DELETE_PLATFORM,
+  UPDATE_MARKER,
   CollaborativeMessageStates,
-  COUNTER_MESSAGE
+  COUNTER_MESSAGE,
+  DELETE_MARKER
 } from '@serge/config'
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Role from './role'
-import { Force, ForceRole, StateOfWorld, ForceData } from '.'
+import { Force, ForceRole, StateOfWorld, ForceData, ChannelCore } from '.'
 import Wargame from './wargame'
+import { MapAnnotation } from './map-annotation'
 
 export interface MessageDetailsFrom {
   /** name
@@ -192,7 +195,7 @@ export interface MessageInfoTypeClipped {
   readonly messageType: typeof INFO_MESSAGE_CLIPPED,
   details: {
     /** id of channel `infoTypeChannelMarker${uniqId.time()}` */
-    channel: string
+    channel: ChannelCore['uniqid']
   },
   infoType: boolean,
   gameTurn: number,
@@ -259,6 +262,16 @@ export interface MessageStateOfWorld {
   readonly state: StateOfWorld
 }
 
+export interface MessageUpdateMarker {
+  readonly messageType: typeof UPDATE_MARKER,
+  readonly marker: MapAnnotation
+}
+
+export interface MessageDeleteMarker {
+  readonly messageType: typeof DELETE_MARKER,
+  readonly marker: MapAnnotation['uniqid']
+}
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -267,8 +280,9 @@ export type MessageMap = MessageForceLaydown |
   MessageCreateTaskGroup |
   MessageLeaveTaskGroup |
   MessageHostPlatform |
-  MessageDeletePlatform
-
+  MessageDeletePlatform |
+  MessageUpdateMarker |
+  MessageDeleteMarker
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom

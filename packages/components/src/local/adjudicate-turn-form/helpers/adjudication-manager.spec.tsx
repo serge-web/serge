@@ -26,7 +26,7 @@ const formData = collateAdjudicationFormData(platformTypes, selectedAsset, force
 
 it('configures adjudicate manager correctly', () => {
   // prepare some routes, and a selected item
-  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false)
+  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', 'role-id', true, platformTypes, false, false)
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
@@ -39,7 +39,7 @@ it('configures adjudicate manager correctly', () => {
 
 it('derives current speed correctly', () => {
   // prepare some routes, and a selected item
-  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false)
+  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', 'role-id', true, platformTypes, false, false)
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
@@ -74,7 +74,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
     frigate.status = undefined
 
     // prepare some routes, and a selected item
-    const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'umpire', platformTypes, false, false)
+    const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'umpire', 'role-id', true, platformTypes, false, false)
     const store: RouteStore = routeSetCurrent(frigateId, store2)
 
     const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, formData)
@@ -87,7 +87,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
 
 it('checks isMobile for a mobile platform type', () => {
   // prepare some routes, and a selected item
-  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false)
+  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', 'role-id', true, platformTypes, false, false)
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
@@ -98,7 +98,7 @@ it('checks isMobile for a mobile platform type', () => {
 
 it('checks platform types are correct', () => {
   // prepare some routes, and a selected item
-  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, false, false)
+  const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', 'role-id', true, platformTypes, false, false)
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 

@@ -309,6 +309,24 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               />
             </div>
           </span>
+          <span
+            className="searchlist-row "
+            onClick={[Function]}
+          >
+            <span>
+              datum
+            </span>
+            <div
+              className="searchlist-menu"
+            >
+              <svg
+                className="svg-inline--fa fa-clone"
+              />
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
+          </span>
         </div>
       </div>
     </div>

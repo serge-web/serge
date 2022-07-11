@@ -46,10 +46,6 @@ export default interface PropTypes {
    */
   status?: RouteStatus
   /**
-   * the list of forces that can control this asset
-   */
-  controlledBy?: Array<string>
-  /**
    * A list of forces able to see the asset
    */
   visibleTo: Array<string>
@@ -57,6 +53,10 @@ export default interface PropTypes {
    * whether the asset can be dragged in turn zero
    */
   locationPending?: boolean
+  /**
+   *
+   */
+  markerDropped?: {(cell: string, uniqid: Asset['uniqid']): void}
   /**
    * imageSrc custom icon for asset
    */

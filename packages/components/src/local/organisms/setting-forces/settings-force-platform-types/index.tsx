@@ -42,6 +42,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     return selectedForcePlatforms
   }
 
+  const PENDING_LOCATION = 'pending'
+
   const [selectedPlatforms, setSelectedPlatforms] = useState<Asset[]>(createSelectedForcePlatforms(selectedForce.assets))
   const [selectedAssetItem, setSelectedAssetItem] = useState<Asset>(createSelectedForcePlatforms(selectedForce.assets)[0])
 
@@ -64,6 +66,14 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     }
     return undefined
   }
+
+  useEffect(() => {
+    // get the new selected object (since the force has been cloned)
+    if (selectedAssetItem && selectedForce.assets) {
+      const item = selectedForce.assets.find((asset: Asset) => asset.uniqid === selectedAssetItem.uniqid)
+      item && setSelectedAssetItem(item)
+    }
+  }, [selectedForce])
 
   useEffect(() => {
     const asset = getSelectedAsset()
@@ -140,7 +150,9 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       if (event.target.value && event.target.value === LaydownTypes.Fixed) {
         selectedAssetItem.locationPending = event.target.value as LaydownTypes
       } else {
-        setFixedLocationValue('')
+        setFixedLocationValue(PENDING_LOCATION)
+        // set the asset location to pending
+        selectedAssetItem.position = PENDING_LOCATION
         if (event.target.value === LaydownTypes.ForceLaydown) {
           selectedAssetItem.locationPending = LaydownTypes.ForceLaydown
         } else {
@@ -188,9 +200,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                 onChange={handleChangeAssetLocation}
                 inputProps={{ 'aria-label': 'location' }}
               >
-                <option value="" disabled>Placeholder</option>
-                <option value={LaydownTypes.ForceLaydown}>{LaydownTypes.ForceLaydown}</option>
                 <option value={LaydownTypes.UmpireLaydown}>{LaydownTypes.UmpireLaydown}</option>
+                <option value={LaydownTypes.ForceLaydown}>{LaydownTypes.ForceLaydown}</option>
                 <option value={LaydownTypes.Fixed}>{LaydownTypes.Fixed}</option>
               </NativeSelect>
             </div>

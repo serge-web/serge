@@ -4,7 +4,8 @@ export const adminTabs = [
   AdminTabs.Overview,
   AdminTabs.PlatformTypes,
   AdminTabs.Forces,
-  AdminTabs.Channels
+  AdminTabs.Channels,
+  AdminTabs.Annotations
 ]
 
 export default adminTabs

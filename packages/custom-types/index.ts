@@ -6,6 +6,7 @@
 export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ForceOption } from './force-option.d'
+export { default as IconOption } from './icon-option.d'
 export { default as FormOption } from './form-option.d'
 export { default as ForceRole } from './force-role.d'
 export { default as ForceData } from './force-data.d'
@@ -33,6 +34,7 @@ export { default as Message,
          MessageLeaveTaskGroup,
          MessageHostPlatform,
          MessageDeletePlatform,
+         MessageUpdateMarker,
          // System Messages
          MessageFeedback,
          MessageInfoType,
@@ -58,8 +60,6 @@ export { default as RouteStore } from './route-store.d'
 export { RouteMarkerStatus as RouteMarkerStatus } from './route-marker'
 export { default as RouteMarker } from './route-marker'
 export { RouteMarkerDuo } from './route-marker'
-export { default as SergeGrid } from './serge-grid.d'
-export { default as SergeHex } from './serge-hex.d'
 export { default as SelectedAsset } from './selected-asset.d'
 export { default as SetWargameMessage } from './set-wargame-message.d'
 export { default as State } from './state.d'

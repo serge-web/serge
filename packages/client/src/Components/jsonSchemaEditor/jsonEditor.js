@@ -66,7 +66,7 @@ class JsonSchemaEditor extends Component {
           Schema Editor
         </CardHeader>
         <CardBody>
-          <div id="schema-editor" ref={this.editorBox} />
+          <div id='schema-editor' ref={this.editorBox} />
         </CardBody>
         <CardFooter>
         </CardFooter>

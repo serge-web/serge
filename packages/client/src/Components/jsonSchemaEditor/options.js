@@ -50,8 +50,8 @@ class EditorPreview extends Component {
         </CardHeader>
         <CardBody>
           <Input
-            type="select"
-            multiple size="11"
+            type='select'
+            multiple size='11'
             defaultValue={[]}
             onChange={this.onBooleanOptionsChange}
           >
@@ -62,10 +62,10 @@ class EditorPreview extends Component {
         </CardBody>
         <CardFooter>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">Object layout:</InputGroupAddon>
-            <Input type="select" value={this.props.options.layout} onChange={this.onLayoutChange}>
-              <option value="normal">normal</option>
-              <option value="grid">grid</option>
+            <InputGroupAddon addonType='prepend'>Object layout:</InputGroupAddon>
+            <Input type='select' value={this.props.options.layout} onChange={this.onLayoutChange}>
+              <option value='normal'>normal</option>
+              <option value='grid'>grid</option>
             </Input>
           </InputGroup>
         </CardFooter>

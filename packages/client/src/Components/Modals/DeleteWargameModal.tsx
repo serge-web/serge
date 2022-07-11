@@ -1,5 +1,5 @@
 import { Confirm } from '@serge/components'
-import { ModalData, RootState } from '@serge/custom-types'
+import { RootState, CurrentModal } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +15,7 @@ const DeleteWargameModal = () => {
   }
 
   const onDeleteWargame = () => {
-    const { data } = currentModal.data as ModalData
+    const { data } = currentModal as CurrentModal
     dispatch(deleteWargame(data as string))
     dispatch(modalAction.close())
   }
@@ -25,8 +25,8 @@ const DeleteWargameModal = () => {
   return (
     <Confirm
       isOpen={currentModal.open}
-      title="Delete"
-      message="This will permanently delete the wargame. Are you sure?"
+      title='Delete'
+      message='This will permanently delete the wargame. Are you sure?'
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
       onCancel={onHideModal}

@@ -18,12 +18,13 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   setActivityTime,
-  MARK_ALL_AS_UNREAD
+  MARK_ALL_AS_UNREAD,
+  FEEDBACK_MESSAGE
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
-import { FEEDBACK_MESSAGE } from '@serge/config'
+
 import {
   Wargame,
   Role,
@@ -34,9 +35,10 @@ import {
   MessageCustom,
   MessageInfoType,
   MessageDetailsFrom,
-  TemplateBodysByKey
+  MessageMap,
+  TemplateBodysByKey,
+  PlayerUiActionTypes
 } from '@serge/custom-types'
-import { PlayerUiActionTypes } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -203,7 +205,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: unknown): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }
