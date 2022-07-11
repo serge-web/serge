@@ -12,6 +12,7 @@ interface CssExports {
   'box': string;
   'cell-lbl': string;
   'col': string;
+  'col-2': string;
   'constraints-cell': string;
   'constraints-icon': string;
   'control-groups': string;
@@ -26,18 +27,6 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
-  'mapping-item-constraints': string;
-  'input': string;
-  'constraints-icon': string;
-  'constraints-cell': string;
-  'cell-lbl': string;
-  'accordion-header': string;
-  'arrow-icon': string;
-  'accordion': string;
-  'accordion-title-group': string;
-  'accordion-details': string;
-  'accordion-sub-title': string;
-  'col-2': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
