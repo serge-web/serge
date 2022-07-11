@@ -129,7 +129,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
-  const [mappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
+  const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
 
   if (!channel) {
     console.warn('Channel is missing from mapping component')
@@ -153,6 +153,15 @@ export const Mapping: React.FC<PropTypes> = ({
       }
     }
   }, [mappingConstraintState])
+
+  // only update bounds if they're different to the current one
+  useEffect(() => {
+    if (mappingConstraints) {
+      if (mappingConstraints !== mappingConstraintState) {
+        setMappingConstraintState(mappingConstraints)
+      }
+    }
+  }, [mappingConstraints])
 
   // control whether to allow provide the "Add info marker" button
   useEffect(() => {
@@ -354,10 +363,13 @@ export const Mapping: React.FC<PropTypes> = ({
       // now the h3 handler
       const resolution = mappingConstraintState.h3res || 3
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
-      setH3Resolution(resolution)
-      setH3gridCells(cells)
+      // check if we need to update, to reduce re-renders
+      if ((cells.length !== h3gridCells.length) || atlanticCells) {
+        setH3Resolution(resolution)
+        setH3gridCells(cells)
+      }
     }
-  }, [mappingConstraintState, mapBounds, atlanticCells])
+  }, [mapBounds, atlanticCells])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {

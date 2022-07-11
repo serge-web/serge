@@ -9,6 +9,7 @@ import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
 import { PlayerMessageLog } from './player-log'
 import { AnnotationIcons, MapAnnotations } from './map-annotation'
+import MappingConstraints from './mapping-constraints'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -77,4 +78,6 @@ export default interface PlayerUi {
   isRFIManager: boolean
   /** log of recent player messages */
   playerMessageLog: PlayerMessageLog
+  /** mapping constraints */
+  mappingConstraints?: MappingConstraints
 }

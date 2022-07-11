@@ -546,7 +546,12 @@ export const HexGrid: React.FC<{}> = () => {
     } else {
       setRelevantCells3([])
     }
-  }, [viewport, h3gridCells, polyBins3])
+  }, [viewport, polyBins3])
+
+  // if the grid is updated, we have to drop the bins
+  useEffect(() => {
+    setPolyBins3([])
+  }, [h3gridCells])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
