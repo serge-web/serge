@@ -53,6 +53,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 import PropTypes, { ChannelTypes } from './types/props'
+import MoreInfo from '../../molecules/more-info'
 
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({
@@ -328,10 +329,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
       }
 
       const constraintsSummary = (): string => {
+        const tick = '\u2714'
+        const cross = '\u2717'
         const constraints = mappingChannel.constraints
-        const bounds = 'Bounds:' + (constraints.bounds ? 'Y' : 'N')
-        const tiles = 'Tiles:' + (constraints.tileLayer ? 'Y' : 'N')
-        const cells = 'Cells:' + (constraints.gridCellsURL ? 'Y' : 'N')
+        const bounds = 'Bounds:' + (constraints.bounds ? tick : cross)
+        const tiles = 'Tiles:' + (constraints.tileLayer ? tick : cross)
+        const cells = 'Cells:' + (constraints.gridCellsURL ? tick : cross)
         return bounds + ' ' + tiles + ' ' + cells
       }
 
@@ -361,7 +364,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       </TableRow>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon size='2x' icon={faBorderStyle} />
+                          <MoreInfo description='North West corner'><FontAwesomeIcon size='2x' icon={faBorderStyle} /></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -384,7 +387,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       </TableRow>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon size='2x' icon={faBorderStyle} style={{ transform: 'rotate(180deg)' }} />
+                          <MoreInfo description='South East corner'><FontAwesomeIcon size='2x' icon={faBorderStyle} style={{ transform: 'rotate(180deg)' }} /></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -413,18 +416,18 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableBody>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon icon={faSearch} />
+                          <FontAwesomeIcon icon={faSearchMinus} />
                         </TableCell>
                         <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
-                          Max Native
+                        <MoreInfo description='Limit of zooming out'>Min Zoom</MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
                             type='number'
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
-                            value={maxNativeZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
+                            value={minZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'minZoom')}
                           />
                         </TableCell>
                       </TableRow>
@@ -433,7 +436,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                           <FontAwesomeIcon icon={faSearchPlus} />
                         </TableCell>
                         <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
-                          Max Zoom
+                          <MoreInfo description='Limit of zooming in'>Max Zoom</MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -447,18 +450,18 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       </TableRow>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon icon={faSearchMinus} />
+                          <FontAwesomeIcon icon={faSearch} />
                         </TableCell>
                         <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
-                          Min Zoom
+                        <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
                             type='number'
                             className={styles.input}
                             InputProps={{ disableUnderline: true }}
-                            value={minZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'minZoom')}
+                            value={maxNativeZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
                           />
                         </TableCell>
                       </TableRow>
@@ -470,7 +473,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableBody>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <span style={{ fontSize: 35, display: 'block', marginBottom: 5 }}>&#x2B22;</span>
+                          <MoreInfo description='H3 grid resolution to use. See https://h3geo.org/docs/core-library/restable/'><span style={{ fontSize: 35, display: 'block', marginBottom: 5 }}>&#x2B22;</span></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -492,7 +495,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableBody>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon size='2x' icon={faAt} />
+                          <MoreInfo description='Tile layer attribution string (optional)'><FontAwesomeIcon size='2x' icon={faAt} /></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -506,7 +509,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       </TableRow>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon size='2x' icon={faPlay} style={{ transform: 'rotate(-90deg)' }} />
+                          <MoreInfo description='Path to tiled background images'><FontAwesomeIcon size='2x' icon={faPlay} style={{ transform: 'rotate(-90deg)' }} /></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -526,7 +529,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableBody>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon size='2x' icon={faDrawPolygon} />
+                          <MoreInfo description='Path to file containing areas of coverage'><FontAwesomeIcon size='2x' icon={faDrawPolygon} /></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -546,7 +549,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableBody>
                       <TableRow>
                         <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
-                          <FontAwesomeIcon size='2x' icon={faTh} />
+                          <MoreInfo description='Path to file containing cell definitions (land, sea, etc)'><FontAwesomeIcon size='2x' icon={faTh} /></MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -673,8 +676,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="left">Restrict access to specific roles</TableCell>
-                        <TableCell align="left">Controls</TableCell>
+                        <TableCell align="left"><MoreInfo description='(Optionally) restrict access/control to specific roles'>Roles</MoreInfo></TableCell>
+                        <TableCell align="left"><MoreInfo description='The assets (or groups of assets) controlled by this participant'>Controls</MoreInfo></TableCell>
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
                     </TableHead>
