@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 10px;
+  width: 100%;
 }
 
 .mapping-item-constraints {
@@ -50,7 +50,7 @@
   flex-direction: column;
 
   div {
-    margin: 10px;
+    margin: 5px;
     padding: 0;
     font-size: 16px;
   }
@@ -68,7 +68,7 @@
 }
 
 .constraints-icon {
-  min-width: 40px;
+  width: 60px;
   text-align: center;
 }
 
@@ -79,13 +79,7 @@
 }
 
 .cell-lbl {
-  width: 100px;
-}
-
-.group-item {
-  display: flex;
-  align-items: center;
-  height: 50px;
+  min-width: 120px;
 }
 
 .message-group {
@@ -123,4 +117,38 @@
 
 .status-item {
   margin-bottom: -10px;
+}
+
+.accordion {
+  margin-bottom: 10px;
+}
+
+.accordion-header {
+  background-color: #8595a5 !important;
+}
+
+.accordion-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-title {
+  color: #fff;
+}
+
+.accordion-sub-title {
+  color: #fff;
+  font-size: small;
+}
+
+.arrow-icon {
+  color: #fff;
+}
+
+.accordion-details {
+  padding: 10px;
+}
+
+.col-2 {
+  width: 60%;
 }
