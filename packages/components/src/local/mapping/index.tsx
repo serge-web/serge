@@ -157,7 +157,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // only update bounds if they're different to the current one
   useEffect(() => {
     if (mappingConstraints) {
-      if( mappingConstraints !== mappingConstraintState) {
+      if (mappingConstraints !== mappingConstraintState) {
         setMappingConstraintState(mappingConstraints)
       }
     }

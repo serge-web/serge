@@ -419,7 +419,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                           <FontAwesomeIcon icon={faSearchMinus} />
                         </TableCell>
                         <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
-                        <MoreInfo description='Limit of zooming out'>Min Zoom</MoreInfo>
+                          <MoreInfo description='Limit of zooming out'>Min Zoom</MoreInfo>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
@@ -453,7 +453,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                           <FontAwesomeIcon icon={faSearch} />
                         </TableCell>
                         <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
-                        <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
+                          <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
                           <TextField
