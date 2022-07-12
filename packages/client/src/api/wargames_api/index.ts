@@ -332,7 +332,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     const messageInfoType: MessageInfoType = {
       ...wargame,
       _rev: undefined,
-      _id: dbDefaultSettings._id,
+      _id: new Date().toISOString(),
       messageType: INFO_MESSAGE,
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
