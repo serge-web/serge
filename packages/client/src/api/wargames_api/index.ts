@@ -332,7 +332,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     const messageInfoType: MessageInfoType = {
       ...wargame,
       _rev: undefined,
-      _id: new Date().toISOString(),
+      _id: dbDefaultSettings._id,
       messageType: INFO_MESSAGE,
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
@@ -865,8 +865,17 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         }
 
-        // store the new verison
-        return createLatestWargameRevision(dbName, res)
+        const copiedData = deepCopy(res)
+        
+        // store the new veriso
+        return db.put({
+          ...copiedData,
+          _rev: undefined,
+          _id: dbDefaultSettings._id,
+          messageType: INFO_MESSAGE
+        }).then(() => {
+          return getLatestWargameRevision(dbName)
+        }).catch(rejectDefault)
       }).then((res) => {
         resolve(res)
       }).catch((err) => {
