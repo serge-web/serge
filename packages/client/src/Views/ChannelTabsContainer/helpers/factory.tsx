@@ -114,11 +114,11 @@ const factory = (state: PlayerUi): Factory => {
       return
     }
 
-    // note: we have to convert the bounds that comes from the database
-    // from a number array to a Leaflet bounds object.
-    // Render the map
+    // re-usable map render function. Note: mapping constraints isn't optional.  So
+    // we use the param to keep the compiler happy, but we
+    // don't expect to use it.
     const renderMap = (channelid: string, mappingConstraints: MappingConstraints, channel?: ChannelMapping) => <Mapping
-      mappingConstraints={mappingConstraints}
+      mappingConstraints={state.mappingConstraints || mappingConstraints}
       forces={state.allForces}
       mapBar={true}
       platforms={state.allPlatformTypes}
@@ -149,7 +149,8 @@ const factory = (state: PlayerUi): Factory => {
     const channelName = node.getName().toLowerCase()
     const channelDefinition = state.allChannels.find((channel) => channel.uniqid === node.getId())
     if (!channelDefinition) {
-      throw new Error('Failed to find channel with id:' + node.getId())
+      // ok, this channel has been deleted
+      console.log('channel definition not found, presumed deleted')
     } else {
       // sort out if it's a modern channel
       const v3Channel = channelDefinition

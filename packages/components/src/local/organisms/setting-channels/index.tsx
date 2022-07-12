@@ -1,4 +1,4 @@
-import { Button as MUIButton, Divider, TableFooter } from '@material-ui/core'
+import { Button as MUIButton, Divider, TableFooter, TextField } from '@material-ui/core'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
@@ -19,7 +19,7 @@ import { ParticipantCollab } from '@serge/custom-types'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import Confirm from '../../atoms/confirm'
@@ -46,7 +46,14 @@ import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToPa
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
+import { faAt, faBorderStyle, faCaretDown, faDrawPolygon, faPlay, faSearch, faSearchMinus, faSearchPlus, faTh } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Typography from '@material-ui/core/Typography'
 import PropTypes, { ChannelTypes } from './types/props'
+import MoreInfo from '../../molecules/more-info'
 
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({
@@ -278,6 +285,293 @@ export const SettingChannels: React.FC<PropTypes> = ({
       />
     }
 
+    const renderMappingConstraints = (): React.ReactElement => {
+      if (!mappingChannel) {
+        return (<></>)
+      }
+
+      const updateMapConstraintsBounds = (value: string, key: number[]): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.bounds[key[0]][key[1]] = +value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsZoom = (value: string, type: 'maxZoom' | 'minZoom' | 'maxNativeZoom'): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints[type] = +value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsH3Res = (e: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.h3res = +e.target.value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsTileLayer = (value: string, key: 'attribution' | 'url'): void => {
+        const nextChannel = { ...mappingChannel }
+        if (nextChannel.constraints.tileLayer) {
+          nextChannel.constraints.tileLayer[key] = value
+        }
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsPolygonUrl = (e: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.polygonAreasURL = e.target.value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsGridCellUrl = (e: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.gridCellsURL = e.target.value
+        handleChangeChannel(nextChannel)
+      }
+
+      const constraintsSummary = (): string => {
+        const tick = '\u2714'
+        const cross = '\u2717'
+        const constraints = mappingChannel.constraints
+        const bounds = 'Bounds:' + (constraints.bounds ? tick : cross)
+        const tiles = 'Tiles:' + (constraints.tileLayer ? tick : cross)
+        const cells = 'Cells:' + (constraints.gridCellsURL ? tick : cross)
+        return bounds + ' ' + tiles + ' ' + cells
+      }
+
+      const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = mappingChannel.constraints
+
+      return (
+        <Accordion className={styles.accordion}>
+          <AccordionSummary
+            className={styles['accordion-header']}
+            expandIcon={<FontAwesomeIcon icon={faCaretDown} className={styles['arrow-icon']} />}
+          >
+            <div className={styles['accordion-title-group']}>
+              <Typography className={styles['accordion-title']}>Proportions and Constraints</Typography>
+              <Typography className={styles['accordion-sub-title']}>{constraintsSummary()}</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails className={styles['accordion-details']}>
+            <div className={styles['control-groups']}>
+              <div className={styles['mapping-item-constraints']}>
+                <FormGroup placeholder="Bounds">
+                  <Table aria-label="Bounds">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={styles['constraints-cell']}></TableCell>
+                        <TableCell className={styles['constraints-cell']}>Latitude</TableCell>
+                        <TableCell className={styles['constraints-cell']}>Longtitude</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='North West corner'><FontAwesomeIcon size='2x' icon={faBorderStyle} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[0][0]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [0, 0])}
+                          />
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[0][1]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [0, 1])}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='South East corner'><FontAwesomeIcon size='2x' icon={faBorderStyle} style={{ transform: 'rotate(180deg)' }} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[1][0]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [1, 0])}
+                          />
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[1][1]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [1, 1])}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="Zoom">
+                  <Table aria-label="Zoom">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <FontAwesomeIcon icon={faSearchMinus} />
+                        </TableCell>
+                        <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
+                          <MoreInfo description='Limit of zooming out'>Min Zoom</MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={minZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'minZoom')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <FontAwesomeIcon icon={faSearchPlus} />
+                        </TableCell>
+                        <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
+                          <MoreInfo description='Limit of zooming in'>Max Zoom</MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={maxZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxZoom')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <FontAwesomeIcon icon={faSearch} />
+                        </TableCell>
+                        <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
+                          <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={maxNativeZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="H3">
+                  <Table aria-label="H3">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='H3 grid resolution to use. See https://h3geo.org/docs/core-library/restable/'><span style={{ fontSize: 35, display: 'block', marginBottom: 5 }}>&#x2B22;</span></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={h3res}
+                            onInput={updateMapConstraintsH3Res}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+              </div>
+              <div className={cx(styles['mapping-item-constraints'], styles['col-2'])}>
+                <FormGroup placeholder="Tile Layer">
+                  <Table aria-label="Tile Layer">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Tile layer attribution string (optional)'><FontAwesomeIcon size='2x' icon={faAt} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={tileLayer?.attribution}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsTileLayer(e.target.value, 'attribution')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Path to tiled background images'><FontAwesomeIcon size='2x' icon={faPlay} style={{ transform: 'rotate(-90deg)' }} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={tileLayer?.url}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsTileLayer(e.target.value, 'url')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="Polygon">
+                  <Table aria-label="Polygon">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Path to file containing areas of coverage'><FontAwesomeIcon size='2x' icon={faDrawPolygon} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={polygonAreasURL}
+                            onInput={updateMapConstraintsPolygonUrl}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="Grid Cell">
+                  <Table aria-label="Grid Cell">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Path to file containing cell definitions (land, sea, etc)'><FontAwesomeIcon size='2x' icon={faTh} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={gridCellsURL}
+                            onInput={updateMapConstraintsGridCellUrl}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+              </div>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+
+      )
+    }
+
     const onMessageTemplateChanged = (value: string[], action: Action): void => {
       const nextMsgLocal = onMessageValuesChanged(messageLocal, value, action, MessageGroupType.MESSAGE_TEMPLATE)
       setMessageLocal(nextMsgLocal)
@@ -373,21 +667,17 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
-            {isMapping &&
-              <FormGroup>
-                <Paper className={styles.pager}>
-                  <div className={styles['control-groups']}>
-                    <div>Controls for <em>Mapping Constraints</em> go in here</div>
-                    <div>Sample bounds:{mappingChannel && mappingChannel.constraints.bounds}</div>
-                  </div>
-                </Paper>
+            {isMapping && renderMappingConstraints()}
+            {
+              isMapping &&
+              <FormGroup placeholder="Participants and messages">
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="left">Restrict access to specific roles</TableCell>
-                        <TableCell align="left">Controls</TableCell>
+                        <TableCell align="left"><MoreInfo description='(Optionally) restrict access/control to specific roles'>Roles</MoreInfo></TableCell>
+                        <TableCell align="left"><MoreInfo description='The assets (or groups of assets) controlled by this participant'>Controls</MoreInfo></TableCell>
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
                     </TableHead>
@@ -406,7 +696,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
               <FormGroup>
                 <Paper className={styles.pager}>
                   <div className={styles['control-groups']}>
-                    COLLAB NESSAGE
+                    COLLAB MESSAGE
                     <MessageGroup
                       title="Message Templates"
                       multiple={false}

@@ -8,7 +8,7 @@ import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
 import { ChannelMapping, ChannelTypes, ForceData, RouteStore } from '@serge/custom-types'
 
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
-const forces = watuWargame.data.forces.forces
+const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 const setLocation = (forces: ForceData[], assetID: string, location: string): void => {

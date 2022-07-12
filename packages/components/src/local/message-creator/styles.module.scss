@@ -1,6 +1,3 @@
-$red: #f00;
-$white: #fff;
-$blue: #69c;
 $force-default-color: #4bead1;
 $admin-color: #1a394d;
 
@@ -37,20 +34,6 @@ $admin-color: #1a394d;
 
 .send {
   align-self: center;
-}
-
-.example {
-  color: $white;
-  font-weight: bold;
-}
-
-.blue {
-  composes: example;
-  background-color: $blue;
-}
-.red {
-  composes: example;
-  background-color: $red;
 }
 
 .role-info {

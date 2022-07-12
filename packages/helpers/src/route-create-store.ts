@@ -58,7 +58,7 @@ const positionFor = (position: string, existingRoute?: Route): string => {
  */
 const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'],
   playerRole: Role['roleId'], isGameControl: Role['isGameControl'], platformTypes: PlatformTypeData[], filterHistorySteps: boolean,
-  filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping): RouteStore => {
+  filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore, channel?: ChannelMapping, turnNumber?: number): RouteStore => {
   const store: RouteStore = { routes: [] }
 
   const forceColorList: Array<ForceStyle> = forceColors(forces)
@@ -70,6 +70,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
   }
 
   const localWargameInitiated: boolean = (wargameInitiated === undefined) ? true : wargameInitiated
+  const localTurnNumber: number = turnNumber === undefined ? 0 : turnNumber
 
   forces.forEach((force: ForceData) => {
     // see if we control it
@@ -97,7 +98,8 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
 
           const umpireForceInTurnZero = !localWargameInitiated && adminInAdj
           const controlledByThisForce = umpireForceInTurnZero || (channel && underControlByThisForce(channel, asset.uniqid, force.uniqid, playerForceId)) || false
-          const controlledByThisRole = canControlAssetExtended(channel, force.uniqid, asset.uniqid, playerRole, localWargameInitiated, isGameControl, asset.locationPending, phase)
+          const controlledByThisRole = canControlAssetExtended(channel, force.uniqid, asset.uniqid, playerRole,
+            localWargameInitiated, isGameControl, asset.locationPending, phase, localTurnNumber)
 
           // keep existing route if this is for one of our assets, otherwise use the incoming one
           const existingRoute: Route | undefined = controlledByThisForce || adminInAdj ? existingRouteBase : undefined

@@ -123,46 +123,59 @@ describe('can control asset - exteded:', () => {
         const wargameInitated = false
         const phase = Phase.Adjudication
 
+        const turnZero = 0
+
         // is game control, in umpire laydown
         expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
-          wargameInitated, true, LaydownTypes.UmpireLaydown, phase)).toBeTruthy()
+          wargameInitated, true, LaydownTypes.UmpireLaydown, phase, turnZero)).toBeTruthy()
 
         // is game control, in force laydown
         expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
-          wargameInitated, true, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
+          wargameInitated, true, LaydownTypes.ForceLaydown, phase, turnZero)).toBeFalsy()
 
         // not game control, in umpire laydown
         expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
-          wargameInitated, false, LaydownTypes.UmpireLaydown, phase)).toBeFalsy()
+          wargameInitated, false, LaydownTypes.UmpireLaydown, phase, turnZero)).toBeFalsy()
 
         // not game control, in force laydown
         expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
-          wargameInitated, false, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
+          wargameInitated, false, LaydownTypes.ForceLaydown, phase, turnZero)).toBeFalsy()
       }
       if (blueForce && redForce && nortAsset && blueNortRole) {
         // game initiated, in adjudicate phase
         const wargameInitated = true
         const phase = Phase.Adjudication
 
+        const turnZero = 0
+        const turnOne = 1
+
         // is game control, in umpire laydown
         expect(() => canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
-          wargameInitated, true, LaydownTypes.UmpireLaydown, phase)).toThrowError()
+          wargameInitated, true, LaydownTypes.UmpireLaydown, phase, turnZero)).toThrowError()
 
         // is game control, in force laydown
         expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
-          wargameInitated, true, LaydownTypes.ForceLaydown, phase)).toBeFalsy()
+          wargameInitated, true, LaydownTypes.ForceLaydown, phase, turnZero)).toBeFalsy()
+
+        // is game control, in force laydown, asset position provided, in turn zero
+        expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
+          wargameInitated, true, undefined, phase, turnZero)).toBeFalsy()
+
+        // is game control, in force laydown, asset position provided, in turn one
+        expect(canControlAssetExtended(channel, whiteForce.uniqid, nortAsset.uniqid, whiteUmpire.roleId,
+          wargameInitated, true, undefined, phase, turnOne)).toBeTruthy()
 
         // not game control, in umpire laydown
         expect(() => canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
-          wargameInitated, false, LaydownTypes.UmpireLaydown, phase)).toThrowError()
+          wargameInitated, false, LaydownTypes.UmpireLaydown, phase, turnZero)).toThrowError()
 
         // is game control, in force laydown, looking at green asset
         expect(canControlAssetExtended(channel, greenForce.uniqid, greenAsset1.uniqid, whiteUmpire.roleId,
-          wargameInitated, true, LaydownTypes.ForceLaydown, phase)).toBeTruthy()
+          wargameInitated, true, LaydownTypes.ForceLaydown, phase, turnZero)).toBeTruthy()
 
         // not game control, in force laydown
         expect(canControlAssetExtended(channel, blueForce.uniqid, nortAsset.uniqid, blueNortRole.roleId,
-          wargameInitated, false, LaydownTypes.ForceLaydown, phase)).toBeTruthy()
+          wargameInitated, false, LaydownTypes.ForceLaydown, phase, turnZero)).toBeTruthy()
       }
     }
   })

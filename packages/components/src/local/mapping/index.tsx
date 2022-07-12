@@ -129,7 +129,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
-  const [mappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
+  const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
 
   if (!channel) {
     console.warn('Channel is missing from mapping component')
@@ -156,9 +156,17 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // only update bounds if they're different to the current one
   useEffect(() => {
-    // TODO: we should only be allowing this for the Game Control
+    if (mappingConstraints) {
+      if (mappingConstraints !== mappingConstraintState) {
+        setMappingConstraintState(mappingConstraints)
+      }
+    }
+  }, [mappingConstraints])
+
+  // control whether to allow provide the "Add info marker" button
+  useEffect(() => {
     setShowAddInfo((playerForce === UMPIRE_FORCE) && isGameControl)
-  }, [phase, playerForce])
+  }, [playerForce, isGameControl])
 
   // if marker is selected, clear the asset
   useEffect(() => {
@@ -271,7 +279,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const forceToUse = (playerForce === UMPIRE_FORCE && viewAsForce) ? viewAsForce : playerForce
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, forceToUse, playerRole || 'debug-missing', (playerForce === UMPIRE_FORCE) && isGameControl,
-        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel)
+        platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel, turnNumber)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
@@ -355,10 +363,13 @@ export const Mapping: React.FC<PropTypes> = ({
       // now the h3 handler
       const resolution = mappingConstraintState.h3res || 3
       const cells = createGridH3(mapBounds, resolution, atlanticCells)
-      setH3Resolution(resolution)
-      setH3gridCells(cells)
+      // check if we need to update, to reduce re-renders
+      if ((cells.length !== h3gridCells.length) || atlanticCells) {
+        setH3Resolution(resolution)
+        setH3gridCells(cells)
+      }
     }
-  }, [mappingConstraintState, mapBounds, atlanticCells])
+  }, [mapBounds, atlanticCells])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {
