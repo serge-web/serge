@@ -26,6 +26,7 @@ import {
   STATE_OF_WORLD,
   hiddenPrefix,
   DELETE_MARKER,
+  wargameSettings,
   wargameStart
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
@@ -319,8 +320,9 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
 export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
   const { db } = getWargameDbByName(dbName)
 
-  return db.get(dbDefaultSettings._id).then((res) => {
+  return db.get(wargameSettings).then((res) => {
     const wargame = res as Wargame
+    console.log('init 0', wargame)
     const initiatedWargame: Wargame = {
       ...wargame,
       phase: ADJUDICATION_PHASE,
@@ -328,17 +330,19 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       wargameInitiated: true
     }
+    console.log('init 1', initiatedWargame)
     return db.put(initiatedWargame).then(() => initiatedWargame)
   }).then((wargame) => {
+    console.log('init 2', wargame)
     const messageInfoType: MessageInfoType = {
       ...wargame,
       _rev: undefined,
       _id: wargameStart,
       messageType: INFO_MESSAGE,
-      turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
       infoType: true // TODO: remove infoType
     }
+    console.log('init 3', messageInfoType)
     return db.put(messageInfoType).then(() => messageInfoType)
   }).catch((err) => {
     console.log(err)

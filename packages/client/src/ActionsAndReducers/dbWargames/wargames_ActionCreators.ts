@@ -378,7 +378,9 @@ export const deleteSelectedRole = (
 
 export const initiateWargame = (dbName: string) => {
   return async (dispatch: WargameDispatch) => {
+    console.log('actions 1', dbName)
     const wargame = await wargamesApi.initiateGame(dbName)
+    console.log('actions 2', wargame)
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Wargame initiated. Note: change & `Save` overview, to inform player browsers', 'success'))
   }
