@@ -25,7 +25,8 @@ import {
   UPDATE_MARKER,
   STATE_OF_WORLD,
   hiddenPrefix,
-  DELETE_MARKER
+  DELETE_MARKER,
+  wargameStart
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -332,7 +333,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     const messageInfoType: MessageInfoType = {
       ...wargame,
       _rev: undefined,
-      _id: new Date().toISOString(),
+      _id: wargameStart,
       messageType: INFO_MESSAGE,
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
