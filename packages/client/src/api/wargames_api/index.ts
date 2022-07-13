@@ -403,7 +403,6 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType): 
 }
 
 export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
-  console.log('current', currentPlatformType)
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
