@@ -162,8 +162,11 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       onChangeHandler(selectedForce)
     }
 
+    // since we're in admin pages, the Game Designer is able to edit the attributes.
+    const inGameAdminPages = true
+
     return <div className={styles['view-result-box']}>
-      <AttributeEditor isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
+      <AttributeEditor inAdjudication={inGameAdminPages} isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
       <List dense={true}>
         <ListItem>
           <ListItemText>
