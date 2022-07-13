@@ -34,14 +34,14 @@ const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
       terrain: terrain,
       data: multiPoly.coordinates.map((level1: number[][][]): L.LatLngTuple[][] => {
         return level1.map((level2: number[][]): L.LatLngTuple[] => {
-          if(isArray(level2) && isArray(level2[0])) {
+          if (isArray(level2) && isArray(level2[0])) {
             return level2.map((level3: number[]): L.LatLngTuple => {
               // note: need to swap GeoJSON lon/lat to Leaflet lat/lon
               return [level3[1], level3[0]]
             })
           } else {
-              // note: need to swap GeoJSON lon/lat to Leaflet lat/lon
-              return [level2[1], level2[0]] as L.LatLngTuple[]
+            // note: need to swap GeoJSON lon/lat to Leaflet lat/lon
+            return [level2[1], level2[0]] as L.LatLngTuple[]
           }
         })
       })
