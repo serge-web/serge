@@ -54,7 +54,7 @@ const GameChannelsWithTour: React.FC = () => {
     },
     {
       selector: '[data-tour="fourth-step"]',
-      content: 'The game channels on the left are the medium by which the wargame is played. You will see a set of channels tailored to your specific roles.'
+      content: 'The game channels in the centre are the medium by which the wargame is played. You will see a set of channels tailored to your specific roles.'
     },
     {
       selector: '[data-tour="fourth-step"]',
@@ -122,7 +122,7 @@ const GameChannelsWithTour: React.FC = () => {
             Icon markers show the type of asset, shaded according to force. Assets of unknown force are shaded grey, of unknown type are marked with a question mark.
             Select an own-force asset in Planning phase to provide plans, or from another force to edit/record your perception of it.
           </span>
-          <img className={classes.tourImg} src="/assets/counters/unknown.svg" alt="" />
+          <img className={classes.tourImg} src="/assets/tour_map_image.png" alt="" />
         </div>
       )
     }
