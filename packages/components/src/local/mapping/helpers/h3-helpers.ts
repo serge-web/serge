@@ -274,7 +274,7 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
   const result = updateXy(sorted)
 
   if (styleMissing) {
-    console.log('Didn\'t find style definition for ' + styleMissing + ' cells')
+    console.log('Didn\'t find style definition for ' + styleMissing + '/' + cells.length + ' cells')
   }
 
   return result
