@@ -125,6 +125,7 @@ const pouchDb = (app, io, pouchOptions) => {
 
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
+        // TODO: this should probably be a filter function
         const messages = result.rows.reduce((messages, { doc }) => {
           const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)

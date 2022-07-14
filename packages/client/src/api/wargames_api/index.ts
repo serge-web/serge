@@ -880,6 +880,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
 export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
+    // TODO: this should probably be a filter function
     .then((res): Message[] => res.reduce((messages: Message[], res): Message[] => {
       // @ts-ignore
       if (res && res.messageType !== COUNTER_MESSAGE) messages.push(res)
