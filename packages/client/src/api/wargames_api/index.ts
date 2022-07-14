@@ -26,7 +26,7 @@ import {
   STATE_OF_WORLD,
   hiddenPrefix,
   DELETE_MARKER,
-  wargameStart
+  wargameSettings
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -283,22 +283,12 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
-    let lastDate: number = 0
-    let infoMessageIndex: number = -1
-    for (let index = 0; index < messages.length; index++) {
-      const message = messages[index]
-      if (message.messageType === INFO_MESSAGE) {
-        const realM = message as any
-        const nextDate = +new Date(realM._id as string)
-        if (nextDate > lastDate) {
-          lastDate = nextDate
-          infoMessageIndex = index
-        }
+    for (var i = messages.length - 1; i >= 0; i--) {
+      const msg = messages[i]
+      if (msg.messageType === INFO_MESSAGE) {
+        return msg
       }
     }
-
-    messages.filter(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType[]
-    if (infoMessageIndex !== -1) return messages[infoMessageIndex] as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
 }
@@ -333,9 +323,8 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     const messageInfoType: MessageInfoType = {
       ...wargame,
       _rev: undefined,
-      _id: wargameStart,
+      _id: new Date().toISOString(),
       messageType: INFO_MESSAGE,
-      turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
       infoType: true // TODO: remove infoType
     }
@@ -352,23 +341,18 @@ const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: bool
 }
 
 const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true, db: ApiWargameDb): Promise<Wargame> => {
-  if (nextWargame.wargameInitiated && revisionCheck) {
+  if (nextWargame.wargameInitiated) {
+    // store with new id
     return createLatestWargameRevision(dbName, nextWargame)
+  } else {
+    // retain un-initiated status id
+    return db.put({
+      ...nextWargame,
+      _id: wargameSettings
+    }).then(() => {
+      return db.get(wargameSettings) as Promise<Wargame>
+    })
   }
-
-  // Latest wargame cannot be a MessageInfoType if wargameInitiated === false
-  const infoTypeWargame = nextWargame as MessageInfoType
-  if (infoTypeWargame.messageType === INFO_MESSAGE && revisionCheck) {
-    console.warn('Saving wargame cannot be a MessageInfoType. Trying to save MessageInfoType as WargameSettings')
-  }
-
-  return db.put({
-    ...nextWargame,
-    _id: dbDefaultSettings._id,
-    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format()
-  }).then(() => {
-    return db.get(dbDefaultSettings._id) as Promise<Wargame>
-  })
 }
 
 export const updateWargameTitle = (dbName: string, title: string): Promise<Wargame> => {
@@ -668,6 +652,7 @@ export const updateWargameVisible = async (dbPath: string): Promise<Wargame> => 
 
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
+  // TODO: this should look for most recent wargame (INFO)
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
 }
 
@@ -866,12 +851,13 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
         }
 
         const copiedData = deepCopy(res)
-        
+        const newId = res.wargameInitiated ? new Date().toISOString() : res._id
+        const rev = res.wargameInitiated ? undefined : res._rev
         // store the new veriso
         return db.put({
           ...copiedData,
-          _rev: undefined,
-          _id: dbDefaultSettings._id,
+          _rev: rev,
+          _id: newId,
           messageType: INFO_MESSAGE
         }).then(() => {
           return getLatestWargameRevision(dbName)
