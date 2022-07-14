@@ -259,6 +259,8 @@ export const createWargame = (): Promise<Wargame> => {
   const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
   return new Promise((resolve, reject) => {
+    // TODO: this method returns the inserted wargame.  I believe we could
+    // return that, instead of `getLatestWargameRevisiion`
     db.put(settings)
       .then(() => {
         db.get(dbDefaultSettings._id).then((res) => {
@@ -293,6 +295,8 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
         return msg
       }
     }
+    // TODO: if we haven't got an INFO MESSAGE then the database hasn't been
+    // TODO: created properly, and we should thrown an error
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
 }
@@ -350,6 +354,8 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: 
     return createLatestWargameRevision(dbName, nextWargame)
   } else {
     // retain un-initiated status id
+    // TODO: this put() method returns the inserted wargame.  I believe we could
+    // return that, instead of `getLatestWargameRevisiion`
     return db.put({
       ...nextWargame,
       _id: wargameSettings
@@ -658,7 +664,8 @@ export const updateWargameVisible = async (dbPath: string): Promise<Wargame> => 
 // TODO: calls to: getLatestWargameRevision
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
-  // TODO: this should look for most recent wargame (INFO)
+  // TODO: this should look for most recent wargame (INFO), it currently
+  // looks for the un-initiated version of the wargame
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
 }
 
@@ -673,6 +680,8 @@ export const createLatestWargameRevision = (dbName: string, wargame: Wargame): P
   const copiedData = deepCopy(wargame)
   const { db } = getWargameDbByName(dbName)
 
+  // TODO: this put() method returns the inserted wargame.  I believe we could
+  // return that, instead of `getLatestWargameRevisiion`
   return db.put({
     ...copiedData,
     _rev: undefined,
@@ -859,7 +868,8 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
         const copiedData = deepCopy(res)
         const newId = res.wargameInitiated ? new Date().toISOString() : res._id
         const rev = res.wargameInitiated ? undefined : res._rev
-        // store the new veriso
+        // TODO: this method returns the inserted wargame.  I believe we could
+        // return that, instead of `getLatestWargameRevisiion`
         return db.put({
           ...copiedData,
           _rev: rev,
