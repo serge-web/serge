@@ -152,7 +152,7 @@ const pouchDb = (app, io, pouchOptions) => {
     db.get(id)
       .then(data => res.send({ msg: 'ok', data: data }))
       .catch(() => {
-        // TODO: if the id doesn't exist, it looks for 'settings', but we 
+        // TODO: if the id doesn't exist, it looks for 'settings', but we
         // TODO: won't have a 'settings' document.
         db.get(settings)
           .then(data => res.send({ msg: 'ok', data: data }))
