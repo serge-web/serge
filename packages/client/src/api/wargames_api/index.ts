@@ -281,6 +281,10 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
   })
 }
 
+// TODO: this gets all the messages from the server, then finds
+// the newest wargame. I'm pretty sure that instead of that, we 
+// should have a server-side end-point that returns latest wargame,
+// then only one document goes over network.
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
     for (var i = messages.length - 1; i >= 0; i--) {
@@ -650,6 +654,8 @@ export const updateWargameVisible = async (dbPath: string): Promise<Wargame> => 
   })
 }
 
+// TODO: suspect calls to this should be replaced by:
+// TODO: calls to: getLatestWargameRevision
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
   // TODO: this should look for most recent wargame (INFO)
