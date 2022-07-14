@@ -72,6 +72,8 @@ const pouchDb = (app, io, pouchOptions) => {
             .catch(() => {
               const settingsDoc = {
                 ...doc,
+                // TODO: this seems to be changing the doc name from date-time (or 'initial-settings')
+                // TODO: to 'settings'
                 _id: settings
               }
               return retryUntilWritten(db, settingsDoc)
@@ -127,6 +129,8 @@ const pouchDb = (app, io, pouchOptions) => {
       .then(result => {
         // TODO: this should probably be a filter function
         const messages = result.rows.reduce((messages, { doc }) => {
+          // TODO: in the next line, we no longer have 'settings' document it, so
+          // it should be removed.
           const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
           if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
           return messages
@@ -148,6 +152,8 @@ const pouchDb = (app, io, pouchOptions) => {
     db.get(id)
       .then(data => res.send({ msg: 'ok', data: data }))
       .catch(() => {
+        // TODO: if the id doesn't exist, it looks for 'settings', but we 
+        // TODO: won't have a 'settings' document.
         db.get(settings)
           .then(data => res.send({ msg: 'ok', data: data }))
           .catch((err) => res.send({ msg: 'err', data: err }))
