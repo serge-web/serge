@@ -95,7 +95,9 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
 
       <div className='flex-content wargame-title'>
         <h3>{wargameTitle}</h3>
-        <FontAwesomeIcon icon={faSignOutAlt} />
+        <FontAwesomeIcon icon={faSignOutAlt} style={{ cursor: 'pointer' }} onClick={() => {
+          location.replace(location.origin)
+        }} />
       </div>
 
       <TurnProgression
