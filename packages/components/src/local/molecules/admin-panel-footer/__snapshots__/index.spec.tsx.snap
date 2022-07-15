@@ -10,8 +10,9 @@ exports[`AdminPanelFooter component: renders correctly 1`] = `
     }
   }
 >
-  <span
-    className="badge badge-light"
+  <div
+    className="force-role"
+    data-tour="objectives-step"
   >
     <a
       className="role-type"
@@ -19,32 +20,23 @@ exports[`AdminPanelFooter component: renders correctly 1`] = `
     >
       Comms
     </a>
-  </span>
-  <div
-    className="contain-force-skin"
-    data-tour="objectives-step"
-  >
     <div
-      className="force-skin"
+      className="force-type"
     >
-      <span
-        className="force-type"
-      >
-        Blue
-      </span>
-      <img
-        alt=""
-        className="role-icon"
-        data-tour="second-step"
-        onClick={[Function]}
-        src="http://localhost:8080/default_img/forceDefault.png"
-        style={
-          Object {
-            "backgroundColor": "#3dd0ff",
-          }
-        }
-      />
+      Blue
     </div>
   </div>
+  <img
+    alt=""
+    className="role-icon"
+    data-tour="second-step"
+    onClick={[Function]}
+    src="http://localhost:8080/default_img/forceDefault.png"
+    style={
+      Object {
+        "backgroundColor": "#3dd0ff",
+      }
+    }
+  />
 </div>
 `;

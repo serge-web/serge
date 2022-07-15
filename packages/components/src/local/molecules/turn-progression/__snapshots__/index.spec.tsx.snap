@@ -8,17 +8,41 @@ exports[`TurnProgression component: renders correctly 1`] = `
   <div
     className="turn-info-phase"
   >
-    <h5>
-      Turn 
-      1
-       - 
-      adjudication
-       phase
-    </h5>
+    <div
+      className="turn-phase-group"
+    >
+      <div
+        className="turn"
+      >
+        <h5>
+          Turn
+        </h5>
+        <h5>
+          1
+        </h5>
+      </div>
+      <hr
+        className="MuiDivider-root divider MuiDivider-vertical"
+      />
+      <div
+        className="phase"
+      >
+        <h5>
+          Phase
+        </h5>
+        <h5>
+          Adjudication
+        </h5>
+        <h5>
+          Planning
+        </h5>
+      </div>
+    </div>
     <time
+      className="time"
       dateTime="2019-10-01 01:02"
     >
-      2019-10-01 01:02
+      01:02-01/10/2019
     </time>
   </div>
 </div>

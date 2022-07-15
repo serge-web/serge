@@ -13,6 +13,11 @@ interface CssExports {
   'turn-info-remaining': string;
   'turn-progression-ui': string;
   'warning': string;
+  'turn-phase-group': string;
+  'turn': string;
+  'phase': string;
+  'divider': string;
+  'time': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
