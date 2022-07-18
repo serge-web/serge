@@ -123,7 +123,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               }
               return res
             }
-          } 
+          }
         }
 
         missingAttrs && missingAttrs.forEach((value: AttributeType) => {

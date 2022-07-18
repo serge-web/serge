@@ -15,7 +15,7 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
   attributes: AttributeValues, orientation?: OrientationMarker): number | undefined => {
   const getAttribute = (attributes: AttributeValues, id: string): number | undefined => {
     const attr = attributes.find((aValue: AttributeValue) => aValue.attrId === id)
-    if(attr && attr.attrType === ATTRIBUTE_VALUE_NUMBER) {
+    if (attr && attr.attrType === ATTRIBUTE_VALUE_NUMBER) {
       const numAtt = attr as NumberAttributeValue
       return numAtt.value
     } else {
@@ -32,7 +32,7 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
     }
     return res
   }
-  
+
   if (orientation) {
     if (orientation.attribute && orientation.origin === 'absolute') {
       // don't worry about the direction

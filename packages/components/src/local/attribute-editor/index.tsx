@@ -41,12 +41,12 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
   }
 
   const savedValue = (data: AttributeEditorData): AttributeValue => {
-    switch(data.valueType) {
+    switch (data.valueType) {
       case ATTRIBUTE_VALUE_NUMBER: {
         const res: NumberAttributeValue = {
           attrId: data.attrId,
           attrType: ATTRIBUTE_VALUE_NUMBER,
-          value: Number(data.valueWrite)      
+          value: Number(data.valueWrite)
         }
         return res
       }
@@ -54,7 +54,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
         const res: EnumAttributeValue = {
           attrId: data.attrId,
           attrType: ATTRIBUTE_VALUE_ENUM,
-          value: data.valueWrite     
+          value: data.valueWrite
         }
         return res
       }
@@ -70,7 +70,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
     onClose()
   }
 
-  const editorFor = (item: AttributeEditorData, aTypes: AttributeTypes, idx: number): any=> {
+  const editorFor = (item: AttributeEditorData, aTypes: AttributeTypes, idx: number): any => {
     switch (item.valueType) {
       case ATTRIBUTE_VALUE_NUMBER: {
         return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
@@ -80,12 +80,12 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
         if (aType === undefined) {
           throw new Error('Failed to find attribute type for:' + item.attrId)
         }
-        return <Select value={item.valueRead} 
+        return <Select value={item.valueRead}
           onChange={enumChangeHandler}
           name={item.attrId}
         >
           {aType.values.map((s: any) => (
-          <MenuItem key={s} value={s}>{s}</MenuItem>
+            <MenuItem key={s} value={s}>{s}</MenuItem>
           ))}
         </Select>
       }
