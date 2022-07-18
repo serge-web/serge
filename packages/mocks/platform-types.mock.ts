@@ -115,6 +115,16 @@ export const platformTypes: PlatformTypeData[] = [
         format: '0',
         defaultValue: 12
       }
+      // ,
+      // {
+      //   name: "Depth",
+      //   attrId: "ssk-depth",
+      //   description: "Depth",
+      //   defaultValue: "Deep",
+      //   values: ["Deep","PD","Shallow"],
+      //   editableByPlayer: true,
+      //   attrType: ATTRIBUTE_TYPE_ENUM
+      // }
     ],
     "uniqid": "a2"
   },

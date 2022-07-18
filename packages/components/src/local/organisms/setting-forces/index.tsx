@@ -1,10 +1,11 @@
 import { CustomDialog } from '../../atoms/custom-dialog'
-import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { Asset, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { Asset, AttributeType, AttributeValue, EnumAttributeType, EnumAttributeValue, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 /* Import Components */
+import uniqId from 'uniqid'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import Colorpicker from '../../atoms/colorpicker'
@@ -86,11 +87,11 @@ export const SettingForces: React.FC<PropTypes> = ({
       currentForce.assets && currentForce.assets.forEach((asset: Asset) => {
         const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
         // check for extra attributes
-        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
-          return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))
+        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: AttributeValue) => {
+          return !(pType.attributeTypes && pType.attributeTypes.some((val: AttributeType) => val.attrId === value.attrId))
         })
 
-        extraAttrs && extraAttrs.forEach((value: NumberAttributeValue) => {
+        extraAttrs && extraAttrs.forEach((value: AttributeValue) => {
           const msg = 'Removed attribute ' + value.attrId + ' from ' + asset.name
           attributeErrors.push(msg)
           // and strip out the attributes
@@ -98,11 +99,34 @@ export const SettingForces: React.FC<PropTypes> = ({
         })
 
         // check for missing attributes
-        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: NumberAttributeType) => {
-          return !(asset.attributeValues && asset.attributeValues.some((val: NumberAttributeValue) => val.attrId === value.attrId))
+        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: AttributeType) => {
+          return !(asset.attributeValues && asset.attributeValues.some((val: AttributeValue) => val.attrId === value.attrId))
         })
 
-        missingAttrs && missingAttrs.forEach((value: NumberAttributeType) => {
+        const createDefault = (aType: AttributeType): AttributeValue => {
+          switch (aType.attrType) {
+            case ATTRIBUTE_TYPE_NUMBER: {
+              const nAtt = aType as NumberAttributeType
+              const res: NumberAttributeValue = {
+                attrId: `a${uniqId.time()}`,
+                attrType: ATTRIBUTE_VALUE_NUMBER,
+                value: nAtt.defaultValue || 0
+              }
+              return res
+            }
+            case ATTRIBUTE_TYPE_ENUM: {
+              const eAtt = aType as EnumAttributeType
+              const res: EnumAttributeValue = {
+                attrId: `a${uniqId.time()}`,
+                attrType: ATTRIBUTE_VALUE_ENUM,
+                value: eAtt.defaultValue || eAtt.values[0]
+              }
+              return res
+            }
+          } 
+        }
+
+        missingAttrs && missingAttrs.forEach((value: AttributeType) => {
           const msg = 'Added attribute ' + value.name + ' to ' + asset.name
           attributeErrors.push(msg)
           // initialise array, if necessary
@@ -110,11 +134,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             asset.attributeValues = []
           }
           // and create the default values
-          asset.attributeValues.push({
-            attrId: value.attrId,
-            attrType: ATTRIBUTE_VALUE_NUMBER,
-            value: value.defaultValue || 0
-          })
+          asset.attributeValues.push(createDefault(value))
         })
       })
 

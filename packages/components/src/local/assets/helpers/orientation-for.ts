@@ -1,6 +1,7 @@
 import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
-import { AttributeValue, AttributeValues, RouteTurn } from '@serge/custom-types'
+import { AttributeValue, AttributeValues, NumberAttributeValue, RouteTurn } from '@serge/custom-types'
+import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
 /** retrive the cell at the supplied human-readable coords ("A01")
  * @param {string} current - hex cell for current asset location
@@ -14,9 +15,13 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
   attributes: AttributeValues, orientation?: OrientationMarker): number | undefined => {
   const getAttribute = (attributes: AttributeValues, id: string): number | undefined => {
     const attr = attributes.find((aValue: AttributeValue) => aValue.attrId === id)
-    return attr && attr.value
+    if(attr && attr.attrType === ATTRIBUTE_VALUE_NUMBER) {
+      const numAtt = attr as NumberAttributeValue
+      return numAtt.value
+    } else {
+      return undefined
+    }
   }
-
   const cleanAngle = (angle: number): number => {
     let res = angle
     while (res < 0) {
@@ -27,7 +32,7 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
     }
     return res
   }
-
+  
   if (orientation) {
     if (orientation.attribute && orientation.origin === 'absolute') {
       // don't worry about the direction

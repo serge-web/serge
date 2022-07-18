@@ -90,6 +90,8 @@ export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 // types of attribute
 export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
 export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
+export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
+export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
