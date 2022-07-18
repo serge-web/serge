@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button'
-import { AttributeEditorData, AttributeValue, AttributeValues, NumberAttributeValue } from '@serge/custom-types'
+import { AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, NumberAttributeValue } from '@serge/custom-types'
 import cloneDeep from 'lodash/cloneDeep'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,10 +8,11 @@ import Modal from 'react-modal'
 import MoreInfo from '../molecules/more-info'
 import styles from './styles.module.scss'
 import { Props } from './types/props'
-import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { MenuItem, Select } from '@material-ui/core'
 
 /* Render component */
-export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave, inAdjudication }) => {
+export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
   const modalRef = useRef<ReactModal>(null)
 
@@ -26,18 +27,66 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
     setLocalData([...localData])
   }
 
+  const enumChangeHandler = (e: any): void => {
+    const attrId = e.target.name
+    // we don't receive the index. So, find the attribute
+    const ele = localData.find((attr: AttributeEditorData) => attr.attrId === attrId)
+    if (ele) {
+      ele.valueWrite = e.target.value
+      ele.valueRead = e.target.value
+    } else {
+      throw new Error('Failed to fine attribute ' + attrId)
+    }
+    setLocalData([...localData])
+  }
+
+  const savedValue = (data: AttributeEditorData): AttributeValue => {
+    switch(data.valueType) {
+      case ATTRIBUTE_VALUE_NUMBER: {
+        const res: NumberAttributeValue = {
+          attrId: data.attrId,
+          attrType: ATTRIBUTE_VALUE_NUMBER,
+          value: Number(data.valueWrite)      
+        }
+        return res
+      }
+      case ATTRIBUTE_VALUE_ENUM: {
+        const res: EnumAttributeValue = {
+          attrId: data.attrId,
+          attrType: ATTRIBUTE_VALUE_ENUM,
+          value: data.valueWrite     
+        }
+        return res
+      }
+    }
+  }
+
   const onSaveLocal = (): void => {
     // transform the data
     const res: AttributeValues = localData.map((data: AttributeEditorData): AttributeValue => {
-      const value: NumberAttributeValue = {
-        attrId: data.attrId,
-        attrType: ATTRIBUTE_VALUE_NUMBER,
-        value: Number(data.valueWrite)
-      }
-      return value
+      return savedValue(data)
     })
     onSave(res)
     onClose()
+  }
+
+  const editorFor = (item: AttributeEditorData, aTypes: AttributeTypes, idx: number): any=> {
+    switch (item.valueType) {
+      case ATTRIBUTE_VALUE_NUMBER: {
+        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+      }
+      case ATTRIBUTE_VALUE_ENUM: {
+        const aType = aTypes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
+        return  <Select value={item.valueRead} 
+          onChange={enumChangeHandler}
+          name={item.attrId}
+        >
+          {aType.values.map((s: any) => (
+          <MenuItem key={s} value={s}>{s}</MenuItem>
+          ))}
+        </Select>
+      }
+    }
   }
 
   return (
@@ -63,7 +112,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, onClose, onSave
             <span>{elmName}</span>
             {locked
               ? <span><FontAwesomeIcon icon={faLock} title="Attribute locked" /><input disabled={true} title={tooltip} value={item.valueWrite} /></span>
-              : <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+              : editorFor(item, aTypes, idx)
             }
           </div>
         })}

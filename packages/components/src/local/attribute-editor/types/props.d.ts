@@ -7,6 +7,10 @@ export type Props = {
   onSave: (data: AttributeValues) => void
   /** data to be edited */
   data: AttributeEditorData[]
+  /**
+   * attribute type data
+   */
+  aTypes?: AttributeTypes
   /** whether the data is being edited in adjudication phase,
    * which means we can ignore the `playerCanEditData` value
    */
