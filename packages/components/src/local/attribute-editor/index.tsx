@@ -76,8 +76,11 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
         return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
       }
       case ATTRIBUTE_VALUE_ENUM: {
-        const aType = aTypes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
-        return  <Select value={item.valueRead} 
+        const aType = aTypes && aTypes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
+        if (aType === undefined) {
+          throw new Error('Failed to find attribute type for:' + item.attrId)
+        }
+        return <Select value={item.valueRead} 
           onChange={enumChangeHandler}
           name={item.attrId}
         >

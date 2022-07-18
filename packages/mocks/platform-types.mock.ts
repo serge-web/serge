@@ -116,13 +116,13 @@ export const platformTypes: PlatformTypeData[] = [
         defaultValue: 12
       },
       {
+        attrType: ATTRIBUTE_TYPE_ENUM,
         name: "Depth",
         attrId: "ss-depth",
         description: "Depth of this asset",
         defaultValue: "Deep",
         values: ["Deep","PD","Shallow"],
-        editableByPlayer: true,
-        attrType: ATTRIBUTE_TYPE_ENUM
+        editableByPlayer: true
       }
     ],
     "uniqid": "a2"
