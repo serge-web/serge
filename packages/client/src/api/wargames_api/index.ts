@@ -304,8 +304,9 @@ export const editWargame = (dbPath: string): Promise<Wargame> => (
 export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName = getNameFromPath(dbPath)
   return getAllMessages(dbName).then((messages) => {
+    const nonInfoMessage = messages.filter((msg) => msg.messageType === INFO_MESSAGE) as Message[]
     return getLatestWargameRevision(dbName).then((game) => ({
-      ...game, exportMessagelist: messages
+      ...game, exportMessagelist: nonInfoMessage
     }))
   })
 }
@@ -748,10 +749,11 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
       message.message.counter = 1
 
       const counterIdExist = await db.allDocs().then(res => {
-        const counters = res.reduce((messages: number[], message) => {
-          if (message.details.from.force === details.from.force && message.message.counter) messages.push(message.message.counter)
-          return messages
-        }, [])
+        const validMessage = (message: MessageCustom) => {
+          return message.details && message.details.from.force === details.from.force && message.message.counter
+        }
+        const thisForceMessagesWithCounter = res.filter((message) => validMessage(message))
+        const counters = thisForceMessagesWithCounter.map((message: MessageCustom) => message.message.counter)
         const existId = res.find(message => message._id === details.timestamp)
 
         return [Math.max(...counters), existId]
@@ -883,7 +885,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   })
 }
 
-export const getAllMessages = (dbName: string): Promise<Message[]> => {
+export const getAllMessages = (dbName: string): Promise<Array<Message | Wargame>> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
