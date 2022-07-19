@@ -60,7 +60,6 @@ export class DbProvider implements DbProviderInterface {
       fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
         .then(({ msg, data }) => {
-          console.log('resData', data)
           if (msg === 'ok') resolve(data)
           else resolve({ status: 404 })
         })
@@ -106,7 +105,6 @@ export class DbProvider implements DbProviderInterface {
         .then(res => res.json() as Promise<FetchData>)
         .then((res) => {
           const { msg, data } = res
-         
           if (msg === 'ok') resolve(data[0])
           else reject(msg)
         })
