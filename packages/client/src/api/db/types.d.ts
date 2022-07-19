@@ -6,7 +6,7 @@ export interface DbProviderInterface {
   destroy: () => void
   get: (query: string) => Promise<Wargame | Message | { status: number }>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
-  allDocs: () => Promise<Array<Message|Wargame>>
+  allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string

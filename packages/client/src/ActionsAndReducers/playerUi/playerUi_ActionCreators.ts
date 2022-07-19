@@ -39,7 +39,8 @@ import {
   MessageDetailsFrom,
   MessageMap,
   TemplateBodysByKey,
-  PlayerUiActionTypes
+  PlayerUiActionTypes,
+  ChatMessage
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -92,7 +93,7 @@ export const openMessage = (channel: string, message: MessageChannel): PlayerUiA
   type: OPEN_MESSAGE,
   payload: { channel, message }
 })
-export const markUnread = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+export const markUnread = (channel: string, message: MessageChannel | ChatMessage): PlayerUiActionTypes => ({
   type: MARK_UNREAD,
   payload: { channel, message }
 })

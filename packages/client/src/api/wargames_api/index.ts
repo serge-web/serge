@@ -749,7 +749,7 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
       message.message.counter = 1
 
       const forceMessagesWithCounter = await db.allDocs().then(res => {
-        const validMessage = (message: Message | Wargame): boolean => {
+        const validMessage = (message: Message): boolean => {
           if (message.messageType === CUSTOM_MESSAGE) {
             const custom = message as MessageCustom
             return custom.details && custom.details.from.force === details.from.force && custom.message.counter
@@ -889,11 +889,11 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   })
 }
 
-export const getAllMessages = (dbName: string): Promise<Array<Message | Wargame>> => {
+export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
-    .then((res): Array<Message|Wargame> => res.filter((message: Message|Wargame) => message.messageType !== COUNTER_MESSAGE))
+    .then((res): Array<Message> => res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE))
     .catch(() => {
       throw new Error('Serge disconnected')
     })

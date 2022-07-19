@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -115,7 +115,7 @@ const pouchDb = (app, io, pouchOptions) => {
     }).catch(() => res.send([]))
   })
 
-  // get all documents for wargame
+  // get all message documents for wargame
   app.get('/:wargame', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
 
@@ -126,8 +126,12 @@ const pouchDb = (app, io, pouchOptions) => {
 
     db.allDocs({ include_docs: true, attachments: true })
       .then(result => {
+        // unpack the documents
         const docs = result.rows.map((item) => item.doc)
-        res.send({ msg: 'ok', data: docs })
+        // drop wargame & info messages
+        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
+        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
+        res.send({ msg: 'ok', data: messages })
       }).catch(() => res.send([]))
   })
 
