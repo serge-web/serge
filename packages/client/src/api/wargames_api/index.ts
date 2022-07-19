@@ -748,7 +748,7 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
       // default value for message counter
       message.message.counter = 1
 
-      const counterIdExist = await db.allDocs().then(res => {
+      const forceMessagesWithCounter = await db.allDocs().then(res => {
         const validMessage = (message: Message | Wargame): boolean => {
           if (message.messageType === CUSTOM_MESSAGE) {
             const custom = message as MessageCustom
@@ -763,7 +763,7 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
         return [Math.max(...counters), existId]
       })
 
-      const [counter, existId] = counterIdExist
+      const [counter, existId] = forceMessagesWithCounter
 
       // @ts-ignore
       const counterExist = existId ? existId.message.counter : message.message.counter
