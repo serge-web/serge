@@ -6,7 +6,7 @@ import {
   deletePath,
   wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame } from '@serge/custom-types'
 import { io } from 'socket.io-client'
 import {
   ProviderDbInterface,
@@ -60,6 +60,7 @@ export class DbProvider implements DbProviderInterface {
       fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
         .then(({ msg, data }) => {
+          console.log('resData', data)
           if (msg === 'ok') resolve(data)
           else resolve({ status: 404 })
         })
@@ -94,6 +95,19 @@ export class DbProvider implements DbProviderInterface {
           const { msg, data } = res
           // @ts-ignore
           if (msg === 'ok') resolve(data[0] && data[0].docs ? data[0].docs : data as Message[])
+          else reject(msg)
+        })
+    })
+  }
+
+  lastWargame (): Promise<MessageInfoType> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + 'last')
+        .then(res => res.json() as Promise<FetchData>)
+        .then((res) => {
+          const { msg, data } = res
+         
+          if (msg === 'ok') resolve(data[0])
           else reject(msg)
         })
     })

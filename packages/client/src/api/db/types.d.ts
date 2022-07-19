@@ -1,4 +1,4 @@
-import { Message, MessageCustom, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame } from '@serge/custom-types'
 import DbProvider from '.'
 
 export interface DbProviderInterface {
@@ -7,6 +7,7 @@ export interface DbProviderInterface {
   get: (query: string) => Promise<Wargame | Message | { status: number }>
   put: (doc: Wargame | Message) => Promise<Wargame | Message>
   allDocs: () => Promise<MessageCustom[]>
+  lastWargame: () => Promise<MessageInfoType>
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }

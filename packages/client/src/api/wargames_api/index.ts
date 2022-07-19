@@ -288,13 +288,9 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 // should have a server-side end-point that returns latest wargame,
 // then only one document goes over network.
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
-  return getAllMessages(dbName).then((messages) => {
-    for (var i = messages.length - 1; i >= 0; i--) {
-      const msg = messages[i]
-      if (msg.messageType === INFO_MESSAGE) {
-        return msg
-      }
-    }
+  const { db } = getWargameDbByName(dbName)
+  return db.lastWargame().then((message) => {
+    if (message) return message
     // TODO: if we haven't got an INFO MESSAGE then the database hasn't been
     // TODO: created properly, and we should thrown an error
     return getWargameLocalFromName(dbName)
