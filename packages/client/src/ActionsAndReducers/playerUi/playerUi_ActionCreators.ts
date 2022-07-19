@@ -19,7 +19,9 @@ import {
   CLOSE_MODAL,
   setActivityTime,
   MARK_ALL_AS_UNREAD,
-  FEEDBACK_MESSAGE
+  FEEDBACK_MESSAGE,
+  INFO_MESSAGE,
+  COUNTER_MESSAGE
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
@@ -212,7 +214,12 @@ export const saveMapMessage = (dbName: string, details: MessageDetails, message:
 
 export const getAllWargameFeedback = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const messages: Array<Message> = await wargamesApi.getAllMessages(dbName)
+    const docs: Array<Message | Wargame> = await wargamesApi.getAllMessages(dbName)
+    const nonMessages = [INFO_MESSAGE, COUNTER_MESSAGE]
+    const messages = docs.filter((doc: Message | Wargame) => {
+      const docAny = doc as any
+      return !nonMessages.includes(docAny.messageType)
+    })
     const feedbackMessages: MessageFeedback[] = messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]
     dispatch(setWargameFeedback(feedbackMessages))
   }
@@ -220,8 +227,13 @@ export const getAllWargameFeedback = (dbName: string): Function => {
 
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
-    dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
+    const allMessages: Array<Message | Wargame> = await wargamesApi.getAllMessages(dbName)
+    const nonMessages = [INFO_MESSAGE, COUNTER_MESSAGE]
+    const messages = allMessages.filter((doc: Message | Wargame) => {
+      const docAny = doc as any
+      return !nonMessages.includes(docAny.messageType)
+    })
+    dispatch(setWargameMessages(messages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
+    dispatch(setWargameFeedback(messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }
