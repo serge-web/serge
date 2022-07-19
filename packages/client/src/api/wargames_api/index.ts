@@ -749,13 +749,17 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
       message.message.counter = 1
 
       const counterIdExist = await db.allDocs().then(res => {
-        const validMessage = (message: MessageCustom) => {
-          return message.details && message.details.from.force === details.from.force && message.message.counter
+        const validMessage = (message: Message | Wargame): boolean => {
+          if (message.messageType === CUSTOM_MESSAGE) {
+            const custom = message as MessageCustom
+            return custom.details && custom.details.from.force === details.from.force && custom.message.counter
+          } else {
+            return false
+          }
         }
-        const thisForceMessagesWithCounter = res.filter((message) => validMessage(message))
+        const thisForceMessagesWithCounter = res.filter((message) => validMessage(message)) as MessageCustom[]
         const counters = thisForceMessagesWithCounter.map((message: MessageCustom) => message.message.counter)
-        const existId = res.find(message => message._id === details.timestamp)
-
+        const existId = res.find((message:any) => message._id === details.timestamp)
         return [Math.max(...counters), existId]
       })
 
@@ -889,11 +893,7 @@ export const getAllMessages = (dbName: string): Promise<Array<Message | Wargame>
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
-    .then((res): Message[] => res.reduce((messages: Message[], res): Message[] => {
-      // @ts-ignore
-      if (res && res.messageType !== COUNTER_MESSAGE) messages.push(res)
-      return messages
-    }, []))
+    .then((res): Array<Message|Wargame> => res.filter((message: Message|Wargame) => message.messageType !== COUNTER_MESSAGE))
     .catch(() => {
       throw new Error('Serge disconnected')
     })
