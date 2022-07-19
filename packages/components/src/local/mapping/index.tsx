@@ -144,7 +144,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const sw = conBounds[1]
       const newBounds = L.latLngBounds(ne, sw)
       const atlanticMissing = atlanticCells && !lastAtlanticCells
-      const altanticChanged = atlanticCells && lastAtlanticCells && lastAtlanticCells.features.length != atlanticCells.features.length
+      const altanticChanged = atlanticCells && lastAtlanticCells && lastAtlanticCells.features.length !== atlanticCells.features.length
       const atlanticUpdate = atlanticMissing || altanticChanged
       const boundsChanged = mapBounds === undefined || !mapBounds.equals(newBounds)
       if (boundsChanged || atlanticUpdate) {
