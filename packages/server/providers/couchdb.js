@@ -169,12 +169,11 @@ const couchDb = (app, io, pouchOptions) => {
 
     remoteDb.allDocs({ include_docs: true, attachments: true })
       .then(result => {
-        // TODO: this should probably be a filter function
-        const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
-          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
-          return messages
-        }, [])
+        // unpack the documents
+        const docs = result.rows.map((item) => item.doc)
+        // drop wargame & info messages
+        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
+        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
         res.send({ msg: 'ok', data: messages })
       }).catch(() => res.send([]))
   })
