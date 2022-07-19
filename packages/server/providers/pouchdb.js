@@ -154,7 +154,7 @@ const pouchDb = (app, io, pouchOptions) => {
       },
       limit: 1,
       sort: [{ _id: 'desc' }]
-    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+    }).then((result) => res.send({ msg: 'ok', data: result.docs }))
       .catch(() => res.send([]))
   })
 
