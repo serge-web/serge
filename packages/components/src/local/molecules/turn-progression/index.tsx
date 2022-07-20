@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import momenttz from 'moment-timezone';
 import Props from './types/props';
-import { Button, styled } from '@material-ui/core'
+import { Box, Button, styled } from '@material-ui/core'
 
 /* Import Stylesheet */
 import { formatFullDate, formatTurn } from '@serge/helpers';
@@ -145,7 +145,9 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         </div>
         {
           isGameControl && 
+          <Box ml={4} mt={1} mb={1}>
             <GameControl onClick={(e) => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
+          </Box>
         }
         <time dateTime={formatFullDate(gameDate)} className={styles['time']}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
