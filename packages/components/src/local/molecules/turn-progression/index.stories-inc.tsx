@@ -60,8 +60,10 @@ export default {
 }
 
 const Template: Story<TurnPropTypes> = (args) => {
+  // @ts-ignore: Add custom property for storybook
+  const { ...props } = args
   const [state, setState] = useState({
-    phase: Phase.Planning,
+    phase: props.phase,
     currentTurn: args.currentTurn
   })
   const updateState = (): void => {
@@ -70,8 +72,7 @@ const Template: Story<TurnPropTypes> = (args) => {
       currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
     })
   }
-  // @ts-ignore: Add custom property for storybook
-  const { ...props } = args
+  console.log('phase 1', props.phase, state.phase)
   return <TurnProgression
     {...props}
     onNextTurn={updateState}
@@ -87,6 +88,7 @@ WithPhases.args = {
   adjudicationStartTime: '2019-09-30T14:13:22+01:00',
   turnEndTime: '0',
   currentTurn: 0,
+  phase: Phase.Planning,
   timeWarning: 60000,
   isGameControl: true,
   wargameInitiated: true,
