@@ -304,57 +304,148 @@ exports[`SettingOverview component: renders correctly 1`] = `
             </div>
           </div>
           <div>
-            <label
-              className="MuiFormControlLabel-root"
+            <div
+              className="childnode"
             >
-              <span
-                aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-13 Mui-checked MuiIconButton-colorPrimary"
-                onBlur={[Function]}
-                onDragLeave={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-                onMouseDown={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                tabIndex={null}
+              <label
+                className="MuiFormControlLabel-root"
               >
                 <span
-                  className="MuiIconButton-label"
+                  aria-disabled={false}
+                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-13 Mui-checked MuiIconButton-colorPrimary"
+                  onBlur={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={null}
                 >
-                  <input
-                    checked={true}
-                    className="PrivateSwitchBase-input-15"
-                    data-indeterminate={false}
-                    onChange={[Function]}
-                    type="checkbox"
-                    value="1"
-                  />
-                  <svg
-                    aria-hidden={true}
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
+                  <span
+                    className="MuiIconButton-label"
                   >
-                    <path
-                      d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                    <input
+                      checked={true}
+                      className="PrivateSwitchBase-input-15"
+                      data-indeterminate={false}
+                      onChange={[Function]}
+                      type="checkbox"
+                      value="1"
                     />
-                  </svg>
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root"
+                  />
                 </span>
                 <span
-                  className="MuiTouchRipple-root"
-                />
-              </span>
-              <span
-                className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                  className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                >
+                  Show Access codes
+                </span>
+              </label>
+              <div
+                className="icon"
+                onClick={[Function]}
               >
-                Show Access codes
-              </span>
-            </label>
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  color="#f00"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              className="childnode"
+            >
+              <label
+                className="MuiFormControlLabel-root"
+              >
+                <span
+                  aria-disabled={false}
+                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                  onBlur={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={null}
+                >
+                  <span
+                    className="MuiIconButton-label"
+                  >
+                    <input
+                      checked={false}
+                      className="PrivateSwitchBase-input-15"
+                      data-indeterminate={false}
+                      onChange={[Function]}
+                      type="checkbox"
+                      value="1"
+                    />
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root"
+                  />
+                </span>
+                <span
+                  className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                >
+                  Hide force icons in channels
+                </span>
+              </label>
+              <div
+                className="icon"
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  color="#f00"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
           <div>
             <button
