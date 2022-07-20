@@ -11,14 +11,16 @@ import ChatMessage from '../../molecules/chat-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { formatTurn } from '@serge/helpers'
 /* Render component */
-export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, names, onMarkAllAsRead, isUmpire, 
-  playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel }: PropTypes) => {
+export const ChatMessagesList: React.FC<PropTypes> = ({
+  messages, icons, colors, names, onMarkAllAsRead, isUmpire,
+  playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel
+}: PropTypes) => {
   // cast messages, for type-checking
   const cMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
   const height = chatContainerHeight || 280
   return (
     <div>
-      { 
+      {
         !hideForcesInChannel &&
         <Box mb={2} ml={2} mr={3}>
           <ForcesInChannel messages={messages} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
