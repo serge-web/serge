@@ -72,7 +72,6 @@ const Template: Story<TurnPropTypes> = (args) => {
       currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
     })
   }
-  console.log('phase 1', props.phase, state.phase)
   return <TurnProgression
     {...props}
     onNextTurn={updateState}
