@@ -124,6 +124,7 @@
 }
 
 .message-feed {
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -131,7 +132,6 @@
   max-height: 100vh;
   overflow: hidden;
   position: relative;
-  align-items: center;
 
   /* stylelint-disable */
   /* ignores js rendered class name */
@@ -377,10 +377,10 @@
     }
 
     .message-status-icon {
-      width: 100%;
       display: flex;
       justify-content: center;
       margin-bottom: 5px;
+      width: 100%;
     }
 
     .feedback-marker {
@@ -558,18 +558,18 @@
   }
 
   .message-group-button {
-    width: 70%;
     display: flex;
     justify-content: space-evenly;
+    width: 70%;
   }
 }
 
 .contain-game-insights,
 .contain-game-admin {
-  display: flex;
-  flex-direction: column;
   border: 1px solid #d1d1d1;
   box-shadow: 1px 1px 5px 1px #9b9b9b;
+  display: flex;
+  flex-direction: column;
 }
 
 .new-message-creator {
