@@ -1,5 +1,6 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
+import { withKnobs } from '@storybook/addon-knobs'
 
 import { ChatMessagesMock, InfoMessagesMock } from '@serge/mocks'
 import Props from './types/props'
@@ -12,7 +13,7 @@ import docs from './README.md'
 export default {
   title: 'local/organisms/ChatMessagesList',
   component: ChatMessagesList,
-  decorators: [],
+  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story
@@ -25,6 +26,9 @@ export default {
   argTypes: {
     isUmpire: {
       description: 'Player from umpire force'
+    },
+    hideForcesInChannel: {
+      description: 'Whether to hide forces in channel'
     },
     playerForce: {
       description: 'Force the player belongs to',
@@ -62,7 +66,7 @@ const Template: Story<Props> = (args) => {
   const names = [
     'Blue'
   ]
-  const { playerForce, isUmpire } = args
+  const { playerForce, isUmpire, hideForcesInChannel } = args
   return <ChatMessagesList
     messages={messages}
     icons={icons}
@@ -71,11 +75,13 @@ const Template: Story<Props> = (args) => {
     isUmpire={isUmpire}
     colors={colors}
     names={names}
+    hideForcesInChannel={hideForcesInChannel}
   />
 }
 
 export const Demonstration = Template
 Demonstration.args = {
   isUmpire: true,
-  playerForce: force.name
+  playerForce: force.name,
+  hideForcesInChannel: false
 }
