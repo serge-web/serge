@@ -41,7 +41,7 @@ describe('ChatMessagesList renders correctly', () => {
       _id: '2020-09-18T05:41:17.349Z'
     }]
     const tree = renderer
-      .create(<ChatMessagesList isUmpire={true} names={names} playerRole={'r345'} playerForce={'Blue'} messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<ChatMessagesList hideForcesInChannel={false} isUmpire={true} names={names} playerRole={'r345'} playerForce={'Blue'} messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
