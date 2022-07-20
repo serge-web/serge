@@ -1,16 +1,15 @@
-import Divider from '@material-ui/core/Divider';
-import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config';
-import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import Divider from '@material-ui/core/Divider'
+import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
+import classNames from 'classnames'
+import React, { useEffect, useState } from 'react'
 /* Import Types */
-import cx from 'classnames';
-import momenttz from 'moment-timezone';
-import Props from './types/props';
+import momenttz from 'moment-timezone'
+import Props from './types/props'
 import { Box, Button, styled } from '@material-ui/core'
 
 /* Import Stylesheet */
-import { formatFullDate, formatTurn } from '@serge/helpers';
-import styles from './styles.module.scss';
+import { formatFullDate, formatTurn } from '@serge/helpers'
+import styles from './styles.module.scss'
 
 const GameControl = styled(Button)({
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
@@ -132,24 +131,24 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     >
       <div className={styles['turn-info-phase']}>
         <div className={styles['turn-phase-group']}>
-          <div className={styles['turn']}>
+          <div className={styles.turn}>
             <h5>Turn</h5>
             <h5>{formatTurn(currentTurn, turnPresentation)}</h5>
           </div>
-          <Divider orientation="vertical" className={styles['divider']} />
+          <Divider orientation="vertical" className={styles.divider} />
           <div className={styles.phase}>
             <h5>Phase</h5>
-            <h5 className={cx({ [styles.highlight]: phase === 'adjudication' })}>Adjudication</h5>
-            <h5 className={cx({ [styles.highlight]: phase === 'planning' })}>Planning</h5>
+            <h5 className={classNames({ [styles.highlight]: phase === 'adjudication' })}>Adjudication</h5>
+            <h5 className={classNames({ [styles.highlight]: phase === 'planning' })}>Planning</h5>
           </div>
         </div>
         {
-          isGameControl && 
+          isGameControl &&
           <Box ml={4} mt={1} mb={1}>
-            <GameControl onClick={(e) => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
+            <GameControl onClick={(e): void => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
           </Box>
         }
-        <time dateTime={formatFullDate(gameDate)} className={styles['time']}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
+        <time dateTime={formatFullDate(gameDate)} className={styles.time}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
       {
         showTimeRemaining &&
