@@ -64,7 +64,7 @@ export const collateEditorData = (values: AttributeValues, types: AttributeTypes
       if (!aType) {
         throw new Error('Failed to find attribute type for ' + value.attrId)
       }
-      const name = (aType && aType.name) || 'unknown'
+      const name = aType.name || 'unknown'
       const nameField = nameFor(aType)
       return {
         nameRead: name + ': ',
@@ -73,8 +73,8 @@ export const collateEditorData = (values: AttributeValues, types: AttributeTypes
         valueRead: value.attrType === ATTRIBUTE_VALUE_NUMBER ? formatNumber(value, aType, true) : formatEnum(value),
         valueWrite: value.attrType === ATTRIBUTE_VALUE_NUMBER ? formatNumber(value, aType, false) : formatEnum(value),
         valueType: value.attrType,
-        description: aType && aType.description,
-        playerCanEdit: (aType && aType.editableByPlayer) ? aType.editableByPlayer : false
+        description: aType.description,
+        playerCanEdit: aType.editableByPlayer ? aType.editableByPlayer : false
       }
     })
   } else {
