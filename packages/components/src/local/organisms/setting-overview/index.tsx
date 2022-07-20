@@ -12,6 +12,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import Flatpickr from 'react-flatpickr'
 /* Import Components */
 import MaskedInput from 'react-maskedinput'
+import MoreInfo from '../../molecules/more-info'
 import Button from '../../atoms/button'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
@@ -290,7 +291,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
           <div className={styles.hidden}><Input/></div>
           <div>
-            <FormControlLabel
+          <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
               control={
                 <Checkbox
                   checked={initialOverview.showAccessCodes}
@@ -300,8 +301,8 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 />
               }
               label="Show Access codes"
-            />
-            <FormControlLabel
+            /></MoreInfo>
+            <MoreInfo description='Hide icons for which forces are in a channel, allowing one force to "snoop" on another'><FormControlLabel
               control={
                 <Checkbox
                   checked={!!initialOverview.hideForcesInChannels}
@@ -311,7 +312,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 />
               }
               label="Hide force icons in channels"
-            />
+            /></MoreInfo>
           </div>
           <div>
             <>{
