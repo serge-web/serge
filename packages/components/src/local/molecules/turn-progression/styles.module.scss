@@ -68,6 +68,12 @@
 }
 
 .phase {
+
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  min-width: 142px;
   h5 {
     font-size: 14px;
     font-weight: 400;
@@ -85,15 +91,14 @@
     font-size: 20px !important;
     opacity: 1 !important;
   }
+}
+
+.turn {
 
   display: flex;
   flex-direction: column;
   padding: 10px;
   align-items: center;
-  min-width: 142px;
-}
-
-.turn {
   h5 {
     font-size: 14px;
     font-weight: 400;
@@ -104,18 +109,13 @@
       font-size: 35px;
     }
   }
-
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  align-items: center;
 }
 
 .divider {
-  background-color: white !important;
+  background-color: #fff !important;
   height: auto !important;
   width: 2px !important;
-  margin: 10px 0 10px 0 !important;
+  margin: 10px 0 !important;
 }
 
 .time {
