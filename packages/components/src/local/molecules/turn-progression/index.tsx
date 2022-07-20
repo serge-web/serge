@@ -6,10 +6,21 @@ import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import momenttz from 'moment-timezone';
 import Props from './types/props';
+import { Button, styled } from '@material-ui/core'
 
 /* Import Stylesheet */
 import { formatFullDate, formatTurn } from '@serge/helpers';
 import styles from './styles.module.scss';
+
+const GameControl = styled(Button)({
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+  transition: 'box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+  backgroundColor: '#1965d8',
+  borderRadius: '2px',
+  '&:hover': {
+    boxShadow: 'none'
+  }
+})
 
 /* Render component */
 export const TurnProgression: React.FC<Props> = (props: Props) => {
@@ -22,6 +33,8 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     phase,
     gameDate,
     wargameInitiated,
+    onNextTurn,
+    isGameControl
   } = props
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
@@ -100,6 +113,10 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   const warningStyle = progressionState.warning ? styles.warning : null
   const endedStyle = progressionState.ended ? styles.ended : null
 
+  const onClickHandler = (e: any): void => {
+    onNextTurn && onNextTurn(e)
+  }
+
   // TODO: this should come from the new turn attributes in game overview,
   // to be implemented in https://github.com/serge-web/serge/issues/954
   const showTimeRemaining = false
@@ -126,6 +143,10 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             <h5 className={cx({ [styles.highlight]: phase === 'planning' })}>Planning</h5>
           </div>
         </div>
+        {
+          isGameControl && 
+            <GameControl onClick={(e) => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
+        }
         <time dateTime={formatFullDate(gameDate)} className={styles['time']}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
       {
