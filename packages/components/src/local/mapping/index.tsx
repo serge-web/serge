@@ -127,6 +127,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showAddInfo, setShowAddInfo] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
   const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
+  const [lastAtlanticCells, setLastAtlanticCells] = useState<GeoJSON.FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
@@ -142,17 +143,24 @@ export const Mapping: React.FC<PropTypes> = ({
       const ne = conBounds[0]
       const sw = conBounds[1]
       const newBounds = L.latLngBounds(ne, sw)
-      if (mapBounds !== undefined) {
-        if (mapBounds.equals(newBounds)) {
-          // no change - do nothing
-        } else {
-          setMapBounds(newBounds)
-        }
-      } else {
+      const atlanticMissing = atlanticCells && !lastAtlanticCells
+      const altanticChanged = atlanticCells && lastAtlanticCells && lastAtlanticCells.features.length !== atlanticCells.features.length
+      const atlanticUpdate = atlanticMissing || altanticChanged
+      const boundsChanged = mapBounds === undefined || !mapBounds.equals(newBounds)
+      if (boundsChanged || atlanticUpdate) {
+        setLastAtlanticCells(atlanticCells)
+        // bounds has changed, or atlantic cells are present
         setMapBounds(newBounds)
+        const resolution = mappingConstraintState.h3res || 3
+        const cells = createGridH3(newBounds, resolution, atlanticCells)
+        // check if we need to update, to reduce re-renders
+        if ((cells.length !== h3gridCells.length || atlanticUpdate)) {
+          setH3Resolution(resolution)
+          setH3gridCells(cells)
+        }
       }
     }
-  }, [mappingConstraintState])
+  }, [mappingConstraintState, atlanticCells])
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -345,7 +353,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraintState])
 
   useEffect(() => {
-    if (mappingConstraintState && mappingConstraintState.polygonAreasURL) {
+    if (mappingConstraintState && mappingConstraintState.polygonAreasURL && !polygonAreas) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraintState.polygonAreasURL
       fetchMethod(url)
@@ -357,19 +365,6 @@ export const Mapping: React.FC<PropTypes> = ({
         })
     }
   }, [mappingConstraintState])
-
-  useEffect(() => {
-    if (mapBounds && mappingConstraintState) {
-      // now the h3 handler
-      const resolution = mappingConstraintState.h3res || 3
-      const cells = createGridH3(mapBounds, resolution, atlanticCells)
-      // check if we need to update, to reduce re-renders
-      if ((cells.length !== h3gridCells.length) || atlanticCells) {
-        setH3Resolution(resolution)
-        setH3gridCells(cells)
-      }
-    }
-  }, [mapBounds, atlanticCells])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {

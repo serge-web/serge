@@ -75,7 +75,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     dispatch(openMessage(channelId, detail))
   }
 
-  const handleUnreadMessage = (message: MessageChannel): void => {
+  const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
     }

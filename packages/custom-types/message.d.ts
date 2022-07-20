@@ -171,6 +171,8 @@ export interface MessageCounter {
 export interface ChatMessage extends CoreMessage {
   readonly messageType: typeof CHAT_MESSAGE,
   message: MessageStructure
+  /** whether this message has been read on the current client */
+  hasBeenRead?: boolean
 }
 
 export interface MessageFeedback extends CoreMessage {

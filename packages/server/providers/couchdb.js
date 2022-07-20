@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
+const { wargameSettings, COUNTER_MESSAGE, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -169,13 +169,33 @@ const couchDb = (app, io, pouchOptions) => {
 
     remoteDb.allDocs({ include_docs: true, attachments: true })
       .then(result => {
-        const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
-          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
-          return messages
-        }, [])
+        // unpack the documents
+        const docs = result.rows.map((item) => item.doc)
+        // drop wargame & info messages
+        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
+        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
         res.send({ msg: 'ok', data: messages })
       }).catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/last', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        messageType: INFO_MESSAGE,
+        _id: { $ne: wargameSettings }
+      },
+      limit: 1,
+      sort: [{ _id: 'desc' }]
+    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+      .catch(() => res.send([]))
   })
 
   // get document for wargame
