@@ -64,6 +64,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const names = state.channels[channelId].forceNames || []
   const isUmpire = state.selectedForce && state.selectedForce.umpire
   const observing = !!state.channels[channelId].observing
+  const hideForcesInChannel = !!state.hideForcesInChannels
 
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
@@ -74,7 +75,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     dispatch(openMessage(channelId, detail))
   }
 
-  const handleUnreadMessage = (message: MessageChannel): void => {
+  const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
@@ -96,6 +97,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             onMarkAllAsRead={markAllAsReadLocal}
             turnPresentation={state.turnPresentation}
             onUnread={handleUnreadMessage}
+            hideForcesInChannel={hideForcesInChannel}
           />
           : <ChatMessagesList
             messages={messages || []}
@@ -110,6 +112,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             chatContainerHeight={chatContainerHeight}
             observing={observing}
             markUnread={handleUnreadMessage}
+            hideForcesInChannel={hideForcesInChannel}
           />
       }
       {

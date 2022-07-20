@@ -857,7 +857,7 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
-    {false && // don't plot the polys from legacy data
+    {true && // don't plot the polys from legacy data
       <LayerGroup key='polygon_outlines'>
         {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
           <Polygon

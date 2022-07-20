@@ -15,9 +15,10 @@ import MaskedInput from 'react-maskedinput'
 import Button from '../../atoms/button'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
+import MoreInfo from '../../molecules/more-info'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
-import { toMasked, fromMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
+import { fromMasked, toMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -113,6 +114,12 @@ export const SettingOverview: React.FC<PropTypes> = ({
       ...overview,
       gameDescription: target.value
     }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
+  const updateHideForcesVisibility = (): void => {
+    const updates = { ...overview, hideForcesInChannels: !overview.hideForcesInChannels }
     setOverview(updates)
     setDirty(updates)
   }
@@ -284,7 +291,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
           <div className={styles.hidden}><Input/></div>
           <div>
-            <FormControlLabel
+            <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
               control={
                 <Checkbox
                   checked={initialOverview.showAccessCodes}
@@ -294,7 +301,18 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 />
               }
               label="Show Access codes"
-            />
+            /></MoreInfo>
+            <MoreInfo description='Hide icons for which forces are in a channel, allowing one force to "snoop" on another'><FormControlLabel
+              control={
+                <Checkbox
+                  checked={!!initialOverview.hideForcesInChannels}
+                  onChange={updateHideForcesVisibility}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Hide force icons in channels"
+            /></MoreInfo>
           </div>
           <div>
             <>{

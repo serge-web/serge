@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react/types-6-0'
+import { withKnobs } from '@storybook/addon-knobs'
 
 // Import component files
 import MessageListPropTypes from './types/props'
@@ -14,12 +15,8 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/organisms/ChannelMessagesList',
   component: ChannelMessagesList,
-  decorators: [wrapper],
+  decorators: [withKnobs, wrapper],
   parameters: {
-    options: {
-      // No addons are used in this story so don't show the addon panel
-      showPanel: false
-    },
     readme: {
       // Show readme before story
       content: docs
@@ -28,6 +25,9 @@ export default {
   argTypes: {
     isRFIManager: {
       description: 'Whether current player is RFI manager'
+    },
+    hideForcesInChannel: {
+      description: 'Whether to hide forces in channel'
     },
     playerForceId: {
       name: 'Player force',
@@ -45,7 +45,7 @@ export default {
 }
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId } = args
+  const { messages, playerForceId, hideForcesInChannel } = args
   const icons = [
     './images/default_img/forceDefault.png'
   ]
@@ -83,17 +83,20 @@ const Template: Story<MessageListPropTypes> = (args) => {
     onRead={onRead}
     isUmpire={true}
     role={'Comms'}
+    hideForcesInChannel={hideForcesInChannel}
   />
 }
 
 export const LocalTest = Template.bind({})
 LocalTest.args = {
   messages: [],
-  playerForceId: 'Blue'
+  playerForceId: 'Blue',
+  hideForcesInChannel: true
 }
 
 export const RFITest = Template.bind({})
 RFITest.args = {
   messages: GameMessagesMockRFI as unknown as MessageChannel[],
-  playerForceId: 'Blue'
+  playerForceId: 'Blue',
+  hideForcesInChannel: false
 }

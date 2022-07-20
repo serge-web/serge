@@ -3,8 +3,8 @@
 interface CssExports {
   'force-indicator': string;
   'forces-in-channel': string;
-  'role-icon': string;
   'mark-all-read': string;
+  'role-icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

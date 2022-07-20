@@ -5,7 +5,8 @@ import {
   MessageCustom,
   MessageInfoType,
   SetWargameMessage,
-  Wargame
+  Wargame,
+  ChatMessage
 } from '@serge/custom-types'
 import {
   handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
@@ -98,7 +99,7 @@ const closeMessageChange = (message: MessageChannel, id: string): { message: Mes
   return { message, changed }
 }
 
-export const markUnread = (channel: string, message: MessageChannel, newState: PlayerUi) => {
+export const markUnread = (channel: string, message: MessageChannel | ChatMessage, newState: PlayerUi) => {
   if (!message._id) {
     return {
       ...newState.channels[channel],

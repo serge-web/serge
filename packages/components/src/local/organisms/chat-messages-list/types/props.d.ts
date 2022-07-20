@@ -23,4 +23,6 @@ export default interface PropTypes extends ForcesInChannelProps {
 
   observing?: boolean
   markUnread?: (message: ChatMessage) => void
+  /** whether to hide the forces block for this channel */
+  hideForcesInChannel: boolean
 }

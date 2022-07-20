@@ -1,5 +1,5 @@
 /* Import Components */
-import { faCogs, faList, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
+import { faCogs, faList, faRuler, faUserCog, faAtom } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FormControl from '@material-ui/core/FormControl'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -59,17 +59,20 @@ const useStyles = makeStyles({
     width: '80px',
     marginLeft: 10
   },
+  defaultValue: {
+    width: '80px'
+  },
   format: {
     width: '80px'
   },
   description: {
-    width: '380px'
+    width: '280px'
   }
 })
 
 /* Render component */
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, onDuplicate, iconUploadUrl }) => {
-  const { description, format, underline, units } = useStyles()
+  const { description, format, underline, units, defaultValue } = useStyles()
   const newPlatformType: PlatformType = {
     dirty: false,
     name: 'Platform Mock',
@@ -138,9 +141,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const attrype = item as NumberAttributeType
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
-    const onFieldChange = (field: 'units' | 'format' | 'description', value: string): void => {
+    const onFieldChange = (field: 'units' | 'format' | 'description' | 'defaultValue', value: string): void => {
       if (!data.attributeTypes) { return }
-      data.attributeTypes[key][field] = value
+      data.attributeTypes[key][field] = value as any
       handleChangePlatformTypeData(data, selectedItem)
     }
 
@@ -149,6 +152,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
         <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
         <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
         <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
       </div>
     )
@@ -390,6 +394,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
                   <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
                   <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                  <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
                   <span><MoreInfo description='Number display format (e.g. 0.00, optional)'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
                 </div>
               </div>
