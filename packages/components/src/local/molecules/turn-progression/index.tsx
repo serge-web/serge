@@ -126,7 +126,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             <h5 className={cx({ [styles.highlight]: phase === 'planning' })}>Planning</h5>
           </div>
         </div>
-        <time dateTime={formatFullDate(gameDate)} className={styles['time']}>{momenttz(gameDate).utc().format('HH:mm-DD/MM/YYYY')}</time>
+        <time dateTime={formatFullDate(gameDate)} className={styles['time']}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
       {
         showTimeRemaining &&
