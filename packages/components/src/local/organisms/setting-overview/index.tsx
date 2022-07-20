@@ -117,6 +117,12 @@ export const SettingOverview: React.FC<PropTypes> = ({
     setDirty(updates)
   }
 
+  const updateHideForcesVisibility = (): void => {
+    const updates = { ...overview, hideForcesInChannels: !overview.hideForcesInChannels }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const updateAccessCodeVisibility = (): void => {
     const updates = { ...overview, showAccessCodes: !overview.showAccessCodes }
     setOverview(updates)
@@ -294,6 +300,17 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 />
               }
               label="Show Access codes"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!!initialOverview.hideForcesInChannels}
+                  onChange={updateHideForcesVisibility}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Hide force icons in channels"
             />
           </div>
           <div>
