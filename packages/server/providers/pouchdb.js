@@ -143,7 +143,13 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     const db = new PouchDB(databaseName, pouchOptions)
-
+    // NOTE: if we end up with a performance problem from the "reverse sort" processing
+    // NOTE: here is a suggested alternate strategy:
+    // NOTE: for each "new wargame" we push two documents: the wargame with date-time id
+    // NOTE: "and" one with a fixed id "settings"
+    // NOTE: So, when calling 'last' we first try to retrieve "settings", if it's not there
+    // NOTE: then we do reverse-sort to find the latest one.
+    // NOTE: If we do "wind-back" of wargame, delete "settings"
     db.find({
       selector: {
         messageType: INFO_MESSAGE,
