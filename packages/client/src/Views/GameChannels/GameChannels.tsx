@@ -1,6 +1,5 @@
 import { faAddressBook, faBookOpen, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, Button, styled } from '@material-ui/core'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import classNames from 'classnames'
 import { TabNode } from 'flexlayout-react'
@@ -20,16 +19,6 @@ import PlayerLog from '../PlayerLog'
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
 }
-
-const GameControl = styled(Button)({
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-  transition: 'box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-  backgroundColor: '#415b76',
-  borderRadius: '2px',
-  '&:hover': {
-    boxShadow: 'none'
-  }
-})
 
 const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.ReactElement => {
   const {
@@ -107,8 +96,10 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         gameDate={gameDate}
         phase={phase}
         timeWarning={timeWarning}
+        isGameControl={isGameControl}
         turnEndTime={`${turnEndTime}`}
         wargameInitiated={wargameInitiated}
+        onNextTurn={nextGameTurn(currentWargame)}
       />
 
       <div className='message-group-button'>
@@ -124,16 +115,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
           </span>
         }
       </div>
-      {
-        isGameControl && (
-          <Box mt={1} mb={1}>
-            <GameControl onClick={() => { nextGameTurn(currentWargame)() }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
-          </Box>
-        )
-      }
-
       <AdminAndInsightsTabsContainer />
-
       {showObjective && <ForceObjective
         force={selectedForce}
         selectedRole={selectedRoleName}
