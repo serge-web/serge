@@ -291,7 +291,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
           <div className={styles.hidden}><Input/></div>
           <div>
-          <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
+            <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
               control={
                 <Checkbox
                   checked={initialOverview.showAccessCodes}
