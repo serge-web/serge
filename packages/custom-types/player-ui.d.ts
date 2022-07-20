@@ -80,4 +80,6 @@ export default interface PlayerUi {
   playerMessageLog: PlayerMessageLog
   /** mapping constraints */
   mappingConstraints?: MappingConstraints
+  /** whether to hide force memberships in channels */
+  hideForcesInChannels?: boolean
 }
