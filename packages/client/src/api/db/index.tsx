@@ -4,10 +4,9 @@ import {
   socketPath,
   replicate,
   deletePath,
-  wargameSettings,
-  settings
+  wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame } from '@serge/custom-types'
 import { io } from 'socket.io-client'
 import {
   ProviderDbInterface,
@@ -33,8 +32,8 @@ export class DbProvider implements DbProviderInterface {
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
     const listenerMessage = (data: MessageCustom) => {
-      // we use two special names for the wargame document
-      const specialFiles = [wargameSettings, settings]
+      // we use a special name for the wargame document
+      const specialFiles = [wargameSettings]
       // have we just received this message?
       if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
         // yes - stop listening on this socket
@@ -95,6 +94,18 @@ export class DbProvider implements DbProviderInterface {
           const { msg, data } = res
           // @ts-ignore
           if (msg === 'ok') resolve(data[0] && data[0].docs ? data[0].docs : data as Message[])
+          else reject(msg)
+        })
+    })
+  }
+
+  lastWargame (): Promise<MessageInfoType> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + 'last')
+        .then(res => res.json() as Promise<FetchData>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data[0])
           else reject(msg)
         })
     })

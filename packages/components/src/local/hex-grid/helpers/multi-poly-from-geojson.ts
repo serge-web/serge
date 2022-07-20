@@ -1,6 +1,7 @@
 import { Terrain } from '@serge/config'
 import { FeatureCollection, Feature, MultiPolygon } from 'geojson'
 import L from 'leaflet'
+import { isArray } from 'lodash'
 import typeFor, { TerrainType } from '../../mapping/helpers/create-grid-from-geojson'
 
 export interface TerrainPolygons {
@@ -33,10 +34,15 @@ const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
       terrain: terrain,
       data: multiPoly.coordinates.map((level1: number[][][]): L.LatLngTuple[][] => {
         return level1.map((level2: number[][]): L.LatLngTuple[] => {
-          return level2.map((level3: number[]): L.LatLngTuple => {
+          if (isArray(level2) && isArray(level2[0])) {
+            return level2.map((level3: number[]): L.LatLngTuple => {
+              // note: need to swap GeoJSON lon/lat to Leaflet lat/lon
+              return [level3[1], level3[0]]
+            })
+          } else {
             // note: need to swap GeoJSON lon/lat to Leaflet lat/lon
-            return [level3[1], level3[0]]
-          })
+            return [level2[1], level2[0]] as L.LatLngTuple[]
+          }
         })
       })
     }
