@@ -89,7 +89,9 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
         }
 
         // we can only do this for assets with a position
-        if (asset.position) {
+        if (!asset.position) {
+          console.warn('Not creating route for ' + asset.name + ' - position missing')
+        } else {
           // see if there is an existing planned route for this asset
           const existingRouteBase: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
 
