@@ -123,11 +123,14 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
     const fixedLocationHandler = (event: ChangeEvent<HTMLInputElement>): void => {
       const currentValue = event.target.value.toUpperCase()
-      const regex = /^[a-zA-Z]{0,2}\d{0,2}$/
-      if (regex.test(currentValue)) {
-        setFixedLocationValue(currentValue)
-        selectedAssetItem.position = currentValue
-      }
+      // TODO: fix regex, so it takes 16 digit h3 index number
+      // const regex = /^[0-9a-f]{16}$/
+      // if (regex.test(currentValue)) {
+      // } else {
+      //   console.warn('failed regex')
+      // }
+      selectedAssetItem.position = currentValue
+      setFixedLocationValue(currentValue)
       onChangeHandler(selectedForce)
     }
     const handleChangeAssetName = (event: ChangeEvent<HTMLInputElement>): void => {
