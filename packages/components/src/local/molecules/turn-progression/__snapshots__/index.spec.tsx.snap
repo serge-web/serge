@@ -46,7 +46,7 @@ exports[`TurnProgression component: renders correctly 1`] = `
       className="time"
       dateTime="2019-10-01 01:02"
     >
-      01:02-01/10/2019
+      2019-10-01 01:02
     </time>
   </div>
 </div>
