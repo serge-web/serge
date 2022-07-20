@@ -144,7 +144,6 @@ export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 /** name of the document used to store the initial wargame definition */
 export const wargameSettings = 'initial_wargame'
-export const settings = 'settings'
 // default name for role name
 export const NEW_ROLE = 'New Role'
 
