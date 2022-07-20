@@ -12,13 +12,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import Flatpickr from 'react-flatpickr'
 /* Import Components */
 import MaskedInput from 'react-maskedinput'
-import MoreInfo from '../../molecules/more-info'
 import Button from '../../atoms/button'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
+import MoreInfo from '../../molecules/more-info'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
-import { toMasked, fromMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
+import { fromMasked, toMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
 
 /* Import Styles */
 import styles from './styles.module.scss'
