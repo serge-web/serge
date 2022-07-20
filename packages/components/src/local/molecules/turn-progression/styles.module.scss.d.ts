@@ -5,6 +5,7 @@ interface CssExports {
   'blink': string;
   'ended': string;
   'flex-content-wrapper': string;
+  'highlight': string;
   'info-helper': string;
   'info-phase-label': string;
   'not-initiated': string;

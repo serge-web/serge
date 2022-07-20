@@ -72,17 +72,18 @@
     font-size: 14px;
     font-weight: 400;
     margin: 0;
+  }
 
-    &:nth-child(2) {
-      font-weight: 600;
-      font-size: 20px;
-    }
+  .highlight {
+    font-weight: 600;
+    font-size: 20px;
   }
 
   display: flex;
   flex-direction: column;
   padding: 10px;
   align-items: center;
+  min-width: 142px;
 }
 
 .turn {
