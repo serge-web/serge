@@ -1,5 +1,5 @@
 /* Import Components */
-import { faCogs, faList, faRuler, faUserCog, faAtom } from '@fortawesome/free-solid-svg-icons'
+import { faAtom, faCogs, faList, faFileAlt, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FormControl from '@material-ui/core/FormControl'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -445,7 +445,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   <div style={{ minWidth: 30 }}></div>
                   <div className={styles['number-attribute-header-icon']}>
                     <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
-                    <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                    <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faFileAlt} /></MoreInfo></span>
                     <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
                     <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
                     <span><MoreInfo description='Number display format (e.g. 0.00, optional)'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
@@ -467,8 +467,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   <div style={{ minWidth: 30 }}></div>
                   <div className={styles['enum-attribute-header-icon']}>
                     <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
-                    <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
-                    <span><MoreInfo description='Possible values for attribute'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
+                    <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faFileAlt} /></MoreInfo></span>
+                    <span><MoreInfo description='Possible values for attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
                     <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
                   </div>
                 </div>
