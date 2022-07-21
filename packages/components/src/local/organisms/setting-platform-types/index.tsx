@@ -13,7 +13,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
-import { ATTRIBUTE_TYPE_NUMBER } from '@serge/config'
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER } from '@serge/config'
 import { AttributeType, AttributeTypes, NumberAttributeType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import cx from 'classnames'
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
@@ -67,12 +67,15 @@ const useStyles = makeStyles({
   },
   description: {
     width: '280px'
+  },
+  choices: {
+    width: '160px'
   }
 })
 
 /* Render component */
 export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, onDelete, onDuplicate, iconUploadUrl }) => {
-  const { description, format, underline, units, defaultValue } = useStyles()
+  const { description, choices, format, underline, units, defaultValue } = useStyles()
   const newPlatformType: PlatformType = {
     dirty: false,
     name: 'Platform Mock',
@@ -137,7 +140,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     handleChangePlatformTypeData({ ...data, attributeTypes: newAttributes }, selectedItem)
   }
 
-  const renderAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
+  const renderNumberAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
     const attrype = item as NumberAttributeType
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
@@ -150,10 +153,30 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     return (
       <div className={styles.mobile}>
         <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
-        <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
         <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
         <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
         <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
+      </div>
+    )
+  }
+
+  const renderEnumAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
+    const attrype = item as NumberAttributeType
+    const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
+
+    const onFieldChange = (field: 'units' | 'format' | 'description' | 'defaultValue', value: string): void => {
+      if (!data.attributeTypes) { return }
+      data.attributeTypes[key][field] = value as any
+      handleChangePlatformTypeData(data, selectedItem)
+    }
+
+    return (
+      <div className={styles.mobile}>
+        <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
+        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder='choices' className={choices} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
       </div>
     )
   }
@@ -197,7 +220,16 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
     const handleChangeAttributes = (attributeTypes: Array<SortableListItem>): void => {
-      handleChangePlatformTypeData({ ...data, attributeTypes: attributeTypes as AttributeTypes }, selectedItem)
+      console.log('attr', attributeTypes)
+      // combine the two sets of attributes
+      if (attributeTypes.length ) {
+        const asAttr = attributeTypes as AttributeTypes
+        const firstA = asAttr[0] 
+        const aType = firstA.attrType
+        const items = data.attributeTypes ? data.attributeTypes.filter((attr) => attr.attrType !== aType) : []
+        const newList = items.concat(asAttr)
+        handleChangePlatformTypeData({ ...data, attributeTypes: newList as AttributeTypes }, selectedItem)
+      }
     }
     const handleChangeIcon = (icon: string): void => {
       handleChangePlatformTypeData({ ...data, icon }, selectedItem)
@@ -216,13 +248,27 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, states }, selectedItem)
     }
 
-    const handleCreateAttributes = (): void => {
+    const handleCreateAttributes = (aType: typeof ATTRIBUTE_TYPE_NUMBER | typeof ATTRIBUTE_TYPE_ENUM): void => {
       const baseData = data.attributeTypes || []
-      const attributeTypes: AttributeTypes = [...baseData, {
-        name: 'New Attribute',
-        attrType: ATTRIBUTE_TYPE_NUMBER,
-        attrId: 'attr' + uniqid.time()
-      }]
+      const genAttr = (aType: typeof ATTRIBUTE_TYPE_NUMBER | typeof ATTRIBUTE_TYPE_ENUM): AttributeType => {
+        switch (aType) {
+          case ATTRIBUTE_TYPE_NUMBER: 
+            return {
+              name: 'New number',
+              attrType: ATTRIBUTE_TYPE_NUMBER,
+              attrId: 'attr' + uniqid.time()
+            }
+            case ATTRIBUTE_TYPE_ENUM: 
+            return {
+              name: 'New enum',
+              attrType: ATTRIBUTE_TYPE_ENUM,
+              attrId: 'attr' + uniqid.time(),
+              values: []
+            }
+        }
+      }
+      const newA = genAttr(aType)
+      const attributeTypes: AttributeTypes = [...baseData, newA]
       handleChangePlatformTypeData({ ...data, attributeTypes }, selectedItem)
     }
 
@@ -387,26 +433,49 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder='Attributes'>
-              <div className={styles['attribute-header']}>
-                <div style={{ minWidth: '25%' }}></div>
-                <div style={{ minWidth: 30 }}></div>
-                <div className={styles['attribute-header-icon']}>
-                  <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
-                  <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
-                  <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
-                  <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
-                  <span><MoreInfo description='Number display format (e.g. 0.00, optional)'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
+              <FormGroup placeholder='Numeric'>
+                <div className={styles['attribute-header']}>
+                  <div style={{ minWidth: '25%' }}></div>
+                  <div style={{ minWidth: 30 }}></div>
+                  <div className={styles['number-attribute-header-icon']}>
+                    <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
+                    <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                    <span><MoreInfo description='Units for attribute (optional)'><FontAwesomeIcon size={'lg'} icon={faRuler} /></MoreInfo></span>
+                    <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
+                    <span><MoreInfo description='Number display format (e.g. 0.00, optional)'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
+                  </div>
                 </div>
-              </div>
-              <SortableList
-                required
-                sortable='auto'
-                remove={true}
-                onChange={handleChangeAttributes}
-                onCreate={handleCreateAttributes}
-                renderItemSection={renderAttributesSection}
-                items={data.attributeTypes || []}
-                title='Add Attribute' />
+                <SortableList
+                  required
+                  sortable='auto'
+                  remove={true}
+                  onChange={handleChangeAttributes}
+                  onCreate={() => handleCreateAttributes(ATTRIBUTE_TYPE_NUMBER)}
+                  renderItemSection={renderNumberAttributesSection}
+                  items={data.attributeTypes && data.attributeTypes.filter((attr) => attr.attrType === ATTRIBUTE_TYPE_NUMBER) || []}
+                  title='Add number attribute' />
+              </FormGroup>
+              <FormGroup placeholder='Enumerated'>
+                <div className={styles['attribute-header']}>
+                  <div style={{ minWidth: '25%' }}></div>
+                  <div style={{ minWidth: 30 }}></div>
+                  <div className={styles['enum-attribute-header-icon']}>
+                    <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
+                    <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                    <span><MoreInfo description='Possible values for attribute'><FontAwesomeIcon size={'lg'} icon={faCogs} /></MoreInfo></span>
+                    <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
+                  </div>
+                </div>
+                <SortableList
+                  required
+                  sortable='auto'
+                  remove={true}
+                  onChange={handleChangeAttributes}
+                  onCreate={() => handleCreateAttributes(ATTRIBUTE_TYPE_ENUM)}
+                  renderItemSection={renderEnumAttributesSection}
+                  items={data.attributeTypes && data.attributeTypes.filter((attr) => attr.attrType === ATTRIBUTE_TYPE_ENUM) || []}
+                  title='Add enum attribute' />
+              </FormGroup>
             </FormGroup>
           </div>
         </div>
