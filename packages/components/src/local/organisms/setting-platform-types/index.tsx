@@ -175,12 +175,12 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       myList[key][field] = value as any
       handleChangePlatformTypeData(data, selectedItem)
     }
-
+    const theValues = attrype.values.toString()
     return (
       <div className={styles.mobile}>
         <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
         <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder='choices' className={choices} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.values || ''} onChange={(e): void => onFieldChange('values', e.target.value)} />
+        <TextField placeholder='choices' className={choices} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={theValues || ''} onChange={(e): void => onFieldChange('values', e.target.value)} />
         <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
       </div>
     )
