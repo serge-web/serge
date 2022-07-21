@@ -139,7 +139,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     const aType = item.attrType
     const myAttrs = data.attributeTypes.filter((attr) => attr.attrType === aType)
     myAttrs[key].editableByPlayer = !item.editableByPlayer
-    const newAttributes: AttributeTypes = data.attributeTypes ? [...data.attributeTypes] : []
+    const newAttributes: AttributeTypes = [...data.attributeTypes]
     handleChangePlatformTypeData({ ...data, attributeTypes: newAttributes }, selectedItem)
   }
 
