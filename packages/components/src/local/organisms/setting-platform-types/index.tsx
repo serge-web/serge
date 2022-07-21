@@ -1,10 +1,12 @@
 /* Import Components */
 import { faAtom, faCogs, faList, faFileAlt, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { MenuItem } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
+import Select from '@material-ui/core/Select'
 import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
 import Table from '@material-ui/core/Table'
@@ -166,22 +168,48 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const renderEnumAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
-    const attrype = item as EnumAttributeType
+    const enumAttr = item as EnumAttributeType
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
     const onFieldChange = (field: 'values' | 'description' | 'defaultValue', value: string): void => {
       if (!data.attributeTypes) { return }
       const myList = data.attributeTypes.filter((attr: AttributeType) => attr.attrType === ATTRIBUTE_TYPE_ENUM)
-      myList[key][field] = value as any
+      if (field === 'values') {
+        const values = value.split(',')
+        // remove whitespace
+        const trimmedValues = values.map((item: string) => item.trim())
+        myList[key][field] = trimmedValues
+      } else {
+        myList[key][field] = value as any
+      }
       handleChangePlatformTypeData(data, selectedItem)
     }
-    const theValues = attrype.values.toString()
+
+    const selectHandler = (event: any, key: number): void => {
+      if (!data.attributeTypes) { return }
+      // retrieve the new value
+      const newValue: string = event.target && event.target.value
+      // get the relevant items
+      const myList = data.attributeTypes.filter((attr: AttributeType) => attr.attrType === ATTRIBUTE_TYPE_ENUM)
+      // store the value
+      myList[key].defaultValue = newValue
+      handleChangePlatformTypeData(data, selectedItem)
+    }
+
     return (
       <div className={styles.mobile}>
-        <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
-        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder='choices' className={choices} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={theValues || ''} onChange={(e): void => onFieldChange('values', e.target.value)} />
-        <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
+        <MobileSwitch size='medium' checked={enumAttr.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(enumAttr, key) }} />
+        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={enumAttr.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder='val1, val2' className={choices} inputProps={{ }} InputProps={{ className: underline }} value={enumAttr.values || ''} onChange={(e): void => onFieldChange('values', e.target.value)} />
+        <Select
+            value={enumAttr.defaultValue || ''}
+            disabled={false}
+            onChange={(data) => {selectHandler(data, key)}}
+          >
+            {enumAttr.values.map((s: string) => (
+              <MenuItem key={s} value={s}>{s}</MenuItem>
+            ))}
+          </Select>        
       </div>
     )
   }
