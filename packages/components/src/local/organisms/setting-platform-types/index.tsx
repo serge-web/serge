@@ -202,12 +202,12 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={enumAttr.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
         <TextField placeholder='val1, val2' className={choices} inputProps={{ }} InputProps={{ className: underline }} value={enumAttr.values || ''} onChange={(e): void => onFieldChange('values', e.target.value)} />
         <Select
-            value={enumAttr.defaultValue || ''}
+            value={(enumAttr.defaultValue && enumAttr.values.includes(enumAttr.defaultValue) && enumAttr.defaultValue) || ''}
             disabled={false}
             onChange={(data) => {selectHandler(data, key)}}
           >
-            {enumAttr.values.map((s: string) => (
-              <MenuItem key={s} value={s}>{s}</MenuItem>
+            {enumAttr.values.map((s: string, index: number) => (
+              <MenuItem key={index} value={s}>{s}</MenuItem>
             ))}
           </Select>        
       </div>
