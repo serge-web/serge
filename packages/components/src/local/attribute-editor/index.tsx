@@ -12,7 +12,7 @@ import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 import { MenuItem, Select } from '@material-ui/core'
 
 /* Render component */
-export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributes, onClose, onSave, inAdjudication }) => {
+export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
   const modalRef = useRef<ReactModal>(null)
 

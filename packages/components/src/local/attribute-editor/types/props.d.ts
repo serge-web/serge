@@ -10,7 +10,7 @@ export type Props = {
   /**
    * attribute type data
    */
-  attributes?: AttributeTypes
+  attributeTypes?: AttributeTypes
   /** whether the data is being edited in adjudication phase,
    * which means we can ignore the `playerCanEditData` value
    */

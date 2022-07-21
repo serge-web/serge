@@ -43,7 +43,7 @@ const attrValues = getValues(smallScaleForces)
 const attrData = collateEditorData(attrValues, attrTypes)
 
 export const Default: React.FunctionComponent = (): React.ReactElement =>
-  <AttributeEditor isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} attributes={attrTypes} data={attrData} />
+  <AttributeEditor isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} attributeTypes={attrTypes} data={attrData} />
 
 export const InAdjudication: React.FunctionComponent = (): React.ReactElement =>
-  <AttributeEditor inAdjudication={true} isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} attributes={attrTypes} data={attrData} />
+  <AttributeEditor inAdjudication={true} isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} attributeTypes={attrTypes} data={attrData} />

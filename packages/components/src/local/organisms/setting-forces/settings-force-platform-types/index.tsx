@@ -170,7 +170,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
     return <div className={styles['view-result-box']}>
       <AttributeEditor inAdjudication={inGameAdminPages} isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)}
-        onSave={setAttributeValues} attributes={attributeTypes} data={attributes} />
+        onSave={setAttributeValues} attributeTypes={attributeTypes} data={attributes} />
       <List dense={true}>
         <ListItem>
           <ListItemText>
