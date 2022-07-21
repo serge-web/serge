@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/styles'
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER } from '@serge/config'
-import { AttributeType, AttributeTypes, NumberAttributeType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
+import { AttributeType, AttributeTypes, EnumAttributeType, NumberAttributeType, PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 import cx from 'classnames'
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal'
@@ -135,8 +135,11 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
   const handleChangePlayerEditable = (item: AttributeType, key: number): void => {
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
+    if (!data.attributeTypes) { return }
+    const aType = item.attrType
+    const myAttrs = data.attributeTypes.filter((attr) => attr.attrType === aType)
+    myAttrs[key].editableByPlayer = !item.editableByPlayer
     const newAttributes: AttributeTypes = data.attributeTypes ? [...data.attributeTypes] : []
-    newAttributes[key].editableByPlayer = !item.editableByPlayer
     handleChangePlatformTypeData({ ...data, attributeTypes: newAttributes }, selectedItem)
   }
 
@@ -146,7 +149,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 
     const onFieldChange = (field: 'units' | 'format' | 'description' | 'defaultValue', value: string): void => {
       if (!data.attributeTypes) { return }
-      data.attributeTypes[key][field] = value as any
+      const myList = data.attributeTypes.filter((attr: AttributeType) => attr.attrType === ATTRIBUTE_TYPE_NUMBER)
+      myList[key][field] = value as any
       handleChangePlatformTypeData(data, selectedItem)
     }
 
@@ -162,12 +166,13 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const renderEnumAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
-    const attrype = item as NumberAttributeType
+    const attrype = item as EnumAttributeType
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
-    const onFieldChange = (field: 'units' | 'format' | 'description' | 'defaultValue', value: string): void => {
+    const onFieldChange = (field: 'values' | 'description' | 'defaultValue', value: string): void => {
       if (!data.attributeTypes) { return }
-      data.attributeTypes[key][field] = value as any
+      const myList = data.attributeTypes.filter((attr: AttributeType) => attr.attrType === ATTRIBUTE_TYPE_ENUM)
+      myList[key][field] = value as any
       handleChangePlatformTypeData(data, selectedItem)
     }
 
@@ -175,7 +180,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       <div className={styles.mobile}>
         <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
         <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder='choices' className={choices} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder='choices' className={choices} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.values || ''} onChange={(e): void => onFieldChange('values', e.target.value)} />
         <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
       </div>
     )
@@ -220,14 +225,15 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
     const handleChangeAttributes = (attributeTypes: Array<SortableListItem>): void => {
-      console.log('attr', attributeTypes)
       // combine the two sets of attributes
-      if (attributeTypes.length ) {
+      if (attributeTypes.length) {
         const asAttr = attributeTypes as AttributeTypes
-        const firstA = asAttr[0] 
-        const aType = firstA.attrType
-        const items = data.attributeTypes ? data.attributeTypes.filter((attr) => attr.attrType !== aType) : []
-        const newList = items.concat(asAttr)
+        // find out whihc tyep of attribute this is
+        const aType = asAttr[0].attrType
+        // get the other attributes
+        const other_attributes = data.attributeTypes ? data.attributeTypes.filter((attr) => attr.attrType !== aType) : []
+        // combine new attributes with existing ones
+        const newList = other_attributes.concat(asAttr)
         handleChangePlatformTypeData({ ...data, attributeTypes: newList as AttributeTypes }, selectedItem)
       }
     }
@@ -252,13 +258,13 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       const baseData = data.attributeTypes || []
       const genAttr = (aType: typeof ATTRIBUTE_TYPE_NUMBER | typeof ATTRIBUTE_TYPE_ENUM): AttributeType => {
         switch (aType) {
-          case ATTRIBUTE_TYPE_NUMBER: 
+          case ATTRIBUTE_TYPE_NUMBER:
             return {
               name: 'New number',
               attrType: ATTRIBUTE_TYPE_NUMBER,
               attrId: 'attr' + uniqid.time()
             }
-            case ATTRIBUTE_TYPE_ENUM: 
+          case ATTRIBUTE_TYPE_ENUM:
             return {
               name: 'New enum',
               attrType: ATTRIBUTE_TYPE_ENUM,
