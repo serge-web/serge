@@ -231,9 +231,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         // find out whihc tyep of attribute this is
         const aType = asAttr[0].attrType
         // get the other attributes
-        const other_attributes = data.attributeTypes ? data.attributeTypes.filter((attr) => attr.attrType !== aType) : []
+        const otherAttributes = data.attributeTypes ? data.attributeTypes.filter((attr) => attr.attrType !== aType) : []
         // combine new attributes with existing ones
-        const newList = other_attributes.concat(asAttr)
+        const newList = otherAttributes.concat(asAttr)
         handleChangePlatformTypeData({ ...data, attributeTypes: newList as AttributeTypes }, selectedItem)
       }
     }
@@ -456,9 +456,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   sortable='auto'
                   remove={true}
                   onChange={handleChangeAttributes}
-                  onCreate={() => handleCreateAttributes(ATTRIBUTE_TYPE_NUMBER)}
+                  onCreate={(): void => handleCreateAttributes(ATTRIBUTE_TYPE_NUMBER)}
                   renderItemSection={renderNumberAttributesSection}
-                  items={data.attributeTypes && data.attributeTypes.filter((attr) => attr.attrType === ATTRIBUTE_TYPE_NUMBER) || []}
+                  items={(data.attributeTypes && data.attributeTypes.filter((attr) => attr.attrType === ATTRIBUTE_TYPE_NUMBER)) || []}
                   title='Add number attribute' />
               </FormGroup>
               <FormGroup placeholder='Enumerated'>
@@ -477,9 +477,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   sortable='auto'
                   remove={true}
                   onChange={handleChangeAttributes}
-                  onCreate={() => handleCreateAttributes(ATTRIBUTE_TYPE_ENUM)}
+                  onCreate={(): void => handleCreateAttributes(ATTRIBUTE_TYPE_ENUM)}
                   renderItemSection={renderEnumAttributesSection}
-                  items={data.attributeTypes && data.attributeTypes.filter((attr) => attr.attrType === ATTRIBUTE_TYPE_ENUM) || []}
+                  items={(data.attributeTypes && data.attributeTypes.filter((attr) => attr.attrType === ATTRIBUTE_TYPE_ENUM)) || []}
                   title='Add enum attribute' />
               </FormGroup>
             </FormGroup>
