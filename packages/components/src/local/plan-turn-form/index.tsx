@@ -138,7 +138,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
    * we use `statusVal &&` guard check in the following block
    */
   return <div className={styles.main}>
-    <AttributeEditor isOpen={attributeEditorIsOpen} onClose={closeModal} onSave={updateData} aTypes={formData.populate.attributes} data={attributes} />
+    <AttributeEditor isOpen={attributeEditorIsOpen} onClose={closeModal} onSave={updateData} attributes={formData.populate.attributes} data={attributes} />
     <TitleWithIcon
       forceColor={icon.forceColor}
       icon={icon.icon}

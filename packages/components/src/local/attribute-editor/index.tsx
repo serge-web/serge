@@ -12,7 +12,7 @@ import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 import { MenuItem, Select } from '@material-ui/core'
 
 /* Render component */
-export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose, onSave, inAdjudication }) => {
+export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributes, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
   const modalRef = useRef<ReactModal>(null)
 
@@ -70,13 +70,13 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
     onClose()
   }
 
-  const editorFor = (item: AttributeEditorData, aTypes: AttributeTypes, idx: number): any => {
+  const editorFor = (item: AttributeEditorData, attributes: AttributeTypes, idx: number): any => {
     switch (item.valueType) {
       case ATTRIBUTE_VALUE_NUMBER: {
         return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
       }
       case ATTRIBUTE_VALUE_ENUM: {
-        const aType = aTypes && aTypes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
+        const aType = attributes && attributes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
         if (aType === undefined) {
           throw new Error('Failed to find attribute type for:' + item.attrId)
         }
@@ -115,7 +115,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, aTypes, onClose
             <span>{elmName}</span>
             {locked
               ? <span><FontAwesomeIcon icon={faLock} title="Attribute locked" /><input disabled={true} title={tooltip} value={item.valueWrite} /></span>
-              : editorFor(item, aTypes, idx)
+              : editorFor(item, attributes, idx)
             }
           </div>
         })}

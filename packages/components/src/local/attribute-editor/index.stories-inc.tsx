@@ -23,11 +23,11 @@ const onSave = (data: AttributeValues): void => {
 }
 
 const getTypes = (pTypes: PlatformTypeData[]): AttributeTypes => {
-  let aTypes: AttributeTypes | undefined
+  let attributes: AttributeTypes | undefined
   if (pTypes && pTypes[1]) {
-    aTypes = pTypes[1].attributeTypes
+    attributes = pTypes[1].attributeTypes
   }
-  return aTypes || []
+  return attributes || []
 }
 
 const getValues = (forces: ForceData[]): any => {
@@ -43,7 +43,7 @@ const attrValues = getValues(smallScaleForces)
 const attrData = collateEditorData(attrValues, attrTypes)
 
 export const Default: React.FunctionComponent = (): React.ReactElement =>
-  <AttributeEditor isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} aTypes={attrTypes} data={attrData} />
+  <AttributeEditor isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} attributes={attrTypes} data={attrData} />
 
 export const InAdjudication: React.FunctionComponent = (): React.ReactElement =>
-  <AttributeEditor inAdjudication={true} isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} aTypes={attrTypes} data={attrData} />
+  <AttributeEditor inAdjudication={true} isOpen={true} onClose={(): void => { console.log('close') }} onSave={onSave} attributes={attrTypes} data={attrData} />
