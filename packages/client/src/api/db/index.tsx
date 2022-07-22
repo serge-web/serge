@@ -62,7 +62,7 @@ export class DbProvider implements DbProviderInterface {
         .then(({ msg, data }) => {
           if (msg === 'ok') resolve(data)
           else resolve({ status: 404 })
-        })
+        }).catch((onRejected: any) => console.warn('Server failed to respond', query, onRejected))
     })
   }
 
