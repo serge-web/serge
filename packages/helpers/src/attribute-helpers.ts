@@ -37,6 +37,26 @@ export const formatEnum = (value: AttributeValue): string => {
   return eNum.value
 }
 
+/** use defaults to generate new attribute value */
+export const createAttributeValue = (aType: AttributeType): AttributeValue => {
+  switch (aType.attrType) {
+    case ATTRIBUTE_TYPE_NUMBER:
+      return {
+        attrId: aType.attrId,
+        value: createDefaultFor(aType),
+        attrType: ATTRIBUTE_VALUE_NUMBER
+      }
+    case ATTRIBUTE_TYPE_ENUM:
+      return {
+        attrId: aType.attrId,
+        value: createDefaultFor(aType),
+        attrType: ATTRIBUTE_VALUE_ENUM
+      }
+    default:
+      throw new Error('Unexpected attribute type:' + aType)
+  }
+}
+
 export const nameFor = (eType: AttributeType): string => {
   switch (eType.attrType) {
     case ATTRIBUTE_TYPE_NUMBER: {
@@ -59,7 +79,9 @@ export const nameFor = (eType: AttributeType): string => {
 
 export const collateEditorData = (values: AttributeValues, types: AttributeTypes): AttributeEditorData[] => {
   if (values && values.length && types && types.length) {
+    console.log('ready to collate', values, types)
     return values.map((value:AttributeValue): AttributeEditorData => {
+      console.log('rendering', value.attrType === ATTRIBUTE_VALUE_NUMBER, value, types)
       const aType = types.find((item: AttributeType) => value.attrId === item.attrId)
       if (!aType) {
         throw new Error('Failed to find attribute type for ' + value.attrId)

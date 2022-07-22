@@ -10,10 +10,10 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import NativeSelect from '@material-ui/core/NativeSelect'
 import Typography from '@material-ui/core/Typography'
-import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes, TASK_GROUP } from '@serge/config'
-import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+import { LaydownTypes, TASK_GROUP } from '@serge/config'
+import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
 /* Import Components */
-import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
+import { collateEditorData, createAssetBasedOnPlatformType, createAttributeValue, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
 import cx from 'classnames'
 import AssetIcon from '../../../asset-icon'
 import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
@@ -86,14 +86,10 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
     const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
     pType && setAttributeTypes(pType.attributeTypes || [])
-    let attrValues = asset.attributeValues || []
+    let attrValues: AttributeValues = asset.attributeValues || []
     if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
-      attrValues = pType.attributeTypes.map((aType: AttributeType) => {
-        return {
-          attrId: aType.attrId,
-          value: 0,
-          attrType: ATTRIBUTE_VALUE_NUMBER
-        }
+      attrValues = pType.attributeTypes.map((aType: AttributeType): AttributeValue => {
+        return createAttributeValue(aType)
       })
     }
     setAttributeValues(attrValues)

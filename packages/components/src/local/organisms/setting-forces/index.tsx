@@ -1,11 +1,9 @@
 import { CustomDialog } from '../../atoms/custom-dialog'
-import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { Asset, AttributeType, AttributeValue, EnumAttributeType, EnumAttributeValue, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
-import { findPlatformTypeFor } from '@serge/helpers'
+import { Asset, AttributeType, AttributeValue } from '@serge/custom-types'
+import { createAttributeValue, findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 /* Import Components */
-import uniqId from 'uniqid'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import Colorpicker from '../../atoms/colorpicker'
@@ -103,38 +101,15 @@ export const SettingForces: React.FC<PropTypes> = ({
           return !(asset.attributeValues && asset.attributeValues.some((val: AttributeValue) => val.attrId === value.attrId))
         })
 
-        const createDefault = (aType: AttributeType): AttributeValue => {
-          switch (aType.attrType) {
-            case ATTRIBUTE_TYPE_NUMBER: {
-              const nAtt = aType as NumberAttributeType
-              const res: NumberAttributeValue = {
-                attrId: `a${uniqId.time()}`,
-                attrType: ATTRIBUTE_VALUE_NUMBER,
-                value: nAtt.defaultValue || 0
-              }
-              return res
-            }
-            case ATTRIBUTE_TYPE_ENUM: {
-              const eAtt = aType as EnumAttributeType
-              const res: EnumAttributeValue = {
-                attrId: `a${uniqId.time()}`,
-                attrType: ATTRIBUTE_VALUE_ENUM,
-                value: eAtt.defaultValue || eAtt.values[0]
-              }
-              return res
-            }
-          }
-        }
-
-        missingAttrs && missingAttrs.forEach((value: AttributeType) => {
-          const msg = 'Added attribute ' + value.name + ' to ' + asset.name
+        missingAttrs && missingAttrs.forEach((aType: AttributeType) => {
+          const msg = 'Added attribute ' + aType.name + ' to ' + asset.name
           attributeErrors.push(msg)
           // initialise array, if necessary
           if (!asset.attributeValues) {
             asset.attributeValues = []
           }
           // and create the default values
-          asset.attributeValues.push(createDefault(value))
+          asset.attributeValues.push(createAttributeValue(aType))
         })
       })
 

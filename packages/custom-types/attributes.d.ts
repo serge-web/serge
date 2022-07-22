@@ -45,7 +45,7 @@ export interface EnumAttributeType extends BaseAttributeType {
 export interface BaseAttributeValue {
   attrType: string
   // id of this atribute (allows details to be looked up from type data)
-  attrId: string
+  attrId: BaseAttributeType['attrId']
 }
 
 export interface NumberAttributeValue extends BaseAttributeValue {

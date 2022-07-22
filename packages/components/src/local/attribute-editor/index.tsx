@@ -84,8 +84,8 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
           onChange={enumChangeHandler}
           name={item.attrId}
         >
-          {aType.values.map((s: any) => (
-            <MenuItem key={s} value={s}>{s}</MenuItem>
+          {aType.values.map((s: any, index: number) => (
+            <MenuItem key={index} value={s}>{s}</MenuItem>
           ))}
         </Select>
       }
