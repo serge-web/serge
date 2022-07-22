@@ -14,7 +14,10 @@ import addUnreadMsgCount from './helpers/renameTab'
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const state = usePlayerUiState()
   const [byPassUrl] = useState<URL>(getByPassUrl(state))
-  const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))
+  const adminInsightsModel = FLEX_LAYOUT_MODEL_DEFAULT
+  adminInsightsModel.global['tabSetEnableMaximize'] = false
+  adminInsightsModel.global['tabSetTabStripHeight'] = 35
+  const [model] = useState<Model>(FlexLayout.Model.fromJson(adminInsightsModel))
   const [tabLoadedStatus, setTabLoadedStatus] = useState<boolean>(false)
   const gameAdminTabId = 'Game Admin'
   const gameAdminTab = 'Game Admin'
@@ -53,7 +56,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       <FlexLayout.Layout
         model={model}
         factory={factory(gameAdminTab, insightsTab)}
-        classNameMapper={defaultClassName => `${defaultClassName} ${defaultClassName}--undo-transparent`}
+        classNameMapper={defaultClassName => `${defaultClassName} ${defaultClassName}--undo-transparent ${defaultClassName}--fullWidth ${defaultClassName}--admin-insights-tab-btn`}
       />
       <AdminPanelFooter
         force={selectedForce}

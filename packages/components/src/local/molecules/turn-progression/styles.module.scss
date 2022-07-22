@@ -14,9 +14,8 @@
   color: #fff;
   flex-grow: 0;
   justify-content: space-between;
-  margin: $umpire-menu-margin;
+  margin: 8px;
   margin-top: 0;
-  padding: $umpire-menu-margin;
 
   &.adjudication-phase {
     background: $grey;
@@ -55,20 +54,71 @@
     background: $grey;
   }
 
-  h5 {
-    color: $action-secondary-color;
-    font-size: 14px;
-    font-weight: 700;
-    margin: 0;
-  }
-
   time {
     display: inline-block;
     font-family: "Open Sans", "sans-serif";
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     padding-top: 8px;
   }
+}
+
+.turn-phase-group {
+  display: flex;
+}
+
+.phase {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  min-width: 142px;
+  h5 {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+  }
+
+  .highlight {
+    font-weight: 600;
+    font-size: 20px !important;
+    opacity: 1 !important;
+  }
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  h5 {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+
+    &:nth-child(2) {
+      font-weight: 600;
+      font-size: 35px;
+    }
+  }
+}
+
+.divider {
+  background-color: #fff !important;
+  height: auto !important;
+  width: 2px !important;
+  margin: 10px 0 !important;
+}
+
+.time {
+  width: 100%;
+  text-align: center;
 }
 
 .turn-info-remaining {

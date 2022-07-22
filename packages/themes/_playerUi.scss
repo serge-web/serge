@@ -124,6 +124,7 @@
 }
 
 .message-feed {
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -262,7 +263,7 @@
 
   &.out-of-game-feed {
     .message-list {
-      padding: 16px;
+      padding: 8px;
 
       .data {
         font-size: 13px;
@@ -334,7 +335,6 @@
       border-radius: 0;
       border-top: 2px solid $border-field-admin;
       box-shadow: none;
-      padding: 8px 16px;
 
       .form-control-label {
         display: none;
@@ -373,6 +373,13 @@
       padding-right: 10px;
       padding-top: 4px;
       text-align: right;
+      width: 100%;
+    }
+
+    .message-status-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 5px;
       width: 100%;
     }
 
@@ -549,9 +556,18 @@
       color: #fff;
     }
   }
+
+  .message-group-button {
+    display: flex;
+    justify-content: space-evenly;
+    width: 70%;
+  }
 }
 
+.contain-game-insights,
 .contain-game-admin {
+  border: 1px solid #d1d1d1;
+  box-shadow: 1px 1px 5px 1px #9b9b9b;
   display: flex;
   flex-direction: column;
 }
@@ -639,7 +655,10 @@
     max-height: calc(100vh - 338px);
     overflow-x: hidden;
     overflow-y: auto;
-    padding-top: 8px;
+
+    div[class*="form-group"] {
+      margin-bottom: 0 !important;
+    }
 
     .bg-light {
       background-color: transparent !important;

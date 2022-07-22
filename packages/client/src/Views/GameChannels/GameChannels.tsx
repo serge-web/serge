@@ -1,4 +1,4 @@
-import { faAddressBook, faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook, faBookOpen, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import classNames from 'classnames'
@@ -56,7 +56,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   const handleChangeTab = (node: TabNode): void => {
     setSelectedNode(node.getComponent() || '')
     onTabChange(node)
-  } 
+  }
 
   const openTourFn = () => {
     const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-${selectedNode === 'mapping' ? 'mapping-' : ''}tourDone`
@@ -81,8 +81,28 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       }} onTabChange={handleChangeTab} />
     </div>
     <div className={classNames({ 'message-feed': true, 'out-of-game-feed': true, 'umpire-feed': isGameControl })} data-tour='fifth-step'>
+
       <div className='flex-content wargame-title'>
         <h3>{wargameTitle}</h3>
+        <FontAwesomeIcon icon={faSignOutAlt} style={{ cursor: 'pointer' }} onClick={() => {
+          location.replace(location.origin)
+        }} />
+      </div>
+
+      <TurnProgression
+        adjudicationStartTime={adjudicationStartTime}
+        currentTurn={currentTurn}
+        turnPresentation={turnPresentation}
+        gameDate={gameDate}
+        phase={phase}
+        timeWarning={timeWarning}
+        isGameControl={isGameControl}
+        turnEndTime={`${turnEndTime}`}
+        wargameInitiated={wargameInitiated}
+        onNextTurn={nextGameTurn(currentWargame)}
+      />
+
+      <div className='message-group-button'>
         <span title='Sumbit lesson learned/feedback' onClick={(): void => dispatch(openModal('lessons'))} className='wargame-title-icon' data-tour='third-step'>
           <strong className='sr-only'>Show lesson</strong>
         </span>
@@ -95,18 +115,6 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
           </span>
         }
       </div>
-      <TurnProgression
-        adjudicationStartTime={adjudicationStartTime}
-        isGameControl={isGameControl}
-        currentTurn={currentTurn}
-        turnPresentation={turnPresentation}
-        gameDate={gameDate}
-        onNextTurn={() => { nextGameTurn(currentWargame)() }}
-        phase={phase}
-        timeWarning={timeWarning}
-        turnEndTime={`${turnEndTime}`}
-        wargameInitiated={wargameInitiated}
-      />
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
         force={selectedForce}

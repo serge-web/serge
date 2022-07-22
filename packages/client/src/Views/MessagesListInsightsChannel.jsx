@@ -1,18 +1,23 @@
+import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { formatFullDate, isMessageReaded } from '@serge/helpers'
+import '@serge/themes/App.scss'
+import classNames from 'classnames'
 import React from 'react'
 import Badge from 'react-bootstrap/Badge'
-import classNames from 'classnames'
-import { isMessageReaded, formatFullDate } from '@serge/helpers'
 import { usePlayerUiState } from '../Store/PlayerUi'
-import '@serge/themes/App.scss'
 
 const MessagesListChatChannel = ({ messages, markAllAsRead }) => {
   const { currentWargame, selectedForce, selectedRole } = usePlayerUiState()
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
   const isMessageRead = (message) => isMessageReaded(currentWargame, selectedForceId, selectedRole, message._id)
+  const isMessageUnreadExists = messages.some(message => !isMessageRead(message))
 
   return (
     <>
-      <span className='link link--noIcon link--secondary' onClick={markAllAsRead}>Mark all as read</span>
+      <span className='message-status-icon'>
+        <FontAwesomeIcon icon={isMessageUnreadExists ? faEnvelope : faEnvelopeOpen} onClick={markAllAsRead} style={{ cursor: 'pointer' }} />
+      </span>
       {messages.map((message, i) => {
         return (
           <React.Fragment key={`feedback${i}`}>

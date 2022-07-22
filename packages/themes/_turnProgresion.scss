@@ -5,7 +5,7 @@
   flex-direction: row !important;
   flex-grow: 0;
   justify-content: space-between !important;
-  padding: $umpire-menu-margin;
+  padding: $umpire-menu-margin $umpire-menu-margin 0 $umpire-menu-margin;
 
   h3 {
     @include typo-primary;
