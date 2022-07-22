@@ -1,7 +1,6 @@
 import { CustomDialog } from '../../atoms/custom-dialog'
-import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { Asset, NumberAttributeType, NumberAttributeValue } from '@serge/custom-types'
-import { findPlatformTypeFor } from '@serge/helpers'
+import { Asset, AttributeType, AttributeValue } from '@serge/custom-types'
+import { createAttributeValue, findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 /* Import Components */
@@ -86,11 +85,11 @@ export const SettingForces: React.FC<PropTypes> = ({
       currentForce.assets && currentForce.assets.forEach((asset: Asset) => {
         const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
         // check for extra attributes
-        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: NumberAttributeValue) => {
-          return !(pType.attributeTypes && pType.attributeTypes.some((val: NumberAttributeType) => val.attrId === value.attrId))
+        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: AttributeValue) => {
+          return !(pType.attributeTypes && pType.attributeTypes.some((val: AttributeType) => val.attrId === value.attrId))
         })
 
-        extraAttrs && extraAttrs.forEach((value: NumberAttributeValue) => {
+        extraAttrs && extraAttrs.forEach((value: AttributeValue) => {
           const msg = 'Removed attribute ' + value.attrId + ' from ' + asset.name
           attributeErrors.push(msg)
           // and strip out the attributes
@@ -98,23 +97,19 @@ export const SettingForces: React.FC<PropTypes> = ({
         })
 
         // check for missing attributes
-        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: NumberAttributeType) => {
-          return !(asset.attributeValues && asset.attributeValues.some((val: NumberAttributeValue) => val.attrId === value.attrId))
+        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: AttributeType) => {
+          return !(asset.attributeValues && asset.attributeValues.some((val: AttributeValue) => val.attrId === value.attrId))
         })
 
-        missingAttrs && missingAttrs.forEach((value: NumberAttributeType) => {
-          const msg = 'Added attribute ' + value.name + ' to ' + asset.name
+        missingAttrs && missingAttrs.forEach((aType: AttributeType) => {
+          const msg = 'Added attribute ' + aType.name + ' to ' + asset.name
           attributeErrors.push(msg)
           // initialise array, if necessary
           if (!asset.attributeValues) {
             asset.attributeValues = []
           }
           // and create the default values
-          asset.attributeValues.push({
-            attrId: value.attrId,
-            attrType: ATTRIBUTE_VALUE_NUMBER,
-            value: value.defaultValue || 0
-          })
+          asset.attributeValues.push(createAttributeValue(aType))
         })
       })
 

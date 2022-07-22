@@ -10,10 +10,10 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import NativeSelect from '@material-ui/core/NativeSelect'
 import Typography from '@material-ui/core/Typography'
-import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes, TASK_GROUP } from '@serge/config'
-import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+import { LaydownTypes, TASK_GROUP } from '@serge/config'
+import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
 /* Import Components */
-import { collateEditorData, createAssetBasedOnPlatformType, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
+import { collateEditorData, createAssetBasedOnPlatformType, createAttributeValue, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
 import cx from 'classnames'
 import AssetIcon from '../../../asset-icon'
 import React, { ChangeEvent, FC, ReactElement, ReactNode, useEffect, useState } from 'react'
@@ -86,14 +86,10 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
     const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
     pType && setAttributeTypes(pType.attributeTypes || [])
-    let attrValues = asset.attributeValues || []
+    let attrValues: AttributeValues = asset.attributeValues || []
     if (!attrValues.length && pType.attributeTypes && pType.attributeTypes.length) {
-      attrValues = pType.attributeTypes.map((aType: AttributeType) => {
-        return {
-          attrId: aType.attrId,
-          value: 0,
-          attrType: ATTRIBUTE_VALUE_NUMBER
-        }
+      attrValues = pType.attributeTypes.map((aType: AttributeType): AttributeValue => {
+        return createAttributeValue(aType)
       })
     }
     setAttributeValues(attrValues)
@@ -123,11 +119,14 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
     const fixedLocationHandler = (event: ChangeEvent<HTMLInputElement>): void => {
       const currentValue = event.target.value.toUpperCase()
-      const regex = /^[a-zA-Z]{0,2}\d{0,2}$/
-      if (regex.test(currentValue)) {
-        setFixedLocationValue(currentValue)
-        selectedAssetItem.position = currentValue
-      }
+      // TODO: fix regex, so it takes 16 digit h3 index number
+      // const regex = /^[0-9a-f]{16}$/
+      // if (regex.test(currentValue)) {
+      // } else {
+      //   console.warn('failed regex')
+      // }
+      selectedAssetItem.position = currentValue
+      setFixedLocationValue(currentValue)
       onChangeHandler(selectedForce)
     }
     const handleChangeAssetName = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -166,7 +165,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     const inGameAdminPages = true
 
     return <div className={styles['view-result-box']}>
-      <AttributeEditor inAdjudication={inGameAdminPages} isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)} onSave={setAttributeValues} data={attributes} />
+      <AttributeEditor inAdjudication={inGameAdminPages} isOpen={attributeEditorIsOpen} onClose={(): void => setAttributeEditorIsOpen(false)}
+        onSave={setAttributeValues} attributeTypes={attributeTypes} data={attributes} />
       <List dense={true}>
         <ListItem>
           <ListItemText>

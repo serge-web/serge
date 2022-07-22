@@ -1,5 +1,7 @@
 import {
+  ATTRIBUTE_TYPE_ENUM,
   ATTRIBUTE_TYPE_NUMBER,
+  ATTRIBUTE_VALUE_ENUM,
   ATTRIBUTE_VALUE_NUMBER
 } from '@serge/config'
 
@@ -18,6 +20,7 @@ export interface BaseAttributeType {
   editableByPlayer?: boolean
 }
 
+/** a number value */
 export interface NumberAttributeType extends BaseAttributeType {
   attrType: typeof ATTRIBUTE_TYPE_NUMBER
   /** name of units to use for this type */
@@ -28,11 +31,21 @@ export interface NumberAttributeType extends BaseAttributeType {
   format?: string
 }
 
+/** a string value from a list of possible values */
+export interface EnumAttributeType extends BaseAttributeType {
+  attrType: typeof ATTRIBUTE_TYPE_ENUM
+  /** possible values for this attribute */
+  values: string[]
+  /** default value to use for this atribute */
+  defaultValue?: string
+}
+
+
 /** the basic type details common to all attributes */
 export interface BaseAttributeValue {
   attrType: string
   // id of this atribute (allows details to be looked up from type data)
-  attrId: string
+  attrId: BaseAttributeType['attrId']
 }
 
 export interface NumberAttributeValue extends BaseAttributeValue {
@@ -41,11 +54,17 @@ export interface NumberAttributeValue extends BaseAttributeValue {
   value: number
 }
 
-/** union of all types of atribute type */
-export type AttributeType = NumberAttributeType
+export interface EnumAttributeValue extends BaseAttributeValue {
+  attrType: typeof ATTRIBUTE_VALUE_ENUM
+  // value of this atribute
+  value: string
+}
 
-/** union of tall types of atribute value */
-export type AttributeValue = NumberAttributeValue
+/** union of all types of atribute type */
+export type AttributeType = NumberAttributeType | EnumAttributeType
+
+/** union of all types of atribute value */
+export type AttributeValue = NumberAttributeValue | EnumAttributeValue
 
 /** collection of instances of types of atribute */
 export type AttributeTypes = AttributeType[]
@@ -67,7 +86,7 @@ export interface AttributeEditorData {
   // attribute id, needed to store results
   attrId: string
   // value type, needed to store results
-  valueType: typeof ATTRIBUTE_VALUE_NUMBER
+  valueType: typeof ATTRIBUTE_VALUE_NUMBER | typeof ATTRIBUTE_VALUE_ENUM
   // whether the player can edit the field
   playerCanEdit: boolean
 }

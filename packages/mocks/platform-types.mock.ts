@@ -1,4 +1,4 @@
-import { ATTRIBUTE_TYPE_NUMBER } from "@serge/config"
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER } from "@serge/config"
 import { PlatformTypeData } from "@serge/custom-types"
 
 export const platformTypes: PlatformTypeData[] = [
@@ -114,6 +114,15 @@ export const platformTypes: PlatformTypeData[] = [
         editableByPlayer: true,
         format: '0',
         defaultValue: 12
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_ENUM,
+        name: "Depth",
+        attrId: "ss-depth",
+        description: "Depth of this asset",
+        defaultValue: "Deep",
+        values: ["Deep","PD","Shallow"],
+        editableByPlayer: true
       }
     ],
     "uniqid": "a2"
