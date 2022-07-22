@@ -1,6 +1,6 @@
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { AttributeType, AttributeTypes, AttributeValues, NumberAttributeType } from '@serge/custom-types'
-import { collateEditorData, createDefaultFor, formatEnum, formatNumber } from '../attribute-helpers'
+import { AttributeType, AttributeTypes, AttributeValues, EnumAttributeType, NumberAttributeType } from '@serge/custom-types'
+import { collateEditorData, createAttributeValue, createDefaultFor, formatEnum, formatNumber } from '../attribute-helpers'
 
 const attrId1 = 'comm1111'
 const attrId2 = 'comm2222'
@@ -68,7 +68,7 @@ const attributeValues: AttributeValues = [
   }
 ]
 
-describe('default attribute:', () => {
+describe('default attribute value:', () => {
   it('creates default attribute', () => {
     const firstComm = attributesTypes[0]
     expect(createDefaultFor(firstComm)).toEqual(45)
@@ -81,6 +81,28 @@ describe('default attribute:', () => {
 
     const fourthComm = attributesTypes[3]
     expect(createDefaultFor(fourthComm)).toEqual('Deep')
+  })
+
+  it('creates default attribute', () => {
+    const firstComm = attributesTypes[0]
+    expect(createAttributeValue(firstComm).attrId).toEqual(firstComm.attrId)
+    expect(createAttributeValue(firstComm).attrType).toEqual(ATTRIBUTE_VALUE_NUMBER)
+    expect(createAttributeValue(firstComm).value).toEqual(firstComm.defaultValue)
+
+    const secondComm = attributesTypes[1]
+    expect(createAttributeValue(secondComm).attrId).toEqual(secondComm.attrId)
+    expect(createAttributeValue(secondComm).attrType).toEqual(ATTRIBUTE_VALUE_NUMBER)
+    expect(createAttributeValue(secondComm).value).toEqual(0)
+
+    const thirdComm = attributesTypes[2]
+    expect(createAttributeValue(thirdComm).attrId).toEqual(thirdComm.attrId)
+    expect(createAttributeValue(thirdComm).attrType).toEqual(ATTRIBUTE_VALUE_ENUM)
+    expect(createAttributeValue(thirdComm).value).toEqual(thirdComm.defaultValue)
+
+    const fourthComm = attributesTypes[3] as EnumAttributeType
+    expect(createAttributeValue(fourthComm).attrId).toEqual(fourthComm.attrId)
+    expect(createAttributeValue(fourthComm).attrType).toEqual(ATTRIBUTE_VALUE_ENUM)
+    expect(createAttributeValue(fourthComm).value).toEqual(fourthComm.values[0])
   })
 
   it('formats number values', () => {

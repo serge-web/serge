@@ -79,9 +79,7 @@ export const nameFor = (eType: AttributeType): string => {
 
 export const collateEditorData = (values: AttributeValues, types: AttributeTypes): AttributeEditorData[] => {
   if (values && values.length && types && types.length) {
-    console.log('ready to collate', values, types)
     return values.map((value:AttributeValue): AttributeEditorData => {
-      console.log('rendering', value.attrType === ATTRIBUTE_VALUE_NUMBER, value, types)
       const aType = types.find((item: AttributeType) => value.attrId === item.attrId)
       if (!aType) {
         throw new Error('Failed to find attribute type for ' + value.attrId)
