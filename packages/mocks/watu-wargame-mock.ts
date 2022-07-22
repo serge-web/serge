@@ -959,6 +959,17 @@ const wargame: Wargame = {
                         "Mission Kill"
                     ],
                     "icon": "ssk.svg",
+                    "attributeTypes": [
+                        {
+                            "name": "Depth",
+                            "attrId": "ssk-depth",
+                            "description": "Depth",
+                            "defaultValue": 'Deep',
+                            "values": ["Deep", "PD", "Shallow"],
+                            "editableByPlayer": true,
+                            "attrType": "AttributeTypeEnum"
+                        }
+                    ],
                     "name": "SSK",
                     "speedKts": [
                         6,

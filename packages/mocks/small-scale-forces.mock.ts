@@ -81,6 +81,11 @@ export const forces: ForceData[] = [
             attrId: 'comm-torpedoes',
             attrType: "AttributeValueNumber",
             value: 10
+          },
+          {
+            attrId: 'ss-depth',
+            attrType: "AttributeValueEnum",
+            value: 'Shallow'
           }
         ],
         "perceptions": [],

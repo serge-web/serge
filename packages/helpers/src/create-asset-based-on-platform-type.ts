@@ -1,7 +1,8 @@
-import { Asset, AttributeTypes, NumberAttributeType, NumberAttributeValue, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeType, AttributeTypes, AttributeValue, PlatformTypeData } from '@serge/custom-types'
 import uniqid from 'uniqid'
 import generateHashCode from './generate-hash-code'
-import { ATTRIBUTE_VALUE_NUMBER, LaydownTypes } from '@serge/config'
+import { LaydownTypes } from '@serge/config'
+import { createAttributeValue } from './attribute-helpers'
 
 export const generateAssetId = (): string => {
   return 'a' + uniqid.time()
@@ -11,14 +12,10 @@ export const generateAssetContactId = (assetId: string): string => {
   return 'C' + generateHashCode(assetId)
 }
 
-export const createAttributes = (attributes?: AttributeTypes): NumberAttributeValue[] => {
+export const createAttributes = (attributes?: AttributeTypes): AttributeValue[] => {
   if (attributes) {
-    return attributes.map((attr: NumberAttributeType): NumberAttributeValue => {
-      return {
-        attrId: attr.attrId,
-        value: attr.defaultValue !== undefined ? attr.defaultValue : 0,
-        attrType: ATTRIBUTE_VALUE_NUMBER
-      }
+    return attributes.map((attr: AttributeType): AttributeValue => {
+      return createAttributeValue(attr)
     })
   } else {
     return []

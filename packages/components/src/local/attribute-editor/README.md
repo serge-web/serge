@@ -1,6 +1,6 @@
 # AttributeEditor documentation
 
-AttributeEditor component is extension of Material UI Button
+AttributeEditor component is popup component used to edit attributes
 
 ## UI Example
 
