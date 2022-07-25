@@ -3,6 +3,7 @@ import L from 'leaflet'
 import { leafletUnion, checkIfIJWorks, createGridH3, createIndex, h3polyFromBounds, updateXy } from './h3-helpers'
 import { geoToH3, polyfill } from 'h3-js'
 import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import data3 from '../data/north-atlantic-res3'
 
 const smallBounds = L.latLngBounds(L.latLng(40, -40), L.latLng(65, 0))
 const largeBounds = L.latLngBounds(L.latLng(40, -90), L.latLng(65, 10))
@@ -44,7 +45,7 @@ it('checks if can produce ij index for small bounds', () => {
 
 it('generates hex coords', () => {
   const res = 3
-  const grid = createGridH3(smallBounds, res, data)
+  const grid = createGridH3(smallBounds, res, data, undefined)
   expect(grid.length).toEqual(604)
   const first = grid[0]
   expect(first.index).toEqual('830652fffffffff')
@@ -54,9 +55,9 @@ it('generates hex coords', () => {
   expect(first.poly.length).toEqual(6)
 })
 
-it('generates hex coords for large area', () => {
+it('generates hex coords for large area (legacy)', () => {
   const res = 3
-  const grid = createGridH3(largeBounds, res, data)
+  const grid = createGridH3(largeBounds, res, data, undefined)
   expect(grid.length).toEqual(1470)
   const first = grid[0]
   expect(first.index).toEqual('830f8efffffffff')
@@ -65,6 +66,19 @@ it('generates hex coords for large area', () => {
   expect(first.labelStore.ctr).toEqual('1')
   expect(first.labelStore.xy).toEqual('A16')
 })
+
+it('generates hex coords for large area (updated)', () => {
+  const res = 3
+  const grid = createGridH3(largeBounds, res, undefined, data3)
+  expect(grid.length).toEqual(1470)
+  const first = grid[0]
+  expect(first.index).toEqual('830f8efffffffff')
+  expect(first.labelStore.latLon).toEqual('64.83N 87.82W')
+  expect(first.poly.length).toEqual(6)
+  expect(first.labelStore.ctr).toEqual('1')
+  expect(first.labelStore.xy).toEqual('A16')
+})
+
 
 it('correctly translates -3,23 to A23', () => {
   const grid: SergeGrid3 = []

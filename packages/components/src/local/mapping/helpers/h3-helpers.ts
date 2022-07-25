@@ -1,10 +1,11 @@
 import { Terrain } from '@serge/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
-import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
+import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill, H3IndexInput, h3SetToMultiPolygon, h3GetResolution } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
 import * as turf from '@turf/turf'
+
 
 /** create a formatted lat/long label */
 const latLngLabel = (location: number[]): string => {
@@ -199,52 +200,76 @@ export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
   return res
 }
 
+const cellStylesFor = (legacyDefs:GeoJSON.FeatureCollection, cellDefs: HexTypeDataset[]): Array<{index: string, style: number}> => {
+  if (cellDefs) {
+    const styleArr = cellDefs.map((data: HexTypeDataset, index: number) => {
+      return data.cells.map((layerName: string) => {
+        return {
+          index: layerName,
+          style: index  
+        }
+      })
+    })
+    return styleArr.flat()
+  } else {
+    //stick with legacy data
+    return legacyDefs ? legacyDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
+      return {
+        index: (value.properties && value.properties.hexname) || '',
+        style: (value.properties && value.properties.type) || ''
+      }}) : []
+  }
+}
+
 /** create the grid of h3 cells
-  * @param {L.LatLngBounds} bounds Outer bounds of grid
-  * @param {number} res h grid resolution
+  * @param {L.LatLngBounds} legacyBounds Outer bounds of grid
+  * @param {number} legacyRes h grid resolution
   * @returns {SergeGrid3} h hex grid
   */
-export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any): SergeGrid3 => {
+export const createGridH3 = (legacyBounds: L.LatLngBounds, legacyRes: number, legacyCellDefs: any, cellDefs: any): SergeGrid3 => {
+  const newDefs = cellDefs as ProcessedCellRefs
+  const bounds = cellDefs ? newDefs.bounds : legacyBounds
+  const res = cellDefs ? h3GetResolution(newDefs.cells[0]) : legacyRes
   // outer boundary
   const boundsNum = h3polyFromBounds(bounds)
 
   // set of cells in this area
-  const cells = polyfill(boundsNum, res)
+  const cells = cellDefs ? newDefs.cells : polyfill(boundsNum, res)
 
   // sort out the centre index
   const centreLoc = bounds.getCenter()
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
 
-  const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
+  const typedLegacyDefs = legacyCellDefs as unknown as GeoJSON.FeatureCollection
+  const typedCellDefs = cellDefs as unknown as ProcessedCellRefs
 
   // flatten the definitions array
-  const cellStyles: Array<{index: string, style: number}> = typedDefs && typedDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
-    return {
-      index: (value.properties && value.properties.hexname) || '',
-      style: (value.properties && value.properties.type) || ''
-    }
-  })
+  const cellStyles = cellStylesFor(typedLegacyDefs, typedCellDefs && typedCellDefs.cellSets)
 
   // create the grid
   let styleMissing = 0
-  const grid = cells.map((cell: H3Index): SergeHex3 => {
+  const grid = cells.map((cell: string): SergeHex3 => {
+    const cellIndex = cell as H3Index
     // see if we have definition for this index
-    const match = cellStyles && cellStyles.find((value: {index: string, style: number}) => {
+    const matches = cellStyles && cellStyles.filter((value: {index: string, style: number}) => {
       return value.index === cell
     })
-    const cellStyle = (match && match.style) || 0
-    if (!match) {
+    let styleSum = 0
+    matches.forEach((value: {index: string, style: number}) => {
+      styleSum += Math.pow(2, value.style)
+    })
+    if (!styleSum) {
       styleMissing++
     }
     // convert style to power of 2, so we can have multiple styles
-    const powerCell = Math.pow(2, cellStyle)
-    const centre = h3ToGeo(cell)
-    const labels = createLabels(cell, centreIndex, centre)
-    const edge = h3ToGeoBoundary(cell)
+    const powerCell = styleSum
+    const centre = h3ToGeo(cellIndex)
+    const labels = createLabels(cell as H3Index, centreIndex, centre)
+    const edge = h3ToGeoBoundary(cell as H3Index)
     return {
       centreLatLng: L.latLng(centre[0], centre[1]),
       labelStore: labels,
-      index: cell,
+      index: cell as string,
       styles: powerCell,
       terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
       poly: edge
@@ -278,4 +303,82 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
   }
 
   return result
+}
+
+type HexRef = Array<string | boolean>
+
+interface HexRefs {
+  columns: Array<string>
+  data: Array<HexRef>
+}
+
+interface HexTypeDataset {
+  typeName: string
+  cells: Array<string>
+}
+
+interface ProcessedCellRefs {
+  bounds: L.LatLngBounds
+  cellSets: HexTypeDataset[]
+  cells: string[]
+}
+
+interface PolySet {
+  name: string
+  polys: number[][][][]
+}
+
+const boundsFor = (allCells: Array<string>): L.LatLngBounds => {
+  const boundaries = allCells.map((value: string) => h3ToGeoBoundary(value, false))
+  const allPoints = boundaries.flat()
+
+  let minLat = Infinity, minLng = Infinity, maxLat = -Infinity, maxLng = -Infinity;
+  allPoints.forEach((point: number[]) => {
+    const [lat,lng] = point;
+    minLng = Math.min( lng, minLng ?? +Infinity);
+    maxLng = Math.max( lng, maxLng ?? -Infinity);
+    minLat = Math.min( lat, minLat ?? +Infinity);
+    maxLat = Math.max( lat, maxLat ?? -Infinity);
+
+  })
+  return L.latLngBounds(L.latLng(minLat, minLng), L.latLng(maxLat, maxLng))
+}
+
+/** parse the file of HexRefs */
+export const parseHexRefs = (data: any): ProcessedCellRefs => {
+  const hexRefs = data as HexRefs
+
+  const allCells: string[] = hexRefs.data.map((value: HexRef): string => value[0] as string)
+
+  const bounds = boundsFor(allCells)
+
+  const allColumns = hexRefs.columns
+  // strip the name column
+  const myColumns = allColumns.filter((value: string) => value !== "Name")
+  const datasets: Array<HexTypeDataset> =  myColumns.map((column: string, index: number): HexTypeDataset => {
+    const cellRefs = hexRefs.data.filter((value: HexRef) => value[index+1])
+    const cellNames = cellRefs.map((value: HexRef) => value[0]) as string[]
+    const dataset: HexTypeDataset = {
+      typeName: column,
+      cells: cellNames
+    }
+    return dataset
+  })
+
+  return {
+    bounds: bounds,
+    cellSets: datasets,
+    cells: allCells
+  }
+}
+
+export const generatePolys = (data: HexTypeDataset[]): PolySet[] => {
+  return data.map((value:HexTypeDataset) => {
+    const cells: Array<H3IndexInput> = value.cells as Array<H3IndexInput>
+    const regions = h3SetToMultiPolygon(cells, false)
+    return {
+      name: value.typeName,
+      polys: regions
+    }
+  })
 }
