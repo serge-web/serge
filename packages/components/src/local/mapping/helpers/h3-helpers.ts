@@ -6,7 +6,6 @@ import L from 'leaflet'
 import { orderBy } from 'lodash'
 import * as turf from '@turf/turf'
 
-
 /** create a formatted lat/long label */
 const latLngLabel = (location: number[]): string => {
   const lat = location[0]
@@ -200,24 +199,25 @@ export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
   return res
 }
 
-const cellStylesFor = (legacyDefs:GeoJSON.FeatureCollection, cellDefs: HexTypeDataset[]): Array<{index: string, style: number}> => {
+const cellStylesFor = (legacyDefs: GeoJSON.FeatureCollection, cellDefs: HexTypeDataset[]): Array<{index: string, style: number}> => {
   if (cellDefs) {
     const styleArr = cellDefs.map((data: HexTypeDataset, index: number) => {
       return data.cells.map((layerName: string) => {
         return {
           index: layerName,
-          style: index  
+          style: index
         }
       })
     })
     return styleArr.flat()
   } else {
-    //stick with legacy data
+    // stick with legacy data
     return legacyDefs ? legacyDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
       return {
         index: (value.properties && value.properties.hexname) || '',
         style: (value.properties && value.properties.type) || ''
-      }}) : []
+      }
+    }) : []
   }
 }
 
@@ -332,14 +332,13 @@ const boundsFor = (allCells: Array<string>): L.LatLngBounds => {
   const boundaries = allCells.map((value: string) => h3ToGeoBoundary(value, false))
   const allPoints = boundaries.flat()
 
-  let minLat = Infinity, minLng = Infinity, maxLat = -Infinity, maxLng = -Infinity;
+  let minLat = Infinity; let minLng = Infinity; let maxLat = -Infinity; let maxLng = -Infinity
   allPoints.forEach((point: number[]) => {
-    const [lat,lng] = point;
-    minLng = Math.min( lng, minLng ?? +Infinity);
-    maxLng = Math.max( lng, maxLng ?? -Infinity);
-    minLat = Math.min( lat, minLat ?? +Infinity);
-    maxLat = Math.max( lat, maxLat ?? -Infinity);
-
+    const [lat, lng] = point
+    minLng = Math.min(lng, minLng ?? +Infinity)
+    maxLng = Math.max(lng, maxLng ?? -Infinity)
+    minLat = Math.min(lat, minLat ?? +Infinity)
+    maxLat = Math.max(lat, maxLat ?? -Infinity)
   })
   return L.latLngBounds(L.latLng(minLat, minLng), L.latLng(maxLat, maxLng))
 }
@@ -354,9 +353,9 @@ export const parseHexRefs = (data: any): ProcessedCellRefs => {
 
   const allColumns = hexRefs.columns
   // strip the name column
-  const myColumns = allColumns.filter((value: string) => value !== "Name")
-  const datasets: Array<HexTypeDataset> =  myColumns.map((column: string, index: number): HexTypeDataset => {
-    const cellRefs = hexRefs.data.filter((value: HexRef) => value[index+1])
+  const myColumns = allColumns.filter((value: string) => value !== 'Name')
+  const datasets: Array<HexTypeDataset> = myColumns.map((column: string, index: number): HexTypeDataset => {
+    const cellRefs = hexRefs.data.filter((value: HexRef) => value[index + 1])
     const cellNames = cellRefs.map((value: HexRef) => value[0]) as string[]
     const dataset: HexTypeDataset = {
       typeName: column,
@@ -373,7 +372,7 @@ export const parseHexRefs = (data: any): ProcessedCellRefs => {
 }
 
 export const generatePolys = (data: HexTypeDataset[]): PolySet[] => {
-  return data.map((value:HexTypeDataset) => {
+  return data.map((value: HexTypeDataset) => {
     const cells: Array<H3IndexInput> = value.cells as Array<H3IndexInput>
     const regions = h3SetToMultiPolygon(cells, false)
     return {

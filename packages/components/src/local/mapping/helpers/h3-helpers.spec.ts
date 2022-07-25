@@ -79,7 +79,6 @@ it('generates hex coords for large area (updated)', () => {
   expect(first.labelStore.xy).toEqual('A16')
 })
 
-
 it('correctly translates -3,23 to A23', () => {
   const grid: SergeGrid3 = []
 

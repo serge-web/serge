@@ -20,17 +20,17 @@ it('generates polygons of same R3 terrain tyope', () => {
   // check bounds
   const bounds = hexCells.bounds
   expect(bounds).toBeTruthy()
-  expect(bounds.getNorth()).toBeCloseTo(70,0)
-  expect(bounds.getSouth()).toBeCloseTo(39,0)
-  expect(bounds.getEast()).toBeCloseTo(11,0)
-  expect(bounds.getWest()).toBeCloseTo(-61.5,0)
+  expect(bounds.getNorth()).toBeCloseTo(70, 0)
+  expect(bounds.getSouth()).toBeCloseTo(39, 0)
+  expect(bounds.getEast()).toBeCloseTo(11, 0)
+  expect(bounds.getWest()).toBeCloseTo(-61.5, 0)
 
   // now generate polys
   const polyRegions = generatePolys(cells)
   expect(polyRegions).toBeTruthy()
   expect(polyRegions.length).toEqual(5)
   const landPoly = polyRegions[0]
-  expect(landPoly.name).toEqual("Land")
+  expect(landPoly.name).toEqual('Land')
   expect(landPoly.polys.length).toEqual(13)
 })
 
