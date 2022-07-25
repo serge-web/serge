@@ -15,7 +15,8 @@ const GameControl = styled(Button)({
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
   transition: 'box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
   backgroundColor: '#1965d8',
-  borderRadius: '2px',
+  borderRadius: '5px',
+  width: '100%',
   '&:hover': {
     boxShadow: 'none'
   }
@@ -144,7 +145,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         </div>
         {
           isGameControl &&
-          <Box ml={4} mt={1} mb={1}>
+          <Box margin={1}>
             <GameControl onClick={(e): void => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
           </Box>
         }
