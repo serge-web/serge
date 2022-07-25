@@ -152,7 +152,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // bounds has changed, or atlantic cells are present
         setMapBounds(newBounds)
         const resolution = mappingConstraintState.h3res || 3
-        const cells = createGridH3(newBounds, resolution, atlanticCells)
+        const cells = createGridH3(newBounds, resolution, atlanticCells, undefined)
         // check if we need to update, to reduce re-renders
         if ((cells.length !== h3gridCells.length || atlanticUpdate)) {
           setH3Resolution(resolution)
