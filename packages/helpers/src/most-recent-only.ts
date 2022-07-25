@@ -6,7 +6,7 @@ import { MessageChannel } from '@serge/custom-types'
  */
 const getIDs = (message: MessageChannel): string => {
   let res
-  if (message.messageType === INFO_MESSAGE_CLIPPED || message.infoType === true) {
+  if (message.messageType === INFO_MESSAGE_CLIPPED || message.infoType === true || message.message === undefined) {
     res = '' + message.gameTurn
   } else {
     const msg = message.message
