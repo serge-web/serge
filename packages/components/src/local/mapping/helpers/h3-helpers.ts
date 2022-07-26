@@ -1,6 +1,6 @@
 import { Terrain } from '@serge/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
-import { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import { BBox, Feature, GeoJsonProperties, Geometry, Position } from 'geojson'
 import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill, H3IndexInput, h3SetToMultiPolygon, h3GetResolution } from 'h3-js'
 import L from 'leaflet'
 import { orderBy } from 'lodash'
@@ -315,6 +315,7 @@ interface HexRefs {
 interface HexTypeDataset {
   typeName: string
   cells: Array<string>
+  bounds: L.LatLngBounds
 }
 
 export interface ProcessedCellRefs {
@@ -325,6 +326,7 @@ export interface ProcessedCellRefs {
 
 interface PolySet {
   name: string
+  bounds: L.LatLngBounds
   polys: number[][][][]
 }
 
@@ -357,9 +359,11 @@ export const parseHexRefs = (data: any): ProcessedCellRefs => {
   const datasets: Array<HexTypeDataset> = myColumns.map((column: string, index: number): HexTypeDataset => {
     const cellRefs = hexRefs.data.filter((value: HexRef) => value[index + 1])
     const cellNames = cellRefs.map((value: HexRef) => value[0]) as string[]
+    const bounds = boundsFor(cellNames)
     const dataset: HexTypeDataset = {
       typeName: column,
-      cells: cellNames
+      cells: cellNames,
+      bounds: bounds
     }
     return dataset
   })
@@ -377,31 +381,48 @@ export const generatePolys = (data: HexTypeDataset[]): PolySet[] => {
     const regions = h3SetToMultiPolygon(cells, false)
     return {
       name: value.typeName,
-      polys: regions
+      polys: regions,
+      bounds: value.bounds
     }
   })
 }
 
+export const invertCoords = (feature: Position[][][]): Position[][][] => {
+  return feature.map((val1: Position[][]): Position[][] => {
+    return val1.map((val2: Position[]): Position[] => {
+      return val2.map((val3: Position): Position => {
+        return [val3[1], val3[0]]
+      })
+    })
+  })
+}
+
 export const convertToFeatures = (data: PolySet[]): GeoJSON.FeatureCollection => {
-  const features = data.map((polygonType: PolySet): Feature<Geometry> => {
+  const features = data.map((poly: PolySet): Feature<Geometry> => {
+    const lBounds = poly.bounds
+    // convert Leaflet bounds to GeoJSON format
+    const bbox: BBox = [lBounds.getWest(), lBounds.getNorth(), lBounds.getEast(), lBounds.getSouth()]
+    // invert the coordinates
+    const newCoords = invertCoords(poly.polys)
     const res: Feature<Geometry> = {
-      "type": "Feature",
-      "properties": {
-        "type": 0,
-        "name": polygonType.name,
-        "is": 10630,
-        "js": 32944,
-        "ks": -43574,
-        "typeTmp": 0,
-        "depth": -478850,
-        "ai": 123668,
-        "aj": 155636,
-        "shipping": 1531802.0
+      type: "Feature",
+      properties: {
+        type: 0,
+        name: poly.name,
+        is: 10630,
+        js: 32944,
+        ks: -43574,
+        typeTmp: 0,
+        depth: -478850,
+        ai: 123668,
+        aj: 155636,
+        shipping: 1531802
       },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": polygonType.polys
-      }
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: newCoords
+      },
+      bbox: bbox
     }
     return res
   })

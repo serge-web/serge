@@ -1,7 +1,8 @@
 import data3 from '../data/north-atlantic-res3'
 import data4 from '../data/north-atlantic-res4'
 import h3, { H3IndexInput } from 'h3-js'
-import { parseHexRefs, generatePolys, convertToFeatures } from './h3-helpers'
+import { parseHexRefs, generatePolys, convertToFeatures, invertCoords } from './h3-helpers'
+import { MultiPolygon } from 'geojson'
 
 it('generates polygons of same R3 terrain tyope', () => {
   const hexCells = parseHexRefs(data3)
@@ -36,8 +37,30 @@ it('generates polygons of same R3 terrain tyope', () => {
   // now convert to features
   const features = convertToFeatures(polyRegions)
   expect(features).toBeTruthy()
-  expect(features.features.length).toEqual(4)
+  expect(features.features.length).toEqual(5)
+  expect(features.features[0].bbox).toBeTruthy()
+  expect(features.features[0].bbox && features.features[0].bbox[0]).toBeCloseTo(-60.8, 0)
+  const mP = features.features[0].geometry as MultiPolygon
+  expect(mP).toBeTruthy()
+  expect(mP.coordinates[0][0][0][0]).toBeCloseTo(-49.7, 0)
+  expect(mP.coordinates[0][0][0][1]).toBeCloseTo(62.0, 0)
+})
 
+it('inverts position coords', () => {
+  const data: GeoJSON.Position[][][] =  [[[[ 62.08986419595545, -49.75788581673224 ],
+    [ 61.46323888940566, -50.21923807725031 ],
+    [ 60.95930148259598, -49.35411435202936 ],
+    [ 61.070843759573435, -48.04232110294612 ]]],
+    [[[ 12.08986419595545, -19.75788581673224 ],
+    [ 61.46323888940566, -50.21923807725031 ],
+    [ 60.95930148259598, -49.35411435202936 ],
+    [ 61.070843759573435, -48.04232110294612 ]]]] as number[][][][]
+  const converted = invertCoords(data)
+  expect(converted).toBeTruthy()
+  expect(converted[0][0][0][0]).toBeCloseTo(-49.7, 0)
+  expect(converted[0][0][0][1]).toBeCloseTo(62.0, 0)
+  expect(converted[1][0][0][0]).toBeCloseTo(-19.7, 0)
+  expect(converted[1][0][0][1]).toBeCloseTo(12.0, 0)
 })
 
 it('generates polygons of same R4 terrain tyope', () => {
