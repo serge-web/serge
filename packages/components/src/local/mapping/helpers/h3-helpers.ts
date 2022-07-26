@@ -397,18 +397,24 @@ export const invertCoords = (feature: Position[][][]): Position[][][] => {
   })
 }
 
-export const convertToFeatures = (data: PolySet[]): GeoJSON.FeatureCollection => {
-  const features = data.map((poly: PolySet, index: number): Feature<Geometry> => {
-    const lBounds = poly.bounds
-    // convert Leaflet bounds to GeoJSON format
+export const convertToFeatures = (data: PolySet[], bounds: L.LatLngBounds): GeoJSON.FeatureCollection => {
+  const convertBounds = (lBounds: L.LatLngBounds): BBox => {
     const bbox: BBox = [lBounds.getWest(), lBounds.getNorth(), lBounds.getEast(), lBounds.getSouth()]
+    return bbox
+  }
+  const overallBounds = convertBounds(bounds)
+  const features = data.map((poly: PolySet, index: number): Feature<Geometry> => {
+    // convert Leaflet bounds to GeoJSON format
+    const bbox: BBox = convertBounds(poly.bounds)
     // invert the coordinates
     const newCoords = invertCoords(poly.polys)
     const res: Feature<Geometry> = {
       type: "Feature",
       properties: {
         type: index,
-        name: poly.name
+        name: poly.name,
+        // flag to indicate this is v2 of hex format
+        v2: true
       },
       geometry: {
         type: "MultiPolygon",
@@ -420,6 +426,7 @@ export const convertToFeatures = (data: PolySet[]): GeoJSON.FeatureCollection =>
   })
   return {
     type: "FeatureCollection",
-    features: features
+    features: features,
+    bbox: overallBounds
   }
 }

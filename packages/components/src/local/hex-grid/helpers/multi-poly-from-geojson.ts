@@ -16,8 +16,13 @@ export interface TerrainPolygons {
 const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
   // drop zone 2 - open sea
   const interestingTerrains = data.features.filter((feature: Feature) => {
-    const type = feature.properties && feature.properties.type
-    return type !== 0 && type !== 2
+    const v2 = feature.properties && feature.properties.v2
+    if (v2) {
+      return feature.properties
+    } else {
+      const type = feature.properties && feature.properties.type
+      return type !== 0 && type !== 2  
+    }
   })
 
   const nullTerrain: TerrainType = {
@@ -29,7 +34,7 @@ const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
   // now collapse & reconstruct tree, swapping lon & lat
   const terrains = interestingTerrains.map((feature: Feature): TerrainPolygons => {
     const multiPoly = feature.geometry as MultiPolygon
-    const terrain = (feature.properties && typeFor(feature.properties.type)) || nullTerrain
+    const terrain = (feature.properties && typeFor(feature.properties.type, !!feature.properties.v2)) || nullTerrain
     return {
       terrain: terrain,
       data: multiPoly.coordinates.map((level1: number[][][]): L.LatLngTuple[][] => {
