@@ -228,8 +228,8 @@ const cellStylesFor = (legacyDefs: GeoJSON.FeatureCollection, cellDefs: HexTypeD
   */
 export const createGridH3 = (legacyBounds: L.LatLngBounds, legacyRes: number, legacyCellDefs: any, cellDefs: any): SergeGrid3 => {
   const newDefs = cellDefs as ProcessedCellRefs
-  const bounds = cellDefs ? newDefs.bounds : legacyBounds
-  const res = cellDefs ? h3GetResolution(newDefs.cells[0]) : legacyRes
+  const bounds = newDefs ? newDefs.bounds : legacyBounds
+  const res = newDefs ? h3GetResolution(newDefs.cellSets[0].cells[0]) : legacyRes
   // outer boundary
   const h3Bounds = h3polyFromBounds(bounds)
 
@@ -409,7 +409,7 @@ export const convertToFeatures = (data: PolySet[], bounds: L.LatLngBounds): GeoJ
     // invert the coordinates
     const newCoords = invertCoords(poly.polys)
     const res: Feature<Geometry> = {
-      type: "Feature",
+      type: 'Feature',
       properties: {
         type: index,
         name: poly.name,
@@ -417,7 +417,7 @@ export const convertToFeatures = (data: PolySet[], bounds: L.LatLngBounds): GeoJ
         v2: true
       },
       geometry: {
-        type: "MultiPolygon",
+        type: 'MultiPolygon',
         coordinates: newCoords
       },
       bbox: bbox
@@ -425,7 +425,7 @@ export const convertToFeatures = (data: PolySet[], bounds: L.LatLngBounds): GeoJ
     return res
   })
   return {
-    type: "FeatureCollection",
+    type: 'FeatureCollection',
     features: features,
     bbox: overallBounds
   }
