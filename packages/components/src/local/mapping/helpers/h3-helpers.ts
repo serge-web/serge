@@ -398,7 +398,7 @@ export const invertCoords = (feature: Position[][][]): Position[][][] => {
 }
 
 export const convertToFeatures = (data: PolySet[]): GeoJSON.FeatureCollection => {
-  const features = data.map((poly: PolySet): Feature<Geometry> => {
+  const features = data.map((poly: PolySet, index: number): Feature<Geometry> => {
     const lBounds = poly.bounds
     // convert Leaflet bounds to GeoJSON format
     const bbox: BBox = [lBounds.getWest(), lBounds.getNorth(), lBounds.getEast(), lBounds.getSouth()]
@@ -407,16 +407,8 @@ export const convertToFeatures = (data: PolySet[]): GeoJSON.FeatureCollection =>
     const res: Feature<Geometry> = {
       type: "Feature",
       properties: {
-        type: 0,
-        name: poly.name,
-        is: 10630,
-        js: 32944,
-        ks: -43574,
-        typeTmp: 0,
-        depth: -478850,
-        ai: 123668,
-        aj: 155636,
-        shipping: 1531802
+        type: index,
+        name: poly.name
       },
       geometry: {
         type: "MultiPolygon",
