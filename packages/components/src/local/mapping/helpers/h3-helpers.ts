@@ -231,10 +231,10 @@ export const createGridH3 = (legacyBounds: L.LatLngBounds, legacyRes: number, le
   const bounds = cellDefs ? newDefs.bounds : legacyBounds
   const res = cellDefs ? h3GetResolution(newDefs.cells[0]) : legacyRes
   // outer boundary
-  const boundsNum = h3polyFromBounds(bounds)
+  const h3Bounds = h3polyFromBounds(bounds)
 
   // set of cells in this area
-  const cells = cellDefs ? newDefs.cells : polyfill(boundsNum, res)
+  const cells = cellDefs ? newDefs.cells : polyfill(h3Bounds, res)
 
   // sort out the centre index
   const centreLoc = bounds.getCenter()
@@ -317,7 +317,7 @@ interface HexTypeDataset {
   cells: Array<string>
 }
 
-interface ProcessedCellRefs {
+export interface ProcessedCellRefs {
   bounds: L.LatLngBounds
   cellSets: HexTypeDataset[]
   cells: string[]
@@ -380,4 +380,33 @@ export const generatePolys = (data: HexTypeDataset[]): PolySet[] => {
       polys: regions
     }
   })
+}
+
+export const convertToFeatures = (data: PolySet[]): GeoJSON.FeatureCollection => {
+  const features = data.map((polygonType: PolySet): Feature<Geometry> => {
+    const res: Feature<Geometry> = {
+      "type": "Feature",
+      "properties": {
+        "type": 0,
+        "name": polygonType.name,
+        "is": 10630,
+        "js": 32944,
+        "ks": -43574,
+        "typeTmp": 0,
+        "depth": -478850,
+        "ai": 123668,
+        "aj": 155636,
+        "shipping": 1531802.0
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": polygonType.polys
+      }
+    }
+    return res
+  })
+  return {
+    type: "FeatureCollection",
+    features: features
+  }
 }

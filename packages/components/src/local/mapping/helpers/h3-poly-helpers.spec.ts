@@ -1,7 +1,7 @@
 import data3 from '../data/north-atlantic-res3'
 import data4 from '../data/north-atlantic-res4'
 import h3, { H3IndexInput } from 'h3-js'
-import { parseHexRefs, generatePolys } from './h3-helpers'
+import { parseHexRefs, generatePolys, convertToFeatures } from './h3-helpers'
 
 it('generates polygons of same R3 terrain tyope', () => {
   const hexCells = parseHexRefs(data3)
@@ -32,6 +32,12 @@ it('generates polygons of same R3 terrain tyope', () => {
   const landPoly = polyRegions[0]
   expect(landPoly.name).toEqual('Land')
   expect(landPoly.polys.length).toEqual(13)
+
+  // now convert to features
+  const features = convertToFeatures(polyRegions)
+  expect(features).toBeTruthy()
+  expect(features.features.length).toEqual(4)
+
 })
 
 it('generates polygons of same R4 terrain tyope', () => {
