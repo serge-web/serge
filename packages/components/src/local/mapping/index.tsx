@@ -12,7 +12,7 @@ import { cloneDeep, isEqual } from 'lodash'
 import * as h3 from 'h3-js'
 
 /* helper functions */
-import { createGridH3, parseHexRefs } from './helpers/h3-helpers'
+import { convertToFeatures, createGridH3, generatePolys, parseHexRefs } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -352,9 +352,11 @@ export const Mapping: React.FC<PropTypes> = ({
         .then((response: any) => response.json())
         .then((res: any) => {
           const refs = parseHexRefs(res)
+          const polys = generatePolys(refs.cellSets)
           // convert to feature collection
-          console.log('read in new bounds', refs.bounds)
-          
+          const features = convertToFeatures(polys, refs.bounds)
+          setPolygonAreas(features)
+          setMapBounds(refs.bounds)
         }).catch((err: any) => {
           console.error(err)
         })
@@ -376,7 +378,7 @@ export const Mapping: React.FC<PropTypes> = ({
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
-          console.log('set polys', res, mappingConstraintState.polygonAreasURL)
+          console.log('set polys', res)
           setPolygonAreas(res)
         }).catch((err: any) => {
           console.error(err)
