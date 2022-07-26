@@ -21,7 +21,7 @@ const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
       return feature.properties
     } else {
       const type = feature.properties && feature.properties.type
-      return type !== 0 && type !== 2  
+      return type !== 0 && type !== 2
     }
   })
 

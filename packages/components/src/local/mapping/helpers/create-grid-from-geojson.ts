@@ -9,7 +9,7 @@ export interface TerrainType {
 /** lookup for types to styles */
 const typeFor = (type: number, v2: boolean): TerrainType => {
   if (v2) {
-    const cols = ['#F0E68C','#1E90FF','#87CEFA','#E0FFFF','#fff','#00f']
+    const cols = ['#F0E68C', '#1E90FF', '#87CEFA', '#E0FFFF', '#fff', '#00f']
     switch (type) {
       case 0: return { terrain: Terrain.LAND, type: 'land', fillColor: cols[type] }
       case 1: return { terrain: Terrain.SEA, type: 'shallow', fillColor: cols[type] }

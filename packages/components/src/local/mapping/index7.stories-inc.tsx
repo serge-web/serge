@@ -33,12 +33,12 @@ async function fetchMock (url: string): Promise<any> {
   if (url.indexOf('-res3') >= 0) {
     return {
       json: (): any => dataAtlantic
-    }  
+    }
   } else if (url.indexOf('polygons') >= 0) {
     return {
       json: (): any => dataLegacyAtlantic
-    }  
-  } 
+    }
+  }
 }
 
 const allRoles: string[] = []
