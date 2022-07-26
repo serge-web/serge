@@ -255,7 +255,7 @@ export const createGridH3 = (legacyBounds: L.LatLngBounds, legacyRes: number, le
       return value.index === cell
     })
     let styleSum = 0
-    matches.forEach((value: {index: string, style: number}) => {
+    matches && matches.forEach((value: {index: string, style: number}) => {
       styleSum += Math.pow(2, value.style)
     })
     if (!styleSum) {
