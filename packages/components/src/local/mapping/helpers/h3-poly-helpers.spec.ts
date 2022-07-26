@@ -6,6 +6,8 @@ import { MultiPolygon } from 'geojson'
 
 it('generates polygons of same R3 terrain tyope', () => {
   const hexCells = parseHexRefs(data3)
+  expect(hexCells.bounds).toBeTruthy()
+  expect(hexCells.bounds.getNorth()).toBeCloseTo(70.4, 0)
   const cells = hexCells.cellSets
   expect(cells).toBeTruthy()
   expect(cells.length).toEqual(5)
@@ -35,11 +37,13 @@ it('generates polygons of same R3 terrain tyope', () => {
   expect(landPoly.polys.length).toEqual(13)
 
   // now convert to features
-  const features = convertToFeatures(polyRegions)
+  const features = convertToFeatures(polyRegions, hexCells.bounds)
   expect(features).toBeTruthy()
   expect(features.features.length).toEqual(5)
   expect(features.features[0].bbox).toBeTruthy()
   expect(features.features[0].bbox && features.features[0].bbox[0]).toBeCloseTo(-60.8, 0)
+  // check our 'v2' flag is present
+  expect(features.features[0].properties && features.features[0].properties.v2).toBeTruthy()
   const mP = features.features[0].geometry as MultiPolygon
   expect(mP).toBeTruthy()
   expect(mP.coordinates[0][0][0][0]).toBeCloseTo(-49.7, 0)
