@@ -9,7 +9,12 @@
 }
 
 .turn-progression-ui {
-  background: $background-progression;
+  background: $background-action-head;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
   border-radius: 10px;
   color: #fff;
   flex-grow: 0;
