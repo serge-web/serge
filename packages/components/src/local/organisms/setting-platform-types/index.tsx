@@ -553,7 +553,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           onDelete={handleDelete}
           onDuplicate={handleDuplicate}
           title='Create'
-          selectedItem={selectedItem >= 0 ? localPlatformType.platformTypes[selectedItem].name : undefined}
+          selectedItem={(selectedItem >= 0 && selectedItem < localPlatformType.platformTypes.length) ? localPlatformType.platformTypes[selectedItem].name : undefined}
           filterKey='name'
         />
       </LeftSide>
