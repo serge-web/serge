@@ -50,7 +50,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
   // loop through store
   routes.routes && routes.routes.forEach((route: Route) => {
     // start with location
-    if (route.currentPosition) {
+    if (route.currentPosition && route.currentPosition !== 'pending') {
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
