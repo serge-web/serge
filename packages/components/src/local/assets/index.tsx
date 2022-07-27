@@ -79,7 +79,10 @@ export const Assets: React.FC<{}> = () => {
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
           const assetInLaydown = route.laydownPhase === LaydownPhases.Unmoved
           if (!route.currentLocation2 && !assetInLaydown) {
-            console.warn('Warning: location missing for asset that isn\'t in laydown', route.name)
+            console.warn('Warning: location missing for asset that isn\'t in laydown:', route.name, ' This may be because we\'re mid-update')
+          }
+          if (assetInLaydown && (route.currentLocation2 !== undefined)) {
+            console.warn('Unmoved asset doesn\'t have location as pending')
           }
           const position: L.LatLng | undefined = route.currentLocation2 || dummyLocation
 
