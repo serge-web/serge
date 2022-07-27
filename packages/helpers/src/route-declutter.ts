@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import { RouteStore, Route, RouteTurn, MapAnnotations, MapAnnotation } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
-import { h3ToGeo } from 'h3-js'
+import { h3ToGeo, h3IsValid } from 'h3-js'
 
 /** signature of method to update location */
 interface ClusterSetter {
@@ -49,8 +49,9 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
   const res: Array<Cluster> = []
   // loop through store
   routes.routes && routes.routes.forEach((route: Route) => {
-    // start with location
-    if (route.currentPosition && route.currentPosition !== 'pending') {
+    // check this isn't an asset in laydown
+    const locationPending = route.currentPosition === 'pending'
+    if (route.currentPosition && !locationPending) {
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
@@ -135,6 +136,9 @@ const dummySpreadClusters = (clusters: Array<Cluster>): void => {
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
     const idLen = cluster.ids.length
+    if (!h3IsValid(cluster.hex)) {
+      console.warn('WARNING - encountered invalid hex reference', cluster.hex)
+    }
     if (idLen > 1) {
       const centreArr = h3ToGeo(cluster.hex)
       const centre = L.latLng(centreArr[0], centreArr[1])
