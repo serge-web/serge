@@ -267,7 +267,7 @@ const wargame: Wargame = {
                             "uniqid": "al63ltwtw"
                         }
                     ],
-                    "color": "#3dd0ff",
+                    "color": "#33ff33",
                     "dirty": false,
                     "iconURL": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "Green",
@@ -472,7 +472,7 @@ const wargame: Wargame = {
         },
         "overview": {
             "dirty": false,
-            "gameDate": -916315200000,
+            "gameDate": "1940-07-27T12:47:21+01:00",
             "gameDescription": "",
             "gameTurnTime": {
                 "millis": 120000,
@@ -496,10 +496,10 @@ const wargame: Wargame = {
                     "icon": "frigate.svg",
                     "name": "Frigate",
                     "speedKts": [
-                        6,
+                        4,
+                        8,
                         12,
-                        18,
-                        24
+                        16
                     ],
                     "states": [
                         {
@@ -556,12 +556,10 @@ const wargame: Wargame = {
                         {}
                     ],
                     "speedKts": [
-                        6,
+                        4,
+                        8,
                         12,
-                        18,
-                        24,
-                        30,
-                        36
+                        16
                     ],
                     "states": [
                         {
@@ -595,7 +593,7 @@ const wargame: Wargame = {
                         {
                             "attrId": "attrl63lsyql",
                             "attrType": "AttributeTypeNumber",
-                            "defaultValue": "12",
+                            "defaultValue": 12,
                             "description": "# of Torpedoes remaining",
                             "name": "Torpedoes"
                         }
@@ -608,9 +606,9 @@ const wargame: Wargame = {
                     "icon": "ssk.svg",
                     "name": "SSK",
                     "speedKts": [
-                        6,
-                        12,
-                        18
+                        4,
+                        8,
+                        12
                     ],
                     "states": [
                         {
@@ -638,8 +636,8 @@ const wargame: Wargame = {
                     "icon": "merchant-vessel.svg",
                     "name": "Merchant vessel",
                     "speedKts": [
-                        6,
-                        12
+                        4,
+                        8
                     ],
                     "states": [
                         {
