@@ -78,7 +78,7 @@ export const Assets: React.FC<{}> = () => {
 
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
           const assetInLaydown = route.laydownPhase === LaydownPhases.Unmoved
-          if(!route.currentLocation2 && !assetInLaydown) {
+          if (!route.currentLocation2 && !assetInLaydown) {
             console.warn('Warning: location missing for asset that isn\'t in laydown', route.name)
           }
           const position: L.LatLng | undefined = route.currentLocation2 || dummyLocation
@@ -123,7 +123,7 @@ export const Assets: React.FC<{}> = () => {
               }
               tmpAssets.push(assetInfo)
             } else {
-              console.warn('Failed to find force that controls', route.name)              
+              console.warn('Failed to find force that controls', route.name)
             }
           } else {
             console.log('!! Failed to find cell numbered:', position, route.currentPosition, route.name)
