@@ -79,7 +79,7 @@ export const Assets: React.FC<{}> = () => {
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
           const assetInLaydown = route.laydownPhase === LaydownPhases.Unmoved
           if(!route.currentLocation2 && !assetInLaydown) {
-            console.warn('Warning: location missing for asset that isn\'t in laydown')
+            console.warn('Warning: location missing for asset that isn\'t in laydown', route.name)
           }
           const position: L.LatLng | undefined = route.currentLocation2 || dummyLocation
 
