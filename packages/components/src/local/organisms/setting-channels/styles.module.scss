@@ -128,8 +128,11 @@
 }
 
 .accordion-title-group {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 20px;
 }
 
 .accordion-title {
