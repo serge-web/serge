@@ -1,7 +1,9 @@
 import { Wargame } from "@serge/custom-types";
 
-const wargame: Wargame = {
-    "adjudicationStartTime": "2022-07-27T12:47:21+01:00",
+const wargame: Wargame =
+{
+    "adjudicationStartTime": "2022-07-28T14:44:03+01:00",
+    "wargameList": [],
     "data": {
         "annotationIcons": {
             "markers": [
@@ -55,6 +57,175 @@ const wargame: Wargame = {
         "channels": {
             "channels": [
                 {
+                    "uniqid": "l650i8sj",
+                    "name": "Blue Voice",
+                    "channelType": "ChannelChat",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [],
+                            "subscriptionId": "epplc",
+                            "pType": "ParticipantChat"
+                        },
+                        {
+                            "force": "B1",
+                            "forceUniqid": "force-l65060ra",
+                            "roles": [],
+                            "subscriptionId": "eca6s",
+                            "pType": "ParticipantChat"
+                        },
+                        {
+                            "force": "B2",
+                            "forceUniqid": "fl6506vlo",
+                            "roles": [],
+                            "subscriptionId": "1i72a",
+                            "pType": "ParticipantChat"
+                        },
+                        {
+                            "force": "B3",
+                            "forceUniqid": "fl65088ac",
+                            "roles": [],
+                            "subscriptionId": "m87ny",
+                            "pType": "ParticipantChat"
+                        },
+                        {
+                            "force": "B4",
+                            "forceUniqid": "fl6509vwm",
+                            "roles": [],
+                            "subscriptionId": "90mjl",
+                            "pType": "ParticipantChat"
+                        },
+                        {
+                            "force": "B5",
+                            "forceUniqid": "fl650arbn",
+                            "roles": [],
+                            "subscriptionId": "2v4wa",
+                            "pType": "ParticipantChat"
+                        }
+                    ]
+                },
+                {
+                    "uniqid": "l650fqoy",
+                    "name": "mapping",
+                    "channelType": "mapping",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                "pl63jl7so"
+                            ],
+                            "subscriptionId": "qdaad",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "control-all:force-l63ltojn"
+                            ]
+                        },
+                        {
+                            "force": "B1",
+                            "forceUniqid": "force-l65060ra",
+                            "roles": [
+                                "pl65060rb"
+                            ],
+                            "subscriptionId": "k6co",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al65069c1"
+                            ]
+                        },
+                        {
+                            "force": "B2",
+                            "forceUniqid": "fl6506vlo",
+                            "roles": [
+                                "rl6506vlp"
+                            ],
+                            "subscriptionId": "jejlg",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al6506vlq"
+                            ]
+                        },
+                        {
+                            "force": "B3",
+                            "forceUniqid": "fl65088ac",
+                            "roles": [
+                                "rl65088ad"
+                            ],
+                            "subscriptionId": "lv0zo",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al65088ae"
+                            ]
+                        },
+                        {
+                            "force": "B4",
+                            "forceUniqid": "fl6509vwm",
+                            "roles": [
+                                "rl6509vwn"
+                            ],
+                            "subscriptionId": "fev0p",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al6509vwo"
+                            ]
+                        },
+                        {
+                            "force": "B5",
+                            "forceUniqid": "fl650arbn",
+                            "roles": [
+                                "rl650arbo"
+                            ],
+                            "subscriptionId": "yp10n",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al650arbp"
+                            ]
+                        },
+                        {
+                            "force": "R1",
+                            "forceUniqid": "fl650chc2",
+                            "roles": [
+                                "rl650chc3"
+                            ],
+                            "subscriptionId": "qsgtl",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al650d18r"
+                            ]
+                        },
+                        {
+                            "force": "R2",
+                            "forceUniqid": "fl650dmnd",
+                            "roles": [
+                                "rl650dmne"
+                            ],
+                            "subscriptionId": "rciqi",
+                            "pType": "ParticipantMapping",
+                            "controls": [
+                                "al650dmnf"
+                            ]
+                        }
+                    ],
+                    "constraints": {
+                        "bounds": [
+                            [
+                                54.6,
+                                -4.2
+                            ],
+                            [
+                                54.5,
+                                -4
+                            ]
+                        ],
+                        "h3res": 10,
+                        "cellLabelsStyle": "x_y_labels",
+                        "minZoom": 8,
+                        "maxZoom": 17,
+                        "maxNativeZoom": 8
+                    }
+                },
+                {
                     "channelType": "ChannelChat",
                     "name": "White Comms",
                     "participants": [
@@ -67,150 +238,6 @@ const wargame: Wargame = {
                         }
                     ],
                     "uniqid": "l63m6kqw"
-                },
-                {
-                    "channelType": "ChannelChat",
-                    "name": "Red Comms",
-                    "participants": [
-                        {
-                            "force": "White",
-                            "forceUniqid": "umpire",
-                            "pType": "ParticipantChat",
-                            "roles": [],
-                            "subscriptionId": "87ci"
-                        },
-                        {
-                            "force": "Red",
-                            "forceUniqid": "force-l63lrttd",
-                            "pType": "ParticipantChat",
-                            "roles": [],
-                            "subscriptionId": "o5jb"
-                        }
-                    ],
-                    "uniqid": "l63m657n"
-                },
-                {
-                    "channelType": "ChannelChat",
-                    "name": "Blue Comms",
-                    "participants": [
-                        {
-                            "force": "White",
-                            "forceUniqid": "umpire",
-                            "pType": "ParticipantChat",
-                            "roles": [],
-                            "subscriptionId": "wb45c"
-                        },
-                        {
-                            "force": "Blue",
-                            "forceUniqid": "force-l63lpkoq",
-                            "pType": "ParticipantChat",
-                            "roles": [],
-                            "subscriptionId": "xzn8r"
-                        }
-                    ],
-                    "uniqid": "l63m5czr"
-                },
-                {
-                    "channelType": "mapping",
-                    "constraints": {
-                        "bounds": [
-                            [
-                                50.362,
-                                -19.65
-                            ],
-                            [
-                                50.12,
-                                -19.17
-                            ]
-                        ],
-                        "cellLabelsStyle": "x_y_labels",
-                        "gridCellsURL": "",
-                        "h3res": 9,
-                        "maxNativeZoom": 8,
-                        "maxZoom": 16,
-                        "minZoom": 10,
-                        "polygonAreasURL": "",
-                        "tileLayer": {
-                            "attribution": "Generated by QTiles",
-                            "url": "./atlantic_tiles/{z}/{x}/{y}.png"
-                        }
-                    },
-                    "name": "Mapping",
-                    "participants": [
-                        {
-                            "controls": [
-                                "control-all:force-l63ltojn"
-                            ],
-                            "force": "White",
-                            "forceUniqid": "umpire",
-                            "pType": "ParticipantMapping",
-                            "roles": [
-                                "pl63jl7so"
-                            ],
-                            "subscriptionId": "qfph"
-                        },
-                        {
-                            "controls": [
-                                "al63lscon"
-                            ],
-                            "force": "Red",
-                            "forceUniqid": "force-l63lrttd",
-                            "pType": "ParticipantMapping",
-                            "roles": [
-                                "rl63ls1x8"
-                            ],
-                            "subscriptionId": "5y8u4"
-                        },
-                        {
-                            "controls": [
-                                "al63lsibf"
-                            ],
-                            "force": "Red",
-                            "forceUniqid": "force-l63lrttd",
-                            "pType": "ParticipantMapping",
-                            "roles": [
-                                "rl63ls4vy"
-                            ],
-                            "subscriptionId": "5ype"
-                        },
-                        {
-                            "controls": [
-                                "al63lqfep"
-                            ],
-                            "force": "Blue",
-                            "forceUniqid": "force-l63lpkoq",
-                            "pType": "ParticipantMapping",
-                            "roles": [
-                                "rl63lq0eb"
-                            ],
-                            "subscriptionId": "rxqkq"
-                        },
-                        {
-                            "controls": [
-                                "al63lqyt2"
-                            ],
-                            "force": "Blue",
-                            "forceUniqid": "force-l63lpkoq",
-                            "pType": "ParticipantMapping",
-                            "roles": [
-                                "rl63lpxic"
-                            ],
-                            "subscriptionId": "dlcdr"
-                        },
-                        {
-                            "controls": [
-                                "al63lqm2t"
-                            ],
-                            "force": "Blue",
-                            "forceUniqid": "force-l63lpkoq",
-                            "pType": "ParticipantMapping",
-                            "roles": [
-                                "rl63lq3m4"
-                            ],
-                            "subscriptionId": "sjjc"
-                        }
-                    ],
-                    "uniqid": "l63luz1j"
                 }
             ],
             "dirty": false,
@@ -220,6 +247,288 @@ const wargame: Wargame = {
         "forces": {
             "dirty": false,
             "forces": [
+                {
+                    "name": "R2",
+                    "uniqid": "fl650dmnd",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "R2-CO",
+                            "roleId": "rl650dmne",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#d0021b",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al650dmnf",
+                            "contactId": "C025",
+                            "name": "R2",
+                            "platformType": "SSK",
+                            "platformTypeId": "a7",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a1950899997fff",
+                            "attributeValues": [
+                                {
+                                    "attrId": "ssk-depth",
+                                    "value": "Deep",
+                                    "attrType": "AttributeValueEnum"
+                                },
+                                {
+                                    "attrId": "attrl63lsyql",
+                                    "value": 12,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "R1",
+                    "uniqid": "fl650chc2",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "R1-CO",
+                            "roleId": "rl650chc3",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#d0021b",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al650d18r",
+                            "contactId": "C347",
+                            "name": "R1",
+                            "platformType": "SSK",
+                            "platformTypeId": "a7",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195089bbaffff",
+                            "attributeValues": [
+                                {
+                                    "attrId": "ssk-depth",
+                                    "value": "Deep",
+                                    "attrType": "AttributeValueEnum"
+                                },
+                                {
+                                    "attrId": "attrl63lsyql",
+                                    "value": 12,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "B5",
+                    "uniqid": "fl650arbn",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "B5-CO",
+                            "roleId": "rl650arbo",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#3dd0ff",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al650arbp",
+                            "contactId": "C955",
+                            "name": "B5",
+                            "platformType": "Frigate",
+                            "platformTypeId": "a1",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088e2cffff",
+                            "attributeValues": []
+                        }
+                    ]
+                },
+                {
+                    "name": "B3",
+                    "uniqid": "fl65088ac",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "B3-CO",
+                            "roleId": "rl65088ad",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#3dd0ff",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al65088ae",
+                            "contactId": "C166",
+                            "name": "B3",
+                            "platformType": "Frigate",
+                            "platformTypeId": "a1",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088e66ffff",
+                            "attributeValues": []
+                        }
+                    ]
+                },
+                {
+                    "name": "B4",
+                    "uniqid": "fl6509vwm",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "B4-CO",
+                            "roleId": "rl6509vwn",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#3dd0ff",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al6509vwo",
+                            "contactId": "C101",
+                            "name": "B4",
+                            "platformType": "Frigate",
+                            "platformTypeId": "a1",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088e09ffff",
+                            "attributeValues": []
+                        }
+                    ]
+                },
+                {
+                    "name": "B2",
+                    "uniqid": "fl6506vlo",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "B2-CO",
+                            "roleId": "rl6506vlp",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#3dd0ff",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al6506vlq",
+                            "contactId": "C813",
+                            "name": "B2",
+                            "platformType": "Frigate",
+                            "platformTypeId": "a1",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a1950888cf7fff",
+                            "attributeValues": []
+                        }
+                    ]
+                },
+                {
+                    "name": "B1",
+                    "uniqid": "force-l65060ra",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "B1-CO",
+                            "roleId": "pl65060rb",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#3dd0ff",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al65069c1",
+                            "contactId": "C777",
+                            "name": "B1",
+                            "platformType": "Frigate",
+                            "platformTypeId": "a1",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088e80ffff",
+                            "attributeValues": [],
+                            "plannedTurns": [
+                                {
+                                    "turn": 2,
+                                    "route": [
+                                        "8a195088e8c7fff"
+                                    ],
+                                    "status": {
+                                        "state": "Transiting",
+                                        "speedKts": 4
+                                    }
+                                },
+                                {
+                                    "turn": 3,
+                                    "route": [
+                                        "8a195088e177fff"
+                                    ],
+                                    "status": {
+                                        "state": "Transiting",
+                                        "speedKts": 4
+                                    }
+                                },
+                                {
+                                    "turn": 4,
+                                    "route": [
+                                        "8a195088e02ffff"
+                                    ],
+                                    "status": {
+                                        "state": "Transiting",
+                                        "speedKts": 4
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "uniqid": "al650owyr",
+                            "contactId": "C361",
+                            "name": "Merchant vessel",
+                            "platformType": "Merchant vessel",
+                            "platformTypeId": "a13",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088c6effff",
+                            "attributeValues": []
+                        }
+                    ]
+                },
                 {
                     "color": "#FCFBEE",
                     "dirty": false,
@@ -244,25 +553,45 @@ const wargame: Wargame = {
                             "attributeValues": [],
                             "condition": "",
                             "contactId": "C629",
-                            "locationPending": "Umpire laydown",
-                            "name": "Merch A",
+                            "name": "G1",
                             "perceptions": [],
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
-                            "position": "",
+                            "position": "8a195088ea57fff",
                             "uniqid": "al63ltw3g"
                         },
                         {
                             "attributeValues": [],
                             "condition": "",
                             "contactId": "C598",
-                            "locationPending": "Umpire laydown",
-                            "name": "Merchant vessel",
+                            "name": "G2",
                             "perceptions": [],
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
-                            "position": "",
+                            "position": "8a195088c787fff",
                             "uniqid": "al63ltwtw"
+                        },
+                        {
+                            "uniqid": "al650ez1f",
+                            "contactId": "C632",
+                            "name": "G3",
+                            "platformType": "Merchant vessel",
+                            "platformTypeId": "a13",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088eaa7fff",
+                            "attributeValues": []
+                        },
+                        {
+                            "uniqid": "al650f5k2",
+                            "contactId": "C404",
+                            "name": "G4",
+                            "platformType": "Merchant vessel",
+                            "platformTypeId": "a13",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "8a195088c48ffff",
+                            "attributeValues": []
                         }
                     ],
                     "color": "#33ff33",
@@ -273,199 +602,51 @@ const wargame: Wargame = {
                     "roles": [],
                     "umpire": false,
                     "uniqid": "force-l63ltojn"
-                },
-                {
-                    "assets": [
-                        {
-                            "attributeValues": [
-                                {
-                                    "attrId": "ssk-depth",
-                                    "attrType": "AttributeValueEnum",
-                                    "value": "Deep"
-                                },
-                                {
-                                    "attrId": "attrl63lsyql",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 12
-                                }
-                            ],
-                            "condition": "",
-                            "contactId": "C773",
-                            "locationPending": "Umpire laydown",
-                            "name": "U232",
-                            "perceptions": [],
-                            "platformType": "SSK",
-                            "platformTypeId": "a7",
-                            "position": "",
-                            "uniqid": "al63lscon"
-                        },
-                        {
-                            "attributeValues": [
-                                {
-                                    "attrId": "ssk-depth",
-                                    "attrType": "AttributeValueEnum",
-                                    "value": "Deep"
-                                },
-                                {
-                                    "attrId": "attrl63lsyql",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 12
-                                }
-                            ],
-                            "condition": "",
-                            "contactId": "C418",
-                            "locationPending": "Umpire laydown",
-                            "name": "U17",
-                            "perceptions": [],
-                            "platformType": "SSK",
-                            "platformTypeId": "a7",
-                            "position": "",
-                            "uniqid": "al63lsibf"
-                        }
-                    ],
-                    "color": "#d0021b",
-                    "dirty": false,
-                    "iconURL": "http://localhost:8080/default_img/forceDefault.png",
-                    "name": "Red",
-                    "overview": "An overview written here..",
-                    "roles": [
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "name": "Red CO",
-                            "roleId": "pl63lrtte"
-                        },
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "isRFIManager": false,
-                            "name": "U232 CO",
-                            "roleId": "rl63ls1x8"
-                        },
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "isRFIManager": false,
-                            "name": "U17 CO",
-                            "roleId": "rl63ls4vy"
-                        }
-                    ],
-                    "umpire": false,
-                    "uniqid": "force-l63lrttd"
-                },
-                {
-                    "assets": [
-                        {
-                            "attributeValues": [],
-                            "condition": "",
-                            "contactId": "C780",
-                            "locationPending": "Umpire laydown",
-                            "name": "EDIN",
-                            "perceptions": [],
-                            "platformType": "Frigate",
-                            "platformTypeId": "a1",
-                            "position": "",
-                            "uniqid": "al63lqfep"
-                        },
-                        {
-                            "attributeValues": [],
-                            "condition": "",
-                            "contactId": "C630",
-                            "locationPending": "Umpire laydown",
-                            "name": "LVRP",
-                            "perceptions": [],
-                            "platformType": "Frigate",
-                            "platformTypeId": "a1",
-                            "position": "",
-                            "uniqid": "al63lqm2t"
-                        },
-                        {
-                            "attributeValues": [
-                                {
-                                    "attrId": "asdic-dir",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 0
-                                },
-                                {
-                                    "attrId": "att-torpedoes",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 20
-                                }
-                            ],
-                            "condition": "",
-                            "contactId": "C118",
-                            "locationPending": "Umpire laydown",
-                            "name": "NORT",
-                            "perceptions": [],
-                            "platformType": "Destroyer",
-                            "platformTypeId": "a6",
-                            "position": "",
-                            "uniqid": "al63lqyt2"
-                        }
-                    ],
-                    "color": "#4a90e2",
-                    "dirty": false,
-                    "iconURL": "http://localhost:8080/default_img/forceDefault.png",
-                    "name": "Blue",
-                    "overview": "An overview written here..",
-                    "roles": [
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "name": "Blue CO",
-                            "roleId": "pl63lpkor"
-                        },
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "isRFIManager": false,
-                            "name": "NORT CO",
-                            "roleId": "rl63lpxic"
-                        },
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "isRFIManager": false,
-                            "name": "EDIN CO",
-                            "roleId": "rl63lq0eb"
-                        },
-                        {
-                            "isGameControl": false,
-                            "isInsightViewer": false,
-                            "isObserver": false,
-                            "isRFIManager": false,
-                            "name": "LVRP CO",
-                            "roleId": "rl63lq3m4"
-                        }
-                    ],
-                    "umpire": false,
-                    "uniqid": "force-l63lpkoq"
                 }
             ],
             "name": "Forces",
             "selectedForce": {
-                "color": "#FCFBEE",
-                "dirty": false,
-                "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
-                "name": "White",
-                "overview": "Umpire force.",
+                "name": "R1-l650dmnd",
+                "uniqid": "fl650dmnd",
+                "overview": "An overview written here..",
                 "roles": [
                     {
-                        "isGameControl": true,
-                        "isInsightViewer": true,
-                        "isObserver": true,
-                        "name": "Game Control",
-                        "roleId": "pl63jl7so"
+                        "name": "R1-CO-l650dmne",
+                        "roleId": "rl650dmne",
+                        "isGameControl": false,
+                        "isObserver": false,
+                        "isInsightViewer": false
                     }
                 ],
-                "umpire": true,
-                "uniqid": "umpire"
+                "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                "color": "#3dd0ff",
+                "umpire": false,
+                "dirty": false,
+                "assets": [
+                    {
+                        "uniqid": "al650dmnf",
+                        "contactId": "C025",
+                        "name": "R1-l650dmnf",
+                        "platformType": "SSK",
+                        "platformTypeId": "a7",
+                        "perceptions": [],
+                        "condition": "",
+                        "position": "",
+                        "locationPending": "Umpire laydown",
+                        "attributeValues": [
+                            {
+                                "attrId": "ssk-depth",
+                                "value": "Deep",
+                                "attrType": "AttributeValueEnum"
+                            },
+                            {
+                                "attrId": "attrl63lsyql",
+                                "value": 12,
+                                "attrType": "AttributeValueNumber"
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "overview": {
@@ -518,7 +699,8 @@ const wargame: Wargame = {
                         }
                     ],
                     "travelMode": "sea",
-                    "uniqid": "a1"
+                    "uniqid": "a1",
+                    "turningCircle": 500
                 },
                 {
                     "attributeTypes": [
@@ -623,7 +805,8 @@ const wargame: Wargame = {
                         }
                     ],
                     "travelMode": "sea",
-                    "uniqid": "a7"
+                    "uniqid": "a7",
+                    "turningCircle": 400
                 },
                 {
                     "conditions": [
@@ -648,18 +831,19 @@ const wargame: Wargame = {
                         }
                     ],
                     "travelMode": "sea",
-                    "uniqid": "a13"
+                    "uniqid": "a13",
+                    "turningCircle": 1000
                 }
             ],
             "selectedType": ""
         }
     },
-    "gameTurn": 0,
+    "gameTurn": 1,
     "name": "wargame-l28tfdz0",
     "phase": "adjudication",
-    "turnEndTime": null,
-    "wargameInitiated": false,
-    "wargameTitle": "WATU Playtest"
+    "turnEndTime": "0",
+    "wargameInitiated": true,
+    "wargameTitle": "WATU Playtest",
+    "messageType": "InfoMessage"
 }
-
 export default wargame
