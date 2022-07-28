@@ -1,8 +1,6 @@
 import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame = {
-    "_id": "settings",
-    "_rev": "15-c2e7421ecfff5deb6443c6241c15e0f9",
     "adjudicationStartTime": "2022-07-27T12:47:21+01:00",
     "data": {
         "annotationIcons": {
