@@ -148,7 +148,7 @@ export const SettingAnnotation: React.FC<PropTypes> = ({ annotation, onChange, o
           onDelete={handleDelete}
           onDuplicate={handleDuplicate}
           title='Add new annotation'
-          selectedItem={selectedItem >= 0 ? localAnnotationMarkerData.markers[selectedItem].name : undefined}
+          selectedItem={localAnnotationMarkerData.markers[selectedItem]?.name}
           filterKey='name'
         />
       </LeftSide>
