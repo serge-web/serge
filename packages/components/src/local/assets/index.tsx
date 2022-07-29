@@ -53,6 +53,9 @@ export const Assets: React.FC<{}> = () => {
   useEffect(() => {
     if (h3gridCells) {
       const tmpAssets: AssetInfo[] = []
+
+      // we may need to provide location for assets that are in laydown
+      const dummyLocation = L.latLng(12.2, 13.3)
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformTypeId, actualForceId, condition, laydownPhase, visibleToThisForce, attributes } = route
 
@@ -74,14 +77,19 @@ export const Assets: React.FC<{}> = () => {
         )
 
         if (perceivedAsTypes && perceivedAsTypes.typeId) {
-          const position: L.LatLng | undefined = route.currentLocation2
+          const assetInLaydown = route.laydownPhase === LaydownPhases.Unmoved
+          if (!route.currentLocation2 && !assetInLaydown) {
+            console.warn('Warning: location missing for asset that isn\'t in laydown:', route.name, ' This may be because we\'re mid-update')
+          }
+          if (assetInLaydown && (route.currentLocation2 !== undefined)) {
+            console.warn('Unmoved asset doesn\'t have location as pending')
+          }
+          const position: L.LatLng | undefined = route.currentLocation2 || dummyLocation
+
           const visibleToArr: string[] = visibleTo(perceptions)
-          if (position != null) {
+          if (position != null || route.currentPosition === 'pending') {
             // sort out who can control this force
             const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.uniqid === actualForceId)
-
-            // console.log('percy', perceivedAsTypes, position, !!assetForce, actualForceId)
-
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const orientData: OrientationData[] = []
@@ -117,6 +125,8 @@ export const Assets: React.FC<{}> = () => {
                 orientationData: orientData
               }
               tmpAssets.push(assetInfo)
+            } else {
+              console.warn('Failed to find force that controls', route.name)
             }
           } else {
             console.log('!! Failed to find cell numbered:', position, route.currentPosition, route.name)
