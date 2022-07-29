@@ -1140,6 +1140,7 @@ const wargame: Wargame = {
                         }
                     ],
                     "travelMode": "sea",
+                    "turningCircle": 310,
                     "uniqid": "a13"
                 },
                 {
