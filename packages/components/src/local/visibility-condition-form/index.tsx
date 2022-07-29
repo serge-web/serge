@@ -20,7 +20,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
   const conditionValues: Array<string> = formData.condition
 
   const changeHandler = (e: any): void => {
-    setVisibleTo(e.value)
+    setVisibleTo(e.visibleTo)
   }
 
   const submitForm = (): void => {
