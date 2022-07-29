@@ -185,16 +185,16 @@ const couchDb = (app, io, pouchOptions) => {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
     }
 
-    const db = new PouchDB(databaseName, pouchOptions)
+    const db = new CouchDB(couchDbURL(databaseName))
 
     db.find({
       selector: {
         messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings }
+        _id: { $ne: wargameSettings, $gte: null }
       },
+      sort: [{_id: "desc"}],
       limit: 1,
-      sort: [{ _id: 'desc' }]
-    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+    }).then((resault) => res.send({ msg: 'ok', data: resault.docs}))
       .catch(() => res.send([]))
   })
 
