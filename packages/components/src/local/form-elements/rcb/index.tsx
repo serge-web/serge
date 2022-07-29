@@ -95,7 +95,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
         options.map((option, idx) => {
           const o = option.id || option
           const selected = getSelected(o)
-          const childClass = { root: classes[`root-${idx}`], checked: classes[`checked-${idx}`] }
+          const childClass = { root: classes[`root-${idx}`] }
           return <FormControlLabel
             key={option.name || option.toString()}
             labelPlacement={labelPlacement}

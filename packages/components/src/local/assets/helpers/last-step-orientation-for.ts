@@ -11,6 +11,7 @@ import * as h3 from 'h3-js'
  * @returns {number | undefined} - either the orientation to use, or undefined if there is no orientation
 */
 const lastStepOrientationFor = (current: string, realOrigin: string, history: Array<RouteTurn>, planned: Array<RouteTurn>): number | undefined => {
+  // utility function to produce simple list of items
   const flattenLocations = (route: RouteTurn[]): string[] => {
     const steps: string[] = []
     route.forEach((pos: RouteTurn) => {
@@ -52,8 +53,10 @@ const lastStepOrientationFor = (current: string, realOrigin: string, history: Ar
       const route = h3.h3Line(start, dest)
       const rLen = route.length
       if (rLen >= 2) {
-        const angle = brgBetweenTwoHex(route[rLen - 2], dest)
-        return cleanAngle(angle)
+        const startHex = route[rLen - 2]
+        const angle = brgBetweenTwoHex(startHex, dest)
+        const res = cleanAngle(angle)
+        return res
       }
     }
   }
