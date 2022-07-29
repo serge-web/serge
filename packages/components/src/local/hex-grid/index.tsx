@@ -337,8 +337,8 @@ export const HexGrid: React.FC<{}> = () => {
         const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        false && setAchievablePoly(turnOverall)
-        false && setTurningPoly(turnCircles)
+        setAchievablePoly(turnOverall)
+        setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
@@ -393,6 +393,10 @@ export const HexGrid: React.FC<{}> = () => {
             const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
             setCameFrom(cameFromDict)
             cellsAfterTurn = turnCells
+            // show a warning if the turning circle data means there aren't any achievable cells
+            if (filteredCells.length && !turnCells.length) {
+              console.warn('Size of turning circle means no achievable cells')
+            }
           } else {
             cellsAfterTurn = filteredCells
           }
