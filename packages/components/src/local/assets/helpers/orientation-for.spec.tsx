@@ -28,13 +28,13 @@ it('Calculates correct orientation for whole route', () => {
     expect(asset && asset.name).toEqual('SSN-1')
 
     // force use of history
-    expect(orientationFor(current, history, [], attributes, rel)).toBeCloseTo(78, 0)
+    expect(orientationFor(current, history, [], attributes, rel)).toBeCloseTo(70.9, 0)
     // allow use of planned
-    expect(orientationFor(current, history, planned, attributes, rel)).toBeCloseTo(14.4, 0)
+    expect(orientationFor(current, history, planned, attributes, rel)).toBeCloseTo(9.4, 0)
 
     // test permutations of orientation!
     const relAttr: OrientationMarker = { origin: 'relative', attribute: 'asdic-dir' }
-    expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(149.6, 0)
+    expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(144.4, 0)
     const absAttr: OrientationMarker = { origin: 'absolute', attribute: 'asdic-dir' }
     expect(orientationFor(current, history, planned, attributes, absAttr)).toBeCloseTo(135, 0)
   }
@@ -43,6 +43,6 @@ it('Calculates correct orientation for whole route', () => {
 it('Maths works as expected', () => {
   const pos1 = '8718a84daffffff'
   const pos2 = '8718a84d8ffffff'
-  expect(brgBetweenTwoHex(pos1, pos2)).toBeCloseTo(78, 0)
-  expect(brgBetweenTwoHex(pos2, pos1)).toBeCloseTo(258, 0)
+  expect(brgBetweenTwoHex(pos1, pos2)).toBeCloseTo(70.9, 0)
+  expect(brgBetweenTwoHex(pos2, pos1)).toBeCloseTo(-108.9, 0)
 })
