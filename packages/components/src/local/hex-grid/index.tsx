@@ -51,7 +51,7 @@ export const HexGrid: React.FC<{}> = () => {
   } = props
 
   // define detail cut-offs
-  const SHOW_LABELS_UNDER = 400
+  const SHOW_LABELS_UNDER = 800
   const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
