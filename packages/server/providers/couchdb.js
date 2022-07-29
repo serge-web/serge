@@ -192,9 +192,9 @@ const couchDb = (app, io, pouchOptions) => {
         messageType: INFO_MESSAGE,
         _id: { $ne: wargameSettings, $gte: null }
       },
-      sort: [{_id: "desc"}],
-      limit: 1,
-    }).then((resault) => res.send({ msg: 'ok', data: resault.docs}))
+      sort: [{ _id: 'desc' }],
+      limit: 1
+    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
       .catch(() => res.send([]))
   })
 
