@@ -20,7 +20,7 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { Route, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
 
-import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing, h3Line } from 'h3-js'
+import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
 import { brgBetweenTwoHex, cleanAngle, leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
 
@@ -52,7 +52,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // define detail cut-offs
   const SHOW_LABELS_UNDER = 400
-  const SHOW_HEXES_UNDER = 1000
+  const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -337,8 +337,8 @@ export const HexGrid: React.FC<{}> = () => {
         const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        setAchievablePoly(turnOverall)
-        setTurningPoly(turnCircles)
+        false && setAchievablePoly(turnOverall)
+        false && setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
@@ -395,7 +395,7 @@ export const HexGrid: React.FC<{}> = () => {
             cellsAfterTurn = turnCells
             // show a warning if the turning circle data means there aren't any achievable cells
             if (filteredCells.length && !turnCells.length) {
-              console.warn('Size of turning circle means no achievable cells')
+              console.warn('Size of turning circle means no achievable cells', filteredCells.length, turnCells.length)
             }
           } else {
             cellsAfterTurn = filteredCells
@@ -570,12 +570,17 @@ export const HexGrid: React.FC<{}> = () => {
   }, [relevantCells3, planningRouteCells3])
 
   const simplifyRoute = (route: SergeHex3[]): SergeHex3[] => {
-    const len = route.length
-    const start = route[0]
-    const last = route[len - 1]
-    const direct = h3Line(start.index, last.index)
-    const res = (direct.length === len) ? [start, last] : route
-    return res
+    // TODO: the route simplification was breaking for small cells.
+    // my guess is that our route generation was generating one route between
+    // cells, but h3 was developing a different route between cells.
+    //
+    // const len = route.length
+    // const start = route[0]
+    // const last = route[len - 1]
+    // const direct = h3Line(start.index, last.index)
+    // console.log('simplify', start.index, last.index, direct.length)
+    // const res = (direct.length === len) ? [start, last] : route
+    return route
   }
 
   /** handler for planning marker being droppped
