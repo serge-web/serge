@@ -86,7 +86,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="Red"
+                    value="Red Force"
                   />
                   <svg
                     aria-hidden={true}
@@ -103,9 +103,7 @@ exports[`VisibilityForm renders correctly 1`] = `
               <span
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
               >
-                <span>
-                  Red Force
-                </span>
+                Red Force
               </span>
             </label>
             <label
@@ -138,7 +136,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="Green"
+                    value="Green Force"
                   />
                   <svg
                     aria-hidden={true}
@@ -155,9 +153,7 @@ exports[`VisibilityForm renders correctly 1`] = `
               <span
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
               >
-                <span>
-                  Green Force
-                </span>
+                Green Force
               </span>
             </label>
           </section>

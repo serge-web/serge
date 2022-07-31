@@ -8,8 +8,8 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import Badge from '../atoms/badge'
 import { Button } from '../atoms/button'
 import { AttributeEditor } from '../attribute-editor'
+import Forces from '../form-elements/forces'
 import { clSelect, FormGroup } from '../form-elements/form-group'
-import RCB from '../form-elements/rcb'
 /* Import components */
 import Speed from '../form-elements/speed'
 import TitleWithIcon from '../form-elements/title-with-icon'
@@ -214,7 +214,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={visibleToValues.length > 2} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
+          <Forces name="visibleTo" label="" labelPlacement={visibleToValues.length > 2 ? 'bottom' : 'end'} options={visibleToValues} value={visibleVal} onChange={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select

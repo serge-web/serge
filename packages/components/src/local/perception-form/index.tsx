@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
 import TextInput from '../atoms/text-input'
 import Form from '../form'
-import RCB from '../form-elements/rcb'
+import Forces from '../form-elements/forces'
 import Selector from '../form-elements/selector'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -114,7 +114,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceName || ''} updateState={forceHandler} className={styles['input-container']} />
+        <Forces label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceName || ''} onChange={forceHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>
