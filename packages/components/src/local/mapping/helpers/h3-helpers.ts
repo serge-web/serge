@@ -52,6 +52,10 @@ export const num2LatLng = (vals: number[]): L.LatLng => {
   return L.latLng(vals[0], vals[1])
 }
 
+export const num2Turf = (vals: number[]): number[] => {
+  return [vals[1], vals[0]]
+}
+
 export const toTurf = (poly: L.LatLng[]): number[][] => {
   return poly.map((val: L.LatLng): number[] => {
     return [val.lng, val.lat]
@@ -126,9 +130,9 @@ export const leafletUnion = (poly1: L.LatLng[], poly2: L.LatLng[]): L.LatLng[] |
 export const brgBetweenTwoHex = (start: string, end: string): number => {
   const p1 = h3ToGeo(start)
   const p2 = h3ToGeo(end)
-  const l1 = num2LatLng(p1)
-  const l2 = num2LatLng(p2)
-  return 90 - Math.atan2(l2.lat - l1.lat, l2.lng - l1.lng) * 180 / Math.PI
+  const l1 = num2Turf(p1)
+  const l2 = num2Turf(p2)
+  return turf.bearing(l1, l2)
 }
 
 /** produce a polygon in h3 array structure from a Leaflet LatLngBounds */
