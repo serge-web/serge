@@ -13,7 +13,7 @@ import { formatTurn } from '@serge/helpers'
 /* Render component */
 export const ChatMessagesList: React.FC<PropTypes> = ({
   messages, icons, colors, names, onMarkAllAsRead, isUmpire,
-  playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel
+  playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel, hideAuthor
 }: PropTypes) => {
   // cast messages, for type-checking
   const cMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
@@ -50,6 +50,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
                       isOwner={chatMsg.details.from.force === playerForce}
                       message={message}
                       markUnread={markUnread}
+                      hideAuthor={hideAuthor}
                     />
                   </Box>
                 </Box>
