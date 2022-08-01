@@ -72,12 +72,13 @@ const couchDb = (app, io, pouchOptions) => {
 
   app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
+    const cleanName = databaseName.replace(dbSuffix, '')
     const db = new CouchDB(couchDbURL(databaseName))
     const putData = req.body
     wargameName = req.params.wargame
 
-    if (!listeners[databaseName]) {
-      addListenersQueue.push(databaseName)
+    if (!listeners[cleanName]) {
+      addListenersQueue.push(cleanName)
     }
 
     const retryUntilWritten = (db, doc) => {
