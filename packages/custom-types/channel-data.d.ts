@@ -17,6 +17,8 @@ export interface ChannelChat extends ChannelCore {
   channelType: typeof CHANNEL_CHAT
   /** list of participants for this channel */
   participants: Array<ParticipantChat>
+  /** whether to hide the Force and Role of the message author */
+  hideMessageAuthor?: boolean
 }
 
 /** description of mapping channel */
