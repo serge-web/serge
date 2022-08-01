@@ -88,6 +88,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
                       "overflow": "hidden",
                     }
                   }
+                  value="Sample MWARC Wargame"
                 />
                 <textarea
                   aria-hidden={true}

@@ -18,6 +18,8 @@ const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platfor
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const localMappingConstraints = mapChannel.constraints
 
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
+
 const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []
 
 const dummyConstrants: MappingConstraints = {
@@ -31,7 +33,7 @@ const dummyConstrants: MappingConstraints = {
 export default {
   title: 'local/PerceptionForm',
   component: PerceptionForm,
-  decorators: [],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

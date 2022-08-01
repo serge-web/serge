@@ -31,9 +31,9 @@ it('Calculates correct orientation for whole route', () => {
     expect(lastStepOrientationFor(current, oldCurrent, [], [])).toBeUndefined()
 
     // force use of history
-    expect(lastStepOrientationFor(current, oldCurrent, history, [])).toBeCloseTo(257.6, 0)
+    expect(lastStepOrientationFor(current, oldCurrent, history, [])).toBeCloseTo(251.1, 0)
 
     // allow use of planned
-    expect(lastStepOrientationFor(current, oldCurrent, history, planned)).toBeCloseTo(297.4, 0)
+    expect(lastStepOrientationFor(current, oldCurrent, history, planned)).toBeCloseTo(309.1, 0)
   }
 })
