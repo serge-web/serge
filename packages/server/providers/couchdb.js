@@ -72,12 +72,13 @@ const couchDb = (app, io, pouchOptions) => {
 
   app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
+    const cleanName = databaseName.replace(dbSuffix, '')
     const db = new CouchDB(couchDbURL(databaseName))
     const putData = req.body
     wargameName = req.params.wargame
 
-    if (!listeners[databaseName]) {
-      addListenersQueue.push(databaseName)
+    if (!listeners[cleanName]) {
+      addListenersQueue.push(cleanName)
     }
 
     const retryUntilWritten = (db, doc) => {
@@ -185,15 +186,15 @@ const couchDb = (app, io, pouchOptions) => {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
     }
 
-    const db = new PouchDB(databaseName, pouchOptions)
+    const db = new CouchDB(couchDbURL(databaseName))
 
     db.find({
       selector: {
         messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings }
+        _id: { $ne: wargameSettings, $gte: null }
       },
-      limit: 1,
-      sort: [{ _id: 'desc' }]
+      sort: [{ _id: 'desc' }],
+      limit: 1
     }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
       .catch(() => res.send([]))
   })
