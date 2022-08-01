@@ -183,6 +183,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
           <TextInput
             multiline
             fullWidth
+            value={overview.gameDescription}
             variant="filled"
             rows={8}
             rowsMax={8}
