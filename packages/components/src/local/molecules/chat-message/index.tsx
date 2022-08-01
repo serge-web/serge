@@ -34,7 +34,6 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
 
   // reverse the flag, to make it easier to read
   const showAuthor = !hideAuthor
-  
 
   return (
     <div className={
@@ -61,7 +60,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
           flexDirection={!isOwner ? 'row-reverse' : ''}
           alignItems="flex-end"
         >
-          { 
+          {
             showAuthor && <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
           }
           <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
