@@ -32,7 +32,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
   const channelMessage = message as unknown as MessageChannel
   const messageContent = message.details.messageType === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content
 
-  // reverse the flag, to make it easier to read. Show the author if this a player form an umpire force, 
+  // reverse the flag, to make it easier to read. Show the author if this a player form an umpire force,
   // or if hideAuthor is false
   const showAuthor = isUmpire || !hideAuthor
 
