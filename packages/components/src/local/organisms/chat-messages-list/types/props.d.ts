@@ -25,4 +25,6 @@ export default interface PropTypes extends ForcesInChannelProps {
   markUnread?: (message: ChatMessage) => void
   /** whether to hide the forces block for this channel */
   hideForcesInChannel: boolean
+  /** whether to hide the author (force and role) of messages */
+  hideAuthor?: boolean
 }
