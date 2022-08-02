@@ -2509,7 +2509,7 @@ const wargame: Wargame =
                     ],
                     "travelMode": "sea",
                     "uniqid": "a1",
-                    "turningCircle": 500
+                    "turningCircle": 400
                 },
                 {
                     "attributeTypes": [
@@ -2566,7 +2566,7 @@ const wargame: Wargame =
                         }
                     ],
                     "travelMode": "sea",
-                    "turningCircle": 500,
+                    "turningCircle": 400,
                     "uniqid": "a6"
                 },
                 {
