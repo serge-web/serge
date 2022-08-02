@@ -480,7 +480,9 @@ export const HexGrid: React.FC<{}> = () => {
                 // nope, store it
                 frontier.push({ index: index, range: thisRange })
                 cameFromDict[index] = current.index
-                exists.labelStore.xy = '+' + thisRange
+                // use the next line to put number of steps into cell
+                // label. Useful for debugging
+                // exists.labelStore.xy = '+' + thisRange
               }
             }
           }
