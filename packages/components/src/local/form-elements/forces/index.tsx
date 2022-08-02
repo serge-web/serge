@@ -51,7 +51,7 @@ export const Forces: React.FC<PropTypes> = ({
 
   const handleForcesChange = (data: ChangeEvent<HTMLInputElement>): void => {
     const { value, checked } = data.target
-    const visibleTo: (string | number)[] = []
+    const visibleTo: string[] = []
 
     const updatedArray: SelectionItem[] = selectionItems.map(
       (item: SelectionItem): SelectionItem => {
@@ -66,7 +66,7 @@ export const Forces: React.FC<PropTypes> = ({
     )
 
     updateSelectionItems(updatedArray)
-    onChange && onChange({ visibleTo })
+    onChange && onChange(visibleTo)
   }
 
   const inputName = name || camelCase(label)

@@ -32,8 +32,8 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     console.warn('marker form - marker icons missing:', icons)
   }
 
-  const changeHandler = (formStateValue: any): void => {
-    setFormState({ ...formState, ...formStateValue })
+  const changeHandler = (formStateValue: string[]): void => {
+    setFormState({ ...formState, visibleTo: formStateValue })
   }
 
   useEffect(() => {

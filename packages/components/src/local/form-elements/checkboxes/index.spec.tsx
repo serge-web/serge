@@ -13,7 +13,7 @@ it('CheckboxType renders correctly', () => {
 
 it('Number data renders correctly', () => {
   const tree = renderer
-    .create(<CheckBoxes label="Visible to" options={[1, 2, 3]} value={'Red'} />)
+    .create(<CheckBoxes label="Visible to" options={[1, 2, 3]} value={[3]} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

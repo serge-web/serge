@@ -15,11 +15,11 @@ export default interface PropTypes {
   /**
    * The value to set the 'checked' parameter to
    */
-  value: string | number | Array<string | number>
+  value: (string | number)[]
   /**
    * Sets the onChange state on a parent
    */
-  onChange?: (data: any) => void
+  onChange?: (data: (string | number)[]) => void
   /*
    * disable offset for input container
    */

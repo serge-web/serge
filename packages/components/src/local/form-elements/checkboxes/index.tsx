@@ -32,7 +32,7 @@ export const CheckBoxes: React.FC<PropTypes> = ({
     const selection: SelectionItem[] = options.map(
       (option: string | number) => ({
         name: option,
-        selected: option === value
+        selected: value.includes(option)
       })
     )
     updateCheckedArray(selection)
@@ -44,7 +44,7 @@ export const CheckBoxes: React.FC<PropTypes> = ({
 
     const updatedArray: any = checkedArray.map(
       (item: SelectionItem): SelectionItem => {
-        if (item.name.toString() === value.toString()) {
+        if (item.name === value) {
           item.selected = checked
         }
         if (item.selected) {
@@ -55,7 +55,7 @@ export const CheckBoxes: React.FC<PropTypes> = ({
     )
 
     updateCheckedArray(updatedArray)
-    onChange && onChange({ visibleTo })
+    onChange && onChange(visibleTo)
   }
 
   const inputName = name || camelCase(label)

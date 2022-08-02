@@ -63,9 +63,8 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     )
   }
 
-  const forceHandler = (e: HTMLInputElement): void => {
-    const { value } = e
-    const force = perceivedForces.find((force: ForceOption) => force.name === value)
+  const forceHandler = (value: string[]): void => {
+    const force = perceivedForces.find((force: ForceOption) => value.includes(force.name))
     setFormState(
       {
         ...formState,
@@ -114,7 +113,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <Forces label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceName || ''} onChange={forceHandler} className={styles['input-container']} />
+        <Forces label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={[perceivedForceName] || []} onChange={forceHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>
