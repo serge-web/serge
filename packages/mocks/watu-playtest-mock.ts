@@ -248,97 +248,31 @@ const wargame: Wargame =
             "dirty": false,
             "forces": [
                 {
-                    "name": "R2",
-                    "uniqid": "fl650dmnd",
-                    "overview": "An overview written here..",
+                    "color": "#FCFBEE",
+                    "dirty": false,
+                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
+                    "name": "White",
+                    "overview": "Umpire force.",
                     "roles": [
                         {
-                            "name": "R2-CO",
-                            "roleId": "rl650dmne",
-                            "isGameControl": false,
-                            "isObserver": false,
-                            "isInsightViewer": false
+                            "isGameControl": true,
+                            "isInsightViewer": true,
+                            "isObserver": true,
+                            "name": "Game Control",
+                            "roleId": "pl63jl7so"
                         }
                     ],
-                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
-                    "color": "#d0021b",
-                    "umpire": false,
-                    "dirty": false,
-                    "assets": [
-                        {
-                            "uniqid": "al650dmnf",
-                            "contactId": "C025",
-                            "locationPending": "Umpire laydown",
-                            "name": "R2",
-                            "platformType": "SSK",
-                            "platformTypeId": "a7",
-                            "perceptions": [],
-                            "condition": "",
-                            "attributeValues": [
-                                {
-                                    "attrId": "ssk-depth",
-                                    "value": "Deep",
-                                    "attrType": "AttributeValueEnum"
-                                },
-                                {
-                                    "attrId": "attrl63lsyql",
-                                    "value": 12,
-                                    "attrType": "AttributeValueNumber"
-                                }
-                            ]
-                        }
-                    ]
+                    "umpire": true,
+                    "uniqid": "umpire"
                 },
                 {
-                    "name": "R1",
-                    "uniqid": "fl650chc2",
+                    "name": "B1",
+                    "uniqid": "force-l65060ra",
                     "overview": "An overview written here..",
                     "roles": [
                         {
-                            "name": "R1-CO",
-                            "roleId": "rl650chc3",
-                            "isGameControl": false,
-                            "isObserver": false,
-                            "isInsightViewer": false
-                        }
-                    ],
-                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
-                    "color": "#d0021b",
-                    "umpire": false,
-                    "dirty": false,
-                    "assets": [
-                        {
-                            "uniqid": "al650d18r",
-                            "contactId": "C347",
-                            "locationPending": "Umpire laydown",
-                            "name": "R1",
-                            "platformType": "SSK",
-                            "platformTypeId": "a7",
-                            "perceptions": [],
-                            "condition": "",
-                            "attributeValues": [
-                                {
-                                    "attrId": "ssk-depth",
-                                    "value": "Deep",
-                                    "attrType": "AttributeValueEnum"
-                                },
-                                {
-                                    "attrId": "attrl63lsyql",
-                                    "value": 12,
-                                    "attrType": "AttributeValueNumber"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "B5",
-                    "uniqid": "fl650arbn",
-                    "overview": "An overview written here..",
-                    "roles": [
-                        {
-                            "name": "B5-CO",
-                            "roleId": "rl650arbo",
+                            "name": "B1-CO",
+                            "roleId": "pl65060rb",
                             "isGameControl": false,
                             "isObserver": false,
                             "isInsightViewer": false
@@ -350,10 +284,42 @@ const wargame: Wargame =
                     "dirty": false,
                     "assets": [
                         {
-                            "uniqid": "al650arbp",
-                            "contactId": "C955",
+                            "uniqid": "al65069c1",
+                            "contactId": "C777",
                             "locationPending": "Umpire laydown",
-                            "name": "B5",
+                            "name": "B1",
+                            "platformType": "Frigate",
+                            "platformTypeId": "a1",
+                            "perceptions": [],
+                            "condition": "",
+                            "attributeValues": [],
+                            "plannedTurns": []
+                        }
+                    ]
+                },
+                {
+                    "name": "B2",
+                    "uniqid": "fl6506vlo",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "name": "B2-CO",
+                            "roleId": "rl6506vlp",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
+                        }
+                    ],
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#3dd0ff",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al6506vlq",
+                            "contactId": "C813",
+                            "locationPending": "Umpire laydown",
+                            "name": "B2",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
@@ -425,13 +391,13 @@ const wargame: Wargame =
                     ]
                 },
                 {
-                    "name": "B2",
-                    "uniqid": "fl6506vlo",
+                    "name": "B5",
+                    "uniqid": "fl650arbn",
                     "overview": "An overview written here..",
                     "roles": [
                         {
-                            "name": "B2-CO",
-                            "roleId": "rl6506vlp",
+                            "name": "B5-CO",
+                            "roleId": "rl650arbo",
                             "isGameControl": false,
                             "isObserver": false,
                             "isInsightViewer": false
@@ -443,10 +409,10 @@ const wargame: Wargame =
                     "dirty": false,
                     "assets": [
                         {
-                            "uniqid": "al6506vlq",
-                            "contactId": "C813",
+                            "uniqid": "al650arbp",
+                            "contactId": "C955",
                             "locationPending": "Umpire laydown",
-                            "name": "B2",
+                            "name": "B5",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
@@ -456,96 +422,88 @@ const wargame: Wargame =
                     ]
                 },
                 {
-                    "name": "B1",
-                    "uniqid": "force-l65060ra",
+                    "name": "R1",
+                    "uniqid": "fl650chc2",
                     "overview": "An overview written here..",
                     "roles": [
                         {
-                            "name": "B1-CO",
-                            "roleId": "pl65060rb",
+                            "name": "R1-CO",
+                            "roleId": "rl650chc3",
                             "isGameControl": false,
                             "isObserver": false,
                             "isInsightViewer": false
                         }
                     ],
                     "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
-                    "color": "#3dd0ff",
+                    "color": "#d0021b",
                     "umpire": false,
                     "dirty": false,
                     "assets": [
                         {
-                            "uniqid": "al65069c1",
-                            "contactId": "C777",
+                            "uniqid": "al650d18r",
+                            "contactId": "C347",
                             "locationPending": "Umpire laydown",
-                            "name": "B1",
-                            "platformType": "Frigate",
-                            "platformTypeId": "a1",
+                            "name": "R1",
+                            "platformType": "SSK",
+                            "platformTypeId": "a7",
                             "perceptions": [],
                             "condition": "",
-                            "attributeValues": [],
-                            "plannedTurns": [
+                            "attributeValues": [
                                 {
-                                    "turn": 2,
-                                    "route": [
-                                        "8a195088e8c7fff"
-                                    ],
-                                    "status": {
-                                        "state": "Transiting",
-                                        "speedKts": 4
-                                    }
+                                    "attrId": "ssk-depth",
+                                    "value": "Deep",
+                                    "attrType": "AttributeValueEnum"
                                 },
                                 {
-                                    "turn": 3,
-                                    "route": [
-                                        "8a195088e177fff"
-                                    ],
-                                    "status": {
-                                        "state": "Transiting",
-                                        "speedKts": 4
-                                    }
-                                },
-                                {
-                                    "turn": 4,
-                                    "route": [
-                                        "8a195088e02ffff"
-                                    ],
-                                    "status": {
-                                        "state": "Transiting",
-                                        "speedKts": 4
-                                    }
+                                    "attrId": "attrl63lsyql",
+                                    "value": 12,
+                                    "attrType": "AttributeValueNumber"
                                 }
                             ]
-                        },
-                        {
-                            "uniqid": "al650owyr",
-                            "contactId": "C361",
-                            "locationPending": "Umpire laydown",
-                            "name": "Merchant vessel",
-                            "platformType": "Merchant vessel",
-                            "platformTypeId": "a13",
-                            "perceptions": [],
-                            "condition": "",
-                            "attributeValues": []
                         }
                     ]
                 },
                 {
-                    "color": "#FCFBEE",
-                    "dirty": false,
-                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
-                    "name": "White",
-                    "overview": "Umpire force.",
+                    "name": "R2",
+                    "uniqid": "fl650dmnd",
+                    "overview": "An overview written here..",
                     "roles": [
                         {
-                            "isGameControl": true,
-                            "isInsightViewer": true,
-                            "isObserver": true,
-                            "name": "Game Control",
-                            "roleId": "pl63jl7so"
+                            "name": "R2-CO",
+                            "roleId": "rl650dmne",
+                            "isGameControl": false,
+                            "isObserver": false,
+                            "isInsightViewer": false
                         }
                     ],
-                    "umpire": true,
-                    "uniqid": "umpire"
+                    "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
+                    "color": "#d0021b",
+                    "umpire": false,
+                    "dirty": false,
+                    "assets": [
+                        {
+                            "uniqid": "al650dmnf",
+                            "contactId": "C025",
+                            "locationPending": "Umpire laydown",
+                            "name": "R2",
+                            "platformType": "SSK",
+                            "platformTypeId": "a7",
+                            "perceptions": [],
+                            "condition": "",
+                            "attributeValues": [
+                                {
+                                    "attrId": "ssk-depth",
+                                    "value": "Deep",
+                                    "attrType": "AttributeValueEnum"
+                                },
+                                {
+                                    "attrId": "attrl63lsyql",
+                                    "value": 12,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "assets": [
@@ -605,49 +563,7 @@ const wargame: Wargame =
                 }
             ],
             "name": "Forces",
-            "selectedForce": {
-                "name": "R1-l650dmnd",
-                "uniqid": "fl650dmnd",
-                "overview": "An overview written here..",
-                "roles": [
-                    {
-                        "name": "R1-CO-l650dmne",
-                        "roleId": "rl650dmne",
-                        "isGameControl": false,
-                        "isObserver": false,
-                        "isInsightViewer": false
-                    }
-                ],
-                "iconURL": "http://164.92.156.58:8080/default_img/forceDefault.png",
-                "color": "#3dd0ff",
-                "umpire": false,
-                "dirty": false,
-                "assets": [
-                    {
-                        "uniqid": "al650dmnf",
-                        "contactId": "C025",
-                        "locationPending": "Umpire laydown",
-                        "name": "R1-l650dmnf",
-                        "platformType": "SSK",
-                        "platformTypeId": "a7",
-                        "perceptions": [],
-                        "condition": "",
-                        "locationPending": "Umpire laydown",
-                        "attributeValues": [
-                            {
-                                "attrId": "ssk-depth",
-                                "value": "Deep",
-                                "attrType": "AttributeValueEnum"
-                            },
-                            {
-                                "attrId": "attrl63lsyql",
-                                "value": 12,
-                                "attrType": "AttributeValueNumber"
-                            }
-                        ]
-                    }
-                ]
-            }
+            "selectedForce": ""
         },
         "overview": {
             "dirty": false,
