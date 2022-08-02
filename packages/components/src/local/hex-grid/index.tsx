@@ -231,8 +231,9 @@ export const HexGrid: React.FC<{}> = () => {
       const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
       const heading = details.heading
 
-      // calculate the position behind the origin
-      const behindLoc = turf.destination(origin, turnRadiusKm, 180 + heading, { units: 'kilometers' })
+      // calculate the reference of cell immediately behind the origin
+      const edgeSizeM = edgeLength(h3GetResolution(originCell.index), 'm')
+      const behindLoc = turf.destination(origin, 2 * edgeSizeM / 1000, 180 + heading, { units: 'kilometers' })
       const coords = behindLoc.geometry.coordinates
       const cellBehind = geoToH3(coords[1], coords[0], h3Resolution)
 
