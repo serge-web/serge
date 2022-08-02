@@ -385,21 +385,20 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableCells3(allowableCellList)
         } else {
           // TODO: reinstate terrain tests
-          const filteredCells = allowableCellList.filter((cell: SergeHex3) => cell.terrain === planningConstraints.travelMode.toLowerCase())
-
+          const cellsForMyTerrain = allowableCellList.filter((cell: SergeHex3) => cell.terrain && cell.terrain === planningConstraints.travelMode.toLowerCase())
           let cellsAfterTurn
 
           // if there is a turning circle, we will further restrict them
           if (planningConstraints.turningCircle && originHex3 && planningRangeCells) {
-            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
+            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, cellsForMyTerrain)
             setCameFrom(cameFromDict)
             cellsAfterTurn = turnCells
             // show a warning if the turning circle data means there aren't any achievable cells
-            if (filteredCells.length && !turnCells.length) {
-              console.warn('Size of turning circle means no achievable cells', filteredCells.length, turnCells.length, planningConstraints.turningCircle)
+            if (cellsForMyTerrain.length && !turnCells.length) {
+              console.warn('Size of turning circle means no achievable cells', cellsForMyTerrain.length, turnCells.length, planningConstraints.turningCircle)
             }
           } else {
-            cellsAfterTurn = filteredCells
+            cellsAfterTurn = cellsForMyTerrain
           }
 
           setAllowableCells3(cellsAfterTurn)
