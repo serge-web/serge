@@ -30,6 +30,12 @@ export default {
     hideForcesInChannel: {
       description: 'Whether to hide forces in channel'
     },
+    hideAuthor: {
+      description: 'Whether hide force/role of author',
+      control: {
+        type: 'boolean'
+      }
+    },
     playerForce: {
       description: 'Force the player belongs to',
       control: {
@@ -66,7 +72,7 @@ const Template: Story<Props> = (args) => {
   const names = [
     'Blue'
   ]
-  const { playerForce, isUmpire, hideForcesInChannel } = args
+  const { playerForce, isUmpire, hideForcesInChannel, hideAuthor } = args
   return <ChatMessagesList
     messages={messages}
     icons={icons}
@@ -76,6 +82,7 @@ const Template: Story<Props> = (args) => {
     colors={colors}
     names={names}
     hideForcesInChannel={hideForcesInChannel}
+    hideAuthor={hideAuthor}
   />
 }
 
@@ -83,5 +90,6 @@ export const Demonstration = Template
 Demonstration.args = {
   isUmpire: true,
   playerForce: force.name,
-  hideForcesInChannel: false
+  hideForcesInChannel: false,
+  hideAuthor: false
 }

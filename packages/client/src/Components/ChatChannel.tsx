@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 import { ChatMessagesList, ChatEntryForm, ChannelMessagesList } from '@serge/components'
-import { ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
+import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import {
   markAllAsRead, markUnread, openMessage, saveMessage,
   getAllWargameMessages
@@ -21,6 +21,9 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const [chatContainerHeight, setChatContainerHeight] = useState(0)
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+
+  const chatDefinition = channelUI.cData as ChannelChat
+  const [hideAuthor] = useState(!!chatDefinition.hideMessageAuthor)
 
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
@@ -113,6 +116,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             observing={observing}
             markUnread={handleUnreadMessage}
             hideForcesInChannel={hideForcesInChannel}
+            hideAuthor={hideAuthor}
           />
       }
       {
