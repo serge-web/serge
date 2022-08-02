@@ -395,7 +395,7 @@ export const HexGrid: React.FC<{}> = () => {
             cellsAfterTurn = turnCells
             // show a warning if the turning circle data means there aren't any achievable cells
             if (filteredCells.length && !turnCells.length) {
-              console.warn('Size of turning circle means no achievable cells', filteredCells.length, turnCells.length)
+              console.warn('Size of turning circle means no achievable cells', filteredCells.length, turnCells.length, planningConstraints.turningCircle)
             }
           } else {
             cellsAfterTurn = filteredCells
