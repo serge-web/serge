@@ -1,5 +1,5 @@
 // import data types
-import { Phase, serverPath } from '@serge/config'
+import { Phase } from '@serge/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
