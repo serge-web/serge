@@ -2458,7 +2458,7 @@ const wargame: Wargame =
             "gameDate": "1940-07-27T12:49",
             "gameDescription": "",
             "gameTurnTime": {
-                "millis": 120000,
+                "millis": 300000,
                 "unit": "millis"
             },
             "name": "Overview - settings",
