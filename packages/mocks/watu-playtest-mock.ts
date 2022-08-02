@@ -210,11 +210,11 @@ const wargame: Wargame =
                     "constraints": {
                         "bounds": [
                             [
-                                54.6,
+                                54.5,
                                 -4.2
                             ],
                             [
-                                54.5,
+                                54.1,
                                 -4
                             ]
                         ],
