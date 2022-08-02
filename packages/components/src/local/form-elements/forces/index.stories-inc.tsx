@@ -50,4 +50,9 @@ const logData = (data: any): void => {
 }
 
 export const CheckboxWithForce: React.FC = () => <Forces label="Visible to" options={forces} value={['Red']} onChange={logData} />
-export const CheckboxWithLargeForce: React.FC = () => <Forces label="Visible to" options={largeForces} value={[largeForces[2].name]} onChange={logData} />
+export const CheckboxWithForceBottom: React.FC = () => <Forces labelPlacement='bottom' label="Visible to" options={forces} value={['Red']} onChange={logData} />
+export const CheckboxWithForceEnd: React.FC = () => <Forces labelPlacement='end' label="Visible to" options={forces} value={['Red']} onChange={logData} />
+export const CheckboxWithForceStart: React.FC = () => <Forces labelPlacement='start' label="Visible to" options={forces} value={['Red']} onChange={logData} />
+export const CheckboxWithForceTop: React.FC = () => <Forces labelPlacement='top' label="Visible to" options={forces} value={['Red']} onChange={logData} />
+
+export const CheckboxWithLargeForce: React.FC = () => <Forces labelPlacement='top' label="Visible to" options={largeForces} value={[largeForces[2].name]} onChange={logData} />
