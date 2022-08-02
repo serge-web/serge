@@ -6,7 +6,13 @@ import Forces from './index'
 
 it('CheckboxType renders correctly', () => {
   const tree = renderer
-    .create(<Forces label="Visible to" options={[{ name: 'Blue', colour: '#0000ff' }, { name: 'Red', colour: '#c70039' }]} value={['Blue']} />)
+    .create(<div>
+      <Forces label="Visible to" options={[{ name: 'Blue', colour: '#0000ff' }, { name: 'Red', colour: '#c70039' }]} value={['Blue']} />
+      <Forces label="Visible to" labelPlacement='top' options={[{ name: 'Blue', colour: '#0000ff' }, { name: 'Red', colour: '#c70039' }]} value={['Blue']} />
+      <Forces label="Visible to" labelPlacement='bottom' options={[{ name: 'Blue', colour: '#0000ff' }, { name: 'Red', colour: '#c70039' }]} value={['Blue']} />
+      <Forces label="Visible to" labelPlacement='start' options={[{ name: 'Blue', colour: '#0000ff' }, { name: 'Red', colour: '#c70039' }]} value={['Blue']} />
+      <Forces label="Visible to" labelPlacement='end' options={[{ name: 'Blue', colour: '#0000ff' }, { name: 'Red', colour: '#c70039' }]} value={['Blue']} />
+    </div>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
