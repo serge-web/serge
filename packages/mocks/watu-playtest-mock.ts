@@ -268,12 +268,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al650dmnf",
                             "contactId": "C025",
+                            "locationPending": "Umpire laydown",
                             "name": "R2",
                             "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a1950899997fff",
                             "attributeValues": [
                                 {
                                     "attrId": "ssk-depth",
@@ -310,12 +310,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al650d18r",
                             "contactId": "C347",
+                            "locationPending": "Umpire laydown",
                             "name": "R1",
                             "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195089bbaffff",
                             "attributeValues": [
                                 {
                                     "attrId": "ssk-depth",
@@ -352,12 +352,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al650arbp",
                             "contactId": "C955",
+                            "locationPending": "Umpire laydown",
                             "name": "B5",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088e2cffff",
                             "attributeValues": []
                         }
                     ]
@@ -383,12 +383,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al65088ae",
                             "contactId": "C166",
+                            "locationPending": "Umpire laydown",
                             "name": "B3",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088e66ffff",
                             "attributeValues": []
                         }
                     ]
@@ -414,12 +414,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al6509vwo",
                             "contactId": "C101",
+                            "locationPending": "Umpire laydown",
                             "name": "B4",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088e09ffff",
                             "attributeValues": []
                         }
                     ]
@@ -445,12 +445,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al6506vlq",
                             "contactId": "C813",
+                            "locationPending": "Umpire laydown",
                             "name": "B2",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a1950888cf7fff",
                             "attributeValues": []
                         }
                     ]
@@ -476,12 +476,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al65069c1",
                             "contactId": "C777",
+                            "locationPending": "Umpire laydown",
                             "name": "B1",
                             "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088e80ffff",
                             "attributeValues": [],
                             "plannedTurns": [
                                 {
@@ -519,12 +519,12 @@ const wargame: Wargame =
                         {
                             "uniqid": "al650owyr",
                             "contactId": "C361",
+                            "locationPending": "Umpire laydown",
                             "name": "Merchant vessel",
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088c6effff",
                             "attributeValues": []
                         }
                     ]
@@ -553,44 +553,44 @@ const wargame: Wargame =
                             "attributeValues": [],
                             "condition": "",
                             "contactId": "C629",
+                            "locationPending": "Umpire laydown",
                             "name": "G1",
                             "perceptions": [],
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
-                            "position": "8a195088ea57fff",
                             "uniqid": "al63ltw3g"
                         },
                         {
                             "attributeValues": [],
                             "condition": "",
                             "contactId": "C598",
+                            "locationPending": "Umpire laydown",
                             "name": "G2",
                             "perceptions": [],
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
-                            "position": "8a195088c787fff",
                             "uniqid": "al63ltwtw"
                         },
                         {
                             "uniqid": "al650ez1f",
                             "contactId": "C632",
+                            "locationPending": "Umpire laydown",
                             "name": "G3",
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088eaa7fff",
                             "attributeValues": []
                         },
                         {
                             "uniqid": "al650f5k2",
                             "contactId": "C404",
+                            "locationPending": "Umpire laydown",
                             "name": "G4",
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [],
                             "condition": "",
-                            "position": "8a195088c48ffff",
                             "attributeValues": []
                         }
                     ],
@@ -626,12 +626,12 @@ const wargame: Wargame =
                     {
                         "uniqid": "al650dmnf",
                         "contactId": "C025",
+                        "locationPending": "Umpire laydown",
                         "name": "R1-l650dmnf",
                         "platformType": "SSK",
                         "platformTypeId": "a7",
                         "perceptions": [],
                         "condition": "",
-                        "position": "",
                         "locationPending": "Umpire laydown",
                         "attributeValues": [
                             {
@@ -838,11 +838,11 @@ const wargame: Wargame =
             "selectedType": ""
         }
     },
-    "gameTurn": 1,
+    "gameTurn": 0,
     "name": "wargame-l28tfdz0",
     "phase": "adjudication",
     "turnEndTime": "0",
-    "wargameInitiated": true,
+    "wargameInitiated": false,
     "wargameTitle": "WATU Playtest",
     "messageType": "InfoMessage"
 }
