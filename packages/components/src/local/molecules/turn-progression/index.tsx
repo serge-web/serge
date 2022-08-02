@@ -36,6 +36,11 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     onNextTurn,
     isGameControl
   } = props
+
+  // TODO: this should come from the new turn attributes in game overview,
+  // to be implemented in https://github.com/serge-web/serge/issues/954
+  const showTimeRemaining = false
+
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
   const seconds = end - now
@@ -106,7 +111,9 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
     })
     clearInterval(interval)
-    interval = setInterval(startInterval[phase], 1000)
+    if (showTimeRemaining) {
+      interval = setInterval(startInterval[phase], 1000)
+    }
     return (): any => clearInterval(interval)
   }, [phase])
 
@@ -116,10 +123,6 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   const onClickHandler = (e: any): void => {
     onNextTurn && onNextTurn(e)
   }
-
-  // TODO: this should come from the new turn attributes in game overview,
-  // to be implemented in https://github.com/serge-web/serge/issues/954
-  const showTimeRemaining = false
 
   return (
     <div className={classNames([

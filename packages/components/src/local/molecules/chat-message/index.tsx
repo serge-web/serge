@@ -15,7 +15,7 @@ import { MessageChannel } from '@serge/custom-types'
 import { formatTime } from '@serge/helpers'
 
 /* Render component */
-export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markUnread }: Props) => {
+export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markUnread, hideAuthor }: Props) => {
   const PrivateBadge = (): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
@@ -32,6 +32,10 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
   const channelMessage = message as unknown as MessageChannel
   const messageContent = message.details.messageType === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content
 
+  // reverse the flag, to make it easier to read. Show the author if this a player form an umpire force,
+  // or if hideAuthor is false
+  const showAuthor = isUmpire || !hideAuthor
+
   return (
     <div className={
         `${styles['chat-message-wrapper']} 
@@ -39,7 +43,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
     } style={{ position: 'relative' }}><span
         className={styles['message-bar']}
         style={{
-          background: message.details.from.forceColor,
+          background: showAuthor ? message.details.from.forceColor : '',
           left: isOwner ? '99%' : '0%',
           borderRadius: isOwner ? '0 8px 8px 0' : '8px 0 0 8px'
         }}
@@ -57,7 +61,9 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
           flexDirection={!isOwner ? 'row-reverse' : ''}
           alignItems="flex-end"
         >
-          <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
+          {
+            showAuthor && <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
+          }
           <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
             {formatTime(message.details.timestamp)}
           </span>

@@ -931,7 +931,7 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc = deepCopy(res)
     const updatedData = newDoc.data
-    if (updatedData.annotations) {
+    if (updatedData.annotations || updatedData.annotationIcons) {
       const annotation = updatedData.annotationIcons.markers || []
       const annotationIndex = annotation.findIndex((annotation: IconOption) => annotation.name === currentAnnation.name)
       const duplicatedAnnation = deepCopy(currentAnnation)
@@ -942,7 +942,7 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)
       annotation.splice(annotationIndex, 0, duplicatedAnnation)
       updatedData.annotationIcons.markers = annotation
     }
-
+  
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
