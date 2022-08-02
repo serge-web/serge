@@ -67,6 +67,16 @@ export default {
         options: allRoles
       }
     },
+    gameTurnTime: {
+      name: 'Turn Length',
+      defaultValue: (overview.gameTurnTime as MilliTurns).millis,
+      control: {
+        type: 'radio',
+        options: [
+          120000,240000,300000,600000
+        ]
+      }
+    },
     phase: {
       name: 'Game phase',
       defaultValue: Phase.Adjudication,
