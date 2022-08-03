@@ -24,7 +24,7 @@ const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpir
       }
     })
     if (withUnknown) {
-      res.push({ name: 'Unknown', colour: '#ccc', id: null })
+      res.push({ name: 'Unknown', colour: '#ccc', id: undefined })
     }
     return res
   } else {
