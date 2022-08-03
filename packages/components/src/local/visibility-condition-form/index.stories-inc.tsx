@@ -9,6 +9,7 @@ import { forces, selectedAsset, platformTypes } from '@serge/mocks'
 
 // import data types
 import collateVisibilityFormData from '../map-bar/helpers/collate-visibility-form-data'
+import { ForceData } from '@serge/custom-types'
 
 export default {
   title: 'local/VisibilityAndConditionForm',
@@ -44,6 +45,17 @@ const iconData = { platformType: 'merchant-vessel', forceColor: 'blue', icon: 'f
 export const Default: React.FC = () => <VisibilityAndConditionForm
   formHeader="Planning header"
   formData={formData}
+  icon={iconData}
+  mapPostBack={postback}
+/>
+
+const secondAsset = { ... selectedAsset }
+secondAsset.visibleTo = forces.map((force: ForceData) => force.uniqid)
+const secondFormData = collateVisibilityFormData(platformTypes, secondAsset, forces)
+
+export const TwoForces: React.FC = () => <VisibilityAndConditionForm
+  formHeader="Planning header"
+  formData={secondFormData}
   icon={iconData}
   mapPostBack={postback}
 />

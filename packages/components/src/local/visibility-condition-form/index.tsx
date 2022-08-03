@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import { Button, MenuItem, Select } from '@material-ui/core'
-import { ForceOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
+import { ForceData, ForceOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
 import { clSelect, FormGroup } from '../form-elements/form-group'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import PropTypes from './types/props'
@@ -14,7 +14,7 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
-  const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.forceNames)
+  const [visibleTo, setVisibleTo] = useState<Array<ForceData['uniqid']>>(formData.visibleToForces)
   const [conditionVal, setConditionVal] = useState<string>(formData.selectedCondition)
   const forces: Array<ForceOption> = formData.availableForces
   const conditionValues: Array<string> = formData.condition
@@ -25,7 +25,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
 
   const submitForm = (): void => {
     if (mapPostBack !== undefined) {
-      const originalVis: string[] = formData.forceNames
+      const originalVis: string[] = formData.visibleToForces
 
       // see if any forces have been hidden
       const hidden = originalVis.filter(item => !visibleTo.includes(item)).map((item: string): Visibility => {
