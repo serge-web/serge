@@ -60,7 +60,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // allowable cells filtered depending on cell type
   const [allowableCells3, setAllowableCells3] = useState<SergeGrid3>([])
-  const [allowablePoly3, setAllowablePoly3] = useState<Array<L.LatLng>>([])
+  const [allowablePoly3, setAllowablePoly3] = useState<Array<L.LatLng[]>>([])
 
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
@@ -417,8 +417,13 @@ export const HexGrid: React.FC<{}> = () => {
           if (cellsAfterTurn.length > 0 && cellsAfterTurn.length <= 5000) {
             // use h3 hull function
             const cellIndices = cellsAfterTurn.map((cell: SergeHex3): string => cell.index)
-            const hull2 = h3SetToMultiPolygon(cellIndices, true)
-            const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+            const hull2 = h3SetToMultiPolygon(cellIndices, false)
+            // convert to Leaflet lat/longs
+            const h3points = hull2[0].map((arr: number[][]): L.LatLng[] => {
+              return arr.map((pair: number[]): L.LatLng => {
+                return L.latLng(pair[0], pair[1])
+              })
+            })
             setAllowablePoly3(h3points)
           } else {
             setAllowablePoly3([])
@@ -793,10 +798,10 @@ export const HexGrid: React.FC<{}> = () => {
           // such as labels so include prefix in key
           key={'hex_poly3_' + cell.index + '_' + index}
           fillColor={cell.fillColor || assetColor}
-          fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
+          fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
           stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f00'}
-          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, allowableCells3, cellForSelected3)]}
+          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, [] /*, allowableCells3*/, cellForSelected3)]}
         />
       ))}
     </LayerGroup>
@@ -861,11 +866,12 @@ export const HexGrid: React.FC<{}> = () => {
       positions={planningRoutePoly3}
       className={styles['planning-line']}
     />
-    <Polyline
-      key={'allowableCells3_line'}
+    <Polygon
+      key={'allowableCells3_poly'}
       color={assetColor}
+      fillColor={assetColor}
       positions={allowablePoly3}
-      className={styles['allowable-line']}
+      className={styles['allowable-poly']}
     />
     {origin &&
         <Marker
