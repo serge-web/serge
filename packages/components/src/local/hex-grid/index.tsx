@@ -241,7 +241,6 @@ export const HexGrid: React.FC<{}> = () => {
       const aheadCoords = aheadLoc.geometry.coordinates
       const aheadIndex = geoToH3(aheadCoords[1], aheadCoords[0], h3Resolution)
 
-
       // store data
       const leftPts = buildTurn(origin, true, turnRadiusKm, heading)
       const rightPts = buildTurn(origin, false, turnRadiusKm, heading)
@@ -801,7 +800,7 @@ export const HexGrid: React.FC<{}> = () => {
           fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
           stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f00'}
-          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, [] /*, allowableCells3*/, cellForSelected3)]}
+          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, [] /*, allowableCells3 */, cellForSelected3)]}
         />
       ))}
     </LayerGroup>
