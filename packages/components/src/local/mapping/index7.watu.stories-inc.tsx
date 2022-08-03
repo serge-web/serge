@@ -27,7 +27,7 @@ const mapping = mapChannel.constraints
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
-overview && console.clear()
+console.clear()
 
 async function fetchMock (): Promise<any> {
   return {
