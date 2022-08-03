@@ -1,9 +1,5 @@
 export default interface PropTypes {
   /**
-   * The type of component to show
-   */
-  type: 'checkbox' | 'radio'
-  /**
    * The label to show on the form section
    */
   label?: string
@@ -15,26 +11,19 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: Array<string | number | FormOption>
+  options: ForceOption[]
   /**
-   * The value to set the 'checked' parameter to
+   * The id's of selected items
    */
-  value: string | number | Array<string | number>
-  /**
-   * An option to display the force colours in the label ('colour' must be present in options)
-   */
-  force?: boolean
+  value: ForceData['uniqid']
   /**
    * Sets the onChange state on a parent
    */
-  updateState?: any
-  /**
-   * Whether to use compact format (esp for list of color shades)
-   */
-  compact?: boolean
+  onChange?: (data: Array<ForceData['uniqid']>) => void
   /*
    * disable offset for input container
    */
   disableOffset?: boolean
   className?: string
+  labelPlacement?: 'bottom' | 'end' | 'start' | 'top'
 }
