@@ -224,7 +224,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination3, originHex3])
 
-  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string } => {
+  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string, cellAhead: string } => {
     if (details) {
       // coords of circle
       const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
@@ -234,8 +234,13 @@ export const HexGrid: React.FC<{}> = () => {
       // calculate the reference of cell immediately behind the origin
       const edgeSizeM = edgeLength(h3GetResolution(originCell.index), 'm')
       const behindLoc = turf.destination(origin, 2 * edgeSizeM / 1000, 180 + heading, { units: 'kilometers' })
-      const coords = behindLoc.geometry.coordinates
-      const cellBehind = geoToH3(coords[1], coords[0], h3Resolution)
+      const behindCoords = behindLoc.geometry.coordinates
+      const behindIndex = geoToH3(behindCoords[1], behindCoords[0], h3Resolution)
+
+      const aheadLoc = turf.destination(origin, 2 * edgeSizeM / 1000, heading, { units: 'kilometers' })
+      const aheadCoords = aheadLoc.geometry.coordinates
+      const aheadIndex = geoToH3(aheadCoords[1], aheadCoords[0], h3Resolution)
+
 
       // store data
       const leftPts = buildTurn(origin, true, turnRadiusKm, heading)
@@ -287,9 +292,9 @@ export const HexGrid: React.FC<{}> = () => {
       const overall = leafletUnion(circles, rArc) || []
       const turnArc = excess ? leafletBuffer(overall, excess) : overall
 
-      return { turnCircles: circles, turnOverall: turnArc, cellBehind: cellBehind }
+      return { turnCircles: circles, turnOverall: turnArc, cellBehind: behindIndex, cellAhead: aheadIndex }
     }
-    return { turnCircles: [], turnOverall: [], cellBehind: '' }
+    return { turnCircles: [], turnOverall: [], cellBehind: '', cellAhead: '' }
   }
 
   /** listen out for just planning constraints changing, since we
@@ -335,11 +340,11 @@ export const HexGrid: React.FC<{}> = () => {
           setOrigin(originCell.centreLatLng)
         }
 
-        const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
+        const { turnCircles, turnOverall, cellBehind, cellAhead } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        false && setAchievablePoly(turnOverall)
-        false && setTurningPoly(turnCircles)
+        true && setAchievablePoly(turnOverall)
+        true && setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
@@ -359,6 +364,11 @@ export const HexGrid: React.FC<{}> = () => {
               if (value.index === cellBehind) {
                 // this is the cell behind the current one. We won't allow it
                 return false
+              } else if (value.index === cellAhead) {
+                // this is the cell immediately ahead of the current one. Force it to be
+                // allowable, since in some edge case the cell centre falls inside
+                // the turning circles, and gets rejected.
+                return true
               } else {
                 // check if this cell is in the polygon
                 const pos = h3ToGeo(value.index)
@@ -676,8 +686,8 @@ export const HexGrid: React.FC<{}> = () => {
           setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
           // note: we extend the existing planned cells, with the new ones
           setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly3))
-          setOriginHex3(lastCell)
           setPlanningRangeCells(remaining)
+          setOriginHex3(lastCell)
         }
       }
     }
