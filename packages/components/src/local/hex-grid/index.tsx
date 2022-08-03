@@ -690,8 +690,8 @@ export const HexGrid: React.FC<{}> = () => {
           setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
           // note: we extend the existing planned cells, with the new ones
           setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly3))
-          setPlanningRangeCells(remaining)
           setOriginHex3(lastCell)
+          setPlanningRangeCells(remaining)
         }
       }
     }
