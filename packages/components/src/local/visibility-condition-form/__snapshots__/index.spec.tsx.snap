@@ -57,7 +57,7 @@ exports[`VisibilityForm renders correctly 1`] = `
           >
             
             <label
-              className="MuiFormControlLabel-root"
+              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementStart"
               title="Red Force"
             >
               <span
@@ -86,7 +86,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="Red Force"
+                    value="Red"
                   />
                   <svg
                     aria-hidden={true}
@@ -107,7 +107,7 @@ exports[`VisibilityForm renders correctly 1`] = `
               </span>
             </label>
             <label
-              className="MuiFormControlLabel-root"
+              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementStart"
               title="Green Force"
             >
               <span
@@ -136,7 +136,7 @@ exports[`VisibilityForm renders correctly 1`] = `
                     name="visibleTo"
                     onChange={[Function]}
                     type="checkbox"
-                    value="Green Force"
+                    value="Green"
                   />
                   <svg
                     aria-hidden={true}

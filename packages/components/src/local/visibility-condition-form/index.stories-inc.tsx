@@ -49,7 +49,7 @@ export const Default: React.FC = () => <VisibilityAndConditionForm
   mapPostBack={postback}
 />
 
-const secondAsset = { ... selectedAsset }
+const secondAsset = { ...selectedAsset }
 secondAsset.visibleTo = forces.map((force: ForceData) => force.uniqid)
 const secondFormData = collateVisibilityFormData(platformTypes, secondAsset, forces)
 
