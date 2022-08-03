@@ -342,8 +342,8 @@ export const HexGrid: React.FC<{}> = () => {
         const { turnCircles, turnOverall, cellBehind, cellAhead } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
-        true && setAchievablePoly(turnOverall)
-        true && setTurningPoly(turnCircles)
+        false && setAchievablePoly(turnOverall)
+        false && setTurningPoly(turnCircles)
 
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
