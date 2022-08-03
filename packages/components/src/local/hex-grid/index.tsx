@@ -494,7 +494,7 @@ export const HexGrid: React.FC<{}> = () => {
                 // nope, store it
                 frontier.push({ index: index, range: thisRange })
                 cameFromDict[index] = current.index
-                exists.labelStore.xy = '+' + thisRange
+                // exists.labelStore.xy = '+' + thisRange
               }
             }
           }
