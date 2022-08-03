@@ -13,15 +13,15 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: SelectOption[]
+  options: ForceOption[]
   /**
-   * The value to set the 'checked' parameter to
+   * The id's of selected items
    */
-  value: string[]
+  value: ForceData['uniqid']
   /**
    * Sets the onChange state on a parent
    */
-  onChange?: (data: string[]) => void
+  onChange?: (data: Array<ForceData['uniqid']>) => void
   /*
    * disable offset for input container
    */

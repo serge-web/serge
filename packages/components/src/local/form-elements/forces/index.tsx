@@ -27,22 +27,16 @@ export const Forces: React.FC<PropTypes> = ({
   disableOffset,
   className
 }) => {
-  type SelectionItem = { name: string, selected: boolean };
+  type SelectionItem = { id: string, selected: boolean };
   const [selectionItems, updateSelectionItems] = useState<SelectionItem[]>([])
   const classes = buildStyles(options)()
 
   useEffect(() => {
     const selection: SelectionItem[] = options.map(
       (option: SelectOption) => {
-        let selected = false
-        if (Array.isArray(value)) {
-          selected = value.includes(option.name)
-        } else {
-          selected = value === option.name
-        }
         return {
-          name: option.name,
-          selected
+          id: option.id,
+          selected: value.includes(option.id)
         }
       }
     )
@@ -55,11 +49,11 @@ export const Forces: React.FC<PropTypes> = ({
 
     const updatedArray: SelectionItem[] = selectionItems.map(
       (item: SelectionItem): SelectionItem => {
-        if (item.name === value) {
+        if (item.id === value) {
           item.selected = checked
         }
         if (item.selected) {
-          visibleTo.push(item.name)
+          visibleTo.push(item.id)
         }
         return item
       }
@@ -78,7 +72,7 @@ export const Forces: React.FC<PropTypes> = ({
       disableOffset={disableOffset}
     >
       {options.map((option, idx) => {
-        const selected = selectionItems.find(item => item.selected && item.name === option.name)
+        const selected = selectionItems.find(item => item.selected && item.id === option.id)
         const childClass = { root: classes[`root-${idx}`] }
         return (
           <FormControlLabel
@@ -89,14 +83,14 @@ export const Forces: React.FC<PropTypes> = ({
               <Checkbox
                 classes={childClass}
                 name={inputName.toString()}
-                value={option.name}
+                value={option.id}
                 checked={!!selected}
                 onChange={handleForcesChange}
                 size="small"
               />
             }
             label={option.name}
-            value={option.name}
+            value={option.id}
             className={selected ? styles.selected : ''}
           />
         )

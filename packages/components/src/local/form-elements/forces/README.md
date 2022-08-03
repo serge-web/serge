@@ -1,6 +1,6 @@
 # CheckBoxes documentation
 
-This is an example readme file for the 'CheckBoxex' component.
+This is an example readme file for the 'Forces' component.
 
 ## UI Example
 
@@ -19,11 +19,11 @@ This is an example readme file for the 'CheckBoxex' component.
 ### ES6 Import
 
 ```js
-import CheckBoxes from "./checkboxes";
+import Forces from "./forces";
 ```
 
 ### CommonJS
 
 ```js
-const CheckBoxes = require("./checkboxes");
+const Forces = require("./forces");
 ```
