@@ -9,11 +9,7 @@ import availableForces from './available-forces'
  */
 const collateVisibilityFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset, forces: ForceData[]): VisibilityFormData => {
   // get the actual asset
-  const forceIds: Array<string> = selectedAsset.visibleTo
-  const forceNames = forceIds.map((id: string): string => {
-    const force = forces.find((force: ForceData) => force.uniqid === id)
-    return (force && force.name) || ''
-  })
+  const visibleToForces: Array<ForceData['uniqid']> = selectedAsset.visibleTo
 
   const availableForcesList: ForceOption[] = availableForces(forces, false, true, selectedAsset.forceId)
 
@@ -27,7 +23,7 @@ const collateVisibilityFormData = (platforms: PlatformTypeData[], selectedAsset:
     assetId: selectedAsset.uniqid,
     name: selectedAsset.name,
     contactId: selectedAsset.contactId,
-    forceNames: forceNames,
+    visibleToForces: visibleToForces,
     availableForces: availableForcesList,
     selectedCondition: selectedAsset.condition,
     condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: string) => c) : []

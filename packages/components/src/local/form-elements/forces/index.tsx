@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel } from '@material-ui/core'
-import { SelectOption } from '@serge/custom-types'
+import { ForceOption } from '@serge/custom-types'
 import cx from 'classnames'
 import { camelCase } from 'lodash'
 import React, { ChangeEvent, useEffect, useState } from 'react'
@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { makeStyles } from '@material-ui/styles'
 
-const buildStyles = (options: SelectOption[]): any => {
+const buildStyles = (options: ForceOption[]): any => {
   const opts = {}
   options.forEach((option, idx) => {
     opts[`root-${idx}`] = {}
@@ -33,7 +33,7 @@ export const Forces: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const selection: SelectionItem[] = options.map(
-      (option: SelectOption) => {
+      (option: ForceOption) => {
         return {
           id: option.id,
           selected: value.includes(option.id)

@@ -1,5 +1,3 @@
-import { SelectOption } from '@serge/custom-types'
-
 export default interface PropTypes {
   /**
    * The label to show on the form section
