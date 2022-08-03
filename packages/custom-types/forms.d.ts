@@ -113,4 +113,6 @@ export interface SelectOption {
   name: string
   /** fill-shade for marker */
   colour: string
+  /** id of the option */
+  id: string
 }
