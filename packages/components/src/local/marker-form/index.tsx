@@ -117,7 +117,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
       </FormGroup>
       <FormGroup title='Visible to' align='right'>
-        <Forces name='visibleTo' label='' labelPlacement={forces.length > 2 ? 'bottom' : 'end'} options={forces} value={formState.visibleTo} onChange={changeHandler} />
+        <Forces name='visibleTo' label='' labelPlacement={forces.length > 2 ? 'top' : 'start'} options={forces} value={formState.visibleTo} onChange={changeHandler} />
       </FormGroup>
       <FormGroup title='Radius' align='right'>
         <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />

@@ -81,7 +81,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <Forces name="visibleTo" label="" labelPlacement={forces.length > 2 ? 'bottom' : 'end'} options={forces} value={visibleTo} onChange={changeHandler} />
+          <Forces name="visibleTo" label="" labelPlacement={forces.length > 2 ? 'top' : 'start'} options={forces} value={visibleTo} onChange={changeHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select

@@ -214,7 +214,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <Forces name="visibleTo" label="" labelPlacement={visibleToValues.length > 2 ? 'bottom' : 'end'} options={visibleToValues} value={visibleVal} onChange={visibleHandler} />
+          <Forces name="visibleTo" label="" labelPlacement={visibleToValues.length > 2 ? 'top' : 'start'} options={visibleToValues} value={visibleVal} onChange={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select
