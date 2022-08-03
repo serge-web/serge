@@ -91,7 +91,7 @@ export interface VisibilityFormData {
   name: string
   contactId: string
   availableForces: Array<ForceOption>
-  forceNames: Array<ForceData['name']>
+  visibleToForces: Array<ForceData['uniqid']>
   condition: Array<string>
   selectedCondition: string
 }
