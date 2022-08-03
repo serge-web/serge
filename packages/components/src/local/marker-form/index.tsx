@@ -3,11 +3,11 @@ import { faFill, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
 import { Confirm } from '@serge/components'
-import { UPDATE_MARKER, DELETE_MARKER } from '@serge/config'
+import { DELETE_MARKER, UPDATE_MARKER } from '@serge/config'
 import { IconOption, MapAnnotation } from '@serge/custom-types'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import Forces from '../form-elements/forces'
 import FormGroup from '../form-elements/form-group'
-import RCB from '../form-elements/rcb'
 import Selector from '../form-elements/selector'
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Context */
@@ -32,8 +32,8 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     console.warn('marker form - marker icons missing:', icons)
   }
 
-  const changeHandler = (formStateValue: any): void => {
-    setFormState({ ...formState, ...formStateValue })
+  const changeHandler = (formStateValue: string[]): void => {
+    setFormState({ ...formState, visibleTo: formStateValue })
   }
 
   useEffect(() => {
@@ -117,7 +117,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
       </FormGroup>
       <FormGroup title='Visible to' align='right'>
-        <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+        <Forces name='visibleTo' label='' labelPlacement={forces.length > 2 ? 'top' : 'start'} options={forces} value={formState.visibleTo} onChange={changeHandler} />
       </FormGroup>
       <FormGroup title='Radius' align='right'>
         <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />

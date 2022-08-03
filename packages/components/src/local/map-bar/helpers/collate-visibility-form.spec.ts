@@ -13,8 +13,8 @@ it('produces visibility data', () => {
 
   expect(formData).toBeDefined()
   expect(formData.availableForces.length).toEqual(2)
-  expect(formData.forceNames.length).toEqual(1)
-  expect(formData.forceNames[0]).toEqual(forces[2].name)
+  expect(formData.visibleToForces.length).toEqual(1)
+  expect(formData.visibleToForces[0]).toEqual(forces[2].uniqid)
   expect(formData.assetId).toEqual(selectedAsset.uniqid)
   expect(formData.contactId).toEqual(selectedAsset.contactId)
   expect(formData.selectedCondition).toEqual(selectedAsset.condition)
