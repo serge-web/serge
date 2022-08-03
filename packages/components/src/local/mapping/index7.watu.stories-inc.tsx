@@ -1,6 +1,6 @@
 // import data types
 import { Phase } from '@serge/config'
-import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role, RouteTurn } from '@serge/custom-types'
+import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role, RouteTurn, Wargame } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuPlaytest } from '@serge/mocks'
@@ -16,7 +16,7 @@ import Mapping from './index'
 import docs from './README.md'
 import MappingPropTypes from './types/props'
 
-const watuWargame = deepCopy(watuPlaytest)
+const watuWargame = deepCopy(watuPlaytest) as Wargame
 const forces: ForceData[] = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = (watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes) || []
 const overview = watuWargame.data.overview
@@ -42,6 +42,7 @@ forces.forEach((force: ForceData) => {
     allRoles.push(force.uniqid + ' ~ ' + role.roleId)
   })
 })
+watuWargame.data.forces.forces = forces
 
 export default {
   title: 'local/Mapping/Playtest',
@@ -124,14 +125,17 @@ const cleanRoute = (route: RouteTurn[], res: number): RouteTurn[] => {
     })
     return {
       turn: turn.turn,
-      status: turn.status,
-      route: fixedCells
+      route: fixedCells,
+      status: turn.status
     }
   })
 }
 
 // fix the locations
-forces.forEach((force: ForceData) => {
+// enable the next line to use code to transform cells to lower
+// resolution
+const lowerResolution = false
+lowerResolution && forces.forEach((force: ForceData) => {
   force.assets && force.assets.forEach((asset: Asset) => {
     if (asset.position) {
       asset.position = fixIndex(asset.position, localConstraints.h3res)
@@ -144,9 +148,11 @@ forces.forEach((force: ForceData) => {
     }
   })
 })
+// output wargame as JSON, to update wargame
+lowerResolution && console.log(JSON.stringify(watuWargame))
 
 const mapPostBack = (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void => {
-  console.log('index4 postBack', messageType, payload, channelID)
+  console.log('index7 postBack', messageType, payload, channelID)
 }
 
 interface StoryPropTypes extends MappingPropTypes {
