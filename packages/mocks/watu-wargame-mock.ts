@@ -2,157 +2,122 @@ import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame = {
     "adjudicationStartTime": "2021-08-10T16:12:25+01:00",
+    "wargameList": [],
     "data": {
-        "annotationIcons": {
-            "markers": [
-                {
-                    "icon": "marker_unknown.svg",
-                    "name": "Unknown",
-                    "uniqid": "unk"
-                },
-                {
-                    "icon": "marker_audio_visual.svg",
-                    "name": "Audio-Visual",
-                    "uniqid": "a/v"
-                },
-                {
-                    "icon": "marker_audio.svg",
-                    "name": "Audio",
-                    "uniqid": "aud"
-                },
-                {
-                    "icon": "marker_flash.svg",
-                    "name": "Flash",
-                    "uniqid": "flsh"
-                },
-                {
-                    "icon": "marker_general.svg",
-                    "name": "General",
-                    "uniqid": "gen"
-                },
-                {
-                    "icon": "marker_periscope.svg",
-                    "name": "Periscope",
-                    "uniqid": "peri"
-                },
-                {
-                    "icon": "marker_plume.svg",
-                    "name": "Plume",
-                    "uniqid": "plum"
-                }
-            ]
-        },
-        "annotations": {
-            "annotations": [
-                {
-                    "color": "#f00",
-                    "description": "description for the annotation",
-                    "iconId": "unk",
-                    "label": "first marker",
-                    "location": "8918aab76abffff",
-                    "shadeRadius": 2,
-                    "uniqid": "marker-one",
-                    "visibleTo": [
-                        "Blue-1"
-                    ]
-                },
-                {
-                    "color": "#099",
-                    "description": "description for the second annotation",
-                    "iconId": "gen",
-                    "label": "second marker",
-                    "location": "8918a84db3bffff",
-                    "shadeRadius": 5,
-                    "uniqid": "marker-two",
-                    "visibleTo": [
-                        "Blue-1",
-                        "Red-1"
-                    ]
-                },
-                {
-                    "color": "#909",
-                    "description": "description for the third annotation",
-                    "iconId": "aud",
-                    "label": "third marker",
-                    "location": "8918aab2b0bffff",
-                    "shadeRadius": 0,
-                    "uniqid": "marker-three",
-                    "visibleTo": [
-                        "Red-1"
-                    ]
-                }
-            ]
-        },
         "channels": {
             "channels": [
                 {
-                    "channelType": "ChannelChat",
-                    "name": "Blue Chat",
+                    "name": "VHF C16",
+                    "channelType": "ChannelCustom",
                     "participants": [
                         {
-                            "force": "White Force",
+                            "force": "White",
                             "forceUniqid": "umpire",
-                            "pType": "ParticipantChat",
                             "roles": [],
-                            "subscriptionId": "lg34"
+                            "subscriptionId": "8qsze9",
+                            "templates": [],
+                            "pType": "ParticipantCustom"
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": [],
+                            "subscriptionId": "hzrzp",
+                            "templates": [],
+                            "pType": "ParticipantCustom"
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "Red-1",
+                            "roles": [],
+                            "subscriptionId": "icrx",
+                            "templates": [],
+                            "pType": "ParticipantCustom"
                         }
                     ],
-                    "uniqid": "l6f4q0fy"
+                    "uniqid": "channel-koirdijk"
                 },
                 {
+                    "name": "mapping",
                     "channelType": "mapping",
                     "constraints": {
-                        "bounds": [
-                            [
-                                60,
-                                -10
-                            ],
-                            [
-                                50,
-                                0
-                            ]
-                        ],
+                        "bounds": [[50.252, -19.55], [50.22, -19.47]],
                         "cellLabelsStyle": "x_y_labels",
-                        "h3res": 6,
-                        "maxNativeZoom": 8,
-                        "maxZoom": 10,
-                        "minZoom": 3
+                        "gridCellsURL": "cells/atlantic-cells-6k.json",
+                        "h3res": 9,
+                        "maxNativeZoom": 7,
+                        "maxZoom": 16,
+                        "minZoom": 5,
+                        "polygonAreasURL": "cells/atlantic-polygons.json",
+                        "tileLayer": {
+                            "attribution": "Generated by QTiles",
+                            "url": "./atlantic_tiles/{z}/{x}/{y}.png"
+                        }
                     },
-                    "name": "mapping",
                     "participants": [
                         {
-                            "force": "White Force",
+                            "force": "White",
+                            "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
-                            "pType": "ParticipantMapping",
                             "roles": [],
-                            "subscriptionId": "hk2qc"
+                            "subscriptionId": "white-view"
                         },
                         {
-                            "controls": [
-                                "control-all:Blue-1"
-                            ],
-                            "force": "Blue-1 Force",
-                            "forceUniqid": "Blue-1",
+                            "force": "White",
                             "pType": "ParticipantMapping",
-                            "roles": [
-                                "blueCO"
-                            ],
-                            "subscriptionId": "7i9bq"
+                            "forceUniqid": "umpire",
+                            "roles": ["umpire-GC"],
+                            "controls": ["control-all:green-force"],
+                            "subscriptionId": "white-control-green-all"
                         },
                         {
-                            "controls": [
-                                "nortID"
-                            ],
-                            "force": "Blue-1 Force",
-                            "forceUniqid": "Blue-1",
+                            "force": "White",
                             "pType": "ParticipantMapping",
-                            "roles": [
-                                "nortCO"
-                            ],
-                            "subscriptionId": "ewhs"
+                            "forceUniqid": "umpire",
+                            "roles": ["umpire-blue-hq"],
+                            "controls": ["merchID2"],
+                            "subscriptionId": "white-control-green-asset"
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": [],
+                            "subscriptionId": "w9lmf",
+                            "pType": "ParticipantMapping"
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": ["nortCO"],
+                            "subscriptionId": "nortCO-control",
+                            "pType": "ParticipantMapping",
+                            "controls": ["nortID"]
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "Blue-1",
+                            "roles": ["blueCO"],
+                            "subscriptionId": "blue-CO-control-all",
+                            "pType": "ParticipantMapping",
+                            "controls": ["control-all:Blue-1"]
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "Red-1",
+                            "roles": ["red-CO"],
+                            "subscriptionId": "red-co-all",
+                            "controls": ["control-all:Red-1"],
+                            "pType": "ParticipantMapping"
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "Red-1",
+                            "roles": [],
+                            "subscriptionId": "red-viewers",
+                            "pType": "ParticipantMapping"
                         }
                     ],
-                    "uniqid": "l6f4pk6e"
+                    "uniqid": "channel-koirldxk"
                 }
             ],
             "dirty": false,
@@ -208,18 +173,6 @@ const wargame: Wargame = {
                 {
                     "assets": [
                         {
-                            "attributeValues": [
-                                {
-                                    "attrId": "asdic-dir",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 150
-                                },
-                                {
-                                    "attrId": "att-torpedoes",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 25
-                                }
-                            ],
                             "condition": "Working",
                             "contactId": "C426",
                             "history": [
@@ -232,14 +185,12 @@ const wargame: Wargame = {
                                         "state": "Transiting a"
                                     },
                                     "turn": 1
-                                },
-                                {
+                                }, {
                                     "status": {
                                         "state": "Moored"
                                     },
                                     "turn": 2
-                                },
-                                {
+                                }, {
                                     "route": [
                                         "8918aab7203ffff"
                                     ],
@@ -311,55 +262,59 @@ const wargame: Wargame = {
                                     },
                                     "turn": 2
                                 }
+
                             ],
                             "platformTypeId": "a6",
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir",
+                                    "attrType": "AttributeValueNumber",
+                                    "value": 150
+                                },
+                                {
+                                    "attrId": "att-torpedoes",
+                                    "value": 25,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "8918aab7003ffff",
                             "uniqid": "nortID"
                         },
                         {
+                            "condition": "Working",
+                            "contactId": "C164",
+                            "history": [{
+                                "route": [
+                                    "8918aab604bffff"
+                                ],
+                                "status": {
+                                    "speedKts": 6,
+                                    "state": "Transiting"
+                                },
+                                "turn": 1
+                            }, {
+                                "status": {
+                                    "state": "Moored"
+                                },
+                                "turn": 2
+                            }, {
+                                "route": [
+                                    "8918aab6283ffff"
+                                ],
+                                "status": {
+                                    "speedKts": 12,
+                                    "state": "Transiting"
+                                },
+                                "turn": 3
+                            }],
+                            "name": "TALN",
                             "attributeValues": [
                                 {
                                     "attrId": "comm-battery",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "attrl5w7ogaw",
-                                    "attrType": "AttributeValueEnum",
-                                    "value": "Deep"
+                                    "value": 100,
+                                    "attrType": "AttributeValueNumber"
                                 }
                             ],
-                            "condition": "Working",
-                            "contactId": "C164",
-                            "history": [
-                                {
-                                    "route": [
-                                        "8918aab604bffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 6,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 1
-                                },
-                                {
-                                    "status": {
-                                        "state": "Moored"
-                                    },
-                                    "turn": 2
-                                },
-                                {
-                                    "route": [
-                                        "8918aab6283ffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 12,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 3
-                                }
-                            ],
-                            "name": "TALN",
                             "perceptions": [
                                 {
                                     "by": "Red-1",
@@ -378,18 +333,6 @@ const wargame: Wargame = {
                             "uniqid": "talnID"
                         },
                         {
-                            "attributeValues": [
-                                {
-                                    "attrId": "comm-battery",
-                                    "attrType": "AttributeValueNumber",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "attrl5w7ogaw",
-                                    "attrType": "AttributeValueEnum",
-                                    "value": "Deep"
-                                }
-                            ],
                             "condition": "Working",
                             "contactId": "C866",
                             "history": [
@@ -419,13 +362,57 @@ const wargame: Wargame = {
                             "platformTypeId": "a8",
                             "position": "8918aab66bbffff",
                             "uniqid": "a0a975y4221"
-                        },
-                        {
+                        }, {
+                            "condition": "Full capability",
+                            "contactId": "C713",
+                            "history": [
+                                {
+                                    "route": [
+                                        "8918aab0c2fffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 10,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 0
+                                },
+                                {
+                                    "route": [
+                                        "8918aab08b3ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 20,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 1
+                                },
+                                {
+                                    "route": [
+                                        "8918aab0d63ffff"
+                                    ],
+                                    "status": {
+                                        "speedKts": 30,
+                                        "state": "Transiting"
+                                    },
+                                    "turn": 2
+                                }
+                            ],
                             "comprising": [
                                 {
                                     "condition": "Full capability",
                                     "contactId": "C964",
                                     "history": [],
+                                    "name": "Frigate A",
+                                    "perceptions": [
+                                        {
+                                            "by": "Red-1",
+                                            "force": "Blue-1",
+                                            "name": "Frigate A Perceived Name",
+                                            "typeId": "a3"
+                                        }
+                                    ],
+                                    "platformType": "frigate",
+                                    "platformTypeId": "a3",
                                     "hosting": [
                                         {
                                             "condition": "Full capability",
@@ -463,17 +450,6 @@ const wargame: Wargame = {
                                             "uniqid": "a0pra17943"
                                         }
                                     ],
-                                    "name": "Frigate A",
-                                    "perceptions": [
-                                        {
-                                            "by": "Red-1",
-                                            "force": "Blue-1",
-                                            "name": "Frigate A Perceived Name",
-                                            "typeId": "a3"
-                                        }
-                                    ],
-                                    "platformType": "frigate",
-                                    "platformTypeId": "a3",
                                     "status": {
                                         "speedKts": 20,
                                         "state": "Transiting"
@@ -486,12 +462,7 @@ const wargame: Wargame = {
                                     "history": [],
                                     "name": "MCM Delta",
                                     "perceptions": [
-                                        {
-                                            "by": "Red-1",
-                                            "force": "Blue-1",
-                                            "name": "Blue MCM",
-                                            "typeId": "a9"
-                                        }
+                                        { "by": "Red-1", "force": "Blue-1", "name": "Blue MCM", "typeId": "a9" }
                                     ],
                                     "platformType": "MCMV",
                                     "platformTypeId": "a9",
@@ -500,40 +471,6 @@ const wargame: Wargame = {
                                         "state": "Transiting"
                                     },
                                     "uniqid": "tg-mcm"
-                                }
-                            ],
-                            "condition": "Full capability",
-                            "contactId": "C713",
-                            "history": [
-                                {
-                                    "route": [
-                                        "8918aab0c2fffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 10,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 0
-                                },
-                                {
-                                    "route": [
-                                        "8918aab08b3ffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 20,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 1
-                                },
-                                {
-                                    "route": [
-                                        "8918aab0d63ffff"
-                                    ],
-                                    "status": {
-                                        "speedKts": 30,
-                                        "state": "Transiting"
-                                    },
-                                    "turn": 2
                                 }
                             ],
                             "name": "CTF 511",
@@ -608,6 +545,7 @@ const wargame: Wargame = {
                             "name": "Comms",
                             "roleId": "blue-comms"
                         }
+
                     ],
                     "umpire": false,
                     "uniqid": "Blue-1",
@@ -618,20 +556,18 @@ const wargame: Wargame = {
                         {
                             "condition": "Working",
                             "contactId": "C122",
-                            "history": [
-                                {
-                                    "status": {
-                                        "state": "Moored 1"
-                                    },
-                                    "turn": 1
+                            "history": [{
+                                "status": {
+                                    "state": "Moored 1"
                                 },
-                                {
-                                    "status": {
-                                        "state": "Scanning 1"
-                                    },
-                                    "turn": 2
-                                }
-                            ],
+                                "turn": 1
+                            },
+                            {
+                                "status": {
+                                    "state": "Scanning 1"
+                                },
+                                "turn": 2
+                            }],
                             "name": "AGI",
                             "perceptions": [
                                 {
@@ -653,14 +589,12 @@ const wargame: Wargame = {
                                         "state": "Transiting a"
                                     },
                                     "turn": 3
-                                },
-                                {
+                                }, {
                                     "status": {
                                         "state": "Moored"
                                     },
                                     "turn": 4
-                                }
-                            ],
+                                }],
                             "platformType": "agi",
                             "platformTypeId": "a15",
                             "position": "8918a84db3bffff",
@@ -669,20 +603,17 @@ const wargame: Wargame = {
                         {
                             "condition": "Working",
                             "contactId": "C442",
-                            "history": [
-                                {
-                                    "status": {
-                                        "state": "Landed"
-                                    },
-                                    "turn": 1
+                            "history": [{
+                                "status": {
+                                    "state": "Landed"
                                 },
-                                {
-                                    "status": {
-                                        "state": "Refueling"
-                                    },
-                                    "turn": 2
-                                }
-                            ],
+                                "turn": 1
+                            }, {
+                                "status": {
+                                    "state": "Refueling"
+                                },
+                                "turn": 2
+                            }],
                             "name": "MPA 2",
                             "perceptions": [
                                 {
@@ -702,8 +633,8 @@ const wargame: Wargame = {
                                     },
                                     "turn": 2
                                 }
-                            ],
-                            "platformTypeId": "a11",
+
+                            ], "platformTypeId": "a11",
                             "position": "8918a84db33ffff",
                             "uniqid": "red-mpa-2"
                         }
@@ -766,6 +697,42 @@ const wargame: Wargame = {
                     "umpire": false,
                     "uniqid": "Red-1",
                     "visibleTo": []
+                },
+                {
+                    "color": "#0d0",
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C526",
+                            "history": [],
+                            "name": "MERCH 1",
+                            "perceptions": [],
+                            "plannedTurns": [],
+                            "platformTypeId": "a13",
+                            "attributeValues": [],
+                            "position": "8918a84d94fffff",
+                            "uniqid": "merchID"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C926",
+                            "history": [],
+                            "name": "MERCH 2",
+                            "perceptions": [],
+                            "plannedTurns": [],
+                            "platformTypeId": "a13",
+                            "attributeValues": [],
+                            "position": "8918aab6623ffff",
+                            "uniqid": "merchID2"
+                        }
+                    ],
+                    "dirty": false,
+                    "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
+                    "name": "Green Force",
+                    "overview": "Green force.",
+                    "roles": [],
+                    "umpire": false,
+                    "uniqid": "green-force"
                 }
             ],
             "name": "Forces",
@@ -783,7 +750,7 @@ const wargame: Wargame = {
             "realtimeTurnTime": 300000,
             "showAccessCodes": true,
             "timeWarning": 60000,
-            "turnPresentation": "Turn-Pairs"
+            "turnPresentation": "Natural"
         },
         "platformTypes": {
             "dirty": false,
@@ -934,38 +901,17 @@ const wargame: Wargame = {
                     "uniqid": "a5"
                 },
                 {
-                    "attributeTypes": [
-                        {
-                            "attrId": "asdic-dir",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 0,
-                            "description": "ASDIC orientation (absolute)",
-                            "editableByPlayer": true,
-                            "name": "ASDIC"
-                        },
-                        {
-                            "attrId": "att-torpedoes",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 20,
-                            "description": "Number of torpedoes remaining",
-                            "editableByPlayer": false,
-                            "name": "Torpedoes"
-                        }
-                    ],
                     "conditions": [
                         "Working",
                         "Disabled",
                         "Mission Kill"
                     ],
                     "icon": "destroyer.svg",
+                    "orientation": [{
+                        "attribute": "asdic-dir",
+                        "origin": "absolute"
+                    }, {}],
                     "name": "Destroyer",
-                    "orientation": [
-                        {
-                            "attribute": "asdic-dir",
-                            "origin": "absolute"
-                        },
-                        {}
-                    ],
                     "speedKts": [
                         6,
                         12,
@@ -984,31 +930,46 @@ const wargame: Wargame = {
                             "name": "Loitering"
                         }
                     ],
-                    "travelMode": "sea",
                     "turningCircle": 500,
+                    "attributeTypes": [
+                        {
+                            "name": "ASDIC",
+                            "attrId": "asdic-dir",
+                            "description": "ASDIC orientation (absolute)",
+                            "defaultValue": 0,
+                            "editableByPlayer": true,
+                            "attrType": "AttributeTypeNumber"
+                        },
+                        {
+                            "name": "Torpedoes",
+                            "attrId": "att-torpedoes",
+                            "description": "Number of torpedoes remaining",
+                            "defaultValue": 20,
+                            "editableByPlayer": false,
+                            "attrType": "AttributeTypeNumber"
+                        }
+                    ],
+                    "travelMode": "sea",
                     "uniqid": "a6"
                 },
                 {
-                    "attributeTypes": [
-                        {
-                            "attrId": "attrl5w88pq6",
-                            "attrType": "AttributeTypeEnum",
-                            "description": "Platform Depth",
-                            "editableByPlayer": true,
-                            "name": "Depth",
-                            "values": [
-                                "Deep",
-                                "PD",
-                                "Shallow"
-                            ]
-                        }
-                    ],
                     "conditions": [
                         "Working",
                         "Disabled",
                         "Mission Kill"
                     ],
                     "icon": "ssk.svg",
+                    "attributeTypes": [
+                        {
+                            "name": "Depth",
+                            "attrId": "ssk-depth",
+                            "description": "Depth",
+                            "defaultValue": 'Deep',
+                            "values": ["Deep", "PD", "Shallow"],
+                            "editableByPlayer": true,
+                            "attrType": "AttributeTypeEnum"
+                        }
+                    ],
                     "name": "SSK",
                     "speedKts": [
                         6,
@@ -1018,44 +979,21 @@ const wargame: Wargame = {
                     "states": [
                         {
                             "mobile": true,
-                            "name": "Deep"
+                            "name": "Transiting"
                         },
                         {
                             "mobile": true,
-                            "name": "PD"
+                            "name": "Aggressove"
                         },
                         {
                             "mobile": true,
-                            "name": "Shallow"
+                            "name": "Evasive"
                         }
                     ],
                     "travelMode": "sea",
                     "uniqid": "a7"
                 },
                 {
-                    "attributeTypes": [
-                        {
-                            "attrId": "comm-battery",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Charge remaining",
-                            "editableByPlayer": true,
-                            "name": "Battery Level",
-                            "units": "%"
-                        },
-                        {
-                            "attrId": "attrl5w7ogaw",
-                            "attrType": "AttributeTypeEnum",
-                            "description": "Platform Depth",
-                            "editableByPlayer": true,
-                            "name": "Depth",
-                            "values": [
-                                "Deep",
-                                "PD",
-                                "Shallow"
-                            ]
-                        }
-                    ],
                     "conditions": [
                         "Working",
                         "Disabled",
@@ -1063,8 +1001,18 @@ const wargame: Wargame = {
                     ],
                     "icon": "ssn.svg",
                     "name": "SSN",
-                    "orientation": [
-                        {}
+                    "orientation": [{
+                    }],
+                    "attributeTypes": [
+                        {
+                            "name": "Battery Level",
+                            "units": "%",
+                            "description": "Charge remaining",
+                            "attrId": "comm-battery",
+                            "defaultValue": 100,
+                            "editableByPlayer": false,
+                            "attrType": "AttributeTypeNumber"
+                        }
                     ],
                     "speedKts": [
                         6,
@@ -1075,15 +1023,15 @@ const wargame: Wargame = {
                     "states": [
                         {
                             "mobile": true,
-                            "name": "PD"
+                            "name": "Transiting"
                         },
                         {
                             "mobile": true,
-                            "name": "Shallow"
+                            "name": "Aggressove"
                         },
                         {
                             "mobile": true,
-                            "name": "Deep"
+                            "name": "Evasive"
                         }
                     ],
                     "travelMode": "sea",
@@ -1192,6 +1140,7 @@ const wargame: Wargame = {
                         }
                     ],
                     "travelMode": "sea",
+                    "turningCircle": 310,
                     "uniqid": "a13"
                 },
                 {
@@ -1282,6 +1231,48 @@ const wargame: Wargame = {
                 }
             ],
             "selectedType": ""
+        },
+        "annotations": {
+            "annotations": [{
+                "uniqid": "marker-one",
+                "color": "#f00",
+                "description": "description for the annotation",
+                "iconId": "unk",
+                "label": "first marker",
+                "shadeRadius": 2,
+                "location": "8918aab76abffff",
+                "visibleTo": ["Blue-1"]
+            }, {
+                "uniqid": "marker-two",
+                "color": "#099",
+                "description": "description for the second annotation",
+                "iconId": "gen",
+                "shadeRadius": 5,
+                "label": "second marker",
+                "location": "8918a84db3bffff",
+                "visibleTo": ["Blue-1", "Red-1"]
+            }, {
+                "uniqid": "marker-three",
+                "color": "#909",
+                "description": "description for the third annotation",
+                "iconId": "aud",
+                "shadeRadius": 0,
+                "label": "third marker",
+                "location": "8918aab2b0bffff",
+                "visibleTo": ["Red-1"]
+            }]
+        },
+        "annotationIcons": {
+            "markers": [{ "uniqid": "unk", "name": "Unknown", "icon": "marker_unknown.svg" },
+            { "uniqid": "a/v", "name": "Audio-Visual", "icon": "marker_audio_visual.svg" },
+            { "uniqid": "aud", "name": "Audio", "icon": "marker_audio.svg" },
+            { "uniqid": "flsh", "name": "Flash", "icon": "marker_flash.svg" },
+            { "uniqid": "gen", "name": "General", "icon": "marker_general.svg" },
+            { "uniqid": "peri", "name": "Periscope", "icon": "marker_periscope.svg" },
+            { "uniqid": "plum", "name": "Plume", "icon": "marker_plume.svg" },
+            { "uniqid": "wak", "name": "Wake", "icon": "marker_wake.svg" },
+            { "uniqid": "vis", "name": "Visual", "icon": "marker_visual.svg" }
+            ]
         }
     },
     "gameTurn": 3,
@@ -1291,7 +1282,6 @@ const wargame: Wargame = {
     "phase": "planning",
     "turnEndTime": "2022-02-15T16:55:11+00:00",
     "wargameInitiated": false,
-    "wargameList": [],
     "wargameTitle": "Small wargame"
 }
 
