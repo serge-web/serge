@@ -57,9 +57,6 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
     force => ({ name: force.name, roles: force.roles })
   )
 
-  console.log('Wargame list:')
-  console.table(wargameList)
-
   // workaround in the next line. There are some circumstances (maybe db down)
   // when we appear to have a wargame without a shortname
   const availableGames = wargameList.filter((wargame: WargameList) => !(wargame.shortName && wargame.shortName.startsWith(hiddenPrefix)))

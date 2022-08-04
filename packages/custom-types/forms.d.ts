@@ -43,6 +43,7 @@ export interface PerceptionFormData {
 export interface MarkerFormPopulate {
   forces: Array<ForceOption>
   icons: Array<IconOption>
+  iconURL: string
 }
 
 export interface MarkerFormData {
@@ -90,7 +91,7 @@ export interface VisibilityFormData {
   name: string
   contactId: string
   availableForces: Array<ForceOption>
-  forceNames: Array<ForceData['name']>
+  visibleToForces: Array<ForceData['uniqid']>
   condition: Array<string>
   selectedCondition: string
 }
@@ -112,4 +113,6 @@ export interface SelectOption {
   name: string
   /** fill-shade for marker */
   colour: string
+  /** id of the option */
+  id: string
 }

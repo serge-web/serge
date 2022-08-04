@@ -1,5 +1,6 @@
 import { MessageTypes, Wargame } from '.';
 import PlatformType from './platform-type';
+import IconOption from "./icon-option";
 import Role from './role';
 
 export type GameInfo = {
@@ -50,7 +51,7 @@ export type RoleType = {
  */
 export type ModalData = {
   type: string,
-  data: string | RoleType | PlatformType,
+  data: string | RoleType | PlatformType | IconOption,
   customMessages: {
     title: string,
     message: string

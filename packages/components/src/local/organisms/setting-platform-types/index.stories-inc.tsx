@@ -23,11 +23,11 @@ export default {
 
 export const Default: React.FC = () => {
   const onChange = (netPlatformType: PlatformType): void => {
-    console.log(netPlatformType)
+    console.log('p-type change', netPlatformType)
   }
 
   const onSave = (netPlatformType: PlatformType): void => {
-    console.log(netPlatformType)
+    console.log('p-type save', netPlatformType)
   }
 
   return <SettingPlatformTypes platformType={platformTypeMock} onChange={onChange} onSave={onSave} />

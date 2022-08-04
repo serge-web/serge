@@ -3,6 +3,7 @@
 interface CssExports {
   'asset-icon-with-image': string;
   'marker-label': string;
+  'radius-line': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

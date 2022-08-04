@@ -1,19 +1,24 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces, platformTypes } from '@serge/mocks'
-import { RouteStore, Route } from '@serge/custom-types'
+import { watuWargame } from '@serge/mocks'
+import { RouteStore, Route, ForceData, ChannelTypes, ChannelMapping } from '@serge/custom-types'
 
 import storePlannedRoute from './store-planned-route'
 import { Phase } from '@serge/config'
 
 import { routeCreateStore, routeSetCurrent, findAsset, routeAddSteps, routeClearFromStep } from '@serge/helpers'
 
+const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
+const forces = watuWargame.data.forces.forces
+const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
+const blueForce: ForceData = forces[1]
+
 it('Stores the extended planned route', () => {
-  const frigateId = 'a0pra00001'
+  const frigateId = 'nortID'
 
   // create the route store
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, false, platformTypes, false, false, undefined, undefined, mapChannel)
   expect(store).toBeTruthy()
 
   // set the frigate as selected
@@ -58,10 +63,11 @@ it('Stores the extended planned route', () => {
 })
 
 it('Stores the shortened planned route', () => {
-  const frigateId = 'a0pra00001'
+  const frigateId = 'nortID'
 
   // create the route store
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, blueForce.uniqid, blueForce.roles[0].roleId, false, platformTypes,
+    false, false, undefined, undefined, mapChannel)
   expect(store).toBeTruthy()
 
   // set the frigate as selected
@@ -72,7 +78,7 @@ it('Stores the shortened planned route', () => {
   expect(frigRoute).toBeTruthy()
   if (frigRoute) {
     // trim the route
-    const store3: RouteStore = routeClearFromStep(store2, frigateId, 5)
+    const store3: RouteStore = routeClearFromStep(store2, frigateId, 2)
 
     // get the modified frigate route
     const frigRoute2: Route | undefined = store3.selected

@@ -320,7 +320,6 @@ export const forces: ForceData[] = [
     "roles": [
       {
         "roleId": "rk116f5e",
-        "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
@@ -345,7 +344,6 @@ export const forces: ForceData[] = [
             "turn": 0
           }
         ],
-        "locationPending": true,
         "name": "Dhow-A",
         "perceptions": [
           {
@@ -414,7 +412,6 @@ export const forces: ForceData[] = [
             "uniqid": "a0pra153102"
           }
         ],
-        "locationPending": true,
         "name": "Dhow-B",
         "perceptions": [
           {
@@ -469,7 +466,6 @@ export const forces: ForceData[] = [
             "turn": 2
           }
         ],
-        "locationPending": true,
         "name": "Dhow-C",
         "perceptions": [],
         "plannedTurns": [
@@ -524,7 +520,6 @@ export const forces: ForceData[] = [
             "turn": 2
           }
         ],
-        "locationPending": true,
         "name": "Missile-A",
         "perceptions": [],
         "plannedTurns": [],
@@ -821,9 +816,6 @@ export const forces: ForceData[] = [
       }
     ],
     "color": "#0F0",
-    "controlledBy": [
-      "umpire"
-    ],
     "dirty": false,
     "iconURL": "default_img/umpireDefault.png",
     "name": "Green",

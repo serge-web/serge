@@ -5,10 +5,10 @@ import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { DATUM, CellLabelStyle, LAYDOWN_TURN } from '@serge/config'
+import { CellLabelStyle } from '@serge/config'
 
 /* Import helpers */
-import { findPlatformTypeFor, plannedRouteFor3 } from '@serge/helpers'
+import { plannedRouteFor3 } from '@serge/helpers'
 import Polygon from './helpers/polygon'
 
 import { binCells3, PolyBin3 } from './helpers/bin-cells'
@@ -18,9 +18,9 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { Route, NewTurnValues, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
+import { Route, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
 
-import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing, h3Line } from 'h3-js'
+import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing } from 'h3-js'
 import getCellStyle3 from './helpers/get-cell-style-3'
 import { brgBetweenTwoHex, cleanAngle, leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
 
@@ -47,12 +47,12 @@ export const HexGrid: React.FC<{}> = () => {
   const {
     h3gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas, cellLabelStyle,
-    mapBounds, h3Resolution, platforms
+    mapBounds, h3Resolution, turnNumber
   } = props
 
   // define detail cut-offs
-  const SHOW_LABELS_UNDER = 400
-  const SHOW_HEXES_UNDER = 1000
+  const SHOW_LABELS_UNDER = 800
+  const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -60,7 +60,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // allowable cells filtered depending on cell type
   const [allowableCells3, setAllowableCells3] = useState<SergeGrid3>([])
-  const [allowablePoly3, setAllowablePoly3] = useState<Array<L.LatLng>>([])
+  const [allowablePoly3, setAllowablePoly3] = useState<Array<L.LatLng[]>>([])
 
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
@@ -110,8 +110,6 @@ export const HexGrid: React.FC<{}> = () => {
 
   // remember the id of the current asset, so we can check if we're receiving a new one
   const [selectedAssetId, setSelectedAssetId] = useState<string | undefined>(undefined)
-
-  const datumType = findPlatformTypeFor(platforms, DATUM, '').name
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -182,64 +180,42 @@ export const HexGrid: React.FC<{}> = () => {
    */
   useEffect(() => {
     if (dragDestination3 && originHex3) {
-      // check if we're in laydown mode
-      if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
-        // we don't show path in laydown mode
-        setPlanningRoutePoly3([])
-
-        // see if current cell is acceptable
-        // Note: special handling. if there are no allowable cells, it can be laid down anywhere
-        if (!allowableCells3.length || allowableCells3.includes(dragDestination3)) {
-          // ok, set planning route to just that cell - to mark the
-          // last acceptable cell
-          setPlanningRouteCells3([dragDestination3])
+      if (planningConstraints && planningConstraints.turningCircle && cameFrom) {
+        const points = []
+        const cells = []
+        let current = cameFrom[dragDestination3.index]
+        while (current !== originHex3.index && current !== undefined) {
+          const pos = h3ToGeo(current)
+          points.push(L.latLng(pos[0], pos[1]))
+          // find the cell
+          const cell = allowableCells3.find((value: SergeHex3) => value.index === current)
+          cell && cells.push(cell)
+          current = cameFrom[current]
         }
+        // append the origin
+        points.unshift(dragDestination3.centreLatLng)
+        points.push(originHex3.centreLatLng)
+        cells.unshift(dragDestination3)
+        cells.push(originHex3)
+
+        // store data
+        setPlanningRouteCells3(cells.reverse())
+        setPlanningRoutePoly3(points.reverse())
       } else {
-        if (planningConstraints && planningConstraints.turningCircle && cameFrom) {
-          const points = []
-          const cells = []
-          let current = cameFrom[dragDestination3.index]
-          while (current !== originHex3.index && current !== undefined) {
-            const pos = h3ToGeo(current)
-            points.push(L.latLng(pos[0], pos[1]))
-            // find the cell
-            const cell = allowableCells3.find((value: SergeHex3) => value.index === current)
-            cell && cells.push(cell)
-            current = cameFrom[current]
-          }
-          // append the origin
-          points.unshift(dragDestination3.centreLatLng)
-          points.push(originHex3.centreLatLng)
-          cells.unshift(dragDestination3)
-          cells.push(originHex3)
+        // work out the available cells
+        const plannedRoute: SergeHex3[] = planningConstraints
+          ? plannedRouteFor3(h3gridCells, allowableCells3, originHex3, dragDestination3) : []
 
-          // store data
-          setPlanningRouteCells3(cells.reverse())
-          setPlanningRoutePoly3(points.reverse())
-        } else {
-          // work out the available cells
-          const plannedRoute: SergeHex3[] = planningConstraints
-            ? plannedRouteFor3(h3gridCells, allowableCells3, originHex3, dragDestination3) : []
+        // combine with any existing planned cells
+        setPlanningRouteCells3(plannedRoute)
 
-          // combine with any existing planned cells
-          if (selectedAsset && selectedAsset.typeId === datumType) {
-            if (plannedRoute.length > 0) {
-              // we need the planned route to be more than one cell long in order
-              // for later code to recognise it as a valid leg
-              setPlanningRouteCells3([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
-            }
-          } else {
-            setPlanningRouteCells3(plannedRoute)
+        // also produce the lat-long values needed for the polylines
+        const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex3) => {
+          return cell.centreLatLng
+        })
 
-            // also produce the lat-long values needed for the polylines
-            const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex3) => {
-              return cell.centreLatLng
-            })
-
-            // combine with any existing planned cells
-            setPlanningRoutePoly3(tmpPlannedRoutePoly)
-          }
-        }
+        // combine with any existing planned cells
+        setPlanningRoutePoly3(tmpPlannedRoutePoly)
       }
     } else {
       // drop cells
@@ -248,17 +224,22 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination3, originHex3])
 
-  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string } => {
+  const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string, cellAhead: string } => {
     if (details) {
       // coords of circle
       const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
       const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
       const heading = details.heading
 
-      // calculate the position behind the origin
-      const behindLoc = turf.destination(origin, turnRadiusKm, 180 + heading, { units: 'kilometers' })
-      const coords = behindLoc.geometry.coordinates
-      const cellBehind = geoToH3(coords[1], coords[0], h3Resolution)
+      // calculate the reference of cell immediately behind the origin
+      const edgeSizeM = edgeLength(h3GetResolution(originCell.index), 'm')
+      const behindLoc = turf.destination(origin, 2 * edgeSizeM / 1000, 180 + heading, { units: 'kilometers' })
+      const behindCoords = behindLoc.geometry.coordinates
+      const behindIndex = geoToH3(behindCoords[1], behindCoords[0], h3Resolution)
+
+      const aheadLoc = turf.destination(origin, 2 * edgeSizeM / 1000, heading, { units: 'kilometers' })
+      const aheadCoords = aheadLoc.geometry.coordinates
+      const aheadIndex = geoToH3(aheadCoords[1], aheadCoords[0], h3Resolution)
 
       // store data
       const leftPts = buildTurn(origin, true, turnRadiusKm, heading)
@@ -310,9 +291,9 @@ export const HexGrid: React.FC<{}> = () => {
       const overall = leafletUnion(circles, rArc) || []
       const turnArc = excess ? leafletBuffer(overall, excess) : overall
 
-      return { turnCircles: circles, turnOverall: turnArc, cellBehind: cellBehind }
+      return { turnCircles: circles, turnOverall: turnArc, cellBehind: behindIndex, cellAhead: aheadIndex }
     }
-    return { turnCircles: [], turnOverall: [], cellBehind: '' }
+    return { turnCircles: [], turnOverall: [], cellBehind: '', cellAhead: '' }
   }
 
   /** listen out for just planning constraints changing, since we
@@ -354,9 +335,11 @@ export const HexGrid: React.FC<{}> = () => {
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
       // did we find cell?
       if (originCell) {
-        setOrigin(originCell.centreLatLng)
+        if (turnNumber > 0) {
+          setOrigin(originCell.centreLatLng)
+        }
 
-        const { turnCircles, turnOverall, cellBehind } = calcTurnData(originCell, planningConstraints.turningCircle)
+        const { turnCircles, turnOverall, cellBehind, cellAhead } = calcTurnData(originCell, planningConstraints.turningCircle)
 
         // don't draw the lines
         false && setAchievablePoly(turnOverall)
@@ -380,6 +363,11 @@ export const HexGrid: React.FC<{}> = () => {
               if (value.index === cellBehind) {
                 // this is the cell behind the current one. We won't allow it
                 return false
+              } else if (value.index === cellAhead) {
+                // this is the cell immediately ahead of the current one. Force it to be
+                // allowable, since in some edge case the cell centre falls inside
+                // the turning circles, and gets rejected.
+                return true
               } else {
                 // check if this cell is in the polygon
                 const pos = h3ToGeo(value.index)
@@ -403,40 +391,37 @@ export const HexGrid: React.FC<{}> = () => {
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
         if (planningConstraints.travelMode === 'air') {
-          // are we an air platform in laydown?
-          // if we are, ensure laydown location is on land
-          const laydownCells = planningConstraints.status === LAYDOWN_TURN
-            ? allowableCellList.filter((cell: SergeHex3) => cell.terrain === 'land')
-            : allowableCellList
-
-          setAllowableCells3(laydownCells)
+          setAllowableCells3(allowableCellList)
         } else {
           // TODO: reinstate terrain tests
-          const filteredCells = allowableCellList.filter((cell: SergeHex3) => cell.terrain === planningConstraints.travelMode.toLowerCase())
-
+          const cellsForMyTerrain = allowableCellList.filter((cell: SergeHex3) => cell.terrain && cell.terrain === planningConstraints.travelMode.toLowerCase())
           let cellsAfterTurn
 
           // if there is a turning circle, we will further restrict them
           if (planningConstraints.turningCircle && originHex3 && planningRangeCells) {
-            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
+            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, cellsForMyTerrain)
             setCameFrom(cameFromDict)
             cellsAfterTurn = turnCells
+            // show a warning if the turning circle data means there aren't any achievable cells
+            if (cellsForMyTerrain.length && !turnCells.length) {
+              console.warn('Size of turning circle means no achievable cells', cellsForMyTerrain.length, turnCells.length, planningConstraints.turningCircle)
+            }
           } else {
-            cellsAfterTurn = filteredCells
+            cellsAfterTurn = cellsForMyTerrain
           }
 
           setAllowableCells3(cellsAfterTurn)
 
           if (cellsAfterTurn.length > 0 && cellsAfterTurn.length <= 5000) {
-            // try to create convex polygon around cells, but only if there
-            // arent' too many cells
-            // const hull = generateOuterBoundary3(filteredCells)
-            // setAllowablePoly3(hull)
-
             // use h3 hull function
             const cellIndices = cellsAfterTurn.map((cell: SergeHex3): string => cell.index)
-            const hull2 = h3SetToMultiPolygon(cellIndices, true)
-            const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+            const hull2 = h3SetToMultiPolygon(cellIndices, false)
+            // convert to Leaflet lat/longs
+            const h3points = hull2[0].map((arr: number[][]): L.LatLng[] => {
+              return arr.map((pair: number[]): L.LatLng => {
+                return L.latLng(pair[0], pair[1])
+              })
+            })
             setAllowablePoly3(h3points)
           } else {
             setAllowablePoly3([])
@@ -508,7 +493,9 @@ export const HexGrid: React.FC<{}> = () => {
                 // nope, store it
                 frontier.push({ index: index, range: thisRange })
                 cameFromDict[index] = current.index
-                exists.labelStore.xy = '+' + thisRange
+                // use the next line to put number of steps into cell
+                // label. Useful for debugging
+                // exists.labelStore.xy = '+' + thisRange
               }
             }
           }
@@ -579,7 +566,12 @@ export const HexGrid: React.FC<{}> = () => {
     } else {
       setRelevantCells3([])
     }
-  }, [viewport, h3gridCells, polyBins3])
+  }, [viewport, polyBins3])
+
+  // if the grid is updated, we have to drop the bins
+  useEffect(() => {
+    setPolyBins3([])
+  }, [h3gridCells])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
@@ -594,12 +586,17 @@ export const HexGrid: React.FC<{}> = () => {
   }, [relevantCells3, planningRouteCells3])
 
   const simplifyRoute = (route: SergeHex3[]): SergeHex3[] => {
-    const len = route.length
-    const start = route[0]
-    const last = route[len - 1]
-    const direct = h3Line(start.index, last.index)
-    const res = (direct.length === len) ? [start, last] : route
-    return res
+    // TODO: the route simplification was breaking for small cells.
+    // my guess is that our route generation was generating one route between
+    // cells, but h3 was developing a different route between cells.
+    //
+    // const len = route.length
+    // const start = route[0]
+    // const last = route[len - 1]
+    // const direct = h3Line(start.index, last.index)
+    // console.log('simplify', start.index, last.index, direct.length)
+    // const res = (direct.length === len) ? [start, last] : route
+    return route
   }
 
   /** handler for planning marker being droppped
@@ -608,118 +605,94 @@ export const HexGrid: React.FC<{}> = () => {
   const dropped = (e: DragEndEvent): void => {
     setDragDestination3(undefined)
     setAllowableCells3([])
-    if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
-      // Special Case - in Force Laydown
-      // find the drop location
-      if (planningRouteCells3 && planningRouteCells3.length) {
-        const laydown: NewTurnValues = {
-          state: planningConstraints.status,
-          speed: planningConstraints.speed,
-          route: [planningRouteCells3[0]]
-        }
-        setNewLeg && setNewLeg(laydown)
-      } else {
-        console.warn('Pin dropped in laydown mode, but we do not have acceptable cells')
+
+    // Note: ok, we don't actually use the marker location, since
+    // it may be outside the achievable area. Just
+    // use the last point in the planning leg
+    const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+
+    if (plannedRouteCells && (planningRangeCells || rangeUnlimited) && planningRouteCells3.length) {
+      // deduct one from planned route, since it includes the origin cell
+      let routeLen = planningRouteCells3.length - 1
+      const lastCell: SergeHex3 = planningRouteCells3[routeLen]
+
+      const marker = e.target
+      marker.setLatLng(lastCell.centreLatLng)
+
+      // special case.  The small errors in planning mean player may be offered longer route
+      // than the allowance
+      if (planningRangeCells && routeLen > planningRangeCells) {
+        routeLen = planningRangeCells
       }
-      // clear other bits anyway
-      setOrigin(undefined)
-      setPlannedRouteCells([])
-      setPlannedRoutePoly([])
-      setPlanningRouteCells3([])
-      setPlanningRoutePoly3([])
-      setPlanningRangeCells(undefined)
-      setAllowableCells3([])
-      setAchievablePoly([])
-      setTurningPoly([])
-    } else {
-      // Note: ok, we don't actually use the marker location, since
-      // it may be outside the achievable area. Just
-      // use the last point in the planning leg
-      const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
 
-      if (plannedRouteCells && (planningRangeCells || rangeUnlimited) && planningRouteCells3.length) {
-        // deduct one from planned route, since it includes the origin cell
-        let routeLen = planningRouteCells3.length - 1
-        const lastCell: SergeHex3 = planningRouteCells3[routeLen]
+      // see if we can simplify the route
+      const simpleRoute = simplifyRoute(planningRouteCells3)
 
-        const marker = e.target
-        marker.setLatLng(lastCell.centreLatLng)
+      // note: the planning route cells includes the start cell. So, it's only a valie route if the
+      // planning route cells are more than 1 in length
+      if (planningConstraints && planningRouteCells3.length > 1) {
+        // drop the first cell, since it's the current location
+        const trimmedPlanningRouteCells = simpleRoute.slice(1)
 
-        // special case.  The small errors in planning mean player may be offered longer route
-        // than the allowance
-        if (planningRangeCells && routeLen > planningRangeCells) {
-          routeLen = planningRangeCells
-        }
+        // have we consumed the full length?
+        if (rangeUnlimited || (planningRangeCells && routeLen >= planningRangeCells)) {
+          // combine planned and planning cells, ready for results
+          const fullCellList: Array<SergeHex3> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
-        // see if we can simplify the route
-        const simpleRoute = simplifyRoute(planningRouteCells3)
+          // clear the planning routes
+          setPlannedRouteCells([])
+          setPlannedRoutePoly([])
+          setPlanningRouteCells3([])
+          setPlanningRoutePoly3([])
+          setAchievablePoly([])
+          setTurningPoly([])
 
-        // note: the planning route cells includes the start cell. So, it's only a valie route if the
-        // planning route cells are more than 1 in length
-        if (planningConstraints && planningRouteCells3.length > 1) {
-          // drop the first cell, since it's the current location
-          const trimmedPlanningRouteCells = simpleRoute.slice(1)
+          // restore the full planning range allowance
+          setPlanningRangeCells(planningConstraints.rangeCells)
 
-          // have we consumed the full length?
-          if (rangeUnlimited || (planningRangeCells && routeLen >= planningRangeCells)) {
-            // combine planned and planning cells, ready for results
-            const fullCellList: Array<SergeHex3> = plannedRouteCells.concat(trimmedPlanningRouteCells)
+          // ok, planning complete - fire the event back up the hierarchy
+          setNewLeg && setNewLeg({
+            state: planningConstraints.status,
+            speed: planningConstraints.speed,
+            route: fullCellList
+          })
+        } else if (planningRangeCells && !rangeUnlimited) {
+          // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
+          const remaining = planningRangeCells - routeLen
 
-            // clear the planning routes
-            setPlannedRouteCells([])
-            setPlannedRoutePoly([])
-            setPlanningRouteCells3([])
-            setPlanningRoutePoly3([])
-            setAchievablePoly([])
-            setTurningPoly([])
+          if (planningConstraints.turningCircle) {
+            const sampleCell = planningRouteCells3[0].index
+            const cellRadius = edgeLength(h3GetResolution(sampleCell), 'm')
+            // cell spacing from here: https://www.redblobgames.com/grids/hexagons/#size-and-spacing
+            const distanceBetweenCellCentres = cellRadius * 2 * 0.75
 
-            // restore the full planning range allowance
-            setPlanningRangeCells(planningConstraints.rangeCells)
+            // drop the first cell of the route
+            const genuineRouteCells = planningRouteCells3.slice(1)
+            const distanceTravelled = genuineRouteCells.length * distanceBetweenCellCentres
+            const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled
+            planningConstraints.turningCircle.distance = distanceRemaining
 
-            // ok, planning complete - fire the event back up the hierarchy
-            setNewLeg && setNewLeg({
-              state: planningConstraints.status,
-              speed: planningConstraints.speed,
-              route: fullCellList
-            })
-          } else if (planningRangeCells && !rangeUnlimited) {
-            // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
-            const remaining = planningRangeCells - routeLen
-
-            if (planningConstraints.turningCircle) {
-              const sampleCell = planningRouteCells3[0].index
-              const cellRadius = edgeLength(h3GetResolution(sampleCell), 'm')
-              // cell spacing from here: https://www.redblobgames.com/grids/hexagons/#size-and-spacing
-              const distanceBetweenCellCentres = cellRadius * 2 * 0.75
-
-              // drop the first cell of the route
-              const genuineRouteCells = planningRouteCells3.slice(1)
-              const distanceTravelled = genuineRouteCells.length * distanceBetweenCellCentres
-              const distanceRemaining = planningConstraints.turningCircle.distance - distanceTravelled
-              planningConstraints.turningCircle.distance = distanceRemaining
-
-              // also update the heading
-              let start, dest
-              const rLen = planningRouteCells3.length
-              if (rLen >= 2) {
-                // get the heading from these
-                start = planningRouteCells3[rLen - 2].index
-                dest = planningRouteCells3[rLen - 1].index
-              } else {
-                // use the last position
-                start = originHex3?.index || ''
-                dest = planningRouteCells3[rLen - 1].index
-              }
-              const heading = cleanAngle(brgBetweenTwoHex(start, dest))
-              planningConstraints.turningCircle.heading = heading
+            // also update the heading
+            let start, dest
+            const rLen = planningRouteCells3.length
+            if (rLen >= 2) {
+              // get the heading from these
+              start = planningRouteCells3[rLen - 2].index
+              dest = planningRouteCells3[rLen - 1].index
+            } else {
+              // use the last position
+              start = originHex3?.index || ''
+              dest = planningRouteCells3[rLen - 1].index
             }
-
-            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-            // note: we extend the existing planned cells, with the new ones
-            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly3))
-            setOriginHex3(lastCell)
-            setPlanningRangeCells(remaining)
+            const heading = cleanAngle(brgBetweenTwoHex(start, dest))
+            planningConstraints.turningCircle.heading = heading
           }
+
+          setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+          // note: we extend the existing planned cells, with the new ones
+          setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly3))
+          setOriginHex3(lastCell)
+          setPlanningRangeCells(remaining)
         }
       }
     }
@@ -825,10 +798,10 @@ export const HexGrid: React.FC<{}> = () => {
           // such as labels so include prefix in key
           key={'hex_poly3_' + cell.index + '_' + index}
           fillColor={cell.fillColor || assetColor}
-          fill={terrainPolys.length === 0 || allowableCells3.find((hex: SergeHex3) => hex.index === cell.index)} // only fill them if we don't have polys
+          fill={terrainPolys.length === 0} // only fill them if we don't have polys
           positions={cell.poly}
           stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f00'}
-          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, allowableCells3, cellForSelected3)]}
+          className={styles[getCellStyle3(cell, [] /* planningRouteCells3 */, [] /*, allowableCells3 */, cellForSelected3)]}
         />
       ))}
     </LayerGroup>
@@ -893,11 +866,12 @@ export const HexGrid: React.FC<{}> = () => {
       positions={planningRoutePoly3}
       className={styles['planning-line']}
     />
-    <Polyline
-      key={'allowableCells3_line'}
+    <Polygon
+      key={'allowableCells3_poly'}
       color={assetColor}
+      fillColor={assetColor}
       positions={allowablePoly3}
-      className={styles['allowable-line']}
+      className={styles['allowable-poly']}
     />
     {origin &&
         <Marker
@@ -909,7 +883,7 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
-    {false && // don't plot the polys from legacy data
+    {true && // don't plot the polys from legacy data
       <LayerGroup key='polygon_outlines'>
         {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
           <Polygon

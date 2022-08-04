@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
-
-const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
+let wargameName = ''
+const { wargameSettings, COUNTER_MESSAGE, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -32,7 +32,7 @@ const couchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit('changes', result.doc))
+    }).on('change', (result) => io.emit(wargameName, result.doc))
   }
 
   // check listeners queue to add a new listenr
@@ -72,11 +72,13 @@ const couchDb = (app, io, pouchOptions) => {
 
   app.put('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
+    const cleanName = databaseName.replace(dbSuffix, '')
     const db = new CouchDB(couchDbURL(databaseName))
     const putData = req.body
+    wargameName = req.params.wargame
 
-    if (!listeners[databaseName]) {
-      addListenersQueue.push(databaseName)
+    if (!listeners[cleanName]) {
+      addListenersQueue.push(cleanName)
     }
 
     const retryUntilWritten = (db, doc) => {
@@ -168,13 +170,33 @@ const couchDb = (app, io, pouchOptions) => {
 
     remoteDb.allDocs({ include_docs: true, attachments: true })
       .then(result => {
-        const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
-          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
-          return messages
-        }, [])
+        // unpack the documents
+        const docs = result.rows.map((item) => item.doc)
+        // drop wargame & info messages
+        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
+        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
         res.send({ msg: 'ok', data: messages })
       }).catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/last', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    db.find({
+      selector: {
+        messageType: INFO_MESSAGE,
+        _id: { $ne: wargameSettings, $gte: null }
+      },
+      sort: [{ _id: 'desc' }],
+      limit: 1
+    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+      .catch(() => res.send([]))
   })
 
   // get document for wargame

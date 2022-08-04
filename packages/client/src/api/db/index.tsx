@@ -3,9 +3,10 @@ import {
   databasePath,
   socketPath,
   replicate,
-  deletePath
+  deletePath,
+  wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame } from '@serge/custom-types'
 import { io } from 'socket.io-client'
 import {
   ProviderDbInterface,
@@ -17,20 +18,36 @@ import {
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
+  // track the most recently received message
+  message_ID: string
 
   constructor (databasePath: string) {
     this.provider = {
       db: databasePath
     }
     this.name = databasePath
+    this.message_ID = '' 
   }
 
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
-    socket.on('changes', data => {
-      const doc = data as Message
-      listener(doc)
-    })
+    const listenerMessage = (data: MessageCustom) => {
+      // we use a special name for the wargame document
+      const specialFiles = [wargameSettings]
+      // have we just received this message?
+      if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
+        // yes. warn maintainer but don't propagate message
+        console.warn('duplicate message, skipping', data._id)
+        // yes - stop listening on this socket
+        // socket.off(this.getDbName(), listenerMessage) 
+      } else {
+        // no, handle the message
+        listener(data)
+        // and cache the id
+        this.message_ID = data._id 
+      }
+    }
+    socket.on(this.getDbName(), listenerMessage)
   }
 
   destroy (): void {
@@ -46,7 +63,7 @@ export class DbProvider implements DbProviderInterface {
         .then(({ msg, data }) => {
           if (msg === 'ok') resolve(data)
           else resolve({ status: 404 })
-        })
+        }).catch((onRejected: any) => console.warn('Server failed to respond', query, onRejected))
     })
   }
 
@@ -78,6 +95,18 @@ export class DbProvider implements DbProviderInterface {
           const { msg, data } = res
           // @ts-ignore
           if (msg === 'ok') resolve(data[0] && data[0].docs ? data[0].docs : data as Message[])
+          else reject(msg)
+        })
+    })
+  }
+
+  lastWargame (): Promise<MessageInfoType> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + 'last')
+        .then(res => res.json() as Promise<FetchData>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data[0])
           else reject(msg)
         })
     })

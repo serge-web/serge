@@ -18,8 +18,10 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   setActivityTime,
-  MARK_ALL_AS_UNREAD
-  , FEEDBACK_MESSAGE 
+  MARK_ALL_AS_UNREAD,
+  FEEDBACK_MESSAGE,
+  INFO_MESSAGE,
+  COUNTER_MESSAGE
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
@@ -36,8 +38,9 @@ import {
   MessageInfoType,
   MessageDetailsFrom,
   MessageMap,
-  TemplateBodysByKey, 
-  PlayerUiActionTypes 
+  TemplateBodysByKey,
+  PlayerUiActionTypes,
+  ChatMessage
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -90,7 +93,7 @@ export const openMessage = (channel: string, message: MessageChannel): PlayerUiA
   type: OPEN_MESSAGE,
   payload: { channel, message }
 })
-export const markUnread = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+export const markUnread = (channel: string, message: MessageChannel | ChatMessage): PlayerUiActionTypes => ({
   type: MARK_UNREAD,
   payload: { channel, message }
 })
@@ -212,16 +215,21 @@ export const saveMapMessage = (dbName: string, details: MessageDetails, message:
 
 export const getAllWargameFeedback = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const messages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    const feedbackMessages: MessageFeedback[] = messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]
+    const docs: Array<Message | Wargame> = await wargamesApi.getAllMessages(dbName)
+    const feedbackMessages: MessageFeedback[] = docs.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]
     dispatch(setWargameFeedback(feedbackMessages))
   }
 }
 
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
-    dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
+    const allMessages: Array<Message | Wargame> = await wargamesApi.getAllMessages(dbName)
+    const nonMessages = [INFO_MESSAGE, COUNTER_MESSAGE]
+    const messages = allMessages.filter((doc: Message | Wargame) => {
+      const docAny = doc as any
+      return !nonMessages.includes(docAny.messageType)
+    })
+    dispatch(setWargameMessages(messages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
+    dispatch(setWargameFeedback(messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }

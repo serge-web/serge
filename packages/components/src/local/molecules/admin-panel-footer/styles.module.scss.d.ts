@@ -3,11 +3,11 @@
 interface CssExports {
   'badge': string;
   'contain-force-skin': string;
-  'force-skin': string;
   'force-type': string;
   'role-icon': string;
   'role-info': string;
   'role-type': string;
+  'force-role': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

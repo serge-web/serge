@@ -10,7 +10,8 @@ import {
   ForceData,
   PlatformType,
   Wargame,
-  WargameOverview
+  WargameOverview,
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
 // Import component files
@@ -92,6 +93,10 @@ export const Default: React.FC = () => {
     setWargame(updatedWargame)
   }
 
+  const onAnnotationChange = (nextPlatformType: AnnotationMarkerData): void => {
+    console.log('new platform type', nextPlatformType)
+  }
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -113,6 +118,7 @@ export const Default: React.FC = () => {
       onWargameInitiate={onWargameInitiated}
       availablePlatformTypes={platformTypeMock.platformTypes}
       iconUploadUrl={iconUploaderPath}
+      onAnnotationChange={onAnnotationChange}
     />
   )
 }

@@ -8,7 +8,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { forces, platformTypes, platformTypesByKey, localMappingConstraints, watuWargame } from '@serge/mocks'
+import { forces, platformTypes, localMappingConstraints, watuWargame } from '@serge/mocks'
 import { MapAnnotation } from '@serge/custom-types'
 import { h3ToGeo } from 'h3-js'
 
@@ -16,6 +16,7 @@ const marker: MapAnnotation | undefined = watuWargame.data.annotations && watuWa
 
 const coords = marker && h3ToGeo(marker.location)
 const location = coords && L.latLng(coords[0], coords[1])
+const icons = watuWargame.data.annotationIcons ? watuWargame.data.annotationIcons.markers : []
 
 it('Mapping renders correctly with AssetIcon', () => {
   const div = document.createElement('div')
@@ -26,16 +27,16 @@ it('Mapping renders correctly with AssetIcon', () => {
   const tree = location && mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces = {forces}
-    gameTurnTime = {72000}
+    gameTurnTime = {{ unit: 'millis', millis: 72000 }}
     wargameInitiated = {true}
+    markerIcons={[]}
     platforms = {platformTypes}
     infoMarkers={[]}
-    platformTypesByKey={platformTypesByKey}
     playerForce = 'blue'
-    canSubmitOrders = {true}
+    isGameControl = {true}
     phase = {Phase.Planning}
     turnNumber={5}
-  ><InfoMarker location={location} marker={marker} /></Mapping>, { attachTo: div })
+  ><InfoMarker location={location} icons={icons} locationHex={(marker && marker.location) || 'aa'} marker={marker} /></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

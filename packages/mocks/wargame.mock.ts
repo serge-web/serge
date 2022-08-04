@@ -46,7 +46,7 @@ const wargame: Wargame = {
     overview: {
       name: "Overview - settings",
       gameDescription: "",
-      gameTurnTime: 43200000,
+      gameTurnTime: { "unit": "millis", "millis": 43200000 },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
       gameDate: "2020-02-21T12:41:20+00:00",
@@ -67,8 +67,7 @@ const wargame: Wargame = {
               isGameControl: true,
               isObserver: true,
               isInsightViewer: true,
-              isRFIManager: true,
-              canSubmitPlans: true
+              isRFIManager: true
             }
           ],
           iconURL: "http://localhost:8080/default_img/umpireDefault.png",

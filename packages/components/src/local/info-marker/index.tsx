@@ -4,15 +4,17 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 import unfetch from 'node-fetch'
 import React, { useContext, useEffect, useState } from 'react'
-import { Marker, Tooltip } from 'react-leaflet'
+import { Marker, Tooltip, Polygon } from 'react-leaflet'
 import xmljs from 'xml-js'
 import { getIconClassname } from '../asset-icon'
+import { h3SetToMultiPolygon, kRing } from 'h3-js'
 /* Import context */
 import { MapContext } from '../mapping'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
+import { IconOption } from '@serge/custom-types'
 
 const fetch = unfetch.bind(window)
 
@@ -20,39 +22,66 @@ const fetch = unfetch.bind(window)
 export const InfoMarker: React.FC<PropTypes> = ({
   marker,
   location,
-  dragged
+  locationHex,
+  dragged,
+  icons
 }) => {
   const [svgContent, setSvgContent] = useState<string>('')
   const [markerIsDraggable, setMarkerIsDraggable] = useState<boolean>(false)
+
+  const [radiusPoly, setRadiusPoly] = useState<L.LatLng[]>([])
 
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const {
     setShowMapBar, setSelectedMarker, selectedMarker, clearMapSelection,
-    playerForce, canSubmitOrders
+    playerForce, isGameControl
   } = props
 
   useEffect(() => {
     const isUmpire = playerForce === UMPIRE_FORCE
-    setMarkerIsDraggable(isUmpire && canSubmitOrders && !!selectedMarker && selectedMarker === marker.uniqid)
-  }, [selectedMarker, marker, playerForce, canSubmitOrders])
+    const isGC = isGameControl || false
+    setMarkerIsDraggable(isUmpire && isGC && !!selectedMarker && selectedMarker === marker.uniqid)
+  }, [selectedMarker, marker, playerForce, isGameControl])
 
   const isSelected = marker.uniqid === selectedMarker
   const className = getIconClassname('', isSelected)
 
   useEffect(() => {
-    fetch(`/assets/counters/${marker.icon || 'unknown.svg'}`, { method: 'GET' })
-      .then(res => res.text())
-      .then(text => {
-        const option = { compact: true }
-        const svgJson = JSON.parse(xmljs.xml2json(text, option))
-        const attributes = get(svgJson, 'svg.g.path._attributes')
-        attributes.style = `fill: ${marker.color}`
-        set(svgJson, 'svg.g.path._attributes', attributes)
-        const svgXml = xmljs.json2xml(svgJson, option)
-        setSvgContent(svgXml)
-      })
-  }, [marker.icon, marker.color])
+    if (icons) {
+      const iconOption = icons.find((icon: IconOption) => icon.uniqid === marker.iconId)
+      const iconURL = iconOption && iconOption.icon
+      fetch(`/assets/counters/${iconURL || 'unknown.svg'}`, { method: 'GET' })
+        .then(res => res.text())
+        .then(text => {
+          const option = { compact: true }
+          const svgJson = JSON.parse(xmljs.xml2json(text, option))
+          const attributes = get(svgJson, 'svg.g.path._attributes')
+          attributes.style = `fill: ${marker.color}`
+          set(svgJson, 'svg.g.path._attributes', attributes)
+          const svgXml = xmljs.json2xml(svgJson, option)
+          setSvgContent(svgXml)
+        })
+    }
+  }, [marker.iconId, marker.color, icons])
+
+  useEffect(() => {
+    if (marker.shadeRadius && marker.shadeRadius > 0) {
+      // note: intermittent issue where location hex is pending
+      if (locationHex === 'pending') {
+        console.warn('Info marker has "pending" location', marker.label)
+        setRadiusPoly([])
+      } else {
+        // generate ring
+        const ring = kRing(locationHex, marker.shadeRadius)
+        const hull2 = h3SetToMultiPolygon(ring, true)
+        const h3points = hull2[0][0].map((pair: number[]) => L.latLng(pair[1], pair[0]))
+        setRadiusPoly(h3points)
+      }
+    } else {
+      setRadiusPoly([])
+    }
+  }, [marker, locationHex])
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
@@ -78,6 +107,12 @@ export const InfoMarker: React.FC<PropTypes> = ({
   }
 
   return <>
+    <Polygon
+      key={'radius_' + marker.uniqid}
+      color={marker.color}
+      positions={radiusPoly}
+      className={styles['radius-line']}
+    />
     <Marker draggable={markerIsDraggable} ondragend={dragEnd} key={marker.uniqid} position={location} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{marker.description}</Tooltip>
     </Marker>

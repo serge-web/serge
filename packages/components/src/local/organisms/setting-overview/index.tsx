@@ -1,39 +1,39 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Checkbox, FormControlLabel, Input } from '@material-ui/core'
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+/* Import const */
+import { TurnFormats } from '@serge/config'
+import { isObjectEquivalent, usePrevious } from '@serge/helpers'
 import cx from 'classnames'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import Flatpickr from 'react-flatpickr'
+/* Import Components */
+import MaskedInput from 'react-maskedinput'
+import Button from '../../atoms/button'
+import FormGroup from '../../atoms/form-group-shadow'
+import TextInput from '../../atoms/text-input'
+import MoreInfo from '../../molecules/more-info'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import Flatpickr from 'react-flatpickr'
-
-/* Import proptypes */
-import PropTypes, { WargameOverview } from './types/props'
+import { fromMasked, toMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
 
 /* Import Styles */
 import styles from './styles.module.scss'
-
-/* Import const */
-import { TurnFormats } from '@serge/config'
-
-/* Import Components */
-import MaskedInput from 'react-maskedinput'
-import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
-import { usePrevious, isObjectEquivalent } from '@serge/helpers'
-import Button from '../../atoms/button'
-import Select from '@material-ui/core/Select'
-import FormControl from '@material-ui/core/FormControl'
-import TextInput from '../../atoms/text-input'
-import FormGroup from '../../atoms/form-group-shadow'
-import { GameTurnLength } from '@serge/custom-types'
-import MenuItem from '@material-ui/core/MenuItem'
+/* Import proptypes */
+import PropTypes, { WargameOverview } from './types/props'
 
 /* Render component */
-export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
+export const SettingOverview: React.FC<PropTypes> = ({
+  overview: initialOverview, onSave, onChange,
+  initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot
+}) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const [timeKey, setTimeKey] = useState({
     gameDate: 0,
-    gameTurnTime: 0,
+    gameTurnTime: { unit: 'millis', millis: 72000 },
     realtimeTurnTime: 0,
     timeWarning: 0
   })
@@ -54,6 +54,23 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     const updates = { ...overview, gameDate: date[0].getTime() }
     setOverview(updates)
     setDirty(updates)
+  }
+
+  const updateTurnLength = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = e.target
+    const val = fromMasked(value)
+    // was code able to parse string?
+    if (val) {
+      const updates = { ...overview, gameTurnTime: val }
+      setOverview(updates)
+      setDirty(updates)
+    } else {
+      // nope, reinstate previous value
+      const prevData = { gameTurnTime: prevOverview ? prevOverview.gameTurnTime : initialOverview.gameTurnTime }
+      // forcefully re-render with previous value
+      setTimeKey({ ...timeKey, gameTurnTime: prevData.gameTurnTime })
+      setOverview({ ...overview, ...prevData })
+    }
   }
 
   const prevOverview = usePrevious(overview)
@@ -101,6 +118,12 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     setDirty(updates)
   }
 
+  const updateHideForcesVisibility = (): void => {
+    const updates = { ...overview, hideForcesInChannels: !overview.hideForcesInChannels }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const updateAccessCodeVisibility = (): void => {
     const updates = { ...overview, showAccessCodes: !overview.showAccessCodes }
     setOverview(updates)
@@ -129,21 +152,6 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     }
   }, [initialOverview])
 
-  const genTurnLength = (turnTime: GameTurnLength): string => {
-    switch (typeof turnTime) {
-      case 'number' :
-        return millisecondsToDDHHMMSS(turnTime as number)
-      default: {
-        // // ok, it's an object, handle it
-        // if(turnTime instanceof MilliTurns) {
-        //   const milliTurn: MilliTurns = turnTime
-        //   return millisecondsToDDHHMMSS(turnTime.millis)
-        // }
-        return '1'
-      }
-    }
-  }
-
   /**
    * this component work perfectly, but
    * we have an issue with the snapshot testing: Flatpickr.setDate is not a fucntion
@@ -151,7 +159,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
    * this trick to avoid the react-test-renderer render the value prop on testing
    */
   const flatpickrValueProp: any = {}
-  if (!ignoreFlatpickrSnapshot) {
+  if (!ignoreFlatpickrSnapshot && overview.gameDate) {
     flatpickrValueProp.value = overview.gameDate
   }
 
@@ -175,6 +183,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
           <TextInput
             multiline
             fullWidth
+            value={overview.gameDescription}
             variant="filled"
             rows={8}
             rowsMax={8}
@@ -204,18 +213,18 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
           </div>
           <div className={styles.group}>
             <label className={styles.label} htmlFor='gameTurnTime'>
-              Wargame turn time (DD HH MM SS)
+              Wargame turn time<br/>(YY MM DD HH MM SS)
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
-                key={timeKey.gameTurnTime}
-                mask="11 11 11 11"
+                key={timeKey.gameTurnTime.unit}
+                mask="11 11 11 11 11 11"
                 name="gameTurnTime"
                 id="gameTurnTime"
-                placeholder="DD HH MM SS"
-                onChange={updateGameTime}
+                placeholder="YY MM DD HH MM SS"
+                onChange={updateTurnLength}
                 className='MuiInputBase-input MuiInput-input'
-                value={genTurnLength(overview.gameTurnTime)}
+                value={toMasked(overview.gameTurnTime)}
                 onBlur={replacePrevTime}
               />}
             </div>
@@ -283,7 +292,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
 
           <div className={styles.hidden}><Input/></div>
           <div>
-            <FormControlLabel
+            <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
               control={
                 <Checkbox
                   checked={initialOverview.showAccessCodes}
@@ -293,7 +302,18 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 />
               }
               label="Show Access codes"
-            />
+            /></MoreInfo>
+            <MoreInfo description='Hide icons for which forces are in a channel, allowing one force to "snoop" on another'><FormControlLabel
+              control={
+                <Checkbox
+                  checked={!!initialOverview.hideForcesInChannels}
+                  onChange={updateHideForcesVisibility}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Hide force icons in channels"
+            /></MoreInfo>
           </div>
           <div>
             <>{

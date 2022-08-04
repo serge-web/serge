@@ -11,7 +11,7 @@ import cx from 'classnames'
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown, faEye, faComments, faDirections, faBookReader, faChessKing } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faEye, faComments, faBookReader, faChessKing } from '@fortawesome/free-solid-svg-icons'
 import SortableList, { Item as SortableListItem } from '../../../molecules/sortable-list'
 import FormGroup from '../../../atoms/form-group-shadow'
 import Accordion from '@material-ui/core/Accordion'
@@ -93,16 +93,6 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
             <FontAwesomeIcon icon={faBookReader} />
           </div>}
         </div>
-        <div className={styles['role-item']}>
-          <MobileSwitch size='small' checked={roleItem.canSubmitPlans} onChange={(): void => {
-            handleChangeRole({ ...roleItem, canSubmitPlans: !roleItem.canSubmitPlans }, !roleItem.canSubmitPlans)
-          }} />
-          {key === 0 && <div
-            title='Can submit mapping plans'
-            className={cx(styles['role-title'], styles['title-center'])}>
-            <FontAwesomeIcon icon={faDirections} />
-          </div>}
-        </div>
       </div>
     )
   }
@@ -111,7 +101,6 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
     const roles: Array<Role> = [...data.roles, {
       roleId: getUniquePasscode(forces, 'r'),
       name: NEW_ROLE,
-      canSubmitPlans: false,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,

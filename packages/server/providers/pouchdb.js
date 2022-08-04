@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
-
-const { wargameSettings, COUNTER_MESSAGE, dbSuffix, settings } = require('../consts')
+let wargameName = ''
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -24,7 +24,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit('changes', result.doc))
+    }).on('change', (result) => io.emit(wargameName, result.doc))
   }
 
   // check listeners queue to add a new listenr
@@ -50,6 +50,7 @@ const pouchDb = (app, io, pouchOptions) => {
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
+    wargameName = req.params.wargame
 
     if (!listeners[databaseName]) {
       addListenersQueue.push(databaseName)
@@ -71,6 +72,8 @@ const pouchDb = (app, io, pouchOptions) => {
             .catch(() => {
               const settingsDoc = {
                 ...doc,
+                // TODO: this seems to be changing the doc name from date-time (or 'initial-settings')
+                // TODO: to 'settings'
                 _id: settings
               }
               return retryUntilWritten(db, settingsDoc)
@@ -112,8 +115,27 @@ const pouchDb = (app, io, pouchOptions) => {
     }).catch(() => res.send([]))
   })
 
-  // get all documents for wargame
+  // get all message documents for wargame
   app.get('/:wargame', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.allDocs({ include_docs: true, attachments: true })
+      .then(result => {
+        // unpack the documents
+        const docs = result.rows.map((item) => item.doc)
+        // drop wargame & info messages
+        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
+        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
+        res.send({ msg: 'ok', data: messages })
+      }).catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/last', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
 
     if (!databaseName) {
@@ -121,16 +143,22 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     const db = new PouchDB(databaseName, pouchOptions)
-
-    db.allDocs({ include_docs: true, attachments: true })
-      .then(result => {
-        const messages = result.rows.reduce((messages, { doc }) => {
-          const isNotSystem = doc._id !== wargameSettings && doc._id !== settings
-          if (doc.messageType !== COUNTER_MESSAGE && isNotSystem) messages.push(doc)
-          return messages
-        }, [])
-        res.send({ msg: 'ok', data: messages })
-      }).catch(() => res.send([]))
+    // NOTE: if we end up with a performance problem from the "reverse sort" processing
+    // NOTE: here is a suggested alternate strategy:
+    // NOTE: for each "new wargame" we push two documents: the wargame with date-time id
+    // NOTE: "and" one with a fixed id "settings"
+    // NOTE: So, when calling 'last' we first try to retrieve "settings", if it's not there
+    // NOTE: then we do reverse-sort to find the latest one.
+    // NOTE: If we do "wind-back" of wargame, delete "settings"
+    db.find({
+      selector: {
+        messageType: INFO_MESSAGE,
+        _id: { $ne: wargameSettings }
+      },
+      limit: 1,
+      sort: [{ _id: 'desc' }]
+    }).then((result) => res.send({ msg: 'ok', data: result.docs }))
+      .catch(() => res.send([]))
   })
 
   // get document for wargame
@@ -146,6 +174,8 @@ const pouchDb = (app, io, pouchOptions) => {
     db.get(id)
       .then(data => res.send({ msg: 'ok', data: data }))
       .catch(() => {
+        // TODO: if the id doesn't exist, it looks for 'settings', but we
+        // TODO: won't have a 'settings' document.
         db.get(settings)
           .then(data => res.send({ msg: 'ok', data: data }))
           .catch((err) => res.send({ msg: 'err', data: err }))

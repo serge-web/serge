@@ -13,7 +13,8 @@ import {
   ForceData,
   PlatformType,
   Wargame,
-  WargameOverview
+  WargameOverview,
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
 const Component = (): React.ReactElement => {
@@ -29,6 +30,7 @@ const Component = (): React.ReactElement => {
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
+  const [changedAnnotationType, setChangedAnnotationType] = useState<AnnotationMarkerData | undefined>(wargame.data.annotationIcons)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
@@ -36,6 +38,7 @@ const Component = (): React.ReactElement => {
   const onTabChange = (_tab: string, key: number, _e: any): void => {
     setActiveTab(key)
     setChangedPlatformType(wargame.data.platformTypes)
+    setChangedAnnotationType(wargame.data.annotationIcons)
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
@@ -78,6 +81,11 @@ const Component = (): React.ReactElement => {
     setWargameChanged(true)
   }
 
+  const onAnnotationChange = (nextAnnotationType: AnnotationMarkerData): void => {
+    setChangedAnnotationType(nextAnnotationType)
+    setWargameChanged(true)
+  }
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -96,6 +104,8 @@ const Component = (): React.ReactElement => {
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
       onWargameInitiate={onWargameInitiated}
+      onAnnotationChange={onAnnotationChange}
+      annotation={changedAnnotationType}
     />
   )
 }

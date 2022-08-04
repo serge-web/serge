@@ -1,4 +1,4 @@
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 import { ForceOption, ForceData } from '@serge/custom-types'
 
 /** Loops through all available forces and creates an entry for each one to be used as form data
@@ -24,7 +24,7 @@ const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpir
       }
     })
     if (withUnknown) {
-      res.push({ name: 'Unknown', colour: '#ccc', id: null })
+      res.push({ name: UNKNOWN_TYPE, colour: '#ccc', id: UNKNOWN_TYPE })
     }
     return res
   } else {

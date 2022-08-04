@@ -2,15 +2,15 @@
 // Please do not change this file!
 interface CssExports {
   'actions': string;
+  'archive-active': string;
+  'archive-section': string;
   'btn': string;
   'dark': string;
-  'light': string;
-  'filter-section': string;
   'filter-active': string;
-  'archive-section': string;
-  'archive-active': string;
-  'mark-all-as-read-section': string;
+  'filter-section': string;
+  'light': string;
   'mark-all-as-read-open': string;
+  'mark-all-as-read-section': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

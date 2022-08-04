@@ -15,6 +15,9 @@ describe('ChannelMessagesList component: ', () => {
     const colors = [
       '#F00'
     ]
+    const names = [
+      'Blue'
+    ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: MessageCustom[] = [{
       messageType: CUSTOM_MESSAGE,
@@ -41,7 +44,7 @@ describe('ChannelMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<ChannelMessagesList messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} role={'Comms'} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<ChannelMessagesList hideForcesInChannel={false} messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} role={'Comms'} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

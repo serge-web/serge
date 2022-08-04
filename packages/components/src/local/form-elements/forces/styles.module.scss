@@ -1,0 +1,15 @@
+.selected > * {
+  font-weight: 700;
+
+  svg {
+    background-color: #fff;
+    border-radius: 2px;
+  }
+}
+
+.input-container {
+  label {
+    margin: 0;
+    padding: 0 2px;
+  }
+}

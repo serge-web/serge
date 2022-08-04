@@ -159,38 +159,23 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  * @param {Phase} phase current game phase
  * @param {boolean} wargameInitiated whether wargame has been initiated
  * @param {string} currentPosition the current asset position, from route or asset
- * @param {laydownTypes | boolean} locationPending the flag for laydown pending (or marker for Umpire/Force laydown)
+ * @param {laydownTypes | string} locationPending the flag for laydown pending (or marker for Umpire/Force laydown)
  * @param {string} original position the original position for the asset
  * @param {Route} route current route description, potentially including location of laid-down asset
  */
-const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | boolean,
+export const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | string,
   originalPosition?: string, route?: Route): LaydownPhases => {
   if (phase !== Phase.Adjudication) {
     // ok, we only do laydown in adjudication phase
     return LaydownPhases.NotInLaydown
   } else if (locationPending === undefined) {
-    if (wargameInitated) {
-      return LaydownPhases.NotInLaydown
-    } else {
-      return LaydownPhases.Immobile
-    }
-  } else if (typeof locationPending === 'boolean') {
-    // TODO - remove support for this legacy construct (boolean)
-    if (wargameInitated) {
-      // TODO: we're getting assets with laydown-phase flag
-      // after game has started. In the longer term we
-      // probably need to clear laydown flags when game is
-      // initiated. For now we'll just ignore the value
-      // console.log('ignoring laydown status')
-      // return LaydownPhases.NotInLaydown
-      const routePos = route && route.currentPosition
-      const currentPos = routePos || currentPosition
-      if (currentPos !== originalPosition) {
-        // on map, but still can be moved
-        return LaydownPhases.Moved
+    if (currentPosition === undefined) {
+      if (wargameInitated) {
+        // assume player laydown, if wargame initiated
+        return LaydownPhases.NotInLaydown
       } else {
-        // not on map yet
-        return LaydownPhases.Unmoved
+        // assume umpire laydown
+        return LaydownPhases.Immobile
       }
     } else {
       return LaydownPhases.Immobile
@@ -202,7 +187,6 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
         switch (locationPending) {
           case LaydownTypes.UmpireLaydown:
             // if we're initiated then the player/umpire can't move it
-            console.warn('warning - encountered umpire lockdown after wargame initiated')
             return LaydownPhases.Immobile
           case LaydownTypes.ForceLaydown: {
             const routePos = route && route.currentPosition
@@ -229,6 +213,11 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
           // if we're not initiated then the umpire can't move it
           return LaydownPhases.Immobile
         case LaydownTypes.UmpireLaydown: {
+          if (!currentPosition) {
+            console.log('pos missing, returning unmoved')
+            // umpire doing laydown, but existing position not known
+            return LaydownPhases.Unmoved
+          }
           const routePos = route && route.currentPosition
           const currentPos = routePos || currentPosition
           if (currentPos !== originalPosition) {
@@ -250,7 +239,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {Asset} asset single asset
  * @param {Phase} phase current game phase
  * @param {string} color color for rendering this asset
- * @param {boolean} underControl whether the player is controlling this asset
+ * @param {boolean} underControlForce whether the player is controlling this asset
  * @param {boolean} visibleToThisForce whether this force can see this asset
  * @param {string} actualForceId the true force for the asset
  * @param {string} perceivedForce the perceived force of the asset
@@ -271,9 +260,9 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
+  underControlForce: boolean, underControlRole: boolean, visibleToThisForce: boolean, actualForceId: ForceData['uniqid'], perceivedForce: ForceData['uniqid'] | undefined, perceivedName: string,
   perceivedTypeId: PlatformTypeData['uniqid'] | undefined, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
-  currentLocation: L.LatLng, includePlanned: boolean,
+  currentLocation: L.LatLng | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
@@ -293,8 +282,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControlForce, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControlForce, actualForceId, playerForce, color /*, forceColors, undefinedColor */)
 
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
@@ -302,7 +291,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const condition: string = asset.condition
 
-  const laydownPhase = underControl
+  const laydownPhase = underControlRole
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
     : LaydownPhases.Immobile
 
@@ -311,7 +300,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     name: perceivedName,
     selected: isSelected,
     platformTypeId: perceivedTypeId,
-    underControl: underControl,
+    underControlByThisForce: underControlForce,
+    underControlByThisRole: underControlRole,
     visibleToThisForce: visibleToThisForce,
     perceivedForceId: perceivedForce,
     perceivedForceColor: color,
@@ -323,7 +313,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     history: showHistory ? historySteps : [],
     currentStatus: currentStatus,
     currentPosition: currentPosition,
-    currentLocation: currentLocation,
+    currentLocation2: currentLocation,
     originalPosition: asset.position,
     laydownPhase: laydownPhase,
     planned: futureSteps,

@@ -18,18 +18,20 @@ import {
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
-  TurnFormats
+  TurnFormats,
+  CHANNEL_MAPPING
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes, WargameData } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
 import {
-  handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
   markUnread,
   closeMessage,
-  markAllMessageState
+  markAllMessageState,
+  handleWargameUpdate,
+  handleNewMessage
 } from './helpers/handleWargameMessagesChange'
 
 import {
@@ -37,21 +39,18 @@ import {
 } from '../../consts'
 import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
-import { platformTypeNameToKey } from '@serge/helpers'
-
 export const initialState: PlayerUi = {
   selectedForce: undefined,
   selectedRole: '',
   selectedRoleName: '',
   isObserver: false,
   isUmpire: false,
-  canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
   gameDate: '',
-  gameTurnTime: 0,
+  gameTurnTime: { unit: 'millis', millis: 0 },
   timeWarning: 0,
   realtimeTurnTime: 0,
   turnEndTime: '0',
@@ -71,7 +70,6 @@ export const initialState: PlayerUi = {
   markerIcons: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
-  allPlatformTypesByKey: {},
   showObjective: false,
   updateMessageState: false,
   wargameInitiated: false,
@@ -113,7 +111,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.timeWarning = data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
-      newState.mappingConstaints = action.payload.data.overview.mapConstraints
+      newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
 
       // temporary workaround to remove duplicate channel definitions
       // TODO: delete workaround once fix in place
@@ -124,6 +122,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       }
       newState.allChannels = cleanChannels
 
+      // see if there are any mapping constraints
+      const mapChannel = allChannels.find((channel: ChannelTypes) => channel.channelType === CHANNEL_MAPPING) as ChannelMapping
+      newState.mappingConstraints = mapChannel ? mapChannel.constraints : undefined
+
       newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
       newState.markerIcons = (data.annotationIcons && data.annotationIcons.markers) || []
@@ -133,21 +135,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       if (data.platform_types) {
         // @ts-ignore
         newState.allPlatformTypes = data.platform_types.platformTypes
-        newState.allPlatformTypesByKey = {}
-        // @ts-ignore
-        for (const platformType of data.platform_types.platformTypes) {
-          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
-        }
       }
       // TODO: remove this ^^
 
       if (data.platformTypes) {
         newState.allPlatformTypes = data.platformTypes.platformTypes
-        // don't need any more to do loop find when we need to get platformType based on Asset.platformType
-        newState.allPlatformTypesByKey = {}
-        for (const platformType of data.platformTypes.platformTypes) {
-          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
-        }
       }
       getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break
@@ -182,10 +174,22 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
-      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
-      newState.channels = changedLatestState.channels
-      newState.chatChannel = changedLatestState.chatChannel
-      newState.playerMessageLog = changedLatestState.playerMessageLog
+      const anyPayload = action.payload as any
+      if (anyPayload.data) {
+        // wargame change
+        const wargame = anyPayload as Wargame
+        newState.allChannels = wargame.data.channels.channels
+        const changedLatestState = handleWargameUpdate(wargame, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      } else {
+        // process new message
+        const changedLatestState = handleNewMessage(action.payload, newState)
+        newState.channels = changedLatestState.channels
+        newState.chatChannel = changedLatestState.chatChannel
+        newState.playerMessageLog = changedLatestState.playerMessageLog
+      }
       break
 
     case SET_ALL_MESSAGES:

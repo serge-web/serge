@@ -25,7 +25,8 @@ import {
   MessageFeedback,
   MessageChannel,
   MessageCustom,
-  MessageInfoType
+  MessageInfoType,
+  ChatMessage
 } from '.'
 import { Dispatch } from 'react'
 import { TemplateBodysByKey } from './message-types';
@@ -82,7 +83,7 @@ export interface MarkUnreacAction {
   type: typeof MARK_UNREAD,
   payload: {
     channel: string,
-    message: MessageChannel
+    message: MessageChannel | ChatMessage
   }
 }
 export interface CloseMessageAction {

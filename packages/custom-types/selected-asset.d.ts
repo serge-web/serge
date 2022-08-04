@@ -21,7 +21,6 @@ export default interface SelectedAsset {
      * @TODO: sort out if it's force or name
      */
     forceId: ForceData['uniqid'],
-    controlledBy?: Array<ForceData['uniqid']>,
     condition: string,
     visibleTo: Array<ForceData['uniqid']>
     status?: RouteStatus,

@@ -7,32 +7,33 @@ import docs from './README.md'
 import Mapping from '../mapping'
 
 // import data types
-import { Domain, Phase } from '@serge/config'
+import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { watuWargame, platformTypesByKey } from '@serge/mocks'
-import { MappingConstraints } from '@serge/custom-types'
+import { watuWargame } from '@serge/mocks'
+import { ChannelMapping, ChannelTypes, MappingConstraints } from '@serge/custom-types'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes
-const localMappingConstraints = watuWargame.data.overview.mapConstraints
+const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
+const localMappingConstraints = mapChannel.constraints
+
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []
 
 const dummyConstrants: MappingConstraints = {
-  tileDiameterMins: 12,
   minZoom: 12,
   maxZoom: 12,
   bounds: [[12, 13], [14, 25]],
   maxNativeZoom: 12,
-  minZoomHexes: 32,
-  targetDataset: Domain.ATLANTIC
+  h3res: 3
 }
 
 export default {
   title: 'local/PerceptionForm',
   component: PerceptionForm,
-  decorators: [],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -49,13 +50,13 @@ export default {
 export const Default: React.FC = () => <Mapping
   mappingConstraints = {localMappingConstraints || dummyConstrants}
   forces={forces}
-  gameTurnTime = {72000}
+  gameTurnTime = {{ unit: 'millis', millis: 72000 }}
   wargameInitiated={true}
+  markerIcons= {[]}
   infoMarkers={infoMarkers}
   playerForce={forces[1].uniqid}
-  canSubmitOrders = {true}
+  isGameControl = {true}
   platforms={platformTypes || []}
-  platformTypesByKey={platformTypesByKey}
   phase={Phase.Adjudication}
   turnNumber={5}
 />

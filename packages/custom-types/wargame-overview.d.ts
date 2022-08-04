@@ -7,6 +7,8 @@ export default interface WargameOverview {
   name: string,
   /** high level description of wargame */
   gameDescription: string,
+  /** whether to hide force members in channels */
+  hideForcesInChannels?: boolean
   /** form for displaying turn number
    * Note: we allow string, so we can read data from JSON
    */
@@ -23,6 +25,4 @@ export default interface WargameOverview {
   showAccessCodes: boolean,
   /** whether this page has unsaved edits */
   dirty: boolean
-  /** dimensions of the map */
-  mapConstraints?: MappingConstraints
 }

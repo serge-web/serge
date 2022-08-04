@@ -68,12 +68,6 @@
     flex-direction: column;
   }
 
-  .contain-message-templates,
-  .contain-message-library {
-    align-self: flex-end;
-    width: 75%;
-  }
-
   .searchlist-list {
     .searchlist-title {
       display: block;
@@ -186,4 +180,9 @@
   margin-top: 25px;
   max-height: 45vh;
   overflow: auto;
+}
+
+.contain-message-templates {
+  align-self: flex-end;
+  width: 78vw;
 }

@@ -5,8 +5,7 @@
 
   input,
   label,
-  div,
-  svg {
+  div {
     color: #fff !important;
   }
 }
@@ -76,17 +75,4 @@
   &.selected {
     border: 4px solid rgba(255, 255, 255, 0.7);
   }
-}
-
-// TODO: move away from use of CSS for force colors, they should come from `force.color`.
-.blue {
-  background-color: #000fff;
-}
-
-.red {
-  background-color: #ff0b00;
-}
-
-.green {
-  background-color: #19bd37;
 }

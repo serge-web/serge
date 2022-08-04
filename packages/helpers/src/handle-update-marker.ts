@@ -3,10 +3,26 @@ import deepCopy from './deep-copy'
 
 /** create/remove perceptions for assets */
 
-export default (message: MessageUpdateMarker, infoMarkers: MapAnnotations): MapAnnotations => {
+const handler = (message: MessageUpdateMarker, infoMarkers: MapAnnotations): MapAnnotations => {
   const markersCope = deepCopy(infoMarkers)
   const marker = message.marker
-  const others = markersCope.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
-  others.push(marker)
-  return others
+  let found = false
+  const update = markersCope.map((item: MapAnnotation) => {
+    const match = item.uniqid === marker.uniqid
+    if (match) {
+      // remember that we've found the item
+      found = true
+      // return the modified version
+      return marker
+    } else {
+      return item
+    }
+  })
+  if (!found) {
+    // this wasn't an existing item, append it
+    update.push(marker)
+  }
+  return update
 }
+
+export default handler

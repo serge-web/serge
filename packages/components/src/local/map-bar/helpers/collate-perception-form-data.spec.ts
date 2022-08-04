@@ -22,8 +22,8 @@ it('contains relevant population results', () => {
     expect(res.perceivedForces.length).toEqual(3)
     expect(res.perceivedForces[0]).toEqual({ colour: '#F00', name: 'Red Force', id: 'Red' })
     // check we have the special `undefined` value (null)
-    expect(res.perceivedForces).toContainEqual({ colour: '#ccc', name: 'Unknown', id: null })
-    expect(res.perceivedTypes.length).toEqual(13)
+    expect(res.perceivedForces).toContainEqual({ colour: '#ccc', name: 'Unknown', id: UNKNOWN_TYPE })
+    expect(res.perceivedTypes.length).toEqual(14)
     expect(res.perceivedTypes[0]).toEqual({ name: 'Fishing vessel', uniqid: 'a1' })
   } else {
     expect(false).toBeTruthy()

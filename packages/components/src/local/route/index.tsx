@@ -30,16 +30,16 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   // Note : the planned and history data are often created in the same way,
   // maybe some refactoring would be necessary in this case
   useEffect(() => {
-    if (route && route.currentLocation) {
+    if (route && route.currentLocation2) {
       // see if we're in laydown mode
       if (!route.laydownPhase || route.laydownPhase === LaydownPhases.NotInLaydown || route.laydownPhase === LaydownPhases.Immobile || route.selected) {
         // start with historic
-        const historyRoute: RouteData = historicRoutesFor(route.currentLocation, route.history)
+        const historyRoute: RouteData = historicRoutesFor(route.currentLocation2, route.history)
         setHistoryRoutes(historyRoute)
         setHistoryTurnMarkers(createTurnMarkers(historyRoute, 'history', color, selected, clearRouteHandler))
 
         // now planned
-        const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
+        const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation2, route.plannedTrimmed)
         setPlannedRoutes(plannedRoute)
         setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))
       } else {

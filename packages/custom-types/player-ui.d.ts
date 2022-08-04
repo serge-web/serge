@@ -1,15 +1,15 @@
 import { ChannelTypes } from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
-import { MessageFeedback, MessageChannel, MessageCustom } from './message'
+import { MessageFeedback, MessageChannel } from './message'
 import ChannelUI from './channel-ui'
-import MappingConstraints from './mapping-constraints'
 import { TemplateBodysByKey } from './message-types'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
 import { PlayerMessageLog } from './player-log'
 import { AnnotationIcons, MapAnnotations } from './map-annotation'
+import MappingConstraints from './mapping-constraints'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -28,7 +28,6 @@ export default interface PlayerUi {
   isObserver: boolean,
   /** player is from umpire force */
   isUmpire: boolean,
-  canSubmitPlans: boolean,
   isGameControl: boolean,
   currentTurn: number,
   turnPresentation?: TurnFormats,
@@ -58,14 +57,9 @@ export default interface PlayerUi {
   allForces: Array<ForceData>,
   allTemplatesByKey: TemplateBodysByKey,
   /** descriptions of platforms available in current wargame */
-  /**
-   * @deprecated allPlatformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+  /*
    */
   allPlatformTypes: Array<PlatformTypeData>,
-  /** descriptions of platforms available in current wargame easy access by [platformType.name]: PlatformType */
-  allPlatformTypesByKey: {
-    [property: string]: PlatformTypeData
-  }
   showObjective: boolean,
   updateMessageState: boolean,
   /** whether wargame changes stored as new documents (true) or whether
@@ -75,8 +69,6 @@ export default interface PlayerUi {
   feedbackMessages: Array<MessageFeedback>,
   /** whether the introductory tour is running */
   tourIsOpen: boolean,
-  /** definition of background map */
-  mappingConstaints?: MappingConstraints,
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
@@ -86,4 +78,8 @@ export default interface PlayerUi {
   isRFIManager: boolean
   /** log of recent player messages */
   playerMessageLog: PlayerMessageLog
+  /** mapping constraints */
+  mappingConstraints?: MappingConstraints
+  /** whether to hide force memberships in channels */
+  hideForcesInChannels?: boolean
 }

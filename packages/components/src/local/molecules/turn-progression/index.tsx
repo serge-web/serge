@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import Divider from '@material-ui/core/Divider'
+import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
 import classNames from 'classnames'
-import { Button, Box, styled } from '@material-ui/core'
-import { PLANNING_PHASE, ADJUDICATION_PHASE } from '@serge/config'
-
+import React, { useEffect, useState } from 'react'
 /* Import Types */
+import momenttz from 'moment-timezone'
 import Props from './types/props'
+import { Box, Button, styled } from '@material-ui/core'
 
 /* Import Stylesheet */
-import styles from './styles.module.scss'
 import { formatFullDate, formatTurn } from '@serge/helpers'
+import styles from './styles.module.scss'
 
 const GameControl = styled(Button)({
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
   transition: 'box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-  backgroundColor: '#415b76',
-  borderRadius: '2px',
+  backgroundColor: '#1965d8',
+  borderRadius: '5px',
+  width: '100%',
   '&:hover': {
     boxShadow: 'none'
   }
@@ -30,10 +32,15 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     turnPresentation,
     phase,
     gameDate,
-    isGameControl,
     wargameInitiated,
-    onNextTurn
+    onNextTurn,
+    isGameControl
   } = props
+
+  // TODO: this should come from the new turn attributes in game overview,
+  // to be implemented in https://github.com/serge-web/serge/issues/954
+  const showTimeRemaining = false
+
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
   const seconds = end - now
@@ -104,16 +111,18 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
     })
     clearInterval(interval)
-    interval = setInterval(startInterval[phase], 1000)
+    if (showTimeRemaining) {
+      interval = setInterval(startInterval[phase], 1000)
+    }
     return (): any => clearInterval(interval)
   }, [phase])
 
   const warningStyle = progressionState.warning ? styles.warning : null
   const endedStyle = progressionState.ended ? styles.ended : null
 
-  // TODO: this should come from the new turn attributes in game overview,
-  // to be implemented in https://github.com/serge-web/serge/issues/954
-  const showTimeRemaining = false
+  const onClickHandler = (e: any): void => {
+    onNextTurn && onNextTurn(e)
+  }
 
   return (
     <div className={classNames([
@@ -125,38 +134,46 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     ])} data-tour='turn-phase-step'
     >
       <div className={styles['turn-info-phase']}>
-        <h5>Turn { formatTurn(currentTurn, turnPresentation) } - {phase} phase</h5>
-        <time dateTime={formatFullDate(gameDate)}>{formatFullDate(gameDate)}</time>
+        <div className={styles['turn-phase-group']}>
+          <div className={styles.turn}>
+            <h5>Turn</h5>
+            <h5>{formatTurn(currentTurn, turnPresentation)}</h5>
+          </div>
+          <Divider orientation="vertical" className={styles.divider} />
+          <div className={styles.phase}>
+            <h5>Phase</h5>
+            <h5 className={classNames({ [styles.highlight]: phase === 'adjudication' })}>Adjudication</h5>
+            <h5 className={classNames({ [styles.highlight]: phase === 'planning' })}>Planning</h5>
+          </div>
+        </div>
         {
-          isGameControl
-            ? (
-              <Box mt={2}>
-                <GameControl onClick={onNextTurn} size="small" variant="contained" color="secondary">Start next phase</GameControl>
-              </Box>
-            )
-            : false
+          isGameControl &&
+          <Box margin={1}>
+            <GameControl onClick={(e): void => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
+          </Box>
         }
+        <time dateTime={formatFullDate(gameDate)} className={styles.time}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
       {
         showTimeRemaining &&
         <div className={styles['turn-info-remaining']}>
           {phase === PLANNING_PHASE &&
-        <>
-          <span className={
-            `${styles['time-left']} ${warningStyle} ${endedStyle}`
-          }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
-          <span className={styles['info-helper']}>Time left</span>
-        </>
+            <>
+              <span className={
+                `${styles['time-left']} ${warningStyle} ${endedStyle}`
+              }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
+              <span className={styles['info-helper']}>Time left</span>
+            </>
           }
           {phase === ADJUDICATION_PHASE &&
-        <>
-          <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
-          <span className={styles['info-helper']}>Elapsed</span>
-        </>
+            <>
+              <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
+              <span className={styles['info-helper']}>Elapsed</span>
+            </>
           }
           {
             !wargameInitiated &&
-          <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME&nbsp;<br/>&nbsp;NOT INITIATED</div>
+            <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME&nbsp;<br />&nbsp;NOT INITIATED</div>
           }
         </div>
       }

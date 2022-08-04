@@ -11,7 +11,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkr776f5e',
-                canSubmitPlans: true,
                 isGameControl: true,
                 isInsightViewer: true,
                 isObserver: true,
@@ -143,7 +142,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkr886f5e',
-                canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -151,7 +149,6 @@ const forces: ForceData[] = [
             },
           {
                 roleId: 'rk888w6f6e',
-                canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -159,7 +156,7 @@ const forces: ForceData[] = [
             }
         ],
         umpire: false,
-        uniqid: "Blue"
+        uniqid: "Blue-1"
     },
     {
         assets: [
@@ -228,7 +225,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkrlw6f99e',
-                canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -236,7 +232,6 @@ const forces: ForceData[] = [
             },
           {
                 roleId: 'rkr996f5emms',
-                canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -244,7 +239,7 @@ const forces: ForceData[] = [
             }
         ],
         umpire: false,
-        uniqid: "Red"
+        uniqid: "Red-1"
     },
     {
         assets: [
@@ -305,9 +300,6 @@ const forces: ForceData[] = [
             }
         ],
         color: "#0F0",
-        controlledBy: [
-            "umpire"
-        ],
         dirty: false,
         iconURL: "default_img/umpireDefault.png",
         name: "Green",
@@ -315,7 +307,6 @@ const forces: ForceData[] = [
         roles: [
           {
                 roleId: 'rkrlaaf5e',
-                canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
@@ -323,7 +314,7 @@ const forces: ForceData[] = [
             }
         ],
         umpire: false,
-        uniqid: "Green"
+        uniqid: "green-force"
     }
 ];
 

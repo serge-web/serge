@@ -27,5 +27,7 @@ export default interface PropTypes extends ForcesInChannelProps {
 
   isUmpire: boolean
   role?: string
-
+  /** whether to hide the forces in the channel
+   */
+  hideForcesInChannel: boolean
 }

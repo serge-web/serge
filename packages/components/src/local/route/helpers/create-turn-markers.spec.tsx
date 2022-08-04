@@ -1,43 +1,47 @@
 /* global it expect */
 
-import { forces, platformTypes } from '@serge/mocks'
-import { RouteStore, Route } from '@serge/custom-types'
+import { watuWargame } from '@serge/mocks'
+import { RouteStore, Route, ChannelMapping } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 import { plannedRoutesFor } from './planned-routes-for'
 import RouteData from '../types/route-data'
 import createTurnMarkers from './create-turn-markers'
 import { Phase } from '@serge/config'
 
+const forces = watuWargame.data.forces.forces
+const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
+const mappingChan = watuWargame.data.channels.channels[1] as ChannelMapping
+const blueCo = forces[1].roles[0]
+const showSteps = false
+
 it('Provides valid planned markers for multi-point planned route without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Red', platformTypes, false, false)
-  expect(store.routes.length).toEqual(9)
-  const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, forces[1].uniqid, blueCo.roleId, false,
+    platformTypes, showSteps, showSteps, false, undefined, mappingChan)
+  expect(store.routes.length).toEqual(6)
+  const route: Route | undefined = store.routes.find(route => route.uniqid === 'nortID')
   expect(route).toBeTruthy()
-  if (route && route.currentLocation) {
+  if (route && route.currentLocation2) {
     let turnToDelete = 0
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
-    expect(data.turnEnds.length).toEqual(5)
+    const data: RouteData = plannedRoutesFor(route.currentLocation2, route.planned)
+    expect(data.turnEnds.length).toEqual(2)
     const clearTurn = (turnNumber: number): void => {
       turnToDelete = turnNumber
     }
     const markers: JSX.Element[] = createTurnMarkers(data, 'planned', 'aaa', true, clearTurn)
     expect(markers).toBeTruthy()
-    expect(markers.length).toEqual(5)
+    expect(markers.length).toEqual(2)
 
     // check the labels
-    expect(markers[0].props.children.props.children[0].props.icon.options.html).toEqual('<text>T03: Transiting @ 10kts</text>')
-    expect(markers[1].props.children.props.children[0].props.icon.options.html).toEqual('<text>T04: Fishing</text>')
-    expect(markers[2].props.children.props.children[0].props.icon.options.html).toEqual('<text>T05: Fishing</text>')
-    expect(markers[3].props.children.props.children[0].props.icon.options.html).toEqual('<text>T06: Transiting @ 20kts</text>')
-    expect(markers[4].props.children.props.children[0].props.icon.options.html).toEqual('<text>T07: Transiting @ 30kts</text>')
+    expect(markers[0].props.children.props.children[0].props.icon.options.html).toEqual('<text>T01: Transiting @ 20kts</text>')
+    expect(markers[1].props.children.props.children[0].props.icon.options.html).toEqual('<text>T02: Moored</text>')
 
     // check clear hasn't been called
     expect(turnToDelete).toEqual(0)
 
     // call the clear event
-    markers[3].props.children.props.children[1].props.children.props.children.props.onClick()
+    markers[0].props.children.props.children[1].props.children.props.children.props.onClick()
 
-    expect(turnToDelete).toEqual(6)
+    expect(turnToDelete).toEqual(1)
 
     // expect(first.props.length).toEqual(5)
   } else {

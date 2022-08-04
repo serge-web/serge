@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 import { ChatMessagesList, ChatEntryForm, ChannelMessagesList } from '@serge/components'
-import { ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
+import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import {
   markAllAsRead, markUnread, openMessage, saveMessage,
   getAllWargameMessages
@@ -21,6 +21,9 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const [chatContainerHeight, setChatContainerHeight] = useState(0)
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+
+  const chatDefinition = channelUI.cData as ChannelChat
+  const [hideAuthor] = useState(!!chatDefinition.hideMessageAuthor)
 
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
@@ -61,8 +64,10 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
 
   const icons = state.channels[channelId].forceIcons || []
   const colors = state.channels[channelId].forceColors || []
+  const names = state.channels[channelId].forceNames || []
   const isUmpire = state.selectedForce && state.selectedForce.umpire
   const observing = !!state.channels[channelId].observing
+  const hideForcesInChannel = !!state.hideForcesInChannels
 
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
@@ -73,7 +78,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     dispatch(openMessage(channelId, detail))
   }
 
-  const handleUnreadMessage = (message: MessageChannel): void => {
+  const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
@@ -91,9 +96,11 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             isUmpire={true}
             icons={icons}
             colors={colors}
+            names={names}
             onMarkAllAsRead={markAllAsReadLocal}
             turnPresentation={state.turnPresentation}
             onUnread={handleUnreadMessage}
+            hideForcesInChannel={hideForcesInChannel}
           />
           : <ChatMessagesList
             messages={messages || []}
@@ -104,9 +111,12 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             isUmpire={!!isUmpire}
             icons={icons}
             colors={colors}
+            names={names}
             chatContainerHeight={chatContainerHeight}
             observing={observing}
             markUnread={handleUnreadMessage}
+            hideForcesInChannel={hideForcesInChannel}
+            hideAuthor={hideAuthor}
           />
       }
       {

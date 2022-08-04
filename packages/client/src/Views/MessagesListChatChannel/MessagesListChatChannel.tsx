@@ -1,3 +1,5 @@
+import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AdminMessage } from '@serge/components'
 import { MessageChannel } from '@serge/custom-types'
 import { isMessageReaded } from '@serge/helpers'
@@ -16,6 +18,7 @@ const MessagesListChatChannel = ({ messages, markAllAsRead }: Props): React.Reac
   const orderedMessages = useMemo(() => sortBy(messages, '_id'), [messages.length])
 
   const isMessageRead = (message: MessageChannel): boolean => isMessageReaded(currentWargame, selectedForceId, selectedRole, message._id || '')
+  const isMessageUnreadExists = orderedMessages.some(message => !isMessageRead(message))
 
   // on new message arrived, we should scroll the last message in to view
   useEffect(() => {
@@ -26,7 +29,9 @@ const MessagesListChatChannel = ({ messages, markAllAsRead }: Props): React.Reac
 
   return (
     <>
-      <span className='link link--noIcon link--secondary' onClick={markAllAsRead}>Mark all as read</span>
+      <span className='message-status-icon'>
+        <FontAwesomeIcon icon={isMessageUnreadExists ? faEnvelope : faEnvelopeOpen} onClick={markAllAsRead} style={{ cursor: 'pointer' }} />
+      </span>
       {
         orderedMessages.map((message, idx) => {
           message.hasBeenRead = isMessageRead(message)

@@ -16,7 +16,8 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForceId:
     selectedAsset.forceId, selectedAsset.typeId, asset.perceptions)
   const availableForceList: ForceOption[] = availableForces(forces, true, true, playerForceId)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData): PerceivedType => { return { uniqid: p.uniqid, name: p.name } })
-  const platformIcon = perceivedValues && perceivedValues.typeId === UNKNOWN_TYPE ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
+  const targetIsUnknown = (perceivedValues && perceivedValues.typeId === UNKNOWN_TYPE) || (selectedAsset.typeId === 'Unknown')
+  const platformIcon = targetIsUnknown ? 'unknown.svg' : findPlatformTypeFor(platforms, '', selectedAsset.typeId || '').icon
 
   const perceivedForce = forces.find((force: ForceData) => (perceivedValues && perceivedValues.forceId) && force.uniqid === perceivedValues.forceId)
 

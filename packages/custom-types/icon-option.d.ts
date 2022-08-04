@@ -1,7 +1,5 @@
-import FormOption from "./form-option"
-
 /** presenting icons in drop-down menu */
-export default interface IconOption extends FormOption {
+export default interface IconOption {
   /**
    * human readable icon name
    */
@@ -10,4 +8,13 @@ export default interface IconOption extends FormOption {
    * url for SVG icon
    */
   icon: string
+  /**
+   * id for the icon (to allow renaming)
+   */
+  uniqid: string
+  /** color for the icon. Note: color is optional, since
+   * it is not provided in list of Marker Icon definitions
+   * 
+   */
+  colour?: string
 }

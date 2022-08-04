@@ -36,13 +36,11 @@ const playerUi: PlayerUi = {
   },
   selectedRole: 'rdj8bx6xw',
   selectedRoleName: 'CO',
-  allPlatformTypesByKey: {},
   isObserver: false,
-  canSubmitPlans: false,
   currentTurn: 57,
   phase: 'adjudication',
   gameDate: '2019-10-29T02:02',
-  gameTurnTime: 43200000,
+  gameTurnTime: { unit: 'millis', millis: 43200000 },
   realtimeTurnTime: 300000,
   turnEndTime: '',
   adjudicationStartTime: '2020-09-30T09:17:56+07:00',
@@ -74,10 +72,12 @@ const playerUi: PlayerUi = {
     {
       name: 'Blue Chat',
       uniqid: 'channel-k16fgs63',
+      channelType: 'ChannelCustom',
       participants: [
         {
           force: 'Blue',
           forceUniqid: 'force-k16fdykj',
+          pType: 'ParticipantCustom',
           roles: [],
           templates: [
             {
@@ -92,11 +92,13 @@ const playerUi: PlayerUi = {
     },
     {
       name: 'Blue HQ',
+      channelType: 'ChannelCustom',
       uniqid: 'channel-k16fheej',
       participants: [
         {
           force: 'Blue',
           forceUniqid: 'force-k16fdykj',
+          pType: 'ParticipantCustom',
           roles: [],
           templates: [
             {
@@ -110,6 +112,7 @@ const playerUi: PlayerUi = {
         {
           force: 'White',
           forceUniqid: 'umpire',
+          pType: 'ParticipantCustom',
           roles: [
             'rk16ffhn2'
           ],
@@ -127,9 +130,11 @@ const playerUi: PlayerUi = {
     {
       name: 'Mapping',
       uniqid: 'channel-k4cnw3nr',
+      channelType: 'ChannelCustom',
       participants: [
         {
           force: 'White',
+          pType: 'ParticipantCustom',
           forceUniqid: 'umpire',
           roles: [],
           templates: [],
@@ -138,6 +143,7 @@ const playerUi: PlayerUi = {
         },
         {
           force: 'Blue',
+          pType: 'ParticipantCustom',
           forceUniqid: 'force-k16fdykj',
           roles: [],
           templates: [],

@@ -1,6 +1,6 @@
 import moment, { Moment } from 'moment'
 
-import { GameTurnLength, MonthTurns, YearTurns, TurnLengthType, MilliTurns } from '@serge/custom-types'
+import { GameTurnLength, MonthTurns, TurnLengthType, MilliTurns } from '@serge/custom-types'
 
 /** move the game time forward
  * @param gameTime the current game time
@@ -21,10 +21,6 @@ const incrementGameTime = (gameTime: string, turnLength: GameTurnLength): number
       case 'months' : {
         const mTurn: MonthTurns = turnLength as MonthTurns
         return asTime.add(mTurn.months, 'months').valueOf()
-      }
-      case 'years' : {
-        const mTurn: YearTurns = turnLength as YearTurns
-        return asTime.add(mTurn.years, 'years').valueOf()
       }
     }
   }

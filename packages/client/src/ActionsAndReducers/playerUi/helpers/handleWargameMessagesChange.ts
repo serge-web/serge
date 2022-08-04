@@ -4,9 +4,14 @@ import {
   ChannelUI,
   MessageCustom,
   MessageInfoType,
-  SetWargameMessage
+  SetWargameMessage,
+  Wargame,
+  ChatMessage
 } from '@serge/custom-types'
-import { handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, getMessageState, removeMessageState } from '@serge/helpers'
+import {
+  handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
+  getMessageState, removeMessageState, handleNewMessageData 
+} from '@serge/helpers'
 import {
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
@@ -14,12 +19,26 @@ import {
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
  */
-export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
+export const handleWargameUpdate = (payload: Wargame, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
-  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
-    newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
+  if (!payload._id) {
+    console.error('Payload missing id field')
+  }
+  const res: SetWargameMessage = handleChannelUpdates(payload.data.channels.channels, payload._id || 'note: id missing', payload.gameTurn, newState.channels, newState.chatChannel,
+    newState.selectedForce, newState.selectedRole, newState.isObserver,
     newState.allTemplatesByKey, newState.allForces, newState.playerMessageLog)
+  return res
+}
+
+/** a new document has been received, either add it to the correct channel,
+ * or update the channels to reflect the new channel definitions
+ */
+export const handleNewMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
+  // TODO: only one of `payload` or `newState` will have been received. We should have 
+  // two different handlers, one for each change.
+  const res: SetWargameMessage = handleNewMessageData(payload, newState.channels, newState.chatChannel,
+    newState.playerMessageLog)
   return res
 }
 
@@ -80,7 +99,7 @@ const closeMessageChange = (message: MessageChannel, id: string): { message: Mes
   return { message, changed }
 }
 
-export const markUnread = (channel: string, message: MessageChannel, newState: PlayerUi) => {
+export const markUnread = (channel: string, message: MessageChannel | ChatMessage, newState: PlayerUi) => {
   if (!message._id) {
     return {
       ...newState.channels[channel],

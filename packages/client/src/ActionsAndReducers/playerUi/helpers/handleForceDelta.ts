@@ -30,7 +30,8 @@ import {
   CREATE_TASK_GROUP,
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
-  DELETE_PLATFORM
+  DELETE_PLATFORM,
+  UMPIRE_LAYDOWN
 } from '@serge/config'
 // TODO: change it to @serge/config
 
@@ -46,6 +47,8 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
 
   switch (msgType) {
     case FORCE_LAYDOWN:
+      return handleForceLaydownChanges(message as MessageForceLaydown, allForces)
+    case UMPIRE_LAYDOWN:
       return handleForceLaydownChanges(message as MessageForceLaydown, allForces)
     case VISIBILITY_CHANGES:
       return handleVisibilityAndConditionChanges(message as MessageVisibilityChanges, allForces)

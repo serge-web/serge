@@ -3,11 +3,8 @@
 .fieldset {
   border: transparent;
 
-  input,
-  label,
-  div,
-  svg {
-    color: #fff !important;
+  label {
+    color: #fff;
   }
 }
 
@@ -23,6 +20,7 @@
   padding: inherit;
   border-radius: 1vmin;
   margin-top: 1vmin;
+  margin: 0 10px;
 
   h2 {
     @include typo-primary;
@@ -53,11 +51,17 @@
 }
 
 .button {
-  align-self: flex-end;
-  background-color: #54667c !important;
-  margin: 0 0.5rem 1rem 1rem !important;
-  color: #fff !important;
-  padding: 2px 8px !important;
+  width: 120px;
+  margin-left: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 5px;
+  }
 }
 
 .asset-icon {
@@ -78,19 +82,6 @@
   }
 }
 
-// TODO: move away from use of CSS for force colors, they should come from `force.color`.
-.blue {
-  background-color: #000fff;
-}
-
-.red {
-  background-color: #ff0b00;
-}
-
-.green {
-  background-color: #19bd37;
-}
-
 .marker {
   padding: 10px;
   background: $background-field;
@@ -100,9 +91,58 @@
     border: 0;
     padding: 0;
   }
+}
 
-  // put space between action buttons
-  button + button {
-    margin-left: 1rem;
+.description {
+  background-color: #fff;
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.radius {
+  background-color: #fff;
+  border-radius: 5px;
+  width: 30%;
+  margin-right: 20% !important;
+
+  div {
+    padding: 0 5px;
+    color: #000;
   }
+}
+
+.force-color {
+  align-self: center;
+  height: 32px;
+  margin: 0 10px;
+  width: 64px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.icon-color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  cursor: pointer;
+}
+
+.color-indicator {
+  display: block;
+  height: 5px;
+  width: 100%;
+  margin-top: 5px;
+  background-color: #fff;
+}
+
+.delete-marker-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25%;
+  cursor: pointer;
 }

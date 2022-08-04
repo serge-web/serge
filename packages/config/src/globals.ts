@@ -11,7 +11,6 @@ export const CHAT_CHANNEL_ID = 'game-admin'
 
 export const PLANNING_PHASE = 'planning'
 export const ADJUDICATION_PHASE = 'adjudication'
-export const LAYDOWN_TURN = 'laydown'
 
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
@@ -29,6 +28,10 @@ export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
 
 // special platform-type name, used for task group. Must match `platform-types` definition
 export const TASK_GROUP = 'task-group'
+
+/*
+ * type for DATUM. @deprecated - since replaced with information-markers
+ */
 export const DATUM = 'datum'
 
 // series of constants used for `messageType` when sending map events
@@ -39,6 +42,7 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 export const UPDATE_MARKER = 'UpdateMarker'
+export const DELETE_MARKER = 'DeleteMarker'
 export const CREATE_TASK_GROUP = 'CreateTaskGroup'
 export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
 export const HOST_PLATFORM = 'HostPlatform'
@@ -86,6 +90,8 @@ export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 // types of attribute
 export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
 export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
+export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
+export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
@@ -140,9 +146,11 @@ export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 /** name of the document used to store the initial wargame definition */
 export const wargameSettings = 'initial_wargame'
-export const settings = 'settings'
 // default name for role name
 export const NEW_ROLE = 'New Role'
+
+/** flag to indicate a role can control all assets */
+export const CONTROL_ALL = 'control-all:'
 
 // 
 /** there has been some user interaction, so log the current time

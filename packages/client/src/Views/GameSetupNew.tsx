@@ -10,6 +10,7 @@ import {
   setCurrentTab,
   saveSettings,
   savePlatformTypes,
+  saveAnnotation,
   saveForce,
   saveChannel,
   setTabSaved,
@@ -20,13 +21,14 @@ import {
   saveWargameTitle,
   initiateWargame,
   duplicatePlatformType,
+  duplicateAnnotation,
   duplicateForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
-import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview } from '@serge/custom-types'
+import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from '@serge/custom-types'
 
 /**
  * TODOS:
@@ -62,10 +64,11 @@ const AdminGameSetup = () => {
     // @ts-ignore
     platform_types, // TODO: legacy name. To be deleted.
     forces,
-    channels
+    channels,
+    annotationIcons
   } = data
   const tabs = Object.keys(data)
-
+ 
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
@@ -150,6 +153,10 @@ const AdminGameSetup = () => {
     if (currentWargame) dispatch(savePlatformTypes(currentWargame, platformTypes))
   }
 
+  const handleSaveAnnotation = (annotation: AnnotationMarkerData) => {
+    if (currentWargame) dispatch(saveAnnotation(currentWargame, annotation))
+  }
+
   const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
     const { uniqid } = selectedForce as ForceData
@@ -206,7 +213,7 @@ const AdminGameSetup = () => {
     }
   }
 
-  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes) => {
+  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes | AnnotationIcons) => {
     let saveAction
     switch (currentTab) {
       case AdminTabs.Overview:
@@ -221,6 +228,9 @@ const AdminGameSetup = () => {
       case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
+      case AdminTabs.Annotations:
+        saveAction = handleSaveAnnotation
+        break  
       default:
         saveAction = console.error
         break
@@ -326,8 +336,25 @@ const AdminGameSetup = () => {
   }, [currentTab])
 
   const getSelectedChannel = () => {
-    const { uniqid } = channels.selectedChannel as { uniqid: string }
-    return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    if (channels.selectedChannel) {
+      const { uniqid } = channels.selectedChannel as { uniqid: string }
+      return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
+    }
+  }
+
+  const onDeleteAnnotation = (data: IconOption) => {
+    dispatch(modalAction.open('confirmDelete', {
+      type: 'annotation',
+      data,
+      customMessages: {
+        title: `Delete '${data.name}'`,
+        message: 'Are you sure you want to permanently delete this annotation Type?'
+      }
+    }))
+  }
+
+  const onDuplicateAnnotation = (data: IconOption) => {
+    if (currentWargame) dispatch(duplicateAnnotation(currentWargame, data))
   }
 
   return (
@@ -365,6 +392,10 @@ const AdminGameSetup = () => {
       iconUploadUrl={iconUploaderPath}
       customDeleteHandler={handleDeleteGameControl}
       onDeleteAsset={onDeleteAsset}
+      onDeleteAnnotation={onDeleteAnnotation}
+      onDuplicateAnnotation={onDuplicateAnnotation}
+      onAnnotationChange={handleFormChange}
+      annotation={annotationIcons}
     />
   )
 }

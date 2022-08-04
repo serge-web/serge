@@ -1,8 +1,8 @@
+import { it, expect } from '@jest/globals'
 import { ForceData, MessageSubmitPlans } from '@serge/custom-types'
 import {
   SUBMIT_PLANS
 } from '@serge/config'
-/* global it expect */
 import handlePlansSubmittedChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import findAsset from '../../../Helpers/findAsset'
 
@@ -22,6 +22,9 @@ const allForces: ForceData[] = [
     assets: [
       {
         uniqid: 'C01',
+        contactId: 'C234',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         name: 'alpha',
         perceptions: [{
           force: 'Blue',
@@ -31,6 +34,9 @@ const allForces: ForceData[] = [
       },
       {
         name: 'bravo',
+        contactId: 'C134',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C02',
         perceptions: []
       }
@@ -48,6 +54,9 @@ const allForces: ForceData[] = [
     assets: [
       {
         name: 'charlie',
+        contactId: 'C534',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C03',
         perceptions: [{
           force: 'Green',
@@ -57,6 +66,9 @@ const allForces: ForceData[] = [
       },
       {
         name: 'delta',
+        contactId: 'C211',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C04',
         perceptions: []
       }
@@ -74,6 +86,9 @@ const allForces: ForceData[] = [
     assets: [
       {
         name: 'echo',
+        contactId: 'C21234',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         uniqid: 'C05',
         perceptions: [
           {
@@ -85,6 +100,9 @@ const allForces: ForceData[] = [
       },
       {
         uniqid: 'C06',
+        contactId: 'C2214',
+        platformTypeId: 'p12',
+        condition: 'some-cond',
         name: 'foxtrot',
         perceptions: []
       }
@@ -99,11 +117,7 @@ const allForces: ForceData[] = [
   }
 ]
 const payload: MessageSubmitPlans = {
-  name: 'Blue Orders 1',
   messageType: SUBMIT_PLANS,
-  comment: '',
-  turn: 2,
-  force: 'Blue',
   plannedRoutes: [
     {
       uniqid: 'C01',
@@ -153,8 +167,14 @@ it('correctly updates planned states', () => {
   // check it has no planned states
   const updated = handlePlansSubmittedChanges(payload, allForces)
   expect(updated).toBeTruthy()
-  expect(alpha!.name).toEqual('alpha')
-  expect(alpha!.plannedTurns).toBeTruthy()
-  expect(alpha!.plannedTurns!.length).toEqual(3)
-  expect(alpha!.plannedTurns![0].route.length).toEqual(4)
+  if (alpha.plannedTurns) {
+    expect(alpha.name).toEqual('alpha')
+    expect(alpha.plannedTurns).toBeTruthy()
+    expect(alpha.plannedTurns.length).toEqual(3)
+    if (alpha.plannedTurns[0].route) {
+      expect(alpha.plannedTurns[0].route.length).toEqual(4)
+    }
+  } else {
+    expect('cannot find platform alpha').toBeFalsy()
+  }
 })

@@ -4,7 +4,7 @@ import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, deleteRoleAndParts, duplicateThisForce, handleUpdateMarker } from '@serge/helpers'
+import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -19,12 +19,14 @@ import {
   ACTIVITY_TIME,
   ACTIVITY_TYPE,
   SERGE_INFO,
-  INFO_MESSAGE, 
-  FEEDBACK_MESSAGE, 
+  INFO_MESSAGE,
+  FEEDBACK_MESSAGE,
   CUSTOM_MESSAGE,
   UPDATE_MARKER,
   STATE_OF_WORLD,
-  hiddenPrefix 
+  hiddenPrefix,
+  DELETE_MARKER,
+  wargameSettings
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -47,6 +49,7 @@ import {
   MessageFeedback,
   MessageStructure,
   MessageCustom,
+  MessageChannel,
   MessageMap,
   GameTurnLength,
   ChannelTypes,
@@ -57,7 +60,9 @@ import {
   MessageUpdateMarker,
   MapAnnotationData,
   MessageStateOfWorld,
-  WargameRevision
+  WargameRevision,
+  IconOption,
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
 import {
@@ -69,6 +74,7 @@ import {
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
+import { MessageDeleteMarker } from '@serge/custom-types/message'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -121,7 +127,9 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
     if (doc.messageType === INFO_MESSAGE) {
       const infoM = doc as MessageInfoType
       dispatch(setCurrentWargame(doc as Wargame))
-      dispatch(setLatestWargameMessage(clipInfoMEssage(infoM)))
+      const asAny = infoM as any
+      const asMsg = asAny as MessageChannel
+      dispatch(setLatestWargameMessage(asMsg))
       return
     }
 
@@ -130,7 +138,7 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
       dispatch(setLatestFeedbackMessage(feedbackM))
     } else if (doc.messageType === COUNTER_MESSAGE) {
       // eslint-disable-next-line no-useless-return
-      return 
+      return
     } else {
       // @ts-ignore: TODO: check this case
       dispatch(setLatestWargameMessage(doc))
@@ -251,6 +259,8 @@ export const createWargame = (): Promise<Wargame> => {
   const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
   return new Promise((resolve, reject) => {
+    // TODO: this method returns the inserted wargame.  I believe we could
+    // return that, instead of `getLatestWargameRevisiion`
     db.put(settings)
       .then(() => {
         db.get(dbDefaultSettings._id).then((res) => {
@@ -273,24 +283,16 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
   })
 }
 
+// TODO: this gets all the messages from the server, then finds
+// the newest wargame. I'm pretty sure that instead of that, we 
+// should have a server-side end-point that returns latest wargame,
+// then only one document goes over network.
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
-  return getAllMessages(dbName).then((messages) => {
-    let lastDate: number = 0
-    let infoMessageIndex: number = -1
-    for (let index = 0; index < messages.length; index++) {
-      const message = messages[index]
-      if (message.messageType === INFO_MESSAGE) {
-        const realM = message as any
-        const nextDate = +new Date(realM._id as string)
-        if (nextDate > lastDate) {
-          lastDate = nextDate
-          infoMessageIndex = index
-        }
-      }
-    }
-
-    messages.filter(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType[]
-    if (infoMessageIndex !== -1) return messages[infoMessageIndex] as Wargame
+  const { db } = getWargameDbByName(dbName)
+  return db.lastWargame().then((message) => {
+    if (message) return message
+    // TODO: if we haven't got an INFO MESSAGE then the database hasn't been
+    // TODO: created properly, and we should thrown an error
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
 }
@@ -302,8 +304,9 @@ export const editWargame = (dbPath: string): Promise<Wargame> => (
 export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName = getNameFromPath(dbPath)
   return getAllMessages(dbName).then((messages) => {
+    const nonInfoMessage = messages.filter((msg) => msg.messageType === INFO_MESSAGE) as Message[]
     return getLatestWargameRevision(dbName).then((game) => ({
-      ...game, exportMessagelist: messages
+      ...game, exportMessagelist: nonInfoMessage
     }))
   })
 }
@@ -327,7 +330,6 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       _rev: undefined,
       _id: new Date().toISOString(),
       messageType: INFO_MESSAGE,
-      turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
       infoType: true // TODO: remove infoType
     }
@@ -344,23 +346,20 @@ const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: bool
 }
 
 const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true, db: ApiWargameDb): Promise<Wargame> => {
-  if (nextWargame.wargameInitiated && revisionCheck) {
+  if (nextWargame.wargameInitiated) {
+    // store with new id
     return createLatestWargameRevision(dbName, nextWargame)
+  } else {
+    // retain un-initiated status id
+    // TODO: this put() method returns the inserted wargame.  I believe we could
+    // return that, instead of `getLatestWargameRevisiion`
+    return db.put({
+      ...nextWargame,
+      _id: wargameSettings
+    }).then(() => {
+      return db.get(wargameSettings) as Promise<Wargame>
+    })
   }
-
-  // Latest wargame cannot be a MessageInfoType if wargameInitiated === false
-  const infoTypeWargame = nextWargame as MessageInfoType
-  if (infoTypeWargame.messageType === INFO_MESSAGE && revisionCheck) {
-    console.warn('Saving wargame cannot be a MessageInfoType. Trying to save MessageInfoType as WargameSettings')
-  }
-
-  return db.put({
-    ...nextWargame,
-    _id: dbDefaultSettings._id,
-    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format()
-  }).then(() => {
-    return db.get(dbDefaultSettings._id) as Promise<Wargame>
-  })
 }
 
 export const updateWargameTitle = (dbName: string, title: string): Promise<Wargame> => {
@@ -419,6 +418,14 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     newDoc.data.platformTypes = data
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const saveAnnotation = (dbName: string, data: AnnotationMarkerData): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    newDoc.data.annotationIcons = data
     return updateWargame(newDoc, dbName)
   })
 }
@@ -548,7 +555,7 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
     updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
 
     if (updatedData.forces.forces.length === 0) {
-      updatedData.channels = { 
+      updatedData.channels = {
         name: 'Channels',
         channels: [],
         selectedChannel: '',
@@ -568,7 +575,7 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
-    updatedData.forces.selectedForce = duplicate as any 
+    updatedData.forces.selectedForce = duplicate as any
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
@@ -650,8 +657,12 @@ export const updateWargameVisible = async (dbPath: string): Promise<Wargame> => 
   })
 }
 
+// TODO: suspect calls to this should be replaced by:
+// TODO: calls to: getLatestWargameRevision
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
+  // TODO: this should look for most recent wargame (INFO), it currently
+  // looks for the un-initiated version of the wargame
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
 }
 
@@ -666,6 +677,8 @@ export const createLatestWargameRevision = (dbName: string, wargame: Wargame): P
   const copiedData = deepCopy(wargame)
   const { db } = getWargameDbByName(dbName)
 
+  // TODO: this put() method returns the inserted wargame.  I believe we could
+  // return that, instead of `getLatestWargameRevisiion`
   return db.put({
     ...copiedData,
     _rev: undefined,
@@ -735,17 +748,22 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
       // default value for message counter
       message.message.counter = 1
 
-      const counterIdExist = await db.allDocs().then(res => {
-        const counters = res.reduce((messages: number[], message) => {
-          if (message.details.from.force === details.from.force && message.message.counter) messages.push(message.message.counter)
-          return messages
-        }, [])
-        const existId = res.find(message => message._id === details.timestamp)
-
+      const forceMessagesWithCounter = await db.allDocs().then(res => {
+        const validMessage = (message: Message): boolean => {
+          if (message.messageType === CUSTOM_MESSAGE) {
+            const custom = message as MessageCustom
+            return custom.details && custom.details.from.force === details.from.force && custom.message.counter
+          } else {
+            return false
+          }
+        }
+        const thisForceMessagesWithCounter = res.filter((message) => validMessage(message)) as MessageCustom[]
+        const counters = thisForceMessagesWithCounter.map((message: MessageCustom) => message.message.counter)
+        const existId = res.find((message:any) => message._id === details.timestamp)
         return [Math.max(...counters), existId]
       })
 
-      const [counter, existId] = counterIdExist
+      const [counter, existId] = forceMessagesWithCounter
 
       // @ts-ignore
       const counterExist = existId ? existId.message.counter : message.message.counter
@@ -797,18 +815,6 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     isOpen: false,
     hasBeenRead: false
   }
-
-  // db.put({
-  //   _id: new Date().toISOString(),
-  //   details,
-  //   // defined constat for messages, it's not same as message.details.messageType,
-  //   // ex for all template based messages will be used CUSTOM_MESSAGE Type
-  //   messageType: details.messageType,
-  //   message
-  // }).catch((err) => {
-  //   console.log(err)
-  //   return err
-  // })
   db.put(customMessage).catch((err) => {
     console.log(err)
     return err
@@ -844,6 +850,10 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageUpdateMarker = message
           res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === DELETE_MARKER) {
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageDeleteMarker = message
+          res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
@@ -856,9 +866,20 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           // apply the reducer to this wargame
           res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         }
-          
-        // store the new verison
-        return createLatestWargameRevision(dbName, res)
+
+        const copiedData = deepCopy(res)
+        const newId = res.wargameInitiated ? new Date().toISOString() : res._id
+        const rev = res.wargameInitiated ? undefined : res._rev
+        // TODO: this method returns the inserted wargame.  I believe we could
+        // return that, instead of `getLatestWargameRevisiion`
+        return db.put({
+          ...copiedData,
+          _rev: rev,
+          _id: newId,
+          messageType: INFO_MESSAGE
+        }).then(() => {
+          return getLatestWargameRevision(dbName)
+        }).catch(rejectDefault)
       }).then((res) => {
         resolve(res)
       }).catch((err) => {
@@ -871,11 +892,8 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
 export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
-    .then((res): Message[] => res.reduce((messages: Message[], res): Message[] => {
-      // @ts-ignore
-      if (res && res.messageType !== COUNTER_MESSAGE) messages.push(res)
-      return messages
-    }, []))
+    // TODO: this should probably be a filter function
+    .then((res): Array<Message> => res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE))
     .catch(() => {
       throw new Error('Serge disconnected')
     })
@@ -894,4 +912,37 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
       }).catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
+}
+
+export const deleteAnnotation = (dbName: string, annotation: IconOption): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+
+    if (newDoc.data.annotationIcons) {
+      newDoc.data.annotationIcons.markers = newDoc.data.annotationIcons.markers.filter((annotationDelete) => annotationDelete.name !== annotation.name)
+    } else {
+      console.warn('Trying to delete platform types, but structure is empty')
+    }
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption) => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc = deepCopy(res)
+    const updatedData = newDoc.data
+    if (updatedData.annotations || updatedData.annotationIcons) {
+      const annotation = updatedData.annotationIcons.markers || []
+      const annotationIndex = annotation.findIndex((annotation: IconOption) => annotation.name === currentAnnation.name)
+      const duplicatedAnnation = deepCopy(currentAnnation)
+      const uniq = uniqid.time()
+
+      duplicatedAnnation.name = `${duplicatedAnnation.name}-${uniq}`
+      
+      annotation.splice(annotationIndex, 0, duplicatedAnnation)
+      updatedData.annotationIcons.markers = annotation
+    }
+  
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
 }

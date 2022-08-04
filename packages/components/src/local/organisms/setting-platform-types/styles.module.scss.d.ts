@@ -6,10 +6,12 @@ interface CssExports {
   'button': string;
   'cell': string;
   'col': string;
+  'enum-attribute-header-icon': string;
   'form-row': string;
   'mobile': string;
   'mobile-title': string;
   'modal': string;
+  'number-attribute-header-icon': string;
   'row': string;
   'section': string;
   'speedmodalcontent': string;

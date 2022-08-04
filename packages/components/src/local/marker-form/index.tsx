@@ -1,116 +1,134 @@
-import { Button } from '@material-ui/core'
-import { MapAnnotation } from '@serge/custom-types'
-import React, { useContext, useState } from 'react'
+import { faFill, faTrash } from '@fortawesome/free-solid-svg-icons'
+/* Import Icons */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button, TextField } from '@material-ui/core'
+import { Confirm } from '@serge/components'
+import { DELETE_MARKER, UPDATE_MARKER } from '@serge/config'
+import { IconOption, MapAnnotation } from '@serge/custom-types'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import Forces from '../form-elements/forces'
 import FormGroup from '../form-elements/form-group'
-import RCB from '../form-elements/rcb'
+import Selector from '../form-elements/selector'
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Context */
 import { MapContext } from '../mapping'
+import ColorPicker from './color-picker'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 
 /* Render component */
-export const MarkerForm: React.FC<PropTypes> = ({ formData, mapPostBack }) => {
+export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeForm }) => {
+  const [isOpen, setOpen] = useState<boolean>(false)
   const [formState, setFormState] = useState<MapAnnotation>(formData.value)
-
+  const [anchorElm, setAnchorElm] = useState<HTMLElement | null>(null)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
 
-  const { forces } = formData.populate
+  const { forces, icons = [], iconURL } = formData.populate
 
-  const changeHandler = (e: any): void => {
-    setFormState(formState)
-    console.log('marker form', e)
-    //  setVisibleTo(e.value)
+  if (!icons.length) {
+    console.warn('marker form - marker icons missing:', icons)
   }
 
-  // /** the forces from props has changed */
-  // useEffect(() => {
-  //   if (formState.perceivedTypeId && formState.perceivedTypeId !== UNKNOWN_TYPE) {
-  //     const typeDetails = perceivedTypes.find((p: PerceivedType) => p.uniqid === formState.perceivedTypeId)
-  //     if (typeDetails) {
-  //       if (typeName !== typeDetails.name) {
-  //         setTypeName(typeDetails.name)
-  //       }
-  //     } else {
-  //       throw new Error('failed to find platform type' + formState.perceivedTypeId)
-  //     }
-  //   } else {
-  //     if (typeName !== unknownStr) {
-  //       setTypeName(unknownStr)
-  //     }
-  //   }
-  // }, [formState])
+  const changeHandler = (formStateValue: string[]): void => {
+    setFormState({ ...formState, visibleTo: formStateValue })
+  }
 
-  // const nameHandler = (e: HTMLInputElement): void => {
-  //   const { value } = e
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedNameVal: value
-  //     }
-  //   )
-  // }
+  useEffect(() => {
+    setFormState(formData.value)
+  }, [formData.value.uniqid])
 
-  // const forceHandler = (e: HTMLInputElement): void => {
-  //   const { value } = e
-  //   const force = perceivedForces.find((force: ForceOption) => force.name === value)
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedForceId: force && force.id ? force.id : undefined
-  //     }
-  //   )
-  // }
+  const typeHandler = (data: string): void => {
+    // get the id
+    const selectedIcon = icons.find((p: IconOption) => p.uniqid === data)
+    setFormState(
+      {
+        ...formState,
+        iconId: (selectedIcon && selectedIcon.uniqid) || ''
+      }
+    )
+  }
 
-  // const typeHandler = (data: string): void => {
-  //   // get the id
-  //   const typeDetails = perceivedTypes.find((p: PerceivedType) => p.name === data)
-  //   const typeId = data === unknownStr ? undefined : typeDetails && typeDetails.uniqid
-  //   setFormState(
-  //     {
-  //       ...formState,
-  //       perceivedTypeId: typeId
-  //     }
-  //   )
-  //   setTypeName(data)
-  // }
+  const toggleColorPicker = (e: React.MouseEvent<HTMLDivElement>): void => {
+    setAnchorElm(e.currentTarget)
+  }
 
   const submitForm = (): void => {
-    if (mapPostBack !== undefined) {
-      // const force = perceivedForces.find((force: ForceOption) => force.name === perceivedForceName)
-      // const payload: MessagePerceptionOfContact = {
-      //   // generate force id from force name
-      //   messageType: PERCEPTION_OF_CONTACT,
-      //   perception: {
-      //     by: playerForce,
-      //     force: force && force.id ? force.id : undefined,
-      //     typeId: formState.perceivedTypeId,
-      //     name: formState.perceivedNameVal
-      //   },
-      //   assetId: formState.assetId
-      // }
-      // console.log('state', payload)
-      // mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
-    }
+    updateMarker(UPDATE_MARKER, formState)
+  }
+
+  const deleteMarkerHandler = (): void => {
+    updateMarker(DELETE_MARKER, formState)
+  }
+
+  const toggleDeleteMarker = (): void => setOpen(!isOpen)
+
+  const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, description: e.target.value })
+  }
+
+  const onRadiusChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, shadeRadius: Number(e.target.value) })
+  }
+
+  const onTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormState({ ...formState, label: e.target.value })
+  }
+
+  const closeColorPicker = (): void => setAnchorElm(null)
+
+  const changeIconColor = (color: string): void => {
+    setFormState({
+      ...formState,
+      color
+    })
+    closeColorPicker()
   }
 
   return <div className={styles.marker}>
-    <div>
-      <TitleWithIcon
-        forceColor={formState.color}
-        icon={formState.icon}
-      >
-        { formData.value.label }
-      </TitleWithIcon>
-      <fieldset className={styles.fieldset}>
-        <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
-        </FormGroup>
-      </fieldset>
-      <Button onClick={submitForm} className={styles.button}>Save</Button>
+    <Confirm
+      isOpen={isOpen}
+      message='Are you sure you wish to delete this marker?'
+      onCancel={toggleDeleteMarker}
+      onConfirm={deleteMarkerHandler}
+    />
+    <ColorPicker anchorElm={anchorElm} onClose={closeColorPicker} switchColor={changeIconColor} />
+    <TitleWithIcon
+      forceColor={formState.color}
+      icon={iconURL}
+      onTitleChange={onTitleChange}
+    >
+      {formState.label}
+    </TitleWithIcon>
+    <fieldset className={styles.fieldset}>
+      <div className={styles.description}>
+        <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
+      </div>
+      <FormGroup title='icon type' align='right'>
+        <Selector label="" name='iconType' options={icons} selected={formState.iconId} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
+      </FormGroup>
+      <FormGroup title='icon color' align='right'>
+        <div className={styles['icon-color']} onClick={toggleColorPicker}>
+          <FontAwesomeIcon icon={faFill} />
+          <div className={styles['color-indicator']} style={{ backgroundColor: formState.color }}></div>
+        </div>
+        <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
+      </FormGroup>
+      <FormGroup title='Visible to' align='right'>
+        <Forces name='visibleTo' label='' labelPlacement={forces.length > 2 ? 'top' : 'start'} options={forces} value={formState.visibleTo} onChange={changeHandler} />
+      </FormGroup>
+      <FormGroup title='Radius' align='right'>
+        <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />
+      </FormGroup>
+    </fieldset>
+    <div className={styles['button-group']}>
+      <div onClick={toggleDeleteMarker} className={styles['delete-marker-btn']}>
+        <FontAwesomeIcon icon={faTrash} />
+      </div>
+      <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Cancel</Button>
+      <Button onClick={submitForm} color='primary' variant='contained' className={styles.button}>Save</Button>
     </div>
   </div>
 }

@@ -16,7 +16,6 @@ export const ADJUDICATION_PHASE = 'adjudication'
 
 export const ADMIN_ROUTE = '/serge/admin'
 export const MESSAGE_TEMPLATE_ROUTE = '/serge/messageTemplates'
-export const MESSAGE_LIBRARY_ROUTE = '/serge/messageLibrary'
 export const MESSAGE_CREATOR_BASE_ROUTE = '/serge/messageCreator'
 export const CREATE_TEMPLATE_ROUTE = '/create/template'
 export const EDIT_TEMPLATE_ROUTE = '/edit/template'
@@ -111,8 +110,7 @@ export const forceTemplate = {
       roleId: `p${uniqId.time()}`,
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false,
-      canSubmitPlans: true
+      isInsightViewer: false
     }
   ],
   iconURL: serverPath + 'default_img/forceDefault.png',
@@ -131,8 +129,7 @@ export const umpireForceTemplate = {
       roleId: `p${uniqId.time()}`,
       isGameControl: true,
       isObserver: true,
-      isInsightViewer: true,
-      canSubmitPlans: true
+      isInsightViewer: true
     }
   ],
   iconURL: serverPath + 'default_img/umpireDefault.png',

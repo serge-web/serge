@@ -9,6 +9,7 @@ import { ForceData } from '@serge/custom-types'
 import { MapAnnotations, MapAnnotation } from '@serge/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
 import { geoToH3, h3ToGeo } from 'h3-js'
+import { UPDATE_MARKER } from '@serge/config'
 
 /* Render component */
 export const InfoMarkers: React.FC<{}> = () => {
@@ -21,7 +22,8 @@ export const InfoMarkers: React.FC<{}> = () => {
     infoMarkers,
     h3Resolution,
     selectedMarker,
-    updateMarker
+    updateMarker,
+    markerIcons
   } = props
 
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
@@ -44,14 +46,14 @@ export const InfoMarkers: React.FC<{}> = () => {
     }
     const newLocation = geoToH3(location.lat, location.lng, h3Resolution)
     marker.location = newLocation
-    updateMarker && updateMarker(marker)
+    updateMarker && updateMarker(UPDATE_MARKER, marker)
   }
 
   /**
    * filter the set of visible markers
    */
   useEffect(() => {
-    if (infoMarkers) {
+    if (infoMarkers && infoMarkers.length) {
       if (isUmpire) {
         // include all
         setVisibleMarkers(infoMarkers)
@@ -65,10 +67,10 @@ export const InfoMarkers: React.FC<{}> = () => {
   }, [infoMarkers, isUmpire])
 
   return <>
-    <LayerGroup key='info-markers' >{visibleMarkers && visibleMarkers.map((marker: MapAnnotation) => {
+    <LayerGroup key='info-markers' >{visibleMarkers.map((marker: MapAnnotation) => {
       const coords = h3ToGeo(marker.location)
-      const location = L.latLng(coords[0], coords[1])
-      return <InfoMarker key={marker.uniqid} marker={marker} location={location} dragged={dragHandler} />
+      const location = marker.position || L.latLng(coords[0], coords[1])
+      return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={location} dragged={dragHandler} />
     })}
     </LayerGroup>
   </>

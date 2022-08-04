@@ -1,5 +1,6 @@
 import { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
 import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
+import MappingConstraints from './mapping-constraints'
 
 /** description of channel, as stored in database */
 export interface ChannelCore {
@@ -16,6 +17,8 @@ export interface ChannelChat extends ChannelCore {
   channelType: typeof CHANNEL_CHAT
   /** list of participants for this channel */
   participants: Array<ParticipantChat>
+  /** whether to hide the Force and Role of the message author */
+  hideMessageAuthor?: boolean
 }
 
 /** description of mapping channel */
@@ -23,6 +26,8 @@ export interface ChannelMapping extends ChannelCore {
   channelType: typeof CHANNEL_MAPPING
   /** list of participants for this channel */
   participants: Array<ParticipantMapping>
+  /** the constraints (bounds) for the mapping */
+  constraints: MappingConstraints
 }
 
 /** description of standard channel, sending custom messages */

@@ -7,13 +7,17 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
   <div
     className="main"
   >
-    <h2>
-      <div
-        className="sub-title"
-      >
-        (Form disabled, plans submitted)
+    <div
+      className="title"
+    >
+      <div>
+        <div
+          className="sub-title"
+        >
+          (Form disabled, plans submitted)
+        </div>
       </div>
-    </h2>
+    </div>
     <div
       className="icon"
     >
@@ -121,7 +125,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
         className="container main-container align-right"
       >
         <section
-          className="input-container"
+          className="input-container input-container"
         >
           
         </section>

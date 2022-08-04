@@ -1,9 +1,10 @@
 import {
   databasePath,
   SERGE_INFO,
-  defaultGameInfo, serverPath
+  defaultGameInfo,
+  serverPath
 } from '../consts'
-import { fetch } from 'whatwg-fetch'
+import fetch from 'node-fetch'
 import DbProvider from './db'
 
 const LOCAL_DOC = 'settings'
@@ -61,7 +62,6 @@ export const saveGameInformation = ({ title, description, imageUrl }) => {
 export const saveLogo = (file) => {
   return fetch(serverPath + 'saveLogo', {
     method: 'POST',
-    'Content-Type': 'image/png',
     body: file
   }).then((res) => res.json())
 }

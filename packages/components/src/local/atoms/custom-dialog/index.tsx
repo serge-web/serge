@@ -23,6 +23,7 @@ export const CustomDialog: React.FC<Props> = (props) => {
   return (
     <Modal
       style={modalStyle}
+      portalClassName={localStyles.modalportal}
       isOpen={isOpen}
       onRequestClose={onClose}
       className={localStyles.modal}

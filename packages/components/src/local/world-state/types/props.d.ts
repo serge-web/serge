@@ -15,14 +15,13 @@ export default interface PropTypes {
    */
   infoMarkers: MapAnnotations
   /**
+   * details of icons
+   */
+  markerIcons: AnnotationIcons
+  /**
    * list of platform types. Use findPlatformForType() method to retrieve platform type
    */
   platforms: PlatformTypeData[]
-  /**
-   * platforms for this wargame
-   * @deprecated  - since it relies on fragile platformType-name field
-   */
-  platformTypesByKey: { [property: string]: PlatformTypeData}
   /**
    * phase of the wargame
    */
@@ -39,10 +38,6 @@ export default interface PropTypes {
    * force for this player
    */
   playerForce: ForceData['uniqid']
-  /** whether this player can submit ordres
-   *
-   */
-  canSubmitOrders: boolean
   /**
    * the title of the submit button
    */

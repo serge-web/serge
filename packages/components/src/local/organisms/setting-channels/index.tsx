@@ -1,4 +1,4 @@
-import { Button as MUIButton, Divider, TableFooter } from '@material-ui/core'
+import { Button as MUIButton, Divider, TableFooter, TextField } from '@material-ui/core'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
@@ -19,10 +19,12 @@ import { ParticipantCollab } from '@serge/custom-types'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import { CoreParticipant, ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
-import React, { useEffect, useRef, useState } from 'react'
-import Confirm from '../../atoms/confirm'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
+import Confirm from '../../atoms/confirm'
+// import { CircleOutlined } from '@material-ui/icons'
+import { CustomDialog } from '../../atoms/custom-dialog'
 import FormGroup from '../../atoms/form-group-shadow'
 import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
@@ -34,18 +36,24 @@ import { defaultParticipantChat, defaultParticipantCollab, defaultParticipantCus
 import generateRowItemsChat from './helpers/generateRowItemsChat'
 import generateRowItemsCollab from './helpers/generateRowItemsCollab'
 import generateRowItemsCustom from './helpers/generateRowItemsCustom'
+import generateRowItemsMapping from './helpers/generateRowItemsMapping'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from './helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, isCollabChannel, onMessageValuesChanged } from './helpers/messageCollabUtils'
 import rowToParticipantChat from './helpers/rowToParticipantChat'
 import rowToParticipantCollab from './helpers/rowToParticipantCollab'
 import rowToParticipantCustom from './helpers/rowToParticipantCustom'
+import rowToParticipantMapping, { checkForSaveProblems } from './helpers/rowToParticipantMapping'
 /* Import Styles */
 import styles from './styles.module.scss'
 /* Import proptypes */
+import { faAt, faBorderStyle, faCaretDown, faDrawPolygon, faPlay, faSearch, faSearchMinus, faSearchPlus, faTh } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Typography from '@material-ui/core/Typography'
 import PropTypes, { ChannelTypes } from './types/props'
-import rowToParticipantMapping from './helpers/rowToParticipantMapping'
-import generateRowItemsMapping from './helpers/generateRowItemsMapping'
-// import { CircleOutlined } from '@material-ui/icons'
+import MoreInfo from '../../molecules/more-info'
 
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({
@@ -58,15 +66,17 @@ export const SettingChannels: React.FC<PropTypes> = ({
   channels,
   forces,
   messageTemplates,
-  selectedChannel
+  selectedChannel: originalChannel
 }) => {
-  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
+  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === originalChannel?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))
+  const [selectedChannelState, setSelectedChannelState] = useState<ChannelTypes | undefined>(originalChannel)
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
+  const [problems, setProblems] = useState<string>('')
 
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
@@ -74,21 +84,28 @@ export const SettingChannels: React.FC<PropTypes> = ({
     value: template
   }))
 
-  const isCollab = isCollabChannel(selectedChannel)
-  const isChat = selectedChannel && selectedChannel.channelType === CHANNEL_CHAT
-  const isCustom = selectedChannel && selectedChannel.channelType === CHANNEL_CUSTOM
-  const isMapping = selectedChannel && selectedChannel.channelType === CHANNEL_MAPPING
-  const channelAsLegacy = selectedChannel as any
+  const isCollab = isCollabChannel(selectedChannelState)
+  const isChat = selectedChannelState && selectedChannelState.channelType === CHANNEL_CHAT
+  const isCustom = selectedChannelState && selectedChannelState.channelType === CHANNEL_CUSTOM
+  const isMapping = selectedChannelState && selectedChannelState.channelType === CHANNEL_MAPPING
+  const channelAsLegacy = selectedChannelState as any
   const isLegacyCollab = channelAsLegacy && channelAsLegacy.format
 
+  // representation of channel, in more specific types
+  const mappingChannel: ChannelMapping | undefined | false = isMapping && selectedChannelState as ChannelMapping
+
   /** init data for collab panel controls */
-  const messagesValues = getMessagesValues(isCollab, selectedChannel)
+  const messagesValues = getMessagesValues(isCollab, selectedChannelState)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
 
   useEffect(() => {
     /** on changes channel, update the message data local */
     setMessageLocal(messagesValues)
-  }, [selectedChannel])
+  }, [selectedChannelState])
+
+  useEffect(() => {
+    setSelectedChannelState(channels[selectedItem])
+  }, [selectedItem])
 
   const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
@@ -172,15 +189,15 @@ export const SettingChannels: React.FC<PropTypes> = ({
         const nextParticipant = rowToParticipantMapping(forces, nextItems, participant as ParticipantMapping)
         return generateRowItemsMapping(forces, nextParticipant)
       }
-      console.warn('Not handled changed row for ', selectedChannel?.name)
+      console.warn('Not handled changed row for ', selectedChannelState?.name)
       return []
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
-      if (selectedChannel) {
+      if (selectedChannelState) {
         handleSaveRows([
           ...data.participants,
-          createParticipant(messageTemplatesOptions, forces, rowItems, selectedChannel.channelType)
+          createParticipant(messageTemplatesOptions, forces, rowItems, selectedChannelState.channelType)
         ])
       } else {
         console.warn('Can`t create new participant, no current channel')
@@ -202,7 +219,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
           } else if (isChat) {
             nextParticipants[pKey] = rowToParticipantChat(forces, row, participant as ParticipantChat)
           } else if (isMapping) {
-            nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
+            // do check
+            const problems = checkForSaveProblems(row)
+            if (problems) {
+              setProblems(problems)
+              return
+            } else {
+              nextParticipants[pKey] = rowToParticipantMapping(forces, row, participant as ParticipantMapping)
+            }
           } else {
             nextParticipants[pKey] = rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)
           }
@@ -237,6 +261,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           defaultMode='view'
           actions={true}
           participantKey={key}
+          presentAsList
         />
       })
     }
@@ -258,6 +283,293 @@ export const SettingChannels: React.FC<PropTypes> = ({
         defaultMode='edit'
         actions
       />
+    }
+
+    const renderMappingConstraints = (): React.ReactElement => {
+      if (!mappingChannel) {
+        return (<></>)
+      }
+
+      const updateMapConstraintsBounds = (value: string, key: number[]): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.bounds[key[0]][key[1]] = +value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsZoom = (value: string, type: 'maxZoom' | 'minZoom' | 'maxNativeZoom'): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints[type] = +value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsH3Res = (e: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.h3res = +e.target.value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsTileLayer = (value: string, key: 'attribution' | 'url'): void => {
+        const nextChannel = { ...mappingChannel }
+        if (nextChannel.constraints.tileLayer) {
+          nextChannel.constraints.tileLayer[key] = value
+        }
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsPolygonUrl = (e: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.polygonAreasURL = e.target.value
+        handleChangeChannel(nextChannel)
+      }
+
+      const updateMapConstraintsGridCellUrl = (e: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannel = { ...mappingChannel }
+        nextChannel.constraints.gridCellsURL = e.target.value
+        handleChangeChannel(nextChannel)
+      }
+
+      const constraintsSummary = (): string => {
+        const tick = '\u2714'
+        const cross = '\u2717'
+        const constraints = mappingChannel.constraints
+        const bounds = 'Bounds:' + (constraints.bounds ? tick : cross)
+        const tiles = 'Tiles:' + (constraints.tileLayer ? tick : cross)
+        const cells = 'Cells:' + (constraints.gridCellsURL ? tick : cross)
+        return bounds + ' ' + tiles + ' ' + cells
+      }
+
+      const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = mappingChannel.constraints
+
+      return (
+        <Accordion className={styles.accordion}>
+          <AccordionSummary
+            className={styles['accordion-header']}
+            expandIcon={<FontAwesomeIcon icon={faCaretDown} className={styles['arrow-icon']} />}
+          >
+            <div className={styles['accordion-title-group']}>
+              <Typography className={styles['accordion-title']}>Proportions and Constraints</Typography>
+              <Typography className={styles['accordion-sub-title']}>{constraintsSummary()}</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails className={styles['accordion-details']}>
+            <div className={styles['control-groups']}>
+              <div className={styles['mapping-item-constraints']}>
+                <FormGroup placeholder="Bounds">
+                  <Table aria-label="Bounds">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={styles['constraints-cell']}></TableCell>
+                        <TableCell className={styles['constraints-cell']}>Latitude</TableCell>
+                        <TableCell className={styles['constraints-cell']}>Longtitude</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='North West corner'><FontAwesomeIcon size='2x' icon={faBorderStyle} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[0][0]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [0, 0])}
+                          />
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[0][1]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [0, 1])}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='South East corner'><FontAwesomeIcon size='2x' icon={faBorderStyle} style={{ transform: 'rotate(180deg)' }} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[1][0]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [1, 0])}
+                          />
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={bounds[1][1]}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsBounds(e.target.value, [1, 1])}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="Zoom">
+                  <Table aria-label="Zoom">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <FontAwesomeIcon icon={faSearchMinus} />
+                        </TableCell>
+                        <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
+                          <MoreInfo description='Limit of zooming out'>Min Zoom</MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={minZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'minZoom')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <FontAwesomeIcon icon={faSearchPlus} />
+                        </TableCell>
+                        <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
+                          <MoreInfo description='Limit of zooming in'>Max Zoom</MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={maxZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxZoom')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <FontAwesomeIcon icon={faSearch} />
+                        </TableCell>
+                        <TableCell className={cx(styles['constraints-cell'], styles['cell-lbl'])}>
+                          <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={maxNativeZoom}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="H3">
+                  <Table aria-label="H3">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='H3 grid resolution to use. See https://h3geo.org/docs/core-library/restable/'><span style={{ fontSize: 35, display: 'block', marginBottom: 5 }}>&#x2B22;</span></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='number'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={h3res}
+                            onInput={updateMapConstraintsH3Res}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+              </div>
+              <div className={cx(styles['mapping-item-constraints'], styles['col-2'])}>
+                <FormGroup placeholder="Tile Layer">
+                  <Table aria-label="Tile Layer">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Tile layer attribution string (optional)'><FontAwesomeIcon size='2x' icon={faAt} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={tileLayer?.attribution}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsTileLayer(e.target.value, 'attribution')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Path to tiled background images'><FontAwesomeIcon size='2x' icon={faPlay} style={{ transform: 'rotate(-90deg)' }} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={tileLayer?.url}
+                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsTileLayer(e.target.value, 'url')}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="Polygon">
+                  <Table aria-label="Polygon">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Path to file containing areas of coverage'><FontAwesomeIcon size='2x' icon={faDrawPolygon} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={polygonAreasURL}
+                            onInput={updateMapConstraintsPolygonUrl}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+                <FormGroup placeholder="Grid Cell">
+                  <Table aria-label="Grid Cell">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className={cx(styles['constraints-icon'], styles['constraints-cell'])}>
+                          <MoreInfo description='Path to file containing cell definitions (land, sea, etc)'><FontAwesomeIcon size='2x' icon={faTh} /></MoreInfo>
+                        </TableCell>
+                        <TableCell className={styles['constraints-cell']}>
+                          <TextField
+                            type='text'
+                            className={styles.input}
+                            InputProps={{ disableUnderline: true }}
+                            value={gridCellsURL}
+                            onInput={updateMapConstraintsGridCellUrl}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </FormGroup>
+              </div>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+
+      )
     }
 
     const onMessageTemplateChanged = (value: string[], action: Action): void => {
@@ -331,16 +643,16 @@ export const SettingChannels: React.FC<PropTypes> = ({
         </div>
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section, styles.table)}>
-            {!isCollab &&
+            {!isCollab && !isMapping &&
               <FormGroup placeholder="Participants and messages">
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="center">Restrict access to specific roles</TableCell>
+                        <TableCell align="left">Restrict access to specific roles</TableCell>
                         {isCustom &&
-                          <TableCell align="center">Templates</TableCell>
+                          <TableCell align="left">Templates</TableCell>
                         }
                         <TableCell align="right">Actions</TableCell>
                       </TableRow>
@@ -355,11 +667,36 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 </TableContainer>
               </FormGroup>
             }
+            {isMapping && renderMappingConstraints()}
+            {
+              isMapping &&
+              <FormGroup placeholder="Participants and messages">
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Force</TableCell>
+                        <TableCell align="left"><MoreInfo description='(Optionally) restrict access/control to specific roles'>Roles</MoreInfo></TableCell>
+                        <TableCell align="left"><MoreInfo description='The assets (or groups of assets) controlled by this participant'>Controls</MoreInfo></TableCell>
+                        <TableCell align="right">Actions</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {renderTableBody(data)}
+                    </TableBody>
+                    <TableFooter>
+                      {renderTableFooter()}
+                    </TableFooter>
+                  </Table>
+                </TableContainer>
+
+              </FormGroup>
+            }
             {isCollab &&
               <FormGroup>
                 <Paper className={styles.pager}>
                   <div className={styles['control-groups']}>
-
+                    COLLAB MESSAGE
                     <MessageGroup
                       title="Message Templates"
                       multiple={false}
@@ -396,7 +733,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     <div className={styles['control-groups']}>
                       <MessageGroup
                         title='Request Changes'
-                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.REQUEST_CHANGES, messageLocal, selectedChannelState)}
                         multiple={false}
                         onChange={(val: string[]): void => onRequestChanged(val, 'add')}
                         onDelete={(val: string[]): void => onRequestChanged(val, 'delete')}
@@ -405,7 +742,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='Approve'
-                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.APPROVE, messageLocal, selectedChannelState)}
                         multiple={false}
                         onChange={(val: string[]): void => onApproveChanged(val, 'add')}
                         onDelete={(val: string[]): void => onApproveChanged(val, 'delete')}
@@ -414,7 +751,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       />
                       <MessageGroup
                         title='Release'
-                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannel)}
+                        options={getSelectedOptions(MessageGroupType.RELEASE, messageLocal, selectedChannelState)}
                         multiple={false}
                         onChange={(val: string[]): void => onReleaseChanged(val, 'add')}
                         onDelete={(val: string[]): void => onReleaseChanged(val, 'delete')}
@@ -533,6 +870,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   return (
     <AdminContent>
+      <CustomDialog
+        isOpen={!!problems}
+        header={'Error'}
+        cancelBtnText={'OK'}
+        onClose={(): void => setProblems('')}
+        content={problems}
+      />
       <Confirm
         isOpen={participantKey !== -1}
         title="Delete Participation"
@@ -547,7 +891,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         <EditableList
           title="Add Channel"
           items={channels}
-          selectedItem={channels[selectedItem] ? channels[selectedItem].uniqid : undefined}
+          selectedItem={channels[selectedItem]?.uniqid}
           filterKey="uniqid"
           onClick={handleSwitchChannel}
           onDelete={onDelete}

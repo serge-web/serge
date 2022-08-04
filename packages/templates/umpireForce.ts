@@ -12,8 +12,7 @@ export default {
       isGameControl: true,
       isObserver: true,
       isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true
+      isRFIManager: true
     }
   ],
   icon: serverPath + 'default_img/umpireDefault.png',

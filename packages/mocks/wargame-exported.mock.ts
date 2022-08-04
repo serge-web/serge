@@ -186,7 +186,6 @@ const game: Wargame = {
               isGameControl: true,
               isInsightViewer: true,
               isRFIManager: true,
-              canSubmitPlans: true,
               isObserver: true,
               name: 'Game Control'
             }
@@ -516,7 +515,6 @@ const game: Wargame = {
             {
               roleId: 'rkrff6f5e',
               isGameControl: false,
-              canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO'
@@ -524,7 +522,6 @@ const game: Wargame = {
             {
               roleId: 'rkrlwgg5g',
               isGameControl: false,
-              canSubmitPlans: false,
               isInsightViewer: false,
               isObserver: false,
               name: 'Comms'
@@ -786,7 +783,6 @@ const game: Wargame = {
             {
               roleId: 'rkeew6f5e',
               isGameControl: false,
-              canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO'
@@ -1433,9 +1429,6 @@ const game: Wargame = {
             }
           ],
           color: '#0F0',
-          controlledBy: [
-            'umpire'
-          ],
           dirty: false,
           iconURL: 'images/default_img/umpireDefault.png',
           name: 'Green',
@@ -1444,7 +1437,6 @@ const game: Wargame = {
             {
               roleId: 'rkrlwff5e',
               isGameControl: false,
-              canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO'
@@ -1461,7 +1453,7 @@ const game: Wargame = {
       dirty: false,
       gameDate: '2020-01-07T13:18',
       gameDescription: 'Sample MWARC Wargame',
-      gameTurnTime: 5400000,
+      gameTurnTime: { "unit": "millis", "millis": 5400000 },
       name: 'Overview - settings',
       realtimeTurnTime: 600000,
       showAccessCodes: true,
