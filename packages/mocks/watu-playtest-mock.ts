@@ -2,8 +2,8 @@ import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame =
 {
-    "_id": "2022-08-04T10:36:41.476Z",
-    "_rev": "1-c6d443d644dd99e99c0b9e746e6758e2",
+    "_id": "2022-08-04T16:19:52.264Z",
+    "_rev": "4-f962943fc11316e829207805c1946f03",
     "adjudicationStartTime": "2022-08-02T11:59:27+01:00",
     "wargameList": [],
     "data": {
@@ -366,8 +366,8 @@ const wargame: Wargame =
                             "uniqid": "al65069c1",
                             "contactId": "C777",
                             "name": "B1",
-                            "platformType": "Frigate",
-                            "platformTypeId": "a1",
+                            "platformType": "Destroyer",
+                            "platformTypeId": "a6",
                             "perceptions": [
                                 {
                                     "by": "force-b2",
@@ -396,7 +396,18 @@ const wargame: Wargame =
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-de",
+                                    "value": 0,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-de",
+                                    "value": "16",
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "8a195012a687fff",
                             "plannedTurns": [
                                 {
@@ -465,7 +476,32 @@ const wargame: Wargame =
                             "status": {
                                 "state": "Transiting",
                                 "speedKts": 9
-                            }
+                            },
+                            "id": "a1",
+                            "type": "ASSET_ITEM"
+                        },
+                        {
+                            "uniqid": "al6f8sj8q",
+                            "contactId": "C139",
+                            "name": "Destroyer",
+                            "platformType": "Destroyer b",
+                            "platformTypeId": "a6",
+                            "perceptions": [],
+                            "condition": "",
+                            "position": "",
+                            "locationPending": "Umpire laydown",
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-de",
+                                    "value": 0,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-de",
+                                    "value": 20,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -1180,7 +1216,7 @@ const wargame: Wargame =
                                     "attrType": "AttributeValueEnum"
                                 },
                                 {
-                                    "attrId": "attrl63lsyql",
+                                    "attrId": "attr-torp-ssk",
                                     "value": 12,
                                     "attrType": "AttributeValueNumber"
                                 }
@@ -1269,7 +1305,7 @@ const wargame: Wargame =
                                     "attrType": "AttributeValueEnum"
                                 },
                                 {
-                                    "attrId": "attrl63lsyql",
+                                    "attrId": "attr-torp-ssk",
                                     "value": 12,
                                     "attrType": "AttributeValueNumber"
                                 }
@@ -2509,12 +2545,10 @@ const wargame: Wargame =
                     ],
                     "travelMode": "sea",
                     "uniqid": "a1",
-                    "turningCircle": 400
-                },
-                {
+                    "turningCircle": 400,
                     "attributeTypes": [
                         {
-                            "attrId": "asdic-dir",
+                            "attrId": "asdic-dir-fr",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 0,
                             "description": "ASDIC orientation (absolute)",
@@ -2522,12 +2556,36 @@ const wargame: Wargame =
                             "name": "ASDIC"
                         },
                         {
-                            "attrId": "att-torpedoes",
+                            "name": "Charges",
                             "attrType": "AttributeTypeNumber",
-                            "defaultValue": 20,
-                            "description": "Number of torpedoes remaining",
-                            "editableByPlayer": false,
-                            "name": "Torpedoes"
+                            "attrId": "attr-dep-fr",
+                            "description": "Depth charges remaining",
+                            "defaultValue": "16"
+                        }
+                    ],
+                    "orientation": [
+                        {
+                            "attribute": "asdic-dir-fr",
+                            "origin": "absolute"
+                        },
+                        {}
+                    ]
+                },
+                {
+                    "attributeTypes": [
+                        {
+                            "attrId": "asdic-dir-de",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 0,
+                            "description": "ASDIC orientation (absolute)",
+                            "editableByPlayer": true,
+                            "name": "ASDIC"
+                        },
+                        {
+                            "name": "Charges",
+                            "attrType": "AttributeTypeNumber",
+                            "attrId": "attr-dep-de",
+                            "description": "# of Depth Charges remaining"
                         }
                     ],
                     "conditions": [
@@ -2539,7 +2597,7 @@ const wargame: Wargame =
                     "name": "Destroyer",
                     "orientation": [
                         {
-                            "attribute": "asdic-dir",
+                            "attribute": "asdic-dir-de",
                             "origin": "absolute"
                         },
                         {}
@@ -2585,7 +2643,7 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "attrId": "attrl63lsyql",
+                            "attrId": "attr-torp-ssk",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 12,
                             "description": "# of Torpedoes remaining",
@@ -2662,8 +2720,8 @@ const wargame: Wargame =
                     "uniqid": "al6ewkf68",
                     "color": "#f00",
                     "iconId": "flsh",
-                    "label": "Suspicious flash",
-                    "description": "pending description",
+                    "label": "Blue flash",
+                    "description": "Suspected explosive",
                     "visibleTo": [
                         "force-r1",
                         "force-r2"
