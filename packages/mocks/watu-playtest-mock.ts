@@ -2,8 +2,8 @@ import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame =
 {
-    "_id": "2022-08-02T12:33:41.772Z",
-    "_rev": "1-75201463bf4c6a20d20acaa1027d2183",
+    "_id": "2022-08-04T10:36:41.476Z",
+    "_rev": "1-c6d443d644dd99e99c0b9e746e6758e2",
     "adjudicationStartTime": "2022-08-02T11:59:27+01:00",
     "wargameList": [],
     "data": {
@@ -297,7 +297,7 @@ const wargame: Wargame =
                                 -4
                             ]
                         ],
-                        "h3res": 9,
+                        "h3res": 10,
                         "cellLabelsStyle": "x_y_labels",
                         "minZoom": 8,
                         "maxZoom": 17,
@@ -397,17 +397,17 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "89195012a6bffff",
+                            "position": "8a195012a687fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195012a6bffff",
-                                        "89195010cd3ffff",
-                                        "89195010cd3ffff",
-                                        "89195010cd3ffff",
-                                        "89195010cc3ffff",
-                                        "89195010cc3ffff"
+                                        "8a195012a69ffff",
+                                        "8a195010cd37fff",
+                                        "8a195010cd07fff",
+                                        "8a195010cd1ffff",
+                                        "8a195010cc37fff",
+                                        "8a195010cc17fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -417,12 +417,12 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195010cc3ffff",
-                                        "89195010ccfffff",
-                                        "89195010cc7ffff",
-                                        "89195010cc7ffff",
-                                        "89195010c1bffff",
-                                        "89195010c1bffff"
+                                        "8a195010cc1ffff",
+                                        "8a195010cce7fff",
+                                        "8a195010cc57fff",
+                                        "8a195010cc5ffff",
+                                        "8a195010c1a7fff",
+                                        "8a195010c1affff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -432,12 +432,12 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195010c03ffff",
-                                        "89195010c03ffff",
-                                        "89195010c03ffff",
-                                        "89195010c07ffff",
-                                        "89195010c07ffff",
-                                        "89195010c3bffff"
+                                        "8a195010c037fff",
+                                        "8a195010c007fff",
+                                        "8a195010c00ffff",
+                                        "8a195010c057fff",
+                                        "8a195010c05ffff",
+                                        "8a195010c3a7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -449,12 +449,12 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "89195012a4fffff",
-                                        "89195012a4fffff",
-                                        "89195012a7bffff",
-                                        "891950101b7ffff",
-                                        "89195012a6bffff",
-                                        "89195012a6bffff"
+                                        "8a195012a4c7fff",
+                                        "8a195012a4cffff",
+                                        "8a195012a797fff",
+                                        "8a1950101b6ffff",
+                                        "8a195012a6b7fff",
+                                        "8a195012a687fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -517,15 +517,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "89195010627ffff",
+                            "position": "8a1950106277fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195010627ffff",
-                                        "89195010627ffff",
-                                        "8919501005bffff",
-                                        "8919501005bffff"
+                                        "8a1950106247fff",
+                                        "8a195010624ffff",
+                                        "8a19501005a7fff",
+                                        "8a19501005affff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -535,10 +535,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195010043ffff",
-                                        "89195010043ffff",
-                                        "89195010043ffff",
-                                        "89195010047ffff"
+                                        "8a1950100437fff",
+                                        "8a1950100407fff",
+                                        "8a195010040ffff",
+                                        "8a1950100457fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -548,10 +548,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195010047ffff",
-                                        "8919501007bffff",
-                                        "8919501007bffff",
-                                        "8919501007bffff"
+                                        "8a195010045ffff",
+                                        "8a19501007a7fff",
+                                        "8a1950100787fff",
+                                        "8a195010078ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -561,10 +561,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195010063ffff",
-                                        "89195010063ffff",
-                                        "8919501006fffff",
-                                        "8919501006fffff"
+                                        "8a1950100617fff",
+                                        "8a195010061ffff",
+                                        "8a19501006e7fff",
+                                        "8a19501006effff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -574,10 +574,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "8919501039bffff",
-                                        "8919501039bffff",
-                                        "8919501039bffff",
-                                        "8919501038bffff"
+                                        "8a19501039b7fff",
+                                        "8a1950103987fff",
+                                        "8a195010399ffff",
+                                        "8a19501038a7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -587,10 +587,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "8919501038bffff",
-                                        "8919501038fffff",
-                                        "8919501038fffff",
-                                        "8919501038fffff"
+                                        "8a19501038affff",
+                                        "8a19501038f7fff",
+                                        "8a19501038c7fff",
+                                        "8a19501038cffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -602,10 +602,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "89195010633ffff",
-                                        "89195010623ffff",
-                                        "89195010623ffff",
-                                        "89195010627ffff"
+                                        "8a195010631ffff",
+                                        "8a1950106227fff",
+                                        "8a195010622ffff",
+                                        "8a1950106277fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -676,15 +676,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "89195012c13ffff",
+                            "position": "8a195012c11ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195012c03ffff",
-                                        "89195012c03ffff",
-                                        "89195012c03ffff",
-                                        "89195012c07ffff"
+                                        "8a195012c027fff",
+                                        "8a195012c02ffff",
+                                        "8a195012c00ffff",
+                                        "8a195012c057fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -694,10 +694,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195012c07ffff",
-                                        "89195012c3bffff",
-                                        "89195012c3bffff",
-                                        "89195012c23ffff"
+                                        "8a195012c05ffff",
+                                        "8a195012c3a7fff",
+                                        "8a195012c3affff",
+                                        "8a195012c237fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -707,10 +707,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195012c23ffff",
-                                        "89195012c23ffff",
-                                        "89195012c2fffff",
-                                        "89195012c2fffff"
+                                        "8a195012c207fff",
+                                        "8a195012c20ffff",
+                                        "8a195012c2e7fff",
+                                        "8a195012c2effff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -720,10 +720,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195012d5bffff",
-                                        "89195012d5bffff",
-                                        "89195012d5bffff",
-                                        "89195012d43ffff"
+                                        "8a195012d5b7fff",
+                                        "8a195012d587fff",
+                                        "8a195012d58ffff",
+                                        "8a195012d417fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -733,10 +733,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195012d43ffff",
-                                        "89195012d4fffff",
-                                        "89195012d4fffff",
-                                        "89195012d4fffff"
+                                        "8a195012d41ffff",
+                                        "8a195012d4e7fff",
+                                        "8a195012d4c7fff",
+                                        "8a195012d4cffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -746,10 +746,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195012d7bffff",
-                                        "89195012d7bffff",
-                                        "89195012d6bffff",
-                                        "89195012d6bffff"
+                                        "8a195012d797fff",
+                                        "8a195012d79ffff",
+                                        "8a195012d6a7fff",
+                                        "8a195012d6affff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -759,10 +759,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "89195012d6fffff",
-                                        "89195012d6fffff",
-                                        "89195012d6fffff",
-                                        "891950129d7ffff"
+                                        "8a195012d6f7fff",
+                                        "8a195012d6c7fff",
+                                        "8a195012d6dffff",
+                                        "8a1950129d67fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -772,10 +772,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "891950129d7ffff",
-                                        "8919501298bffff",
-                                        "8919501298bffff",
-                                        "8919501298bffff"
+                                        "8a1950129d6ffff",
+                                        "8a19501298b7fff",
+                                        "8a1950129887fff",
+                                        "8a195012988ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -785,10 +785,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 11,
                                     "route": [
-                                        "8919501298fffff",
-                                        "8919501298fffff",
-                                        "89195012917ffff",
-                                        "89195012917ffff"
+                                        "8a19501298d7fff",
+                                        "8a19501298dffff",
+                                        "8a1950129177fff",
+                                        "8a1950129147fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -798,10 +798,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 12,
                                     "route": [
-                                        "89195012917ffff",
-                                        "891950129abffff",
-                                        "891950129abffff",
-                                        "89195012933ffff"
+                                        "8a195012914ffff",
+                                        "8a1950129a97fff",
+                                        "8a1950129a9ffff",
+                                        "8a1950129327fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -813,10 +813,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "89195012cc7ffff",
-                                        "89195012cc7ffff",
-                                        "89195012c13ffff",
-                                        "89195012c13ffff"
+                                        "8a195012cc47fff",
+                                        "8a195012cc4ffff",
+                                        "8a195012c117fff",
+                                        "8a195012c11ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -886,15 +886,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "8919501280bffff",
+                            "position": "8a195012809ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195012873ffff",
-                                        "89195012873ffff",
-                                        "89195012873ffff",
-                                        "89195012877ffff"
+                                        "8a1950128727fff",
+                                        "8a195012872ffff",
+                                        "8a195012870ffff",
+                                        "8a1950128757fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -904,10 +904,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195012877ffff",
-                                        "89195012867ffff",
-                                        "89195012867ffff",
-                                        "89195012b93ffff"
+                                        "8a195012875ffff",
+                                        "8a1950128667fff",
+                                        "8a195012866ffff",
+                                        "8a195012b937fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -917,12 +917,12 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195012b93ffff",
-                                        "89195012b93ffff",
-                                        "89195012b97ffff",
-                                        "89195012b97ffff",
-                                        "89195012b87ffff",
-                                        "89195012b87ffff"
+                                        "8a195012b907fff",
+                                        "8a195012b90ffff",
+                                        "8a195012b957fff",
+                                        "8a195012b95ffff",
+                                        "8a195012b867fff",
+                                        "8a195012b86ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -932,12 +932,12 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195012bb3ffff",
-                                        "89195012bb3ffff",
-                                        "89195012bb3ffff",
-                                        "89195012bb7ffff",
-                                        "89195012bb7ffff",
-                                        "89195012ba7ffff"
+                                        "8a195012bb37fff",
+                                        "8a195012bb07fff",
+                                        "8a195012bb0ffff",
+                                        "8a195012bb57fff",
+                                        "8a195012bb5ffff",
+                                        "8a195012ba67fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -947,10 +947,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195012ba7ffff",
-                                        "891950176d3ffff",
-                                        "891950176d3ffff",
-                                        "891950176d3ffff"
+                                        "8a195012ba6ffff",
+                                        "8a1950176d37fff",
+                                        "8a1950176d07fff",
+                                        "8a1950176d0ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -960,10 +960,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "891950176d7ffff",
-                                        "891950176d7ffff",
-                                        "891950176c7ffff",
-                                        "891950176c7ffff"
+                                        "8a1950176d57fff",
+                                        "8a1950176d5ffff",
+                                        "8a1950176c67fff",
+                                        "8a1950176c6ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -975,10 +975,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "89195012857ffff",
-                                        "89195012857ffff",
-                                        "8919501280bffff",
-                                        "8919501280bffff"
+                                        "8a1950128547fff",
+                                        "8a195012854ffff",
+                                        "8a1950128097fff",
+                                        "8a195012809ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1044,15 +1044,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "89195010387ffff",
+                            "position": "8a195010384ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "891950103b3ffff",
-                                        "891950103b3ffff",
-                                        "891950103a3ffff",
-                                        "891950103a3ffff"
+                                        "8a1950103b17fff",
+                                        "8a1950103b1ffff",
+                                        "8a1950103a27fff",
+                                        "8a1950103a2ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1062,10 +1062,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "891950103a7ffff",
-                                        "891950103a7ffff",
-                                        "891950103a7ffff",
-                                        "89195010ed3ffff"
+                                        "8a1950103a77fff",
+                                        "8a1950103a47fff",
+                                        "8a1950103a4ffff",
+                                        "8a195010ed17fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1075,10 +1075,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195010ed3ffff",
-                                        "89195010ec3ffff",
-                                        "89195010ec3ffff",
-                                        "89195010ec7ffff"
+                                        "8a195010ed1ffff",
+                                        "8a195010ec27fff",
+                                        "8a195010ec2ffff",
+                                        "8a195010ec77fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1088,10 +1088,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195010ec7ffff",
-                                        "89195010ec7ffff",
-                                        "89195010e1bffff",
-                                        "89195010e1bffff"
+                                        "8a195010ec47fff",
+                                        "8a195010ec4ffff",
+                                        "8a195010e1a7fff",
+                                        "8a195010e1affff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1101,10 +1101,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195010e03ffff",
-                                        "89195010e03ffff",
-                                        "89195010e03ffff",
-                                        "89195010e07ffff"
+                                        "8a195010e037fff",
+                                        "8a195010e007fff",
+                                        "8a195010e00ffff",
+                                        "8a195010e057fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1114,10 +1114,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195010e07ffff",
-                                        "89195010e3bffff",
-                                        "89195010e3bffff",
-                                        "89195010e23ffff"
+                                        "8a195010e05ffff",
+                                        "8a195010e3a7fff",
+                                        "8a195010e3affff",
+                                        "8a195010e237fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1129,10 +1129,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "89195010383ffff",
-                                        "89195010387ffff",
-                                        "89195010387ffff",
-                                        "89195010387ffff"
+                                        "8a195010382ffff",
+                                        "8a1950103877fff",
+                                        "8a1950103847fff",
+                                        "8a195010384ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1185,13 +1185,13 @@ const wargame: Wargame =
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
-                            "position": "891950172afffff",
+                            "position": "8a1950172aeffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "891950172afffff",
-                                        "891950172a3ffff"
+                                        "8a1950172ae7fff",
+                                        "8a1950172a1ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1201,8 +1201,8 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "891950172a3ffff",
-                                        "891950172abffff"
+                                        "8a1950172a17fff",
+                                        "8a1950172aa7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1214,8 +1214,8 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "891950173dbffff",
-                                        "891950172afffff"
+                                        "8a1950173db7fff",
+                                        "8a1950172aeffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1274,13 +1274,13 @@ const wargame: Wargame =
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
-                            "position": "89195010da7ffff",
+                            "position": "8a195010da5ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195010da7ffff",
-                                        "89195010da3ffff"
+                                        "8a195010da57fff",
+                                        "8a195010da0ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1292,8 +1292,8 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "891950172dbffff",
-                                        "89195010da7ffff"
+                                        "8a1950172da7fff",
+                                        "8a195010da5ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1345,15 +1345,15 @@ const wargame: Wargame =
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltw3g",
-                            "position": "8919501214bffff",
+                            "position": "8a1950121487fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "8919501214bffff",
-                                        "8919501214fffff",
-                                        "891950123b3ffff",
-                                        "891950123b7ffff"
+                                        "8a195012148ffff",
+                                        "8a19501214d7fff",
+                                        "8a1950123b2ffff",
+                                        "8a1950123b77fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1363,10 +1363,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "891950123b7ffff",
-                                        "891950123b7ffff",
-                                        "8919501216bffff",
-                                        "8919501216bffff"
+                                        "8a1950123b47fff",
+                                        "8a1950123b4ffff",
+                                        "8a1950121697fff",
+                                        "8a195012169ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1376,10 +1376,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195012ed3ffff",
-                                        "89195012ed3ffff",
-                                        "89195012ed7ffff",
-                                        "89195012ed7ffff"
+                                        "8a195012ed27fff",
+                                        "8a195012ed2ffff",
+                                        "8a195012ed77fff",
+                                        "8a195012ed47fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1389,10 +1389,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195012ed7ffff",
-                                        "89195012e8bffff",
-                                        "89195012ec7ffff",
-                                        "89195012e13ffff"
+                                        "8a195012ed4ffff",
+                                        "8a195012e897fff",
+                                        "8a195012ec6ffff",
+                                        "8a195012e137fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1402,10 +1402,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195012e13ffff",
-                                        "89195012e13ffff",
-                                        "89195012e17ffff",
-                                        "89195012e17ffff"
+                                        "8a195012e107fff",
+                                        "8a195012e10ffff",
+                                        "8a195012e157fff",
+                                        "8a195012e15ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1415,10 +1415,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195012e07ffff",
-                                        "89195012e07ffff",
-                                        "89195012e07ffff",
-                                        "89195012e33ffff"
+                                        "8a195012e067fff",
+                                        "8a195012e06ffff",
+                                        "8a195012e04ffff",
+                                        "8a195012e317fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1428,10 +1428,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "89195012e33ffff",
-                                        "89195012e23ffff",
-                                        "89195012e23ffff",
-                                        "89195012e27ffff"
+                                        "8a195012e31ffff",
+                                        "8a195012e227fff",
+                                        "8a195012e22ffff",
+                                        "8a195012e277fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1441,10 +1441,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195012e27ffff",
-                                        "89195012e27ffff",
-                                        "89195012853ffff",
-                                        "89195012853ffff"
+                                        "8a195012e247fff",
+                                        "8a195012e24ffff",
+                                        "8a1950128517fff",
+                                        "8a195012851ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1454,10 +1454,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 11,
                                     "route": [
-                                        "89195012843ffff",
-                                        "89195012843ffff",
-                                        "89195012847ffff",
-                                        "89195012847ffff"
+                                        "8a1950128427fff",
+                                        "8a195012842ffff",
+                                        "8a1950128477fff",
+                                        "8a1950128447fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1467,10 +1467,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 12,
                                     "route": [
-                                        "89195012847ffff",
-                                        "89195012873ffff",
-                                        "8919501287bffff",
-                                        "89195012863ffff"
+                                        "8a195012844ffff",
+                                        "8a1950128717fff",
+                                        "8a19501287affff",
+                                        "8a1950128637fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1480,10 +1480,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 13,
                                     "route": [
-                                        "89195012863ffff",
-                                        "89195012863ffff",
-                                        "89195012867ffff",
-                                        "89195012867ffff"
+                                        "8a1950128607fff",
+                                        "8a195012860ffff",
+                                        "8a1950128657fff",
+                                        "8a195012865ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1495,10 +1495,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "8919501215bffff",
-                                        "8919501215bffff",
-                                        "8919501214bffff",
-                                        "8919501214bffff"
+                                        "8a1950121597fff",
+                                        "8a195012159ffff",
+                                        "8a19501214b7fff",
+                                        "8a1950121487fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1546,15 +1546,15 @@ const wargame: Wargame =
                             "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltwtw",
-                            "position": "89195010583ffff",
+                            "position": "8a1950105807fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195010583ffff",
-                                        "89195010587ffff",
-                                        "8919501058fffff",
-                                        "891950105bbffff"
+                                        "8a195010580ffff",
+                                        "8a1950105857fff",
+                                        "8a19501058effff",
+                                        "8a1950105bb7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1564,10 +1564,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "891950105bbffff",
-                                        "891950105bbffff",
-                                        "891950105abffff",
-                                        "891950105abffff"
+                                        "8a1950105b87fff",
+                                        "8a1950105b8ffff",
+                                        "8a1950105aa7fff",
+                                        "8a1950105aaffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1577,10 +1577,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "891950105afffff",
-                                        "891950105afffff",
-                                        "891950105afffff",
-                                        "89195010537ffff"
+                                        "8a1950105af7fff",
+                                        "8a1950105ac7fff",
+                                        "8a1950105adffff",
+                                        "8a1950105367fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1590,10 +1590,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195010537ffff",
-                                        "89195012acbffff",
-                                        "89195012acbffff",
-                                        "89195012acbffff"
+                                        "8a195010536ffff",
+                                        "8a195012acb7fff",
+                                        "8a195012ac87fff",
+                                        "8a195012ac8ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1603,10 +1603,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195012acfffff",
-                                        "89195012acfffff",
-                                        "89195012a57ffff",
-                                        "89195012a57ffff"
+                                        "8a195012acd7fff",
+                                        "8a195012acdffff",
+                                        "8a195012a567fff",
+                                        "8a195012a56ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1616,10 +1616,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195012a0bffff",
-                                        "89195012a0bffff",
-                                        "89195012a0bffff",
-                                        "89195012a73ffff"
+                                        "8a195012a0b7fff",
+                                        "8a195012a087fff",
+                                        "8a195012a09ffff",
+                                        "8a195012a727fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1629,10 +1629,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "89195012a73ffff",
-                                        "89195012a77ffff",
-                                        "89195012a77ffff",
-                                        "89195012a77ffff"
+                                        "8a195012a72ffff",
+                                        "8a195012a777fff",
+                                        "8a195012a747fff",
+                                        "8a195012a74ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1642,10 +1642,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195012a2bffff",
-                                        "89195012a2bffff",
-                                        "89195010c93ffff",
-                                        "89195010c93ffff"
+                                        "8a195012a297fff",
+                                        "8a195012a29ffff",
+                                        "8a195010c927fff",
+                                        "8a195010c92ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1657,10 +1657,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "8919501059bffff",
-                                        "8919501059bffff",
-                                        "89195010583ffff",
-                                        "89195010583ffff"
+                                        "8a19501059a7fff",
+                                        "8a19501059affff",
+                                        "8a1950105837fff",
+                                        "8a1950105807fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1713,15 +1713,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "89195012e1bffff",
+                            "position": "8a195012e1b7fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195012e1bffff",
-                                        "89195012e1bffff",
-                                        "89195012e03ffff",
-                                        "89195012e03ffff"
+                                        "8a195012e187fff",
+                                        "8a195012e18ffff",
+                                        "8a195012e017fff",
+                                        "8a195012e01ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1731,10 +1731,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195012e0fffff",
-                                        "89195012e0fffff",
-                                        "89195012e3bffff",
-                                        "89195012e3bffff"
+                                        "8a195012e0e7fff",
+                                        "8a195012e0effff",
+                                        "8a195012e3b7fff",
+                                        "8a195012e387fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1744,10 +1744,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "89195012e3bffff",
-                                        "89195012e23ffff",
-                                        "89195012e2bffff",
-                                        "89195012e2fffff"
+                                        "8a195012e38ffff",
+                                        "8a195012e217fff",
+                                        "8a195012e2affff",
+                                        "8a195012e2f7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1757,10 +1757,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195012e2fffff",
-                                        "89195012e2fffff",
-                                        "8919501285bffff",
-                                        "8919501285bffff"
+                                        "8a195012e2c7fff",
+                                        "8a195012e2cffff",
+                                        "8a1950128597fff",
+                                        "8a195012859ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1770,10 +1770,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "8919501284bffff",
-                                        "8919501284bffff",
-                                        "8919501284bffff",
-                                        "8919501284fffff"
+                                        "8a19501284a7fff",
+                                        "8a19501284affff",
+                                        "8a195012848ffff",
+                                        "8a19501284d7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1783,10 +1783,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "8919501284fffff",
-                                        "89195012ab7ffff",
-                                        "89195012ab7ffff",
-                                        "8919501286bffff"
+                                        "8a19501284dffff",
+                                        "8a195012ab67fff",
+                                        "8a195012ab6ffff",
+                                        "8a19501286b7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1796,10 +1796,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "8919501286bffff",
-                                        "8919501286bffff",
-                                        "8919501286fffff",
-                                        "8919501286fffff"
+                                        "8a1950128687fff",
+                                        "8a195012868ffff",
+                                        "8a19501286d7fff",
+                                        "8a19501286dffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1809,10 +1809,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195012bd7ffff",
-                                        "89195012bd7ffff",
-                                        "89195012bd7ffff",
-                                        "89195012b8bffff"
+                                        "8a195012bd67fff",
+                                        "8a195012bd6ffff",
+                                        "8a195012bd4ffff",
+                                        "8a195012b897fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1822,10 +1822,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 11,
                                     "route": [
-                                        "89195012b8bffff",
-                                        "89195012b13ffff",
-                                        "89195012b13ffff",
-                                        "89195012b17ffff"
+                                        "8a195012b89ffff",
+                                        "8a195012b127fff",
+                                        "8a195012b12ffff",
+                                        "8a195012b177fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1837,10 +1837,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "89195012ec3ffff",
-                                        "89195012ecfffff",
-                                        "89195012ecfffff",
-                                        "89195012e1bffff"
+                                        "8a195012ec1ffff",
+                                        "8a195012ece7fff",
+                                        "8a195012eceffff",
+                                        "8a195012e1b7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1889,15 +1889,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "89195010093ffff",
+                            "position": "8a1950100907fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195010093ffff",
-                                        "89195010097ffff",
-                                        "89195010083ffff",
-                                        "89195010087ffff"
+                                        "8a195010090ffff",
+                                        "8a1950100957fff",
+                                        "8a195010082ffff",
+                                        "8a1950100877fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1907,10 +1907,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195010087ffff",
-                                        "89195010087ffff",
-                                        "891950100bbffff",
-                                        "891950100bbffff"
+                                        "8a1950100847fff",
+                                        "8a195010085ffff",
+                                        "8a1950100ba7fff",
+                                        "8a1950100b87fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1920,10 +1920,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "891950100bbffff",
-                                        "891950100abffff",
-                                        "891950100abffff",
-                                        "891950100abffff"
+                                        "8a1950100b9ffff",
+                                        "8a1950100ab7fff",
+                                        "8a1950100a97fff",
+                                        "8a1950100a9ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1933,10 +1933,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195010033ffff",
-                                        "89195010033ffff",
-                                        "89195010037ffff",
-                                        "89195010037ffff"
+                                        "8a1950100327fff",
+                                        "8a195010032ffff",
+                                        "8a1950100377fff",
+                                        "8a1950100347fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1946,10 +1946,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195010037ffff",
-                                        "891950101cbffff",
-                                        "891950101cbffff",
-                                        "89195010153ffff"
+                                        "8a195010034ffff",
+                                        "8a1950101c97fff",
+                                        "8a1950101c9ffff",
+                                        "8a1950101527fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1959,10 +1959,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195010153ffff",
-                                        "89195010157ffff",
-                                        "89195010157ffff",
-                                        "89195010157ffff"
+                                        "8a195010152ffff",
+                                        "8a1950101577fff",
+                                        "8a1950101547fff",
+                                        "8a195010154ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1972,10 +1972,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "8919501010bffff",
-                                        "8919501010bffff",
-                                        "89195010173ffff",
-                                        "89195010173ffff"
+                                        "8a1950101097fff",
+                                        "8a195010109ffff",
+                                        "8a1950101727fff",
+                                        "8a195010172ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -1985,10 +1985,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195010177ffff",
-                                        "89195010177ffff",
-                                        "89195010177ffff",
-                                        "8919501012bffff"
+                                        "8a1950101777fff",
+                                        "8a1950101747fff",
+                                        "8a195010174ffff",
+                                        "8a1950101297fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2000,10 +2000,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "8919501042bffff",
-                                        "8919501042bffff",
-                                        "89195010093ffff",
-                                        "89195010093ffff"
+                                        "8a1950104297fff",
+                                        "8a195010429ffff",
+                                        "8a1950100937fff",
+                                        "8a1950100907fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2051,15 +2051,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "8919501231bffff",
+                            "position": "8a19501231b7fff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "8919501231bffff",
-                                        "8919501231bffff",
-                                        "89195012303ffff",
-                                        "89195012303ffff"
+                                        "8a1950123187fff",
+                                        "8a195012318ffff",
+                                        "8a1950123017fff",
+                                        "8a195012301ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2069,10 +2069,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "8919501230fffff",
-                                        "8919501230fffff",
-                                        "8919501230fffff",
-                                        "8919501233bffff"
+                                        "8a19501230e7fff",
+                                        "8a19501230effff",
+                                        "8a19501230cffff",
+                                        "8a1950123397fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2082,10 +2082,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "8919501233bffff",
-                                        "8919501232bffff",
-                                        "8919501232bffff",
-                                        "8919501232fffff"
+                                        "8a195012339ffff",
+                                        "8a19501232a7fff",
+                                        "8a19501232affff",
+                                        "8a19501232f7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2095,10 +2095,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "8919501232fffff",
-                                        "8919501232fffff",
-                                        "89195010597ffff",
-                                        "89195010597ffff"
+                                        "8a19501232c7fff",
+                                        "8a19501232cffff",
+                                        "8a1950105967fff",
+                                        "8a195010596ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2108,10 +2108,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195012e4bffff",
-                                        "89195012e4bffff",
-                                        "89195012e4bffff",
-                                        "89195012e4fffff"
+                                        "8a195012e4b7fff",
+                                        "8a195012e487fff",
+                                        "8a195012e48ffff",
+                                        "8a195012e4d7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2121,10 +2121,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195012e4fffff",
-                                        "891950105b7ffff",
-                                        "891950105b7ffff",
-                                        "89195012e6bffff"
+                                        "8a195012e4dffff",
+                                        "8a1950105b67fff",
+                                        "8a1950105b6ffff",
+                                        "8a195012e6b7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2134,10 +2134,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "89195012e6bffff",
-                                        "89195012e6bffff",
-                                        "89195012e6fffff",
-                                        "89195012e6fffff"
+                                        "8a195012e687fff",
+                                        "8a195012e68ffff",
+                                        "8a195012e6d7fff",
+                                        "8a195012e6dffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2147,10 +2147,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195012ad7ffff",
-                                        "89195012ad7ffff",
-                                        "89195012a8bffff",
-                                        "89195012a8bffff"
+                                        "8a195012ad67fff",
+                                        "8a195012ad6ffff",
+                                        "8a195012a8b7fff",
+                                        "8a195012a887fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2160,10 +2160,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 11,
                                     "route": [
-                                        "89195012a8bffff",
-                                        "89195012a8fffff",
-                                        "89195012a13ffff",
-                                        "89195012a17ffff"
+                                        "8a195012a88ffff",
+                                        "8a195012a8d7fff",
+                                        "8a195012a12ffff",
+                                        "8a195012a177fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2173,10 +2173,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 12,
                                     "route": [
-                                        "89195012a17ffff",
-                                        "89195012a17ffff",
-                                        "89195012aabffff",
-                                        "89195012aabffff"
+                                        "8a195012a147fff",
+                                        "8a195012a14ffff",
+                                        "8a195012aa97fff",
+                                        "8a195012aa9ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2186,10 +2186,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 13,
                                     "route": [
-                                        "89195012a33ffff",
-                                        "89195012a33ffff",
-                                        "89195012a37ffff",
-                                        "89195012a37ffff"
+                                        "8a195012a327fff",
+                                        "8a195012a32ffff",
+                                        "8a195012a377fff",
+                                        "8a195012a347fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2199,10 +2199,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 14,
                                     "route": [
-                                        "89195012a37ffff",
-                                        "89195012bcbffff",
-                                        "89195012bcbffff",
-                                        "89195012b53ffff"
+                                        "8a195012a34ffff",
+                                        "8a195012bc97fff",
+                                        "8a195012bc9ffff",
+                                        "8a195012b527fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2214,10 +2214,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "891950123c3ffff",
-                                        "891950123cfffff",
-                                        "891950123cfffff",
-                                        "8919501231bffff"
+                                        "8a1950123c1ffff",
+                                        "8a1950123ce7fff",
+                                        "8a1950123ceffff",
+                                        "8a19501231b7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2273,15 +2273,15 @@ const wargame: Wargame =
                             ],
                             "condition": "Working",
                             "attributeValues": [],
-                            "position": "891950104c7ffff",
+                            "position": "8a1950104c6ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195010413ffff",
-                                        "89195010413ffff",
-                                        "89195010413ffff",
-                                        "89195010403ffff"
+                                        "8a1950104137fff",
+                                        "8a1950104107fff",
+                                        "8a195010411ffff",
+                                        "8a1950104027fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2291,10 +2291,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195010403ffff",
-                                        "89195010407ffff",
-                                        "89195010407ffff",
-                                        "89195010407ffff"
+                                        "8a195010402ffff",
+                                        "8a1950104077fff",
+                                        "8a1950104057fff",
+                                        "8a195010405ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2304,10 +2304,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "8919501043bffff",
-                                        "8919501043bffff",
-                                        "8919501043bffff",
-                                        "89195010423ffff"
+                                        "8a19501043a7fff",
+                                        "8a19501043affff",
+                                        "8a195010438ffff",
+                                        "8a1950104217fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2317,10 +2317,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195010423ffff",
-                                        "8919501042fffff",
-                                        "8919501042fffff",
-                                        "8919501042fffff"
+                                        "8a195010421ffff",
+                                        "8a19501042e7fff",
+                                        "8a19501042c7fff",
+                                        "8a19501042cffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2330,10 +2330,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "8919501055bffff",
-                                        "8919501055bffff",
-                                        "8919501054bffff",
-                                        "8919501054bffff"
+                                        "8a1950105597fff",
+                                        "8a195010559ffff",
+                                        "8a19501054b7fff",
+                                        "8a1950105487fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2343,10 +2343,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "8919501054bffff",
-                                        "8919501054fffff",
-                                        "891950100b3ffff",
-                                        "891950100b7ffff"
+                                        "8a195010548ffff",
+                                        "8a19501054d7fff",
+                                        "8a1950100b2ffff",
+                                        "8a1950100b77fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2356,10 +2356,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "891950100b7ffff",
-                                        "891950100b7ffff",
-                                        "8919501056bffff",
-                                        "8919501056bffff"
+                                        "8a1950100b47fff",
+                                        "8a1950100b4ffff",
+                                        "8a1950105697fff",
+                                        "8a195010569ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2369,10 +2369,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "891950101d3ffff",
-                                        "891950101d3ffff",
-                                        "891950101d3ffff",
-                                        "891950101d7ffff"
+                                        "8a1950101d27fff",
+                                        "8a1950101d2ffff",
+                                        "8a1950101d0ffff",
+                                        "8a1950101d57fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2382,10 +2382,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 11,
                                     "route": [
-                                        "891950101d7ffff",
-                                        "891950101c7ffff",
-                                        "891950101c7ffff",
-                                        "891950101c7ffff"
+                                        "8a1950101d5ffff",
+                                        "8a1950101c67fff",
+                                        "8a1950101c47fff",
+                                        "8a1950101c4ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2395,10 +2395,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 12,
                                     "route": [
-                                        "89195010113ffff",
-                                        "89195010113ffff",
-                                        "89195010103ffff",
-                                        "89195010103ffff"
+                                        "8a1950101117fff",
+                                        "8a195010111ffff",
+                                        "8a1950101037fff",
+                                        "8a1950101007fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2408,10 +2408,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 13,
                                     "route": [
-                                        "89195010103ffff",
-                                        "89195010107ffff",
-                                        "8919501010fffff",
-                                        "8919501013bffff"
+                                        "8a195010100ffff",
+                                        "8a1950101057fff",
+                                        "8a19501010effff",
+                                        "8a19501013b7fff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2423,10 +2423,10 @@ const wargame: Wargame =
                                 {
                                     "turn": 2,
                                     "route": [
-                                        "891950104d7ffff",
-                                        "891950104d7ffff",
-                                        "891950104c7ffff",
-                                        "891950104c7ffff"
+                                        "8a1950104d47fff",
+                                        "8a1950104d4ffff",
+                                        "8a1950104c67fff",
+                                        "8a1950104c6ffff"
                                     ],
                                     "status": {
                                         "state": "Transiting",
@@ -2657,7 +2657,20 @@ const wargame: Wargame =
             "selectedType": ""
         },
         "annotations": {
-            "annotations": []
+            "annotations": [
+                {
+                    "uniqid": "al6ewkf68",
+                    "color": "#f00",
+                    "iconId": "flsh",
+                    "label": "Suspicious flash",
+                    "description": "pending description",
+                    "visibleTo": [
+                        "force-r1",
+                        "force-r2"
+                    ],
+                    "location": "8a195010b457fff"
+                }
+            ]
         }
     },
     "gameTurn": 2,
