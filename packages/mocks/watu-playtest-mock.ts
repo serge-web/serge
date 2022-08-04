@@ -404,7 +404,7 @@ const wargame: Wargame =
                                 },
                                 {
                                     "attrId": "attr-dep-de",
-                                    "value": "16",
+                                    "value": 16,
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
