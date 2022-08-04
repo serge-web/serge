@@ -39,10 +39,11 @@
 }
 
 .planning-line {
-  stroke-width: 2;
+  stroke-width: 4;
 }
 
-.allowable-line {
+.allowable-poly {
+  fill-opacity: 0.1;
   stroke-width: 4;
 }
 

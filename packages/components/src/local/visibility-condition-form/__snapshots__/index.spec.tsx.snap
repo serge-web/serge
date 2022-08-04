@@ -57,7 +57,7 @@ exports[`VisibilityForm renders correctly 1`] = `
           >
             
             <label
-              className="MuiFormControlLabel-root"
+              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementStart"
               title="Red Force"
             >
               <span
@@ -103,13 +103,11 @@ exports[`VisibilityForm renders correctly 1`] = `
               <span
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
               >
-                <span>
-                  Red Force
-                </span>
+                Red Force
               </span>
             </label>
             <label
-              className="MuiFormControlLabel-root"
+              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementStart"
               title="Green Force"
             >
               <span
@@ -155,9 +153,7 @@ exports[`VisibilityForm renders correctly 1`] = `
               <span
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
               >
-                <span>
-                  Green Force
-                </span>
+                Green Force
               </span>
             </label>
           </section>

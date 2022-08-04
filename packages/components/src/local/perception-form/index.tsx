@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
 import TextInput from '../atoms/text-input'
 import Form from '../form'
-import RCB from '../form-elements/rcb'
+import Forces from '../form-elements/forces'
 import Selector from '../form-elements/selector'
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -29,11 +29,12 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
   const typeStrings: string[] = perceivedTypes.map((p: PerceivedType): string => p.name)
 
   // add 'unknown' to the list of types
-  const unknownStr = 'unknown'
+  const unknownStr = UNKNOWN_TYPE
   typeStrings.push(unknownStr)
 
   const perceivedForce = perceivedForces.find((force: ForceOption) => force.id === formState.perceivedForceId || null)
-  const perceivedForceName = perceivedForce ? perceivedForce.name : 'Unknown'
+  const perceivedForceName = perceivedForce ? perceivedForce.name : UNKNOWN_TYPE
+  const perceivedForceId = perceivedForce && perceivedForce.id
 
   /** the forces from props has changed */
   useEffect(() => {
@@ -63,9 +64,10 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     )
   }
 
-  const forceHandler = (e: HTMLInputElement): void => {
-    const { value } = e
-    const force = perceivedForces.find((force: ForceOption) => force.name === value)
+  const forceHandler = (value: string[]): void => {
+    // ok. We need to find which is the new selection
+    const newItem = value.find((id: string) => id !== formState.perceivedForceId)
+    const force = perceivedForces.find((force: ForceOption) => force.id === newItem)
     setFormState(
       {
         ...formState,
@@ -101,7 +103,6 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
         },
         assetId: formState.assetId
       }
-      console.log('state', payload)
       mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
@@ -114,7 +115,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={perceivedForceName || ''} updateState={forceHandler} className={styles['input-container']} />
+        <Forces label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={[perceivedForceId]} onChange={forceHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>
