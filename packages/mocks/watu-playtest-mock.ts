@@ -2560,7 +2560,7 @@ const wargame: Wargame =
                             "attrType": "AttributeTypeNumber",
                             "attrId": "attr-dep-fr",
                             "description": "Depth charges remaining",
-                            "defaultValue": "16"
+                            "defaultValue": 16
                         }
                     ],
                     "orientation": [
