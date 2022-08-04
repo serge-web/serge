@@ -476,32 +476,7 @@ const wargame: Wargame =
                             "status": {
                                 "state": "Transiting",
                                 "speedKts": 9
-                            },
-                            "id": "a1",
-                            "type": "ASSET_ITEM"
-                        },
-                        {
-                            "uniqid": "al6f8sj8q",
-                            "contactId": "C139",
-                            "name": "Destroyer",
-                            "platformType": "Destroyer b",
-                            "platformTypeId": "a6",
-                            "perceptions": [],
-                            "condition": "",
-                            "position": "",
-                            "locationPending": "Umpire laydown",
-                            "attributeValues": [
-                                {
-                                    "attrId": "asdic-dir-de",
-                                    "value": 0,
-                                    "attrType": "AttributeValueNumber"
-                                },
-                                {
-                                    "attrId": "attr-dep-de",
-                                    "value": 20,
-                                    "attrType": "AttributeValueNumber"
-                                }
-                            ]
+                            }
                         }
                     ]
                 },
@@ -552,7 +527,6 @@ const wargame: Wargame =
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
                             "position": "8a1950106277fff",
                             "plannedTurns": [
                                 {
@@ -652,7 +626,19 @@ const wargame: Wargame =
                             "status": {
                                 "state": "Transiting",
                                 "speedKts": 6
-                            }
+                            },
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 240,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 13,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -711,7 +697,18 @@ const wargame: Wargame =
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 120,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 17,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "8a195012c11ffff",
                             "plannedTurns": [
                                 {
@@ -921,7 +918,18 @@ const wargame: Wargame =
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 180,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 12,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "8a195012809ffff",
                             "plannedTurns": [
                                 {
@@ -1079,7 +1087,18 @@ const wargame: Wargame =
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 300,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 16,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "8a195010384ffff",
                             "plannedTurns": [
                                 {
