@@ -51,7 +51,7 @@ export const HexGrid: React.FC<{}> = () => {
   } = props
 
   // define detail cut-offs
-  const SHOW_LABELS_UNDER = 400
+  const SHOW_LABELS_UNDER = 800
   const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
@@ -394,21 +394,20 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableCells3(allowableCellList)
         } else {
           // TODO: reinstate terrain tests
-          const filteredCells = allowableCellList.filter((cell: SergeHex3) => cell.terrain === planningConstraints.travelMode.toLowerCase())
-
+          const cellsForMyTerrain = allowableCellList.filter((cell: SergeHex3) => cell.terrain && cell.terrain === planningConstraints.travelMode.toLowerCase())
           let cellsAfterTurn
 
           // if there is a turning circle, we will further restrict them
           if (planningConstraints.turningCircle && originHex3 && planningRangeCells) {
-            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, filteredCells)
+            const { cameFromDict, turnCells } = restrictTurn(originHex3.index, planningRangeCells, cellsForMyTerrain)
             setCameFrom(cameFromDict)
             cellsAfterTurn = turnCells
             // show a warning if the turning circle data means there aren't any achievable cells
-            if (filteredCells.length && !turnCells.length) {
-              console.warn('Size of turning circle means no achievable cells', filteredCells.length, turnCells.length)
+            if (cellsForMyTerrain.length && !turnCells.length) {
+              console.warn('Size of turning circle means no achievable cells', cellsForMyTerrain.length, turnCells.length, planningConstraints.turningCircle)
             }
           } else {
-            cellsAfterTurn = filteredCells
+            cellsAfterTurn = cellsForMyTerrain
           }
 
           setAllowableCells3(cellsAfterTurn)
@@ -494,6 +493,8 @@ export const HexGrid: React.FC<{}> = () => {
                 // nope, store it
                 frontier.push({ index: index, range: thisRange })
                 cameFromDict[index] = current.index
+                // use the next line to put number of steps into cell
+                // label. Useful for debugging
                 // exists.labelStore.xy = '+' + thisRange
               }
             }
