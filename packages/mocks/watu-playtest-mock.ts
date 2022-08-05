@@ -2745,7 +2745,7 @@ const wargame: Wargame =
                         "force-r1",
                         "force-r2"
                     ],
-                    "location": "8a195010b457fff"
+                    "location": "89195010b47ffff"
                 }
             ]
         }
