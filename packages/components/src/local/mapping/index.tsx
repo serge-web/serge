@@ -633,6 +633,16 @@ export const Mapping: React.FC<PropTypes> = ({
   const updateMarker = (event: string, marker: MapAnnotation): void => {
     // do the external update, depending on which phase this is
     // check which phase we're in
+
+
+    // utility function to clean the lat/lng from the marker
+    type CleanAnno = Omit<MapAnnotation, 'position'>
+    const cleanMarker = (ann: MapAnnotation): CleanAnno => {
+      const res = deepCopy(ann)
+      delete res['position']
+      return res
+    }
+
     switch (phase) {
       case Phase.Adjudication: {
         // start off by updating the local data. We don't transmit the change,
@@ -656,7 +666,7 @@ export const Mapping: React.FC<PropTypes> = ({
             // send the update out immediately
             const message: MessageUpdateMarker = {
               messageType: event,
-              marker: marker
+              marker: cleanMarker(marker)
             }
             mapPostBack(event, message, CHANNEL_MAPPING)
             break
