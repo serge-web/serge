@@ -290,7 +290,7 @@ export const Mapping: React.FC<PropTypes> = ({
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel, turnNumber)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce, selectedAsset])
 
   /**
    * the route-store has changed for some reason. So, declutter it
