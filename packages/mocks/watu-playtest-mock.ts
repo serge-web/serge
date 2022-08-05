@@ -1235,8 +1235,13 @@ const wargame: Wargame =
                                     "attrType": "AttributeValueEnum"
                                 },
                                 {
-                                    "attrId": "attr-torp-ssk",
-                                    "value": 12,
+                                    "attrId": "attr-torp-ford",
+                                    "value": 3,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-torp-aft",
+                                    "value": 1,
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
@@ -1324,8 +1329,13 @@ const wargame: Wargame =
                                     "attrType": "AttributeValueEnum"
                                 },
                                 {
-                                    "attrId": "attr-torp-ssk",
-                                    "value": 12,
+                                    "attrId": "attr-torp-ford",
+                                    "value": 3,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-torp-aft",
+                                    "value": 1,
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
@@ -2662,11 +2672,18 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "attrId": "attr-torp-ssk",
+                            "attrId": "attr-torp-ford",
                             "attrType": "AttributeTypeNumber",
-                            "defaultValue": 12,
-                            "description": "# of Torpedoes remaining",
-                            "name": "Torpedoes"
+                            "defaultValue": 4,
+                            "description": "# of Forward-facing Torpedoes remaining",
+                            "name": "For'd Torp"
+                        },
+                        {
+                            "attrId": "attr-torp-aft",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 4,
+                            "description": "# of Aft-facing Torpedoes remaining",
+                            "name": "Aft Torp"
                         }
                     ],
                     "conditions": [
