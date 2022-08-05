@@ -64,6 +64,7 @@ export const SettingForces: React.FC<PropTypes> = ({
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force
+      // TODO: strip out un-necessary UI related metadata (`type: "ASSET-ITEM"`)
       handleChangeForces(nextForces)
     }
 
