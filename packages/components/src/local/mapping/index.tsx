@@ -634,12 +634,11 @@ export const Mapping: React.FC<PropTypes> = ({
     // do the external update, depending on which phase this is
     // check which phase we're in
 
-
     // utility function to clean the lat/lng from the marker
     type CleanAnno = Omit<MapAnnotation, 'position'>
     const cleanMarker = (ann: MapAnnotation): CleanAnno => {
       const res = deepCopy(ann)
-      delete res['position']
+      delete res.position
       return res
     }
 

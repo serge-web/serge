@@ -23,11 +23,10 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
   type CleanAnno = Omit<MapAnnotation, 'position'>
   const cleanMarker = (ann: MapAnnotation): CleanAnno => {
     const res = deepCopy(ann)
-    delete res['position']
+    delete res.position
     return res
   }
-  const cleanAnnotations = annotations.map((anno: MapAnnotation):CleanAnno => cleanMarker(anno))
-
+  const cleanAnnotations = annotations.map((anno: MapAnnotation): CleanAnno => cleanMarker(anno))
 
   routes.forEach((route: Route) => {
     const forceId: string = route.actualForceId
@@ -49,12 +48,12 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
           return {
             turn: rTurn.turn,
             status: rTurn.status,
-            route: rTurn.route,
+            route: rTurn.route
           }
         } else {
           return {
             turn: rTurn.turn,
-            status: rTurn.status,
+            status: rTurn.status
           }
         }
       })
