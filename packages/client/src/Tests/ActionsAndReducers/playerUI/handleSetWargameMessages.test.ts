@@ -7,8 +7,12 @@ import { PlayerUi } from '@serge/custom-types'
 
 const playerUi: PlayerUi = {
   isGameControl: true,
+  isUmpire: true,
+  infoMarkers: [],
+  markerIcons: [],
+  playerMessageLog: {},
+  updateMessageState: true,
   isRFIManager: false,
-  rfiMessages: [],
   selectedForce: {
     name: 'Blue',
     uniqid: 'force-k16fdykj',
