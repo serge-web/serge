@@ -22,7 +22,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
     "composite": false,
