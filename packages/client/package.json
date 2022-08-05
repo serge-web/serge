@@ -32,6 +32,7 @@
     "flat": "^4.1.0",
     "flatpickr": "^4.5.7",
     "flexlayout-react": "^0.3.4",
+    "jest": "^26.0.1",
     "jest-mock-console": "^1.0.0",
     "json-metaschema": "^1.2.0",
     "lodash": "^4.17.15",
