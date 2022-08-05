@@ -41,9 +41,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
 
   // initialise, from manager helper
   useEffect(() => {
-    // TODO: the following block is diagnostics, to handle intermittent issue 
+    // TODO: the following block is diagnostics, to handle intermittent issue
     // where an attribute type is missing
-    attributeValues.forEach((value:AttributeValue) => {
+    attributeValues.forEach((value: AttributeValue) => {
       const aType = formData.populate.attributes.find((item: AttributeType) => value.attrId === item.attrId)
       if (!aType) {
         console.error('missing attribute for ', formHeader, ' attribute ', value.attrId, value.attrType, formData.populate.attributes)
