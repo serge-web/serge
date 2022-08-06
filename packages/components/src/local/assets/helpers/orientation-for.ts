@@ -3,7 +3,7 @@ import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
 import { AttributeValue, AttributeValues, NumberAttributeValue, RouteTurn } from '@serge/custom-types'
 import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
-/** retrive the cell at the supplied human-readable coords ("A01")
+/** Determine the orientation direction for this aset
  * @param {string} current - hex cell for current asset location
  * @param {Array<RouteTurn>} history - past cells for this asset
  * @param {Array<RouteTurn>} planned - planned steps for this asset

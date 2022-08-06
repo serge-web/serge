@@ -37,8 +37,10 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   if (imageSrc && isUrl(imageSrc)) {
     try {
       const url = fixUrl(imageSrc)
-      return fetch(url, { method: 'HEAD' })
-        .then(res => res.status !== 404)
+      return new Promise((resolve) => {
+        return fetch(url, { method: 'HEAD' })
+          .then(res => resolve(res.status !== 404))
+      })
     } catch (error) {
       console.warn(`failed to get "${imageSrc}" image`)
     }
@@ -50,7 +52,13 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
   const [loadStatus, setLoadStatus] = useState(true)
 
   useEffect(() => {
-    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
+    const handle = setTimeout(() => {
+      return checkImageStatus(imageSrc)
+        .then(res => setLoadStatus(res))
+        .catch(() => setLoadStatus(false))
+    }, 1000)
+
+    return (): void => clearTimeout(handle)
   }, [imageSrc])
 
   const typePrefix = (icon: string): string => {
