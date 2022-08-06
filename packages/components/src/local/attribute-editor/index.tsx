@@ -73,7 +73,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
   const editorFor = (item: AttributeEditorData, attributes: AttributeTypes, idx: number): any => {
     switch (item.valueType) {
       case ATTRIBUTE_VALUE_NUMBER: {
-        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(parseInt(e.target.value), idx)} />
       }
       case ATTRIBUTE_VALUE_ENUM: {
         const aType = attributes && attributes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType

@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { collateEditorData, isNumber } from '@serge/helpers'
-import { AttributeEditorData, AttributeType, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeType, AttributeValue, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 import AttributeEditor from '../attribute-editor'
 
@@ -41,6 +41,15 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
 
   // initialise, from manager helper
   useEffect(() => {
+    // TODO: the following block is diagnostics, to handle intermittent issue
+    // where an attribute type is missing
+    attributeValues.forEach((value: AttributeValue) => {
+      const aType = formData.populate.attributes.find((item: AttributeType) => value.attrId === item.attrId)
+      if (!aType) {
+        console.error('missing attribute for ', formHeader, ' attribute ', value.attrId, value.attrType, formData.populate.attributes)
+      }
+    })
+
     setAttributes(collateEditorData(attributeValues, formData.populate.attributes))
   }, [attributeValues, formData.populate])
 
