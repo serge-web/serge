@@ -1,7 +1,7 @@
 import { Confirm } from '@serge/components'
-import { RootState, ForceData, ModalData, RoleType, PlatformType, IconOption } from '@serge/custom-types'
+import { Asset, ForceData, IconOption, ModalData, PlatformType, PlatformTypeData, RoleType, RootState } from '@serge/custom-types'
 import '@serge/themes/App.scss'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   clearWargames,
@@ -10,25 +10,53 @@ import {
   deleteSelectedAsset,
   deleteSelectedChannel,
   deleteSelectedForce,
-  deleteSelectedRole
+  deleteSelectedRole,
+  updateForces
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
+
+type PlatformTypeCount = {
+  force: ForceData
+  asset: Asset
+}
 
 const DeleteModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)
-  
+  const { type, data, customMessages } = currentModal.data as ModalData
+  const [message, setMessage] = useState<string>(customMessages && customMessages.message)
+
   if (!currentModal.data) {
     return <></>
   }
+
+  const countPlatformTypeUsed = (): PlatformTypeCount[] => {
+    return wargame.data.forces.forces.reduce((result, force) => {
+      const platformTypeId = (data as PlatformTypeData).uniqid
+      force.assets?.filter(asset => {
+        if (asset.platformTypeId === platformTypeId) {
+          result.push({ force, asset })
+        }
+      })
+      return result
+    }, [] as PlatformTypeCount[])
+  }
+
+  useEffect(() => {
+    if (type === 'platformType') {
+      const platformTypeUsed = countPlatformTypeUsed()
+      if (platformTypeUsed) {
+        setMessage(platformTypeUsed.length ? `${platformTypeUsed.length} Assets of this type will be also be deleted:<br/>${platformTypeUsed.map(item => `<li>${item.asset.name} (${item.force.name})</li>`).join('')}${message}` : message)
+      }
+    }
+  }, [type])
 
   const onHideModal = () => {
     dispatch(modalAction.close())
   }
 
   const onDelete = () => {
-    const { type, data } = currentModal.data as ModalData
     const curTab = wargame.currentTab
 
     switch (type) {
@@ -57,7 +85,22 @@ const DeleteModal = () => {
         break
       }
       case 'platformType': {
-        if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data as PlatformType))
+        if (wargame.currentWargame) {
+          const forcesData: ForceData[] = wargame.data.forces.forces
+          for (const item of countPlatformTypeUsed()) {
+            const newForce = item.force
+            const forceIdx = forcesData.findIndex(force => force.uniqid === newForce.uniqid)
+            newForce.assets = item.force.assets?.filter(a => a.platformTypeId !== item.asset.platformTypeId)
+            forcesData[forceIdx] = newForce
+          }
+          dispatch(updateForces(wargame.currentWargame, forcesData))
+          /**
+           * TODO: should create a new action, check status force update successful then we can dispatch deletePlatformType action
+           */
+          setTimeout(() => {
+            dispatch(deletePlatformType(wargame.currentWargame || '', data as PlatformType))
+          }, 500)
+        }
         break
       }
       case 'annotation': {
@@ -74,13 +117,11 @@ const DeleteModal = () => {
 
   if (!currentModal.open) return <></>
 
-  const { customMessages, type } = currentModal.data as ModalData
-
   return (
     <Confirm
       isOpen={currentModal.open}
       title={customMessages ? customMessages.title : `Delete ${type}`}
-      message={customMessages ? customMessages.message : 'This action is permanent. Are you sure?'}
+      message={customMessages ? message : 'This action is permanent. Are you sure?'}
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
       onCancel={onHideModal}
