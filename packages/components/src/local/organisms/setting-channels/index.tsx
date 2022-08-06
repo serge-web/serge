@@ -305,17 +305,19 @@ export const SettingChannels: React.FC<PropTypes> = ({
       return (
         <div className={styles['chat-configuration']}>
           <FormGroup placeholder="Configuration">
-            <TableContainer component={Paper}>
-              <FormControlLabel
-                label={"Hide message authors"}
-                className={styles.configuration}
-                control={
-                  <Checkbox
-                    onChange={handleCheckbox}
-                    checked={isChecked}
-                  />
-                }
-              />
+            <TableContainer component={Paper} className={styles['paper-container']}>
+              <MoreInfo description='Hide Force and Role for chat message authors'>
+                <FormControlLabel
+                  label={"Hide message authors"}
+                  className={styles.configuration}
+                  control={
+                    <Checkbox
+                      onChange={handleCheckbox}
+                      checked={isChecked}
+                    />
+                  }
+                />
+              </MoreInfo>
             </TableContainer>
           </FormGroup>
         </div>
