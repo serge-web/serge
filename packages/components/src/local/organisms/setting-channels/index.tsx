@@ -77,7 +77,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
   const [problems, setProblems] = useState<string>('')
-  const [isChecked, setChecked] = useState<boolean>(false)
+  const [isChatAuthorHidden, setChatAuthorHidden] = useState<boolean>(false)
 
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
@@ -110,7 +110,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (isChat) {
-      setChecked(!!(localChannelUpdates[selectedItem] as ChannelChat).hideMessageAuthor)
+      setChatAuthorHidden(!!(localChannelUpdates[selectedItem] as ChannelChat).hideMessageAuthor)
     }
   }, [isChat])
 
@@ -298,7 +298,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         const nextChannels: Array<ChannelTypes> = [...localChannelUpdates]
         const chatChannel = nextChannels[selectedItem] as ChannelChat
         chatChannel.hideMessageAuthor = event.target.checked
-        setChecked(event.target.checked)
+        setChatAuthorHidden(event.target.checked)
         handleChangeChannels(nextChannels, chatChannel)
       }
 
@@ -313,7 +313,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   control={
                     <Checkbox
                       onChange={handleCheckbox}
-                      checked={isChecked}
+                      checked={isChatAuthorHidden}
                     />
                   }
                 />
