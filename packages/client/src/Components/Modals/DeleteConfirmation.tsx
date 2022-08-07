@@ -5,13 +5,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   clearWargames,
-  deletePlatformType,
   deleteAnnotation,
   deleteSelectedAsset,
   deleteSelectedChannel,
   deleteSelectedForce,
   deleteSelectedRole,
-  updateForces
+  updateForcesAndDeletePlatformType
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 
@@ -93,13 +92,7 @@ const DeleteModal = () => {
             newForce.assets = item.force.assets?.filter(a => a.platformTypeId !== item.asset.platformTypeId)
             forcesData[forceIdx] = newForce
           }
-          dispatch(updateForces(wargame.currentWargame, forcesData))
-          /**
-           * TODO: should create a new action, check status force update successful then we can dispatch deletePlatformType action
-           */
-          setTimeout(() => {
-            dispatch(deletePlatformType(wargame.currentWargame || '', data as PlatformType))
-          }, 500)
+          dispatch(updateForcesAndDeletePlatformType(wargame.currentWargame, forcesData, data as PlatformType))
         }
         break
       }
