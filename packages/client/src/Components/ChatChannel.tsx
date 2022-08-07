@@ -1,14 +1,13 @@
+import { ChannelMessagesList, ChatEntryForm, ChatMessagesList } from '@serge/components'
+import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
-import { ChatMessagesList, ChatEntryForm, ChannelMessagesList } from '@serge/components'
-import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import {
-  markAllAsRead, markUnread, openMessage, saveMessage,
-  getAllWargameMessages
+  getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import '@serge/themes/App.scss'
+import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import NewMessage from './NewMessage'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
@@ -23,7 +22,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const chatDefinition = channelUI.cData as ChannelChat
-  const [hideAuthor] = useState(!!chatDefinition.hideMessageAuthor)
+  const [hideAuthor] = useState<boolean>(!!chatDefinition.hideMessageAuthor)
 
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
@@ -73,7 +72,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   // will all be chat messages plus turn markers.  But, that doesn't match
   // what data is stored in the the channels dictionary
   const messages = state.channels[channelId].messages as any
-  
+
   const onRead = (detail: MessageCustom): void => {
     dispatch(openMessage(channelId, detail))
   }
@@ -89,7 +88,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     <div className={channelTabClass} data-channel-id={channelId}>
       {
         typeof isCustomChannel === 'boolean' && isCustomChannel
-          ? <ChannelMessagesList 
+          ? <ChannelMessagesList
             messages={messages}
             onRead={onRead}
             playerForceId={selectedForce.name}
@@ -125,19 +124,19 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
           <div className='chat-message-container'>
             {
               typeof isCustomChannel === 'boolean' && isCustomChannel
-                ? <NewMessage 
+                ? <NewMessage
                   orderableChannel={true}
                   curChannel={channelId}
                   privateMessage={!!selectedForce.umpire}
                   templates={channelUI.templates as any}
                 />
-                : <ChatEntryForm 
-                  turnNumber={state.currentTurn} 
-                  from={selectedForce} 
-                  isUmpire={!!isUmpire} 
-                  channel={channelId} 
-                  role={state.selectedRole} 
-                  roleName={state.selectedRoleName} 
+                : <ChatEntryForm
+                  turnNumber={state.currentTurn}
+                  from={selectedForce}
+                  isUmpire={!!isUmpire}
+                  channel={channelId}
+                  role={state.selectedRole}
+                  roleName={state.selectedRoleName}
                   postBack={messageHandler} />
             }
           </div>
