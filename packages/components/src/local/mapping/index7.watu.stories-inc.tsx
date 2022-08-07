@@ -15,6 +15,7 @@ import data from './data/atlantic-cells'
 import Mapping from './index'
 import docs from './README.md'
 import MappingPropTypes from './types/props'
+import { uniq } from 'lodash'
 
 const watuWargame = deepCopy(watuPlaytest) as Wargame
 const forces: ForceData[] = deepCopy(watuWargame.data.forces.forces)
@@ -64,7 +65,7 @@ export default {
   argTypes: {
     playerRole: {
       name: 'View as',
-      defaultValue: allRoles[1],
+      defaultValue: allRoles[2],
       control: {
         type: 'select',
         options: allRoles
@@ -123,9 +124,10 @@ const cleanRoute = (route: RouteTurn[], res: number): RouteTurn[] => {
     const fixedCells = turn.route && turn.route.map((index: string) => {
       return fixIndex(index, res)
     })
+    const deDupe = uniq(fixedCells)
     return {
       turn: turn.turn,
-      route: fixedCells,
+      route: deDupe,
       status: turn.status
     }
   })
