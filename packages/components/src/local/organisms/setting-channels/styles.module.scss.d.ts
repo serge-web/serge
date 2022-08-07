@@ -27,6 +27,9 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
+  'chat-configuration': string;
+  'configuration': string;
+  'paper-container': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
