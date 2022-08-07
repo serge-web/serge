@@ -6,6 +6,7 @@ interface CssExports {
   'header': string;
   'modal': string;
   'row': string;
+  'select': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
