@@ -11,8 +11,10 @@ interface CssExports {
   'arrow-icon': string;
   'box': string;
   'cell-lbl': string;
+  'chat-configuration': string;
   'col': string;
   'col-2': string;
+  'configuration': string;
   'constraints-cell': string;
   'constraints-icon': string;
   'control-groups': string;
@@ -22,14 +24,12 @@ interface CssExports {
   'message-group': string;
   'message-title': string;
   'pager': string;
+  'paper-container': string;
   'row': string;
   'section': string;
   'status-item': string;
   'table': string;
   'title': string;
-  'chat-configuration': string;
-  'configuration': string;
-  'paper-container': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
