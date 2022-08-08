@@ -4,6 +4,6 @@ import { UNKNOWN_TYPE } from "@serge/config"
 export default interface ForceOption {
   name: ForceData['name']
   colour: ForceData['color']
-  /** note: we support undefiend in form-id in case the force is unknown */
+  /** note: we support undefined in form-id in case the force is unknown */
   id: ForceData['uniqid'] | typeof UNKNOWN_TYPE
 }
