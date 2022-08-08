@@ -1,34 +1,69 @@
 import { Confirm } from '@serge/components'
-import { RootState, ForceData, ModalData, RoleType, PlatformType, IconOption } from '@serge/custom-types'
+import { Asset, ForceData, IconOption, ModalData, PlatformType, PlatformTypeData, RoleType, RootState } from '@serge/custom-types'
 import '@serge/themes/App.scss'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   clearWargames,
-  deletePlatformType,
   deleteAnnotation,
   deleteSelectedAsset,
   deleteSelectedChannel,
   deleteSelectedForce,
-  deleteSelectedRole
+  deleteSelectedRole,
+  updateForcesAndDeletePlatformType
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
+
+/** asset, with its parent force */
+type ForcePlusAsset = {
+  readonly force: ForceData
+  readonly asset: Asset
+}
 
 const DeleteModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)
-  
+
+  // check we have necessary data nugget
   if (!currentModal.data) {
+    console.warn('Warning: Delete Confirmation form lacks ModalData data element')
     return <></>
   }
+
+  const { type, data, customMessages } = currentModal.data as ModalData
+  const [message, setMessage] = useState<string>(customMessages && customMessages.message)
+
+  /** for a given platform type id, find all assets of that type. Provide
+   * as array, with parent force details
+   */
+  const findAssetsOfSelectedPlatformType = (forces: ForceData[], platformTypeId: PlatformTypeData['uniqid']): ForcePlusAsset[] => {
+    return forces.reduce((result: ForcePlusAsset[], force: ForceData) => {
+      force.assets?.forEach(asset => {
+        if (asset.platformTypeId === platformTypeId) {
+          result.push({ force, asset })
+        }
+      })
+      return result
+    }, [] as ForcePlusAsset[])
+  }
+
+  useEffect(() => {
+    if (type === 'platformType') {
+      const forces: ForceData[] = wargame.data.forces.forces
+      const platformTypeId = (data as PlatformTypeData).uniqid
+      const platformTypeUsed = findAssetsOfSelectedPlatformType(forces, platformTypeId)
+      if (platformTypeUsed) {
+        setMessage(platformTypeUsed.length ? `${platformTypeUsed.length} assets of this type will be also be deleted:<br/>${platformTypeUsed.map(item => `<li>${item.asset.name} (${item.force.name})</li>`).join('')}${message}` : message)
+      }
+    }
+  }, [type])
 
   const onHideModal = () => {
     dispatch(modalAction.close())
   }
 
   const onDelete = () => {
-    const { type, data } = currentModal.data as ModalData
     const curTab = wargame.currentTab
 
     switch (type) {
@@ -57,7 +92,17 @@ const DeleteModal = () => {
         break
       }
       case 'platformType': {
-        if (wargame.currentWargame) dispatch(deletePlatformType(wargame.currentWargame, data as PlatformType))
+        if (wargame.currentWargame) {
+          const forces: ForceData[] = wargame.data.forces.forces
+          const platformTypeId = (data as PlatformTypeData).uniqid
+          for (const item of findAssetsOfSelectedPlatformType(forces, platformTypeId)) {
+            const newForce = item.force
+            const forceIdx = forces.findIndex(force => force.uniqid === newForce.uniqid)
+            newForce.assets = item.force.assets?.filter(a => a.platformTypeId !== item.asset.platformTypeId)
+            forces[forceIdx] = newForce
+          }
+          dispatch(updateForcesAndDeletePlatformType(wargame.currentWargame, forces, data as PlatformType))
+        }
         break
       }
       case 'annotation': {
@@ -74,13 +119,11 @@ const DeleteModal = () => {
 
   if (!currentModal.open) return <></>
 
-  const { customMessages, type } = currentModal.data as ModalData
-
   return (
     <Confirm
       isOpen={currentModal.open}
       title={customMessages ? customMessages.title : `Delete ${type}`}
-      message={customMessages ? customMessages.message : 'This action is permanent. Are you sure?'}
+      message={customMessages ? message : 'This action is permanent. Are you sure?'}
       cancelBtnText='Cancel'
       confirmBtnText='Delete'
       onCancel={onHideModal}

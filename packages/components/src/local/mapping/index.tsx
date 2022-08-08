@@ -582,12 +582,11 @@ export const Mapping: React.FC<PropTypes> = ({
 
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
-          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
+          const turnData: TurningDetails | undefined = pType.turningCircle ? {
             radius: pType.turningCircle,
             heading: heading,
             distance: distancePerTurnM
           } : undefined
-
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
             travelMode: pType.travelMode,

@@ -225,7 +225,8 @@ export const HexGrid: React.FC<{}> = () => {
   }, [dragDestination3, originHex3])
 
   const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string, cellAhead: string } => {
-    if (details) {
+    // note: the heading value may be missing, if, for example there is currently no back-history
+    if (details && details.heading) {
       // coords of circle
       const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
       const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
