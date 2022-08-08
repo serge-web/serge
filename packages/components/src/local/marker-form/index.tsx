@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
 import { Confirm } from '@serge/components'
 import { DELETE_MARKER, UPDATE_MARKER } from '@serge/config'
-import { IconOption, MapAnnotation } from '@serge/custom-types'
+import { ForceData, IconOption, MapAnnotation } from '@serge/custom-types'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import Forces from '../form-elements/forces'
 import FormGroup from '../form-elements/form-group'
@@ -32,8 +32,8 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     console.warn('marker form - marker icons missing:', icons)
   }
 
-  const changeHandler = (formStateValue: string[]): void => {
-    setFormState({ ...formState, visibleTo: formStateValue })
+  const changeHandler = (data: Array<ForceData['uniqid']>) => {
+    setFormState({ ...formState, visibleTo: data })
   }
 
   useEffect(() => {
