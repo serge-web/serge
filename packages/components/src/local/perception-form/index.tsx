@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
-import { ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
+import { ForceData, ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
 import React, { useContext, useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
 import TextInput from '../atoms/text-input'
@@ -64,9 +64,9 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     )
   }
 
-  const forceHandler = (value: string[]): void => {
+  const forceHandler = (data: Array<ForceData['uniqid']>) => {
     // ok. We need to find which is the new selection
-    const newItem = value.find((id: string) => id !== formState.perceivedForceId)
+    const newItem = data.find((id: string) => id !== formState.perceivedForceId)
     const force = perceivedForces.find((force: ForceOption) => force.id === newItem)
     setFormState(
       {
