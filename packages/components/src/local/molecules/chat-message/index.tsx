@@ -41,13 +41,13 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
       `${styles['chat-message-wrapper']} 
       ${isOwner ? styles['chat-message-wrapper__owner'] : styles['chat-message-wrapper__other']}`
     } style={{ position: 'relative' }}><span
-      className={styles['message-bar']}
-      style={{
-        background: showAuthor ? message.details.from.forceColor : '',
-        left: isOwner ? '99%' : '0%',
-        borderRadius: isOwner ? '0 8px 8px 0' : '8px 0 0 8px'
-      }}
-      onClick={(): void => markUnread && markUnread(message)}></span>
+        className={styles['message-bar']}
+        style={{
+          background: showAuthor ? message.details.from.forceColor : '',
+          left: isOwner ? '99%' : '0%',
+          borderRadius: isOwner ? '0 8px 8px 0' : '8px 0 0 8px'
+        }}
+        onClick={(): void => markUnread && markUnread(message)}></span>
       <div className={styles['message-text']}>{messageContent}</div>
       <Box
         display="flex"
