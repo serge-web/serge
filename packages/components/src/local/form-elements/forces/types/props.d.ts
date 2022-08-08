@@ -15,7 +15,7 @@ export default interface PropTypes {
   /**
    * The id's of selected items
    */
-  value: ForceData['uniqid']
+  value: Array<ForceData['uniqid']>
   /**
    * Sets the onChange state on a parent
    */
