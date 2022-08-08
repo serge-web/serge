@@ -24,12 +24,15 @@ const DeleteModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)
-  const { type, data, customMessages } = currentModal.data as ModalData
-  const [message, setMessage] = useState<string>(customMessages && customMessages.message)
 
+  // check we have necessary data nugget
   if (!currentModal.data) {
+    console.warn('Warning: Delete Confirmation form lacks ModalData data element')
     return <></>
   }
+
+  const { type, data, customMessages } = currentModal.data as ModalData
+  const [message, setMessage] = useState<string>(customMessages && customMessages.message)
 
   /** for a given platform type id, find all assets of that type. Provide
    * as array, with parent force details
