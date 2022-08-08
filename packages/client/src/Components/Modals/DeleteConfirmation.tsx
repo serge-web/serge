@@ -14,9 +14,10 @@ import {
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 
-type PlatformTypeCount = {
-  force: ForceData
-  asset: Asset
+/** asset, with its parent force */
+type ForcePlusAsset = {
+  readonly force: ForceData
+  readonly asset: Asset
 }
 
 const DeleteModal = () => {
@@ -30,23 +31,27 @@ const DeleteModal = () => {
     return <></>
   }
 
-  const countPlatformTypeUsed = (): PlatformTypeCount[] => {
-    return wargame.data.forces.forces.reduce((result, force) => {
-      const platformTypeId = (data as PlatformTypeData).uniqid
-      force.assets?.filter(asset => {
+  /** for a given platform type id, find all assets of that type. Provide
+   * as array, with parent force details
+   */
+  const findAssetsOfSelectedPlatformType = (forces: ForceData[], platformTypeId: PlatformTypeData['uniqid']): ForcePlusAsset[] => {
+    return forces.reduce((result: ForcePlusAsset[], force: ForceData) => {
+      force.assets?.forEach(asset => {
         if (asset.platformTypeId === platformTypeId) {
           result.push({ force, asset })
         }
       })
       return result
-    }, [] as PlatformTypeCount[])
+    }, [] as ForcePlusAsset[])
   }
 
   useEffect(() => {
     if (type === 'platformType') {
-      const platformTypeUsed = countPlatformTypeUsed()
+      const forces: ForceData[] = wargame.data.forces.forces
+      const platformTypeId = (data as PlatformTypeData).uniqid
+      const platformTypeUsed = findAssetsOfSelectedPlatformType(forces, platformTypeId)
       if (platformTypeUsed) {
-        setMessage(platformTypeUsed.length ? `${platformTypeUsed.length} Assets of this type will be also be deleted:<br/>${platformTypeUsed.map(item => `<li>${item.asset.name} (${item.force.name})</li>`).join('')}${message}` : message)
+        setMessage(platformTypeUsed.length ? `${platformTypeUsed.length} assets of this type will be also be deleted:<br/>${platformTypeUsed.map(item => `<li>${item.asset.name} (${item.force.name})</li>`).join('')}${message}` : message)
       }
     }
   }, [type])
@@ -85,14 +90,15 @@ const DeleteModal = () => {
       }
       case 'platformType': {
         if (wargame.currentWargame) {
-          const forcesData: ForceData[] = wargame.data.forces.forces
-          for (const item of countPlatformTypeUsed()) {
+          const forces: ForceData[] = wargame.data.forces.forces
+          const platformTypeId = (data as PlatformTypeData).uniqid
+          for (const item of findAssetsOfSelectedPlatformType(forces, platformTypeId)) {
             const newForce = item.force
-            const forceIdx = forcesData.findIndex(force => force.uniqid === newForce.uniqid)
+            const forceIdx = forces.findIndex(force => force.uniqid === newForce.uniqid)
             newForce.assets = item.force.assets?.filter(a => a.platformTypeId !== item.asset.platformTypeId)
-            forcesData[forceIdx] = newForce
+            forces[forceIdx] = newForce
           }
-          dispatch(updateForcesAndDeletePlatformType(wargame.currentWargame, forcesData, data as PlatformType))
+          dispatch(updateForcesAndDeletePlatformType(wargame.currentWargame, forces, data as PlatformType))
         }
         break
       }
