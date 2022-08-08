@@ -293,7 +293,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
     }
 
     const renderChatOptions = (): React.ReactElement => {
-
       const handleCheckbox = (event: ChangeEvent<HTMLInputElement>): void => {
         const nextChannels: Array<ChannelTypes> = [...localChannelUpdates]
         const chatChannel = nextChannels[selectedItem] as ChannelChat
@@ -308,7 +307,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
             <TableContainer component={Paper} className={styles['paper-container']}>
               <MoreInfo description='Hide Force and Role for chat message authors'>
                 <FormControlLabel
-                  label={"Hide message authors"}
+                  label={'Hide message authors'}
                   className={styles.configuration}
                   control={
                     <Checkbox
