@@ -1,4 +1,4 @@
-import { Button as MUIButton, Divider, TableFooter, TextField } from '@material-ui/core'
+import { Button as MUIButton, Checkbox, Divider, FormControlLabel, TableFooter, TextField } from '@material-ui/core'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
@@ -77,6 +77,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
   const [problems, setProblems] = useState<string>('')
+  const [isChatAuthorHidden, setChatAuthorHidden] = useState<boolean>(false)
 
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
@@ -106,6 +107,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
   }, [selectedItem])
+
+  useEffect(() => {
+    if (isChat) {
+      setChatAuthorHidden(!!(localChannelUpdates[selectedItem] as ChannelChat).hideMessageAuthor)
+    }
+  }, [isChat])
 
   const handleSwitchChannel = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
@@ -283,6 +290,37 @@ export const SettingChannels: React.FC<PropTypes> = ({
         defaultMode='edit'
         actions
       />
+    }
+
+    const renderChatOptions = (): React.ReactElement => {
+      const handleCheckbox = (event: ChangeEvent<HTMLInputElement>): void => {
+        const nextChannels: Array<ChannelTypes> = [...localChannelUpdates]
+        const chatChannel = nextChannels[selectedItem] as ChannelChat
+        chatChannel.hideMessageAuthor = event.target.checked
+        setChatAuthorHidden(event.target.checked)
+        handleChangeChannels(nextChannels, chatChannel)
+      }
+
+      return (
+        <div className={styles['chat-configuration']}>
+          <FormGroup placeholder="Configuration">
+            <TableContainer component={Paper} className={styles['paper-container']}>
+              <MoreInfo description='Hide Force and Role for chat message authors'>
+                <FormControlLabel
+                  label={'Hide message authors'}
+                  className={styles.configuration}
+                  control={
+                    <Checkbox
+                      onChange={handleCheckbox}
+                      checked={isChatAuthorHidden}
+                    />
+                  }
+                />
+              </MoreInfo>
+            </TableContainer>
+          </FormGroup>
+        </div>
+      )
     }
 
     const renderMappingConstraints = (): React.ReactElement => {
@@ -568,7 +606,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
             </div>
           </AccordionDetails>
         </Accordion>
-
       )
     }
 
@@ -643,6 +680,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         </div>
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section, styles.table)}>
+            {isChat && renderChatOptions()}
             {!isCollab && !isMapping &&
               <FormGroup placeholder="Participants and messages">
                 <TableContainer component={Paper}>
@@ -689,7 +727,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     </TableFooter>
                   </Table>
                 </TableContainer>
-
               </FormGroup>
             }
             {isCollab &&

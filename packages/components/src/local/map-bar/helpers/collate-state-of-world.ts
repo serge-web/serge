@@ -1,5 +1,5 @@
 import { STATE_OF_WORLD } from '@serge/config'
-import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld, MapAnnotations } from '@serge/custom-types'
+import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld, MapAnnotations, MapAnnotation } from '@serge/custom-types'
 import { padInteger, deepCopy } from '@serge/helpers'
 
 export const updatePerceptions = (visibleTo: Array<string>, current: Perception[]): Perception[] => {
@@ -18,6 +18,16 @@ export const updatePerceptions = (visibleTo: Array<string>, current: Perception[
 
 const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotations: MapAnnotations): MessageStateOfWorld => {
   const forces: Array<ForceState> = []
+
+  // strip lat/long from annotations
+  type CleanAnno = Omit<MapAnnotation, 'position'>
+  const cleanMarker = (ann: MapAnnotation): CleanAnno => {
+    const res = deepCopy(ann)
+    delete res.position
+    return res
+  }
+  const cleanAnnotations = annotations.map((anno: MapAnnotation): CleanAnno => cleanMarker(anno))
+
   routes.forEach((route: Route) => {
     const forceId: string = route.actualForceId
     // retrieve (or create) an object for this force
@@ -30,13 +40,32 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
     // sort out the visible bits
     const newPerceptions = updatePerceptions(route.visibleTo, route.asset.perceptions)
 
+    // produce a version of the route without all the lat-longs
+    type RouteTurnWithoutLocations = Omit<RouteTurn, 'locations'>
+    const cleanRoute = (route: RouteTurn[]): RouteTurnWithoutLocations[] => {
+      return route.map((rTurn: RouteTurn): RouteTurnWithoutLocations => {
+        if (rTurn.route) {
+          return {
+            turn: rTurn.turn,
+            status: rTurn.status,
+            route: rTurn.route
+          }
+        } else {
+          return {
+            turn: rTurn.turn,
+            status: rTurn.status
+          }
+        }
+      })
+    }
+
     // collate element to represent this asset
     const assetState: AssetState = {
       uniqid: route.uniqid,
       name: route.name,
       condition: route.condition || route.asset.condition,
       perceptions: newPerceptions,
-      history: route.history,
+      history: cleanRoute(route.history),
       position: route.currentPosition
     }
 
@@ -44,7 +73,7 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
       assetState.destroyed = route.asset.destroyed
     } else {
       // remove the first item from planned route
-      const planned = deepCopy(route.planned)
+      const planned = cleanRoute(deepCopy(route.planned))
       const first: RouteTurn | undefined = planned.shift()
       if (first) {
         if (first.route) {
@@ -71,7 +100,7 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number, annotatio
     turn: turnNumber + 1,
     name: 'State of World T' + padInteger(turnNumber),
     forces: forces,
-    mapAnnotations: annotations
+    mapAnnotations: cleanAnnotations
   }
 
   const message: MessageStateOfWorld = {

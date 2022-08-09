@@ -65,12 +65,13 @@ export const InfoMarkers: React.FC<{}> = () => {
       setVisibleMarkers([])
     }
   }, [infoMarkers, isUmpire])
-
   return <>
     <LayerGroup key='info-markers' >{visibleMarkers.map((marker: MapAnnotation) => {
-      const coords = h3ToGeo(marker.location)
-      const location = marker.position || L.latLng(coords[0], coords[1])
-      return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={location} dragged={dragHandler} />
+      if (!marker.position) {
+        const coords = h3ToGeo(marker.location)
+        marker.position = L.latLng(coords[0], coords[1])
+      }
+      return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={marker.position} dragged={dragHandler} />
     })}
     </LayerGroup>
   </>
