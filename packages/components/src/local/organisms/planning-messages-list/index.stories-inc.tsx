@@ -7,7 +7,7 @@ import MessageListPropTypes from './types/props'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import { planningMessages } from '@serge/mocks'
-import { MessageCustom, MessagePlanning } from '@serge/custom-types'
+import { MessagePlanning } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -54,7 +54,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
   }
-  const onRead = (detail: MessageCustom): void => {
+  const onRead = (detail: MessagePlanning): void => {
     const newState = isRead.map((state, id) => {
       if (id === messages.findIndex((item: any) => item._id === detail._id)) {
         state = true
