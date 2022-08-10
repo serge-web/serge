@@ -36,6 +36,7 @@ it('Mapping renders correctly with Route', () => {
     playerForce={'Blue'}
     infoMarkers={[]}
     isGameControl = {true}
+    isUmpire = {true}
     phase={Phase.Planning}
     turnNumber={2}
   >

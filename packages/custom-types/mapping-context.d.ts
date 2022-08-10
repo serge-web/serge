@@ -34,6 +34,10 @@ export default interface MappingContext {
    * (and able to edit info markers)
    */
   isGameControl: Role['isGameControl']
+  /** whether current role is from an umpire force
+   * (force with umpire flag set to true)
+   */
+  isUmpire: boolean
   /**
    * phase of current game
    */

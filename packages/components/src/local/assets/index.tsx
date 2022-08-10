@@ -32,7 +32,8 @@ export const Assets: React.FC<{}> = () => {
     map,
     viewport,
     h3Resolution,
-    assetLaydown
+    assetLaydown,
+    isUmpire
   } = props
 
   const [visibleAssets, setVisibleAssets] = useState<AssetInfo[]>([])
@@ -93,7 +94,9 @@ export const Assets: React.FC<{}> = () => {
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const orientData: OrientationData[] = []
-              thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.forEach((marker: OrientationMarker) => {
+              const canViewOrientation = route.underControlByThisForce
+              console.log('assets', isUmpire)
+              canViewOrientation && thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.forEach((marker: OrientationMarker) => {
                 const orientation = orientationFor(route.currentPosition, route.history, route.planned, route.attributes, marker)
                 if (orientation !== undefined) {
                   const shadeOrientation = marker.attribute !== undefined

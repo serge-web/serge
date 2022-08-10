@@ -77,6 +77,7 @@ export const Mapping: React.FC<PropTypes> = ({
   forces,
   playerForce,
   isGameControl,
+  isUmpire,
   playerRole,
   platforms,
   infoMarkers,
@@ -765,6 +766,8 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  console.log('mapping', isUmpire)
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     h3gridCells,
@@ -775,6 +778,7 @@ export const Mapping: React.FC<PropTypes> = ({
     platforms,
     playerForce,
     isGameControl,
+    isUmpire,
     phase,
     turnNumber,
     planningConstraints,
