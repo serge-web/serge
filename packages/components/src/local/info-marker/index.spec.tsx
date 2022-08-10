@@ -34,6 +34,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     infoMarkers={[]}
     playerForce = 'blue'
     isGameControl = {true}
+    isUmpire = {true}
     phase = {Phase.Planning}
     turnNumber={5}
   ><InfoMarker location={location} icons={icons} locationHex={(marker && marker.location) || 'aa'} marker={marker} /></Mapping>, { attachTo: div })

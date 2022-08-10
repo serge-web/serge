@@ -32,7 +32,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     console.warn('marker form - marker icons missing:', icons)
   }
 
-  const changeHandler = (data: Array<ForceData['uniqid']>) => {
+  const changeHandler = (data: Array<ForceData['uniqid']>): void => {
     setFormState({ ...formState, visibleTo: data })
   }
 

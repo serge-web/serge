@@ -24,6 +24,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     playerForce='blue'
     markerIcons={[]}
     isGameControl={true}
+    isUmpire={true}
     phase={Phase.Planning}
     turnNumber={5}
   >

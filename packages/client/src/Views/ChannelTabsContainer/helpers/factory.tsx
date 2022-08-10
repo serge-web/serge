@@ -129,6 +129,7 @@ const factory = (state: PlayerUi): Factory => {
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       playerRole={state.selectedRole}
       isGameControl={state.isGameControl}
+      isUmpire={state.isUmpire}
       channelID={channelid}
       channel={channel}
       mapPostBack={mapPostBack}

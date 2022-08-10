@@ -28,6 +28,7 @@ it('Mapping renders correctly with HexGrid', () => {
     playerForce={'Blue'}
     infoMarkers={[]}
     isGameControl = {true}
+    isUmpire = {true}
     phase={Phase.Planning}
     turnNumber={5}
   />, { attachTo: div })

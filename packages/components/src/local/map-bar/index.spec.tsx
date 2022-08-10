@@ -26,6 +26,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     markerIcons={[]}
     playerForce = 'blue'
     isGameControl = {false}
+    isUmpire = {true}
     phase={Phase.Planning}
     turnNumber={5}
   ><MapBar /></Mapping>, { attachTo: div })
