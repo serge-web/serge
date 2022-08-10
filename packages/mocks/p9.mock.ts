@@ -1,4 +1,4 @@
-import { Wargame } from "@serge/custom-types";
+import { ParticipantPlanning, Wargame } from "@serge/custom-types";
 
 const game: Wargame = {
   "adjudicationStartTime": "2021-08-10T16:12:25+01:00",
@@ -13,20 +13,18 @@ const game: Wargame = {
             {
               "force": "CTF A",
               "forceUniqid": "Blue",
-              "pType": "ParticipantCustom",
+              "pType": "ParticipantPlanning",
               "roles": [],
               "subscriptionId": "hukqr",
-              "templates": [
-                {
+              "templates": [{
                   "_id": "k16eedkm",
                   "title": "COA"
-                }
-              ]
+              }]
             },
             {
               "force": "Red",
               "forceUniqid": "Red",
-              "pType": "ParticipantCustom",
+              "pType": "ParticipantPlanning",
               "roles": [],
               "subscriptionId": "hukqr",
               "templates": [
@@ -38,7 +36,7 @@ const game: Wargame = {
             },
             {
               "force": "White",
-              "pType": "ParticipantCustom",
+              "pType": "ParticipantPlanning",
               "forceUniqid": "umpire",
               "roles": [
                 "rkrlw6f5f"
