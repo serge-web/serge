@@ -1,8 +1,8 @@
 import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame = {
-    "_id": "2022-08-04T16:19:52.264Z",
-    "_rev": "4-f962943fc11316e829207805c1946f03",
+    "_id": "2022-08-04T17:13:25.662Z",
+    "_rev": "2-5e90ac6cb3d17360bd821bee37973eb9",
     "adjudicationStartTime": "2022-08-02T11:59:27+01:00",
     "wargameList": [],
     "data": {
@@ -280,23 +280,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b2",
                         "force": "force-b1",
-                        "typeId": "a1"
+                        "typeId": "a6",
+                        "name": "B1"
                     }, {
                         "by": "force-b3",
                         "force": "force-b1",
-                        "typeId": "a1"
+                        "typeId": "a6",
+                        "name": "B1"
                     }, {
                         "by": "force-b4",
                         "force": "force-b1",
-                        "typeId": "a1"
+                        "typeId": "a6",
+                        "name": "B1"
                     }, {
                         "by": "force-b5",
                         "force": "force-b1",
-                        "typeId": "a1"
+                        "typeId": "a6",
+                        "name": "B1"
                     }, {
                         "by": "force-r2",
                         "force": "force-b1",
-                        "typeId": "a1"
+                        "typeId": "a6",
+                        "name": "B1"
                     }],
                     "condition": "Working",
                     "attributeValues": [{
@@ -368,19 +373,23 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-b2",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B2"
                     }, {
                         "by": "force-b3",
                         "force": "force-b2",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B2"
                     }, {
                         "by": "force-b4",
                         "force": "force-b2",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B2"
                     }, {
                         "by": "force-b5",
                         "force": "force-b2",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B2"
                     }],
                     "condition": "Working",
                     "position": "89195010627ffff",
@@ -473,23 +482,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-b3",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B3"
                     }, {
                         "by": "force-b2",
                         "force": "force-b3",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B3"
                     }, {
                         "by": "force-b4",
                         "force": "force-b3",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B3"
                     }, {
                         "by": "force-b5",
                         "force": "force-b3",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B3"
                     }, {
                         "by": "force-r2",
                         "force": "force-b3",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B3"
                     }, {
                         "by": "force-green"
                     }],
@@ -612,24 +626,30 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-b4",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B4"
                     }, {
                         "by": "force-b2",
                         "force": "force-b4",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B4"
                     }, {
                         "by": "force-b3",
                         "force": "force-b4",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B4"
                     }, {
                         "by": "force-b5",
                         "force": "force-b4",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B4"
                     }, {
                         "by": "force-r2",
-                        "force": "force-b4"
+                        "force": "force-b4",
+                        "name": "B4"
                     }, {
-                        "by": "force-green"
+                        "by": "force-green",
+                        "name": "B4"
                     }],
                     "condition": "Working",
                     "attributeValues": [{
@@ -722,21 +742,26 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-b5",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B5"
                     }, {
                         "by": "force-b2",
                         "force": "force-b5",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B5"
                     }, {
                         "by": "force-b3",
                         "force": "force-b5",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B5"
                     }, {
                         "by": "force-b4",
                         "force": "force-b5",
-                        "typeId": "a1"
+                        "typeId": "a1",
+                        "name": "B5"
                     }, {
-                        "by": "force-green"
+                        "by": "force-green",
+                        "name": "B5"
                     }],
                     "condition": "Working",
                     "attributeValues": [{
@@ -894,7 +919,8 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-r1",
                         "force": "force-r2",
-                        "typeId": "a7"
+                        "typeId": "a7",
+                        "name": "R2"
                     }],
                     "condition": "Working",
                     "attributeValues": [{
@@ -941,23 +967,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G1"
                     }, {
                         "by": "force-b2",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G1"
                     }, {
                         "by": "force-b3",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G1"
                     }, {
                         "by": "force-b4",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G1"
                     }, {
                         "by": "force-b5",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G1"
                     }],
                     "platformType": "Merchant vessel",
                     "platformTypeId": "a13",
@@ -1061,23 +1092,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G2"
                     }, {
                         "by": "force-b2",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G2"
                     }, {
                         "by": "force-b3",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G2"
                     }, {
                         "by": "force-b4",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G2"
                     }, {
                         "by": "force-b5",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G2"
                     }],
                     "platformType": "Merchant vessel",
                     "platformTypeId": "a13",
@@ -1161,23 +1197,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G3"
                     }, {
                         "by": "force-b2",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G3"
                     }, {
                         "by": "force-b3",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G3"
                     }, {
                         "by": "force-b4",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G3"
                     }, {
                         "by": "force-b5",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G3"
                     }, {
                         "by": "force-r2",
                         "force": "force-green",
@@ -1271,24 +1312,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b2",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G4"
                     }, {
                         "by": "force-b3",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G4"
                     }, {
                         "by": "force-b4",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G4"
                     }, {
                         "by": "force-b5",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G4"
                     }, {
                         "by": "force-b1",
                         "force": "force-green",
                         "typeId": "a13",
-                        "name": "C404"
+                        "name": "G4"
                     }],
                     "condition": "Working",
                     "attributeValues": [],
@@ -1371,23 +1416,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b1",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G5"
                     }, {
                         "by": "force-b2",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G5"
                     }, {
                         "by": "force-b3",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G5"
                     }, {
                         "by": "force-b4",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G5"
                     }, {
                         "by": "force-b5",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G5"
                     }],
                     "condition": "Working",
                     "attributeValues": [],
@@ -1498,30 +1548,28 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b3",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G6"
                     }, {
                         "by": "force-b4",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G6"
                     }, {
                         "by": "force-b5",
                         "force": "force-green",
-                        "typeId": "a13"
+                        "typeId": "a13",
+                        "name": "G6"
                     }, {
                         "by": "force-b1",
                         "force": "force-green",
                         "typeId": "a13",
-                        "name": "C914"
-                    }, {
-                        "by": "fl6506vlo",
-                        "force": "force-green",
-                        "typeId": "a13",
-                        "name": "C914"
+                        "name": "G6"
                     }, {
                         "by": "force-b2",
                         "force": "force-green",
                         "typeId": "a13",
-                        "name": "C914"
+                        "name": "G6"
                     }],
                     "condition": "Working",
                     "attributeValues": [],
