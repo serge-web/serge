@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
-import { CUSTOM_MESSAGE } from '@serge/config'
+import { PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 
@@ -20,7 +20,7 @@ describe('ChannelMessagesList component: ', () => {
     ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: MessagePlanning[] = [{
-      messageType: CUSTOM_MESSAGE,
+      messageType: PLANNING_MESSAGE,
       details: {
         channel: 'channel-k63pjit0',
         from: {

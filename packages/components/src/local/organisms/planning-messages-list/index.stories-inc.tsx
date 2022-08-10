@@ -8,7 +8,7 @@ import PlanningMessagesList from './index'
 import docs from './README.md'
 import { planningMessages } from '@serge/mocks'
 import { MessageCustom, MessagePlanning } from '@serge/custom-types'
-import { mostRecentOnly } from '@serge/helpers'
+import { mostRecentPlanningOnly } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -23,12 +23,6 @@ export default {
     }
   },
   argTypes: {
-    isRFIManager: {
-      description: 'Whether current player is RFI manager'
-    },
-    hideForcesInChannel: {
-      description: 'Whether to hide forces in channel'
-    },
     playerForceId: {
       name: 'Player force',
       defaultValue: 'Blue',
@@ -71,7 +65,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   }
 
   // remove later versions
-  const newestMessages = mostRecentOnly(messages)
+  const newestMessages = mostRecentPlanningOnly(planningMessages)
 
   return <PlanningMessagesList
     messages={newestMessages}

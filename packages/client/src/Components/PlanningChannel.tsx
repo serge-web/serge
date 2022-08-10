@@ -1,4 +1,4 @@
-import { ChannelMessagesList } from '@serge/components'
+import { PlanningMessagesList } from '@serge/components'
 import { ChannelPlanning, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import React, { useEffect, useState } from 'react'
 import {
@@ -53,7 +53,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      <ChannelMessagesList
+      <PlanningMessagesList
         messages={messages}
         onRead={onRead}
         playerForceId={selectedForce.name}
