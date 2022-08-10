@@ -173,7 +173,6 @@ const Template: Story<StoryPropTypes> = (args) => {
     isGameControl,
     phase,
     gameTurnTime,
-    isUmpire,
     ...props
   } = args
   const roleStr: string = playerRole
