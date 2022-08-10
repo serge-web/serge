@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
+import { PLANNING_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 import { MessagePlanning, Role } from '@serge/custom-types'
 import { forces } from "./forces.mock";
 
@@ -6,9 +6,9 @@ const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
 const redCO: Role = forces[2].roles[0]
 
-export const messageDataCollaborativeEditing: MessagePlanning[] = [
+export const planningMessages: MessagePlanning[] = [
   {
-    messageType: CUSTOM_MESSAGE,
+    messageType: PLANNING_MESSAGE,
     details: {
       channel: 'channel-BlueRFI',
       archived: true,
@@ -96,7 +96,7 @@ export const messageDataCollaborativeEditing: MessagePlanning[] = [
     hasBeenRead: false
   },
   {
-    messageType: CUSTOM_MESSAGE,
+    messageType: PLANNING_MESSAGE,
     details: {
       channel: 'Red RFI',
       from: {
@@ -184,7 +184,7 @@ export const messageDataCollaborativeEditing: MessagePlanning[] = [
     hasBeenRead: false
   },
   {
-    messageType: CUSTOM_MESSAGE,
+    messageType: PLANNING_MESSAGE,
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -278,7 +278,7 @@ export const messageDataCollaborativeEditing: MessagePlanning[] = [
     hasBeenRead: false
   },
   {
-    messageType: CUSTOM_MESSAGE,
+    messageType: PLANNING_MESSAGE,
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -358,7 +358,7 @@ export const messageDataCollaborativeEditing: MessagePlanning[] = [
     hasBeenRead: false
   },
   {
-    messageType: CUSTOM_MESSAGE,
+    messageType: PLANNING_MESSAGE,
     details: {
       channel: 'channel-ks8soryj',
       from: {
