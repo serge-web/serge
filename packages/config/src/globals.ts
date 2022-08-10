@@ -80,12 +80,14 @@ export const CHANNEL_MAPPING = 'mapping'
 export const CHANNEL_CHAT = 'ChannelChat'
 export const CHANNEL_CUSTOM = 'ChannelCustom'
 export const CHANNEL_COLLAB = 'ChannelCollab'
+export const CHANNEL_PLANNING = 'ChannelPlanning'
 
 // types of participant
 export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
 export const PARTICIPANT_MAPPING = 'ParticipantMapping'
+export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
 
 // types of attribute
 export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
