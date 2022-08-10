@@ -176,15 +176,15 @@ const Template: Story<StoryPropTypes> = (args) => {
     isUmpire,
     ...props
   } = args
-  if (isUmpire && !isUmpire) {
-    console.log('keep compiler happy, one linter needs isUmpire to be defined, another says it\'s unused')
-  }
   const roleStr: string = playerRole
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
   const isGameControlRole = roleStr === allRoles[0]
+  if (isUmpire && ind === 143) {
+    console.log('keep compiler happy, one linter needs isUmpire to be defined, another says it\'s unused')
+  }
   const isUmpireForce = isGameControlRole
   return (
     <Mapping
