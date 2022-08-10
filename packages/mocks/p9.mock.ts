@@ -1,4 +1,4 @@
-import { ParticipantPlanning, Wargame } from "@serge/custom-types";
+import { Wargame } from "@serge/custom-types";
 
 const game: Wargame = {
   "adjudicationStartTime": "2021-08-10T16:12:25+01:00",
