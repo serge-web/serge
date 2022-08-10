@@ -173,6 +173,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     isGameControl,
     phase,
     gameTurnTime,
+    isUmpire,
     ...props
   } = args
   const roleStr: string = playerRole
@@ -181,11 +182,16 @@ const Template: Story<StoryPropTypes> = (args) => {
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
   const isGameControlRole = roleStr === allRoles[0]
+  if (isUmpire && ind === 143) {
+    console.log('keep compiler happy, one linter needs isUmpire to be defined, another says it\'s unused')
+  }
+  const isUmpireForce = isGameControlRole
   return (
     <Mapping
       playerForce={force}
       gameTurnTime={gameTurnTime}
       isGameControl={isGameControlRole}
+      isUmpire={isUmpireForce}
       playerRole={role}
       fetchOverride={fetchMock}
       phase={phase}

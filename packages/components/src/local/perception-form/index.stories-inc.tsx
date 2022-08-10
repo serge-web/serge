@@ -56,6 +56,7 @@ export const Default: React.FC = () => <Mapping
   infoMarkers={infoMarkers}
   playerForce={forces[1].uniqid}
   isGameControl = {true}
+  isUmpire = {true}
   platforms={platformTypes || []}
   phase={Phase.Adjudication}
   turnNumber={5}

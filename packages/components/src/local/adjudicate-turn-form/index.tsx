@@ -97,7 +97,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const visibleHandler = (data: Array<ForceData['uniqid']>) => {
+  const visibleHandler = (data: Array<ForceData['uniqid']>): void => {
     setVisibleVal(data)
     manager && manager.setCurrentVisibleTo(data)
   }

@@ -64,7 +64,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     )
   }
 
-  const forceHandler = (data: Array<ForceData['uniqid']>) => {
+  const forceHandler = (data: Array<ForceData['uniqid']>): void => {
     // ok. We need to find which is the new selection
     const newItem = data.find((id: string) => id !== formState.perceivedForceId)
     const force = perceivedForces.find((force: ForceOption) => force.id === newItem)
