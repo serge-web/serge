@@ -42,7 +42,7 @@ describe('ChannelMessagesList component: ', () => {
       },
       _id: '2020-03-25T15:08:47.520Z',
       _rev: '1',
-      hasBeenRead: false,
+      hasBeenRead: false
     }]
 
     const tree = renderer
