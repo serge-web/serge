@@ -280,27 +280,27 @@ const wargame: Wargame = {
                     "perceptions": [{
                         "by": "force-b2",
                         "force": "force-b1",
-                        "typeId": "a1",
+                        "typeId": "a6",
                         "name": "B1"
                     }, {
                         "by": "force-b3",
                         "force": "force-b1",
-                        "typeId": "a1",
+                        "typeId": "a6",
                         "name": "B1"
                     }, {
                         "by": "force-b4",
                         "force": "force-b1",
-                        "typeId": "a1",
+                        "typeId": "a6",
                         "name": "B1"
                     }, {
                         "by": "force-b5",
                         "force": "force-b1",
-                        "typeId": "a1",
+                        "typeId": "a6",
                         "name": "B1"
                     }, {
                         "by": "force-r2",
                         "force": "force-b1",
-                        "typeId": "a1",
+                        "typeId": "a6",
                         "name": "B1"
                     }],
                     "condition": "Working",
