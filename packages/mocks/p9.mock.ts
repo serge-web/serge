@@ -1092,11 +1092,11 @@ const game: Wargame = {
   "gameTurn": 6,
   "infoType": true,
   "messageType": "InfoMessage",
-  "name": "wargame-kqgy546g",
+  "name": "wargame-l6nngxlk",
   "phase": "planning",
   "turnEndTime": "2021-08-10T16:17:26+01:00",
   "wargameInitiated": true,
-  "wargameTitle": "P9 Mock Wargame"
+  "wargameTitle": "P9 Test"
 }
 
 export default game
