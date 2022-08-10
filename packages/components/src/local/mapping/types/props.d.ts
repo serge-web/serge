@@ -41,7 +41,7 @@ export default interface PropTypes {
    */
   isGameControl: boolean
   /** if the current player is from an umpire force
-   * 
+   *
    */
   isUmpire: boolean
   /** current phase of game

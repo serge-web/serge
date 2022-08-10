@@ -718,7 +718,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const viewAsCallback = (force: ForceData['uniqid']): void => {
     setViewAsForce(force)
     // see if this is player viewing as an umpire force
-    const theForce =forcesState.find((forceD: ForceData) => forceD.uniqid === force)
+    const theForce = forcesState.find((forceD: ForceData) => forceD.uniqid === force)
     setViewAsUmpire(!!(theForce && theForce.umpire))
   }
 
