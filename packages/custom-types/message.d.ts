@@ -90,14 +90,13 @@ export interface MessageStructure {
  * detail as required for PlanningChannel
  */
 export interface PlanningMessageStructure {
-  title?: string
-  content?: string
+  /** unique id for this message thread */
+  Reference: string
   /** start-time of this plan */
   startDate?: string
   /** end-time of this plan */
   endDate?: string
-  /** remainder of message template
-   */
+  /** remainder of fields generated from message template */
   [property: string]: any
 }
 
@@ -192,7 +191,7 @@ export interface ChatMessage extends CoreMessage {
 }
 
 /** messages being used in support of planning */
-export interface PlanningMessage extends CoreMessage {
+export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
   message: PlanningMessageStructure
   /** whether this message has been read on the current client */
