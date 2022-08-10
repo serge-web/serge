@@ -1,8 +1,8 @@
 import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame = {
-    "_id": "2022-08-04T16:19:52.264Z",
-    "_rev": "4-f962943fc11316e829207805c1946f03",
+    "_id": "2022-08-04T17:13:25.662Z",
+    "_rev": "2-5e90ac6cb3d17360bd821bee37973eb9",
     "adjudicationStartTime": "2022-08-02T11:59:27+01:00",
     "wargameList": [],
     "data": {
