@@ -28,8 +28,8 @@ export interface ParticipantCustom extends CoreParticipant {
 }
 
 /** participation in planning channels */
-export interface ParticipantChannel extends CoreParticipant {
-  readonly pType: typeof PARTICIPANT_CHANNEL
+export interface ParticipantPlanning extends CoreParticipant {
+  readonly pType: typeof PARTICIPANT_PLANNING
   // the templates this participant can create
   templates: ParticipantTemplate[],
 }
@@ -63,4 +63,4 @@ export interface ParticipantCollab extends CoreParticipant {
   permission: CollaborativePermission
 } 
 
-export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping
+export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping | ParticipantPlanning
