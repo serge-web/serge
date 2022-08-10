@@ -54,6 +54,9 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 export const CHAT_MESSAGE = 'ChatMessage'
 
 // series of constants used for `messageType` when sending feedback
+export const PLANNING_MESSAGE = 'PlanningMessage'
+
+// series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when using Counter message for COA and RFI messages
