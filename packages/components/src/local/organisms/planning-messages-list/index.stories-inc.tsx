@@ -81,16 +81,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
   />
 }
 
-export const LocalTest = Template.bind({})
-LocalTest.args = {
+export const Default = Template.bind({})
+Default.args = {
   messages: [],
   playerForceId: 'Blue',
   hideForcesInChannel: true
-}
-
-export const RFITest = Template.bind({})
-RFITest.args = {
-  messages: planningMessages as unknown as MessagePlanning[],
-  playerForceId: 'Blue',
-  hideForcesInChannel: false
 }
