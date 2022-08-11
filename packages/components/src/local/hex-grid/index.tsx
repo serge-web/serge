@@ -754,7 +754,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
     { /*  - show number of visible cells */}
-    {viewport &&
+    { viewport &&
       <Marker
         key={'num_vis_cells'}
         position={viewport.getCenter()}
