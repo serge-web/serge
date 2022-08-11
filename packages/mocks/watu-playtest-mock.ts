@@ -854,10 +854,6 @@ const wargame: Wargame = {
                     "perceptions": [],
                     "condition": "Working",
                     "attributeValues": [{
-                        "attrId": "ssk-depth",
-                        "value": "Deep",
-                        "attrType": "AttributeValueEnum"
-                    }, {
                         "attrId": "attr-torp-ford",
                         "value": 3,
                         "attrType": "AttributeValueNumber"
@@ -924,10 +920,6 @@ const wargame: Wargame = {
                     }],
                     "condition": "Working",
                     "attributeValues": [{
-                        "attrId": "ssk-depth",
-                        "value": "Deep",
-                        "attrType": "AttributeValueEnum"
-                    }, {
                         "attrId": "attr-torp-ford",
                         "value": 3,
                         "attrType": "AttributeValueNumber"
@@ -1767,14 +1759,6 @@ const wargame: Wargame = {
                 "uniqid": "a6"
             }, {
                 "attributeTypes": [{
-                    "attrId": "ssk-depth",
-                    "attrType": "AttributeTypeEnum",
-                    "defaultValue": "Deep",
-                    "description": "Depth",
-                    "editableByPlayer": true,
-                    "name": "Depth",
-                    "values": ["Deep", "PD", "Shallow"]
-                }, {
                     "attrId": "attr-torp-ford",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 4,
@@ -1791,16 +1775,15 @@ const wargame: Wargame = {
                 "icon": "ssk.svg",
                 "name": "SSK",
                 "speedKts": [3, 6, 9, 12, 15, 18, 21, 24],
-                "states": [{
-                    "mobile": true,
-                    "name": "Transiting"
-                }, {
-                    "mobile": true,
-                    "name": "Aggressove"
-                }, {
-                    "mobile": true,
-                    "name": "Evasive"
-                }],
+                "states": [
+                    { "mobile": true, "name": "Deep transit"}, 
+                    { "mobile": true, "name": "Deep evade"}, 
+                    { "mobile": true, "name": "PD search"}, 
+                    { "mobile": true, "name": "PD evade"}, 
+                    { "mobile": true, "name": "PD launch torpedoes"}, 
+                    { "mobile": true, "name": "Surface search"}, 
+                    { "mobile": true, "name": "Surface attack"}, 
+                    { "mobile": true, "name": "Surface evade"}],
                 "travelMode": "sea",
                 "uniqid": "a7",
                 "turningCircle": 400
