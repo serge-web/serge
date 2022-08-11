@@ -867,14 +867,14 @@ const wargame: Wargame = {
                         "turn": 3,
                         "route": ["891950172afffff", "891950172a3ffff"],
                         "status": {
-                            "state": "Transiting",
+                            "state": "PD search",
                             "speedKts": 3
                         }
                     }, {
                         "turn": 4,
                         "route": ["891950172a3ffff", "891950172abffff"],
                         "status": {
-                            "state": "Transiting",
+                            "state": "PD search",
                             "speedKts": 3
                         }
                     }],
@@ -882,12 +882,12 @@ const wargame: Wargame = {
                         "turn": 2,
                         "route": ["891950173dbffff", "891950172afffff"],
                         "status": {
-                            "state": "Transiting",
+                            "state": "PD search",
                             "speedKts": 3
                         }
                     }],
                     "status": {
-                        "state": "Transiting",
+                        "state": "PD search",
                         "speedKts": 3
                     }
                 }]
@@ -933,7 +933,7 @@ const wargame: Wargame = {
                         "turn": 3,
                         "route": ["89195010da7ffff", "89195010da3ffff"],
                         "status": {
-                            "state": "Transiting",
+                            "state": "PD search",
                             "speedKts": 3
                         }
                     }],
@@ -941,12 +941,12 @@ const wargame: Wargame = {
                         "turn": 2,
                         "route": ["891950172dbffff", "89195010da7ffff"],
                         "status": {
-                            "state": "Transiting",
+                            "state": "PD search",
                             "speedKts": 3
                         }
                     }],
                     "status": {
-                        "state": "Transiting",
+                        "state": "PD search",
                         "speedKts": 3
                     }
                 }]
