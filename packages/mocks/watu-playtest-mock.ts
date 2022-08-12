@@ -1,8 +1,6 @@
 import { Wargame } from "@serge/custom-types";
 
 const wargame: Wargame = {
-    "_id": "2022-08-04T17:13:25.662Z",
-    "_rev": "5-a6500e5ed7679951c28470d060c06bb6",
     "adjudicationStartTime": "2022-08-02T11:59:27+01:00",
     "wargameList": [],
     "data": {
@@ -364,7 +362,7 @@ const wargame: Wargame = {
                         {
                             "uniqid": "al65069c1",
                             "contactId": "C777",
-                            "name": "B1a",
+                            "name": "B1",
                             "platformType": "Destroyer",
                             "platformTypeId": "a6",
                             "perceptions": [
@@ -2555,12 +2553,20 @@ const wargame: Wargame = {
                     ],
                     "states": [
                         {
+                            "mobile": false,
+                            "name": "Deep stationary"
+                        },
+                        {
                             "mobile": true,
                             "name": "Deep transit"
                         },
                         {
                             "mobile": true,
                             "name": "Deep evade"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "PD stationary"
                         },
                         {
                             "mobile": true,
@@ -2638,7 +2644,7 @@ const wargame: Wargame = {
         }
     },
     "gameTurn": 2,
-    "name": "wargame-l28tfdz0",
+    "name": "wargame-l63jlces",
     "phase": "planning",
     "turnEndTime": "2022-08-02T12:08:59+01:00",
     "wargameInitiated": true,

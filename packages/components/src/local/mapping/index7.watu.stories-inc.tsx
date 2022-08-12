@@ -65,7 +65,7 @@ export default {
   argTypes: {
     playerRole: {
       name: 'View as',
-      defaultValue: allRoles[1],
+      defaultValue: allRoles[0],
       control: {
         type: 'select',
         options: allRoles
