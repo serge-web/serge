@@ -1776,8 +1776,10 @@ const wargame: Wargame = {
                 "name": "SSK",
                 "speedKts": [3, 6, 9, 12, 15, 18, 21, 24],
                 "states": [
+                    { "mobile": false, "name": "Deep stationary"}, 
                     { "mobile": true, "name": "Deep transit"}, 
                     { "mobile": true, "name": "Deep evade"}, 
+                    { "mobile": false, "name": "PD stationary"}, 
                     { "mobile": true, "name": "PD search"}, 
                     { "mobile": true, "name": "PD evade"}, 
                     { "mobile": true, "name": "PD launch torpedoes"}, 
