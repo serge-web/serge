@@ -7,7 +7,7 @@ import PropTypes from './types/props'
 import { MapContext } from '../mapping'
 import RouteData from './types/route-data'
 
-import createTurnMarkers from './helpers/create-turn-markers'
+import createTurnMarkers, { HISTORY_MARKER, PLANNED_MARKER } from './helpers/create-turn-markers'
 import { historicRoutesFor } from './helpers/historic-routes-for'
 import { plannedRoutesFor } from './helpers/planned-routes-for'
 import { LaydownPhases } from '@serge/config'
@@ -36,12 +36,12 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
         // start with historic
         const historyRoute: RouteData = historicRoutesFor(route.currentLocation2, route.history)
         setHistoryRoutes(historyRoute)
-        setHistoryTurnMarkers(createTurnMarkers(historyRoute, 'history', color, selected, clearRouteHandler))
+        setHistoryTurnMarkers(createTurnMarkers(historyRoute, HISTORY_MARKER, color, selected, clearRouteHandler))
 
         // now planned
         const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation2, route.plannedTrimmed)
         setPlannedRoutes(plannedRoute)
-        setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))
+        setPlannedTurnMarkers(createTurnMarkers(plannedRoute, PLANNED_MARKER, color, selected, clearRouteHandler))
       } else {
         setHistoryRoutes(undefined)
         setHistoryTurnMarkers([])

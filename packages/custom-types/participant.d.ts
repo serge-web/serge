@@ -1,6 +1,6 @@
 import Role from './role'
 import ForceData from './force-data'
-import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_PLANNING, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from '@serge/config'
 import Asset from './asset'
 
 export interface ParticipantTemplate {
@@ -23,6 +23,13 @@ export interface CoreParticipant {
 /** participation in standard channels */
 export interface ParticipantCustom extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_CUSTOM
+  // the templates this participant can create
+  templates: ParticipantTemplate[],
+}
+
+/** participation in planning channels */
+export interface ParticipantPlanning extends CoreParticipant {
+  readonly pType: typeof PARTICIPANT_PLANNING
   // the templates this participant can create
   templates: ParticipantTemplate[],
 }
@@ -56,4 +63,4 @@ export interface ParticipantCollab extends CoreParticipant {
   permission: CollaborativePermission
 } 
 
-export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping
+export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping | ParticipantPlanning
