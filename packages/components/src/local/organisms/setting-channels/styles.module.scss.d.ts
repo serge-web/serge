@@ -30,6 +30,7 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
+  'channelName': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
