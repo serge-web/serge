@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Support Panel component:  renders component correctly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="panel"
+    style={
+      Object {
+        "visibility": "hidden",
+      }
+    }
+  >
+    <div
+      className="react-draggable"
+      onMouseDown={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      style={
+        Object {
+          "boxSizing": "border-box",
+          "cursor": "auto",
+          "display": "flex",
+          "flexShrink": 0,
+          "height": "100%",
+          "left": 0,
+          "maxHeight": "100%",
+          "maxWidth": "80%",
+          "minHeight": "100%",
+          "minWidth": 335,
+          "position": "unset",
+          "top": 0,
+          "transform": "translate(0px,0px)",
+          "userSelect": "auto",
+          "width": "335px",
+        }
+      }
+      transform={null}
+    >
+      <div
+        className="content"
+      >
+        <div
+          className="tab-panel"
+          hidden={false}
+        >
+          My Force
+        </div>
+        <div
+          className="tab-panel"
+          hidden={true}
+        >
+          My Orders
+        </div>
+        <div
+          className="tab-panel"
+          hidden={true}
+        >
+          OPFOR
+        </div>
+      </div>
+      <div>
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "cursor": "row-resize",
+              "height": "10px",
+              "left": "0px",
+              "position": "absolute",
+              "top": "-5px",
+              "userSelect": "none",
+              "width": "100%",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "cursor": "col-resize",
+              "height": "100%",
+              "position": "absolute",
+              "right": "-5px",
+              "top": "0px",
+              "userSelect": "none",
+              "width": "10px",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "bottom": "-5px",
+              "cursor": "row-resize",
+              "height": "10px",
+              "left": "0px",
+              "position": "absolute",
+              "userSelect": "none",
+              "width": "100%",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "cursor": "col-resize",
+              "height": "100%",
+              "left": "-5px",
+              "position": "absolute",
+              "top": "0px",
+              "userSelect": "none",
+              "width": "10px",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "cursor": "ne-resize",
+              "height": "20px",
+              "position": "absolute",
+              "right": "-10px",
+              "top": "-10px",
+              "userSelect": "none",
+              "width": "20px",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "bottom": "-10px",
+              "cursor": "se-resize",
+              "height": "20px",
+              "position": "absolute",
+              "right": "-10px",
+              "userSelect": "none",
+              "width": "20px",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "bottom": "-10px",
+              "cursor": "sw-resize",
+              "height": "20px",
+              "left": "-10px",
+              "position": "absolute",
+              "userSelect": "none",
+              "width": "20px",
+            }
+          }
+        />
+        <div
+          className=""
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "cursor": "nw-resize",
+              "height": "20px",
+              "left": "-10px",
+              "position": "absolute",
+              "top": "-10px",
+              "userSelect": "none",
+              "width": "20px",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="actionTab"
+    >
+      <p
+        className="active"
+        onClick={[Function]}
+      >
+        My Force
+      </p>
+      <p
+        className=""
+        onClick={[Function]}
+      >
+        My Orders
+      </p>
+      <p
+        className=""
+        onClick={[Function]}
+      >
+        OPFOR
+      </p>
+    </div>
+  </div>
+  <div
+    className="actionTab secondaryActionTab"
+  >
+    <p
+      className="active"
+      onClick={[Function]}
+    >
+      My Force
+    </p>
+    <p
+      className=""
+      onClick={[Function]}
+    >
+      My Orders
+    </p>
+    <p
+      className=""
+      onClick={[Function]}
+    >
+      OPFOR
+    </p>
+  </div>
+</div>
+`;

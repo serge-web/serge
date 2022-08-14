@@ -1,14 +1,10 @@
 import React from 'react'
-
-/* Import Types */
 import PropTypes from './types/props'
+import styles from './styles.module.scss'
 
-/* Render component */
-export const PlanningMessagesList: React.FC<PropTypes> = ({
-  messages
-}: PropTypes) => {
+export const PlanningMessagesList: React.FC<PropTypes> = ({ messages }: PropTypes) => {
   return (
-    <div>
+    <div className={styles['messages-list']}>
       Render planning messages in table here. Message count:{messages.length}
     </div>
   )
