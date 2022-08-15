@@ -11,6 +11,7 @@ interface CssExports {
   'arrow-icon': string;
   'box': string;
   'cell-lbl': string;
+  'channelName': string;
   'chat-configuration': string;
   'col': string;
   'col-2': string;
@@ -30,7 +31,6 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
-  'channelName': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

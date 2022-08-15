@@ -9,7 +9,7 @@ import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from '@serge/config'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
@@ -57,7 +57,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     onSidebarClick && onSidebarClick(_item as ChannelTypes)
   }
 
-  const renderChannelContent = (): React.ReactNode => {
+  const renderChannelContent = useMemo(() => {
     const channelType = (selectedChannelState && selectedChannelState.channelType)
     switch (channelType) {
       case CHANNEL_COLLAB:
@@ -93,7 +93,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       default:
         return <div>Legacy/Unsupported channel type. Not rendered.</div>
     }
-  }
+  }, [selectedChannelId])
 
   useEffect(() => {
     setSelectedItem(Math.max(selectedChannelId, 0))
@@ -103,7 +103,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const addNewChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
     const channelD = createdChannel as unknown as ChannelTypes
-    localChannelUpdates.push(channelD)
+    localChannelUpdates.unshift(channelD)
+    setOpen(false)
     onCreate && onCreate(createdChannel.name, createdChannel)
     onChange({ channels: localChannelUpdates, selectedChannel: channelD })
   }
@@ -116,7 +117,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setOpen(false)
   }
 
-  const renderChannelActions = (): React.ReactNode => {
+  const renderChannelActions = useMemo(() => {
     return <div className={styles.actions}>
       <ButtonGroup
         variant="contained"
@@ -159,12 +160,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
         )}
       </Popper>
     </div>
-  }
+  }, [open])
 
   return (
     <AdminContent>
       <LeftSide>
-        {renderChannelActions()}
+        {renderChannelActions}
         <EditableList
           title="Add Channel"
           items={channels}
@@ -204,7 +205,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
             </Button>
           </div>
         </div>
-        {renderChannelContent()}
+        {renderChannelContent}
       </RightSide>
     </AdminContent>
   )
