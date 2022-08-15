@@ -178,7 +178,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         if (!access.active || !access.active.length) {
           // there zero roles, provided, but one must be
           return 'Role must be provided when asset control specified'
-        } else if (access.active.length) {
+        } else {
           // there is more than one role specified, we can't allow that
           return 'Only one role can be specified if controlling assets'
         }
