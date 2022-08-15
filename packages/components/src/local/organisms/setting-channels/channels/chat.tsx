@@ -12,31 +12,22 @@ import cx from 'classnames'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import Confirm from '../../../atoms/confirm'
 import FormGroup from '../../../atoms/form-group-shadow'
-import EditableRow, { Item as RowItem, Option } from '../../../molecules/editable-row'
+import EditableRow, { EDITABLE_SELECT_ITEM, Item as RowItem } from '../../../molecules/editable-row'
+import { Option, SelectItem } from '../../../molecules/editable-row/types/props'
 import MoreInfo from '../../../molecules/more-info'
-import createParticipant from '../helpers/createParticipant'
 import { defaultParticipantChat } from '../helpers/defaultParticipant'
-import generateRowItemsChat from '../helpers/generateRowItemsChat'
-import rowToParticipantChat from '../helpers/rowToParticipantChat'
 import styles from '../styles.module.scss'
-import { ChatChannelProps } from '../types/props'
+import { ChatChannelProps, ForceData, Role } from '../types/props'
 
 export const ChatChannel: React.FC<ChatChannelProps> = ({
   channel,
   forces,
-  messageTemplates,
   onChange
 }) => {
   const [localChannelUpdates, setLocalChannelUpdates] = useState<ChannelChat>(channel)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
   const [isChatAuthorHidden, setChatAuthorHidden] = useState<boolean>(false)
-
-  const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
-    name: template.title,
-    uniqid: template._id,
-    value: template
-  }))
 
   useEffect(() => {
     setChatAuthorHidden(!!channel.hideMessageAuthor)
@@ -59,6 +50,63 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
       setLocalChannelUpdates(newChannel)
     }
 
+    const rowToParticipantChat = (forces: ForceData[], nextItems: RowItem[], participant: ParticipantChat): ParticipantChat => {
+      const [force, access] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
+      const selectedForce = forces[force.active ? force.active[0] : 0]
+      const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (
+        selectedForce.roles[key].roleId
+      )) : []
+
+      return {
+        ...participant,
+        force: selectedForce.name,
+        forceUniqid: selectedForce.uniqid,
+        roles
+      }
+    }
+
+    const generateRowItemsChat = (forces: ForceData[], nextParticipant: ParticipantChat): RowItem[] => {
+      let forceSelected: number[] = [0]
+      let roleOptions: Option[] = []
+      const additionalFields: RowItem[] = []
+
+      if (nextParticipant.forceUniqid) {
+        const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)
+        if (forceIndex !== -1) {
+          roleOptions = forces[forceIndex].roles.map((role): Option => ({
+            name: role.name,
+            uniqid: role.name,
+            value: role
+          }))
+          forceSelected = [forceIndex]
+        }
+      }
+
+      const partRoles: string[] = nextParticipant.roles
+      const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
+        return roleOptions.findIndex(option => option.value.roleId === role)
+      }).filter(active => active !== -1) : []
+
+      return [
+        {
+          active: forceSelected,
+          multiple: false,
+          options: forces,
+          uniqid: 'forces',
+          type: EDITABLE_SELECT_ITEM
+        },
+        {
+          active: activeRoles,
+          emptyTitle: 'All roles',
+          multiple: true,
+          options: roleOptions,
+          uniqid: 'access',
+          type: EDITABLE_SELECT_ITEM
+        },
+        ...additionalFields
+      ]
+    }
+
     const handleChangeRow = (nextItems: RowItem[], participant: ParticipantChat): RowItem[] => {
       const nextParticipant = rowToParticipantChat(forces, nextItems, participant)
       return generateRowItemsChat(forces, nextParticipant)
@@ -68,7 +116,7 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
       if (localChannelUpdates) {
         handleSaveRows([
           ...localChannelUpdates.participants,
-          createParticipant(messageTemplatesOptions, forces, rowItems, localChannelUpdates.channelType) as ParticipantChat
+          rowToParticipantChat(forces, rowItems, defaultParticipantChat)
         ])
       } else {
         console.warn('Can`t create new participant, no current channel')
@@ -77,7 +125,7 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
 
     const renderTableBody = (data: ChannelChat): React.ReactElement[] => {
       if (!data.participants) return [<></>]
-      return data.participants.map((participantChat, key: number) => {
+      return data.participants.map((participantChat, key) => {
         const handleSaveRow = (row: RowItem[], pKey = -1): void => {
           if (pKey === -1) {
             return
@@ -178,7 +226,7 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {renderTableBody(channel)}
+                    {renderTableBody(localChannelUpdates)}
                   </TableBody>
                   <TableFooter>
                     {renderTableFooter()}

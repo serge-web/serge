@@ -34,7 +34,6 @@ export type CollabChannelProps = {
 export type ChatChannelProps = {
   channel: ChannelChat
   forces: ForceData[]
-  messageTemplates: TemplateBody[]
   onChange: (channel: ChannelChat) => void
 }
 
@@ -48,7 +47,6 @@ export type CustomChannelProps = {
 export type MappingChannelProps = {
   channel: ChannelMapping
   forces: ForceData[]
-  messageTemplates: TemplateBody[]
   onChange: (channel: ChannelMapping) => void
 }
 

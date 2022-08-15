@@ -7,7 +7,7 @@ import MenuList from '@material-ui/core/MenuList'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { SpecialChannelTypes } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from '@serge/config'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -18,7 +18,6 @@ import ChatChannel from './channels/chat'
 import CollabChannel from './channels/collab'
 import CustomChannel from './channels/custom'
 import MappingChannel from './channels/mapping'
-import { isChatChannel, isCollabChannel, isCustomChannel, isMappingChannel } from './helpers/commonUtils'
 import createChannel from './helpers/createChannel'
 import styles from './styles.module.scss'
 import PropTypes, { ChannelTypes } from './types/props'
@@ -42,12 +41,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
 
-  const isCollab = isCollabChannel(selectedChannelState)
-  const isChat = isChatChannel(selectedChannelState)
-  const isCustom = isCustomChannel(selectedChannelState)
-  const isMapping = isMappingChannel(selectedChannelState)
-  // const isLegacyCollab = isLegacyChannel(selectedChannelState)
-
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
   }, [selectedItem])
@@ -65,36 +58,40 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   const renderChannelContent = (): React.ReactNode => {
-    if (isCollab) {
-      return <CollabChannel
-        channel={selectedChannelState as ChannelCollab}
-        forces={forces}
-        messageTemplates={messageTemplates}
-        onChange={onChannelDataChange}
-      />
-    } else if (isChat) {
-      return <ChatChannel
-        channel={selectedChannelState as ChannelChat}
-        forces={forces}
-        messageTemplates={messageTemplates}
-        onChange={onChannelDataChange}
-      />
-    } else if (isCustom) {
-      return <CustomChannel
-        channel={selectedChannelState as ChannelCustom}
-        forces={forces}
-        messageTemplates={messageTemplates}
-        onChange={onChannelDataChange}
-      />
-    } else if (isMapping) {
-      return <MappingChannel
-        channel={selectedChannelState as ChannelMapping}
-        forces={forces}
-        messageTemplates={messageTemplates}
-        onChange={onChannelDataChange}
-      />
-    } else {
-      return <div>Legacy/Unsupported channel type. Not rendered.</div>
+    const channelType = (selectedChannelState && selectedChannelState.channelType)
+    switch (channelType) {
+      case CHANNEL_COLLAB:
+        return <CollabChannel
+          channel={selectedChannelState as ChannelCollab}
+          forces={forces}
+          messageTemplates={messageTemplates}
+          onChange={onChannelDataChange}
+        />
+
+      case CHANNEL_CUSTOM:
+        return <CustomChannel
+          channel={selectedChannelState as ChannelCustom}
+          forces={forces}
+          messageTemplates={messageTemplates}
+          onChange={onChannelDataChange}
+        />
+
+      case CHANNEL_MAPPING:
+        return <MappingChannel
+          channel={selectedChannelState as ChannelMapping}
+          forces={forces}
+          onChange={onChannelDataChange}
+        />
+
+      case CHANNEL_CHAT:
+        return <ChatChannel
+          channel={selectedChannelState as ChannelChat}
+          forces={forces}
+          onChange={onChannelDataChange}
+        />
+
+      default:
+        return <div>Legacy/Unsupported channel type. Not rendered.</div>
     }
   }
 

@@ -12,6 +12,8 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
+import { CONTROL_ALL } from '@serge/config'
+import { Asset } from '@serge/custom-types'
 import { ChannelMapping } from '@serge/custom-types/channel-data'
 import { ParticipantMapping } from '@serge/custom-types/participant'
 import cx from 'classnames'
@@ -19,31 +21,22 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import Confirm from '../../../atoms/confirm'
 import { CustomDialog } from '../../../atoms/custom-dialog'
 import FormGroup from '../../../atoms/form-group-shadow'
-import EditableRow, { Item as RowItem, Option } from '../../../molecules/editable-row'
+import EditableRow, { EDITABLE_SELECT_ITEM, Item as RowItem } from '../../../molecules/editable-row'
+import { Option, SelectItem } from '../../../molecules/editable-row/types/props'
 import MoreInfo from '../../../molecules/more-info'
-import createParticipant from '../helpers/createParticipant'
 import { defaultParticipantMapping } from '../helpers/defaultParticipant'
-import generateRowItemsMapping from '../helpers/generateRowItemsMapping'
-import rowToParticipantMapping, { checkForSaveProblems } from '../helpers/rowToParticipantMapping'
 import styles from '../styles.module.scss'
-import { MappingChannelProps } from '../types/props'
+import { ForceData, MappingChannelProps, Role } from '../types/props'
 
 export const MappingChannel: React.FC<MappingChannelProps> = ({
   channel,
   forces,
-  messageTemplates,
   onChange
 }) => {
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channel)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
   const [problems, setProblems] = useState<string>('')
-
-  const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
-    name: template.title,
-    uniqid: template._id,
-    value: template
-  }))
 
   useEffect(() => {
     setLocalChannelUpdates(channel)
@@ -62,6 +55,107 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
       setLocalChannelUpdates(newChannel)
     }
 
+    const rowToParticipantMapping = (forces: ForceData[], nextItems: RowItem[], participant: ParticipantMapping): ParticipantMapping => {
+      const [force, access, controls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
+      const selectedForce = forces[force.active ? force.active[0] : 0]
+      const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (selectedForce.roles[key].roleId)) : []
+      const selectedControls = controls.active
+      const options = controls.options
+      const controlsValues: Array<string> | undefined = selectedControls ? selectedControls.map((key: number) => {
+        return options[key].uniqid
+      }) : []
+
+      return {
+        ...participant,
+        force: selectedForce.name,
+        forceUniqid: selectedForce.uniqid,
+        roles,
+        controls: controlsValues
+      }
+    }
+
+    const generateRowItemsMapping = (forces: ForceData[], nextParticipant: ParticipantMapping): RowItem[] => {
+      let forceSelected: number[] = [0]
+      let roleOptions: Option[] = []
+      const additionalFields: RowItem[] = []
+
+      if (nextParticipant.forceUniqid) {
+        const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)
+        if (forceIndex !== -1) {
+          roleOptions = forces[forceIndex].roles.map((role): Option => ({
+            name: role.name,
+            uniqid: role.name,
+            value: role
+          }))
+          forceSelected = [forceIndex]
+        }
+      }
+
+      const assetOptions: Option[] = []
+      /**
+       * utility function, to re-use list generation code in both cases
+       */
+      const addItem = (force: ForceData, myForce: ForceData['uniqid'], match: boolean): void => {
+        if (force.assets) {
+          if ((match && myForce === force.uniqid) || (!match && myForce !== force.uniqid)) {
+            assetOptions.push({ name: 'All unclaimed for ' + force.name, uniqid: CONTROL_ALL + force.uniqid })
+            force.assets && force.assets.forEach((asset: Asset) => {
+              assetOptions.push({ name: '- ' + force.name + ': ' + asset.name, uniqid: asset.uniqid })
+            })
+          }
+        }
+      }
+      // first own force assets
+      forces.forEach((force: ForceData) => {
+        addItem(force, nextParticipant.forceUniqid, true)
+      })
+      // now other force assets
+      forces.forEach((force: ForceData) => {
+        addItem(force, nextParticipant.forceUniqid, false)
+      })
+      // produce list of selected control entries
+      const activeControls: Array<number> = []
+      const controls = nextParticipant.controls || []
+      controls.length > 0 && assetOptions.forEach((option: Option, index: number) => {
+        if (controls.includes(option.uniqid)) {
+          activeControls.push(index)
+        }
+      })
+      // get selected roles
+      const partRoles: string[] = nextParticipant.roles
+      const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
+        return roleOptions.findIndex(option => option.value.roleId === role)
+      }).filter(active => active !== -1) : []
+      // return row items
+      return [
+        {
+          active: forceSelected,
+          multiple: false,
+          options: forces,
+          uniqid: 'forces',
+          type: EDITABLE_SELECT_ITEM
+        },
+        {
+          active: activeRoles,
+          emptyTitle: 'All roles',
+          multiple: true,
+          options: roleOptions,
+          uniqid: 'access',
+          type: EDITABLE_SELECT_ITEM
+        },
+        {
+          active: activeControls,
+          emptyTitle: 'No assets',
+          multiple: true,
+          options: assetOptions,
+          uniqid: 'assets',
+          type: EDITABLE_SELECT_ITEM
+        },
+        ...additionalFields
+      ]
+    }
+
+
     const handleChangeRow = (nextItems: RowItem[], participant: ParticipantMapping): RowItem[] => {
       const nextParticipant = rowToParticipantMapping(forces, nextItems, participant)
       return generateRowItemsMapping(forces, nextParticipant)
@@ -71,11 +165,25 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
       if (localChannelUpdates) {
         handleSaveRows([
           ...localChannelUpdates.participants,
-          createParticipant(messageTemplatesOptions, forces, rowItems, localChannelUpdates.channelType) as ParticipantMapping
+          rowToParticipantMapping(forces, rowItems, defaultParticipantMapping)
         ])
       } else {
         console.warn('Can`t create new participant, no current channel')
       }
+    }
+
+    const checkForSaveProblems = (nextItems: RowItem[]): string | undefined => {
+      const [, access, controls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
+      if (controls.active && controls.active.length) {
+        if (!access.active || !access.active.length) {
+          // there zero roles, provided, but one must be
+          return 'Role must be provided when asset control specified'
+        } else if (access.active.length) {
+          // there is more than one role specified, we can't allow that
+          return 'Only one role can be specified if controlling assets'
+        }
+      }
+      return undefined
     }
 
     const renderTableBody = (data: ChannelMapping): React.ReactElement[] => {

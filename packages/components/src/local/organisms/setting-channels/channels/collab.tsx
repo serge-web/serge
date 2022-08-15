@@ -5,19 +5,18 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { ParticipantCollab } from '@serge/custom-types'
+import { CollaborativePermission } from '@serge/config'
+import { ForceData, ParticipantCollab, Role } from '@serge/custom-types'
 import { ChannelCollab } from '@serge/custom-types/channel-data'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import Confirm from '../../../atoms/confirm'
 import FormGroup from '../../../atoms/form-group-shadow'
-import EditableRow, { Item as RowItem, Option } from '../../../molecules/editable-row'
-import createParticipant from '../helpers/createParticipant'
+import EditableRow, { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item as RowItem, Option } from '../../../molecules/editable-row'
+import { SelectItem, SwitchItem } from '../../../molecules/editable-row/types/props'
 import { defaultParticipantCollab } from '../helpers/defaultParticipant'
-import generateRowItemsCollab from '../helpers/generateRowItemsCollab'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from '../helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, onMessageValuesChanged } from '../helpers/messageCollabUtils'
-import rowToParticipantCollab from '../helpers/rowToParticipantCollab'
 import styles from '../styles.module.scss'
 import { CollabChannelProps } from '../types/props'
 
@@ -62,6 +61,105 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       setLocalChannelUpdates(nextChannel)
     }
 
+    const rowToParticipantCollab = (forces: ForceData[], nextItems: RowItem[], participantCollab: ParticipantCollab): ParticipantCollab => {
+      const [force, access, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
+      const selectedForce = forces[force.active ? force.active[0] : 0]
+      const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (selectedForce.roles[key].roleId)) : []
+      const permission = permissionsTpls.active ? permissionsTpls.active[0] : CollaborativePermission.CannotCollaborate
+
+      let { canCreate, viewUnreleasedVersions } = defaultParticipantCollab
+
+      const createNewMsg = nextItems.find(item => (item.uniqid === 'create_new_message')) as SwitchItem | undefined
+      const seeLiveUpdates = nextItems.find(item => (item.uniqid === 'see_live_updates')) as SwitchItem | undefined
+
+      if (typeof createNewMsg !== 'undefined') canCreate = !!createNewMsg.active
+      if (typeof seeLiveUpdates !== 'undefined') viewUnreleasedVersions = !!seeLiveUpdates.active
+      return {
+        ...participantCollab,
+        force: selectedForce.name,
+        forceUniqid: selectedForce.uniqid,
+        roles,
+        permission,
+        canCreate,
+        viewUnreleasedVersions
+      }
+    }
+
+    const generateRowItemsCollab = (forces: ForceData[], nextParticipant: ParticipantCollab): RowItem[] => {
+      let forceSelected: number[] = [0]
+      let roleOptions: Option[] = []
+      const additionalFields: RowItem[] = []
+
+      if (nextParticipant.forceUniqid) {
+        const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)
+        if (forceIndex !== -1) {
+          roleOptions = forces[forceIndex].roles.map((role): Option => ({
+            name: role.name,
+            uniqid: role.name,
+            value: role
+          }))
+          forceSelected = [forceIndex]
+        }
+      }
+
+      const partRoles: string[] = nextParticipant.roles
+      const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
+        return roleOptions.findIndex(option => option.value.roleId === role)
+      }).filter(active => active !== -1) : []
+
+      // init row item for create new message switch
+      additionalFields.push({
+        type: EDITABLE_SWITCH_ITEM,
+        uniqid: 'create_new_message',
+        // get default value for switcher
+        active: !!nextParticipant.canCreate
+      })
+
+      // init row item for see live updates switch
+      additionalFields.push({
+        type: EDITABLE_SWITCH_ITEM,
+        uniqid: 'see_live_updates',
+        // get default value for switcher
+        active: !!nextParticipant.viewUnreleasedVersions
+      })
+
+      const permissionOptions: Option[] = []
+      Object.keys(CollaborativePermission).forEach((key: string) => {
+        if (!isNaN(Number(key))) {
+          permissionOptions.push({ name: CollaborativePermission[key], uniqid: '' + key })
+        }
+      })
+
+      // init row item for permission select
+      additionalFields.push({
+        active: [nextParticipant.permission],
+        emptyTitle: 'Edit',
+        multiple: false,
+        options: permissionOptions,
+        uniqid: 'permissions',
+        type: EDITABLE_SELECT_ITEM
+      })
+
+      return [
+        {
+          active: forceSelected,
+          multiple: false,
+          options: forces,
+          uniqid: 'forces',
+          type: EDITABLE_SELECT_ITEM
+        },
+        {
+          active: activeRoles,
+          emptyTitle: 'All roles',
+          multiple: true,
+          options: roleOptions,
+          uniqid: 'access',
+          type: EDITABLE_SELECT_ITEM
+        },
+        ...additionalFields
+      ]
+    }
+
     const handleChangeRow = (nextItems: RowItem[], participant: ParticipantCollab): RowItem[] => {
       const nextParticipant = rowToParticipantCollab(forces, nextItems, participant)
       return generateRowItemsCollab(forces, nextParticipant)
@@ -71,7 +169,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       if (localChannelUpdates) {
         handleSaveRows([
           ...localChannelUpdates.participants,
-          createParticipant(messageTemplatesOptions, forces, rowItems, localChannelUpdates.channelType) as ParticipantCollab
+          rowToParticipantCollab(forces, rowItems, defaultParticipantCollab)
         ])
       } else {
         console.warn('Can`t create new participant, no current channel')

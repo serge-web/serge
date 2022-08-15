@@ -3,7 +3,6 @@ import { ChannelCollab, ChannelTypes, ForceData, MappingConstraints } from '@ser
 import { ChannelChat, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
 import uniqid from 'uniqid'
-import { generateSubscriptionId } from './createParticipant'
 
 // Create uniq chanel name
 const generateChannelName = (channels: ChannelTypes[], key = 1, exclude = -1, defName = 'New Channel'): string => {
@@ -34,7 +33,7 @@ const createChannel = (
           force: defaultForce.name,
           forceUniqid: defaultForce.uniqid,
           roles: [],
-          subscriptionId: generateSubscriptionId(),
+          subscriptionId: Math.random().toString(36).substring(8),
           pType: PARTICIPANT_COLLAB,
           canCreate: true,
           viewUnreleasedVersions: true,
@@ -60,7 +59,7 @@ const createChannel = (
           force: defaultForce.name,
           forceUniqid: defaultForce.uniqid,
           roles: [],
-          subscriptionId: generateSubscriptionId(),
+          subscriptionId: Math.random().toString(36).substring(8),
           pType: PARTICIPANT_MAPPING
         }
         const defaultMapConstraints: MappingConstraints = {
@@ -86,7 +85,7 @@ const createChannel = (
           force: defaultForce.name,
           forceUniqid: defaultForce.uniqid,
           roles: [],
-          subscriptionId: generateSubscriptionId(),
+          subscriptionId: Math.random().toString(36).substring(8),
           pType: PARTICIPANT_CHAT
         }
         const res: ChannelChat = {
@@ -103,7 +102,7 @@ const createChannel = (
     force: defaultForce.name,
     forceUniqid: defaultForce.uniqid,
     roles: [],
-    subscriptionId: generateSubscriptionId(),
+    subscriptionId: Math.random().toString(36).substring(8),
     pType: PARTICIPANT_CUSTOM,
     templates: []
   }
