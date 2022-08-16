@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 // Import component files
+import { MessageTemplatesMock, watuWargame } from '@serge/mocks'
+import { withKnobs } from '@storybook/addon-knobs'
 import SettingChannels from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 import { ChannelTypes } from './types/props'
-import { watuWargame, MessageTemplatesMock } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -30,27 +30,38 @@ export const Default: React.FC = () => {
   if (channels === undefined) {
     return <div />
   }
-  const [channelData, setChannelData] = useState<Array<ChannelTypes>>(channels)
+  const [localChannels, setLocalChannels] = useState<ChannelTypes[]>(channels)
 
-  const handleChangeChannels = (updates: { channels: Array<ChannelTypes> }): void => {
-    setChannelData(updates.channels)
+  const handleChangeChannels = (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }): void => {
+    console.log('handleChangeChannels: ', updates)
+    const savedChannelIdx = localChannels.findIndex(c => c.uniqid === updates.selectedChannel.uniqid)
+    if (savedChannelIdx !== -1) {
+      localChannels[savedChannelIdx] = updates.selectedChannel
+      setLocalChannels(localChannels)
+    }
   }
 
   const handleOnSave = (updates: ChannelTypes): void => {
-    console.log(updates)
+    console.log('handleOnSave: ', updates)
+  }
+
+  const onSidebarClick = (channel: ChannelTypes): void => {
+    console.log('onSidebarClick: ', channel)
   }
 
   const handleCreate = (): void => {
-    console.log('handleCreate...')
+    console.log('=> handleCreate: ')
   }
 
   return <SettingChannels
     onCreate={handleCreate}
     onChange={handleChangeChannels}
     onSave={handleOnSave}
-    channels={channelData}
+    onSidebarClick={onSidebarClick}
+    channels={localChannels}
     forces={forces}
     messageTemplates={MessageTemplatesMock}
+    selectedChannel={channels[0]}
   />
 }
 
