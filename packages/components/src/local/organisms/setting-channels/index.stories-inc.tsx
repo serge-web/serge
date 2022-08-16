@@ -31,6 +31,7 @@ export const Default: React.FC = () => {
     return <div />
   }
   const [localChannels, setLocalChannels] = useState<ChannelTypes[]>(channels)
+  const [selectedChannel, setSelectedChannel] = useState<ChannelTypes>(channels[0])
 
   const handleChangeChannels = (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }): void => {
     console.log('handleChangeChannels: ', updates)
@@ -47,6 +48,7 @@ export const Default: React.FC = () => {
 
   const onSidebarClick = (channel: ChannelTypes): void => {
     console.log('onSidebarClick: ', channel)
+    setSelectedChannel(channel)
   }
 
   const handleCreate = (): void => {
@@ -61,7 +63,7 @@ export const Default: React.FC = () => {
     channels={localChannels}
     forces={forces}
     messageTemplates={MessageTemplatesMock}
-    selectedChannel={channels[0]}
+    selectedChannel={selectedChannel}
   />
 }
 
