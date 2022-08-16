@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import { CollaborativePermission } from '@serge/config'
-import { ForceData, ParticipantCollab, Role } from '@serge/custom-types'
+import { ForceData, ParticipantCollab, Role, TemplateBody } from '@serge/custom-types'
 import { ChannelCollab } from '@serge/custom-types/channel-data'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
@@ -18,7 +18,13 @@ import { defaultParticipantCollab } from '../helpers/defaultParticipant'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from '../helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, onMessageValuesChanged } from '../helpers/messageCollabUtils'
 import styles from '../styles.module.scss'
-import { CollabChannelProps } from '../types/props'
+
+type CollabChannelProps = {
+  channel: ChannelCollab
+  forces: ForceData[]
+  messageTemplates: TemplateBody[]
+  onChange: (channel: ChannelCollab) => void
+}
 
 export const CollabChannel: React.FC<CollabChannelProps> = ({
   channel,

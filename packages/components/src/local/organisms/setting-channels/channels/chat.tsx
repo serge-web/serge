@@ -17,7 +17,13 @@ import { Option, SelectItem } from '../../../molecules/editable-row/types/props'
 import MoreInfo from '../../../molecules/more-info'
 import { defaultParticipantChat } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
-import { ChatChannelProps, ForceData, Role } from '../types/props'
+import { ForceData, Role } from '../types/props'
+
+type ChatChannelProps = {
+  channel: ChannelChat
+  forces: ForceData[]
+  onChange: (channel: ChannelChat) => void
+}
 
 export const ChatChannel: React.FC<ChatChannelProps> = ({
   channel,

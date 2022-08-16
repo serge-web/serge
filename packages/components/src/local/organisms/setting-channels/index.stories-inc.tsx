@@ -28,7 +28,7 @@ export const Default: React.FC = () => {
   // the channels child element may theoretically be undefined, we
   // make the compiler happy
   if (channels === undefined) {
-    return <div/>
+    return <div />
   }
   const [channelData, setChannelData] = useState<Array<ChannelTypes>>(channels)
 

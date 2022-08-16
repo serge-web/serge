@@ -17,7 +17,14 @@ import EditableRow, { EDITABLE_SELECT_ITEM, Item as RowItem, Option } from '../.
 import { SelectItem } from '../../../molecules/editable-row/types/props'
 import { defaultParticipantCustom } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
-import { CustomChannelProps, Role } from '../types/props'
+import { Role } from '../types/props'
+
+type CustomChannelProps = {
+  channel: ChannelCustom
+  forces: ForceData[]
+  messageTemplates: TemplateBody[]
+  onChange: (channel: ChannelCustom) => void
+}
 
 export const CustomChannel: React.FC<CustomChannelProps> = ({
   channel,

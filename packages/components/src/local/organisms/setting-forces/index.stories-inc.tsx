@@ -27,7 +27,7 @@ export default {
 export const Default: React.FC = () => {
   const [data, setData] = useState(forcesMock)
 
-  const onChange = (updates: {forces: Array<ForceData>}): void => {
+  const onChange = (updates: { forces: Array<ForceData> }): void => {
     console.log('change', updates.forces[0].roles[1])
   }
   const onSave = (forces: ForceData[]): void => {

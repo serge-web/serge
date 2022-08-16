@@ -26,7 +26,13 @@ import { Option, SelectItem } from '../../../molecules/editable-row/types/props'
 import MoreInfo from '../../../molecules/more-info'
 import { defaultParticipantMapping } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
-import { ForceData, MappingChannelProps, Role } from '../types/props'
+import { ForceData, Role } from '../types/props'
+
+type MappingChannelProps = {
+  channel: ChannelMapping
+  forces: ForceData[]
+  onChange: (channel: ChannelMapping) => void
+}
 
 export const MappingChannel: React.FC<MappingChannelProps> = ({
   channel,
@@ -154,7 +160,6 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         ...additionalFields
       ]
     }
-
 
     const handleChangeRow = (nextItems: RowItem[], participant: ParticipantMapping): RowItem[] => {
       const nextParticipant = rowToParticipantMapping(forces, nextItems, participant)
