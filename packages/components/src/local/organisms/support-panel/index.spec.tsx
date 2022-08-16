@@ -9,17 +9,14 @@ describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<SupportPanel
-        data={
-          {
-            forceIcons: [],
-            forceColors: [],
-            forceNames: [],
-            hideForcesInChannel: false,
-            messages: [],
-            selectedForce: WargameExportedMock.data.forces.forces[0],
-            selectedRole: 'rdj8bx6xw',
-          }
-        }
+        forceIcons={[]}
+        forceColors={[]}
+        forceNames={[]}
+        hideForcesInChannel={false}
+        messages={[]}
+        selectedForce={WargameExportedMock.data.forces.forces[0]}
+        selectedRole=''
+        forces={[]}
         onUnread={noop}
         onReadAll={noop}
         onRead={noop}

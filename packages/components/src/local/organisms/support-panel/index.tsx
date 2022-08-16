@@ -8,7 +8,13 @@ import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
 
 export const SupportPanel: React.FC<PropTypes> = ({
-  data,
+  forceIcons,
+  forceColors,
+  forceNames,
+  hideForcesInChannel,
+  messages,
+  selectedForce,
+  turnPresentation,
   onRead,
   onUnread,
   onReadAll,
@@ -17,7 +23,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
-  const { forceColors, forceIcons, forceNames, messages, hideForcesInChannel, selectedForce, turnPresentation } = data
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)

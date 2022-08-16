@@ -15,13 +15,13 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const channelPlanning = channelUI.cData as ChannelPlanning
   console.log('rendering planning channel', channelPlanning.name)
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { selectedForce, selectedRole } = state
+  const { allForces, currentWargame, selectedForce, selectedRole } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
     if (state.channels[channelId].messages!.length === 0) {
-      getAllWargameMessages(state.currentWargame)(dispatch)
+      getAllWargameMessages(currentWargame)(dispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
@@ -54,17 +54,14 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <SupportPanel
-        data={
-          {
-            forceIcons,
-            forceColors,
-            forceNames,
-            hideForcesInChannel,
-            messages,
-            selectedForce,
-            selectedRole
-          }
-        }
+        forceIcons={forceIcons}
+        forceColors={forceColors}
+        forceNames={forceNames}
+        hideForcesInChannel={hideForcesInChannel}
+        messages={messages}
+        selectedForce={selectedForce}
+        selectedRole={selectedRole}
+        forces={allForces}
         onReadAll={onReadAll}
         onUnread={onUnread}
         onRead={onRead}

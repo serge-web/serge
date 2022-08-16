@@ -23,17 +23,14 @@ export default {
 
 const Template: Story<SupportPanelProps> = () => {
   return <SupportPanel
-    data={
-      {
-        forceIcons: [],
-        forceColors: [],
-        forceNames: [],
-        hideForcesInChannel: false,
-        messages: [],
-        selectedForce: WargameExportedMock.data.forces[0],
-        selectedRole: ''
-      }
-    }
+    forceIcons={[]}
+    forceColors={[]}
+    forceNames={[]}
+    hideForcesInChannel={false}
+    messages={[]}
+    selectedForce={WargameExportedMock.data.forces.forces[0]}
+    selectedRole=''
+    forces={[]}
     onReadAll={noop}
     onUnread={noop}
     onRead={noop}
