@@ -28,12 +28,12 @@ exports[`Support Panel component:  renders component correctly 1`] = `
           "maxHeight": "100%",
           "maxWidth": "80%",
           "minHeight": "100%",
-          "minWidth": 335,
+          "minWidth": 330,
           "position": "unset",
           "top": 0,
           "transform": "translate(0px,0px)",
           "userSelect": "auto",
-          "width": "335px",
+          "width": "330px",
         }
       }
       transform={null}
@@ -51,7 +51,12 @@ exports[`Support Panel component:  renders component correctly 1`] = `
           className="tab-panel"
           hidden={true}
         >
-          My Orders
+          <div
+            className="messages-list"
+          >
+            Render planning messages in table here. Message count:
+            0
+          </div>
         </div>
         <div
           className="tab-panel"

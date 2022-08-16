@@ -1,5 +1,7 @@
+import { WargameExportedMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
+import { noop } from 'lodash'
 import React from 'react'
 import SupportPanel from './index'
 import docs from './README.md'
@@ -20,7 +22,22 @@ export default {
 }
 
 const Template: Story<SupportPanelProps> = () => {
-  return <SupportPanel />
+  return <SupportPanel
+    data={
+      {
+        forceIcons: [],
+        forceColors: [],
+        forceNames: [],
+        hideForcesInChannel: false,
+        messages: [],
+        selectedForce: WargameExportedMock.data.forces[0],
+        selectedRole: ''
+      }
+    }
+    onReadAll={noop}
+    onUnread={noop}
+    onRead={noop}
+  />
 }
 
 export const Default = Template.bind({})

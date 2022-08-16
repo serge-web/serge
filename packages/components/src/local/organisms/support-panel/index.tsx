@@ -2,15 +2,22 @@ import Slide from '@material-ui/core/Slide'
 import cx from 'classnames'
 import React, { ElementRef, useRef, useState } from 'react'
 import { ResizableDelta, Rnd } from 'react-rnd'
+import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
 
-export const SupportPanel: React.FC<PropTypes> = () => {
+export const SupportPanel: React.FC<PropTypes> = ({
+  data,
+  onRead,
+  onUnread,
+  onReadAll,
+}) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
+  const { forceColors, forceIcons, forceNames, messages, hideForcesInChannel, selectedForce, turnPresentation } = data
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -19,7 +26,7 @@ export const SupportPanel: React.FC<PropTypes> = () => {
 
   const onResize = (_: MouseEvent | TouchEvent, __: string, ___: ElementRef<any>, delta: ResizableDelta) => {
     if (contentRef.current) {
-      const width = initialWidth + delta.width + 35
+      const width = initialWidth + delta.width + 30
       contentRef.current.style.width = `${width}px`
       setInitialWidth(width)
     }
@@ -66,7 +73,19 @@ export const SupportPanel: React.FC<PropTypes> = () => {
                 My Force
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
-                My Orders
+                <PlanningMessagesList
+                  messages={messages}
+                  playerForceId={selectedForce.name}
+                  isUmpire={true}
+                  icons={forceIcons}
+                  colors={forceColors}
+                  names={forceNames}
+                  turnPresentation={turnPresentation}
+                  hideForcesInChannel={!!hideForcesInChannel}
+                  onRead={onRead}
+                  onUnread={onUnread}
+                  onMarkAllAsRead={onReadAll}
+                />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
                 OPFOR

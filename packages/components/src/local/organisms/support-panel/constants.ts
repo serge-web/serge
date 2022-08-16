@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 export const TABS = ['my_force', 'my_orders', 'opfor']
-export const MIN_PANEL_WIDTH = 335
+export const MIN_PANEL_WIDTH = 330
 export const MAX_PANEL_WIDTH = '80%'
 export const MIN_PANEL_HEIGHT = '100%'
 export const MAX_PANEL_HEIGHT = '100%'

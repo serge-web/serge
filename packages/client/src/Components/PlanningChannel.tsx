@@ -1,4 +1,4 @@
-import { PlanningMessagesList, SupportPanel } from '@serge/components'
+import { SupportPanel } from '@serge/components'
 import { ChannelPlanning, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import React, { useEffect, useState } from 'react'
 import {
@@ -15,7 +15,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const channelPlanning = channelUI.cData as ChannelPlanning
   console.log('rendering planning channel', channelPlanning.name)
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { selectedForce } = state
+  const { selectedForce, selectedRole } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
@@ -26,13 +26,13 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const markAllAsReadLocal = (): void => {
+  const onReadAll = (): void => {
     dispatch(markAllAsRead(channelId))
   }
 
-  const icons = state.channels[channelId].forceIcons || []
-  const colors = state.channels[channelId].forceColors || []
-  const names = state.channels[channelId].forceNames || []
+  const forceIcons = state.channels[channelId].forceIcons || []
+  const forceColors = state.channels[channelId].forceColors || []
+  const forceNames = state.channels[channelId].forceNames || []
   const hideForcesInChannel = !!state.hideForcesInChannels
 
   // TODO: we have some wrong typing here.  The messages for this channel
@@ -44,7 +44,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(openMessage(channelId, detail))
   }
 
-  const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
+  const onUnread = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
@@ -53,19 +53,21 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
-      <SupportPanel />
-      <PlanningMessagesList
-        messages={messages}
+      <SupportPanel
+        data={
+          {
+            forceIcons,
+            forceColors,
+            forceNames,
+            hideForcesInChannel,
+            messages,
+            selectedForce,
+            selectedRole
+          }
+        }
+        onReadAll={onReadAll}
+        onUnread={onUnread}
         onRead={onRead}
-        playerForceId={selectedForce.name}
-        isUmpire={true}
-        icons={icons}
-        colors={colors}
-        names={names}
-        onMarkAllAsRead={markAllAsReadLocal}
-        turnPresentation={state.turnPresentation}
-        onUnread={handleUnreadMessage}
-        hideForcesInChannel={hideForcesInChannel}
       />
     </div>
   )
