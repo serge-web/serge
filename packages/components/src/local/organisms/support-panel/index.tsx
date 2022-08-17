@@ -1,4 +1,5 @@
 import Slide from '@material-ui/core/Slide'
+import MoreVert from '@material-ui/icons/MoreVert'
 import cx from 'classnames'
 import React, { ElementRef, useRef, useState } from 'react'
 import { ResizableDelta, Rnd } from 'react-rnd'
@@ -21,7 +22,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
-  const [isShowPanel, setShowPanel] = useState<boolean>(false)
+  const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   const onTabChange = (tab: string): void => {
@@ -96,8 +97,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 OPFOR
               </TabPanel>
               <div className={styles['resize-indicator-container']} >
-                <div className={styles['resize-indicator-icon']} />
-                <div className={styles['resize-indicator-icon']} />
+                <div className={styles['resize-indicator-icon']} >
+                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+                </div>
               </div>
             </div>
           </Rnd>
