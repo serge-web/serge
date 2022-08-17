@@ -17,7 +17,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   turnPresentation,
   onRead,
   onUnread,
-  onReadAll,
+  onReadAll
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
@@ -29,7 +29,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setActiveTab(tab)
   }
 
-  const onResize = (_: MouseEvent | TouchEvent, __: string, ___: ElementRef<any>, delta: ResizableDelta) => {
+  const onResize = (_: MouseEvent | TouchEvent, __: string, ___: ElementRef<any>, delta: ResizableDelta): void => {
     if (contentRef.current) {
       const width = initialWidth + delta.width + 30
       contentRef.current.style.width = `${width}px`
@@ -38,7 +38,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const TabPanel = (props: TabPanelProps): React.ReactElement => {
-    const { children, value, active, ...other } = props;
+    const { children, active, ...other } = props
     return (
       <div
         hidden={!active}
@@ -46,15 +46,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
       >
         {children}
       </div>
-    );
+    )
   }
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
     return (
       <div className={cx(styles.actionTab, className)}>
-        <p onClick={() => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
-        <p onClick={() => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
-        <p onClick={() => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
+        <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
+        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
+        <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
       </div>
     )
   }
@@ -95,6 +95,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
                 OPFOR
               </TabPanel>
+              <div className={styles['resize-indicator-container']} >
+                <div className={styles['resize-indicator-icon']} />
+                <div className={styles['resize-indicator-icon']} />
+              </div>
             </div>
           </Rnd>
           <TabPanelActions onChange={onTabChange} />

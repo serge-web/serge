@@ -44,12 +44,14 @@ exports[`Support Panel component:  renders component correctly 1`] = `
         <div
           className="tab-panel"
           hidden={false}
+          value="my_force"
         >
           My Force
         </div>
         <div
           className="tab-panel"
           hidden={true}
+          value="my_orders"
         >
           <div
             className="messages-list"
@@ -61,8 +63,19 @@ exports[`Support Panel component:  renders component correctly 1`] = `
         <div
           className="tab-panel"
           hidden={true}
+          value="opfor"
         >
           OPFOR
+        </div>
+        <div
+          className="resize-indicator-container"
+        >
+          <div
+            className="resize-indicator-icon"
+          />
+          <div
+            className="resize-indicator-icon"
+          />
         </div>
       </div>
       <div>

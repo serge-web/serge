@@ -6,15 +6,17 @@
   height: 100%;
   display: flex;
   position: absolute;
+  overflow: hidden;
 }
 
 .content {
   min-width: 330px;
   height: 100%;
-  border: 1px solid black;
+  border: 0;
   background-color: #fff;
   display: flex;
   justify-content: center;
+  border-right: 2px solid #000;
 }
 
 .actionTab {
@@ -59,4 +61,25 @@
 .secondaryActionTab {
   position: absolute;
   z-index: 1;
+}
+
+.resize-indicator-container {
+  width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  :nth-child(1) {
+    margin-left: -3px;
+  }
+  :last-child {
+    margin-left: 3px;
+  }
+}
+
+.resize-indicator-icon {
+  position: absolute;
+  width: 2.5px;
+  height: 30px;
+  border: 0;
+  background: #000;
 }

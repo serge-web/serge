@@ -6,6 +6,8 @@ interface CssExports {
   'tab-panel': string;
   'panel': string;
   'secondaryActionTab': string;
+  'resize-indicator-container': string;
+  'resize-indicator-icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

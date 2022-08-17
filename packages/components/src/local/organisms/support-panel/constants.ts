@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties } from 'react'
 
 export const TABS = ['my_force', 'my_orders', 'opfor']
 export const MIN_PANEL_WIDTH = 330
@@ -8,7 +8,7 @@ export const MAX_PANEL_HEIGHT = '100%'
 
 export const PANEL_STYLES: CSSProperties = {
   display: 'flex',
-  position: 'unset',
+  position: 'unset'
 }
 
 export const DEFAULT_SIZE = {
