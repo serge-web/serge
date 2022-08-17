@@ -1,4 +1,4 @@
-import { CHANNEL_COLLAB, InitialStates } from '@serge/config'
+import { InitialStates } from '@serge/config'
 import { ChannelCollab, ChannelTypes, ParticipantTemplate } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
 import { Action, MessageGroupType, MessagesValues } from './genMessageCollabEdit'
@@ -73,21 +73,16 @@ export const getSelectedOptions = (type: string, messageLocal: MessagesValues, c
   }
 }
 
-export const getMessagesValues = (isCollab: boolean, selectedChannel?: ChannelTypes): MessagesValues => {
+export const getMessagesValues = (selectedChannel?: ChannelCollab): MessagesValues => {
   return {
-    messageTemplate: isCollab ? getSelectedValue(MessageGroupType.MESSAGE_TEMPLATE, selectedChannel) : [],
-    responseTemplate: isCollab ? getSelectedValue(MessageGroupType.RESPONSE_TEMPLATE, selectedChannel) : [],
-    documentStatus: isCollab ? getSelectedValue(MessageGroupType.DOCUMENT_STATUS, selectedChannel) : [],
-    requestChanges: isCollab ? getSelectedValue(MessageGroupType.REQUEST_CHANGES, selectedChannel) : [],
-    approve: isCollab ? getSelectedValue(MessageGroupType.APPROVE, selectedChannel) : [],
-    release: isCollab ? getSelectedValue(MessageGroupType.RELEASE, selectedChannel) : [],
-    additionalData: isCollab ? getSelectedValue(MessageGroupType.ADDITIONAL_DATA, selectedChannel) : []
+    messageTemplate: getSelectedValue(MessageGroupType.MESSAGE_TEMPLATE, selectedChannel),
+    responseTemplate: getSelectedValue(MessageGroupType.RESPONSE_TEMPLATE, selectedChannel),
+    documentStatus: getSelectedValue(MessageGroupType.DOCUMENT_STATUS, selectedChannel),
+    requestChanges: getSelectedValue(MessageGroupType.REQUEST_CHANGES, selectedChannel),
+    approve: getSelectedValue(MessageGroupType.APPROVE, selectedChannel),
+    release: getSelectedValue(MessageGroupType.RELEASE, selectedChannel),
+    additionalData: getSelectedValue(MessageGroupType.ADDITIONAL_DATA, selectedChannel)
   }
-}
-
-export const isCollabChannel = (channelData?: ChannelTypes): boolean => {
-  if (!channelData) return false
-  return 'channelType' in channelData && (channelData as unknown as ChannelCollab).channelType === CHANNEL_COLLAB
 }
 
 export type MessageKey = 'messageTemplate' | 'responseTemplate' | 'documentStatus' | 'requestChanges' | 'approve' | 'release' | 'additionalData'
@@ -108,7 +103,8 @@ const getInitialState = (state: string): InitialStates => {
   if (state === InitialStates.PENDING_REVIEW) return InitialStates.PENDING_REVIEW
   return InitialStates.UNALLOCATED
 }
-export const integrateWithLocalChanges = (options: Option[], channelData: ChannelTypes, messageUpdates: MessagesValues): ChannelTypes => {
+
+export const integrateWithLocalChanges = (options: Option[], channelData: ChannelTypes, messageUpdates: MessagesValues): ChannelCollab => {
   const nextChannel: ChannelCollab = ({ ...channelData }) as unknown as ChannelCollab
 
   const msgTpl = filterInByUniqId(messageUpdates, options, 'messageTemplate')
@@ -123,7 +119,7 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   nextChannel.releaseVerbs = messageUpdates.release
   nextChannel.additonalData = messageUpdates.additionalData
 
-  return nextChannel as unknown as ChannelTypes
+  return nextChannel
 }
 
 export const onMessageValuesChanged = (messageLocal: MessagesValues, value: string[], action: Action, type: string): MessagesValues => {
