@@ -22,7 +22,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
-  const [isShowPanel, setShowPanel] = useState<boolean>(true)
+  const [isShowPanel, setShowPanel] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   const onTabChange = (tab: string): void => {

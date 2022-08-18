@@ -72,10 +72,23 @@ exports[`Support Panel component:  renders component correctly 1`] = `
         >
           <div
             className="resize-indicator-icon"
-          />
-          <div
-            className="resize-indicator-icon"
-          />
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge"
+              focusable="false"
+              style={
+                Object {
+                  "marginLeft": 0,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
       <div>
