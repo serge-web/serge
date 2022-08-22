@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
 import { withKnobs } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
+import React, { useState } from 'react'
 
 // Import component files
-import MessageListPropTypes from './types/props'
-import PlanningMessagesList from './index'
-import docs from './README.md'
-import { planningMessages } from '@serge/mocks'
 import { MessagePlanning } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
+import { planningMessages } from '@serge/mocks'
+import PlanningMessagesList from './index'
+import docs from './README.md'
+import MessageListPropTypes from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
