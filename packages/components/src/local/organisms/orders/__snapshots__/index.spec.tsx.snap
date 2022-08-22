@@ -1,0 +1,534 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Orders component: renders component correctly 1`] = `
+<div
+  className="MuiPaper-root-187 MuiPaper-elevation2-191 MuiPaper-rounded-188"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="MuiToolbar-root-220 MuiToolbar-regular-222 MuiToolbar-gutters-221 MTableToolbar-root-214"
+  >
+    <div
+      className="MTableToolbar-title-218"
+    >
+      <h6
+        className="MuiTypography-root-224 MuiTypography-h6-241"
+      >
+        My Order
+      </h6>
+    </div>
+    <div
+      className="MTableToolbar-spacer-216"
+    />
+    <div
+      className="MuiFormControl-root-260 MTableToolbar-searchField-219"
+      color="inherit"
+    >
+      <div
+        className="MuiInputBase-root-277 MuiInput-root-264 MuiInput-underline-268 MuiInputBase-formControl-278 MuiInput-formControl-265 MuiInputBase-adornedStart-281 MuiInputBase-adornedEnd-282"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <div
+          className="MuiInputAdornment-root-294 MuiInputAdornment-positionStart-296"
+        >
+          <svg
+            aria-describedby={null}
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+            focusable="false"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseLeave={[Function]}
+            onMouseOver={[Function]}
+            onTouchEnd={[Function]}
+            onTouchStart={[Function]}
+            title="Search"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            />
+          </svg>
+        </div>
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-287 MuiInput-input-272 MuiInputBase-inputAdornedStart-292 MuiInputBase-inputAdornedEnd-293"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          type="text"
+          value=""
+        />
+        <div
+          className="MuiInputAdornment-root-294 MuiInputAdornment-positionEnd-297"
+        >
+          <button
+            className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+            disabled={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="-1"
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label-312"
+            >
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MTableToolbar-actions-217"
+    >
+      <div>
+        <div />
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "overflowX": "auto",
+      }
+    }
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "maxHeight": undefined,
+            "overflowY": "auto",
+          }
+        }
+      >
+        <table
+          className="MuiTable-root-316"
+        >
+          <thead
+            className="MuiTableHead-root-318"
+          >
+            <tr
+              className="MuiTableRow-root-319 MuiTableRow-head-322"
+            />
+          </thead>
+          <tbody
+            className="MuiTableBody-root-324"
+          >
+            <tr
+              className="MuiTableRow-root-319"
+              style={
+                Object {
+                  "height": 245,
+                }
+              }
+            >
+              <td
+                aria-sort={null}
+                className="MuiTableCell-root-325 MuiTableCell-body-327"
+                colSpan={0}
+                style={
+                  Object {
+                    "paddingBottom": 0,
+                    "paddingTop": 0,
+                    "textAlign": "center",
+                  }
+                }
+              >
+                No records to display
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <table
+    className="MuiTable-root-316"
+  >
+    <tfoot
+      className="MuiTableFooter-root-337"
+      style={
+        Object {
+          "display": "grid",
+        }
+      }
+    >
+      <tr
+        className="MuiTableRow-root-319 MuiTableRow-footer-323"
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-325 MuiTableCell-footer-328 MuiTablePagination-root-338 Component-paginationRoot-1"
+          colSpan={3}
+          icons={
+            Object {
+              "Add": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Check": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Clear": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Delete": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "DetailPanel": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Edit": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Export": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Filter": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "FirstPage": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "LastPage": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "NextPage": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "PreviousPage": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "ResetSearch": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "Search": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "SortArrow": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "ThirdStateCheck": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "ViewColumn": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+            }
+          }
+          style={
+            Object {
+              "float": "right",
+              "overflowX": "auto",
+            }
+          }
+        >
+          <div
+            className="MuiToolbar-root-220 MuiToolbar-regular-222 MuiToolbar-gutters-221 MuiTablePagination-toolbar-339 Component-paginationToolbar-2"
+          >
+            <div
+              className="MuiTablePagination-spacer-340"
+            />
+            <span
+              className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-341 Component-paginationCaption-3"
+            >
+              Rows per page:
+            </span>
+            <div
+              className="MuiInputBase-root-277 MuiTablePagination-input-345"
+              onClick={[Function]}
+            >
+              <div
+                className="MuiSelect-root-348 MuiTablePagination-selectRoot-342 Component-paginationSelectRoot-4"
+              >
+                <div
+                  aria-haspopup="true"
+                  aria-pressed="false"
+                  className="MuiSelect-select-349 MuiTablePagination-select-343 MuiSelect-selectMenu-352 MuiInputBase-input-287"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div
+                    style={
+                      Object {
+                        "padding": "0px 5px",
+                      }
+                    }
+                  >
+                    5 rows 
+                  </div>
+                </div>
+                <input
+                  type="hidden"
+                  value={5}
+                />
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-355 MuiSelect-icon-354 MuiTablePagination-selectIcon-344"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M7 10l5 5 5-5z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <span
+              className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-341 Component-paginationCaption-3"
+            >
+              0-0 of 0
+            </span>
+            <div
+              className="MTablePaginationInner-root-368"
+            >
+              <span
+                aria-describedby={null}
+                className=""
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onTouchEnd={[Function]}
+                onTouchStart={[Function]}
+                title="First Page"
+              >
+                <button
+                  className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                  disabled={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label-312"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+              <span
+                aria-describedby={null}
+                className=""
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onTouchEnd={[Function]}
+                onTouchStart={[Function]}
+                title="Previous Page"
+              >
+                <button
+                  className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                  disabled={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label-312"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+              <span
+                className="MuiTypography-root-224 MuiTypography-caption-234"
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "flex": 1,
+                    "flexBasis": "inherit",
+                    "textAlign": "center",
+                  }
+                }
+              >
+                1-0 of 0
+              </span>
+              <span
+                aria-describedby={null}
+                className=""
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onTouchEnd={[Function]}
+                onTouchStart={[Function]}
+                title="Next Page"
+              >
+                <button
+                  className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                  disabled={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label-312"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+              <span
+                aria-describedby={null}
+                className=""
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onTouchEnd={[Function]}
+                onTouchStart={[Function]}
+                title="Last Page"
+              >
+                <button
+                  className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                  disabled={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label-312"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+`;
