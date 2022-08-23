@@ -1,10 +1,5 @@
 
-type OrderColumn = {
-  title: string
-  field: string
-}
-
-type OrderRow = {
+export type OrderRow = {
   id: string
   title: string
   role: string
