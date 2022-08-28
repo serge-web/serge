@@ -751,7 +751,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
       </div>
     </div>
     <div
-      className="actionTab"
+      className="actiontab"
     >
       <p
         className="active"
@@ -774,7 +774,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
     </div>
   </div>
   <div
-    className="actionTab secondaryActionTab"
+    className="actiontab secondaryactiontab"
   >
     <p
       className="active"
