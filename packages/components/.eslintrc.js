@@ -2,8 +2,8 @@ module.exports = {
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
     'project': './tsconfig.json', // Required to have rules that rely on Types.
-    'extraFileExtensions' : ['.snap'],
-    "include" : ['./src'],
+    'extraFileExtensions': ['.snap'],
+    "include": ['./src'],
     "ecmaFeatures": {
       "jsx": true
     }
@@ -16,7 +16,7 @@ module.exports = {
     '@typescript-eslint', // Let's us override rules below.
     'react'
   ],
-  "ignorePatterns" : ["*.scss.d.ts", '*.snap'],
+  "ignorePatterns": ["*.scss.d.ts", '*.snap'],
   'rules': {
     "semi": [2, "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
@@ -25,7 +25,11 @@ module.exports = {
     '@typescript-eslint/member-delimiter-style': ['error', { // Prevents us from using any delimiter for interface properties.
       'multiline': {
         'delimiter': 'none',
-
+        'requireLast': false
+      },
+      'singleline': {
+        'delimiter': 'comma',
+        'requireLast': false
       }
     }],
     '@typescript-eslint/indent': 'off', // This is the job of StandardJS, they are competing rules so we turn off the Typescript one.
@@ -36,7 +40,9 @@ module.exports = {
   },
   'env': {
     'jest': true
-
+  },
+  "globals": {
+    "FileReader": "readonly",
     "Event": "readonly"
   }
 }
