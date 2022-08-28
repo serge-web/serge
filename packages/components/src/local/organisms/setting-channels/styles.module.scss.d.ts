@@ -11,7 +11,7 @@ interface CssExports {
   'arrow-icon': string;
   'box': string;
   'cell-lbl': string;
-  'channelName': string;
+  'channelname': string;
   'chat-configuration': string;
   'col': string;
   'col-2': string;
