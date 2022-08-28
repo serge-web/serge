@@ -1,4 +1,4 @@
-import { WargameExportedMock } from '@serge/mocks'
+import { WargameExportedMock, planningMessages } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -27,7 +27,7 @@ const Template: Story<SupportPanelProps> = () => {
     forceColors={[]}
     forceNames={[]}
     hideForcesInChannel={false}
-    messages={[]}
+    messages={planningMessages}
     selectedForce={WargameExportedMock.data.forces.forces[0]}
     selectedRole=''
     forces={[]}

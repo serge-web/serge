@@ -35,7 +35,7 @@ describe('ChannelMessagesList component: ', () => {
         turnNumber: 1
       },
       message: {
-        Reference: 'Message-1',
+        reference: 'Message-1',
         title: 'Message Title',
         startDate: '2020-10-13T08:52:04.394Z',
         endDate: '2020-10-15T08:52:04.394Z'

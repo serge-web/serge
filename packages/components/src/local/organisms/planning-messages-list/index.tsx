@@ -11,10 +11,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages }: PropType
   useEffect(() => {
     const dataTable = messages.map(message => {
       return {
-        id: message._id,
-        title: message.details.from.name || '',
+        id: message.message.reference,
+        title: message.message.title,
         role: message.details.from.roleName,
-        status: message.hasBeenRead ? 'True' : 'False',
+        status: (message.details.collaboration && message.details.collaboration.status) || 'Pending',
         startDate: message.message.startDate || '',
         endDate: message.message.endDate || ''
       }

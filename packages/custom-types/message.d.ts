@@ -91,7 +91,9 @@ export interface MessageStructure {
  */
 export interface PlanningMessageStructure {
   /** unique id for this message thread */
-  Reference: string
+  reference: string
+  /** title for this plan */
+  title: string
   /** start-time of this plan */
   startDate?: string
   /** end-time of this plan */
