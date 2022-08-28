@@ -3,6 +3,7 @@ import MoreVert from '@material-ui/icons/MoreVert'
 import cx from 'classnames'
 import React, { ElementRef, useRef, useState } from 'react'
 import { ResizableDelta, Rnd } from 'react-rnd'
+import PlanningAssets from '../planning-assets'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import styles from './styles.module.scss'
@@ -60,6 +61,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     )
   }
 
+  const onRender = (): void => {
+    console.log('=> render')
+  }
+
   return (
     <div className={styles.root}>
       <Slide direction="right" in={isShowPanel}>
@@ -76,7 +81,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           >
             <div className={styles.content} ref={contentRef}>
               <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-                My Force
+                <PlanningAssets forces={[selectedForce]} playerForce={selectedForce} isUmpire={true} render={onRender} />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
                 <PlanningMessagesList

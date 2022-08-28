@@ -1,27 +1,26 @@
-import { TurnFormats } from "@serge/config";
-import { ChannelUI, Force, ForceData, MessageCustom, MessagePlanning, Role } from "@serge/custom-types";
+import { TurnFormats } from '@serge/config'
+import { Force, ForceData, MessagePlanning } from '@serge/custom-types'
 
 export default interface PropTypes {
-  messages: any;
-  turnPresentation?: TurnFormats;
-  hideForcesInChannel: boolean;
-  selectedForce: ForceData;
-  selectedRole: string;
-  forceIcons: any[];
-  forceColors: string[];
-  forceNames: string[];
+  messages: any
+  turnPresentation?: TurnFormats
+  hideForcesInChannel: boolean
+  selectedForce: ForceData
+  selectedRole: string
+  forceIcons: any[]
+  forceColors: string[]
+  forceNames: string[]
   forces: Force[]
-  onRead: (message: MessagePlanning) => void;
-  onUnread: (message: MessageChannel | ChatMessage) => void;
-  onReadAll: () => void;
+  onRead: (message: MessagePlanning) => void
+  onUnread: (message: MessageChannel | ChatMessage) => void
+  onReadAll: () => void
 }
 
-
 export type TabPanelProps = {
-  children?: React.ReactNode;
-  active: boolean;
-  value: string;
-  className?: string;
+  children?: React.ReactNode
+  active: boolean
+  value: string
+  className?: string
 }
 
 export type PanelActionTabsProps = {
