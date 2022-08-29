@@ -8,13 +8,17 @@ import {
   nextGameTurn,
   openModal,
   openTour,
-  showHideObjectives
+  showHideObjectives,
+  markAllAsRead,
+  markAllAsUnread
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { expiredStorage } from '../../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import PlayerLog from '../PlayerLog'
+import { useDispatch } from 'react-redux'
 
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
@@ -37,7 +41,8 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     turnEndTime,
     selectedForce,
     wargameInitiated,
-    isUmpire
+    isUmpire,
+    showPlayerLogs
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
   const [selectedNode, setSelectedNode] = useState<string>('')
@@ -50,8 +55,8 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       </div>
     )
   }
-
-  const dispatch = usePlayerUiDispatch()
+  const dispatch = useDispatch()
+  const PlayerUiDispatch = usePlayerUiDispatch()
 
   const handleChangeTab = (node: TabNode): void => {
     setSelectedNode(node.getComponent() || '')
@@ -61,7 +66,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   const openTourFn = () => {
     const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-${selectedNode === 'mapping' ? 'mapping-' : ''}tourDone`
     expiredStorage.removeItem(storageKey)
-    dispatch(openTour(true))
+    PlayerUiDispatch(openTour(true))
   }
 
   const closePlayerlogModal = useCallback(() => {
@@ -69,11 +74,20 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   }, [])
 
   const openPlayerlogModal = useCallback(() => {
+    dispatch(saveNewActivityTimeMessage(selectedRole, 'Plaer logs', currentWargame))
     togglePlayerLogModal(true)
   }, [])
 
+  const handlePlayerlogsMarkAllAsRead = () => {
+    PlayerUiDispatch(markAllAsRead(''))
+  }
+
+  const handlePlayerlogsMarkAllAsUnread = () => {
+    PlayerUiDispatch(markAllAsUnread(''))
+  }
+
   return <div className='flex-content flex-content--row-wrap'>
-    <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} />
+    <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} handlePlayerlogsMarkAllAsRead={handlePlayerlogsMarkAllAsRead} handlePlayerlogsMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread} playerLogsActivity={openPlayerlogModal} />
     <div className='message-feed in-game-feed' data-tour='fourth-step'>
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
@@ -103,14 +117,14 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       />
 
       <div className='message-group-button'>
-        <span title='Sumbit lesson learned/feedback' onClick={(): void => dispatch(openModal('lessons'))} className='wargame-title-icon' data-tour='third-step'>
+        <span title='Sumbit lesson learned/feedback' onClick={(): void => PlayerUiDispatch(openModal('lessons'))} className='wargame-title-icon' data-tour='third-step'>
           <strong className='sr-only'>Show lesson</strong>
         </span>
         <span className='tutorial' title='Re-play tutorial'>
           <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
         </span>
         {
-          isUmpire && <span title='Show player log' className='playerlog'>
+          (showPlayerLogs && isUmpire) && <span title='Show player log' className='playerlog'>
             <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
           </span>
         }
@@ -119,7 +133,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       {showObjective && <ForceObjective
         force={selectedForce}
         selectedRole={selectedRoleName}
-        onIconClick={(): void => dispatch(showHideObjectives())}
+        onIconClick={(): void => PlayerUiDispatch(showHideObjectives())}
       />}
     </div>
   </div>

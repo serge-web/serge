@@ -6,6 +6,8 @@ export default interface PlayerMessage {
   lastMessageTitle: string
   /** time of last message received */
   lastMessageTime: string
+  hasBeenRead: boolean
+  _id: string
 }
 
 /** collated set of player log data, ready for display */
@@ -18,6 +20,14 @@ export interface PlayerLogUI {
   title?: string
   // time of last message sent (or undefined if no message sent)
   time?: string
+}
+
+export interface Playerlogs {
+  activityTime: string
+  activityType: string
+  role: string
+  wargame: string
+  _id: string
 }
 
 /** dictionary of player log entries, indexed

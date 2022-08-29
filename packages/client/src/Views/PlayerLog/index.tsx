@@ -1,7 +1,8 @@
 /* eslint-disable no-mixed-operators */
-import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
+import { setMessageState } from '@serge/helpers'
 import { ActivityLogsInterface, ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
@@ -12,15 +13,15 @@ import { usePlayerUiState } from '../../Store/PlayerUi'
 import { genPlayerLogDataTable } from './helpers/genData'
 import styles from './styles.module.scss'
 import { PlayerLogModal, PlayerLogProps } from './types/props'
-
+import deepCopy from '../../Helpers/copyStateHelper'
 // interval between UI refreshes
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
 
 // the player must have been active within this threshold to be treated as `ACTIVE`
 const AGE_FOR_ACTIVE_MILLIS = 60000
 
-const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): React.ReactElement => {
-  const { allForces, playerMessageLog, currentWargame, selectedRole } = usePlayerUiState()
+const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handlePlayerlogsMarkAllAsRead, handlePlayerlogsMarkAllAsUnread, playerLogsActivity }): React.ReactElement => {
+  const { allForces, playerMessageLog, currentWargame, selectedRole, selectedForce } = usePlayerUiState()
   const [loop, setLoop] = useState<any>()
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
@@ -29,8 +30,8 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
 
   useEffect(() => {
     setFilterRows(rows)
-  }, [rows.length])
-
+  }, [rows.length, rows])
+  
   useEffect(() => {
     clearInterval(loop)
     if (isOpen) {
@@ -41,10 +42,14 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
     }
   }, [isOpen, playerMessageLog])
 
+  const selectedForceId = selectedForce ? selectedForce.uniqid : ''
+  
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs().then((activityLog: ActivityLogsInterface[]) => {
+    getPlayerActivityLogs(currentWargame).then((activityLog) => {  
+      const activityLogCopy: ActivityLogsInterface[] = deepCopy(activityLog)
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLog && activityLog.length && activityLog.filter((value: ActivityLogsInterface) => value.wargame === currentWargame) || []
+      const activityLogsForThisWargame = activityLogCopy && activityLogCopy.length && activityLogCopy.filter((value: ActivityLogsInterface) => value.wargame === currentWargame) || []
+
       const activityRoles = activityLogsForThisWargame.map((value: ActivityLogsInterface) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
@@ -59,7 +64,9 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
           if (uniqueRoles.includes(role.roleId)) {
             const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
-            const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
+            const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || ''
+            const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />
+            const message = lastMessage && <>{readIcon} {lastMessage.lastMessageTitle}</> || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
             const activityTime = (activity && activity.activityTime) || ''
             setPlayerLogData([])
@@ -70,6 +77,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
               message,
               lastMessage: messageTime,
               lastActive: activityTime,
+              isReaded: activatyhasBennRead,
               lastActivity: activity ? activity.activityType : 'N/A',
               active: activityTime && (moment().diff(moment(parseInt(activityTime)))) < AGE_FOR_ACTIVE_MILLIS || false
             })
@@ -78,6 +86,13 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
       })
       setPlayerLogData(logData)
     })
+  }
+ 
+  const handleMessagesState = () => {
+    Object.values(playerMessageLog).map(async (value: PlayerMessage) => { 
+      setMessageState(currentWargame, selectedForceId, selectedRole, value._id || '')
+    })
+    handlePlayerlogsMarkAllAsRead && handlePlayerlogsMarkAllAsRead()
   }
 
   return (
@@ -101,6 +116,9 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose }): Reac
       </div>
       <div className={styles.content}>
         <ReactTable
+          handleMarkAllAsRead={handleMessagesState}
+          handleMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread}
+          tableActivity={playerLogsActivity}
           columns={columns}
           rows={filteredRows}
           customStyles={customStyles}

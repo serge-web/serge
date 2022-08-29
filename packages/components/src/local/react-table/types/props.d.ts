@@ -14,6 +14,7 @@ export type ReactTableProps = Omit<TableProps, 'columns'> & {
   handleArchiveDoc?: () => void
   handleMarkAllAsRead?: () => void
   handleMarkAllAsUnread?: () => void
+  tableActivity: (getRoleId: string, activityType: string) => void
   channelName?: string
   filterTheme?: 'dark' | 'light'
 }

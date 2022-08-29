@@ -130,6 +130,12 @@ export const SettingOverview: React.FC<PropTypes> = ({
     setDirty(updates)
   }
 
+  const updatePlayerForcesVisibility = (): void => {
+    const updates = { ...overview, showPlayerLogs: !overview.showPlayerLogs }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const setDirty = (updates: WargameOverview): void => {
     onChange && onChange({
       ...updates,
@@ -313,6 +319,17 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 />
               }
               label="Hide force icons in channels"
+            /></MoreInfo>
+            <MoreInfo description='Hide icons for which forces are in a channel, allowing one force to "snoop" on another'><FormControlLabel
+              control={
+                <Checkbox
+                  checked={initialOverview.showPlayerLogs}
+                  onChange={updatePlayerForcesVisibility}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Show player logs in wargame"
             /></MoreInfo>
           </div>
           <div>

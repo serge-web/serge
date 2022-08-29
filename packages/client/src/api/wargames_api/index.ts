@@ -1,7 +1,7 @@
 import uniqid from 'uniqid'
 import _ from 'lodash'
 import moment from 'moment'
-import fetch, { Response } from 'node-fetch'
+import fetch from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
@@ -15,9 +15,7 @@ import {
   clearAll,
   allDbs,
   COUNTER_MESSAGE,
-  expiredStorage,
-  ACTIVITY_TIME,
-  ACTIVITY_TYPE,
+  playerlogs,
   SERGE_INFO,
   INFO_MESSAGE,
   FEEDBACK_MESSAGE,
@@ -28,7 +26,7 @@ import {
   DELETE_MARKER,
   wargameSettings
 } from '@serge/config'
-import { dbDefaultSettings } from '../../consts'
+import { dbDefaultSettings, dbDefaultPlaylogSettings } from '../../consts'
 
 import {
   setLatestFeedbackMessage,
@@ -62,7 +60,8 @@ import {
   MessageStateOfWorld,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  ActivityLogsInterface
 } from '@serge/custom-types'
 
 import {
@@ -152,42 +151,50 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {
+export const pingServer = async (wargame: string, role: string, activityTypes: string, activityTimes: string): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)
-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)
-
-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
-
-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data.status
-    })
-    .catch((err) => {
-      console.log(err)
-      return 'NOT_OK'
-    })
+  const activityTime = activityTimes || activityMissing
+  const activityType = activityTypes || activityMissing
+  
+  if (!wargame) return null
+  
+  const { db } = getWargameDbByName(playerlogs)
+  return await getPlayerActivityLogs(wargame)
+    .then(res => {
+      const newDoc: ActivityLogsInterface[] = deepCopy(res)
+      const updatedData = newDoc
+      const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
+      
+      if (findIndex !== -1) {
+        const data: ActivityLogsInterface = {
+          ...updatedData[findIndex],
+          activityTime: activityTime,
+          activityType: activityType
+        }
+   
+        const playerlogsUpdate = updatedData[findIndex] = data
+        db.put(playerlogsUpdate)
+          .then(() => 'OK')
+      } else {
+        const newPlayerlog: ActivityLogsInterface = {
+          ...dbDefaultPlaylogSettings,
+          wargame: wargame,
+          role: role,
+          activityType: activityType || activityMissing,
+          activityTime: activityTime || activityMissing
+        }
+        
+        db.put(newPlayerlog)
+          .then(() => 'OK')
+      }
+    }).catch(() => console.log('errors'))
 }
-
-export const getPlayerActivityLogs = () => {
-  const url = `${serverPath}playerlog`
-
-  return fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data
-    })
+ 
+export const getPlayerActivityLogs = (wargame: string): Promise<void | ActivityLogsInterface> => {
+  const { db } = getWargameDbByName(wargame)
+  return db.playlogs()
+    .then(res => res)
+    .catch()
     .catch((err) => {
       console.log(err)
     })

@@ -100,8 +100,6 @@ export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 export const EMPTY_CELL = '[Empty]'
 
 // name of property used for storing time/type of last activity
-export const ACTIVITY_TIME = 'activityTime'
-export const ACTIVITY_TYPE = 'activityType'
 
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
@@ -140,6 +138,7 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
+export const playerlogs = 'playerlogs'
 // Note: On heroku we don't use the additional port for the socket, we use the plain origin
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
 export const replicate = 'replicate/'
@@ -160,7 +159,3 @@ export const CONTROL_ALL = 'control-all:'
  * @param role - current role id
  * @param event - name of event that just happened
  */
-export const setActivityTime = (role: string, event: string): void  => {
-  expiredStorage.setItem(`${role}_${ACTIVITY_TYPE}`, event) 
-  expiredStorage.setItem(`${role}_${ACTIVITY_TIME}`, `${new Date().getTime()}`) 
-}

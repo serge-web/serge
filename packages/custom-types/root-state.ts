@@ -31,8 +31,10 @@ export type ExportItems = {
 export interface ActivityLogsInterface {
   activityTime: string
   activityType: string
-  role: string
-  wargame: string
+  role: string,
+  _id?: string,
+  wargame: string,
+  curentPlayerlog?: string
 }
 
 export type DBLoadingState = {

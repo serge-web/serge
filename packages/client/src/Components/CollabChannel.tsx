@@ -8,6 +8,8 @@ import {
   markAllAsUnread,
   saveMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { useDispatch } from 'react-redux'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
 import { CollabStatusBoard } from '@serge/components'
@@ -16,7 +18,8 @@ import '@serge/themes/App.scss'
 
 const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
-  const dispatch = usePlayerUiDispatch()
+  const playerUiDispatch = usePlayerUiDispatch()
+  const dispatch = useDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole, selectedRoleName, gameDate } = state
   const isUmpire = selectedForce && selectedForce.umpire
@@ -34,27 +37,31 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   useEffect(() => {
     const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')
     if (channelUI.messages!.length === 0) {
-      getAllWargameMessages(state.currentWargame)(dispatch)
+      getAllWargameMessages(state.currentWargame)(playerUiDispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
   const handleOpenMessage = (message: MessageChannel): void => {
-    dispatch(openMessage(channelId, message))
+    playerUiDispatch(openMessage(channelId, message))
   }
 
   const markAllMsgAsRead = (): void => {
-    dispatch(markAllAsRead(channelId))
+    playerUiDispatch(markAllAsRead(channelId))
   }
 
   const handleUnreadAllMessage = (): void => {
-    dispatch(markAllAsUnread(channelId))
+    playerUiDispatch(markAllAsUnread(channelId))
   }
 
   const handleChange = (nextMsg: MessageCustom): void => {
-    saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
+    const { details } = nextMsg
+    saveMessage(state.currentWargame, details, nextMsg.message)()
+    saveNewActivityTimeMessage(details.from.roleId, 'send message ' + nextMsg.details.messageType, state.currentWargame)(dispatch)
   }
-
+  const collabActivityMessage = (getRoleId: string, activityType: string) => { 
+    getRoleId && saveNewActivityTimeMessage(getRoleId, activityType, state.currentWargame)(dispatch)
+  }
   const channelMessages = channelUI.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
 
@@ -79,13 +86,14 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const observing = !!channelUI.observing
 
-  const isCollabEdit = channel.channelType === CHANNEL_COLLAB
+  const isCollabEdit = channel.channelType === CHANNEL_COLLAB 
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         {isCollabEdit && (
           <CollabStatusBoard
+            collabActivity={collabActivityMessage}
             currentWargame={state.currentWargame}
             onMessageRead={handleOpenMessage}
             onMarkAllAsRead={markAllMsgAsRead}

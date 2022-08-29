@@ -144,6 +144,15 @@ export const channelTemplate = {
   participants: []
 }
 
+export const dbDefaultPlaylogSettings = {
+  wargame: 'missing',
+  role: 'missing',
+  activityType: '',
+  activityTime: '',
+  _id: new Date().toISOString(), 
+  isOpen: false
+}
+
 export const dbDefaultSettings = {
   _id: Globals.wargameSettings,
   wargameTitle: '',
@@ -158,7 +167,7 @@ export const dbDefaultSettings = {
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      dirty: false
+      showPlayerLogs: true
     },
     forces: {
       name: 'Forces',

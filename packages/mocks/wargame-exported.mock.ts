@@ -1457,7 +1457,8 @@ const game: Wargame = {
       name: 'Overview - settings',
       realtimeTurnTime: 600000,
       showAccessCodes: true,
-      timeWarning: 60000
+      timeWarning: 60000,
+      showPlayerLogs: true
     },
     platformTypes: {
       dirty: false,

@@ -1641,6 +1641,7 @@ const wargame: Wargame = {
             "hideForcesInChannels": true,
             "realtimeTurnTime": 300000,
             "showAccessCodes": true,
+            "showPlayerLogs": true,
             "timeWarning": 60000
         },
         "platformTypes": {

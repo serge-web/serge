@@ -1,10 +1,12 @@
 import { ChannelMessagesList, ChatEntryForm, ChatMessagesList } from '@serge/components'
 import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import ResizeObserver from 'resize-observer-polyfill'
 import {
-  getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMessage
+  getAllWargameMessages, markAllAsRead, markUnread, openMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 
 import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
@@ -12,7 +14,8 @@ import NewMessage from './NewMessage'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()
-  const dispatch = usePlayerUiDispatch()
+  const playerUiDispatch = usePlayerUiDispatch()
+  const dispatch = useDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedRole, selectedForce } = state
   const chatMessageRef = useRef<any>(null)
@@ -27,17 +30,19 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
     if (state.channels[channelId].messages!.length === 0) {
-      getAllWargameMessages(state.currentWargame)(dispatch)
+      getAllWargameMessages(state.currentWargame)(playerUiDispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
   const messageHandler = (post: ChatMessage): void => {
-    saveMessage(state.currentWargame, post.details, post.message)()
+    const { details } = post
+
+    saveNewActivityTimeMessage(details.from.roleId, 'send message ' + details.messageType, state.currentWargame)(dispatch)
   }
 
   const markAllAsReadLocal = (): void => {
-    dispatch(markAllAsRead(channelId))
+    playerUiDispatch(markAllAsRead(channelId))
   }
 
   useEffect(() => {
@@ -74,16 +79,18 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const messages = state.channels[channelId].messages as any
 
   const onRead = (detail: MessageCustom): void => {
-    dispatch(openMessage(channelId, detail))
+    playerUiDispatch(openMessage(channelId, detail))
   }
 
   const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
-    dispatch(markUnread(channelId, message))
+    playerUiDispatch(markUnread(channelId, message))
   }
-
+  const newActiveMessage = (roleId: string, activityMessage: string) => {
+    saveNewActivityTimeMessage(roleId, activityMessage, state.currentWargame)(dispatch)
+  }
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {
@@ -125,6 +132,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             {
               typeof isCustomChannel === 'boolean' && isCustomChannel
                 ? <NewMessage
+                  activityTimeChanel={newActiveMessage}
                   orderableChannel={true}
                   curChannel={channelId}
                   privateMessage={!!selectedForce.umpire}

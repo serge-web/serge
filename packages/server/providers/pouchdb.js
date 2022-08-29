@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE, PLAY_LOGS } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -158,6 +158,25 @@ const pouchDb = (app, io, pouchOptions) => {
       limit: 1,
       sort: [{ _id: 'desc' }]
     }).then((result) => res.send({ msg: 'ok', data: result.docs }))
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/logs', (req, res) => {
+    const databaseName = checkSqliteExists(PLAY_LOGS)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      }
+    }).then((result) => {
+      res.send({ msg: 'ok', data: result.docs })
+    })
       .catch(() => res.send([]))
   })
 

@@ -26,12 +26,12 @@ const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
 const Version: React.FC<VersionProps> = () => {
   const dispatch = useDispatch()
-  const { notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface } = useSelector(({ notifications, playerLog }: any) => ({ notifications, playerLog }))
+  const { notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface} = useSelector(({ notifications, playerLog }: any) => ({ notifications, playerLog }))
   const [toggleBeat, setToggleBeat] = useState(false)
   const [serverStatus, setServerStatus] = useState('')
   const [serverPingTime, setServerPingTime] = useState<number>(0)
   const isUmpire = (window as any).selectedChannel && (window as any).selectedChannel === UMPIRE_FORCE
-
+  
   useEffect(() => {
     // check for previous heartbeat notification
     const prevNotification = notifications.filter(i => i.subType === 'HeartbeatAlert')
@@ -50,11 +50,10 @@ const Version: React.FC<VersionProps> = () => {
       setToggleBeat(true)
     }
   }, [serverStatus, serverPingTime])
-
+  
   const pingServer = () => {
-    const wargame = playerLog.wargame
-    const role = playerLog.role
-    return pingServerApi({ wargame, role }).then(res => {
+    const { wargame, role, activityTime, activityType } = playerLog 
+    return pingServerApi(wargame, role, activityType, activityTime).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -63,7 +62,7 @@ const Version: React.FC<VersionProps> = () => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      pingServer()
+      pingServer() 
     }, SERVER_PING_INTERVAL)
 
     return () => {

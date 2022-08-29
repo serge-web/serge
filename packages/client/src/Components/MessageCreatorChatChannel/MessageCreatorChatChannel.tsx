@@ -1,14 +1,17 @@
 import React, { createRef, useEffect, useState } from 'react'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
+import { useDispatch } from 'react-redux'
 import { Editor, MessageDetails } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import Props from './types'
 
-const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
+const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactElement => {
   const editorPreviewRef = createRef<HTMLDivElement>()
   const [editor, setEditor] = useState<Editor | null>(null)
   const state = usePlayerUiState()
+  const dispatch = useDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
@@ -35,6 +38,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
       if (editor.getValue().content === '') return
 
       saveMessage(state.currentWargame, messageDetails, editor.getValue())()
+      saveNewActivityTimeMessage(state.selectedRole, 'send message ' + schema.title, state.currentWargame)(dispatch)
       setEditor(setupEditor(editor, schema, editorPreviewRef))
     }
   }
@@ -42,11 +46,11 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   return <div className='media'>
     <div className='media-body message-creator' ref={editorPreviewRef}/>
     <div className='align-self-center'>
-      <button name='send' className='btn btn-action btn-action--complimentary' onClick={sendMessage}>
+      <button name='send' className='btn btn-action btn-action--complimentary' onClick={sendMessage} >
         <span className='sr-only'>Send test</span>
       </button>
     </div>
   </div>
-}
+})
 
 export default MessageCreatorChatChannel

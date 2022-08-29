@@ -30,6 +30,7 @@ import {
   markUnread,
   closeMessage,
   markAllMessageState,
+  MarkAllPlayerMessageRead,
   handleWargameUpdate,
   handleNewMessage
 } from './helpers/handleWargameMessagesChange'
@@ -78,6 +79,7 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
+  showPlayerLogs: false,
   isInsightViewer: false,
   isRFIManager: false,
   playerMessageLog: {}
@@ -103,6 +105,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
       newState.showAccessCodes = data.overview.showAccessCodes
+      newState.showPlayerLogs = data.overview.showPlayerLogs || false
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.gameDate = data.overview.gameDate
       newState.gameTurnTime = data.overview.gameTurnTime
@@ -212,11 +215,19 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case MARK_ALL_AS_READ:
-      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
+      if (!action.payload) {
+        newState.playerMessageLog = MarkAllPlayerMessageRead(newState, 'read')
+      } else {
+        newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
+      }
       break
 
     case MARK_ALL_AS_UNREAD:
-      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
+      if (!action.payload) {
+        newState.playerMessageLog = MarkAllPlayerMessageRead(newState, 'unread')
+      } else {
+        newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
+      }
       break
 
     case OPEN_TOUR:
