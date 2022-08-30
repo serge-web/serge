@@ -59,12 +59,13 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         forceNames={forceNames}
         hideForcesInChannel={hideForcesInChannel}
         messages={messages}
-        selectedForce={selectedForce}
+        selectedForce={selectedForce.uniqid}
         selectedRole={selectedRole}
         forces={allForces}
         onReadAll={onReadAll}
         onUnread={onUnread}
         onRead={onRead}
+        channel={channelPlanning}
       />
     </div>
   )

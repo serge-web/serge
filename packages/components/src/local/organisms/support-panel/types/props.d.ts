@@ -1,12 +1,12 @@
 import { TurnFormats } from '@serge/config'
-import { Force, ForceData, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, Force, ForceData, MessagePlanning } from '@serge/custom-types'
 
 export default interface PropTypes {
-  messages: any
+  messages: MessagePlanning[]
   turnPresentation?: TurnFormats
   hideForcesInChannel: boolean
-  selectedForce: ForceData
-  selectedRole: string
+  selectedForce: ForceData['uniqid']
+  selectedRole: Role['roleid']
   forceIcons: any[]
   forceColors: string[]
   forceNames: string[]
@@ -14,6 +14,10 @@ export default interface PropTypes {
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessageChannel | ChatMessage) => void
   onReadAll: () => void
+  /**
+   * definition of this channel
+   */
+  channel: ChannelPlanning
 }
 
 export type TabPanelProps = {

@@ -81,7 +81,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
                 <PlanningMessagesList
                   messages={messages}
-                  playerForceId={selectedForce.uniqid}
+                  playerForceId={selectedForce}
                   isUmpire={true}
                   icons={forceIcons}
                   colors={forceColors}

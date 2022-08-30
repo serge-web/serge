@@ -44,7 +44,7 @@ const tableIcons: TableIcons = {
 
 export const Orders: React.FC<PropTypes> = ({ columns, rows, title }: PropTypes) => {
   return <MaterialTable
-    title={title || 'My Order'}
+    title={title || 'My Orders'}
     icons={tableIcons}
     columns={columns}
     data={rows}
