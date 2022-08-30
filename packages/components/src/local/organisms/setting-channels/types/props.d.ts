@@ -1,4 +1,4 @@
-import { ChannelTypes, ForceData, TemplateBody, ChannelCore } from '@serge/custom-types'
+import { ChannelCore, ChannelTypes, ForceData, TemplateBody } from '@serge/custom-types'
 import { Option } from 'src/local/molecules/editable-row'
 
 export default interface PropTypes {
@@ -24,4 +24,4 @@ export type MessageGroupProps = {
   value: string[]
 }
 
-export { ChannelTypes, ChannelCollab, Channel, ForceData, Role, Participant } from '@serge/custom-types'
+export { Channel, ChannelCollab, ChannelTypes, ForceData, Participant, Role } from '@serge/custom-types'

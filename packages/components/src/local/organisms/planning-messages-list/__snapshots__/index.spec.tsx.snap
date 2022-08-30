@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChannelMessagesList component:  renders component correctly 1`] = `
+<div
+  className="messages-list"
+>
+  Render planning messages in table here. Message count:
+  1
+</div>
+`;

@@ -77,6 +77,7 @@ export const Mapping: React.FC<PropTypes> = ({
   forces,
   playerForce,
   isGameControl,
+  isUmpire,
   playerRole,
   platforms,
   infoMarkers,
@@ -131,6 +132,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
+  const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
   if (!channel) {
     console.warn('Channel is missing from mapping component')
@@ -713,8 +715,11 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const viewAsCallback = (force: string): void => {
+  const viewAsCallback = (force: ForceData['uniqid']): void => {
     setViewAsForce(force)
+    // see if this is player viewing as an umpire force
+    const theForce = forcesState.find((forceD: ForceData) => forceD.uniqid === force)
+    setViewAsUmpire(!!(theForce && theForce.umpire))
   }
 
   const groupMoveToRootLocal = (uniqid: string): void => {
@@ -775,6 +780,7 @@ export const Mapping: React.FC<PropTypes> = ({
     platforms,
     playerForce,
     isGameControl,
+    viewAsUmpire,
     phase,
     turnNumber,
     planningConstraints,

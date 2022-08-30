@@ -15,6 +15,7 @@ import {
   CHANNEL_COLLAB,
   CHANNEL_CUSTOM,
   CHANNEL_CHAT,
+  CHANNEL_PLANNING,
   UPDATE_MARKER,
   DELETE_MARKER,
   UMPIRE_LAYDOWN
@@ -25,6 +26,7 @@ import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_Ac
 import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
 import _ from 'lodash'
 import ChatChannel from '../../../Components/ChatChannel'
+import PlanningChannel from '../../../Components/PlanningChannel'
 
 import CollabChannel from '../../../Components/CollabChannel'
 import findChannelByID from './findChannelByID'
@@ -129,6 +131,7 @@ const factory = (state: PlayerUi): Factory => {
       playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
       playerRole={state.selectedRole}
       isGameControl={state.isGameControl}
+      isUmpire={state.isUmpire}
       channelID={channelid}
       channel={channel}
       mapPostBack={mapPostBack}
@@ -161,6 +164,8 @@ const factory = (state: PlayerUi): Factory => {
             return <CollabChannel channelId={matchedChannel[0]} />
           case CHANNEL_CHAT:
             return <ChatChannel channelId={matchedChannel[0]} />
+          case CHANNEL_PLANNING:
+            return <PlanningChannel channelId={matchedChannel[0]} />
           case CHANNEL_MAPPING: {
             const channel = matchedChannel[1].cData as ChannelMapping
             const constraints = channel.constraints

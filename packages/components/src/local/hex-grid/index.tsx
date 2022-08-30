@@ -334,6 +334,11 @@ export const HexGrid: React.FC<{}> = () => {
     if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRangeCells || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
+      if (!originCell && !originHex3) {
+        const originRes = h3GetResolution(planningConstraints.origin)
+        const cellRes = h3GetResolution(h3gridCells[0].index)
+        console.warn('Warning - planning origin not found in hex grid', planningConstraints.origin, originRes, cellRes)
+      }
       // did we find cell?
       if (originCell) {
         if (turnNumber > 0) {
@@ -349,6 +354,8 @@ export const HexGrid: React.FC<{}> = () => {
         // is there a limited range?
         let allowableCellList: SergeHex3[] = planningRangeCells
           ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
+
+        console.log('hex plan', turnCircles.length, turnOverall.length)
 
         if (turnOverall.length) {
           // convert the poly to turf, to remove repeated processing
@@ -754,7 +761,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
     { /*  - show number of visible cells */}
-    {viewport &&
+    { viewport &&
       <Marker
         key={'num_vis_cells'}
         position={viewport.getCenter()}

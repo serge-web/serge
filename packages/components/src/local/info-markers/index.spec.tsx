@@ -26,6 +26,7 @@ it('Mapping renders correctly with AsseticonURL', () => {
     markerIcons={[]}
     platforms = {platformTypes}
     isGameControl = {true}
+    isUmpire = {true}
     playerForce="Blue"
     phase={Phase.Planning}
     turnNumber={5}

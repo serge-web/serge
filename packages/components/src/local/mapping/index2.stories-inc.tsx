@@ -122,6 +122,7 @@ Default.args = {
   playerForce: 'Blue',
   markerIcons: [],
   isGameControl: false,
+  isUmpire: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,
   turnNumber: 5,
