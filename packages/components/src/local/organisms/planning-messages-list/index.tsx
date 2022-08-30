@@ -22,7 +22,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, channel, p
     // find the participation for this player/role
     const isObserver = false
     const partStates = checkV3ParticipantStates(channel, playerForceId, playerRoleId, isObserver)
-    setTemplates(partStates.templatesIDs)
+    setTemplates(partStates.templatesIDs)  
   }, [channel])
 
   useEffect(() => {
