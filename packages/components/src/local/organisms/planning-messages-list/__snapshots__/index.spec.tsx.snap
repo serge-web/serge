@@ -575,10 +575,5 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
       </tfoot>
     </table>
   </div>
-  <div>
-    [New template editor for:
-    COA
-    ]
-  </div>
 </div>
 `;

@@ -685,7 +685,10 @@ exports[`Support Panel component:  renders component correctly 1`] = `
             </div>
             <div>
               [New template editor for:
-              COA
+              Maritime Activity
+              Land Activity
+              Air Activity
+              Other Activity
               ]
             </div>
           </div>
