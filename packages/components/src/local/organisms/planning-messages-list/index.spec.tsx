@@ -53,7 +53,7 @@ describe('ChannelMessagesList component: ', () => {
 
     const tree = renderer
       .create(<PlanningMessagesList channel={planningChannel} hideForcesInChannel={false}
-        messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} 
+        messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true}
         playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
