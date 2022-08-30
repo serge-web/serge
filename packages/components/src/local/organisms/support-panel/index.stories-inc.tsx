@@ -1,4 +1,4 @@
-import { ChannelPlanning } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, Role } from '@serge/custom-types'
 import { p9wargame, planningMessages } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
@@ -10,6 +10,16 @@ import SupportPanelProps from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
+const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
+const forces = p9wargame.data.forces.forces
+
+const allRoles: string[] = []
+forces.forEach((force: ForceData) => {
+  force.roles.forEach((role: Role) => {
+    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
+  })
+})
+
 export default {
   title: 'local/organisms/SupportPanel',
   component: SupportPanel,
@@ -18,23 +28,43 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // We have no addons enabled in this story, so the addon panel should be hidden
+      showPanel: true
+    },
+    controls: {
+      expanded: true
+    }
+  },
+  argTypes: {
+    selectedRole: {
+      name: 'View as',
+      defaultValue: allRoles[0],
+      options: allRoles,
+      control: {
+        type: 'select'
+      }
     }
   }
 }
 
-const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
-const blueForce = p9wargame.data.forces.forces[1]
-const blueRole = blueForce.roles[0]
+const Template: Story<SupportPanelProps> = (args) => {
+  const { selectedRole } = args
+  const roleStr: string = selectedRole
+  // separate out the two elements of the combined role
+  const ind = roleStr.indexOf(' ~ ')
+  const force = roleStr.substring(0, ind)
+  const role = roleStr.substring(ind + 3)
 
-const Template: Story<SupportPanelProps> = () => {
   return <SupportPanel
     forceIcons={[]}
     forceColors={[]}
     forceNames={[]}
     hideForcesInChannel={false}
     messages={planningMessages}
-    selectedForce={blueForce.uniqid}
-    selectedRole={blueRole.roleId}
+    selectedForce={force}
+    selectedRole={role}
     forces={[]}
     onReadAll={noop}
     onUnread={noop}

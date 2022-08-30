@@ -57,7 +57,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, channel, p
     <div className={styles['messages-list']}>
       <Orders columns={columns} rows={rows} />
       {
-        templates && 
+        templates && templates.length > 0 && 
         <div>[New template editor for:{templates.map((value: ParticipantTemplate) => value.title)}]</div>
       }
     </div>
