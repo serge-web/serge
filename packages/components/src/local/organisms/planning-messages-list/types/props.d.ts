@@ -1,5 +1,5 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 
 export default interface PropTypes extends ForcesInChannelProps {
   /**
@@ -7,6 +7,10 @@ export default interface PropTypes extends ForcesInChannelProps {
    * for ChannelMessage components
    */
   messages: Array<MessagePlanning>
+  /**
+   *  definition of planning channel 
+   */
+  channel: ChannelPlanning
   /**
    * Callback on expanding message item
    */

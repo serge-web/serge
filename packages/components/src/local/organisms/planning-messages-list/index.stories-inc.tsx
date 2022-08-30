@@ -5,11 +5,12 @@ import React, { useState } from 'react'
 // Import component files
 import { MessagePlanning } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
-import { planningMessages } from '@serge/mocks'
+import { p9wargame, planningMessages } from '@serge/mocks'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
 
+const planningChannel = p9wargame.data.channels[0]
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -69,6 +70,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   return <PlanningMessagesList
     messages={newestMessages}
+    channel={planningChannel}
     icons={icons}
     playerForceId={playerForceId}
     colors={colors}

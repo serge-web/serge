@@ -6,6 +6,10 @@ import { PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 
+import { p9wargame } from '@serge/mocks'
+
+const planningChannel = p9wargame.data.channels[0]
+
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
     moment.tz.setDefault('Etc/UTC')
@@ -46,7 +50,7 @@ describe('ChannelMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<PlanningMessagesList hideForcesInChannel={false} messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} role={'Comms'} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<PlanningMessagesList channel={planningChannel} hideForcesInChannel={false} messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} role={'Comms'} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

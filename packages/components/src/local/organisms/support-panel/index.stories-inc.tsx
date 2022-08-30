@@ -30,7 +30,7 @@ const Template: Story<SupportPanelProps> = () => {
     forceNames={[]}
     hideForcesInChannel={false}
     messages={planningMessages}
-    selectedForce={p9wargame.data.forces[1].uniqid}
+    selectedForce={p9wargame.data.forces.forces[1].uniqid}
     selectedRole=''
     forces={[]}
     onReadAll={noop}

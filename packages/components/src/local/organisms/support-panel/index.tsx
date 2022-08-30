@@ -18,7 +18,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   turnPresentation,
   onRead,
   onUnread,
-  onReadAll
+  onReadAll,
+  channel
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
@@ -91,6 +92,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
+                  channel={channel}
                 />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
