@@ -12,7 +12,7 @@ import factory from './helpers/factory'
 import tabRender from './helpers/tabRender'
 import Props from './types'
 
-const ChannelTabsContainer: React.FC<Props> = React.memo(({ rootRef, onTabChange }): React.ReactElement => {
+const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.ReactElement => {
   const state = usePlayerUiState()
   const playerUiDispatch = usePlayerUiDispatch()
   const { selectedForce } = state
@@ -127,6 +127,6 @@ const ChannelTabsContainer: React.FC<Props> = React.memo(({ rootRef, onTabChange
       }
     </div>
   )
-})
+}
 
 export default ChannelTabsContainer

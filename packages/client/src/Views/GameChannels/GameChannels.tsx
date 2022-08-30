@@ -74,17 +74,17 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   }, [])
 
   const openPlayerlogModal = useCallback(() => {
-    dispatch(saveNewActivityTimeMessage(selectedRole, 'Plaer logs', currentWargame))
+    dispatch(saveNewActivityTimeMessage(selectedRole, 'Player logs', currentWargame))
     togglePlayerLogModal(true)
   }, [])
 
-  const handlePlayerlogsMarkAllAsRead = () => {
+  const handlePlayerlogsMarkAllAsRead = useCallback(() => {
     PlayerUiDispatch(markAllAsRead(''))
-  }
+  }, [])
 
-  const handlePlayerlogsMarkAllAsUnread = () => {
+  const handlePlayerlogsMarkAllAsUnread = useCallback(() => {
     PlayerUiDispatch(markAllAsUnread(''))
-  }
+  }, [])
 
   return <div className='flex-content flex-content--row-wrap'>
     <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} handlePlayerlogsMarkAllAsRead={handlePlayerlogsMarkAllAsRead} handlePlayerlogsMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread} playerLogsActivity={openPlayerlogModal} />

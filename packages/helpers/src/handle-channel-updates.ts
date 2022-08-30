@@ -141,8 +141,9 @@ export const handleAllInitialChannelMessages = (
   // reduce messages, so we just have single turn marker, and most recent
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
+  const reverseMessagesReduced = messagesReduced.reverse()
 
-  const playerLog = newestPerRole(messagesReduced as Array<MessageCustom>)
+  const playerLog = newestPerRole(reverseMessagesReduced as Array<MessageCustom>)
 
   const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)

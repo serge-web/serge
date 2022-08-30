@@ -20,7 +20,7 @@ export const logTable = (playerLog: PlayerMessageLog, forces: ForceData[]): Arra
  */
 const newestPerRole = (messages: Array<MessageInfoType | MessageCustom>): PlayerMessageLog => {
   const log: PlayerMessageLog = {}
-  messages.reverse().forEach((msg: MessageInfoType | MessageCustom) => {
+  messages.forEach((msg: MessageInfoType | MessageCustom) => {
     if (msg.messageType === CUSTOM_MESSAGE) {
       const msgC: MessageCustom = msg
       const roleId = msgC.details.from.roleId

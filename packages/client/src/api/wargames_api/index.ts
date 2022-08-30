@@ -180,8 +180,8 @@ export const pingServer = async (wargame: string, role: string, activityTypes: s
           ...dbDefaultPlaylogSettings,
           wargame: wargame,
           role: role,
-          activityType: activityType || activityMissing,
-          activityTime: activityTime || activityMissing
+          activityType: activityType, 
+          activityTime: activityTime
         }
         
         db.put(newPlayerlog)
