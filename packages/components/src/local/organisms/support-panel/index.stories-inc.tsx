@@ -1,3 +1,4 @@
+import { ChannelPlanning } from '@serge/custom-types'
 import { p9wargame, planningMessages } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
@@ -21,7 +22,9 @@ export default {
   }
 }
 
-const planningChannel = p9wargame.data.channels[0]
+const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
+const blueForce = p9wargame.data.forces.forces[1]
+const blueRole = blueForce.roles[0]
 
 const Template: Story<SupportPanelProps> = () => {
   return <SupportPanel
@@ -30,8 +33,8 @@ const Template: Story<SupportPanelProps> = () => {
     forceNames={[]}
     hideForcesInChannel={false}
     messages={planningMessages}
-    selectedForce={p9wargame.data.forces.forces[1].uniqid}
-    selectedRole=''
+    selectedForce={blueForce.uniqid}
+    selectedRole={blueRole.roleId}
     forces={[]}
     onReadAll={noop}
     onUnread={noop}

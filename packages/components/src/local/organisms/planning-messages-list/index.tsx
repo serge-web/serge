@@ -1,3 +1,5 @@
+import { ParticipantTemplate } from '@serge/custom-types'
+import { checkV3ParticipantStates } from '@serge/helpers'
 import { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -6,14 +8,24 @@ import { OrderRow } from '../orders/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const PlanningMessagesList: React.FC<PropTypes> = ({ messages }: PropTypes) => {
+export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, channel, playerForceId, playerRoleId }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
+  const [templates, setTemplates] = useState<ParticipantTemplate[]>([])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
     return value ? moment(value).format('DDHHmm[Z]') : ''
   }
- 
+
+  // sort out what templates this role can use
+  useEffect(() => {
+    // find the participation for this player/role
+    const isObserver = false
+    const partStates = checkV3ParticipantStates(channel, playerForceId, playerRoleId, isObserver)
+    setTemplates(partStates.templatesIDs)
+  }, [channel])
+
+
   useEffect(() => {
     const dataTable = messages.map(message => {
       return {
@@ -44,6 +56,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages }: PropType
   return (
     <div className={styles['messages-list']}>
       <Orders columns={columns} rows={rows} />
+      {
+        templates && 
+        <div>[New template editor for:{templates.map((value: ParticipantTemplate) => value.title)}]</div>
+      }
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, Force, ForceData, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, Force, ForceData, MessagePlanning, Role } from '@serge/custom-types'
 
 export default interface PropTypes {
   messages: MessagePlanning[]

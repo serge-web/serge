@@ -50,7 +50,9 @@ describe('ChannelMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<PlanningMessagesList channel={planningChannel} hideForcesInChannel={false} messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} role={'Comms'} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<PlanningMessagesList channel={planningChannel} hideForcesInChannel={false} 
+          messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={'Comms'} 
+          playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

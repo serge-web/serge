@@ -15,6 +15,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   hideForcesInChannel,
   messages,
   selectedForce,
+  selectedRole,
   turnPresentation,
   onRead,
   onUnread,
@@ -83,6 +84,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningMessagesList
                   messages={messages}
                   playerForceId={selectedForce}
+                  playerRoleId={selectedRole}
                   isUmpire={true}
                   icons={forceIcons}
                   colors={forceColors}
