@@ -15,7 +15,6 @@ import {
   clearAll,
   allDbs,
   COUNTER_MESSAGE,
-  playerlogs,
   SERGE_INFO,
   INFO_MESSAGE,
   FEEDBACK_MESSAGE,
@@ -158,7 +157,7 @@ export const pingServer = async (wargame: string, role: string, activityTypes: s
   
   if (!wargame) return null
   
-  const { db } = getWargameDbByName(playerlogs)
+  const { db } = getWargameDbByName(wargame)
   return await getPlayerActivityLogs(wargame)
     .then(res => {
       const newDoc: ActivityLogsInterface[] = deepCopy(res)

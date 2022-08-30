@@ -71,6 +71,13 @@ export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 export const PLAN_ACCEPTED = 'accepted'
 export const PLAN_REJECTED = 'rejected'
 
+// types of UI interaction
+export const PLAIN_INTERACTION = 'plain-interaction'
+export const MESSAGE_READ_INTERACTION = 'msg-read-interaction'
+export const MESSAGE_UNREAD_INTERACTION = 'msg-unread-interaction'
+export const MAP_ANNOTATION_READ_INTERACTION = 'map-anno-read-interaction'
+
+
 // export item types
 export const EXPORT_ITEM_MESSAGES = 'messages'
 export const EXPORT_ITEM_FORCES = 'forces'
