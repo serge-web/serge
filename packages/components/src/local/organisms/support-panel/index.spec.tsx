@@ -1,11 +1,12 @@
 /* global it expect */
+import { ChannelPlanning } from '@serge/custom-types'
 import { p9wargame, planningMessages } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import SupportPanel from './index'
 
-const planningChannel = p9wargame.data.channels[0]
+const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
 
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
