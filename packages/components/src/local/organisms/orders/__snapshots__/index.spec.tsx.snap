@@ -18,7 +18,7 @@ exports[`Orders component: renders component correctly 1`] = `
       <h6
         className="MuiTypography-root-224 MuiTypography-h6-241"
       >
-        My Order
+        My Orders
       </h6>
     </div>
     <div

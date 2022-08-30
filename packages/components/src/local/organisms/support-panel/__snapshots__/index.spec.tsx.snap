@@ -73,7 +73,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                   <h6
                     className="MuiTypography-root-224 MuiTypography-h6-241"
                   >
-                    My Order
+                    My Orders
                   </h6>
                 </div>
                 <div
@@ -198,28 +198,125 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                         className="MuiTableBody-root-324"
                       >
                         <tr
+                          actions={Array []}
                           className="MuiTableRow-root-319"
-                          style={
+                          index={0}
+                          level={0}
+                          localization={
                             Object {
-                              "height": 245,
+                              "cancelTooltip": "Cancel",
+                              "deleteText": "Are you sure delete this row?",
+                              "saveTooltip": "Save",
                             }
                           }
-                        >
-                          <td
-                            aria-sort={null}
-                            className="MuiTableCell-root-325 MuiTableCell-body-327"
-                            colSpan={0}
-                            style={
-                              Object {
-                                "paddingBottom": 0,
-                                "paddingTop": 0,
-                                "textAlign": "center",
-                              }
+                          onClick={[Function]}
+                          path={
+                            Array [
+                              0,
+                            ]
+                          }
+                          style={
+                            Object {
+                              "transition": "all ease 300ms",
                             }
-                          >
-                            No records to display
-                          </td>
-                        </tr>
+                          }
+                        />
+                        <tr
+                          actions={Array []}
+                          className="MuiTableRow-root-319"
+                          index={1}
+                          level={0}
+                          localization={
+                            Object {
+                              "cancelTooltip": "Cancel",
+                              "deleteText": "Are you sure delete this row?",
+                              "saveTooltip": "Save",
+                            }
+                          }
+                          onClick={[Function]}
+                          path={
+                            Array [
+                              1,
+                            ]
+                          }
+                          style={
+                            Object {
+                              "transition": "all ease 300ms",
+                            }
+                          }
+                        />
+                        <tr
+                          actions={Array []}
+                          className="MuiTableRow-root-319"
+                          index={2}
+                          level={0}
+                          localization={
+                            Object {
+                              "cancelTooltip": "Cancel",
+                              "deleteText": "Are you sure delete this row?",
+                              "saveTooltip": "Save",
+                            }
+                          }
+                          onClick={[Function]}
+                          path={
+                            Array [
+                              2,
+                            ]
+                          }
+                          style={
+                            Object {
+                              "transition": "all ease 300ms",
+                            }
+                          }
+                        />
+                        <tr
+                          actions={Array []}
+                          className="MuiTableRow-root-319"
+                          index={3}
+                          level={0}
+                          localization={
+                            Object {
+                              "cancelTooltip": "Cancel",
+                              "deleteText": "Are you sure delete this row?",
+                              "saveTooltip": "Save",
+                            }
+                          }
+                          onClick={[Function]}
+                          path={
+                            Array [
+                              3,
+                            ]
+                          }
+                          style={
+                            Object {
+                              "transition": "all ease 300ms",
+                            }
+                          }
+                        />
+                        <tr
+                          actions={Array []}
+                          className="MuiTableRow-root-319"
+                          index={4}
+                          level={0}
+                          localization={
+                            Object {
+                              "cancelTooltip": "Cancel",
+                              "deleteText": "Are you sure delete this row?",
+                              "saveTooltip": "Save",
+                            }
+                          }
+                          onClick={[Function]}
+                          path={
+                            Array [
+                              4,
+                            ]
+                          }
+                          style={
+                            Object {
+                              "transition": "all ease 300ms",
+                            }
+                          }
+                        />
                       </tbody>
                     </table>
                   </div>
@@ -229,7 +326,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                 className="MuiTable-root-316"
               >
                 <tfoot
-                  className="MuiTableFooter-root-337"
+                  className="MuiTableFooter-root-325"
                   style={
                     Object {
                       "display": "grid",
@@ -241,7 +338,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                   >
                     <td
                       aria-sort={null}
-                      className="MuiTableCell-root-325 MuiTableCell-footer-328 MuiTablePagination-root-338 Component-paginationRoot-1"
+                      className="MuiTableCell-root-336 MuiTableCell-footer-339 MuiTablePagination-root-326 Component-paginationRoot-1"
                       colSpan={3}
                       icons={
                         Object {
@@ -323,27 +420,27 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                       }
                     >
                       <div
-                        className="MuiToolbar-root-220 MuiToolbar-regular-222 MuiToolbar-gutters-221 MuiTablePagination-toolbar-339 Component-paginationToolbar-2"
+                        className="MuiToolbar-root-220 MuiToolbar-regular-222 MuiToolbar-gutters-221 MuiTablePagination-toolbar-327 Component-paginationToolbar-2"
                       >
                         <div
-                          className="MuiTablePagination-spacer-340"
+                          className="MuiTablePagination-spacer-328"
                         />
                         <span
-                          className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-341 Component-paginationCaption-3"
+                          className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-329 Component-paginationCaption-3"
                         >
                           Rows per page:
                         </span>
                         <div
-                          className="MuiInputBase-root-277 MuiTablePagination-input-345"
+                          className="MuiInputBase-root-277 MuiTablePagination-input-333"
                           onClick={[Function]}
                         >
                           <div
-                            className="MuiSelect-root-348 MuiTablePagination-selectRoot-342 Component-paginationSelectRoot-4"
+                            className="MuiSelect-root-348 MuiTablePagination-selectRoot-330 Component-paginationSelectRoot-4"
                           >
                             <div
                               aria-haspopup="true"
                               aria-pressed="false"
-                              className="MuiSelect-select-349 MuiTablePagination-select-343 MuiSelect-selectMenu-352 MuiInputBase-input-287"
+                              className="MuiSelect-select-349 MuiTablePagination-select-331 MuiSelect-selectMenu-352 MuiInputBase-input-287"
                               onBlur={[Function]}
                               onClick={[Function]}
                               onFocus={[Function]}
@@ -367,7 +464,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                             />
                             <svg
                               aria-hidden="true"
-                              className="MuiSvgIcon-root-355 MuiSelect-icon-354 MuiTablePagination-selectIcon-344"
+                              className="MuiSvgIcon-root-355 MuiSelect-icon-354 MuiTablePagination-selectIcon-332"
                               focusable="false"
                               role="presentation"
                               viewBox="0 0 24 24"
@@ -379,9 +476,9 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                           </div>
                         </div>
                         <span
-                          className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-341 Component-paginationCaption-3"
+                          className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-329 Component-paginationCaption-3"
                         >
-                          0-0 of 0
+                          1-5 of 5
                         </span>
                         <div
                           className="MTablePaginationInner-root-368"
@@ -487,7 +584,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                               }
                             }
                           >
-                            1-0 of 0
+                            1-5 of 5
                           </span>
                           <span
                             aria-describedby={null}
@@ -585,6 +682,11 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                   </tr>
                 </tfoot>
               </table>
+            </div>
+            <div>
+              [New template editor for:
+              COA
+              ]
             </div>
           </div>
         </div>
