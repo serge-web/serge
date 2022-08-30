@@ -16,7 +16,7 @@ export const addPlayerLogReducer = (state: ActivityLogsInterface = initialState,
       newState.wargame = action.payload.wargame
       newState.role = action.payload.role
       newState.activityTime = action.payload.activityTime
-      newState.activityType = action.payload.activityType
+      newState.activityType = action.payload.activityType.aType
       break
     default:
       return state

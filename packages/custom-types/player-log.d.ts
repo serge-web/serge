@@ -1,3 +1,5 @@
+import { MAP_ANNOTATION_READ_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from "@serge/config"
+
 /** an entry in the player log */
 export default interface PlayerMessage {
   /** role id for this player */
@@ -22,13 +24,42 @@ export interface PlayerLogUI {
   time?: string
 }
 
-export interface Playerlogs {
+/** a player has had some interaction with the UI */
+export interface PlainInteraction {
+  aType: string
+}
+
+/** a player has marked a message as read */
+export interface MessageReadInteraction extends PlainInteraction {
+  aType: typeof MESSAGE_READ_INTERACTION
+  _id: string
+}
+
+/** a player has marked a message as unread */
+export interface MessageUnReadInteraction extends PlainInteraction {
+  aType: typeof MESSAGE_UNREAD_INTERACTION
+  _id: string
+}
+
+/** a player has read a map annotation */
+export interface MapAnnotationReadInteraction extends PlainInteraction {
+  aType: typeof MAP_ANNOTATION_READ_INTERACTION
+  _id: string
+}
+
+/** union of all types of activity */
+export type PlayerInteraction = PlainInteraction | MessageReadInteraction | MessageUnReadInteraction | MapAnnotationReadInteraction
+
+export interface PlayerLogEntry {
   activityTime: string
-  activityType: string
+  activityType: PlayerInteraction
   role: string
   wargame: string
   _id: string
 }
+
+/** a list of entries, build up before pushing to server */
+export type PlayerLogEntries = PlayerLogEntry[]
 
 /** dictionary of player log entries, indexed
  * by role id

@@ -252,7 +252,7 @@ const handleChannelUpdates = (
     if (channel.uniqid === undefined) {
       console.error('Received channel without uniqid')
     }
-
+    console.log('processing channel', channel, channel.uniqid)
     const channelId = channel.uniqid
 
     const {
@@ -274,7 +274,12 @@ const handleChannelUpdates = (
         // does this channel exist?
         if (!res.channels[channelId]) {
           // create and store it
-          res.channels[channelId] = createNewChannel(channel.uniqid, channel)
+          if (channel) {
+            res.channels[channelId] = createNewChannel(channel.uniqid, channel)
+          } else {
+            console.warn('channel data missing')
+            return
+          }
         }
 
         // already exists, get shortcut

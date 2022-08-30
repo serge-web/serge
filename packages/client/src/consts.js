@@ -147,7 +147,9 @@ export const channelTemplate = {
 export const dbDefaultPlaylogSettings = {
   wargame: 'missing',
   role: 'missing',
-  activityType: '',
+  activityType: {
+    aType: 'pending'
+  },
   activityTime: '',
   _id: new Date().toISOString(), 
   isOpen: false
