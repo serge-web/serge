@@ -18,7 +18,6 @@ const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
   myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
 )
 
-
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
