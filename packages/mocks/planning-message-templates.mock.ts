@@ -536,6 +536,137 @@ const messageTemplatesMock: TemplateBody[] = [
     completed: false,
     _id: 'k16eedki',
     _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+  },
+  {
+    completed: false,
+    details: {
+      format: "grid",
+      properties: {
+        Date: {
+          format: "datetime-local",
+          type: "string"
+        },
+        Description: {
+          format: "textarea",
+          type: "string"
+        },
+        Status: {
+          enum: [
+            "Minor",
+            "Major",
+            "Critical"
+          ],
+          type: "string"
+        },
+        title: {
+          type: "string"
+        }
+      },
+      title: "Maritime Activity",
+      type: "object"
+    },
+    lastUpdated: "2022-08-30T11:53:02.969Z",
+    title: "Maritime Activity",
+    _id: 'k16e-maritime',
+    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+  },
+  {
+    completed: false,
+    details: {
+      format: "grid",
+      properties: {
+        Date: {
+          format: "datetime-local",
+          type: "string"
+        },
+        Description: {
+          format: "textarea",
+          type: "string"
+        },
+        Status: {
+          enum: [
+            "Minor",
+            "Major",
+            "Critical"
+          ],
+          type: "string"
+        },
+        title: {
+          type: "string"
+        }
+      },
+      title: "Land Activity",
+      type: "object"
+    },
+    lastUpdated: "2022-08-30T11:51:13.579Z",
+    title: "Land Activity",
+    _id: 'k16e-land',
+    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+  },{
+    completed: false,
+    details: {
+      format: "grid",
+      properties: {
+        Date: {
+          format: "datetime-local",
+          type: "string"
+        },
+        Description: {
+          format: "textarea",
+          type: "string"
+        },
+        Status: {
+          enum: [
+            "Minor",
+            "Major",
+            "Critical"
+          ],
+          type: "string"
+        },
+        title: {
+          type: "string"
+        }
+      },
+      title: "Air Activity",
+      type: "object"
+    },
+    lastUpdated: "2022-08-30T11:53:17.485Z",
+    title: "Air Activity",
+    _id: 'k16e-air',
+    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+  },
+  {
+    completed: false,
+    details: {
+      format: "grid",
+      properties: {
+        Date: {
+          format: "datetime-local",
+          type: "string"
+        },
+        Description: {
+          format: "textarea",
+          type: "string"
+        },
+        Status: {
+          enum: [
+            "Minor",
+            "Major",
+            "Critical"
+          ],
+          type: "string"
+        },
+        title: {
+          type: "string"
+        }
+      },
+      title: "Other Activity",
+      type: "object"
+    },
+    lastUpdated: "2022-08-30T11:52:40.848Z",
+    title: "Other Activity",
+    _id: 'k16e-other',
+    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
   }
 ]
 
