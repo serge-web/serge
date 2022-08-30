@@ -11,8 +11,8 @@ export default interface PropTypes extends ForcesInChannelProps {
    *  definition of planning channel
    */
   channel: ChannelPlanning
-  /** 
-   * templates for new types of orders created by this role 
+  /**
+   * templates for new types of orders created by this role
    */
   templates?: TemplateBody[]
   /**
