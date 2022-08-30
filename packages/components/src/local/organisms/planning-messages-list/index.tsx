@@ -25,7 +25,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, channel, p
     setTemplates(partStates.templatesIDs)
   }, [channel])
 
-
   useEffect(() => {
     const dataTable = messages.map(message => {
       return {
@@ -57,7 +56,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, channel, p
     <div className={styles['messages-list']}>
       <Orders columns={columns} rows={rows} />
       {
-        templates && templates.length > 0 && 
+        templates && templates.length > 0 &&
         <div>[New template editor for:{templates.map((value: ParticipantTemplate) => value.title)}]</div>
       }
     </div>

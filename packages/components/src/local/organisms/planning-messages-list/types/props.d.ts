@@ -21,12 +21,12 @@ export default interface PropTypes extends ForcesInChannelProps {
    */
   onUnread?: (message: MessagePlanning) => void
 
-  /** 
+  /**
    * force for player
    */
   playerForceId: ForceData['uniqid']
-  /** 
-   * role of current player 
+  /**
+   * role of current player
    */
   playerRoleId: Role['roleId']
 

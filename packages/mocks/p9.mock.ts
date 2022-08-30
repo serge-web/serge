@@ -7,7 +7,7 @@ const game: Wargame = {
     "channels": {
       "channels": [
         {
-          "name": "Planning",
+          "name": "Blue Planning",
           "channelType": "ChannelPlanning",
           "participants": [
             {
@@ -15,18 +15,34 @@ const game: Wargame = {
               "forceUniqid": "Blue",
               "pType": "ParticipantPlanning",
               "roles": [],
-              "subscriptionId": "hukqr",
+              "subscriptionId": "huk3qr",
               "templates": [{
                   "_id": "k16eedkm",
                   "title": "COA"
               }]
             },
             {
+              "force": "White",
+              "pType": "ParticipantPlanning",
+              "forceUniqid": "umpire",
+              "roles": [
+                "rkrlw6f5f"
+              ],
+              "subscriptionId": "r4y1p",
+              "templates": []
+            }
+          ],
+          "uniqid": "channel-blue-planning"
+        }, {
+          "name": "Red Planning",
+          "channelType": "ChannelPlanning",
+          "participants": [
+            {
               "force": "Red",
               "forceUniqid": "Red",
               "pType": "ParticipantPlanning",
               "roles": [],
-              "subscriptionId": "hukqr",
+              "subscriptionId": "hukqra",
               "templates": [
                 {
                   "_id": "k16eedkm",
@@ -41,11 +57,11 @@ const game: Wargame = {
               "roles": [
                 "rkrlw6f5f"
               ],
-              "subscriptionId": "r4yp",
+              "subscriptionId": "r4ybp",
               "templates": []
             }
           ],
-          "uniqid": "channel-planning-a"
+          "uniqid": "channel-red-planning"
         },
         {
           "name": "Red",
@@ -338,7 +354,15 @@ const game: Wargame = {
               "isObserver": false,
               "name": "CO",
               "roleId": "rk116f5e"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Logs",
+              "roleId": "blue-logs"
             }
+
           ],
           "umpire": false,
           "uniqid": "Blue"
