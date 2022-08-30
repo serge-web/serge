@@ -17,9 +17,19 @@ const game: Wargame = {
               "roles": [],
               "subscriptionId": "huk3qr",
               "templates": [{
-                  "_id": "k16eedkm",
-                  "title": "COA"
-              }]
+                  "_id": "k16e-maritime",
+                  "title": "Maritime Activity"
+              }, {
+                "title": "Land Activity",
+                "_id": "k16e-land"
+              }, {
+                "title": "Air Activity",
+                "_id": "k16e-air"
+              }, {
+                "title": "Other Activity",
+                "_id": "k16e-other"
+              }
+            ]
             },
             {
               "force": "White",

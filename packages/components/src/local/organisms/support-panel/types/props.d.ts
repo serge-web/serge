@@ -18,6 +18,8 @@ export default interface PropTypes {
    * definition of this channel
    */
   channel: ChannelPlanning
+  /** new orders templates for this player */
+  templates: TemplateBody[]
 }
 
 export type TabPanelProps = {

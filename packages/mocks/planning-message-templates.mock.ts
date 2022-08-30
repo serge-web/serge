@@ -1,6 +1,6 @@
 import { TemplateBody } from "@serge/custom-types"
 
-const messageTemplatesMock: TemplateBody[] = [
+const planningMessageTemplatesMock: TemplateBody[] = [
   {
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Link',
@@ -670,4 +670,4 @@ const messageTemplatesMock: TemplateBody[] = [
   }
 ]
 
-export default messageTemplatesMock
+export default planningMessageTemplatesMock

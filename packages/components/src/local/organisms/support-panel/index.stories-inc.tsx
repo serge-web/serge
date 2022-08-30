@@ -1,5 +1,6 @@
-import { ChannelPlanning, ForceData, Role } from '@serge/custom-types'
-import { p9wargame, planningMessages } from '@serge/mocks'
+import { ChannelPlanning, ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
+import { checkV3ParticipantStates } from '@serge/helpers'
+import { p9wargame, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -57,6 +58,12 @@ const Template: Story<SupportPanelProps> = (args) => {
   const force = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
 
+  const thisPart = checkV3ParticipantStates(planningChannel, force, role, false)
+  const myTemplateIds = thisPart.templatesIDs
+  const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
+    myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
+  )
+
   return <SupportPanel
     forceIcons={[]}
     forceColors={[]}
@@ -70,6 +77,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     onUnread={noop}
     onRead={noop}
     channel={planningChannel}
+    templates={myTemplates}
   />
 }
 

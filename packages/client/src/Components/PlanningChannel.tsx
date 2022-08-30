@@ -66,6 +66,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         onUnread={onUnread}
         onRead={onRead}
         channel={channelPlanning}
+        templates={channelUI.templates}
       />
     </div>
   )

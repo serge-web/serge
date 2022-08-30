@@ -24,6 +24,7 @@ describe('Support Panel component: ', () => {
         onUnread={noop}
         onReadAll={noop}
         onRead={noop}
+        templates={[]}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()
