@@ -150,6 +150,13 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
+export const pingServer2 = async (log: ActivityLogsInterface[]): Promise<any> => {
+  console.log('sending these actions', log)
+  log.forEach((action: ActivityLogsInterface) => console.log('item', action.wargame, action.role, action.activityType, action.activityTime))
+  const first = log[0]
+  return pingServer(first.wargame, first.role, first.activityType, first.activityTime)
+}
+
 export const pingServer = async (wargame: string, role: string, activityTypes: string, activityTimes: string): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
   const activityTime = activityTimes || activityMissing
@@ -157,6 +164,9 @@ export const pingServer = async (wargame: string, role: string, activityTypes: s
   
   if (!wargame) return null
   
+  // TODO: this method should receive an array of activities.  It should push them all as
+  // documents to the PlayerLogs database.
+
   const { db } = getWargameDbByName(wargame)
   return await getPlayerActivityLogs(wargame)
     .then(res => {

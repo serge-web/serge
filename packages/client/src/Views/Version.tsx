@@ -4,7 +4,7 @@ import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { pingServer as pingServerApi } from '../api/wargames_api'
+import { pingServer2 as pingServerApi } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
 export type Notification = {
@@ -52,8 +52,9 @@ const Version: React.FC<VersionProps> = () => {
   }, [serverStatus, serverPingTime])
   
   const pingServer = () => {
-    const { wargame, role, activityTime, activityType } = playerLog 
-    return pingServerApi(wargame, role, activityType, activityTime).then(res => {
+    // collate array of activities
+    const activityList: ActivityLogsInterface[] = [playerLog]
+    return pingServerApi(activityList).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
