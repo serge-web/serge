@@ -8,7 +8,7 @@ import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import FlexLayout, { Model } from 'flexlayout-react'
 import { useDispatch } from 'react-redux'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage2 } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { isMessageReaded } from '@serge/helpers'
 import addUnreadMsgCount from './helpers/renameTab'
 
@@ -43,7 +43,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
         addTabs(model, insightsTabId, insightsTab)
       }
       addTabs(model, gameAdminTabId, gameAdminTab)
-      saveNewActivityTimeMessage2(state.selectedRole, { aType: 'Logged in' }, state.currentWargame)(dispatch)
+      saveNewActivityTimeMessage(state.selectedRole, { aType: 'Logged in' }, state.currentWargame)(dispatch)
       setTabLoadedStatus(true)
     } else {
       if (state.isInsightViewer) {

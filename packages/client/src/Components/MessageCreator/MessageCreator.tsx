@@ -2,7 +2,7 @@ import React, { useState, createRef, useEffect } from 'react'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage2 } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { useDispatch } from 'react-redux'
 import { ChannelCollab, ChannelUI, Editor, MessageDetails, PlainInteraction } from '@serge/custom-types'
@@ -74,7 +74,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     const newMsg: PlainInteraction = {
       aType: 'send channel message'
     }
-    saveNewActivityTimeMessage2(details.from.roleId, newMsg, state.currentWargame)(dispatch)
+    saveNewActivityTimeMessage(details.from.roleId, newMsg, state.currentWargame)(dispatch)
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)

@@ -8,7 +8,7 @@ import {
   markAllAsUnread,
   saveMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage2 } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { useDispatch } from 'react-redux'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
@@ -62,13 +62,13 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       aType: MESSAGE_SENT_INTERACTION,
       _id: nextMsg._id
     }
-    saveNewActivityTimeMessage2(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
+    saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
   const collabActivityMessage = (getRoleId: string, activityType: string) => {
     const collab: PlainInteraction = {
       aType: PLAIN_INTERACTION
     }
-    getRoleId && saveNewActivityTimeMessage2(getRoleId, collab, state.currentWargame)(dispatch)
+    getRoleId && saveNewActivityTimeMessage(getRoleId, collab, state.currentWargame)(dispatch)
   }
   const channelMessages = channelUI.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []

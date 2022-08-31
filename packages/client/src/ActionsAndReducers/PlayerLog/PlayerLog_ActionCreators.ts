@@ -7,7 +7,14 @@ export const addPlayerLog = (data: PlayerLogEntry): PlayerLogActionType => ({
   payload: data
 })
 
-export const saveNewActivityTimeMessage2 = (role: string, activity: PlainInteraction, dbName: string): Function => {
+/**
+ * 
+ * @param role the id of the person doing the interaction
+ * @param activity a description of what is happening
+ * @param dbName the name of the wargame
+ * @returns a promist to perform the action
+ */
+export const saveNewActivityTimeMessage = (role: string, activity: PlainInteraction, dbName: string): Function => {
   const activitydata: PlayerLogEntry = {
     role: role,
     activityType: activity,

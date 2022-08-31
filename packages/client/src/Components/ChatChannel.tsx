@@ -6,7 +6,7 @@ import ResizeObserver from 'resize-observer-polyfill'
 import {
   getAllWargameMessages, markAllAsRead, markUnread, openMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage2 } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 
 import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
@@ -45,7 +45,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       aType: MESSAGE_SENT_INTERACTION,
       _id: post._id
     }
-    saveNewActivityTimeMessage2(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
+    saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
   }
 
   const markAllAsReadLocal = (): void => {
@@ -99,7 +99,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       aType: MESSAGE_UNREAD_INTERACTION,
       _id: message._id || 'na'
     }
-    saveNewActivityTimeMessage2(coreMessage.details.from.roleId, unreadMessage, state.currentWargame)(dispatch)
+    saveNewActivityTimeMessage(coreMessage.details.from.roleId, unreadMessage, state.currentWargame)(dispatch)
 
     playerUiDispatch(markUnread(channelId, message))
   }
@@ -108,7 +108,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     const newMessage: PlainInteraction = {
       aType: activityMessage
     }
-    saveNewActivityTimeMessage2(roleId, newMessage, state.currentWargame)(dispatch)
+    saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
   }
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
