@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ResizeObserver from 'resize-observer-polyfill'
 import {
-  getAllWargameMessages, markAllAsRead, markUnread, openMessage
+  getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 
@@ -46,6 +46,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       _id: post._id
     }
     saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
+    saveMessage(state.currentWargame, post.details, post.message)()
   }
 
   const markAllAsReadLocal = (): void => {
