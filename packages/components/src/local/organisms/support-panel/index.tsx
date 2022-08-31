@@ -13,6 +13,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   forceIcons,
   forceColors,
   forceNames,
+  forces,
   hideForcesInChannel,
   messages,
   selectedForce,
@@ -81,12 +82,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
           >
             <div className={styles.content} ref={contentRef}>
               <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-                <PlanningAssets forces={[selectedForce]} playerForce={selectedForce} isUmpire={true} render={onRender} />
+                <PlanningAssets forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false} />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
                 <PlanningMessagesList
                   messages={messages}
-                  playerForceId={selectedForce.name}
+                  playerForceId={selectedForce}
                   isUmpire={true}
                   icons={forceIcons}
                   colors={forceColors}
@@ -99,7 +100,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-                OPFOR
+                <PlanningAssets forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true} />
               </TabPanel>
               <div className={styles['resize-indicator-container']} >
                 <div className={styles['resize-indicator-icon']} >
@@ -111,7 +112,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           <TabPanelActions onChange={onTabChange} />
         </div>
       </Slide>
-      <TabPanelActions onChange={onTabChange} className={styles.secondaryActionTab} />
+      <TabPanelActions onChange={onTabChange} className={styles['secondaryActionTab']} />
     </div>
   )
 }

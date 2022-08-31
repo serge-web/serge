@@ -1,16 +1,17 @@
 import { TurnFormats } from '@serge/config'
-import { Force, ForceData, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, Force, ForceData, MessagePlanning, Role } from '@serge/custom-types'
 
 export default interface PropTypes {
   messages: any
   turnPresentation?: TurnFormats
   hideForcesInChannel: boolean
-  selectedForce: ForceData
-  selectedRole: string
+  channel: ChannelPlanning
+  selectedForce: ForceData['uniqid']
+  selectedRole: Role['roleId']
   forceIcons: any[]
   forceColors: string[]
   forceNames: string[]
-  forces: Force[]
+  forces: ForceData[]
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessageChannel | ChatMessage) => void
   onReadAll: () => void

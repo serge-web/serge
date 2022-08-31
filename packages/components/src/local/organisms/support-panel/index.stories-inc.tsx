@@ -1,4 +1,5 @@
-import { WargameExportedMock } from '@serge/mocks'
+import { ChannelPlanning } from '@serge/custom-types'
+import { P9Mock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -21,6 +22,11 @@ export default {
   }
 }
 
+const forces = P9Mock.data.forces.forces
+const blueForce = forces[1]
+const blueRole = blueForce.roles[0]
+const channel = P9Mock.data.channels.channels[0] as ChannelPlanning
+
 const Template: Story<SupportPanelProps> = () => {
   return <SupportPanel
     forceIcons={[]}
@@ -28,8 +34,9 @@ const Template: Story<SupportPanelProps> = () => {
     forceNames={[]}
     hideForcesInChannel={false}
     messages={[]}
-    selectedForce={WargameExportedMock.data.forces.forces[0]}
-    selectedRole=''
+    selectedForce={blueForce.uniqid}
+    selectedRole={blueRole.roleId}
+    channel={channel}
     forces={[]}
     onReadAll={noop}
     onUnread={noop}
