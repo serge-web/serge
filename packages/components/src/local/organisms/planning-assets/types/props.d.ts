@@ -13,4 +13,5 @@ export type Row = {
   condition: string
   status: string
   platformType: string
+  parentId?: string
 }
