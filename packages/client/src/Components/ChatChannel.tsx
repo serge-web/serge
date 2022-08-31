@@ -6,11 +6,14 @@ import ResizeObserver from 'resize-observer-polyfill'
 import {
   getAllWargameMessages, markAllAsRead, markUnread, openMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveNewActivityTimeMessage2 } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 
 import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import NewMessage from './NewMessage'
+import { MessageSentInteraction, MessageUnReadInteraction, PlainInteraction } from '@serge/custom-types/player-log'
+import { CoreMessage } from '@serge/custom-types/message'
+import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION } from '@serge/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()
@@ -38,7 +41,11 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const messageHandler = (post: ChatMessage): void => {
     const { details } = post
 
-    saveNewActivityTimeMessage(details.from.roleId, 'send message ' + details.messageType, state.currentWargame)(dispatch)
+    const sendMessage: MessageSentInteraction = {
+      aType: MESSAGE_SENT_INTERACTION,
+      _id: post._id
+    }
+    saveNewActivityTimeMessage2(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
   }
 
   const markAllAsReadLocal = (): void => {
@@ -86,10 +93,22 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     if (message._id) {
       message.hasBeenRead = false
     }
+    // since this is a message, we know it must come from CoreMessage
+    const coreMessage = message as any as CoreMessage
+    const unreadMessage: MessageUnReadInteraction = {
+      aType: MESSAGE_UNREAD_INTERACTION,
+      _id: message._id || 'na'
+    }
+    saveNewActivityTimeMessage2(coreMessage.details.from.roleId, unreadMessage, state.currentWargame)(dispatch)
+
     playerUiDispatch(markUnread(channelId, message))
   }
   const newActiveMessage = (roleId: string, activityMessage: string) => {
-    saveNewActivityTimeMessage(roleId, activityMessage, state.currentWargame)(dispatch)
+    // we don't have a message id at this point, player has only opened empty template
+    const newMessage: PlainInteraction = {
+      aType: activityMessage
+    }
+    saveNewActivityTimeMessage2(roleId, newMessage, state.currentWargame)(dispatch)
   }
   return (
     <div className={channelTabClass} data-channel-id={channelId}>

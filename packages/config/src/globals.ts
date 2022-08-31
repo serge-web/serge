@@ -73,6 +73,7 @@ export const PLAN_REJECTED = 'rejected'
 
 // types of UI interaction
 export const PLAIN_INTERACTION = 'plain-interaction'
+export const MESSAGE_SENT_INTERACTION = 'msg-sent-interaction'
 export const MESSAGE_READ_INTERACTION = 'msg-read-interaction'
 export const MESSAGE_UNREAD_INTERACTION = 'msg-unread-interaction'
 export const MAP_ANNOTATION_READ_INTERACTION = 'map-anno-read-interaction'

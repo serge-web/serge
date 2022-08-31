@@ -12,7 +12,7 @@ import {
   markAllAsRead,
   markAllAsUnread
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveNewActivityTimeMessage2 } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { expiredStorage } from '../../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
@@ -74,7 +74,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   }, [])
 
   const openPlayerlogModal = useCallback(() => {
-    dispatch(saveNewActivityTimeMessage(selectedRole, 'Player logs', currentWargame))
+    dispatch(saveNewActivityTimeMessage2(selectedRole, { aType: 'View player logs' }, currentWargame))
     togglePlayerLogModal(true)
   }, [])
 

@@ -1,19 +1,16 @@
 import React from 'react'
 import * as ActionConstant from '@serge/config'
-import { PlayerLogActionType, Playerlogs } from '@serge/custom-types'
-import { PlainInteraction, PlayerLogEntry } from '@serge/custom-types/player-log'
+import { PlayerLogActionType, PlainInteraction, PlayerLogEntry } from '@serge/custom-types'
 
-export const addPlayerLog = (data: Playerlogs): PlayerLogActionType => ({
+export const addPlayerLog = (data: PlayerLogEntry): PlayerLogActionType => ({
   type: ActionConstant.ADD_PLAYER_LOG,
   payload: data
 })
 
-export const saveNewActivityTimeMessage = (role: string, activity: string, dbName: string): Function => {
-  // todo: change method signature so it takes a PlainInteraction
-  const tmpInteraction: PlainInteraction = { aType: activity }
+export const saveNewActivityTimeMessage2 = (role: string, activity: PlainInteraction, dbName: string): Function => {
   const activitydata: PlayerLogEntry = {
     role: role,
-    activityType: tmpInteraction,
+    activityType: activity,
     activityTime: `${new Date().getTime()}`,
     wargame: dbName,
     _id: new Date().toISOString()
