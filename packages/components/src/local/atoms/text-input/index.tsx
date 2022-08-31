@@ -70,7 +70,7 @@ export const TextInput: React.FC<PropTypes> = ({
   variant,
   value,
   multiline,
-  minRows,
+  rows,
   maxRows,
   updateState,
   className,
@@ -121,7 +121,7 @@ export const TextInput: React.FC<PropTypes> = ({
         } as Partial<FilledInputProps>}
         {...{
           multiline,
-          minRows,
+          rows,
           maxRows,
           name: inputName,
           value: inputValue,
