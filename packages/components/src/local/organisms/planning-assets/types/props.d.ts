@@ -14,4 +14,5 @@ export type Row = {
   status: string
   platformType: string
   parentId?: string
+  force?: string
 }
