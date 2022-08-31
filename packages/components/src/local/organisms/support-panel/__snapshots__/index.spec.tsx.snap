@@ -47,7 +47,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
           value="my_force"
         >
           <div
-            className="MuiPaper-root-187 MuiPaper-elevation2-191 MuiPaper-rounded-188"
+            className="MuiPaper-root-196 MuiPaper-elevation2-200 MuiPaper-rounded-197"
             style={
               Object {
                 "position": "relative",
@@ -55,37 +55,36 @@ exports[`Support Panel component:  renders component correctly 1`] = `
             }
           >
             <div
-              className="MuiToolbar-root-220 MuiToolbar-regular-222 MuiToolbar-gutters-221 MTableToolbar-root-214"
+              className="MuiToolbar-root-229 MuiToolbar-regular-231 MuiToolbar-gutters-230 MTableToolbar-root-223"
             >
               <div
-                className="MTableToolbar-title-218"
+                className="MTableToolbar-title-227"
               >
                 <h6
-                  className="MuiTypography-root-224 MuiTypography-h6-241"
+                  className="MuiTypography-root-233 MuiTypography-h6-250"
                 >
                   Planning Assets
                 </h6>
               </div>
               <div
-                className="MTableToolbar-spacer-216"
+                className="MTableToolbar-spacer-225"
               />
               <div
-                className="MuiFormControl-root-260 MTableToolbar-searchField-219"
+                className="MuiFormControl-root-269 MTableToolbar-searchField-228"
                 color="inherit"
               >
                 <div
-                  className="MuiInputBase-root-277 MuiInput-root-264 MuiInput-underline-268 MuiInputBase-formControl-278 MuiInput-formControl-265 MuiInputBase-adornedStart-281 MuiInputBase-adornedEnd-282"
+                  className="MuiInputBase-root-286 MuiInput-root-273 MuiInput-underline-277 MuiInputBase-formControl-287 MuiInput-formControl-274 MuiInputBase-adornedStart-290 MuiInputBase-adornedEnd-291"
                   onClick={[Function]}
                   style={Object {}}
                 >
                   <div
-                    className="MuiInputAdornment-root-294 MuiInputAdornment-positionStart-296"
+                    className="MuiInputAdornment-root-303 MuiInputAdornment-positionStart-305"
                   >
-                    <svg
+                    <span
                       aria-describedby={null}
-                      aria-hidden={true}
-                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-                      focusable="false"
+                      aria-hidden="true"
+                      className="material-icons MuiIcon-root-316 MuiIcon-fontSizeSmall-323"
                       onBlur={[Function]}
                       onFocus={[Function]}
                       onMouseLeave={[Function]}
@@ -93,16 +92,13 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                       onTouchEnd={[Function]}
                       onTouchStart={[Function]}
                       title="Search"
-                      viewBox="0 0 24 24"
                     >
-                      <path
-                        d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                      />
-                    </svg>
+                      search
+                    </span>
                   </div>
                   <input
                     aria-invalid={false}
-                    className="MuiInputBase-input-287 MuiInput-input-272 MuiInputBase-inputAdornedStart-292 MuiInputBase-inputAdornedEnd-293"
+                    className="MuiInputBase-input-296 MuiInput-input-281 MuiInputBase-inputAdornedStart-301 MuiInputBase-inputAdornedEnd-302"
                     disabled={false}
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -112,10 +108,10 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                     value=""
                   />
                   <div
-                    className="MuiInputAdornment-root-294 MuiInputAdornment-positionEnd-297"
+                    className="MuiInputAdornment-root-303 MuiInputAdornment-positionEnd-306"
                   >
                     <button
-                      className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                      className="MuiButtonBase-root-331 MuiButtonBase-disabled-332 MuiIconButton-root-325 MuiIconButton-disabled-329"
                       disabled={true}
                       onBlur={[Function]}
                       onClick={[Function]}
@@ -133,25 +129,21 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                       type="button"
                     >
                       <span
-                        className="MuiIconButton-label-312"
+                        className="MuiIconButton-label-330"
                       >
-                        <svg
-                          aria-hidden={true}
-                          className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-                          focusable="false"
-                          viewBox="0 0 24 24"
+                        <span
+                          aria-hidden="true"
+                          className="material-icons MuiIcon-root-316 MuiIcon-fontSizeSmall-323"
                         >
-                          <path
-                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                          />
-                        </svg>
+                          clear
+                        </span>
                       </span>
                     </button>
                   </div>
                 </div>
               </div>
               <div
-                className="MTableToolbar-actions-217"
+                className="MTableToolbar-actions-226"
               >
                 <div>
                   <div />
@@ -175,20 +167,27 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                   }
                 >
                   <table
-                    className="MuiTable-root-316"
+                    className="MuiTable-root-334"
                   >
                     <thead
-                      className="MuiTableHead-root-318"
+                      className="MuiTableHead-root-336"
                     >
                       <tr
-                        className="MuiTableRow-root-319 MuiTableRow-head-322"
-                      />
+                        className="MuiTableRow-root-337 MuiTableRow-head-340"
+                      >
+                        <th
+                          aria-sort={null}
+                          className="MuiTableCell-root-342 MuiTableCell-head-343 MuiTableCell-paddingNone-349 MTableHeader-header-335"
+                          scope="col"
+                          style={Object {}}
+                        />
+                      </tr>
                     </thead>
                     <tbody
-                      className="MuiTableBody-root-324"
+                      className="MuiTableBody-root-354"
                     >
                       <tr
-                        className="MuiTableRow-root-319"
+                        className="MuiTableRow-root-337"
                         style={
                           Object {
                             "height": 245,
@@ -197,8 +196,8 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                       >
                         <td
                           aria-sort={null}
-                          className="MuiTableCell-root-325 MuiTableCell-body-327"
-                          colSpan={0}
+                          className="MuiTableCell-root-342 MuiTableCell-body-344"
+                          colSpan={1}
                           style={
                             Object {
                               "paddingBottom": 0,
@@ -216,10 +215,10 @@ exports[`Support Panel component:  renders component correctly 1`] = `
               </div>
             </div>
             <table
-              className="MuiTable-root-316"
+              className="MuiTable-root-334"
             >
               <tfoot
-                className="MuiTableFooter-root-337"
+                className="MuiTableFooter-root-355"
                 style={
                   Object {
                     "display": "grid",
@@ -227,82 +226,31 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                 }
               >
                 <tr
-                  className="MuiTableRow-root-319 MuiTableRow-footer-323"
+                  className="MuiTableRow-root-337 MuiTableRow-footer-341"
                 >
                   <td
                     aria-sort={null}
-                    className="MuiTableCell-root-325 MuiTableCell-footer-328 MuiTablePagination-root-338 Component-paginationRoot-1"
+                    className="MuiTableCell-root-342 MuiTableCell-footer-345 MuiTablePagination-root-356 Component-paginationRoot-1"
                     colSpan={3}
                     icons={
                       Object {
-                        "Add": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Check": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Clear": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Delete": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "DetailPanel": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Edit": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Export": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Filter": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "FirstPage": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "LastPage": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "NextPage": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "PreviousPage": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "ResetSearch": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "Search": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "SortArrow": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "ThirdStateCheck": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
-                        "ViewColumn": Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "render": [Function],
-                        },
+                        "Add": [Function],
+                        "Check": [Function],
+                        "Clear": [Function],
+                        "Delete": [Function],
+                        "DetailPanel": [Function],
+                        "Edit": [Function],
+                        "Export": [Function],
+                        "Filter": [Function],
+                        "FirstPage": [Function],
+                        "LastPage": [Function],
+                        "NextPage": [Function],
+                        "PreviousPage": [Function],
+                        "ResetSearch": [Function],
+                        "Search": [Function],
+                        "SortArrow": [Function],
+                        "ThirdStateCheck": [Function],
+                        "ViewColumn": [Function],
                       }
                     }
                     style={
@@ -313,27 +261,27 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                     }
                   >
                     <div
-                      className="MuiToolbar-root-220 MuiToolbar-regular-222 MuiToolbar-gutters-221 MuiTablePagination-toolbar-339 Component-paginationToolbar-2"
+                      className="MuiToolbar-root-229 MuiToolbar-regular-231 MuiToolbar-gutters-230 MuiTablePagination-toolbar-357 Component-paginationToolbar-2"
                     >
                       <div
-                        className="MuiTablePagination-spacer-340"
+                        className="MuiTablePagination-spacer-358"
                       />
                       <span
-                        className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-341 Component-paginationCaption-3"
+                        className="MuiTypography-root-233 MuiTypography-caption-243 MuiTypography-colorInherit-262 MuiTablePagination-caption-359 Component-paginationCaption-3"
                       >
                         Rows per page:
                       </span>
                       <div
-                        className="MuiInputBase-root-277 MuiTablePagination-input-345"
+                        className="MuiInputBase-root-286 MuiTablePagination-input-363"
                         onClick={[Function]}
                       >
                         <div
-                          className="MuiSelect-root-348 MuiTablePagination-selectRoot-342 Component-paginationSelectRoot-4"
+                          className="MuiSelect-root-366 MuiTablePagination-selectRoot-360 Component-paginationSelectRoot-4"
                         >
                           <div
                             aria-haspopup="true"
                             aria-pressed="false"
-                            className="MuiSelect-select-349 MuiTablePagination-select-343 MuiSelect-selectMenu-352 MuiInputBase-input-287"
+                            className="MuiSelect-select-367 MuiTablePagination-select-361 MuiSelect-selectMenu-370 MuiInputBase-input-296"
                             onBlur={[Function]}
                             onClick={[Function]}
                             onFocus={[Function]}
@@ -357,7 +305,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                           />
                           <svg
                             aria-hidden="true"
-                            className="MuiSvgIcon-root-355 MuiSelect-icon-354 MuiTablePagination-selectIcon-344"
+                            className="MuiSvgIcon-root-373 MuiSelect-icon-372 MuiTablePagination-selectIcon-362"
                             focusable="false"
                             role="presentation"
                             viewBox="0 0 24 24"
@@ -369,12 +317,12 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                         </div>
                       </div>
                       <span
-                        className="MuiTypography-root-224 MuiTypography-caption-234 MuiTypography-colorInherit-253 MuiTablePagination-caption-341 Component-paginationCaption-3"
+                        className="MuiTypography-root-233 MuiTypography-caption-243 MuiTypography-colorInherit-262 MuiTablePagination-caption-359 Component-paginationCaption-3"
                       >
                         0-0 of 0
                       </span>
                       <div
-                        className="MTablePaginationInner-root-368"
+                        className="MTablePaginationInner-root-386"
                       >
                         <span
                           aria-describedby={null}
@@ -388,7 +336,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                           title="First Page"
                         >
                           <button
-                            className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                            className="MuiButtonBase-root-331 MuiButtonBase-disabled-332 MuiIconButton-root-325 MuiIconButton-disabled-329"
                             disabled={true}
                             onBlur={[Function]}
                             onClick={[Function]}
@@ -406,18 +354,14 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                             type="button"
                           >
                             <span
-                              className="MuiIconButton-label-312"
+                              className="MuiIconButton-label-330"
                             >
-                              <svg
-                                aria-hidden={true}
-                                className="MuiSvgIcon-root"
-                                focusable="false"
-                                viewBox="0 0 24 24"
+                              <span
+                                aria-hidden="true"
+                                className="material-icons MuiIcon-root-316"
                               >
-                                <path
-                                  d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"
-                                />
-                              </svg>
+                                first_page
+                              </span>
                             </span>
                           </button>
                         </span>
@@ -433,7 +377,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                           title="Previous Page"
                         >
                           <button
-                            className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                            className="MuiButtonBase-root-331 MuiButtonBase-disabled-332 MuiIconButton-root-325 MuiIconButton-disabled-329"
                             disabled={true}
                             onBlur={[Function]}
                             onClick={[Function]}
@@ -451,23 +395,19 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                             type="button"
                           >
                             <span
-                              className="MuiIconButton-label-312"
+                              className="MuiIconButton-label-330"
                             >
-                              <svg
-                                aria-hidden={true}
-                                className="MuiSvgIcon-root"
-                                focusable="false"
-                                viewBox="0 0 24 24"
+                              <span
+                                aria-hidden="true"
+                                className="material-icons MuiIcon-root-316"
                               >
-                                <path
-                                  d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                                />
-                              </svg>
+                                chevron_left
+                              </span>
                             </span>
                           </button>
                         </span>
                         <span
-                          className="MuiTypography-root-224 MuiTypography-caption-234"
+                          className="MuiTypography-root-233 MuiTypography-caption-243"
                           style={
                             Object {
                               "alignSelf": "center",
@@ -491,7 +431,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                           title="Next Page"
                         >
                           <button
-                            className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                            className="MuiButtonBase-root-331 MuiButtonBase-disabled-332 MuiIconButton-root-325 MuiIconButton-disabled-329"
                             disabled={true}
                             onBlur={[Function]}
                             onClick={[Function]}
@@ -509,18 +449,14 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                             type="button"
                           >
                             <span
-                              className="MuiIconButton-label-312"
+                              className="MuiIconButton-label-330"
                             >
-                              <svg
-                                aria-hidden={true}
-                                className="MuiSvgIcon-root"
-                                focusable="false"
-                                viewBox="0 0 24 24"
+                              <span
+                                aria-hidden="true"
+                                className="material-icons MuiIcon-root-316"
                               >
-                                <path
-                                  d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-                                />
-                              </svg>
+                                chevron_right
+                              </span>
                             </span>
                           </button>
                         </span>
@@ -536,7 +472,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                           title="Last Page"
                         >
                           <button
-                            className="MuiButtonBase-root-313 MuiButtonBase-disabled-314 MuiIconButton-root-307 MuiIconButton-disabled-311"
+                            className="MuiButtonBase-root-331 MuiButtonBase-disabled-332 MuiIconButton-root-325 MuiIconButton-disabled-329"
                             disabled={true}
                             onBlur={[Function]}
                             onClick={[Function]}
@@ -554,18 +490,14 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                             type="button"
                           >
                             <span
-                              className="MuiIconButton-label-312"
+                              className="MuiIconButton-label-330"
                             >
-                              <svg
-                                aria-hidden={true}
-                                className="MuiSvgIcon-root"
-                                focusable="false"
-                                viewBox="0 0 24 24"
+                              <span
+                                aria-hidden="true"
+                                className="material-icons MuiIcon-root-316"
                               >
-                                <path
-                                  d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
-                                />
-                              </svg>
+                                last_page
+                              </span>
                             </span>
                           </button>
                         </span>
