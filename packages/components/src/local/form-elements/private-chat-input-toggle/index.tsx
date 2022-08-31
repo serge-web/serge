@@ -67,7 +67,7 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
           fullWidth
           multiline
           rows={2}
-          rowsMax={3}
+          maxRows={3}
           variant="filled"
           updateState={changeHandler}
           value={formState}

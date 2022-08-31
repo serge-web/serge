@@ -186,7 +186,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
             value={overview.gameDescription}
             variant="filled"
             rows={8}
-            rowsMax={8}
+            maxRows={8}
             updateState={updateGameDescription}
             className={styles.textarea}
           />
