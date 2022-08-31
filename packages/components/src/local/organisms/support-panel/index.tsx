@@ -54,7 +54,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
     return (
-      <div className={cx(styles.actionTab, className)}>
+      <div className={cx(styles['action-tab'], className)}>
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
@@ -112,7 +112,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           <TabPanelActions onChange={onTabChange} />
         </div>
       </Slide>
-      <TabPanelActions onChange={onTabChange} className={styles['secondaryActionTab']} />
+      <TabPanelActions onChange={onTabChange} className={styles['secondary-action-tab']} />
     </div>
   )
 }
