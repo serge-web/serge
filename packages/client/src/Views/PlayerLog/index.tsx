@@ -49,7 +49,9 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
       const activityLogCopy: ActivityLogsInterface = deepCopy(activityLog)
       const logItems = activityLogCopy.items
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLogCopy && logItems.length && logItems.filter((value: PlayerLogEntry) => value.wargame === currentWargame) || []
+
+      // TODO: we probably don't need to filter for wargame, since we request them for the current wargame above
+      const activityLogsForThisWargame = logItems.filter((value: PlayerLogEntry) => value.wargame === currentWargame) || []
 
       const activityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
