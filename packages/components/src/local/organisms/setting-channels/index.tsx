@@ -182,7 +182,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
             {
               selectedChannelState &&
               <TextInput
-                className={styles.channelName}
+                className={styles['channel-name']}
                 customColor="transparent"
                 titleInput={true}
                 value={selectedChannelState.name}

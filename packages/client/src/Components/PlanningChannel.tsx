@@ -55,6 +55,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     <div className={channelTabClass} data-channel-id={channelId}>
       <SupportPanel
         forceIcons={forceIcons}
+        channel={channelPlanning}
         forceColors={forceColors}
         forceNames={forceNames}
         hideForcesInChannel={hideForcesInChannel}
