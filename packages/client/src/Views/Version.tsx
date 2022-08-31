@@ -34,6 +34,7 @@ const Version: React.FC<VersionProps> = () => {
   const isUmpire = (window as any).selectedChannel && (window as any).selectedChannel === UMPIRE_FORCE
   
   useEffect(() => {
+    console.log('server update', serverStatus, serverPingTime)
     // check for previous heartbeat notification
     const prevNotification = notifications.filter(i => i.subType === 'HeartbeatAlert')
     if (serverStatus === 'NOT_OK') {
@@ -53,13 +54,14 @@ const Version: React.FC<VersionProps> = () => {
   }, [serverStatus, serverPingTime])
   
   const pingServer = () => {
-    // collate array of activities
+    // send list of activities to server
     console.log('sending these entries', deepCopy(playerLog))
     return pingServerApi(playerLog).then(res => {
-      setServerStatus(res)
-      setServerPingTime(new Date().getTime())
+      console.log('new messages sent', res)
       // flush the log
       playerLog.items = []
+      setServerStatus(res)
+      setServerPingTime(new Date().getTime())
       return res
     })
   }

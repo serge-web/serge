@@ -151,21 +151,25 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 }
 
 export const pingServer2 = async (log: ActivityLogsInterface): Promise<any> => {
+  console.warn('ping server currently commented out') 
   const items = log.items
   if (items.length > 0) {
     const first = items[0]
     const wargame = first.wargame
     if (!wargame) return null
 
-    console.warn('ping server currently commented out')
-  
+    // TODO: in addition to pushing data to the server, we're also checking the server is still alive
+    // So, even if the log is empty, we should push an empty list, since we want to get a 
+    // 'success' back from the server
+
     // TODO: this method should receive an array of activities.  It should push them all as
     // documents to the PlayerLogs database.  We don't extend the existing set of documents,
     // we push them as new documents via Couchdb "bulk push" call.
   
     //    const { db } = getWargameDbByName(wargame)
     return await getPlayerActivityLogs(wargame)
-      .then(res => {
+      .then(
+        () => 'OK'
         // const newDoc: ActivityLogsInterface[] = deepCopy(res)
         // const updatedData = newDoc
         // const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
@@ -192,7 +196,7 @@ export const pingServer2 = async (log: ActivityLogsInterface): Promise<any> => {
         //   db.put(newPlayerlog)
         //     .then(() => 'OK')
         // }
-      }).catch(() => console.log('errors'))
+      ).catch(() => console.log('errors'))
   }
 }
  
