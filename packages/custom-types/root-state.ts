@@ -1,4 +1,4 @@
-import { MessageTypes, Wargame } from '.';
+import { MessageTypes, PlayerLogEntries, Wargame } from '.';
 import PlatformType from './platform-type';
 import IconOption from "./icon-option";
 import Role from './role';
@@ -29,12 +29,7 @@ export type ExportItems = {
 }
 
 export interface ActivityLogsInterface {
-  activityTime: string
-  activityType: string
-  role: string,
-  _id?: string,
-  wargame: string,
-  curentPlayerlog?: string
+  items: PlayerLogEntries
 }
 
 export type DBLoadingState = {

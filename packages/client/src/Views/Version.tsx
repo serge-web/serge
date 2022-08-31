@@ -1,5 +1,6 @@
 import { HeartbeatChecker } from '@serge/components'
 import { ActivityLogsInterface } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -53,10 +54,12 @@ const Version: React.FC<VersionProps> = () => {
   
   const pingServer = () => {
     // collate array of activities
-    const activityList: ActivityLogsInterface[] = [playerLog]
-    return pingServerApi(activityList).then(res => {
+    console.log('sending these entries', deepCopy(playerLog))
+    return pingServerApi(playerLog).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
+      // flush the log
+      playerLog.items = []
       return res
     })
   }

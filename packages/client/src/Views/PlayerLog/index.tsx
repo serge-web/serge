@@ -3,7 +3,7 @@ import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
 import { setMessageState } from '@serge/helpers'
-import { ActivityLogsInterface, ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
+import { ActivityLogsInterface, ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -46,11 +46,12 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
     getPlayerActivityLogs(currentWargame).then((activityLog) => {  
-      const activityLogCopy: ActivityLogsInterface[] = deepCopy(activityLog)
+      const activityLogCopy: ActivityLogsInterface = deepCopy(activityLog)
+      const logItems = activityLogCopy.items
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLogCopy && activityLogCopy.length && activityLogCopy.filter((value: ActivityLogsInterface) => value.wargame === currentWargame) || []
+      const activityLogsForThisWargame = activityLogCopy && logItems.length && logItems.filter((value: PlayerLogEntry) => value.wargame === currentWargame) || []
 
-      const activityRoles = activityLogsForThisWargame.map((value: ActivityLogsInterface) => value.role)
+      const activityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
       const uniqueRoles = uniq(knownRoles)
@@ -62,7 +63,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
             return
           }
           if (uniqueRoles.includes(role.roleId)) {
-            const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
+            const activity = activityLogsForThisWargame.find((value: PlayerLogEntry) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
             const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || ''
             const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />
@@ -78,7 +79,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
               lastMessage: messageTime,
               lastActive: activityTime,
               isReaded: activatyhasBennRead,
-              lastActivity: activity ? activity.activityType : 'N/A',
+              lastActivity: activity ? activity.activityType.aType : 'N/A',
               active: activityTime && (moment().diff(moment(parseInt(activityTime)))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
