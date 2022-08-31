@@ -20,7 +20,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce }: Pro
     title={'Planning Assets'}
     columns={jestWorkerId ? [] : columns}
     data={jestWorkerId ? [] : rows}
-    parentChildData={(row, rows) => rows.find(a => a.id === row.parentId)}
+    parentChildData={(row, rows) => rows.find((a:any) => a.id === row.parentId)}
     options={{
       sorting: true,
       selection: !jestWorkerId // fix unit-test for material table

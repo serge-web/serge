@@ -63,4 +63,3 @@ SpecificForceOpFor.args = {
   render: noop,
   opFor: true
 }
-

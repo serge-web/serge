@@ -1,6 +1,6 @@
-import { Asset, ForceData } from "@serge/custom-types";
+import { Asset, ForceData } from '@serge/custom-types'
 import { Column } from 'material-table'
-import { Row } from "../types/props";
+import { Row } from '../types/props'
 
 export const getColumns = (playerForce?: ForceData['uniqid']): Column[] => {
   if (playerForce) {
@@ -27,7 +27,7 @@ export const getRows = (forces: ForceData[], playerForce?: ForceData['uniqid']):
   const includeForce = !playerForce
 
   /** helper function, so we can apply to assets and child assets
-   * 
+   *
    * @param asset the asset to process (including children)
    * @param forceName the name of this force
    * @param parentId the (optional) parent for this asset
