@@ -3,7 +3,7 @@ import { Column } from 'material-table'
 import { Row } from "../types/props";
 
 
-export const getColumns = (playerForce?: ForceData): Column[] => {
+export const getColumns = (playerForce?: ForceData['uniqid']): Column[] => {
   if (playerForce) {
     return [
       { title: 'ID', field: 'id' },
@@ -24,7 +24,7 @@ export const getColumns = (playerForce?: ForceData): Column[] => {
   }
 }
 
-export const getRows = (forces: ForceData[], playerForce?: ForceData): Row[] => {
+export const getRows = (forces: ForceData[], playerForce?: ForceData['uniqid']): Row[] => {
   const includeForce = !playerForce
 
   /** helper function, so we can apply to assets and child assets
@@ -40,7 +40,7 @@ export const getRows = (forces: ForceData[], playerForce?: ForceData): Row[] => 
       condition: asset.condition,
       name: asset.name,
       platformType: asset.platformType || '',
-      status: asset.status?.state || '',
+      status: asset.status?.state || ''
     }
     if (includeForce) {
       res.force = forceName
@@ -60,7 +60,7 @@ export const getRows = (forces: ForceData[], playerForce?: ForceData): Row[] => 
   // ok, collate all assets
   forces.forEach((force: ForceData) => {
     // if a player force was provided, check it, otherwise include them all
-    if (includeForce || force.uniqid === playerForce.uniqid) {
+    if (!playerForce || force.uniqid === playerForce) {
       if (force.assets) {
         force.assets.forEach((asset: Asset) => {
           rows.push(...collateItem(asset, force.name))
