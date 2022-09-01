@@ -54,7 +54,7 @@ const allForces: ForceData[] = [
         platformTypeId: 'a10',
         uniqid: 'C01',
         name: 'alpha',
-        perceptions: [{ by: 'Red', force: 'Blue', type: 'Frigate' }]
+        perceptions: [{ by: 'Red', force: 'Blue', typeId: 'Frigate' }]
       },
       {
         condition: 'Full capability',
@@ -84,7 +84,7 @@ const allForces: ForceData[] = [
         platformTypeId: 'a10',
         name: 'charlie',
         uniqid: 'C03',
-        perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
+        perceptions: [{ force: 'Green', typeId: 'Frigate', by: 'Blue' }]
       },
       {
         condition: 'Full capability',
@@ -114,7 +114,7 @@ const allForces: ForceData[] = [
         platformTypeId: 'a10',
         name: 'echo',
         uniqid: 'C05',
-        perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
+        perceptions: [{ force: 'Green', typeId: 'Frigate', by: 'Blue' }]
       },
       {
         condition: 'Disabled',
