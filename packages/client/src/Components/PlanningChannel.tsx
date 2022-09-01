@@ -1,5 +1,5 @@
 import { SupportPanel } from '@serge/components'
-import { ChannelPlanning, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
+import { ChannelPlanning, MessageChannel, MessagePlanning } from '@serge/custom-types'
 import React, { useEffect, useState } from 'react'
 import {
   getAllWargameMessages, markAllAsRead, markUnread, openMessage
@@ -17,6 +17,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { allForces, currentWargame, selectedForce, selectedRole } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  const platformTypes = state.allPlatformTypes
 
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
@@ -31,7 +32,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   const forceIcons = state.channels[channelId].forceIcons || []
-  const forceColors = state.channels[channelId].forceColors || []
   const forceNames = state.channels[channelId].forceNames || []
   const hideForcesInChannel = !!state.hideForcesInChannels
 
@@ -40,22 +40,23 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // what data is stored in the the channels dictionary
   const messages = state.channels[channelId].messages as any
 
-  const onRead = (detail: MessageCustom): void => {
-    dispatch(openMessage(channelId, detail))
+  const onRead = (detail: MessagePlanning): void => {
+    dispatch(openMessage(channelId, detail as any as MessageChannel))
   }
 
-  const onUnread = (message: MessageChannel | ChatMessage): void => {
+  const onUnread = (message: MessagePlanning): void => {
     if (message._id) {
       message.hasBeenRead = false
     }
-    dispatch(markUnread(channelId, message))
+    dispatch(markUnread(channelId, message as any as MessageChannel))
   }
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <SupportPanel
         forceIcons={forceIcons}
-        forceColors={forceColors}
+        channel={channelPlanning}
+        platformTypes={platformTypes}
         forceNames={forceNames}
         hideForcesInChannel={hideForcesInChannel}
         messages={messages}
@@ -65,7 +66,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         onReadAll={onReadAll}
         onUnread={onUnread}
         onRead={onRead}
-        channel={channelPlanning}
         templates={channelUI.templates}
       />
     </div>

@@ -1,6 +1,6 @@
 import { ChannelPlanning, ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
-import { p9wargame, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -11,8 +11,8 @@ import SupportPanelProps from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
-const forces = p9wargame.data.forces.forces
+const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
+const forces = P9Mock.data.forces.forces
 
 const allRoles: string[] = []
 forces.forEach((force: ForceData) => {
@@ -50,6 +50,8 @@ export default {
   }
 }
 
+const platformTypes = P9Mock.data.platformTypes!.platformTypes
+
 const Template: Story<SupportPanelProps> = (args) => {
   const { selectedRole } = args
   const roleStr: string = selectedRole
@@ -66,7 +68,7 @@ const Template: Story<SupportPanelProps> = (args) => {
 
   return <SupportPanel
     forceIcons={[]}
-    forceColors={[]}
+    platformTypes={platformTypes}
     forceNames={[]}
     hideForcesInChannel={false}
     messages={planningMessages}

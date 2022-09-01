@@ -26001,7 +26001,7 @@ store2@^2.12.0:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
 
-storybook-addon-react-docgen@^1.2.28:
+storybook-addon-react-docgen@^1.2.42:
   version "1.2.42"
   resolved "https://registry.yarnpkg.com/storybook-addon-react-docgen/-/storybook-addon-react-docgen-1.2.42.tgz#01b3d782612627304ae077c98bf6f5fce3fecb5b"
   integrity sha512-STQ7HU4+N8zaOHgwNkElABuqsnbXQMVckh6rroTU2pqdP10oQQ+rVfIbLX3wEFg5bbQk1FUzc/DNR0kSJtUASw==

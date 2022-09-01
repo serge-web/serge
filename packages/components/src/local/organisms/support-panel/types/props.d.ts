@@ -1,14 +1,13 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, Force, ForceData, MessagePlanning, Role } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, Role } from '@serge/custom-types'
 
 export default interface PropTypes {
   messages: MessagePlanning[]
   turnPresentation?: TurnFormats
   hideForcesInChannel: boolean
   selectedForce: ForceData['uniqid']
-  selectedRole: Role['roleid']
+  selectedRole: Role['roleId']
   forceIcons: any[]
-  forceColors: string[]
   forceNames: string[]
   forces: Force[]
   onRead: (message: MessagePlanning) => void
@@ -20,6 +19,8 @@ export default interface PropTypes {
   channel: ChannelPlanning
   /** new orders templates for this player */
   templates: TemplateBody[]
+  /** descriptions of platform types (used to generate icons) */
+  platformTypes: PlatformTypeData[]
 }
 
 export type TabPanelProps = {
