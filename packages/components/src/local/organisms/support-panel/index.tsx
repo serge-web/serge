@@ -106,7 +106,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           <TabPanelActions onChange={onTabChange} />
         </div>
       </Slide>
-      <TabPanelActions onChange={onTabChange} className={styles.secondaryActionTab} />
+      <TabPanelActions onChange={onTabChange} className={styles['secondary-action-tab']} />
     </div>
   )
 }

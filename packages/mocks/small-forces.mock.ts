@@ -50,7 +50,7 @@ export const forces: ForceData[] = [
           by: 'Red',
           force: 'Blue',
           name: 'Frigate Perceived Name',
-          type: 'frigate'
+          typeId: 'frigate'
         }],
         plannedTurns: [
           {
@@ -104,7 +104,7 @@ export const forces: ForceData[] = [
           by: 'Red',
           force: 'Blue',
           name: 'Frigate Perceived Name',
-          type: 'frigate'
+          typeId: 'frigate'
         }],
         plannedTurns: [
           {
@@ -278,7 +278,7 @@ export const forces: ForceData[] = [
           by: 'Blue',
           force: 'Green',
           name: 'OSAKA',
-          type: 'merchant-vessel'
+          typeId: 'merchant-vessel'
         }],
         plannedTurns: [
           {

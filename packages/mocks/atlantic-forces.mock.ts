@@ -38,7 +38,7 @@ export const forces: ForceData[] = [
                     "by": "Red",
                     "force": "Blue",
                     "name": "Unknown UAV",
-                    "type": "Unmanned-Airborne-Vehicle"
+                    "typeId": "Unmanned-Airborne-Vehicle"
                   }
                 ],
                 "plannedTurns": [],
@@ -121,7 +121,7 @@ export const forces: ForceData[] = [
             "by": "Red",
             "force": "Blue",
             "name": "BRIT",
-            "type": "task-group"
+            "typeId": "task-group"
           }
         ],
         "plannedTurns": [
@@ -178,7 +178,7 @@ export const forces: ForceData[] = [
               {
                 "by": "Red",
                 "force": "Blue",
-                "type": "helicopter"
+                "typeId": "helicopter"
               }
             ],
             "plannedTurns": [],
@@ -210,7 +210,7 @@ export const forces: ForceData[] = [
             "by": "Red",
             "force": "Blue",
             "name": "Frigate Perceived Name",
-            "type": "frigate"
+            "typeId": "frigate"
           }
         ],
         "plannedTurns": [
@@ -277,7 +277,7 @@ export const forces: ForceData[] = [
           {
             "by": "Red",
             "force": "Blue",
-            "type": ""
+            "typeId": ""
           }
         ],
         "plannedTurns": [
@@ -418,7 +418,7 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "SHU’AI",
-            "type": "fishing-vessel"
+            "typeId": "fishing-vessel"
           }
         ],
         "plannedTurns": [
@@ -570,7 +570,7 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "OSAKA",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -623,13 +623,13 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "ARUNA 12",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           },
           {
             "by": "Red",
             "force": "Green",
             "name": "BARLAY",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -681,7 +681,7 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "JALIBUT",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -729,7 +729,7 @@ export const forces: ForceData[] = [
           {
             "by": "Blue",
             "force": "Green",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -778,13 +778,13 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "BOUM 3",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           },
           {
             "by": "Red",
             "force": "Green",
             "name": "BOUM 3",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
