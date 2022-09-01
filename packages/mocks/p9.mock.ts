@@ -171,7 +171,6 @@ const game: Wargame = {
                           typeId: 'id-uav'
                         }
                       ],
-                      platformType: 'Unmanned-Airborne-Vehicle',
                       platformTypeId: 'id-uav',
                       status: {
                         state: 'Landed'
@@ -183,7 +182,6 @@ const game: Wargame = {
                       contactId: 'C932',
                       name: 'Dart 46',
                       perceptions: [],
-                      platformType: 'Unmanned-Airborne-Vehicle',
                       platformTypeId: 'id-uav',
                       status: {
                         state: 'Landed'
@@ -200,7 +198,6 @@ const game: Wargame = {
                       name: 'Frigate A Perceived Name'
                     }
                   ],
-                  platformType: 'frigate',
                   uniqid: 'a0prbr6441'
                 },
                 {
@@ -208,7 +205,6 @@ const game: Wargame = {
                   contactId: 'C653',
                   name: 'MCM Delta',
                   perceptions: [],
-                  platformType: 'MCMV',
                   platformTypeId: 'id-mcm',
                   uniqid: 'a0traa6790'
                 }
@@ -224,7 +220,6 @@ const game: Wargame = {
                   typeId: 'id-task-group'
                 }
               ],
-              platformType: 'task-group',
               platformTypeId: 'id-task-group',
               position: '8318adfffffffff',
               status: {
@@ -250,7 +245,6 @@ const game: Wargame = {
                     }
                   ],
                   plannedTurns: [],
-                  platformType: 'helicopter',
                   platformTypeId: 'id-helo',
                   status: {
                     state: 'Landed'
@@ -264,7 +258,6 @@ const game: Wargame = {
                   name: 'Dart 42',
                   perceptions: [],
                   plannedTurns: [],
-                  platformType: 'Unmanned-Airborne-Vehicle',
                   platformTypeId: 'id-uav',
                   status: {
                     state: 'Landed'
@@ -281,7 +274,6 @@ const game: Wargame = {
                   typeId: 'id-frigate'
                 }
               ],
-              platformType: 'frigate',
               platformTypeId: 'id-frigate',
               position: '8318a3fffffffff',
               status: {
@@ -295,7 +287,6 @@ const game: Wargame = {
               contactId: 'C072',
               name: 'MPA',
               perceptions: [],
-              platformType: 'fixed-wing-aircraft',
               platformTypeId: 'id-fixed-wing',
               position: '831976fffffffff',
               status: {
@@ -314,7 +305,6 @@ const game: Wargame = {
                   typeId: ''
                 }
               ],
-              platformType: 'merchant-vessel',
               platformTypeId: 'id-merchant',
               position: '83181cfffffffff',
               uniqid: 'a0pra00003'
@@ -348,7 +338,6 @@ const game: Wargame = {
                   by: 'Blue'
                 }
               ],
-              platformType: 'fishing-vessel',
               platformTypeId: 'id-fisher',
               position: '830932fffffffff',
               uniqid: 'a0pra000100'
@@ -362,7 +351,6 @@ const game: Wargame = {
                   contactId: 'C158',
                   name: 'Bog Draft',
                   perceptions: [],
-                  platformType: 'boghammer',
                   platformTypeId: 'id-boghammer',
                   status: {
                     state: 'Landed'
@@ -379,7 +367,6 @@ const game: Wargame = {
                   typeId: 'id-fishing'
                 }
               ],
-              platformType: 'fishing-vessel',
               platformTypeId: 'id-fisher',
               position: '830910fffffffff',
               uniqid: 'a0pra000101'
@@ -389,7 +376,6 @@ const game: Wargame = {
               contactId: 'C008',
               name: 'Dhow-C',
               perceptions: [],
-              platformType: 'fishing-vessel',
               platformTypeId: 'id-fisher',
               position: '830765fffffffff',
               uniqid: 'a0pra000102'
@@ -399,7 +385,6 @@ const game: Wargame = {
               contactId: 'C076',
               name: 'Missile-A',
               perceptions: [],
-              platformType: 'coastal-radar-site',
               platformTypeId: 'id-missile',
               position: '830744fffffffff',
               uniqid: 'a0pra000103'
@@ -436,7 +421,6 @@ const game: Wargame = {
                   typeId: 'id-merchant'
                 }
               ],
-              platformType: 'merchant-vessel',
               platformTypeId: 'id-merchant',
               position: '831b21fffffffff',
               uniqid: 'a0pra000200'
@@ -459,7 +443,6 @@ const game: Wargame = {
                   typeId: 'id-merchant'
                 }
               ],
-              platformType: 'merchant-vessel',
               platformTypeId: 'id-merchant',
               position: '831b31fffffffff',
               status: {
@@ -479,7 +462,6 @@ const game: Wargame = {
                   typeId: 'id-merchant'
                 }
               ],
-              platformType: 'fishing-vessel',
               platformTypeId: 'id-fisher',
               uniqid: 'a0pra000202'
             },
@@ -494,7 +476,6 @@ const game: Wargame = {
                   typeId: 'id-merchant'
                 }
               ],
-              platformType: 'fishing-vessel',
               platformTypeId: 'id-fisher',
               position: '83064bfffffffff',
               status: {
@@ -521,7 +502,6 @@ const game: Wargame = {
                   typeId: 'id-merchant'
                 }
               ],
-              platformType: 'fishing-vessel',
               platformTypeId: 'id-fisher',
               uniqid: 'a0pra000204'
             }

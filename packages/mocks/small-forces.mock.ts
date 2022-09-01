@@ -76,7 +76,6 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformType: 'frigate',
         platformTypeId : 'a3',
         position: 'L04',
         status: {
@@ -130,7 +129,6 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformType: 'frigate',
         platformTypeId : 'a3',
         position: 'L04',
         status: {
@@ -233,7 +231,6 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformType: 'fishing-vessel',
         platformTypeId : 'a1',
         status: {
           speedKts: 10,
@@ -304,7 +301,6 @@ export const forces: ForceData[] = [
             turn: 4
           },
         ],
-        platformType: 'merchant-vessel',
         platformTypeId : 'a13',
         position: 'M04',
         status: {
