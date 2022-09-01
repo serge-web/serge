@@ -47,6 +47,8 @@ const pouchDb = (app, io, pouchOptions) => {
   }
 
   app.put('/:wargame', async (req, res) => {
+    // TODO: if this req is an activity document (or list of them)
+    // then we should actually push it to the player logs database
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body

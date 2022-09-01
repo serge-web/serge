@@ -3,7 +3,7 @@ import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
 import { setMessageState } from '@serge/helpers'
-import { ForceData, PlayerMessage, PlayerMessageLog, Role, RootState, Playerlogs } from '@serge/custom-types'
+import { ActivityLogsInterface, ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -47,12 +47,15 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
   
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs(currentWargame, currentdbName).then((activityLog) => {  
-      const activityLogCopy: Playerlogs[] = deepCopy(activityLog)
+    getPlayerActivityLogs(currentWargame).then((activityLog) => {  
+      const activityLogCopy: ActivityLogsInterface = deepCopy(activityLog)
+      const logItems = activityLogCopy.items
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLogCopy && activityLogCopy.length && activityLogCopy.filter((value: Playerlogs) => value.wargame === currentWargame) || []
 
-      const activityRoles = activityLogsForThisWargame.map((value: Playerlogs) => value.role)
+      // TODO: we probably don't need to filter for wargame, since we request them for the current wargame above
+      const activityLogsForThisWargame = logItems.filter((value: PlayerLogEntry) => value.wargame === currentWargame) || []
+
+      const activityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
       const uniqueRoles = uniq(knownRoles)
@@ -64,7 +67,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
             return
           }
           if (uniqueRoles.includes(role.roleId)) {
-            const activity = activityLogsForThisWargame.find((value: Playerlogs) => value.role === role.roleId)
+            const activity = activityLogsForThisWargame.find((value: PlayerLogEntry) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
             const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || ''
             const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />

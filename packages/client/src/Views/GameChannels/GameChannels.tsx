@@ -74,7 +74,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   }, [])
 
   const openPlayerlogModal = useCallback(() => {
-    dispatch(saveNewActivityTimeMessage(selectedRole, 'Player logs', currentWargame))
+    dispatch(saveNewActivityTimeMessage(selectedRole, { aType: 'View player logs' }, currentWargame))
     togglePlayerLogModal(true)
   }, [])
 

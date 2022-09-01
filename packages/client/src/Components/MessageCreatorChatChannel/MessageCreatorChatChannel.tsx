@@ -38,7 +38,7 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
       if (editor.getValue().content === '') return
 
       saveMessage(state.currentWargame, messageDetails, editor.getValue())()
-      saveNewActivityTimeMessage(state.selectedRole, 'send message ' + schema.title, state.currentWargame)(dispatch)
+      saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
       setEditor(setupEditor(editor, schema, editorPreviewRef))
     }
   }

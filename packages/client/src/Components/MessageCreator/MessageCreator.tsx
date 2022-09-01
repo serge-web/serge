@@ -5,7 +5,7 @@ import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCr
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { useDispatch } from 'react-redux'
-import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
+import { ChannelCollab, ChannelUI, Editor, MessageDetails, PlainInteraction } from '@serge/custom-types'
 import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from '@serge/config'
 import { Confirm } from '@serge/components'
 import Props from './types'
@@ -71,7 +71,10 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     const message = editor.getValue()
     
     saveMessage(state.currentWargame, details, message)()
-    saveNewActivityTimeMessage(details.from.roleId, 'send channel message', state.currentWargame)(dispatch)
+    const newMsg: PlainInteraction = {
+      aType: 'send channel message'
+    }
+    saveNewActivityTimeMessage(details.from.roleId, newMsg, state.currentWargame)(dispatch)
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)

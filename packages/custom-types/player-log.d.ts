@@ -1,7 +1,7 @@
-import { MAP_ANNOTATION_READ_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from "@serge/config"
+import { MAP_ANNOTATION_READ_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from "@serge/config"
 
 /** an entry in the player log */
-export default interface PlayerMessage {
+export interface PlayerMessage {
   /** role id for this player */
   roleId: string
   /** title of last message received */
@@ -27,6 +27,12 @@ export interface PlayerLogUI {
 /** a player has had some interaction with the UI */
 export interface PlainInteraction {
   aType: string
+}
+
+/** a player has sent a message */
+export interface MessageSentInteraction extends PlainInteraction {
+  aType: typeof MESSAGE_SENT_INTERACTION
+  _id: string
 }
 
 /** a player has marked a message as read */

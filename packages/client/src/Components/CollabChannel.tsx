@@ -13,8 +13,9 @@ import { useDispatch } from 'react-redux'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
 import { CollabStatusBoard } from '@serge/components'
-import { CHANNEL_COLLAB } from '@serge/config'
+import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from '@serge/config'
 import '@serge/themes/App.scss'
+import { MessageSentInteraction, PlainInteraction } from '@serge/custom-types/player-log'
 
 const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
@@ -57,10 +58,17 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const handleChange = (nextMsg: MessageCustom): void => {
     const { details } = nextMsg
     saveMessage(state.currentWargame, details, nextMsg.message)()
-    saveNewActivityTimeMessage(details.from.roleId, 'send message ' + nextMsg.details.messageType, state.currentWargame)(dispatch)
+    const saveMessageInt: MessageSentInteraction = {
+      aType: MESSAGE_SENT_INTERACTION,
+      _id: nextMsg._id
+    }
+    saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
-  const collabActivityMessage = (getRoleId: string, activityType: string) => { 
-    getRoleId && saveNewActivityTimeMessage(getRoleId, activityType, state.currentWargame)(dispatch)
+  const collabActivityMessage = (getRoleId: string, activityType: string) => {
+    const collab: PlainInteraction = {
+      aType: PLAIN_INTERACTION
+    }
+    getRoleId && saveNewActivityTimeMessage(getRoleId, collab, state.currentWargame)(dispatch)
   }
   const channelMessages = channelUI.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []

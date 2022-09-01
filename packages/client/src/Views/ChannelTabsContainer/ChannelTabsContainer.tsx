@@ -118,7 +118,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
               onRenderTab={onRenderTab}
               onModelChange={() => {
                 setAllowTabChangeEvent(true)
-                saveNewActivityTimeMessage(state.selectedRole, 'change tab', state.currentWargame)(dispatch)
+                saveNewActivityTimeMessage(state.selectedRole, { aType: 'change tab' }, state.currentWargame)(dispatch)
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />

@@ -25,7 +25,7 @@ import {
   DELETE_MARKER,
   wargameSettings
 } from '@serge/config'
-import { dbDefaultSettings, dbDefaultPlaylogSettings } from '../../consts'
+import { dbDefaultSettings } from '../../consts'
 
 import {
   setLatestFeedbackMessage,
@@ -150,62 +150,63 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntry> => {
-  const { db } = getWargameDbByName(dbName)
+export const pingServer2 = async (log: ActivityLogsInterface): Promise<any> => {
+  console.warn('ping server currently commented out') 
+  const items = log.items
+  if (items.length > 0) {
+    const first = items[0]
+    const wargame = first.wargame
+    if (!wargame) return null
 
-  return await db.getPlayerLogs(wargame)
+    // TODO: in addition to pushing data to the server, we're also checking the server is still alive
+    // So, even if the log is empty, we should push an empty list, since we want to get a 
+    // 'success' back from the server
+
+    // TODO: this method should receive an array of activities.  It should push them all as
+    // documents to the PlayerLogs database.  We don't extend the existing set of documents,
+    // we push them as new documents via Couchdb "bulk push" call.
+  
+    //    const { db } = getWargameDbByName(wargame)
+    return await getPlayerActivityLogs(wargame)
+      .then(
+        () => 'OK'
+        // const newDoc: ActivityLogsInterface[] = deepCopy(res)
+        // const updatedData = newDoc
+        // const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
+        
+        // if (findIndex !== -1) {
+        //   const data: ActivityLogsInterface = {
+        //     ...updatedData[findIndex],
+        //     activityTime: activityTime,
+        //     activityType: activityType
+        //   }
+     
+        //   const playerlogsUpdate = updatedData[findIndex] = data
+        //   db.put(playerlogsUpdate)
+        //     .then(() => 'OK')
+        // } else {
+        //   const newPlayerlog: ActivityLogsInterface = {
+        //     ...dbDefaultPlaylogSettings,
+        //     wargame: wargame,
+        //     role: role,
+        //     activityType: activityType, 
+        //     activityTime: activityTime
+        //   }
+          
+        //   db.put(newPlayerlog)
+        //     .then(() => 'OK')
+        // }
+      ).catch(() => console.log('errors'))
+  }
+}
+ 
+export const getPlayerActivityLogs = (wargame: string): Promise<void | ActivityLogsInterface> => {
+  const { db } = getWargameDbByName(wargame)
+  return db.playlogs()
     .then(res => res)
     .catch()
-}
-
-export const pingServer = async (wargame: string, role: string, activityTypes: string, activityTimes: string, dbName: string): Promise<any> => {
-  const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = activityTimes || activityMissing
-  const activityType = activityTypes || activityMissing
-  const { db } = getWargameDbByName(dbName)
-  const checkServer: void[] = []
-  if (!wargame) return db.putPlayerLogs(checkServer).then(res => res.status)
-
-  return await getPlayerActivityLogs(wargame, dbName)
-    .then(res => {
-      const newDoc: PlayerLogEntry[] = deepCopy(res)
-      const updatedData = newDoc
-      const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
-      const tmpInteraction: PlainInteraction = { aType: activityType }
-      
-      if (findIndex !== -1) {
-        const data: PlayerLogEntry = {
-          ...updatedData[findIndex],
-          activityTime: activityTime,
-          activityType: tmpInteraction
-        }
-   
-        const playerlogsUpdate = updatedData[findIndex] = data
-
-        return db.putPlayerLogs(playerlogsUpdate)
-          .then((data) => {
-            console.log(data.status)
-            return data.status
-          }).catch((err) => {
-            console.log(err)
-            return 'NOT_OK'
-          }) 
-      } else {
-        const newPlayerlog: PlayerLogEntry = {
-          ...dbDefaultPlaylogSettings,
-          wargame: wargame,
-          role: role,
-          activityType: tmpInteraction, 
-          activityTime: activityTime
-        }
-
-        return db.putPlayerLogs(newPlayerlog)
-          .then((data) => data.status)
-          .catch((err) => {
-            console.log(err)
-            return 'NOT_OK'
-          }) 
-      }
+    .catch((err) => {
+      console.log(err)
     })
 }
  

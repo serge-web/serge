@@ -43,7 +43,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
         addTabs(model, insightsTabId, insightsTab)
       }
       addTabs(model, gameAdminTabId, gameAdminTab)
-      saveNewActivityTimeMessage(state.selectedRole, 'Logged in', state.currentWargame)(dispatch)
+      saveNewActivityTimeMessage(state.selectedRole, { aType: 'Logged in' }, state.currentWargame)(dispatch)
       setTabLoadedStatus(true)
     } else {
       if (state.isInsightViewer) {

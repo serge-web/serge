@@ -41,7 +41,7 @@ const NewMessage = props => {
   }, [templates, prevTemplates])
 
   const onMessageSend = (e) => {
-    activityTimeChanel(role, 'New message')
+    activityTimeChanel(role, 'Create new message')
     setTimeout(() => {
       tab.current.handleTriggerClick(e)
     }, 0)
