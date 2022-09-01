@@ -42,12 +42,13 @@ export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): C
  * @param parentId the (optional) parent for this asset
  * @returns a list of rows, representing the asset and it's children
  */
-export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData['uniqid'], assetForce: ForceData, 
+export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData['uniqid'], assetForce: ForceData,
   forceColors: ForceStyle[], platformIcons: PlatformStyle[], parentId?: string): Row[] => {
   const itemRows: Row[] = []
 
   const iconFor = (platformType: string): string => {
-    return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)!.icon
+    const pType = platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)
+    return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : pType!.icon
   }
   const colorFor = (forceId: string): string => {
     const colorMatch = forceColors.find((value: ForceStyle) => value.forceId === forceId)

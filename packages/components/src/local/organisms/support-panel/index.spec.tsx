@@ -1,6 +1,5 @@
 /* global it expect */
 import { ChannelPlanning } from '@serge/custom-types'
-import { platformIcons } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
@@ -12,7 +11,7 @@ const blueForce = forces[1]
 const blueRole = blueForce.roles[0]
 const channel = P9Mock.data.channels.channels[0] as ChannelPlanning
 
-const platformTypes = platformIcons(P9Mock.data.platformTypes!.platformTypes)
+const platformTypes = P9Mock.data.platformTypes!.platformTypes
 
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
