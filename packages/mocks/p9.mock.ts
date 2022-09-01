@@ -364,7 +364,7 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'SHU’AI',
-                  typeId: 'id-fishing'
+                  typeId: 'id-fisher'
                 }
               ],
               platformTypeId: 'id-fisher',
