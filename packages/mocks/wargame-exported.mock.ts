@@ -249,7 +249,7 @@ const game: Wargame = {
                         by: 'Red',
                         force: 'Blue',
                         name: 'Unknown UAV',
-                        type: 'Unmanned-Airborne-Vehicle',
+                        typeId: 'Unmanned-Airborne-Vehicle',
                       }],
                       plannedTurns: [],
                       platformType: 'Unmanned-Airborne-Vehicle',
@@ -302,7 +302,7 @@ const game: Wargame = {
                 by: 'Red',
                 force: 'Blue',
                 name: 'BRIT',
-                type: 'task-group'
+                typeId: 'task-group'
               }],
               plannedTurns: [
                 {
@@ -361,7 +361,7 @@ const game: Wargame = {
                   perceptions: [{
                     by: 'Red',
                     force: 'Blue',
-                    type: 'helicopter'
+                    typeId: 'helicopter'
                   }],
                   plannedTurns: [],
                   platformType: 'helicopter',
@@ -391,7 +391,7 @@ const game: Wargame = {
                 by: 'Red',
                 force: 'Blue',
                 name: 'Frigate Perceived Name',
-                type: 'frigate'
+                typeId: 'frigate'
               }],
               plannedTurns: [
                 {
@@ -459,7 +459,7 @@ const game: Wargame = {
               perceptions: [{
                 by: 'Red',
                 force: 'Blue',
-                type: ''
+                typeId: ''
               }],
               plannedTurns: [
                 {
@@ -638,7 +638,7 @@ const game: Wargame = {
                 by: 'Blue',
                 force: 'Green',
                 name: 'SHU’AI',
-                type: 'fishing-vessel'
+                typeId: 'fishing-vessel'
               }],
               plannedTurns: [
                 {
@@ -811,7 +811,7 @@ const game: Wargame = {
                 by: 'Blue',
                 force: 'Green',
                 name: 'OSAKA',
-                type: 'merchant-vessel'
+                typeId: 'merchant-vessel'
               }],
               plannedTurns: [
                 {
@@ -939,13 +939,13 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'ARUNA 12',
-                  type: 'merchant-vessel'
+                  typeId: 'merchant-vessel'
                 },
                 {
                   by: 'Red',
                   force: 'Green',
                   name: 'BARLAY',
-                  type: 'merchant-vessel'
+                  typeId: 'merchant-vessel'
                 }],
               plannedTurns: [
                 {
@@ -1092,7 +1092,7 @@ const game: Wargame = {
                 by: 'Blue',
                 force: 'Green',
                 name: 'JALIBUT',
-                type: 'merchant-vessel'
+                typeId: 'merchant-vessel'
               }],
               plannedTurns: [
                 {
@@ -1206,7 +1206,7 @@ const game: Wargame = {
               perceptions: [{
                 by: 'Blue',
                 force: 'Green',
-                type: 'merchant-vessel'
+                typeId: 'merchant-vessel'
               }],
               plannedTurns: [
                 {
@@ -1323,13 +1323,13 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'BOUM 3',
-                  type: 'merchant-vessel'
+                  typeId: 'merchant-vessel'
                 },
                 {
                   by: 'Red',
                   force: 'Green',
                   name: 'BOUM 3',
-                  type: 'merchant-vessel'
+                  typeId: 'merchant-vessel'
                 }
               ],
               plannedTurns: [
