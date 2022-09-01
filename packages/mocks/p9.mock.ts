@@ -168,7 +168,7 @@ const game: Wargame = {
                           by: 'Red',
                           force: 'Blue',
                           name: 'Unknown UAV',
-                          typeId: 'Unmanned-Airborne-Vehicle'
+                          typeId: 'id-uav'
                         }
                       ],
                       platformType: 'Unmanned-Airborne-Vehicle',
@@ -221,7 +221,7 @@ const game: Wargame = {
                   by: 'Red',
                   force: 'Blue',
                   name: 'BRIT',
-                  typeId: 'task-group'
+                  typeId: 'id-task-group'
                 }
               ],
               platformType: 'task-group',
@@ -246,7 +246,7 @@ const game: Wargame = {
                     {
                       by: 'Red',
                       force: 'Blue',
-                      typeId: 'helicopter'
+                      typeId: 'id-helo'
                     }
                   ],
                   plannedTurns: [],
@@ -278,7 +278,7 @@ const game: Wargame = {
                   by: 'Red',
                   force: 'Blue',
                   name: 'Frigate Perceived Name',
-                  typeId: 'frigate'
+                  typeId: 'id-frigate'
                 }
               ],
               platformType: 'frigate',
@@ -376,7 +376,7 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'SHU’AI',
-                  typeId: 'fishing-vessel'
+                  typeId: 'id-fishing'
                 }
               ],
               platformType: 'fishing-vessel',
@@ -433,7 +433,7 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'OSAKA',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 }
               ],
               platformType: 'merchant-vessel',
@@ -450,13 +450,13 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'ARUNA 12',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 },
                 {
                   by: 'Red',
                   force: 'Green',
                   name: 'BARLAY',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 }
               ],
               platformType: 'merchant-vessel',
@@ -476,7 +476,7 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'JALIBUT',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 }
               ],
               platformType: 'fishing-vessel',
@@ -491,7 +491,7 @@ const game: Wargame = {
                 {
                   by: 'Blue',
                   force: 'Green',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 }
               ],
               platformType: 'fishing-vessel',
@@ -512,13 +512,13 @@ const game: Wargame = {
                   by: 'Blue',
                   force: 'Green',
                   name: 'BOUM 3',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 },
                 {
                   by: 'Red',
                   force: 'Green',
                   name: 'BOUM 3',
-                  typeId: 'merchant-vessel'
+                  typeId: 'id-merchant'
                 }
               ],
               platformType: 'fishing-vessel',
