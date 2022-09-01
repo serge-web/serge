@@ -1,4 +1,5 @@
 import { Asset, ForceData } from '@serge/custom-types'
+import { findPerceivedAsTypes } from '@serge/helpers'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
 
@@ -29,53 +30,60 @@ export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): C
   }
 }
 
-export const getRows = (opFor: boolean, forces: ForceData[], playerForce?: ForceData['uniqid']): Row[] => {
-  const includeForce = !playerForce
-  console.log('dummy', opFor)
+/** helper function, so we can apply to assets and child assets
+ *
+ * @param opFor if we're providing a list of opFor assets
+ * @param asset the asset to process (including children)
+ * @param playerForce the force for the current player
+ * @param assetForce the force for the asset
+ * @param parentId the (optional) parent for this asset
+ * @returns a list of rows, representing the asset and it's children
+ */
+export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData['uniqid'], assetForce: ForceData, parentId?: string): Row[] => {
+  const itemRows: Row[] = []
 
-  /** helper function, so we can apply to assets and child assets
-   *
-   * @param asset the asset to process (including children)
-   * @param forceName the name of this force
-   * @param parentId the (optional) parent for this asset
-   * @returns a list of rows, representing the asset and it's children
-   */
-  const collateItem = (asset: Asset, forceName: string, parentId?: string): Row[] => {
-    const itemRows: Row[] = []
-    const res: Row = {
-      id: asset.uniqid,
-      condition: asset.condition,
-      name: asset.name,
-      platformType: asset.platformType || '',
-      status: asset.status?.state || ''
+  if (opFor) {
+    const visibleToThisForce = assetForce.visibleTo && assetForce.visibleTo.includes(playerForce)
+    const perceptions = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+    if (perceptions) {
+      console.log('perceptions', asset.perceptions, perceptions)
     }
-    // if we're not providing data for a specific force, we have to display the force
-    if (includeForce) {
-      res.force = forceName
-    }
-    // if we're handling the child of an asset, we need to specify the parent
-    if (parentId) {
-      res.parentId = parentId
-    }
-    itemRows.push(res)
-
-    // also sort out the comprising entries
-    if (asset.comprising) {
-      asset.comprising.forEach((asset2: Asset) => {
-        itemRows.push(...collateItem(asset2, forceName, asset.uniqid))
-      })
-    }
-    return itemRows
   }
 
+  const res: Row = {
+    id: asset.uniqid,
+    force: assetForce.name,
+    condition: asset.condition,
+    name: asset.name,
+    platformType: asset.platformType || '',
+    status: asset.status?.state || ''
+  }
+  // if we're handling the child of an asset, we need to specify the parent
+  if (parentId) {
+    res.parentId = parentId
+  }
+  itemRows.push(res)
+
+  // also sort out the comprising entries
+  if (asset.comprising) {
+    asset.comprising.forEach((asset2: Asset) => {
+      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, asset.uniqid))
+    })
+  }
+  return itemRows
+}
+
+export const getRows = (opFor: boolean, forces: ForceData[], playerForce?: ForceData['uniqid']): Row[] => {
   const rows: Row[] = []
-  // ok, collate all assets
+  // ok, work through the assets
   forces.forEach((force: ForceData) => {
-    // if a player force was provided, check it, otherwise include them all
-    if (!playerForce || force.uniqid === playerForce) {
-      if (force.assets) {
+    if (force.assets) {
+      const handleThisOpFor = opFor && force.uniqid !== playerForce
+      const handleThisOwnFor = !opFor && force.uniqid === playerForce
+      const handleAllForces = !playerForce
+      if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
         force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(asset, force.name, undefined))
+          rows.push(...collateItem(opFor, asset, playerForce || '', force, undefined))
         })
       }
     }
