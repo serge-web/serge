@@ -14,6 +14,10 @@ describe('check collating assets', () => {
     if (redAsset) {
       const item = collateItem(true, redAsset, blueForce.uniqid, redForce, undefined)
       expect(item).toBeTruthy()
+      expect(item.length).toEqual(1)
+      const first = item[0]
+      expect(first.id).toEqual(redAsset.uniqid)
+      expect(first.platformType).toEqual(redAsset.platformType)
     }
   })
 

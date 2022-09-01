@@ -44,25 +44,35 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
 
   if (opFor) {
     const visibleToThisForce = assetForce.visibleTo && assetForce.visibleTo.includes(playerForce)
-    const perceptions = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
-    if (perceptions) {
-      console.log('perceptions', asset.perceptions, perceptions)
+    const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+    if (perception) {
+      const res: Row = {
+        id: asset.uniqid,
+        force: perception.forceId,
+        condition: 'unknown',
+        name: perception.name,
+        platformType: perception.typeId,
+        status: asset.status?.state || ''
+      }
+      itemRows.push(res)
     }
+  } else {
+    const res: Row = {
+      id: asset.uniqid,
+      force: assetForce.name,
+      condition: asset.condition,
+      name: asset.name,
+      platformType: asset.platformTypeId || '',
+      status: asset.status?.state || ''
+    }
+    // if we're handling the child of an asset, we need to specify the parent
+    if (parentId) {
+      res.parentId = parentId
+    }
+    itemRows.push(res)
   }
 
-  const res: Row = {
-    id: asset.uniqid,
-    force: assetForce.name,
-    condition: asset.condition,
-    name: asset.name,
-    platformType: asset.platformType || '',
-    status: asset.status?.state || ''
-  }
-  // if we're handling the child of an asset, we need to specify the parent
-  if (parentId) {
-    res.parentId = parentId
-  }
-  itemRows.push(res)
+
 
   // also sort out the comprising entries
   if (asset.comprising) {
