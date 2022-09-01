@@ -17,7 +17,7 @@ describe('check collating assets', () => {
       expect(item.length).toEqual(1)
       const first = item[0]
       expect(first.id).toEqual(redAsset.uniqid)
-      expect(first.platformType).toEqual(redAsset.platformType)
+      expect(first.platformType).toEqual(redAsset.platformTypeId)
     }
   })
 
