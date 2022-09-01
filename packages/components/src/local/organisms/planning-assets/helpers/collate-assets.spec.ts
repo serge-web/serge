@@ -85,7 +85,7 @@ describe('check collating assets', () => {
 
     const blueColumns = getColumns(true, blueForce.uniqid)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(6)
+    expect(blueColumns.length).toEqual(7)
 
     const umpireRows = getRows(true, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()

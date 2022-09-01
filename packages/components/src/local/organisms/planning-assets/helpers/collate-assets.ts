@@ -50,7 +50,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)!.icon
   }
   const colorFor = (forceId: string): string => {
-    return (forceId === UNKNOWN_TYPE) ? '#999' : forceColors.find((value: ForceStyle) => value.forceId === forceId)!.color
+    const colorMatch = forceColors.find((value: ForceStyle) => value.forceId === forceId)
+    return (forceId === UNKNOWN_TYPE) ? '#999' : colorMatch!.color
   }
 
   if (opFor) {
@@ -73,7 +74,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   } else {
     const res: Row = {
       id: asset.uniqid,
-      icon: iconFor(asset.platformTypeId) + ',' + colorFor(assetForce.color),
+      icon: iconFor(asset.platformTypeId) + ',' + assetForce.color,
       force: assetForce.name,
       condition: asset.condition,
       name: asset.name,
