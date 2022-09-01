@@ -48,7 +48,7 @@ export const forces: ForceData[] = [
         hosting: [],
         perceptions: [{
           by: 'Red',
-          force: 'Blue',
+          force: 'F-Blue',
           name: 'Frigate Perceived Name',
           typeId: 'frigate'
         }],
@@ -102,7 +102,7 @@ export const forces: ForceData[] = [
         hosting: [],
         perceptions: [{
           by: 'Red',
-          force: 'Blue',
+          force: 'F-Blue',
           name: 'Frigate Perceived Name',
           typeId: 'frigate'
         }],
@@ -163,7 +163,7 @@ export const forces: ForceData[] = [
 
     ],
     umpire: false,
-    uniqid: 'Blue'
+    uniqid: 'F-Blue'
   },
   {
     assets: [
@@ -256,7 +256,7 @@ export const forces: ForceData[] = [
       }
     ],
     umpire: false,
-    uniqid: 'Red'
+    uniqid: 'F-Red'
   },
   {
     assets: [
@@ -276,7 +276,7 @@ export const forces: ForceData[] = [
         name: 'Tanker-1',
         perceptions: [{
           by: 'Blue',
-          force: 'Green',
+          force: 'F-Green',
           name: 'OSAKA',
           typeId: 'merchant-vessel'
         }],
@@ -329,7 +329,7 @@ export const forces: ForceData[] = [
       }
     ],
     umpire: false,
-    uniqid: 'Green'
+    uniqid: 'F-Green'
   }
 ]
 
