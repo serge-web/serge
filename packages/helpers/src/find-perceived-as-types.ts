@@ -32,7 +32,7 @@ export default function findPerceivedAsTypes (
   if (tmpPerception) {
     const nameClass: string = tmpPerception.name || theirContactID
     // workaround. We have some test data that still stores typeId in type
-    const typeId = tmpPerception.typeId || tmpPerception.type || UNKNOWN_TYPE
+    const typeId = tmpPerception.typeId || UNKNOWN_TYPE
     const forceId = tmpPerception.force || UNKNOWN_TYPE
     return { name: nameClass, typeId: typeId, forceId: forceId }
   } else {
