@@ -362,7 +362,7 @@ const game: Wargame = {
               perceptions: [
                 {
                   by: 'F-Blue',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'SHU’AI',
                   typeId: 'id-fisher'
                 }
@@ -416,7 +416,7 @@ const game: Wargame = {
               perceptions: [
                 {
                   by: 'F-Blue',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'OSAKA',
                   typeId: 'id-merchant'
                 }
@@ -432,13 +432,13 @@ const game: Wargame = {
               perceptions: [
                 {
                   by: 'F-Blue',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'ARUNA 12',
                   typeId: 'id-merchant'
                 },
                 {
                   by: 'F-Red',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'BARLAY',
                   typeId: 'id-merchant'
                 }
@@ -457,7 +457,7 @@ const game: Wargame = {
               perceptions: [
                 {
                   by: 'F-Blue',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'JALIBUT',
                   typeId: 'id-merchant'
                 }
@@ -472,7 +472,7 @@ const game: Wargame = {
               perceptions: [
                 {
                   by: 'F-Blue',
-                  force: 'Green',
+                  force: 'F-Green',
                   typeId: 'id-merchant'
                 }
               ],
@@ -491,13 +491,13 @@ const game: Wargame = {
               perceptions: [
                 {
                   by: 'F-Blue',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'BOUM 3',
                   typeId: 'id-merchant'
                 },
                 {
                   by: 'F-Red',
-                  force: 'Green',
+                  force: 'F-Green',
                   name: 'BOUM 3',
                   typeId: 'id-merchant'
                 }
