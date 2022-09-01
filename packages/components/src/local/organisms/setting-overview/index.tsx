@@ -165,7 +165,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
   return <div className={styles.main}>
     <div className={styles.row}>
-      <div className={styles.col}/>
+      <div className={styles.col} />
       <div className={styles.actions}>
         <Button
           color="secondary"
@@ -185,8 +185,8 @@ export const SettingOverview: React.FC<PropTypes> = ({
             fullWidth
             value={overview.gameDescription}
             variant="filled"
-            rows={8}
-            rowsMax={8}
+            minRows={8}
+            maxRows={8}
             updateState={updateGameDescription}
             className={styles.textarea}
           />
@@ -213,7 +213,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
           </div>
           <div className={styles.group}>
             <label className={styles.label} htmlFor='gameTurnTime'>
-              Wargame turn time<br/>(YY MM DD HH MM SS)
+              Wargame turn time<br />(YY MM DD HH MM SS)
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
@@ -290,7 +290,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
             </div>
           </div>
 
-          <div className={styles.hidden}><Input/></div>
+          <div className={styles.hidden}><Input /></div>
           <div>
             <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
               control={
@@ -322,9 +322,9 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 initiateWargame && initiateWargame()
               }}>Initiate Wargame</Button>
             }{
-              wargameInitiated &&
-              <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
-            }
+                wargameInitiated &&
+                <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
+              }
             </>
           </div>
         </FormGroup>
