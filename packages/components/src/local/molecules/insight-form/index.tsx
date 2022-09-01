@@ -39,7 +39,7 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend, darkMode }: Pro
         <TextInput
           multiline
           fullWidth
-          minRows={4}
+          rows={4}
           label="Message"
           labelSize={12}
           labelColor={darkMode ? 'common.white' : 'common.black'}
