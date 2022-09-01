@@ -322,9 +322,9 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 initiateWargame && initiateWargame()
               }}>Initiate Wargame</Button>
             }{
-                wargameInitiated &&
+              wargameInitiated &&
                 <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
-              }
+            }
             </>
           </div>
         </FormGroup>

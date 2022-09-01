@@ -25,10 +25,10 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
   }
 
   useImperativeHandle(ref, () => ({
-    setFormState(text: string): void {
+    setFormState (text: string): void {
       setFormState(text)
     },
-    clear(): void {
+    clear (): void {
       setFormState('')
     }
   }))
