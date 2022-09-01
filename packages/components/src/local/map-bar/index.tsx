@@ -103,13 +103,13 @@ export const MapBar: React.FC = () => {
     setUserIsUmpire(playerForce === UMPIRE_FORCE)
   }, [playerForce])
 
-    // sort out the handler for State of World button
-    useEffect(() => {
-      const tgType = platforms.find((pType: PlatformTypeData) => pType.name === TASK_GROUP)
-      if (tgType) {
-        setTaskGroupType(tgType)
-      }
-    }, [platforms])
+  // sort out the handler for State of World button
+  useEffect(() => {
+    const tgType = platforms.find((pType: PlatformTypeData) => pType.name === TASK_GROUP)
+    if (tgType) {
+      setTaskGroupType(tgType)
+    }
+  }, [platforms])
 
   // sort out the handler for State of World button
   useEffect(() => {
