@@ -10,7 +10,7 @@ import { Perception, PerceivedTypes, PlatformTypeData, ForceData } from '@serge/
  * @param {string} theirForce force for selected asset
  * @param {string} theirTypeId platform-type of selected asset
  * @param {Perception[]} theirPerceptions list of force perceptions of selected asset
- * @returns {string, string, string} name-class, force-class, type-class
+ * @returns {PerceivedTypes | null } perceived types, if subject can see it, otherwise null
  */
 export default function findPerceivedAsTypes (
   myForceId: ForceData['uniqid'],
