@@ -25,10 +25,10 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
   }
 
   useImperativeHandle(ref, () => ({
-    setFormState (text: string): void {
+    setFormState(text: string): void {
       setFormState(text)
     },
-    clear (): void {
+    clear(): void {
       setFormState('')
     }
   }))
@@ -43,7 +43,7 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
     <TextInput
       fullWidth
       multiline
-      rows={2}
+      minRows={2}
       maxRows={3}
       variant="filled"
       updateState={changeHandler}

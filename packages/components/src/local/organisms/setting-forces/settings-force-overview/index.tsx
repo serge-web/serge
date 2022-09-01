@@ -59,7 +59,7 @@ export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }
                     multiline
                     fullWidth
                     variant="filled"
-                    rows={8}
+                    minRows={8}
                     maxRows={8}
                     updateState={(target: { value: string }): void => {
                       handleChangeForce({ ...data, overview: target.value })
