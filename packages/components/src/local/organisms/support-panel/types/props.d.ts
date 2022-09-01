@@ -9,12 +9,12 @@ export default interface PropTypes {
   selectedForce: ForceData['uniqid']
   selectedRole: Role['roleId']
   forceIcons: any[]
-  forceColors: string[]
   forceNames: string[]
   forces: ForceData[]
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessageChannel | ChatMessage) => void
   onReadAll: () => void
+  platformTypes: PlatformTypeData[]
 }
 
 export type TabPanelProps = {

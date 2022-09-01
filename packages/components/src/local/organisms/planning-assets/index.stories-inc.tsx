@@ -9,6 +9,7 @@ import MessageListPropTypes from './types/props'
 import { P9Mock } from '@serge/mocks'
 import { ForceData } from '@serge/custom-types'
 import { UMPIRE_FORCE } from '@serge/config'
+import { forceColors, platformIcons } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -46,11 +47,16 @@ export default {
   }
 }
 
+const forceCols = forceColors(forces)
+const platformStyles = platformIcons(P9Mock.data.platformTypes!.platformTypes)
+
 const Template: Story<MessageListPropTypes> = (args) => {
   const { forces, playerForce, isUmpire, render, opFor } = args
   const force = playerForce === UMPIRE_FORCE ? undefined : playerForce
   return <PlanningAssets
     forces={forces}
+    forceColors={forceCols}
+    platformStyles={platformStyles}
     playerForce={force}
     isUmpire={isUmpire}
     render={render}

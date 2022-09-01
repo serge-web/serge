@@ -1,5 +1,6 @@
+import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset, ForceData } from '@serge/custom-types'
-import { findPerceivedAsTypes } from '@serge/helpers'
+import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
 
@@ -13,6 +14,7 @@ export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): C
   if (playerForce && !opFor) {
     return [
       { title: 'ID', field: 'id' },
+      { title: 'Icon', field: 'icon' },
       { title: 'Name', field: 'name' },
       { title: 'Condition', field: 'condition' },
       { title: 'Status', field: 'status' },
@@ -21,6 +23,7 @@ export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): C
   } else {
     return [
       { title: 'ID', field: 'id' },
+      { title: 'Icon', field: 'icon' },
       { title: 'Force', field: 'force' },
       { title: 'Name', field: 'name' },
       { title: 'Condition', field: 'condition' },
@@ -39,8 +42,16 @@ export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): C
  * @param parentId the (optional) parent for this asset
  * @returns a list of rows, representing the asset and it's children
  */
-export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData['uniqid'], assetForce: ForceData, parentId?: string): Row[] => {
+export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData['uniqid'], assetForce: ForceData, 
+  forceColors: ForceStyle[], platformIcons: PlatformStyle[], parentId?: string): Row[] => {
   const itemRows: Row[] = []
+
+  const iconFor = (platformType: string): string => {
+    return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)!.icon
+  }
+  const colorFor = (forceId: string): string => {
+    return (forceId === UNKNOWN_TYPE) ? '#999' : forceColors.find((value: ForceStyle) => value.forceId === forceId)!.color
+  }
 
   if (opFor) {
     // all assets of this force may be visible to player, or player
@@ -50,6 +61,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     if (perception) {
       const res: Row = {
         id: asset.uniqid,
+        icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId),
         force: perception.forceId,
         condition: 'unknown',
         name: perception.name,
@@ -61,6 +73,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   } else {
     const res: Row = {
       id: asset.uniqid,
+      icon: iconFor(asset.platformTypeId) + ',' + colorFor(assetForce.color),
       force: assetForce.name,
       condition: asset.condition,
       name: asset.name,
@@ -77,14 +90,15 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   // also sort out the comprising entries
   if (asset.comprising) {
     asset.comprising.forEach((asset2: Asset) => {
-      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, asset.uniqid))
+      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, asset.uniqid))
     })
   }
   return itemRows
 }
 
-export const getRows = (opFor: boolean, forces: ForceData[], playerForce?: ForceData['uniqid']): Row[] => {
+export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce?: ForceData['uniqid']): Row[] => {
   const rows: Row[] = []
+
   // ok, work through the assets
   forces.forEach((force: ForceData) => {
     if (force.assets) {
@@ -93,7 +107,7 @@ export const getRows = (opFor: boolean, forces: ForceData[], playerForce?: Force
       const handleAllForces = !playerForce
       if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
         force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(opFor, asset, playerForce || '', force, undefined))
+          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, undefined))
         })
       }
     }

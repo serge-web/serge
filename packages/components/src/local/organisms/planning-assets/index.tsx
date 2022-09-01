@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { Row } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles }: PropTypes) => {
   const [rows, setRows] = useState<Row[]>([])
   const [columns, setColumns] = useState<Column[]>([])
 
   useEffect(() => {
     setColumns(getColumns(opFor, playerForce))
-    setRows(getRows(opFor, forces, playerForce))
+    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce))
   }, [playerForce, forces])
 
   // fix unit-test for MaterialTable

@@ -1,4 +1,5 @@
 import { ForceData } from '@serge/custom-types'
+import { ForceStyle } from '@serge/helpers'
 
 export default interface PropTypes {
   /** data for this game */
@@ -11,10 +12,15 @@ export default interface PropTypes {
   render: (assets: string[][]) => void
   /** whether to show player perspective of other forces */
   opFor: boolean
+  /** list of force color codes */
+  forceColors: ForceStyle[]
+  /** list of platforms & styles */
+  platformStyles: PlatformStyle[]
 }
 
 export type Row = {
   id: string
+  icon: string
   name: string
   condition: string
   status: string

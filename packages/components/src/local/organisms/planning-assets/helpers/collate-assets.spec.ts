@@ -1,6 +1,6 @@
 import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset } from '@serge/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
 import { getRows, getColumns, collateItem } from './collate-assets'
 
@@ -16,10 +16,13 @@ redAssetWithUnknown.perceptions[0].typeId = undefined
 
 false && console.log('get working', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
 
+const forceCols = forceColors(forces)
+const platformStyles = platformIcons(P9Mock.data.platformTypes!.platformTypes)
+
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
     if (redOneAsset) {
-      const item = collateItem(true, redOneAsset, blueForce.uniqid, redForce, undefined)
+      const item = collateItem(true, redOneAsset, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
       expect(item.length).toEqual(1)
       const first = item[0]
@@ -30,7 +33,7 @@ describe('check collating assets', () => {
 
   it('handles collate item for opfor with lots of unknowns', () => {
     if (redZeroAsset) {
-      const item = collateItem(true, redZeroAsset, blueForce.uniqid, redForce, undefined)
+      const item = collateItem(true, redZeroAsset, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
       expect(item.length).toEqual(1)
       const first = item[0]
@@ -43,7 +46,7 @@ describe('check collating assets', () => {
 
   it('handles collate item for opfor wwith unknown type', () => {
     if (redAssetWithUnknown) {
-      const item = collateItem(true, redAssetWithUnknown, blueForce.uniqid, redForce, undefined)
+      const item = collateItem(true, redAssetWithUnknown, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
       expect(item.length).toEqual(1)
       const first = item[0]
@@ -55,17 +58,17 @@ describe('check collating assets', () => {
   it('handles own-forces tab', () => {
     const umpireColumns = getColumns(false)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(6)
+    expect(umpireColumns.length).toEqual(7)
 
     const blueColumns = getColumns(false, blueForce.uniqid)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(5)
+    expect(blueColumns.length).toEqual(6)
 
-    const umpireRows = getRows(false, forces, undefined)
+    const umpireRows = getRows(false, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(15)
 
-    const blueRows = getRows(false, forces, blueForce.uniqid)
+    const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
     expect(blueRows.length).toEqual(6)
 
@@ -78,17 +81,17 @@ describe('check collating assets', () => {
   it('handles opFor tab', () => {
     const umpireColumns = getColumns(true)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(6)
+    expect(umpireColumns.length).toEqual(7)
 
     const blueColumns = getColumns(true, blueForce.uniqid)
     expect(blueColumns).toBeTruthy()
     expect(blueColumns.length).toEqual(6)
 
-    const umpireRows = getRows(true, forces, undefined)
+    const umpireRows = getRows(true, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(15)
 
-    const blueRows = getRows(true, forces, blueForce.uniqid)
+    const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
     expect(blueRows.length).toEqual(7)
   })

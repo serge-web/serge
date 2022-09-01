@@ -26,11 +26,12 @@ const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
 const blueRole = blueForce.roles[0]
 const channel = P9Mock.data.channels.channels[0] as ChannelPlanning
+const platformTypes = P9Mock.data.platformTypes!.platformTypes
 
 const Template: Story<SupportPanelProps> = () => {
   return <SupportPanel
     forceIcons={[]}
-    forceColors={[]}
+    platformTypes={platformTypes}
     forceNames={[]}
     hideForcesInChannel={false}
     messages={[]}
