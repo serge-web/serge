@@ -73,7 +73,6 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
 
       return {
         ...participant,
-        force: selectedForce.name,
         forceUniqid: selectedForce.uniqid,
         roles,
         controls: controlsValues

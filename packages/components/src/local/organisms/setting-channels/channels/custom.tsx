@@ -70,7 +70,6 @@ export const CustomChannel: React.FC<CustomChannelProps> = ({
 
       return {
         ...participant,
-        force: selectedForce.name,
         forceUniqid: selectedForce.uniqid,
         roles,
         templates

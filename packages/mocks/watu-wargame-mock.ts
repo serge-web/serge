@@ -11,7 +11,6 @@ const wargame: Wargame = {
                     "channelType": "ChannelCustom",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "8qsze9",
@@ -19,7 +18,6 @@ const wargame: Wargame = {
                             "pType": "ParticipantCustom"
                         },
                         {
-                            "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "hzrzp",
@@ -27,7 +25,6 @@ const wargame: Wargame = {
                             "pType": "ParticipantCustom"
                         },
                         {
-                            "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "icrx",
@@ -56,14 +53,12 @@ const wargame: Wargame = {
                     },
                     "participants": [
                         {
-                            "force": "White",
                             "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "white-view"
                         },
                         {
-                            "force": "White",
                             "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": ["umpire-GC"],
@@ -71,7 +66,6 @@ const wargame: Wargame = {
                             "subscriptionId": "white-control-green-all"
                         },
                         {
-                            "force": "White",
                             "pType": "ParticipantMapping",
                             "forceUniqid": "umpire",
                             "roles": ["umpire-blue-hq"],
@@ -79,14 +73,12 @@ const wargame: Wargame = {
                             "subscriptionId": "white-control-green-asset"
                         },
                         {
-                            "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "w9lmf",
                             "pType": "ParticipantMapping"
                         },
                         {
-                            "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": ["nortCO"],
                             "subscriptionId": "nortCO-control",
@@ -94,7 +86,6 @@ const wargame: Wargame = {
                             "controls": ["nortID"]
                         },
                         {
-                            "force": "CTF B",
                             "forceUniqid": "Blue-1",
                             "roles": ["blueCO"],
                             "subscriptionId": "blue-CO-control-all",
@@ -102,7 +93,6 @@ const wargame: Wargame = {
                             "controls": ["control-all:Blue-1"]
                         },
                         {
-                            "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": ["red-CO"],
                             "subscriptionId": "red-co-all",
@@ -110,7 +100,6 @@ const wargame: Wargame = {
                             "pType": "ParticipantMapping"
                         },
                         {
-                            "force": "CTF Y",
                             "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "red-viewers",
