@@ -67,17 +67,8 @@ Default.args = {
   opFor: false
 }
 
-export const SpecificForce = Template.bind({})
-SpecificForce.args = {
-  forces: P9Mock.data.forces.forces,
-  playerForce: blueForce.uniqid,
-  isUmpire: true,
-  render: noop,
-  opFor: false
-}
-
-export const SpecificForceOpFor = Template.bind({})
-SpecificForceOpFor.args = {
+export const OpFor = Template.bind({})
+OpFor.args = {
   forces: P9Mock.data.forces.forces,
   playerForce: blueForce.uniqid,
   isUmpire: true,
