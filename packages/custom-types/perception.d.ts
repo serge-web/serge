@@ -9,7 +9,7 @@ export default interface Perception {
    /**
    *  the force this force thiks the asset belongs to
    */
-  force?: ForceData['uniqid'],
+  forceId?: ForceData['uniqid'],
   /** 
    * the platform-type this force thinks the asset is 
   */
