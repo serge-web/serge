@@ -43,7 +43,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const itemRows: Row[] = []
 
   if (opFor) {
-    const visibleToThisForce = assetForce.visibleTo && assetForce.visibleTo.includes(playerForce)
+    // all assets of this force may be visible to player, or player
+    // may be from umpire force (so no player force shown)
+    const visibleToThisForce = (assetForce.visibleTo && assetForce.visibleTo.includes(playerForce)) || !playerForce
     const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
     if (perception) {
       const res: Row = {
