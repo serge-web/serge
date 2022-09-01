@@ -608,14 +608,6 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                 </tfoot>
               </table>
             </div>
-            <div>
-              [New template editor for:
-              Maritime Activity
-              Land Activity
-              Air Activity
-              Other Activity
-              ]
-            </div>
           </div>
         </div>
         <div
