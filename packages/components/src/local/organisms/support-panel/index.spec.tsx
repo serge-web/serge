@@ -1,7 +1,7 @@
 /* global it expect */
 import { ChannelPlanning, ParticipantTemplate, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock} from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
