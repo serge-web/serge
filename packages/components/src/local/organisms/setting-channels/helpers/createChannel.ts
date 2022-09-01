@@ -30,7 +30,6 @@ const createChannel = (
       case SpecialChannelTypes.CHANNEL_COLLAB: {
         // create new participant
         const participant: ParticipantCollab = {
-          force: defaultForce.name,
           forceUniqid: defaultForce.uniqid,
           roles: [],
           subscriptionId: Math.random().toString(36).substring(8),
@@ -56,7 +55,6 @@ const createChannel = (
       }
       case SpecialChannelTypes.CHANNEL_MAPPING: {
         const participant: ParticipantMapping = {
-          force: defaultForce.name,
           forceUniqid: defaultForce.uniqid,
           roles: [],
           subscriptionId: Math.random().toString(36).substring(8),
@@ -82,7 +80,6 @@ const createChannel = (
       case SpecialChannelTypes.CHANNEL_CHAT:
       default: {
         const participant: ParticipantChat = {
-          force: defaultForce.name,
           forceUniqid: defaultForce.uniqid,
           roles: [],
           subscriptionId: Math.random().toString(36).substring(8),
@@ -99,7 +96,6 @@ const createChannel = (
     }
   }
   const participant: ParticipantCustom = {
-    force: defaultForce.name,
     forceUniqid: defaultForce.uniqid,
     roles: [],
     subscriptionId: Math.random().toString(36).substring(8),
