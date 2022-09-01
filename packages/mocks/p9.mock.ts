@@ -12,7 +12,7 @@ const game: Wargame = {
           participants: [
             {
               force: 'CTF A',
-              forceUniqid: 'Blue',
+              forceUniqid: 'F-Blue',
               pType: 'ParticipantPlanning',
               roles: [],
               subscriptionId: 'hukqr',
@@ -24,8 +24,8 @@ const game: Wargame = {
               ]
             },
             {
-              force: 'Red',
-              forceUniqid: 'Red',
+              force: 'F-Red',
+              forceUniqid: 'F-Red',
               pType: 'ParticipantPlanning',
               roles: [],
               subscriptionId: 'hukqr',
@@ -53,7 +53,7 @@ const game: Wargame = {
           participants: [
             {
               force: 'CTF Y',
-              forceUniqid: 'Red',
+              forceUniqid: 'F-Red',
               roles: [],
               subscriptionId: '7bayi',
               pType: 'ParticipantChat'
@@ -75,7 +75,7 @@ const game: Wargame = {
             {
               pType: 'ParticipantCustom',
               force: 'CTF B',
-              forceUniqid: 'Blue',
+              forceUniqid: 'F-Blue',
               roles: [],
               subscriptionId: 'etkkn',
               templates: [
@@ -111,7 +111,7 @@ const game: Wargame = {
             {
               force: 'CTF Y',
               pType: 'ParticipantCustom',
-              forceUniqid: 'Red',
+              forceUniqid: 'F-Red',
               roles: [],
               subscriptionId: '3b3ww',
               templates: [
@@ -165,8 +165,8 @@ const game: Wargame = {
                       name: 'Dart 45',
                       perceptions: [
                         {
-                          by: 'Red',
-                          force: 'Blue',
+                          by: 'F-Red',
+                          force: 'F-Blue',
                           name: 'Unknown UAV',
                           typeId: 'id-uav'
                         }
@@ -193,8 +193,8 @@ const game: Wargame = {
                   platformTypeId: 'id-frigate',
                   perceptions: [
                     {
-                      by: 'Red',
-                      force: 'Blue',
+                      by: 'F-Red',
+                      force: 'F-Blue',
                       name: 'Frigate A Perceived Name'
                     }
                   ],
@@ -214,8 +214,8 @@ const game: Wargame = {
               name: 'CTF 511',
               perceptions: [
                 {
-                  by: 'Red',
-                  force: 'Blue',
+                  by: 'F-Red',
+                  force: 'F-Blue',
                   name: 'BRIT',
                   typeId: 'id-task-group'
                 }
@@ -239,8 +239,8 @@ const game: Wargame = {
                   name: 'Merlin',
                   perceptions: [
                     {
-                      by: 'Red',
-                      force: 'Blue',
+                      by: 'F-Red',
+                      force: 'F-Blue',
                       typeId: 'id-helo'
                     }
                   ],
@@ -268,8 +268,8 @@ const game: Wargame = {
               name: 'Frigate',
               perceptions: [
                 {
-                  by: 'Red',
-                  force: 'Blue',
+                  by: 'F-Red',
+                  force: 'F-Blue',
                   name: 'Frigate Perceived Name',
                   typeId: 'id-frigate'
                 }
@@ -300,8 +300,8 @@ const game: Wargame = {
               name: 'Tanker',
               perceptions: [
                 {
-                  by: 'Red',
-                  force: 'Blue',
+                  by: 'F-Red',
+                  force: 'F-Blue',
                   typeId: ''
                 }
               ],
@@ -313,7 +313,7 @@ const game: Wargame = {
           color: '#00F',
           dirty: false,
           iconURL: 'default_img/umpireDefault.png',
-          name: 'Blue',
+          name: 'Blue Force',
           overview: 'Blue force.',
           roles: [
             {
@@ -325,7 +325,7 @@ const game: Wargame = {
             }
           ],
           umpire: false,
-          uniqid: 'Blue'
+          uniqid: 'F-Blue'
         },
         {
           assets: [
@@ -335,7 +335,7 @@ const game: Wargame = {
               name: 'Dhow-A',
               perceptions: [
                 {
-                  by: 'Blue'
+                  by: 'F-Blue'
                 }
               ],
               platformTypeId: 'id-fisher',
@@ -361,7 +361,7 @@ const game: Wargame = {
               name: 'Dhow-B',
               perceptions: [
                 {
-                  by: 'Blue',
+                  by: 'F-Blue',
                   force: 'Green',
                   name: 'SHU’AI',
                   typeId: 'id-fisher'
@@ -393,7 +393,7 @@ const game: Wargame = {
           color: '#F00',
           dirty: false,
           iconURL: 'default_img/umpireDefault.png',
-          name: 'Red',
+          name: 'Red Force',
           overview: 'Red force.',
           roles: [
             {
@@ -405,7 +405,7 @@ const game: Wargame = {
             }
           ],
           umpire: false,
-          uniqid: 'Red'
+          uniqid: 'F-Red'
         },
         {
           assets: [
@@ -415,7 +415,7 @@ const game: Wargame = {
               name: 'Tanker-1',
               perceptions: [
                 {
-                  by: 'Blue',
+                  by: 'F-Blue',
                   force: 'Green',
                   name: 'OSAKA',
                   typeId: 'id-merchant'
@@ -431,13 +431,13 @@ const game: Wargame = {
               name: 'Tanker-2',
               perceptions: [
                 {
-                  by: 'Blue',
+                  by: 'F-Blue',
                   force: 'Green',
                   name: 'ARUNA 12',
                   typeId: 'id-merchant'
                 },
                 {
-                  by: 'Red',
+                  by: 'F-Red',
                   force: 'Green',
                   name: 'BARLAY',
                   typeId: 'id-merchant'
@@ -456,7 +456,7 @@ const game: Wargame = {
               name: 'Fisher-A',
               perceptions: [
                 {
-                  by: 'Blue',
+                  by: 'F-Blue',
                   force: 'Green',
                   name: 'JALIBUT',
                   typeId: 'id-merchant'
@@ -471,7 +471,7 @@ const game: Wargame = {
               name: 'Fisher-B',
               perceptions: [
                 {
-                  by: 'Blue',
+                  by: 'F-Blue',
                   force: 'Green',
                   typeId: 'id-merchant'
                 }
@@ -490,13 +490,13 @@ const game: Wargame = {
               name: 'Fisher-C',
               perceptions: [
                 {
-                  by: 'Blue',
+                  by: 'F-Blue',
                   force: 'Green',
                   name: 'BOUM 3',
                   typeId: 'id-merchant'
                 },
                 {
-                  by: 'Red',
+                  by: 'F-Red',
                   force: 'Green',
                   name: 'BOUM 3',
                   typeId: 'id-merchant'
@@ -509,7 +509,7 @@ const game: Wargame = {
           color: '#0F0',
           dirty: false,
           iconURL: 'default_img/umpireDefault.png',
-          name: 'Green',
+          name: 'Green Force',
           overview: 'Green Shipping',
           roles: [
             {
@@ -521,7 +521,7 @@ const game: Wargame = {
             }
           ],
           umpire: false,
-          uniqid: 'Green'
+          uniqid: 'F-Green'
         }
       ],
       name: 'Forces',
