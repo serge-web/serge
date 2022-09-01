@@ -2,8 +2,14 @@ import { Asset, ForceData } from '@serge/custom-types'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
 
-export const getColumns = (playerForce?: ForceData['uniqid']): Column[] => {
-  if (playerForce) {
+/**
+ * Helper function to provide the columns for the table
+ * @param opFor whether we're displaying perceived other platforms
+ * @param playerForce the (optional) specific force to display
+ * @returns 
+ */
+export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): Column[] => {
+  if (playerForce && !opFor) {
     return [
       { title: 'ID', field: 'id' },
       { title: 'Name', field: 'name' },
@@ -23,8 +29,9 @@ export const getColumns = (playerForce?: ForceData['uniqid']): Column[] => {
   }
 }
 
-export const getRows = (forces: ForceData[], playerForce?: ForceData['uniqid']): Row[] => {
+export const getRows = (opFor: boolean, forces: ForceData[], playerForce?: ForceData['uniqid']): Row[] => {
   const includeForce = !playerForce
+  console.log('dummy', opFor)
 
   /** helper function, so we can apply to assets and child assets
    *
