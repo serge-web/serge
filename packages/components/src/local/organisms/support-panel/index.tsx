@@ -2,7 +2,7 @@ import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { PlatformStyle, forceColors, platformIcons, ForceStyle } from '@serge/helpers'
 import cx from 'classnames'
-import React, { ElementRef, useRef, useState, useEffect } from 'react'
+import React, { ElementRef, useRef, useState } from 'react'
 import { ResizableDelta, Rnd } from 'react-rnd'
 import PlanningAssets from '../planning-assets'
 import PlanningMessagesList from '../planning-messages-list'
@@ -27,17 +27,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
-  const [forceCols, setForceCols] = useState<ForceStyle[]>([])
-  const [platfIcons, setPlatIcons] = useState<PlatformStyle[]>([])
-
-  useEffect(() => {
-    setForceCols(forceColors(forces))
-  }, [forces])
-
-  useEffect(() => {
-    setPlatIcons(platformIcons(platformTypes))
-  }, [platformTypes])
-
+  const [forceCols] = useState<ForceStyle[]>(forceColors(forces))
+  const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -94,7 +85,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           >
             <div className={styles.content} ref={contentRef}>
               <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-                <PlanningAssets forceColors={forceCols} platformStyles={platfIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false} />
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false} />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
                 <PlanningMessagesList
@@ -112,7 +103,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-                <PlanningAssets forceColors={forceCols} platformStyles={platfIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true} />
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true} />
               </TabPanel>
               <div className={styles['resize-indicator-container']} >
                 <div className={styles['resize-indicator-icon']} >
