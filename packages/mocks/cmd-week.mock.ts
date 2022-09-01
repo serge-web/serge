@@ -11,7 +11,6 @@ const game: Wargame = {
           "channelType": "ChannelCustom",
           "participants": [
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [],
@@ -24,7 +23,6 @@ const game: Wargame = {
               ]
             },
             {
-              "force": "CTF A",
               "pType": "ParticipantCustom",
               "forceUniqid": "Blue",
               "roles": [],
@@ -32,7 +30,6 @@ const game: Wargame = {
               "templates": []
             },
             {
-              "force": "CTF Y",
               "pType": "ParticipantCustom",
               "forceUniqid": "Red",
               "roles": [],
@@ -40,7 +37,6 @@ const game: Wargame = {
               "templates": []
             },
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -70,21 +66,18 @@ const game: Wargame = {
           "channelType": "ChannelChat",
           "participants": [
             {
-              "force": "White",
               "pType": "ParticipantChat",
               "forceUniqid": "umpire",
               "roles": [],
               "subscriptionId": "hyiju"
             },
             {
-              "force": "CTF B",
               "forceUniqid": "Blue",
               "roles": [],
               "subscriptionId": "jmpk",
               "pType": "ParticipantChat"
             },
             {
-              "force": "CTF Y",
               "forceUniqid": "Red",
               "roles": [],
               "subscriptionId": "kjoa",
@@ -98,14 +91,12 @@ const game: Wargame = {
           "channelType": "ChannelChat",
           "participants": [
             {
-              "force": "CTF A",
               "pType": "ParticipantChat",
               "forceUniqid": "Blue",
               "roles": [],
               "subscriptionId": "h034d"
             },
             {
-              "force": "White",
               "forceUniqid": "umpire",
               "roles": [
                 "rks5zfzd2"
@@ -121,7 +112,6 @@ const game: Wargame = {
           "channelType": "ChannelCustom",
           "participants": [
             {
-              "force": "CTF A",
               "forceUniqid": "Blue",
               "pType": "ParticipantCustom",
               "roles": [],
@@ -134,7 +124,6 @@ const game: Wargame = {
               ]
             },
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -151,14 +140,12 @@ const game: Wargame = {
           "channelType": "ChannelChat",
           "participants": [
             {
-              "force": "CTF Y",
               "forceUniqid": "Red",
               "roles": [],
               "subscriptionId": "7bayi",
               "pType": "ParticipantChat"
             },
             {
-              "force": "White",
               "forceUniqid": "umpire",
               "roles": [
                 "rkrlw6f5f"
@@ -174,7 +161,6 @@ const game: Wargame = {
           "channelType": "ChannelCustom",
           "participants": [
             {
-              "force": "Red",
               "forceUniqid": "Red",
               "roles": [],
               "pType": "ParticipantCustom",
@@ -187,7 +173,6 @@ const game: Wargame = {
               ]
             },
             {
-              "force": "White",
               "forceUniqid": "umpire",
               "pType": "ParticipantCustom",
               "roles": [
@@ -205,7 +190,6 @@ const game: Wargame = {
           "participants": [
             {
               "pType": "ParticipantCustom",
-              "force": "CTF B",
               "forceUniqid": "Blue",
               "roles": [],
               "subscriptionId": "etkkn",
@@ -217,7 +201,6 @@ const game: Wargame = {
               ]
             },
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -234,7 +217,6 @@ const game: Wargame = {
           "channelType": "ChannelCustom",
           "participants": [
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -244,7 +226,6 @@ const game: Wargame = {
               "templates": []
             },
             {
-              "force": "CTF Y",
               "pType": "ParticipantCustom",
               "forceUniqid": "Red",
               "roles": [],
@@ -264,7 +245,6 @@ const game: Wargame = {
           "channelType": "ChannelCustom",
           "participants": [
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -274,7 +254,6 @@ const game: Wargame = {
               "templates": []
             },
             {
-              "force": "CTF Y",
               "pType": "ParticipantCustom",
               "forceUniqid": "Red",
               "roles": [],
@@ -316,7 +295,6 @@ const game: Wargame = {
           },
           "participants": [
             {
-              "force": "White",
               "pType": "ParticipantMapping",
               "forceUniqid": "umpire",
               "controls": ["control-all:Green"],
@@ -324,7 +302,6 @@ const game: Wargame = {
               "subscriptionId": "zit48h"
             },
             {
-              "force": "CTF A",
               "pType": "ParticipantMapping",
               "forceUniqid": "Blue",
               "controls": ["control-all:Blue"],
@@ -333,7 +310,6 @@ const game: Wargame = {
             },
             {
               "pType": "ParticipantMapping",
-              "force": "CTF Y",
               "forceUniqid": "Red",
               "controls": ["control-all:Red"],
               "roles": ["rkr226f5e"],

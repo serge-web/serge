@@ -1,992 +1,1125 @@
 import { Wargame } from "@serge/custom-types";
 
 const game: Wargame = {
-  adjudicationStartTime: '2021-08-10T16:12:25+01:00',
+  adjudicationStartTime: "2021-08-10T16:12:25+01:00",
   wargameList: [],
   data: {
     channels: {
       channels: [
         {
-          "name": "Blue Planning",
-          "channelType": "ChannelPlanning",
-          "participants": [
-            {
-              "force": "CTF A",
-              "forceUniqid": "Blue",
-              "pType": "ParticipantPlanning",
-              "roles": [],
-              "subscriptionId": "huk3qr",
-              "templates": [{
-                  "_id": "k16e-maritime",
-                  "title": "Maritime Activity"
-              }, {
-                "title": "Land Activity",
-                "_id": "k16e-land"
-              }, {
-                "title": "Air Activity",
-                "_id": "k16e-air"
-              }, {
-                "title": "Other Activity",
-                "_id": "k16e-other"
-              }
-            ]
-            },
-            {
-              "force": "White",
-              "pType": "ParticipantPlanning",
-              "forceUniqid": "umpire",
-              "roles": [
-                "rkrlw6f5f"
-              ],
-              "subscriptionId": "r4y1p",
-              "templates": []
-            }
-          ],
-          "uniqid": "channel-blue-planning"
-        }, {
-          "name": "Red Planning",
-          "channelType": "ChannelPlanning",
-          "participants": [
-            {
-              "force": "Red",
-              "forceUniqid": "Red",
-              "pType": "ParticipantPlanning",
-              "roles": [],
-              "subscriptionId": "hukqra",
-              "templates": [
-                {
-                  _id: 'k16eedkm',
-                  title: 'COA'
-                }
-              ]
-            },
-            {
-              "force": "White",
-              "pType": "ParticipantPlanning",
-              "forceUniqid": "umpire",
-              "roles": [
-                "rkrlw6f5f"
-              ],
-              "subscriptionId": "r4ybp",
-              "templates": []
-            }
-          ],
-          "uniqid": "channel-red-planning"
-        },
-        {
-          name: 'Red',
-          channelType: 'ChannelChat',
+          name: "Blue Planning",
+          channelType: "ChannelPlanning",
           participants: [
             {
-              force: 'CTF Y',
-              forceUniqid: 'Red',
+              forceUniqid: "Blue",
+              pType: "ParticipantPlanning",
               roles: [],
-              subscriptionId: '7bayi',
-              pType: 'ParticipantChat'
-            },
-            {
-              force: 'White',
-              forceUniqid: 'umpire',
-              roles: ['rkrlw6f5f'],
-              subscriptionId: 'h2my2k',
-              pType: 'ParticipantChat'
-            }
-          ],
-          uniqid: 'channel-koirfxsx'
-        },
-        {
-          name: 'Blue RFI',
-          channelType: 'ChannelCustom',
-          participants: [
-            {
-              pType: 'ParticipantCustom',
-              force: 'CTF B',
-              forceUniqid: 'Blue',
-              roles: [],
-              subscriptionId: 'etkkn',
+              subscriptionId: "huk3qr",
               templates: [
                 {
-                  _id: '2021-08-23T07:58:43.425Z',
-                  title: 'RFI'
+                  _id: "k16e-maritime",
+                  title: "Maritime Activity"
+                },
+                {
+                  title: "Land Activity",
+                  _id: "k16e-land"
+                },
+                {
+                  title: "Air Activity",
+                  _id: "k16e-air"
+                },
+                {
+                  title: "Other Activity",
+                  _id: "k16e-other"
                 }
               ]
             },
             {
-              force: 'White',
-              pType: 'ParticipantCustom',
-              forceUniqid: 'umpire',
-              roles: ['rkrlw6f5f'],
-              subscriptionId: 'qhnqr',
+              pType: "ParticipantPlanning",
+              forceUniqid: "umpire",
+              roles: [
+                "rkrlw6f5f"
+              ],
+              subscriptionId: "r4y1p",
               templates: []
             }
           ],
-          uniqid: 'channel-koirh7ok'
+          uniqid: "channel-blue-planning"
         },
         {
-          name: 'Red RFI',
-          channelType: 'ChannelCustom',
+          name: "Red Planning",
+          channelType: "ChannelPlanning",
           participants: [
             {
-              force: 'White',
-              pType: 'ParticipantCustom',
-              forceUniqid: 'umpire',
-              roles: ['rks5zfzd5'],
-              subscriptionId: 'lity',
+              forceUniqid: "Red",
+              pType: "ParticipantPlanning",
+              roles: [],
+              subscriptionId: "hukqra",
+              templates: [
+                {
+                  _id: "k16e-maritime",
+                  title: "Maritime Activity"
+                },
+                {
+                  title: "Land Activity",
+                  _id: "k16e-land"
+                },
+                {
+                  title: "Air Activity",
+                  _id: "k16e-air"
+                },
+                {
+                  title: "Other Activity",
+                  _id: "k16e-other"
+                }
+              ]
+            },
+            {
+              pType: "ParticipantPlanning",
+              forceUniqid: "umpire",
+              roles: [
+                "rkrlw6f5f"
+              ],
+              subscriptionId: "r4ybp",
+              templates: []
+            }
+          ],
+          uniqid: "channel-red-planning"
+        },
+        {
+          name: "Red",
+          channelType: "ChannelChat",
+          participants: [
+            {
+              forceUniqid: "F-Red",
+              roles: [],
+              subscriptionId: "7bayi",
+              pType: "ParticipantChat"
+            },
+            {
+              forceUniqid: "umpire",
+              roles: [
+                "rkrlw6f5f"
+              ],
+              subscriptionId: "h2my2k",
+              pType: "ParticipantChat"
+            }
+          ],
+          uniqid: "channel-koirfxsx"
+        },
+        {
+          name: "Blue RFI",
+          channelType: "ChannelCustom",
+          participants: [
+            {
+              pType: "ParticipantCustom",
+              forceUniqid: "F-Blue",
+              roles: [],
+              subscriptionId: "etkkn",
+              templates: [
+                {
+                  _id: "2021-08-23T07:58:43.425Z",
+                  title: "RFI"
+                }
+              ]
+            },
+            {
+              pType: "ParticipantCustom",
+              forceUniqid: "umpire",
+              roles: [
+                "rkrlw6f5f"
+              ],
+              subscriptionId: "qhnqr",
+              templates: []
+            }
+          ],
+          uniqid: "channel-koirh7ok"
+        },
+        {
+          name: "Red RFI",
+          channelType: "ChannelCustom",
+          participants: [
+            {
+              pType: "ParticipantCustom",
+              forceUniqid: "umpire",
+              roles: [
+                "rks5zfzd5"
+              ],
+              subscriptionId: "lity",
               templates: []
             },
             {
-              force: 'CTF Y',
-              pType: 'ParticipantCustom',
-              forceUniqid: 'Red',
+              pType: "ParticipantCustom",
+              forceUniqid: "F-Red",
               roles: [],
-              subscriptionId: '3b3ww',
+              subscriptionId: "3b3ww",
               templates: [
                 {
-                  _id: '2021-08-23T07:58:43.425Z',
-                  title: 'RFI'
+                  _id: "2021-08-23T07:58:43.425Z",
+                  title: "RFI"
                 }
               ]
             }
           ],
-          uniqid: 'channel-koirji8u'
+          uniqid: "channel-koirji8u"
         }
       ],
       dirty: false,
-      name: 'Channels',
-      selectedChannel: ''
+      name: "Channels",
+      selectedChannel: ""
     },
     forces: {
       dirty: false,
       forces: [
         {
-          color: '#FCFBEE',
+          color: "#FCFBEE",
           dirty: false,
-          iconURL: 'default_img/umpireDefault.png',
-          name: 'White',
-          overview: 'Umpire force.',
+          iconURL: "default_img/umpireDefault.png",
+          name: "White",
+          overview: "Umpire force.",
           roles: [
             {
               isGameControl: true,
               isInsightViewer: true,
               isObserver: true,
-              name: 'Game Control',
-              roleId: 'rkrlw6f5f'
+              name: "Game Control",
+              roleId: "rkrlw6f5f"
             }
           ],
           umpire: true,
-          uniqid: 'umpire'
+          uniqid: "umpire"
         },
         {
           assets: [
             {
               comprising: [
                 {
-                  condition: 'Full capability',
-                  contactId: 'C964',
+                  condition: "Full capability",
+                  contactId: "C964",
                   history: [],
                   hosting: [
                     {
-                      condition: 'Full capability',
-                      contactId: 'C721',
-                      name: 'Dart 45',
+                      condition: "Full capability",
+                      contactId: "C721",
+                      name: "Dart 45",
                       perceptions: [
                         {
-                          by: 'Red',
-                          force: 'Blue',
-                          name: 'Unknown UAV',
-                          typeId: 'id-uav'
+                          by: "F-Red",
+                          force: "F-Blue",
+                          name: "Unknown UAV",
+                          typeId: "id-uav"
                         }
                       ],
-                      platformTypeId: 'id-uav',
+                      platformTypeId: "id-uav",
                       status: {
-                        state: 'Landed'
+                        state: "Landed"
                       },
-                      uniqid: 'a0pra43302'
+                      uniqid: "a0pra43302"
                     },
                     {
-                      condition: 'Full capability',
-                      contactId: 'C932',
-                      name: 'Dart 46',
+                      condition: "Full capability",
+                      contactId: "C932",
+                      name: "Dart 46",
                       perceptions: [],
-                      platformTypeId: 'id-uav',
+                      platformTypeId: "id-uav",
                       status: {
-                        state: 'Landed'
+                        state: "Landed"
                       },
-                      uniqid: 'a0pra17943'
+                      uniqid: "a0pra17943"
                     }
                   ],
-                  name: 'Frigate A',
-                  platformTypeId: 'id-frigate',
+                  name: "Frigate A",
+                  platformTypeId: "id-frigate",
                   perceptions: [
                     {
-                      by: 'Red',
-                      force: 'Blue',
-                      name: 'Frigate A Perceived Name'
+                      by: "F-Red",
+                      force: "F-Blue",
+                      name: "Frigate A Perceived Name"
                     }
                   ],
-                  uniqid: 'a0prbr6441'
+                  uniqid: "a0prbr6441"
                 },
                 {
-                  condition: 'Full capability',
-                  contactId: 'C653',
-                  name: 'MCM Delta',
+                  condition: "Full capability",
+                  contactId: "C653",
+                  name: "MCM Delta",
                   perceptions: [],
-                  platformTypeId: 'id-mcm',
-                  uniqid: 'a0traa6790'
+                  platformTypeId: "id-mcm",
+                  uniqid: "a0traa6790"
                 }
               ],
-              condition: 'Full capability',
-              contactId: 'C713',
-              name: 'CTF 511',
+              condition: "Full capability",
+              contactId: "C713",
+              name: "CTF 511",
               perceptions: [
                 {
-                  by: 'Red',
-                  force: 'Blue',
-                  name: 'BRIT',
-                  typeId: 'id-task-group'
+                  by: "F-Red",
+                  force: "F-Blue",
+                  name: "BRIT",
+                  typeId: "id-task-group"
                 }
               ],
-              platformTypeId: 'id-task-group',
-              position: '8318adfffffffff',
+              platformTypeId: "id-task-group",
+              position: "8318adfffffffff",
               status: {
                 speedKts: 10,
-                state: 'Transiting'
+                state: "Transiting"
               },
-              uniqid: 'a0pra5431'
+              uniqid: "a0pra5431"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C043',
+              condition: "Full capability",
+              contactId: "C043",
               hosting: [
                 {
-                  condition: 'Full capability',
-                  contactId: 'C572',
+                  condition: "Full capability",
+                  contactId: "C572",
                   history: [],
-                  name: 'Merlin',
+                  name: "Merlin",
                   perceptions: [
                     {
-                      by: 'Red',
-                      force: 'Blue',
-                      typeId: 'id-helo'
+                      by: "F-Red",
+                      force: "F-Blue",
+                      typeId: "id-helo"
                     }
                   ],
                   plannedTurns: [],
-                  platformTypeId: 'id-helo',
+                  platformTypeId: "id-helo",
                   status: {
-                    state: 'Landed'
+                    state: "Landed"
                   },
-                  uniqid: 'a0pra11002'
+                  uniqid: "a0pra11002"
                 },
                 {
-                  condition: 'Full capability',
-                  contactId: 'C591',
+                  condition: "Full capability",
+                  contactId: "C591",
                   history: [],
-                  name: 'Dart 42',
+                  name: "Dart 42",
                   perceptions: [],
                   plannedTurns: [],
-                  platformTypeId: 'id-uav',
+                  platformTypeId: "id-uav",
                   status: {
-                    state: 'Landed'
+                    state: "Landed"
                   },
-                  uniqid: 'a0pra18702'
+                  uniqid: "a0pra18702"
                 }
               ],
-              name: 'Frigate',
+              name: "Frigate",
               perceptions: [
                 {
-                  by: 'Red',
-                  force: 'Blue',
-                  name: 'Frigate Perceived Name',
-                  typeId: 'id-frigate'
+                  by: "F-Red",
+                  force: "F-Blue",
+                  name: "Frigate Perceived Name",
+                  typeId: "id-frigate"
                 }
               ],
-              platformTypeId: 'id-frigate',
-              position: '8318a3fffffffff',
+              platformTypeId: "id-frigate",
+              position: "8318a3fffffffff",
               status: {
                 speedKts: 20,
-                state: 'Transiting'
+                state: "Transiting"
               },
-              uniqid: 'a0pra00001'
+              uniqid: "a0pra00001"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C072',
-              name: 'MPA',
+              condition: "Full capability",
+              contactId: "C072",
+              name: "MPA",
               perceptions: [],
-              platformTypeId: 'id-fixed-wing',
-              position: '831976fffffffff',
+              platformTypeId: "id-fixed-wing",
+              position: "831976fffffffff",
               status: {
-                state: 'Landed'
+                state: "Landed"
               },
-              uniqid: 'a0pra00002'
+              uniqid: "a0pra00002"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C012',
-              name: 'Tanker',
+              condition: "Full capability",
+              contactId: "C012",
+              name: "Tanker",
               perceptions: [
                 {
-                  by: 'Red',
-                  force: 'Blue',
-                  typeId: ''
+                  by: "F-Red",
+                  force: "F-Blue",
+                  typeId: ""
                 }
               ],
-              platformTypeId: 'id-merchant',
-              position: '83181cfffffffff',
-              uniqid: 'a0pra00003'
+              platformTypeId: "id-merchant",
+              position: "83181cfffffffff",
+              uniqid: "a0pra00003"
             }
           ],
-          "color": "#00F",
-          "dirty": false,
-          "iconURL": "default_img/umpireDefault.png",
-          "name": "Blue",
-          "overview": "Blue force.",
-          "roles": [
+          color: "#00F",
+          dirty: false,
+          iconURL: "default_img/umpireDefault.png",
+          name: "Blue",
+          overview: "Blue force.",
+          roles: [
             {
-              "isGameControl": false,
-              "isInsightViewer": false,
-              "isObserver": false,
-              "name": "CO",
-              "roleId": "rk116f5e"
+              isGameControl: false,
+              isInsightViewer: false,
+              isObserver: false,
+              name: "CO",
+              roleId: "rk116f5e"
             },
             {
-              "isGameControl": false,
-              "isInsightViewer": false,
-              "isObserver": false,
-              "name": "Logs",
-              "roleId": "blue-logs"
+              isGameControl: false,
+              isInsightViewer: false,
+              isObserver: false,
+              name: "Logs",
+              roleId: "blue-logs"
             }
-
           ],
           umpire: false,
-          uniqid: 'Blue'
+          uniqid: "F-Blue"
         },
         {
           assets: [
             {
-              condition: 'Full capability',
-              contactId: 'C065',
-              name: 'Dhow-A',
+              condition: "Full capability",
+              contactId: "C065",
+              name: "Dhow-A",
               perceptions: [
                 {
-                  by: 'Blue'
+                  by: "F-Blue"
                 }
               ],
-              platformTypeId: 'id-fisher',
-              position: '830932fffffffff',
-              uniqid: 'a0pra000100'
+              platformTypeId: "id-fisher",
+              position: "830932fffffffff",
+              uniqid: "a0pra000100"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C105',
+              condition: "Full capability",
+              contactId: "C105",
               hosting: [
                 {
-                  condition: 'Full capability',
-                  contactId: 'C158',
-                  name: 'Bog Draft',
+                  condition: "Full capability",
+                  contactId: "C158",
+                  name: "Bog Draft",
                   perceptions: [],
-                  platformTypeId: 'id-boghammer',
+                  platformTypeId: "id-boghammer",
                   status: {
-                    state: 'Landed'
+                    state: "Landed"
                   },
-                  uniqid: 'a0pra153102'
+                  uniqid: "a0pra153102"
                 }
               ],
-              name: 'Dhow-B',
+              name: "Dhow-B",
               perceptions: [
                 {
-                  by: 'Blue',
-                  force: 'Green',
-                  name: 'SHU’AI',
-                  typeId: 'id-fisher'
+                  by: "F-Blue",
+                  force: "F-Green",
+                  name: "SHU’AI",
+                  typeId: "id-fisher"
                 }
               ],
-              platformTypeId: 'id-fisher',
-              position: '830910fffffffff',
-              uniqid: 'a0pra000101'
+              platformTypeId: "id-fisher",
+              position: "830910fffffffff",
+              uniqid: "a0pra000101"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C008',
-              name: 'Dhow-C',
+              condition: "Full capability",
+              contactId: "C008",
+              name: "Dhow-C",
               perceptions: [],
-              platformTypeId: 'id-fisher',
-              position: '830765fffffffff',
-              uniqid: 'a0pra000102'
+              platformTypeId: "id-fisher",
+              position: "830765fffffffff",
+              uniqid: "a0pra000102"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C076',
-              name: 'Missile-A',
+              condition: "Full capability",
+              contactId: "C076",
+              name: "Missile-A",
               perceptions: [],
-              platformTypeId: 'id-missile',
-              position: '830744fffffffff',
-              uniqid: 'a0pra000103'
+              platformTypeId: "id-missile",
+              position: "830744fffffffff",
+              uniqid: "a0pra000103"
             }
           ],
-          color: '#F00',
+          color: "#F00",
           dirty: false,
-          iconURL: 'default_img/umpireDefault.png',
-          name: 'Red',
-          overview: 'Red force.',
+          iconURL: "default_img/umpireDefault.png",
+          name: "Red Force",
+          overview: "Red force.",
           roles: [
             {
               isGameControl: false,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              roleId: 'rkr226f5e'
+              name: "CO",
+              roleId: "rkr226f5e"
             }
           ],
           umpire: false,
-          uniqid: 'Red'
+          uniqid: "F-Red"
         },
         {
           assets: [
             {
-              condition: 'Full capability',
-              contactId: 'C015',
-              name: 'Tanker-1',
+              condition: "Full capability",
+              contactId: "C015",
+              name: "Tanker-1",
               perceptions: [
                 {
-                  by: 'Blue',
-                  force: 'Green',
-                  name: 'OSAKA',
-                  typeId: 'id-merchant'
+                  by: "F-Blue",
+                  force: "F-Green",
+                  name: "OSAKA",
+                  typeId: "id-merchant"
                 }
               ],
-              platformTypeId: 'id-merchant',
-              position: '831b21fffffffff',
-              uniqid: 'a0pra000200'
+              platformTypeId: "id-merchant",
+              position: "831b21fffffffff",
+              uniqid: "a0pra000200"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C081',
-              name: 'Tanker-2',
+              condition: "Full capability",
+              contactId: "C081",
+              name: "Tanker-2",
               perceptions: [
                 {
-                  by: 'Blue',
-                  force: 'Green',
-                  name: 'ARUNA 12',
-                  typeId: 'id-merchant'
+                  by: "F-Blue",
+                  force: "F-Green",
+                  name: "ARUNA 12",
+                  typeId: "id-merchant"
                 },
                 {
-                  by: 'Red',
-                  force: 'Green',
-                  name: 'BARLAY',
-                  typeId: 'id-merchant'
+                  by: "F-Red",
+                  force: "F-Green",
+                  name: "BARLAY",
+                  typeId: "id-merchant"
                 }
               ],
-              platformTypeId: 'id-merchant',
-              position: '831b31fffffffff',
+              platformTypeId: "id-merchant",
+              position: "831b31fffffffff",
               status: {
-                state: 'Moored'
+                state: "Moored"
               },
-              uniqid: 'a0pra000201'
+              uniqid: "a0pra000201"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C116',
-              name: 'Fisher-A',
+              condition: "Full capability",
+              contactId: "C116",
+              name: "Fisher-A",
               perceptions: [
                 {
-                  by: 'Blue',
-                  force: 'Green',
-                  name: 'JALIBUT',
-                  typeId: 'id-merchant'
+                  by: "F-Blue",
+                  force: "F-Green",
+                  name: "JALIBUT",
+                  typeId: "id-merchant"
                 }
               ],
-              platformTypeId: 'id-fisher',
-              uniqid: 'a0pra000202'
+              platformTypeId: "id-fisher",
+              uniqid: "a0pra000202"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C026',
-              name: 'Fisher-B',
+              condition: "Full capability",
+              contactId: "C026",
+              name: "Fisher-B",
               perceptions: [
                 {
-                  by: 'Blue',
-                  force: 'Green',
-                  typeId: 'id-merchant'
+                  by: "F-Blue",
+                  force: "F-Green",
+                  typeId: "id-merchant"
                 }
               ],
-              platformTypeId: 'id-fisher',
-              position: '83064bfffffffff',
+              platformTypeId: "id-fisher",
+              position: "83064bfffffffff",
               status: {
                 speedKts: 10,
-                state: 'Transiting'
+                state: "Transiting"
               },
-              uniqid: 'a0pra000203'
+              uniqid: "a0pra000203"
             },
             {
-              condition: 'Full capability',
-              contactId: 'C115',
-              name: 'Fisher-C',
+              condition: "Full capability",
+              contactId: "C115",
+              name: "Fisher-C",
               perceptions: [
                 {
-                  by: 'Blue',
-                  force: 'Green',
-                  name: 'BOUM 3',
-                  typeId: 'id-merchant'
+                  by: "F-Blue",
+                  force: "F-Green",
+                  name: "BOUM 3",
+                  typeId: "id-merchant"
                 },
                 {
-                  by: 'Red',
-                  force: 'Green',
-                  name: 'BOUM 3',
-                  typeId: 'id-merchant'
+                  by: "F-Red",
+                  force: "F-Green",
+                  name: "BOUM 3",
+                  typeId: "id-merchant"
                 }
               ],
-              platformTypeId: 'id-fisher',
-              uniqid: 'a0pra000204'
+              platformTypeId: "id-fisher",
+              uniqid: "a0pra000204"
             }
           ],
-          color: '#0F0',
+          color: "#0F0",
           dirty: false,
-          iconURL: 'default_img/umpireDefault.png',
-          name: 'Green',
-          overview: 'Green Shipping',
+          iconURL: "default_img/umpireDefault.png",
+          name: "Green Force",
+          overview: "Green Shipping",
           roles: [
             {
               isGameControl: false,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              roleId: 'rkrlw6f33'
+              name: "CO",
+              roleId: "rkrlw6f33"
             }
           ],
           umpire: false,
-          uniqid: 'Green'
+          uniqid: "F-Green"
         }
       ],
-      name: 'Forces',
-      selectedForce: ''
+      name: "Forces",
+      selectedForce: ""
     },
     overview: {
       dirty: false,
-      gameDate: '2021-05-13T16:12',
-      gameDescription: '',
-      gameTurnTime: { unit: 'millis', millis: 43200000 },
-      name: 'Overview - settings',
+      gameDate: "2021-05-13T16:12",
+      gameDescription: "",
+      gameTurnTime: {
+        unit: "millis",
+        millis: 43200000
+      },
+      name: "Overview - settings",
       realtimeTurnTime: 300000,
       showAccessCodes: true,
       timeWarning: 60000,
-      turnPresentation: 'Turn-Pair-Letters'
+      turnPresentation: "Turn-Pair-Letters"
     },
     platformTypes: {
       dirty: false,
-      name: 'Platform Types',
+      name: "Platform Types",
       platformTypes: [
         {
           attributeTypes: [
             {
-              attrId: 'comm-fish',
-              attrType: 'AttributeTypeNumber',
+              attrId: "comm-fish",
+              attrType: "AttributeTypeNumber",
               defaultValue: 100,
-              description: 'fishing allowance',
+              description: "fishing allowance",
               editableByPlayer: false,
-              name: 'quota',
-              units: 'tonnes'
+              name: "quota",
+              units: "tonnes"
             },
             {
-              attrId: 'comm-fuel',
-              attrType: 'AttributeTypeNumber',
+              attrId: "comm-fuel",
+              attrType: "AttributeTypeNumber",
               defaultValue: 5,
-              description: 'fuel remaining',
+              description: "fuel remaining",
               editableByPlayer: false,
-              format: '0.00',
-              name: 'fuel',
-              units: 'tonnes'
+              format: "0.00",
+              name: "fuel",
+              units: "tonnes"
             }
           ],
           conditions: [
-            'Full capability',
-            'Limited capability',
-            'Illegally boarded',
-            'Immobile',
-            'Sinking',
-            'Destroyed'
+            "Full capability",
+            "Limited capability",
+            "Illegally boarded",
+            "Immobile",
+            "Sinking",
+            "Destroyed"
           ],
-          icon: 'fishing-vessel.svg',
-          name: 'Fishing vessel',
-          uniqid: 'id-fisher',
-          speedKts: [10, 20],
+          icon: "fishing-vessel.svg",
+          name: "Fishing vessel",
+          uniqid: "id-fisher",
+          speedKts: [
+            10,
+            20
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Fishing'
+              name: "Fishing"
             },
             {
               mobile: false,
-              name: 'Moored'
+              name: "Moored"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
           conditions: [
-            'Full capability',
-            'Limited capability',
-            'Immobile',
-            'Sinking',
-            'Destroyed'
+            "Full capability",
+            "Limited capability",
+            "Immobile",
+            "Sinking",
+            "Destroyed"
           ],
-          icon: 'mcmv.svg',
-          name: 'MCMV',
-          uniqid: 'id-mcm',
-          speedKts: [10],
+          icon: "mcmv.svg",
+          name: "MCMV",
+          uniqid: "id-mcm",
+          speedKts: [
+            10
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Stopped'
+              name: "Stopped"
             },
             {
               mobile: false,
-              name: 'Moored'
+              name: "Moored"
             }
           ],
-          travelMode: 'sea'
-        },
-        {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'frigate.svg',
-          name: 'frigate',
-          uniqid: 'id-frigate',
-          speedKts: [6, 12, 18, 24],
-          states: [
-            {
-              mobile: true,
-              name: 'Transiting'
-            },
-            {
-              mobile: true,
-              name: 'Mixed'
-            },
-            {
-              mobile: true,
-              name: 'Active'
-            },
-            {
-              mobile: true,
-              name: 'Passive'
-            }
-          ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
           conditions: [
-            'Full capability',
-            'Limited capability',
-            'Immobile',
-            'Destroyed'
+            "Working",
+            "Disabled",
+            "Mission Kill"
           ],
-          icon: 'uas.svg',
-          name: 'Unmanned Airborne Vehicle',
-          uniqid: 'id-uav',
+          icon: "frigate.svg",
+          name: "frigate",
+          uniqid: "id-frigate",
+          speedKts: [
+            6,
+            12,
+            18,
+            24
+          ],
+          states: [
+            {
+              mobile: true,
+              name: "Transiting"
+            },
+            {
+              mobile: true,
+              name: "Mixed"
+            },
+            {
+              mobile: true,
+              name: "Active"
+            },
+            {
+              mobile: true,
+              name: "Passive"
+            }
+          ],
+          travelMode: "sea"
+        },
+        {
+          conditions: [
+            "Full capability",
+            "Limited capability",
+            "Immobile",
+            "Destroyed"
+          ],
+          icon: "uas.svg",
+          name: "Unmanned Airborne Vehicle",
+          uniqid: "id-uav",
           speedKts: [],
           states: [
             {
               mobile: true,
-              name: 'Airborne'
+              name: "Airborne"
             },
             {
               mobile: false,
-              name: 'Landed'
+              name: "Landed"
             },
             {
               mobile: false,
-              name: 'Preparing for launch'
+              name: "Preparing for launch"
             }
           ],
-          travelMode: 'air'
+          travelMode: "air"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'frigate-ta.svg',
-          name: 'frigate-ta',
-          uniqid: 'id-frigate-ta',
-          speedKts: [6, 12, 18, 24],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "frigate-ta.svg",
+          name: "frigate-ta",
+          uniqid: "id-frigate-ta",
+          speedKts: [
+            6,
+            12,
+            18,
+            24
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: true,
-              name: 'Mixed'
+              name: "Mixed"
             },
             {
               mobile: true,
-              name: 'Active'
+              name: "Active"
             },
             {
               mobile: true,
-              name: 'Passive'
+              name: "Passive"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'missile.svg',
-          name: 'Missile',
-          uniqid: 'id-missile',
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "missile.svg",
+          name: "Missile",
+          uniqid: "id-missile",
           states: [
             {
               mobile: false,
-              name: 'Inactive'
+              name: "Inactive"
             },
             {
               mobile: true,
-              name: 'Deployed'
+              name: "Deployed"
             }
           ],
-          travelMode: 'air'
+          travelMode: "air"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'carrier.svg',
-          name: 'Carrier',
-          uniqid: 'id-carrier',
-          speedKts: [6, 12, 18, 24, 30],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "carrier.svg",
+          name: "Carrier",
+          uniqid: "id-carrier",
+          speedKts: [
+            6,
+            12,
+            18,
+            24,
+            30
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: true,
-              name: 'Air Ops'
+              name: "Air Ops"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'auxiliary.svg',
-          name: 'Auxiliary',
-          uniqid: 'id-auxiliary',
-          speedKts: [6, 12],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "auxiliary.svg",
+          name: "Auxiliary",
+          uniqid: "id-auxiliary",
+          speedKts: [
+            6,
+            12
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: true,
-              name: 'Supporting'
+              name: "Supporting"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'destroyer.svg',
-          name: 'Destroyer',
-          uniqid: 'id-destroyer',
-          speedKts: [6, 12, 18, 24, 30],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "destroyer.svg",
+          name: "Destroyer",
+          uniqid: "id-destroyer",
+          speedKts: [
+            6,
+            12,
+            18,
+            24,
+            30
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Loitering'
+              name: "Loitering"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'ssk.svg',
-          name: 'SSK',
-          uniqid: 'id-ssk',
-          speedKts: [6, 12, 18],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "ssk.svg",
+          name: "SSK",
+          uniqid: "id-ssk",
+          speedKts: [
+            6,
+            12,
+            18
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: true,
-              name: 'Aggressove'
+              name: "Aggressove"
             },
             {
               mobile: true,
-              name: 'Evasive'
+              name: "Evasive"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'ssn.svg',
-          name: 'SSN',
-          uniqid: 'id-ssn',
-          speedKts: [6, 12, 18, 24],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "ssn.svg",
+          name: "SSN",
+          uniqid: "id-ssn",
+          speedKts: [
+            6,
+            12,
+            18,
+            24
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: true,
-              name: 'Aggressove'
+              name: "Aggressove"
             },
             {
               mobile: true,
-              name: 'Evasive'
+              name: "Evasive"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'helicopter.svg',
-          name: 'Helicopter',
-          uniqid: 'id-helo',
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "helicopter.svg",
+          name: "Helicopter",
+          uniqid: "id-helo",
           states: [
             {
               mobile: true,
-              name: 'Active'
+              name: "Active"
             },
             {
               mobile: false,
-              name: 'Landed'
+              name: "Landed"
             }
           ],
-          travelMode: 'air'
+          travelMode: "air"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'mpa.svg',
-          name: 'mpa',
-          uniqid: 'id-mpa',
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "mpa.svg",
+          name: "mpa",
+          uniqid: "id-mpa",
           states: [
             {
               mobile: true,
-              name: 'Active'
+              name: "Active"
             },
             {
               mobile: false,
-              name: 'Landed'
+              name: "Landed"
             }
           ],
-          travelMode: 'air'
+          travelMode: "air"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'fixed-wing-aircraft.svg',
-          name: 'Fixed Wing Aircraft',
-          uniqid: 'id-fixed-wing',
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "fixed-wing-aircraft.svg",
+          name: "Fixed Wing Aircraft",
+          uniqid: "id-fixed-wing",
           states: [
             {
               mobile: true,
-              name: 'Active'
+              name: "Active"
             },
             {
               mobile: false,
-              name: 'Landed'
+              name: "Landed"
             }
           ],
-          travelMode: 'air'
+          travelMode: "air"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'merchant-vessel.svg',
-          name: 'Merchant vessel',
-          uniqid: 'id-merchant',
-          speedKts: [6, 12],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "merchant-vessel.svg",
+          name: "Merchant vessel",
+          uniqid: "id-merchant",
+          speedKts: [
+            6,
+            12
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Moored'
+              name: "Moored"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'boghammer.svg',
-          name: 'Boghammer',
-          uniqid: 'id-boghammer',
-          speedKts: [6, 12, 18, 24, 30],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "boghammer.svg",
+          name: "Boghammer",
+          uniqid: "id-boghammer",
+          speedKts: [
+            6,
+            12,
+            18,
+            24,
+            30
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Moored'
+              name: "Moored"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'agi.svg',
-          name: 'AGI',
-          uniqid: 'id-agi',
-          speedKts: [6, 12, 18],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "agi.svg",
+          name: "AGI",
+          uniqid: "id-agi",
+          speedKts: [
+            6,
+            12,
+            18
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Moored'
+              name: "Moored"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         },
         {
-          conditions: ['Working', 'Disabled', 'Mission Kill'],
-          icon: 'task-group.svg',
-          name: 'Task Group',
-          uniqid: 'id-task-group',
-          speedKts: [6, 12, 18, 24, 30],
+          conditions: [
+            "Working",
+            "Disabled",
+            "Mission Kill"
+          ],
+          icon: "task-group.svg",
+          name: "Task Group",
+          uniqid: "id-task-group",
+          speedKts: [
+            6,
+            12,
+            18,
+            24,
+            30
+          ],
           states: [
             {
               mobile: true,
-              name: 'Transiting'
+              name: "Transiting"
             },
             {
               mobile: false,
-              name: 'Stopped'
+              name: "Stopped"
             },
             {
               mobile: false,
-              name: 'Moored'
+              name: "Moored"
             }
           ],
-          travelMode: 'sea'
+          travelMode: "sea"
         }
       ],
-      selectedType: ''
+      selectedType: ""
     }
   },
   gameTurn: 6,
   infoType: true,
-  messageType: 'InfoMessage',
-  name: 'wargame-l6nngxlk',
-  phase: 'planning',
-  turnEndTime: '2021-08-10T16:17:26+01:00',
+  messageType: "InfoMessage",
+  name: "wargame-l6nngxlk",
+  phase: "planning",
+  turnEndTime: "2021-08-10T16:17:26+01:00",
   wargameInitiated: true,
-  wargameTitle: 'P9 Test'
-};
+  wargameTitle: "P9 Test"
+}
 
 export default game;
