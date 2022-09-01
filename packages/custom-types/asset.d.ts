@@ -31,10 +31,6 @@ export interface Asset {
    */
   condition: string,
   /** 
-   * the type of this platform. To be @deprecated
-   */
-  platformType?: string,
-  /** 
    * the type-id of this platform 
    */
   platformTypeId: PlatformTypeData['uniqid']
