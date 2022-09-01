@@ -363,7 +363,6 @@ const wargame: Wargame = {
                             "uniqid": "al65069c1",
                             "contactId": "C777",
                             "name": "B1",
-                            "platformType": "Destroyer",
                             "platformTypeId": "a6",
                             "perceptions": [
                                 {
@@ -494,7 +493,6 @@ const wargame: Wargame = {
                             "uniqid": "al6506vlq",
                             "contactId": "C813",
                             "name": "B2",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -647,7 +645,6 @@ const wargame: Wargame = {
                             "uniqid": "al65088ae",
                             "contactId": "C166",
                             "name": "B3",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -854,7 +851,6 @@ const wargame: Wargame = {
                             "uniqid": "al6509vwo",
                             "contactId": "C101",
                             "name": "B4",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -1018,7 +1014,6 @@ const wargame: Wargame = {
                             "uniqid": "al650arbp",
                             "contactId": "C955",
                             "name": "B5",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -1176,7 +1171,6 @@ const wargame: Wargame = {
                             "uniqid": "al650d18r",
                             "contactId": "C347",
                             "name": "R1",
-                            "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [],
                             "condition": "Working",
@@ -1259,7 +1253,6 @@ const wargame: Wargame = {
                             "uniqid": "al650dmnf",
                             "contactId": "C025",
                             "name": "R2",
-                            "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [
                                 {
@@ -1355,7 +1348,6 @@ const wargame: Wargame = {
                                     "name": "G1"
                                 }
                             ],
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltw3g",
                             "position": "8919501214bffff",
@@ -1544,7 +1536,6 @@ const wargame: Wargame = {
                                     "name": "G2"
                                 }
                             ],
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltwtw",
                             "position": "89195010583ffff",
@@ -1662,7 +1653,6 @@ const wargame: Wargame = {
                             "uniqid": "al650ez1f",
                             "contactId": "C632",
                             "name": "G3",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
@@ -1832,7 +1822,6 @@ const wargame: Wargame = {
                             "uniqid": "al650f5k2",
                             "contactId": "C404",
                             "name": "G4",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
@@ -1984,7 +1973,6 @@ const wargame: Wargame = {
                             "uniqid": "al650f123",
                             "contactId": "C604",
                             "name": "G5",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
@@ -2183,7 +2171,6 @@ const wargame: Wargame = {
                             "uniqid": "al650f456",
                             "contactId": "C914",
                             "name": "G6",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
