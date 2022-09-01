@@ -11,7 +11,6 @@ const game: Wargame = {
           channelType: 'ChannelPlanning',
           participants: [
             {
-              force: 'CTF A',
               forceUniqid: 'F-Blue',
               pType: 'ParticipantPlanning',
               roles: [],
@@ -24,7 +23,6 @@ const game: Wargame = {
               ]
             },
             {
-              force: 'F-Red',
               forceUniqid: 'F-Red',
               pType: 'ParticipantPlanning',
               roles: [],
@@ -37,7 +35,6 @@ const game: Wargame = {
               ]
             },
             {
-              force: 'White',
               pType: 'ParticipantPlanning',
               forceUniqid: 'umpire',
               roles: ['rkrlw6f5f'],
@@ -52,14 +49,12 @@ const game: Wargame = {
           channelType: 'ChannelChat',
           participants: [
             {
-              force: 'CTF Y',
               forceUniqid: 'F-Red',
               roles: [],
               subscriptionId: '7bayi',
               pType: 'ParticipantChat'
             },
             {
-              force: 'White',
               forceUniqid: 'umpire',
               roles: ['rkrlw6f5f'],
               subscriptionId: 'h2my2k',
@@ -74,7 +69,6 @@ const game: Wargame = {
           participants: [
             {
               pType: 'ParticipantCustom',
-              force: 'CTF B',
               forceUniqid: 'F-Blue',
               roles: [],
               subscriptionId: 'etkkn',
@@ -86,7 +80,6 @@ const game: Wargame = {
               ]
             },
             {
-              force: 'White',
               pType: 'ParticipantCustom',
               forceUniqid: 'umpire',
               roles: ['rkrlw6f5f'],
@@ -101,7 +94,6 @@ const game: Wargame = {
           channelType: 'ChannelCustom',
           participants: [
             {
-              force: 'White',
               pType: 'ParticipantCustom',
               forceUniqid: 'umpire',
               roles: ['rks5zfzd5'],
@@ -109,7 +101,6 @@ const game: Wargame = {
               templates: []
             },
             {
-              force: 'CTF Y',
               pType: 'ParticipantCustom',
               forceUniqid: 'F-Red',
               roles: [],

@@ -69,7 +69,6 @@ const game: Wargame = {
           channelType: 'ChannelCustom',
           participants: [
             {
-              force: 'White',
               forceUniqid: 'umpire',
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
@@ -103,7 +102,6 @@ const game: Wargame = {
           channelType: 'ChannelCustom',
           participants: [
             {
-              force: 'White',
               forceUniqid: 'umpire',
               icon: 'images/default_img/umpireDefault.png',
               roles: [],
@@ -128,7 +126,6 @@ const game: Wargame = {
           channelType: 'ChannelCustom',
           participants: [
             {
-              force: 'White',
               forceUniqid: 'umpire',
               icon: 'images/default_img/umpireDefault.png',
               roles: [],

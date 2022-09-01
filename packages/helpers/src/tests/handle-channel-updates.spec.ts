@@ -162,8 +162,8 @@ describe('handle channel update for info message', () => {
       channelType: CHANNEL_CUSTOM,
       name: 'Blue Net 2',
       participants: [
-        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: PARTICIPANT_CUSTOM, templates: [] },
-        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: PARTICIPANT_CUSTOM, templates: [] }],
+        { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: PARTICIPANT_CUSTOM, templates: [] },
+        { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: PARTICIPANT_CUSTOM, templates: [] }],
       uniqid: 'channel-k63pjv111'
     }
     copyChannels.push(newChannel)
@@ -191,8 +191,8 @@ describe('handle channel update for info message', () => {
       name: 'Blue Net 2',
       channelType: CHANNEL_CUSTOM,
       participants: [
-        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: PARTICIPANT_CUSTOM, templates: [] },
-        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: PARTICIPANT_CUSTOM, templates: [] }],
+        { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', pType: PARTICIPANT_CUSTOM, templates: [] },
+        { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', pType: PARTICIPANT_CUSTOM, templates: [] }],
       uniqid: 'channel-k63pjv111'
     }
     copyChannels.push(newChannel)

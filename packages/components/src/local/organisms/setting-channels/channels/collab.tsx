@@ -82,7 +82,6 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       if (typeof seeLiveUpdates !== 'undefined') viewUnreleasedVersions = !!seeLiveUpdates.active
       return {
         ...participantCollab,
-        force: selectedForce.name,
         forceUniqid: selectedForce.uniqid,
         roles,
         permission,
