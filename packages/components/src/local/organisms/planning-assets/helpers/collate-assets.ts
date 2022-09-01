@@ -72,8 +72,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     itemRows.push(res)
   }
 
-
-
   // also sort out the comprising entries
   if (asset.comprising) {
     asset.comprising.forEach((asset2: Asset) => {
