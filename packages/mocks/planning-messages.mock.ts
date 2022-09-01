@@ -33,8 +33,8 @@ export const planningMessages: MessagePlanning[] = [
       turnNumber: 1
     },
     message: {
-      Reference: 'Blue-3',
-      Title: "Blue-3 Trusted Taipir, owned by Red Comms",
+      reference: 'Blue-3',
+      title: "Blue-3 Trusted Taipir, owned by Red Comms",
       LOCATION: {
         Asia: [
           {
@@ -119,10 +119,10 @@ export const planningMessages: MessagePlanning[] = [
       turnNumber: 1
     },
     message: {
-      Reference: 'RED-1',
+      reference: 'RED-1',
       startDate: '2020-10-13T08:55:21.119Z',
       endDate: '2020-10-14T08:55:21.119Z',
-      Title: "Red-1 COA",
+      title: "Red-1 COA",
       LOCATION: {
         Asia: [
           {
@@ -213,8 +213,8 @@ export const planningMessages: MessagePlanning[] = [
       turnNumber: 1
     },
     message: {
-      Reference: 'White-2',
-      Title: "White-2 COA",
+      reference: 'White-2',
+      title: "White-2 COA",
       startDate: '2020-10-16T08:55:21.119Z',
       endDate: '2020-10-18T08:55:21.119Z',
       LOCATION: {
@@ -303,8 +303,8 @@ export const planningMessages: MessagePlanning[] = [
       turnNumber: 1
     },
     message: {
-      Reference: 'Red-2',
-      Title: "Red 2 COA",
+      reference: 'Red-2',
+      title: "Red 2 COA",
       startDate: '2020-11-13T08:55:21.119Z',
       endDate: '2020-12-14T08:55:21.119Z',
       LOCATION: {
@@ -380,8 +380,8 @@ export const planningMessages: MessagePlanning[] = [
       turnNumber: 1
     },
     message: {
-      Reference: 'Blue-2',
-      Title: "Blue 2 COA",
+      reference: 'Blue-2',
+      title: "Blue 2 COA",
       startDate: '2020-10-13T10:55:21.119Z',
       endDate: '2020-10-14T13:55:21.119Z',
       LOCATION: {

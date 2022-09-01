@@ -3,8 +3,14 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
 import { PLANNING_MESSAGE } from '@serge/config'
-import { MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
+
+import { p9wargame } from '@serge/mocks'
+
+const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
+const blueForce = p9wargame.data.forces.forces[1]
+const blueRole = blueForce.roles[0]
 
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
@@ -35,7 +41,7 @@ describe('ChannelMessagesList component: ', () => {
         turnNumber: 1
       },
       message: {
-        Reference: 'Message-1',
+        reference: 'Message-1',
         title: 'Message Title',
         startDate: '2020-10-13T08:52:04.394Z',
         endDate: '2020-10-15T08:52:04.394Z'
@@ -46,7 +52,10 @@ describe('ChannelMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<PlanningMessagesList hideForcesInChannel={false} messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true} role={'Comms'} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<PlanningMessagesList channel={planningChannel} hideForcesInChannel={false}
+        messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true}
+        playerRoleId={blueRole.roleId}
+        playerForceId={blueForce.uniqid} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

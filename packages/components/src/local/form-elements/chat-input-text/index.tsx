@@ -43,8 +43,8 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
     <TextInput
       fullWidth
       multiline
-      rows={2}
-      rowsMax={3}
+      minRows={2}
+      maxRows={3}
       variant="filled"
       updateState={changeHandler}
       value={formState}
