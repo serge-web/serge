@@ -6,14 +6,16 @@ import {
   deletePath,
   wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, Wargame, ActivityLogsInterface } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame, Playerlogs } from '@serge/custom-types'
+
 import { io } from 'socket.io-client'
 import {
   ProviderDbInterface,
   DbProviderInterface,
   FetchData,
   FetchDataArray,
-  FetchDataLogs
+  FetchDataLogs,
+  GetDataLogs
 } from './types'
 
 export class DbProvider implements DbProviderInterface {
@@ -76,7 +78,7 @@ export class DbProvider implements DbProviderInterface {
     return url.replace(databasePath, '')
   }
 
-  put (doc: Wargame | Message | ActivityLogsInterface): Promise<Wargame | Message | ActivityLogsInterface> {
+  put (doc: Wargame | Message): Promise<Wargame | Message> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName(), {
         method: 'PUT',
@@ -102,6 +104,32 @@ export class DbProvider implements DbProviderInterface {
         })
     })
   }
+  
+  getPlayerLogs = (wargame: string): Promise<Playerlogs> => {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + wargame + '/' + 'logs')
+        .then(res => res.json() as Promise<FetchDataLogs>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
+          else reject(msg)
+        })
+    })
+  }
+
+  putPlayerLogs = (doc: Playerlogs | Array<void>): Promise<GetDataLogs> => {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + 'healthcheck' + '/' + this.getDbName(), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(doc)
+      }).then((res) => {
+        resolve(res.json())
+      })
+    })  
+  }
 
   lastWargame (): Promise<MessageInfoType> {
     return new Promise((resolve, reject) => {
@@ -115,18 +143,6 @@ export class DbProvider implements DbProviderInterface {
     })
   }
   
-  playlogs (): Promise<ActivityLogsInterface> {
-    return new Promise((resolve, reject) => {
-      fetch(serverPath + this.getDbName() + '/' + 'logs')
-        .then(res => res.json() as Promise<FetchDataLogs>)
-        .then((res) => {
-          const { msg, data } = res
-          if (msg === 'ok') resolve(data)
-          else reject(msg)
-        })
-    })
-  }
-
   replicate (newDbProvider: { name: string, db: ProviderDbInterface }): Promise<DbProvider> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbProvider.name)}/${this.getDbName()}`)

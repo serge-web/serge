@@ -32,9 +32,8 @@ export interface ActivityLogsInterface {
   activityTime: string
   activityType: string
   role: string,
-  _id?: string,
   wargame: string,
-  curentPlayerlog?: string
+  currentdbName: string
 }
 
 export type DBLoadingState = {

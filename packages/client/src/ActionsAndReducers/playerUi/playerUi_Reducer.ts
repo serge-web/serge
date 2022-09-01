@@ -178,7 +178,9 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
-      if (anyPayload.data) {
+      if (anyPayload.activityTime) {    
+        return newState
+      } else if (anyPayload.data) {
         // wargame change
         const wargame = anyPayload as Wargame
         newState.allChannels = wargame.data.channels.channels

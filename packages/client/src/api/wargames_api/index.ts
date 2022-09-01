@@ -59,10 +59,10 @@ import {
   MessageStateOfWorld,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData,
-  ActivityLogsInterface
+  AnnotationMarkerData
 } from '@serge/custom-types'
 
+import { PlainInteraction, PlayerLogEntry } from '@serge/custom-types/player-log'
 import {
   ApiWargameDbObject,
   ApiWargameDb,
@@ -150,55 +150,65 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = async (wargame: string, role: string, activityTypes: string, activityTimes: string): Promise<any> => {
+export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntry> => {
+  const { db } = getWargameDbByName(dbName)
+
+  return await db.getPlayerLogs(wargame)
+    .then(res => res)
+    .catch()
+}
+
+export const pingServer = async (wargame: string, role: string, activityTypes: string, activityTimes: string, dbName: string): Promise<any> => {
   const activityMissing = 'The player has not shown any activity yet'
   const activityTime = activityTimes || activityMissing
   const activityType = activityTypes || activityMissing
-  
-  if (!wargame) return null
-  
-  const { db } = getWargameDbByName(wargame)
-  return await getPlayerActivityLogs(wargame)
+  const { db } = getWargameDbByName(dbName)
+  const checkServer: void[] = []
+  if (!wargame) return db.putPlayerLogs(checkServer).then(res => res.status)
+
+  return await getPlayerActivityLogs(wargame, dbName)
     .then(res => {
-      const newDoc: ActivityLogsInterface[] = deepCopy(res)
+      const newDoc: PlayerLogEntry[] = deepCopy(res)
       const updatedData = newDoc
       const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
+      const tmpInteraction: PlainInteraction = { aType: activityType }
       
       if (findIndex !== -1) {
-        const data: ActivityLogsInterface = {
+        const data: PlayerLogEntry = {
           ...updatedData[findIndex],
           activityTime: activityTime,
-          activityType: activityType
+          activityType: tmpInteraction
         }
    
         const playerlogsUpdate = updatedData[findIndex] = data
-        db.put(playerlogsUpdate)
-          .then(() => 'OK')
+
+        return db.putPlayerLogs(playerlogsUpdate)
+          .then((data) => {
+            console.log(data.status)
+            return data.status
+          }).catch((err) => {
+            console.log(err)
+            return 'NOT_OK'
+          }) 
       } else {
-        const newPlayerlog: ActivityLogsInterface = {
+        const newPlayerlog: PlayerLogEntry = {
           ...dbDefaultPlaylogSettings,
           wargame: wargame,
           role: role,
-          activityType: activityType, 
+          activityType: tmpInteraction, 
           activityTime: activityTime
         }
-        
-        db.put(newPlayerlog)
-          .then(() => 'OK')
+
+        return db.putPlayerLogs(newPlayerlog)
+          .then((data) => data.status)
+          .catch((err) => {
+            console.log(err)
+            return 'NOT_OK'
+          }) 
       }
-    }).catch(() => console.log('errors'))
-}
- 
-export const getPlayerActivityLogs = (wargame: string): Promise<void | ActivityLogsInterface> => {
-  const { db } = getWargameDbByName(wargame)
-  return db.playlogs()
-    .then(res => res)
-    .catch()
-    .catch((err) => {
-      console.log(err)
     })
 }
-
+ 
 export const populateWargame = (): Promise<string | Wargame[]> => {
   return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)

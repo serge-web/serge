@@ -52,8 +52,8 @@ const Version: React.FC<VersionProps> = () => {
   }, [serverStatus, serverPingTime])
   
   const pingServer = () => {
-    const { wargame, role, activityTime, activityType } = playerLog 
-    return pingServerApi(wargame, role, activityType, activityTime).then(res => {
+    const { wargame, role, activityTime, activityType, currentdbName } = playerLog 
+    return pingServerApi(wargame, role, activityType, activityTime, currentdbName).then(res => {
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res

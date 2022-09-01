@@ -108,6 +108,33 @@ const couchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
+  app.put('/healthcheck/:dbname', async (req, res) => {
+    const { dbname } = req.params
+    const databaseName = checkSqliteExists(dbname)
+    const db = new PouchDB(databaseName, pouchOptions)
+    const putData = req.body
+    console.log('req.body', dbname)
+    const putPlayerlogs = (db, doc) => {
+      return db.get(doc._id).then((origDoc) => {
+        db._rev = origDoc._rev
+        return db.put(doc).then(async () => {
+          await db.compact()
+          res.send({ status: 'OK', data: doc })
+        })
+      }).catch(err => {
+        if (err.status === 409) {
+          return putPlayerlogs(db, doc)
+        } else {
+          return db.put(doc)
+            .then(res => res.send({ status: 'OK', data: putData }))
+            .catch(() => { res.send({ status: 'OK' }) })
+        }
+      })
+    }
+
+    putPlayerlogs(db, putData)
+  })
+
   app.get('/replicate/:replicate/:dbname', (req, res) => {
     const newDbName = checkSqliteExists(req.params.replicate) // new db name
     const newDb = new CouchDB(couchDbURL(newDbName))

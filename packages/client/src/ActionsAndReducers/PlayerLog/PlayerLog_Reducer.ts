@@ -6,7 +6,8 @@ const initialState: ActivityLogsInterface = {
   wargame: '',
   role: '',
   activityTime: '',
-  activityType: ''
+  activityType: '',
+  currentdbName: 'wargame-playerlogs'
 }
 
 export const addPlayerLogReducer = (state: ActivityLogsInterface = initialState, action: PlayerLogActionType) => {

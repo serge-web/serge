@@ -3,7 +3,7 @@ import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
 import { setMessageState } from '@serge/helpers'
-import { ActivityLogsInterface, ForceData, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
+import { ForceData, PlayerMessage, PlayerMessageLog, Role, RootState, Playerlogs } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -11,6 +11,7 @@ import Modal from 'react-modal'
 import { getPlayerActivityLogs } from '../../api/wargames_api'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { genPlayerLogDataTable } from './helpers/genData'
+import { useSelector } from 'react-redux'
 import styles from './styles.module.scss'
 import { PlayerLogModal, PlayerLogProps } from './types/props'
 import deepCopy from '../../Helpers/copyStateHelper'
@@ -22,6 +23,7 @@ const AGE_FOR_ACTIVE_MILLIS = 60000
 
 const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handlePlayerlogsMarkAllAsRead, handlePlayerlogsMarkAllAsUnread, playerLogsActivity }): React.ReactElement => {
   const { allForces, playerMessageLog, currentWargame, selectedRole, selectedForce } = usePlayerUiState()
+  const { currentdbName } = useSelector((state: RootState) => state.playerLog)
   const [loop, setLoop] = useState<any>()
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
@@ -45,12 +47,12 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
   
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs(currentWargame).then((activityLog) => {  
-      const activityLogCopy: ActivityLogsInterface[] = deepCopy(activityLog)
+    getPlayerActivityLogs(currentWargame, currentdbName).then((activityLog) => {  
+      const activityLogCopy: Playerlogs[] = deepCopy(activityLog)
       const logData: PlayerLogModal[] = []
-      const activityLogsForThisWargame = activityLogCopy && activityLogCopy.length && activityLogCopy.filter((value: ActivityLogsInterface) => value.wargame === currentWargame) || []
+      const activityLogsForThisWargame = activityLogCopy && activityLogCopy.length && activityLogCopy.filter((value: Playerlogs) => value.wargame === currentWargame) || []
 
-      const activityRoles = activityLogsForThisWargame.map((value: ActivityLogsInterface) => value.role)
+      const activityRoles = activityLogsForThisWargame.map((value: Playerlogs) => value.role)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
       const uniqueRoles = uniq(knownRoles)
@@ -62,7 +64,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
             return
           }
           if (uniqueRoles.includes(role.roleId)) {
-            const activity = activityLogsForThisWargame.find((value: ActivityLogsInterface) => value.role === role.roleId)
+            const activity = activityLogsForThisWargame.find((value: Playerlogs) => value.role === role.roleId)
             const lastMessage = messageLog[role.roleId]
             const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || ''
             const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />
@@ -78,7 +80,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
               lastMessage: messageTime,
               lastActive: activityTime,
               isReaded: activatyhasBennRead,
-              lastActivity: activity ? activity.activityType : 'N/A',
+              lastActivity: activity ? activity.activityType.aType : 'N/A',
               active: activityTime && (moment().diff(moment(parseInt(activityTime)))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
