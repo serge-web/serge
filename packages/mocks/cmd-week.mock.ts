@@ -387,11 +387,10 @@ const game: Wargame = {
                           "by": "Red",
                           "force": "Blue",
                           "name": "Unknown UAV",
-                          "type": "Unmanned-Airborne-Vehicle"
+                          "typeId": "Unmanned-Airborne-Vehicle"
                         }
                       ],
                       "plannedTurns": [],
-                      "platformType": "Unmanned-Airborne-Vehicle",
                       "platformTypeId": "id-uav",
                       "status": {
                         "state": "Landed"
@@ -405,7 +404,6 @@ const game: Wargame = {
                       "name": "Dart 46",
                       "perceptions": [],
                       "plannedTurns": [],
-                      "platformType": "Unmanned-Airborne-Vehicle",
                       "platformTypeId": "id-uav",
                       "status": {
                         "state": "Landed"
@@ -422,7 +420,6 @@ const game: Wargame = {
                       "name": "Frigate A Perceived Name"
                     }
                   ],
-                  "platformType": "frigate",
                   "uniqid": "a0prbr6441"
                 },
                 {
@@ -431,7 +428,6 @@ const game: Wargame = {
                   "history": [],
                   "name": "MCM Delta",
                   "perceptions": [],
-                  "platformType": "MCMV",
                   "platformTypeId": "id-mcm",
                   "uniqid": "a0traa6790"
                 }
@@ -476,7 +472,7 @@ const game: Wargame = {
                   "by": "Red",
                   "force": "Blue",
                   "name": "BRIT",
-                  "type": "task-group"
+                  "typeId": "task-group"
                 }
               ],
               "plannedTurns": [
@@ -501,7 +497,6 @@ const game: Wargame = {
                   "turn": 5
                 }
               ],
-              "platformType": "task-group",
               "platformTypeId": "id-task-group",
               "position": "8318adfffffffff",
               "status": {
@@ -535,11 +530,10 @@ const game: Wargame = {
                     {
                       "by": "Red",
                       "force": "Blue",
-                      "type": "helicopter"
+                      "typeId": "helicopter"
                     }
                   ],
                   "plannedTurns": [],
-                  "platformType": "helicopter",
                   "platformTypeId": "id-helo",
                   "status": {
                     "state": "Landed"
@@ -553,7 +547,6 @@ const game: Wargame = {
                   "name": "Dart 42",
                   "perceptions": [],
                   "plannedTurns": [],
-                  "platformType": "Unmanned-Airborne-Vehicle",
                   "platformTypeId": "id-uav",
                   "status": {
                     "state": "Landed"
@@ -567,7 +560,7 @@ const game: Wargame = {
                   "by": "Red",
                   "force": "Blue",
                   "name": "Frigate Perceived Name",
-                  "type": "frigate"
+                  "typeId": "frigate"
                 }
               ],
               "plannedTurns": [
@@ -592,7 +585,6 @@ const game: Wargame = {
                   "turn": 5
                 }
               ],
-              "platformType": "frigate",
               "platformTypeId": "id-frigate",
               "position": "8318a3fffffffff",
               "status": {
@@ -608,7 +600,6 @@ const game: Wargame = {
               "name": "MPA",
               "perceptions": [],
               "plannedTurns": [],
-              "platformType": "fixed-wing-aircraft",
               "platformTypeId": "id-fixed-wing",
               "position": "831976fffffffff",
               "status": {
@@ -636,7 +627,7 @@ const game: Wargame = {
                 {
                   "by": "Red",
                   "force": "Blue",
-                  "type": ""
+                  "typeId": ""
                 }
               ],
               "plannedTurns": [
@@ -661,7 +652,6 @@ const game: Wargame = {
                   "turn": 5
                 }
               ],
-              "platformType": "merchant-vessel",
               "platformTypeId": "id-merchant",
               "position": "83181cfffffffff",
               "status": {
@@ -733,7 +723,6 @@ const game: Wargame = {
                   "turn": 4
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830932fffffffff",
               "status": {
@@ -765,7 +754,6 @@ const game: Wargame = {
                   "name": "Bog Draft",
                   "perceptions": [],
                   "plannedTurns": [],
-                  "platformType": "boghammer",
                   "platformTypeId": "id-boghammer",
                   "status": {
                     "state": "Landed"
@@ -779,7 +767,7 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "SHU’AI",
-                  "type": "fishing-vessel"
+                  "typeId": "fishing-vessel"
                 }
               ],
               "plannedTurns": [
@@ -806,7 +794,6 @@ const game: Wargame = {
                   "turn": 5
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830910fffffffff",
               "status": {
@@ -863,7 +850,6 @@ const game: Wargame = {
                   "turn": 5
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830765fffffffff",
               "status": {
@@ -886,7 +872,6 @@ const game: Wargame = {
               "name": "Missile-A",
               "perceptions": [],
               "plannedTurns": [],
-              "platformType": "coastal-radar-site",
               "platformTypeId": "id-missile",
               "position": "830744fffffffff",
               "status": {
@@ -935,7 +920,7 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "OSAKA",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 }
               ],
               "plannedTurns": [
@@ -960,7 +945,6 @@ const game: Wargame = {
                   "turn": 4
                 }
               ],
-              "platformType": "merchant-vessel",
               "platformTypeId": "id-merchant",
               "position": "831b21fffffffff",
               "status": {
@@ -990,13 +974,13 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "ARUNA 12",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 },
                 {
                   "by": "Red",
                   "force": "Green",
                   "name": "BARLAY",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 }
               ],
               "plannedTurns": [
@@ -1021,7 +1005,6 @@ const game: Wargame = {
                   "turn": 4
                 }
               ],
-              "platformType": "merchant-vessel",
               "platformTypeId": "id-merchant",
               "position": "831b31fffffffff",
               "status": {
@@ -1050,7 +1033,7 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "JALIBUT",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 }
               ],
               "plannedTurns": [
@@ -1071,7 +1054,6 @@ const game: Wargame = {
                   "turn": 4
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "831b2dfffffffff",
               "status": {
@@ -1100,7 +1082,7 @@ const game: Wargame = {
                 {
                   "by": "Blue",
                   "force": "Green",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 }
               ],
               "plannedTurns": [
@@ -1121,7 +1103,6 @@ const game: Wargame = {
                   "turn": 4
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "83064bfffffffff",
               "status": {
@@ -1151,13 +1132,13 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "BOUM 3",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 },
                 {
                   "by": "Red",
                   "force": "Green",
                   "name": "BOUM 3",
-                  "type": "merchant-vessel"
+                  "typeId": "merchant-vessel"
                 }
               ],
               "plannedTurns": [
@@ -1178,7 +1159,6 @@ const game: Wargame = {
                   "turn": 4
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830761fffffffff",
               "status": {

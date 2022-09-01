@@ -215,7 +215,6 @@ const wargame: Wargame = {
                                         }
                                     ],
                                     "plannedTurns": [],
-                                    "platformType": "helicopter",
                                     "platformTypeId": "a8",
                                     "status": {
                                         "state": "Landed"
@@ -229,7 +228,6 @@ const wargame: Wargame = {
                                     "name": "Dart 42",
                                     "perceptions": [],
                                     "plannedTurns": [],
-                                    "platformType": "Unmanned-Airborne-Vehicle",
                                     "platformTypeId": "a10",
                                     "status": {
                                         "state": "Landed"
@@ -411,7 +409,6 @@ const wargame: Wargame = {
                                             "typeId": "a3"
                                         }
                                     ],
-                                    "platformType": "frigate",
                                     "platformTypeId": "a3",
                                     "hosting": [
                                         {
@@ -428,7 +425,6 @@ const wargame: Wargame = {
                                                 }
                                             ],
                                             "plannedTurns": [],
-                                            "platformType": "Unmanned-Airborne-Vehicle",
                                             "platformTypeId": "a10",
                                             "status": {
                                                 "state": "Landed"
@@ -442,7 +438,6 @@ const wargame: Wargame = {
                                             "name": "Dart 46",
                                             "perceptions": [],
                                             "plannedTurns": [],
-                                            "platformType": "Unmanned-Airborne-Vehicle",
                                             "platformTypeId": "a10",
                                             "status": {
                                                 "state": "Landed"
@@ -464,7 +459,6 @@ const wargame: Wargame = {
                                     "perceptions": [
                                         { "by": "Red-1", "force": "Blue-1", "name": "Blue MCM", "typeId": "a9" }
                                     ],
-                                    "platformType": "MCMV",
                                     "platformTypeId": "a9",
                                     "status": {
                                         "speedKts": 20,
@@ -505,7 +499,6 @@ const wargame: Wargame = {
                                     "turn": 5
                                 }
                             ],
-                            "platformType": "task-group",
                             "platformTypeId": "a16",
                             "position": "8918aab0d07ffff",
                             "status": {
@@ -595,7 +588,6 @@ const wargame: Wargame = {
                                     },
                                     "turn": 4
                                 }],
-                            "platformType": "agi",
                             "platformTypeId": "a15",
                             "position": "8918a84db3bffff",
                             "uniqid": "red-AGI"

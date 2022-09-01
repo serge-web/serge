@@ -29,7 +29,7 @@ const allForces: ForceData[] = [
         name: 'alpha',
         perceptions: [{
           force: 'Blue',
-          type: 'Frigate',
+          typeId: 'Frigate',
           by: 'Red'
         }]
       },
@@ -61,7 +61,7 @@ const allForces: ForceData[] = [
         uniqid: 'C03',
         perceptions: [{
           force: 'Green',
-          type: 'Frigate',
+          typeId: 'Frigate',
           by: 'Blue'
         }]
       },
@@ -94,7 +94,7 @@ const allForces: ForceData[] = [
         perceptions: [
           {
             force: 'Green',
-            type: 'Frigate',
+            typeId: 'Frigate',
             by: 'Blue'
           }
         ]
