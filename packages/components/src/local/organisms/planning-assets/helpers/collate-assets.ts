@@ -7,7 +7,7 @@ import { Row } from '../types/props'
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
  * @param playerForce the (optional) specific force to display
- * @returns 
+ * @returns
  */
 export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): Column[] => {
   if (playerForce && !opFor) {

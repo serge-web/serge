@@ -1,4 +1,4 @@
-import { P9Mock} from '@serge/mocks'
+import { P9Mock } from '@serge/mocks'
 import { getRows, getColumns, collateItem } from './collate-assets'
 
 const forces = P9Mock.data.forces.forces
@@ -10,11 +10,9 @@ const greenForce = forces[3]
 false && console.log('get working', greenForce, getRows, getColumns)
 
 describe('check collating assets', () => {
-
-
   it('handles collate item for opfor', () => {
     if (redAsset) {
-      const item = collateItem(true, redAsset, blueForce.uniqid, redForce, undefined )
+      const item = collateItem(true, redAsset, blueForce.uniqid, redForce, undefined)
       expect(item).toBeTruthy()
     }
   })
@@ -60,5 +58,4 @@ describe('check collating assets', () => {
   //   expect(blueRows).toBeTruthy()
   //   expect(blueRows.length).toEqual(9)
   // })
-
 })
