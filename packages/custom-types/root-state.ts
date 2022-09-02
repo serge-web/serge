@@ -29,7 +29,8 @@ export type ExportItems = {
 }
 
 export interface ActivityLogsInterface {
-  items: PlayerLogEntries
+  items: PlayerLogEntries,
+  currentDbname: string
 }
 
 export type DBLoadingState = {

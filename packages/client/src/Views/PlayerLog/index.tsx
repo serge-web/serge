@@ -3,7 +3,7 @@ import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactTable, Row } from '@serge/components'
 import { setMessageState } from '@serge/helpers'
-import { ActivityLogsInterface, ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role } from '@serge/custom-types'
+import { ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role, RootState } from '@serge/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -23,7 +23,7 @@ const AGE_FOR_ACTIVE_MILLIS = 60000
 
 const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handlePlayerlogsMarkAllAsRead, handlePlayerlogsMarkAllAsUnread, playerLogsActivity }): React.ReactElement => {
   const { allForces, playerMessageLog, currentWargame, selectedRole, selectedForce } = usePlayerUiState()
-  const { currentdbName } = useSelector((state: RootState) => state.playerLog)
+  const { currentDbname } = useSelector((state: RootState) => state.playerLog)
   const [loop, setLoop] = useState<any>()
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
@@ -47,9 +47,9 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
   
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs(currentWargame).then((activityLog) => {  
-      const activityLogCopy: ActivityLogsInterface = deepCopy(activityLog)
-      const logItems = activityLogCopy.items
+    getPlayerActivityLogs(currentWargame, currentDbname).then((activityLog) => {  
+      const activityLogCopy: PlayerLogEntry[] = deepCopy(activityLog)
+      const logItems = activityLogCopy
       const logData: PlayerLogModal[] = []
 
       // TODO: we probably don't need to filter for wargame, since we request them for the current wargame above

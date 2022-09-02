@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE, PLAY_LOGS } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -97,15 +97,15 @@ const pouchDb = (app, io, pouchOptions) => {
         db._rev = origDoc._rev
         return db.put(doc).then(async () => {
           await db.compact()
-          res.send({ status: 'OK', data: doc })
+          res.send({ msg: 'OK', data: doc })
         })
       }).catch(err => {
         if (err.status === 409) {
           return putPlayerlogs(db, doc)
         } else {
           return db.put(doc)
-            .then(res => res.send({ status: 'OK', data: putData }))
-            .catch(() => { res.send({ status: 'OK' }) })
+            .then(res => res.send({ msg: 'OK', data: putData }))
+            .catch(() => { res.send({ msg: 'OK' }) })
         }
       })
     }
@@ -190,11 +190,11 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
-  app.get('/:wargame/logs', (req, res) => {
-    const databaseName = checkSqliteExists(PLAY_LOGS)
+  app.get('/:wargame/:dbname/logs', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
 
     if (!databaseName) {
-      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
     }
 
     const db = new PouchDB(databaseName, pouchOptions)

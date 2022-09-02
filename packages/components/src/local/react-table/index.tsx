@@ -38,7 +38,10 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
 
   const getRoleId = new URLSearchParams(window.location.search).get('access')
 
-  const isAllMsgRead = useMemo(() => rows.every(msg => msg.isReaded), [rows])
+  const isAllMsgRead = useMemo(() => {
+    return rows.filter(msg => msg.message !== 'N/A')
+      .every(msg => msg.isReaded)
+  }, [rows])
 
   // ///////////////////////////////////////// //
   //    INJECT FILTER TO TABLE CELL HEADER     //

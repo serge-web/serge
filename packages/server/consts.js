@@ -3,6 +3,5 @@ module.exports = {
   settings: 'settings',
   COUNTER_MESSAGE: 'CounterMessage',
   INFO_MESSAGE: 'InfoMessage',
-  PLAY_LOGS: 'wargame-playerlogs',
   dbSuffix: '.sqlite'
 }

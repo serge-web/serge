@@ -731,7 +731,7 @@ const wargame: Wargame = {
             "realtimeTurnTime": 300000,
             "showAccessCodes": true,
             "timeWarning": 60000,
-            "showPlayerLogs": true,
+            "enablePlayerlogs": true,
             "turnPresentation": "Natural"
         },
         "platformTypes": {

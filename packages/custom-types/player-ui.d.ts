@@ -73,7 +73,7 @@ export default interface PlayerUi {
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
   /** whether logged in user can view insights & feedback */
-  showPlayerLogs: boolean
+  enablePlayerlogs: boolean
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */
   isRFIManager: boolean

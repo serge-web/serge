@@ -3,7 +3,8 @@ import { PlayerLogActionType, ActivityLogsInterface } from '@serge/custom-types'
 import copyState from '../../Helpers/copyStateHelper'
 
 const initialState: ActivityLogsInterface = {
-  items: []
+  items: [],
+  currentDbname: 'wargame-playerlogs'
 }
 
 export const addPlayerLogReducer = (state: ActivityLogsInterface = initialState, action: PlayerLogActionType) => {

@@ -79,7 +79,7 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
-  showPlayerLogs: false,
+  enablePlayerlogs: false,
   isInsightViewer: false,
   isRFIManager: false,
   playerMessageLog: {}
@@ -105,7 +105,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
       newState.showAccessCodes = data.overview.showAccessCodes
-      newState.showPlayerLogs = data.overview.showPlayerLogs || false
+      newState.enablePlayerlogs = data.overview.enablePlayerlogs || false
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.gameDate = data.overview.gameDate
       newState.gameTurnTime = data.overview.gameTurnTime
@@ -178,7 +178,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
-      if (anyPayload.activityTime) {    
+      if (anyPayload.activityTime) { 
         return newState
       } else if (anyPayload.data) {
         // wargame change

@@ -1,4 +1,4 @@
-import { Message, MessageInfoType, Wargame, Playerlogs } from '@serge/custom-types'
+import { Message, MessageInfoType, Wargame, PlayerLogEntry } from '@serge/custom-types'
 import DbProvider from '.'
 
 export interface DbProviderInterface {
@@ -8,8 +8,8 @@ export interface DbProviderInterface {
   put: (doc: Wargame | Message) => Promise<Wargame | Message >
   allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
-  getPlayerLogs: (wargames: string) => Promise<Playerlogs>
-  putPlayerLogs: (doc: Playerlogs | Array<void>) => Promise<GetDataLogs> 
+  getPlayerLogs: (wargames: string) => Promise<PlayerLogEntry>
+  putPlayerLogs: (doc: PlayerLogEntry) => Promise<FetchDataLogs> 
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }
@@ -38,12 +38,7 @@ export interface FetchDataArray {
 
 export interface FetchDataLogs {
   msg: string,
-  data: Playerlogs
-}
-
-export interface GetDataLogs {
-  data: Playerlogs,
-  status: string
+  data: PlayerLogEntry
 }
 
 export type ChangeListener = (value: ChangesResponseChange) => any

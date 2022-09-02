@@ -59,10 +59,11 @@ import {
   MessageStateOfWorld,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  ActivityLogsInterface,
+  PlayerLogEntry
 } from '@serge/custom-types'
 
-import { PlainInteraction, PlayerLogEntry } from '@serge/custom-types/player-log'
 import {
   ApiWargameDbObject,
   ApiWargameDb,
@@ -150,66 +151,65 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer2 = async (log: ActivityLogsInterface): Promise<any> => {
+export const pingServer2 = async (log: ActivityLogsInterface): Promise<string> => { 
   console.warn('ping server currently commented out') 
   const items = log.items
-  if (items.length > 0) {
-    const first = items[0]
-    const wargame = first.wargame
-    if (!wargame) return null
+  const first = items[0]
 
-    // TODO: in addition to pushing data to the server, we're also checking the server is still alive
-    // So, even if the log is empty, we should push an empty list, since we want to get a 
-    // 'success' back from the server
+  // TODO: in addition to pushing data to the server, we're also checking the server is still alive
+  // So, even if the log is empty, we should push an empty list, since we want to get a 
+  // 'success' back from the server
 
-    // TODO: this method should receive an array of activities.  It should push them all as
-    // documents to the PlayerLogs database.  We don't extend the existing set of documents,
-    // we push them as new documents via Couchdb "bulk push" call.
-  
-    //    const { db } = getWargameDbByName(wargame)
-    return await getPlayerActivityLogs(wargame)
-      .then(
-        () => 'OK'
-        // const newDoc: ActivityLogsInterface[] = deepCopy(res)
-        // const updatedData = newDoc
-        // const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
-        
-        // if (findIndex !== -1) {
-        //   const data: ActivityLogsInterface = {
-        //     ...updatedData[findIndex],
-        //     activityTime: activityTime,
-        //     activityType: activityType
-        //   }
-     
-        //   const playerlogsUpdate = updatedData[findIndex] = data
-        //   db.put(playerlogsUpdate)
-        //     .then(() => 'OK')
-        // } else {
-        //   const newPlayerlog: ActivityLogsInterface = {
-        //     ...dbDefaultPlaylogSettings,
-        //     wargame: wargame,
-        //     role: role,
-        //     activityType: activityType, 
-        //     activityTime: activityTime
-        //   }
-          
-        //   db.put(newPlayerlog)
-        //     .then(() => 'OK')
-        // }
-      ).catch(() => console.log('errors'))
-  }
-}
- 
-export const getPlayerActivityLogs = (wargame: string): Promise<void | ActivityLogsInterface> => {
-  const { db } = getWargameDbByName(wargame)
-  return db.playlogs()
-    .then(res => res)
-    .catch()
-    .catch((err) => {
-      console.log(err)
+  // TODO: this method should receive an array of activities.  It should push them all as
+  // documents to the PlayerLogs database.  We don't extend the existing set of documents,
+  // we push them as new documents via Couchdb "bulk push" call.
+  const { db } = getWargameDbByName(log.currentDbname)
+
+  if (!first) return db.putPlayerLogs(first).then(res => res.msg)
+
+  const { wargame, role, activityTime, activityType } = first
+
+  return await getPlayerActivityLogs(wargame, log.currentDbname)
+    .then(res => {
+      const newDoc: PlayerLogEntry[] = deepCopy(res)
+      const updatedData = newDoc
+      const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
+    
+      if (findIndex !== -1) {
+        const data: PlayerLogEntry = {
+          ...updatedData[findIndex],
+          activityTime: activityTime,
+          activityType: activityType
+        }
+   
+        const playerlogsUpdate = updatedData[findIndex] = data
+
+        return db.putPlayerLogs(playerlogsUpdate)
+          .then((data) => {
+            return data.msg
+          }).catch((err) => {
+            console.log(err)
+            return 'NOT_OK'
+          }) 
+      } else {
+        return db.putPlayerLogs(first)
+          .then((data) => data.msg)
+          .catch((err) => {
+            console.log(err)
+            return 'NOT_OK'
+          }) 
+      }
     })
 }
  
+export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntry> => {
+  const { db } = getWargameDbByName(dbName)
+
+  return await db.getPlayerLogs(wargame)
+    .then(res => res)
+    .catch(err => err)
+}
+
 export const populateWargame = (): Promise<string | Wargame[]> => {
   return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)

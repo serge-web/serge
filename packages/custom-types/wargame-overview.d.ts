@@ -24,6 +24,6 @@ export default interface WargameOverview {
   /** allow easy login, during game development/test */
   showAccessCodes: boolean,
   /** whether this page has unsaved edits */
-  showPlayerLogs: boolean,
+  enablePlayerlogs: boolean,
   dirty: boolean
 }
