@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
 import { withKnobs } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
+import React, { useState } from 'react'
 
 // Import component files
-import MessageListPropTypes from './types/props'
+import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
+import { mostRecentPlanningOnly } from '@serge/helpers'
+import { p9wargame, planningMessages } from '@serge/mocks'
 import PlanningMessagesList from './index'
 import docs from './README.md'
-import { planningMessages } from '@serge/mocks'
-import { MessagePlanning } from '@serge/custom-types'
-import { mostRecentPlanningOnly } from '@serge/helpers'
+import MessageListPropTypes from './types/props'
 
+const planningChannel = p9wargame.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -39,7 +40,7 @@ export default {
 }
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, hideForcesInChannel } = args
+  const { messages, playerForceId, playerRoleId, hideForcesInChannel } = args
   const icons = [
     './images/default_img/forceDefault.png'
   ]
@@ -69,21 +70,26 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   return <PlanningMessagesList
     messages={newestMessages}
+    channel={planningChannel}
     icons={icons}
     playerForceId={playerForceId}
+    playerRoleId={playerRoleId}
     colors={colors}
     names={names}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
     isUmpire={true}
-    role={'Comms'}
     hideForcesInChannel={hideForcesInChannel}
   />
 }
 
+const blueForce = p9wargame.data.forces.forces[0]
+const blueRole = blueForce.roles[1]
+
 export const Default = Template.bind({})
 Default.args = {
   messages: [],
-  playerForceId: 'Blue',
+  playerForceId: blueForce.uniqid,
+  playerRoleId: blueRole.roleId,
   hideForcesInChannel: true
 }

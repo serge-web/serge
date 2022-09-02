@@ -30,7 +30,6 @@ const testChannelColb: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanSubmitForReview,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'oqoj'
@@ -40,7 +39,6 @@ const testChannelColb: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanRelease,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [blueCO.roleId],
       subscriptionId: 'oqoj2'

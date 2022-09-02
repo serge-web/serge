@@ -61,42 +61,36 @@ const wargame: Wargame = {
                     "channelType": "ChannelChat",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "nci8",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B1",
                             "forceUniqid": "force-b1",
                             "roles": [],
                             "subscriptionId": "119o",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B2",
                             "forceUniqid": "force-b2",
                             "roles": [],
                             "subscriptionId": "y8e5h",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B3",
                             "forceUniqid": "force-b3",
                             "roles": [],
                             "subscriptionId": "rrcif",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B4",
                             "forceUniqid": "force-b4",
                             "roles": [],
                             "subscriptionId": "njra",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B5",
                             "forceUniqid": "force-b5",
                             "roles": [],
                             "subscriptionId": "ovmn",
@@ -110,21 +104,18 @@ const wargame: Wargame = {
                     "channelType": "ChannelChat",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "dfyw8",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "R1",
                             "forceUniqid": "force-r1",
                             "roles": [],
                             "subscriptionId": "ttgbg",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "R2",
                             "forceUniqid": "force-r2",
                             "roles": [],
                             "subscriptionId": "08iqa",
@@ -138,42 +129,36 @@ const wargame: Wargame = {
                     "channelType": "ChannelChat",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "epplc",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B1",
                             "forceUniqid": "force-b1",
                             "roles": [],
                             "subscriptionId": "eca6s",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B2",
                             "forceUniqid": "force-b2",
                             "roles": [],
                             "subscriptionId": "1i72a",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B3",
                             "forceUniqid": "force-b3",
                             "roles": [],
                             "subscriptionId": "m87ny",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B4",
                             "forceUniqid": "force-b4",
                             "roles": [],
                             "subscriptionId": "90mjl",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B5",
                             "forceUniqid": "force-b5",
                             "roles": [],
                             "subscriptionId": "2v4wa",
@@ -187,7 +172,6 @@ const wargame: Wargame = {
                     "channelType": "mapping",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [
                                 "pl63jl7so"
@@ -199,7 +183,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "B1",
                             "forceUniqid": "force-b1",
                             "roles": [
                                 "pl65060rb"
@@ -211,7 +194,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "B2",
                             "forceUniqid": "force-b2",
                             "roles": [
                                 "rl6506vlp"
@@ -223,7 +205,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "B3",
                             "forceUniqid": "force-b3",
                             "roles": [
                                 "rl65088ad"
@@ -235,7 +216,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "B4",
                             "forceUniqid": "force-b4",
                             "roles": [
                                 "rl6509vwn"
@@ -247,7 +227,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "B5",
                             "forceUniqid": "force-b5",
                             "roles": [
                                 "rl650arbo"
@@ -259,7 +238,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "R1",
                             "forceUniqid": "force-r1",
                             "roles": [
                                 "rl650chc3"
@@ -271,7 +249,6 @@ const wargame: Wargame = {
                             ]
                         },
                         {
-                            "force": "R2",
                             "forceUniqid": "force-r2",
                             "roles": [
                                 "rl650dmne"
@@ -306,7 +283,6 @@ const wargame: Wargame = {
                     "name": "White Comms",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "pType": "ParticipantChat",
                             "roles": [],
@@ -363,7 +339,6 @@ const wargame: Wargame = {
                             "uniqid": "al65069c1",
                             "contactId": "C777",
                             "name": "B1",
-                            "platformType": "Destroyer",
                             "platformTypeId": "a6",
                             "perceptions": [
                                 {
@@ -494,7 +469,6 @@ const wargame: Wargame = {
                             "uniqid": "al6506vlq",
                             "contactId": "C813",
                             "name": "B2",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -647,7 +621,6 @@ const wargame: Wargame = {
                             "uniqid": "al65088ae",
                             "contactId": "C166",
                             "name": "B3",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -854,7 +827,6 @@ const wargame: Wargame = {
                             "uniqid": "al6509vwo",
                             "contactId": "C101",
                             "name": "B4",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -1018,7 +990,6 @@ const wargame: Wargame = {
                             "uniqid": "al650arbp",
                             "contactId": "C955",
                             "name": "B5",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
@@ -1176,7 +1147,6 @@ const wargame: Wargame = {
                             "uniqid": "al650d18r",
                             "contactId": "C347",
                             "name": "R1",
-                            "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [],
                             "condition": "Working",
@@ -1259,7 +1229,6 @@ const wargame: Wargame = {
                             "uniqid": "al650dmnf",
                             "contactId": "C025",
                             "name": "R2",
-                            "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [
                                 {
@@ -1355,7 +1324,6 @@ const wargame: Wargame = {
                                     "name": "G1"
                                 }
                             ],
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltw3g",
                             "position": "8919501214bffff",
@@ -1544,7 +1512,6 @@ const wargame: Wargame = {
                                     "name": "G2"
                                 }
                             ],
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltwtw",
                             "position": "89195010583ffff",
@@ -1662,7 +1629,6 @@ const wargame: Wargame = {
                             "uniqid": "al650ez1f",
                             "contactId": "C632",
                             "name": "G3",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
@@ -1832,7 +1798,6 @@ const wargame: Wargame = {
                             "uniqid": "al650f5k2",
                             "contactId": "C404",
                             "name": "G4",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
@@ -1984,7 +1949,6 @@ const wargame: Wargame = {
                             "uniqid": "al650f123",
                             "contactId": "C604",
                             "name": "G5",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
@@ -2183,7 +2147,6 @@ const wargame: Wargame = {
                             "uniqid": "al650f456",
                             "contactId": "C914",
                             "name": "G6",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {

@@ -1,8 +1,10 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
+import { PlatformStyle, forceColors, platformIcons, ForceStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { ElementRef, useRef, useState } from 'react'
 import { ResizableDelta, Rnd } from 'react-rnd'
+import PlanningAssets from '../planning-assets'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import styles from './styles.module.scss'
@@ -10,20 +12,26 @@ import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
 
 export const SupportPanel: React.FC<PropTypes> = ({
   forceIcons,
-  forceColors,
   forceNames,
+  forces,
+  platformTypes,
   hideForcesInChannel,
   messages,
   selectedForce,
+  selectedRole,
   turnPresentation,
   onRead,
   onUnread,
-  onReadAll
+  onReadAll,
+  channel,
+  templates
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
+  const [forceCols] = useState<ForceStyle[]>(forceColors(forces))
+  const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -60,6 +68,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     )
   }
 
+  const onRender = (): void => {
+    console.log('=> render')
+  }
+
   return (
     <div className={styles.root}>
       <Slide direction="right" in={isShowPanel}>
@@ -76,25 +88,28 @@ export const SupportPanel: React.FC<PropTypes> = ({
           >
             <div className={styles.content} ref={contentRef}>
               <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-                My Force
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false} />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
                 <PlanningMessagesList
                   messages={messages}
-                  playerForceId={selectedForce.name}
+                  playerForceId={selectedForce}
+                  playerRoleId={selectedRole}
                   isUmpire={true}
                   icons={forceIcons}
-                  colors={forceColors}
+                  colors={forceCols.map((item: ForceStyle) => item.color)}
                   names={forceNames}
                   turnPresentation={turnPresentation}
                   hideForcesInChannel={!!hideForcesInChannel}
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
+                  channel={channel}
+                  templates={templates}
                 />
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-                OPFOR
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true} />
               </TabPanel>
               <div className={styles['resize-indicator-container']} >
                 <div className={styles['resize-indicator-icon']} >

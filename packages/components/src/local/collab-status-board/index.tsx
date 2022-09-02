@@ -22,7 +22,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
 }) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
 
-  const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
+  const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.forceUniqid === role.forceId)
   // participations relate to me if they contain no roles, or if they contain my role
   const myParticipations = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
 

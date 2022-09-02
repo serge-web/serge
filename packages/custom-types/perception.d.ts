@@ -12,11 +12,6 @@ export default interface Perception {
   force?: ForceData['uniqid'],
   /** 
    * the platform-type this force thinks the asset is 
-   * @deprecated
-  */
-  type?: string,
-  /** 
-   * the platform-type this force thinks the asset is 
   */
   typeId?: PlatformTypeData['uniqid'],
    /** 

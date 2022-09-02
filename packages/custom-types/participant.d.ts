@@ -10,8 +10,6 @@ export interface ParticipantTemplate {
 
 /** core properties for a participant */
 export interface CoreParticipant {
-  // Name of force being referred to
-  readonly force: ForceData['name'],
   readonly forceUniqid: ForceData['uniqid'],
   // specific set of roles that participate in this channel (or empty for all roles)
   roles: Array<Role['roleId']>,

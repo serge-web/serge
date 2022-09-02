@@ -1,5 +1,5 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning } from '@serge/custom-types'
 
 export default interface PropTypes extends ForcesInChannelProps {
   /**
@@ -7,6 +7,14 @@ export default interface PropTypes extends ForcesInChannelProps {
    * for ChannelMessage components
    */
   messages: Array<MessagePlanning>
+  /**
+   *  definition of planning channel
+   */
+  channel: ChannelPlanning
+  /**
+   * templates for new types of orders created by this role
+   */
+  templates?: TemplateBody[]
   /**
    * Callback on expanding message item
    */
@@ -17,16 +25,19 @@ export default interface PropTypes extends ForcesInChannelProps {
    */
   onUnread?: (message: MessagePlanning) => void
 
-  /** force for player
-   *
+  /**
+   * force for player
    */
-  playerForceId: string
+  playerForceId: ForceData['uniqid']
+  /**
+   * role of current player
+   */
+  playerRoleId: Role['roleId']
 
   /** how to render the game turn  */
   turnPresentation?: TurnFormats
 
   isUmpire: boolean
-  role?: string
   /** whether to hide the forces in the channel
    */
   hideForcesInChannel: boolean

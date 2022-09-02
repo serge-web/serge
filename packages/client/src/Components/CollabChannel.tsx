@@ -80,7 +80,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     roleId: selectedRole,
     roleName: selectedRoleName
   }
-  const participationsForMyForce = channel.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
+  const participationsForMyForce = channel.participants.filter((p: ParticipantCollab) => p.forceUniqid === role.forceId)
   // participations relate to me if they contain no roles, or if they contain my role
   const isParticipating = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
   // can I create messages in the channel?

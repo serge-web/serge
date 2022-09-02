@@ -1,6 +1,6 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from '@serge/config'
 import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
-import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
+import { CoreParticipant, ParticipantCustom, ParticipantPlanning } from '@serge/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedAllRolesFilter, matchedForceAndRoleFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter } from './participant-filters'
 
@@ -90,6 +90,13 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
       // find all the templates I'm allowed to use
       participatingRoles.forEach(role => {
         const roleCustom = role as ParticipantCustom
+        templateIDs.push(...roleCustom.templates)
+      })
+      break
+    case CHANNEL_PLANNING:
+      // find all the templates I'm allowed to use
+      participatingRoles.forEach(role => {
+        const roleCustom = role as ParticipantPlanning
         templateIDs.push(...roleCustom.templates)
       })
       break

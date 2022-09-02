@@ -104,7 +104,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     </TitleWithIcon>
     <fieldset className={styles.fieldset}>
       <div className={styles.description}>
-        <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
+        <TextField InputProps={{ disableUnderline: true }} fullWidth multiline maxRows={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
       </div>
       <FormGroup title='icon type' align='right'>
         <Selector label="" name='iconType' options={icons} selected={formState.iconId} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />

@@ -65,7 +65,6 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
 
       return {
         ...participant,
-        force: selectedForce.name,
         forceUniqid: selectedForce.uniqid,
         roles
       }

@@ -7,59 +7,96 @@ const game: Wargame = {
     "channels": {
       "channels": [
         {
-          "name": "Planning",
+          "name": "Blue Planning",
           "channelType": "ChannelPlanning",
           "participants": [
             {
-              "force": "CTF A",
-              "forceUniqid": "Blue",
+              "forceUniqid": "F-Blue",
               "pType": "ParticipantPlanning",
               "roles": [],
-              "subscriptionId": "hukqr",
-              "templates": [{
-                  "_id": "k16eedkm",
-                  "title": "COA"
-              }]
-            },
-            {
-              "force": "Red",
-              "forceUniqid": "Red",
-              "pType": "ParticipantPlanning",
-              "roles": [],
-              "subscriptionId": "hukqr",
+              "subscriptionId": "huk3qr",
               "templates": [
                 {
-                  "_id": "k16eedkm",
-                  "title": "COA"
+                  "_id": "k16e-maritime",
+                  "title": "Maritime Activity"
+                },
+                {
+                  "title": "Land Activity",
+                  "_id": "k16e-land"
+                },
+                {
+                  "title": "Air Activity",
+                  "_id": "k16e-air"
+                },
+                {
+                  "title": "Other Activity",
+                  "_id": "k16e-other"
                 }
               ]
             },
             {
-              "force": "White",
               "pType": "ParticipantPlanning",
               "forceUniqid": "umpire",
               "roles": [
                 "rkrlw6f5f"
               ],
-              "subscriptionId": "r4yp",
+              "subscriptionId": "r4y1p",
               "templates": []
             }
           ],
-          "uniqid": "channel-planning-a"
+          "uniqid": "channel-blue-planning"
+        },
+        {
+          "name": "Red Planning",
+          "channelType": "ChannelPlanning",
+          "participants": [
+            {
+              "forceUniqid": "F-Red",
+              "pType": "ParticipantPlanning",
+              "roles": [],
+              "subscriptionId": "hukqra",
+              "templates": [
+                {
+                  "_id": "k16e-maritime",
+                  "title": "Maritime Activity"
+                },
+                {
+                  "title": "Land Activity",
+                  "_id": "k16e-land"
+                },
+                {
+                  "title": "Air Activity",
+                  "_id": "k16e-air"
+                },
+                {
+                  "title": "Other Activity",
+                  "_id": "k16e-other"
+                }
+              ]
+            },
+            {
+              "pType": "ParticipantPlanning",
+              "forceUniqid": "umpire",
+              "roles": [
+                "rkrlw6f5f"
+              ],
+              "subscriptionId": "r4ybp",
+              "templates": []
+            }
+          ],
+          "uniqid": "channel-red-planning"
         },
         {
           "name": "Red",
           "channelType": "ChannelChat",
           "participants": [
             {
-              "force": "CTF Y",
-              "forceUniqid": "Red",
+              "forceUniqid": "F-Red",
               "roles": [],
               "subscriptionId": "7bayi",
               "pType": "ParticipantChat"
             },
             {
-              "force": "White",
               "forceUniqid": "umpire",
               "roles": [
                 "rkrlw6f5f"
@@ -76,8 +113,7 @@ const game: Wargame = {
           "participants": [
             {
               "pType": "ParticipantCustom",
-              "force": "CTF B",
-              "forceUniqid": "Blue",
+              "forceUniqid": "F-Blue",
               "roles": [],
               "subscriptionId": "etkkn",
               "templates": [
@@ -88,7 +124,6 @@ const game: Wargame = {
               ]
             },
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -105,7 +140,6 @@ const game: Wargame = {
           "channelType": "ChannelCustom",
           "participants": [
             {
-              "force": "White",
               "pType": "ParticipantCustom",
               "forceUniqid": "umpire",
               "roles": [
@@ -115,9 +149,8 @@ const game: Wargame = {
               "templates": []
             },
             {
-              "force": "CTF Y",
               "pType": "ParticipantCustom",
-              "forceUniqid": "Red",
+              "forceUniqid": "F-Red",
               "roles": [],
               "subscriptionId": "3b3ww",
               "templates": [
@@ -129,7 +162,7 @@ const game: Wargame = {
             }
           ],
           "uniqid": "channel-koirji8u"
-        }       
+        }
       ],
       "dirty": false,
       "name": "Channels",
@@ -171,13 +204,12 @@ const game: Wargame = {
                       "name": "Dart 45",
                       "perceptions": [
                         {
-                          "by": "Red",
-                          "force": "Blue",
+                          "by": "F-Red",
+                          "force": "F-Blue",
                           "name": "Unknown UAV",
-                          "type": "Unmanned-Airborne-Vehicle"
+                          "typeId": "id-uav"
                         }
                       ],
-                      "platformType": "Unmanned-Airborne-Vehicle",
                       "platformTypeId": "id-uav",
                       "status": {
                         "state": "Landed"
@@ -189,7 +221,6 @@ const game: Wargame = {
                       "contactId": "C932",
                       "name": "Dart 46",
                       "perceptions": [],
-                      "platformType": "Unmanned-Airborne-Vehicle",
                       "platformTypeId": "id-uav",
                       "status": {
                         "state": "Landed"
@@ -201,12 +232,11 @@ const game: Wargame = {
                   "platformTypeId": "id-frigate",
                   "perceptions": [
                     {
-                      "by": "Red",
-                      "force": "Blue",
+                      "by": "F-Red",
+                      "force": "F-Blue",
                       "name": "Frigate A Perceived Name"
                     }
                   ],
-                  "platformType": "frigate",
                   "uniqid": "a0prbr6441"
                 },
                 {
@@ -214,7 +244,6 @@ const game: Wargame = {
                   "contactId": "C653",
                   "name": "MCM Delta",
                   "perceptions": [],
-                  "platformType": "MCMV",
                   "platformTypeId": "id-mcm",
                   "uniqid": "a0traa6790"
                 }
@@ -224,13 +253,12 @@ const game: Wargame = {
               "name": "CTF 511",
               "perceptions": [
                 {
-                  "by": "Red",
-                  "force": "Blue",
+                  "by": "F-Red",
+                  "force": "F-Blue",
                   "name": "BRIT",
-                  "type": "task-group"
+                  "typeId": "id-task-group"
                 }
               ],
-              "platformType": "task-group",
               "platformTypeId": "id-task-group",
               "position": "8318adfffffffff",
               "status": {
@@ -250,13 +278,12 @@ const game: Wargame = {
                   "name": "Merlin",
                   "perceptions": [
                     {
-                      "by": "Red",
-                      "force": "Blue",
-                      "type": "helicopter"
+                      "by": "F-Red",
+                      "force": "F-Blue",
+                      "typeId": "id-helo"
                     }
                   ],
                   "plannedTurns": [],
-                  "platformType": "helicopter",
                   "platformTypeId": "id-helo",
                   "status": {
                     "state": "Landed"
@@ -270,7 +297,6 @@ const game: Wargame = {
                   "name": "Dart 42",
                   "perceptions": [],
                   "plannedTurns": [],
-                  "platformType": "Unmanned-Airborne-Vehicle",
                   "platformTypeId": "id-uav",
                   "status": {
                     "state": "Landed"
@@ -281,13 +307,12 @@ const game: Wargame = {
               "name": "Frigate",
               "perceptions": [
                 {
-                  "by": "Red",
-                  "force": "Blue",
+                  "by": "F-Red",
+                  "force": "F-Blue",
                   "name": "Frigate Perceived Name",
-                  "type": "frigate"
+                  "typeId": "id-frigate"
                 }
               ],
-              "platformType": "frigate",
               "platformTypeId": "id-frigate",
               "position": "8318a3fffffffff",
               "status": {
@@ -301,7 +326,6 @@ const game: Wargame = {
               "contactId": "C072",
               "name": "MPA",
               "perceptions": [],
-              "platformType": "fixed-wing-aircraft",
               "platformTypeId": "id-fixed-wing",
               "position": "831976fffffffff",
               "status": {
@@ -315,12 +339,11 @@ const game: Wargame = {
               "name": "Tanker",
               "perceptions": [
                 {
-                  "by": "Red",
-                  "force": "Blue",
-                  "type": ""
+                  "by": "F-Red",
+                  "force": "F-Blue",
+                  "typeId": ""
                 }
               ],
-              "platformType": "merchant-vessel",
               "platformTypeId": "id-merchant",
               "position": "83181cfffffffff",
               "uniqid": "a0pra00003"
@@ -338,10 +361,17 @@ const game: Wargame = {
               "isObserver": false,
               "name": "CO",
               "roleId": "rk116f5e"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Logs",
+              "roleId": "blue-logs"
             }
           ],
           "umpire": false,
-          "uniqid": "Blue"
+          "uniqid": "F-Blue"
         },
         {
           "assets": [
@@ -351,10 +381,9 @@ const game: Wargame = {
               "name": "Dhow-A",
               "perceptions": [
                 {
-                  "by": "Blue"
+                  "by": "F-Blue"
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830932fffffffff",
               "uniqid": "a0pra000100"
@@ -368,7 +397,6 @@ const game: Wargame = {
                   "contactId": "C158",
                   "name": "Bog Draft",
                   "perceptions": [],
-                  "platformType": "boghammer",
                   "platformTypeId": "id-boghammer",
                   "status": {
                     "state": "Landed"
@@ -379,13 +407,12 @@ const game: Wargame = {
               "name": "Dhow-B",
               "perceptions": [
                 {
-                  "by": "Blue",
-                  "force": "Green",
+                  "by": "F-Blue",
+                  "force": "F-Green",
                   "name": "SHU’AI",
-                  "type": "fishing-vessel"
+                  "typeId": "id-fisher"
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830910fffffffff",
               "uniqid": "a0pra000101"
@@ -395,7 +422,6 @@ const game: Wargame = {
               "contactId": "C008",
               "name": "Dhow-C",
               "perceptions": [],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "830765fffffffff",
               "uniqid": "a0pra000102"
@@ -405,7 +431,6 @@ const game: Wargame = {
               "contactId": "C076",
               "name": "Missile-A",
               "perceptions": [],
-              "platformType": "coastal-radar-site",
               "platformTypeId": "id-missile",
               "position": "830744fffffffff",
               "uniqid": "a0pra000103"
@@ -414,7 +439,7 @@ const game: Wargame = {
           "color": "#F00",
           "dirty": false,
           "iconURL": "default_img/umpireDefault.png",
-          "name": "Red",
+          "name": "Red Force",
           "overview": "Red force.",
           "roles": [
             {
@@ -426,7 +451,7 @@ const game: Wargame = {
             }
           ],
           "umpire": false,
-          "uniqid": "Red"
+          "uniqid": "F-Red"
         },
         {
           "assets": [
@@ -436,13 +461,12 @@ const game: Wargame = {
               "name": "Tanker-1",
               "perceptions": [
                 {
-                  "by": "Blue",
-                  "force": "Green",
+                  "by": "F-Blue",
+                  "force": "F-Green",
                   "name": "OSAKA",
-                  "type": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
-              "platformType": "merchant-vessel",
               "platformTypeId": "id-merchant",
               "position": "831b21fffffffff",
               "uniqid": "a0pra000200"
@@ -453,19 +477,18 @@ const game: Wargame = {
               "name": "Tanker-2",
               "perceptions": [
                 {
-                  "by": "Blue",
-                  "force": "Green",
+                  "by": "F-Blue",
+                  "force": "F-Green",
                   "name": "ARUNA 12",
-                  "type": "merchant-vessel"
+                  "typeId": "id-merchant"
                 },
                 {
-                  "by": "Red",
-                  "force": "Green",
+                  "by": "F-Red",
+                  "force": "F-Green",
                   "name": "BARLAY",
-                  "type": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
-              "platformType": "merchant-vessel",
               "platformTypeId": "id-merchant",
               "position": "831b31fffffffff",
               "status": {
@@ -479,13 +502,12 @@ const game: Wargame = {
               "name": "Fisher-A",
               "perceptions": [
                 {
-                  "by": "Blue",
-                  "force": "Green",
+                  "by": "F-Blue",
+                  "force": "F-Green",
                   "name": "JALIBUT",
-                  "type": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "uniqid": "a0pra000202"
             },
@@ -495,12 +517,11 @@ const game: Wargame = {
               "name": "Fisher-B",
               "perceptions": [
                 {
-                  "by": "Blue",
-                  "force": "Green",
-                  "type": "merchant-vessel"
+                  "by": "F-Blue",
+                  "force": "F-Green",
+                  "typeId": "id-merchant"
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "position": "83064bfffffffff",
               "status": {
@@ -515,19 +536,18 @@ const game: Wargame = {
               "name": "Fisher-C",
               "perceptions": [
                 {
-                  "by": "Blue",
-                  "force": "Green",
+                  "by": "F-Blue",
+                  "force": "F-Green",
                   "name": "BOUM 3",
-                  "type": "merchant-vessel"
+                  "typeId": "id-merchant"
                 },
                 {
-                  "by": "Red",
-                  "force": "Green",
+                  "by": "F-Red",
+                  "force": "F-Green",
                   "name": "BOUM 3",
-                  "type": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
-              "platformType": "fishing-vessel",
               "platformTypeId": "id-fisher",
               "uniqid": "a0pra000204"
             }
@@ -535,7 +555,7 @@ const game: Wargame = {
           "color": "#0F0",
           "dirty": false,
           "iconURL": "default_img/umpireDefault.png",
-          "name": "Green",
+          "name": "Green Force",
           "overview": "Green Shipping",
           "roles": [
             {
@@ -547,7 +567,7 @@ const game: Wargame = {
             }
           ],
           "umpire": false,
-          "uniqid": "Green"
+          "uniqid": "F-Green"
         }
       ],
       "name": "Forces",
@@ -557,7 +577,10 @@ const game: Wargame = {
       "dirty": false,
       "gameDate": "2021-05-13T16:12",
       "gameDescription": "",
-      "gameTurnTime": { "unit": "millis", "millis": 43200000 },
+      "gameTurnTime": {
+        "unit": "millis",
+        "millis": 43200000
+      },
       "name": "Overview - settings",
       "realtimeTurnTime": 300000,
       "showAccessCodes": true,
@@ -1099,4 +1122,4 @@ const game: Wargame = {
   "wargameTitle": "P9 Test"
 }
 
-export default game
+export default game;
