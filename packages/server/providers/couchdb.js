@@ -109,8 +109,7 @@ const couchDb = (app, io, pouchOptions) => {
   })
 
   app.put('/healthcheck/:dbname', async (req, res) => {
-    const { dbname } = req.params
-    const databaseName = checkSqliteExists(dbname)
+    const databaseName = checkSqliteExists(req.params.dbname)
     const db = new CouchDB(couchDbURL(databaseName))
     const putData = req.body
 
