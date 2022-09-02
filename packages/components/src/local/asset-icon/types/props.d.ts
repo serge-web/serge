@@ -4,4 +4,5 @@ export default interface PropTypes {
   isSelected?: boolean
   imageSrc?: string
   onClick?: VoidFunction
+  className?: string
 }
