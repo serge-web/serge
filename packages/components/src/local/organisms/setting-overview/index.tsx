@@ -320,7 +320,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
               }
               label="Hide force icons in channels"
             /></MoreInfo>
-            <MoreInfo description='Alow users to see player logs in wargames, they can see lastest actions of players'><FormControlLabel
+            <MoreInfo description='Alow forces with Umpire flag to see player logs in wargames, they can see lastest actions of players'><FormControlLabel
               control={
                 <Checkbox
                   checked={initialOverview.enablePlayerlogs}

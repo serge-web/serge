@@ -117,7 +117,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       />
 
       <div className='message-group-button'>
-        <span title='Sumbit lesson learned/feedback' onClick={(): void => PlayerUiDispatch(openModal('lessons'))} className='wargame-title-icon' data-tour='third-step'>
+        <span title='Submit lesson learned/feedback' onClick={(): void => PlayerUiDispatch(openModal('lessons'))} className='wargame-title-icon' data-tour='third-step'>
           <strong className='sr-only'>Show lesson</strong>
         </span>
         <span className='tutorial' title='Re-play tutorial'>

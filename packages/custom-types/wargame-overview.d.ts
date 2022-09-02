@@ -23,7 +23,8 @@ export default interface WargameOverview {
   gameDate: string,
   /** allow easy login, during game development/test */
   showAccessCodes: boolean,
-  /** whether this page has unsaved edits */
+  /** whether to let umpires view player logs */
   enablePlayerlogs: boolean,
+  /** whether this page has unsaved edits */
   dirty: boolean
 }

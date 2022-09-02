@@ -152,7 +152,6 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
 }
 
 export const pingServer2 = async (log: ActivityLogsInterface): Promise<string> => { 
-  console.warn('ping server currently commented out') 
   const items = log.items
   const first = items[0]
 
