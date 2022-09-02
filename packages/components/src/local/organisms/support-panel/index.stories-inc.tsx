@@ -41,7 +41,7 @@ export default {
   argTypes: {
     selectedRole: {
       name: 'View as',
-      defaultValue: allRoles[0],
+      defaultValue: allRoles[1],
       options: allRoles,
       control: {
         type: 'select'
@@ -74,7 +74,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     messages={planningMessages}
     selectedForce={force}
     selectedRole={role}
-    forces={[]}
+    forces={forces}
     onReadAll={noop}
     onUnread={noop}
     onRead={noop}
