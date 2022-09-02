@@ -384,8 +384,9 @@ export const MapBar: React.FC = () => {
       }
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrdersForThisAsset && phase === PLANNING_PHASE
-        const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         const actualAsset = findAsset(forces, selectedAsset.uniqid)
+        const currentRoute = routeStore.selected
+        const formData: PlanTurnFormData = collatePlanFormData(platforms, currentRoute)
         // is this an empty task group?
         const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length === 0
         const deleteHandler = (taskGroupType && actualAsset.platformTypeId === taskGroupType.uniqid && emptyVessel)
