@@ -14,7 +14,6 @@ import styles from '../styles.module.scss'
  * @returns
  */
 export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): Column[] => {
-
   const render = (row: Row): React.ReactElement => {
     if (!row.icon) return <></>
 
