@@ -12,7 +12,6 @@ const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platfo
 
 // declare const routeCreateStore: (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForceId: ForceData['uniqid'], playerRole: Role['roleId'], isGameControl: Role['isGameControl'], platformTypes: PlatformTypeData[], filterHistorySteps: boolean, filterPlannedSteps: boolean, wargameInitiated?: boolean | undefined, oldStore?: RouteStore | undefined, channel?: ChannelMapping | undefined, turnNumber?: number | undefined) => RouteStore;
 
-
 it('contains relevant population results', () => {
   if (blueForce.assets && platformTypes.length > 0) {
     const blueAsset = blueForce.assets[0]
@@ -22,7 +21,7 @@ it('contains relevant population results', () => {
       expect(res.speed.length).toEqual(5)
       expect(res.speed[0]).toEqual(6)
       expect(res.status.length).toEqual(3)
-      expect(res.status[0]).toEqual({ mobile: true, name: 'Transiting' })  
+      expect(res.status[0]).toEqual({ mobile: true, name: 'Transiting' })
     }
   } else {
     expect('test must fail, we don\'t have blue asset').toEqual('')
