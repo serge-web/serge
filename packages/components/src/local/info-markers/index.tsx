@@ -44,8 +44,11 @@ export const InfoMarkers: React.FC<{}> = () => {
       console.error('could not find this marker', selectedMarker)
       return
     }
-    const newLocation = geoToH3(location.lat, location.lng, h3Resolution)
-    marker.location = newLocation
+    marker.location = geoToH3(location.lat, location.lng, h3Resolution)
+    // delete the position, so it get regenerated
+    delete marker.position
+
+    // fire update
     updateMarker && updateMarker(UPDATE_MARKER, marker)
   }
 
