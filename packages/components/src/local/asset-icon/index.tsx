@@ -48,7 +48,7 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   return new Promise((resolve) => resolve(true))
 }
 
-const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected, imageSrc, onClick }) => {
+const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected, imageSrc, onClick, className }) => {
   const [loadStatus, setLoadStatus] = useState(true)
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
     return trimmed
   }
 
-  return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }} onClick={onClick}>
+  return <div className={cx(styles['asset-icon-background'], className)} style={{ backgroundColor: color }} onClick={onClick}>
     {
       imageSrc &&
       <div className={styles['asset-icon-with-image']}>
