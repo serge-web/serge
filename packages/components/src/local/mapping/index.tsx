@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
+  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER, FLAG_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -632,8 +632,23 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const updateMarker = (event: string, marker: MapAnnotation): void => {
-    // do the external update, depending on which phase this is
-    // check which phase we're in
+    // we cache the lat-long inside the marker, but it sometimes persists,
+    // and causes trouble. Just delete the bugger
+    delete marker.position
+
+    // NOTE: special handling. updateMarker may have been called from the annotation
+    // form. If that's the case, the marker location may have separately been edited by
+    // dragging on the map.  So, first check if there is a flag on the location
+    if (marker.location.substring(0, 1) === FLAG_MARKER) {
+      const old = infoMarkersState.find((item: MapAnnotation) => item.uniqid === marker.uniqid)
+      if (old) {
+        // use the existing location
+        marker.location = old.location
+      } else {
+        // trim the new one, and use that
+        marker.location = marker.location.substring(1)
+      }
+    }
 
     // utility function to clean the lat/lng from the marker
     type CleanAnno = Omit<MapAnnotation, 'position'>
@@ -643,6 +658,8 @@ export const Mapping: React.FC<PropTypes> = ({
       return res
     }
 
+    // do the external update, depending on which phase this is
+    // check which phase we're in
     switch (phase) {
       case Phase.Adjudication: {
         // start off by updating the local data. We don't transmit the change,
