@@ -5,7 +5,7 @@ import docs from './README.md'
 import OrdersProps from './types/props'
 
 export default {
-  title: 'local/molecules/Orders',
+  title: 'local/organisms/Orders',
   component: Orders,
   decorators: [(story: Function): JSX.Element => (
     <div style={{ overflow: 'hidden' }}>{story()}</div>
