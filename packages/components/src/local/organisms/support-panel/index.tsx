@@ -1,9 +1,9 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { PlatformStyle, forceColors, platformIcons, ForceStyle } from '@serge/helpers'
+import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import React, { ElementRef, useRef, useState } from 'react'
-import { ResizableDelta, Rnd } from 'react-rnd'
+import React, { useState } from 'react'
+import { Rnd } from 'react-rnd'
 import PlanningAssets from '../planning-assets'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
@@ -27,23 +27,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
   templates
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
-  const [initialWidth, setInitialWidth] = useState<number>(MIN_PANEL_WIDTH)
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
-  const contentRef = useRef<HTMLDivElement | null>(null)
   const [forceCols] = useState<ForceStyle[]>(forceColors(forces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
-  }
-
-  const onResize = (_: MouseEvent | TouchEvent, __: string, ___: ElementRef<any>, delta: ResizableDelta): void => {
-    if (contentRef.current) {
-      const width = initialWidth + delta.width + 30
-      contentRef.current.style.width = `${width}px`
-      setInitialWidth(width)
-    }
   }
 
   const TabPanel = (props: TabPanelProps): React.ReactElement => {
@@ -80,13 +70,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
             disableDragging
             style={PANEL_STYLES}
             default={DEFAULT_SIZE}
-            onResize={onResize}
             minWidth={MIN_PANEL_WIDTH}
             maxWidth={MAX_PANEL_WIDTH}
             minHeight={MIN_PANEL_HEIGHT}
             maxHeight={MAX_PANEL_HEIGHT}
           >
-            <div className={styles.content} ref={contentRef}>
+            <div className={styles.content}>
               <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false} />
               </TabPanel>
