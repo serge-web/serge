@@ -1,14 +1,21 @@
+import { makeStyles } from '@material-ui/styles'
 import { SupportPanel } from '@serge/components'
 import { ChannelPlanning, MessageChannel, MessagePlanning } from '@serge/custom-types'
-import React, { useEffect, useState } from 'react'
-import {
-  getAllWargameMessages, markAllAsRead, markUnread, openMessage
-} from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-
 import '@serge/themes/App.scss'
+import cx from 'classnames'
+import React, { useEffect, useState } from 'react'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
+const useStyles = makeStyles({
+  root: {
+    background: 'url(images/planning_map.png)',
+    backgroundRepeat: 'round'
+  }
+})
+
 const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
+  const classes = useStyles()
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const channelUI = state.channels[channelId]
@@ -52,7 +59,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   return (
-    <div className={channelTabClass} data-channel-id={channelId}>
+    <div className={cx(channelTabClass, classes.root)} data-channel-id={channelId}>
       <SupportPanel
         forceIcons={forceIcons}
         channel={channelPlanning}
