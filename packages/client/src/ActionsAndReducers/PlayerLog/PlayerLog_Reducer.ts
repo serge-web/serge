@@ -11,7 +11,6 @@ export const addPlayerLogReducer = (state: ActivityLogsInterface = initialState,
   if (action.type === ActionConstant.ADD_PLAYER_LOG) {
     const newState: ActivityLogsInterface = copyState(state)
     newState.items.push(action.payload)
-    console.log('adding log', action, newState.items)
     return newState
   } else {
     return state
