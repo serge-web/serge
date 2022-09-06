@@ -498,7 +498,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
                 <span
                   className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
                 >
-                  Show player logs in wargame
+                  Log player activity to database
                 </span>
               </label>
               <div
