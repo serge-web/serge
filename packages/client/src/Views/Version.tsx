@@ -1,6 +1,5 @@
 import { HeartbeatChecker } from '@serge/components'
 import { ActivityLogsInterface } from '@serge/custom-types'
-import { deepCopy } from '@serge/helpers'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -51,12 +50,14 @@ const Version: React.FC<VersionProps> = () => {
     if (serverPingTime) {
       setToggleBeat(true)
     }
-  }, [serverStatus, serverPingTime])
+    // server status commented out in next line, since ping time always updates
+  }, [/* serverStatus, */serverPingTime])
   
   const pingServer = () => {
     // send list of activities to server
-    console.log('sending these entries', deepCopy(playerLog))
-    return pingServerApi(playerLog).then(res => {
+    // TODO: retrieve value of `logPlayerActivity
+    console.warn('Note: <Version /> should be using retrieved value of logPlayerActivity')
+    return pingServerApi(playerLog, true).then(res => {
       console.log('new messages sent', res)
       // flush the log
       playerLog.items = []
