@@ -30,6 +30,9 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
 
   const { columns, rows, customStyles } = useMemo(() => genPlayerLogDataTable(playerLogData), [playerLogData])
 
+  // whether to show log for all roles, or just the ones with activity
+  const SHOW_ALL_ROLES = true
+
   useEffect(() => {
     setFilterRows(rows)
   }, [rows.length, rows])
@@ -48,33 +51,25 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
     getPlayerActivityLogs(currentWargame, currentDbname).then((activityLog) => {  
-      const activityLogCopy: PlayerLogEntry[] = deepCopy(activityLog)
-      const logItems = activityLogCopy
-      const logData: PlayerLogModal[] = []
-
-      // TODO: we probably don't need to filter for wargame, since we request them for the current wargame above
-      const activityLogsForThisWargame = logItems.filter((value: PlayerLogEntry) => value.wargame === currentWargame) || []
-
-      const activityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
+      setPlayerLogData([])
+      const activityLogsForThisWargame: PlayerLogEntry[] = deepCopy(activityLog)
+      const allActivityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
+      const activityRoles = uniq(allActivityRoles)
       const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
       const knownRoles = activityRoles.concat(messageRoles)
       const uniqueRoles = uniq(knownRoles)
-
+      const logData: PlayerLogModal[] = []
       allForces.forEach((force: ForceData) => {
         force.roles.forEach((role: Role) => {
-          // don't show log for owner
-          if (selectedRole === role.roleId) {
-            return
-          }
-          if (uniqueRoles.includes(role.roleId)) {
-            const activity = activityLogsForThisWargame.find((value: PlayerLogEntry) => value.role === role.roleId)
+          if (SHOW_ALL_ROLES || uniqueRoles.includes(role.roleId)) {
+            const thisRoleActivities = activityLogsForThisWargame.filter((value: PlayerLogEntry) => value.role === role.roleId)
+            const lastActivity = thisRoleActivities && thisRoleActivities[thisRoleActivities.length - 1]
             const lastMessage = messageLog[role.roleId]
             const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || ''
             const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />
             const message = lastMessage && <>{readIcon} {lastMessage.lastMessageTitle}</> || 'N/A'
             const messageTime = lastMessage && lastMessage.lastMessageTime
-            const activityTime = (activity && activity.activityTime) || ''
-            setPlayerLogData([])
+            const activityTime = (lastActivity && lastActivity.activityTime) || ''
             logData.push({
               forceName: force.name,
               forceColor: force.color,
@@ -82,8 +77,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
               message,
               lastMessage: messageTime,
               lastActive: activityTime,
-              isReaded: activatyhasBennRead,
-              lastActivity: activity ? activity.activityType.aType : 'N/A',
+              lastActivity: lastActivity ? lastActivity.activityType.aType : 'N/A',
               active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
