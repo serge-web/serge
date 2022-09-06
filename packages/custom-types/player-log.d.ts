@@ -1,4 +1,4 @@
-import { MAP_ANNOTATION_READ_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from "@serge/config"
+import { MAP_ANNOTATION_READ_INTERACTION, CHANGE_TAB_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from "@serge/config"
 
 /** an entry in the player log */
 export interface PlayerMessage {
@@ -28,6 +28,13 @@ export interface PlayerLogUI {
 export interface PlainInteraction {
   aType: string
 }
+
+/** a player has selected a tab */
+export interface ChangeTabInteraction extends PlainInteraction {
+  aType: typeof CHANGE_TAB_INTERACTION
+  tab: string
+}
+
 
 /** a player has sent a message */
 export interface MessageSentInteraction extends PlainInteraction {
