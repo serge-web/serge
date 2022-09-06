@@ -1,15 +1,12 @@
-import Divider from '@material-ui/core/Divider'
-import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
-import classNames from 'classnames'
-import React, { useEffect, useState } from 'react'
-/* Import Types */
-import momenttz from 'moment-timezone'
-import Props from './types/props'
 import { Box, Button, styled } from '@material-ui/core'
-
-/* Import Stylesheet */
+import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
 import { formatFullDate, formatTurn } from '@serge/helpers'
+import classNames from 'classnames'
+import { capitalize } from 'lodash'
+import momenttz from 'moment-timezone'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
+import Props from './types/props'
 
 const GameControl = styled(Button)({
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
@@ -135,15 +132,17 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     >
       <div className={styles['turn-info-phase']}>
         <div className={styles['turn-phase-group']}>
-          <div className={styles.turn}>
-            <h5>Turn</h5>
+          <div className={styles['turn-phase-item']}>
+            <h5>Turn:</h5>
             <h5>{formatTurn(currentTurn, turnPresentation)}</h5>
           </div>
-          <Divider orientation="vertical" className={styles.divider} />
-          <div className={styles.phase}>
-            <h5>Phase</h5>
-            <h5 className={classNames({ [styles.highlight]: phase === 'adjudication' })}>Adjudication</h5>
-            <h5 className={classNames({ [styles.highlight]: phase === 'planning' })}>Planning</h5>
+          <div className={styles['turn-phase-item']}>
+            <h5>Phase:</h5>
+            <h6>{capitalize(phase)}</h6>
+          </div>
+          <div className={styles['turn-phase-item']}>
+            <h5>Time Remaining:</h5>
+            <h5>{progressionState.minutesLeft}:{progressionState.secondsLeft}</h5>
           </div>
         </div>
         {
