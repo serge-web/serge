@@ -84,7 +84,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
               lastActive: activityTime,
               isReaded: activatyhasBennRead,
               lastActivity: activity ? activity.activityType.aType : 'N/A',
-              active: activityTime && (moment().diff(moment(parseInt(activityTime)))) < AGE_FOR_ACTIVE_MILLIS || false
+              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
             })
           }
         })

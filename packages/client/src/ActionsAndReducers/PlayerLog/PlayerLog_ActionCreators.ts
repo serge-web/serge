@@ -18,7 +18,7 @@ export const saveNewActivityTimeMessage = (role: string, activity: PlainInteract
   const activitydata: PlayerLogEntry = {
     role: role,
     activityType: activity,
-    activityTime: `${new Date().getTime()}`,
+    activityTime: `${new Date().toISOString()}`,
     wargame: dbName,
     _id: new Date().toISOString()
   }
