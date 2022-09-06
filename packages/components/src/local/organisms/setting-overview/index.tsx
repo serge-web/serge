@@ -131,7 +131,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
   }
 
   const updatePlayerForcesVisibility = (): void => {
-    const updates = { ...overview, enablePlayerlogs: !overview.enablePlayerlogs }
+    const updates = { ...overview, logPlayerActivity: !overview.logPlayerActivity }
     setOverview(updates)
     setDirty(updates)
   }
@@ -323,13 +323,13 @@ export const SettingOverview: React.FC<PropTypes> = ({
             <MoreInfo description='Alow forces with Umpire flag to see player logs in wargames, they can see lastest actions of players'><FormControlLabel
               control={
                 <Checkbox
-                  checked={initialOverview.enablePlayerlogs}
+                  checked={initialOverview.logPlayerActivity}
                   onChange={updatePlayerForcesVisibility}
                   value='1'
                   color='primary'
                 />
               }
-              label="Show player logs in wargame"
+              label="Log player activity to database"
             /></MoreInfo>
           </div>
           <div>

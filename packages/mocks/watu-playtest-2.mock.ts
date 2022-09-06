@@ -2359,7 +2359,7 @@ const wargame: Wargame = {
             "realtimeTurnTime": 300000,
             "showAccessCodes": true,
             "timeWarning": 60000,
-            "enablePlayerlogs": true
+            "logPlayerActivity": true
         },
         "platformTypes": {
             "dirty": false,

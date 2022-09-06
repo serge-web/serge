@@ -79,7 +79,7 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // TODO: check defaults for new ones
   showAccessCodes: false,
-  enablePlayerlogs: true,
+  logPlayerActivity: true,
   isInsightViewer: false,
   isRFIManager: false,
   playerMessageLog: {}
@@ -105,7 +105,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
       newState.showAccessCodes = data.overview.showAccessCodes
-      newState.enablePlayerlogs = data.overview.enablePlayerlogs || true
+      newState.logPlayerActivity = data.overview.logPlayerActivity || true
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.gameDate = data.overview.gameDate
       newState.gameTurnTime = data.overview.gameTurnTime

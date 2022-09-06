@@ -586,7 +586,7 @@ const game: Wargame = {
       "showAccessCodes": true,
       "timeWarning": 60000,
       "turnPresentation": "Turn-Pair-Letters",
-      "enablePlayerlogs": true
+      "logPlayerActivity": true
     },
     "platformTypes": {
       "dirty": false,

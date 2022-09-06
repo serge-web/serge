@@ -42,7 +42,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     selectedForce,
     wargameInitiated,
     isUmpire,
-    enablePlayerlogs
+    logPlayerActivity
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
   const [selectedNode, setSelectedNode] = useState<string>('')
@@ -124,7 +124,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
           <FontAwesomeIcon icon={faBookOpen} onClick={openTourFn} />
         </span>
         {
-          (enablePlayerlogs && isUmpire) && <span title='Show player log' className='playerlog'>
+          isUmpire && <span title='Show player log' className='playerlog'>
             <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
           </span>
         }

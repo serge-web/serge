@@ -169,7 +169,7 @@ export const dbDefaultSettings = {
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      enablePlayerlogs: true
+      logPlayerActivity: true
     },
     forces: {
       name: 'Forces',
