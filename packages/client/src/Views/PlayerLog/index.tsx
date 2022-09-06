@@ -1,7 +1,8 @@
 /* eslint-disable no-mixed-operators */
 import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ReactTable, Row } from '@serge/components'
+import { Checkbox, FormControlLabel } from '@material-ui/core'
+import { ReactTable, Row, MoreInfo } from '@serge/components'
 import { setMessageState } from '@serge/helpers'
 import { ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role, RootState } from '@serge/custom-types'
 import { uniq } from 'lodash'
@@ -28,10 +29,10 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   const [playerLogData, setPlayerLogData] = useState<PlayerLogModal[]>([])
   const [filteredRows, setFilterRows] = useState<Row[]>([])
 
-  const { columns, rows, customStyles } = useMemo(() => genPlayerLogDataTable(playerLogData), [playerLogData])
-
   // whether to show log for all roles, or just the ones with activity
-  const SHOW_ALL_ROLES = true
+  const [onlyActivePlayers, setOnlyActivePlayers] = useState<boolean>(false)
+
+  const { columns, rows, customStyles } = useMemo(() => genPlayerLogDataTable(playerLogData), [playerLogData])
 
   useEffect(() => {
     setFilterRows(rows)
@@ -45,7 +46,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
         collatePlayerLogData(playerMessageLog)
       }, REFRESH_PLAYER_LOG_INTERVAL))
     }
-  }, [isOpen, playerMessageLog])
+  }, [isOpen, playerMessageLog, onlyActivePlayers])
 
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
   
@@ -61,7 +62,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
       const logData: PlayerLogModal[] = []
       allForces.forEach((force: ForceData) => {
         force.roles.forEach((role: Role) => {
-          if (SHOW_ALL_ROLES || uniqueRoles.includes(role.roleId)) {
+          if (!onlyActivePlayers || uniqueRoles.includes(role.roleId)) {
             const thisRoleActivities = activityLogsForThisWargame.filter((value: PlayerLogEntry) => value.role === role.roleId)
             const lastActivity = thisRoleActivities && thisRoleActivities[thisRoleActivities.length - 1]
             const lastMessage = messageLog[role.roleId]
@@ -94,6 +95,10 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
     handlePlayerlogsMarkAllAsRead && handlePlayerlogsMarkAllAsRead()
   }
 
+  const updateOnlyActivePlayers = (): void => {
+    setOnlyActivePlayers(!onlyActivePlayers)
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -112,6 +117,17 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
             <span className={styles.titleHint}>Use this log to track player activity and status</span>
           </div>
         </div>
+        <MoreInfo description='Only show activity for players for whom there is some activity logging'>
+          <FormControlLabel control={
+            <Checkbox
+              checked={onlyActivePlayers}
+              onChange={updateOnlyActivePlayers}
+              value='1'
+              color='primary'
+            />
+          }
+          label="Only active players"
+          /></MoreInfo>
       </div>
       <div className={styles.content}>
         <ReactTable
