@@ -13,8 +13,6 @@ export type PlayerLogModal = {
   forceName: string
   /* hex code for force color */
   forceColor: string
-  // isOpen: boolean | string
-  isReaded: boolean | string
   roleName: string
   message: React.ReactElement
   // view: string | React.ReactElement
