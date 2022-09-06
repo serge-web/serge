@@ -6,7 +6,7 @@ import {
   deletePath,
   wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, Wargame, PlayerLogEntry } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame, PlayerLogEntries } from '@serge/custom-types'
 
 import { io } from 'socket.io-client'
 import {
@@ -104,7 +104,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
   
-  getPlayerLogs = (wargame: string): Promise<PlayerLogEntry> => {
+  getPlayerLogs = (wargame: string): Promise<PlayerLogEntries> => {
     return new Promise((resolve, reject) => {
       fetch(serverPath + wargame + '/' + this.getDbName() + '/' + 'logs')
         .then(res => res.json() as Promise<FetchDataLogs>)
@@ -116,7 +116,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  putPlayerLogs = (doc: PlayerLogEntry): Promise<FetchDataLogs> => {
+  putPlayerLogs = (doc: PlayerLogEntries): Promise<string> => {
     return new Promise((resolve, reject) => {
       fetch(serverPath + 'healthcheck' + '/' + this.getDbName(), {
         method: 'PUT',
