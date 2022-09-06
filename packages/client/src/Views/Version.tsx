@@ -33,7 +33,6 @@ const Version: React.FC<VersionProps> = () => {
   const isUmpire = (window as any).selectedChannel && (window as any).selectedChannel === UMPIRE_FORCE
   
   useEffect(() => {
-    console.log('server update', serverStatus, serverPingTime)
     // check for previous heartbeat notification
     const prevNotification = notifications.filter(i => i.subType === 'HeartbeatAlert')
     if (serverStatus === 'NOT_OK') {
@@ -58,7 +57,6 @@ const Version: React.FC<VersionProps> = () => {
     // TODO: retrieve value of `logPlayerActivity
     console.warn('Note: <Version /> should be using retrieved value of logPlayerActivity')
     return pingServerApi(playerLog, true).then(res => {
-      console.log('new messages sent', res)
       // flush the log
       playerLog.items = []
       setServerStatus(res)
