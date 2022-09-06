@@ -1,5 +1,5 @@
 import { HeartbeatChecker } from '@serge/components'
-import { ActivityLogsInterface } from '@serge/custom-types'
+import { ActivityLogsInterface, Wargame } from '@serge/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +18,7 @@ export type Notification = {
 type VersionProps = {
   notifications: Notification[]
   playerLog: ActivityLogsInterface
+  wargame: Wargame
 }
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
@@ -26,12 +27,14 @@ const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
 const Version: React.FC<VersionProps> = () => {
   const dispatch = useDispatch()
-  const { notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface} = useSelector(({ notifications, playerLog }: any) => ({ notifications, playerLog }))
+  const { notifications, playerLog, wargame }: VersionProps = useSelector(({ notifications, playerLog, wargame }: VersionProps) => ({ notifications, playerLog, wargame }))
   const [toggleBeat, setToggleBeat] = useState(false)
   const [serverStatus, setServerStatus] = useState('')
   const [serverPingTime, setServerPingTime] = useState<number>(0)
   const isUmpire = (window as any).selectedChannel && (window as any).selectedChannel === UMPIRE_FORCE
   
+  const logPlayerActivity = wargame && wargame.data.overview.logPlayerActivity
+
   useEffect(() => {
     // check for previous heartbeat notification
     const prevNotification = notifications.filter(i => i.subType === 'HeartbeatAlert')
@@ -54,9 +57,7 @@ const Version: React.FC<VersionProps> = () => {
   
   const pingServer = () => {
     // send list of activities to server
-    // TODO: retrieve value of `logPlayerActivity
-    console.warn('Note: <Version /> should be using retrieved value of logPlayerActivity')
-    return pingServerApi(playerLog, true).then(res => {
+    return pingServerApi(playerLog, logPlayerActivity).then(res => {
       // flush the log
       playerLog.items = []
       setServerStatus(res)
