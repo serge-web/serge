@@ -61,7 +61,7 @@ import {
   IconOption,
   AnnotationMarkerData,
   ActivityLogsInterface,
-  PlayerLogEntry
+  PlayerLogEntries
 } from '@serge/custom-types'
 
 import {
@@ -159,13 +159,9 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
  */
 export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: boolean): Promise<string> => { 
   const allItems = log.items
-  const wargame = log.currentDbname
   
   // if we're not storing all activity, just store the latest item
-  const items = logAllActivity ? allItems : allItems.length > 0 ? allItems[allItems.length - 1] : []
-
-  // get the frio
-  const first = items[0]
+  const items: PlayerLogEntries = logAllActivity ? allItems : allItems.length > 0 ? [allItems[allItems.length - 1]] : []
 
   // get the wargame to operate upon
   const { db } = getWargameDbByName(log.currentDbname)
@@ -173,46 +169,10 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo
   // In addition to pushing data to the server, we're also checking the server is still alive
   // So, even if the log is empty, we should push an empty list, since still we want to get a 
   // 'success' back from the server
-  if (!first) return db.putPlayerLogs(first).then(res => res.msg)
-
-  // TODO: this method should push an array of items
-  // documents to the PlayerLogs database.  We don't extend the existing set of documents,
-  // we push them as new documents via Couchdb "bulk docs" API.
-  return await getPlayerActivityLogs(wargame, log.currentDbname)
-    .then(res => {
-      const { role, activityTime, activityType } = first
-      const newDoc: PlayerLogEntry[] = deepCopy(res)
-      const updatedData = newDoc
-      const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
-    
-      if (findIndex !== -1) {
-        const data: PlayerLogEntry = {
-          ...updatedData[findIndex],
-          activityTime: activityTime,
-          activityType: activityType
-        }
-   
-        const playerlogsUpdate = updatedData[findIndex] = data
-
-        return db.putPlayerLogs(playerlogsUpdate)
-          .then((data) => {
-            return data.msg
-          }).catch((err) => {
-            console.log(err)
-            return 'NOT_OK'
-          }) 
-      } else {
-        return db.putPlayerLogs(first)
-          .then((data) => data.msg)
-          .catch((err) => {
-            console.log(err)
-            return 'NOT_OK'
-          }) 
-      }
-    })
+  return db.putPlayerLogs(items).then(res => res)
 }
  
-export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntry> => {
+export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntries> => {
   const { db } = getWargameDbByName(dbName)
 
   return await db.getPlayerLogs(wargame)
