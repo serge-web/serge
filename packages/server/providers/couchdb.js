@@ -121,7 +121,7 @@ const couchDb = (app, io, pouchOptions) => {
         res.send({ msg: 'OK', data: doc })
       }).catch(err => {
         res.send({ msg: 'err', data: err })
-      })  
+      })
     }
   })
 
