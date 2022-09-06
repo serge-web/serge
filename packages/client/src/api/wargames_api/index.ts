@@ -151,25 +151,36 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer2 = async (log: ActivityLogsInterface): Promise<string> => { 
-  const items = log.items
+/** dual function method, to both check the server is still running, and to push
+ * details of recent player activity
+ * @param log a list of the most recent interactions
+ * @param logAllActivity whether to store all events since last ping, or just the most recent one
+ * @returns the server response
+ */
+export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: boolean): Promise<string> => { 
+  const allItems = log.items
+  const wargame = log.currentDbname
+  
+  // if we're not storing all activity, just store the latest item
+  const items = logAllActivity ? allItems : allItems.length > 0 ? allItems[allItems.length - 1] : []
+
+  // get the frio
   const first = items[0]
 
-  // TODO: in addition to pushing data to the server, we're also checking the server is still alive
-  // So, even if the log is empty, we should push an empty list, since we want to get a 
-  // 'success' back from the server
-
-  // TODO: this method should receive an array of activities.  It should push them all as
-  // documents to the PlayerLogs database.  We don't extend the existing set of documents,
-  // we push them as new documents via Couchdb "bulk push" call.
+  // get the wargame to operate upon
   const { db } = getWargameDbByName(log.currentDbname)
 
+  // In addition to pushing data to the server, we're also checking the server is still alive
+  // So, even if the log is empty, we should push an empty list, since still we want to get a 
+  // 'success' back from the server
   if (!first) return db.putPlayerLogs(first).then(res => res.msg)
 
-  const { wargame, role, activityTime, activityType } = first
-
+  // TODO: this method should push an array of items
+  // documents to the PlayerLogs database.  We don't extend the existing set of documents,
+  // we push them as new documents via Couchdb "bulk docs" API.
   return await getPlayerActivityLogs(wargame, log.currentDbname)
     .then(res => {
+      const { role, activityTime, activityType } = first
       const newDoc: PlayerLogEntry[] = deepCopy(res)
       const updatedData = newDoc
       const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)
