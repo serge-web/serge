@@ -6,13 +6,10 @@ import { PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 
-import { P9Mock
- } from '@serge/mocks'
+import { P9Mock } from '@serge/mocks'
 
-const planningChannel = P9Mock
-.data.channels.channels[0] as ChannelPlanning
-const blueForce = P9Mock
-.data.forces.forces[1]
+const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
+const blueForce = P9Mock.data.forces.forces[1]
 const blueRole = blueForce.roles[0]
 
 describe('ChannelMessagesList component: ', () => {

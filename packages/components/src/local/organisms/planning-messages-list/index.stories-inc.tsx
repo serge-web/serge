@@ -5,14 +5,12 @@ import React, { useState } from 'react'
 // Import component files
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
-import { P9Mock
-, planningMessages } from '@serge/mocks'
+import { P9Mock, planningMessages } from '@serge/mocks'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
 
-const planningChannel = P9Mock
-.data.channels.channels[0] as ChannelPlanning
+const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -85,8 +83,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   />
 }
 
-const blueForce = P9Mock
-.data.forces.forces[0]
+const blueForce = P9Mock.data.forces.forces[0]
 const blueRole = blueForce.roles[1]
 
 export const Default = Template.bind({})
