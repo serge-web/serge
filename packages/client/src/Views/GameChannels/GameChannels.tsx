@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import classNames from 'classnames'
 import { TabNode } from 'flexlayout-react'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import {
   nextGameTurn,
   openModal,
@@ -19,6 +19,8 @@ import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/Admi
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import PlayerLog from '../PlayerLog'
 import { useDispatch } from 'react-redux'
+import { ChangeTabInteraction } from '@serge/custom-types'
+import { CHANGE_TAB_INTERACTION } from '@serge/config'
 
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
@@ -61,6 +63,14 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     setSelectedNode(node.getComponent() || '')
     onTabChange(node)
   }
+
+  useEffect(() => {
+    const changeTab: ChangeTabInteraction = {
+      aType: CHANGE_TAB_INTERACTION,
+      tab: selectedNode
+    }
+    saveNewActivityTimeMessage(selectedRole, changeTab, currentWargame)(dispatch)
+  }, [selectedNode])
 
   const openTourFn = () => {
     const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-${selectedNode === 'mapping' ? 'mapping-' : ''}tourDone`

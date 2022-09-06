@@ -1,9 +1,7 @@
 import { ChannelTypes } from '@serge/custom-types'
 import FlexLayout, { Model, TabNode } from 'flexlayout-react'
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import Loader from '../../Components/Loader'
 import { expiredStorage, FLEX_LAYOUT_MODEL_DEFAULT, LOCAL_STORAGE_TIMEOUT } from '../../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
@@ -21,7 +19,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
   const [allowTabChangeEvent, setAllowTabChangeEvent] = useState<boolean>(false)
   const selectedNode = useRef<TabNode>()
-  const dispatch = useDispatch()
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
@@ -118,7 +115,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
               onRenderTab={onRenderTab}
               onModelChange={() => {
                 setAllowTabChangeEvent(true)
-                saveNewActivityTimeMessage(state.selectedRole, { aType: 'change tab' }, state.currentWargame)(dispatch)
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />
