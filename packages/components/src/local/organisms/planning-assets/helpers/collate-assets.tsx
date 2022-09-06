@@ -3,6 +3,9 @@ import { Asset, ForceData } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
+import AssetIcon from '../../../asset-icon'
+import React from 'react'
+import styles from '../styles.module.scss'
 
 /**
  * Helper function to provide the columns for the table
@@ -11,26 +14,31 @@ import { Row } from '../types/props'
  * @returns
  */
 export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): Column[] => {
-  if (playerForce && !opFor) {
-    return [
-      { title: 'ID', field: 'id' },
-      { title: 'Icon', field: 'icon' },
-      { title: 'Name', field: 'name' },
-      { title: 'Condition', field: 'condition' },
-      { title: 'Status', field: 'status' },
-      { title: 'Platform-Tyle', field: 'platformType' }
-    ]
-  } else {
-    return [
-      { title: 'ID', field: 'id' },
-      { title: 'Icon', field: 'icon' },
-      { title: 'Force', field: 'force' },
-      { title: 'Name', field: 'name' },
-      { title: 'Condition', field: 'condition' },
-      { title: 'Status', field: 'status' },
-      { title: 'Platform-Tyle', field: 'platformType' }
-    ]
+  const render = (row: Row): React.ReactElement => {
+    if (!row.icon) return <></>
+
+    const icons = row.icon.split(',')
+    if (icons.length === 2) {
+      return <AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />
+    }
+    return <AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />
   }
+
+  const columns: Column[] = [
+    { title: 'ID', field: 'id' },
+    { title: 'Icon', field: 'icon', render },
+    { title: 'Force', field: 'force' },
+    { title: 'Name', field: 'name' },
+    { title: 'Condition', field: 'condition' },
+    { title: 'Status', field: 'status' },
+    { title: 'Platform-Tyle', field: 'platformType' }
+  ]
+
+  if (playerForce && !opFor) {
+    columns.splice(2, 1)
+  }
+
+  return columns
 }
 
 /** helper function, so we can apply to assets and child assets

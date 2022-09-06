@@ -248,9 +248,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
   if (process.env.NODE_ENV === 'development') {
-    console.log('PlayerUI: ', action.type)
-    console.log('PlayerUI > Prev State: ', state)
-    console.log('PlayerUI > Next State: ', newState)
+    console.log('PlayerUI update: ', action.type, state, newState)
   }
 
   return newState

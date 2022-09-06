@@ -114,6 +114,10 @@ export const EMPTY_CELL = '[Empty]'
 
 // name of property used for storing time/type of last activity
 
+// marker character to tell updateMarker handler that the update is coming 
+// from the marker form - and the maker may have been separately dragged around
+export const FLAG_MARKER = '!'
+
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition
