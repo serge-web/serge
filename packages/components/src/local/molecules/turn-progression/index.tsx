@@ -36,7 +36,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
 
   // TODO: this should come from the new turn attributes in game overview,
   // to be implemented in https://github.com/serge-web/serge/issues/954
-  const showTimeRemaining = false
+  const showTimeRemaining = true
 
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
@@ -73,6 +73,8 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     const minsLeft = Math.floor(seconds / 60)
     const minutesLeft = minsLeft < 100 ? ('0' + minsLeft).slice(-2) : minsLeft.toString()
 
+    console.log('timer', seconds)
+
     setProgressionState({
       ...progressionState,
       minutesLeft,
@@ -85,6 +87,8 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     const seconds = now - progressionState.startTime
     const minsUp = Math.floor(seconds / 60)
     const minutesUp = minsUp < 100 ? ('0' + minsUp).slice(-2) : minsUp.toString()
+
+    console.log('count-up', seconds)
 
     setProgressionState({
       ...progressionState,
@@ -101,15 +105,19 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   let interval: any
 
   useEffect(() => {
+    clearInterval(interval)
+    console.log('phase handler')
     setProgressionState({
       ...progressionState,
       minutesUp: adjudicationPhase ? '00' : '',
       secondsUp: adjudicationPhase ? '00' : '',
+      minutesLeft: '',
+      secondsLeft: '',
       startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
     })
-    clearInterval(interval)
     if (showTimeRemaining) {
       interval = setInterval(startInterval[phase], 1000)
+      console.log('interval', interval)
     }
     return (): any => clearInterval(interval)
   }, [phase])
@@ -131,6 +139,10 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     ])} data-tour='turn-phase-step'
     >
       <div className={styles['turn-info-phase']}>
+        {
+          !wargameInitiated &&
+          <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME NOT INITIATED</div>
+        }    
         <div className={styles['turn-phase-group']}>
           <div className={styles['turn-phase-item']}>
             <h5>Turn:</h5>
@@ -140,10 +152,22 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             <h5>Phase:</h5>
             <h6>{capitalize(phase)}</h6>
           </div>
-          <div className={styles['turn-phase-item']}>
-            <h5>Time Remaining:</h5>
-            <h5>{progressionState.minutesLeft}:{progressionState.secondsLeft}</h5>
-          </div>
+          { showTimeRemaining &&
+            <div className={styles['turn-phase-item']}>
+            {phase === PLANNING_PHASE &&
+            <>
+              <h5>Time Remaining:</h5>
+              <span className={
+                `${styles['time-left']} ${warningStyle} ${endedStyle}`
+              }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
+            </> }
+            {phase === ADJUDICATION_PHASE &&
+              <>
+                <h5>Elapsed:</h5>
+                <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
+              </> }
+            </div>
+        }
         </div>
         {
           isGameControl &&
@@ -153,30 +177,6 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         }
         <time dateTime={formatFullDate(gameDate)} className={styles.time}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
-      {
-        showTimeRemaining &&
-        <div className={styles['turn-info-remaining']}>
-          {phase === PLANNING_PHASE &&
-            <>
-              <span className={
-                `${styles['time-left']} ${warningStyle} ${endedStyle}`
-              }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
-              <span className={styles['info-helper']}>Time left</span>
-            </>
-          }
-          {phase === ADJUDICATION_PHASE &&
-            <>
-              <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
-              <span className={styles['info-helper']}>Elapsed</span>
-            </>
-          }
-          {
-            !wargameInitiated &&
-            <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME&nbsp;<br />&nbsp;NOT INITIATED</div>
-          }
-        </div>
-      }
-
     </div>
   )
 }

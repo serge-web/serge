@@ -113,6 +113,14 @@
   text-align: center;
 }
 
+.not-initiated {
+  color: #f00;
+  background-color: #eee;
+  padding: 0 3px;
+  text-align: center;
+  font-size: 12px;
+}
+
 .turn-info-remaining {
   text-align: center;
 
@@ -132,13 +140,6 @@
 
   .info-phase-label {
     display: block;
-    font-size: 14px;
-  }
-
-  .not-initiated {
-    color: #f00;
-    background-color: #eee;
-    padding: 0 3px;
     font-size: 14px;
   }
 }
