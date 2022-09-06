@@ -111,27 +111,18 @@ const couchDb = (app, io, pouchOptions) => {
   app.put('/healthcheck/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new CouchDB(couchDbURL(databaseName))
-    const putData = req.body
-
-    const putPlayerlogs = (db, doc) => {
-      return db.get(doc._id).then((origDoc) => {
-        db._rev = origDoc._rev
-        return db.put(doc).then(async () => {
-          await db.compact()
-          res.send({ msg: 'OK', data: doc })
-        })
+    const docs = req.body
+    if (docs.length === 0) {
+      // nothing to do
+      res.send({ msg: 'OK' })
+    } else {
+      return db.bulkDocs(req.body).then(async () => {
+        await db.compact()
+        res.send({ msg: 'OK', data: doc })
       }).catch(err => {
-        if (err.status === 409) {
-          return putPlayerlogs(db, doc)
-        } else {
-          return db.put(doc)
-            .then(res => { res.send({ msg: 'OK', data: doc }) })
-            .catch(() => { res.send({ msg: 'OK' }) })
-        }
-      })
+        res.send({ msg: 'err', data: err })
+      })  
     }
-
-    putPlayerlogs(db, putData)
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
