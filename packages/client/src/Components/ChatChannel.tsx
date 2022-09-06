@@ -11,9 +11,9 @@ import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/Play
 import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import NewMessage from './NewMessage'
-import { MessageSentInteraction, MessageUnReadInteraction, PlainInteraction } from '@serge/custom-types/player-log'
+import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction, PlainInteraction } from '@serge/custom-types/player-log'
 import { CoreMessage } from '@serge/custom-types/message'
-import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION } from '@serge/config'
+import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from '@serge/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()
@@ -87,6 +87,16 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const messages = state.channels[channelId].messages as any
 
   const onRead = (detail: MessageCustom): void => {
+    // since this is a message, we know it must come from CoreMessage
+    const coreMessage = detail as any as CoreMessage
+
+    // store the activity
+    const readMessage: MessageReadInteraction = {
+      aType: MESSAGE_READ_INTERACTION,
+      _id: detail._id || 'na'
+    }
+    saveNewActivityTimeMessage(coreMessage.details.from.roleId, readMessage, state.currentWargame)(dispatch)
+
     playerUiDispatch(openMessage(channelId, detail))
   }
 
