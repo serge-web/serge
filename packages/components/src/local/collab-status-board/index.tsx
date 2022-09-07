@@ -18,7 +18,7 @@ export interface ForceColor {
 /* Render component */
 export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces,
-  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame
+  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity
 }) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
 
@@ -66,11 +66,12 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   const handleArchiveDoc = useCallback(() => {
     setShowArchived(!showArchived)
   }, [showArchived])
-
+  // (name, lastName) => console.log('name', name, 'lastName', lastName)
   return (
     <ReactTable
       columns={columns}
       rows={rows}
+      tableActivity={collabActivity}
       customStyles={customStyles}
       showArchived={showArchived}
       handleArchiveDoc={handleArchiveDoc}

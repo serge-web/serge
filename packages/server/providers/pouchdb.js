@@ -47,6 +47,8 @@ const pouchDb = (app, io, pouchOptions) => {
   }
 
   app.put('/:wargame', async (req, res) => {
+    // TODO: if this req is an activity document (or list of them)
+    // then we should actually push it to the player logs database
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
@@ -82,6 +84,23 @@ const pouchDb = (app, io, pouchOptions) => {
       })
     }
     retryUntilWritten(db, putData)
+  })
+
+  app.put('/healthcheck/:dbname', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+    const db = new PouchDB(databaseName, pouchOptions)
+    const docs = req.body
+    if (docs.length === 0) {
+      // nothing to do
+      res.send({ msg: 'OK' })
+    } else {
+      return db.bulkDocs(req.body).then(async () => {
+        await db.compact()
+        res.send({ msg: 'OK' })
+      }).catch(err => {
+        res.send({ msg: 'err', data: err })
+      })
+    }
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
@@ -158,6 +177,25 @@ const pouchDb = (app, io, pouchOptions) => {
       limit: 1,
       sort: [{ _id: 'desc' }]
     }).then((result) => res.send({ msg: 'ok', data: result.docs }))
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:dbname/logs', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      }
+    }).then((result) => {
+      res.send({ msg: 'ok', data: result.docs })
+    })
       .catch(() => res.send([]))
   })
 

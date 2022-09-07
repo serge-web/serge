@@ -3,7 +3,6 @@ import { hiddenPrefix } from '@serge/config'
 import { WargameList } from '@serge/custom-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addPlayerLog } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import {
   getWargame
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -33,7 +32,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     currentTurn
   } = usePlayerUiState()
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const playerUiDispatch = usePlayerUiDispatch()
 
   useEffect(() => {
@@ -46,8 +45,6 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     if (selectedForce && selectedRole) {
       // @ts-ignore
       window.selectedChannel = selectedForce.uniqid
-      // dispatch wargame and role to version component
-      dispatch(addPlayerLog(currentWargame, selectedRole))
     }
   }, [selectedForce, selectedRole])
 

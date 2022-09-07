@@ -52,7 +52,6 @@ const runServer = (
   const clientBuildPath = '../client/build'
 
   // log of time of receipt of player heartbeat messages
-  const playerLog = []
 
   app.use(cors(corsOptions))
 
@@ -82,48 +81,6 @@ const runServer = (
 
   app.get('/getIp', (req, res) => {
     res.status(200).send({ ip: req.ip })
-  })
-
-  app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
-    const { wargame, role } = req.params
-    const activityTime = decodeURIComponent(req.params.activityTime)
-    const activityType = decodeURIComponent(req.params.activityType)
-
-    if (wargame !== 'missing' && role !== 'missing') {
-      const existingPlayerIdx = playerLog.findIndex(
-        player => player.role === role && player.wargame === wargame
-      )
-      if (existingPlayerIdx !== -1) {
-        playerLog[existingPlayerIdx].activityTime = activityTime
-        playerLog[existingPlayerIdx].activityType = activityType
-      } else {
-        const newPlayer = {
-          wargame,
-          role,
-          activityType,
-          activityTime
-        }
-        playerLog.push(newPlayer)
-      }
-    }
-
-    return res.status(200).send({
-      status: 'OK',
-      activityType: activityType,
-      mostRecentActivity: activityTime,
-      wargame: wargame,
-      role: role
-    })
-  })
-
-  app.get('/playerlog', (_, res) => {
-    res.status(200).send(playerLog)
-  })
-
-  app.get('/playerlog/:wargame', (req, res) => {
-    const wargame = req.params.wargame
-    const selectedWargame = playerLog.find(log => log.wargame === wargame) || {}
-    res.status(200).send(selectedWargame)
   })
 
   app.get('/cells/:filename', (req, res) => {
