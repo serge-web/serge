@@ -68,7 +68,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
             const lastMessage = messageLog[role.roleId]
             const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || undefined
             const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />
-            const message = lastMessage && lastMessage.lastMessageTitle || 'N/A'
+            const message = (lastMessage && <>{lastMessage.lastMessageTitle} {readIcon}</>) || <>N/A</>
             const messageTime = lastMessage && lastMessage.lastMessageTime
             const activityTime = (lastActivity && lastActivity.activityTime) || ''
             logData.push({
@@ -78,8 +78,6 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
               message,
               lastMessage: messageTime,
               lastActive: activityTime,
-              isReaded: activatyhasBennRead,
-              hasBeenRead: lastMessage && readIcon,
               lastActivity: lastActivity ? lastActivity.activityType.aType : 'N/A',
               active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
             })

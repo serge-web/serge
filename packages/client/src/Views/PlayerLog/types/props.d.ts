@@ -14,9 +14,7 @@ export type PlayerLogModal = {
   /* hex code for force color */
   forceColor: string
   roleName: string
-  message: string
-  hasBeenRead: React.ReactElement,
-  isReaded?: boolean,
+  message: React.ReactElement
   // view: string | React.ReactElement
   /** time the last message was sent */
   lastMessage: string
