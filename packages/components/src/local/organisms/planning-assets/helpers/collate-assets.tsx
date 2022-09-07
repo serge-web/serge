@@ -56,11 +56,11 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
 
   const iconFor = (platformType: string): string => {
     const pType = platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)
-    return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : (pType && pType!.icon) || ''
+    return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : (pType && pType.icon) || ''
   }
   const colorFor = (forceId: string): string => {
     const colorMatch = forceColors.find((value: ForceStyle) => value.forceId === forceId)
-    return (forceId === UNKNOWN_TYPE) ? '#999' : (colorMatch && colorMatch!.color) || ''
+    return (forceId === UNKNOWN_TYPE) ? '#999' : (colorMatch && colorMatch.color) || ''
   }
 
   if (opFor) {

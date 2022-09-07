@@ -17,7 +17,7 @@ const myTemplateIds = thisPart.templatesIDs
 const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody): any =>
   myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
 )
-const platformTypes = P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes || []
+const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {

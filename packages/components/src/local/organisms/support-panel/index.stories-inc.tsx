@@ -50,7 +50,7 @@ export default {
   }
 }
 
-const platformTypes = P9Mock.data.platformTypes &&  P9Mock.data.platformTypes.platformTypes || []
+const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 const Template: Story<SupportPanelProps> = (args) => {
   const { selectedRole } = args
