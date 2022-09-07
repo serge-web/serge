@@ -706,14 +706,15 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
         res.gameTurn += 1
+        res.adjudicationStartTime = '0'
+        // move the turn forward
 
         const gameDate: string = res.data.overview.gameDate
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
-        //        const twoM: MonthTurns = { unit: 'months', months: 2 }
-        console.log('inc', gameDate, gameTurn)
         const newTime: number = incrementGameTime(gameDate, gameTurn)
         res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
-        console.log('inc 2', newTime, res.data.overview.gameDate)
+        
+        // calculate when the planning must finish
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
         break
     }
