@@ -35,6 +35,8 @@
 
   .warning {
     animation: blink 1s infinite;
+    color: #f00;
+    font-weight: bold;
   }
 
   @keyframes blink {
