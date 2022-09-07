@@ -7,6 +7,7 @@ import TurnProgression from './index'
 import TurnPropTypes from './types/props'
 
 import docs from './README.md'
+import moment from 'moment-timezone'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -64,12 +65,16 @@ const Template: Story<TurnPropTypes> = (args) => {
   const { ...props } = args
   const [state, setState] = useState({
     phase: props.phase,
-    currentTurn: args.currentTurn
+    currentTurn: args.currentTurn,
+    adjudicationStartTime: args.adjudicationStartTime,
+    turnEndTime: args.turnEndTime
   })
   const updateState = (): void => {
     setState({
       phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
-      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
+      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn,
+      adjudicationStartTime: moment().toString(),
+      turnEndTime: moment().add(20000).toString()
     })
   }
   return <TurnProgression
@@ -77,8 +82,11 @@ const Template: Story<TurnPropTypes> = (args) => {
     onNextTurn={updateState}
     wargameInitiated={args.wargameInitiated}
     isGameControl={args.isGameControl}
-    currentTurn={state.currentTurn}
     turnPresentation={args.turnPresentation}
+    turnEndTime={state.turnEndTime}
+    adjudicationStartTime={state.adjudicationStartTime}
+    currentTurn={state.currentTurn}
+    timeWarning={10000}
     phase={state.phase} />
 }
 
