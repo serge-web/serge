@@ -27,8 +27,6 @@ type TimeState = {
   warning: boolean
   // if planning allowance has expired
   ended: boolean
-  // the time adjudication started
-  startTime: number
   // which phase we're currently in
   phase: string
 }
@@ -60,7 +58,6 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     secondsStr: ('0' + Math.floor(seconds % 60)).slice(-2),
     ended: false,
     warning: false,
-    startTime: adjudicationStartTime ? Math.round(new Date(adjudicationStartTime).getTime() / 1000) : 0,
     phase
   }
   const [progressionState, setProgressionState] = useState<TimeState>(initialState)
@@ -106,8 +103,6 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     clearInterval(interval)
-    const newStart = Math.round(new Date(adjudicationStartTime).getTime() / 1000)
-
     // sort out the values for planning phase init values
     const now = Math.floor(new Date().getTime() / 1000)
     const end = Math.round(new Date(turnEndTime).getTime() / 1000)
@@ -124,8 +119,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       minutesStr: minStr,
       secondsStr: secStr,
       ended: false,
-      warning: false,
-      startTime: newStart
+      warning: false
     })
     if (showTimeRemaining) {
       interval = setInterval(startInterval[phase], 1000)
