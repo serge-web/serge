@@ -142,7 +142,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         {
           !wargameInitiated &&
           <div title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME NOT INITIATED</div>
-        }    
+        }
         <div className={styles['turn-phase-group']}>
           <div className={styles['turn-phase-item']}>
             <h5>Turn:</h5>
@@ -152,22 +152,25 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             <h5>Phase:</h5>
             <h6>{capitalize(phase)}</h6>
           </div>
-          { showTimeRemaining &&
+          {
+            showTimeRemaining &&
             <div className={styles['turn-phase-item']}>
-            {phase === PLANNING_PHASE &&
-            <>
-              <h5>Time Remaining:</h5>
-              <span className={
-                `${styles['time-left']} ${warningStyle} ${endedStyle}`
-              }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
-            </> }
-            {phase === ADJUDICATION_PHASE &&
-              <>
-                <h5>Elapsed:</h5>
-                <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
-              </> }
+              {
+                phase === PLANNING_PHASE &&
+                <>
+                  <h5>Time Left:</h5>
+                  <h5 className={classNames(warningStyle, endedStyle)}>{progressionState.minutesLeft}:{progressionState.secondsLeft}</h5>
+                </>
+              }
+              {
+                phase === ADJUDICATION_PHASE &&
+                <>
+                  <h5>Elapsed:</h5>
+                  <h5>{progressionState.minutesUp}:{progressionState.secondsUp}</h5>
+                </>
+              }
             </div>
-        }
+          }
         </div>
         {
           isGameControl &&

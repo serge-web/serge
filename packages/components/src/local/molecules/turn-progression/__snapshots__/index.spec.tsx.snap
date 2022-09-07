@@ -9,6 +9,12 @@ exports[`TurnProgression component: renders correctly 1`] = `
     className="turn-info-phase"
   >
     <div
+      className="not-initiated"
+      title="Initiate wargame via Admin Panel"
+    >
+      WARGAME NOT INITIATED
+    </div>
+    <div
       className="turn-phase-group"
     >
       <div
@@ -35,12 +41,12 @@ exports[`TurnProgression component: renders correctly 1`] = `
         className="turn-phase-item"
       >
         <h5>
-          Time Remaining:
+          Elapsed:
         </h5>
         <h5>
-          91
+          00
           :
-          40
+          00
         </h5>
       </div>
     </div>
