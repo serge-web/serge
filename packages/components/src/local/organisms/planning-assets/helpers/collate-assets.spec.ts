@@ -17,7 +17,7 @@ redAssetWithUnknown.perceptions[0].typeId = undefined
 false && console.log('get working', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
 
 const forceCols = forceColors(forces)
-const platformStyles = platformIcons(P9Mock.data.platformTypes!.platformTypes)
+const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.platformTypes.platformTypes) : []
 
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
