@@ -63,23 +63,18 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       seconds = end - now
     }
 
-    if (seconds < (timeWarning / 1000)) {
-      setProgressionState({
-        ...progressionState,
-        warning: true
-      })
-    }
-
     const minsLeft = Math.floor(seconds / 60)
     const minutesLeft = minsLeft < 100 ? ('0' + minsLeft).slice(-2) : minsLeft.toString()
 
-    console.log('timer', seconds)
+    console.log('timer2', minsLeft, minutesLeft, ('0' + minsLeft))
+
 
     setProgressionState({
       ...progressionState,
       minutesLeft,
-      secondsLeft: ('0' + Math.round(seconds % 60)).slice(-2),
-      ended: seconds === 0 && minsLeft === 0
+      secondsLeft: ('0' + Math.round(Math.abs(seconds) % 60)).slice(-2),
+      ended: seconds === 0 && minsLeft === 0,
+      warning: (seconds < (timeWarning / 1000))
     })
   }
   const countup = (): any => {
@@ -87,8 +82,6 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     const seconds = now - progressionState.startTime
     const minsUp = Math.floor(seconds / 60)
     const minutesUp = minsUp < 100 ? ('0' + minsUp).slice(-2) : minsUp.toString()
-
-    console.log('count-up', seconds)
 
     setProgressionState({
       ...progressionState,
