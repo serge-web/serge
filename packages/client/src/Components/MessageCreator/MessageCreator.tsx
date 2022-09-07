@@ -2,9 +2,11 @@ import React, { useState, createRef, useEffect } from 'react'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
-import { ChannelCollab, ChannelUI, Editor, MessageDetails } from '@serge/custom-types'
-import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates, setActivityTime } from '@serge/config'
+import { useDispatch } from 'react-redux'
+import { ChannelCollab, ChannelUI, Editor, MessageDetails, PlainInteraction } from '@serge/custom-types'
+import { CHANNEL_COLLAB, InitialStates, CollaborativeMessageStates } from '@serge/config'
 import { Confirm } from '@serge/components'
 import Props from './types'
 
@@ -23,10 +25,12 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const state = usePlayerUiState()
+  const dispatch = useDispatch()
   const { selectedForce, gameDate } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const sendMessage = (e: any): void => {
+  const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.persist()
     const details: MessageDetails = {
       channel: curChannel,
       from: {
@@ -65,12 +69,15 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
 
     // retrieve the formatted message
     const message = editor.getValue()
-
+    
     saveMessage(state.currentWargame, details, message)()
+    const newMsg: PlainInteraction = {
+      aType: 'send channel message'
+    }
+    saveNewActivityTimeMessage(details.from.roleId, newMsg, state.currentWargame)(dispatch)
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)
-    setActivityTime(details.from.roleId, 'send channel message')
   }
 
   const openConfirmPopup = (e: any): void => {

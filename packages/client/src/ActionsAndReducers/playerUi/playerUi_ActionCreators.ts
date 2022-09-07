@@ -17,7 +17,6 @@ import {
   OPEN_TOUR,
   OPEN_MODAL,
   CLOSE_MODAL,
-  setActivityTime,
   MARK_ALL_AS_UNREAD,
   FEEDBACK_MESSAGE,
   INFO_MESSAGE,
@@ -177,7 +176,6 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
 }
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
-  setActivityTime(details.from.roleId, 'send message ' + details.messageType)
   return async (): Promise<void> => {
     // the following block of commented out code was used in the past
     // to generate bulk volumes of test data, by repeatedly submitting

@@ -130,6 +130,12 @@ export const SettingOverview: React.FC<PropTypes> = ({
     setDirty(updates)
   }
 
+  const updatePlayerForcesVisibility = (): void => {
+    const updates = { ...overview, logPlayerActivity: !overview.logPlayerActivity }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const setDirty = (updates: WargameOverview): void => {
     onChange && onChange({
       ...updates,
@@ -313,6 +319,17 @@ export const SettingOverview: React.FC<PropTypes> = ({
                 />
               }
               label="Hide force icons in channels"
+            /></MoreInfo>
+            <MoreInfo description='Alow forces with Umpire flag to see player logs in wargames, they can see lastest actions of players'><FormControlLabel
+              control={
+                <Checkbox
+                  checked={initialOverview.logPlayerActivity}
+                  onChange={updatePlayerForcesVisibility}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Log player activity to database"
             /></MoreInfo>
           </div>
           <div>

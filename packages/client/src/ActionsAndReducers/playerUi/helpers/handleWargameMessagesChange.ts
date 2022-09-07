@@ -6,7 +6,8 @@ import {
   MessageInfoType,
   SetWargameMessage,
   Wargame,
-  ChatMessage
+  ChatMessage,
+  PlayerMessageLog
 } from '@serge/custom-types'
 import {
   handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
@@ -139,6 +140,19 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
   }
 
   return channelMessages
+}
+
+export const MarkAllPlayerMessageRead = (newStates: PlayerUi, msgState: string): PlayerMessageLog => {
+  Object.values(newStates.playerMessageLog).map((value) => {
+    const selectedForce = newStates.selectedForce ? newStates.selectedForce.uniqid : ''
+    if (value._id) {
+      value.hasBeenRead = msgState === 'read'
+      const msgFnc = msgState === 'read' ? setMessageState : removeMessageState
+      msgFnc(newStates.currentWargame, selectedForce, newStates.selectedRole, value._id)
+    }  
+    return value  
+  })
+  return newStates.playerMessageLog
 }
 
 export const markAllMessageState = (channel: string, newState: PlayerUi, msgState: 'read' | 'unread'): ChannelUI => {

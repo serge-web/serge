@@ -71,6 +71,15 @@ export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 export const PLAN_ACCEPTED = 'accepted'
 export const PLAN_REJECTED = 'rejected'
 
+// types of UI interaction
+export const PLAIN_INTERACTION = 'plain-interaction'
+export const CHANGE_TAB_INTERACTION = 'change-tab-interaction'
+export const MESSAGE_SENT_INTERACTION = 'msg-sent-interaction'
+export const MESSAGE_READ_INTERACTION = 'msg-read-interaction'
+export const MESSAGE_UNREAD_INTERACTION = 'msg-unread-interaction'
+export const MAP_ANNOTATION_READ_INTERACTION = 'map-anno-read-interaction'
+
+
 // export item types
 export const EXPORT_ITEM_MESSAGES = 'messages'
 export const EXPORT_ITEM_FORCES = 'forces'
@@ -105,8 +114,6 @@ export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 export const EMPTY_CELL = '[Empty]'
 
 // name of property used for storing time/type of last activity
-export const ACTIVITY_TIME = 'activityTime'
-export const ACTIVITY_TYPE = 'activityType'
 
 // marker character to tell updateMarker handler that the update is coming 
 // from the marker form - and the maker may have been separately dragged around
@@ -149,6 +156,7 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
+export const playerlogs = 'playerlogs'
 // Note: On heroku we don't use the additional port for the socket, we use the plain origin
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
 export const replicate = 'replicate/'
@@ -169,7 +177,3 @@ export const CONTROL_ALL = 'control-all:'
  * @param role - current role id
  * @param event - name of event that just happened
  */
-export const setActivityTime = (role: string, event: string): void  => {
-  expiredStorage.setItem(`${role}_${ACTIVITY_TYPE}`, event) 
-  expiredStorage.setItem(`${role}_${ACTIVITY_TIME}`, `${new Date().getTime()}`) 
-}

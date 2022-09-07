@@ -108,6 +108,23 @@ const couchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
+  app.put('/healthcheck/:dbname', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+    const db = new CouchDB(couchDbURL(databaseName))
+    const docs = req.body
+    if (docs.length === 0) {
+      // nothing to do
+      res.send({ msg: 'OK' })
+    } else {
+      return db.bulkDocs(req.body).then(async () => {
+        await db.compact()
+        res.send({ msg: 'OK' })
+      }).catch(err => {
+        res.send({ msg: 'err', data: err })
+      })
+    }
+  })
+
   app.get('/replicate/:replicate/:dbname', (req, res) => {
     const newDbName = checkSqliteExists(req.params.replicate) // new db name
     const newDb = new CouchDB(couchDbURL(newDbName))
@@ -196,6 +213,25 @@ const couchDb = (app, io, pouchOptions) => {
       sort: [{ _id: 'desc' }],
       limit: 1
     }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:dbname/logs', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      }
+    }).then((result) => {
+      res.send({ msg: 'ok', data: result.docs })
+    })
       .catch(() => res.send([]))
   })
 
