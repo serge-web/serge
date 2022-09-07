@@ -43,12 +43,10 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     gameDate,
     wargameInitiated,
     onNextTurn,
-    isGameControl
+    isGameControl,
+    showTimeRemaining
   } = props
 
-  // TODO: this should come from the new turn attributes in game overview,
-  // to be implemented in https://github.com/serge-web/serge/issues/954
-  const showTimeRemaining = true
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
   const seconds = end - now

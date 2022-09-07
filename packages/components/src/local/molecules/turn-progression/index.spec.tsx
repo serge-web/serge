@@ -19,6 +19,7 @@ describe('TurnProgression component:', () => {
           phase="adjudication"
           gameDate="2019-10-01T02:02+01:00"
           isGameControl={false}
+          showTimeRemaining={true}
           wargameInitiated={false}
         />
       )

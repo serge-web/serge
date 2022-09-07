@@ -51,14 +51,28 @@ export default {
       }
     },
     isGameControl: {
-      name: 'Is Game Control'
+      name: 'Is Game Control',
+      control: {
+        defaultValue: true
+      }
+    },
+    showTimeRemaining: {
+      name: 'Show time remaining',
+      control: {
+        defaultValue: true
+      }
     },
     wargameInitiated: {
-      name: 'Is Wargame Initiated'
+      name: 'Is Wargame Initiated',
+      control: {
+        defaultValue: true
+      }
     }
   }
 
 }
+
+const stepTime = 20000
 
 const Template: Story<TurnPropTypes> = (args) => {
   // @ts-ignore: Add custom property for storybook
@@ -74,7 +88,7 @@ const Template: Story<TurnPropTypes> = (args) => {
       phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
       currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn,
       adjudicationStartTime: moment().toString(),
-      turnEndTime: moment().add(20000).toString()
+      turnEndTime: moment().add(stepTime).toString()
     })
   }
   return <TurnProgression
@@ -92,8 +106,8 @@ const Template: Story<TurnPropTypes> = (args) => {
 
 export const WithPhases = Template
 WithPhases.args = {
-  adjudicationStartTime: '2019-09-30T14:13:22+01:00',
-  turnEndTime: '0',
+  adjudicationStartTime: moment().toISOString(),
+  turnEndTime: moment().add(stepTime).toISOString(),
   currentTurn: 0,
   phase: Phase.Planning,
   timeWarning: 60000,

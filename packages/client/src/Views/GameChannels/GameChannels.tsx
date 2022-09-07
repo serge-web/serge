@@ -100,6 +100,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         turnEndTime={`${turnEndTime}`}
         wargameInitiated={wargameInitiated}
         onNextTurn={nextGameTurn(currentWargame)}
+        showTimeRemaining={true}
       />
 
       <div className='message-group-button'>
