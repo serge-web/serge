@@ -28,7 +28,7 @@ type TimeState = {
   // if planning allowance has expired
   ended: boolean
   // the time adjudication started
-  startTime: number,
+  startTime: number
   // which phase we're currently in
   phase: string
 }
@@ -60,7 +60,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     secondsStr: ('0' + Math.floor(seconds % 60)).slice(-2),
     ended: false,
     warning: false,
-    startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000),
+    startTime: adjudicationStartTime ? Math.round(new Date(adjudicationStartTime).getTime() / 1000) : 0,
     phase
   }
   const [progressionState, setProgressionState] = useState<TimeState>(initialState)
@@ -72,7 +72,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     const rawSeconds = end - now
     const ended = rawSeconds <= 0
     // once we've passed the allowed time, we start counting upwards
-    const seconds = ended ? -rawSeconds : rawSeconds 
+    const seconds = ended ? -rawSeconds : rawSeconds
 
     const minsLeft = Math.floor(seconds / 60)
     const minutesLeft = minsLeft < 100 ? ('0' + minsLeft).slice(-2) : minsLeft.toString()
@@ -87,8 +87,9 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   }
 
   const countup = (): any => {
+    const startTime = Math.round(new Date(adjudicationStartTime).getTime() / 1000)
     const now = Math.floor(new Date().getTime() / 1000)
-    const seconds = now - progressionState.startTime
+    const seconds = now - startTime
     const minsUp = Math.floor(seconds / 60)
     const minutesStr = minsUp < 100 ? ('0' + minsUp).slice(-2) : minsUp.toString()
     setProgressionState({
@@ -105,13 +106,26 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     clearInterval(interval)
+    const newStart = Math.round(new Date(adjudicationStartTime).getTime() / 1000)
+
+    // sort out the values for planning phase init values
+    const now = Math.floor(new Date().getTime() / 1000)
+    const end = Math.round(new Date(turnEndTime).getTime() / 1000)
+    const seconds = end - now
+    const minsLeft = Math.floor(seconds / 60)
+    const minutesLeft = minsLeft < 100 ? ('0' + minsLeft).slice(-2) : minsLeft.toString()
+    const secsLefs = ('0' + Math.round(Math.abs(seconds) % 60)).slice(-2)
+
+    const inPlanning = phase === PLANNING_PHASE
+    const minStr = inPlanning ? minutesLeft : '00'
+    const secStr = inPlanning ? secsLefs : '00'
     setProgressionState({
       ...progressionState,
-      minutesStr: '',
-      secondsStr: '',
+      minutesStr: minStr,
+      secondsStr: secStr,
       ended: false,
       warning: false,
-      startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
+      startTime: newStart
     })
     if (showTimeRemaining) {
       interval = setInterval(startInterval[phase], 1000)
