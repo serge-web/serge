@@ -72,6 +72,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     messages={newestMessages}
     channel={planningChannel}
     icons={icons}
+    gameDate={P9Mock.data.overview.gameDate}
     playerForceId={playerForceId}
     playerRoleId={playerRoleId}
     colors={colors}

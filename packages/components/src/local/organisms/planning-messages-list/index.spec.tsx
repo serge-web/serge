@@ -52,7 +52,7 @@ describe('ChannelMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<PlanningMessagesList channel={planningChannel} hideForcesInChannel={false}
+      .create(<PlanningMessagesList gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
         messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true}
         playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)

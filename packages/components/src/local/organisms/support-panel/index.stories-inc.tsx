@@ -1,6 +1,6 @@
 import { ChannelPlanning, ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock, MessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -65,11 +65,18 @@ const Template: Story<SupportPanelProps> = (args) => {
   const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
     myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
   )
+  const legacyTemplate = MessageTemplatesMock.find((value: TemplateBody) => value._id === 'k16eedkk')
+  if (legacyTemplate) {
+    myTemplates.push(legacyTemplate)
+  }
+
+  console.log('my templates', myTemplates, planningMessages)
 
   return <SupportPanel
     forceIcons={[]}
     platformTypes={platformTypes}
     forceNames={[]}
+    gameDate={P9Mock.data.overview.gameDate}
     hideForcesInChannel={false}
     messages={planningMessages}
     selectedForce={force}

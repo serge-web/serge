@@ -24,6 +24,7 @@ describe('Support Panel component: ', () => {
     const tree = renderer
       .create(<SupportPanel
         forceIcons={[]}
+        gameDate={P9Mock.data.overview.gameDate}
         platformTypes={platformTypes}
         forceNames={[]}
         hideForcesInChannel={false}
