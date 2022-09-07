@@ -62,6 +62,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     <div className={cx(channelTabClass, classes.root)} data-channel-id={channelId}>
       <SupportPanel
         forceIcons={forceIcons}
+        gameDate={state.gameDate}
         channel={channelPlanning}
         platformTypes={platformTypes}
         forceNames={forceNames}

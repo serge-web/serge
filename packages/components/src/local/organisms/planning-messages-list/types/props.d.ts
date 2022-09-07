@@ -8,6 +8,10 @@ export default interface PropTypes extends ForcesInChannelProps {
    */
   messages: Array<MessagePlanning>
   /**
+   *  current game-date (may be used in JSON Editor for date-picker)
+   */
+  gameDate: string
+  /**
    *  definition of planning channel
    */
   channel: ChannelPlanning

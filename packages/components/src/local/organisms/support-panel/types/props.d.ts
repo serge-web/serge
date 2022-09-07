@@ -17,6 +17,10 @@ export default interface PropTypes {
    * definition of this channel
    */
   channel: ChannelPlanning
+  /**
+   * current date/time in game
+   */
+  gameDate: string
   /** new orders templates for this player */
   templates: TemplateBody[]
   /** descriptions of platform types (used to generate icons) */
