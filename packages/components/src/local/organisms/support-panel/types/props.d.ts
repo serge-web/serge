@@ -17,8 +17,8 @@ export default interface PropTypes {
    * definition of this channel
    */
   channel: ChannelPlanning
-  /** 
-   * current date/time in game 
+  /**
+   * current date/time in game
    */
   gameDate: string
   /** new orders templates for this player */

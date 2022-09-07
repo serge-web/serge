@@ -1,4 +1,4 @@
-import { TemplateBodysByKey } from "@serge/custom-types"
+import { TemplateBodysByKey } from '@serge/custom-types'
 
 export type OrderRow = {
   id: string

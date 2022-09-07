@@ -24,8 +24,8 @@ export default {
 }
 const templates = Object.values(MessageTemplatesMockByKey)
 
-const Template: Story<OrdersProps> = ({ columns, rows }) => 
-  <Orders columns={columns} messages={messageDataCollaborativeEditing}  
+const Template: Story<OrdersProps> = ({ columns, rows }) =>
+  <Orders columns={columns} messages={messageDataCollaborativeEditing}
     gameDate={WargameMock.data.overview.gameDate} rows={rows} templates={templates} />
 
 export const Default = Template.bind({})

@@ -69,9 +69,7 @@ const Template: Story<SupportPanelProps> = (args) => {
   if (legacyTemplate) {
     myTemplates.push(legacyTemplate)
   }
-
-  console.log('my templates', myTemplates, planningMessages)
-
+  console.warn('Note: story is lazily injecting legacy template to make things work. To be deleted once we have better mock data')
   return <SupportPanel
     forceIcons={[]}
     platformTypes={platformTypes}

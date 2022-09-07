@@ -17,7 +17,6 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
     }
   }
 
-
   const extendProps = jestWorkerId ? {} : {
     detailPanel: (rowData: OrderRow) => {
       // retrieve the message & template
