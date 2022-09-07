@@ -28,9 +28,8 @@
   }
 
   .ended {
-    &::before {
-      content: "-";
-    }
+    font-weight: bold;
+    color: rgb(255, 58, 58);
   }
 
   .warning {
