@@ -155,20 +155,18 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
           {
             showTimeRemaining &&
             <div className={styles['turn-phase-item']}>
-              {
-                phase === PLANNING_PHASE &&
-                <>
-                  <h5>Time Left:</h5>
-                  <h5 className={classNames(warningStyle, endedStyle)}>{progressionState.minutesLeft}:{progressionState.secondsLeft}</h5>
-                </>
-              }
-              {
-                phase === ADJUDICATION_PHASE &&
-                <>
-                  <h5>Elapsed:</h5>
-                  <h5>{progressionState.minutesUp}:{progressionState.secondsUp}</h5>
-                </>
-              }
+              {phase === PLANNING_PHASE &&
+            <>
+              <h5>Time Remaining:</h5>
+              <span className={
+                `${styles['time-left']} ${warningStyle} ${endedStyle}`
+              }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
+            </> }
+              {phase === ADJUDICATION_PHASE &&
+              <>
+                <h5>Elapsed:</h5>
+                <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
+              </> }
             </div>
           }
         </div>

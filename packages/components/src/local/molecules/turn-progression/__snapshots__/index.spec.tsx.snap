@@ -43,11 +43,13 @@ exports[`TurnProgression component: renders correctly 1`] = `
         <h5>
           Elapsed:
         </h5>
-        <h5>
+        <span
+          className="time-left"
+        >
           00
           :
           00
-        </h5>
+        </span>
       </div>
     </div>
     <time
