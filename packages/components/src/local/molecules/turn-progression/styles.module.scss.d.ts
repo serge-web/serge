@@ -6,17 +6,15 @@ interface CssExports {
   'divider': string;
   'ended': string;
   'flex-content-wrapper': string;
-  'highlight': string;
   'info-helper': string;
   'info-phase-label': string;
   'not-initiated': string;
-  'phase': string;
   'time': string;
   'time-left': string;
-  'turn': string;
   'turn-info-phase': string;
   'turn-info-remaining': string;
   'turn-phase-group': string;
+  'turn-phase-item': string;
   'turn-progression-ui': string;
   'warning': string;
 }
