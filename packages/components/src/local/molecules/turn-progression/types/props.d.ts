@@ -13,4 +13,6 @@ export default interface Props {
   onNextTurn?: React.ReactEventHandler<any>
   /** whether the wragame has been initiated or not */
   wargameInitiated: boolean
+  /** whether to display the countdown timer */
+  showTimeRemaining: boolean
 }

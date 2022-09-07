@@ -21,7 +21,9 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
   const logger: PlayerMessage = {
     roleId: payload.details.from.roleId,
     lastMessageTitle: payload.details.messageType,
-    lastMessageTime: payload.details.timestamp
+    lastMessageTime: payload.details.timestamp,
+    hasBeenRead: payload.hasBeenRead,
+    _id: payload._id
   }
   data.playerMessageLog[sourceRole] = logger
   if (channel === CHAT_CHANNEL_ID) {
@@ -125,7 +127,6 @@ export const handleAllInitialChannelMessages = (
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
-
     if (message.messageType === INFO_MESSAGE) {
       return clipInfoMEssage(message.gameTurn, message.messageType, message._id, hasBeenRead)
     } else {
@@ -140,8 +141,9 @@ export const handleAllInitialChannelMessages = (
   // reduce messages, so we just have single turn marker, and most recent
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
+  const reverseMessagesReduced = messagesReduced.reverse()
 
-  const playerLog = newestPerRole(payload)
+  const playerLog = newestPerRole(reverseMessagesReduced as Array<MessageCustom>)
 
   const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
@@ -250,7 +252,6 @@ const handleChannelUpdates = (
     if (channel.uniqid === undefined) {
       console.error('Received channel without uniqid')
     }
-
     const channelId = channel.uniqid
 
     const {

@@ -72,6 +72,8 @@ export default interface PlayerUi {
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
+  /** whether to record player activity to database */
+  logPlayerActivity: boolean
   /** whether logged in user can view insights & feedback */
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */
