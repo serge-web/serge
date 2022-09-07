@@ -37,20 +37,6 @@ exports[`TurnProgression component: renders correctly 1`] = `
           Adjudication
         </h6>
       </div>
-      <div
-        className="turn-phase-item"
-      >
-        <h5>
-          Elapsed:
-        </h5>
-        <span
-          className="time-left"
-        >
-          00
-          :
-          00
-        </span>
-      </div>
     </div>
     <time
       className="time"
