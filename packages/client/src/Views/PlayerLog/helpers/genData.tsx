@@ -56,7 +56,8 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
     { label: 'Last activity', field: 'lastActivity' },
     { label: 'Active at', field: 'lastActive' },
     { label: 'Last Msg', field: 'message' },
-    { label: 'Sent at', field: 'lastMessage' }
+    { label: 'Sent at', field: 'lastMessage' },
+    { label: '', field: 'hasBeenRead' }
   ]
 
   const columns = columnsList.map(col => {

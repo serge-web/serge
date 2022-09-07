@@ -169,7 +169,7 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo
   // In addition to pushing data to the server, we're also checking the server is still alive
   // So, even if the log is empty, we should push an empty list, since still we want to get a 
   // 'success' back from the server
-  return db.putPlayerLogs(items).then(res => res)
+  return db.putPlayerLogs(items).then(res => res.msg)
 }
  
 export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntries> => {

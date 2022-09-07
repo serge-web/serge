@@ -116,7 +116,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  putPlayerLogs = (doc: PlayerLogEntries): Promise<string> => {
+  putPlayerLogs = (doc: PlayerLogEntries): Promise<{msg: string}> => {
     return new Promise((resolve, reject) => {
       fetch(serverPath + 'healthcheck' + '/' + this.getDbName(), {
         method: 'PUT',

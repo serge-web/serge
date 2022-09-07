@@ -9,7 +9,7 @@ export interface DbProviderInterface {
   allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
   getPlayerLogs: (wargames: string) => Promise<PlayerLogEntries>
-  putPlayerLogs: (docs: PlayerLogEntries) => Promise<string> 
+  putPlayerLogs: (docs: PlayerLogEntries) => Promise<{msg: string}> 
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }
