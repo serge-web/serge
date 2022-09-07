@@ -59,7 +59,9 @@ export enum CellLabelStyle {
   // 432
   CTR_LABELS = 'ctr_labels',
   // 35234fe5effffff
-  H3_LABELS = 'h3_labels'
+  H3_LABELS = 'h3_labels',
+  // don't show labels
+  BLANK = 'blank'
 }
 
 /** who is required to give asset an initial location */

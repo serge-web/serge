@@ -97,7 +97,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const visibleHandler = (data: Array<ForceData['uniqid']>) => {
+  const visibleHandler = (data: Array<ForceData['uniqid']>): void => {
     setVisibleVal(data)
     manager && manager.setCurrentVisibleTo(data)
   }
@@ -157,7 +157,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   return (
     <div className={styles.adjudicate}>
-      <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} attributeTypes={manager && manager.getPlatformDetails().attributeTypes} data={attributes} />
+      <AttributeEditor isOpen={attributeEditorOpen} inAdjudication={true} onClose={closeModal} onSave={updateData} attributeTypes={manager && manager.getPlatformDetails().attributeTypes} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
         icon={icon.icon}

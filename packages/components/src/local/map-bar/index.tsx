@@ -22,9 +22,10 @@ import {
   MessageSubmitPlans,
   MessageForceLaydown,
   MessageDeletePlatform,
-  MapAnnotation
+  MapAnnotation,
+  PlatformTypeData
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes, UMPIRE_LAYDOWN } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes, UMPIRE_LAYDOWN, TASK_GROUP } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -60,6 +61,7 @@ export const MapBar: React.FC = () => {
   const [canSubmitOrdersForThisAsset, setCanSubmitOrdersForThisAsset] = useState<boolean>(false)
 
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
+  const [taskGroupType, setTaskGroupType] = useState<PlatformTypeData | undefined>(undefined)
 
   /* Pull in the context from MappingContext */
   const props = useContext(MapContext).props
@@ -100,6 +102,14 @@ export const MapBar: React.FC = () => {
   useEffect(() => {
     setUserIsUmpire(playerForce === UMPIRE_FORCE)
   }, [playerForce])
+
+  // sort out the handler for State of World button
+  useEffect(() => {
+    const tgType = platforms.find((pType: PlatformTypeData) => pType.name === TASK_GROUP)
+    if (tgType) {
+      setTaskGroupType(tgType)
+    }
+  }, [platforms])
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -374,11 +384,12 @@ export const MapBar: React.FC = () => {
       }
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrdersForThisAsset && phase === PLANNING_PHASE
-        const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         const actualAsset = findAsset(forces, selectedAsset.uniqid)
+        const currentRoute = routeStore.selected
+        const formData: PlanTurnFormData = collatePlanFormData(platforms, currentRoute)
         // is this an empty task group?
         const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length === 0
-        const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel)
+        const deleteHandler = (taskGroupType && actualAsset.platformTypeId === taskGroupType.uniqid && emptyVessel)
           ? deleteEmptyTaskGroup : undefined
         return <PlanTurnForm
           icon={iconData}

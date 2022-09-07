@@ -54,6 +54,9 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 export const CHAT_MESSAGE = 'ChatMessage'
 
 // series of constants used for `messageType` when sending feedback
+export const PLANNING_MESSAGE = 'PlanningMessage'
+
+// series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when using Counter message for COA and RFI messages
@@ -80,12 +83,14 @@ export const CHANNEL_MAPPING = 'mapping'
 export const CHANNEL_CHAT = 'ChannelChat'
 export const CHANNEL_CUSTOM = 'ChannelCustom'
 export const CHANNEL_COLLAB = 'ChannelCollab'
+export const CHANNEL_PLANNING = 'ChannelPlanning'
 
 // types of participant
 export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
 export const PARTICIPANT_MAPPING = 'ParticipantMapping'
+export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
 
 // types of attribute
 export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
@@ -102,6 +107,10 @@ export const EMPTY_CELL = '[Empty]'
 // name of property used for storing time/type of last activity
 export const ACTIVITY_TIME = 'activityTime'
 export const ACTIVITY_TYPE = 'activityType'
+
+// marker character to tell updateMarker handler that the update is coming 
+// from the marker form - and the maker may have been separately dragged around
+export const FLAG_MARKER = '!'
 
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a

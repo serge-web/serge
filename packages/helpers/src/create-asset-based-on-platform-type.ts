@@ -31,7 +31,6 @@ export const createAssetBasedOnPlatformType = (pType: PlatformTypeData): Asset =
     uniqid: uniqid,
     contactId: contactId,
     name: pType.name,
-    platformType: pType.name,
     platformTypeId: pType.uniqid,
     perceptions: [],
     condition: '',
