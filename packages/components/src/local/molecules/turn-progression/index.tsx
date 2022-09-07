@@ -19,6 +19,20 @@ const GameControl = styled(Button)({
   }
 })
 
+type TimeState = {
+  // values to display
+  minutesStr: string
+  secondsStr: string
+  // if time is under warning time in planning phase
+  warning: boolean
+  // if planning allowance has expired
+  ended: boolean
+  // the time adjudication started
+  startTime: number,
+  // which phase we're currently in
+  phase: string
+}
+
 /* Render component */
 export const TurnProgression: React.FC<Props> = (props: Props) => {
   const {
@@ -37,80 +51,70 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   // TODO: this should come from the new turn attributes in game overview,
   // to be implemented in https://github.com/serge-web/serge/issues/954
   const showTimeRemaining = true
-
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
   const seconds = end - now
   const adjudicationPhase = phase === ADJUDICATION_PHASE
-  const initialState = {
-    minutesLeft: ('0' + Math.floor(seconds / 60)).slice(-2),
-    secondsLeft: ('0' + Math.floor(seconds % 60)).slice(-2),
+  const initialState: TimeState = {
+    minutesStr: ('0' + Math.floor(seconds / 60)).slice(-2),
+    secondsStr: ('0' + Math.floor(seconds % 60)).slice(-2),
     ended: false,
     warning: false,
-    minutesUp: adjudicationPhase ? '00' : '',
-    secondsUp: adjudicationPhase ? '00' : '',
     startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000),
     phase
   }
+  const [progressionState, setProgressionState] = useState<TimeState>(initialState)
+
   const timer = (): any => {
     const now = Math.floor(new Date().getTime() / 1000)
     const end = Math.round(new Date(turnEndTime).getTime() / 1000)
-    let seconds
 
-    if (progressionState.ended) {
-      seconds = now - end
-    } else {
-      seconds = end - now
-    }
+    const rawSeconds = end - now
+    const ended = rawSeconds <= 0
+    // once we've passed the allowed time, we start counting upwards
+    const seconds = ended ? -rawSeconds : rawSeconds 
 
     const minsLeft = Math.floor(seconds / 60)
     const minutesLeft = minsLeft < 100 ? ('0' + minsLeft).slice(-2) : minsLeft.toString()
 
-    console.log('timer2', minsLeft, minutesLeft, ('0' + minsLeft))
-
-
     setProgressionState({
       ...progressionState,
-      minutesLeft,
-      secondsLeft: ('0' + Math.round(Math.abs(seconds) % 60)).slice(-2),
-      ended: seconds === 0 && minsLeft === 0,
-      warning: (seconds < (timeWarning / 1000))
+      minutesStr: minutesLeft,
+      secondsStr: ('0' + Math.round(Math.abs(seconds) % 60)).slice(-2),
+      ended: ended,
+      warning: !ended && (seconds <= (timeWarning / 1000))
     })
   }
+
   const countup = (): any => {
     const now = Math.floor(new Date().getTime() / 1000)
     const seconds = now - progressionState.startTime
     const minsUp = Math.floor(seconds / 60)
-    const minutesUp = minsUp < 100 ? ('0' + minsUp).slice(-2) : minsUp.toString()
-
+    const minutesStr = minsUp < 100 ? ('0' + minsUp).slice(-2) : minsUp.toString()
     setProgressionState({
       ...progressionState,
-      minutesUp,
-      secondsUp: ('0' + Math.round(seconds % 60)).slice(-2)
+      minutesStr,
+      secondsStr: ('0' + Math.round(seconds % 60)).slice(-2)
     })
   }
   const startInterval = {
     [PLANNING_PHASE]: timer,
     [ADJUDICATION_PHASE]: countup
   }
-  const [progressionState, setProgressionState] = useState(initialState)
-
   let interval: any
 
   useEffect(() => {
     clearInterval(interval)
-    console.log('phase handler')
     setProgressionState({
       ...progressionState,
-      minutesUp: adjudicationPhase ? '00' : '',
-      secondsUp: adjudicationPhase ? '00' : '',
-      minutesLeft: '',
-      secondsLeft: '',
+      minutesStr: '',
+      secondsStr: '',
+      ended: false,
+      warning: false,
       startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
     })
     if (showTimeRemaining) {
       interval = setInterval(startInterval[phase], 1000)
-      console.log('interval', interval)
     }
     return (): any => clearInterval(interval)
   }, [phase])
@@ -153,12 +157,12 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
               <h5>Time Remaining:</h5>
               <span className={
                 `${styles['time-left']} ${warningStyle} ${endedStyle}`
-              }>{progressionState.minutesLeft}:{progressionState.secondsLeft}</span>
+              }>{progressionState.minutesStr}:{progressionState.secondsStr}</span>
             </> }
               {phase === ADJUDICATION_PHASE &&
               <>
                 <h5>Elapsed:</h5>
-                <span className={styles['time-left']}>{progressionState.minutesUp}:{progressionState.secondsUp}</span>
+                <span className={styles['time-left']}>{progressionState.minutesStr}:{progressionState.secondsStr}</span>
               </> }
             </div>
           }
