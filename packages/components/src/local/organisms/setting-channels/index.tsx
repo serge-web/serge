@@ -7,7 +7,7 @@ import MenuList from '@material-ui/core/MenuList'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, SpecialChannelTypes } from '@serge/config'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -89,9 +89,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
           forces={forces}
           onChange={onChannelDataChange}
         />
-
+      case CHANNEL_PLANNING:
+        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel: {JSON.stringify(selectedChannelState)}</div>
       default:
-        return <div>Legacy/Unsupported channel type. Not rendered.</div>
+        return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {channelType}</div>
     }
   }, [selectedChannelId])
 
