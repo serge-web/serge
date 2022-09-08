@@ -90,7 +90,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           onChange={onChannelDataChange}
         />
       case CHANNEL_PLANNING:
-        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel: {JSON.stringify(selectedChannelState)}</div>  
+        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel: {JSON.stringify(selectedChannelState)}</div>
       default:
         return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {channelType}</div>
     }

@@ -15,31 +15,31 @@ const wChannels = watuWargame.data.channels.channels
 const wForces = watuWargame.data.forces.forces
 
 const planningChannel: ChannelPlanning = {
-  name: "Blue Planning",
-  channelType: "ChannelPlanning",
-  uniqid: "dummy-planning",
+  name: 'Blue Planning',
+  channelType: 'ChannelPlanning',
+  uniqid: 'dummy-planning',
   participants: [
     {
-      forceUniqid: "F-Blue",
-      pType: "ParticipantPlanning",
+      forceUniqid: 'F-Blue',
+      pType: 'ParticipantPlanning',
       roles: [],
-      subscriptionId: "huk3qr",
+      subscriptionId: 'huk3qr',
       templates: [
         {
-          _id: "k16e-maritime",
-          title: "Maritime Activity"
+          _id: 'k16e-maritime',
+          title: 'Maritime Activity'
         },
         {
-          title: "Land Activity",
-          _id: "k16e-land"
+          title: 'Land Activity',
+          _id: 'k16e-land'
         },
         {
-          title: "Air Activity",
-          _id: "k16e-air"
+          title: 'Air Activity',
+          _id: 'k16e-air'
         },
         {
-          title: "Other Activity",
-          _id: "k16e-other"
+          title: 'Other Activity',
+          _id: 'k16e-other'
         }
       ]
     }
@@ -48,8 +48,8 @@ const planningChannel: ChannelPlanning = {
 const withPlanning = wChannels.concat(planningChannel)
 
 const legacyChannel = {
-  name: "Legacy channel",
-  uniqid: "dummy-legacy"
+  name: 'Legacy channel',
+  uniqid: 'dummy-legacy'
 }
 const withLegacy = wChannels.concat(legacyChannel as any as ChannelPlanning)
 
