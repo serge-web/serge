@@ -29,7 +29,7 @@ import Wargame from './wargame'
 import { MapAnnotation } from './map-annotation'
 
 export interface MessageDetailsFrom {
-  /** name
+  /** name of force - to be @deprecated
    */
   readonly force: ForceData['name'],
   /** id of sending force */
