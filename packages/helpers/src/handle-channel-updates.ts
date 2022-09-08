@@ -1,4 +1,4 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHAT_MESSAGE, PLANNING_MESSAGE, FEEDBACK_MESSAGE } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
@@ -10,13 +10,14 @@ import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { CoreParticipant } from '@serge/custom-types/participant'
+import { CoreMessage } from '@serge/custom-types/message'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
  * @param { string } channel id of the cahnnel
  * @param { MessageCustom } payload the new message
  */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, playerId: string) => {
   const sourceRole: string = payload.details.from.roleId
   const logger: PlayerMessage = {
     roleId: payload.details.from.roleId,
@@ -64,15 +65,14 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       // NOTE: we used to put chat at end, and custom at start, but now we put them all at tend
       theChannel.messages.unshift(newObj)
       // update message count
-      // const mTypesWithDetails = [CUSTOM_MESSAGE, CHAT_MESSAGE, PLANNING_MESSAGE, FEEDBACK_MESSAGE]
-      // if (mTypesWithDetails.includes(newObj.messageType)) {
-      //   const coreM = newObj as CoreMessage
-      //   const from = coreM.details.from
-      //   if(from.roleId !== )
-      // }
-      // TODO: only do this if it is from us
-      // if (newObj.messageType === CUSTOM_MESSAGE  )
-      theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+      const mTypesWithDetails = [CUSTOM_MESSAGE, CHAT_MESSAGE, PLANNING_MESSAGE, FEEDBACK_MESSAGE]
+      if (mTypesWithDetails.includes(newObj.messageType)) {
+        const coreM = newObj as CoreMessage
+        const from = coreM.details.from
+        if (from.roleId !== playerId) {
+          theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+        }
+      }
     } else {
       console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', payload)
     }
@@ -209,7 +209,8 @@ export const handleNewMessageData = (
   payload: MessageChannel,
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
-  playerMessageLog: PlayerMessageLog): SetWargameMessage => {
+  playerMessageLog: PlayerMessageLog,
+  playerId: string): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
@@ -224,7 +225,7 @@ export const handleNewMessageData = (
     }
     channel.messages.unshift(payload)
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload)
+    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   }
 
   return res

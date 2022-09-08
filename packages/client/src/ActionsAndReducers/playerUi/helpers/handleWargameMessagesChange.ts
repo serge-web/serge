@@ -39,7 +39,7 @@ export const handleNewMessage = (payload: MessageChannel, newState: PlayerUi): S
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleNewMessageData(payload, newState.channels, newState.chatChannel,
-    newState.playerMessageLog)
+    newState.playerMessageLog, newState.selectedRole)
   return res
 }
 
