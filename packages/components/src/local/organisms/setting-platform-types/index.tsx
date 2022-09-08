@@ -495,7 +495,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   <div className={styles['enum-attribute-header-icon']}>
                     <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
                     <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faFileAlt} /></MoreInfo></span>
-                    <span><MoreInfo description='Possible values for attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                    <span><MoreInfo description='Possible values for attribute (comma separated)'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
                     <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
                   </div>
                 </div>
