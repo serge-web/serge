@@ -1,4 +1,3 @@
-
 export type OrderRow = {
   id: string
   title: string
@@ -12,4 +11,7 @@ export default interface PropTypes {
   columns: OrderColumn[]
   rows: OrderRow[]
   title?: string
+  templates: TemplateBody[]
+  messages: MessagePlanning[]
+  gameDate: string
 }

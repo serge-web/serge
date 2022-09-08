@@ -7,7 +7,7 @@ import { OrderRow } from '../orders/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates }: PropTypes) => {
+export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, gameDate }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
 
   /** custom date formatter, for compact date/time display */
@@ -18,7 +18,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates 
   useEffect(() => {
     const dataTable = messages.map(message => {
       return {
-        id: message.message.reference,
+        id: message._id,
         title: message.message.title,
         role: message.details.from.roleName,
         status: (message.details.collaboration && message.details.collaboration.status) || 'Pending',
@@ -44,7 +44,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates 
 
   return (
     <div className={styles['messages-list']}>
-      <Orders columns={columns} rows={rows} />
+      <Orders messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
       {
         templates && templates.length > 0 &&
         <div>[New template editor for:{templates.map((value: ParticipantTemplate) => value.title)}]</div>

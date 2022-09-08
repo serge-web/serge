@@ -1,7 +1,7 @@
 import uniqid from 'uniqid'
 import _ from 'lodash'
 import moment from 'moment'
-import fetch, { Response } from 'node-fetch'
+import fetch from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
@@ -15,9 +15,6 @@ import {
   clearAll,
   allDbs,
   COUNTER_MESSAGE,
-  expiredStorage,
-  ACTIVITY_TIME,
-  ACTIVITY_TYPE,
   SERGE_INFO,
   INFO_MESSAGE,
   FEEDBACK_MESSAGE,
@@ -62,7 +59,9 @@ import {
   MessageStateOfWorld,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  ActivityLogsInterface,
+  PlayerLogEntries
 } from '@serge/custom-types'
 
 import {
@@ -152,45 +151,33 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {
-  const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)
-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)
+/** dual function method, to both check the server is still running, and to push
+ * details of recent player activity
+ * @param log a list of the most recent interactions
+ * @param logAllActivity whether to store all events since last ping, or just the most recent one
+ * @returns the server response
+ */
+export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: boolean): Promise<string> => { 
+  const allItems = log.items
+  
+  // if we're not storing all activity, just store the latest item
+  const items: PlayerLogEntries = logAllActivity ? allItems : allItems.length > 0 ? [allItems[allItems.length - 1]] : []
 
-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
+  // get the wargame to operate upon
+  const { db } = getWargameDbByName(log.currentDbname)
 
-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data.status
-    })
-    .catch((err) => {
-      console.log(err)
-      return 'NOT_OK'
-    })
+  // In addition to pushing data to the server, we're also checking the server is still alive
+  // So, even if the log is empty, we should push an empty list, since still we want to get a 
+  // 'success' back from the server
+  return db.putPlayerLogs(items).then(res => res.msg)
 }
+ 
+export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntries> => {
+  const { db } = getWargameDbByName(dbName)
 
-export const getPlayerActivityLogs = () => {
-  const url = `${serverPath}playerlog`
-
-  return fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  return await db.getPlayerLogs(wargame)
+    .then(res => res)
+    .catch(err => err)
 }
 
 export const populateWargame = (): Promise<string | Wargame[]> => {
@@ -706,14 +693,15 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
         res.gameTurn += 1
+        res.adjudicationStartTime = '0'
+        // move the turn forward
 
         const gameDate: string = res.data.overview.gameDate
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
-        //        const twoM: MonthTurns = { unit: 'months', months: 2 }
-        console.log('inc', gameDate, gameTurn)
         const newTime: number = incrementGameTime(gameDate, gameTurn)
         res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
-        console.log('inc 2', newTime, res.data.overview.gameDate)
+        
+        // calculate when the planning must finish
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
         break
     }

@@ -14,16 +14,17 @@ const blueRole = blueForce.roles[0]
 const thisPart = checkV3ParticipantStates(planningChannel, blueForce.uniqid, blueRole.roleId, false)
 
 const myTemplateIds = thisPart.templatesIDs
-const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
+const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody): any =>
   myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
 )
-const platformTypes = P9Mock.data.platformTypes!.platformTypes
+const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<SupportPanel
         forceIcons={[]}
+        gameDate={P9Mock.data.overview.gameDate}
         platformTypes={platformTypes}
         forceNames={[]}
         hideForcesInChannel={false}

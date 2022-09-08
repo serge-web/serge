@@ -1,4 +1,3 @@
-import { setActivityTime } from '@serge/config'
 import { ChannelTypes } from '@serge/custom-types'
 import FlexLayout, { Model, TabNode } from 'flexlayout-react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -13,14 +12,13 @@ import Props from './types'
 
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.ReactElement => {
   const state = usePlayerUiState()
-  const dispatch = usePlayerUiDispatch()
+  const playerUiDispatch = usePlayerUiDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
   const [allowTabChangeEvent, setAllowTabChangeEvent] = useState<boolean>(false)
   const selectedNode = useRef<TabNode>()
-
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
@@ -76,7 +74,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
   const [model] = useState<Model>(getModel())
   const [wargamesLoaded, setWargamesLoaded] = useState(false)
   const initialize = async () => {
-    await getAllWargameMessages(state.currentWargame)(dispatch)
+    await getAllWargameMessages(state.currentWargame)(playerUiDispatch)
     if (!wargamesLoaded) {
       setWargamesLoaded(true)
     }
@@ -84,7 +82,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
 
   useEffect(() => {
     initialize()
-  }, [])
+  }, [state.updateMessageState])
 
   useEffect(() => {
     if (wargamesLoaded) {
@@ -117,7 +115,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
               onRenderTab={onRenderTab}
               onModelChange={() => {
                 setAllowTabChangeEvent(true)
-                setActivityTime(state.selectedRole, 'change tab')
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />

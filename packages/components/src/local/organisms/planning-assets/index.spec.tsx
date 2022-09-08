@@ -10,7 +10,7 @@ const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
 
 const forceCols = forceColors(forces)
-const platformStyles = platformIcons(P9Mock.data.platformTypes!.platformTypes)
+const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
 
 describe('Planning Assets component: ', () => {
   it('renders component correctly', () => {

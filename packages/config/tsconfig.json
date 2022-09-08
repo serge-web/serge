@@ -1,5 +1,5 @@
 {
-  "exclude": ["node_modules", "dist", "build", "lib", "__tests__", "**/*.test*", "**/*.scss.d.ts"],
+  "exclude": ["node_modules", "types", "dist", "build", "lib", "__tests__", "**/*.test*", "**/*.scss.d.ts"],
   "compilerOptions": {
     "skipLibCheck": false,
     "target": "ES2019",

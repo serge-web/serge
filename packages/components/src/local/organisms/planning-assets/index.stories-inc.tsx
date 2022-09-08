@@ -48,7 +48,7 @@ export default {
 }
 
 const forceCols = forceColors(forces)
-const platformStyles = platformIcons(P9Mock.data.platformTypes!.platformTypes)
+const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { forces, playerForce, isUmpire, render, opFor } = args

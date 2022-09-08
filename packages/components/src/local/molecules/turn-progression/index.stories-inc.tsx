@@ -7,6 +7,7 @@ import TurnProgression from './index'
 import TurnPropTypes from './types/props'
 
 import docs from './README.md'
+import moment from 'moment-timezone'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -50,26 +51,44 @@ export default {
       }
     },
     isGameControl: {
-      name: 'Is Game Control'
+      name: 'Is Game Control',
+      control: {
+        defaultValue: true
+      }
+    },
+    showTimeRemaining: {
+      name: 'Show time remaining',
+      control: {
+        defaultValue: true
+      }
     },
     wargameInitiated: {
-      name: 'Is Wargame Initiated'
+      name: 'Is Wargame Initiated',
+      control: {
+        defaultValue: true
+      }
     }
   }
 
 }
+
+const stepTime = 20000
 
 const Template: Story<TurnPropTypes> = (args) => {
   // @ts-ignore: Add custom property for storybook
   const { ...props } = args
   const [state, setState] = useState({
     phase: props.phase,
-    currentTurn: args.currentTurn
+    currentTurn: args.currentTurn,
+    adjudicationStartTime: args.adjudicationStartTime,
+    turnEndTime: args.turnEndTime
   })
   const updateState = (): void => {
     setState({
       phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
-      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
+      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn,
+      adjudicationStartTime: moment().toString(),
+      turnEndTime: moment().add(stepTime).toString()
     })
   }
   return <TurnProgression
@@ -77,15 +96,18 @@ const Template: Story<TurnPropTypes> = (args) => {
     onNextTurn={updateState}
     wargameInitiated={args.wargameInitiated}
     isGameControl={args.isGameControl}
-    currentTurn={state.currentTurn}
     turnPresentation={args.turnPresentation}
+    turnEndTime={state.turnEndTime}
+    adjudicationStartTime={state.adjudicationStartTime}
+    currentTurn={state.currentTurn}
+    timeWarning={10000}
     phase={state.phase} />
 }
 
 export const WithPhases = Template
 WithPhases.args = {
-  adjudicationStartTime: '2019-09-30T14:13:22+01:00',
-  turnEndTime: '0',
+  adjudicationStartTime: moment().toISOString(),
+  turnEndTime: moment().add(stepTime).toISOString(),
   currentTurn: 0,
   phase: Phase.Planning,
   timeWarning: 60000,

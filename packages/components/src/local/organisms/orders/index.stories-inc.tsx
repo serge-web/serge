@@ -1,3 +1,4 @@
+import { messageDataCollaborativeEditing, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Orders from './index'
@@ -5,7 +6,7 @@ import docs from './README.md'
 import OrdersProps from './types/props'
 
 export default {
-  title: 'local/molecules/Orders',
+  title: 'local/organisms/Orders',
   component: Orders,
   decorators: [(story: Function): JSX.Element => (
     <div style={{ overflow: 'hidden' }}>{story()}</div>
@@ -21,8 +22,11 @@ export default {
     }
   }
 }
+const templates = Object.values(MessageTemplatesMockByKey)
 
-const Template: Story<OrdersProps> = ({ columns, rows }) => <Orders columns={columns} rows={rows} />
+const Template: Story<OrdersProps> = ({ columns, rows }) =>
+  <Orders columns={columns} messages={messageDataCollaborativeEditing}
+    gameDate={WargameMock.data.overview.gameDate} rows={rows} templates={templates} />
 
 export const Default = Template.bind({})
 Default.args = {
