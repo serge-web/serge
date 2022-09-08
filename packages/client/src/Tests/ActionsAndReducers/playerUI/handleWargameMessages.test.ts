@@ -9,7 +9,7 @@ import {
 
 import { PlayerUi } from '@serge/custom-types'
 
-import { MARK_ALL_AS_READ } from '@serge/config'
+import { CHANNEL_CHAT, MARK_ALL_AS_READ } from '@serge/config'
 
 import { actionOpenMessage, actionCloseMessage, GameMessagesMock } from '@serge/mocks'
 
@@ -35,9 +35,12 @@ const state: PlayerUi = {
     [GameMessagesMock[0].details.channel]: {
       uniqid: '345345',
       name: 'Blue Chat',
-      templates: [],
-      forceIcons: ['http://localhost:8080/default_img/forceDefault.png'],
-      forceColors: ['#3dd0ff'],
+      cData: {
+        channelType: CHANNEL_CHAT,
+        name: 'chat',
+        participants: [],
+        uniqid: 'cw243'
+      },
       messages: GameMessagesMock,
       unreadMessageCount: GameMessagesMock.length,
       observing: false
@@ -56,7 +59,7 @@ describe('PlayerUi Message Reducers', () => {
   it('Should set CLOSE_MESSAGE by channelId and messsage', () => {
     const expectedState: PlayerUi = copyState(state)
     expectedState.channels[actionCloseMessage.payload.message.details.channel].messages![0].isOpen = false
-    console.log(actionCloseMessage.payload.message.isOpen);
+    console.log(actionCloseMessage.payload.message.isOpen)
     expect(reducer(state, actionCloseMessage)).toEqual(expectedState)
   })
   it('Should set MARK_ALL_AS_READ by channel', () => {
