@@ -296,7 +296,7 @@ exports[`GameSetup component: renders correctly 1`] = `
               </div>
             </div>
             <div>
-              Legacy/Unsupported channel type. Not rendered.
+              Legacy/Unsupported channel type. Not rendered. Channel type: 
             </div>
           </div>
         </div>
