@@ -3,6 +3,7 @@ import { PlayerUi } from '@serge/custom-types'
 
 const state: PlayerUi = {
   selectedForce: undefined,
+  logPlayerActivity: false,
   selectedRole: 'CO',
   selectedRoleName: 'CO', 
   isUmpire: true,
@@ -121,9 +122,9 @@ const state: PlayerUi = {
         channelType: CHANNEL_CUSTOM,
         name: 'Channel 16',
         participants: [
-          { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
-          { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
-          { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
+          { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
+          { forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
+          { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
         ],
         uniqid: 'channel-k63pjit0'
       },
@@ -238,9 +239,9 @@ const state: PlayerUi = {
         channelType: CHANNEL_CUSTOM,
         name: 'Channel 16',
         participants: [
-          { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
-          { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
-          { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
+          { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [], pType: PARTICIPANT_CUSTOM },
+          { forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'k16eedkl' }], pType: PARTICIPANT_CUSTOM },
+          { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [], pType: PARTICIPANT_CUSTOM }
         ],
         uniqid: 'channel-k63pjit0'
       },
@@ -385,9 +386,9 @@ const state: PlayerUi = {
         },
         name: 'mapping',
         participants: [
-          { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', pType: PARTICIPANT_MAPPING },
-          { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', pType: PARTICIPANT_MAPPING },
-          { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', pType: PARTICIPANT_MAPPING }
+          { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', pType: PARTICIPANT_MAPPING },
+          { forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', pType: PARTICIPANT_MAPPING },
+          { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', pType: PARTICIPANT_MAPPING }
         ],
         uniqid: 'channel-k63pjit0'
       },
@@ -412,7 +413,6 @@ const state: PlayerUi = {
       channelType: CHANNEL_CHAT,
       participants: [
         {
-          force: 'Blue',
           pType: PARTICIPANT_CHAT,
           forceUniqid: 'force-k16fdykj',
           roles: [],
@@ -427,7 +427,6 @@ const state: PlayerUi = {
       channelType: CHANNEL_CUSTOM,
       participants: [
         {
-          force: 'Blue',
           forceUniqid: 'force-k16fdykj',
           pType: PARTICIPANT_CUSTOM,
           roles: [
@@ -442,7 +441,6 @@ const state: PlayerUi = {
           subscriptionId: 'k16fhq4b'
         },
         {
-          force: 'White',
           forceUniqid: 'umpire',
           pType: PARTICIPANT_CUSTOM,
           roles: [
@@ -470,7 +468,6 @@ const state: PlayerUi = {
       channelType: CHANNEL_MAPPING,
       participants: [
         {
-          force: 'White',
           pType: PARTICIPANT_MAPPING,
           forceUniqid: 'umpire',
           roles: [],
@@ -479,7 +476,6 @@ const state: PlayerUi = {
         },
         {
           pType: PARTICIPANT_MAPPING,
-          force: 'Blue',
           forceUniqid: 'force-k16fdykj',
           roles: [],
           icon: 'http://localhost:8080/default_img/forceDefault.png',
