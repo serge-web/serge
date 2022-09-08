@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')

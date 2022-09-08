@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, COUNTER_MESSAGE, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
