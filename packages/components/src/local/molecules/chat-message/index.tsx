@@ -38,7 +38,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
 
   return (
     <div className={
-        `${styles['chat-message-wrapper']} 
+      `${styles['chat-message-wrapper']} 
       ${isOwner ? styles['chat-message-wrapper__owner'] : styles['chat-message-wrapper__other']}`
     } style={{ position: 'relative' }}><span
         className={styles['message-bar']}

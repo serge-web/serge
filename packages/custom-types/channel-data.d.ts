@@ -1,5 +1,5 @@
-import { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping } from './participant'
-import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, SpecialChannelColumns, InitialStates } from '@serge/config'
+import { ParticipantCustom, ParticipantCollab, ParticipantChat, ParticipantTemplate, ParticipantMapping, ParticipantPlanning } from './participant'
+import { CHANNEL_CUSTOM, CHANNEL_COLLAB, CHANNEL_CHAT, CHANNEL_MAPPING, CHANNEL_PLANNING, SpecialChannelColumns, InitialStates } from '@serge/config'
 import MappingConstraints from './mapping-constraints'
 
 /** description of channel, as stored in database */
@@ -28,6 +28,13 @@ export interface ChannelMapping extends ChannelCore {
   participants: Array<ParticipantMapping>
   /** the constraints (bounds) for the mapping */
   constraints: MappingConstraints
+}
+
+/** description of planning channel */
+export interface ChannelPlanning extends ChannelCore {
+  channelType: typeof CHANNEL_PLANNING
+  /** list of participants for this channel */
+  participants: Array<ParticipantPlanning>
 }
 
 /** description of standard channel, sending custom messages */
@@ -66,4 +73,5 @@ export interface ChannelCollab extends ChannelCore {
 export type ChannelTypes = ChannelChat |
   ChannelCustom |
   ChannelCollab |
-  ChannelMapping
+  ChannelMapping |
+  ChannelPlanning

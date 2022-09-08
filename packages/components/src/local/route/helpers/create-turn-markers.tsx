@@ -45,8 +45,11 @@ const calculateTurnAngle = (thisStep: RouteMarker): number => {
   return (angle + 90)
 }
 
+export const PLANNED_MARKER = 'planned-marker'
+export const HISTORY_MARKER = 'history-marker'
+
 const createTurnMarkers = (routes: RouteData,
-  type: string,
+  type: typeof PLANNED_MARKER | typeof HISTORY_MARKER,
   color: string,
   selected: boolean,
   removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
@@ -71,12 +74,15 @@ const createTurnMarkers = (routes: RouteData,
                 html: svgIcon(color, angle || 0),
                 iconSize: [20, 20]
               })}>
-                <Popup open={false}>
-                  <Button
-                  // Note: here we have available handlers to activate the removeLastTurn function
-                    onClick={(): void => removeLastTurn(currentTurn)}
-                  >{`Clear route from Turn ${turn}`}</Button>
-                </Popup>
+                {
+                  type === PLANNED_MARKER &&
+                  <Popup open={false} closeButton={false}>
+                    <Button
+                    // Note: here we have available handlers to activate the removeLastTurn function
+                      onClick={(): void => removeLastTurn(currentTurn)}
+                    >{`Clear route from Turn ${turn}`}</Button>
+                  </Popup>
+                }
               </Marker>
             </>
           )

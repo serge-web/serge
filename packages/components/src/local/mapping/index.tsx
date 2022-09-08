@@ -4,7 +4,7 @@ import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
   CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
+  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER, FLAG_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
@@ -77,6 +77,7 @@ export const Mapping: React.FC<PropTypes> = ({
   forces,
   playerForce,
   isGameControl,
+  isUmpire,
   playerRole,
   platforms,
   infoMarkers,
@@ -131,6 +132,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
+  const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
   if (!channel) {
     console.warn('Channel is missing from mapping component')
@@ -290,7 +292,7 @@ export const Mapping: React.FC<PropTypes> = ({
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel, turnNumber)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce, selectedAsset])
 
   /**
    * the route-store has changed for some reason. So, declutter it
@@ -602,12 +604,11 @@ export const Mapping: React.FC<PropTypes> = ({
 
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
-          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
+          const turnData: TurningDetails | undefined = pType.turningCircle ? {
             radius: pType.turningCircle,
             heading: heading,
             distance: distancePerTurnM
           } : undefined
-
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
             travelMode: pType.travelMode,
@@ -651,6 +652,32 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const updateMarker = (event: string, marker: MapAnnotation): void => {
+    // we cache the lat-long inside the marker, but it sometimes persists,
+    // and causes trouble. Just delete the bugger
+    delete marker.position
+
+    // NOTE: special handling. updateMarker may have been called from the annotation
+    // form. If that's the case, the marker location may have separately been edited by
+    // dragging on the map.  So, first check if there is a flag on the location
+    if (marker.location.substring(0, 1) === FLAG_MARKER) {
+      const old = infoMarkersState.find((item: MapAnnotation) => item.uniqid === marker.uniqid)
+      if (old) {
+        // use the existing location
+        marker.location = old.location
+      } else {
+        // trim the new one, and use that
+        marker.location = marker.location.substring(1)
+      }
+    }
+
+    // utility function to clean the lat/lng from the marker
+    type CleanAnno = Omit<MapAnnotation, 'position'>
+    const cleanMarker = (ann: MapAnnotation): CleanAnno => {
+      const res = deepCopy(ann)
+      delete res.position
+      return res
+    }
+
     // do the external update, depending on which phase this is
     // check which phase we're in
     switch (phase) {
@@ -676,7 +703,7 @@ export const Mapping: React.FC<PropTypes> = ({
             // send the update out immediately
             const message: MessageUpdateMarker = {
               messageType: event,
-              marker: marker
+              marker: cleanMarker(marker)
             }
             mapPostBack(event, message, CHANNEL_MAPPING)
             break
@@ -725,8 +752,11 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const viewAsCallback = (force: string): void => {
+  const viewAsCallback = (force: ForceData['uniqid']): void => {
     setViewAsForce(force)
+    // see if this is player viewing as an umpire force
+    const theForce = forcesState.find((forceD: ForceData) => forceD.uniqid === force)
+    setViewAsUmpire(!!(theForce && theForce.umpire))
   }
 
   const groupMoveToRootLocal = (uniqid: string): void => {
@@ -787,6 +817,7 @@ export const Mapping: React.FC<PropTypes> = ({
     platforms,
     playerForce,
     isGameControl,
+    viewAsUmpire,
     phase,
     turnNumber,
     planningConstraints,

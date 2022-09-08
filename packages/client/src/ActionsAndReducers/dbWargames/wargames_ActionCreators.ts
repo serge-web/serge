@@ -5,7 +5,7 @@ import _ from 'lodash'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { DEFAULT_SERVER, forceTemplate } from '../../consts'
-import { 
+import {
   ChannelTypes,
   ForceData,
   PlatformType,
@@ -313,6 +313,15 @@ export const updateForces = (dbName: string, newData: ForceData[]) => {
   }
 }
 
+export const updateForcesAndDeletePlatformType = (dbName: string, newData: ForceData[], platformType: PlatformType) => {
+  return async (dispatch: WargameDispatch) => {
+    if (newData.length) {
+      await updateForces(dbName, newData)(dispatch)
+    }
+    await deletePlatformType(dbName, platformType)(dispatch)
+  }
+}
+
 export const saveForce = (dbName: string, newData: ForceData) => {
   return async (dispatch: WargameDispatch, state: any) => {
     const oldForceData = state().wargame.data.forces.selectedForce
@@ -365,9 +374,10 @@ export const deleteSelectedAsset = (data: any) => {
 export const deleteSelectedRole = (
   dbName: string,
   data: {
-   roles: Role[],
-   key: number,
-   handleChange: (changedItems: Array<Role>) => void }
+    roles: Role[],
+    key: number,
+    handleChange: (changedItems: Array<Role>) => void
+  }
 ) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
@@ -448,7 +458,7 @@ export const updateWargameVisible = (dbName: string) => {
 export const deleteAnnotation = (dbName: string, annotation: IconOption) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteAnnotation(dbName, annotation)
-    
+
     dispatch(setCurrentWargame(wargame))
 
     dispatch(setTabSaved())

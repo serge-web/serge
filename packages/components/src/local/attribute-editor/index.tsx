@@ -9,7 +9,7 @@ import MoreInfo from '../molecules/more-info'
 import styles from './styles.module.scss'
 import { Props } from './types/props'
 import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { MenuItem, Select } from '@material-ui/core'
+import { Select } from '@material-ui/core'
 
 /* Render component */
 export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {
@@ -73,19 +73,23 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
   const editorFor = (item: AttributeEditorData, attributes: AttributeTypes, idx: number): any => {
     switch (item.valueType) {
       case ATTRIBUTE_VALUE_NUMBER: {
-        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(parseInt(e.target.value), idx)} />
       }
       case ATTRIBUTE_VALUE_ENUM: {
         const aType = attributes && attributes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
         if (aType === undefined) {
           throw new Error('Failed to find attribute type for:' + item.attrId)
         }
-        return <Select value={item.valueRead}
+        return <Select
+          value={item.valueRead}
           onChange={enumChangeHandler}
           name={item.attrId}
+          className={styles.select}
+          inputProps={{ style: { padding: '0 5px 0 5px' } }}
+          native
         >
           {aType.values.map((s: any, index: number) => (
-            <MenuItem key={index} value={s}>{s}</MenuItem>
+            <option key={index} value={s}>{s}</option>
           ))}
         </Select>
       }

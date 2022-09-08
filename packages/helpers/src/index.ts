@@ -51,6 +51,7 @@ export { default as isPlainObject } from './is-plain-object'
 export { default as isPerceivedBy, ForceStyle } from './is-perceived-by'
 export { default as isValidUrl } from './is-valid-url'
 export { default as mostRecentOnly } from './most-recent-only'
+export { default as mostRecentPlanningOnly } from './most-recent-planning-only'
 export { default as padInteger } from './padInteger'
 export { default as newestPerRole, logTable } from './newest-per-role'
 export {
@@ -64,6 +65,7 @@ export {
   getParticipantStates
 } from './participant-states'
 export { default as plannedRouteFor3 } from './planned-route-for-3'
+export { default as platformIcons, PlatformStyle } from './platform-icons'
 export { default as roundToNearest } from './roundToNearest'
 export { default as routeAddSteps } from './route-add-steps'
 export { default as routeClearFromStep } from './route-clear-from-step'

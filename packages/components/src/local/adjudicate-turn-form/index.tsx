@@ -1,15 +1,15 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { PlanningCommands } from '@serge/config'
-import { AttributeEditorData, AttributeValues, ForceOption, RouteStatus, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeValues, ForceData, ForceOption, RouteStatus, Status } from '@serge/custom-types'
 /* Import helpers */
 import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
 import React, { ReactElement, useEffect, useState } from 'react'
 import Badge from '../atoms/badge'
 import { Button } from '../atoms/button'
 import { AttributeEditor } from '../attribute-editor'
+import Forces from '../form-elements/forces'
 import { clSelect, FormGroup } from '../form-elements/form-group'
-import RCB from '../form-elements/rcb'
 /* Import components */
 import Speed from '../form-elements/speed'
 import TitleWithIcon from '../form-elements/title-with-icon'
@@ -97,9 +97,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const visibleHandler = (e: any): void => {
-    setVisibleVal(e.visibleTo)
-    manager && manager.setCurrentVisibleTo(e.visibleTo)
+  const visibleHandler = (data: Array<ForceData['uniqid']>): void => {
+    setVisibleVal(data)
+    manager && manager.setCurrentVisibleTo(data)
   }
 
   const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: { (value: any): void }): void => { // deepscan-disable-line UNUSED_PARAM
@@ -157,7 +157,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   return (
     <div className={styles.adjudicate}>
-      <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} attributeTypes={manager && manager.getPlatformDetails().attributeTypes} data={attributes} />
+      <AttributeEditor isOpen={attributeEditorOpen} inAdjudication={true} onClose={closeModal} onSave={updateData} attributeTypes={manager && manager.getPlatformDetails().attributeTypes} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
         icon={icon.icon}
@@ -214,7 +214,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
-          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={visibleToValues.length > 2} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
+          <Forces name="visibleTo" label="" labelPlacement={visibleToValues.length > 2 ? 'top' : 'start'} options={visibleToValues} value={visibleVal} onChange={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <Select

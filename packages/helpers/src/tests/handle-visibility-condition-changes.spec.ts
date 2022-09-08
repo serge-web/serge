@@ -50,16 +50,14 @@ const allForces: ForceData[] = [
       {
         condition: 'Full capability',
         contactId: 'C713',
-        platformType: 'Unmanned-Airborne-Vehicle',
         platformTypeId: 'a10',
         uniqid: 'C01',
         name: 'alpha',
-        perceptions: [{ by: 'Red', force: 'Blue', type: 'Frigate' }]
+        perceptions: [{ by: 'Red', force: 'Blue', typeId: 'Frigate' }]
       },
       {
         condition: 'Full capability',
         contactId: 'C723',
-        platformType: 'Unmanned-Airborne-Vehicle',
         platformTypeId: 'a10',
         name: 'bravo',
         uniqid: 'C02',
@@ -80,16 +78,14 @@ const allForces: ForceData[] = [
       {
         condition: 'Full capability',
         contactId: 'C733',
-        platformType: 'Unmanned-Airborne-Vehicle',
         platformTypeId: 'a10',
         name: 'charlie',
         uniqid: 'C03',
-        perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
+        perceptions: [{ force: 'Green', typeId: 'Frigate', by: 'Blue' }]
       },
       {
         condition: 'Full capability',
         contactId: 'C813',
-        platformType: 'Unmanned-Airborne-Vehicle',
         platformTypeId: 'a10',
         name: 'delta',
         uniqid: 'C04',
@@ -110,16 +106,14 @@ const allForces: ForceData[] = [
       {
         condition: 'Full capability',
         contactId: 'C743',
-        platformType: 'Unmanned-Airborne-Vehicle',
         platformTypeId: 'a10',
         name: 'echo',
         uniqid: 'C05',
-        perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
+        perceptions: [{ force: 'Green', typeId: 'Frigate', by: 'Blue' }]
       },
       {
         condition: 'Disabled',
         contactId: 'C715',
-        platformType: 'Unmanned-Airborne-Vehicle',
         platformTypeId: 'a10',
         uniqid: 'C06',
         name: 'foxtrot',

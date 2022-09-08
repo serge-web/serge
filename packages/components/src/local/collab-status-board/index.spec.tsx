@@ -30,7 +30,6 @@ const testChannelColb: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanSubmitForReview,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'oqoj'
@@ -40,7 +39,6 @@ const testChannelColb: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanRelease,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [blueCO.roleId],
       subscriptionId: 'oqoj2'
@@ -205,6 +203,7 @@ const testMock: MessageCustom[] = [
 const role: ForceRole = { forceId: 'White', forceName: 'White', roleId: blueCO.roleId, roleName: blueCO.name }
 
 const onChange = (): void => console.log()
+const collabActivity = (): void => console.log()
 
 it('CoaStatusBoard renders correctly', () => {
   const handleReadMessage = (message: MessageCustom): void => {
@@ -214,6 +213,7 @@ it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CollabStatusBoard
+        collabActivity={collabActivity}
         currentWargame='wargame-test'
         templates={MessageTemplatesMockByKey}
         forces={forces}

@@ -26,6 +26,7 @@ it('Mapping renders correctly', () => {
     playerForce = 'Blue'
     infoMarkers={[]}
     isGameControl = {true}
+    isUmpire = {true}
     platforms = {platformTypes}
     phase = {Phase.Planning}
     turnNumber = {4}

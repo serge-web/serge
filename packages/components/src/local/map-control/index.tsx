@@ -120,7 +120,8 @@ export const MapControl: React.FC<PropTypes> = ({
       storeStyle('Ctr', CellLabelStyle.CTR_LABELS, cellLabelType),
       storeStyle('H3', CellLabelStyle.H3_LABELS, cellLabelType),
       storeStyle('L/L', CellLabelStyle.LAT_LON_LABELS, cellLabelType),
-      storeStyle('X-Y', CellLabelStyle.X_Y_LABELS, cellLabelType)
+      storeStyle('X-Y', CellLabelStyle.X_Y_LABELS, cellLabelType),
+      storeStyle(' ', CellLabelStyle.BLANK, cellLabelType)
     ]
     setCellStyles(cellStyleList)
   }, [cellLabelType])
@@ -171,7 +172,7 @@ export const MapControl: React.FC<PropTypes> = ({
               contentTheme={style.active ? 'light' : 'dark'}
               key={`s_${style.value}`}
               onClick={(): void => { cellLabelCallback && cellLabelCallback(style.value) }}
-              title={'Style cells as' + style.label}
+              title={'Style cells as ' + style.label}
             >
               {style.label}
             </Item>

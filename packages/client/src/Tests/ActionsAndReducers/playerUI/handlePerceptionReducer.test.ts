@@ -8,19 +8,19 @@ import findAsset from '../../../Helpers/findAsset'
 const payload1: MessagePerceptionOfContact = {
   assetId: 'C01',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Green', type: 'Frigate' }
+  perception: { by: 'Red', force: 'Green', typeId: 'Frigate' }
 }
 
 const payload2: MessagePerceptionOfContact = {
   assetId: 'C02',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Red', type: 'MPA' }
+  perception: { by: 'Red', force: 'Red', typeId: 'MPA' }
 }
 
 const payload3: MessagePerceptionOfContact = {
   assetId: 'C06',
   messageType: PERCEPTION_OF_CONTACT,
-  perception: { by: 'Red', force: 'Red', type: 'Fisher' }
+  perception: { by: 'Red', force: 'Red', typeId: 'Fisher' }
 }
 
 const allForces: ForceData[] = [
@@ -46,7 +46,7 @@ const allForces: ForceData[] = [
         perceptions: [{
           by: 'Red',
           force: 'Blue',
-          type: 'frigate'
+          typeId: 'frigate'
         }]
       },
       {
@@ -78,7 +78,7 @@ const allForces: ForceData[] = [
         perceptions: [{
           by: 'Blue',
           force: 'Green',
-          type: 'frigate'
+          typeId: 'frigate'
         }]
       },
       {
@@ -110,7 +110,7 @@ const allForces: ForceData[] = [
         perceptions: [{
           by: 'Blue',
           force: 'Green',
-          type: 'frigate'
+          typeId: 'frigate'
         }]
       },
       {
@@ -142,7 +142,7 @@ it('correctly updates perception with perception entry already present', () => {
   expect(bluePerception).toBeUndefined()
   expect(redPerception).toBeTruthy()
   expect(redPerception!.force).toEqual('Green')
-  expect(redPerception!.type).toEqual('Frigate')
+  expect(redPerception!.typeId).toEqual('Frigate')
 })
 
 it('correctly updates perception with perception entry not present', () => {
@@ -155,7 +155,7 @@ it('correctly updates perception with perception entry not present', () => {
   expect(bluePerception).toBeUndefined()
   expect(redPerception).toBeTruthy()
   expect(redPerception!.force).toEqual('Red')
-  expect(redPerception!.type).toEqual('MPA')
+  expect(redPerception!.typeId).toEqual('MPA')
 })
 
 it('correctly updates perception with perception entry not present', () => {
@@ -168,5 +168,5 @@ it('correctly updates perception with perception entry not present', () => {
   expect(bluePerception).toBeUndefined()
   expect(redPerception).toBeTruthy()
   expect(redPerception!.force).toEqual('Red')
-  expect(redPerception!.type).toEqual('Fisher')
+  expect(redPerception!.typeId).toEqual('Fisher')
 })

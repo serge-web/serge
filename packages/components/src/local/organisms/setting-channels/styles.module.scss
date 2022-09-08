@@ -67,6 +67,12 @@
   }
 }
 
+.channel-name {
+  input {
+    border-bottom: 1px solid;
+  }
+}
+
 .constraints-icon {
   width: 60px;
   text-align: center;
@@ -121,6 +127,7 @@
 
 .accordion {
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .accordion-header {
@@ -154,4 +161,18 @@
 
 .col-2 {
   width: 60%;
+}
+
+.chat-configuration {
+  margin-bottom: 10px;
+}
+
+.configuration {
+  padding-left: 20px;
+  margin-bottom: 0 !important;
+  margin-right: 0 !important;
+}
+
+.paper-container {
+  padding-top: 12px;
 }

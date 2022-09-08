@@ -6,13 +6,15 @@ import {
   deletePath,
   wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, Wargame, PlayerLogEntries } from '@serge/custom-types'
+
 import { io } from 'socket.io-client'
 import {
   ProviderDbInterface,
   DbProviderInterface,
   FetchData,
-  FetchDataArray
+  FetchDataArray,
+  FetchDataLogs
 } from './types'
 
 export class DbProvider implements DbProviderInterface {
@@ -36,9 +38,10 @@ export class DbProvider implements DbProviderInterface {
       const specialFiles = [wargameSettings]
       // have we just received this message?
       if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
+        // yes. warn maintainer but don't propagate message
+        console.warn('duplicate message, skipping', data._id)
         // yes - stop listening on this socket
-        console.warn('stopping listening for', data._id)
-        socket.off(this.getDbName(), listenerMessage) 
+        // socket.off(this.getDbName(), listenerMessage) 
       } else {
         // no, handle the message
         listener(data)
@@ -82,7 +85,9 @@ export class DbProvider implements DbProviderInterface {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(doc)
-      }).then((res) => resolve(res.json()))
+      }).then((res) => {
+        resolve(res.json())
+      })
     })
   }
 
@@ -98,6 +103,32 @@ export class DbProvider implements DbProviderInterface {
         })
     })
   }
+  
+  getPlayerLogs = (wargame: string): Promise<PlayerLogEntries> => {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + wargame + '/' + this.getDbName() + '/' + 'logs')
+        .then(res => res.json() as Promise<FetchDataLogs>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
+          else reject(msg)
+        })
+    })
+  }
+
+  putPlayerLogs = (doc: PlayerLogEntries): Promise<{msg: string}> => {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + 'healthcheck' + '/' + this.getDbName(), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(doc)
+      }).then((res) => {
+        resolve(res.json())
+      })
+    })  
+  }
 
   lastWargame (): Promise<MessageInfoType> {
     return new Promise((resolve, reject) => {
@@ -110,7 +141,7 @@ export class DbProvider implements DbProviderInterface {
         })
     })
   }
-
+  
   replicate (newDbProvider: { name: string, db: ProviderDbInterface }): Promise<DbProvider> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbProvider.name)}/${this.getDbName()}`)

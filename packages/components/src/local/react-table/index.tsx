@@ -1,7 +1,6 @@
 import { faArchive, faEnvelope, faEnvelopeOpen, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField, Tooltip } from '@material-ui/core'
-import { setActivityTime } from '@serge/config'
 import cx from 'classnames'
 import { flattenDeep, uniqBy } from 'lodash'
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
@@ -24,6 +23,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     handleMarkAllAsUnread,
     customStyles,
     channelName = '',
+    tableActivity,
     ...restProps
   } = props
   const [filteredRows, setFilterdRows] = useState<Row[]>([])
@@ -38,7 +38,10 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
 
   const getRoleId = new URLSearchParams(window.location.search).get('access')
 
-  const isAllMsgRead = useMemo(() => rows.every(msg => msg.isReaded), [rows])
+  const isAllMsgRead = useMemo(() => {
+    return rows.filter(msg => msg.message !== 'N/A')
+      .every(msg => msg.isReaded)
+  }, [rows])
 
   // ///////////////////////////////////////// //
   //    INJECT FILTER TO TABLE CELL HEADER     //
@@ -177,7 +180,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
    */
   const onFilterChanged = (headerFiltes: HeaderFiltes[]): void => {
     if (getRoleId) {
-      setActivityTime(getRoleId, 'filter changed')
+      tableActivity(getRoleId, 'filter changed')
     }
     updateFilters(headerFiltes)
   }
@@ -218,7 +221,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
   /** there has been some interaction with the data table */
   const onTableInteraction = (): void => {
     if (getRoleId) {
-      setActivityTime(getRoleId, 'data table interaction')
+      tableActivity(getRoleId, 'data table interaction')
     }
   }
 
@@ -276,7 +279,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
           <div className={cx({ [styles['mark-all-as-read-section']]: true, [styles['mark-all-as-read-open']]: isAllMsgRead })}>
             <Tooltip title={isAllMsgRead ? 'Mark All as Unread' : 'Mark All as Read'}>
               <Button onClick={handleMessagesState}>
-                <FontAwesomeIcon icon={isAllMsgRead ? faEnvelopeOpen : faEnvelope} />
+                <FontAwesomeIcon icon={isAllMsgRead ? faEnvelopeOpen : faEnvelope} color={isAllMsgRead ? '#838585' : '#69c'} />
               </Button>
             </Tooltip>
           </div>

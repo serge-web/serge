@@ -2,8 +2,8 @@ module.exports = {
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
     'project': './tsconfig.json', // Required to have rules that rely on Types.
-    'extraFileExtensions' : ['.snap'],
-    "include" : ['./src'],
+    'extraFileExtensions': ['.snap'],
+    "include": ['./src'],
     "ecmaFeatures": {
       "jsx": true
     }
@@ -16,7 +16,7 @@ module.exports = {
     '@typescript-eslint', // Let's us override rules below.
     'react'
   ],
-  "ignorePatterns" : ["*.scss.d.ts", '*.snap'],
+  "ignorePatterns": ["*.scss.d.ts", '*.snap'],
   'rules': {
     "semi": [2, "never"],
     "@typescript-eslint/ban-ts-ignore": "off",

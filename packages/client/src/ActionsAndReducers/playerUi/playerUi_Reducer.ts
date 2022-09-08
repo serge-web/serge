@@ -30,6 +30,7 @@ import {
   markUnread,
   closeMessage,
   markAllMessageState,
+  MarkAllPlayerMessageRead,
   handleWargameUpdate,
   handleNewMessage
 } from './helpers/handleWargameMessagesChange'
@@ -76,8 +77,9 @@ export const initialState: PlayerUi = {
   feedbackMessages: [],
   tourIsOpen: false,
   modalOpened: undefined,
-  // DODO: check defaults for new ones
+  // TODO: check defaults for new ones
   showAccessCodes: false,
+  logPlayerActivity: true,
   isInsightViewer: false,
   isRFIManager: false,
   playerMessageLog: {}
@@ -103,6 +105,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
       newState.phase = action.payload.phase
       newState.showAccessCodes = data.overview.showAccessCodes
+      newState.logPlayerActivity = data.overview.logPlayerActivity || true
       newState.wargameInitiated = action.payload.wargameInitiated || false
       newState.gameDate = data.overview.gameDate
       newState.gameTurnTime = data.overview.gameTurnTime
@@ -175,7 +178,9 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
-      if (anyPayload.data) {
+      if (anyPayload.activityTime) { 
+        return newState
+      } else if (anyPayload.data) {
         // wargame change
         const wargame = anyPayload as Wargame
         newState.allChannels = wargame.data.channels.channels
@@ -212,11 +217,19 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case MARK_ALL_AS_READ:
-      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
+      if (!action.payload) {
+        newState.playerMessageLog = MarkAllPlayerMessageRead(newState, 'read')
+      } else {
+        newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
+      }
       break
 
     case MARK_ALL_AS_UNREAD:
-      newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
+      if (!action.payload) {
+        newState.playerMessageLog = MarkAllPlayerMessageRead(newState, 'unread')
+      } else {
+        newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
+      }
       break
 
     case OPEN_TOUR:
@@ -235,9 +248,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
   if (process.env.NODE_ENV === 'development') {
-    console.log('PlayerUI: ', action.type)
-    console.log('PlayerUI > Prev State: ', state)
-    console.log('PlayerUI > Next State: ', newState)
+    console.log('PlayerUI update: ', action.type, state, newState)
   }
 
   return newState

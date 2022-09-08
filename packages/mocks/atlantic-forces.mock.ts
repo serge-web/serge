@@ -38,11 +38,10 @@ export const forces: ForceData[] = [
                     "by": "Red",
                     "force": "Blue",
                     "name": "Unknown UAV",
-                    "type": "Unmanned-Airborne-Vehicle"
+                    "typeId": "Unmanned-Airborne-Vehicle"
                   }
                 ],
                 "plannedTurns": [],
-                "platformType": "Unmanned-Airborne-Vehicle",
                 "platformTypeId" : "a10",
                 "status": {
                   "state": "Landed"
@@ -56,7 +55,6 @@ export const forces: ForceData[] = [
                 "name": "Dart 46",
                 "perceptions": [],
                 "plannedTurns": [],
-                "platformType": "Unmanned-Airborne-Vehicle",
                 "platformTypeId" : "a10",
                 "status": {
                   "state": "Landed"
@@ -72,7 +70,6 @@ export const forces: ForceData[] = [
                 "name": "Frigate A Perceived Name"
               }
             ],
-            "platformType": "frigate",
             "platformTypeId" : "a3",
             "uniqid": "a0prbr6441"
           },
@@ -82,7 +79,6 @@ export const forces: ForceData[] = [
             "history": [],
             "name": "MCM Delta",
             "perceptions": [],
-            "platformType": "MCMV",
             "platformTypeId" : "a7",
             "uniqid": "a0traa6790"
           }
@@ -121,7 +117,7 @@ export const forces: ForceData[] = [
             "by": "Red",
             "force": "Blue",
             "name": "BRIT",
-            "type": "task-group"
+            "typeId": "task-group"
           }
         ],
         "plannedTurns": [
@@ -146,7 +142,6 @@ export const forces: ForceData[] = [
             "turn": 5
           }
         ],
-        "platformType": "task-group",
         "platformTypeId" : "a11",
         "position": "8318adfffffffff",
         "status": {
@@ -178,11 +173,10 @@ export const forces: ForceData[] = [
               {
                 "by": "Red",
                 "force": "Blue",
-                "type": "helicopter"
+                "typeId": "helicopter"
               }
             ],
             "plannedTurns": [],
-            "platformType": "helicopter",
             "platformTypeId" : "a8",
             "status": {
               "state": "Landed"
@@ -196,7 +190,6 @@ export const forces: ForceData[] = [
             "name": "Dart 42",
             "perceptions": [],
             "plannedTurns": [],
-            "platformType": "Unmanned-Airborne-Vehicle",
             "platformTypeId" : "a10",
             "status": {
               "state": "Landed"
@@ -210,7 +203,7 @@ export const forces: ForceData[] = [
             "by": "Red",
             "force": "Blue",
             "name": "Frigate Perceived Name",
-            "type": "frigate"
+            "typeId": "frigate"
           }
         ],
         "plannedTurns": [
@@ -235,7 +228,6 @@ export const forces: ForceData[] = [
             "turn": 5
           }
         ],
-        "platformType": "frigate",
         "platformTypeId" : "a3",
         "position": "8318a3fffffffff",
         "status": {
@@ -251,7 +243,6 @@ export const forces: ForceData[] = [
         "name": "MPA",
         "perceptions": [],
         "plannedTurns": [],
-        "platformType": "fixed-wing-aircraft",
         "platformTypeId" : "a9",
         "position": "831976fffffffff",
         "status": {
@@ -277,7 +268,7 @@ export const forces: ForceData[] = [
           {
             "by": "Red",
             "force": "Blue",
-            "type": ""
+            "typeId": ""
           }
         ],
         "plannedTurns": [
@@ -302,7 +293,6 @@ export const forces: ForceData[] = [
             "turn": 5
           }
         ],
-        "platformType": "merchant-vessel",
         "platformTypeId" : "a13",
         "position": "83181cfffffffff",
         "status": {
@@ -372,7 +362,6 @@ export const forces: ForceData[] = [
             "turn": 4
           }
         ],
-        "platformType": "fishing-vessel",
         "platformTypeId" : "a1",
         "position": "830932fffffffff",
         "status": {
@@ -404,7 +393,6 @@ export const forces: ForceData[] = [
             "name": "Bog Draft",
             "perceptions": [],
             "plannedTurns": [],
-            "platformType": "boghammer",
             "platformTypeId" : "a4",
             "status": {
               "state": "Landed"
@@ -418,7 +406,7 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "SHU’AI",
-            "type": "fishing-vessel"
+            "typeId": "fishing-vessel"
           }
         ],
         "plannedTurns": [
@@ -445,7 +433,6 @@ export const forces: ForceData[] = [
             "turn": 5
           }
         ],
-        "platformType": "fishing-vessel",
         "platformTypeId" : "a1",
         "position": "830910fffffffff",
         "status": {
@@ -500,7 +487,6 @@ export const forces: ForceData[] = [
             "turn": 5
           }
         ],
-        "platformType": "fishing-vessel",
         "platformTypeId" : "a1",
         "position": "830765fffffffff",
         "status": {
@@ -523,7 +509,6 @@ export const forces: ForceData[] = [
         "name": "Missile-A",
         "perceptions": [],
         "plannedTurns": [],
-        "platformType": "coastal-radar-site",
         "platformTypeId" : "a12",
         "position": "830744fffffffff",
         "status": {
@@ -570,7 +555,7 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "OSAKA",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -595,7 +580,6 @@ export const forces: ForceData[] = [
             "turn": 4
           }
         ],
-        "platformType": "merchant-vessel",
         "platformTypeId" : "a13",
         "position": "831b21fffffffff",
         "status": {
@@ -623,13 +607,13 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "ARUNA 12",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           },
           {
             "by": "Red",
             "force": "Green",
             "name": "BARLAY",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -654,7 +638,6 @@ export const forces: ForceData[] = [
             "turn": 4
           }
         ],
-        "platformType": "merchant-vessel",
         "platformTypeId" : "a13",
         "position": "831b31fffffffff",
         "status": {
@@ -681,7 +664,7 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "JALIBUT",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -702,7 +685,6 @@ export const forces: ForceData[] = [
             "turn": 4
           }          
         ],
-        "platformType": "fishing-vessel",
         "platformTypeId" : "a1",
         "position": "831b2dfffffffff",
         "status": {
@@ -729,7 +711,7 @@ export const forces: ForceData[] = [
           {
             "by": "Blue",
             "force": "Green",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -750,7 +732,6 @@ export const forces: ForceData[] = [
             "turn": 4
           }
         ],
-        "platformType": "fishing-vessel",
         "platformTypeId" : "a1",
         "position": "83064bfffffffff",
         "status": {
@@ -778,13 +759,13 @@ export const forces: ForceData[] = [
             "by": "Blue",
             "force": "Green",
             "name": "BOUM 3",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           },
           {
             "by": "Red",
             "force": "Green",
             "name": "BOUM 3",
-            "type": "merchant-vessel"
+            "typeId": "merchant-vessel"
           }
         ],
         "plannedTurns": [
@@ -805,7 +786,6 @@ export const forces: ForceData[] = [
             "turn": 4
           }
         ],
-        "platformType": "fishing-vessel",
         "platformTypeId" : "a1",
         "position": "830761fffffffff",
         "status": {

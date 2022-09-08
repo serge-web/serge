@@ -3,6 +3,7 @@ import {
   INFO_MESSAGE,
   CHAT_MESSAGE,
   FEEDBACK_MESSAGE,
+  PLANNING_MESSAGE,
   FORCE_LAYDOWN,
   VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
@@ -28,7 +29,7 @@ import Wargame from './wargame'
 import { MapAnnotation } from './map-annotation'
 
 export interface MessageDetailsFrom {
-  /** name
+  /** name of force - to be @deprecated
    */
   readonly force: ForceData['name'],
   /** id of sending force */
@@ -83,6 +84,22 @@ export interface MessageStructure {
   [property: string]: any
   title?: string
   content?: string
+}
+
+/** templates contents for planning messages, provides extra
+ * detail as required for PlanningChannel
+ */
+export interface PlanningMessageStructure {
+  /** unique id for this message thread */
+  reference: string
+  /** title for this plan */
+  title: string
+  /** start-time of this plan */
+  startDate?: string
+  /** end-time of this plan */
+  endDate?: string
+  /** remainder of fields generated from message template */
+  [property: string]: any
 }
 
 export interface CoreMessage {
@@ -174,6 +191,17 @@ export interface ChatMessage extends CoreMessage {
   /** whether this message has been read on the current client */
   hasBeenRead?: boolean
 }
+
+/** messages being used in support of planning */
+export interface MessagePlanning extends CoreMessage {
+  readonly messageType: typeof PLANNING_MESSAGE,
+  message: PlanningMessageStructure
+  /** whether this message has been read on the current client */
+  hasBeenRead?: boolean
+}
+
+
+
 
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,

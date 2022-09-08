@@ -3,11 +3,12 @@ import { faFill, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
 import { Confirm } from '@serge/components'
-import { UPDATE_MARKER, DELETE_MARKER } from '@serge/config'
-import { IconOption, MapAnnotation } from '@serge/custom-types'
+import { DELETE_MARKER, FLAG_MARKER, UPDATE_MARKER } from '@serge/config'
+import { ForceData, IconOption, MapAnnotation } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import Forces from '../form-elements/forces'
 import FormGroup from '../form-elements/form-group'
-import RCB from '../form-elements/rcb'
 import Selector from '../form-elements/selector'
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Context */
@@ -32,8 +33,8 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     console.warn('marker form - marker icons missing:', icons)
   }
 
-  const changeHandler = (formStateValue: any): void => {
-    setFormState({ ...formState, ...formStateValue })
+  const changeHandler = (data: Array<ForceData['uniqid']>): void => {
+    setFormState({ ...formState, visibleTo: data })
   }
 
   useEffect(() => {
@@ -56,7 +57,14 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
   }
 
   const submitForm = (): void => {
-    updateMarker(UPDATE_MARKER, formState)
+    // ok. we have an issue where a marker is dragged while this form is over.
+    // when that happens, we shouldn't over-write the marker location in the
+    // 'update marker' handler.  We'll provide a special flag to the update marker
+    // handler - so that if there is already a location, we use that one rather than this one.
+    // But if there isn't anexisting location, this one can still be used
+    const flaggedMarker: MapAnnotation = deepCopy(formState)
+    flaggedMarker.location = FLAG_MARKER + flaggedMarker.location
+    updateMarker(UPDATE_MARKER, flaggedMarker)
   }
 
   const deleteMarkerHandler = (): void => {
@@ -104,7 +112,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
     </TitleWithIcon>
     <fieldset className={styles.fieldset}>
       <div className={styles.description}>
-        <TextField InputProps={{ disableUnderline: true }} fullWidth multiline rowsMax={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
+        <TextField InputProps={{ disableUnderline: true }} fullWidth multiline maxRows={2} placeholder={'Description'} value={formState.description} onInput={onDescriptionChange} />
       </div>
       <FormGroup title='icon type' align='right'>
         <Selector label="" name='iconType' options={icons} selected={formState.iconId} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
@@ -117,7 +125,7 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
         <div className={styles['force-color']} style={{ background: formState.color }} onClick={toggleColorPicker} />
       </FormGroup>
       <FormGroup title='Visible to' align='right'>
-        <RCB name='visibleTo' type='checkbox' force={true} label='' compact={forces.length > 2} options={forces} value={formState.visibleTo} updateState={changeHandler} />
+        <Forces name='visibleTo' label='' labelPlacement={forces.length > 2 ? 'top' : 'start'} options={forces} value={formState.visibleTo} onChange={changeHandler} />
       </FormGroup>
       <FormGroup title='Radius' align='right'>
         <TextField type='number' className={styles.radius} InputProps={{ disableUnderline: true }} value={formState.shadeRadius || 0} onInput={onRadiusChange} />

@@ -7,7 +7,6 @@ export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ForceOption } from './force-option.d'
 export { default as IconOption } from './icon-option.d'
-export { default as FormOption } from './form-option.d'
 export { default as ForceRole } from './force-role.d'
 export { default as ForceData } from './force-data.d'
 export { default as Force } from './force.d'
@@ -21,6 +20,7 @@ export { default as Message,
          MessageDetails,
          MessageDetailsFrom,
          MessageStructure,
+         MessagePlanning,
          FeedbackItem,
          CollaborationDetails,
          // Map Types
@@ -51,7 +51,7 @@ export { default as PlannedRoute } from './planned-route.d'
 export { default as PlatformTypeData } from './platform-type-data.d'
 export { default as PlatformType } from './platform-type.d'
 export { default as PlayerUi, PlayerUiChatChannel, PlayerUiChannels } from './player-ui.d'
-export { default as PlayerMessage, PlayerMessageLog, PlayerLogUI } from './player-log.d'
+export * from './player-log.d'
 export { default as Role } from './role.d'
 export { default as Route, RouteChild } from './route.d'
 export { default as RouteStatus } from './route-status.d'
@@ -77,6 +77,7 @@ export { default as Visibility } from './visibility.d'
 export { default as Editor } from './editor.d'
 export { default as RequestForInformation } from './request-for-information.d'
 export * from './player-ui-actions.d'
+export * from './player-log-actions'
 export * from './export-items-actions.d'
 export * from './export-items.d'
 export * from './message-types-actions.d'
