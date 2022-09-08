@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 import { actionSetLatestWargameMessage } from '@serge/mocks'
-import setLatestWargameMessageData from './data/set_latest_wargame_message.json'
+import setLatestWargameMessageData from './data/set_latest_wargame_message_mock'
 import { setLatestWargameMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 describe('PlayerUi Message Actions', () => {

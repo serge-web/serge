@@ -11,10 +11,6 @@ describe('increment turn time:', () => {
     expect(startStr).toEqual('2013-02-08T09:30:26')
   })
 
-  it('increments using legacy millis', () => {
-    expect(moment(incrementGameTime(startStr, 1000)).format(formatStr)).toEqual('2013-02-08T09:30:27')
-  })
-
   it('increments using millis', () => {
     const turns: MilliTurns = {
       unit: 'millis',

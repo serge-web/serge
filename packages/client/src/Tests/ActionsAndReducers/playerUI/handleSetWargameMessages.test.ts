@@ -2,13 +2,17 @@ import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 
 import { actionSetWargameMessages } from '@serge/mocks'
 import { setWargameMessages } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import setAllMessagesData from './data/set_all_messages.json'
+import setAllMessagesData from './data/set_all_messages_mock'
 import { PlayerUi } from '@serge/custom-types'
 
 const playerUi: PlayerUi = {
   isGameControl: true,
+  isUmpire: true,
+  infoMarkers: [],
+  markerIcons: [],
+  playerMessageLog: {},
+  updateMessageState: true,
   isRFIManager: false,
-  rfiMessages: [],
   selectedForce: {
     name: 'Blue',
     uniqid: 'force-k16fdykj',
@@ -734,9 +738,9 @@ describe('PlayerUi Message Reducers', () => {
         ...playerUi,
         chatChannel: {
           ...playerUi.chatChannel,
-          messages: setAllMessagesData.newState.chatChannel.messages
+          messages: setAllMessagesData.chatChannel.messages
         },
-        channels: setAllMessagesData.newState.channels
+        channels: setAllMessagesData.channels
       })
   })
 })
