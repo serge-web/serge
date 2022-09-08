@@ -1,8 +1,8 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHAT_MESSAGE, PLANNING_MESSAGE, FEEDBACK_MESSAGE } from '@serge/config'
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHAT_MESSAGE, PLANNING_MESSAGE, FEEDBACK_MESSAGE, CHANNEL_CHAT } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerMessage, PlayerMessageLog, Wargame
+  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -62,8 +62,12 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // of duplicate messages
     const present = theChannel.messages.some((msg: MessageChannel) => msg._id === payload._id)
     if (!present) {
-      // NOTE: we used to put chat at end, and custom at start, but now we put them all at tend
-      theChannel.messages.unshift(newObj)
+      // chat messages need to go at the end, not the start
+      if (theChannel.cData.channelType === CHANNEL_CHAT) {
+        theChannel.messages.push(newObj)
+      } else {
+        theChannel.messages.unshift(newObj)
+      }
       // update message count
       const mTypesWithDetails = [CUSTOM_MESSAGE, CHAT_MESSAGE, PLANNING_MESSAGE, FEEDBACK_MESSAGE]
       if (mTypesWithDetails.includes(newObj.messageType)) {
@@ -131,8 +135,6 @@ export const handleAllInitialChannelMessages = (
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
     if (message.messageType === INFO_MESSAGE || message.messageType === undefined) {
-      const wargame = message as Wargame
-      console.log('clipping', wargame.phase, wargame.gameTurn)
       return clipInfoMEssage(message.gameTurn, message.messageType, message._id, hasBeenRead)
     } else {
       return {
@@ -146,7 +148,7 @@ export const handleAllInitialChannelMessages = (
   // reduce messages, so we just have single turn marker, and most recent
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
-  const reverseMessagesReduced = messagesFiltered.reverse()
+  const reverseMessagesReduced = messagesFiltered
 
   const playerLog = newestPerRole(reverseMessagesReduced as Array<MessageCustom>)
 
