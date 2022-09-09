@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, COUNTER_MESSAGE, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -190,9 +190,10 @@ const couchDb = (app, io, pouchOptions) => {
         // unpack the documents
         const docs = result.rows.map((item) => item.doc)
         // drop wargame & info messages
-        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
-        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
-        res.send({ msg: 'ok', data: messages })
+        // NO, don't. We need the info messages, for the turn markers
+        // const ignoreTypes = [] //INFO_MESSAGE, COUNTER_MESSAGE]
+        // const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
+        res.send({ msg: 'ok', data: docs })
       }).catch(() => res.send([]))
   })
 
