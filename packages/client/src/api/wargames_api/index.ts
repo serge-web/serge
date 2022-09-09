@@ -881,7 +881,22 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
-    .then((res): Array<Message> => res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE))
+    .then((res): Array<Message> => {
+      // drop counters
+      const nonCounter = res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE)
+      // NOTE: SPECIAL CASE. It appears the docs are being sorted by _id before being returned.
+      // This is putting the initial 'settings' doc at the end. It should be at the start. 
+      // If it's at the end, move it to the start
+      if (nonCounter.length > 0) {
+        const lastDoc = nonCounter[nonCounter.length - 1] as any
+        if (lastDoc._id === 'settings') {
+          nonCounter.pop()
+          nonCounter.unshift(lastDoc)
+        }
+      }
+      return nonCounter
+    }
+    )
     .catch(() => {
       throw new Error('Serge disconnected')
     })

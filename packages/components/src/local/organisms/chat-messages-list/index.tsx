@@ -16,7 +16,8 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
   playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel, hideAuthor
 }: PropTypes) => {
   // cast messages, for type-checking
-  const cMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
+  const rMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
+  const cMessages = rMessages.reverse()
   const height = chatContainerHeight || 280
   return (
     <div>

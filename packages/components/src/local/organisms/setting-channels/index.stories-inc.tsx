@@ -6,11 +6,52 @@ import { withKnobs } from '@storybook/addon-knobs'
 import SettingChannels from './index'
 import docs from './README.md'
 import { ChannelTypes } from './types/props'
+import { Story } from '@storybook/react/types-6-0'
+import { ChannelPlanning } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-const channels = watuWargame.data.channels.channels
-const forces = watuWargame.data.forces.forces
+const wChannels = watuWargame.data.channels.channels
+const wForces = watuWargame.data.forces.forces
+
+const planningChannel: ChannelPlanning = {
+  name: 'Blue Planning',
+  channelType: 'ChannelPlanning',
+  uniqid: 'dummy-planning',
+  participants: [
+    {
+      forceUniqid: 'F-Blue',
+      pType: 'ParticipantPlanning',
+      roles: [],
+      subscriptionId: 'huk3qr',
+      templates: [
+        {
+          _id: 'k16e-maritime',
+          title: 'Maritime Activity'
+        },
+        {
+          title: 'Land Activity',
+          _id: 'k16e-land'
+        },
+        {
+          title: 'Air Activity',
+          _id: 'k16e-air'
+        },
+        {
+          title: 'Other Activity',
+          _id: 'k16e-other'
+        }
+      ]
+    }
+  ]
+}
+const withPlanning = wChannels.concat(planningChannel)
+
+const legacyChannel = {
+  name: 'Legacy channel',
+  uniqid: 'dummy-legacy'
+}
+const withLegacy = wChannels.concat(legacyChannel as any as ChannelPlanning)
 
 export default {
   title: 'local/organisms/SettingChannels',
@@ -20,18 +61,22 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
     }
   }
 }
 
-export const Default: React.FC = () => {
+const Template: Story = (args) => {
   // the channels child element may theoretically be undefined, we
   // make the compiler happy
-  if (channels === undefined) {
+  if (args.channels === undefined) {
     return <div />
   }
-  const [localChannels, setLocalChannels] = useState<ChannelTypes[]>(channels)
-  const [selectedChannel, setSelectedChannel] = useState<ChannelTypes>(channels[0])
+  const [localChannels, setLocalChannels] = useState<ChannelTypes[]>(args.channels)
+  const [selectedChannel, setSelectedChannel] = useState<ChannelTypes>(args.channels[0])
 
   const handleChangeChannels = (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }): void => {
     console.log('handleChangeChannels: ', updates)
@@ -61,18 +106,23 @@ export const Default: React.FC = () => {
     onSave={handleOnSave}
     onSidebarClick={onSidebarClick}
     channels={localChannels}
-    forces={forces}
+    forces={wForces}
     messageTemplates={MessageTemplatesMock}
     selectedChannel={selectedChannel}
   />
 }
 
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-Default.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+export const Default = Template.bind({})
+Default.args = {
+  channels: wChannels
+}
+
+export const WithPlanning = Template.bind({})
+WithPlanning.args = {
+  channels: withPlanning
+}
+
+export const WithLegacy = Template.bind({})
+WithLegacy.args = {
+  channels: withLegacy
 }
