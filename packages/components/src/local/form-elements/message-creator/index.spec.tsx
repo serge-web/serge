@@ -15,8 +15,8 @@ it('MessageCreator renders correctly', () => {
       currentWargame=''
       gameDate=''
       privateMessage={false}
-      saveMessage={() => () => { }}
-      saveNewActivityTimeMessage={() => () => { }}
+      saveMessage={() => (): void => { console.log('save') }}
+      saveNewActivityTimeMessage={() => (): void => { console.log('save new') }}
       schema={''}
       selectedForce={P9Mock.data.forces.forces[0]}
       selectedRole={''}

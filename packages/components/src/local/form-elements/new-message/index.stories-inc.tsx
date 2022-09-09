@@ -44,7 +44,7 @@ export default {
   }
 }
 
-export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => () => {
+export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => (): Function => {
   return async (): Promise<void> => {
     console.log('new message', dbName, details, message)
   }
@@ -63,8 +63,8 @@ export const Default: React.FC = () => <NewMessage2
   currentWargame=''
   gameDate=''
   // saveMessage={saveMessage}
-  saveMessage={() => () => { }}
-  saveNewActivityTimeMessage={() => () => { }}
+  saveMessage={() => (): void => { console.log('save') }}
+  saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
   selectedForce={P9Mock.data.forces.forces[0]}
   selectedRole={''}
   selectedRoleName={''}

@@ -1,12 +1,12 @@
-import { IconOption, TemplateBody } from '@serge/custom-types'
+import { TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
-  role: string;
-  orderableChannel: boolean;
-  confirmCancel: boolean;
-  templates: TemplateBody[];
-  curChannel: string;
-  privateMessage: boolean;
+  role: string
+  orderableChannel: boolean
+  confirmCancel: boolean
+  templates: TemplateBody[]
+  curChannel: string
+  privateMessage: boolean
   activityTimeChanel: (role: string, message: string) => void
   selectedForce?: ForceData
   selectedRole: string

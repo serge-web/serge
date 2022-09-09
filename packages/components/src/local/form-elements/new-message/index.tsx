@@ -6,7 +6,7 @@ import { TemplateBody } from '@serge/custom-types'
 import { usePrevious } from '@serge/helpers'
 import PropTypes from './types/props'
 
-const NewMessage2 = ({
+const NewMessage2: React.FC<PropTypes> = ({
   role,
   templates,
   curChannel,
@@ -24,16 +24,16 @@ const NewMessage2 = ({
   selectedRole,
   selectedRoleName,
   dispatch
-}: PropTypes) => {
+}) => {
   const prevTemplates = usePrevious(templates)
-  const [selectedSchema, setSelectedSchema] = useState<Object | null>(null)
+  const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
   const tab = useRef<any>(null)
 
-  const mapTemplateToDropdown = (item: TemplateBody) => ({
+  const mapTemplateToDropdown = (item: TemplateBody): any => ({
     value: JSON.stringify(item.details),
     option: item.title
   })
-  const setTemplate = (value: string) => {
+  const setTemplate = (value: string): void => {
     setSelectedSchema(JSON.parse(value))
   }
 
@@ -55,16 +55,20 @@ const NewMessage2 = ({
     }
   }, [templates, prevTemplates])
 
-  const onMessageSend = (event: MouseEvent<HTMLButtonElement>) => {
+  const onMessageSend = (event: MouseEvent<HTMLButtonElement>): void => {
     activityTimeChanel(role, 'Create new message')
     setTimeout(() => {
-      tab?.current?.handleTriggerClick(event)
+      if (tab && tab.current) {
+        tab.current.handleTriggerClick(event)
+      }
     }, 0)
   }
 
-  const onCancel = (e: MouseEvent<HTMLButtonElement>) => {
+  const onCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     setTimeout(() => {
-      tab?.current?.handleTriggerClick(e)
+      if (tab && tab.current) {
+        tab.current.handleTriggerClick(e)
+      }
     }, 0)
   }
   console.log('new message', privateMessage, confirmCancel, orderableChannel)

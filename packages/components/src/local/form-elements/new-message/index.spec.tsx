@@ -19,8 +19,8 @@ it('NewMessage2 renders correctly', () => {
       currentTurn={0}
       currentWargame=''
       gameDate=''
-      saveMessage={() => () => { }}
-      saveNewActivityTimeMessage={() => () => { }}
+      saveMessage={() => (): void => { console.log('save') }}
+      saveNewActivityTimeMessage={() => (): void => { console.log('activity') }}
       selectedForce={P9Mock.data.forces.forces[0]}
       selectedRole={''}
       selectedRoleName={''}

@@ -1,9 +1,8 @@
-import { Channel, ForceData, IconOption, MessageDetails, Role, TemplateBody } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
-  schema: any,
-  curChannel: string,
+  schema: any
+  curChannel: string
   privateMessage: boolean
   onMessageSend?: (e: MouseEvent<HTMLButtonElement>) => void
   onCancel?: (e: MouseEvent<HTMLButtonElement>) => void
