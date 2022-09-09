@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewMessage2 renders correctly 1`] = `
+<div
+  className="message-editor new-message-creator wrap "
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="Collapsible"
+  >
+    <span
+      className="Collapsible__trigger is-closed"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      style={null}
+      tabIndex={null}
+    >
+      New Message
+    </span>
+    <div
+      className="Collapsible__contentOuter"
+      hidden={false}
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "WebkitTransition": "height 200ms ease-in-out",
+          "height": 0,
+          "msTransition": "height 200ms ease-in-out",
+          "overflow": "hidden",
+          "transition": "height 200ms ease-in-out",
+        }
+      }
+    >
+      <div
+        className="Collapsible__contentInner"
+      >
+        <div
+          className="form-group message-creator"
+        />
+        <div
+          className="form-group"
+        >
+          <button
+            className="btn btn-action btn-action--form btn-action--cancel"
+            name="cancel"
+            onClick={[Function]}
+          >
+            <span>
+              Cancel
+            </span>
+          </button>
+          <button
+            className="btn btn-action btn-action--form btn-action--send-message"
+            name="send"
+            onClick={[Function]}
+          >
+            <span>
+              Send Message
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

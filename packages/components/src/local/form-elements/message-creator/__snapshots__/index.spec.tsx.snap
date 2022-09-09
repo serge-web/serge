@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageCreator renders correctly 1`] = `
+Array [
+  <div
+    className="form-group message-creator"
+  />,
+  <div
+    className="form-group"
+  >
+    <button
+      className="btn btn-action btn-action--form btn-action--cancel"
+      name="cancel"
+      onClick={[Function]}
+    >
+      <span>
+        Cancel
+      </span>
+    </button>
+    <button
+      className="btn btn-action btn-action--form btn-action--send-message"
+      name="send"
+      onClick={[Function]}
+    >
+      <span>
+        Send Message
+      </span>
+    </button>
+  </div>,
+]
+`;

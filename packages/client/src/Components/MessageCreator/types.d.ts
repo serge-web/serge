@@ -2,9 +2,8 @@ interface Props {
   schema: any,
   curChannel: string,
   privateMessage: string
-  onMessageSend?: (e: any) => void
-  onCancel?: (e: any) => void
-  // whether user has to confirm cancelling a new document
+  onMessageSend?: (e: MouseEvent<HTMLButtonElement>) => void
+  onCancel?: (e: MouseEvent<HTMLButtonElement>) => void
   confirmCancel?: boolean
 }
 export default Props

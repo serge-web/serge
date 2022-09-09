@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from 'react'
+import React, { useState, createRef, useEffect, MouseEvent } from 'react'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -51,7 +51,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     if (channel.channelType === CHANNEL_COLLAB) {
       // populate the metadata
       const channelCollab = channel as ChannelCollab
-      
+
       // ok, brand new message
       const initial = channelCollab.initialState === InitialStates.PENDING_REVIEW ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
       details.collaboration = {
@@ -69,7 +69,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
 
     // retrieve the formatted message
     const message = editor.getValue()
-    
+
     saveMessage(state.currentWargame, details, message)()
     const newMsg: PlainInteraction = {
       aType: 'send channel message'
@@ -80,7 +80,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     onMessageSend && onMessageSend(e)
   }
 
-  const openConfirmPopup = (e: any): void => {
+  const openConfirmPopup = (e: MouseEvent<HTMLButtonElement>): void => {
     if (confirmCancel) {
       setConfirmIsOpen(true)
     } else {
@@ -92,7 +92,7 @@ const MessageCreator: React.FC<Props> = ({ schema, curChannel, privateMessage, o
     setConfirmIsOpen(false)
   }
 
-  const onPopupConfirm = (e: any): void => {
+  const onPopupConfirm = (e: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
     onCancel && onCancel(e)
   }
