@@ -49,6 +49,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // what data is stored in the the channels dictionary
   const messages = state.channels[channelId].messages as any
 
+  // drop the turn markers
   const planningMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
 
   const onRead = (detail: MessagePlanning): void => {
