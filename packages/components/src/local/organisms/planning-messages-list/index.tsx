@@ -27,7 +27,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
       }
     })
     setRows(dataTable)
-  }, [])
+  }, [messages])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID

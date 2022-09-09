@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/styles'
 import { SupportPanel } from '@serge/components'
+import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { ChannelPlanning, MessageChannel, MessagePlanning } from '@serge/custom-types'
+import { CoreMessage } from '@serge/custom-types/message'
 import '@serge/themes/App.scss'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
@@ -20,7 +22,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const dispatch = usePlayerUiDispatch()
   const channelUI = state.channels[channelId]
   const channelPlanning = channelUI.cData as ChannelPlanning
-  console.log('rendering planning channel', channelPlanning.name)
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { allForces, currentWargame, selectedForce, selectedRole } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
@@ -47,6 +48,9 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // what data is stored in the the channels dictionary
   const messages = state.channels[channelId].messages as any
 
+  // drop the turn markers
+  const planningMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
+
   const onRead = (detail: MessagePlanning): void => {
     dispatch(openMessage(channelId, detail as any as MessageChannel))
   }
@@ -67,7 +71,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         platformTypes={platformTypes}
         forceNames={forceNames}
         hideForcesInChannel={hideForcesInChannel}
-        messages={messages}
+        messages={planningMessages}
         selectedForce={selectedForce.uniqid}
         selectedRole={selectedRole}
         forces={allForces}
