@@ -148,7 +148,7 @@ const pouchDb = (app, io, pouchOptions) => {
         // unpack the documents
         const docs = result.rows.map((item) => item.doc)
         // drop wargame & info messages
-        // NO, don't we need the info messages, for the turn markers
+        // NO, don't. We need the info messages, for the turn markers
         // const ignoreTypes = [] //INFO_MESSAGE, COUNTER_MESSAGE]
         // const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
         res.send({ msg: 'ok', data: docs })
