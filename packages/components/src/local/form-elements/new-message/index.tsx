@@ -4,7 +4,6 @@ import MessageCreator from '../message-creator'
 import DropdownInput from '../dropdown-input'
 import { TemplateBody } from '@serge/custom-types'
 import { usePrevious } from '@serge/helpers'
-import '@serge/themes/App.scss'
 import PropTypes from './types/props'
 
 const NewMessage2 = ({
@@ -68,6 +67,7 @@ const NewMessage2 = ({
       tab?.current?.handleTriggerClick(e)
     }, 0)
   }
+  console.log('new message', privateMessage, confirmCancel, orderableChannel)
 
   return (
     <div className={classes} style={{ zIndex: 1 }}>

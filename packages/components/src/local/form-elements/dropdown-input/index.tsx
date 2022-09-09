@@ -1,6 +1,4 @@
 import React, { ChangeEvent } from "react";
-// @ts-ignore
-import "@serge/themes/App.scss";
 import PropTypes from "./types/props";
 
 const DropdownInput: React.FC<PropTypes> = ({ updateStore, selectOptions, disabled, data, className, placeholder }) => {

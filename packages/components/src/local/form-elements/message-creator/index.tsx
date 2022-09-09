@@ -16,7 +16,6 @@ import React, { createRef, MouseEvent, useEffect, useState } from "react";
 // @ts-ignore
 import JSONEditor from "@json-editor/json-editor";
 import { configDateTimeLocal } from "@serge/helpers";
-import "@serge/themes/App.scss";
 import flatpickr from "flatpickr";
 import _ from "lodash";
 import PropTypes from "./types/props";
