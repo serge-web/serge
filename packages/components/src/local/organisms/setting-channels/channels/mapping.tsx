@@ -179,15 +179,15 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
     const checkForSaveProblems = (nextItems: RowItem[]): string | undefined => {
       const [force, roles, controls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
       if (controls.active && controls.active.length > 0) {
-          // there is more than one role specified, we can't allow that
-          const entity = force.active && force.options[force.active[0]]
-          const forceName = entity ? entity.name : 'unknown force'
+        // there is more than one role specified, we can't allow that
+        const entity = force.active && force.options[force.active[0]]
+        const forceName = entity ? entity.name : 'unknown force'
         if (!roles.active || !roles.active.length) {
           // there are zero roles provided, but we need one
           return 'A role from ' + forceName + ' must be provided when asset control specified'
         } else if (roles.active.length > 1) {
           // more than one role is provided
-          return 'Only one role for ' + forceName + ' can be specified if controlling assets ' 
+          return 'Only one role for ' + forceName + ' can be specified if controlling assets '
         }
       }
       return undefined
