@@ -1,4 +1,7 @@
-import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHANNEL_CHAT } from '@serge/config'
+import {
+  expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE,
+  INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHANNEL_CHAT
+} from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
   MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
@@ -14,20 +17,20 @@ import { CoreParticipant } from '@serge/custom-types/participant'
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
  * @param { string } channel id of the cahnnel
- * @param { MessageCustom } payload the new message
+ * @param { MessageCustom } message the new message
  */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom) => {
-  const sourceRole: string = payload.details.from.roleId
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom, playerId: string) => {
+  const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
-    roleId: payload.details.from.roleId,
-    lastMessageTitle: payload.details.messageType,
-    lastMessageTime: payload.details.timestamp,
-    hasBeenRead: payload.hasBeenRead,
-    _id: payload._id
+    roleId: message.details.from.roleId,
+    lastMessageTitle: message.details.messageType,
+    lastMessageTime: message.details.timestamp,
+    hasBeenRead: message.hasBeenRead,
+    _id: message._id
   }
   data.playerMessageLog[sourceRole] = logger
   if (channel === CHAT_CHANNEL_ID) {
-    data.chatChannel.messages.unshift(deepCopy(payload))
+    data.chatChannel.messages.unshift(deepCopy(message))
   } else if (data.channels[channel]) {
     const theChannel: ChannelUI = data.channels[channel]
 
@@ -38,40 +41,43 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
 
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
-    if (payload.message.Reference) {
+    if (message.message.Reference) {
       // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.Reference === payload.message.Reference) {
+          msg.message.Reference === message.message.Reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
     }
 
+    const ourMessage = message.details.from.roleId === playerId
+
     const newObj: MessageChannel = {
-      ...deepCopy(payload),
-      hasBeenRead: false,
+      ...deepCopy(message),
+      hasBeenRead: ourMessage,
       isOpen: false
     }
 
     // check the channel doesn't already contain the message
     // we can mistakenly register for updates twice, which gives the appearance
     // of duplicate messages
-    const present = theChannel.messages.some((msg: MessageChannel) => msg._id === payload._id)
+    const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
     if (!present) {
+      // chat messages need to go at the end, not the start
       if (theChannel.cData.channelType === CHANNEL_CHAT) {
-        // note: for chat channel we put new messages at top, for other
-        // channels they go at the bottom
         theChannel.messages.push(newObj)
       } else {
         theChannel.messages.unshift(newObj)
       }
-      // update message count
-      theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+      // update message count, if it's not from us
+      if (!ourMessage) {
+        theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+      }
     } else {
-      console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', payload)
+      console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', message)
     }
   }
 }
@@ -127,7 +133,7 @@ export const handleAllInitialChannelMessages = (
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
-    if (message.messageType === INFO_MESSAGE) {
+    if (message.messageType === INFO_MESSAGE || message.messageType === undefined) {
       return clipInfoMEssage(message.gameTurn, message.messageType, message._id, hasBeenRead)
     } else {
       return {
@@ -141,11 +147,11 @@ export const handleAllInitialChannelMessages = (
   // reduce messages, so we just have single turn marker, and most recent
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
-  const reverseMessagesReduced = messagesReduced.reverse()
+  const reverseMessagesReduced = messagesFiltered
 
   const playerLog = newestPerRole(reverseMessagesReduced as Array<MessageCustom>)
 
-  const chatMessages = messagesFiltered
+  const adminMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
 
   const channels: PlayerUiChannels = {}
@@ -194,7 +200,7 @@ export const handleAllInitialChannelMessages = (
     channels,
     chatChannel: {
       ...chatChannel,
-      messages: chatMessages
+      messages: adminMessages
     },
     playerMessageLog: playerLog
   }
@@ -204,7 +210,8 @@ export const handleNewMessageData = (
   payload: MessageChannel,
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
-  playerMessageLog: PlayerMessageLog): SetWargameMessage => {
+  playerMessageLog: PlayerMessageLog,
+  playerId: string): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
@@ -219,7 +226,7 @@ export const handleNewMessageData = (
     }
     channel.messages.unshift(payload)
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload)
+    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   }
 
   return res
