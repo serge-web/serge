@@ -22,7 +22,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const dispatch = usePlayerUiDispatch()
   const channelUI = state.channels[channelId]
   const channelPlanning = channelUI.cData as ChannelPlanning
-  console.log('rendering planning channel', channelPlanning.name)
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { allForces, currentWargame, selectedForce, selectedRole } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
