@@ -1,4 +1,4 @@
-import { P9Mock } from '@serge/mocks'
+import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import MessageCreator from './index'
@@ -16,17 +16,17 @@ export default {
 }
 
 export const Default: React.FC = () => <MessageCreator
-  channels={[]}
-  curChannel=''
+  channels={[P9Mock.data.channels]}
+  curChannel={P9Mock.data.channels.name}
   currentTurn={0}
-  currentWargame=''
+  currentWargame={P9Mock.currentWargame || ''}
   gameDate=''
-  privateMessage={false}
+  privateMessage={true}
   saveMessage={() => (): void => { console.log('save') }}
   saveNewActivityTimeMessage={() => (): void => { console.log('save new') }}
-  schema={''}
+  schema={planningMessageTemplatesMock[0].details}
   selectedForce={P9Mock.data.forces.forces[0]}
-  selectedRole={''}
-  selectedRoleName={''}
+  selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
+  selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
   dispatch={noop}
 />
