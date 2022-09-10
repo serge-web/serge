@@ -10,6 +10,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, SpecialChannelTypes } from '@serge/config'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import Dialog from '../../atoms/custom-dialog'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
@@ -34,12 +35,13 @@ export const SettingChannels: React.FC<PropTypes> = ({
   messageTemplates,
   selectedChannel
 }) => {
-  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
-  const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))
+  const selectedChannelIdx = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
+  const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelIdx, 0))
   const [selectedChannelState, setSelectedChannelState] = useState<ChannelTypes | undefined>(selectedChannel)
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
+  const [deleteSelectedChannel, setDeleteSelectedChannel] = useState<boolean>(false)
 
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
@@ -50,6 +52,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     nextChannels[selectedItem] = selectedChannel
     onChange({ channels: nextChannels, selectedChannel })
     setLocalChannelUpdates(nextChannels)
+    setSelectedChannelState(selectedChannel)
   }
 
   const onChannelSwitch = (_item: Item): void => {
@@ -90,16 +93,25 @@ export const SettingChannels: React.FC<PropTypes> = ({
           onChange={onChannelDataChange}
         />
       case CHANNEL_PLANNING:
-        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br/>{JSON.stringify(selectedChannelState)}</div>
+        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>
       default:
         return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {JSON.stringify(selectedChannelState)}</div>
     }
-  }, [selectedChannelId])
+  }, [selectedChannelIdx, selectedChannelState])
 
   useEffect(() => {
-    setSelectedItem(Math.max(selectedChannelId, 0))
+    const selectedIdx = channels.findIndex(c => c.uniqid === selectedChannelState?.uniqid)
+    setSelectedItem(Math.max(selectedIdx, 0))
     setLocalChannelUpdates(channels)
-  }, [channels, selectedChannelId])
+  }, [channels])
+
+  const onDeleteChannel = (item: Item) => {
+    if ((item as ChannelTypes).uniqid === selectedChannelState?.uniqid) {
+      setDeleteSelectedChannel(true)
+      return;
+    }
+    onDelete && onDelete(item)
+  }
 
   const addNewChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
@@ -166,14 +178,21 @@ export const SettingChannels: React.FC<PropTypes> = ({
   return (
     <AdminContent>
       <LeftSide>
+        <Dialog
+          isOpen={deleteSelectedChannel}
+          header='Error'
+          content="You can't delete selecting channel"
+          onClose={() => setDeleteSelectedChannel(false)}
+          cancelBtnText='OK'
+        />
         {renderChannelActions}
         <EditableList
           title="Add Channel"
-          items={channels}
-          selectedItem={channels[selectedItem]?.uniqid}
+          items={localChannelUpdates}
+          selectedItem={localChannelUpdates[selectedItem]?.uniqid}
           filterKey="uniqid"
           onClick={onChannelSwitch}
-          onDelete={onDelete}
+          onDelete={onDeleteChannel}
           onDuplicate={onDuplicate}
         />
       </LeftSide>
