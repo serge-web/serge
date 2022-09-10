@@ -1,7 +1,6 @@
 import { TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
-  role: string
   orderableChannel: boolean
   confirmCancel: boolean
   templates: TemplateBody[]

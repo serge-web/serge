@@ -51,22 +51,20 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
 }
 
 export const Default: React.FC = () => <NewMessage2
-  role=''
   templates={planningMessageTemplatesMock}
-  privateMessage={false}
+  privateMessage={true}
   orderableChannel={false}
-  curChannel=''
+  curChannel={P9Mock.data.channels.name}
   confirmCancel={false}
   activityTimeChanel={noop}
-  channels={[]}
+  channels={[P9Mock.data.channels]}
   currentTurn={0}
-  currentWargame=''
+  currentWargame={P9Mock.currentWargame || ''}
   gameDate=''
-  // saveMessage={saveMessage}
   saveMessage={() => (): void => { console.log('save') }}
   saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
   selectedForce={P9Mock.data.forces.forces[0]}
-  selectedRole={''}
-  selectedRoleName={''}
+  selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
+  selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
   dispatch={noop}
 />

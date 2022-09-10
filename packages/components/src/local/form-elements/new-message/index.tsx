@@ -7,7 +7,6 @@ import { usePrevious } from '@serge/helpers'
 import PropTypes from './types/props'
 
 const NewMessage2: React.FC<PropTypes> = ({
-  role,
   templates,
   curChannel,
   privateMessage,
@@ -56,7 +55,7 @@ const NewMessage2: React.FC<PropTypes> = ({
   }, [templates, prevTemplates])
 
   const onMessageSend = (event: MouseEvent<HTMLButtonElement>): void => {
-    activityTimeChanel(role, 'Create new message')
+    activityTimeChanel(selectedRole, 'Create new message')
     setTimeout(() => {
       if (tab && tab.current) {
         tab.current.handleTriggerClick(event)
