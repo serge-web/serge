@@ -77,7 +77,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
             messageTemplates={messageTemplates}
             onChange={onChannelDataChange}
           />
-  
+
         case CHANNEL_CUSTOM:
           return <CustomChannel
             channel={selectedChannelState as ChannelCustom}
@@ -85,14 +85,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
             messageTemplates={messageTemplates}
             onChange={onChannelDataChange}
           />
-  
+
         case CHANNEL_MAPPING:
           return <MappingChannel
             channel={selectedChannelState as ChannelMapping}
             forces={forces}
             onChange={onChannelDataChange}
           />
-  
+
         case CHANNEL_CHAT:
           return <ChatChannel
             channel={selectedChannelState as ChannelChat}
@@ -105,7 +105,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
           return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {JSON.stringify(selectedChannelState)}</div>
       }
     }
-
   }, [selectedChannelIdx, selectedChannelState])
 
   useEffect(() => {
