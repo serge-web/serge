@@ -10,7 +10,6 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, SpecialChannelTypes } from '@serge/config'
 import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import Dialog from '../../atoms/custom-dialog'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
@@ -41,7 +40,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
-  const [deleteSelectedChannel, setDeleteSelectedChannel] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (!selectedChannel && channels.length !== localChannelUpdates.length) {
+      setSelectedChannelState(channels[0])
+    }
+  }, [selectedChannel])
 
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
@@ -104,14 +108,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setSelectedItem(Math.max(selectedIdx, 0))
     setLocalChannelUpdates(channels)
   }, [channels])
-
-  const onDeleteChannel = (item: Item) => {
-    if ((item as ChannelTypes).uniqid === selectedChannelState?.uniqid) {
-      setDeleteSelectedChannel(true)
-      return;
-    }
-    onDelete && onDelete(item)
-  }
 
   const addNewChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
@@ -178,13 +174,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
   return (
     <AdminContent>
       <LeftSide>
-        <Dialog
-          isOpen={deleteSelectedChannel}
-          header='Error'
-          content="You can't delete selecting channel"
-          onClose={() => setDeleteSelectedChannel(false)}
-          cancelBtnText='OK'
-        />
         {renderChannelActions}
         <EditableList
           title="Add Channel"
@@ -192,7 +181,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           selectedItem={localChannelUpdates[selectedItem]?.uniqid}
           filterKey="uniqid"
           onClick={onChannelSwitch}
-          onDelete={onDeleteChannel}
+          onDelete={onDelete}
           onDuplicate={onDuplicate}
         />
       </LeftSide>
