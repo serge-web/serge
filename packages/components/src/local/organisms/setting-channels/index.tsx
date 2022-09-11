@@ -42,10 +42,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    if (!selectedChannel && channels.length !== localChannelUpdates.length) {
-      setSelectedChannelState(channels[0])
-    }
-  }, [selectedChannel])
+    setSelectedItem(0)
+    setSelectedChannelState(channels[0])
+  }, [channels.length])
 
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
@@ -104,8 +103,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }, [selectedChannelIdx, selectedChannelState])
 
   useEffect(() => {
-    const selectedIdx = channels.findIndex(c => c.uniqid === selectedChannelState?.uniqid)
-    setSelectedItem(Math.max(selectedIdx, 0))
     setLocalChannelUpdates(channels)
   }, [channels])
 
