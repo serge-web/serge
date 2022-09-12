@@ -18,10 +18,9 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
     if (attr && attr.attrType === ATTRIBUTE_VALUE_NUMBER) {
       const numAtt = attr as NumberAttributeValue
       return numAtt.value
-    }
-    else if (attr && attr.attrType === ATTRIBUTE_VALUE_ENUM) {
-        const numAtt = attr as EnumAttributeValue
-        return parseFloat(numAtt.value)
+    } else if (attr && attr.attrType === ATTRIBUTE_VALUE_ENUM) {
+      const numAtt = attr as EnumAttributeValue
+      return parseFloat(numAtt.value)
     } else {
       return undefined
     }
