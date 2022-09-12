@@ -45,4 +45,3 @@ export const Default: React.FC = () => {
 
   return <SettingForces forces={data} onChange={onChange} onSave={onSave} platformTypes={platformTypesMock} onRejectedIcon={onRejectedIcon} />
 }
-

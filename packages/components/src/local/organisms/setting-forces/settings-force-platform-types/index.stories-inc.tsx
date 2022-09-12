@@ -61,7 +61,6 @@ UmpireLaydown.args = {
   forcesParam: setAsset2Laydown(forcesMock, LaydownTypes.UmpireLaydown)
 }
 
-
 export const ForceLaydown = Template.bind({})
 ForceLaydown.args = {
   forcesParam: setAsset2Laydown(forcesMock, LaydownTypes.ForceLaydown)
