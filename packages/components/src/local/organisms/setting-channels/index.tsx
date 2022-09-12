@@ -34,12 +34,17 @@ export const SettingChannels: React.FC<PropTypes> = ({
   messageTemplates,
   selectedChannel
 }) => {
-  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
-  const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))
+  const selectedChannelIdx = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
+  const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelIdx, 0))
   const [selectedChannelState, setSelectedChannelState] = useState<ChannelTypes | undefined>(selectedChannel)
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    setSelectedItem(0)
+    setSelectedChannelState(channels[0])
+  }, [channels.length])
 
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
@@ -50,6 +55,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     nextChannels[selectedItem] = selectedChannel
     onChange({ channels: nextChannels, selectedChannel })
     setLocalChannelUpdates(nextChannels)
+    setSelectedChannelState(selectedChannel)
   }
 
   const onChannelSwitch = (_item: Item): void => {
@@ -67,7 +73,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
           messageTemplates={messageTemplates}
           onChange={onChannelDataChange}
         />
-
       case CHANNEL_CUSTOM:
         return <CustomChannel
           channel={selectedChannelState as ChannelCustom}
@@ -75,14 +80,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
           messageTemplates={messageTemplates}
           onChange={onChannelDataChange}
         />
-
       case CHANNEL_MAPPING:
         return <MappingChannel
           channel={selectedChannelState as ChannelMapping}
           forces={forces}
           onChange={onChannelDataChange}
         />
-
       case CHANNEL_CHAT:
         return <ChatChannel
           channel={selectedChannelState as ChannelChat}
@@ -90,16 +93,17 @@ export const SettingChannels: React.FC<PropTypes> = ({
           onChange={onChannelDataChange}
         />
       case CHANNEL_PLANNING:
-        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel: {JSON.stringify(selectedChannelState)}</div>
+        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>
+      case undefined:
+        return <div>Channels empty. Please create a channel.</div>
       default:
-        return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {channelType}</div>
+        return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {JSON.stringify(selectedChannelState)}</div>
     }
-  }, [selectedChannelId])
+  }, [selectedChannelIdx, selectedChannelState])
 
   useEffect(() => {
-    setSelectedItem(Math.max(selectedChannelId, 0))
     setLocalChannelUpdates(channels)
-  }, [channels, selectedChannelId])
+  }, [channels])
 
   const addNewChannel = (type?: SpecialChannelTypes): void => {
     const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
@@ -169,8 +173,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
         {renderChannelActions}
         <EditableList
           title="Add Channel"
-          items={channels}
-          selectedItem={channels[selectedItem]?.uniqid}
+          items={localChannelUpdates}
+          selectedItem={localChannelUpdates[selectedItem]?.uniqid}
           filterKey="uniqid"
           onClick={onChannelSwitch}
           onDelete={onDelete}
@@ -199,6 +203,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               color="secondary"
+              disabled= {!selectedChannelState}
               onClick={(): void => { onSave && onSave(localChannelUpdates[selectedItem]) }}
               data-qa-type="save"
             >
