@@ -46,7 +46,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   />
 }
 
-const setAsset2Laydown = (forces: ForceData[], lType: LaydownTypes) => {
+const setAsset2Laydown = (forces: ForceData[], lType: LaydownTypes): ForceData[] => {
   const newForces = deepCopy(forces)
   // make one item umpire laydown
   const blueForce = newForces[1]
