@@ -64,46 +64,40 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   const renderChannelContent = useMemo(() => {
-    if (selectedChannelState === undefined) {
-      return <div>Channels empty. Please create a channel.</div>
-    } else {
-      const channelType = (selectedChannelState && selectedChannelState.channelType)
-      console.log('ch type', channelType, selectedChannelState, selectedChannelIdx)
-      switch (channelType) {
-        case CHANNEL_COLLAB:
-          return <CollabChannel
-            channel={selectedChannelState as ChannelCollab}
-            forces={forces}
-            messageTemplates={messageTemplates}
-            onChange={onChannelDataChange}
-          />
-
-        case CHANNEL_CUSTOM:
-          return <CustomChannel
-            channel={selectedChannelState as ChannelCustom}
-            forces={forces}
-            messageTemplates={messageTemplates}
-            onChange={onChannelDataChange}
-          />
-
-        case CHANNEL_MAPPING:
-          return <MappingChannel
-            channel={selectedChannelState as ChannelMapping}
-            forces={forces}
-            onChange={onChannelDataChange}
-          />
-
-        case CHANNEL_CHAT:
-          return <ChatChannel
-            channel={selectedChannelState as ChannelChat}
-            forces={forces}
-            onChange={onChannelDataChange}
-          />
-        case CHANNEL_PLANNING:
-          return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>
-        default:
-          return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {JSON.stringify(selectedChannelState)}</div>
-      }
+    const channelType = (selectedChannelState && selectedChannelState.channelType)
+    switch (channelType) {
+      case CHANNEL_COLLAB:
+        return <CollabChannel
+          channel={selectedChannelState as ChannelCollab}
+          forces={forces}
+          messageTemplates={messageTemplates}
+          onChange={onChannelDataChange}
+        />
+      case CHANNEL_CUSTOM:
+        return <CustomChannel
+          channel={selectedChannelState as ChannelCustom}
+          forces={forces}
+          messageTemplates={messageTemplates}
+          onChange={onChannelDataChange}
+        />
+      case CHANNEL_MAPPING:
+        return <MappingChannel
+          channel={selectedChannelState as ChannelMapping}
+          forces={forces}
+          onChange={onChannelDataChange}
+        />
+      case CHANNEL_CHAT:
+        return <ChatChannel
+          channel={selectedChannelState as ChannelChat}
+          forces={forces}
+          onChange={onChannelDataChange}
+        />
+      case CHANNEL_PLANNING:
+        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>
+      case undefined:
+        return <div>Channels empty. Please create a channel.</div>
+      default:
+        return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {JSON.stringify(selectedChannelState)}</div>
     }
   }, [selectedChannelIdx, selectedChannelState])
 
