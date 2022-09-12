@@ -1,5 +1,4 @@
-/* global it expect */
-
+import { ChannelUI } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
@@ -7,15 +6,23 @@ import renderer from 'react-test-renderer'
 import NewMessage2 from './index'
 
 it('NewMessage2 renders correctly', () => {
+  const channels = {}
+  P9Mock.data.channels.channels.forEach(c => {
+    channels[c.name] = {
+      cData: c,
+      name: c.name,
+      uniqid: c.uniqid
+    } as ChannelUI
+  })
   const tree = renderer
     .create(<NewMessage2
       templates={planningMessageTemplatesMock}
       privateMessage={true}
       orderableChannel={false}
-      curChannel={P9Mock.data.channels.name}
+      curChannel={P9Mock.data.channels.channels[0].name}
       confirmCancel={false}
       activityTimeChanel={noop}
-      channels={[P9Mock.data.channels]}
+      channels={channels}
       currentTurn={0}
       currentWargame={P9Mock.currentWargame || ''}
       gameDate=''

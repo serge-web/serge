@@ -1,4 +1,4 @@
-import { TemplateBody } from '@serge/custom-types'
+import { PlayerUiChannels, TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -11,7 +11,7 @@ export default interface PropTypes {
   selectedRole: string
   selectedRoleName: string
   currentTurn: number
-  channels: Channel[]
+  channels: PlayerUiChannels
   currentWargame: string
   gameDate: string
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void

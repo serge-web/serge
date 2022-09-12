@@ -1,3 +1,4 @@
+import { PlayerUiChannels } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
@@ -11,7 +12,7 @@ export default interface PropTypes {
   selectedRole: string
   selectedRoleName: string
   currentTurn: number
-  channels: Channel[]
+  channels: PlayerUiChannels
   currentWargame: string
   gameDate: string
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void

@@ -1,4 +1,4 @@
-import { MessageDetails } from '@serge/custom-types'
+import { ChannelUI, MessageDetails } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
@@ -44,27 +44,38 @@ export default {
   }
 }
 
-export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => (): Function => {
+export const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
   return async (): Promise<void> => {
-    console.log('new message', dbName, details, message)
+    console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
   }
 }
 
-export const Default: React.FC = () => <NewMessage2
-  templates={planningMessageTemplatesMock}
-  privateMessage={true}
-  orderableChannel={false}
-  curChannel={P9Mock.data.channels.name}
-  confirmCancel={false}
-  activityTimeChanel={noop}
-  channels={[P9Mock.data.channels]}
-  currentTurn={0}
-  currentWargame={P9Mock.currentWargame || ''}
-  gameDate=''
-  saveMessage={() => (): void => { console.log('save') }}
-  saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
-  selectedForce={P9Mock.data.forces.forces[0]}
-  selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
-  selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
-  dispatch={noop}
-/>
+export const Default: React.FC = () => {
+  const channels = {}
+  P9Mock.data.channels.channels.forEach(c => {
+    channels[c.name] = {
+      cData: c,
+      name: c.name,
+      uniqid: c.uniqid
+    } as ChannelUI
+  })
+
+  return (<NewMessage2
+    templates={planningMessageTemplatesMock}
+    privateMessage={true}
+    orderableChannel={false}
+    curChannel={P9Mock.data.channels.channels[0].name}
+    confirmCancel={false}
+    activityTimeChanel={noop}
+    channels={channels}
+    currentTurn={0}
+    currentWargame={P9Mock.currentWargame || ''}
+    gameDate=''
+    saveMessage={saveMessage}
+    saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
+    selectedForce={P9Mock.data.forces.forces[0]}
+    selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
+    selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
+    dispatch={noop}
+  />)
+}
