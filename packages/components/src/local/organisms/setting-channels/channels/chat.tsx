@@ -36,15 +36,12 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
   const [isChatAuthorHidden, setChatAuthorHidden] = useState<boolean>(false)
 
   useEffect(() => {
-    setChatAuthorHidden(!!channel.hideMessageAuthor)
-  }, [])
-
-  useEffect(() => {
     setLocalChannelUpdates(channel)
   }, [channel])
 
   useEffect(() => {
     onChange(localChannelUpdates)
+    setChatAuthorHidden(!!localChannelUpdates.hideMessageAuthor)
   }, [localChannelUpdates])
 
   const renderContent = (): React.ReactNode => {
