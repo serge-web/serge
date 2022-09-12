@@ -217,6 +217,25 @@ const couchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
+  app.get('/:wargame/:dbname/logs', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      }
+    }).then((result) => {
+      res.send({ msg: 'ok', data: result.docs })
+    })
+      .catch(() => res.send([]))
+  })
+
   app.get('/:wargame/:dbname/logs-latest', (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
 
