@@ -106,7 +106,7 @@ export class DbProvider implements DbProviderInterface {
   
   getPlayerLogs = (wargame: string): Promise<PlayerLogEntries> => {
     return new Promise((resolve, reject) => {
-      fetch(serverPath + wargame + '/' + this.getDbName() + '/' + 'logs')
+      fetch(serverPath + wargame + '/' + this.getDbName() + '/' + 'logs-latest')
         .then(res => res.json() as Promise<FetchDataLogs>)
         .then((res) => {
           const { msg, data } = res

@@ -180,7 +180,7 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
-  app.get('/:wargame/:dbname/logs', (req, res) => {
+  app.get('/:wargame/:dbname/logs-latest', (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
 
     if (!databaseName) {
@@ -192,9 +192,20 @@ const pouchDb = (app, io, pouchOptions) => {
     db.find({
       selector: {
         wargame: req.params.wargame
-      }
+      },
+      fields: ['role', 'activityTime', 'activityType']
     }).then((result) => {
-      res.send({ msg: 'ok', data: result.docs })
+      const uniqByKeepLast = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x), x])
+          ).values()
+        ]
+      }
+
+      const lastLogs = result.docs && uniqByKeepLast(result.docs, it => it.role)
+
+      res.send({ msg: 'ok', data: lastLogs })
     })
       .catch(() => res.send([]))
   })
