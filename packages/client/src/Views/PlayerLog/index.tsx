@@ -18,6 +18,7 @@ import { PlayerLogModal, PlayerLogProps } from './types/props'
 import deepCopy from '../../Helpers/copyStateHelper'
 // interval between UI refreshes
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
+const PLAYER_LOG_QUERY = 'logs-latest'
 
 // the player must have been active within this threshold to be treated as `ACTIVE`
 const AGE_FOR_ACTIVE_MILLIS = 60000
@@ -51,7 +52,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
   
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs(currentWargame, currentDbname).then((activityLog) => {  
+    getPlayerActivityLogs(currentWargame, currentDbname, PLAYER_LOG_QUERY).then((activityLog) => {  
       setPlayerLogData([])
       const activityLogsForThisWargame: PlayerLogEntry[] = deepCopy(activityLog)
       const allActivityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
