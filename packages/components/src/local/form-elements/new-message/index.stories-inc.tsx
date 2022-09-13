@@ -58,7 +58,7 @@ interface StoryPropTypes {
 }
 
 const Template: Story<StoryPropTypes> = (args) => {
-  const {privateMessage, orderableChannel, confirmCancel} = args
+  const { privateMessage, orderableChannel, confirmCancel } = args
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
@@ -89,4 +89,3 @@ const Template: Story<StoryPropTypes> = (args) => {
 }
 
 export const Default = Template.bind({})
-

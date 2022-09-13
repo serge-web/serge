@@ -44,7 +44,7 @@ interface StoryPropTypes {
 }
 
 const Template: Story<StoryPropTypes> = (args) => {
-  const {privateMessage, confirmCancel} = args
+  const { privateMessage, confirmCancel } = args
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
