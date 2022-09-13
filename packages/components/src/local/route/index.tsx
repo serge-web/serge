@@ -18,11 +18,13 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   if (typeof props === 'undefined') return null
   const { turnNumber } = props
   const plainDots = [1, 7]
-  const selectedDots = [4, 8]
+  const selectedDots = [3, 8]
+  const oneStepDots = [3, 5]
 
   // allow the destination end point to be changed
   const [historyRoutes, setHistoryRoutes] = useState<RouteData | undefined>(undefined)
   const [plannedRoutes, setPlannedRoutes] = useState<RouteData | undefined>(undefined)
+  const [oneStepPlannedRoutes, setOneStepPlannedRoutes] = useState<L.LatLng[]>([])
   const [historyTurnMarkers, setHistoryTurnMarkers] = useState<JSX.Element[]>([])
   const [plannedTurnMarkers, setPlannedTurnMarkers] = useState<JSX.Element[]>([])
 
@@ -40,7 +42,27 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
 
         // now planned
         const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation2, route.plannedTrimmed)
-        setPlannedRoutes(plannedRoute)
+        const turns = plannedRoute.turnEnds
+        if (turns.length > 0) {
+          // find the marker for the first planned turn. We want to render points
+          // before this in a different way - to help with adjudication/planning
+          const finishPoint = turns[0].current.pos
+          const oneStep = plannedRoute.polyline.findIndex((value: L.LatLng) => value === finishPoint)
+          // do we plot ahead more than one turn?
+          if (oneStep > -1) {
+            // ok, split into `one step` and `remaining` legs
+            const oneStepPoints = plannedRoute.polyline.slice(0, oneStep + 1)
+            const remainingPoints = plannedRoute.polyline.slice(oneStep)
+            const shortRoute: RouteData = { polyline: remainingPoints, turnEnds: [] }
+            setOneStepPlannedRoutes(oneStepPoints)  
+            setPlannedRoutes(shortRoute)
+          } else {
+            setPlannedRoutes(plannedRoute)
+            setOneStepPlannedRoutes([])
+          }
+        } else {
+          setPlannedRoutes(plannedRoute)
+        }
         setPlannedTurnMarkers(createTurnMarkers(plannedRoute, PLANNED_MARKER, color, selected, clearRouteHandler))
       } else {
         setHistoryRoutes(undefined)
@@ -77,6 +99,19 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
             color={color}
             weight={selected ? 3 : 2}
             dashArray={selected ? selectedDots : plainDots}
+          />
+        </LayerGroup>
+      }
+      {oneStepPlannedRoutes &&
+        <LayerGroup>
+          <Polyline
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key={'hex_one_step_planned_' + name}
+            positions={oneStepPlannedRoutes}
+            color={color}
+            weight={selected ? 4 : 3}
+            dashArray={oneStepDots}
           />
         </LayerGroup>
       }
