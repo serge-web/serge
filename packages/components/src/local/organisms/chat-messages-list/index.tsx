@@ -17,7 +17,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
 }: PropTypes) => {
   // cast messages, for type-checking
   const rMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
-  const cMessages = rMessages.reverse()
+  const cMessages = [...rMessages].reverse() // note we have to clone it first, since reverse is destructive
   const height = chatContainerHeight || 280
   return (
     <div>
