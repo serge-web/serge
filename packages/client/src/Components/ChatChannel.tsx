@@ -1,4 +1,4 @@
-import { ChannelMessagesList, ChatEntryForm, ChatMessagesList, NewMessage2 } from '@serge/components'
+import { ChannelMessagesList, ChatEntryForm, ChatMessagesList, NewMessage } from '@serge/components'
 import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -161,7 +161,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
           <div className='chat-message-container'>
             {
               isCustomChannel
-                ? <NewMessage2
+                ? <NewMessage
                   activityTimeChanel={newActiveMessage}
                   orderableChannel={true}
                   curChannel={channelId}

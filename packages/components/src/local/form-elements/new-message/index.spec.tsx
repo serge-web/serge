@@ -3,9 +3,9 @@ import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import NewMessage2 from './index'
+import NewMessage from './index'
 
-it('NewMessage2 renders correctly', () => {
+it('NewMessage renders correctly', () => {
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
@@ -15,7 +15,7 @@ it('NewMessage2 renders correctly', () => {
     } as ChannelUI
   })
   const tree = renderer
-    .create(<NewMessage2
+    .create(<NewMessage
       templates={planningMessageTemplatesMock}
       privateMessage={true}
       orderableChannel={false}

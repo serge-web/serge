@@ -1,6 +1,6 @@
-# NewMessage2 documentation
+# NewMessage documentation
 
-This is an example readme file for the 'NewMessage2' component.
+This is an example readme file for the 'NewMessage' component.
 
 ## UI Example
 
@@ -19,11 +19,11 @@ This is an example readme file for the 'NewMessage2' component.
 ### ES6 Import
 
 ```js
-import NewMessage2 from "./new-message";
+import NewMessage from "./new-message";
 ```
 
 ### CommonJS
 
 ```js
-const NewMessage2 = require("./new-message");
+const NewMessage = require("./new-message");
 ```

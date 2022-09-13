@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NewMessage2 renders correctly 1`] = `
+exports[`NewMessage renders correctly 1`] = `
 <div
   className="message-editor new-message-creator wrap "
   style={

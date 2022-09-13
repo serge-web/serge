@@ -1,4 +1,4 @@
-import { CollabStatusBoard, NewMessage2 } from '@serge/components'
+import { CollabStatusBoard, NewMessage } from '@serge/components'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from '@serge/config'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
 import { MessageSentInteraction, PlainInteraction } from '@serge/custom-types/player-log'
@@ -123,7 +123,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       </div>
       {
         canCreateMessages &&
-        <NewMessage2
+        <NewMessage
           activityTimeChanel={newActiveMessage}
           orderableChannel={true}
           curChannel={channelId}

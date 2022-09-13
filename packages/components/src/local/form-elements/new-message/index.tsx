@@ -6,7 +6,7 @@ import { TemplateBody } from '@serge/custom-types'
 import { usePrevious } from '@serge/helpers'
 import PropTypes from './types/props'
 
-const NewMessage2: React.FC<PropTypes> = ({
+const NewMessage: React.FC<PropTypes> = ({
   templates,
   curChannel,
   privateMessage,
@@ -112,4 +112,4 @@ const NewMessage2: React.FC<PropTypes> = ({
     </div>
   )
 }
-export default NewMessage2
+export default NewMessage

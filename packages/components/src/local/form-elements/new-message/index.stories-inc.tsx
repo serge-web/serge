@@ -3,14 +3,14 @@ import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
-import NewMessage2 from './index'
+import NewMessage from './index'
 import docs from './README.md'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/form-elements/NewMessage2',
-  component: NewMessage2,
+  title: 'local/form-elements/NewMessage',
+  component: NewMessage,
   decorators: [wrapper],
   parameters: {
     readme: {
@@ -68,7 +68,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     } as ChannelUI
   })
 
-  return (<NewMessage2
+  return (<NewMessage
     templates={planningMessageTemplatesMock}
     privateMessage={privateMessage}
     orderableChannel={orderableChannel}
@@ -88,5 +88,5 @@ const Template: Story<StoryPropTypes> = (args) => {
   />)
 }
 
-export const NewMessage = Template.bind({})
+export const Default = Template.bind({})
 
