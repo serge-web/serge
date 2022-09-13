@@ -363,7 +363,7 @@ const game: Wargame = {
                           "by": "Red",
                           "force": "Blue",
                           "name": "Unknown UAV",
-                          "typeId": "Unmanned-Airborne-Vehicle"
+                          "typeId": "id-uav"
                         }
                       ],
                       "plannedTurns": [],
@@ -448,7 +448,7 @@ const game: Wargame = {
                   "by": "Red",
                   "force": "Blue",
                   "name": "BRIT",
-                  "typeId": "task-group"
+                  "typeId": "id-task-group"
                 }
               ],
               "plannedTurns": [
@@ -506,7 +506,7 @@ const game: Wargame = {
                     {
                       "by": "Red",
                       "force": "Blue",
-                      "typeId": "helicopter"
+                      "typeId": "id-help"
                     }
                   ],
                   "plannedTurns": [],
@@ -536,7 +536,7 @@ const game: Wargame = {
                   "by": "Red",
                   "force": "Blue",
                   "name": "Frigate Perceived Name",
-                  "typeId": "frigate"
+                  "typeId": "id-frigate"
                 }
               ],
               "plannedTurns": [
@@ -743,7 +743,7 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "SHU’AI",
-                  "typeId": "fishing-vessel"
+                  "typeId": "id-fisher"
                 }
               ],
               "plannedTurns": [
@@ -896,7 +896,7 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "OSAKA",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
               "plannedTurns": [
@@ -935,6 +935,16 @@ const game: Wargame = {
               "history": [
                 {
                   "route": [
+                    "830f64fffffffff"
+                  ],
+                  "status": {
+                    "speedKts": 20,
+                    "state": "Transiting"
+                  },
+                  "turn": 1
+                },
+                {
+                  "route": [
                     "831b34fffffffff"
                   ],
                   "status": {
@@ -950,13 +960,13 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "ARUNA 12",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 },
                 {
                   "by": "Red",
                   "force": "Green",
                   "name": "BARLAY",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
               "plannedTurns": [
@@ -1009,7 +1019,7 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "JALIBUT",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
               "plannedTurns": [
@@ -1058,7 +1068,7 @@ const game: Wargame = {
                 {
                   "by": "Blue",
                   "force": "Green",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
               "plannedTurns": [
@@ -1108,13 +1118,13 @@ const game: Wargame = {
                   "by": "Blue",
                   "force": "Green",
                   "name": "BOUM 3",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 },
                 {
                   "by": "Red",
                   "force": "Green",
                   "name": "BOUM 3",
-                  "typeId": "merchant-vessel"
+                  "typeId": "id-merchant"
                 }
               ],
               "plannedTurns": [
