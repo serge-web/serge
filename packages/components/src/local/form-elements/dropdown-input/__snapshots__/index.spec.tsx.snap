@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropdownInput renders correctly 1`] = `
+<select
+  className=""
+  onChange={[Function]}
+  value="placeholder"
+>
+  <option
+    disabled={true}
+    value="placeholder"
+  >
+    
+  </option>
+</select>
+`;
