@@ -4,7 +4,7 @@ import moment from 'moment'
 import fetch from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
+import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker, handleCloneMarker } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -20,6 +20,7 @@ import {
   FEEDBACK_MESSAGE,
   CUSTOM_MESSAGE,
   UPDATE_MARKER,
+  CLONE_MARKER,
   STATE_OF_WORLD,
   hiddenPrefix,
   DELETE_MARKER,
@@ -55,6 +56,8 @@ import {
   ParticipantTypes,
   ParticipantChat,
   MessageUpdateMarker,
+  MessageDeleteMarker,
+  MessageCloneMarker,
   MapAnnotationData,
   MessageStateOfWorld,
   WargameRevision,
@@ -73,7 +76,6 @@ import {
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
-import { MessageDeleteMarker } from '@serge/custom-types/message'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -838,6 +840,10 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageUpdateMarker = message
           res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === CLONE_MARKER) {
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageCloneMarker = message
+          res.data.annotations.annotations = handleCloneMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === DELETE_MARKER) {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageDeleteMarker = message

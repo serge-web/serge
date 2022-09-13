@@ -1,9 +1,9 @@
-import { faFill, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faFill, faTrash, faClone } from '@fortawesome/free-solid-svg-icons'
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
 import { Confirm } from '@serge/components'
-import { DELETE_MARKER, FLAG_MARKER, UPDATE_MARKER } from '@serge/config'
+import { CLONE_MARKER, DELETE_MARKER, FLAG_MARKER, UPDATE_MARKER } from '@serge/config'
 import { ForceData, IconOption, MapAnnotation } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
@@ -73,6 +73,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
 
   const toggleDeleteMarker = (): void => setOpen(!isOpen)
 
+  const duplicateMarker = (): void => {
+    updateMarker(CLONE_MARKER, formState)
+  }
+
   const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormState({ ...formState, description: e.target.value })
   }
@@ -132,7 +136,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF
       </FormGroup>
     </fieldset>
     <div className={styles['button-group']}>
-      <div onClick={toggleDeleteMarker} className={styles['delete-marker-btn']}>
+      <div onClick={duplicateMarker} title='Duplicate marker' className={styles['duplicate-marker-btn']}>
+        <FontAwesomeIcon icon={faClone} />
+      </div>
+      <div onClick={toggleDeleteMarker} title='Delete marker' className={styles['delete-marker-btn']}>
         <FontAwesomeIcon icon={faTrash} />
       </div>
       <Button onClick={closeForm} color='default' variant='contained' className={styles.button}>Cancel</Button>

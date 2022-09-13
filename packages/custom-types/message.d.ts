@@ -17,7 +17,8 @@ import {
   UPDATE_MARKER,
   CollaborativeMessageStates,
   COUNTER_MESSAGE,
-  DELETE_MARKER
+  DELETE_MARKER,
+  CLONE_MARKER
 } from '@serge/config'
 
 import Perception from './perception'
@@ -302,6 +303,11 @@ export interface MessageDeleteMarker {
   readonly marker: MapAnnotation['uniqid']
 }
 
+export interface MessageCloneMarker {
+  readonly messageType: typeof CLONE_MARKER,
+  readonly marker: MapAnnotation
+}
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -312,7 +318,8 @@ export type MessageMap = MessageForceLaydown |
   MessageHostPlatform |
   MessageDeletePlatform |
   MessageUpdateMarker |
-  MessageDeleteMarker
+  MessageDeleteMarker |
+  MessageCloneMarker
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom

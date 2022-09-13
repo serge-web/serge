@@ -35,6 +35,8 @@ export { default as Message,
          MessageHostPlatform,
          MessageDeletePlatform,
          MessageUpdateMarker,
+         MessageCloneMarker,
+         MessageDeleteMarker,
          // System Messages
          MessageFeedback,
          MessageInfoType,
