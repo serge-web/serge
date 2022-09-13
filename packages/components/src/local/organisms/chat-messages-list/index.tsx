@@ -17,7 +17,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
 }: PropTypes) => {
   // cast messages, for type-checking
   const rMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
-  const cMessages = rMessages.reverse()
+  const cMessages = [...rMessages].reverse() // note we have to clone it first, since reverse is destructive
   const height = chatContainerHeight || 280
   return (
     <div>
@@ -29,7 +29,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
       }
       <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100vh - ${height}px)` }} flexDirection="column-reverse" display="flex">
         {
-          cMessages && cMessages.map((message, key) => {
+          cMessages.map((message, key) => {
             if (message.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${message.gameTurn}-turnmarker-${key}`}>
