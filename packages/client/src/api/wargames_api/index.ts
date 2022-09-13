@@ -172,10 +172,10 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo
   return db.putPlayerLogs(items).then(res => res.msg)
 }
  
-export const getPlayerActivityLogs = async (wargame: string, dbName: string): Promise<PlayerLogEntries> => {
+export const getPlayerActivityLogs = async (wargame: string, dbName: string, query: string): Promise<PlayerLogEntries> => {
   const { db } = getWargameDbByName(dbName)
 
-  return await db.getPlayerLogs(wargame)
+  return await db.getPlayerLogs(wargame, query)
     .then(res => res)
     .catch(err => err)
 }
