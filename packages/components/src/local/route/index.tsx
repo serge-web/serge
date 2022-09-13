@@ -54,7 +54,7 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
             const oneStepPoints = plannedRoute.polyline.slice(0, oneStep + 1)
             const remainingPoints = plannedRoute.polyline.slice(oneStep)
             const shortRoute: RouteData = { polyline: remainingPoints, turnEnds: [] }
-            setOneStepPlannedRoutes(oneStepPoints)  
+            setOneStepPlannedRoutes(oneStepPoints)
             setPlannedRoutes(shortRoute)
           } else {
             setPlannedRoutes(plannedRoute)
