@@ -224,7 +224,7 @@ const couchDb = (app, io, pouchOptions) => {
       res.status(404).send({ msg: 'Wrong Player Name', data: null })
     }
 
-    const db = new PouchDB(databaseName, pouchOptions)
+    const db = new CouchDB(couchDbURL(databaseName))
 
     db.find({
       selector: {
