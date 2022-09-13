@@ -3,6 +3,7 @@ import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import MessageCreator from './index'
+import { Story } from '@storybook/react/types-6-0'
 import docs from './README.md'
 
 export default {
@@ -12,11 +13,38 @@ export default {
   parameters: {
     readme: {
       content: docs
+    },
+    options: {
+      showPanel: true
+    },
+    controls: {
+      expanded: true
+    }
+  },
+  argTypes: {
+    privateMessage: {
+      description: 'Provide private message (umpire force)',
+      control: {
+        type: 'boolean'
+      }
+    },
+    confirmCancel: {
+      description: 'Whether player has to confirm cancelling a message',
+      control: {
+        type: 'boolean'
+      }
     }
   }
 }
 
-export const Default: React.FC = () => {
+interface StoryPropTypes {
+  privateMessage: boolean
+  orderableChannel: boolean
+  confirmCancel: boolean
+}
+
+const Template: Story<StoryPropTypes> = (args) => {
+  const {privateMessage, confirmCancel} = args
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
@@ -30,9 +58,10 @@ export const Default: React.FC = () => {
     channels={channels}
     curChannel={P9Mock.data.channels.channels[0].name}
     currentTurn={0}
+    confirmCancel={confirmCancel}
     currentWargame={P9Mock.currentWargame || ''}
     gameDate=''
-    privateMessage={true}
+    privateMessage={privateMessage}
     saveMessage={() => (): void => { console.log('save') }}
     saveNewActivityTimeMessage={() => (): void => { console.log('save new') }}
     schema={planningMessageTemplatesMock[0].details}
@@ -42,3 +71,4 @@ export const Default: React.FC = () => {
     dispatch={noop}
   />)
 }
+export const NewMessage = Template.bind({})

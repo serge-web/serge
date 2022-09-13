@@ -70,7 +70,6 @@ const NewMessage2: React.FC<PropTypes> = ({
       }
     }, 0)
   }
-  console.log('new message', privateMessage, confirmCancel, orderableChannel)
 
   return (
     <div className={classes} style={{ zIndex: 1 }}>

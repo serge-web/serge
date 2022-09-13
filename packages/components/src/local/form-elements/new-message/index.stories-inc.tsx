@@ -1,6 +1,7 @@
 import { ChannelUI, MessageDetails } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
+import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import NewMessage2 from './index'
 import docs from './README.md'
@@ -44,13 +45,20 @@ export default {
   }
 }
 
-export const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
   return async (): Promise<void> => {
     console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
   }
 }
 
-export const Default: React.FC = () => {
+interface StoryPropTypes {
+  privateMessage: boolean
+  orderableChannel: boolean
+  confirmCancel: boolean
+}
+
+const Template: Story<StoryPropTypes> = (args) => {
+  const {privateMessage, orderableChannel, confirmCancel} = args
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
@@ -62,15 +70,15 @@ export const Default: React.FC = () => {
 
   return (<NewMessage2
     templates={planningMessageTemplatesMock}
-    privateMessage={true}
-    orderableChannel={false}
+    privateMessage={privateMessage}
+    orderableChannel={orderableChannel}
     curChannel={P9Mock.data.channels.channels[0].name}
-    confirmCancel={false}
+    confirmCancel={confirmCancel}
     activityTimeChanel={noop}
     channels={channels}
     currentTurn={0}
-    currentWargame={P9Mock.currentWargame || ''}
-    gameDate=''
+    currentWargame={P9Mock.name || 'dumb-name'}
+    gameDate={P9Mock.data.overview.gameDate}
     saveMessage={saveMessage}
     saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
     selectedForce={P9Mock.data.forces.forces[0]}
@@ -79,3 +87,6 @@ export const Default: React.FC = () => {
     dispatch={noop}
   />)
 }
+
+export const NewMessage = Template.bind({})
+
