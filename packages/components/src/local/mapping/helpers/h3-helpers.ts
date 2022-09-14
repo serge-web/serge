@@ -215,6 +215,14 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
   // set of cells in this area
   const cells = polyfill(boundsNum, res)
 
+  // maximum number of cells we allo
+  const MAX_CELLS = 100000
+
+  if (cells.length > MAX_CELLS) {
+    window.alert('Cannot generate grid. Too many cells:' + cells.length)
+    return []
+  }
+
   // sort out the centre index
   const centreLoc = bounds.getCenter()
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
