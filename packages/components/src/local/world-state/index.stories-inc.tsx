@@ -15,7 +15,7 @@ import { ChannelMapping, ForceData, Role } from '@serge/custom-types'
 console.clear()
 
 const forces = cmdWkWargame.data.forces.forces
-const platformTypes = cmdWkWargame.data.platformTypes? cmdWkWargame.data.platformTypes.platformTypes : []
+const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platformTypes.platformTypes : []
 const mappingChannel = cmdWkWargame.data.channels.channels[9] as ChannelMapping
 
 if (mappingChannel.channelType !== CHANNEL_MAPPING) {
@@ -80,7 +80,7 @@ export default {
         type: 'select',
         options: allRoles
       }
-    },
+    }
   }
 }
 
