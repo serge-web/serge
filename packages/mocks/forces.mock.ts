@@ -765,13 +765,13 @@ export const forces: ForceData[] = [
             by: 'Blue',
             force: 'Green',
             name: 'ARUNA 12',
-            typeId: 'merchant-vessel'
+            typeId: 'a13'
           },
           {
             by: 'Red',
             force: 'Green',
             name: 'BARLAY',
-            typeId: 'merchant-vessel'
+            typeId: 'a13'
           }],
         plannedTurns: [
           {
@@ -1146,13 +1146,13 @@ export const forces: ForceData[] = [
             by: 'Blue',
             force: 'Green',
             name: 'BOUM 3',
-            typeId: 'merchant-vessel'
+            typeId: 'a13'
           },
           {
             by: 'Red',
             force: 'Green',
             name: 'BOUM 3',
-            typeId: 'merchant-vessel'
+            typeId: 'a13'
           }
         ],
         plannedTurns: [
