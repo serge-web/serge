@@ -71,6 +71,8 @@ export const WorldState: React.FC<PropTypes> = ({
         setMarkers(visMarkers)
         break
       }
+      default:
+        console.warn('unexpected panel name provided:', panel)
     }
   }, [store, phase, panel, infoMarkers])
 
