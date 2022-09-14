@@ -291,8 +291,6 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
 
-  const condition: string = asset.condition
-
   const laydownPhase = underControlRole
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
     : LaydownPhases.Immobile
@@ -324,7 +322,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     original: cloneDeep(futureSteps),
     asset: asset,
     visibleTo: visibleTo,
-    condition: condition,
+    condition: asset.condition,
     adjudicationState: adjudicationState,
     attributes: asset.attributeValues || []
   }

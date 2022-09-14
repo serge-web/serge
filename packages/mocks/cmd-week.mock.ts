@@ -506,7 +506,7 @@ const game: Wargame = {
                     {
                       "by": "Red",
                       "force": "Blue",
-                      "typeId": "id-help"
+                      "typeId": "id-helo"
                     }
                   ],
                   "plannedTurns": [],
