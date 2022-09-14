@@ -269,7 +269,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         const bounds = localChannelUpdates.constraints.bounds
         const numCells = hexCellsInArea(res, bounds)
         if (numCells > 100000) {
-          setProblems('Serge will struggle with more than 100,000 cells. These bounds at this res produce ' + numCells)
+          setProblems('Serge will struggle with more than 100,000 cells. These bounds at this res produce roughly ' + numCells + ' cells')
         }
       }
 
