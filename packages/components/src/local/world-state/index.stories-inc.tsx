@@ -85,14 +85,15 @@ export default {
 }
 
 const Template: Story<WorldStatePropTypes> = (args) => {
-  const { 
+  const {
     // @ts-ignore: Add custom property for storybook
-    playerRole, 
+    playerRole,
     // eslint-disable-next-line
     store, 
     // eslint-disable-next-line
     isUmpire, 
-    ...props } = args
+    ...props
+  } = args
   const roleStr: string = playerRole
   // separate out the two elements of the combined rocale
   const sep1 = roleStr.indexOf(separator)
