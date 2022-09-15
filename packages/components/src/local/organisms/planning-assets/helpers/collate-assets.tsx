@@ -24,7 +24,6 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
       const visibleToThisForce = (force.visibleTo && force.visibleTo.includes(playerForce)) || force.uniqid === playerForce
       force.assets && force.assets.forEach((asset: Asset) => {
         const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, force.uniqid, asset.platformTypeId || '', asset.perceptions)
-        console.log('asset 0', force.uniqid, playerForce, visibleToThisForce, asset.perceptions, perception)
         if (perception) {
           // we can perceive this force, capture the name
           if (!forcesNames.includes(force.name)) {
@@ -43,7 +42,6 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
       if ((force.uniqid === playerForce)) {
         force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
         force.assets && force.assets.forEach((asset: Asset) => {
-          console.log('asset 2', opFor, asset.name, force.name)
           if (asset.status) {
             const state = asset.status.state
             if (!statuses.includes(state)) {
@@ -159,8 +157,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const res: Row = {
         id: asset.uniqid,
         icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
-        force: forceStyle ? forceStyle.force : 'unknown',
-        condition: 'unknown',
+        force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
+        condition: UNKNOWN_TYPE,
         name: perception.name,
         platformType: perception.typeId,
         status: asset.status?.state || ''

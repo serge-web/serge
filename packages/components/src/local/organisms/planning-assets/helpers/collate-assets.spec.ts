@@ -59,19 +59,27 @@ describe('check collating assets', () => {
   it('handles own-forces tab', () => {
     const umpireColumns = getColumns(false, forces, blueForce.uniqid)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(7)
+    expect(umpireColumns.length).toEqual(4)
 
-    const blueColumns = getColumns(false, forces, blueForce.uniqid)
-    expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(6)
+    const conditionCol = umpireColumns[1]
+    expect(conditionCol.lookup).toBeTruthy()
+    expect(conditionCol.lookup && Object.keys(conditionCol.lookup).length).toEqual(1)
+
+    const statusCol = umpireColumns[2]
+    expect(statusCol.lookup).toBeTruthy()
+    expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(2)
+
+    const ownerCol = umpireColumns[3]
+    expect(ownerCol.lookup).toBeTruthy()
+    expect(ownerCol.lookup && Object.keys(ownerCol.lookup).length).toEqual(8)
 
     const umpireRows = getRows(false, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(15)
+    expect(umpireRows.length).toEqual(20)
 
     const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(6)
+    expect(blueRows.length).toEqual(11)
 
     // do some parent/child checking
     const firstParent = blueRows[0]
@@ -82,15 +90,15 @@ describe('check collating assets', () => {
   it('handles opFor tab', () => {
     const umpireColumns = getColumns(true, [], umpireForce.uniqid)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(7)
+    expect(umpireColumns.length).toEqual(3)
 
     const blueColumns = getColumns(true, [], blueForce.uniqid)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(7)
+    expect(blueColumns.length).toEqual(3)
 
     const umpireRows = getRows(true, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(15)
+    expect(umpireRows.length).toEqual(20)
 
     const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
