@@ -1,9 +1,9 @@
-import MaterialTable, { Column } from 'material-table'
+import MaterialTable, { Column, MTableBody } from 'material-table'
 import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { Row } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
   const [rows, setRows] = useState<Row[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
@@ -32,10 +32,19 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
       }
     ]}
     options={{
-      sorting: true,
-      filtering: filter,
       paging: false,
+      sorting: false,
+      filtering: filter,
       selection: !jestWorkerId // fix unit-test for material table
+    }}
+    onSelectionChange={onSelectionChange}
+    components={{
+      Body: (props): React.ReactElement => {
+        onVisibleRowsChange && onVisibleRowsChange(props.renderData)
+        return (<MTableBody
+          {...props}
+        />)
+      }
     }}
   />
 }
