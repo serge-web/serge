@@ -98,7 +98,7 @@ export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[]
   })
 }
 
-export const hexCellsInArea = (h3Res: number, bounds: [[number, number], [number, number]]) => {
+export const hexCellsInArea = (h3Res: number, bounds: [[number, number], [number, number]]): number => {
   const avgAreaM2 = hexArea(h3Res, 'm2')
   const lPoly: LatLngBounds = latLngBounds(bounds[0], bounds[1])
   const nPoly = [lPoly.getNorthEast(), lPoly.getSouthWest()]
