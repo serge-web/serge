@@ -11,22 +11,31 @@ type SummaryData = {
   roles: {}
   statuses: string[]
   conditions: string[]
+  forces: string[]
 }
 
 export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'], opFor: boolean): SummaryData => {
   const roleDict: {} = {}
   const statuses: string[] = []
   const conditions: string[] = []
+  const forcesNames: string[] = []
   forces.forEach((force: ForceData) => {
     if (opFor) {
-      const visibleToThisForce = (force.visibleTo && force.visibleTo.includes(playerForce)) || force.uniqid !== playerForce
+      const visibleToThisForce = (force.visibleTo && force.visibleTo.includes(playerForce)) || force.uniqid === playerForce
       force.assets && force.assets.forEach((asset: Asset) => {
         const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, force.uniqid, asset.platformTypeId || '', asset.perceptions)
-        if (perception && perception.condition) {
-          const condition = perception.condition
-          if (!conditions.includes(condition)) {
-            conditions.push(condition)
+        console.log('asset 0', force.uniqid, playerForce, visibleToThisForce, asset.perceptions, perception)
+        if (perception) {
+          // we can perceive this force, capture the name
+          if (!forcesNames.includes(force.name)) {
+            forcesNames.push(force.name)
           }
+          if (perception.condition) {
+            const condition = perception.condition
+            if (!conditions.includes(condition)) {
+              conditions.push(condition)
+            }
+          }  
         }
       })
     } else {
@@ -34,6 +43,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
       if ((force.uniqid === playerForce)) {
         force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
         force.assets && force.assets.forEach((asset: Asset) => {
+          console.log('asset 2', opFor, asset.name, force.name)
           if (asset.status) {
             const state = asset.status.state
             if (!statuses.includes(state)) {
@@ -52,7 +62,8 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   const res: SummaryData = {
     roles: roleDict,
     conditions: conditions,
-    statuses: statuses
+    statuses: statuses,
+    forces: forcesNames
   }
   return res
 }
@@ -96,7 +107,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   
   const columns: Column[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
-    { title: 'Force', field: 'force' },
+    { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
     { title: 'Condition', field: 'condition', lookup: arrToDict(summaryData.conditions) },
     { title: 'Status', field: 'status', lookup: arrToDict(summaryData.statuses) },
     { title: 'Owner', field: 'owner', render: renderOwner, lookup: summaryData.roles }
@@ -108,9 +119,9 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     columns.splice(1, 1)
   }
 
-  // don't show owner for OpFor assets
+  // don't show owner or state for OpFor assets
   if (opFor) {
-    columns.splice(4, 1)
+    columns.splice(3, 2)
   }
 
   return columns
@@ -144,10 +155,11 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const visibleToThisForce = (assetForce.visibleTo && assetForce.visibleTo.includes(playerForce)) || !playerForce
     const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
     if (perception) {
+      const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
       const res: Row = {
         id: asset.uniqid,
         icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
-        force: perception.forceId,
+        force: forceStyle ? forceStyle.force : 'unknown',
         condition: 'unknown',
         name: perception.name,
         platformType: perception.typeId,
