@@ -2,7 +2,6 @@ import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import _ from 'lodash'
 import React, { useState } from 'react'
 import { Rnd } from 'react-rnd'
 import PlanningAssets from '../planning-assets'
@@ -96,7 +95,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 {activeTab === TABS[0] &&
                   <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
                     playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}
-                    onSelectionChange={(data) => onSelectionChange(false, data)} onVisibleRowsChange={(data) => onVisibleRowsChange(false, data)} />
+                    onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
                 }
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
@@ -124,7 +123,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 {activeTab === TABS[2] &&
                   <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
                     playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}
-                    onSelectionChange={(data) => onSelectionChange(true, data)} onVisibleRowsChange={(data) => onVisibleRowsChange(true, data)} />
+                    onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
                 }
               </TabPanel>
               <div className={styles['resize-indicator-container']} >
