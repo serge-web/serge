@@ -1,27 +1,15 @@
-import { ForceData, Role } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { Row } from './types/props'
 
-export const getRoles = (forces: ForceData[], playerForce?: ForceData['uniqid']): Role[] => {
-  const roles: Role[] = []
-  forces.forEach((force: ForceData) => {
-    if ((playerForce === undefined) || (force.uniqid === playerForce)) {
-      roles.push(...force.roles)
-    }
-  })
-  return roles
-}
-
 export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles }: PropTypes) => {
   const [rows, setRows] = useState<Row[]>([])
   const [columns, setColumns] = useState<Column[]>([])
-
-  const roles = opFor ? [] : getRoles(forces, playerForce)
+  const [filter, setFilter] = useState<boolean>(false)
 
   useEffect(() => {
-    setColumns(getColumns(opFor, roles, playerForce))
+    setColumns(getColumns(opFor, forces, playerForce || ''))
     setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce))
   }, [playerForce, forces])
 
@@ -34,8 +22,19 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
     columns={jestWorkerId ? [] : columns}
     data={jestWorkerId ? [] : rows}
     parentChildData={(row, rows): any => rows.find((a: Row): any => a.id === row.parentId)}
+    actions={[
+      {
+        icon: 'filter',
+        iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+        tooltip: 'Show filter controls',
+        isFreeAction: true,
+        onClick: (): void => setFilter(!filter)
+      }
+    ]}
     options={{
       sorting: true,
+      filtering: filter,
+      paging: false,
       selection: !jestWorkerId // fix unit-test for material table
     }}
   />

@@ -7,13 +7,64 @@ import AssetIcon from '../../../asset-icon'
 import React from 'react'
 import styles from '../styles.module.scss'
 
+type SummaryData = {
+  roles: {}
+  statuses: string[]
+  conditions: string[]
+}
+
+export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'], opFor: boolean): SummaryData => {
+  const roleDict: {} = {}
+  const statuses: string[] = []
+  const conditions: string[] = []
+  forces.forEach((force: ForceData) => {
+    if (opFor) {
+      const visibleToThisForce = (force.visibleTo && force.visibleTo.includes(playerForce)) || force.uniqid !== playerForce
+      force.assets && force.assets.forEach((asset: Asset) => {
+        const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, force.uniqid, asset.platformTypeId || '', asset.perceptions)
+        if (perception && perception.condition) {
+          const condition = perception.condition
+          if (!conditions.includes(condition)) {
+            conditions.push(condition)
+          }
+        }
+      })
+    } else {
+      // we store roles for own force
+      if ((force.uniqid === playerForce)) {
+        force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
+        force.assets && force.assets.forEach((asset: Asset) => {
+          if (asset.status) {
+            const state = asset.status.state
+            if (!statuses.includes(state)) {
+              statuses.push(state)
+            }
+          }
+          if (asset.condition) {
+            if (!conditions.includes(asset.condition)) {
+              conditions.push(asset.condition)
+            }
+          }
+        })
+      }
+    }
+  })
+  const res: SummaryData = {
+    roles: roleDict,
+    conditions: conditions,
+    statuses: statuses
+  }
+  return res
+}
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
- * @param playerForce the (optional) specific force to display
+ * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, roleNames: Role[], playerForce?: ForceData['uniqid']): Column[] => {
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid']): Column[] => {
+  const summaryData = getColumnSummary(forces, playerForce, opFor)
   const renderIcon = (row: Row): React.ReactElement => {
     if (!row.icon) return <></>
     const icons = row.icon.split(',')
@@ -23,20 +74,32 @@ export const getColumns = (opFor: boolean, roleNames: Role[], playerForce?: Forc
     return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
   }
   const renderOwner = (row: Row): React.ReactElement => {
-    const match = row.owner && roleNames.find((role: Role) => role.roleId === row.owner)
+    const match = row.owner && summaryData.roles[row.owner]
     if (match) {
-      return <>{match.name}</>
+      return <>{match}</>
     } else {
       return <></>
     }
   }
 
+  const arrToDict = (arr: string[]):{} | undefined => {
+    if (arr && arr.length > 0) {
+      const res = {}
+      arr.forEach((item: string) => {
+        res[item] = item
+      })
+      return res  
+    } else {
+      return undefined
+    }
+  }
+  
   const columns: Column[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force' },
-    { title: 'Condition', field: 'condition' },
-    { title: 'Status', field: 'status' },
-    { title: 'Owner', field: 'owner', render: renderOwner }
+    { title: 'Condition', field: 'condition', lookup: arrToDict(summaryData.conditions) },
+    { title: 'Status', field: 'status', lookup: arrToDict(summaryData.statuses) },
+    { title: 'Owner', field: 'owner', render: renderOwner, lookup: summaryData.roles }
   ]
 
   // don't need to show Force if we're just showing
@@ -47,7 +110,7 @@ export const getColumns = (opFor: boolean, roleNames: Role[], playerForce?: Forc
 
   // don't show owner for OpFor assets
   if (opFor) {
-    columns.splice(4,1)
+    columns.splice(4, 1)
   }
 
   return columns
