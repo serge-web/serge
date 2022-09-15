@@ -18,7 +18,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
   // end
 
   return <MaterialTable
-    title={'Planning Assets'}
+    title={ opFor ? 'Other force assets' : 'Own force Assets'}
     columns={jestWorkerId ? [] : columns}
     data={jestWorkerId ? [] : rows}
     parentChildData={(row, rows): any => rows.find((a: Row): any => a.id === row.parentId)}
