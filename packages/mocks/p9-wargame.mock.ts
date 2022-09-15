@@ -87,6 +87,52 @@ const game: Wargame = {
           "uniqid": "channel-red-planning"
         },
         {
+          "uniqid": "l650fqoy",
+          "name": "mapping",
+          "channelType": "mapping",
+          "participants": [
+              {
+                  "forceUniqid": "umpire",
+                  "roles": [
+                      "pl63jl7so"
+                  ],
+                  "subscriptionId": "qdaad",
+                  "pType": "ParticipantMapping",
+                  "controls": [ ]
+              },
+              {
+                  "forceUniqid": "F-Blue",
+                  "roles": [
+                      "pl65060rb"
+                  ],
+                  "subscriptionId": "k6co",
+                  "pType": "ParticipantMapping",
+                  "controls": [ ]
+              }
+          ],
+          "constraints": {
+            "tileLayer": {
+              "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+              "attribution": "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
+            },
+            "bounds": [
+              [
+                -3,
+                115
+              ],
+              [
+                -22,
+                150
+              ]
+            ],
+            "maxNativeZoom": 17,
+            "h3res": 5,
+            "minZoom": 2,
+            "cellLabelsStyle": "x_y_labels",
+            "maxZoom": 17
+          }
+      },
+        {
           "name": "Red",
           "channelType": "ChannelChat",
           "participants": [
