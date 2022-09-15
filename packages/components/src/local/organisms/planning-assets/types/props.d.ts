@@ -27,4 +27,5 @@ export type Row = {
   platformType: string
   parentId?: string
   force?: string
+  owner?: string
 }

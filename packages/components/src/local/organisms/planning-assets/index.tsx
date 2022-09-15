@@ -1,14 +1,27 @@
+import { ForceData, Role } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { Row } from './types/props'
 
+export const getRoles = (forces: ForceData[], playerForce?: ForceData['uniqid']): Role[] => {
+  const roles: Role[] = []
+  forces.forEach((force: ForceData) => {
+    if ((playerForce === undefined) || (force.uniqid === playerForce)) {
+      roles.push(...force.roles)
+    }
+  })
+  return roles
+}
+
 export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles }: PropTypes) => {
   const [rows, setRows] = useState<Row[]>([])
   const [columns, setColumns] = useState<Column[]>([])
 
+  const roles = opFor ? [] : getRoles(forces, playerForce)
+
   useEffect(() => {
-    setColumns(getColumns(opFor, playerForce))
+    setColumns(getColumns(opFor, roles, playerForce))
     setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce))
   }, [playerForce, forces])
 

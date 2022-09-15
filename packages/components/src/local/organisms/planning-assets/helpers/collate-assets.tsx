@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
@@ -13,29 +13,41 @@ import styles from '../styles.module.scss'
  * @param playerForce the (optional) specific force to display
  * @returns
  */
-export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): Column[] => {
-  const render = (row: Row): React.ReactElement => {
+export const getColumns = (opFor: boolean, roleNames: Role[], playerForce?: ForceData['uniqid']): Column[] => {
+  const renderIcon = (row: Row): React.ReactElement => {
     if (!row.icon) return <></>
-
     const icons = row.icon.split(',')
-    if (icons.length === 2) {
-      return <AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />
+    if (icons.length === 3) {
+      return <span><AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />{icons[2]}</span>
     }
-    return <AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />
+    return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
+  }
+  const renderOwner = (row: Row): React.ReactElement => {
+    const match = row.owner && roleNames.find((role: Role) => role.roleId === row.owner)
+    if (match) {
+      return <>{match.name}</>
+    } else {
+      return <></>
+    }
   }
 
   const columns: Column[] = [
-    { title: 'ID', field: 'id' },
-    { title: 'Icon', field: 'icon', render },
+    { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force' },
-    { title: 'Name', field: 'name' },
     { title: 'Condition', field: 'condition' },
     { title: 'Status', field: 'status' },
-    { title: 'Platform-Tyle', field: 'platformType' }
+    { title: 'Owner', field: 'owner', render: renderOwner }
   ]
 
+  // don't need to show Force if we're just showing
+  // our own force
   if (playerForce && !opFor) {
-    columns.splice(2, 1)
+    columns.splice(1, 1)
+  }
+
+  // don't show owner for OpFor assets
+  if (opFor) {
+    columns.splice(4,1)
   }
 
   return columns
@@ -71,7 +83,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     if (perception) {
       const res: Row = {
         id: asset.uniqid,
-        icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId),
+        icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
         force: perception.forceId,
         condition: 'unknown',
         name: perception.name,
@@ -83,12 +95,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   } else {
     const res: Row = {
       id: asset.uniqid,
-      icon: iconFor(asset.platformTypeId) + ',' + assetForce.color,
+      icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,
       force: assetForce.name,
       condition: asset.condition,
       name: asset.name,
       platformType: asset.platformTypeId || '',
-      status: asset.status?.state || ''
+      status: asset.status?.state || '',
+      owner: asset.owner ? asset.owner : ''
     }
     // if we're handling the child of an asset, we need to specify the parent
     if (parentId) {
