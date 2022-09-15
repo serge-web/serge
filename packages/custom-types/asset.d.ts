@@ -17,11 +17,16 @@ export interface Asset {
   /** the owner of this asset. This is used to give 
    * control of the asset to a specific player
    */
-   owner?: Role['roleId']
+  owner?: Role['roleId']
   /** the current position of an asset. It's optional,
    * since an asset may be carried by another
    */
   position?: string,
+  /** the geographic position of an asset.
+   * If it's not present, but a `position` is, then
+   * the location will be generated
+   */
+  location?: L.LatLng,
   /** how other forces perceive this asset
    */
   perceptions: Array<Perception>,

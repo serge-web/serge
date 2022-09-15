@@ -8,8 +8,9 @@ import {
 } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
-import { cloneDeep, isEqual } from 'lodash'
+import { cloneDeep, isEqual, uniqueId } from 'lodash'
 import * as h3 from 'h3-js'
+import { bbox, lineString, randomPosition } from '@turf/turf'
 
 /* helper functions */
 import { createGridH3 } from './helpers/h3-helpers'
@@ -67,6 +68,7 @@ import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
+import { platformTypes } from '@serge/mocks'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -721,33 +723,61 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const localAddInfoMarker = (): void => {
-    // get the centre of the map
-    if (leafletElement) {
-      const center: L.LatLng = leafletElement.getBounds().getCenter()
-      const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
-      // create new marker
-      const marker: MapAnnotation = {
-        uniqid: uniqid('a'),
-        color: '#f00',
-        iconId: 'unk',
-        label: 'pending label',
-        description: 'pending description',
-        visibleTo: [],
-        location: cell
+    const bounds = mappingConstraintState.bounds
+    const res = mappingConstraintState.h3res
+    var line = lineString([[bounds[0][1], bounds[0][0]], [bounds[1][1], bounds[1][0]]])
+    var bboxA: any = bbox(line)
+    console.log('create data')
+    const newForces = deepCopy(forces)
+    const redForce = newForces[2]
+    const redAssets = redForce.assets || []
+    console.log('pTypes', platformTypes, platformTypes.length)
+    for (var i=0; i<5; i++) {
+      const posit = randomPosition(bboxA)    
+      const h3Pos = h3.geoToH3(posit[1], posit[0], res)
+      const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
+      const platformType = platformTypes[platformTypeCtr]
+      console.log('p-type', platformTypeCtr, platformType.uniqid)
+      const asset: Asset = {
+        uniqid: uniqueId('a'),
+        contactId: 'CA' + i,
+        name: 'Name' + i,
+        perceptions: [],
+        platformTypeId: platformType.uniqid,
+        condition: 'working',
+        position: h3Pos
       }
-
-      // just add new marker to current set of annotations
-      infoMarkersState.push(marker)
-      setInfoMarkersState(infoMarkersState)
-
-      // finally, select the new marker
-      setSelectedMarker(marker.uniqid)
-
-      // now the marker is selected, its form
-      // should be displayed.
-      // the new marker will get "stored"
-      // when the user clicks on "Save"
+      redAssets.push(asset)
     }
+    setForcesState(newForces)
+
+    // // get the centre of the map
+    // if (leafletElement) {
+    //   const center: L.LatLng = leafletElement.getBounds().getCenter()
+    //   const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
+    //   // create new marker
+    //   const marker: MapAnnotation = {
+    //     uniqid: uniqid('a'),
+    //     color: '#f00',
+    //     iconId: 'unk',
+    //     label: 'pending label',
+    //     description: 'pending description',
+    //     visibleTo: [],
+    //     location: cell
+    //   }
+
+    //   // just add new marker to current set of annotations
+    //   infoMarkersState.push(marker)
+    //   setInfoMarkersState(infoMarkersState)
+
+    //   // finally, select the new marker
+    //   setSelectedMarker(marker.uniqid)
+
+    //   // now the marker is selected, its form
+    //   // should be displayed.
+    //   // the new marker will get "stored"
+    //   // when the user clicks on "Save"
+    // }
   }
 
   const viewAsCallback = (force: ForceData['uniqid']): void => {

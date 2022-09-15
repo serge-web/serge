@@ -377,7 +377,7 @@ const game: Wargame = {
                 }
               ],
               "platformTypeId": "id-frigate",
-              "position": "8318a3fffffffff",
+              "position": "859c45cbfffffff",
               "status": {
                 "speedKts": 20,
                 "state": "Transiting"
@@ -398,7 +398,7 @@ const game: Wargame = {
                 }
               ],
               "platformTypeId": "id-frigate",
-              "position": "8318a3fffffffff",
+              "position": "8532530ffffffff",
               "status": {
                 "speedKts": 20,
                 "state": "Transiting"
@@ -419,7 +419,7 @@ const game: Wargame = {
                 }
               ],
               "platformTypeId": "id-frigate",
-              "position": "8318a3fffffffff",
+              "position": "857293c7fffffff",
               "status": {
                 "speedKts": 20,
                 "state": "Transiting"
