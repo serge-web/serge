@@ -29,7 +29,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
     onSelectionChange={onSelectionChange}
     components={{
       Body: (props): React.ReactElement => {
-        onVisibleRowsChange && onVisibleRowsChange(props.renderData)
+        if (props.columns.length && onVisibleRowsChange) {
+          onVisibleRowsChange(props.renderData)
+        }
         return (<MTableBody
           {...props}
         />)

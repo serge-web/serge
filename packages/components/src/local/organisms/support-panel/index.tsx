@@ -2,7 +2,7 @@ import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import PlanningAssets from '../planning-assets'
 import { Row } from '../planning-assets/types/props'
@@ -35,8 +35,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   // handle selections from asset tables
   // const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
-  // const [opForces, setOpForces] = useState<Row[]>([])
-  // const [ownForces, setOwnForces] = useState<Row[]>([])
+  const [opForces, setOpForces] = useState<Row[]>([])
+  const [ownForces, setOwnForces] = useState<Row[]>([])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -71,71 +71,102 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const onSelectionChange = (opFor: boolean, data: Row[]): void => {
     console.log('new selection', opFor, data)
+    setOpForces(data)
   }
 
   const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {
     console.log('rows change', opFor, data)
+    setOwnForces(data)
   }
+
+  useEffect(() => {
+    console.log('=> ownForces: ', ownForces)
+  }, [ownForces])
+
+  useEffect(() => {
+    console.log('=> opForces: ', opForces)
+  }, [opForces])
+
+  const SlideComponent = useMemo(() => (
+    <Slide direction="right" in={isShowPanel}>
+      <div className={styles.panel}>
+        <Rnd
+          disableDragging
+          style={PANEL_STYLES}
+          default={DEFAULT_SIZE}
+          minWidth={MIN_PANEL_WIDTH}
+          maxWidth={MAX_PANEL_WIDTH}
+          minHeight={MIN_PANEL_HEIGHT}
+          maxHeight={MAX_PANEL_HEIGHT}
+        >
+          <div className={styles.content}>
+            <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
+              {activeTab === TABS[0] &&
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
+                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}
+                  onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
+              }
+            </TabPanel>
+            <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
+              {activeTab === TABS[1] &&
+                <PlanningMessagesList
+                  messages={messages}
+                  gameDate={gameDate}
+                  playerForceId={selectedForce}
+                  playerRoleId={selectedRole}
+                  isUmpire={true}
+                  icons={forceIcons}
+                  colors={forceCols.map((item: ForceStyle) => item.color)}
+                  names={forceNames}
+                  turnPresentation={turnPresentation}
+                  hideForcesInChannel={!!hideForcesInChannel}
+                  onRead={onRead}
+                  onUnread={onUnread}
+                  onMarkAllAsRead={onReadAll}
+                  channel={channel}
+                  templates={templates}
+                />
+              }
+            </TabPanel>
+            <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
+              {activeTab === TABS[2] &&
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
+                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}
+                  onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
+              }
+            </TabPanel>
+            <div className={styles['resize-indicator-container']} >
+              <div className={styles['resize-indicator-icon']} >
+                <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+              </div>
+            </div>
+          </div>
+        </Rnd>
+        <TabPanelActions onChange={onTabChange} />
+      </div>
+    </Slide>
+  ),
+    [
+      isShowPanel,
+      activeTab,
+      forceIcons,
+      forceNames,
+      forces,
+      platformTypes,
+      hideForcesInChannel,
+      messages,
+      selectedForce,
+      selectedRole,
+      turnPresentation,
+      gameDate,
+      channel,
+      templates
+    ]
+  )
 
   return (
     <div className={styles.root}>
-      <Slide direction="right" in={isShowPanel}>
-        <div className={styles.panel}>
-          <Rnd
-            disableDragging
-            style={PANEL_STYLES}
-            default={DEFAULT_SIZE}
-            minWidth={MIN_PANEL_WIDTH}
-            maxWidth={MAX_PANEL_WIDTH}
-            minHeight={MIN_PANEL_HEIGHT}
-            maxHeight={MAX_PANEL_HEIGHT}
-          >
-            <div className={styles.content}>
-              <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-                {activeTab === TABS[0] &&
-                  <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
-                    playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}
-                    onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
-                }
-              </TabPanel>
-              <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
-                {activeTab === TABS[1] &&
-                  <PlanningMessagesList
-                    messages={messages}
-                    gameDate={gameDate}
-                    playerForceId={selectedForce}
-                    playerRoleId={selectedRole}
-                    isUmpire={true}
-                    icons={forceIcons}
-                    colors={forceCols.map((item: ForceStyle) => item.color)}
-                    names={forceNames}
-                    turnPresentation={turnPresentation}
-                    hideForcesInChannel={!!hideForcesInChannel}
-                    onRead={onRead}
-                    onUnread={onUnread}
-                    onMarkAllAsRead={onReadAll}
-                    channel={channel}
-                    templates={templates}
-                  />
-                }
-              </TabPanel>
-              <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-                {activeTab === TABS[2] &&
-                  <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
-                    playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}
-                    onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
-                }
-              </TabPanel>
-              <div className={styles['resize-indicator-container']} >
-                <div className={styles['resize-indicator-icon']} >
-                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
-                </div>
-              </div>
-            </div>
-          </Rnd>
-          <TabPanelActions onChange={onTabChange} />
-        </div>
-      </Slide>
+      {SlideComponent}
       <TabPanelActions onChange={onTabChange} className={styles['secondary-action-tab']} />
     </div>
   )
