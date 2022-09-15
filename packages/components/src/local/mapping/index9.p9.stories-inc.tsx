@@ -110,7 +110,6 @@ const largerMapping = deepCopy(mapping)
 
 const localConstraints: MappingConstraints = deepCopy(largerMapping)
 
-
 const fixIndex = (index: string, res: number): string => {
   return h3ToParent(index, res)
 }

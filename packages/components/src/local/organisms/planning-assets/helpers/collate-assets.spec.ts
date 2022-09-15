@@ -66,11 +66,11 @@ describe('check collating assets', () => {
 
     const umpireRows = getRows(false, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(15)
+    expect(umpireRows.length).toEqual(12)
 
     const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(6)
+    expect(blueRows.length).toEqual(3)
 
     // do some parent/child checking
     const firstParent = blueRows[0]
@@ -89,7 +89,7 @@ describe('check collating assets', () => {
 
     const umpireRows = getRows(true, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(15)
+    expect(umpireRows.length).toEqual(12)
 
     const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()

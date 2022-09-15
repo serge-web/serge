@@ -286,7 +286,63 @@ const game: Wargame = {
         },
         {
           "assets": [
-            {
+            {  
+              "comprising": [
+              {
+                "condition": "Full capability",
+                "contactId": "C964",
+                "history": [],
+                "hosting": [
+                  {
+                    "condition": "Full capability",
+                    "contactId": "C721",
+                    "name": "Dart 45",
+                    "perceptions": [
+                      {
+                        "by": "F-Red",
+                        "force": "F-Blue",
+                        "name": "Unknown UAV",
+                        "typeId": "id-uav"
+                      }
+                    ],
+                    "platformTypeId": "id-uav",
+                    "status": {
+                      "state": "Landed"
+                    },
+                    "uniqid": "a0pra43302"
+                  },
+                  {
+                    "condition": "Full capability",
+                    "contactId": "C932",
+                    "name": "Dart 46",
+                    "perceptions": [],
+                    "platformTypeId": "id-uav",
+                    "status": {
+                      "state": "Landed"
+                    },
+                    "uniqid": "a0pra17943"
+                  }
+                ],
+                "name": "Frigate A",
+                "platformTypeId": "id-frigate",
+                "perceptions": [
+                  {
+                    "by": "F-Red",
+                    "force": "F-Blue",
+                    "name": "Frigate A Perceived Name"
+                  }
+                ],
+                "uniqid": "a0prbr6441"
+              },
+              {
+                "condition": "Full capability",
+                "contactId": "C653",
+                "name": "MCM Delta",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "uniqid": "a0traa6790"
+              }
+            ],
               "condition": "Full capability",
               "contactId": "C713",
               "name": "CTF 511",
