@@ -27,6 +27,7 @@ import MoreInfo from '../../../molecules/more-info'
 import { defaultParticipantMapping } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
 import { ForceData, Role } from '../types/props'
+import { hexCellsInArea } from '../../../mapping/helpers/h3-helpers'
 
 type MappingChannelProps = {
   channel: ChannelMapping
@@ -263,10 +264,20 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
     }
 
     const renderMappingConstraints = (): React.ReactElement => {
+      const checkCellSizes = (): void => {
+        const res = localChannelUpdates.constraints.h3res
+        const bounds = localChannelUpdates.constraints.bounds
+        const numCells = hexCellsInArea(res, bounds)
+        if (numCells > 100000) {
+          setProblems('Serge will struggle with more than 100,000 cells. These bounds at this res produce roughly ' + numCells + ' cells')
+        }
+      }
+
       const updateMapConstraintsBounds = (value: string, key: number[]): void => {
         const nextChannel = { ...localChannelUpdates }
         nextChannel.constraints.bounds[key[0]][key[1]] = +value
         setLocalChannelUpdates(nextChannel)
+        checkCellSizes()
       }
 
       const updateMapConstraintsZoom = (value: string, type: 'maxZoom' | 'minZoom' | 'maxNativeZoom'): void => {
@@ -279,6 +290,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         const nextChannel = { ...localChannelUpdates }
         nextChannel.constraints.h3res = +e.target.value
         setLocalChannelUpdates(nextChannel)
+        checkCellSizes()
       }
 
       const updateMapConstraintsTileLayer = (value: string, key: 'attribution' | 'url'): void => {

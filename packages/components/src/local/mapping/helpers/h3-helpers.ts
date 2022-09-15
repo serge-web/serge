@@ -1,10 +1,11 @@
 import { Terrain } from '@serge/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
-import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, polyfill } from 'h3-js'
-import L from 'leaflet'
+import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, hexArea, polyfill } from 'h3-js'
+import L, { latLngBounds, LatLngBounds } from 'leaflet'
 import { orderBy } from 'lodash'
 import * as turf from '@turf/turf'
+import { lineString } from '@turf/turf'
 
 /** create a formatted lat/long label */
 const latLngLabel = (location: number[]): string => {
@@ -95,6 +96,18 @@ export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[]
   return coords[0].map((value: turf.Position) => {
     return L.latLng(value[1], value[0])
   })
+}
+
+export const hexCellsInArea = (h3Res: number, bounds: [[number, number], [number, number]]) => {
+  const avgAreaM2 = hexArea(h3Res, 'm2')
+  const lPoly: LatLngBounds = latLngBounds(bounds[0], bounds[1])
+  const nPoly = [lPoly.getNorthEast(), lPoly.getSouthWest()]
+  const tPoly = toTurf(nPoly)
+  const bbounds = lineString(tPoly)
+  const bbox = turf.bbox(bbounds.geometry)
+  const bboxPoly = turf.bboxPolygon(bbox)
+  const areaM2 = turf.area(bboxPoly)
+  return Math.floor(areaM2 / avgAreaM2)
 }
 
 export const leafletUnion = (poly1: L.LatLng[], poly2: L.LatLng[]): L.LatLng[] | undefined => {
@@ -214,6 +227,14 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
 
   // set of cells in this area
   const cells = polyfill(boundsNum, res)
+
+  // maximum number of cells we allo
+  const MAX_CELLS = 100000
+
+  if (cells.length > MAX_CELLS) {
+    window.alert('Cannot generate grid. Too many cells:' + cells.length)
+    return []
+  }
 
   // sort out the centre index
   const centreLoc = bounds.getCenter()
