@@ -40,7 +40,8 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
     columns={columns}
     data={rows}
     options={{
-      sorting: true
+      sorting: true,
+      paging: false
     }}
     {...extendProps}
   />
