@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { Row } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
   const [rows, setRows] = useState<Row[]>([])
   const [columns, setColumns] = useState<Column[]>([])
 
@@ -15,14 +15,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
-
-  const onSelectionChange = (rows: Row[]): void => {
-    console.log('selected rows: ', rows)
-  }
-
-  const onVisibleRowsChange = (rows: Row[]): void => {
-    console.log('visible rows: ', rows)
-  }
 
   return <MaterialTable
     title={'Planning Assets'}
@@ -37,7 +29,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
     onSelectionChange={onSelectionChange}
     components={{
       Body: (props): React.ReactElement => {
-        onVisibleRowsChange(props.renderData)
+        onVisibleRowsChange && onVisibleRowsChange(props.renderData)
         return (<MTableBody
           {...props}
         />)
