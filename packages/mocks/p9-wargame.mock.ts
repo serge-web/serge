@@ -4,6 +4,55 @@ const game: Wargame = {
   "adjudicationStartTime": "2021-08-10T16:12:25+01:00",
   "wargameList": [],
   "data": {
+    "annotationIcons": {
+      "markers": [
+          {
+              "icon": "marker_unknown.svg",
+              "name": "Unknown",
+              "uniqid": "unk"
+          },
+          {
+              "icon": "marker_audio_visual.svg",
+              "name": "Audio-Visual",
+              "uniqid": "a/v"
+          },
+          {
+              "icon": "marker_audio.svg",
+              "name": "Audio",
+              "uniqid": "aud"
+          },
+          {
+              "icon": "marker_flash.svg",
+              "name": "Flash",
+              "uniqid": "flsh"
+          },
+          {
+              "icon": "marker_general.svg",
+              "name": "General",
+              "uniqid": "gen"
+          },
+          {
+              "icon": "marker_periscope.svg",
+              "name": "Periscope",
+              "uniqid": "peri"
+          },
+          {
+              "icon": "marker_plume.svg",
+              "name": "Plume",
+              "uniqid": "plum"
+          },
+          {
+              "icon": "marker_wake.svg",
+              "name": "Wake",
+              "uniqid": "wak"
+          },
+          {
+              "icon": "marker_visual.svg",
+              "name": "Visual",
+              "uniqid": "vis"
+          }
+      ]
+  },
     "channels": {
       "channels": [
         {
@@ -238,62 +287,6 @@ const game: Wargame = {
         {
           "assets": [
             {
-              "comprising": [
-                {
-                  "condition": "Full capability",
-                  "contactId": "C964",
-                  "history": [],
-                  "hosting": [
-                    {
-                      "condition": "Full capability",
-                      "contactId": "C721",
-                      "name": "Dart 45",
-                      "perceptions": [
-                        {
-                          "by": "F-Red",
-                          "force": "F-Blue",
-                          "name": "Unknown UAV",
-                          "typeId": "id-uav"
-                        }
-                      ],
-                      "platformTypeId": "id-uav",
-                      "status": {
-                        "state": "Landed"
-                      },
-                      "uniqid": "a0pra43302"
-                    },
-                    {
-                      "condition": "Full capability",
-                      "contactId": "C932",
-                      "name": "Dart 46",
-                      "perceptions": [],
-                      "platformTypeId": "id-uav",
-                      "status": {
-                        "state": "Landed"
-                      },
-                      "uniqid": "a0pra17943"
-                    }
-                  ],
-                  "name": "Frigate A",
-                  "platformTypeId": "id-frigate",
-                  "perceptions": [
-                    {
-                      "by": "F-Red",
-                      "force": "F-Blue",
-                      "name": "Frigate A Perceived Name"
-                    }
-                  ],
-                  "uniqid": "a0prbr6441"
-                },
-                {
-                  "condition": "Full capability",
-                  "contactId": "C653",
-                  "name": "MCM Delta",
-                  "perceptions": [],
-                  "platformTypeId": "id-mcm",
-                  "uniqid": "a0traa6790"
-                }
-              ],
               "condition": "Full capability",
               "contactId": "C713",
               "name": "CTF 511",
@@ -306,93 +299,12 @@ const game: Wargame = {
                 }
               ],
               "platformTypeId": "id-task-group",
-              "position": "8318adfffffffff",
+              "position": "8594d9a3fffffff",
               "status": {
                 "speedKts": 10,
                 "state": "Transiting"
               },
               "uniqid": "a0pra5431"
-            },
-            {
-              "condition": "Full capability",
-              "contactId": "C043",
-              "hosting": [
-                {
-                  "condition": "Full capability",
-                  "contactId": "C572",
-                  "history": [],
-                  "name": "Merlin",
-                  "perceptions": [
-                    {
-                      "by": "F-Red",
-                      "force": "F-Blue",
-                      "typeId": "id-helo"
-                    }
-                  ],
-                  "plannedTurns": [],
-                  "platformTypeId": "id-helo",
-                  "status": {
-                    "state": "Landed"
-                  },
-                  "uniqid": "a0pra11002"
-                },
-                {
-                  "condition": "Full capability",
-                  "contactId": "C591",
-                  "history": [],
-                  "name": "Dart 42",
-                  "perceptions": [],
-                  "plannedTurns": [],
-                  "platformTypeId": "id-uav",
-                  "status": {
-                    "state": "Landed"
-                  },
-                  "uniqid": "a0pra18702"
-                }
-              ],
-              "name": "Frigate",
-              "perceptions": [
-                {
-                  "by": "F-Red",
-                  "force": "F-Blue",
-                  "name": "Frigate Perceived Name",
-                  "typeId": "id-frigate"
-                }
-              ],
-              "platformTypeId": "id-frigate",
-              "position": "8318a3fffffffff",
-              "status": {
-                "speedKts": 20,
-                "state": "Transiting"
-              },
-              "uniqid": "a0pra00001"
-            },
-            {
-              "condition": "Full capability",
-              "contactId": "C072",
-              "name": "MPA",
-              "perceptions": [],
-              "platformTypeId": "id-fixed-wing",
-              "position": "831976fffffffff",
-              "status": {
-                "state": "Landed"
-              },
-              "uniqid": "a0pra00002"
-            },
-            {
-              "condition": "Full capability",
-              "contactId": "C012",
-              "name": "Tanker",
-              "perceptions": [
-                {
-                  "by": "F-Red",
-                  "force": "F-Blue",
-                  "typeId": ""
-                }
-              ],
-              "platformTypeId": "id-merchant",
-              "position": "83181cfffffffff",
-              "uniqid": "a0pra00003"
             }
           ],
           "color": "#00F",
