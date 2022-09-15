@@ -34,7 +34,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
             if (!conditions.includes(condition)) {
               conditions.push(condition)
             }
-          }  
+          }
         }
       })
     } else {
@@ -91,18 +91,18 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     }
   }
 
-  const arrToDict = (arr: string[]):{} | undefined => {
+  const arrToDict = (arr: string[]): {} | undefined => {
     if (arr && arr.length > 0) {
       const res = {}
       arr.forEach((item: string) => {
         res[item] = item
       })
-      return res  
+      return res
     } else {
       return undefined
     }
   }
-  
+
   const columns: Column[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },

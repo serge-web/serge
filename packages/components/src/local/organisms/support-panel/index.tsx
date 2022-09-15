@@ -78,7 +78,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           >
             <div className={styles.content}>
               <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-                { activeTab === TABS[0] && 
+                { activeTab === TABS[0] &&
                   <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false} />
                 }
               </TabPanel>
@@ -101,12 +101,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   channel={channel}
                   templates={templates}
                 />
-              }
+                }
               </TabPanel>
               <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-              { activeTab === TABS[2] &&
+                { activeTab === TABS[2] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces} playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true} />
-              }
+                }
               </TabPanel>
               <div className={styles['resize-indicator-container']} >
                 <div className={styles['resize-indicator-icon']} >
