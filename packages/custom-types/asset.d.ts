@@ -26,7 +26,7 @@ export interface Asset {
    * If it's not present, but a `position` is, then
    * the location will be generated
    */
-  location?: L.LatLng,
+  location?: [number, number],
   /** how other forces perceive this asset
    */
   perceptions: Array<Perception>,
