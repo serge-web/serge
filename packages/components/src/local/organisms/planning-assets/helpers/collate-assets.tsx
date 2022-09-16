@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
@@ -7,35 +7,119 @@ import AssetIcon from '../../../asset-icon'
 import React from 'react'
 import styles from '../styles.module.scss'
 
+type SummaryData = {
+  roles: {}
+  statuses: string[]
+  conditions: string[]
+  forces: string[]
+}
+
+export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'], opFor: boolean): SummaryData => {
+  const roleDict: {} = {}
+  const statuses: string[] = []
+  const conditions: string[] = []
+  const forcesNames: string[] = []
+  forces.forEach((force: ForceData) => {
+    if (opFor) {
+      const visibleToThisForce = (force.visibleTo && force.visibleTo.includes(playerForce)) || force.uniqid === playerForce
+      force.assets && force.assets.forEach((asset: Asset) => {
+        const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, force.uniqid, asset.platformTypeId || '', asset.perceptions)
+        if (perception) {
+          // we can perceive this force, capture the name
+          if (!forcesNames.includes(force.name)) {
+            forcesNames.push(force.name)
+          }
+          if (perception.condition) {
+            const condition = perception.condition
+            if (!conditions.includes(condition)) {
+              conditions.push(condition)
+            }
+          }
+        }
+      })
+    } else {
+      // we store roles for own force
+      if ((force.uniqid === playerForce)) {
+        force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
+        force.assets && force.assets.forEach((asset: Asset) => {
+          if (asset.status) {
+            const state = asset.status.state
+            if (!statuses.includes(state)) {
+              statuses.push(state)
+            }
+          }
+          if (asset.condition) {
+            if (!conditions.includes(asset.condition)) {
+              conditions.push(asset.condition)
+            }
+          }
+        })
+      }
+    }
+  })
+  const res: SummaryData = {
+    roles: roleDict,
+    conditions: conditions,
+    statuses: statuses,
+    forces: forcesNames
+  }
+  return res
+}
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
- * @param playerForce the (optional) specific force to display
+ * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, playerForce?: ForceData['uniqid']): Column[] => {
-  const render = (row: Row): React.ReactElement => {
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid']): Column[] => {
+  const summaryData = getColumnSummary(forces, playerForce, opFor)
+  const renderIcon = (row: Row): React.ReactElement => {
     if (!row.icon) return <></>
-
     const icons = row.icon.split(',')
-    if (icons.length === 2) {
-      return <AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />
+    if (icons.length === 3) {
+      return <span><AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />{icons[2]}</span>
     }
-    return <AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />
+    return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
+  }
+  const renderOwner = (row: Row): React.ReactElement => {
+    const match = row.owner && summaryData.roles[row.owner]
+    if (match) {
+      return <>{match}</>
+    } else {
+      return <></>
+    }
+  }
+
+  const arrToDict = (arr: string[]): {} | undefined => {
+    if (arr && arr.length > 0) {
+      const res = {}
+      arr.forEach((item: string) => {
+        res[item] = item
+      })
+      return res
+    } else {
+      return undefined
+    }
   }
 
   const columns: Column[] = [
-    { title: 'ID', field: 'id' },
-    { title: 'Icon', field: 'icon', render },
-    { title: 'Force', field: 'force' },
-    { title: 'Name', field: 'name' },
-    { title: 'Condition', field: 'condition' },
-    { title: 'Status', field: 'status' },
-    { title: 'Platform-Tyle', field: 'platformType' }
+    { title: 'Icon', field: 'icon', render: renderIcon },
+    { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
+    { title: 'Condition', field: 'condition', lookup: arrToDict(summaryData.conditions) },
+    { title: 'Status', field: 'status', lookup: arrToDict(summaryData.statuses) },
+    { title: 'Owner', field: 'owner', render: renderOwner, lookup: summaryData.roles }
   ]
 
+  // don't need to show Force if we're just showing
+  // our own force
   if (playerForce && !opFor) {
-    columns.splice(2, 1)
+    columns.splice(1, 1)
+  }
+
+  // don't show owner or state for OpFor assets
+  if (opFor) {
+    columns.splice(3, 2)
   }
 
   return columns
@@ -69,11 +153,12 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const visibleToThisForce = (assetForce.visibleTo && assetForce.visibleTo.includes(playerForce)) || !playerForce
     const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
     if (perception) {
+      const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
       const res: Row = {
         id: asset.uniqid,
-        icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId),
-        force: perception.forceId,
-        condition: 'unknown',
+        icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
+        force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
+        condition: UNKNOWN_TYPE,
         name: perception.name,
         platformType: perception.typeId,
         status: asset.status?.state || ''
@@ -83,12 +168,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   } else {
     const res: Row = {
       id: asset.uniqid,
-      icon: iconFor(asset.platformTypeId) + ',' + assetForce.color,
+      icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,
       force: assetForce.name,
       condition: asset.condition,
       name: asset.name,
       platformType: asset.platformTypeId || '',
-      status: asset.status?.state || ''
+      status: asset.status?.state || '',
+      owner: asset.owner ? asset.owner : ''
     }
     // if we're handling the child of an asset, we need to specify the parent
     if (parentId) {

@@ -1,4 +1,4 @@
-import { AttributeValues, Perception, PlatformTypeData, RouteStatus, RouteTurn } from '.'
+import { AttributeValues, Perception, PlatformTypeData, Role, RouteStatus, RouteTurn } from '.'
 import { LaydownTypes } from '@serge/config'
 export interface Asset {
   /**
@@ -14,6 +14,10 @@ export interface Asset {
    * name present in game
    */
   readonly uniqid: string,
+  /** the owner of this asset. This is used to give 
+   * control of the asset to a specific player
+   */
+  owner?: Role['roleId']
   /** the current position of an asset. It's optional,
    * since an asset may be carried by another
    */

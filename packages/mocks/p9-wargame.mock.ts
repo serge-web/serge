@@ -251,6 +251,7 @@ const game: Wargame = {
               "condition": "Full capability",
               "contactId": "C713",
               "name": "CTF 511",
+              "owner": "rk116f5e",
               "perceptions": [
                 {
                   "by": "F-Red",
@@ -270,41 +271,8 @@ const game: Wargame = {
             {
               "condition": "Full capability",
               "contactId": "C043",
-              "hosting": [
-                {
-                  "condition": "Full capability",
-                  "contactId": "C572",
-                  "history": [],
-                  "name": "Merlin",
-                  "perceptions": [
-                    {
-                      "by": "F-Red",
-                      "force": "F-Blue",
-                      "typeId": "id-helo"
-                    }
-                  ],
-                  "plannedTurns": [],
-                  "platformTypeId": "id-helo",
-                  "status": {
-                    "state": "Landed"
-                  },
-                  "uniqid": "a0pra11002"
-                },
-                {
-                  "condition": "Full capability",
-                  "contactId": "C591",
-                  "history": [],
-                  "name": "Dart 42",
-                  "perceptions": [],
-                  "plannedTurns": [],
-                  "platformTypeId": "id-uav",
-                  "status": {
-                    "state": "Landed"
-                  },
-                  "uniqid": "a0pra18702"
-                }
-              ],
-              "name": "Frigate",
+              "name": "Frigate 1",
+              "owner": "rk116f5e",
               "perceptions": [
                 {
                   "by": "F-Red",
@@ -323,8 +291,114 @@ const game: Wargame = {
             },
             {
               "condition": "Full capability",
+              "contactId": "C044",
+              "name": "Frigate 2",
+              "owner": "rk116f5e",
+              "perceptions": [
+                {
+                  "by": "F-Red",
+                  "force": "F-Blue",
+                  "name": "Frigate Perceived Name",
+                  "typeId": "id-frigate"
+                }
+              ],
+              "platformTypeId": "id-frigate",
+              "position": "8318a3fffffffff",
+              "status": {
+                "speedKts": 20,
+                "state": "Transiting"
+              },
+              "uniqid": "a2pra00001"
+            },
+            {
+              "condition": "Full capability",
+              "contactId": "C045",
+              "name": "Frigate 3",
+              "owner": "rk116f51",
+              "perceptions": [
+                {
+                  "by": "F-Red",
+                  "force": "F-Blue",
+                  "name": "Frigate Perceived Name",
+                  "typeId": "id-frigate"
+                }
+              ],
+              "platformTypeId": "id-frigate",
+              "position": "8318a3fffffffff",
+              "status": {
+                "speedKts": 20,
+                "state": "Transiting"
+              },
+              "uniqid": "a3pra00001"
+            },
+            {
+              "condition": "Full capability",
+              "contactId": "C046",
+              "name": "Frigate 4",
+              "owner": "rk116f5e",
+              "perceptions": [
+                {
+                  "by": "F-Red",
+                  "force": "F-Blue",
+                  "name": "Frigate Perceived Name",
+                  "typeId": "id-frigate"
+                }
+              ],
+              "platformTypeId": "id-frigate",
+              "position": "8318a3fffffffff",
+              "status": {
+                "speedKts": 20,
+                "state": "Transiting"
+              },
+              "uniqid": "a4pra00001"
+            },
+            {
+              "condition": "Full capability",
+              "contactId": "C047",
+              "name": "Frigate 5",
+              "owner": "rk116f5e",
+              "perceptions": [
+                {
+                  "by": "F-Red",
+                  "force": "F-Blue",
+                  "name": "Frigate Perceived Name",
+                  "typeId": "id-frigate"
+                }
+              ],
+              "platformTypeId": "id-frigate",
+              "position": "8318a3fffffffff",
+              "status": {
+                "speedKts": 20,
+                "state": "Transiting"
+              },
+              "uniqid": "a5pra00001"
+            },
+            {
+              "condition": "Full capability",
+              "contactId": "C048",
+              "name": "Frigate 6",
+              "owner": "rk116f5e",
+              "perceptions": [
+                {
+                  "by": "F-Red",
+                  "force": "F-Blue",
+                  "name": "Frigate Perceived Name",
+                  "typeId": "id-frigate"
+                }
+              ],
+              "platformTypeId": "id-frigate",
+              "position": "8318a3fffffffff",
+              "status": {
+                "speedKts": 20,
+                "state": "Transiting"
+              },
+              "uniqid": "a6pra00001"
+            },
+            {
+              "condition": "Full capability",
               "contactId": "C072",
               "name": "MPA",
+              "owner": "2rk116f53",
               "perceptions": [],
               "platformTypeId": "id-fixed-wing",
               "position": "831976fffffffff",
@@ -337,6 +411,7 @@ const game: Wargame = {
               "condition": "Full capability",
               "contactId": "C012",
               "name": "Tanker",
+              "owner": "blue-logs",
               "perceptions": [
                 {
                   "by": "F-Red",
@@ -359,8 +434,50 @@ const game: Wargame = {
               "isGameControl": false,
               "isInsightViewer": false,
               "isObserver": false,
-              "name": "CO",
+              "name": "Mar-1",
               "roleId": "rk116f5e"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Mar-2",
+              "roleId": "rk116f51"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Mar-3",
+              "roleId": "rk116f52"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Mar-4",
+              "roleId": "rk116f53"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Air-1",
+              "roleId": "1rk116f53"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Air-2",
+              "roleId": "2rk116f53"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Air-3",
+              "roleId": "3rk116f53"
             },
             {
               "isGameControl": false,
