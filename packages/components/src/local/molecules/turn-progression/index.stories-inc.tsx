@@ -89,7 +89,7 @@ const Template: Story<TurnPropTypes> = (args) => {
       currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn,
       adjudicationStartTime: moment().toString(),
       turnEndTime: moment().add(stepTime).toString()
-    })
+    })    
   }
   return <TurnProgression
     {...props}
