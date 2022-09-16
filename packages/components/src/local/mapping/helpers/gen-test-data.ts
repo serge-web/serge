@@ -1,4 +1,4 @@
-import { Asset, ForceData, MappingConstraints, PlatformTypeData } from '@serge/custom-types'
+import { Asset, ForceData, MappingConstraints, Perception, PlatformTypeData } from '@serge/custom-types'
 import L from 'leaflet'
 import { uniqueId } from 'lodash'
 import * as turf from '@turf/turf'
@@ -27,7 +27,34 @@ const randomPointInPoly = (polygon: L.Polygon): any => {
   }
 }
 
-const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number, platformTypes: PlatformTypeData[]): Asset[] => {
+const doesIt = () => {
+  const probDetect = Math.floor(Math.random() * 100)
+  return probDetect > 70)
+
+}
+
+export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'], 
+  forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
+  const perceptions:Perception[] = []
+  const tester = localTest || doesIt
+  forces.forEach((force: ForceData) => {
+    if (force.uniqid !== assetForce && !force.umpire) {
+      if (tester()) {
+        const knowsContact = tester()
+        const newP: Perception = {
+          by: force.uniqid,
+          name: tester() && knowsContact ? asset.contactId : asset.name,
+          typeId: tester() ? asset.platformTypeId : undefined,
+          force: tester() ? force.uniqid : undefined
+        }
+        perceptions.push(newP)
+      }
+    }
+  })
+  return perceptions
+}
+
+const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number, platformTypes: PlatformTypeData[], forces: ForceData[]): Asset[] => {
   const assets = []
   const roles = force.roles
   for (let i = 0; i < ctr; i++) {
@@ -47,6 +74,8 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])],
       owner: roles[Math.floor(roles.length * Math.random())].roleId
     }
+    // generate some perceptions:
+    asset.perceptions = createPerceptions(asset, force.uniqid, forces)
     // make the first unit a composite one
     if (i > 0 && i < 4) {
       if (!assets[0].comprising) {
@@ -76,10 +105,10 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
   const h3Res = constraints.h3res
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res, platformTypes)
-  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res, maritimePlatforms))
-  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res, platformTypes)
-  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res, maritimePlatforms))
+  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res, platformTypes, forces)
+  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res, maritimePlatforms, forces))
+  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res, platformTypes, forces)
+  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res, maritimePlatforms, forces))
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   setForcesState(newForces)
