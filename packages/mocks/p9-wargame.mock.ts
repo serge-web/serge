@@ -287,454 +287,12 @@ const game: Wargame = {
         {
           "assets": [
             {
-                "uniqid": "a461",
-                "contactId": "CA698",
+                "uniqid": "a161",
+                "contactId": "CA2817",
                 "name": "Blue:0",
                 "perceptions": [
                     {
-                        "by": "F-Red",
-                        "name": "Blue:0",
-                        "force": "F-Blue"
-                    },
-                    {
                         "by": "F-Green",
-                        "name": "CA698",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "859cd107fffffff",
-                "location": [
-                    -7.3072,
-                    140.8794
-                ],
-                "owner": "rk116f53",
-                "comprising": [
-                    {
-                        "uniqid": "a462",
-                        "contactId": "CA434",
-                        "name": "Blue:1",
-                        "perceptions": [
-                            {
-                                "by": "F-Red",
-                                "name": "CA434",
-                                "typeId": "id-mpa",
-                                "force": "F-Green"
-                            },
-                            {
-                                "by": "F-Green",
-                                "name": "Blue:1",
-                                "force": "F-Blue"
-                            }
-                        ],
-                        "platformTypeId": "id-mpa",
-                        "condition": "working",
-                        "position": "85728e87fffffff",
-                        "location": [
-                            -3.438,
-                            136.9891
-                        ],
-                        "owner": "3rk116f53"
-                    },
-                    {
-                        "uniqid": "a463",
-                        "contactId": "CA1979",
-                        "name": "Blue:2",
-                        "perceptions": [
-                            {
-                                "by": "F-Red",
-                                "name": "Blue:2"
-                            },
-                            {
-                                "by": "F-Green",
-                                "name": "CA1979",
-                                "typeId": "id-ssn",
-                                "force": "F-Blue"
-                            }
-                        ],
-                        "platformTypeId": "id-ssn",
-                        "condition": "working",
-                        "position": "859c991bfffffff",
-                        "location": [
-                            -5.3001,
-                            146.2608
-                        ],
-                        "owner": "blue-logs"
-                    },
-                    {
-                        "uniqid": "a464",
-                        "contactId": "CA1010",
-                        "name": "Blue:3",
-                        "perceptions": [
-                            {
-                                "by": "F-Red",
-                                "name": "Blue:3",
-                                "typeId": "id-uav",
-                                "force": "F-Blue"
-                            }
-                        ],
-                        "platformTypeId": "id-uav",
-                        "condition": "working",
-                        "position": "85728abbfffffff",
-                        "location": [
-                            -4.4393,
-                            137.8363
-                        ],
-                        "owner": "rk116f52"
-                    }
-                ]
-            },
-            {
-                "uniqid": "a465",
-                "contactId": "CA1579",
-                "name": "Blue:4",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA1579"
-                    }
-                ],
-                "platformTypeId": "id-agi",
-                "condition": "working",
-                "position": "859c8d77fffffff",
-                "location": [
-                    -8.3232,
-                    144.5763
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a466",
-                "contactId": "CA224",
-                "name": "Blue:5",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:5",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859c8d43fffffff",
-                "location": [
-                    -8.1509,
-                    145.1382
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a467",
-                "contactId": "CA715",
-                "name": "Blue:6",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA715",
-                        "typeId": "id-mcm",
-                        "force": "F-Blue"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA715",
-                        "typeId": "id-mcm",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859cdd37fffffff",
-                "location": [
-                    -7.661,
-                    138.2157
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a468",
-                "contactId": "CA510",
-                "name": "Blue:7",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:7",
-                        "typeId": "id-mcm",
-                        "force": "F-Blue"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA510",
-                        "typeId": "id-mcm"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859cd0c7fffffff",
-                "location": [
-                    -7.1092,
-                    142.5784
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a469",
-                "contactId": "CA1476",
-                "name": "Blue:8",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:8"
-                    }
-                ],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859c8903fffffff",
-                "location": [
-                    -7.7001,
-                    144.0358
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a470",
-                "contactId": "CA421",
-                "name": "Blue:9",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA421",
-                        "force": "F-Blue"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "Blue:9",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859c89a3fffffff",
-                "location": [
-                    -7.9929,
-                    143.8052
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a471",
-                "contactId": "CA491",
-                "name": "Blue:10",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA491"
-                    }
-                ],
-                "platformTypeId": "id-ssk",
-                "condition": "working",
-                "position": "859c8e07fffffff",
-                "location": [
-                    -7.2831,
-                    146.1721
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a472",
-                "contactId": "CA3273",
-                "name": "Blue:11",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859ca853fffffff",
-                "location": [
-                    -10.0375,
-                    146.6188
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a473",
-                "contactId": "CA1670",
-                "name": "Blue:12",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA1670",
-                        "typeId": "id-carrier",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859c8ec3fffffff",
-                "location": [
-                    -7.2811,
-                    146.7997
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a474",
-                "contactId": "CA1181",
-                "name": "Blue:13",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:13",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "85728bbbfffffff",
-                "location": [
-                    -4.3203,
-                    139.0585
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a475",
-                "contactId": "CA636",
-                "name": "Blue:14",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA636",
-                        "force": "F-Green"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA636",
-                        "typeId": "id-boghammer"
-                    }
-                ],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "859cd94bfffffff",
-                "location": [
-                    -6.3191,
-                    138.3825
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a476",
-                "contactId": "CA835",
-                "name": "Blue:15",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "Blue:15",
-                        "typeId": "id-uav",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "8572aa27fffffff",
-                "location": [
-                    -1.9388,
-                    137.2664
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a477",
-                "contactId": "CA2297",
-                "name": "Blue:16",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:16",
-                        "typeId": "id-ssn",
-                        "force": "F-Green"
-                    }
-                ],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "85728357fffffff",
-                "location": [
-                    -4.1751,
-                    135.5492
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a478",
-                "contactId": "CA3296",
-                "name": "Blue:17",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA3296",
-                        "typeId": "id-boghammer"
-                    }
-                ],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "859cd897fffffff",
-                "location": [
-                    -7.0334,
-                    139.3427
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a479",
-                "contactId": "CA2382",
-                "name": "Blue:18",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:18",
-                        "typeId": "id-boghammer",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "859c8e8ffffffff",
-                "location": [
-                    -7.6244,
-                    146.3984
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a480",
-                "contactId": "CA482",
-                "name": "Blue:19",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "Blue:19",
-                        "force": "F-Blue"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA482",
-                        "typeId": "id-merchant"
-                    }
-                ],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859cd167fffffff",
-                "location": [
-                    -6.8237,
-                    140.8167
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a481",
-                "contactId": "CA2802",
-                "name": "Blue:0",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
                         "name": "Blue:0",
                         "typeId": "id-task-group",
                         "force": "F-Blue"
@@ -742,389 +300,931 @@ const game: Wargame = {
                 ],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "859c9d0ffffffff",
+                "status": {
+                    "state": "Evasive"
+                },
+                "position": "8572f36bfffffff",
                 "location": [
-                    -6.0689,
-                    146.7143
+                    -2.7755,
+                    140.9611
                 ],
-                "owner": "2rk116f53",
+                "owner": "3rk116f53",
                 "comprising": [
                     {
-                        "uniqid": "a482",
-                        "contactId": "CA1836",
+                        "uniqid": "a162",
+                        "contactId": "CA3371",
                         "name": "Blue:1",
                         "perceptions": [
                             {
                                 "by": "F-Red",
-                                "name": "Blue:1",
-                                "typeId": "id-mcm"
+                                "name": "CA3371",
+                                "force": "F-Blue"
                             }
                         ],
-                        "platformTypeId": "id-mcm",
+                        "platformTypeId": "id-helo",
                         "condition": "working",
+                        "status": {
+                            "state": "Landed"
+                        },
                         "position": "857281a3fffffff",
                         "location": [
-                            -2.7157,
-                            136.5078
+                            -2.6019,
+                            136.5223
                         ],
-                        "owner": "blue-logs"
+                        "owner": "rk116f53"
                     },
                     {
-                        "uniqid": "a483",
-                        "contactId": "CA2962",
+                        "uniqid": "a163",
+                        "contactId": "CA705",
                         "name": "Blue:2",
                         "perceptions": [
                             {
                                 "by": "F-Red",
-                                "name": "Blue:2",
-                                "typeId": "id-carrier"
+                                "name": "CA705",
+                                "force": "F-Blue"
                             }
                         ],
-                        "platformTypeId": "id-carrier",
+                        "platformTypeId": "id-task-group",
                         "condition": "working",
-                        "position": "859ca6a7fffffff",
+                        "status": {
+                            "state": "Transiting"
+                        },
+                        "position": "859cd3a3fffffff",
                         "location": [
-                            -10.7743,
-                            149.9176
+                            -6.5183,
+                            141.1908
                         ],
-                        "owner": "rk116f51"
+                        "owner": "rk116f53"
                     },
                     {
-                        "uniqid": "a484",
-                        "contactId": "CA626",
+                        "uniqid": "a164",
+                        "contactId": "CA1161",
                         "name": "Blue:3",
                         "perceptions": [
                             {
                                 "by": "F-Green",
-                                "name": "CA626",
-                                "typeId": "id-mcm",
+                                "name": "CA1161",
                                 "force": "F-Blue"
                             }
                         ],
                         "platformTypeId": "id-mcm",
                         "condition": "working",
-                        "position": "859c80bbfffffff",
+                        "status": {
+                            "state": "Transiting"
+                        },
+                        "position": "859c832bfffffff",
                         "location": [
-                            -8.2631,
-                            148.1018
+                            -6.9061,
+                            147.0898
+                        ],
+                        "owner": "rk116f53"
+                    }
+                ]
+            },
+            {
+                "uniqid": "a165",
+                "contactId": "CA2203",
+                "name": "Blue:4",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA2203",
+                        "typeId": "id-missile"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "859c99affffffff",
+                "location": [
+                    -5.607,
+                    145.7545
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a166",
+                "contactId": "CA3142",
+                "name": "Blue:5",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA3142",
+                        "typeId": "id-mpa",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-mpa",
+                "condition": "working",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859cae1bfffffff",
+                "location": [
+                    -9.9158,
+                    147.5427
+                ],
+                "owner": "1rk116f53"
+            },
+            {
+                "uniqid": "a167",
+                "contactId": "CA2120",
+                "name": "Blue:6",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA2120",
+                        "typeId": "id-merchant",
+                        "force": "F-Green"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "Blue:6",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-merchant",
+                "condition": "working",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "859cc363fffffff",
+                "location": [
+                    -8.0633,
+                    139.3171
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a168",
+                "contactId": "CA2830",
+                "name": "Blue:7",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "Blue:7",
+                        "typeId": "id-fisher"
+                    }
+                ],
+                "platformTypeId": "id-fisher",
+                "condition": "working",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "85728c1bfffffff",
+                "location": [
+                    -2.7856,
+                    137.2844
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a169",
+                "contactId": "CA2767",
+                "name": "Blue:8",
+                "perceptions": [],
+                "platformTypeId": "id-boghammer",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859ca313fffffff",
+                "location": [
+                    -9.9615,
+                    148.5793
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a170",
+                "contactId": "CA2499",
+                "name": "Blue:9",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA2499",
+                        "typeId": "id-mpa",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-mpa",
+                "condition": "working",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859c8c17fffffff",
+                "location": [
+                    -8.4283,
+                    145.878
+                ],
+                "owner": "rk116f53"
+            },
+            {
+                "uniqid": "a171",
+                "contactId": "CA24",
+                "name": "Blue:10",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "status": {
+                    "state": "Loitering"
+                },
+                "position": "859c8113fffffff",
+                "location": [
+                    -8.2398,
+                    147.171
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a172",
+                "contactId": "CA944",
+                "name": "Blue:11",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA944",
+                        "typeId": "id-carrier"
+                    }
+                ],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "status": {
+                    "state": "Air Ops"
+                },
+                "position": "859ca04ffffffff",
+                "location": [
+                    -10.1887,
+                    149.2994
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a173",
+                "contactId": "CA2746",
+                "name": "Blue:12",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "Blue:12",
+                        "typeId": "id-frigate"
+                    }
+                ],
+                "platformTypeId": "id-frigate",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859c8bbbfffffff",
+                "location": [
+                    -6.8859,
+                    144.4062
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a174",
+                "contactId": "CA155",
+                "name": "Blue:13",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA155",
+                        "force": "F-Blue"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA155",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-mpa",
+                "condition": "working",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859c8e93fffffff",
+                "location": [
+                    -7.7565,
+                    146.6751
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a175",
+                "contactId": "CA1555",
+                "name": "Blue:14",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA1555",
+                        "typeId": "id-mcm"
+                    }
+                ],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "859cc2cffffffff",
+                "location": [
+                    -8.1733,
+                    140.9793
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a176",
+                "contactId": "CA1941",
+                "name": "Blue:15",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA1941"
+                    }
+                ],
+                "platformTypeId": "id-ssn",
+                "condition": "working",
+                "status": {
+                    "state": "Aggressove"
+                },
+                "position": "8572d4cbfffffff",
+                "location": [
+                    -3.3935,
+                    139.9287
+                ],
+                "owner": "3rk116f53"
+            },
+            {
+                "uniqid": "a177",
+                "contactId": "CA540",
+                "name": "Blue:16",
+                "perceptions": [],
+                "platformTypeId": "id-uav",
+                "condition": "working",
+                "status": {
+                    "state": "Landed"
+                },
+                "position": "8572d25bfffffff",
+                "location": [
+                    -5.6573,
+                    140.2438
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a178",
+                "contactId": "CA846",
+                "name": "Blue:17",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "Blue:17",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Stopped"
+                },
+                "position": "859ca047fffffff",
+                "location": [
+                    -10.3237,
+                    149.3719
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a179",
+                "contactId": "CA2611",
+                "name": "Blue:18",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA2611",
+                        "typeId": "id-mpa"
+                    }
+                ],
+                "platformTypeId": "id-mpa",
+                "condition": "working",
+                "status": {
+                    "state": "Landed"
+                },
+                "position": "859cd82ffffffff",
+                "location": [
+                    -6.3233,
+                    138.5853
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a180",
+                "contactId": "CA1907",
+                "name": "Blue:19",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA1907",
+                        "typeId": "id-missile"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Deployed"
+                },
+                "position": "859cd5bbfffffff",
+                "location": [
+                    -8.4284,
+                    141.6774
+                ],
+                "owner": "blue-logs"
+            },
+            {
+                "uniqid": "a181",
+                "contactId": "CA2869",
+                "name": "Blue:0",
+                "perceptions": [],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "85729d1bfffffff",
+                "location": [
+                    -5.0168,
+                    136.4064
+                ],
+                "owner": "2rk116f53",
+                "comprising": [
+                    {
+                        "uniqid": "a182",
+                        "contactId": "CA1162",
+                        "name": "Blue:1",
+                        "perceptions": [
+                            {
+                                "by": "F-Green",
+                                "name": "CA1162",
+                                "typeId": "id-auxiliary",
+                                "force": "F-Blue"
+                            }
+                        ],
+                        "platformTypeId": "id-auxiliary",
+                        "condition": "working",
+                        "status": {
+                            "state": "Transiting"
+                        },
+                        "position": "85729b37fffffff",
+                        "location": [
+                            -6.7876,
+                            137.3457
+                        ],
+                        "owner": "3rk116f53"
+                    },
+                    {
+                        "uniqid": "a183",
+                        "contactId": "CA1601",
+                        "name": "Blue:2",
+                        "perceptions": [
+                            {
+                                "by": "F-Red",
+                                "name": "CA1601",
+                                "typeId": "id-missile",
+                                "force": "F-Blue"
+                            }
+                        ],
+                        "platformTypeId": "id-missile",
+                        "condition": "working",
+                        "status": {
+                            "state": "Deployed"
+                        },
+                        "position": "859ca0cbfffffff",
+                        "location": [
+                            -10.5659,
+                            149.5936
+                        ],
+                        "owner": "1rk116f53"
+                    },
+                    {
+                        "uniqid": "a184",
+                        "contactId": "CA1167",
+                        "name": "Blue:3",
+                        "perceptions": [
+                            {
+                                "by": "F-Red",
+                                "name": "Blue:3",
+                                "typeId": "id-auxiliary"
+                            },
+                            {
+                                "by": "F-Green",
+                                "name": "CA1167",
+                                "typeId": "id-auxiliary"
+                            }
+                        ],
+                        "platformTypeId": "id-auxiliary",
+                        "condition": "working",
+                        "status": {
+                            "state": "Transiting"
+                        },
+                        "position": "859cce43fffffff",
+                        "location": [
+                            -8.2837,
+                            138.6957
                         ],
                         "owner": "rk116f52"
                     }
                 ]
             },
             {
-                "uniqid": "a485",
-                "contactId": "CA43",
+                "uniqid": "a185",
+                "contactId": "CA2050",
                 "name": "Blue:4",
                 "perceptions": [
                     {
                         "by": "F-Red",
+                        "name": "CA2050",
+                        "force": "F-Blue"
+                    },
+                    {
+                        "by": "F-Green",
                         "name": "Blue:4",
-                        "typeId": "id-frigate-ta"
+                        "force": "F-Blue"
                     }
                 ],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "8572aa7bfffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859cf6c7fffffff",
                 "location": [
-                    -2.3955,
-                    136.6035
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a486",
-                "contactId": "CA3250",
-                "name": "Blue:5",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA3250",
-                        "force": "F-Green"
-                    }
-                ],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "85729babfffffff",
-                "location": [
-                    -6.7223,
-                    137.079
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a487",
-                "contactId": "CA666",
-                "name": "Blue:6",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA666",
-                        "typeId": "id-mcm",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859c99dbfffffff",
-                "location": [
-                    -5.4576,
-                    146.6215
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a488",
-                "contactId": "CA1493",
-                "name": "Blue:7",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA1493",
-                        "typeId": "id-mcm"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "85729c37fffffff",
-                "location": [
-                    -5.1,
-                    135.9194
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a489",
-                "contactId": "CA3183",
-                "name": "Blue:8",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA3183",
-                        "typeId": "id-auxiliary"
-                    }
-                ],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "85729c37fffffff",
-                "location": [
-                    -5.0896,
-                    135.9071
+                    -9.6247,
+                    144.648
                 ],
                 "owner": "1rk116f53"
             },
             {
-                "uniqid": "a490",
-                "contactId": "CA2618",
-                "name": "Blue:9",
+                "uniqid": "a186",
+                "contactId": "CA1397",
+                "name": "Blue:5",
                 "perceptions": [
                     {
                         "by": "F-Red",
-                        "name": "Blue:9",
-                        "typeId": "id-frigate-ta"
+                        "name": "CA1397",
+                        "force": "F-Blue"
                     },
                     {
                         "by": "F-Green",
-                        "name": "Blue:9",
-                        "typeId": "id-frigate-ta"
+                        "name": "Blue:5",
+                        "typeId": "id-missile",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "8572ab53fffffff",
+                "location": [
+                    -1.926,
+                    137.4298
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a187",
+                "contactId": "CA1213",
+                "name": "Blue:6",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "Blue:6",
+                        "typeId": "id-frigate-ta",
+                        "force": "F-Green"
                     }
                 ],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "859c8017fffffff",
+                "status": {
+                    "state": "Mixed"
+                },
+                "position": "859cae87fffffff",
                 "location": [
-                    -8.1267,
-                    148.1172
+                    -10.3741,
+                    147.4089
                 ],
                 "owner": "rk116f51"
             },
             {
-                "uniqid": "a491",
-                "contactId": "CA965",
-                "name": "Blue:10",
+                "uniqid": "a188",
+                "contactId": "CA78",
+                "name": "Blue:7",
                 "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "CA965",
+                        "name": "Blue:7",
                         "typeId": "id-carrier",
                         "force": "F-Blue"
                     }
                 ],
                 "platformTypeId": "id-carrier",
                 "condition": "working",
-                "position": "857299cffffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859ca3a3fffffff",
                 "location": [
-                    -5.875,
-                    136.9992
+                    -10.1388,
+                    148.2461
                 ],
-                "owner": "rk116f53"
+                "owner": "2rk116f53"
             },
             {
-                "uniqid": "a492",
-                "contactId": "CA1565",
-                "name": "Blue:11",
+                "uniqid": "a189",
+                "contactId": "CA2307",
+                "name": "Blue:8",
                 "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "CA1565",
-                        "typeId": "id-carrier"
+                        "name": "CA2307",
+                        "typeId": "id-carrier",
+                        "force": "F-Blue"
                     }
                 ],
                 "platformTypeId": "id-carrier",
                 "condition": "working",
-                "position": "859cc66bfffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859ccecbfffffff",
                 "location": [
-                    -8.6101,
-                    141.3164
+                    -8.5974,
+                    138.9287
+                ],
+                "owner": "2rk116f53"
+            },
+            {
+                "uniqid": "a190",
+                "contactId": "CA3222",
+                "name": "Blue:9",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "Blue:9",
+                        "typeId": "id-destroyer"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "Blue:9",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "status": {
+                    "state": "Loitering"
+                },
+                "position": "859ca04ffffffff",
+                "location": [
+                    -10.1238,
+                    149.3998
+                ],
+                "owner": "3rk116f53"
+            },
+            {
+                "uniqid": "a191",
+                "contactId": "CA3036",
+                "name": "Blue:10",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA3036",
+                        "typeId": "id-frigate-ta"
+                    }
+                ],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859ca15bfffffff",
+                "location": [
+                    -10.4337,
+                    148.5732
                 ],
                 "owner": "rk116f53"
             },
             {
-                "uniqid": "a493",
-                "contactId": "CA1962",
-                "name": "Blue:12",
+                "uniqid": "a192",
+                "contactId": "CA2291",
+                "name": "Blue:11",
                 "perceptions": [
                     {
                         "by": "F-Red",
-                        "name": "CA1962",
+                        "name": "Blue:11",
                         "force": "F-Blue"
                     }
                 ],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859ca2affffffff",
-                "location": [
-                    -9.8159,
-                    149.2754
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a494",
-                "contactId": "CA709",
-                "name": "Blue:13",
-                "perceptions": [],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "85728cd7fffffff",
+                "status": {
+                    "state": "Passive"
+                },
+                "position": "859ca6bbfffffff",
                 "location": [
-                    -2.538,
-                    136.9595
+                    -10.7176,
+                    150.1536
                 ],
-                "owner": "rk116f52"
+                "owner": "2rk116f53"
             },
             {
-                "uniqid": "a495",
-                "contactId": "CA868",
-                "name": "Blue:14",
+                "uniqid": "a193",
+                "contactId": "CA1832",
+                "name": "Blue:12",
                 "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "CA868",
+                        "name": "CA1832",
+                        "typeId": "id-auxiliary",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "859cc32bfffffff",
+                "location": [
+                    -8.1642,
+                    139.127
+                ],
+                "owner": "blue-logs"
+            },
+            {
+                "uniqid": "a194",
+                "contactId": "CA2037",
+                "name": "Blue:13",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA2037"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "859c9953fffffff",
+                "location": [
+                    -5.1852,
+                    146.4221
+                ],
+                "owner": "blue-logs"
+            },
+            {
+                "uniqid": "a195",
+                "contactId": "CA2829",
+                "name": "Blue:14",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "CA2829",
+                        "typeId": "id-missile"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "Blue:14",
+                        "typeId": "id-missile",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "859c9d03fffffff",
+                "location": [
+                    -6.2246,
+                    146.7067
+                ],
+                "owner": "1rk116f53"
+            },
+            {
+                "uniqid": "a196",
+                "contactId": "CA2934",
+                "name": "Blue:15",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859cc3c7fffffff",
+                "location": [
+                    -8.5197,
+                    139.8303
+                ],
+                "owner": "1rk116f53"
+            },
+            {
+                "uniqid": "a197",
+                "contactId": "CA1099",
+                "name": "Blue:16",
+                "perceptions": [
+                    {
+                        "by": "F-Red",
+                        "name": "Blue:16",
+                        "typeId": "id-missile",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Deployed"
+                },
+                "position": "8572ab8bfffffff",
+                "location": [
+                    -1.484,
+                    137.6034
+                ],
+                "owner": "rk116f53"
+            },
+            {
+                "uniqid": "a198",
+                "contactId": "CA3380",
+                "name": "Blue:17",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA3380",
                         "force": "F-Blue"
                     }
                 ],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "859cf39bfffffff",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "859ca003fffffff",
                 "location": [
-                    -9.246,
-                    142.8297
+                    -10.6215,
+                    149.1973
                 ],
-                "owner": "3rk116f53"
+                "owner": "2rk116f53"
             },
             {
-                "uniqid": "a496",
-                "contactId": "CA1758",
-                "name": "Blue:15",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "859ca867fffffff",
-                "location": [
-                    -9.9043,
-                    145.9028
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a497",
-                "contactId": "CA2464",
-                "name": "Blue:16",
-                "perceptions": [
-                    {
-                        "by": "F-Red",
-                        "name": "CA2464",
-                        "force": "F-Green"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA2464",
-                        "typeId": "id-missile"
-                    }
-                ],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cca53fffffff",
-                "location": [
-                    -7.5845,
-                    138.0865
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a498",
-                "contactId": "CA819",
-                "name": "Blue:17",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859cce57fffffff",
-                "location": [
-                    -8.5326,
-                    138.5668
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a499",
-                "contactId": "CA3019",
+                "uniqid": "a199",
+                "contactId": "CA3371",
                 "name": "Blue:18",
                 "perceptions": [
                     {
                         "by": "F-Red",
                         "name": "Blue:18",
-                        "typeId": "id-destroyer",
-                        "force": "F-Green"
+                        "typeId": "id-mcm",
+                        "force": "F-Blue"
                     },
                     {
                         "by": "F-Green",
-                        "name": "CA3019",
-                        "typeId": "id-destroyer"
+                        "name": "CA3371",
+                        "force": "F-Red"
                     }
                 ],
-                "platformTypeId": "id-destroyer",
+                "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "857299c3fffffff",
+                "status": {
+                    "state": "Stopped"
+                },
+                "position": "859cae0bfffffff",
                 "location": [
-                    -5.7004,
-                    136.9137
+                    -9.88,
+                    147.5097
                 ],
-                "owner": "rk116f51"
+                "owner": "rk116f53"
             },
             {
-                "uniqid": "a500",
-                "contactId": "CA1846",
+                "uniqid": "a200",
+                "contactId": "CA1900",
                 "name": "Blue:19",
                 "perceptions": [],
-                "platformTypeId": "id-carrier",
+                "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "859ca6b7fffffff",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "859cd937fffffff",
                 "location": [
-                    -10.8602,
-                    150.005
+                    -6.7608,
+                    137.5513
                 ],
-                "owner": "rk116f5e"
+                "owner": "rk116f52"
             }
         ],
           "color": "#00F",
@@ -1196,1281 +1296,1425 @@ const game: Wargame = {
         {
           "assets": [
             {
-                "uniqid": "a401",
-                "contactId": "CA1543",
-                "name": "Red Force:0",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA1543",
-                        "typeId": "id-task-group",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "859d480bfffffff",
-                "location": [
-                    -21.5723,
-                    139.2382
-                ],
-                "owner": "rkr226f5a",
-                "comprising": [
-                    {
-                        "uniqid": "a402",
-                        "contactId": "CA857",
-                        "name": "Red Force:1",
-                        "perceptions": [
-                            {
-                                "by": "F-Blue",
-                                "name": "Red Force:1",
-                                "typeId": "id-carrier"
-                            }
-                        ],
-                        "platformTypeId": "id-carrier",
-                        "condition": "working",
-                        "position": "85b8d85bfffffff",
-                        "location": [
-                            -20.8594,
-                            126.2534
-                        ],
-                        "owner": "rkr226f5d"
-                    },
-                    {
-                        "uniqid": "a403",
-                        "contactId": "CA2978",
-                        "name": "Red Force:2",
-                        "perceptions": [
-                            {
-                                "by": "F-Blue",
-                                "name": "CA2978",
-                                "force": "F-Green"
-                            },
-                            {
-                                "by": "F-Green",
-                                "name": "Red Force:2",
-                                "typeId": "id-agi"
-                            }
-                        ],
-                        "platformTypeId": "id-agi",
-                        "condition": "working",
-                        "position": "8594c07bfffffff",
-                        "location": [
-                            -17.7576,
-                            129.4618
-                        ],
-                        "owner": "rkr226f5c"
-                    },
-                    {
-                        "uniqid": "a404",
-                        "contactId": "CA2367",
-                        "name": "Red Force:3",
-                        "perceptions": [
-                            {
-                                "by": "F-Blue",
-                                "name": "Red Force:3",
-                                "force": "F-Green"
-                            },
-                            {
-                                "by": "F-Green",
-                                "name": "Red Force:3",
-                                "typeId": "id-frigate"
-                            }
-                        ],
-                        "platformTypeId": "id-frigate",
-                        "condition": "working",
-                        "position": "859d557bfffffff",
-                        "location": [
-                            -20.5542,
-                            143.8555
-                        ],
-                        "owner": "rkr226f5e"
-                    }
-                ]
-            },
-            {
-                "uniqid": "a405",
-                "contactId": "CA3204",
-                "name": "Red Force:4",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA3204",
-                        "typeId": "id-uav",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "859d4ea3fffffff",
-                "location": [
-                    -21.7706,
-                    140.0237
-                ],
-                "owner": "rkr226f5b"
-            },
-            {
-                "uniqid": "a406",
-                "contactId": "CA57",
-                "name": "Red Force:5",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:5",
-                        "typeId": "id-destroyer",
-                        "force": "F-Green"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "Red Force:5",
-                        "typeId": "id-destroyer",
-                        "force": "F-Blue"
-                    }
-                ],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "85b89453fffffff",
-                "location": [
-                    -21.7175,
-                    137.1398
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a407",
-                "contactId": "CA111",
-                "name": "Red Force:6",
-                "perceptions": [],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "85b89cabfffffff",
-                "location": [
-                    -21.4191,
-                    133.6235
-                ],
-                "owner": "rkr226f5c"
-            },
-            {
-                "uniqid": "a408",
-                "contactId": "CA2867",
-                "name": "Red Force:7",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:7",
-                        "typeId": "id-fixed-wing",
-                        "force": "F-Red"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA2867",
-                        "typeId": "id-fixed-wing"
-                    }
-                ],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8594c3d3fffffff",
-                "location": [
-                    -17.9949,
-                    129.676
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a409",
-                "contactId": "CA2065",
-                "name": "Red Force:8",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA2065"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859490cffffffff",
-                "location": [
-                    -19.8261,
-                    119.9307
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a410",
-                "contactId": "CA3278",
-                "name": "Red Force:9",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA3278",
-                        "force": "F-Red"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "Red Force:9",
-                        "typeId": "id-fixed-wing"
-                    }
-                ],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8594c4d7fffffff",
-                "location": [
-                    -16.3406,
-                    128.4888
-                ],
-                "owner": "rkr226f5c"
-            },
-            {
-                "uniqid": "a411",
-                "contactId": "CA2867",
-                "name": "Red Force:10",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:10",
-                        "typeId": "id-auxiliary",
-                        "force": "F-Red"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "Red Force:10",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859d2a0ffffffff",
-                "location": [
-                    -21.8305,
-                    148.9898
-                ],
-                "owner": "rkr226f5d"
-            },
-            {
-                "uniqid": "a412",
-                "contactId": "CA9",
-                "name": "Red Force:11",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859d541bfffffff",
-                "location": [
-                    -20.7396,
-                    145.3076
-                ],
-                "owner": "rkr226f5c"
-            },
-            {
-                "uniqid": "a413",
-                "contactId": "CA454",
-                "name": "Red Force:12",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:12",
-                        "typeId": "id-fixed-wing"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA454",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8594e837fffffff",
-                "location": [
-                    -15.2754,
-                    131.8222
-                ],
-                "owner": "rkr226f5d"
-            },
-            {
-                "uniqid": "a414",
-                "contactId": "CA1522",
-                "name": "Red Force:13",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "CA1522"
-                    }
-                ],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "8594e2c3fffffff",
-                "location": [
-                    -15.62,
-                    127.7272
-                ],
-                "owner": "rkr226f5d"
-            },
-            {
-                "uniqid": "a415",
-                "contactId": "CA3155",
-                "name": "Red Force:14",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:14",
-                        "typeId": "id-carrier"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA3155",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859d5abbfffffff",
-                "location": [
-                    -18.7916,
-                    141.5652
-                ],
-                "owner": "rkr226f5b"
-            },
-            {
-                "uniqid": "a416",
-                "contactId": "CA2587",
-                "name": "Red Force:15",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA2587",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "8594d95bfffffff",
-                "location": [
-                    -20.073,
-                    131.1271
-                ],
-                "owner": "rkr226f5a"
-            },
-            {
-                "uniqid": "a417",
-                "contactId": "CA1534",
-                "name": "Red Force:16",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "8594c377fffffff",
-                "location": [
-                    -18.3244,
-                    130.4885
-                ],
-                "owner": "rkr226f5a"
-            },
-            {
-                "uniqid": "a418",
-                "contactId": "CA2685",
-                "name": "Red Force:17",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "Red Force:17",
-                        "typeId": "id-ssk"
-                    }
-                ],
-                "platformTypeId": "id-ssk",
-                "condition": "working",
-                "position": "85b8d053fffffff",
-                "location": [
-                    -21.618,
-                    128.7419
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a419",
-                "contactId": "CA1147",
-                "name": "Red Force:18",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:18",
-                        "typeId": "id-helo",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "859c440bfffffff",
-                "location": [
-                    -17.0889,
-                    138.192
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a420",
-                "contactId": "CA489",
-                "name": "Red Force:19",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA489",
-                        "typeId": "id-boghammer"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA489",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "85b88b4ffffffff",
-                "location": [
-                    -21.2622,
-                    130.7655
-                ],
-                "owner": "rkr226f5d"
-            },
-            {
-                "uniqid": "a421",
-                "contactId": "CA3061",
+                "uniqid": "a101",
+                "contactId": "CA1340",
                 "name": "Red Force:0",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA3061",
-                        "typeId": "id-task-group",
-                        "force": "F-Green"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA3061",
+                        "name": "Red Force:0",
                         "typeId": "id-task-group"
                     }
                 ],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "859c46c3fffffff",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "8594e6d3fffffff",
                 "location": [
-                    -16.2668,
-                    138.9227
+                    -14.6533,
+                    126.839
                 ],
                 "owner": "rkr226f5a",
                 "comprising": [
                     {
-                        "uniqid": "a422",
-                        "contactId": "CA172",
+                        "uniqid": "a102",
+                        "contactId": "CA410",
                         "name": "Red Force:1",
-                        "perceptions": [],
-                        "platformTypeId": "id-frigate-ta",
-                        "condition": "working",
-                        "position": "859c5dc3fffffff",
-                        "location": [
-                            -14.7762,
-                            136.2898
+                        "perceptions": [
+                            {
+                                "by": "F-Blue",
+                                "name": "Red Force:1",
+                                "typeId": "id-ssk"
+                            }
                         ],
-                        "owner": "rkr226f5a"
+                        "platformTypeId": "id-ssk",
+                        "condition": "working",
+                        "status": {
+                            "state": "Aggressove"
+                        },
+                        "position": "8594a92bfffffff",
+                        "location": [
+                            -16.1924,
+                            125.1881
+                        ],
+                        "owner": "rkr226f5e"
                     },
                     {
-                        "uniqid": "a423",
-                        "contactId": "CA1674",
+                        "uniqid": "a103",
+                        "contactId": "CA1336",
                         "name": "Red Force:2",
                         "perceptions": [
                             {
                                 "by": "F-Blue",
-                                "name": "Red Force:2",
-                                "typeId": "id-mcm",
-                                "force": "F-Red"
+                                "name": "CA1336"
                             },
                             {
                                 "by": "F-Green",
-                                "name": "CA1674"
+                                "name": "CA1336"
                             }
                         ],
-                        "platformTypeId": "id-mcm",
+                        "platformTypeId": "id-helo",
                         "condition": "working",
-                        "position": "85a6a5a3fffffff",
+                        "status": {
+                            "state": "Landed"
+                        },
+                        "position": "8594c66bfffffff",
                         "location": [
-                            -21.6913,
-                            115.4131
+                            -17.9772,
+                            128.4718
                         ],
-                        "owner": "rkr226f5d"
+                        "owner": "rkr226f5c"
                     },
                     {
-                        "uniqid": "a424",
-                        "contactId": "CA2766",
+                        "uniqid": "a104",
+                        "contactId": "CA981",
                         "name": "Red Force:3",
                         "perceptions": [
                             {
                                 "by": "F-Blue",
                                 "name": "Red Force:3",
-                                "typeId": "id-auxiliary",
-                                "force": "F-Green"
+                                "force": "F-Red"
                             },
                             {
                                 "by": "F-Green",
                                 "name": "Red Force:3",
-                                "typeId": "id-auxiliary"
+                                "typeId": "id-merchant",
+                                "force": "F-Red"
                             }
                         ],
-                        "platformTypeId": "id-auxiliary",
+                        "platformTypeId": "id-merchant",
                         "condition": "working",
-                        "position": "859c5d47fffffff",
+                        "status": {
+                            "state": "Moored"
+                        },
+                        "position": "859d5453fffffff",
                         "location": [
-                            -14.4082,
-                            136.0105
+                            -20.4815,
+                            145.4981
                         ],
                         "owner": "rkr226f5b"
                     }
                 ]
             },
             {
-                "uniqid": "a425",
-                "contactId": "CA1249",
+                "uniqid": "a105",
+                "contactId": "CA1127",
                 "name": "Red Force:4",
                 "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "CA1249",
+                        "name": "CA1127",
+                        "typeId": "id-agi",
                         "force": "F-Red"
                     }
                 ],
-                "platformTypeId": "id-frigate-ta",
+                "platformTypeId": "id-agi",
                 "condition": "working",
-                "position": "859c29abfffffff",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "859c4867fffffff",
                 "location": [
-                    -17.5918,
-                    141.9202
+                    -15.5391,
+                    134.0721
                 ],
                 "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a426",
-                "contactId": "CA2609",
+                "uniqid": "a106",
+                "contactId": "CA2949",
                 "name": "Red Force:5",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "status": {
+                    "state": "Mixed"
+                },
+                "position": "859d424bfffffff",
+                "location": [
+                    -20.6632,
+                    143.0661
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a107",
+                "contactId": "CA1222",
+                "name": "Red Force:6",
                 "perceptions": [
                     {
-                        "by": "F-Blue",
-                        "name": "Red Force:5",
+                        "by": "F-Green",
+                        "name": "CA1222",
                         "typeId": "id-missile"
                     }
                 ],
                 "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "85945c53fffffff",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "85948d17fffffff",
                 "location": [
-                    -12.6377,
-                    132.2403
+                    -17.6467,
+                    125.2749
                 ],
-                "owner": "rkr226f5a"
+                "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a427",
-                "contactId": "CA2418",
-                "name": "Red Force:6",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:6",
-                        "typeId": "id-carrier",
-                        "force": "F-Red"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA2418"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859494a3fffffff",
-                "location": [
-                    -18.7049,
-                    119.846
-                ],
-                "owner": "rkr226f5b"
-            },
-            {
-                "uniqid": "a428",
-                "contactId": "CA701",
+                "uniqid": "a108",
+                "contactId": "CA478",
                 "name": "Red Force:7",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:7"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
+                "perceptions": [],
+                "platformTypeId": "id-frigate",
                 "condition": "working",
-                "position": "859d096ffffffff",
+                "status": {
+                    "state": "Mixed"
+                },
+                "position": "859483a3fffffff",
                 "location": [
-                    -20.1052,
-                    146.0009
+                    -18.5925,
+                    122.8959
                 ],
-                "owner": "rkr226f5b"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a429",
-                "contactId": "CA279",
+                "uniqid": "a109",
+                "contactId": "CA1147",
                 "name": "Red Force:8",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA279",
-                        "typeId": "id-carrier",
-                        "force": "F-Red"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA279",
-                        "typeId": "id-carrier",
+                        "name": "Red Force:8",
                         "force": "F-Red"
                     }
                 ],
-                "platformTypeId": "id-carrier",
+                "platformTypeId": "id-ssn",
                 "condition": "working",
-                "position": "85a612d7fffffff",
+                "status": {
+                    "state": "Aggressove"
+                },
+                "position": "859d5e33fffffff",
                 "location": [
-                    -21.7167,
-                    115.0824
+                    -19.3355,
+                    142.1253
                 ],
-                "owner": "rkr226f5a"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a430",
-                "contactId": "CA888",
+                "uniqid": "a110",
+                "contactId": "CA517",
                 "name": "Red Force:9",
                 "perceptions": [
                     {
-                        "by": "F-Blue",
-                        "name": "CA888",
-                        "typeId": "id-auxiliary",
-                        "force": "F-Red"
+                        "by": "F-Green",
+                        "name": "CA517",
+                        "typeId": "id-uav"
                     }
                 ],
-                "platformTypeId": "id-auxiliary",
+                "platformTypeId": "id-uav",
                 "condition": "working",
-                "position": "8594aa07fffffff",
+                "status": {
+                    "state": "Airborne"
+                },
+                "position": "8594c69bfffffff",
                 "location": [
-                    -16.9462,
-                    123.5381
+                    -17.0936,
+                    128.1529
                 ],
-                "owner": "rkr226f5a"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a431",
-                "contactId": "CA1749",
+                "uniqid": "a111",
+                "contactId": "CA670",
                 "name": "Red Force:10",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA1749",
-                        "typeId": "id-mcm",
-                        "force": "F-Green"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA1749"
+                        "name": "CA670"
                     }
                 ],
-                "platformTypeId": "id-mcm",
+                "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "8594e5cbfffffff",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859c6817fffffff",
                 "location": [
-                    -13.8704,
-                    128.3592
+                    -18.5329,
+                    135.4363
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a432",
-                "contactId": "CA2883",
+                "uniqid": "a112",
+                "contactId": "CA523",
                 "name": "Red Force:11",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA2883",
-                        "typeId": "id-carrier",
+                        "name": "CA523"
+                    }
+                ],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859d424bfffffff",
+                "location": [
+                    -20.6715,
+                    142.9809
+                ],
+                "owner": "rkr226f5e"
+            },
+            {
+                "uniqid": "a113",
+                "contactId": "CA994",
+                "name": "Red Force:12",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA994",
                         "force": "F-Red"
                     }
                 ],
-                "platformTypeId": "id-carrier",
+                "platformTypeId": "id-mpa",
                 "condition": "working",
-                "position": "85945b87fffffff",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859c64d3fffffff",
                 "location": [
-                    -13.6728,
-                    134.0859
-                ],
-                "owner": "rkr226f5c"
-            },
-            {
-                "uniqid": "a433",
-                "contactId": "CA2005",
-                "name": "Red Force:12",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859d0c63fffffff",
-                "location": [
-                    -20.7125,
-                    148.0774
+                    -20.0229,
+                    139.4415
                 ],
                 "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a434",
-                "contactId": "CA1423",
+                "uniqid": "a114",
+                "contactId": "CA847",
                 "name": "Red Force:13",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA1423",
+                        "name": "CA847",
+                        "typeId": "id-boghammer",
                         "force": "F-Red"
                     },
                     {
                         "by": "F-Green",
-                        "name": "CA1423",
-                        "typeId": "id-destroyer",
-                        "force": "F-Blue"
+                        "name": "CA847"
                     }
                 ],
-                "platformTypeId": "id-destroyer",
+                "platformTypeId": "id-boghammer",
                 "condition": "working",
-                "position": "859c5987fffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "8594f077fffffff",
                 "location": [
-                    -14.3679,
-                    135.2073
+                    -17.0157,
+                    126.8957
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a435",
-                "contactId": "CA3005",
+                "uniqid": "a115",
+                "contactId": "CA1763",
                 "name": "Red Force:14",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "859d096ffffffff",
-                "location": [
-                    -19.9992,
-                    145.9407
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1763",
+                        "typeId": "id-missile",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA1763",
+                        "typeId": "id-missile"
+                    }
                 ],
-                "owner": "rkr226f5b"
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "85a79bb3fffffff",
+                "location": [
+                    -21.0232,
+                    117.7434
+                ],
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a436",
-                "contactId": "CA321",
+                "uniqid": "a116",
+                "contactId": "CA1764",
                 "name": "Red Force:15",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "8594a913fffffff",
-                "location": [
-                    -15.9015,
-                    124.7268
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1764",
+                        "typeId": "id-ssk"
+                    }
                 ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a437",
-                "contactId": "CA2986",
-                "name": "Red Force:16",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
+                "platformTypeId": "id-ssk",
                 "condition": "working",
-                "position": "85945627fffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "8594c5d3fffffff",
                 "location": [
-                    -12.9406,
-                    129.8633
+                    -16.1699,
+                    129.3162
                 ],
                 "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a438",
-                "contactId": "CA1492",
-                "name": "Red Force:17",
-                "perceptions": [],
+                "uniqid": "a117",
+                "contactId": "CA864",
+                "name": "Red Force:16",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "Red Force:16",
+                        "typeId": "id-mcm",
+                        "force": "F-Blue"
+                    }
+                ],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "859480dbfffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85b8d96ffffffff",
                 "location": [
-                    -17.8485,
-                    121.4259
+                    -20.6765,
+                    124.4507
                 ],
-                "owner": "rkr226f5c"
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a439",
-                "contactId": "CA483",
+                "uniqid": "a118",
+                "contactId": "CA1326",
+                "name": "Red Force:17",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1326",
+                        "typeId": "id-task-group",
+                        "force": "F-Green"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA1326",
+                        "typeId": "id-task-group",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "status": {
+                    "state": "Stopped"
+                },
+                "position": "859d4c6ffffffff",
+                "location": [
+                    -21.941,
+                    139.571
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a119",
+                "contactId": "CA1782",
                 "name": "Red Force:18",
                 "perceptions": [
                     {
                         "by": "F-Green",
                         "name": "Red Force:18",
-                        "typeId": "id-frigate-ta",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "859d0827fffffff",
-                "location": [
-                    -20.2641,
-                    146.7696
-                ],
-                "owner": "rkr226f5a"
-            },
-            {
-                "uniqid": "a440",
-                "contactId": "CA192",
-                "name": "Red Force:19",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA192",
                         "typeId": "id-carrier",
                         "force": "F-Red"
                     }
                 ],
                 "platformTypeId": "id-carrier",
                 "condition": "working",
-                "position": "859496dbfffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85b89123fffffff",
                 "location": [
-                    -19.7279,
-                    118.7293
-                ],
-                "owner": "rkr226f5b"
-            },
-            {
-                "uniqid": "a441",
-                "contactId": "CA2612",
-                "name": "Red Force:20",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:20"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA2612",
-                        "typeId": "id-carrier"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "8594e437fffffff",
-                "location": [
-                    -13.8398,
-                    128.2184
+                    -21.138,
+                    134.6604
                 ],
                 "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a442",
-                "contactId": "CA1661",
-                "name": "Red Force:21",
+                "uniqid": "a120",
+                "contactId": "CA3126",
+                "name": "Red Force:19",
                 "perceptions": [
                     {
+                        "by": "F-Blue",
+                        "name": "CA3126",
+                        "typeId": "id-fixed-wing"
+                    },
+                    {
                         "by": "F-Green",
-                        "name": "Red Force:21",
+                        "name": "CA3126",
                         "force": "F-Red"
                     }
                 ],
-                "platformTypeId": "id-destroyer",
+                "platformTypeId": "id-fixed-wing",
                 "condition": "working",
-                "position": "85941b8ffffffff",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "8594d953fffffff",
                 "location": [
-                    -14.6987,
-                    126.194
-                ],
-                "owner": "rkr226f5c"
-            },
-            {
-                "uniqid": "a443",
-                "contactId": "CA3299",
-                "name": "Red Force:22",
-                "perceptions": [
-                    {
-                        "by": "F-Green",
-                        "name": "Red Force:22",
-                        "typeId": "id-carrier"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "8594856bfffffff",
-                "location": [
-                    -17.6442,
-                    122.4091
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a444",
-                "contactId": "CA278",
-                "name": "Red Force:23",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:23",
-                        "typeId": "id-missile"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA278",
-                        "typeId": "id-missile"
-                    }
-                ],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859d504bfffffff",
-                "location": [
-                    -19.5095,
-                    144.7236
-                ],
-                "owner": "rkr226f5d"
-            },
-            {
-                "uniqid": "a445",
-                "contactId": "CA2910",
-                "name": "Red Force:24",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:24",
-                        "typeId": "id-carrier"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA2910",
-                        "typeId": "id-carrier"
-                    }
-                ],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859c462bfffffff",
-                "location": [
-                    -16.0426,
-                    138.178
+                    -19.8426,
+                    131.2525
                 ],
                 "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a446",
-                "contactId": "CA2646",
-                "name": "Red Force:25",
+                "uniqid": "a121",
+                "contactId": "CA1528",
+                "name": "Red Force:0",
+                "perceptions": [],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "status": {
+                    "state": "Loitering"
+                },
+                "position": "85a6a613fffffff",
+                "location": [
+                    -20.7848,
+                    117.0214
+                ],
+                "owner": "rkr226f5c",
+                "comprising": [
+                    {
+                        "uniqid": "a122",
+                        "contactId": "CA622",
+                        "name": "Red Force:1",
+                        "perceptions": [
+                            {
+                                "by": "F-Blue",
+                                "name": "CA622"
+                            },
+                            {
+                                "by": "F-Green",
+                                "name": "CA622",
+                                "typeId": "id-frigate-ta",
+                                "force": "F-Red"
+                            }
+                        ],
+                        "platformTypeId": "id-frigate-ta",
+                        "condition": "working",
+                        "status": {
+                            "state": "Passive"
+                        },
+                        "position": "859480d7fffffff",
+                        "location": [
+                            -17.7941,
+                            121.6408
+                        ],
+                        "owner": "rkr226f5b"
+                    },
+                    {
+                        "uniqid": "a123",
+                        "contactId": "CA2476",
+                        "name": "Red Force:2",
+                        "perceptions": [
+                            {
+                                "by": "F-Blue",
+                                "name": "Red Force:2",
+                                "typeId": "id-mcm"
+                            },
+                            {
+                                "by": "F-Green",
+                                "name": "CA2476"
+                            }
+                        ],
+                        "platformTypeId": "id-mcm",
+                        "condition": "working",
+                        "status": {
+                            "state": "Transiting"
+                        },
+                        "position": "8594aa83fffffff",
+                        "location": [
+                            -16.6241,
+                            123.3038
+                        ],
+                        "owner": "rkr226f5c"
+                    },
+                    {
+                        "uniqid": "a124",
+                        "contactId": "CA2830",
+                        "name": "Red Force:3",
+                        "perceptions": [],
+                        "platformTypeId": "id-frigate-ta",
+                        "condition": "working",
+                        "status": {
+                            "state": "Active"
+                        },
+                        "position": "859c4653fffffff",
+                        "location": [
+                            -16.0486,
+                            138.873
+                        ],
+                        "owner": "rkr226f5a"
+                    }
+                ]
+            },
+            {
+                "uniqid": "a125",
+                "contactId": "CA470",
+                "name": "Red Force:4",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA2646",
-                        "typeId": "id-mcm"
+                        "name": "CA470",
+                        "typeId": "id-frigate-ta",
+                        "force": "F-Red"
                     },
                     {
                         "by": "F-Green",
-                        "name": "Red Force:25",
-                        "typeId": "id-mcm",
-                        "force": "F-Red"
+                        "name": "CA470"
                     }
                 ],
-                "platformTypeId": "id-mcm",
+                "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "859c2917fffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85949683fffffff",
                 "location": [
-                    -17.668,
-                    142.1444
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a447",
-                "contactId": "CA2218",
-                "name": "Red Force:26",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "859c7037fffffff",
-                "location": [
-                    -16.9542,
-                    139.8696
+                    -19.4518,
+                    119.0578
                 ],
                 "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a448",
-                "contactId": "CA328",
-                "name": "Red Force:27",
+                "uniqid": "a126",
+                "contactId": "CA755",
+                "name": "Red Force:5",
                 "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "Red Force:27",
+                        "name": "CA755"
+                    }
+                ],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85948017fffffff",
+                "location": [
+                    -17.8384,
+                    122.0714
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a127",
+                "contactId": "CA1355",
+                "name": "Red Force:6",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "Red Force:6",
+                        "typeId": "id-missile",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Deployed"
+                },
+                "position": "859c29bbfffffff",
+                "location": [
+                    -17.7937,
+                    142.0832
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a128",
+                "contactId": "CA2880",
+                "name": "Red Force:7",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA2880",
+                        "typeId": "id-auxiliary",
+                        "force": "F-Blue"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859c744ffffffff",
+                "location": [
+                    -17.1496,
+                    141.2905
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a129",
+                "contactId": "CA699",
+                "name": "Red Force:8",
+                "perceptions": [],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "status": {
+                    "state": "Air Ops"
+                },
+                "position": "8594aab7fffffff",
+                "location": [
+                    -16.579,
+                    123.6516
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a130",
+                "contactId": "CA1739",
+                "name": "Red Force:9",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1739",
+                        "force": "F-Green"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859c4657fffffff",
+                "location": [
+                    -15.9904,
+                    138.7422
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a131",
+                "contactId": "CA2227",
+                "name": "Red Force:10",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA2227",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "Red Force:10",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "status": {
+                    "state": "Loitering"
+                },
+                "position": "859c5d47fffffff",
+                "location": [
+                    -14.4905,
+                    136.121
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a132",
+                "contactId": "CA1312",
+                "name": "Red Force:11",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1312",
+                        "typeId": "id-auxiliary",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA1312",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "859c2997fffffff",
+                "location": [
+                    -18.0243,
+                    142.2515
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a133",
+                "contactId": "CA2665",
+                "name": "Red Force:12",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA2665",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA2665"
+                    }
+                ],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "status": {
+                    "state": "Active"
+                },
+                "position": "859c746bfffffff",
+                "location": [
+                    -17.0411,
+                    140.9707
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a134",
+                "contactId": "CA2132",
+                "name": "Red Force:13",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859450d7fffffff",
+                "location": [
+                    -12.5154,
+                    129.9751
+                ],
+                "owner": "rkr226f5e"
+            },
+            {
+                "uniqid": "a135",
+                "contactId": "CA2864",
+                "name": "Red Force:14",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA2864"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA2864",
                         "typeId": "id-auxiliary"
                     }
                 ],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "85a6a473fffffff",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "85949407fffffff",
                 "location": [
-                    -21.245,
-                    116.6278
+                    -18.9116,
+                    119.7138
                 ],
-                "owner": "rkr226f5c"
+                "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a449",
-                "contactId": "CA3334",
-                "name": "Red Force:28",
+                "uniqid": "a136",
+                "contactId": "CA1736",
+                "name": "Red Force:15",
                 "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "CA3334",
+                        "name": "CA1736",
+                        "typeId": "id-missile"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "85941bb7fffffff",
+                "location": [
+                    -14.574,
+                    126.579
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a137",
+                "contactId": "CA1417",
+                "name": "Red Force:16",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1417"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA1417",
+                        "typeId": "id-carrier"
+                    }
+                ],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85941bb3fffffff",
+                "location": [
+                    -14.6078,
+                    126.3983
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a138",
+                "contactId": "CA215",
+                "name": "Red Force:17",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "Red Force:17",
                         "typeId": "id-auxiliary",
                         "force": "F-Red"
                     }
                 ],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "8594a9cbfffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859480cffffffff",
                 "location": [
-                    -16.0627,
-                    124.4137
+                    -18.0415,
+                    121.6797
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a450",
-                "contactId": "CA216",
-                "name": "Red Force:29",
+                "uniqid": "a139",
+                "contactId": "CA1230",
+                "name": "Red Force:18",
                 "perceptions": [
                     {
-                        "by": "F-Green",
-                        "name": "CA216",
+                        "by": "F-Blue",
+                        "name": "CA1230",
                         "typeId": "id-missile"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA1230",
+                        "force": "F-Red"
                     }
                 ],
                 "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "85941b8ffffffff",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "8594958bfffffff",
                 "location": [
-                    -14.7853,
-                    126.2713
+                    -18.6674,
+                    120.4755
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a451",
-                "contactId": "CA1048",
-                "name": "Red Force:30",
+                "uniqid": "a140",
+                "contactId": "CA1405",
+                "name": "Red Force:19",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "8594855bfffffff",
+                "location": [
+                    -17.4033,
+                    122.0081
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a141",
+                "contactId": "CA477",
+                "name": "Red Force:20",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "CA1048",
-                        "typeId": "id-frigate-ta",
+                        "name": "CA477",
+                        "typeId": "id-carrier",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA477",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859d0943fffffff",
+                "location": [
+                    -20.2695,
+                    146.5324
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a142",
+                "contactId": "CA1807",
+                "name": "Red Force:21",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA1807",
                         "force": "F-Red"
                     }
                 ],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "85a6a533fffffff",
+                "status": {
+                    "state": "Mixed"
+                },
+                "position": "85945573fffffff",
                 "location": [
-                    -21.485,
-                    115.3117
+                    -11.9046,
+                    130.7986
+                ],
+                "owner": "rkr226f5e"
+            },
+            {
+                "uniqid": "a143",
+                "contactId": "CA2747",
+                "name": "Red Force:22",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA2747",
+                        "typeId": "id-auxiliary",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "85945117fffffff",
+                "location": [
+                    -12.4334,
+                    131.5532
+                ],
+                "owner": "rkr226f5e"
+            },
+            {
+                "uniqid": "a144",
+                "contactId": "CA2849",
+                "name": "Red Force:23",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859c5d77fffffff",
+                "location": [
+                    -14.5464,
+                    135.6686
                 ],
                 "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a452",
-                "contactId": "CA1732",
-                "name": "Red Force:31",
+                "uniqid": "a145",
+                "contactId": "CA1256",
+                "name": "Red Force:24",
+                "perceptions": [
+                    {
+                        "by": "F-Green",
+                        "name": "CA1256",
+                        "typeId": "id-carrier",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "status": {
+                    "state": "Air Ops"
+                },
+                "position": "859c2d13fffffff",
+                "location": [
+                    -18.4403,
+                    142.9303
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a146",
+                "contactId": "CA2705",
+                "name": "Red Force:25",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "Red Force:31"
+                        "name": "CA2705",
+                        "typeId": "id-mcm"
                     },
                     {
                         "by": "F-Green",
-                        "name": "CA1732",
+                        "name": "CA2705",
+                        "typeId": "id-mcm",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "8594e437fffffff",
+                "location": [
+                    -13.8618,
+                    128.2265
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a147",
+                "contactId": "CA2294",
+                "name": "Red Force:26",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA2294",
+                        "typeId": "id-carrier"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA2294",
+                        "typeId": "id-carrier",
                         "force": "F-Blue"
                     }
                 ],
-                "platformTypeId": "id-destroyer",
+                "platformTypeId": "id-carrier",
                 "condition": "working",
-                "position": "859d5367fffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859458cffffffff",
                 "location": [
-                    -18.7439,
-                    143.2258
+                    -13.2215,
+                    132.9811
                 ],
-                "owner": "rkr226f5d"
+                "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a453",
-                "contactId": "CA212",
-                "name": "Red Force:32",
+                "uniqid": "a148",
+                "contactId": "CA3367",
+                "name": "Red Force:27",
                 "perceptions": [
                     {
                         "by": "F-Blue",
-                        "name": "Red Force:32",
-                        "force": "F-Red"
-                    },
+                        "name": "Red Force:27",
+                        "force": "F-Green"
+                    }
+                ],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "859c70affffffff",
+                "location": [
+                    -17.0574,
+                    140.0406
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a149",
+                "contactId": "CA425",
+                "name": "Red Force:28",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85945563fffffff",
+                "location": [
+                    -12.0462,
+                    130.8443
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a150",
+                "contactId": "CA3135",
+                "name": "Red Force:29",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "85945813fffffff",
+                "location": [
+                    -13.1681,
+                    133.185
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a151",
+                "contactId": "CA2759",
+                "name": "Red Force:30",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "8594863bfffffff",
+                "location": [
+                    -18.1747,
+                    121.1967
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a152",
+                "contactId": "CA2000",
+                "name": "Red Force:31",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "859c43cffffffff",
+                "location": [
+                    -15.4829,
+                    137.0301
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a153",
+                "contactId": "CA3258",
+                "name": "Red Force:32",
+                "perceptions": [
                     {
                         "by": "F-Green",
-                        "name": "CA212",
+                        "name": "CA3258",
                         "typeId": "id-auxiliary"
                     }
                 ],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "85941bc7fffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859d0963fffffff",
                 "location": [
-                    -14.9056,
-                    125.9667
+                    -20.2046,
+                    146.1087
                 ],
                 "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a454",
-                "contactId": "CA2803",
+                "uniqid": "a154",
+                "contactId": "CA855",
                 "name": "Red Force:33",
                 "perceptions": [
                     {
-                        "by": "F-Green",
-                        "name": "Red Force:33"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "85949453fffffff",
-                "location": [
-                    -19.1399,
-                    119.2358
-                ],
-                "owner": "rkr226f5a"
-            },
-            {
-                "uniqid": "a455",
-                "contactId": "CA128",
-                "name": "Red Force:34",
-                "perceptions": [
-                    {
                         "by": "F-Blue",
-                        "name": "CA128",
+                        "name": "CA855",
+                        "typeId": "id-auxiliary",
                         "force": "F-Red"
                     },
                     {
                         "by": "F-Green",
-                        "name": "CA128",
+                        "name": "Red Force:33",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "status": {
+                    "state": "Supporting"
+                },
+                "position": "8594508bfffffff",
+                "location": [
+                    -12.4965,
+                    130.0699
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a155",
+                "contactId": "CA2779",
+                "name": "Red Force:34",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "Red Force:34",
+                        "typeId": "id-frigate-ta",
+                        "force": "F-Green"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "CA2779"
+                    }
+                ],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859450dbfffffff",
+                "location": [
+                    -12.6383,
+                    129.7416
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a156",
+                "contactId": "CA2533",
+                "name": "Red Force:35",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "CA2533",
+                        "typeId": "id-mcm",
+                        "force": "F-Red"
+                    }
+                ],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "85a6a6a3fffffff",
+                "location": [
+                    -20.9262,
+                    116.7521
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a157",
+                "contactId": "CA1989",
+                "name": "Red Force:36",
+                "perceptions": [
+                    {
+                        "by": "F-Blue",
+                        "name": "Red Force:36",
+                        "typeId": "id-frigate-ta",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
+                        "name": "Red Force:36",
                         "typeId": "id-frigate-ta"
                     }
                 ],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "85a79b2bfffffff",
+                "status": {
+                    "state": "Mixed"
+                },
+                "position": "85a6a40ffffffff",
                 "location": [
-                    -20.4133,
-                    117.5137
-                ],
-                "owner": "rkr226f5d"
-            },
-            {
-                "uniqid": "a456",
-                "contactId": "CA1072",
-                "name": "Red Force:35",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "Red Force:35",
-                        "typeId": "id-frigate-ta",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "859451affffffff",
-                "location": [
-                    -12.3389,
-                    131.842
-                ],
-                "owner": "rkr226f5c"
-            },
-            {
-                "uniqid": "a457",
-                "contactId": "CA930",
-                "name": "Red Force:36",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859d088ffffffff",
-                "location": [
-                    -20.5543,
-                    147.521
+                    -21.3267,
+                    116.4863
                 ],
                 "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a458",
-                "contactId": "CA1821",
+                "uniqid": "a158",
+                "contactId": "CA2635",
                 "name": "Red Force:37",
                 "perceptions": [
                     {
                         "by": "F-Blue",
+                        "name": "CA2635",
+                        "typeId": "id-mcm",
+                        "force": "F-Red"
+                    },
+                    {
+                        "by": "F-Green",
                         "name": "Red Force:37",
-                        "force": "F-Green"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "CA1821",
-                        "typeId": "id-mcm"
+                        "force": "F-Red"
                     }
                 ],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "8594e68bfffffff",
+                "status": {
+                    "state": "Moored"
+                },
+                "position": "859c2d57fffffff",
                 "location": [
-                    -14.6545,
-                    127.1018
+                    -18.0959,
+                    143.0924
                 ],
-                "owner": "rkr226f5a"
+                "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a459",
-                "contactId": "CA1739",
+                "uniqid": "a159",
+                "contactId": "CA3087",
                 "name": "Red Force:38",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA1739",
-                        "force": "F-Red"
-                    },
-                    {
-                        "by": "F-Green",
-                        "name": "Red Force:38",
-                        "force": "F-Red"
-                    }
-                ],
-                "platformTypeId": "id-destroyer",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "85949593fffffff",
+                "status": {
+                    "state": "Transiting"
+                },
+                "position": "859d0bb3fffffff",
                 "location": [
-                    -18.4346,
-                    120.3429
+                    -19.9708,
+                    146.4245
                 ],
                 "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a460",
-                "contactId": "CA567",
+                "uniqid": "a160",
+                "contactId": "CA653",
                 "name": "Red Force:39",
-                "perceptions": [
-                    {
-                        "by": "F-Blue",
-                        "name": "CA567",
-                        "typeId": "id-mcm"
-                    }
-                ],
-                "platformTypeId": "id-mcm",
+                "perceptions": [],
+                "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "859c708bfffffff",
+                "status": {
+                    "state": "Inactive"
+                },
+                "position": "8594588ffffffff",
                 "location": [
-                    -17.0382,
-                    140.5437
+                    -13.013,
+                    133.3442
                 ],
-                "owner": "rkr226f5b"
+                "owner": "rkr226f5d"
             }
         ],
           "color": "#F00",

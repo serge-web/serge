@@ -77,6 +77,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
     const platformType = platformTypes[platformTypeCtr]
     const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
+    const statuses = platformType.states
     const asset: Asset = {
       uniqid: uniqueId('a'),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
@@ -84,6 +85,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       perceptions: [],
       platformTypeId: i === 0 ? 'id-task-group' : platformType.uniqid,
       condition: 'working',
+      status: statuses.length ? { state: statuses[Math.floor(Math.random() * statuses.length)].name } : undefined,
       position: h3Pos,
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])],
       owner: roles[Math.floor(roles.length * Math.random())].roleId

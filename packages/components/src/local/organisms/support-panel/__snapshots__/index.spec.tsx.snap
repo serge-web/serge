@@ -63,7 +63,7 @@ exports[`Support Panel component:  renders component correctly 1`] = `
                 <h6
                   className="MuiTypography-root-201 MuiTypography-h6-218"
                 >
-                  Planning Assets
+                  Own force Assets
                 </h6>
               </div>
               <div
