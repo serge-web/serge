@@ -1,4 +1,4 @@
-import { createPerceptions } from "./gen-test-data"
+import { createPerceptions } from './gen-test-data'
 import { P9Mock } from '@serge/mocks'
 
 const forces = P9Mock.data.forces.forces
@@ -6,7 +6,7 @@ const blueForce = forces[1]
 const redForce = forces[2]
 const asset = blueForce.assets && blueForce.assets[0]
 
-var randomiser = 2.9
+let randomiser = 2.9
 
 it('checks if can produce ij index for large bounds', () => {
   expect(asset).toBeTruthy()
@@ -43,7 +43,7 @@ it('checks if can produce ij index for large bounds', () => {
     const perceptions5 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions5).toBeTruthy()
     expect(perceptions5.length).toEqual(1)
-    
+
     const perceptions6 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions6).toBeTruthy()
     expect(perceptions6.length).toEqual(2)

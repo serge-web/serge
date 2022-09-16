@@ -43,9 +43,9 @@ export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): 
   return randomForce.uniqid
 }
 
-export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'], 
+export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
-  const perceptions:Perception[] = []
+  const perceptions: Perception[] = []
   const tester = localTest || doesIt
   forces.forEach((force: ForceData) => {
     if (force.uniqid !== assetForce && !force.umpire) {
