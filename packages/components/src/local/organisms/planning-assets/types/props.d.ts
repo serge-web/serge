@@ -16,6 +16,10 @@ export default interface PropTypes {
   forceColors: ForceStyle[]
   /** list of platforms & styles */
   platformStyles: PlatformStyle[]
+  /** selection rows callback */
+  onSelectionChange?: (rows: Row[]) => void
+  /** visible rows change callback */
+  onVisibleRowsChange?: (row: Row[]) => void
 }
 
 export type Row = {

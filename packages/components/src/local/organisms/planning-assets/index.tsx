@@ -1,9 +1,9 @@
-import MaterialTable, { Column } from 'material-table'
+import MaterialTable, { Column, MTableBody } from 'material-table'
 import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { Row } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
   const [rows, setRows] = useState<Row[]>([])
   const [columns, setColumns] = useState<Column[]>([])
 
@@ -20,10 +20,22 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
     title={'Planning Assets'}
     columns={jestWorkerId ? [] : columns}
     data={jestWorkerId ? [] : rows}
-    parentChildData={(row, rows): any => rows.find((a: Row): any => a.id === row.parentId)}
+    parentChildData={(row, rows): Row => rows.find((a: Row) => a.id === row.parentId)}
     options={{
+      paging: false,
       sorting: true,
       selection: !jestWorkerId // fix unit-test for material table
+    }}
+    onSelectionChange={onSelectionChange}
+    components={{
+      Body: (props): React.ReactElement => {
+        if (props.columns.length && onVisibleRowsChange) {
+          onVisibleRowsChange(props.renderData)
+        }
+        return (<MTableBody
+          {...props}
+        />)
+      }
     }}
   />
 }
