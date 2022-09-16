@@ -27,7 +27,7 @@ describe('check collating assets', () => {
     if (redZeroAsset) {
       const item = collateItem(true, redZeroAsset, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(1)
+      expect(item.length).toEqual(4)
       const first = item[0]
       expect(first.id).toEqual(redZeroAsset.uniqid)
       expect(first.platformType).toEqual(redZeroAsset.platformTypeId)
@@ -38,7 +38,7 @@ describe('check collating assets', () => {
     if (redAssetWithUnknown) {
       const item = collateItem(true, redAssetWithUnknown, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(1)
+      expect(item.length).toEqual(4)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
       expect(first.platformType).toEqual(UNKNOWN_TYPE)
@@ -51,7 +51,7 @@ describe('check collating assets', () => {
     if (redAssetWithUnknown) {
       const item = collateItem(true, redAssetWithUnknown, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(1)
+      expect(item.length).toEqual(4)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
       expect(first.platformType).toEqual(UNKNOWN_TYPE)
@@ -96,6 +96,6 @@ describe('check collating assets', () => {
 
     const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(6)
+    expect(blueRows.length).toEqual(43)
   })
 })
