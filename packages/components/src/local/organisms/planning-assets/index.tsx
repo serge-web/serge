@@ -36,11 +36,11 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
   }
 
   return <MaterialTable
-    title={ opFor ? 'Other force assets' : 'Own force Assets'}
+    title={opFor ? 'Other force assets' : 'Own force Assets'}
     columns={jestWorkerId ? [] : columns}
     data={jestWorkerId ? [] : rows}
     parentChildData={(row, rows): any => rows.find((a: Row): any => a.id === row.parentId)}
-    actions={[
+    actions={jestWorkerId ? [] : [
       {
         icon: 'filter',
         iconProps: filter ? { color: 'action' } : { color: 'disabled' },
