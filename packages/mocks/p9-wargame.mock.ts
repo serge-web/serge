@@ -287,1404 +287,568 @@ const game: Wargame = {
         {
           "assets": [
             {
-                "uniqid": "a2041",
-                "contactId": "CA2646",
+                "uniqid": "a1081",
+                "contactId": "CA2135",
                 "name": "Blue:0",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "859cd597fffffff",
-                "location": [
-                    -8.7077,
-                    141.918
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a2042",
-                "contactId": "CA303",
-                "name": "Blue:1",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859cd0a7fffffff",
-                "location": [
-                    -7.3525,
-                    141.7131
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2043",
-                "contactId": "CA1605",
-                "name": "Blue:2",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859c8d0ffffffff",
-                "location": [
-                    -8.3635,
-                    144.7254
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2044",
-                "contactId": "CA2834",
-                "name": "Blue:3",
                 "perceptions": [],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "859c8e73fffffff",
+                "position": "8572d437fffffff",
                 "location": [
-                    -7.1024,
-                    146.3271
+                    -3.2699,
+                    141.011
                 ],
-                "owner": "1rk116f53"
+                "owner": "rk116f5e",
+                "comprising": [
+                    {
+                        "uniqid": "a1082",
+                        "contactId": "CA736",
+                        "name": "Blue:1",
+                        "perceptions": [],
+                        "platformTypeId": "id-merchant",
+                        "condition": "working",
+                        "position": "859c898bfffffff",
+                        "location": [
+                            -8.0281,
+                            144.3238
+                        ],
+                        "owner": "rk116f5e"
+                    },
+                    {
+                        "uniqid": "a1083",
+                        "contactId": "CA1264",
+                        "name": "Blue:2",
+                        "perceptions": [],
+                        "platformTypeId": "id-fisher",
+                        "condition": "working",
+                        "position": "8572da43fffffff",
+                        "location": [
+                            -6.0793,
+                            143.5403
+                        ],
+                        "owner": "3rk116f53"
+                    },
+                    {
+                        "uniqid": "a1084",
+                        "contactId": "CA1140",
+                        "name": "Blue:3",
+                        "perceptions": [],
+                        "platformTypeId": "id-frigate-ta",
+                        "condition": "working",
+                        "position": "8572dd47fffffff",
+                        "location": [
+                            -3.9841,
+                            144.4391
+                        ],
+                        "owner": "1rk116f53"
+                    }
+                ]
             },
             {
-                "uniqid": "a2045",
-                "contactId": "CA1337",
+                "uniqid": "a1085",
+                "contactId": "CA3190",
                 "name": "Blue:4",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cdc1bfffffff",
-                "location": [
-                    -7.394,
-                    140.1321
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2046",
-                "contactId": "CA715",
-                "name": "Blue:5",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "8572d633fffffff",
-                "location": [
-                    -4.251,
-                    140.3618
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2047",
-                "contactId": "CA1333",
-                "name": "Blue:6",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "857283bbfffffff",
-                "location": [
-                    -3.7139,
-                    135.8909
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2048",
-                "contactId": "CA610",
-                "name": "Blue:7",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859c9d27fffffff",
-                "location": [
-                    -6.2006,
-                    146.2507
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2049",
-                "contactId": "CA253",
-                "name": "Blue:8",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859cd603fffffff",
-                "location": [
-                    -6.7652,
-                    143.3824
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2050",
-                "contactId": "CA977",
-                "name": "Blue:9",
-                "perceptions": [],
-                "platformTypeId": "id-ssk",
-                "condition": "working",
-                "position": "859caad3fffffff",
-                "location": [
-                    -9.3363,
-                    147.1552
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2051",
-                "contactId": "CA326",
-                "name": "Blue:10",
-                "perceptions": [],
-                "platformTypeId": "id-ssk",
-                "condition": "working",
-                "position": "859cf297fffffff",
-                "location": [
-                    -9.2791,
-                    143.7774
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a2052",
-                "contactId": "CA1647",
-                "name": "Blue:11",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "859ca307fffffff",
-                "location": [
-                    -9.7867,
-                    148.3864
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a2053",
-                "contactId": "CA1285",
-                "name": "Blue:12",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859caa03fffffff",
-                "location": [
-                    -9.1806,
-                    146.5863
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2054",
-                "contactId": "CA868",
-                "name": "Blue:13",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859cd197fffffff",
-                "location": [
-                    -7.8254,
-                    141.2028
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2055",
-                "contactId": "CA2440",
-                "name": "Blue:14",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859c8cabfffffff",
-                "location": [
-                    -8.5063,
-                    145.7847
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2056",
-                "contactId": "CA975",
-                "name": "Blue:15",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "859cde97fffffff",
-                "location": [
-                    -6.8921,
-                    140.5023
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2057",
-                "contactId": "CA2633",
-                "name": "Blue:16",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "8572dbaffffffff",
-                "location": [
-                    -5.3128,
-                    145.3102
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2058",
-                "contactId": "CA2207",
-                "name": "Blue:17",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "859cc243fffffff",
-                "location": [
-                    -7.9579,
-                    140.9819
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2059",
-                "contactId": "CA3159",
-                "name": "Blue:18",
                 "perceptions": [],
                 "platformTypeId": "id-ssn",
                 "condition": "working",
-                "position": "85728cc7fffffff",
+                "position": "859cd0c3fffffff",
                 "location": [
-                    -2.6659,
-                    137.1837
+                    -7.1302,
+                    142.7155
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a1086",
+                "contactId": "CA2785",
+                "name": "Blue:5",
+                "perceptions": [],
+                "platformTypeId": "id-ssn",
+                "condition": "working",
+                "position": "859cdd07fffffff",
+                "location": [
+                    -7.5713,
+                    138.6955
                 ],
                 "owner": "2rk116f53"
             },
             {
-                "uniqid": "a2060",
-                "contactId": "CA2356",
-                "name": "Blue:19",
+                "uniqid": "a1087",
+                "contactId": "CA1952",
+                "name": "Blue:6",
                 "perceptions": [],
-                "platformTypeId": "id-mpa",
+                "platformTypeId": "id-ssn",
                 "condition": "working",
-                "position": "859c854bfffffff",
+                "position": "85728317fffffff",
                 "location": [
-                    -8.4998,
-                    148.0751
+                    -3.9545,
+                    135.922
                 ],
-                "owner": "rk116f53"
+                "owner": "3rk116f53"
             },
             {
-                "uniqid": "a2061",
-                "contactId": "CA975",
-                "name": "Blue:20",
+                "uniqid": "a1088",
+                "contactId": "CA2107",
+                "name": "Blue:7",
                 "perceptions": [],
-                "platformTypeId": "id-mcm",
+                "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "85728c27fffffff",
+                "position": "859c856bfffffff",
                 "location": [
-                    -2.8752,
-                    138.0584
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2062",
-                "contactId": "CA1297",
-                "name": "Blue:21",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8572dc03fffffff",
-                "location": [
-                    -3.8554,
-                    143.5507
+                    -8.5081,
+                    147.6645
                 ],
                 "owner": "rk116f52"
             },
             {
-                "uniqid": "a2063",
-                "contactId": "CA2338",
-                "name": "Blue:22",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859cd043fffffff",
-                "location": [
-                    -6.6551,
-                    142.5669
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2064",
-                "contactId": "CA1281",
-                "name": "Blue:23",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cdacbfffffff",
-                "location": [
-                    -5.4624,
-                    140.0949
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2065",
-                "contactId": "CA2377",
-                "name": "Blue:24",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "859c851bfffffff",
-                "location": [
-                    -8.9716,
-                    147.9219
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2066",
-                "contactId": "CA2811",
-                "name": "Blue:25",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "8572dd4ffffffff",
-                "location": [
-                    -4.1318,
-                    144.4773
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2067",
-                "contactId": "CA2700",
-                "name": "Blue:26",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859cdb43fffffff",
-                "location": [
-                    -5.3797,
-                    138.7507
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2068",
-                "contactId": "CA302",
-                "name": "Blue:27",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "85729d8ffffffff",
-                "location": [
-                    -4.6962,
-                    136.4768
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2069",
-                "contactId": "CA2030",
-                "name": "Blue:28",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859cf65bfffffff",
-                "location": [
-                    -9.2028,
-                    144.8999
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a2070",
-                "contactId": "CA1273",
-                "name": "Blue:29",
+                "uniqid": "a1089",
+                "contactId": "CA2115",
+                "name": "Blue:8",
                 "perceptions": [],
                 "platformTypeId": "id-carrier",
                 "condition": "working",
-                "position": "85728e6bfffffff",
+                "position": "8572da27fffffff",
                 "location": [
-                    -4.4444,
-                    137.1039
+                    -5.8498,
+                    144.3632
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a1090",
+                "contactId": "CA3266",
+                "name": "Blue:9",
+                "perceptions": [],
+                "platformTypeId": "id-frigate",
+                "condition": "working",
+                "position": "859cdb73fffffff",
+                "location": [
+                    -5.333,
+                    138.3801
                 ],
                 "owner": "blue-logs"
             },
             {
-                "uniqid": "a2071",
-                "contactId": "CA700",
-                "name": "Blue:30",
+                "uniqid": "a1091",
+                "contactId": "CA1716",
+                "name": "Blue:10",
                 "perceptions": [],
-                "platformTypeId": "id-ssk",
+                "platformTypeId": "id-fixed-wing",
                 "condition": "working",
-                "position": "859caaa3fffffff",
+                "position": "859ca073fffffff",
                 "location": [
-                    -9.4851,
-                    146.3615
+                    -10.4011,
+                    149.1412
                 ],
-                "owner": "rk116f53"
+                "owner": "rk116f5e"
             },
             {
-                "uniqid": "a2072",
-                "contactId": "CA289",
-                "name": "Blue:31",
+                "uniqid": "a1092",
+                "contactId": "CA2020",
+                "name": "Blue:11",
                 "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
+                "platformTypeId": "id-agi",
+                "condition": "working",
+                "position": "859cdcabfffffff",
+                "location": [
+                    -7.5594,
+                    139.7423
+                ],
+                "owner": "2rk116f53"
+            },
+            {
+                "uniqid": "a1093",
+                "contactId": "CA810",
+                "name": "Blue:12",
+                "perceptions": [],
+                "platformTypeId": "id-missile",
                 "condition": "working",
                 "position": "859cae1bfffffff",
                 "location": [
-                    -9.9315,
-                    147.5698
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a2073",
-                "contactId": "CA3300",
-                "name": "Blue:32",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "8572d957fffffff",
-                "location": [
-                    -4.6636,
-                    145.1485
+                    -10.0437,
+                    147.5498
                 ],
                 "owner": "rk116f53"
             },
             {
-                "uniqid": "a2074",
-                "contactId": "CA338",
-                "name": "Blue:33",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859cd207fffffff",
-                "location": [
-                    -6.0054,
-                    142.5535
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2075",
-                "contactId": "CA3378",
-                "name": "Blue:34",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "8572d2a3fffffff",
-                "location": [
-                    -4.9427,
-                    141.0897
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2076",
-                "contactId": "CA2991",
-                "name": "Blue:35",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cce6bfffffff",
-                "location": [
-                    -8.0392,
-                    138.2937
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2077",
-                "contactId": "CA2736",
-                "name": "Blue:36",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "85728e13fffffff",
-                "location": [
-                    -3.7824,
-                    136.801
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2078",
-                "contactId": "CA1208",
-                "name": "Blue:37",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859cd2c7fffffff",
-                "location": [
-                    -6.017,
-                    142.9127
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2079",
-                "contactId": "CA2417",
-                "name": "Blue:38",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859cd863fffffff",
-                "location": [
-                    -6.0755,
-                    139.0679
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2080",
-                "contactId": "CA825",
-                "name": "Blue:39",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "85729d83fffffff",
-                "location": [
-                    -4.5212,
-                    136.334
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2081",
-                "contactId": "CA2104",
-                "name": "Blue:40",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859cf6cbfffffff",
-                "location": [
-                    -9.5103,
-                    144.9509
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a2082",
-                "contactId": "CA1402",
-                "name": "Blue:41",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "859cd82bfffffff",
-                "location": [
-                    -6.3624,
-                    138.8753
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2083",
-                "contactId": "CA2671",
-                "name": "Blue:42",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "8572d4d7fffffff",
-                "location": [
-                    -3.1219,
-                    140.1154
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2084",
-                "contactId": "CA1591",
-                "name": "Blue:43",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "859c8e97fffffff",
-                "location": [
-                    -7.8753,
-                    146.4127
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2085",
-                "contactId": "CA370",
-                "name": "Blue:44",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859ca063fffffff",
-                "location": [
-                    -10.213,
-                    148.9864
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2086",
-                "contactId": "CA2838",
-                "name": "Blue:45",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859ca077fffffff",
-                "location": [
-                    -10.3657,
-                    149.0279
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2087",
-                "contactId": "CA1576",
-                "name": "Blue:46",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "859c89bbfffffff",
-                "location": [
-                    -8.058,
-                    144.0076
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a2088",
-                "contactId": "CA3212",
-                "name": "Blue:47",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859c88a3fffffff",
-                "location": [
-                    -7.8499,
-                    144.9778
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a2089",
-                "contactId": "CA2460",
-                "name": "Blue:48",
+                "uniqid": "a1094",
+                "contactId": "CA2836",
+                "name": "Blue:13",
                 "perceptions": [],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "8572d2d7fffffff",
+                "position": "859cf31bfffffff",
                 "location": [
-                    -5.1206,
-                    140.3675
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2090",
-                "contactId": "CA2002",
-                "name": "Blue:49",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859cdb17fffffff",
-                "location": [
-                    -5.7978,
-                    138.3907
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2091",
-                "contactId": "CA1325",
-                "name": "Blue:50",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859cd533fffffff",
-                "location": [
-                    -8.1506,
-                    141.5127
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2092",
-                "contactId": "CA849",
-                "name": "Blue:51",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cd953fffffff",
-                "location": [
-                    -6.5011,
-                    138.4606
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2093",
-                "contactId": "CA3053",
-                "name": "Blue:52",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "8572d2b3fffffff",
-                "location": [
-                    -4.8237,
-                    140.8792
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2094",
-                "contactId": "CA1762",
-                "name": "Blue:53",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8572881bfffffff",
-                "location": [
-                    -3.6344,
-                    137.9667
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2095",
-                "contactId": "CA2916",
-                "name": "Blue:54",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "859cd273fffffff",
-                "location": [
-                    -5.7213,
-                    142.5532
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2096",
-                "contactId": "CA213",
-                "name": "Blue:55",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859c8bc3fffffff",
-                "location": [
-                    -6.7454,
-                    144.898
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a2097",
-                "contactId": "CA115",
-                "name": "Blue:56",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "85728aabfffffff",
-                "location": [
-                    -4.5086,
-                    137.906
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2098",
-                "contactId": "CA41",
-                "name": "Blue:57",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "859cdeb3fffffff",
-                "location": [
-                    -6.8171,
-                    140.1871
-                ],
-                "owner": "blue-logs"
-            },
-            {
-                "uniqid": "a2099",
-                "contactId": "CA1016",
-                "name": "Blue:58",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859c990ffffffff",
-                "location": [
-                    -5.2322,
-                    145.9509
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2100",
-                "contactId": "CA1117",
-                "name": "Blue:59",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859cd35bfffffff",
-                "location": [
-                    -5.8223,
-                    142.0309
-                ],
-                "owner": "1rk116f53"
-            },
-            {
-                "uniqid": "a2101",
-                "contactId": "CA1127",
-                "name": "Blue:60",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "8572d357fffffff",
-                "location": [
-                    -5.3117,
-                    141.7273
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2102",
-                "contactId": "CA1354",
-                "name": "Blue:61",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859c993bfffffff",
-                "location": [
-                    -5.2861,
-                    145.7293
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2103",
-                "contactId": "CA1991",
-                "name": "Blue:62",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859c80b3fffffff",
-                "location": [
-                    -8.3237,
-                    147.9749
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2104",
-                "contactId": "CA1385",
-                "name": "Blue:63",
-                "perceptions": [],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "859cd32bfffffff",
-                "location": [
-                    -5.9075,
-                    141.0528
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2105",
-                "contactId": "CA1250",
-                "name": "Blue:64",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859ca337fffffff",
-                "location": [
-                    -9.8841,
-                    148.0133
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2106",
-                "contactId": "CA2195",
-                "name": "Blue:65",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859cdd97fffffff",
-                "location": [
-                    -8.093,
-                    138.8948
+                    -8.8762,
+                    142.7244
                 ],
                 "owner": "rk116f53"
             },
             {
-                "uniqid": "a2107",
-                "contactId": "CA2802",
-                "name": "Blue:66",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "859cde3bfffffff",
-                "location": [
-                    -6.3047,
-                    140.0189
-                ],
-                "owner": "rk116f51"
-            },
-            {
-                "uniqid": "a2108",
-                "contactId": "CA2873",
-                "name": "Blue:67",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859cc267fffffff",
-                "location": [
-                    -7.9466,
-                    140.2949
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2109",
-                "contactId": "CA1964",
-                "name": "Blue:68",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859cab27fffffff",
-                "location": [
-                    -9.3629,
-                    144.9457
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2110",
-                "contactId": "CA2594",
-                "name": "Blue:69",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cab9bfffffff",
-                "location": [
-                    -9.7368,
-                    145.8585
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2111",
-                "contactId": "CA2123",
-                "name": "Blue:70",
-                "perceptions": [],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "859c8c17fffffff",
-                "location": [
-                    -8.5414,
-                    145.8579
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2112",
-                "contactId": "CA1604",
-                "name": "Blue:71",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "859cc2abfffffff",
-                "location": [
-                    -8.4622,
-                    140.5235
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2113",
-                "contactId": "CA194",
-                "name": "Blue:72",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859cf303fffffff",
-                "location": [
-                    -8.9718,
-                    142.5632
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2114",
-                "contactId": "CA953",
-                "name": "Blue:73",
-                "perceptions": [],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "85729d07fffffff",
-                "location": [
-                    -4.9961,
-                    136.7045
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2115",
-                "contactId": "CA2286",
-                "name": "Blue:74",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "8572de13fffffff",
-                "location": [
-                    -4.819,
-                    142.9826
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2116",
-                "contactId": "CA692",
-                "name": "Blue:75",
+                "uniqid": "a1095",
+                "contactId": "CA476",
+                "name": "Blue:14",
                 "perceptions": [],
                 "platformTypeId": "id-agi",
                 "condition": "working",
-                "position": "8572d56ffffffff",
+                "position": "859cdd43fffffff",
                 "location": [
-                    -3.5933,
-                    141.8634
+                    -7.2143,
+                    139.121
                 ],
                 "owner": "rk116f52"
             },
             {
-                "uniqid": "a2117",
-                "contactId": "CA1992",
-                "name": "Blue:76",
+                "uniqid": "a1096",
+                "contactId": "CA903",
+                "name": "Blue:15",
+                "perceptions": [],
+                "platformTypeId": "id-merchant",
+                "condition": "working",
+                "position": "8572810ffffffff",
+                "location": [
+                    -3.1606,
+                    136.2739
+                ],
+                "owner": "1rk116f53"
+            },
+            {
+                "uniqid": "a1097",
+                "contactId": "CA2918",
+                "name": "Blue:16",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "position": "859cde43fffffff",
+                "location": [
+                    -6.0481,
+                    140.5741
+                ],
+                "owner": "rk116f53"
+            },
+            {
+                "uniqid": "a1098",
+                "contactId": "CA2253",
+                "name": "Blue:17",
+                "perceptions": [],
+                "platformTypeId": "id-uav",
+                "condition": "working",
+                "position": "859cd51bfffffff",
+                "location": [
+                    -8.1216,
+                    141.9652
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a1099",
+                "contactId": "CA3393",
+                "name": "Blue:18",
                 "perceptions": [],
                 "platformTypeId": "id-ssk",
                 "condition": "working",
-                "position": "859c8433fffffff",
+                "position": "8572db0bfffffff",
                 "location": [
-                    -8.767,
-                    148.6245
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2118",
-                "contactId": "CA133",
-                "name": "Blue:77",
-                "perceptions": [],
-                "platformTypeId": "id-agi",
-                "condition": "working",
-                "position": "859cdd0ffffffff",
-                "location": [
-                    -7.4706,
-                    138.7224
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2119",
-                "contactId": "CA1075",
-                "name": "Blue:78",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "859caecffffffff",
-                "location": [
-                    -9.9324,
-                    147.74
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2120",
-                "contactId": "CA3010",
-                "name": "Blue:79",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859ca86ffffffff",
-                "location": [
-                    -9.7106,
-                    145.9692
-                ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2121",
-                "contactId": "CA2428",
-                "name": "Blue:80",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "859ca3dbfffffff",
-                "location": [
-                    -9.7909,
-                    149.0567
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2122",
-                "contactId": "CA773",
-                "name": "Blue:81",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859caa77fffffff",
-                "location": [
-                    -9.0081,
-                    146.5118
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2123",
-                "contactId": "CA3013",
-                "name": "Blue:82",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "8572d307fffffff",
-                "location": [
-                    -4.9991,
-                    142.0379
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2124",
-                "contactId": "CA1656",
-                "name": "Blue:83",
-                "perceptions": [],
-                "platformTypeId": "id-agi",
-                "condition": "working",
-                "position": "8572da3bfffffff",
-                "location": [
-                    -5.8541,
-                    144.0884
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2125",
-                "contactId": "CA6",
-                "name": "Blue:84",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "859caa67fffffff",
-                "location": [
-                    -8.8846,
-                    146.3224
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2126",
-                "contactId": "CA141",
-                "name": "Blue:85",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "859c8dc7fffffff",
-                "location": [
-                    -8.7111,
-                    145.0895
-                ],
-                "owner": "rk116f52"
-            },
-            {
-                "uniqid": "a2127",
-                "contactId": "CA383",
-                "name": "Blue:86",
-                "perceptions": [],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "859cde33fffffff",
-                "location": [
-                    -6.4473,
-                    140.0441
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2128",
-                "contactId": "CA347",
-                "name": "Blue:87",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "8572d05bfffffff",
-                "location": [
-                    -4.5306,
-                    140.7069
-                ],
-                "owner": "2rk116f53"
-            },
-            {
-                "uniqid": "a2129",
-                "contactId": "CA2751",
-                "name": "Blue:88",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859cd10ffffffff",
-                "location": [
-                    -7.1724,
-                    140.9905
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2130",
-                "contactId": "CA3344",
-                "name": "Blue:89",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859cd247fffffff",
-                "location": [
-                    -5.74,
-                    142.7925
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2131",
-                "contactId": "CA3167",
-                "name": "Blue:90",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859cde9bfffffff",
-                "location": [
-                    -6.6927,
-                    140.5982
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2132",
-                "contactId": "CA2316",
-                "name": "Blue:91",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859cd033fffffff",
-                "location": [
-                    -7.0583,
-                    141.8302
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2133",
-                "contactId": "CA1014",
-                "name": "Blue:92",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "859cdb3bfffffff",
-                "location": [
-                    -5.5551,
-                    138.1886
-                ],
-                "owner": "rk116f5e"
-            },
-            {
-                "uniqid": "a2134",
-                "contactId": "CA1641",
-                "name": "Blue:93",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859cd567fffffff",
-                "location": [
-                    -7.7035,
-                    141.5451
-                ],
-                "owner": "3rk116f53"
-            },
-            {
-                "uniqid": "a2135",
-                "contactId": "CA698",
-                "name": "Blue:94",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "8572de27fffffff",
-                "location": [
-                    -4.9143,
-                    143.6481
+                    -5.6823,
+                    144.9021
                 ],
                 "owner": "blue-logs"
             },
             {
-                "uniqid": "a2136",
-                "contactId": "CA2044",
-                "name": "Blue:95",
+                "uniqid": "a1100",
+                "contactId": "CA3054",
+                "name": "Blue:19",
                 "perceptions": [],
                 "platformTypeId": "id-fisher",
                 "condition": "working",
-                "position": "859c8077fffffff",
+                "position": "859c996bfffffff",
                 "location": [
-                    -7.7288,
-                    148.0223
+                    -4.8356,
+                    145.9092
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a1101",
+                "contactId": "CA2152",
+                "name": "Blue:0",
+                "perceptions": [],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "position": "85729d63fffffff",
+                "location": [
+                    -5.4278,
+                    136.7243
+                ],
+                "owner": "1rk116f53",
+                "comprising": [
+                    {
+                        "uniqid": "a1102",
+                        "contactId": "CA1999",
+                        "name": "Blue:1",
+                        "perceptions": [],
+                        "platformTypeId": "id-destroyer",
+                        "condition": "working",
+                        "position": "8572ab1bfffffff",
+                        "location": [
+                            -1.7752,
+                            137.6864
+                        ],
+                        "owner": "rk116f52"
+                    },
+                    {
+                        "uniqid": "a1103",
+                        "contactId": "CA2994",
+                        "name": "Blue:2",
+                        "perceptions": [],
+                        "platformTypeId": "id-destroyer",
+                        "condition": "working",
+                        "position": "859c9953fffffff",
+                        "location": [
+                            -5.196,
+                            146.4051
+                        ],
+                        "owner": "rk116f5e"
+                    },
+                    {
+                        "uniqid": "a1104",
+                        "contactId": "CA2499",
+                        "name": "Blue:3",
+                        "perceptions": [],
+                        "platformTypeId": "id-mcm",
+                        "condition": "working",
+                        "position": "859cce43fffffff",
+                        "location": [
+                            -8.3465,
+                            138.643
+                        ],
+                        "owner": "2rk116f53"
+                    }
+                ]
+            },
+            {
+                "uniqid": "a1105",
+                "contactId": "CA503",
+                "name": "Blue:4",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "position": "859ca03bfffffff",
+                "location": [
+                    -10.5358,
+                    148.9723
+                ],
+                "owner": "2rk116f53"
+            },
+            {
+                "uniqid": "a1106",
+                "contactId": "CA3341",
+                "name": "Blue:5",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "859cc3abfffffff",
+                "location": [
+                    -8.6693,
+                    139.2781
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a1107",
+                "contactId": "CA475",
+                "name": "Blue:6",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "859ca393fffffff",
+                "location": [
+                    -10.265,
+                    148.7375
+                ],
+                "owner": "3rk116f53"
+            },
+            {
+                "uniqid": "a1108",
+                "contactId": "CA3053",
+                "name": "Blue:7",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "859c8477fffffff",
+                "location": [
+                    -8.5706,
+                    148.6639
+                ],
+                "owner": "3rk116f53"
+            },
+            {
+                "uniqid": "a1109",
+                "contactId": "CA984",
+                "name": "Blue:8",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "859ca86bfffffff",
+                "location": [
+                    -9.6372,
+                    146.1539
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a1110",
+                "contactId": "CA1623",
+                "name": "Blue:9",
+                "perceptions": [],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "position": "859c9d03fffffff",
+                "location": [
+                    -6.1582,
+                    146.8022
                 ],
                 "owner": "1rk116f53"
             },
             {
-                "uniqid": "a2137",
-                "contactId": "CA662",
-                "name": "Blue:96",
+                "uniqid": "a1111",
+                "contactId": "CA758",
+                "name": "Blue:10",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "position": "85728157fffffff",
+                "location": [
+                    -3.0918,
+                    136.0774
+                ],
+                "owner": "1rk116f53"
+            },
+            {
+                "uniqid": "a1112",
+                "contactId": "CA1952",
+                "name": "Blue:11",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "85729dcbfffffff",
+                "location": [
+                    -5.0425,
+                    136.1482
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a1113",
+                "contactId": "CA1058",
+                "name": "Blue:12",
+                "perceptions": [],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "position": "859c9dcffffffff",
+                "location": [
+                    -6.205,
+                    147.1535
+                ],
+                "owner": "rk116f5e"
+            },
+            {
+                "uniqid": "a1114",
+                "contactId": "CA3131",
+                "name": "Blue:13",
+                "perceptions": [],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "position": "859ca607fffffff",
+                "location": [
+                    -10.4839,
+                    150.1678
+                ],
+                "owner": "rk116f52"
+            },
+            {
+                "uniqid": "a1115",
+                "contactId": "CA3280",
+                "name": "Blue:14",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "859cce6ffffffff",
+                "location": [
+                    -8.0839,
+                    138.1585
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a1116",
+                "contactId": "CA1119",
+                "name": "Blue:15",
+                "perceptions": [],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "position": "859cae2ffffffff",
+                "location": [
+                    -9.8081,
+                    146.8485
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a1117",
+                "contactId": "CA828",
+                "name": "Blue:16",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "859ca6a3fffffff",
+                "location": [
+                    -10.7015,
+                    149.9517
+                ],
+                "owner": "rk116f51"
+            },
+            {
+                "uniqid": "a1118",
+                "contactId": "CA2770",
+                "name": "Blue:17",
                 "perceptions": [],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "859c8cc3fffffff",
+                "position": "859cc317fffffff",
                 "location": [
-                    -8.4408,
-                    146.4303
+                    -8.6808,
+                    139.4371
                 ],
-                "owner": "2rk116f53"
+                "owner": "rk116f51"
             },
             {
-                "uniqid": "a2138",
-                "contactId": "CA1144",
-                "name": "Blue:97",
+                "uniqid": "a1119",
+                "contactId": "CA1661",
+                "name": "Blue:18",
                 "perceptions": [],
-                "platformTypeId": "id-agi",
+                "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "859c8987fffffff",
+                "position": "859cae0bfffffff",
                 "location": [
-                    -8.1574,
-                    144.0694
+                    -9.9166,
+                    147.4395
                 ],
                 "owner": "rk116f53"
             },
             {
-                "uniqid": "a2139",
-                "contactId": "CA724",
-                "name": "Blue:98",
+                "uniqid": "a1120",
+                "contactId": "CA819",
+                "name": "Blue:19",
                 "perceptions": [],
-                "platformTypeId": "id-auxiliary",
+                "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "85729923fffffff",
+                "position": "8572810bfffffff",
                 "location": [
-                    -5.9314,
-                    137.7613
+                    -3.0967,
+                    136.1096
                 ],
-                "owner": "rk116f53"
-            },
-            {
-                "uniqid": "a2140",
-                "contactId": "CA2891",
-                "name": "Blue:99",
-                "perceptions": [],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "8572dcdbfffffff",
-                "location": [
-                    -3.7652,
-                    142.9331
-                ],
-                "owner": "blue-logs"
+                "owner": "1rk116f53"
             }
         ],
           "color": "#00F",
@@ -1756,1402 +920,846 @@ const game: Wargame = {
         {
           "assets": [
             {
-                "uniqid": "a101",
-                "contactId": "CA653",
+                "uniqid": "a1021",
+                "contactId": "CA2408",
                 "name": "Red Force:0",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "859c4d17fffffff",
-                "location": [
-                    -16.9172,
-                    133.9563
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a102",
-                "contactId": "CA1288",
-                "name": "Red Force:1",
                 "perceptions": [],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "859c63b3fffffff",
+                "position": "8594eecbfffffff",
                 "location": [
-                    -18.479,
-                    137.4296
+                    -15.5905,
+                    129.8268
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5b",
+                "comprising": [
+                    {
+                        "uniqid": "a1022",
+                        "contactId": "CA799",
+                        "name": "Red Force:1",
+                        "perceptions": [],
+                        "platformTypeId": "id-ssk",
+                        "condition": "working",
+                        "position": "859c757bfffffff",
+                        "location": [
+                            -17.3346,
+                            139.9462
+                        ],
+                        "owner": "rkr226f5c"
+                    },
+                    {
+                        "uniqid": "a1023",
+                        "contactId": "CA2452",
+                        "name": "Red Force:2",
+                        "perceptions": [],
+                        "platformTypeId": "id-destroyer",
+                        "condition": "working",
+                        "position": "8594e9a7fffffff",
+                        "location": [
+                            -14.9523,
+                            132.9588
+                        ],
+                        "owner": "rkr226f5b"
+                    },
+                    {
+                        "uniqid": "a1024",
+                        "contactId": "CA3081",
+                        "name": "Red Force:3",
+                        "perceptions": [],
+                        "platformTypeId": "id-agi",
+                        "condition": "working",
+                        "position": "85b89313fffffff",
+                        "location": [
+                            -20.2681,
+                            135.6382
+                        ],
+                        "owner": "rkr226f5a"
+                    }
+                ]
             },
             {
-                "uniqid": "a103",
-                "contactId": "CA1194",
-                "name": "Red Force:2",
-                "perceptions": [],
-                "platformTypeId": "id-missile",
-                "condition": "working",
-                "position": "85b89d0bfffffff",
-                "location": [
-                    -21.3032,
-                    132.7943
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a104",
-                "contactId": "CA2181",
-                "name": "Red Force:3",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859c42b7fffffff",
-                "location": [
-                    -15.8289,
-                    137.4059
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a105",
-                "contactId": "CA1091",
+                "uniqid": "a1025",
+                "contactId": "CA959",
                 "name": "Red Force:4",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "85948ddbfffffff",
-                "location": [
-                    -17.6741,
-                    124.6702
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a106",
-                "contactId": "CA766",
-                "name": "Red Force:5",
                 "perceptions": [],
                 "platformTypeId": "id-ssn",
                 "condition": "working",
-                "position": "85949a07fffffff",
+                "position": "859c5d93fffffff",
                 "location": [
-                    -21.2333,
-                    122.7511
+                    -15.2816,
+                    136.1455
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a107",
-                "contactId": "CA3390",
+                "uniqid": "a1026",
+                "contactId": "CA1435",
+                "name": "Red Force:5",
+                "perceptions": [],
+                "platformTypeId": "id-boghammer",
+                "condition": "working",
+                "position": "859c6083fffffff",
+                "location": [
+                    -19.3126,
+                    138.3962
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1027",
+                "contactId": "CA101",
                 "name": "Red Force:6",
                 "perceptions": [],
-                "platformTypeId": "id-agi",
+                "platformTypeId": "id-task-group",
                 "condition": "working",
-                "position": "859c4acbfffffff",
+                "position": "8594e873fffffff",
                 "location": [
-                    -14.8983,
-                    135.2309
+                    -15.587,
+                    131.482
                 ],
                 "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a108",
-                "contactId": "CA283",
+                "uniqid": "a1028",
+                "contactId": "CA1220",
                 "name": "Red Force:7",
                 "perceptions": [],
-                "platformTypeId": "id-fisher",
+                "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "85948937fffffff",
+                "position": "8594e28bfffffff",
                 "location": [
-                    -18.5021,
-                    126.3082
+                    -15.5062,
+                    127.8878
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a109",
-                "contactId": "CA2998",
+                "uniqid": "a1029",
+                "contactId": "CA3206",
                 "name": "Red Force:8",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "position": "859488bbfffffff",
+                "location": [
+                    -18.4301,
+                    124.9121
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a1030",
+                "contactId": "CA1421",
+                "name": "Red Force:9",
                 "perceptions": [],
                 "platformTypeId": "id-uav",
                 "condition": "working",
-                "position": "85948a43fffffff",
+                "position": "859c65d7fffffff",
                 "location": [
-                    -19.8071,
-                    124.1076
+                    -20.1453,
+                    138.2327
                 ],
                 "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a110",
-                "contactId": "CA131",
+                "uniqid": "a1031",
+                "contactId": "CA97",
+                "name": "Red Force:10",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "8594ce63fffffff",
+                "location": [
+                    -18.3609,
+                    131.4542
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a1032",
+                "contactId": "CA1917",
+                "name": "Red Force:11",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "position": "85b892c7fffffff",
+                "location": [
+                    -20.2542,
+                    136.9319
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a1033",
+                "contactId": "CA1152",
+                "name": "Red Force:12",
+                "perceptions": [],
+                "platformTypeId": "id-fixed-wing",
+                "condition": "working",
+                "position": "859c6a2ffffffff",
+                "location": [
+                    -17.3269,
+                    135.2651
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1034",
+                "contactId": "CA1826",
+                "name": "Red Force:13",
+                "perceptions": [],
+                "platformTypeId": "id-mpa",
+                "condition": "working",
+                "position": "8594eb8bfffffff",
+                "location": [
+                    -15.8702,
+                    131.8817
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1035",
+                "contactId": "CA2747",
+                "name": "Red Force:14",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "position": "8594a967fffffff",
+                "location": [
+                    -16.4456,
+                    125.1602
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a1036",
+                "contactId": "CA2158",
+                "name": "Red Force:15",
+                "perceptions": [],
+                "platformTypeId": "id-ssn",
+                "condition": "working",
+                "position": "8594d143fffffff",
+                "location": [
+                    -19.3783,
+                    128.5145
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1037",
+                "contactId": "CA2228",
+                "name": "Red Force:16",
+                "perceptions": [],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "position": "85945e83fffffff",
+                "location": [
+                    -13.0312,
+                    132.0109
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a1038",
+                "contactId": "CA1161",
+                "name": "Red Force:17",
+                "perceptions": [],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "position": "8594ee23fffffff",
+                "location": [
+                    -15.5639,
+                    130.6805
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a1039",
+                "contactId": "CA1329",
+                "name": "Red Force:18",
+                "perceptions": [],
+                "platformTypeId": "id-uav",
+                "condition": "working",
+                "position": "859d49d3fffffff",
+                "location": [
+                    -21.9815,
+                    138.5518
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a1040",
+                "contactId": "CA1204",
+                "name": "Red Force:19",
+                "perceptions": [],
+                "platformTypeId": "id-mpa",
+                "condition": "working",
+                "position": "85949383fffffff",
+                "location": [
+                    -20.2247,
+                    120.7387
+                ],
+                "owner": "rkr226f5e"
+            },
+            {
+                "uniqid": "a1041",
+                "contactId": "CA2164",
+                "name": "Red Force:0",
+                "perceptions": [],
+                "platformTypeId": "id-task-group",
+                "condition": "working",
+                "position": "859d523bfffffff",
+                "location": [
+                    -18.8495,
+                    144.4923
+                ],
+                "owner": "rkr226f5b",
+                "comprising": [
+                    {
+                        "uniqid": "a1042",
+                        "contactId": "CA2671",
+                        "name": "Red Force:1",
+                        "perceptions": [],
+                        "platformTypeId": "id-mcm",
+                        "condition": "working",
+                        "position": "85945657fffffff",
+                        "location": [
+                            -13.0121,
+                            129.0107
+                        ],
+                        "owner": "rkr226f5a"
+                    },
+                    {
+                        "uniqid": "a1043",
+                        "contactId": "CA499",
+                        "name": "Red Force:2",
+                        "perceptions": [],
+                        "platformTypeId": "id-auxiliary",
+                        "condition": "working",
+                        "position": "859c5d07fffffff",
+                        "location": [
+                            -14.7275,
+                            135.7209
+                        ],
+                        "owner": "rkr226f5b"
+                    },
+                    {
+                        "uniqid": "a1044",
+                        "contactId": "CA1282",
+                        "name": "Red Force:3",
+                        "perceptions": [],
+                        "platformTypeId": "id-destroyer",
+                        "condition": "working",
+                        "position": "859d2a6ffffffff",
+                        "location": [
+                            -21.4482,
+                            148.8029
+                        ],
+                        "owner": "rkr226f5b"
+                    }
+                ]
+            },
+            {
+                "uniqid": "a1045",
+                "contactId": "CA971",
+                "name": "Red Force:4",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "85a6164ffffffff",
+                "location": [
+                    -21.942,
+                    115.4374
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1046",
+                "contactId": "CA2258",
+                "name": "Red Force:5",
+                "perceptions": [],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "position": "8594556ffffffff",
+                "location": [
+                    -12.1796,
+                    131.059
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1047",
+                "contactId": "CA1324",
+                "name": "Red Force:6",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "8594852ffffffff",
+                "location": [
+                    -17.3307,
+                    122.8036
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1048",
+                "contactId": "CA677",
+                "name": "Red Force:7",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "859d5297fffffff",
+                "location": [
+                    -19.4252,
+                    144.8351
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1049",
+                "contactId": "CA707",
+                "name": "Red Force:8",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "position": "85a6a5bbfffffff",
+                "location": [
+                    -21.7488,
+                    115.5836
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1050",
+                "contactId": "CA54",
                 "name": "Red Force:9",
                 "perceptions": [],
-                "platformTypeId": "id-frigate",
+                "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "859c4db7fffffff",
+                "position": "859d560bfffffff",
                 "location": [
-                    -17.2885,
-                    133.6646
+                    -19.5657,
+                    145.5945
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a111",
-                "contactId": "CA685",
+                "uniqid": "a1051",
+                "contactId": "CA2103",
                 "name": "Red Force:10",
                 "perceptions": [],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "85b890affffffff",
+                "position": "85941ba3fffffff",
                 "location": [
-                    -21.2095,
-                    135.7904
+                    -14.7245,
+                    126.5653
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a112",
-                "contactId": "CA1977",
+                "uniqid": "a1052",
+                "contactId": "CA1740",
                 "name": "Red Force:11",
                 "perceptions": [],
-                "platformTypeId": "id-missile",
+                "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "859c6307fffffff",
+                "position": "8594556ffffffff",
                 "location": [
-                    -18.1952,
-                    137.5606
+                    -12.2221,
+                    131.0457
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a113",
-                "contactId": "CA391",
+                "uniqid": "a1053",
+                "contactId": "CA1061",
                 "name": "Red Force:12",
                 "perceptions": [],
-                "platformTypeId": "id-ssn",
+                "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "859c4b63fffffff",
+                "position": "85a79b77fffffff",
                 "location": [
-                    -14.6301,
-                    133.5735
+                    -20.4208,
+                    117.7184
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a114",
-                "contactId": "CA543",
+                "uniqid": "a1054",
+                "contactId": "CA978",
                 "name": "Red Force:13",
                 "perceptions": [],
-                "platformTypeId": "id-frigate",
+                "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "859d73dbfffffff",
+                "position": "8594860ffffffff",
                 "location": [
-                    -21.8344,
-                    145.2636
+                    -18.1248,
+                    121.0744
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5d"
             },
             {
-                "uniqid": "a115",
-                "contactId": "CA2836",
+                "uniqid": "a1055",
+                "contactId": "CA3279",
                 "name": "Red Force:14",
                 "perceptions": [],
-                "platformTypeId": "id-mpa",
+                "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "8594d8cffffffff",
+                "position": "8594564bfffffff",
                 "location": [
-                    -19.8996,
-                    130.2539
+                    -13.2666,
+                    128.8536
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a116",
-                "contactId": "CA3277",
+                "uniqid": "a1056",
+                "contactId": "CA3163",
                 "name": "Red Force:15",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "859c412ffffffff",
-                "location": [
-                    -16.3639,
-                    135.7472
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a117",
-                "contactId": "CA962",
-                "name": "Red Force:16",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "85b8d97bfffffff",
-                "location": [
-                    -20.8796,
-                    124.775
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a118",
-                "contactId": "CA450",
-                "name": "Red Force:17",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "8594cbcbfffffff",
-                "location": [
-                    -18.8326,
-                    132.7372
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a119",
-                "contactId": "CA1203",
-                "name": "Red Force:18",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859492affffffff",
-                "location": [
-                    -20.5135,
-                    120.2477
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a120",
-                "contactId": "CA443",
-                "name": "Red Force:19",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "8594d977fffffff",
-                "location": [
-                    -19.9862,
-                    131.8015
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a121",
-                "contactId": "CA957",
-                "name": "Red Force:20",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "85b8d2d3fffffff",
-                "location": [
-                    -21.0249,
-                    129.4039
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a122",
-                "contactId": "CA2455",
-                "name": "Red Force:21",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859d5357fffffff",
-                "location": [
-                    -18.8486,
-                    143.8051
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a123",
-                "contactId": "CA188",
-                "name": "Red Force:22",
-                "perceptions": [],
-                "platformTypeId": "id-agi",
-                "condition": "working",
-                "position": "8594d3c7fffffff",
-                "location": [
-                    -19.9296,
-                    128.0652
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a124",
-                "contactId": "CA720",
-                "name": "Red Force:23",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "85b88273fffffff",
-                "location": [
-                    -21.9594,
-                    134.5389
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a125",
-                "contactId": "CA1437",
-                "name": "Red Force:24",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "8594ea3bfffffff",
-                "location": [
-                    -16.3935,
-                    131.2089
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a126",
-                "contactId": "CA1404",
-                "name": "Red Force:25",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "85b89647fffffff",
-                "location": [
-                    -20.6802,
-                    137.5106
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a127",
-                "contactId": "CA1399",
-                "name": "Red Force:26",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859d554bfffffff",
-                "location": [
-                    -20.4423,
-                    144.195
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a128",
-                "contactId": "CA2569",
-                "name": "Red Force:27",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "8594aa6bfffffff",
-                "location": [
-                    -17.505,
-                    123.4994
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a129",
-                "contactId": "CA1590",
-                "name": "Red Force:28",
                 "perceptions": [],
                 "platformTypeId": "id-destroyer",
                 "condition": "working",
-                "position": "8594956bfffffff",
+                "position": "859c716bfffffff",
                 "location": [
-                    -19.3568,
-                    120.6795
+                    -16.4342,
+                    139.1658
                 ],
                 "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a130",
-                "contactId": "CA3320",
+                "uniqid": "a1057",
+                "contactId": "CA2706",
+                "name": "Red Force:16",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "85a6164bfffffff",
+                "location": [
+                    -21.9243,
+                    115.6163
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1058",
+                "contactId": "CA2487",
+                "name": "Red Force:17",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "859d05bbfffffff",
+                "location": [
+                    -22.0523,
+                    150.2125
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1059",
+                "contactId": "CA2306",
+                "name": "Red Force:18",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "position": "859c714bfffffff",
+                "location": [
+                    -16.617,
+                    139.5554
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a1060",
+                "contactId": "CA2853",
+                "name": "Red Force:19",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "position": "859c42a3fffffff",
+                "location": [
+                    -15.7266,
+                    137.5385
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1061",
+                "contactId": "CA1636",
+                "name": "Red Force:20",
+                "perceptions": [],
+                "platformTypeId": "id-carrier",
+                "condition": "working",
+                "position": "8594854ffffffff",
+                "location": [
+                    -17.4609,
+                    122.1808
+                ],
+                "owner": "rkr226f5e"
+            },
+            {
+                "uniqid": "a1062",
+                "contactId": "CA2109",
+                "name": "Red Force:21",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "859d0cdbfffffff",
+                "location": [
+                    -21.165,
+                    148.942
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1063",
+                "contactId": "CA2593",
+                "name": "Red Force:22",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "859d2a47fffffff",
+                "location": [
+                    -21.6334,
+                    149.1262
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1064",
+                "contactId": "CA550",
+                "name": "Red Force:23",
+                "perceptions": [],
+                "platformTypeId": "id-destroyer",
+                "condition": "working",
+                "position": "8594aab3fffffff",
+                "location": [
+                    -16.6767,
+                    123.5784
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1065",
+                "contactId": "CA1613",
+                "name": "Red Force:24",
+                "perceptions": [],
+                "platformTypeId": "id-auxiliary",
+                "condition": "working",
+                "position": "85948557fffffff",
+                "location": [
+                    -17.2656,
+                    122.1747
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1066",
+                "contactId": "CA475",
+                "name": "Red Force:25",
+                "perceptions": [],
+                "platformTypeId": "id-frigate-ta",
+                "condition": "working",
+                "position": "85945e97fffffff",
+                "location": [
+                    -12.8217,
+                    132.0962
+                ],
+                "owner": "rkr226f5b"
+            },
+            {
+                "uniqid": "a1067",
+                "contactId": "CA3359",
+                "name": "Red Force:26",
+                "perceptions": [],
+                "platformTypeId": "id-missile",
+                "condition": "working",
+                "position": "859c2d27fffffff",
+                "location": [
+                    -18.2011,
+                    142.2339
+                ],
+                "owner": "rkr226f5d"
+            },
+            {
+                "uniqid": "a1068",
+                "contactId": "CA488",
+                "name": "Red Force:27",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "position": "85a79b77fffffff",
+                "location": [
+                    -20.4796,
+                    117.7122
+                ],
+                "owner": "rkr226f5a"
+            },
+            {
+                "uniqid": "a1069",
+                "contactId": "CA2324",
+                "name": "Red Force:28",
+                "perceptions": [],
+                "platformTypeId": "id-mcm",
+                "condition": "working",
+                "position": "85945c53fffffff",
+                "location": [
+                    -12.5395,
+                    132.2046
+                ],
+                "owner": "rkr226f5c"
+            },
+            {
+                "uniqid": "a1070",
+                "contactId": "CA1355",
                 "name": "Red Force:29",
                 "perceptions": [],
                 "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "859c44c3fffffff",
+                "position": "859d2a57fffffff",
                 "location": [
-                    -17.171,
-                    138.5626
+                    -21.8517,
+                    149.2743
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a131",
-                "contactId": "CA1440",
+                "uniqid": "a1071",
+                "contactId": "CA1694",
                 "name": "Red Force:30",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859d5357fffffff",
-                "location": [
-                    -18.9459,
-                    143.8244
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a132",
-                "contactId": "CA2225",
-                "name": "Red Force:31",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "8594988bfffffff",
-                "location": [
-                    -20.2473,
-                    122.8155
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a133",
-                "contactId": "CA1846",
-                "name": "Red Force:32",
-                "perceptions": [],
-                "platformTypeId": "id-uav",
-                "condition": "working",
-                "position": "8594e037fffffff",
-                "location": [
-                    -14.764,
-                    128.9268
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a134",
-                "contactId": "CA3378",
-                "name": "Red Force:33",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "859c4347fffffff",
-                "location": [
-                    -15.2943,
-                    136.8105
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a135",
-                "contactId": "CA2514",
-                "name": "Red Force:34",
-                "perceptions": [],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "8594e8d7fffffff",
-                "location": [
-                    -15.0739,
-                    131.1038
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a136",
-                "contactId": "CA2900",
-                "name": "Red Force:35",
                 "perceptions": [],
                 "platformTypeId": "id-carrier",
                 "condition": "working",
-                "position": "85941babfffffff",
+                "position": "85a61297fffffff",
                 "location": [
-                    -14.9065,
-                    126.4734
+                    -21.9516,
+                    114.7378
                 ],
                 "owner": "rkr226f5e"
             },
             {
-                "uniqid": "a137",
-                "contactId": "CA2062",
-                "name": "Red Force:36",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "8594c12ffffffff",
-                "location": [
-                    -17.4179,
-                    131.1805
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a138",
-                "contactId": "CA3239",
-                "name": "Red Force:37",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "85b88267fffffff",
-                "location": [
-                    -21.7708,
-                    134.2434
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a139",
-                "contactId": "CA2968",
-                "name": "Red Force:38",
-                "perceptions": [],
-                "platformTypeId": "id-agi",
-                "condition": "working",
-                "position": "859c6a57fffffff",
-                "location": [
-                    -17.3231,
-                    136.0737
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a140",
-                "contactId": "CA3306",
-                "name": "Red Force:39",
+                "uniqid": "a1072",
+                "contactId": "CA326",
+                "name": "Red Force:31",
                 "perceptions": [],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "85b89637fffffff",
+                "position": "85a6a687fffffff",
                 "location": [
-                    -21.0211,
-                    136.8793
+                    -20.9934,
+                    116.9763
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a141",
-                "contactId": "CA2100",
-                "name": "Red Force:40",
+                "uniqid": "a1073",
+                "contactId": "CA2519",
+                "name": "Red Force:32",
                 "perceptions": [],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "8594ee9bfffffff",
+                "position": "85a6b5d7fffffff",
                 "location": [
-                    -15.1405,
-                    130.0073
+                    -20.0722,
+                    117.6206
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a142",
-                "contactId": "CA3312",
-                "name": "Red Force:41",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "8594d9a3fffffff",
-                "location": [
-                    -19.4209,
-                    131.939
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a143",
-                "contactId": "CA2822",
-                "name": "Red Force:42",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "8594516bfffffff",
-                "location": [
-                    -13.1106,
-                    131.5662
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a144",
-                "contactId": "CA2501",
-                "name": "Red Force:43",
+                "uniqid": "a1074",
+                "contactId": "CA2175",
+                "name": "Red Force:33",
                 "perceptions": [],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "859d0cbbfffffff",
+                "position": "859c7153fffffff",
                 "location": [
-                    -21.482,
-                    148.0781
+                    -16.8458,
+                    139.619
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5a"
             },
             {
-                "uniqid": "a145",
-                "contactId": "CA133",
-                "name": "Red Force:44",
+                "uniqid": "a1075",
+                "contactId": "CA1264",
+                "name": "Red Force:34",
                 "perceptions": [],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
-                "position": "85b8d03bfffffff",
+                "position": "859d56cbfffffff",
                 "location": [
-                    -21.6416,
-                    128.2471
+                    -19.6736,
+                    146.0421
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a146",
-                "contactId": "CA2766",
-                "name": "Red Force:45",
+                "uniqid": "a1076",
+                "contactId": "CA1404",
+                "name": "Red Force:35",
                 "perceptions": [],
                 "platformTypeId": "id-destroyer",
                 "condition": "working",
-                "position": "85949557fffffff",
+                "position": "859c434bfffffff",
                 "location": [
-                    -19.0744,
-                    120.3399
+                    -15.1019,
+                    137.0563
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a147",
-                "contactId": "CA400",
-                "name": "Red Force:46",
+                "uniqid": "a1077",
+                "contactId": "CA2303",
+                "name": "Red Force:36",
                 "perceptions": [],
-                "platformTypeId": "id-agi",
+                "platformTypeId": "id-destroyer",
                 "condition": "working",
-                "position": "8594c3d7fffffff",
+                "position": "85941bc3fffffff",
                 "location": [
-                    -17.9445,
-                    129.8804
+                    -14.9094,
+                    125.8713
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a148",
-                "contactId": "CA901",
-                "name": "Red Force:47",
+                "uniqid": "a1078",
+                "contactId": "CA1900",
+                "name": "Red Force:37",
                 "perceptions": [],
-                "platformTypeId": "id-agi",
+                "platformTypeId": "id-frigate-ta",
                 "condition": "working",
-                "position": "8594c9affffffff",
+                "position": "8594a903fffffff",
                 "location": [
-                    -17.6124,
-                    133.9582
+                    -16.0202,
+                    124.7936
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5b"
             },
             {
-                "uniqid": "a149",
-                "contactId": "CA2299",
-                "name": "Red Force:48",
+                "uniqid": "a1079",
+                "contactId": "CA149",
+                "name": "Red Force:38",
                 "perceptions": [],
-                "platformTypeId": "id-agi",
+                "platformTypeId": "id-mcm",
                 "condition": "working",
-                "position": "859c438ffffffff",
+                "position": "859c716bfffffff",
                 "location": [
-                    -15.7716,
-                    136.7329
+                    -16.4652,
+                    139.1963
                 ],
-                "owner": "rkr226f5e"
+                "owner": "rkr226f5c"
             },
             {
-                "uniqid": "a150",
-                "contactId": "CA2027",
-                "name": "Red Force:49",
-                "perceptions": [],
-                "platformTypeId": "id-helo",
-                "condition": "working",
-                "position": "85a79837fffffff",
-                "location": [
-                    -21.463,
-                    118.1253
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a151",
-                "contactId": "CA1921",
-                "name": "Red Force:50",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "859d5a77fffffff",
-                "location": [
-                    -18.1552,
-                    141.5659
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a152",
-                "contactId": "CA2652",
-                "name": "Red Force:51",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "8594937bfffffff",
-                "location": [
-                    -20.9727,
-                    120.9527
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a153",
-                "contactId": "CA762",
-                "name": "Red Force:52",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859d4aabfffffff",
-                "location": [
-                    -20.7572,
-                    139.3236
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a154",
-                "contactId": "CA1192",
-                "name": "Red Force:53",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "8594edaffffffff",
-                "location": [
-                    -14.2424,
-                    132.1875
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a155",
-                "contactId": "CA2610",
-                "name": "Red Force:54",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "8594e03bfffffff",
-                "location": [
-                    -14.8177,
-                    128.7614
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a156",
-                "contactId": "CA2084",
-                "name": "Red Force:55",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "85a6a453fffffff",
-                "location": [
-                    -21.3346,
-                    116.8916
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a157",
-                "contactId": "CA2049",
-                "name": "Red Force:56",
-                "perceptions": [],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "859c4e57fffffff",
-                "location": [
-                    -15.5257,
-                    135.7221
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a158",
-                "contactId": "CA2152",
-                "name": "Red Force:57",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859d4357fffffff",
-                "location": [
-                    -21.2144,
-                    141.7258
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a159",
-                "contactId": "CA1972",
-                "name": "Red Force:58",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859d4bcbfffffff",
-                "location": [
-                    -20.6878,
-                    138.9096
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a160",
-                "contactId": "CA1035",
-                "name": "Red Force:59",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "8594d3dbfffffff",
-                "location": [
-                    -19.9833,
-                    127.7938
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a161",
-                "contactId": "CA1137",
-                "name": "Red Force:60",
-                "perceptions": [],
-                "platformTypeId": "id-ssn",
-                "condition": "working",
-                "position": "859d5a13fffffff",
-                "location": [
-                    -18.5038,
-                    141.8314
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a162",
-                "contactId": "CA827",
-                "name": "Red Force:61",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859c6107fffffff",
-                "location": [
-                    -19.1264,
-                    136.9639
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a163",
-                "contactId": "CA2892",
-                "name": "Red Force:62",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "8594502bfffffff",
-                "location": [
-                    -12.9237,
-                    130.7584
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a164",
-                "contactId": "CA1015",
-                "name": "Red Force:63",
+                "uniqid": "a1080",
+                "contactId": "CA1318",
+                "name": "Red Force:39",
                 "perceptions": [],
                 "platformTypeId": "id-missile",
                 "condition": "working",
-                "position": "8594d26ffffffff",
+                "position": "85a6a6dbfffffff",
                 "location": [
-                    -20.6559,
-                    127.4977
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a165",
-                "contactId": "CA569",
-                "name": "Red Force:64",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859d5a3bfffffff",
-                "location": [
-                    -18.3698,
-                    141.4344
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a166",
-                "contactId": "CA3174",
-                "name": "Red Force:65",
-                "perceptions": [],
-                "platformTypeId": "id-mpa",
-                "condition": "working",
-                "position": "8594908ffffffff",
-                "location": [
-                    -19.5862,
-                    120.2415
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a167",
-                "contactId": "CA2518",
-                "name": "Red Force:66",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859d72dbfffffff",
-                "location": [
-                    -21.6197,
-                    146.4598
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a168",
-                "contactId": "CA911",
-                "name": "Red Force:67",
-                "perceptions": [],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "8594d4c7fffffff",
-                "location": [
-                    -18.3428,
-                    126.7139
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a169",
-                "contactId": "CA1046",
-                "name": "Red Force:68",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859c5dd3fffffff",
-                "location": [
-                    -14.9828,
-                    136.5211
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a170",
-                "contactId": "CA3072",
-                "name": "Red Force:69",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "8594852ffffffff",
-                "location": [
-                    -17.2916,
-                    122.8482
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a171",
-                "contactId": "CA1183",
-                "name": "Red Force:70",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "859c438ffffffff",
-                "location": [
-                    -15.8069,
-                    136.6283
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a172",
-                "contactId": "CA3228",
-                "name": "Red Force:71",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "859d0d43fffffff",
-                "location": [
-                    -20.9938,
-                    147.3446
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a173",
-                "contactId": "CA1627",
-                "name": "Red Force:72",
-                "perceptions": [],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "85949283fffffff",
-                "location": [
-                    -20.288,
-                    119.8102
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a174",
-                "contactId": "CA3205",
-                "name": "Red Force:73",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "85948b8bfffffff",
-                "location": [
-                    -19.1681,
-                    125.3408
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a175",
-                "contactId": "CA2583",
-                "name": "Red Force:74",
-                "perceptions": [],
-                "platformTypeId": "id-destroyer",
-                "condition": "working",
-                "position": "85b8d2a3fffffff",
-                "location": [
-                    -21.1157,
-                    128.6087
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a176",
-                "contactId": "CA2117",
-                "name": "Red Force:75",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859c4c13fffffff",
-                "location": [
-                    -16.8558,
-                    135.2239
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a177",
-                "contactId": "CA1476",
-                "name": "Red Force:76",
-                "perceptions": [],
-                "platformTypeId": "id-ssk",
-                "condition": "working",
-                "position": "859d4063fffffff",
-                "location": [
-                    -21.7854,
-                    141.9991
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a178",
-                "contactId": "CA594",
-                "name": "Red Force:77",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "859d517bfffffff",
-                "location": [
-                    -19.7381,
-                    143.2151
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a179",
-                "contactId": "CA2565",
-                "name": "Red Force:78",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859d5b6bfffffff",
-                "location": [
-                    -18.0604,
-                    140.5199
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a180",
-                "contactId": "CA1772",
-                "name": "Red Force:79",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "8594aa7bfffffff",
-                "location": [
-                    -17.438,
-                    123.4354
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a181",
-                "contactId": "CA511",
-                "name": "Red Force:80",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859c4847fffffff",
-                "location": [
-                    -15.6429,
-                    134.5062
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a182",
-                "contactId": "CA313",
-                "name": "Red Force:81",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "85b8d317fffffff",
-                "location": [
-                    -21.0055,
-                    127.8412
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a183",
-                "contactId": "CA1040",
-                "name": "Red Force:82",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "859c6367fffffff",
-                "location": [
-                    -17.7101,
-                    137.3962
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a184",
-                "contactId": "CA1297",
-                "name": "Red Force:83",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "8594cdbbfffffff",
-                "location": [
-                    -16.7413,
-                    133.0521
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a185",
-                "contactId": "CA2265",
-                "name": "Red Force:84",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "85949b43fffffff",
-                "location": [
-                    -21.4968,
-                    123.5095
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a186",
-                "contactId": "CA1861",
-                "name": "Red Force:85",
-                "perceptions": [],
-                "platformTypeId": "id-merchant",
-                "condition": "working",
-                "position": "85949cabfffffff",
-                "location": [
-                    -19.5025,
-                    122.5002
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a187",
-                "contactId": "CA978",
-                "name": "Red Force:86",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859d553bfffffff",
-                "location": [
-                    -20.867,
-                    143.532
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a188",
-                "contactId": "CA1664",
-                "name": "Red Force:87",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8594e827fffffff",
-                "location": [
-                    -15.3675,
-                    132.0134
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a189",
-                "contactId": "CA658",
-                "name": "Red Force:88",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859c4633fffffff",
-                "location": [
-                    -16.2331,
-                    138.1816
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a190",
-                "contactId": "CA2588",
-                "name": "Red Force:89",
-                "perceptions": [],
-                "platformTypeId": "id-task-group",
-                "condition": "working",
-                "position": "859d506bfffffff",
-                "location": [
-                    -19.4039,
-                    144.2833
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a191",
-                "contactId": "CA2862",
-                "name": "Red Force:90",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "8594ec03fffffff",
-                "location": [
-                    -14.5168,
-                    130.6088
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a192",
-                "contactId": "CA1623",
-                "name": "Red Force:91",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "85b8db03fffffff",
-                "location": [
-                    -20.2811,
-                    125.0835
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a193",
-                "contactId": "CA249",
-                "name": "Red Force:92",
-                "perceptions": [],
-                "platformTypeId": "id-auxiliary",
-                "condition": "working",
-                "position": "859c6ed7fffffff",
-                "location": [
-                    -18.4267,
-                    136.9407
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a194",
-                "contactId": "CA795",
-                "name": "Red Force:93",
-                "perceptions": [],
-                "platformTypeId": "id-fixed-wing",
-                "condition": "working",
-                "position": "85949ccffffffff",
-                "location": [
-                    -19.7074,
-                    122.0456
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a195",
-                "contactId": "CA3182",
-                "name": "Red Force:94",
-                "perceptions": [],
-                "platformTypeId": "id-carrier",
-                "condition": "working",
-                "position": "8594d1b3fffffff",
-                "location": [
-                    -18.7725,
-                    128.9513
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a196",
-                "contactId": "CA1612",
-                "name": "Red Force:95",
-                "perceptions": [],
-                "platformTypeId": "id-boghammer",
-                "condition": "working",
-                "position": "859c65a3fffffff",
-                "location": [
-                    -20.2422,
-                    137.5099
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a197",
-                "contactId": "CA3077",
-                "name": "Red Force:96",
-                "perceptions": [],
-                "platformTypeId": "id-frigate-ta",
-                "condition": "working",
-                "position": "8594ca1bfffffff",
-                "location": [
-                    -18.7893,
-                    131.9319
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a198",
-                "contactId": "CA2959",
-                "name": "Red Force:97",
-                "perceptions": [],
-                "platformTypeId": "id-fisher",
-                "condition": "working",
-                "position": "859c4037fffffff",
-                "location": [
-                    -16.4479,
-                    136.9499
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a199",
-                "contactId": "CA2119",
-                "name": "Red Force:98",
-                "perceptions": [],
-                "platformTypeId": "id-frigate",
-                "condition": "working",
-                "position": "85949243fffffff",
-                "location": [
-                    -20.8147,
-                    119.7329
-                ],
-                "owner": "rkr226f5e"
-            },
-            {
-                "uniqid": "a200",
-                "contactId": "CA2932",
-                "name": "Red Force:99",
-                "perceptions": [],
-                "platformTypeId": "id-mcm",
-                "condition": "working",
-                "position": "8594aa67fffffff",
-                "location": [
-                    -17.3464,
-                    123.7328
+                    -20.8101,
+                    117.4028
                 ],
                 "owner": "rkr226f5e"
             }
@@ -3168,6 +1776,34 @@ const game: Wargame = {
               "isObserver": false,
               "name": "CO",
               "roleId": "rkr226f5e"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Logs",
+              "roleId": "rkr226f5a"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Comms",
+              "roleId": "rkr226f5b"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "White Goods",
+              "roleId": "rkr226f5c"
+            },
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": false,
+              "name": "Furnishing",
+              "roleId": "rkr226f5d"
             }
           ],
           "umpire": false,

@@ -14,7 +14,7 @@ const greenForce = forces[3]
 const redAssetWithUnknown: Asset = deepCopy(redOneAsset)
 redAssetWithUnknown.perceptions[0].typeId = undefined
 
-false && console.log('get working', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
+false && console.log('get working:', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
 
 const forceCols = forceColors(forces)
 const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.platformTypes.platformTypes) : []
@@ -66,11 +66,11 @@ describe('check collating assets', () => {
 
     const umpireRows = getRows(false, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(12)
+    expect(umpireRows.length).toEqual(205)
 
     const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(3)
+    expect(blueRows.length).toEqual(100)
 
     // do some parent/child checking
     const firstParent = blueRows[0]
