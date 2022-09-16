@@ -69,9 +69,8 @@ describe('check collating assets', () => {
     expect(conditionCol.lookup && Object.keys(conditionCol.lookup).length).toEqual(1)
 
     const statusCol = umpireColumns[2]
-    console.log('status', statusCol)
     expect(statusCol.lookup).toBeTruthy()
-    expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(2)
+    expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(14)
 
     const ownerCol = umpireColumns[3]
     expect(ownerCol.lookup).toBeTruthy()
@@ -106,6 +105,6 @@ describe('check collating assets', () => {
 
     const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(43)
+    expect(blueRows.length).toEqual(39)
   })
 })
