@@ -1,19 +1,19 @@
-import { Asset, ForceData, MappingConstraints, PlatformTypeData } from "@serge/custom-types"
+import { Asset, ForceData, MappingConstraints, PlatformTypeData } from '@serge/custom-types'
 import L from 'leaflet'
 import { uniqueId } from 'lodash'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
-import { deepCopy } from "@serge/helpers"
+import { deepCopy } from '@serge/helpers'
 
 const randomPointInPoly = (polygon: L.Polygon): any => {
   const bounds = polygon.getBounds()
-  const x_min = bounds.getEast()
-  const x_max = bounds.getWest()
-  const y_min = bounds.getSouth()
-  const y_max = bounds.getNorth()
+  const xMin = bounds.getEast()
+  const xMax = bounds.getWest()
+  const yMin = bounds.getSouth()
+  const yMax = bounds.getNorth()
 
-  const lat = y_min + (Math.random() * (y_max - y_min))
-  const lng = x_min + (Math.random() * (x_max - x_min))
+  const lat = yMin + (Math.random() * (yMax - yMin))
+  const lng = xMin + (Math.random() * (xMax - xMin))
 
   const point = turf.point([lng, lat])
   const poly = polygon.toGeoJSON()
@@ -55,7 +55,7 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[], 
   const aus = [L.latLng(-22, 115), L.latLng(-22, 150), L.latLng(-12, 131), L.latLng(-22, 115)]
   const ausPoly = L.polygon(aus)
   const nGuinea = [L.latLng(-1.62575, 137.5048), L.latLng(-3.9080, 135.3955), L.latLng(-8.2767, 138.4277),
-  L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.6257583, 137.5048)]
+    L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.6257583, 137.5048)]
   const guineaPolu = L.polygon(nGuinea)
   const h3Res = constraints.h3res
   const newForces: ForceData[] = deepCopy(forces)
