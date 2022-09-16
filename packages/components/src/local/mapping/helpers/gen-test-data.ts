@@ -2,7 +2,7 @@ import { Asset, ForceData, MappingConstraints, PlatformTypeData } from "@serge/c
 import L from 'leaflet'
 import { uniqueId } from 'lodash'
 import * as turf from '@turf/turf'
-import * as h3 from 'h3-js
+import * as h3 from 'h3-js'
 import { deepCopy } from "@serge/helpers"
 
 const randomPointInPoly = (polygon: L.Polygon): any => {

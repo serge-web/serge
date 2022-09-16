@@ -11,7 +11,6 @@ import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
 import * as h3 from 'h3-js'
 
-
 /* helper functions */
 import { createGridH3 } from './helpers/h3-helpers'
 
