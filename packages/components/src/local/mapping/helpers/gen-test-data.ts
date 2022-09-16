@@ -29,8 +29,7 @@ const randomPointInPoly = (polygon: L.Polygon): any => {
 
 const doesIt = () => {
   const probDetect = Math.floor(Math.random() * 100)
-  return probDetect > 70)
-
+  return probDetect > 40
 }
 
 export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): string => {
