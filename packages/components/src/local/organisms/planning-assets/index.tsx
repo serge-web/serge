@@ -24,10 +24,10 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
     const blueAssets = blueForce.assets || []
     if (blueAssets.length > 0) {
       const firstA = blueAssets[0]
-      const newAsset: Asset = { ...firstA, uniqid: 'asf', contactId: 'C234'}
+      const newAsset: Asset = { ...firstA, uniqid: 'asf', contactId: 'C234' }
       blueAssets.push(newAsset)
       // drop an asset
-      blueAssets.splice(3,1)
+      blueAssets.splice(3, 1)
       // change an asset
       blueAssets[2].name = blueAssets[2].name + '?'
       // update the data

@@ -146,22 +146,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
       </div>
     </Slide>
   ),
-    [
-      isShowPanel,
-      activeTab,
-      forceIcons,
-      forceNames,
-      forces,
-      platformTypes,
-      hideForcesInChannel,
-      messages,
-      selectedForce,
-      selectedRole,
-      turnPresentation,
-      gameDate,
-      channel,
-      templates
-    ]
+  [
+    isShowPanel,
+    activeTab,
+    forceIcons,
+    forceNames,
+    forces,
+    platformTypes,
+    hideForcesInChannel,
+    messages,
+    selectedForce,
+    selectedRole,
+    turnPresentation,
+    gameDate,
+    channel,
+    templates
+  ]
   )
 
   return (
