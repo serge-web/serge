@@ -33,6 +33,17 @@ const doesIt = () => {
 
 }
 
+export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): string => {
+  const nonUmpires = forces.filter((force: ForceData) => !force.umpire)
+  const notMine = nonUmpires.filter((force: ForceData) => myForce !== force.uniqid)
+  const randomForce = notMine[Math.floor(Math.random() * notMine.length)]
+  // const idList = (forces: ForceData[]): string[] => {
+  //   return forces.map((force: ForceData): string => force.uniqid)
+  // }
+  // console.log(myForce, idList(nonUmpires), idList(notMine), randomForce.uniqid)
+  return randomForce.uniqid
+}
+
 export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'], 
   forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
   const perceptions:Perception[] = []
@@ -41,12 +52,16 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
     if (force.uniqid !== assetForce && !force.umpire) {
       if (tester()) {
         const knowsContact = tester()
+        const correctForce = tester()
         const newP: Perception = {
           by: force.uniqid,
-          name: tester() && knowsContact ? asset.contactId : asset.name,
-          typeId: tester() ? asset.platformTypeId : undefined,
-          force: tester() ? force.uniqid : undefined
+          name: knowsContact ? asset.contactId : asset.name,
+          typeId: asset.platformTypeId,
+          force: correctForce ? assetForce : randomForce(force.uniqid, forces)
         }
+        if (!tester()) delete newP.typeId
+        if (!tester()) delete newP.condition
+        if (!tester()) delete newP.force
         perceptions.push(newP)
       }
     }
