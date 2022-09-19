@@ -1,12 +1,10 @@
-import { Button } from '@material-ui/core'
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
-import Collapsible from 'react-collapsible'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
-import DropdownInput from '../../form-elements/dropdown-input'
+import NewMessage from '../../form-elements/new-message'
 import PlanningAssets from '../planning-assets'
 import { Row } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
@@ -17,34 +15,31 @@ import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
 export const SupportPanel: React.FC<PropTypes> = ({
   forceIcons,
   forceNames,
-  forces,
   platformTypes,
-  hideForcesInChannel,
   messages,
-  selectedForce,
-  selectedRole,
   turnPresentation,
-  gameDate,
   onRead,
   onUnread,
   onReadAll,
   channel,
-  templates
+  templates,
+  saveMessage,
+  activityTimeChanel,
+  saveNewActivityTimeMessage,
+  dispatch,
+  state,
+  curChannel
 }) => {
+  const { allForces, selectedRole, selectedForce, gameDate, hideForcesInChannels } = state
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
-  const [forceCols] = useState<ForceStyle[]>(forceColors(forces))
+  const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   // handle selections from asset tables
   // const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
   const [opForces, setOpForces] = useState<Row[]>([])
   const [ownForces, setOwnForces] = useState<Row[]>([])
-
-  const allTemplates = templates.map(item => ({
-    value: JSON.stringify(item.details),
-    option: item.title
-  }))
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -95,57 +90,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> opForces: ', opForces)
   }, [opForces])
 
-  const NewOrder = () => {
-    const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
-    const elmRef = useRef<any>(null)
-
-    const setTemplate = (value: string): void => {
-      setSelectedSchema(JSON.parse(value))
-    }
-
-    const collapseCollapsible = (e: MouseEvent<HTMLButtonElement>) => {
-      if (elmRef && elmRef.current) {
-        elmRef.current.handleTriggerClick(e)
-      }
-    }
-
-    const onCancel = (e: MouseEvent<HTMLButtonElement>) => {
-      console.log('=> on cancel')
-      collapseCollapsible(e)
-    }
-
-    const onSendNewOrder = (e: MouseEvent<HTMLButtonElement>) => {
-      console.log('=> on sending new order')
-      collapseCollapsible(e)
-    }
-
-    return <div className='message-editor new-message-creator wrap' style={{ zIndex: 1 }}>
-      <Collapsible
-        trigger={'New Order'}
-        transitionTime={200}
-        easing={'ease-in-out'}
-        ref={elmRef}
-      >
-        <p className={styles['select-template-title']}>Select Template</p>
-        {
-          allTemplates.length > 1 && (
-            <DropdownInput
-              updateStore={setTemplate}
-              selectOptions={allTemplates}
-              placeholder='Select template'
-              className='message-input'
-              data={JSON.stringify(selectedSchema)}
-            />
-          )
-        }
-        <div className={styles.action}>
-          <Button onClick={onSendNewOrder}>Add Order</Button>
-          <Button onClick={onCancel}>Cancel</Button>
-        </div>
-      </Collapsible>
-    </div>
-  }
-
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -161,8 +105,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
           <div className={styles.content}>
             <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
               {activeTab === TABS[0] &&
-                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
-                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
+                  playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={false}
                   onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
               }
             </TabPanel>
@@ -172,28 +116,45 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   <PlanningMessagesList
                     messages={messages}
                     gameDate={gameDate}
-                    playerForceId={selectedForce}
+                    playerForceId={selectedForce?.uniqid || ''}
                     playerRoleId={selectedRole}
                     isUmpire={true}
                     icons={forceIcons}
                     colors={forceCols.map((item: ForceStyle) => item.color)}
                     names={forceNames}
                     turnPresentation={turnPresentation}
-                    hideForcesInChannel={!!hideForcesInChannel}
+                    hideForcesInChannel={!!hideForcesInChannels}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     templates={templates}
                   />
-                  <NewOrder />
+                  <NewMessage
+                    activityTimeChanel={activityTimeChanel}
+                    orderableChannel={true}
+                    curChannel={curChannel}
+                    privateMessage={!!state.selectedForce?.umpire}
+                    templates={templates}
+                    selectedRole={state.selectedRole}
+                    confirmCancel={false}
+                    channels={state.channels}
+                    currentTurn={state.currentTurn}
+                    currentWargame={state.currentWargame}
+                    gameDate={state.gameDate}
+                    saveMessage={saveMessage}
+                    saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+                    selectedForce={state.selectedForce}
+                    selectedRoleName={state.selectedRoleName}
+                    dispatch={dispatch}
+                  />
                 </div>
               }
             </TabPanel>
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
-                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}
-                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}
+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
+                  playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={true}
                   onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
               }
             </TabPanel>
@@ -212,9 +173,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
     activeTab,
     forceIcons,
     forceNames,
-    forces,
+    allForces,
     platformTypes,
-    hideForcesInChannel,
+    hideForcesInChannels,
     messages,
     selectedForce,
     selectedRole,

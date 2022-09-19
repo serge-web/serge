@@ -1,12 +1,14 @@
 import { makeStyles } from '@material-ui/styles'
 import { SupportPanel } from '@serge/components'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { ChannelPlanning, MessageChannel, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, MessageChannel, MessagePlanning, PlainInteraction } from '@serge/custom-types'
 import { CoreMessage } from '@serge/custom-types/message'
 import '@serge/themes/App.scss'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 const useStyles = makeStyles({
@@ -20,10 +22,11 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const classes = useStyles()
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
+  const reduxDispatch = useDispatch()
   const channelUI = state.channels[channelId]
   const channelPlanning = channelUI.cData as ChannelPlanning
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { allForces, currentWargame, selectedForce, selectedRole } = state
+  const { currentWargame, selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const platformTypes = state.allPlatformTypes
 
@@ -41,7 +44,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const forceIcons = state.channels[channelId].forceIcons || []
   const forceNames = state.channels[channelId].forceNames || []
-  const hideForcesInChannel = !!state.hideForcesInChannels
 
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
@@ -62,23 +64,32 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(markUnread(channelId, message as any as MessageChannel))
   }
 
+  const newActiveMessage = (roleId: string, activityMessage: string) => {
+    // we don't have a message id at this point, player has only opened empty template
+    const newMessage: PlainInteraction = {
+      aType: activityMessage
+    }
+    saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(reduxDispatch)
+  }
+
   return (
     <div className={cx(channelTabClass, classes.root)} data-channel-id={channelId}>
       <SupportPanel
         forceIcons={forceIcons}
-        gameDate={state.gameDate}
         channel={channelPlanning}
         platformTypes={platformTypes}
         forceNames={forceNames}
-        hideForcesInChannel={hideForcesInChannel}
         messages={planningMessages}
-        selectedForce={selectedForce.uniqid}
-        selectedRole={selectedRole}
-        forces={allForces}
         onReadAll={onReadAll}
         onUnread={onUnread}
         onRead={onRead}
-        templates={channelUI.templates}
+        templates={channelUI.templates || []}
+        activityTimeChanel={newActiveMessage}
+        saveMessage={saveMessage}
+        saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+        dispatch={reduxDispatch}
+        state={state}
+        curChannel={channelId}
       />
     </div>
   )

@@ -1,15 +1,11 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, Role } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, PlayerUi, Role } from '@serge/custom-types'
 
 export default interface PropTypes {
   messages: MessagePlanning[]
   turnPresentation?: TurnFormats
-  hideForcesInChannel: boolean
-  selectedForce: ForceData['uniqid']
-  selectedRole: Role['roleId']
   forceIcons: any[]
   forceNames: string[]
-  forces: Force[]
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessageChannel | ChatMessage) => void
   onReadAll: () => void
@@ -17,14 +13,16 @@ export default interface PropTypes {
    * definition of this channel
    */
   channel: ChannelPlanning
-  /**
-   * current date/time in game
-   */
-  gameDate: string
   /** new orders templates for this player */
   templates: TemplateBody[]
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
+  activityTimeChanel: (role: string, message: string) => void
+  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => Function
+  saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
+  dispatch: Dispatch<any>
+  state: PlayerUi
+  curChannel: string
 }
 
 export type TabPanelProps = {

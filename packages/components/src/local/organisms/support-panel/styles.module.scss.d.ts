@@ -13,7 +13,6 @@ interface CssExports {
   'order-group': string;
   'new-order-input': string;
   'select-template-title': string;
-  'action': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

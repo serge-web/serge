@@ -1,10 +1,11 @@
-import { ChannelPlanning, ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
+import { CHAT_CHANNEL_ID, TurnFormats } from '@serge/config'
+import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, PlayerUi, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
 import { P9Mock, planningMessages, planningMessageTemplatesMock, MessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
-import React from 'react'
+import React, { createContext, useContext } from 'react'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -53,8 +54,7 @@ export default {
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 const Template: Story<SupportPanelProps> = (args) => {
-  const { selectedRole } = args
-  const roleStr: string = selectedRole
+  const roleStr: string = args.state.selectedRole
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
@@ -70,24 +70,80 @@ const Template: Story<SupportPanelProps> = (args) => {
     myTemplates.push(legacyTemplate)
   }
   console.warn('Note: story is lazily injecting legacy template to make things work. To be deleted once we have better mock data')
+
+  const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+    return async (): Promise<void> => {
+      console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
+    }
+  }
+
+  const initialState: PlayerUi = {
+    selectedForce: undefined,
+    selectedRole: '',
+    selectedRoleName: '',
+    isObserver: false,
+    isUmpire: false,
+    isGameControl: false,
+    currentTurn: 0,
+    turnPresentation: TurnFormats.Natural,
+    phase: '',
+    gameDate: '',
+    gameTurnTime: { unit: 'millis', millis: 0 },
+    timeWarning: 0,
+    realtimeTurnTime: 0,
+    turnEndTime: '0',
+    adjudicationStartTime: '',
+    gameDescription: '',
+    currentWargame: '',
+    wargameTitle: '',
+    chatChannel: {
+      name: CHAT_CHANNEL_ID,
+      template: {},
+      messages: []
+    },
+    channels: {},
+    allChannels: [],
+    allForces: [],
+    infoMarkers: [],
+    markerIcons: [],
+    allTemplatesByKey: {},
+    allPlatformTypes: [],
+    showObjective: false,
+    updateMessageState: false,
+    wargameInitiated: false,
+    feedbackMessages: [],
+    tourIsOpen: false,
+    modalOpened: undefined,
+    showAccessCodes: false,
+    logPlayerActivity: true,
+    isInsightViewer: false,
+    isRFIManager: false,
+    playerMessageLog: {}
+  }
+
+  const PlayerStateContext: React.Context<PlayerUi> = createContext(initialState)
+  const state = useContext(PlayerStateContext)
+
   return <SupportPanel
     forceIcons={[]}
     platformTypes={platformTypes}
     forceNames={[]}
-    gameDate={P9Mock.data.overview.gameDate}
-    hideForcesInChannel={false}
     messages={planningMessages}
-    selectedForce={force}
-    selectedRole={role}
-    forces={forces}
     onReadAll={noop}
     onUnread={noop}
     onRead={noop}
     channel={planningChannel}
     templates={myTemplates}
+    activityTimeChanel={noop}
+    curChannel={''}
+    dispatch={noop}
+    saveMessage={saveMessage}
+    saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
+    state={state}
   />
 }
 
 export const Default = Template.bind({})
 Default.args = {
+
 }
