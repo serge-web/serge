@@ -10,6 +10,10 @@ interface CssExports {
   'root': string;
   'secondary-action-tab': string;
   'tab-panel': string;
+  'order-group': string;
+  'new-order-input': string;
+  'select-template-title': string;
+  'action': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

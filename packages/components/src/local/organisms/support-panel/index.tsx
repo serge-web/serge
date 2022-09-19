@@ -1,9 +1,12 @@
+import { Button } from '@material-ui/core'
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
+import Collapsible from 'react-collapsible'
 import { Rnd } from 'react-rnd'
+import DropdownInput from '../../form-elements/dropdown-input'
 import PlanningAssets from '../planning-assets'
 import { Row } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
@@ -37,6 +40,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   // const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
   const [opForces, setOpForces] = useState<Row[]>([])
   const [ownForces, setOwnForces] = useState<Row[]>([])
+
+  const allTemplates = templates.map(item => ({
+    value: JSON.stringify(item.details),
+    option: item.title
+  }))
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -87,6 +95,57 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> opForces: ', opForces)
   }, [opForces])
 
+  const NewOrder = () => {
+    const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
+    const elmRef = useRef<any>(null)
+
+    const setTemplate = (value: string): void => {
+      setSelectedSchema(JSON.parse(value))
+    }
+
+    const collapseCollapsible = (e: MouseEvent<HTMLButtonElement>) => {
+      if (elmRef && elmRef.current) {
+        elmRef.current.handleTriggerClick(e)
+      }
+    }
+
+    const onCancel = (e: MouseEvent<HTMLButtonElement>) => {
+      console.log('=> on cancel')
+      collapseCollapsible(e)
+    }
+
+    const onSendNewOrder = (e: MouseEvent<HTMLButtonElement>) => {
+      console.log('=> on sending new order')
+      collapseCollapsible(e)
+    }
+
+    return <div className='message-editor new-message-creator wrap' style={{ zIndex: 1 }}>
+      <Collapsible
+        trigger={'New Order'}
+        transitionTime={200}
+        easing={'ease-in-out'}
+        ref={elmRef}
+      >
+        <p className={styles['select-template-title']}>Select Template</p>
+        {
+          allTemplates.length > 1 && (
+            <DropdownInput
+              updateStore={setTemplate}
+              selectOptions={allTemplates}
+              placeholder='Select template'
+              className='message-input'
+              data={JSON.stringify(selectedSchema)}
+            />
+          )
+        }
+        <div className={styles.action}>
+          <Button onClick={onSendNewOrder}>Add Order</Button>
+          <Button onClick={onCancel}>Cancel</Button>
+        </div>
+      </Collapsible>
+    </div>
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -109,23 +168,26 @@ export const SupportPanel: React.FC<PropTypes> = ({
             </TabPanel>
             <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
               {activeTab === TABS[1] &&
-                <PlanningMessagesList
-                  messages={messages}
-                  gameDate={gameDate}
-                  playerForceId={selectedForce}
-                  playerRoleId={selectedRole}
-                  isUmpire={true}
-                  icons={forceIcons}
-                  colors={forceCols.map((item: ForceStyle) => item.color)}
-                  names={forceNames}
-                  turnPresentation={turnPresentation}
-                  hideForcesInChannel={!!hideForcesInChannel}
-                  onRead={onRead}
-                  onUnread={onUnread}
-                  onMarkAllAsRead={onReadAll}
-                  channel={channel}
-                  templates={templates}
-                />
+                <div className={styles['order-group']}>
+                  <PlanningMessagesList
+                    messages={messages}
+                    gameDate={gameDate}
+                    playerForceId={selectedForce}
+                    playerRoleId={selectedRole}
+                    isUmpire={true}
+                    icons={forceIcons}
+                    colors={forceCols.map((item: ForceStyle) => item.color)}
+                    names={forceNames}
+                    turnPresentation={turnPresentation}
+                    hideForcesInChannel={!!hideForcesInChannel}
+                    onRead={onRead}
+                    onUnread={onUnread}
+                    onMarkAllAsRead={onReadAll}
+                    channel={channel}
+                    templates={templates}
+                  />
+                  <NewOrder />
+                </div>
               }
             </TabPanel>
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
@@ -145,8 +207,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <TabPanelActions onChange={onTabChange} />
       </div>
     </Slide>
-  ),
-  [
+  ), [
     isShowPanel,
     activeTab,
     forceIcons,

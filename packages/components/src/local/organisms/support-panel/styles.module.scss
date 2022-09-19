@@ -86,3 +86,34 @@
   align-items: center;
   justify-content: center;
 }
+
+.order-group {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: calc(100% - 20px);
+}
+
+.new-order-input {
+  background-color: #fff;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.select-template-title {
+  margin: 0 !important;
+}
+
+.action {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    color: #fff;
+    border: 1px solid #fff;
+    margin-right: 10px;
+    min-width: 100px;
+    border-radius: 10px;
+  }
+}
