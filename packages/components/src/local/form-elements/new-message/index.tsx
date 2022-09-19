@@ -72,7 +72,7 @@ const NewMessage: React.FC<PropTypes> = ({
   }
 
   return (
-    <div className={classes} style={{ zIndex: 1 }}>
+    <div className={classes} style={{ zIndex: 10 }}>
       <Collapsible
         trigger={'New Message'}
         transitionTime={200}
