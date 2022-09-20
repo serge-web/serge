@@ -20,13 +20,12 @@ it('NewMessage renders correctly', () => {
   const tree = renderer
     .create(<NewMessage
       templates={planningMessageTemplatesMock}
+      gameDate={P9Mock.data.overview.gameDate}
       privateMessage={true}
       orderableChannel={false}
-      curChannel={P9Mock.data.channels.channels[0].name}
+      channel={P9Mock.data.channels.channels[0]}
       confirmCancel={false}
-      channels={channels}
       currentTurn={0}
-      gameDate=''
       selectedForce={P9Mock.data.forces.forces[0]}
       selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
       selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}

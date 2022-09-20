@@ -129,7 +129,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
           confirmCancel={isCollabEdit}
           privateMessage={!!selectedForce.umpire}
           templates={trimmedTemplates}
-          roles={role}
+          selectedRole={role}
           channels={state.channels}
           currentTurn={state.currentTurn}
           currentWargame={state.currentWargame}

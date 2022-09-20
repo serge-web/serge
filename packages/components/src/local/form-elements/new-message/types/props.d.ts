@@ -1,17 +1,16 @@
-import { PlayerUiChannels, TemplateBody, MessageCustom } from '@serge/custom-types'
+import { ChannelTypes, TemplateBod, MessageDetails } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
   confirmCancel: boolean
   templates: TemplateBody[]
-  curChannel: string
   privateMessage: boolean
   selectedForce?: ForceData
   selectedRole: string
   selectedRoleName: string
   currentTurn: number
-  channels: PlayerUiChannels
   gameDate: string
+  channel: ChannelTypes
   /**
    * The method for posting messages out of the component
    */

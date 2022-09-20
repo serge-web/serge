@@ -44,6 +44,7 @@ interface StoryPropTypes {
 
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, confirmCancel } = args
+  const channel = P9Mock.data.channels.channels[0]
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
@@ -58,8 +59,7 @@ const Template: Story<StoryPropTypes> = (args) => {
 
 
   return (<MessageCreator
-    channels={channels}
-    curChannel={P9Mock.data.channels.channels[0].name}
+    channel={channel}
     currentTurn={0}
     confirmCancel={confirmCancel}
     gameDate=''

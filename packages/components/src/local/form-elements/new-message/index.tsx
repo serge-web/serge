@@ -8,11 +8,10 @@ import PropTypes from './types/props'
 
 const NewMessage: React.FC<PropTypes> = ({
   templates,
-  curChannel,
+  channel,
   privateMessage,
   orderableChannel,
   confirmCancel,
-  channels,
   currentTurn,
   gameDate,
   selectedForce,
@@ -38,14 +37,14 @@ const NewMessage: React.FC<PropTypes> = ({
 
   useEffect(() => {
     setSelectedSchema(null)
-  }, [curChannel])
+  }, [channel])
 
   useEffect(() => {
     if (!prevTemplates) {
       if (templates.length) {
         setSelectedSchema(templates[0].details)
       } else {
-        console.warn('Zero templates received for channel ', curChannel)
+        console.warn('Zero templates received for channel ', channel)
       }
     }
   }, [templates, prevTemplates])
@@ -67,7 +66,7 @@ const NewMessage: React.FC<PropTypes> = ({
   }
 
   return (
-    <div className={classes} style={{ zIndex: 1 }}>
+    <div className={classes} style={{ zIndex: 10 }}>
       <Collapsible
         trigger={'New Message'}
         transitionTime={200}
@@ -87,12 +86,11 @@ const NewMessage: React.FC<PropTypes> = ({
         }
         <MessageCreator
           schema={selectedSchema}
-          curChannel={curChannel}
+          channel={channel}
           confirmCancel={!!confirmCancel}
           privateMessage={privateMessage}
           onMessageSend={onMessageSend}
           onCancel={onCancel}
-          channels={channels}
           currentTurn={currentTurn}
           gameDate={gameDate}
           selectedForce={selectedForce}

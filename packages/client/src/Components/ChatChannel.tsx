@@ -27,8 +27,8 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
-  const chatDefinition = channelUI.cData as ChannelChat
-  const [hideAuthor] = useState<boolean>(!!chatDefinition.hideMessageAuthor)
+  const channel = channelUI.cData as ChannelChat
+  const [hideAuthor] = useState<boolean>(!!channel.hideMessageAuthor)
   const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
   
   useEffect(() => {
@@ -168,12 +168,11 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             {
               isCustomChannel
                 ? <NewMessage
+                  channel={channel}
                   orderableChannel={true}
-                  curChannel={channelId}
                   confirmCancel={true}
                   privateMessage={!!selectedForce.umpire}
                   templates={channelUI.templates as any}
-                  channels={state.channels}
                   currentTurn={state.currentTurn}
                   gameDate={state.gameDate}
                   selectedRole={state.selectedRole}

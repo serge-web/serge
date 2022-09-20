@@ -1,4 +1,3 @@
-import { ParticipantTemplate } from '@serge/custom-types'
 import { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -45,10 +44,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
   return (
     <div className={styles['messages-list']}>
       <Orders messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
-      {
-        templates && templates.length > 0 &&
-        <div>[New template editor for:{templates.map((value: ParticipantTemplate) => value.title)}]</div>
-      }
     </div>
   )
 }
