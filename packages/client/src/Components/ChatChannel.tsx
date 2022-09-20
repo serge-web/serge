@@ -13,7 +13,7 @@ import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction, PlainInteraction } from '@serge/custom-types/player-log'
-import { CoreMessage } from '@serge/custom-types/message'
+import { CoreMessage, MessageInfoTypeClipped } from '@serge/custom-types/message'
 import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from '@serge/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
@@ -86,7 +86,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
   // what data is stored in the the channels dictionary
-  const messages = state.channels[channelId].messages as MessageChannel[]
+  const messages = state.channels[channelId].messages as Array<MessageChannel>
 
   const onRead = (detail: MessageCustom): void => {
     // since this is a message, we know it must come from CoreMessage
@@ -124,11 +124,11 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
   }
 
-  const svaeMessage = (value: string, messageType: string): void | string => {
+  const cacheMessage = (value: string, messageType: string): void | string => {
     return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
   }
 
-  const getMessageValue = (chatType: string): string => {
+  const getCachedMessage = (chatType: string): string => {
     return chatType && getUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, chatType)
   }
 
@@ -156,7 +156,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             hideForcesInChannel={hideForcesInChannel}
           />
           : <ChatMessagesList
-            messages={messages || []}
+            messages={messages as unknown as Array<ChatMessage | MessageInfoTypeClipped> || []}
             onMarkAllAsRead={markAllAsReadLocal}
             turnPresentation={state.turnPresentation}
             playerRole={selectedRole}
@@ -189,18 +189,18 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
                   currentTurn={state.currentTurn}
                   currentWargame={state.currentWargame}
                   gameDate={state.gameDate}
-                  saveMessage={saveMessage}
+                  cacheMessage={cacheMessage}
                   saveNewActivityTimeMessage={saveNewActivityTimeMessage}
                   selectedForce={state.selectedForce}
                   selectedRoleName={state.selectedRoleName}
                   dispatch={dispatch}
                 />
                 : <ChatEntryForm
-                  onChangePrivateStorage={svaeMessage}
-                  privatMessageValue={getMessageValue}
+                  onChangePrivateStorage={cacheMessage}
+                  privatMessageValue={getCachedMessage}
                   removeChatEntryMessage={removeSendMessage}
-                  chatEntryFormValue={getMessageValue}
-                  onchangeCheatInputMessage={svaeMessage}
+                  chatEntryFormValue={getCachedMessage}
+                  onchangeChatInputMessage={cacheMessage}
                   turnNumber={state.currentTurn}
                   from={selectedForce}
                   isUmpire={!!isUmpire}

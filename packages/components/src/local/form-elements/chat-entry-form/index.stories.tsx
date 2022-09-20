@@ -39,7 +39,7 @@ const Template: Story<ChatPropTypes> = (args) => {
 
   const onChangePrivateStorage = (message: string): void => console.log('message:', message)
 
-  const onchangeCheatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
+  const onchangeChatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
 
   const privatMessageValue = (privat: string): string => privat
 
@@ -49,7 +49,7 @@ const Template: Story<ChatPropTypes> = (args) => {
     chatEntryFormValue={chatEntryFormValue}
     privatMessageValue={privatMessageValue}
     onChangePrivateStorage={onChangePrivateStorage}
-    onchangeCheatInputMessage={onchangeCheatInputMessage}
+    onchangeChatInputMessage={onchangeChatInputMessage}
     turnNumber={1}
     from={from}
     isUmpire={isUmpire}

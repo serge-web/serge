@@ -23,7 +23,7 @@ export const ChatEntryForm: React.FC<Props> = ({
   postBack,
   turnNumber,
   removeChatEntryMessage,
-  onchangeCheatInputMessage,
+  onchangeChatInputMessage,
   onChangePrivateStorage,
   privatMessageValue,
   chatEntryFormValue
@@ -73,7 +73,7 @@ export const ChatEntryForm: React.FC<Props> = ({
         ref={messageEle}
         placeholder="type the text"
         onMessageChange={(message, messageType): void => {
-          onchangeCheatInputMessage(message, messageType)
+          onchangeChatInputMessage(message, messageType)
           setMessage(message)
         }}
         postBack={submitForm}

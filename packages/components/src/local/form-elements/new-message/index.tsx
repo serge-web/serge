@@ -17,7 +17,7 @@ const NewMessage: React.FC<PropTypes> = ({
   currentTurn,
   currentWargame,
   gameDate,
-  saveMessage,
+  cacheMessage: saveMessage,
   saveNewActivityTimeMessage,
   selectedForce,
   selectedRole,

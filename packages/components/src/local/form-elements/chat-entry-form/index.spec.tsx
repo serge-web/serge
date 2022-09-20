@@ -21,7 +21,7 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
 
 const onChangePrivateStorage = (message: string): void => console.log('message', message)
 
-const onchangeCheatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
+const onchangeChatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
 
 const privatMessageValue = (privat: string): string => privat
 
@@ -38,7 +38,7 @@ describe('ChatEntryForm component:', () => {
           chatEntryFormValue={chatEntryFormValue}
           privatMessageValue={privatMessageValue}
           onChangePrivateStorage={onChangePrivateStorage}
-          onchangeCheatInputMessage={onchangeCheatInputMessage}
+          onchangeChatInputMessage={onchangeChatInputMessage}
           turnNumber={1}
           isUmpire={true}
           from={force}

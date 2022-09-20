@@ -14,7 +14,7 @@ export default interface PropTypes {
   channels: PlayerUiChannels
   currentWargame: string
   gameDate: string
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void
+  cacheMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
   dispatch: Dispatch<any>
 }
