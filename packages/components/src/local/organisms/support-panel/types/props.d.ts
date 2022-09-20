@@ -4,8 +4,6 @@ import { ChannelPlanning, ForceData, MessagePlanning, Role } from '@serge/custom
 export default interface PropTypes {
   messages: MessagePlanning[]
   turnPresentation?: TurnFormats
-  forceIcons: any[]
-  forceNames: string[]
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessageChannel | ChatMessage) => void
   onReadAll: () => void

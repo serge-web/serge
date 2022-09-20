@@ -81,9 +81,7 @@ const Template: Story<SupportPanelProps> = (args) => {
   }
 
   return <SupportPanel
-    forceIcons={[]}
     platformTypes={platformTypes}
-    forceNames={[]}
     messages={planningMessages}
     onReadAll={noop}
     onUnread={noop}

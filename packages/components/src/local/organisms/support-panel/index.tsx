@@ -14,8 +14,6 @@ import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
 
 export const SupportPanel: React.FC<PropTypes> = ({
-  forceIcons,
-  forceNames,
   platformTypes,
   messages,
   turnPresentation,
@@ -184,8 +182,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   ), [
     isShowPanel,
     activeTab,
-    forceIcons,
-    forceNames,
     allForces,
     platformTypes,
     messages,
