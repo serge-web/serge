@@ -98,6 +98,15 @@ export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[]
   })
 }
 
+export const leafletBufferLine = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
+  const t1 = turf.lineString(toTurf(poly1))
+  const t2 = turf.buffer(t1, distanceKm, { units: 'kilometers' })
+  const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
+  return coords[0].map((value: turf.Position) => {
+    return L.latLng(value[1], value[0])
+  })
+}
+
 export const hexCellsInArea = (h3Res: number, bounds: [[number, number], [number, number]]): number => {
   const avgAreaM2 = hexArea(h3Res, 'm2')
   const lPoly: LatLngBounds = latLngBounds(bounds[0], bounds[1])

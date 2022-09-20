@@ -77,7 +77,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
     const thisForce = force.uniqid
 
     // are all asset of this force visible to me?
-    const visibleToThisPlayer: boolean = force.visibleTo != null && force.visibleTo.includes(playerForceId)
+    const visibleToThisPlayer: boolean = (force.visibleTo != null && force.visibleTo.includes(playerForceId)) || force.uniqid === playerForceId
 
     if (force.assets) {
       // loop through assets

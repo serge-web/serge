@@ -9,39 +9,42 @@ const umpireForce = forces[0]
 const blueForce = forces[1]
 const redForce = forces[2]
 const redZeroAsset = redForce.assets && redForce.assets[0]
-const redOneAsset = redForce.assets && redForce.assets[1]
+// const redOneAsset = redForce.assets && redForce.assets[1]
 const greenForce = forces[3]
 
-const redAssetWithUnknown: Asset = deepCopy(redOneAsset)
-redAssetWithUnknown.perceptions[0].typeId = undefined
+if (redZeroAsset) {
+  redZeroAsset.perceptions[0] = { by: blueForce.uniqid, typeId: redZeroAsset.platformTypeId }
+}
+const redAssetWithUnknown: Asset = deepCopy(redZeroAsset)
+redAssetWithUnknown.perceptions[0] = { by: blueForce.uniqid, typeId: undefined }
 
-false && console.log('get working', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
+false && console.log('get working:', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
 
 const forceCols = forceColors(forces)
 const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.platformTypes.platformTypes) : []
 
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
-    if (redOneAsset) {
-      const item = collateItem(true, redOneAsset, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
+    if (redZeroAsset) {
+      const item = collateItem(true, redZeroAsset, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(1)
+      expect(item.length).toEqual(4)
       const first = item[0]
-      expect(first.id).toEqual(redOneAsset.uniqid)
-      expect(first.platformType).toEqual(redOneAsset.platformTypeId)
+      expect(first.id).toEqual(redZeroAsset.uniqid)
+      expect(first.platformType).toEqual(redZeroAsset.platformTypeId)
     }
   })
 
   it('handles collate item for opfor with lots of unknowns', () => {
-    if (redZeroAsset) {
-      const item = collateItem(true, redZeroAsset, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
+    if (redAssetWithUnknown) {
+      const item = collateItem(true, redAssetWithUnknown, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(1)
+      expect(item.length).toEqual(4)
       const first = item[0]
-      expect(first.id).toEqual(redZeroAsset.uniqid)
+      expect(first.id).toEqual(redAssetWithUnknown.uniqid)
       expect(first.platformType).toEqual(UNKNOWN_TYPE)
       expect(first.force).toEqual(UNKNOWN_TYPE)
-      expect(first.name).toEqual(redZeroAsset.contactId)
+      expect(first.name).toEqual(redAssetWithUnknown.contactId)
     }
   })
 
@@ -49,7 +52,7 @@ describe('check collating assets', () => {
     if (redAssetWithUnknown) {
       const item = collateItem(true, redAssetWithUnknown, blueForce.uniqid, redForce, forceCols, platformStyles, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(1)
+      expect(item.length).toEqual(4)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
       expect(first.platformType).toEqual(UNKNOWN_TYPE)
@@ -67,7 +70,7 @@ describe('check collating assets', () => {
 
     const statusCol = umpireColumns[2]
     expect(statusCol.lookup).toBeTruthy()
-    expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(2)
+    expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(14)
 
     const ownerCol = umpireColumns[3]
     expect(ownerCol.lookup).toBeTruthy()
@@ -75,11 +78,11 @@ describe('check collating assets', () => {
 
     const umpireRows = getRows(false, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(20)
+    expect(umpireRows.length).toEqual(105)
 
     const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(11)
+    expect(blueRows.length).toEqual(40)
 
     // do some parent/child checking
     const firstParent = blueRows[0]
@@ -98,10 +101,10 @@ describe('check collating assets', () => {
 
     const umpireRows = getRows(true, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(20)
+    expect(umpireRows.length).toEqual(105)
 
     const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce.uniqid)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(7)
+    expect(blueRows.length).toEqual(39)
   })
 })
