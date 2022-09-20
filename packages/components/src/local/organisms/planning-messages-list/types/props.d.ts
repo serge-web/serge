@@ -1,7 +1,7 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { ChannelPlanning, ForceData, MessagePlanning } from '@serge/custom-types'
 
-export default interface PropTypes extends ForcesInChannelProps {
+export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
   /**
    * The list of channel messages properties required
    * for ChannelMessage components

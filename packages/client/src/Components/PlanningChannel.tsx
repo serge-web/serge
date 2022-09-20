@@ -42,9 +42,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(markAllAsRead(channelId))
   }
 
-  const forceIcons = state.channels[channelId].forceIcons || []
-  const forceNames = state.channels[channelId].forceNames || []
-
   // TODO: we have some wrong typing here.  The messages for this channel
   // will all be chat messages plus turn markers.  But, that doesn't match
   // what data is stored in the the channels dictionary
@@ -72,17 +69,11 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(reduxDispatch)
   }
 
-  // this field doesn't really relate to planning channels, since they always
-  // show forces
-  const hideForcesInChannel = false
-
   return (
     <div className={cx(channelTabClass, classes.root)} data-channel-id={channelId}>
       <SupportPanel
-        forceIcons={forceIcons}
         channel={channelPlanning}
         platformTypes={platformTypes}
-        forceNames={forceNames}
         messages={planningMessages}
         onReadAll={onReadAll}
         onUnread={onUnread}
@@ -101,7 +92,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         selectedForce= {state.selectedForce}
         allForces= {state.allForces}
         gameDate= {state.gameDate}
-        hideForcesInChannels= {hideForcesInChannel}
         currentTurn= {state.currentTurn}
       
       />

@@ -27,7 +27,6 @@ export default interface PropTypes {
   selectedForce: ForceData
   allForces: ForceData[]
   gameDate: string
-  hideForcesInChannels?: boolean
   currentTurn: number
   currentWargame: string
 }

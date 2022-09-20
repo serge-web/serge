@@ -32,7 +32,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleName,
   allForces,
   gameDate,
-  hideForcesInChannels,
   currentTurn,
   currentWargame
 }) => {
@@ -95,6 +94,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> opForces: ', opForces)
   }, [opForces])
 
+  // note: for support panels we don't have force icons, so we don't need
+  // to provide hide forces prop
+  const hideForcesInChannel = false
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -121,14 +124,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   <PlanningMessagesList
                     messages={messages}
                     gameDate={gameDate}
-                    playerForceId={selectedForce?.uniqid || ''}
+                    playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
-                    isUmpire={true}
-                    icons={forceIcons}
-                    colors={forceCols.map((item: ForceStyle) => item.color)}
-                    names={forceNames}
+                    isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
-                    hideForcesInChannel={!!hideForcesInChannels}
+                    hideForcesInChannel={!!hideForcesInChannel}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
@@ -179,7 +179,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     forceNames,
     allForces,
     platformTypes,
-    hideForcesInChannels,
     messages,
     selectedForce,
     selectedRoleId,
