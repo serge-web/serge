@@ -583,6 +583,18 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           format: "textarea",
           type: "string"
         },
+        Location: {
+          format: "textarea",
+          type: "string",
+          enum: [
+            "Point-A",
+            "Point-B",
+            "Region-A",
+            "Region-B",
+            "Polyline-A",
+            "Polyline-B"
+          ]
+        },
         Status: {
           enum: [
             "Minor",
@@ -593,7 +605,85 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         },
         title: {
           type: "string"
-        }
+        },
+        Assets: {
+          type: "array",
+          format: "table",
+          minItems: 1,
+          title: "Own Assets",
+          items: {
+            type: "object",
+            title: "Asset",
+            properties: {
+              FEName: {
+                type: "string",
+                title: "FE Name",
+                enum: [
+                  "Tank-A",
+                  "Tank-B",
+                  "Infantry-A",
+                  "Plane-A",
+                  "Submarine-A",
+                  "other"
+                ]
+              },
+              Number: {
+                type: "number"
+              },
+              StartDate: {
+                type: "string",
+                title: "Start date",
+                format: "date",
+                options: {
+                  flatpickr: {
+                    wrap: false,
+                    time_24hr: true,
+                    dateFormat: "d/m/Y"
+                  }
+                }
+              },
+              EndDate: {
+                type: "string",
+                title: "End date",
+                format: "date",
+                options: {
+                  flatpickr: {
+                    wrap: false,
+                    time_24hr: true,
+                    dateFormat: "d/m/Y"
+                  }
+                }
+              }
+            }
+          }
+        },
+        Targets: {
+          type: "array",
+          format: "table",
+          minItems: 1,
+          title: "Subject(s) of orders",
+          items: {
+            type: "object",
+            title: "Asset",
+            properties: {
+              FEName: {
+                type: "string",
+                title: "FE Name",
+                enum: [
+                  "Structure-A",
+                  "Structure-B",
+                  "Asset-A",
+                  "Asset-B",
+                  "Organisation-A",
+                  "Organisation-B"
+                ]
+              },
+              Number: {
+                type: "number"
+              }
+            }
+          }
+        },
       },
       title: "Land Activity",
       type: "object"
