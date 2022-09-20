@@ -22,6 +22,11 @@ export interface Asset {
    * since an asset may be carried by another
    */
   position?: string,
+  /** the geographic position of an asset.
+   * If it's not present, but a `position` is, then
+   * the location will be generated
+   */
+  location?: [number, number],
   /** how other forces perceive this asset
    */
   perceptions: Array<Perception>,
