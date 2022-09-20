@@ -1,5 +1,6 @@
 /* global it expect */
 
+import { MessageDetails } from '@serge/custom-types'
 import React from 'react'
 import renderer from 'react-test-renderer'
 
@@ -30,6 +31,10 @@ const chatEntryFormValue = (chat: string): string => {
   return chat
 }
 
+const postBack = (details: MessageDetails, message: any): void => {
+  console.log('send message', details, message)
+}
+
 describe('ChatEntryForm component:', () => {
   it('renders correctly', () => {
     const tree = renderer
@@ -45,6 +50,7 @@ describe('ChatEntryForm component:', () => {
           channel={'Game Admin'}
           role={'r345'}
           roleName={'Umpire'}
+          postBack={postBack}
         />,
         { createNodeMock }
       )

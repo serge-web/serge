@@ -5,7 +5,7 @@ import { Story } from '@storybook/react/types-6-0'
 import ChatEntryForm from './index'
 import docs from './README.md'
 import ChatPropTypes from './types/props'
-import { ChatMessage } from '@serge/custom-types'
+import { MessageDetails } from '@serge/custom-types'
 
 export default {
   title: 'local/form-elements/ChatEntryForm',
@@ -31,9 +31,6 @@ const force = {
   iconURL: ''
 }
 
-// @ts-ignore
-const showMessage = (message: ChatMessage): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
-
 const Template: Story<ChatPropTypes> = (args) => {
   const { from, role, roleName, isUmpire, channel } = args
 
@@ -44,6 +41,10 @@ const Template: Story<ChatPropTypes> = (args) => {
   const privatMessageValue = (privat: string): string => privat
 
   const chatEntryFormValue = (chat: string): string => chat
+
+  const postBack = (details: MessageDetails, message: any): void => {
+    console.log('send message', details, message)
+  }
 
   return <ChatEntryForm
     chatEntryFormValue={chatEntryFormValue}
@@ -56,7 +57,7 @@ const Template: Story<ChatPropTypes> = (args) => {
     channel={channel}
     roleName={roleName}
     role={role}
-    postBack={showMessage}
+    postBack={postBack}
   />
 }
 

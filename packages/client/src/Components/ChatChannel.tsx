@@ -1,5 +1,5 @@
 import { ChannelMessagesList, ChatEntryForm, ChatMessagesList, NewMessage } from '@serge/components'
-import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
+import { ChannelChat, ChatMessage, CoreMessage, MessageChannel, MessageCustom, MessageDetails, MessageInfoTypeClipped } from '@serge/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -12,8 +12,7 @@ import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/Play
 import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
-import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction, PlainInteraction } from '@serge/custom-types/player-log'
-import { CoreMessage, MessageInfoTypeClipped } from '@serge/custom-types/message'
+import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction } from '@serge/custom-types/player-log'
 import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from '@serge/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
@@ -40,15 +39,12 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (post: ChatMessage): void => {   
-    const { details } = post
-    
+  const messageHandler = (details: MessageDetails, message: any): void => {
     const sendMessage: MessageSentInteraction = {
-      aType: MESSAGE_SENT_INTERACTION,
-      _id: post._id
+      aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
-    saveMessage(state.currentWargame, post.details, post.message)()
+    saveMessage(state.currentWargame, details, message)()
   }
 
   const markAllAsReadLocal = (): void => {
@@ -116,13 +112,6 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
 
     playerUiDispatch(markUnread(channelId, message))
   }
-  const newActiveMessage = (roleId: string, activityMessage: string) => {
-    // we don't have a message id at this point, player has only opened empty template
-    const newMessage: PlainInteraction = {
-      aType: activityMessage
-    }
-    saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
-  }
 
   const cacheMessage = (value: string, messageType: string): void | string => {
     return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
@@ -179,21 +168,18 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
             {
               isCustomChannel
                 ? <NewMessage
-                  activityTimeChanel={newActiveMessage}
                   orderableChannel={true}
                   curChannel={channelId}
+                  confirmCancel={true}
                   privateMessage={!!selectedForce.umpire}
                   templates={channelUI.templates as any}
-                  roles={state.selectedRole}
                   channels={state.channels}
                   currentTurn={state.currentTurn}
-                  currentWargame={state.currentWargame}
                   gameDate={state.gameDate}
-                  saveMessage={saveMessage}
-                  saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+                  selectedRole={state.selectedRole}
                   selectedForce={state.selectedForce}
                   selectedRoleName={state.selectedRoleName}
-                  dispatch={dispatch}
+                  postBack={messageHandler}
                 />
                 : <ChatEntryForm
                   onChangePrivateStorage={cacheMessage}

@@ -17,7 +17,7 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-  postBack?: { (post: ChatMessage): void }
+  postBack?: { (details: MessageDetails, message: any): void }
   onchangeChatInputMessage: (value: string, messageType: string) => void
   removeChatEntryMessage?: (data: string[]) => void
   onChangePrivateStorage: (message: string, messageType: string) => void

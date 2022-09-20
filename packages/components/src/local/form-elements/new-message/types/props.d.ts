@@ -1,4 +1,4 @@
-import { PlayerUiChannels, TemplateBody } from '@serge/custom-types'
+import { PlayerUiChannels, TemplateBody, MessageCustom } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -6,15 +6,14 @@ export default interface PropTypes {
   templates: TemplateBody[]
   curChannel: string
   privateMessage: boolean
-  activityTimeChanel: (role: string, message: string) => void
   selectedForce?: ForceData
   selectedRole: string
   selectedRoleName: string
   currentTurn: number
   channels: PlayerUiChannels
-  currentWargame: string
   gameDate: string
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void
-  saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
-  dispatch: Dispatch<any>
+  /**
+   * The method for posting messages out of the component
+   */
+  postBack: { (details: MessageDetails, message: any): void }
 }

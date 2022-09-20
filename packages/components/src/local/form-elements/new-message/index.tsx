@@ -12,17 +12,13 @@ const NewMessage: React.FC<PropTypes> = ({
   privateMessage,
   orderableChannel,
   confirmCancel,
-  activityTimeChanel,
   channels,
   currentTurn,
-  currentWargame,
   gameDate,
-  saveMessage,
-  saveNewActivityTimeMessage,
   selectedForce,
   selectedRole,
   selectedRoleName,
-  dispatch
+  postBack
 }) => {
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
@@ -55,7 +51,6 @@ const NewMessage: React.FC<PropTypes> = ({
   }, [templates, prevTemplates])
 
   const onMessageSend = (event: MouseEvent<HTMLButtonElement>): void => {
-    activityTimeChanel(selectedRole, 'Create new message')
     setTimeout(() => {
       if (tab && tab.current) {
         tab.current.handleTriggerClick(event)
@@ -99,14 +94,11 @@ const NewMessage: React.FC<PropTypes> = ({
           onCancel={onCancel}
           channels={channels}
           currentTurn={currentTurn}
-          currentWargame={currentWargame}
           gameDate={gameDate}
-          saveMessage={saveMessage}
-          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           selectedForce={selectedForce}
           selectedRole={selectedRole}
           selectedRoleName={selectedRoleName}
-          dispatch={dispatch}
+          postBack={postBack}
         />
       </Collapsible>
     </div>

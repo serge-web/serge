@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { Box } from '@material-ui/core'
 
-import { CHAT_MESSAGE } from '@serge/config'
-
 /* Import Types */
 import Props from './types/props'
-import { ChatMessage } from '@serge/custom-types'
+import { MessageDetails } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -37,28 +35,25 @@ export const ChatEntryForm: React.FC<Props> = ({
 
   const submitForm = (type: string): void => {
     if (!message) return
-    const post: ChatMessage = {
-      messageType: CHAT_MESSAGE,
-      details: {
-        channel: channel,
-        from: {
-          force: from.name,
-          forceColor: from.color,
-          roleId: role,
-          roleName: roleName,
-          iconURL: from.iconURL || (from.icon || '')
-        },
-        messageType: 'Chat',
-        timestamp: timestamp,
-        privateMessage: privateMessage,
-        turnNumber: turnNumber
+    const details: MessageDetails = {
+      channel: channel,
+      from: {
+        force: from.name,
+        forceColor: from.color,
+        roleId: role,
+        roleName: roleName,
+        iconURL: from.iconURL || (from.icon || '')
       },
-      message: {
-        content: message
-      },
-      _id: timestamp
+      messageType: 'Chat',
+      timestamp: timestamp,
+      privateMessage: privateMessage,
+      turnNumber: turnNumber
     }
-    postBack && postBack(post)
+    const contents = {
+      content: message
+    }
+
+    postBack && postBack(details, contents)
     removeChatEntryMessage && removeChatEntryMessage([privateMessageType, type])
     messageEle.current.clear()
     setMessage('')

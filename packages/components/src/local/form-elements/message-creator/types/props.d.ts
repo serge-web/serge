@@ -1,4 +1,4 @@
-import { PlayerUiChannels } from '@serge/custom-types'
+import { PlayerUiChannels, MessageDetails } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
@@ -13,9 +13,9 @@ export default interface PropTypes {
   selectedRoleName: string
   currentTurn: number
   channels: PlayerUiChannels
-  currentWargame: string
   gameDate: string
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void
-  saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
-  dispatch: Dispatch<any>
+  /**
+   * The method for posting messages out of the component
+   */
+   postBack: { (details: MessageDetails, message: any): void }
 }
