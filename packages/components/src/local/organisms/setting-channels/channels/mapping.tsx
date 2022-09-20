@@ -27,6 +27,7 @@ import MoreInfo from '../../../molecules/more-info'
 import { defaultParticipantMapping } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
 import { ForceData, Role } from '../types/props'
+import { hexCellsInArea } from '../../../mapping/helpers/h3-helpers'
 
 type MappingChannelProps = {
   channel: ChannelMapping
@@ -79,7 +80,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
       }
     }
 
-    const generateRowItemsMapping = (forces: ForceData[], nextParticipant: ParticipantMapping): RowItem[] => {
+    const generateRowItemsMapping = (forces: ForceData[], nextParticipant: ParticipantMapping, isFooter?: boolean): RowItem[] => {
       let forceSelected: number[] = [0]
       let roleOptions: Option[] = []
       const additionalFields: RowItem[] = []
@@ -110,27 +111,34 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
           }
         }
       }
+
       // first own force assets
       forces.forEach((force: ForceData) => {
         addItem(force, nextParticipant.forceUniqid, true)
       })
+
       // now other force assets
       forces.forEach((force: ForceData) => {
         addItem(force, nextParticipant.forceUniqid, false)
       })
+
       // produce list of selected control entries
       const activeControls: Array<number> = []
       const controls = nextParticipant.controls || []
-      controls.length > 0 && assetOptions.forEach((option: Option, index: number) => {
-        if (controls.includes(option.uniqid)) {
-          activeControls.push(index)
-        }
-      })
+      if (controls.length && !isFooter) {
+        assetOptions.forEach((option: Option, index: number) => {
+          if (controls.includes(option.uniqid)) {
+            activeControls.push(index)
+          }
+        })
+      }
+
       // get selected roles
       const partRoles: string[] = nextParticipant.roles
-      const activeRoles: Array<number> = partRoles ? partRoles.map(role => {
+      const activeRoles: Array<number> = partRoles && !isFooter ? partRoles.map(role => {
         return roleOptions.findIndex(option => option.value.roleId === role)
-      }).filter(active => active !== -1) : []
+      }).filter(active => active !== -1) : (partRoles.length ? [0] : [])
+
       // return row items
       return [
         {
@@ -143,7 +151,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         {
           active: activeRoles,
           emptyTitle: 'All roles',
-          multiple: true,
+          multiple: false,
           options: roleOptions,
           uniqid: 'access',
           type: EDITABLE_SELECT_ITEM
@@ -241,7 +249,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
     }
 
     const renderTableFooter = (): React.ReactElement => {
-      const items = generateRowItemsMapping(forces, defaultParticipantMapping)
+      const items = generateRowItemsMapping(forces, localChannelUpdates.participants[0], true)
       return <EditableRow
         isGenerator={true}
         noSwitchOnReset
@@ -256,10 +264,20 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
     }
 
     const renderMappingConstraints = (): React.ReactElement => {
+      const checkCellSizes = (): void => {
+        const res = localChannelUpdates.constraints.h3res
+        const bounds = localChannelUpdates.constraints.bounds
+        const numCells = hexCellsInArea(res, bounds)
+        if (numCells > 100000) {
+          setProblems('Serge will struggle with more than 100,000 cells. These bounds at this res produce roughly ' + numCells + ' cells')
+        }
+      }
+
       const updateMapConstraintsBounds = (value: string, key: number[]): void => {
         const nextChannel = { ...localChannelUpdates }
         nextChannel.constraints.bounds[key[0]][key[1]] = +value
         setLocalChannelUpdates(nextChannel)
+        checkCellSizes()
       }
 
       const updateMapConstraintsZoom = (value: string, type: 'maxZoom' | 'minZoom' | 'maxNativeZoom'): void => {
@@ -272,6 +290,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         const nextChannel = { ...localChannelUpdates }
         nextChannel.constraints.h3res = +e.target.value
         setLocalChannelUpdates(nextChannel)
+        checkCellSizes()
       }
 
       const updateMapConstraintsTileLayer = (value: string, key: 'attribution' | 'url'): void => {

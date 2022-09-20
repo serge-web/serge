@@ -1,25 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import React, { MouseEvent, useEffect, useRef, useState } from 'react'
 import Collapsible from 'react-collapsible'
-import MessageCreator from '../Components/MessageCreator/MessageCreator'
-import DropdownInput from '../Components/Inputs/DropdownInput'
-import '@serge/themes/App.scss'
+import MessageCreator from '../message-creator'
+import DropdownInput from '../dropdown-input'
+import { TemplateBody } from '@serge/custom-types'
 import { usePrevious } from '@serge/helpers'
-import { useSelector } from 'react-redux'
+import PropTypes from './types/props'
 
-const NewMessage = props => {
-  const role = useSelector(state => state.playerLog.role)
-  const { templates, curChannel, privateMessage, orderableChannel, confirmCancel, activityTimeChanel } = props
+const NewMessage: React.FC<PropTypes> = ({
+  templates,
+  curChannel,
+  privateMessage,
+  orderableChannel,
+  confirmCancel,
+  activityTimeChanel,
+  channels,
+  currentTurn,
+  currentWargame,
+  gameDate,
+  saveMessage,
+  saveNewActivityTimeMessage,
+  selectedForce,
+  selectedRole,
+  selectedRoleName,
+  dispatch
+}) => {
   const prevTemplates = usePrevious(templates)
-  const [selectedSchema, setSelectedSchema] = useState(null)
-  const tab = useRef(null)
+  const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
+  const tab = useRef<any>(null)
 
-  const mapTemplateToDropdown = (item) => ({
+  const mapTemplateToDropdown = (item: TemplateBody): any => ({
     value: JSON.stringify(item.details),
     option: item.title
   })
-  const setTemplate = val => {
-    setSelectedSchema(JSON.parse(val))
+  const setTemplate = (value: string): void => {
+    setSelectedSchema(JSON.parse(value))
   }
 
   const allTemplates = (templates.length && templates[0] && templates.map(mapTemplateToDropdown)) || []
@@ -40,16 +54,20 @@ const NewMessage = props => {
     }
   }, [templates, prevTemplates])
 
-  const onMessageSend = (e) => {
-    activityTimeChanel(role, 'Create new message')
+  const onMessageSend = (event: MouseEvent<HTMLButtonElement>): void => {
+    activityTimeChanel(selectedRole, 'Create new message')
     setTimeout(() => {
-      tab.current.handleTriggerClick(e)
+      if (tab && tab.current) {
+        tab.current.handleTriggerClick(event)
+      }
     }, 0)
   }
 
-  const onCancel = (e) => {
+  const onCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     setTimeout(() => {
-      tab.current.handleTriggerClick(e)
+      if (tab && tab.current) {
+        tab.current.handleTriggerClick(e)
+      }
     }, 0)
   }
 
@@ -79,19 +97,19 @@ const NewMessage = props => {
           privateMessage={privateMessage}
           onMessageSend={onMessageSend}
           onCancel={onCancel}
+          channels={channels}
+          currentTurn={currentTurn}
+          currentWargame={currentWargame}
+          gameDate={gameDate}
+          saveMessage={saveMessage}
+          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+          selectedForce={selectedForce}
+          selectedRole={selectedRole}
+          selectedRoleName={selectedRoleName}
+          dispatch={dispatch}
         />
       </Collapsible>
     </div>
   )
 }
 export default NewMessage
-
-NewMessage.propTypes = {
-  orderableChannel: PropTypes.bool,
-  // whether user has to confirm cancelling a new document
-  confirmCancel: PropTypes.bool,
-  templates: PropTypes.array.isRequired,
-  curChannel: PropTypes.string.isRequired,
-  privateMessage: PropTypes.bool.isRequired,
-  activityTimeChanel: PropTypes.func
-}

@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import {
-  CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
+  CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, CLONE_MARKER,
   serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER, FLAG_MARKER
 } from '@serge/config'
 import MapBar from '../map-bar'
@@ -54,7 +54,9 @@ import {
   MessageMap,
   MapAnnotation,
   MapAnnotations,
-  MessageUpdateMarker
+  MessageUpdateMarker,
+  MessageDeleteMarker,
+  MessageCloneMarker
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -65,7 +67,7 @@ import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
-import { MessageDeleteMarker } from '@serge/custom-types/message'
+import generateTestData from './helpers/gen-test-data'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -664,17 +666,25 @@ export const Mapping: React.FC<PropTypes> = ({
       case Phase.Adjudication: {
         // start off by updating the local data. We don't transmit the change,
         // since it will get caught up with sending new state of world
-        const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
         switch (event) {
           case UPDATE_MARKER: {
+            const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
             others.push(marker)
+            setInfoMarkersState(others)
+            break
+          }
+          case CLONE_MARKER: {
+            const clone: MapAnnotation = { ...marker, uniqid: uniqid('a') }
+            infoMarkersState.push(clone)
+            setInfoMarkersState(infoMarkersState)
             break
           }
           case DELETE_MARKER: {
-            // don't do anything
+            const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
+            setInfoMarkersState(others)
+            break
           }
         }
-        setInfoMarkersState(others)
         break
       }
       case Phase.Planning: {
@@ -697,38 +707,52 @@ export const Mapping: React.FC<PropTypes> = ({
             mapPostBack(event, message, CHANNEL_MAPPING)
             break
           }
+          case CLONE_MARKER: {
+            // send the update out immediately
+            const message: MessageCloneMarker = {
+              messageType: CLONE_MARKER,
+              marker: marker
+            }
+            mapPostBack(event, message, CHANNEL_MAPPING)
+            break
+          }
         }
       }
     }
   }
 
   const localAddInfoMarker = (): void => {
-    // get the centre of the map
-    if (leafletElement) {
-      const center: L.LatLng = leafletElement.getBounds().getCenter()
-      const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
-      // create new marker
-      const marker: MapAnnotation = {
-        uniqid: uniqid('a'),
-        color: '#f00',
-        iconId: 'unk',
-        label: 'pending label',
-        description: 'pending description',
-        visibleTo: [],
-        location: cell
+    const runTest = true
+    if (runTest) {
+      generateTestData(mappingConstraintState, forces, platforms, setForcesState)
+    } else {
+      // get the centre of the map
+      if (leafletElement) {
+        const center: L.LatLng = leafletElement.getBounds().getCenter()
+        const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
+        // create new marker
+        const marker: MapAnnotation = {
+          uniqid: uniqid('a'),
+          color: '#f00',
+          iconId: 'unk',
+          label: 'pending label',
+          description: 'pending description',
+          visibleTo: [],
+          location: cell
+        }
+
+        // just add new marker to current set of annotations
+        infoMarkersState.push(marker)
+        setInfoMarkersState(infoMarkersState)
+
+        // finally, select the new marker
+        setSelectedMarker(marker.uniqid)
+
+        // now the marker is selected, its form
+        // should be displayed.
+        // the new marker will get "stored"
+        // when the user clicks on "Save"
       }
-
-      // just add new marker to current set of annotations
-      infoMarkersState.push(marker)
-      setInfoMarkersState(infoMarkersState)
-
-      // finally, select the new marker
-      setSelectedMarker(marker.uniqid)
-
-      // now the marker is selected, its form
-      // should be displayed.
-      // the new marker will get "stored"
-      // when the user clicks on "Save"
     }
   }
 

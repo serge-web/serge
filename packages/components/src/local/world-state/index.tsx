@@ -71,6 +71,8 @@ export const WorldState: React.FC<PropTypes> = ({
         setMarkers(visMarkers)
         break
       }
+      default:
+        console.warn('unexpected panel name provided:', panel)
     }
   }, [store, phase, panel, infoMarkers])
 
@@ -182,7 +184,10 @@ export const WorldState: React.FC<PropTypes> = ({
       imageSrc = 'unknown.svg'
     }
 
-    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmit && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
+    const isControlPanel = panel === WorldStatePanels.Control
+    const turnZero = turnNumber === 0
+    const inLaydown = item.laydownPhase !== LaydownPhases.NotInLaydown
+    const laydownMessage: string = isControlPanel && canSubmit && turnZero && inLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved

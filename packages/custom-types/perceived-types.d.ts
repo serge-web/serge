@@ -16,4 +16,8 @@ export default interface PerceivedTypes {
    * what this force thinks the asset is called 
    */
   name: string,
+  /** 
+   * the perceived condition of this asset
+   */
+  condition?: string
 }

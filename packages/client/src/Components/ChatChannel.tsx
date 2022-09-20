@@ -1,4 +1,4 @@
-import { ChannelMessagesList, ChatEntryForm, ChatMessagesList } from '@serge/components'
+import { ChannelMessagesList, ChatEntryForm, ChatMessagesList, NewMessage } from '@serge/components'
 import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
 import React, { useEffect, useRef, useState } from 'react'
@@ -11,7 +11,7 @@ import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/Play
 
 import '@serge/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
-import NewMessage from './NewMessage'
+
 import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction, PlainInteraction } from '@serge/custom-types/player-log'
 import { CoreMessage } from '@serge/custom-types/message'
 import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from '@serge/config'
@@ -141,7 +141,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {
-        typeof isCustomChannel === 'boolean' && isCustomChannel
+        isCustomChannel
           ? <ChannelMessagesList
             messages={messages}
             onRead={onRead}
@@ -177,13 +177,23 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
         <div className='new-message-creator wrap new-message-orderable' ref={chatMessageRef}>
           <div className='chat-message-container'>
             {
-              typeof isCustomChannel === 'boolean' && isCustomChannel
+              isCustomChannel
                 ? <NewMessage
                   activityTimeChanel={newActiveMessage}
                   orderableChannel={true}
                   curChannel={channelId}
                   privateMessage={!!selectedForce.umpire}
                   templates={channelUI.templates as any}
+                  roles={state.selectedRole}
+                  channels={state.channels}
+                  currentTurn={state.currentTurn}
+                  currentWargame={state.currentWargame}
+                  gameDate={state.gameDate}
+                  saveMessage={saveMessage}
+                  saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+                  selectedForce={state.selectedForce}
+                  selectedRoleName={state.selectedRoleName}
+                  dispatch={dispatch}
                 />
                 : <ChatEntryForm
                   onChangePrivateStorage={svaeMessage}

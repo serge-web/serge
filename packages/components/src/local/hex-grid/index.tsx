@@ -355,8 +355,6 @@ export const HexGrid: React.FC<{}> = () => {
         let allowableCellList: SergeHex3[] = planningRangeCells
           ? calcAllowableCells3(h3gridCells, originCell.index, planningRangeCells) : h3gridCells
 
-        console.log('hex plan', turnCircles.length, turnOverall.length)
-
         if (turnOverall.length) {
           // convert the poly to turf, to remove repeated processing
           // const turfOverall = toTurf(turnOverall)
