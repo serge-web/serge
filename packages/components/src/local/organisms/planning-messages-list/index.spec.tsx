@@ -15,15 +15,6 @@ const blueRole = blueForce.roles[0]
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
     moment.tz.setDefault('Etc/UTC')
-    const icons = [
-      './images/default_img/forceDefault.png'
-    ]
-    const colors = [
-      '#F00'
-    ]
-    const names = [
-      'Blue'
-    ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: MessagePlanning[] = [{
       messageType: PLANNING_MESSAGE,
@@ -53,9 +44,8 @@ describe('ChannelMessagesList component: ', () => {
 
     const tree = renderer
       .create(<PlanningMessagesList gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
-        messages={messages} names={names} onRead={undefined} onUnread={undefined} isUmpire={true}
-        playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+        messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
+        playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

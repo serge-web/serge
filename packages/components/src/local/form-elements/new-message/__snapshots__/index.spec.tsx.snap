@@ -5,7 +5,7 @@ exports[`NewMessage renders correctly 1`] = `
   className="message-editor new-message-creator wrap "
   style={
     Object {
-      "zIndex": 1,
+      "zIndex": 10,
     }
   }
 >

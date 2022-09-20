@@ -72,10 +72,9 @@ const Template: Story<StoryPropTypes> = (args) => {
     templates={planningMessageTemplatesMock}
     privateMessage={privateMessage}
     orderableChannel={orderableChannel}
-    curChannel={P9Mock.data.channels.channels[0].name}
+    channel={P9Mock.data.channels.channels[0]}
     confirmCancel={confirmCancel}
     activityTimeChanel={noop}
-    channels={channels}
     currentTurn={0}
     currentWargame={P9Mock.name || 'dumb-name'}
     gameDate={P9Mock.data.overview.gameDate}
