@@ -88,7 +88,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {
     console.log('rows change', opFor, data)
-    if (opFor) { 
+    if (opFor) {
       setOpForces(data)
     } else {
       setOwnForces(data)
