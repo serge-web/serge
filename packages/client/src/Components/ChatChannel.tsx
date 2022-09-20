@@ -1,5 +1,6 @@
 import { ChannelMessagesList, ChatEntryForm, ChatMessagesList } from '@serge/components'
 import { ChannelChat, ChatMessage, MessageChannel, MessageCustom } from '@serge/custom-types'
+import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ResizeObserver from 'resize-observer-polyfill'
@@ -26,10 +27,11 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const [chatContainerHeight, setChatContainerHeight] = useState(0)
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-
+  
   const chatDefinition = channelUI.cData as ChannelChat
   const [hideAuthor] = useState<boolean>(!!chatDefinition.hideMessageAuthor)
-
+  const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
+  
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
     if (state.channels[channelId].messages!.length === 0) {
@@ -38,9 +40,9 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (post: ChatMessage): void => {
+  const messageHandler = (post: ChatMessage): void => {   
     const { details } = post
-
+    
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION,
       _id: post._id
@@ -52,7 +54,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const markAllAsReadLocal = (): void => {
     playerUiDispatch(markAllAsRead(channelId))
   }
-
+  
   useEffect(() => {
     resizeObserverRef.current = new ResizeObserver((entries: any) => {
       entries.forEach((entry: any) => {
@@ -121,6 +123,21 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     }
     saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
   }
+
+  const svaeMessage = (value: string, messageType: string): void | string => {
+    return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
+  }
+
+  const getMessageValue = (chatType: string): string => {
+    return chatType && getUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, chatType)
+  }
+
+  const removeSendMessage = (data: string[]): void => {
+    data && data.forEach((removeType) => {
+      return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
+    })
+  }
+
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {
@@ -169,6 +186,11 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
                   templates={channelUI.templates as any}
                 />
                 : <ChatEntryForm
+                  onChangePrivateStorage={svaeMessage}
+                  privatMessageValue={getMessageValue}
+                  removeChatEntryMessage={removeSendMessage}
+                  chatEntryFormValue={getMessageValue}
+                  onchangeCheatInputMessage={svaeMessage}
                   turnNumber={state.currentTurn}
                   from={selectedForce}
                   isUmpire={!!isUmpire}

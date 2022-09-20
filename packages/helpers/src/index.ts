@@ -85,6 +85,7 @@ export {
 } from './create-asset-based-on-platform-type'
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
+export * from './message-unsent-state'
 export { default as enumFromString } from './enum-from-string'
 export * from './turn-time-as-millis'
 export * from './new-date'

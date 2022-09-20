@@ -19,11 +19,33 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   return null
 }
 
+const onChangePrivateStorage = (message: string): void => console.log('message', message)
+
+const onchangeCheatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
+
+const privatMessageValue = (privat: string): string => privat
+
+const chatEntryFormValue = (chat: string): string => {
+  console.log('chat message:', chat)
+  return chat
+}
+
 describe('ChatEntryForm component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatEntryForm turnNumber={1} isUmpire={true} from={force} channel={'Game Admin'} role={'r345'} roleName={'Umpire'} />,
+        <ChatEntryForm
+          chatEntryFormValue={chatEntryFormValue}
+          privatMessageValue={privatMessageValue}
+          onChangePrivateStorage={onChangePrivateStorage}
+          onchangeCheatInputMessage={onchangeCheatInputMessage}
+          turnNumber={1}
+          isUmpire={true}
+          from={force}
+          channel={'Game Admin'}
+          role={'r345'}
+          roleName={'Umpire'}
+        />,
         { createNodeMock }
       )
       .toJSON()

@@ -36,7 +36,28 @@ const showMessage = (message: ChatMessage): void => window.alert(`Your message, 
 
 const Template: Story<ChatPropTypes> = (args) => {
   const { from, role, roleName, isUmpire, channel } = args
-  return <ChatEntryForm turnNumber={1} from={from} isUmpire={isUmpire} channel={channel} roleName={roleName} role={role} postBack={showMessage} />
+
+  const onChangePrivateStorage = (message: string): void => console.log('message:', message)
+
+  const onchangeCheatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
+
+  const privatMessageValue = (privat: string): string => privat
+
+  const chatEntryFormValue = (chat: string): string => chat
+
+  return <ChatEntryForm
+    chatEntryFormValue={chatEntryFormValue}
+    privatMessageValue={privatMessageValue}
+    onChangePrivateStorage={onChangePrivateStorage}
+    onchangeCheatInputMessage={onchangeCheatInputMessage}
+    turnNumber={1}
+    from={from}
+    isUmpire={isUmpire}
+    channel={channel}
+    roleName={roleName}
+    role={role}
+    postBack={showMessage}
+  />
 }
 
 export const Default = Template

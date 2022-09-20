@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle } from 'react'
+import React, { useState, useImperativeHandle, useEffect } from 'react'
 import { Box } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperclip, faUserSecret } from '@fortawesome/free-solid-svg-icons'
@@ -13,9 +13,18 @@ import styles from './styles.module.scss'
 import TextInput from '../../atoms/text-input'
 
 /* Render component */
-export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack, sendMessage }: Props, ref) => {
+const UNSENT_MESSAGE_TYPE = 'private'
+
+export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack, sendMessage, privatValue, clearPrivateStorage }: Props, ref) => {
   const [formState, setFormState] = useState('')
   const [collapsed, setCollapsed] = useState(false)
+
+  useEffect(() => {
+    const getValue = privatValue && privatValue(UNSENT_MESSAGE_TYPE)
+    clearPrivateStorage && clearPrivateStorage(UNSENT_MESSAGE_TYPE)
+    postBack && postBack(getValue, UNSENT_MESSAGE_TYPE)
+    setFormState(getValue)
+  }, [])
 
   useImperativeHandle(ref, () => ({
     setFormState (text: string): void {
@@ -28,12 +37,12 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
-    postBack && postBack(e.value)
+    postBack && postBack(e.value, UNSENT_MESSAGE_TYPE)
   }
 
   const keyDownHandler = (e: any): void => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      sendMessage && sendMessage(formState)
+      sendMessage && sendMessage(UNSENT_MESSAGE_TYPE)
     }
   }
 
