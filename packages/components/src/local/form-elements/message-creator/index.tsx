@@ -6,7 +6,6 @@ import {
 } from '@serge/config'
 import {
   ChannelCollab,
-  ChannelUI,
   Editor,
   MessageDetails,
   PlainInteraction
@@ -23,7 +22,6 @@ flatpickr('.calendar')
 
 const MessageCreator: React.FC<PropTypes> = ({
   schema,
-  curChannel,
   privateMessage,
   onMessageSend,
   onCancel,
@@ -32,7 +30,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   selectedRole,
   selectedRoleName,
   currentTurn,
-  channels,
+  channel,
   currentWargame,
   gameDate,
   saveMessage,
@@ -49,7 +47,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
-      channel: curChannel,
+      channel: channel.uniqid,
       from: {
         force: selectedForce.name,
         forceColor: selectedForce.color,
@@ -61,8 +59,6 @@ const MessageCreator: React.FC<PropTypes> = ({
       timestamp: new Date().toISOString(),
       turnNumber: currentTurn
     }
-    const channelUI = channels[curChannel] as ChannelUI
-    const channel = channelUI.cData
 
     // special handling if this is a collab-channel
     if (channel.channelType === CHANNEL_COLLAB) {

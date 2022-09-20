@@ -6,6 +6,7 @@ import renderer from 'react-test-renderer'
 import MessageCreator from './index'
 
 it('MessageCreator renders correctly', () => {
+  const channel = P9Mock.data.channels.channels[0]
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
     channels[c.name] = {
@@ -16,8 +17,7 @@ it('MessageCreator renders correctly', () => {
   })
   const tree = renderer
     .create(<MessageCreator
-      channels={channels}
-      curChannel={P9Mock.data.channels.channels[0].name}
+      channel={channel}
       currentTurn={0}
       currentWargame={P9Mock.currentWargame || ''}
       gameDate=''

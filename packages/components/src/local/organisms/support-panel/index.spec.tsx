@@ -26,6 +26,10 @@ describe('Support Panel component: ', () => {
         forceIcons={[]}
         platformTypes={platformTypes}
         forceNames={[]}
+        allForces={P9Mock.data.forces.forces}
+        gameDate={P9Mock.data.overview.gameDate}
+        currentWargame={P9Mock.currentWargame || ''}
+        currentTurn={P9Mock.gameTurn}
         messages={planningMessages}
         channel={planningChannel}
         onUnread={noop}
@@ -33,13 +37,13 @@ describe('Support Panel component: ', () => {
         onRead={noop}
         templates={myTemplates}
         activityTimeChanel={noop}
-        curChannel={''}
         dispatch={noop}
-        saveMessage={() => noop}
-        saveNewActivityTimeMessage={() => noop}
-        state={{
-          allForces: []
-        } as any}
+        saveMessage={(): any => noop}
+        saveNewActivityTimeMessage={(): any => noop}
+        selectedForce={blueForce}
+        selectedRoleId={blueRole.roleId}
+        selectedRoleName={blueRole.name}
+        isUmpire={false}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

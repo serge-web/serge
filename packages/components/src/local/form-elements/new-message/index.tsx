@@ -8,12 +8,11 @@ import PropTypes from './types/props'
 
 const NewMessage: React.FC<PropTypes> = ({
   templates,
-  curChannel,
+  channel,
   privateMessage,
   orderableChannel,
   confirmCancel,
   activityTimeChanel,
-  channels,
   currentTurn,
   currentWargame,
   gameDate,
@@ -42,14 +41,14 @@ const NewMessage: React.FC<PropTypes> = ({
 
   useEffect(() => {
     setSelectedSchema(null)
-  }, [curChannel])
+  }, [channel])
 
   useEffect(() => {
     if (!prevTemplates) {
       if (templates.length) {
         setSelectedSchema(templates[0].details)
       } else {
-        console.warn('Zero templates received for channel ', curChannel)
+        console.warn('Zero templates received for channel ', channel)
       }
     }
   }, [templates, prevTemplates])
@@ -92,12 +91,11 @@ const NewMessage: React.FC<PropTypes> = ({
         }
         <MessageCreator
           schema={selectedSchema}
-          curChannel={curChannel}
+          channel={channel}
           confirmCancel={!!confirmCancel}
           privateMessage={privateMessage}
           onMessageSend={onMessageSend}
           onCancel={onCancel}
-          channels={channels}
           currentTurn={currentTurn}
           currentWargame={currentWargame}
           gameDate={gameDate}

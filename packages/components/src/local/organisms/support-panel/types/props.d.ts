@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, PlayerUi, Role } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, Role } from '@serge/custom-types'
 
 export default interface PropTypes {
   messages: MessagePlanning[]
@@ -21,8 +21,15 @@ export default interface PropTypes {
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => Function
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
   dispatch: Dispatch<any>
-  state: PlayerUi
-  curChannel: string
+  isUmpire: boolean
+  selectedRoleName: Role['name']
+  selectedRoleId: Role['roleId']
+  selectedForce: ForceData
+  allForces: ForceData[]
+  gameDate: string
+  hideForcesInChannels?: boolean
+  currentTurn: number
+  currentWargame: string
 }
 
 export type TabPanelProps = {

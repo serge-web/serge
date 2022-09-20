@@ -27,10 +27,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
   activityTimeChanel,
   saveNewActivityTimeMessage,
   dispatch,
-  state,
-  curChannel
+  selectedForce,
+  selectedRoleId,
+  selectedRoleName,
+  allForces,
+  gameDate,
+  hideForcesInChannels,
+  currentTurn,
+  currentWargame
 }) => {
-  const { allForces, selectedRole, selectedForce, gameDate, hideForcesInChannels } = state
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
@@ -117,7 +122,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     messages={messages}
                     gameDate={gameDate}
                     playerForceId={selectedForce?.uniqid || ''}
-                    playerRoleId={selectedRole}
+                    playerRoleId={selectedRoleId}
                     isUmpire={true}
                     icons={forceIcons}
                     colors={forceCols.map((item: ForceStyle) => item.color)}
@@ -133,19 +138,18 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   <NewMessage
                     activityTimeChanel={activityTimeChanel}
                     orderableChannel={true}
-                    curChannel={curChannel}
-                    privateMessage={!!state.selectedForce?.umpire}
+                    privateMessage={!!selectedForce.umpire}
                     templates={templates}
-                    selectedRole={state.selectedRole}
+                    selectedRole={selectedRoleId}
+                    selectedForce={selectedForce}
+                    selectedRoleName={selectedRoleName}
                     confirmCancel={false}
-                    channels={state.channels}
-                    currentTurn={state.currentTurn}
-                    currentWargame={state.currentWargame}
-                    gameDate={state.gameDate}
+                    channel={channel}
+                    currentTurn={currentTurn}
+                    currentWargame={currentWargame}
+                    gameDate={gameDate}
                     saveMessage={saveMessage}
                     saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-                    selectedForce={state.selectedForce}
-                    selectedRoleName={state.selectedRoleName}
                     dispatch={dispatch}
                   />
                 </div>
@@ -178,7 +182,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     hideForcesInChannels,
     messages,
     selectedForce,
-    selectedRole,
+    selectedRoleId,
     turnPresentation,
     gameDate,
     channel,

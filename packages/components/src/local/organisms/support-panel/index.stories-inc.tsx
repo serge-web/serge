@@ -1,11 +1,10 @@
-import { CHAT_CHANNEL_ID, TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, PlayerUi, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock, MessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
-import React, { createContext, useContext } from 'react'
+import React from 'react'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -40,7 +39,7 @@ export default {
     }
   },
   argTypes: {
-    selectedRole: {
+    selectedRoleName: {
       name: 'View as',
       defaultValue: allRoles[1],
       options: allRoles,
@@ -54,22 +53,17 @@ export default {
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 const Template: Story<SupportPanelProps> = (args) => {
-  const roleStr: string = args.state.selectedRole
+  const roleStr: string = args.selectedRoleName
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
-  const force = roleStr.substring(0, ind)
+  const forceStr = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
 
-  const thisPart = checkV3ParticipantStates(planningChannel, force, role, false)
+  const thisPart = checkV3ParticipantStates(planningChannel, forceStr, role, false)
   const myTemplateIds = thisPart.templatesIDs
   const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
     myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
   )
-  const legacyTemplate = MessageTemplatesMock.find((value: TemplateBody) => value._id === 'k16eedkk')
-  if (legacyTemplate) {
-    myTemplates.push(legacyTemplate)
-  }
-  console.warn('Note: story is lazily injecting legacy template to make things work. To be deleted once we have better mock data')
 
   const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
     return async (): Promise<void> => {
@@ -77,52 +71,14 @@ const Template: Story<SupportPanelProps> = (args) => {
     }
   }
 
-  const initialState: PlayerUi = {
-    selectedForce: undefined,
-    selectedRole: '',
-    selectedRoleName: '',
-    isObserver: false,
-    isUmpire: false,
-    isGameControl: false,
-    currentTurn: 0,
-    turnPresentation: TurnFormats.Natural,
-    phase: '',
-    gameDate: '',
-    gameTurnTime: { unit: 'millis', millis: 0 },
-    timeWarning: 0,
-    realtimeTurnTime: 0,
-    turnEndTime: '0',
-    adjudicationStartTime: '',
-    gameDescription: '',
-    currentWargame: '',
-    wargameTitle: '',
-    chatChannel: {
-      name: CHAT_CHANNEL_ID,
-      template: {},
-      messages: []
-    },
-    channels: {},
-    allChannels: [],
-    allForces: [],
-    infoMarkers: [],
-    markerIcons: [],
-    allTemplatesByKey: {},
-    allPlatformTypes: [],
-    showObjective: false,
-    updateMessageState: false,
-    wargameInitiated: false,
-    feedbackMessages: [],
-    tourIsOpen: false,
-    modalOpened: undefined,
-    showAccessCodes: false,
-    logPlayerActivity: true,
-    isInsightViewer: false,
-    isRFIManager: false,
-    playerMessageLog: {}
+  const force = forces.find((value: ForceData) => value.uniqid === forceStr)
+  if (!force) {
+    throw Error('can\'t find force')
   }
-
-  const PlayerStateContext: React.Context<PlayerUi> = createContext(initialState)
-  const state = useContext(PlayerStateContext)
+  const roleVal = force.roles.find((roleVal: Role) => roleVal.roleId === role)
+  if (!roleVal) {
+    throw Error('can\'t find role')
+  }
 
   return <SupportPanel
     forceIcons={[]}
@@ -135,11 +91,17 @@ const Template: Story<SupportPanelProps> = (args) => {
     channel={planningChannel}
     templates={myTemplates}
     activityTimeChanel={noop}
-    curChannel={''}
+    allForces={P9Mock.data.forces.forces}
+    gameDate={P9Mock.data.overview.gameDate}
+    currentWargame={P9Mock.currentWargame || ''}
+    currentTurn={P9Mock.gameTurn}
     dispatch={noop}
     saveMessage={saveMessage}
     saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
-    state={state}
+    selectedRoleId={roleVal.roleId}
+    selectedRoleName={roleVal.name}
+    selectedForce={force}
+    isUmpire={!!force.umpire}
   />
 }
 
