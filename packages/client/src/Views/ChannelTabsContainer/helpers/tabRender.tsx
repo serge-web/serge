@@ -97,7 +97,6 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       if (channel !== undefined) {
         // check it's not a channel type where we ignore unread (mapping)
         const channelType = channel.cData.channelType
-        console.log('render tab', channelType, CHANNEL_MAPPING)
         if (channelType !== CHANNEL_MAPPING) {
           const unreadMessageCount: number | undefined = channel.unreadMessageCount
           let className: string = ''
