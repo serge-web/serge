@@ -1,9 +1,8 @@
-import { PlayerUiChannels } from '@serge/custom-types'
+import { ChannelTypes } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
   schema: any
-  curChannel: string
   privateMessage: boolean
   onMessageSend?: (e: MouseEvent<HTMLButtonElement>) => void
   onCancel?: (e: MouseEvent<HTMLButtonElement>) => void
@@ -12,10 +11,10 @@ export default interface PropTypes {
   selectedRole: string
   selectedRoleName: string
   currentTurn: number
-  channels: PlayerUiChannels
+  channel: ChannelTypes
   currentWargame: string
   gameDate: string
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => () => void
+  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => Function
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
   dispatch: Dispatch<any>
 }

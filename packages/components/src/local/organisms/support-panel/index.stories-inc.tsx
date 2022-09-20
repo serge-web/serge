@@ -1,6 +1,6 @@
-import { ChannelPlanning, ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock, MessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -39,7 +39,7 @@ export default {
     }
   },
   argTypes: {
-    selectedRole: {
+    selectedRoleName: {
       name: 'View as',
       defaultValue: allRoles[1],
       options: allRoles,
@@ -53,41 +53,57 @@ export default {
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 const Template: Story<SupportPanelProps> = (args) => {
-  const { selectedRole } = args
-  const roleStr: string = selectedRole
+  const roleStr: string = args.selectedRoleName
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
-  const force = roleStr.substring(0, ind)
+  const forceStr = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
 
-  const thisPart = checkV3ParticipantStates(planningChannel, force, role, false)
+  const thisPart = checkV3ParticipantStates(planningChannel, forceStr, role, false)
   const myTemplateIds = thisPart.templatesIDs
   const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
     myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
   )
-  const legacyTemplate = MessageTemplatesMock.find((value: TemplateBody) => value._id === 'k16eedkk')
-  if (legacyTemplate) {
-    myTemplates.push(legacyTemplate)
+
+  const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+    return async (): Promise<void> => {
+      console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
+    }
   }
-  console.warn('Note: story is lazily injecting legacy template to make things work. To be deleted once we have better mock data')
+
+  const force = forces.find((value: ForceData) => value.uniqid === forceStr)
+  if (!force) {
+    throw Error('can\'t find force')
+  }
+  const roleVal = force.roles.find((roleVal: Role) => roleVal.roleId === role)
+  if (!roleVal) {
+    throw Error('can\'t find role')
+  }
+
   return <SupportPanel
-    forceIcons={[]}
     platformTypes={platformTypes}
-    forceNames={[]}
-    gameDate={P9Mock.data.overview.gameDate}
-    hideForcesInChannel={false}
     messages={planningMessages}
-    selectedForce={force}
-    selectedRole={role}
-    forces={forces}
     onReadAll={noop}
     onUnread={noop}
     onRead={noop}
     channel={planningChannel}
     templates={myTemplates}
+    activityTimeChanel={noop}
+    allForces={P9Mock.data.forces.forces}
+    gameDate={P9Mock.data.overview.gameDate}
+    currentWargame={P9Mock.currentWargame || ''}
+    currentTurn={P9Mock.gameTurn}
+    dispatch={noop}
+    saveMessage={saveMessage}
+    saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
+    selectedRoleId={roleVal.roleId}
+    selectedRoleName={roleVal.name}
+    selectedForce={force}
+    isUmpire={!!force.umpire}
   />
 }
 
 export const Default = Template.bind({})
 Default.args = {
+
 }
