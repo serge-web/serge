@@ -121,7 +121,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     return chatType && getUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, chatType)
   }
 
-  const removeSendMessage = (data: string[]): void => {
+  const clearCachedMessage = (data: string[]): void => {
     data && data.forEach((removeType) => {
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
@@ -183,7 +183,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
                 : <ChatEntryForm
                   onChangePrivateStorage={cacheMessage}
                   privatMessageValue={getCachedMessage}
-                  removeChatEntryMessage={removeSendMessage}
+                  clearCachedMessage={clearCachedMessage}
                   chatEntryFormValue={getCachedMessage}
                   onchangeChatInputMessage={cacheMessage}
                   turnNumber={state.currentTurn}

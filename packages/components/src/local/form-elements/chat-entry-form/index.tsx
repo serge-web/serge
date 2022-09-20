@@ -20,7 +20,7 @@ export const ChatEntryForm: React.FC<Props> = ({
   roleName,
   postBack,
   turnNumber,
-  removeChatEntryMessage,
+  clearCachedMessage,
   onchangeChatInputMessage,
   onChangePrivateStorage,
   privatMessageValue,
@@ -54,7 +54,7 @@ export const ChatEntryForm: React.FC<Props> = ({
     }
 
     postBack && postBack(details, contents)
-    removeChatEntryMessage && removeChatEntryMessage([privateMessageType, type])
+    clearCachedMessage && clearCachedMessage([privateMessageType, type])
     messageEle.current.clear()
     setMessage('')
     setPrivateMessage('')

@@ -19,7 +19,7 @@ export default interface Props {
    */
   postBack?: { (details: MessageDetails, message: any): void }
   onchangeChatInputMessage: (value: string, messageType: string) => void
-  removeChatEntryMessage?: (data: string[]) => void
+  clearCachedMessage?: (data: string[]) => void
   onChangePrivateStorage: (message: string, messageType: string) => void
   privatMessageValue: (value: string) => string
   chatEntryFormValue: (value: string) => string
