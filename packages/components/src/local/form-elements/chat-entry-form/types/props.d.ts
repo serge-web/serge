@@ -1,4 +1,4 @@
-import { ChatMessage, Role } from '@serge/custom-types'
+import { Role } from '@serge/custom-types'
 
 export default interface Props {
   from: {

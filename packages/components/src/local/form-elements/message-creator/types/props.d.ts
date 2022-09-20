@@ -1,4 +1,4 @@
-import { PlayerUiChannels, MessageDetails, ChannelTypes } from '@serge/custom-types'
+import { MessageDetails, ChannelTypes } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {

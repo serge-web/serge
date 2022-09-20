@@ -14,7 +14,7 @@ it('MessageCreator renders correctly', () => {
       uniqid: c.uniqid
     } as ChannelUI
   })
-  const postBack = (details: MessageDetails, message: any) => {
+  const postBack = (details: MessageDetails, message: any): void => {
     console.log('send message', details, message)
   }
   const tree = renderer
