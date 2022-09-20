@@ -1,5 +1,6 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
+import { Asset } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -41,7 +42,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   // handle selections from asset tables
-  // const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
+  const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
   const [opForces, setOpForces] = useState<Row[]>([])
   const [ownForces, setOwnForces] = useState<Row[]>([])
 
@@ -78,12 +79,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const onSelectionChange = (opFor: boolean, data: Row[]): void => {
     console.log('new selection', opFor, data)
-    setOpForces(data)
+    if (data.length > 0) {
+      setSelectedItem(data[0].id)
+    } else {
+      setSelectedItem(undefined)
+    }
   }
 
   const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {
     console.log('rows change', opFor, data)
-    setOwnForces(data)
+    if (opFor) { 
+      setOpForces(data)
+    } else {
+      setOwnForces(data)
+    }
   }
 
   useEffect(() => {
@@ -182,6 +191,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     messages,
     selectedForce,
     selectedRoleId,
+    selectedItem,
     turnPresentation,
     gameDate,
     channel,
