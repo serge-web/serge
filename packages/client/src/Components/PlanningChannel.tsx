@@ -91,7 +91,6 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         allForces= {state.allForces}
         gameDate= {state.gameDate}
         currentTurn= {state.currentTurn}
-      
       />
     </div>
   )

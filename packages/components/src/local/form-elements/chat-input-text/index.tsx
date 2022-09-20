@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle } from 'react'
+import React, { useState, useImperativeHandle, useEffect } from 'react'
 import { IconButton, InputAdornment } from '@material-ui/core'
 import { SendOutlined } from '@material-ui/icons'
 
@@ -11,16 +11,24 @@ import styles from './styles.module.scss'
 /* Import Component */
 import TextInput from './../../atoms/text-input'
 
+const UNSENT_MESSAGE_TYPE = 'chat'
 /* Render component */
-export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange }: Props, ref) => {
+export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange, chatInputvalue }: Props, ref) => {
   const [formState, setFormState] = useState('')
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
-    onMessageChange && onMessageChange(e.value)
+    onMessageChange && onMessageChange(e.value, UNSENT_MESSAGE_TYPE)
   }
+
+  useEffect(() => {
+    const value = chatInputvalue(UNSENT_MESSAGE_TYPE)
+    onMessageChange && onMessageChange(value, UNSENT_MESSAGE_TYPE)
+    setFormState(value)
+  }, [])
+
   const submitForm = (): void => {
-    postBack && postBack(formState)
+    postBack && postBack(UNSENT_MESSAGE_TYPE)
     setFormState('')
   }
 

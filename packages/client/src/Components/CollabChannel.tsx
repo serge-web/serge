@@ -54,8 +54,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     const { details } = nextMsg
     saveMessage(state.currentWargame, details, nextMsg.message)()
     const saveMessageInt: MessageSentInteraction = {
-      aType: MESSAGE_SENT_INTERACTION,
-      _id: nextMsg._id
+      aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
@@ -135,7 +134,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
           currentTurn={state.currentTurn}
           currentWargame={state.currentWargame}
           gameDate={state.gameDate}
-          saveMessage={saveMessage}
+          cacheMessage={saveMessage}
           saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           selectedForce={state.selectedForce}
           selectedRoleName={state.selectedRoleName}
