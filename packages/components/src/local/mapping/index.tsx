@@ -12,7 +12,7 @@ import { cloneDeep, isEqual } from 'lodash'
 import * as h3 from 'h3-js'
 
 /* helper functions */
-import { createGridH3 } from './helpers/h3-helpers'
+import { convertToFeatures, createGridH3, generatePolys, parseHexRefs } from './helpers/h3-helpers'
 
 import {
   roundToNearest,
@@ -156,7 +156,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // bounds has changed, or atlantic cells are present
         setMapBounds(newBounds)
         const resolution = mappingConstraintState.h3res || 3
-        const cells = createGridH3(newBounds, resolution, atlanticCells)
+        const cells = createGridH3(newBounds, resolution, atlanticCells, undefined)
         // check if we need to update, to reduce re-renders
         if ((cells.length !== h3gridCells.length || atlanticUpdate)) {
           setH3Resolution(resolution)
@@ -335,13 +335,32 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [phase])
 
   useEffect(() => {
-    if (mappingConstraintState && mappingConstraintState.gridCellsURL) {
+    if (mappingConstraintState && mappingConstraintState.gridCellsURL && !mappingConstraintState.newGridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraintState.gridCellsURL
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
           setAtlanticCells(res)
+        }).catch((err: any) => {
+          console.error(err)
+        })
+    }
+  }, [mappingConstraintState])
+
+  useEffect(() => {
+    if (mappingConstraintState && mappingConstraintState.newGridCellsURL) {
+      const fetchMethod = fetchOverride || whatFetch
+      const url = serverPath + mappingConstraintState.newGridCellsURL
+      fetchMethod(url)
+        .then((response: any) => response.json())
+        .then((res: any) => {
+          const refs = parseHexRefs(res)
+          const polys = generatePolys(refs.cellSets)
+          // convert to feature collection
+          const features = convertToFeatures(polys, refs.bounds)
+          setPolygonAreas(features)
+          setMapBounds(refs.bounds)
         }).catch((err: any) => {
           console.error(err)
         })
@@ -357,12 +376,13 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mappingConstraintState])
 
   useEffect(() => {
-    if (mappingConstraintState && mappingConstraintState.polygonAreasURL && !polygonAreas) {
+    if (mappingConstraintState && mappingConstraintState.polygonAreasURL && !polygonAreas && !mappingConstraintState.newGridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
       const url = serverPath + mappingConstraintState.polygonAreasURL
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
+          console.log('set polys', res)
           setPolygonAreas(res)
         }).catch((err: any) => {
           console.error(err)

@@ -46,6 +46,11 @@ export default interface MappingConstraints {
    * App will prepend server path
    */
   gridCellsURL?: string
+
+  /** updated (Jul 2022) format for cell styles
+   * 
+   */
+  newGridCellsURL?: string
   /**
    * Json data url to load atlantic polygon 
    * outlines for areas of cells, used to reduce
