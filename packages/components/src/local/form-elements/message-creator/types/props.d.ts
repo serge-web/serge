@@ -1,4 +1,4 @@
-import { ChannelTypes } from '@serge/custom-types'
+import { MessageDetails, ChannelTypes } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
@@ -11,10 +11,10 @@ export default interface PropTypes {
   selectedRole: string
   selectedRoleName: string
   currentTurn: number
+  /**
+   * The method for posting messages out of the component
+   */
+   postBack: { (details: MessageDetails, message: any): void }
   channel: ChannelTypes
-  currentWargame: string
   gameDate: string
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => Function
-  saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
-  dispatch: Dispatch<any>
 }

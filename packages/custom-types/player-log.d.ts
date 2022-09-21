@@ -39,7 +39,7 @@ export interface ChangeTabInteraction extends PlainInteraction {
 /** a player has sent a message */
 export interface MessageSentInteraction extends PlainInteraction {
   aType: typeof MESSAGE_SENT_INTERACTION
-  _id: string
+  // note: we don't have an id, since the message doesn't (yet) have an id
 }
 
 /** a player has marked a message as read */

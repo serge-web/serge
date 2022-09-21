@@ -1,6 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { Asset } from '@serge/custom-types'
+import { MESSAGE_SENT_INTERACTION } from '@serge/config'
+import { Asset, MessageDetails, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -14,8 +15,6 @@ import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
 
 export const SupportPanel: React.FC<PropTypes> = ({
-  forceIcons,
-  forceNames,
   platformTypes,
   messages,
   turnPresentation,
@@ -25,9 +24,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   channel,
   templates,
   saveMessage,
-  activityTimeChanel,
   saveNewActivityTimeMessage,
-  dispatch,
   selectedForce,
   selectedRoleId,
   selectedRoleName,
@@ -95,6 +92,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }
   }
 
+  const postBack = (details: MessageDetails, message: any): void => {
+    const activity: MessageSentInteraction = {
+      aType: MESSAGE_SENT_INTERACTION
+    }
+    saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
+    saveMessage(currentWargame, details, message)
+  }
+
   useEffect(() => {
     console.log('=> ownForces: ', ownForces)
   }, [ownForces])
@@ -145,7 +150,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     templates={templates}
                   />
                   <NewMessage
-                    activityTimeChanel={activityTimeChanel}
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
                     templates={templates}
@@ -155,11 +159,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     confirmCancel={false}
                     channel={channel}
                     currentTurn={currentTurn}
-                    currentWargame={currentWargame}
                     gameDate={gameDate}
-                    saveMessage={saveMessage}
-                    saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-                    dispatch={dispatch}
+                    postBack={postBack}
                   />
                 </div>
               }
@@ -184,8 +185,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   ), [
     isShowPanel,
     activeTab,
-    forceIcons,
-    forceNames,
     allForces,
     platformTypes,
     messages,

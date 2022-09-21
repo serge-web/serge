@@ -7,8 +7,7 @@ import {
 import {
   ChannelCollab,
   Editor,
-  MessageDetails,
-  PlainInteraction
+  MessageDetails
 } from '@serge/custom-types'
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 
@@ -31,11 +30,8 @@ const MessageCreator: React.FC<PropTypes> = ({
   selectedRoleName,
   currentTurn,
   channel,
-  currentWargame,
   gameDate,
-  saveMessage,
-  saveNewActivityTimeMessage,
-  dispatch
+  postBack
 }) => {
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
@@ -86,15 +82,9 @@ const MessageCreator: React.FC<PropTypes> = ({
     // retrieve the formatted message
     const message = editor.getValue()
 
-    saveMessage(currentWargame, details, message)()
-    const newMsg: PlainInteraction = {
-      aType: 'send channel message'
-    }
-    saveNewActivityTimeMessage(
-      details.from.roleId,
-      newMsg,
-      currentWargame
-    )(dispatch)
+    // send the data
+    postBack && postBack(details, message)
+
     editor.destroy()
     createEditor(selectedSchema)
     onMessageSend && onMessageSend(e)

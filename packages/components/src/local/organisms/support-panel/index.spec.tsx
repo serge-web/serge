@@ -23,9 +23,7 @@ describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<SupportPanel
-        forceIcons={[]}
         platformTypes={platformTypes}
-        forceNames={[]}
         allForces={P9Mock.data.forces.forces}
         gameDate={P9Mock.data.overview.gameDate}
         currentWargame={P9Mock.currentWargame || ''}

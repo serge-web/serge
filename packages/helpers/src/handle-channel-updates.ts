@@ -25,7 +25,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     roleId: message.details.from.roleId,
     lastMessageTitle: message.details.messageType,
     lastMessageTime: message.details.timestamp,
-    hasBeenRead: message.hasBeenRead,
+    hasBeenRead: !!message.hasBeenRead,
     _id: message._id
   }
   data.playerMessageLog[sourceRole] = logger
