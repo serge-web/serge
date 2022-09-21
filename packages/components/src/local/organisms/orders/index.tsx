@@ -28,7 +28,7 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
       if (!template) {
         console.log('template not found for', message.details.messageType, 'templates:', templates)
       }
-      if (message && template) { 
+      if (message && template) {
         return <JsonEditor
           messageTemplates={templatesByKey}
           messageContent={message.message}
@@ -36,9 +36,9 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
           template={template._id}
           disabled={true}
           gameDate={gameDate}
-          /> 
+        />
       } else {
-        return <div>Template not found for {message.details.messageType}</div>        
+        return <div>Template not found for {message.details.messageType}</div>
       }
     }
   }
