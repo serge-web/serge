@@ -354,6 +354,19 @@ export const CollabMessageDetail: React.FC<Props> = ({
       })
     })
 
+    // sort out the template for the JSON editor
+    let templateId: string | undefined
+    if (isResponse) {
+      if (canSeeResponse) {
+        templateId = channelCollab.responseTemplate?._id
+      } else {
+        templateId = channelCollab.newMessageTemplate?._id
+      }
+    } else {
+      templateId = channelCollab.newMessageTemplate?._id
+    }
+    const template = templateId && templates[templateId]
+
     return (
       <>
         <div className={styles.main}>
@@ -377,20 +390,18 @@ export const CollabMessageDetail: React.FC<Props> = ({
             }
             {
               isResponse && <JsonEditor
-                messageTemplates={templates}
                 messageContent={message.message}
                 messageId={`${message._id}_${message.message.Reference}`}
-                template={channelCollab.newMessageTemplate?._id || ''}
+                template={template}
                 storeNewValue={notHappeningHandler}
                 disabled={true}
                 gameDate={gameDate}
               />
             }
             {isResponse && canSeeResponse && <JsonEditor
-              messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={collaboration.response || {}}
-              template={channelCollab.responseTemplate?._id || ''}
+              template={template}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}
               title={'Response'}
@@ -398,8 +409,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
             />
             }
             {!isResponse && <JsonEditor
-              messageTemplates={templates}
-              template={channelCollab.newMessageTemplate?._id || ''}
+              template={template}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.message}
               storeNewValue={newMessageHandler}

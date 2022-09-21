@@ -15,11 +15,11 @@ import { expiredStorage } from '@serge/config'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messageContent, title, template, storeNewValue, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({ messageId, messageContent, title, template, storeNewValue, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  if (!messageTemplates[template]) {
+  if (!template) {
     const styles = {
       color: '#f00',
       background: '#ff0',
@@ -41,7 +41,7 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
     const jsonEditorConfig = disabled
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
-    const modSchema = configDateTimeLocal(messageTemplates[template].details, gameDate)
+    const modSchema = configDateTimeLocal(template.details, gameDate)
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema
