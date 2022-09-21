@@ -41,11 +41,12 @@ export const JsonEditor: React.FC<Props> = ({ messageTemplates, messageId, messa
     const jsonEditorConfig = disabled
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
-    const modSchema = configDateTimeLocal(messageTemplates[template].details, gameDate)
+
+    const details = messageTemplates[template].details
+    const modSchema = configDateTimeLocal(details, gameDate)
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema
-
     const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig)
 
     const changeListenter = (): void => {
