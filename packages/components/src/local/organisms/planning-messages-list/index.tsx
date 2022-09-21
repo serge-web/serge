@@ -35,7 +35,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
   const columns: Column[] = jestWorkerId ? [] : [
     { title: 'ID', field: 'id' },
     { title: 'Title', field: 'title' },
-    { title: 'Role', field: 'role' },
+    { title: 'Owner', field: 'role' },
     { title: 'Status', field: 'status' },
     { title: 'Start Date', field: 'startDate' },
     { title: 'Finish Date', field: 'endDate' }
