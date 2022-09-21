@@ -17,7 +17,8 @@ const NewMessage: React.FC<PropTypes> = ({
   selectedForce,
   selectedRole,
   selectedRoleName,
-  postBack
+  postBack,
+  customiseTemplate
 }) => {
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
@@ -97,6 +98,7 @@ const NewMessage: React.FC<PropTypes> = ({
           selectedRole={selectedRole}
           selectedRoleName={selectedRoleName}
           postBack={postBack}
+          customiseTemplate={customiseTemplate}
         />
       </Collapsible>
     </div>

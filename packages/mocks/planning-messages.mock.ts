@@ -31,7 +31,7 @@ export const planningMessages: MessagePlanning[] = [
       title: "Operation Bravo-12",
       Assets: [
         {
-          FEName: "Tank-A",
+          FEName: "Blue:4",
           Number: 1,
           StartDate: "13/05/2021",
           EndDate: "13/05/2021"

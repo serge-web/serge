@@ -45,4 +45,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /** whether to hide the forces in the channel
    */
   hideForcesInChannel: boolean
+  /**
+   * method to customise the new (or existing) message template
+   */
+  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
 }

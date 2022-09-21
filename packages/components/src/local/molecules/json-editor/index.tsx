@@ -15,7 +15,10 @@ import { expiredStorage } from '@serge/config'
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
-export const JsonEditor: React.FC<Props> = ({ messageId, messageContent, title, template, storeNewValue, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true }) => {
+export const JsonEditor: React.FC<Props> = ({
+  messageId, messageContent, title, template, storeNewValue,
+  customiseTemplate, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true
+}) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
@@ -42,10 +45,17 @@ export const JsonEditor: React.FC<Props> = ({ messageId, messageContent, title, 
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
+    // initialise date editors
     const modSchema = configDateTimeLocal(template.details, gameDate)
 
+    // apply any other template modifications
+    console.log('json editor', customiseTemplate)
+    const customizedSchema = customiseTemplate ? customiseTemplate(modSchema) : modSchema
+
+    console.log('schema', template.details, modSchema, customizedSchema)
+
     // if a title was supplied, replace the title in the schema
-    const schemaWithTitle = title ? { ...modSchema, title: title } : modSchema
+    const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
     const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig)
 
     const changeListenter = (): void => {

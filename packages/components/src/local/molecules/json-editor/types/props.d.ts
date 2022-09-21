@@ -40,4 +40,8 @@ export default interface Props {
   gameDate: string
   /** disable/enable Array tools with form */
   disableArrayToolsWithEditor?: boolean
+  /**
+   *  method to customize template, potentially filling any drop-downs
+   */
+  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
 }

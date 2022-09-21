@@ -4,7 +4,7 @@ import React from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import PropTypes, { OrderRow } from './types/props'
 
-export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, templates, gameDate }: PropTypes) => {
+export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, templates, gameDate, customiseTemplate }: PropTypes) => {
   // fix unit-test for MaterialTable, issue https://github.com/mbrn/material-table/issues/385
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
@@ -21,8 +21,10 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
         console.log('template not found for', message.details.messageType, 'templates:', templates)
       }
       if (message && template) {
+        console.log('orders', customiseTemplate)
         return <JsonEditor
           messageContent={message.message}
+          customiseTemplate={customiseTemplate}
           messageId={rowData.id}
           template={template}
           disabled={true}

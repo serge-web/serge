@@ -60,6 +60,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
     )
   }
 
+  const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
+    console.log('modify template')
+    const oldItems = schema.properties?.Assets?.items?.properties?.FEName?.enum
+    if (oldItems) {
+      schema.properties.Assets.items.properties.FEName.enum = ownForces.map((asset: Row) => asset.name)
+    }
+    console.log('modify it!', oldItems, schema.properties.Assets.items.properties.FEName.enum, schema)
+    return schema
+  }
+
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
     return (
       <div className={cx(styles['action-tab'], className)}>
@@ -148,6 +158,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     templates={templates}
+                    customiseTemplate={customiseTemplate}
                   />
                   <NewMessage
                     orderableChannel={true}
@@ -161,6 +172,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     currentTurn={currentTurn}
                     gameDate={gameDate}
                     postBack={postBack}
+                    customiseTemplate={customiseTemplate}
                   />
                 </div>
               }
