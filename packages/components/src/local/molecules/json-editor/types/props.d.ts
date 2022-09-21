@@ -1,4 +1,4 @@
-import { MessageCustom, MessageStructure, TemplateBodysByKey } from '@serge/custom-types'
+import { MessageCustom, MessageStructure } from '@serge/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
