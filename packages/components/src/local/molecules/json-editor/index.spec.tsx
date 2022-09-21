@@ -5,13 +5,13 @@ import JsonEditor from './index'
 
 import { MessageTemplatesMockByKey, messageDataCollaborativeEditing, WargameMock } from '@serge/mocks'
 const message = messageDataCollaborativeEditing[2]
+const template = MessageTemplatesMockByKey[message.messageType]
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(<JsonEditor
-        messageTemplates={MessageTemplatesMockByKey}
         messageContent={message.message}
-        template={message.messageType}
+        template={template}
         messageId={`${message._id}_${message.message.Reference}`}
         disabled={true}
         gameDate={WargameMock.data.overview.gameDate}

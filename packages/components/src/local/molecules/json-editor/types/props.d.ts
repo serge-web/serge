@@ -1,4 +1,4 @@
-import { MessageCustom, MessageStructure, TemplateBodysByKey } from '@serge/custom-types'
+import { MessageCustom, MessageStructure } from '@serge/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -17,15 +17,11 @@ export default interface Props {
   /**
    * template ID
    */
-  template: string
+  template: TemplateBody
   /**
    * title to display above the form
    */
   title?: string
-  /**
-   * dictionary of templates, indexed by template name
-   */
-  messageTemplates: TemplateBodysByKey
   /**
    * whether the form is editable (disable for read-only view)
    */

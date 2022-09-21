@@ -9,14 +9,6 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
-  // old JSON editor expects a template dictionary, collate it for him
-  const templatesByKey = {}
-  if (templates) {
-    for (const template of templates) {
-      templatesByKey[template._id] = template
-    }
-  }
-
   const extendProps = jestWorkerId ? {} : {
     detailPanel: (rowData: OrderRow): any => {
       // retrieve the message & template
@@ -30,10 +22,9 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
       }
       if (message && template) {
         return <JsonEditor
-          messageTemplates={templatesByKey}
           messageContent={message.message}
           messageId={rowData.id}
-          template={template._id}
+          template={template}
           disabled={true}
           gameDate={gameDate}
         />

@@ -1,6 +1,5 @@
 import { ChannelUI, MessageDetails } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
-import { noop } from 'lodash'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import NewMessage from './index'
@@ -45,12 +44,6 @@ export default {
   }
 }
 
-const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
-  return async (): Promise<void> => {
-    console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
-  }
-}
-
 interface StoryPropTypes {
   privateMessage: boolean
   orderableChannel: boolean
@@ -67,23 +60,22 @@ const Template: Story<StoryPropTypes> = (args) => {
       uniqid: c.uniqid
     } as ChannelUI
   })
+  const postBack = (details: MessageDetails, message: any): void => {
+    console.log('send message', details, message)
+  }
 
   return (<NewMessage
     templates={planningMessageTemplatesMock}
+    gameDate={P9Mock.data.overview.gameDate}
     privateMessage={privateMessage}
     orderableChannel={orderableChannel}
     channel={P9Mock.data.channels.channels[0]}
     confirmCancel={confirmCancel}
-    activityTimeChanel={noop}
     currentTurn={0}
-    currentWargame={P9Mock.name || 'dumb-name'}
-    gameDate={P9Mock.data.overview.gameDate}
-    saveMessage={saveMessage}
-    saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
     selectedForce={P9Mock.data.forces.forces[0]}
     selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
     selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
-    dispatch={noop}
+    postBack={postBack}
   />)
 }
 

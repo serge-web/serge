@@ -83,17 +83,14 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         saveMessage={saveMessage}
         saveNewActivityTimeMessage={saveNewActivityTimeMessage}
         dispatch={reduxDispatch}
-        state={state}
-        curChannel={channelId}
         currentWargame={currentWargame}
         isUmpire= {state.isUmpire}
         selectedRoleName= {state.selectedRoleName}
         selectedRoleId= {state.selectedRole}
-        selectedForce= {state.selectedForce}
+        selectedForce= {selectedForce}
         allForces= {state.allForces}
         gameDate= {state.gameDate}
         currentTurn= {state.currentTurn}
-      
       />
     </div>
   )
