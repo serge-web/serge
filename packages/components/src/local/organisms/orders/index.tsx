@@ -31,7 +31,7 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
       if (message && template) { 
         return <JsonEditor
           messageTemplates={templatesByKey}
-          messageContent={message}
+          messageContent={message.message}
           messageId={rowData.id}
           template={template._id}
           disabled={true}
