@@ -35,28 +35,28 @@ const storeNewValue = (value: { [property: string]: any }): void => {
   console.log('store data', value)
 }
 
-const Template: Story<Props> = ({ messageTemplates, messageId, disabled, template, messageContent }) => {
+const template = MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType]
+
+const Template: Story<Props> = ({ messageId, disabled, template, messageContent }) => {
   return (
-    <JsonEditor storeNewValue={storeNewValue} template={template} messageId={messageId} messageContent={messageContent} messageTemplates={messageTemplates} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
+    <JsonEditor storeNewValue={storeNewValue} template={template} messageId={messageId} messageContent={messageContent} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
   )
 }
 
 export const Standard = Template.bind({})
 Standard.args = {
   messageContent: messageDataCollaborativeEditing[0].message,
-  messageTemplates: MessageTemplatesMockByKey,
   messageId: 'id_1',
-  template: 'k16eedkk',
+  template: template,
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
 export const Response = Template.bind({})
 Response.args = {
-  template: 'k16eedkj',
+  template: messageDataCollaborativeResponding[0].details.messageType,
   messageContent: messageDataCollaborativeResponding[0].message,
   messageId: 'id_2ß',
-  messageTemplates: MessageTemplatesMockByKey,
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
 }

@@ -1,4 +1,4 @@
-import { MessagePlanning, TemplateBody } from '@serge/custom-types'
+import { MessagePlanning } from '@serge/custom-types'
 import MaterialTable from 'material-table'
 import React from 'react'
 import JsonEditor from '../../molecules/json-editor'
@@ -24,11 +24,14 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
       if (!message) {
         console.error('message not found, id:', rowData.id)
       }
+      const template = templatesByKey[message.details.messageType]
+      if (!template) {
+        console.error('template not found, id:', message.details.messageType)
+      }
       return message && <JsonEditor
-        messageTemplates={templatesByKey}
         messageContent={message}
         messageId={rowData.id}
-        template={templates.find((value: TemplateBody) => value.title === message.details.messageType)._id}
+        template={template}
         disabled={true}
         gameDate={gameDate}
       />

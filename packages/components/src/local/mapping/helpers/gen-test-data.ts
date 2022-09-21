@@ -27,7 +27,7 @@ const randomPointInPoly = (polygon: L.Polygon): any => {
   }
 }
 
-const doesIt = () => {
+const doesIt = (): boolean => {
   const probDetect = Math.floor(Math.random() * 100)
   return probDetect > 40
 }
