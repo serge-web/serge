@@ -275,7 +275,7 @@ const wargame: Wargame = {
                         "cellLabelsStyle": "x_y_labels",
                         "minZoom": 8,
                         "maxZoom": 17,
-                        "maxNativeZoom": 8
+                        "maxNativeZoom": 7
                     }
                 },
                 {

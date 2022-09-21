@@ -278,7 +278,9 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
+  const onlyOneStep = !underControlForce // if we can't control force, only ever allow one step of history.
+  // this is to prevent a player recognising a contact is the same as an earlier one.
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps || onlyOneStep) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
@@ -288,8 +290,6 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
   const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
-
-  const condition: string = asset.condition
 
   const laydownPhase = underControlRole
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
@@ -322,7 +322,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     original: cloneDeep(futureSteps),
     asset: asset,
     visibleTo: visibleTo,
-    condition: condition,
+    condition: asset.condition,
     adjudicationState: adjudicationState,
     attributes: asset.attributeValues || []
   }

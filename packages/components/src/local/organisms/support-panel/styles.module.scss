@@ -51,6 +51,7 @@
 .tab-panel {
   width: 100%;
   color: #000;
+  overflow-y: auto;
 }
 
 .panel {
@@ -84,4 +85,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.order-group {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: calc(100% - 20px);
+}
+
+.new-order-input {
+  background-color: #fff;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.select-template-title {
+  margin: 0 !important;
 }

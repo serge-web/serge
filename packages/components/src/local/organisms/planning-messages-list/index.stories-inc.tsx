@@ -41,15 +41,6 @@ export default {
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, playerRoleId, hideForcesInChannel } = args
-  const icons = [
-    './images/default_img/forceDefault.png'
-  ]
-  const colors = [
-    '#0F0'
-  ]
-  const names = [
-    'Blue'
-  ]
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -71,12 +62,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
   return <PlanningMessagesList
     messages={newestMessages}
     channel={planningChannel}
-    icons={icons}
     gameDate={P9Mock.data.overview.gameDate}
     playerForceId={playerForceId}
     playerRoleId={playerRoleId}
-    colors={colors}
-    names={names}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
     isUmpire={true}

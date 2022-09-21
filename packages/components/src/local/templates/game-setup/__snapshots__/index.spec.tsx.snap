@@ -269,9 +269,9 @@ exports[`GameSetup component: renders correctly 1`] = `
                 className="actions"
               >
                 <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13 MuiButton-containedSecondary"
+                  className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13 MuiButton-containedSecondary Mui-disabled Mui-disabled"
                   data-qa-type="save"
-                  disabled={false}
+                  disabled={true}
                   onBlur={[Function]}
                   onClick={[Function]}
                   onDragLeave={[Function]}
@@ -284,7 +284,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                   onTouchEnd={[Function]}
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
-                  tabIndex={0}
+                  tabIndex={-1}
                   type="button"
                 >
                   <span
@@ -296,7 +296,7 @@ exports[`GameSetup component: renders correctly 1`] = `
               </div>
             </div>
             <div>
-              Legacy/Unsupported channel type. Not rendered. Channel type: 
+              Channels empty. Please create a channel.
             </div>
           </div>
         </div>

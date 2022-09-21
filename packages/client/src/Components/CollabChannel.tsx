@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react'
-
-import NewMessage from './NewMessage'
-import {
-  getAllWargameMessages,
-  openMessage,
-  markAllAsRead,
-  markAllAsUnread,
-  saveMessage
-} from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
-import { useDispatch } from 'react-redux'
-import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
-import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
-import { CollabStatusBoard } from '@serge/components'
+import { CollabStatusBoard, NewMessage } from '@serge/components'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from '@serge/config'
-import '@serge/themes/App.scss'
+import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
 import { MessageSentInteraction, PlainInteraction } from '@serge/custom-types/player-log'
+import '@serge/themes/App.scss'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import {
+  getAllWargameMessages, markAllAsRead,
+  markAllAsUnread, openMessage, saveMessage
+} from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
@@ -59,8 +54,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     const { details } = nextMsg
     saveMessage(state.currentWargame, details, nextMsg.message)()
     const saveMessageInt: MessageSentInteraction = {
-      aType: MESSAGE_SENT_INTERACTION,
-      _id: nextMsg._id
+      aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
@@ -94,7 +88,15 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const observing = !!channelUI.observing
 
-  const isCollabEdit = channel.channelType === CHANNEL_COLLAB 
+  const isCollabEdit = channel.channelType === CHANNEL_COLLAB
+
+  const newActiveMessage = (roleId: string, activityMessage: string) => {
+    // we don't have a message id at this point, player has only opened empty template
+    const newMessage: PlainInteraction = {
+      aType: activityMessage
+    }
+    saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
+  }
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
@@ -121,11 +123,22 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       {
         canCreateMessages &&
         <NewMessage
+          activityTimeChanel={newActiveMessage}
           orderableChannel={true}
           curChannel={channelId}
           confirmCancel={isCollabEdit}
           privateMessage={!!selectedForce.umpire}
           templates={trimmedTemplates}
+          selectedRole={role}
+          channels={state.channels}
+          currentTurn={state.currentTurn}
+          currentWargame={state.currentWargame}
+          gameDate={state.gameDate}
+          cacheMessage={saveMessage}
+          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+          selectedForce={state.selectedForce}
+          selectedRoleName={state.selectedRoleName}
+          dispatch={dispatch}
         />
       }
     </div>

@@ -17,7 +17,8 @@ import {
   UPDATE_MARKER,
   CollaborativeMessageStates,
   COUNTER_MESSAGE,
-  DELETE_MARKER
+  DELETE_MARKER,
+  CLONE_MARKER
 } from '@serge/config'
 
 import Perception from './perception'
@@ -109,7 +110,9 @@ export interface CoreMessage {
   /** PouchDB revision for this document */
   _rev?: string
   /** admin detail for message */
-  readonly details: MessageDetails,
+  readonly details: MessageDetails
+  /** whether this message has been read on the current client */
+  hasBeenRead?: boolean
 }
 
 /** 
@@ -158,8 +161,6 @@ export interface MessageCustom extends CoreMessage {
   message: MessageStructure,
   /** whether this message is open/expanded on the current client */
   isOpen: boolean
-  /** whether this message has been read on the current client */
-  hasBeenRead: boolean
   /** the game turn when this was sent */
   gameTurn?: number,
   /** whether this represents an item of insight/feedback */
@@ -188,16 +189,12 @@ export interface MessageCounter {
 export interface ChatMessage extends CoreMessage {
   readonly messageType: typeof CHAT_MESSAGE,
   message: MessageStructure
-  /** whether this message has been read on the current client */
-  hasBeenRead?: boolean
 }
 
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
   message: PlanningMessageStructure
-  /** whether this message has been read on the current client */
-  hasBeenRead?: boolean
 }
 
 
@@ -302,6 +299,11 @@ export interface MessageDeleteMarker {
   readonly marker: MapAnnotation['uniqid']
 }
 
+export interface MessageCloneMarker {
+  readonly messageType: typeof CLONE_MARKER,
+  readonly marker: MapAnnotation
+}
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -312,7 +314,8 @@ export type MessageMap = MessageForceLaydown |
   MessageHostPlatform |
   MessageDeletePlatform |
   MessageUpdateMarker |
-  MessageDeleteMarker
+  MessageDeleteMarker |
+  MessageCloneMarker
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom

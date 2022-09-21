@@ -8,6 +8,8 @@ import { PlayerUi } from '@serge/custom-types'
 const playerUi: PlayerUi = {
   isGameControl: true,
   isUmpire: true,
+  logPlayerActivity: false,
+  hideForcesInChannels: false,
   infoMarkers: [],
   markerIcons: [],
   playerMessageLog: {},
@@ -79,7 +81,6 @@ const playerUi: PlayerUi = {
       channelType: 'ChannelCustom',
       participants: [
         {
-          force: 'Blue',
           forceUniqid: 'force-k16fdykj',
           pType: 'ParticipantCustom',
           roles: [],
@@ -100,7 +101,6 @@ const playerUi: PlayerUi = {
       uniqid: 'channel-k16fheej',
       participants: [
         {
-          force: 'Blue',
           forceUniqid: 'force-k16fdykj',
           pType: 'ParticipantCustom',
           roles: [],
@@ -114,7 +114,6 @@ const playerUi: PlayerUi = {
           subscriptionId: 'k16fhq4b'
         },
         {
-          force: 'White',
           forceUniqid: 'umpire',
           pType: 'ParticipantCustom',
           roles: [
@@ -137,7 +136,6 @@ const playerUi: PlayerUi = {
       channelType: 'ChannelCustom',
       participants: [
         {
-          force: 'White',
           pType: 'ParticipantCustom',
           forceUniqid: 'umpire',
           roles: [],
@@ -146,7 +144,6 @@ const playerUi: PlayerUi = {
           subscriptionId: 'k4cnwg1q'
         },
         {
-          force: 'Blue',
           pType: 'ParticipantCustom',
           forceUniqid: 'force-k16fdykj',
           roles: [],

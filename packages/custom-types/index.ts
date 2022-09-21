@@ -35,6 +35,8 @@ export { default as Message,
          MessageHostPlatform,
          MessageDeletePlatform,
          MessageUpdateMarker,
+         MessageCloneMarker,
+         MessageDeleteMarker,
          // System Messages
          MessageFeedback,
          MessageInfoType,
@@ -43,7 +45,8 @@ export { default as Message,
          MessageCustom,
          MessageChannel,
          ChatMessage,
-         MessageCounter
+         MessageCounter,
+         CoreMessage
        } from './message.d'
 export { default as PerceivedTypes } from './perceived-types.d'
 export { default as PlanMobileAsset, TurningDetails } from './plan-mobile-asset'

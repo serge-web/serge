@@ -6,11 +6,12 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-   postBack?: {(value: string): void}
+   postBack?: {(messageType: string): void}
   /**
    * The method for posting messages out of the component on text change
    */
-   onMessageChange?: {(value: string): void}
+   chatInputvalue: (value: string) => string
+   onMessageChange?: (value: string, messageType: string) => void
    /**
    * Container element ref
    */

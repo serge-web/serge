@@ -12,11 +12,13 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   return null
 }
 
+const privatValue = (value: string): string => value
+
 describe('PrivateChatInputToggle component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <PrivateChatInputToggle placeholder={'Enter your private message'} />,
+        <PrivateChatInputToggle privatValue={privatValue} placeholder={'Enter your private message'} />,
         { createNodeMock }
       )
       .toJSON()

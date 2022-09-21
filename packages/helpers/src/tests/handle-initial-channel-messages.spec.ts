@@ -12,7 +12,7 @@ const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chat
 const allForces: ForceData[] = forces
 const blueForce: ForceData = allForces[1]
 const allChannels: ChannelTypes[] = GameChannels2
-const selectedRole = allForces[1].roles[0].name
+const selectedRole = allForces[1].roles[0].roleId
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
 const playerMessageLog: PlayerMessageLog = {}
@@ -79,7 +79,7 @@ describe('handle new message into RFI channel', () => {
       }
     }
 
-    const res2: SetWargameMessage = handleNewMessageData(payload2, res.channels, res.chatChannel, playerMessageLog)
+    const res2: SetWargameMessage = handleNewMessageData(payload2, res.channels, res.chatChannel, playerMessageLog, selectedRole)
 
     const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()

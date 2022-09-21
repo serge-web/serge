@@ -23,20 +23,25 @@ describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<SupportPanel
-        forceIcons={[]}
-        gameDate={P9Mock.data.overview.gameDate}
         platformTypes={platformTypes}
-        forceNames={[]}
-        hideForcesInChannel={false}
+        allForces={P9Mock.data.forces.forces}
+        gameDate={P9Mock.data.overview.gameDate}
+        currentWargame={P9Mock.currentWargame || ''}
+        currentTurn={P9Mock.gameTurn}
         messages={planningMessages}
-        selectedForce={blueForce.uniqid}
-        selectedRole={blueRole.roleId}
         channel={planningChannel}
-        forces={forces}
         onUnread={noop}
         onReadAll={noop}
         onRead={noop}
         templates={myTemplates}
+        activityTimeChanel={noop}
+        dispatch={noop}
+        saveMessage={(): any => noop}
+        saveNewActivityTimeMessage={(): any => noop}
+        selectedForce={blueForce}
+        selectedRoleId={blueRole.roleId}
+        selectedRoleName={blueRole.name}
+        isUmpire={false}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

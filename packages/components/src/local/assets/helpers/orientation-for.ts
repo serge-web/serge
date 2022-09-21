@@ -1,7 +1,7 @@
 import { OrientationMarker } from '@serge/custom-types/platform-type-data'
 import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
-import { AttributeValue, AttributeValues, NumberAttributeValue, RouteTurn } from '@serge/custom-types'
-import { ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { AttributeValue, AttributeValues, EnumAttributeValue, NumberAttributeValue, RouteTurn } from '@serge/custom-types'
+import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
 /** Determine the orientation direction for this aset
  * @param {string} current - hex cell for current asset location
@@ -18,6 +18,9 @@ const orientationFor = (current: string, history: Array<RouteTurn>, planned: Arr
     if (attr && attr.attrType === ATTRIBUTE_VALUE_NUMBER) {
       const numAtt = attr as NumberAttributeValue
       return numAtt.value
+    } else if (attr && attr.attrType === ATTRIBUTE_VALUE_ENUM) {
+      const numAtt = attr as EnumAttributeValue
+      return parseFloat(numAtt.value)
     } else {
       return undefined
     }

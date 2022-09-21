@@ -1,4 +1,5 @@
 import { ChannelCore, ChannelTypes, ForceData, TemplateBody } from '@serge/custom-types'
+import { Item } from 'src/local/molecules/editable-list'
 import { Option } from 'src/local/molecules/editable-row'
 
 export default interface PropTypes {
@@ -9,8 +10,8 @@ export default interface PropTypes {
   onSave?: (channel: ChannelTypes) => void
   onSidebarClick?: (selectedChannel: ChannelTypes) => void
   onCreate?: (name: string, channel: ChannelCore) => void
-  onDelete?: () => void
-  onDuplicate?: () => void
+  onDelete?: (item: Item) => void
+  onDuplicate?: (item: Item) => void
   selectedChannel?: ChannelTypes
 }
 

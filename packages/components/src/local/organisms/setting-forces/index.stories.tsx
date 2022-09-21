@@ -20,6 +20,10 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
     }
   }
 }
@@ -40,14 +44,4 @@ export const Default: React.FC = () => {
   }
 
   return <SettingForces forces={data} onChange={onChange} onSave={onSave} platformTypes={platformTypesMock} onRejectedIcon={onRejectedIcon} />
-}
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-Default.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
 }
