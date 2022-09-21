@@ -20,18 +20,26 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
   const extendProps = jestWorkerId ? {} : {
     detailPanel: (rowData: OrderRow): any => {
       // retrieve the message & template
-      const message = messages.find((value: MessagePlanning) => value._id === rowData.id)
+      const message: MessagePlanning = messages.find((value: MessagePlanning) => value._id === rowData.id)
       if (!message) {
-        console.error('message not found, id:', rowData.id)
+        console.error('message not found, id:', rowData.id, 'messages:', messages)
       }
-      return message && <JsonEditor
-        messageTemplates={templatesByKey}
-        messageContent={message}
-        messageId={rowData.id}
-        template={templates.find((value: TemplateBody) => value.title === message.details.messageType)._id}
-        disabled={true}
-        gameDate={gameDate}
-      />
+      const template = templates.find((value: TemplateBody) => value.title === message.details.messageType)
+      if (!template) {
+        console.log('template not found for', message.details.messageType, 'templates:', templates)
+      }
+      if (message && template) { 
+        return <JsonEditor
+          messageTemplates={templatesByKey}
+          messageContent={message}
+          messageId={rowData.id}
+          template={template._id}
+          disabled={true}
+          gameDate={gameDate}
+          /> 
+      } else {
+        return <div>Template not found for {message.details.messageType}</div>        
+      }
     }
   }
 

@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 // Import component files
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
-import { P9Mock, planningMessages } from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -63,6 +63,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     messages={newestMessages}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}
+    templates={planningMessageTemplatesMock}
     playerForceId={playerForceId}
     playerRoleId={playerRoleId}
     onMarkAllAsRead={markAllAsRead}
@@ -73,7 +74,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
 }
 
 const blueForce = P9Mock.data.forces.forces[0]
-const blueRole = blueForce.roles[1]
+const blueRole = blueForce.roles[0]
 
 export const Default = Template.bind({})
 Default.args = {
