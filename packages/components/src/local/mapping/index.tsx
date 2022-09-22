@@ -67,7 +67,7 @@ import styles from './styles.module.scss'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
-import generateTestData from './helpers/gen-test-data'
+import generateTestData from './helpers/gen-test-mapping-data'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })

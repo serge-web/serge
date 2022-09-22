@@ -578,15 +578,18 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         reference: {
           type: "string",
           title: "Reference (sys generated)",
-          readonly: "readonly"
+          readonly: "readonly",
+          propertyOrder: 10
         },
         Title: {
-          type: "string"
+          type: "string",
+          propertyOrder: 20
         },
         startDate: {
           format: "datetime-local",
           type: "string",
           title: "Start date",
+          propertyOrder: 30,
           options: {
             flatpickr: {
               wrap: false,
@@ -598,6 +601,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         endDate: {
           format: "datetime-local",
           type: "string",
+          propertyOrder: 40,
           title: "End date",
           options: {
             flatpickr: {
@@ -609,11 +613,13 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         },
         Description: {
           format: "textarea",
+          propertyOrder: 50,
           type: "string"
         },
         Location: {
           format: "textarea",
           type: "string",
+          propertyOrder: 60,
           enum: [
             "Point-A",
             "Point-B",
@@ -629,12 +635,14 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "Kinetic",
             "Asymmetric"
           ],
-          type: "string"
+          type: "string",
+          propertyOrder: 70
         },
         Assets: {
           type: "array",
           format: "table",
           minItems: 1,
+          propertyOrder: 80,
           title: "Own Assets",
           items: {
             type: "object",
@@ -684,6 +692,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         },
         Targets: {
           type: "array",
+          propertyOrder: 90,
           format: "table",
           minItems: 1,
           title: "Subject(s) of orders",

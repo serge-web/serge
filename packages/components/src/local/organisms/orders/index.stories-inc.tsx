@@ -36,7 +36,7 @@ Default.args = {
     { title: 'ID', field: '_id' },
     { title: 'Title', field: 'title' },
     { title: 'Role', field: 'role' },
-    { title: 'Status', field: 'status' },
+    { title: 'Activity', field: 'activity' },
     { title: 'Start Date', field: 'startDate' },
     { title: 'Finish Date', field: 'endDate' }
   ],
@@ -44,7 +44,7 @@ Default.args = {
     id: planningMessages[0]._id,
     title: 'Title 1',
     role: 'Role 1',
-    status: 'Read',
+    activity: 'Read',
     startDate: new Date().toISOString(),
     endDate: new Date().toISOString()
   },
@@ -52,7 +52,7 @@ Default.args = {
     id: planningMessages[1]._id,
     title: 'Title 2',
     role: 'Role 2',
-    status: 'UnRead',
+    activity: 'UnRead',
     startDate: new Date().toISOString(),
     endDate: new Date().toISOString()
   }]
