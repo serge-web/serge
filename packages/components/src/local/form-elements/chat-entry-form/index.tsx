@@ -35,7 +35,6 @@ export const ChatEntryForm: React.FC<Props> = ({
   const timestamp = new Date().toISOString()
 
   const submitForm = (type: string): void => {
-
     if (!message) return
     const details: MessageDetails = {
       channel: channel,
@@ -62,7 +61,7 @@ export const ChatEntryForm: React.FC<Props> = ({
       messages.forEach((msg: MessagePlanning) => {
         console.log('sending', msg._id)
         postBack && postBack(msg.details, msg.message)
-      })  
+      })
     } else {
       postBack && postBack(details, contents)
     }
