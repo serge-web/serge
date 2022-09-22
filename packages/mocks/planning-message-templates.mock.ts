@@ -575,9 +575,37 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     details: {
       format: "grid",
       properties: {
-        Date: {
-          format: "datetime-local",
+        reference: {
+          type: "string",
+          title: "Reference (sys generated)",
+          readonly: "readonly"
+        },
+        Title: {
           type: "string"
+        },
+        startDate: {
+          format: "datetime-local",
+          type: "string",
+          title: "Start date",
+          options: {
+            flatpickr: {
+              wrap: false,
+              time_24hr: true,
+              dateFormat: "d/m/Y"
+            }
+          }
+        },
+        endDate: {
+          format: "datetime-local",
+          type: "string",
+          title: "End date",
+          options: {
+            flatpickr: {
+              wrap: false,
+              time_24hr: true,
+              dateFormat: "d/m/Y"
+            }
+          }
         },
         Description: {
           format: "textarea",
@@ -595,15 +623,12 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "Polyline-B"
           ]
         },
-        Status: {
+        ActivityType: {
           enum: [
-            "Minor",
-            "Major",
-            "Critical"
+            "Transit",
+            "Kinetic",
+            "Asymmetric"
           ],
-          type: "string"
-        },
-        title: {
           type: "string"
         },
         Assets: {
