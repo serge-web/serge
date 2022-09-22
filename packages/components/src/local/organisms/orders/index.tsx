@@ -21,7 +21,6 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
         console.log('template not found for', message.details.messageType, 'templates:', templates)
       }
       if (message && template) {
-        console.log('orders', customiseTemplate)
         return <JsonEditor
           messageContent={message.message}
           customiseTemplate={customiseTemplate}
