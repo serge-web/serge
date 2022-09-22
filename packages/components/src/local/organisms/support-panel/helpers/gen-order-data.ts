@@ -66,7 +66,7 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
     const thisForce = forces.find((force: ForceData) => force.uniqid === forceId)
     const opAssets: PerceivedTypes[] = []
     forces.forEach((force: ForceData) => {
-      if (force.uniqid != forceId) {
+      if (force.uniqid !== forceId) {
         if (force.assets) {
           force.assets.forEach((asset: Asset) => {
             const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
@@ -87,10 +87,10 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
     })
     return {
       forceId: forceId,
-      forceName: thisForce && thisForce.name || '',
-      forceColor: thisForce && thisForce.color || '',
+      forceName: (thisForce && thisForce.name) || '',
+      forceColor: (thisForce && thisForce.color) || '',
       roles: thisForce ? thisForce.roles : [],
-      ownAssets: thisForce && thisForce.assets || [],
+      ownAssets: (thisForce && thisForce.assets) || [],
       opAsset: opAssets
     }
   })
@@ -135,9 +135,9 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
   // assets
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
-  for (var k = 0; k < numAssets; k++) {
-    var possAsset = randomArrayItem(force.ownAssets, ctr + 3)
-    var ctr2 = ctr
+  for (let k = 0; k < numAssets; k++) {
+    let possAsset = randomArrayItem(force.ownAssets, ctr + 3)
+    let ctr2 = ctr
     while (assets.includes(possAsset)) {
       possAsset = randomArrayItem(force.ownAssets, ++ctr2)
     }
@@ -155,13 +155,13 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
 
   const numTargets = randomArrayItem([1, 2, 3], ctr * 1.4)
   const targets: PerceivedTypes[] = []
-  for (var k = 0; k < numTargets; k++) {
-    var possAsset = randomArrayItem(force.opAsset, ctr + 3)
-    var ctr2 = ctr
-    while (targets.includes(possAsset)) {
-      possAsset = randomArrayItem(force.opAsset, ++ctr2)
+  for (let m = 0; m < numTargets; m++) {
+    let possTarget = randomArrayItem(force.opAsset, m + 3)
+    let ctr2 = ctr
+    while (targets.includes(possTarget)) {
+      possTarget = randomArrayItem(force.opAsset, ++ctr2)
     }
-    targets.push(possAsset)
+    targets.push(possTarget)
   }
   const targetObj = targets.map((per: PerceivedTypes, index: number) => {
     return {
