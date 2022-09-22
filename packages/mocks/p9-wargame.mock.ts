@@ -2877,6 +2877,24 @@ const game: Wargame = {
           ],
           "umpire": false,
           "uniqid": "F-Green"
+        },
+        {
+          "color": "#0FF",
+          "dirty": false,
+          "iconURL": "default_img/umpireDefault.png",
+          "name": "Rainbow",
+          "overview": "Rainbow Umpires",
+          "roles": [
+            {
+              "isGameControl": false,
+              "isInsightViewer": false,
+              "isObserver": true,
+              "name": "Lead Analyst",
+              "roleId": "rainbow-LA"
+            }
+          ],
+          "umpire": true,
+          "uniqid": "F-Rainbow"
         }
       ],
       "name": "Forces",
