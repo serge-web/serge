@@ -17,4 +17,6 @@ export default interface PropTypes {
    postBack: { (details: MessageDetails, message: any): void }
   channel: ChannelTypes
   gameDate: string
+  /** method to customise the new (or existing) message template */
+  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
 }

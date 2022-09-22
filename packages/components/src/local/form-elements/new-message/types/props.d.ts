@@ -11,6 +11,8 @@ export default interface PropTypes {
   currentTurn: number
   gameDate: string
   channel: ChannelTypes
+  /** method to customise new (or existing) message template */
+  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
   /**
    * The method for posting messages out of the component
    */

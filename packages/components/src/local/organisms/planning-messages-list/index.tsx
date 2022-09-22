@@ -6,7 +6,7 @@ import { OrderRow } from '../orders/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, gameDate }: PropTypes) => {
+export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, gameDate, customiseTemplate }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
 
   /** custom date formatter, for compact date/time display */
@@ -35,7 +35,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
   const columns: Column[] = jestWorkerId ? [] : [
     { title: 'ID', field: 'id' },
     { title: 'Title', field: 'title' },
-    { title: 'Role', field: 'role' },
+    { title: 'Owner', field: 'role' },
     { title: 'Status', field: 'status' },
     { title: 'Start Date', field: 'startDate' },
     { title: 'Finish Date', field: 'endDate' }
@@ -43,7 +43,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
 
   return (
     <div className={styles['messages-list']}>
-      <Orders messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
+      <Orders customiseTemplate={customiseTemplate} messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
     </div>
   )
 }

@@ -10,88 +10,47 @@ export const planningMessages: MessagePlanning[] = [
   {
     messageType: PLANNING_MESSAGE,
     details: {
-      channel: 'channel-BlueRFI',
-      archived: true,
+      channel: "channel-blue-planning",
       from: {
-        force: 'Blue',
-        forceColor: '#00F',
-        iconURL: 'default_img/umpireDefault.png',
-        roleName: blueCO.name,
-        roleId: blueCO.roleId
+        force: "Blue",
+        forceColor: "#00F",
+        roleName: "Mar-1",
+        roleId: "rk116f5e",
+        iconURL: "default_img/umpireDefault.png"
       },
-      messageType: 'COA',
-      timestamp: '2020-10-13T08:54:21.119Z',
-      privateMessage: 'Private part of COA 3',
-      collaboration: {
-        lastUpdated: "2020-03-25T15:08:47.540Z",
-        owner: { forceId: 'f-1', forceName: 'Red', roleId: 'R2343', roleName: 'Comms' },
-        status: CollaborativeMessageStates.Released,
-        response: {
-          content: 'Response to RFI 3'
-        }
-      },
-      turnNumber: 1
+      messageType: "Land Activity",
+      timestamp: "2022-09-21T13:15:09.106Z",
+      turnNumber: 6
     },
     message: {
-      reference: 'Blue-3',
-      title: "Blue-3 Trusted Taipir, owned by Red Comms",
-      LOCATION: {
-        Asia: [
-          {
-            "Country": "India"
-          }
-        ],
-        Europe: [
-          {
-            "Country": "France"
-          }
-        ]
-      },
-      PRESCRIPTED: true,
-      VISIBILITY: "Overt",
-      COA_SUPPORTS_AS: true,
-      TARGET: "kdjg;sd lfjk s;lfkgj ",
-      STRAT_COMMS: "kdjg;sd lfjk s;lfkgj ",
-      OBJECTIVES_TURN: "kdjg;sd lfjk s;lfkgj ",
-      OBJECTIVES_OVERALL: "kdjg;sd lfjk s;lfkgj ",
-      TARGET_CENTRE_OF_GRAVITY: "kdjg;sd lfjk s;lfkgj ",
-      DESIRED_ENDSTATE_TURN: "kdjg;sd lfjk s;lfkgj ",
-      DESIRED_ENDSTATE_OVERALL: "kdjg;sd lfjk s;lfkgj ",
-      EFFECTS_AND_ACTIONS: "kdjg;sd lfjk s;lfkgj ",
-      SEQUENCING_AND_PHASES: "kdjg;sd lfjk s;lfkgj ",
-      ADVERSARY_UNDERSTANDING: "kdjg;sd lfjk s;lfkgj ",
-      ADVERSARY_REACTION_COUNTER_ACTION: {
-        ADVERSARY_MLCOA: "kdjg;sd lfjk s;lfkgj ",
-        MLCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj ",
-        ADVERSARY_MDCOA: "kdjg;sd lfjk s;lfkgj ",
-        MDCOA_RESPONSE: "kdjg;sd lfjk s;lfkgj "
-      },
-      ORBAT: [
+      reference: "Blue-12",
+      Date: "13/05/2021 16:12",
+      Description: "More land operations",
+      Location: "Region-A",
+      Status: "Minor",
+      title: "Operation Bravo-12",
+      Assets: [
         {
-          FEName: "Tank",
-          Readiness: "Level-1",
-          Number: 12,
-          StartDate: "20/08/2021",
-          EndDate: "20/08/2021"
+          FEName: "Blue:4",
+          Number: 1,
+          StartDate: "13/05/2021",
+          EndDate: "14/05/2021"
+        },
+        {
+          FEName: "Blue:13",
+          Number: 4,
+          StartDate: "13/05/2021",
+          EndDate: "14/05/2021"
         }
       ],
-      TIMINGS: {
-        START_PLANNING: "20/08/2021",
-        START_DEPLOYMENT: "20/08/2021",
-        START_OPERATION: "20/08/2021",
-        END_OPERATION: "20/08/2021",
-        END_RECOVERY: "20/08/2021"
-      },
-      CONTINUES_INTO_NEXT_TURN: true,
-      DEPENDENCIES: "kdjg;sd lfjk s;lfkgj ",
-      AdjudicationSupport: [
-        "Influence",
-        "Logistics"
-      ],
-      PEER_REVIEW: "kdjg;sd lfjk s;lfkgj ",
-      INSIGHT: "kdjg;sd lfjk s;lfkgj "
+      Targets: [
+        {
+          FEName: "Red Force:3",
+          Number: 4
+        }
+      ]
     },
-    _id: 'id_3a',
+    _id: 'idp_3a',
     _rev: '2',
     hasBeenRead: false
   },
@@ -113,7 +72,7 @@ export const planningMessages: MessagePlanning[] = [
         lastUpdated: "2020-03-25T15:08:47.540Z",
         status: CollaborativeMessageStates.Closed,
         response: {
-          content:  'Didn\'t bother responding'
+          content: 'Didn\'t bother responding'
         }
       },
       turnNumber: 1
@@ -180,7 +139,7 @@ export const planningMessages: MessagePlanning[] = [
       INSIGHT: "kdjg;sd lfjk s;lfkgj "
     },
     _rev: '1',
-    _id: 'id_4',
+    _id: 'idp_4',
     hasBeenRead: false
   },
   {

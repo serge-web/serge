@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, Role } from '@serge/custom-types'
+import { Asset, ForceData, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { Row } from '../types/props'
@@ -9,37 +9,64 @@ import styles from '../styles.module.scss'
 
 type SummaryData = {
   roles: {}
+  platformTypes: {}
   statuses: string[]
   conditions: string[]
   forces: string[]
 }
 
-export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'], opFor: boolean): SummaryData => {
+const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
+  platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>) => {
+  if (!platformTypesDict[pType]) {
+    const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
+    if (thisP) {
+      platformTypesDict[pType] = thisP.name
+    } else {
+      if (pType === UNKNOWN_TYPE) {
+        platformTypesDict[UNKNOWN_TYPE] = UNKNOWN_TYPE
+      } else {
+        console.error('Platform type not found', pType, UNKNOWN_TYPE, platformStyles)
+      }
+    }
+  }
+}
+
+export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'],
+  opFor: boolean, platformStyles: PlatformStyle[]): SummaryData => {
   const roleDict: {} = {}
+  const platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']> = {}
   const statuses: string[] = []
   const conditions: string[] = []
   const forcesNames: string[] = []
+  const isUmpireForce = forces.find((force: ForceData) => force.uniqid === playerForce && force.umpire)
   forces.forEach((force: ForceData) => {
     if (opFor) {
       const visibleToThisForce = (force.visibleTo && force.visibleTo.includes(playerForce)) || force.uniqid === playerForce
-      force.assets && force.assets.forEach((asset: Asset) => {
-        const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, force.uniqid, asset.platformTypeId || '', asset.perceptions)
-        if (perception) {
-          // we can perceive this force, capture the name
-          if (!forcesNames.includes(force.name)) {
-            forcesNames.push(force.name)
-          }
-          if (perception.condition) {
-            const condition = perception.condition
-            if (!conditions.includes(condition)) {
-              conditions.push(condition)
+      // only produce for other forces
+      if (force.uniqid !== playerForce) {
+        force.assets && force.assets.forEach((asset: Asset) => {
+          const perception: PerceivedTypes | null = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, force.uniqid, asset.platformTypeId || '', asset.perceptions)
+          if (perception) {
+            // we can perceive this force, capture the name
+            if (!forcesNames.includes(force.name)) {
+              forcesNames.push(force.name)
+            }
+            if (perception.condition) {
+              const condition = perception.condition
+              if (!conditions.includes(condition)) {
+                conditions.push(condition)
+              }
+            }
+            if (perception.typeId) {
+              const pType = perception.typeId
+              storePlatformType(pType, platformStyles, platformTypesDict)
             }
           }
-        }
-      })
+        })
+      }
     } else {
-      // we store roles for own force
-      if ((force.uniqid === playerForce)) {
+      // we store roles for own force, or all for an umpire
+      if (isUmpireForce || (force.uniqid === playerForce)) {
         force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
         force.assets && force.assets.forEach((asset: Asset) => {
           if (asset.status) {
@@ -53,12 +80,14 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               conditions.push(asset.condition)
             }
           }
+          storePlatformType(asset.platformTypeId, platformStyles, platformTypesDict)
         })
       }
     }
   })
   const res: SummaryData = {
     roles: roleDict,
+    platformTypes: platformTypesDict,
     conditions: conditions,
     statuses: statuses,
     forces: forcesNames
@@ -72,8 +101,8 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
  * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid']): Column[] => {
-  const summaryData = getColumnSummary(forces, playerForce, opFor)
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column[] => {
+  const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const renderIcon = (row: Row): React.ReactElement => {
     if (!row.icon) return <></>
     const icons = row.icon.split(',')
@@ -84,6 +113,14 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   }
   const renderOwner = (row: Row): React.ReactElement => {
     const match = row.owner && summaryData.roles[row.owner]
+    if (match) {
+      return <>{match}</>
+    } else {
+      return <></>
+    }
+  }
+  const renderPlatformType = (row: Row): React.ReactElement => {
+    const match = row.platformType && summaryData.platformTypes[row.platformType]
     if (match) {
       return <>{match}</>
     } else {
@@ -106,6 +143,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   const columns: Column[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
+    { title: 'Type', field: 'platformType', render: renderPlatformType, lookup: summaryData.platformTypes },
     { title: 'Condition', field: 'condition', lookup: arrToDict(summaryData.conditions) },
     { title: 'Status', field: 'status', lookup: arrToDict(summaryData.statuses) },
     { title: 'Owner', field: 'owner', render: renderOwner, lookup: summaryData.roles }
@@ -119,7 +157,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   // don't show owner or state for OpFor assets
   if (opFor) {
-    columns.splice(3, 2)
+    columns.splice(4, 2)
   }
 
   return columns

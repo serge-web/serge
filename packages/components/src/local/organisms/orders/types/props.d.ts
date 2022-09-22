@@ -14,4 +14,7 @@ export default interface PropTypes {
   templates: TemplateBody[]
   messages: MessagePlanning[]
   gameDate: string
-}
+  /**
+   * method to customise the new (or existing) message template
+   */
+  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}}

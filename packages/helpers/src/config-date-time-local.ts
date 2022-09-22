@@ -4,7 +4,7 @@ import deepCopy from './deep-copy'
 /**
  * helper function to render default Datetime or Date or Time props of json
  */
-const configCommonProps = (prop: any, gameDate: string) => {
+const configCommonProps = (prop: Record<string, unknown>, gameDate: string): Record<string, unknown> => {
   switch (prop.format) {
     case 'datetime-local':
       prop.default = moment(gameDate).format('DD/MM/YYYY HH:mm')
@@ -43,7 +43,7 @@ const configCommonProps = (prop: any, gameDate: string) => {
 /**
  * Render Default datetime entries in template of json for type datetime-local
  */
-const configDateTimeLocal = (schema: any, gameDate: string) => {
+const configDateTimeLocal = (schema: Record<string, any>, gameDate: string): Record<string, any> => {
   // debugger
   if (!schema || !schema.properties) {
     return schema
@@ -52,18 +52,20 @@ const configDateTimeLocal = (schema: any, gameDate: string) => {
   const modSchema = deepCopy(schema)
   modSchema.properties = {}
 
-  Object.keys(schema.properties).forEach(key => {
-    let prop = schema.properties[key]
-    prop = configCommonProps(prop, gameDate)
-    // recursive check on props
-    const recProp = configDateTimeLocal(prop.items || prop, gameDate)
-    if (prop.items) {
-      prop.items = recProp
-      modSchema.properties[key] = prop
-    } else {
-      modSchema.properties[key] = recProp
-    }
-  })
+  if (schema.properties) {
+    Object.keys(schema.properties).forEach(key => {
+      let prop = schema.properties[key]
+      prop = configCommonProps(prop, gameDate)
+      // recursive check on props
+      const recProp = configDateTimeLocal(prop.items || prop, gameDate)
+      if (prop.items) {
+        prop.items = recProp
+        modSchema.properties[key] = prop
+      } else {
+        modSchema.properties[key] = recProp
+      }
+    })
+  }
   return modSchema
 }
 
