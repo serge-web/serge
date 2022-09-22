@@ -119,8 +119,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     console.log('=> opForces update: ', opForces && opForces.length, 'items')
   }, [opForces])
-   
-  // Note: utility tool to generate random orders 
+
+  // Note: utility tool to generate random orders
   // const dummyOrders = randomOrdersDocs(45, allForces, [allForces[1].uniqid, allForces[2].uniqid])
   // console.log(dummyOrders)
 

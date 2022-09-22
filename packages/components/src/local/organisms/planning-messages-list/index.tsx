@@ -12,9 +12,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
-    setMyMessages(messages.filter((message:MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId))
+    setMyMessages(messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId))
   }, [messages, playerForceId])
-
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -43,7 +42,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
   const columns: Column[] = jestWorkerId ? [] : [
     { title: 'ID', field: 'id' },
     { title: 'Title', field: 'title' },
-    { title: 'Force', field: 'force'},
+    { title: 'Force', field: 'force' },
     { title: 'Owner', field: 'role' },
     { title: 'Activity', field: 'activity' },
     { title: 'Start Date', field: 'startDate' },

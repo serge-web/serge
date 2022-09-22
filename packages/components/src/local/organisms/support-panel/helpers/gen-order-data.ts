@@ -1,55 +1,55 @@
-import { PLANNING_MESSAGE } from "@serge/config"
-import { Asset, ForceData, MessageDetails, MessageDetailsFrom, MessagePlanning, PerceivedTypes, Role } from "@serge/custom-types"
-import { PlanningMessageStructure } from "@serge/custom-types/message"
-import { findPerceivedAsTypes } from "@serge/helpers"
-import moment from "moment-timezone"
+import { PLANNING_MESSAGE } from '@serge/config'
+import { Asset, ForceData, MessageDetails, MessageDetailsFrom, MessagePlanning, PerceivedTypes, Role } from '@serge/custom-types'
+import { PlanningMessageStructure } from '@serge/custom-types/message'
+import { findPerceivedAsTypes } from '@serge/helpers'
+import moment from 'moment-timezone'
 
-const sample: MessagePlanning =  {
+const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,
   details: {
-    channel: "channel-blue-planning",
+    channel: 'channel-blue-planning',
     from: {
-      force: "Blue",
-      forceColor: "#00F",
-      roleName: "Mar-1",
-      roleId: "rk116f5e",
-      iconURL: "default_img/umpireDefault.png"
+      force: 'Blue',
+      forceColor: '#00F',
+      roleName: 'Mar-1',
+      roleId: 'rk116f5e',
+      iconURL: 'default_img/umpireDefault.png'
     },
-    messageType: "Land Activity",
-    timestamp: "2022-09-21T13:15:09.106Z",
+    messageType: 'Land Activity',
+    timestamp: '2022-09-21T13:15:09.106Z',
     turnNumber: 6
   },
   message: {
-    reference: "Blue-12",
-    Date: "13/05/2021 16:12",
-    Description: "More land operations",
-    Location: "Region-A",
-    Status: "Minor",
-    title: "Operation Bravo-12",
+    reference: 'Blue-12',
+    Date: '13/05/2021 16:12',
+    Description: 'More land operations',
+    Location: 'Region-A',
+    Status: 'Minor',
+    title: 'Operation Bravo-12',
     Assets: [
       {
-        FEName: "Blue:4",
+        FEName: 'Blue:4',
         Number: 1,
-        StartDate: "13/05/2021",
-        EndDate: "14/05/2021"
+        StartDate: '13/05/2021',
+        EndDate: '14/05/2021'
       },
       {
-        FEName: "Blue:13",
+        FEName: 'Blue:13',
         Number: 4,
-        StartDate: "13/05/2021",
-        EndDate: "14/05/2021"
+        StartDate: '13/05/2021',
+        EndDate: '14/05/2021'
       }
     ],
     Targets: [
       {
-        FEName: "Red Force:3",
+        FEName: 'Red Force:3',
         Number: 4
       }
     ]
   },
   hasBeenRead: false,
   _id: 'idp_3a',
-  _rev: '2',
+  _rev: '2'
 }
 
 interface PerForceData {
@@ -78,7 +78,7 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
               asset.platformTypeId,
               asset.perceptions
             )
-            if(perceivedAsTypes) {
+            if (perceivedAsTypes) {
               opAssets.push(perceivedAsTypes)
             }
           })
@@ -98,7 +98,7 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
 }
 
 const psora = (k: number): number => {
-  var r = Math.PI * (k ^ 4)
+  const r = Math.PI * (k ^ 4)
   return r - Math.floor(r)
 }
 
@@ -110,12 +110,11 @@ const randomRole = (roles: Role[], ctr: number): Role => {
   return randomArrayItem(roles, ctr) as Role
 }
 
-const activityTypes = ["Transit", "Kinetic", "Asymmetric"]
+const activityTypes = ['Transit', 'Kinetic', 'Asymmetric']
 
-const locations = [ "Point-A", "Point-B", "Region-A", "Region-B", "Polyline-A", "Polyline-B"]
+const locations = ['Point-A', 'Point-B', 'Region-A', 'Region-B', 'Polyline-A', 'Polyline-B']
 
 const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
-
   // details first
   const from = randomRole(force.roles, ctr)
   const fromD: MessageDetailsFrom = {
@@ -129,14 +128,14 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
   const details: MessageDetails = {
     channel: sample.details.channel,
     from: fromD,
-    messageType: "Land Activity",
-    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr+2) * 200, 'h').toISOString(),
+    messageType: 'Land Activity',
+    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
     turnNumber: 3
   }
   // assets
-  const numAssets = randomArrayItem([1,2,3,4], ctr + 5)
+  const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
-  for(var k=0;k<numAssets;k++) {
+  for (var k = 0; k < numAssets; k++) {
     var possAsset = randomArrayItem(force.ownAssets, ctr + 3)
     var ctr2 = ctr
     while (assets.includes(possAsset)) {
@@ -145,18 +144,18 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
     assets.push(possAsset)
   }
   const assetObj = assets.map((asset: Asset, index: number) => {
-    const startDate = moment('2022-09-21T00:00:00.000Z').add(psora(index+2) * 5, 'h').startOf('hour').toISOString()
+    const startDate = moment('2022-09-21T00:00:00.000Z').add(psora(index + 2) * 5, 'h').startOf('hour').toISOString()
     return {
       FEName: asset.name,
       Number: Math.floor(psora(index) * 5),
       StartDate: startDate,
-      EndDate: moment(startDate).add(Math.floor(psora(index+2) * 19), 'h').toISOString()
+      EndDate: moment(startDate).add(Math.floor(psora(index + 2) * 19), 'h').toISOString()
     }
   })
 
-  const numTargets = randomArrayItem([1,2,3], ctr * 1.4)
+  const numTargets = randomArrayItem([1, 2, 3], ctr * 1.4)
   const targets: PerceivedTypes[] = []
-  for(var k=0;k<numTargets;k++) {
+  for (var k = 0; k < numTargets; k++) {
     var possAsset = randomArrayItem(force.opAsset, ctr + 3)
     var ctr2 = ctr
     while (targets.includes(possAsset)) {
@@ -167,7 +166,7 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
   const targetObj = targets.map((per: PerceivedTypes, index: number) => {
     return {
       FEName: per.name,
-      Number: 1 + Math.floor(psora(ctr + index ))
+      Number: 1 + Math.floor(psora(ctr + index))
     }
   })
 
@@ -177,7 +176,7 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
     reference: force.forceName + '-' + ctr,
     title: 'Order item ' + ctr + ' ' + activity,
     startDate: startDate,
-    endDate: moment(startDate).add(Math.floor(psora(ctr*2) * 19), 'h').toISOString(),
+    endDate: moment(startDate).add(Math.floor(psora(ctr * 2) * 19), 'h').toISOString(),
     Description: 'Order description ' + ctr,
     Location: randomArrayItem(locations, ctr + 8),
     ActivityType: activity,
@@ -185,15 +184,15 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
     Targets: targetObj
   }
 
-  return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr}
+  return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
 export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
-  for (let i=0;i<count;i++) {
+  for (let i = 0; i < count; i++) {
     const authorForce: PerForceData = randomArrayItem(perForce, i)
-    res.push(createMessage(authorForce, i+3))
+    res.push(createMessage(authorForce, i + 3))
   }
   return res
 }

@@ -1,11 +1,10 @@
-import { randomOrdersDocs } from "./gen-order-data"
+import { randomOrdersDocs } from './gen-order-data'
 
 import { P9Mock } from '@serge/mocks'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
-
 
 it('produces order data', () => {
   const numOrders = 20
