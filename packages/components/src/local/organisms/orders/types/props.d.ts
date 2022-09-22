@@ -2,7 +2,7 @@ export type OrderRow = {
   id: string
   title: string
   role: string
-  status: string
+  activity: string
   startDate: string
   endDate: string
 }

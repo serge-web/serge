@@ -3,13 +3,14 @@ import { Box } from '@material-ui/core'
 
 /* Import Types */
 import Props from './types/props'
-import { MessageDetails } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 import ChatInputText from '../chat-input-text'
 import PrivateChatInputToggle from '../private-chat-input-toggle'
+import { dummyMessages } from '../../organisms/support-panel/helpers/dummy_messages'
 
 /* Render component */
 export const ChatEntryForm: React.FC<Props> = ({
@@ -51,6 +52,18 @@ export const ChatEntryForm: React.FC<Props> = ({
     }
     const contents = {
       content: message
+    }
+
+    // NOTE: utility to send bulk messages into backend
+    const sendBulk = false
+    if (sendBulk) {
+      const messages: MessagePlanning[] = dummyMessages
+      messages.forEach((msg: MessagePlanning) => {
+        console.log('sending', msg._id)
+        postBack && postBack(msg.details, msg.message)
+      })
+    } else {
+      postBack && postBack(details, contents)
     }
 
     postBack && postBack(details, contents)

@@ -113,12 +113,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('=> ownForces: ', ownForces)
+    console.log('=> ownForces update: ', ownForces && ownForces.length, 'items')
   }, [ownForces])
 
   useEffect(() => {
-    console.log('=> opForces: ', opForces)
+    console.log('=> opForces update: ', opForces && opForces.length, 'items')
   }, [opForces])
+
+  // Note: utility tool to generate random orders
+  // const dummyOrders = randomOrdersDocs(45, allForces, [allForces[1].uniqid, allForces[2].uniqid])
+  // console.log(dummyOrders)
 
   // note: for support panels we don't have force icons, so we don't need
   // to provide hide forces prop

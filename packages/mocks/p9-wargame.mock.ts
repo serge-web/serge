@@ -56,7 +56,7 @@ const game: Wargame = {
     "channels": {
       "channels": [
         {
-          "name": "Blue Planning",
+          "name": "Planning",
           "channelType": "ChannelPlanning",
           "participants": [
             {
@@ -84,6 +84,31 @@ const game: Wargame = {
               ]
             },
             {
+                "forceUniqid": "F-Red",
+                "pType": "ParticipantPlanning",
+                "roles": [],
+                "subscriptionId": "h123qr",
+                "templates": [
+                  {
+                    "_id": "k16e-maritime",
+                    "title": "Maritime Activity"
+                  },
+                  {
+                    "title": "Land Activity",
+                    "_id": "k16e-land"
+                  },
+                  {
+                    "title": "Air Activity",
+                    "_id": "k16e-air"
+                  },
+                  {
+                    "title": "Other Activity",
+                    "_id": "k16e-other"
+                  }
+                ]
+              },
+  
+            {
               "pType": "ParticipantPlanning",
               "forceUniqid": "umpire",
               "roles": [
@@ -94,46 +119,6 @@ const game: Wargame = {
             }
           ],
           "uniqid": "channel-blue-planning"
-        },
-        {
-          "name": "Red Planning",
-          "channelType": "ChannelPlanning",
-          "participants": [
-            {
-              "forceUniqid": "F-Red",
-              "pType": "ParticipantPlanning",
-              "roles": [],
-              "subscriptionId": "hukqra",
-              "templates": [
-                {
-                  "_id": "k16e-maritime",
-                  "title": "Maritime Activity"
-                },
-                {
-                  "title": "Land Activity",
-                  "_id": "k16e-land"
-                },
-                {
-                  "title": "Air Activity",
-                  "_id": "k16e-air"
-                },
-                {
-                  "title": "Other Activity",
-                  "_id": "k16e-other"
-                }
-              ]
-            },
-            {
-              "pType": "ParticipantPlanning",
-              "forceUniqid": "umpire",
-              "roles": [
-                "rkrlw6f5f"
-              ],
-              "subscriptionId": "r4ybp",
-              "templates": []
-            }
-          ],
-          "uniqid": "channel-red-planning"
         },
         {
           "name": "Red",
@@ -157,6 +142,27 @@ const game: Wargame = {
           "uniqid": "channel-koirfxsx"
         },
         {
+            "name": "Blue",
+            "channelType": "ChannelChat",
+            "participants": [
+              {
+                "forceUniqid": "F-Blue",
+                "roles": [],
+                "subscriptionId": "7basdfyi",
+                "pType": "ParticipantChat"
+              },
+              {
+                "forceUniqid": "umpire",
+                "roles": [
+                  "rkrlw6f5f"
+                ],
+                "subscriptionId": "h2my2k",
+                "pType": "ParticipantChat"
+              }
+            ],
+            "uniqid": "channel-koirf123"
+          },
+          {
           "name": "Blue RFI",
           "channelType": "ChannelCustom",
           "participants": [
