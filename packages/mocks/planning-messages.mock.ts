@@ -23,7 +23,7 @@ export const planningMessages: MessagePlanning[] = [
       turnNumber: 6
     },
     message: {
-      reference: "Red-12",
+      reference: "Blue-12",
       Date: "13/05/2021 16:12",
       Description: "More land operations",
       Location: "Region-A",
@@ -37,7 +37,7 @@ export const planningMessages: MessagePlanning[] = [
           EndDate: "13/05/2021"
         },
         {
-          FEName: "Tank-B",
+          FEName: "Blue:13",
           Number: 4,
           StartDate: "13/05/2021",
           EndDate: "13/05/2021"
