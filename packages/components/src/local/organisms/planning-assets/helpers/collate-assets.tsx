@@ -17,21 +17,21 @@ type SummaryData = {
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
   platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>) => {
-    if (!platformTypesDict[pType]) {
-      const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
-      if (thisP) {
-        platformTypesDict[pType] = thisP.name
+  if (!platformTypesDict[pType]) {
+    const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
+    if (thisP) {
+      platformTypesDict[pType] = thisP.name
+    } else {
+      if (pType === UNKNOWN_TYPE) {
+        platformTypesDict[UNKNOWN_TYPE] = UNKNOWN_TYPE
       } else {
-        if(pType === UNKNOWN_TYPE) {
-          platformTypesDict[UNKNOWN_TYPE] = UNKNOWN_TYPE
-        } else {
-          console.error('Platform type not found', pType, UNKNOWN_TYPE, platformStyles)
-        }
+        console.error('Platform type not found', pType, UNKNOWN_TYPE, platformStyles)
       }
     }
+  }
 }
 
-export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'], 
+export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'],
   opFor: boolean, platformStyles: PlatformStyle[]): SummaryData => {
   const roleDict: {} = {}
   const platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']> = {}
@@ -62,7 +62,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               storePlatformType(pType, platformStyles, platformTypesDict)
             }
           }
-        })  
+        })
       }
     } else {
       // we store roles for own force, or all for an umpire
