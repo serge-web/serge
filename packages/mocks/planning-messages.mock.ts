@@ -34,18 +34,18 @@ export const planningMessages: MessagePlanning[] = [
           FEName: "Blue:4",
           Number: 1,
           StartDate: "13/05/2021",
-          EndDate: "13/05/2021"
+          EndDate: "14/05/2021"
         },
         {
           FEName: "Blue:13",
           Number: 4,
           StartDate: "13/05/2021",
-          EndDate: "13/05/2021"
+          EndDate: "14/05/2021"
         }
       ],
       Targets: [
         {
-          FEName: "Structure-B",
+          FEName: "Red Force:3",
           Number: 4
         }
       ]
