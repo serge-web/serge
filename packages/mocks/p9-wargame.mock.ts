@@ -142,6 +142,27 @@ const game: Wargame = {
           "uniqid": "channel-koirfxsx"
         },
         {
+            "name": "Blue",
+            "channelType": "ChannelChat",
+            "participants": [
+              {
+                "forceUniqid": "F-Blue",
+                "roles": [],
+                "subscriptionId": "7basdfyi",
+                "pType": "ParticipantChat"
+              },
+              {
+                "forceUniqid": "umpire",
+                "roles": [
+                  "rkrlw6f5f"
+                ],
+                "subscriptionId": "h2my2k",
+                "pType": "ParticipantChat"
+              }
+            ],
+            "uniqid": "channel-koirf123"
+          },
+          {
           "name": "Blue RFI",
           "channelType": "ChannelCustom",
           "participants": [
