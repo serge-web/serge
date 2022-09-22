@@ -56,7 +56,7 @@ const game: Wargame = {
     "channels": {
       "channels": [
         {
-          "name": "Blue Planning",
+          "name": "Planning",
           "channelType": "ChannelPlanning",
           "participants": [
             {
@@ -83,6 +83,31 @@ const game: Wargame = {
                 }
               ]
             },
+            {
+                "forceUniqid": "F-Red",
+                "pType": "ParticipantPlanning",
+                "roles": [],
+                "subscriptionId": "h123qr",
+                "templates": [
+                  {
+                    "_id": "k16e-maritime",
+                    "title": "Maritime Activity"
+                  },
+                  {
+                    "title": "Land Activity",
+                    "_id": "k16e-land"
+                  },
+                  {
+                    "title": "Air Activity",
+                    "_id": "k16e-air"
+                  },
+                  {
+                    "title": "Other Activity",
+                    "_id": "k16e-other"
+                  }
+                ]
+              },
+  
             {
               "pType": "ParticipantPlanning",
               "forceUniqid": "umpire",
