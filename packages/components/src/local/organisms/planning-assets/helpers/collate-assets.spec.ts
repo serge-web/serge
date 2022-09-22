@@ -60,19 +60,24 @@ describe('check collating assets', () => {
   })
 
   it('handles own-forces tab', () => {
-    const umpireColumns = getColumns(false, forces, blueForce.uniqid)
+    const umpireColumns = getColumns(false, forces, blueForce.uniqid, platformStyles)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(4)
+    expect(umpireColumns.length).toEqual(5)
 
     const conditionCol = umpireColumns[1]
     expect(conditionCol.lookup).toBeTruthy()
-    expect(conditionCol.lookup && Object.keys(conditionCol.lookup).length).toEqual(1)
+    expect(conditionCol.lookup && Object.keys(conditionCol.lookup).length).toEqual(14)
+    expect(conditionCol.render).toBeTruthy()
 
-    const statusCol = umpireColumns[2]
+    const pTypeCol = umpireColumns[2]
+    expect(pTypeCol.lookup).toBeTruthy()
+    expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(1)
+
+    const statusCol = umpireColumns[3]
     expect(statusCol.lookup).toBeTruthy()
     expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(14)
 
-    const ownerCol = umpireColumns[3]
+    const ownerCol = umpireColumns[4]
     expect(ownerCol.lookup).toBeTruthy()
     expect(ownerCol.lookup && Object.keys(ownerCol.lookup).length).toEqual(8)
 
@@ -91,13 +96,13 @@ describe('check collating assets', () => {
   })
 
   it('handles opFor tab', () => {
-    const umpireColumns = getColumns(true, [], umpireForce.uniqid)
+    const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(3)
+    expect(umpireColumns.length).toEqual(4)
 
-    const blueColumns = getColumns(true, [], blueForce.uniqid)
+    const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(3)
+    expect(blueColumns.length).toEqual(4)
 
     const umpireRows = getRows(true, forces, forceCols, platformStyles, undefined)
     expect(umpireRows).toBeTruthy()
