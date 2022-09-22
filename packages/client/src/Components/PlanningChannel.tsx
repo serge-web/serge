@@ -1,25 +1,15 @@
-import { makeStyles } from '@material-ui/styles'
-import { SupportPanel } from '@serge/components'
+import { SupportMapping, SupportPanel } from '@serge/components'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { ChannelPlanning, MessageChannel, MessagePlanning, PlainInteraction } from '@serge/custom-types'
 import { CoreMessage } from '@serge/custom-types/message'
 import '@serge/themes/App.scss'
-import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
-const useStyles = makeStyles({
-  root: {
-    background: 'url(images/planning_map.png)',
-    backgroundRepeat: 'round'
-  }
-})
-
 const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
-  const classes = useStyles()
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const reduxDispatch = useDispatch()
@@ -70,7 +60,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   return (
-    <div className={cx(channelTabClass, classes.root)} data-channel-id={channelId}>
+    <div className={channelTabClass} data-channel-id={channelId}>
       <SupportPanel
         channel={channelPlanning}
         platformTypes={platformTypes}
@@ -84,14 +74,15 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         saveNewActivityTimeMessage={saveNewActivityTimeMessage}
         dispatch={reduxDispatch}
         currentWargame={currentWargame}
-        isUmpire= {state.isUmpire}
-        selectedRoleName= {state.selectedRoleName}
-        selectedRoleId= {state.selectedRole}
-        selectedForce= {selectedForce}
-        allForces= {state.allForces}
-        gameDate= {state.gameDate}
-        currentTurn= {state.currentTurn}
+        isUmpire={state.isUmpire}
+        selectedRoleName={state.selectedRoleName}
+        selectedRoleId={state.selectedRole}
+        selectedForce={selectedForce}
+        allForces={state.allForces}
+        gameDate={state.gameDate}
+        currentTurn={state.currentTurn}
       />
+      <SupportMapping />
     </div>
   )
 }
