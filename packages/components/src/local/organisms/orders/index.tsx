@@ -26,7 +26,7 @@ export const Orders: React.FC<PropTypes> = ({ messages, columns, rows, title, te
           customiseTemplate={customiseTemplate}
           messageId={rowData.id}
           template={template}
-          disabled={true}
+          disabled={false}
           gameDate={gameDate}
         />
       } else {
