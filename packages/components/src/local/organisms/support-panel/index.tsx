@@ -113,11 +113,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('=> ownForces: ', ownForces)
+    console.log('=> ownForces update: ', ownForces && ownForces.length, 'items')
   }, [ownForces])
 
   useEffect(() => {
-    console.log('=> opForces: ', opForces)
+    console.log('=> opForces update: ', opForces && opForces.length, 'items')
   }, [opForces])
 
   // note: for support panels we don't have force icons, so we don't need
