@@ -61,12 +61,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
-    console.log('modify template')
-    const oldItems = schema.properties?.Assets?.items?.properties?.FEName?.enum
-    if (oldItems) {
+    const oldOwnAssets = schema.properties?.Assets?.items?.properties?.FEName?.enum
+    if (oldOwnAssets) {
       schema.properties.Assets.items.properties.FEName.enum = ownForces.map((asset: Row) => asset.name)
     }
-    console.log('modify it!', oldItems, schema.properties.Assets.items.properties.FEName.enum, schema)
+    const oldOwnTargets = schema.properties?.Targets?.items?.properties?.FEName?.enum
+    if (oldOwnTargets) {
+      schema.properties.Targets.items.properties.FEName.enum = opForces.map((asset: Row) => asset.name)
+    }
     return schema
   }
 
