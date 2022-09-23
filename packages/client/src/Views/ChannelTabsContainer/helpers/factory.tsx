@@ -1,35 +1,20 @@
-import React from 'react'
-import { MessageMap, PlayerUi, MappingConstraints, ChannelUI, ChannelMapping } from '@serge/custom-types'
+import { Assets, HexGrid, InfoMarkers, Mapping, PlanningChannel2 } from '@serge/components'
 import {
-  FORCE_LAYDOWN,
-  PERCEPTION_OF_CONTACT,
-  STATE_OF_WORLD,
-  CREATE_TASK_GROUP,
-  LEAVE_TASK_GROUP,
-  HOST_PLATFORM,
-  SUBMIT_PLANS,
-  DELETE_PLATFORM,
-  VISIBILITY_CHANGES,
-  CHANNEL_MAPPING,
-  Phase,
-  CHANNEL_COLLAB,
-  CHANNEL_CUSTOM,
-  CHANNEL_CHAT,
-  CHANNEL_PLANNING,
-  UPDATE_MARKER,
-  DELETE_MARKER,
-  CLONE_MARKER,
-  UMPIRE_LAYDOWN
+  CHANNEL_CHAT, CHANNEL_COLLAB,
+  CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { sendMapMessage, isChatChannel } from '@serge/helpers'
+import { ChannelMapping, ChannelUI, MappingConstraints, MessageMap, PlayerUi } from '@serge/custom-types'
+import { isChatChannel, sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
-import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
 import _ from 'lodash'
+import React from 'react'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
-import PlanningChannel from '../../../Components/PlanningChannel'
 
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import CollabChannel from '../../../Components/CollabChannel'
+import { usePlayerUiDispatch } from '../../../Store/PlayerUi'
 import findChannelByID from './findChannelByID'
 
 type Factory = (node: TabNode) => React.ReactNode
@@ -44,6 +29,9 @@ const phaseFor = (phase: string): Phase => {
 }
 
 const factory = (state: PlayerUi): Factory => {
+  const dispatch = usePlayerUiDispatch()
+  const reduxDisplatch = useDispatch()
+
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
     if (channelID === '') return
     if (typeof channelID === 'number') channelID = channelID.toString()
@@ -169,7 +157,18 @@ const factory = (state: PlayerUi): Factory => {
           case CHANNEL_CHAT:
             return <ChatChannel channelId={matchedChannel[0]} />
           case CHANNEL_PLANNING:
-            return <PlanningChannel channelId={matchedChannel[0]} />
+            return <PlanningChannel2
+              channelId={matchedChannel[0]}
+              dispatch={dispatch}
+              getAllWargameMessages={getAllWargameMessages}
+              markAllAsRead={markAllAsRead}
+              markUnread={markUnread}
+              openMessage={openMessage}
+              saveMessage={saveMessage}
+              reduxDispatch={reduxDisplatch}
+              saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+              state={state}
+            />
           case CHANNEL_MAPPING: {
             const channel = matchedChannel[1].cData as ChannelMapping
             const constraints = channel.constraints

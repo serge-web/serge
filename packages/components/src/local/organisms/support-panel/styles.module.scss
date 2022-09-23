@@ -7,6 +7,7 @@
   display: flex;
   position: absolute;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .content {
@@ -40,6 +41,7 @@
     color: #000;
     font-size: smaller;
     font-weight: 550;
+    pointer-events: all;
   }
 }
 
@@ -56,8 +58,12 @@
 
 .panel {
   display: flex;
-  width: 100%;
+  width: inherit;
   z-index: 2;
+
+  div {
+    pointer-events: all;
+  }
 }
 
 .secondary-action-tab {

@@ -28,7 +28,7 @@ export default {
 }
 
 const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping />
+  return <SupportMapping position={[51.505, -0.09]} zoom={12} />
 }
 
 export const Default = Template.bind({})
