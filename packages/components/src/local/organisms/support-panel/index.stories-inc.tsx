@@ -72,6 +72,10 @@ const Template: Story<SupportPanelProps> = (args) => {
       console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
     }
   }
+  
+  const setSelectedItem = (asset: string): void => {
+    console.log('item selected:', asset)
+  }
 
   const force = forces.find((value: ForceData) => value.uniqid === forceStr)
   if (!force) {
@@ -102,6 +106,8 @@ const Template: Story<SupportPanelProps> = (args) => {
     selectedRoleName={roleVal.name}
     selectedForce={force}
     isUmpire={!!force.umpire}
+    selectedItem={''}
+    setSelectedItem={setSelectedItem}
   />
 }
 
