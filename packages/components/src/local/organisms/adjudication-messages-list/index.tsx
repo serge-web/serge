@@ -1,7 +1,8 @@
-import { MessagePlanning } from '@serge/custom-types'
+import { MessagePlanning, TemplateBody } from '@serge/custom-types'
 import { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import JsonEditor from '../../molecules/json-editor'
 import Orders from '../orders'
 import { OrderRow } from '../orders/types/props'
 import styles from './styles.module.scss'
@@ -53,9 +54,35 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({ messages, templa
     columns.splice(2, 1)
   }
 
+  const detailPanel = (rowData: OrderRow): any => {
+    // retrieve the message & template
+    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
+    if (!message) {
+      console.error('message not found, id:', rowData.id, 'messages:', messages)
+    } else {
+      const localTemplates = templates || []
+      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+      if (!template) {
+        console.log('template not found for', message.details.messageType, 'templates:', templates)
+      }
+      if (message && template) {
+        return <JsonEditor
+          messageContent={message.message}
+          customiseTemplate={customiseTemplate}
+          messageId={rowData.id}
+          template={template}
+          disabled={false}
+          gameDate={gameDate}
+        />
+      } else {
+        return <div>Template not found for {message.details.messageType}</div>
+      }
+    }
+  }
+
   return (
     <div className={styles['messages-list']}>
-      <Orders customiseTemplate={customiseTemplate} messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
+      <Orders detailPanelFnc={detailPanel} customiseTemplate={customiseTemplate} messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
     </div>
   )
 }

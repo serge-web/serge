@@ -14,6 +14,7 @@ export default interface PropTypes {
   templates: TemplateBody[]
   messages: MessagePlanning[]
   gameDate: string
+  detailPanelFnc: {(rowData: OrderRow): any}
   /**
    * method to customise the new (or existing) message template
    */
