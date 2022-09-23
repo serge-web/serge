@@ -72,7 +72,7 @@ const Template: Story<SupportPanelProps> = (args) => {
       console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
     }
   }
-  
+
   const setSelectedItem = (asset: string): void => {
     console.log('item selected:', asset)
   }
