@@ -75,10 +75,10 @@ const Template: Story<StoryPropTypes> = (args) => {
 
 export const AllTemplates = Template.bind({})
 AllTemplates.args = {
-  templates:planningMessageTemplatesMock
+  templates: planningMessageTemplatesMock
 }
 
 export const JustAdjuducation = Template.bind({})
 JustAdjuducation.args = {
-  templates:[planningMessageTemplatesMock[0]]
+  templates: [planningMessageTemplatesMock[0]]
 }

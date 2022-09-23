@@ -66,34 +66,34 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({ messages, templa
       }
       if (message && template) {
         return <>
-        <Table>
-          <thead>
-            <tr>
-              <th>
+          <Table>
+            <thead>
+              <tr>
+                <th>
                 Cell title
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{JSON.stringify(message)}</td>
-            </tr>
-            <tr>
-              <td>{JSON.stringify(template)}</td>
-            </tr>
-          </tbody>
-        </Table>
-        <JsonEditor
-          messageContent={{
-            "GeneralFeedback": "",
-            "FeedbackItems": []
-          }}
-          customiseTemplate={customiseTemplate}
-          messageId={rowData.id}
-          template={template}
-          disabled={false}
-          gameDate={gameDate}
-        /></>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{JSON.stringify(message)}</td>
+              </tr>
+              <tr>
+                <td>{JSON.stringify(template)}</td>
+              </tr>
+            </tbody>
+          </Table>
+          <JsonEditor
+            messageContent={{
+              GeneralFeedback: '',
+              FeedbackItems: []
+            }}
+            customiseTemplate={customiseTemplate}
+            messageId={rowData.id}
+            template={template}
+            disabled={false}
+            gameDate={gameDate}
+          /></>
       } else {
         return <div>Template not found for {message.details.messageType}</div>
       }
