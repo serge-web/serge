@@ -7,6 +7,7 @@ import cx from 'classnames'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
+import AdjudicationMessagesList from '../adjudication-messages-list'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
@@ -195,7 +196,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
-                  <PlanningMessagesList
+                  <AdjudicationMessagesList
                     messages={messages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
