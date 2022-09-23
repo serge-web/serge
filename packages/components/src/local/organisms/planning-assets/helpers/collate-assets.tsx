@@ -16,7 +16,7 @@ type SummaryData = {
 }
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
-  platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>) => {
+  platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>): void => {
   if (!platformTypesDict[pType]) {
     const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
     if (thisP) {

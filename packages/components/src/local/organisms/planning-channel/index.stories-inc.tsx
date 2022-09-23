@@ -113,13 +113,13 @@ const Template: Story<PlanningChannelProps> = (args) => {
     messages={planningMessages}
     templates={templateBodies}
     dispatch={noop}
-    getAllWargameMessages={() => noop}
+    getAllWargameMessages={(): any => noop}
     markAllAsRead={mockFn}
     markUnread={mockFn}
     openMessage={mockFn}
     saveMessage={saveMessage}
     reduxDispatch={noop}
-    saveNewActivityTimeMessage={() => noop}
+    saveNewActivityTimeMessage={(): any => noop}
     platformTypes={platformTypes}
     selectedRoleId={role?.roleId}
     selectedRoleName={role?.name || ''}

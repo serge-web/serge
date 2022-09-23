@@ -60,7 +60,7 @@ export const PlanninChannel2: React.FC<PropTypes> = ({
     dispatch(markUnread(channel.uniqid, message as any as MessageChannel))
   }
 
-  const newActiveMessage = (roleId: string, activityMessage: string) => {
+  const newActiveMessage = (roleId: string, activityMessage: string): void => {
     // we don't have a message id at this point, player has only opened empty template
     const newMessage: PlainInteraction = {
       aType: activityMessage
