@@ -1,5 +1,5 @@
-import { ChannelUI, PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
-import { P9Mock } from '@serge/mocks'
+import { ChannelPlanning, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
@@ -10,74 +10,52 @@ export const mockFn = (): PlayerUiActionTypes => ({
   payload: {}
 })
 
-const channels = {}
-P9Mock.data.channels.channels.forEach(c => {
-  channels[c.uniqid] = {
-    cData: c,
-    name: c.name,
-    uniqid: c.uniqid,
-    messages: []
-  } as ChannelUI
-})
+const wargame = P9Mock.data
+const channels = wargame.channels.channels
+const planningChannel = channels[0]
+const forces = wargame.forces.forces
+const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
-export const state: PlayerUi = {
-  channels: channels,
-  selectedForce: P9Mock.data.forces.forces[0],
-  allForces: [],
-  allPlatformTypes: [],
-  selectedRole: '',
-  selectedRoleName: '',
-  isObserver: false,
-  isUmpire: false,
-  isGameControl: false,
-  currentTurn: 0,
-  phase: '',
-  gameDate: '',
-  gameTurnTime: {
-    millis: 1,
-    unit: 'millis'
-  },
-  realtimeTurnTime: 0,
-  turnEndTime: '',
-  timeWarning: 0,
-  adjudicationStartTime: '',
-  gameDescription: '',
-  currentWargame: '',
-  wargameTitle: '',
-  chatChannel: {
-    messages: [],
-    name: '',
-    template: {}
-  },
-  allChannels: [],
-  infoMarkers: [],
-  markerIcons: [],
-  allTemplatesByKey: {},
-  showObjective: false,
-  updateMessageState: false,
-  wargameInitiated: false,
-  feedbackMessages: [],
-  tourIsOpen: false,
-  showAccessCodes: false,
-  logPlayerActivity: false,
-  isInsightViewer: false,
-  isRFIManager: false,
-  playerMessageLog: {}
+const force = forces[1]
+const role = force && force.roles[0]
+
+const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+  return async (): Promise<void> => {
+    console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
+  }
 }
+
+// get the templates for this user
+const participants = planningChannel.participants as ParticipantPlanning[]
+const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
+const templatesBlocks = participant ? participant.templates : []
+const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
+const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
+
 
 describe('Planning Channel component: ', () => {
   it('renders component correctly', () => {
     const tree = mount(<PlanningChannel2
-      channelId={P9Mock.data.channels.channels[0].uniqid}
+      channel={channels[0] as ChannelPlanning}
+      messages={planningMessages}
+      templates={templateBodies}
       dispatch={noop}
       getAllWargameMessages={() => noop}
       markAllAsRead={mockFn}
       markUnread={mockFn}
       openMessage={mockFn}
-      saveMessage={() => noop}
+      saveMessage={saveMessage}
       reduxDispatch={noop}
       saveNewActivityTimeMessage={() => noop}
-      state={state}
+      platformTypes={platformTypes}
+      selectedRoleId={role?.roleId}
+      selectedRoleName={role?.name || ''}
+      currentWargame={P9Mock.wargameTitle}
+      selectedForce={force || forces[1]}
+      isUmpire={false}
+      allForces={forces}
+      gameDate={P9Mock.data.overview.gameDate}
+      currentTurn={P9Mock.gameTurn}
     />)
     expect(tree).toMatchSnapshot()
   })

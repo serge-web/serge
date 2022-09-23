@@ -1,9 +1,19 @@
-import { PlayerUi, PlayerUiActionTypes } from "@serge/custom-types";
+import { ChannelPlanning, ForceData, MessageInfoTypeClipped, PlatformTypeData, PlayerUi, PlayerUiActionTypes } from "@serge/custom-types";
 import React, { Dispatch } from "react";
 
 export default interface PropTypes {
-  state: PlayerUi
-  channelId: string
+  templates: TemplateBody[]
+  channel: ChannelPlanning
+  messages: Array<MessagePlanning | MessageInfoTypeClipped>
+  selectedRoleId: Role['roleId']
+  selectedRoleName: string
+  currentWargame: string
+  selectedForce: ForceData
+  platformTypes: PlatformTypeData[]
+  isUmpire: boolean
+  allForces: ForceData[]
+  gameDate: string
+  currentTurn: number
   dispatch: React.Dispatch<PlayerUiActionTypes>
   reduxDispatch: Dispatch<any>
   getAllWargameMessages: (dbName: string) => Function
@@ -12,4 +22,5 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: object) => Function
+
 }

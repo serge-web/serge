@@ -87,7 +87,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onSelectionChange = (opFor: boolean, data: Row[]): void => {
-    console.log('new selection', opFor, data)
+    console.log('new selection', opFor, data.length)
     if (data.length > 0) {
       setSelectedItem(data[0].id)
     } else {
@@ -96,7 +96,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {
-    console.log('rows change', opFor, data)
+    console.log('rows change', opFor, data.length)
     if (opFor) {
       setOpForces(data)
     } else {
