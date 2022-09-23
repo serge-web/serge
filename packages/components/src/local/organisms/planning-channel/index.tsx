@@ -34,7 +34,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>(12)
-  const [bounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
+  const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
 
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
@@ -44,6 +44,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const asset = findAsset(allForces, selectedItem)
       const location = asset.location
       if (location) {
+        setBounds(undefined)
         setPosition(location)
       }
     }
@@ -83,8 +84,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  console.log('planning channel', selectedItem)
-
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
       <SupportPanel
@@ -110,7 +109,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         setSelectedItem={setSelectedItem}
         selectedItem={selectedItem}
       />
-      <SupportMapping bounds={bounds} zoom={zoom} position={position} />
+      <SupportMapping allForces={allForces} bounds={bounds} zoom={zoom} position={position} />
     </div>
   )
 }
