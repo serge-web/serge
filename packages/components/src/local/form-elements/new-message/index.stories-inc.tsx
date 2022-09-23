@@ -1,4 +1,4 @@
-import { MessageDetails } from '@serge/custom-types'
+import { MessageDetails, TemplateBody } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
@@ -48,17 +48,17 @@ interface StoryPropTypes {
   privateMessage: boolean
   orderableChannel: boolean
   confirmCancel: boolean
+  templates: TemplateBody[]
 }
 
 const Template: Story<StoryPropTypes> = (args) => {
-  const { privateMessage, orderableChannel, confirmCancel } = args
+  const { privateMessage, orderableChannel, confirmCancel, ...props } = args
 
   const postBack = (details: MessageDetails, message: any): void => {
     console.log('send message', details, message)
   }
 
   return (<NewMessage
-    templates={planningMessageTemplatesMock}
     gameDate={P9Mock.data.overview.gameDate}
     privateMessage={privateMessage}
     orderableChannel={orderableChannel}
@@ -69,7 +69,16 @@ const Template: Story<StoryPropTypes> = (args) => {
     selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
     selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
     postBack={postBack}
+    {...props}
   />)
 }
 
-export const Default = Template.bind({})
+export const AllTemplates = Template.bind({})
+AllTemplates.args = {
+  templates:planningMessageTemplatesMock
+}
+
+export const JustAdjuducation = Template.bind({})
+JustAdjuducation.args = {
+  templates:[planningMessageTemplatesMock[0]]
+}
