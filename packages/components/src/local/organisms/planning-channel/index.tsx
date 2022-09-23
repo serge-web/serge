@@ -1,7 +1,8 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { Asset, CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { findAsset } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLngExpression } from 'leaflet'
+import { LatLngBounds, LatLngExpression, latLngBounds } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import SupportMapping from '../support-mapping'
 import SupportPanel from '../support-panel'
@@ -31,8 +32,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   currentTurn
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const [position] = useState<LatLngExpression>([51.505, -0.09])
+  const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>(12)
+  const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
+
+  // handle selections from asset tables
+  const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
+
+  useEffect(() => {
+    if (selectedItem) {
+      const asset = findAsset(allForces, selectedItem)
+      const location = asset.location
+      if (location) {
+        setBounds(undefined)
+        setPosition(location)
+      }
+    }
+  }, [selectedItem])
 
   useEffect(() => {
     const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')
@@ -90,8 +106,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         allForces={allForces}
         gameDate={gameDate}
         currentTurn={currentTurn}
+        setSelectedItem={setSelectedItem}
+        selectedItem={selectedItem}
       />
-      <SupportMapping position={position} zoom={zoom} />
+      <SupportMapping allForces={allForces} bounds={bounds} zoom={zoom} position={position} />
     </div>
   )
 }

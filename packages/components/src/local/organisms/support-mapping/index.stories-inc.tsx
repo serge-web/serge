@@ -4,7 +4,9 @@ import React from 'react'
 import SupportMapping from './index'
 import docs from './README.md'
 import SupportMappingProps from './types/props'
+import { P9Mock } from '@serge/mocks'
 
+const forces = P9Mock.data.forces.forces
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -28,7 +30,7 @@ export default {
 }
 
 const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping position={[51.505, -0.09]} zoom={12} />
+  return <SupportMapping allForces={forces} position={[51.505, -0.09]} zoom={12} />
 }
 
 export const Default = Template.bind({})
