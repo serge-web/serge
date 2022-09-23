@@ -48,7 +48,6 @@ export const SupportMapping: React.FC<PropTypes> = ({ allForces, position, bound
             return <Marker key={'asset-icon-' + index} position={loc}>
               <Tooltip>{a.name}</Tooltip>
             </Marker>
-
           })
         }
       </LayerGroup>
