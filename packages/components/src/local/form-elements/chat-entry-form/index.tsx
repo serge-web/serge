@@ -74,6 +74,12 @@ export const ChatEntryForm: React.FC<Props> = ({
     privateMessageEle && privateMessageEle.current && privateMessageEle.current.clear()
   }
 
+  const onCancel = () => {
+    messageEle.current.clear()
+    onchangeChatInputMessage('', 'chat')
+    clearCachedMessage && clearCachedMessage(['chat'])
+  }
+
   return (
     <Box className={styles['chat-container']}>
       <ChatInputText
@@ -85,6 +91,7 @@ export const ChatEntryForm: React.FC<Props> = ({
           setMessage(message)
         }}
         postBack={submitForm}
+        onCancel={onCancel}
       />
       {isUmpire &&
         <Box mt={1}>

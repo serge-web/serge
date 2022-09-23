@@ -1,3 +1,26 @@
+.main {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .icon-send {
   color: #00274b;
+}
+
+.cancel {
+  width: 100%;
+  position: absolute;
+  color: #000;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  margin-top: -15px;
+  margin-right: -10px;
+  cursor: pointer;
 }
