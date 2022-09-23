@@ -1,9 +1,11 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { ChannelPlanning, CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import cx from 'classnames'
 import { LatLngExpression } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import SupportMapping from '../support-mapping'
 import SupportPanel from '../support-panel'
+import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 export const PlanninChannel2: React.FC<PropTypes> = ({
@@ -70,7 +72,7 @@ export const PlanninChannel2: React.FC<PropTypes> = ({
   }
 
   return (
-    <div className={channelTabClass} data-channel-id={channelId}>
+    <div className={cx(channelTabClass, styles.root)} data-channel-id={channelId}>
       <SupportPanel
         channel={channelPlanning}
         platformTypes={platformTypes}
