@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { Asset, MessageDetails, MessageSentInteraction } from '@serge/custom-types'
+import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useMemo, useState } from 'react'

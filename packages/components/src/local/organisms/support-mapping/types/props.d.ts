@@ -1,4 +1,4 @@
-import { LatLngExpression, LatLngBounds } from "leaflet"
+import { LatLngExpression, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
   bounds?: LatLngBounds

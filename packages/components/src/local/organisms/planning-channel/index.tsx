@@ -34,7 +34,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>(12)
-  const [bounds] = useState<LatLngBounds | undefined>(latLngBounds([[ -1.484, 150.1536],[ -21.941, 116.4863]]))
+  const [bounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
 
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
@@ -46,7 +46,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       if (location) {
         setPosition(location)
       }
-    } 
+    }
   }, [selectedItem])
 
   useEffect(() => {
