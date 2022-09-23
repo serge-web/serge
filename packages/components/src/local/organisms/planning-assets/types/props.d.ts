@@ -1,5 +1,6 @@
 import { ForceData } from '@serge/custom-types'
 import { ForceStyle } from '@serge/helpers'
+import { LatLng } from 'leaflet'
 
 export default interface PropTypes {
   /** data for this game */
@@ -32,4 +33,5 @@ export type AssetRow = {
   parentId?: string
   force?: string
   owner?: string
+  position?: LatLng
 }

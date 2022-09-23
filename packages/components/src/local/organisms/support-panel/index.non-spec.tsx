@@ -43,6 +43,8 @@ describe('Support Panel component: ', () => {
         selectedRoleId={blueRole.roleId}
         selectedRoleName={blueRole.name}
         isUmpire={false}
+        selectedItem={''}
+        setSelectedItem={(): any => noop}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

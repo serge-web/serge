@@ -6,6 +6,7 @@ import { AssetRow } from '../types/props'
 import AssetIcon from '../../../asset-icon'
 import React from 'react'
 import styles from '../styles.module.scss'
+import { latLng } from 'leaflet'
 
 type SummaryData = {
   roles: {}
@@ -199,7 +200,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         condition: UNKNOWN_TYPE,
         name: perception.name,
         platformType: perception.typeId,
-        status: asset.status?.state || ''
+        status: asset.status?.state || '',
+        position: asset.location && latLng(asset.location[0], asset.location[1])
       }
       itemRows.push(res)
     }
@@ -212,7 +214,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       name: asset.name,
       platformType: asset.platformTypeId || '',
       status: asset.status?.state || '',
-      owner: asset.owner ? asset.owner : ''
+      owner: asset.owner ? asset.owner : '',
+      position: asset.location && latLng(asset.location[0], asset.location[1])
     }
     // if we're handling the child of an asset, we need to specify the parent
     if (parentId) {

@@ -148,6 +148,13 @@ const factory = (state: PlayerUi): Factory => {
           return <CollabChannel channelId={channel.uniqid} />
         case CHANNEL_CHAT:
           return <ChatChannel channelId={channel.uniqid} />
+        case CHANNEL_MAPPING: {
+          const channelD = channel.cData as ChannelMapping
+          const constraints = channelD.constraints
+          return renderMap(node.getId(), constraints, channel.cData as ChannelMapping)
+        }
+        case CHANNEL_CUSTOM:
+          return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
         case CHANNEL_PLANNING:
           return <PlanningChannel
             templates={channel.templates}
@@ -171,15 +178,7 @@ const factory = (state: PlayerUi): Factory => {
             saveMessage={saveMessage}
             reduxDispatch={reduxDisplatch}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-
           />
-        case CHANNEL_MAPPING: {
-          const channelD = channel.cData as ChannelMapping
-          const constraints = channelD.constraints
-          return renderMap(node.getId(), constraints, channel.cData as ChannelMapping)
-        }
-        case CHANNEL_CUSTOM:
-          return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
         default:
           console.log('not yet handling', channelData)
       }

@@ -29,6 +29,8 @@ export default interface PropTypes {
   gameDate: string
   currentTurn: number
   currentWargame: string
+  selectedItem: Asset['uniqid'] | undefined
+  setSelectedItem: {(asset: Asset['uniqid'] | undefined): void}
 }
 
 export type TabPanelProps = {
