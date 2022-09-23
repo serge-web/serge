@@ -8,7 +8,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import PlanningAssets from '../planning-assets'
-import { Row } from '../planning-assets/types/props'
+import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import styles from './styles.module.scss'
@@ -40,8 +40,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
-  const [opForces, setOpForces] = useState<Row[]>([])
-  const [ownForces, setOwnForces] = useState<Row[]>([])
+  const [opForces, setOpForces] = useState<AssetRow[]>([])
+  const [ownForces, setOwnForces] = useState<AssetRow[]>([])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -63,11 +63,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
     const oldOwnAssets = schema.properties?.Assets?.items?.properties?.FEName?.enum
     if (oldOwnAssets) {
-      schema.properties.Assets.items.properties.FEName.enum = ownForces.map((asset: Row) => asset.name)
+      schema.properties.Assets.items.properties.FEName.enum = ownForces.map((asset: AssetRow) => asset.name)
     }
     const oldOwnTargets = schema.properties?.Targets?.items?.properties?.FEName?.enum
     if (oldOwnTargets) {
-      schema.properties.Targets.items.properties.FEName.enum = opForces.map((asset: Row) => asset.name)
+      schema.properties.Targets.items.properties.FEName.enum = opForces.map((asset: AssetRow) => asset.name)
     }
     return schema
   }
@@ -86,7 +86,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> render')
   }
 
-  const onSelectionChange = (opFor: boolean, data: Row[]): void => {
+  const onSelectionChange = (opFor: boolean, data: AssetRow[]): void => {
     console.log('new selection', opFor, data.length)
     if (data.length > 0) {
       setSelectedItem(data[0].id)
@@ -95,7 +95,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }
   }
 
-  const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {
+  const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
     console.log('rows change', opFor, data.length)
     if (opFor) {
       setOpForces(data)

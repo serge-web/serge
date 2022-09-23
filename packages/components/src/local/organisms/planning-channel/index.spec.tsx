@@ -6,7 +6,7 @@ import React from 'react'
 import PlanningChannel2 from './index'
 
 export const mockFn = (): PlayerUiActionTypes => ({
-  type: "mock" as any,
+  type: 'mock' as any,
   payload: {}
 })
 
@@ -31,7 +31,6 @@ const participant = participants.find((p: ParticipantPlanning) => (p.roles.lengt
 const templatesBlocks = participant ? participant.templates : []
 const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
 const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
-
 
 describe('Planning Channel component: ', () => {
   it('renders component correctly', () => {

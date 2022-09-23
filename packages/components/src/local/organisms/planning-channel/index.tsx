@@ -32,7 +32,7 @@ export const PlanninChannel2: React.FC<PropTypes> = ({
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position] = useState<LatLngExpression>([51.505, -0.09])
-  const [zoom] = useState<number>(12);
+  const [zoom] = useState<number>(12)
 
   useEffect(() => {
     const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')

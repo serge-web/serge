@@ -2,10 +2,10 @@ import { Asset } from '@serge/custom-types'
 import MaterialTable, { Column, MTableBody } from 'material-table'
 import React, { useEffect, useState } from 'react'
 import { getColumns, getRows } from './helpers/collate-assets'
-import PropTypes, { Row } from './types/props'
+import PropTypes, { AssetRow } from './types/props'
 
 export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
-  const [rows, setRows] = useState<Row[]>([])
+  const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
@@ -39,7 +39,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
     title={opFor ? 'Other force assets' : 'Own force Assets'}
     columns={jestWorkerId ? [] : columns}
     data={jestWorkerId ? [] : rows}
-    parentChildData={(row, rows): any => rows.find((a: Row): any => a.id === row.parentId)}
+    parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
     actions={jestWorkerId ? [] : [
       {
         icon: 'filter',

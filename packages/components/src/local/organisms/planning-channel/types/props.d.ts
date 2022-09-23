@@ -1,5 +1,5 @@
-import { ChannelPlanning, ForceData, MessageInfoTypeClipped, PlatformTypeData, PlayerUi, PlayerUiActionTypes } from "@serge/custom-types";
-import React, { Dispatch } from "react";
+import { ChannelPlanning, ForceData, MessageInfoTypeClipped, PlatformTypeData, PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
+import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
   templates: TemplateBody[]

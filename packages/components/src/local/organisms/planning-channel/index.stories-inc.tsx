@@ -77,14 +77,13 @@ export default {
 }
 
 const Template: Story<PlanningChannelProps> = (args) => {
-
   const {
     selectedRoleId,
     isUmpire
   } = args
 
   const mockFn = (): PlayerUiActionTypes => ({
-    type: "mock" as any,
+    type: 'mock' as any,
     payload: {}
   })
 
@@ -93,7 +92,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const ind = selectedRoleStr.indexOf(' ~ ')
   const forceStr = selectedRoleStr.substring(0, ind)
   const roleStr = selectedRoleStr.substring(ind + 3)
-  const force = forces.find((f: ForceData) => f.uniqid === forceStr) 
+  const force = forces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
   const saveMessage = (dbName: string, details: MessageDetails, message: object) => {

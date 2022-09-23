@@ -10,7 +10,7 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, zoom }) => {
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
       const map: L.Map = ref.leafletElement
-      map.zoomControl.setPosition('bottomright');
+      map.zoomControl.setPosition('bottomright')
     }
   }
 
