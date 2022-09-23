@@ -34,7 +34,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   currentWargame
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
-  const [isShowPanel, setShowPanel] = useState<boolean>(false)
+  const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
@@ -78,6 +78,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
+        <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
       </div>
     )
   }
@@ -183,11 +184,33 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 </div>
               }
             </TabPanel>
+
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
                   playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={true}
                   onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
+              }
+            </TabPanel>
+            <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
+              {activeTab === TABS[3] &&
+                <div className={styles['order-group']}>
+                  <PlanningMessagesList
+                    messages={messages}
+                    gameDate={gameDate}
+                    playerForceId={selectedForce.uniqid}
+                    playerRoleId={selectedRoleId}
+                    isUmpire={!!selectedForce.umpire}
+                    turnPresentation={turnPresentation}
+                    hideForcesInChannel={!!hideForcesInChannel}
+                    onRead={onRead}
+                    onUnread={onUnread}
+                    onMarkAllAsRead={onReadAll}
+                    channel={channel}
+                    templates={templates}
+                    customiseTemplate={customiseTemplate}
+                  />
+                </div>
               }
             </TabPanel>
             <div className={styles['resize-indicator-container']} >
