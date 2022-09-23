@@ -4,7 +4,7 @@ import { MapConstants } from './helper/MapConstants'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const SupportMapping: React.FC<PropTypes> = ({ position, zoom }) => {
+export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom }) => {
   const TileLayerProps = MapConstants.TileLayer
 
   const handleEvents = (ref: any): void => {
@@ -13,12 +13,14 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, zoom }) => {
       map.zoomControl.setPosition('bottomright')
     }
   }
+  console.log('mapping', position, bounds)
 
   return (
     <Map
       className={styles.map}
-      center={position}
-      zoom={zoom}
+      center={bounds ? undefined : position}
+      bounds={bounds}
+      zoom={bounds ? undefined : zoom}
       ref={handleEvents}
     >
       <TileLayer {...TileLayerProps} />

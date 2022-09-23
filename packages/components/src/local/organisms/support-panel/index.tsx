@@ -31,7 +31,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allForces,
   gameDate,
   currentTurn,
-  currentWargame
+  currentWargame,
+  selectedItem,
+  setSelectedItem
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(false)
@@ -39,7 +41,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   // handle selections from asset tables
-  const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
 
@@ -90,8 +91,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('new selection', opFor, data.length)
     if (data.length > 0) {
       setSelectedItem(data[0].id)
+      // setSelectedItemParent(data[0].id)
     } else {
       setSelectedItem(undefined)
+      // setSelectedItemParent(undefined)
     }
   }
 
@@ -99,8 +102,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('rows change', opFor, data.length)
     if (opFor) {
       setOpForces(data)
+      // setOpForcesParent(data)
     } else {
       setOwnForces(data)
+      // setOwnForcesParent(data)
     }
   }
 

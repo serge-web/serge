@@ -1,5 +1,7 @@
+import { LatLngExpression, LatLngBounds } from "leaflet"
 
 export default interface PropTypes {
-  position: LatLngExpression
+  bounds?: LatLngBounds
+  position?: LatLngExpression
   zoom: number
 }
