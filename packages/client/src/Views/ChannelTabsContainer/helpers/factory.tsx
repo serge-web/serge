@@ -140,55 +140,50 @@ const factory = (state: PlayerUi): Factory => {
       return null
     }
     console.log('matched channel', channel)
-    if (!channel) {
-      // ok, this channel has been deleted
-      console.log('channel definition not found, presumed deleted')
-    } else {
-      const channelData: ChannelTypes = channel.cData
-      const isV3 = !!channelData.channelType
-      if (isV3) {
-        switch (channelData.channelType) {
-          case CHANNEL_COLLAB:
-            return <CollabChannel channelId={channel.uniqid} />
-          case CHANNEL_CHAT:
-            return <ChatChannel channelId={channel.uniqid} />
-          case CHANNEL_PLANNING:
-            return <PlanningChannel2
-              templates={channel.templates}
-              messages={channel.messages}
-              channel={channel.cData as ChannelPlanning}
-              selectedRoleId={state.selectedRole}
-              selectedRoleName={state.selectedRoleName}
-              currentWargame={state.currentWargame}
-              selectedForce={state.selectedForce}
-              isUmpire={state.isUmpire}
-              allForces={state.allForces}
-              platformTypes={state.allPlatformTypes}
-              gameDate={state.gameDate}
-              currentTurn={state.currentTurn}          
-              dispatch={dispatch}
-              getAllWargameMessages={getAllWargameMessages}
-              markAllAsRead={markAllAsRead}
-              markUnread={markUnread}
-              openMessage={openMessage}
-              saveMessage={saveMessage}
-              reduxDispatch={reduxDisplatch}
-              saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+    const channelData: ChannelTypes = channel.cData
+    const isV3 = !!channelData.channelType
+    if (isV3) {
+      switch (channelData.channelType) {
+        case CHANNEL_COLLAB:
+          return <CollabChannel channelId={channel.uniqid} />
+        case CHANNEL_CHAT:
+          return <ChatChannel channelId={channel.uniqid} />
+        case CHANNEL_PLANNING:
+          return <PlanningChannel2
+            templates={channel.templates}
+            messages={channel.messages}
+            channel={channel.cData as ChannelPlanning}
+            selectedRoleId={state.selectedRole}
+            selectedRoleName={state.selectedRoleName}
+            currentWargame={state.currentWargame}
+            selectedForce={state.selectedForce}
+            isUmpire={state.isUmpire}
+            allForces={state.allForces}
+            platformTypes={state.allPlatformTypes}
+            gameDate={state.gameDate}
+            currentTurn={state.currentTurn}
+            dispatch={dispatch}
+            getAllWargameMessages={getAllWargameMessages}
+            markAllAsRead={markAllAsRead}
+            markUnread={markUnread}
+            openMessage={openMessage}
+            saveMessage={saveMessage}
+            reduxDispatch={reduxDisplatch}
+            saveNewActivityTimeMessage={saveNewActivityTimeMessage}
 
-            />
-          case CHANNEL_MAPPING: {
-            const channelD = channel.cData as ChannelMapping
-            const constraints = channelD.constraints
-            return renderMap(node.getId(), constraints, channel.cData as ChannelMapping)
-          }
-          case CHANNEL_CUSTOM:
-            return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
-          default:
-            console.log('not yet handling', channelData)
+          />
+        case CHANNEL_MAPPING: {
+          const channelD = channel.cData as ChannelMapping
+          const constraints = channelD.constraints
+          return renderMap(node.getId(), constraints, channel.cData as ChannelMapping)
         }
-      } else {
-        return <>This is a legacy channel. It is not being rendered.</>
+        case CHANNEL_CUSTOM:
+          return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
+        default:
+          console.log('not yet handling', channelData)
       }
+    } else {
+      return <>This is a legacy channel. It is not being rendered.</>
     }
   }
 }
