@@ -8,7 +8,7 @@ import SupportPanel from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const PlanninChannel2: React.FC<PropTypes> = ({
+export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
   reduxDispatch,
   getAllWargameMessages,
@@ -96,4 +96,4 @@ export const PlanninChannel2: React.FC<PropTypes> = ({
   )
 }
 
-export default PlanninChannel2
+export default PlanningChannel

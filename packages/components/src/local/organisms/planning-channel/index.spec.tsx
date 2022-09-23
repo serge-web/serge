@@ -3,7 +3,7 @@ import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/m
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
-import PlanningChannel2 from './index'
+import PlanningChannel from './index'
 
 export const mockFn = (): PlayerUiActionTypes => ({
   type: 'mock' as any,
@@ -34,7 +34,7 @@ const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBo
 
 describe('Planning Channel component: ', () => {
   it('renders component correctly', () => {
-    const tree = mount(<PlanningChannel2
+    const tree = mount(<PlanningChannel
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
       templates={templateBodies}

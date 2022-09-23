@@ -1,4 +1,4 @@
-import { Assets, HexGrid, InfoMarkers, Mapping, PlanningChannel2 } from '@serge/components'
+import { Assets, HexGrid, InfoMarkers, Mapping, PlanningChannel } from '@serge/components'
 import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
@@ -149,7 +149,7 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_CHAT:
           return <ChatChannel channelId={channel.uniqid} />
         case CHANNEL_PLANNING:
-          return <PlanningChannel2
+          return <PlanningChannel
             templates={channel.templates}
             messages={channel.messages}
             channel={channel.cData as ChannelPlanning}

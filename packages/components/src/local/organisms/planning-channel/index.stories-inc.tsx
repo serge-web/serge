@@ -5,7 +5,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React from 'react'
-import PlanningChannel2 from './index'
+import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
@@ -26,8 +26,8 @@ forces.forEach((force: ForceData) => {
 })
 
 export default {
-  title: 'local/organisms/PlanningChannel2',
-  component: PlanningChannel2,
+  title: 'local/organisms/PlanningChannel',
+  component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -108,7 +108,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
   const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
 
-  return <PlanningChannel2
+  return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
     messages={planningMessages}
     templates={templateBodies}
