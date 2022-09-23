@@ -10,7 +10,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
       "description": "Feedback on a set of orders",
       "type": "object",
       "title": "Adjudication Feedback",
-  "properties": {
+      "properties": {
         "GeneralFeedback": {
           "title": "General Feedback",
           "type": "string",
@@ -20,7 +20,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "title": "ISR Feedback",
           "type": "object",
           "format": "table",
-              "properties": {
+          "properties": {
             "method": {
               "type": "string",
               "enum": [
@@ -228,7 +228,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     }
     ,
     completed: false,
-    _id: 'k16e12km',
+    _id: 'k16-adjud',
     _rev: '1-7fa1e6dd6b4ac5b6afc45b596ee7af61'
   },
   {
@@ -956,7 +956,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     title: "Land Activity",
     _id: 'k16e-land',
     _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
-  },{
+  }, {
     completed: false,
     details: {
       format: "grid",

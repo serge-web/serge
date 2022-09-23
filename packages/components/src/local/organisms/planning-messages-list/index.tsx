@@ -82,7 +82,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
 
   return (
     <div className={styles['messages-list']}>
-      <Orders detailPanelFnc={detailPanel} customiseTemplate={customiseTemplate} messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
+      <Orders detailPanelFnc={detailPanel} columns={columns} rows={rows} />
     </div>
   )
 }

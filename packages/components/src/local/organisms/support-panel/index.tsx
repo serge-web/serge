@@ -24,6 +24,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onReadAll,
   channel,
   templates,
+  adjudicationTemplate,
   saveMessage,
   saveNewActivityTimeMessage,
   selectedForce,
@@ -208,7 +209,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
-                    templates={templates}
+                    template={adjudicationTemplate}
                     customiseTemplate={customiseTemplate}
                   />
                 </div>

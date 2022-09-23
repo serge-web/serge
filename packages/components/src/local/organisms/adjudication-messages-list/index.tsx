@@ -1,4 +1,5 @@
-import { MessagePlanning, TemplateBody } from '@serge/custom-types'
+import { Table } from '@material-ui/core'
+import { MessagePlanning } from '@serge/custom-types'
 import { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -8,7 +9,7 @@ import { OrderRow } from '../orders/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const AdjudicationMessagesList: React.FC<PropTypes> = ({ messages, templates, isUmpire, gameDate, customiseTemplate, playerForceId }: PropTypes) => {
+export const AdjudicationMessagesList: React.FC<PropTypes> = ({ messages, template, isUmpire, gameDate, customiseTemplate, playerForceId }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
@@ -60,20 +61,39 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({ messages, templa
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
-      const localTemplates = templates || []
-      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
       if (!template) {
-        console.log('template not found for', message.details.messageType, 'templates:', templates)
+        console.log('template not found for', message.details.messageType, 'template:', template)
       }
       if (message && template) {
-        return <JsonEditor
-          messageContent={message.message}
+        return <>
+        <Table>
+          <thead>
+            <tr>
+              <th>
+                Cell title
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{JSON.stringify(message)}</td>
+            </tr>
+            <tr>
+              <td>{JSON.stringify(template)}</td>
+            </tr>
+          </tbody>
+        </Table>
+        <JsonEditor
+          messageContent={{
+            "GeneralFeedback": "",
+            "FeedbackItems": []
+          }}
           customiseTemplate={customiseTemplate}
           messageId={rowData.id}
           template={template}
           disabled={false}
           gameDate={gameDate}
-        />
+        /></>
       } else {
         return <div>Template not found for {message.details.messageType}</div>
       }
@@ -82,7 +102,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({ messages, templa
 
   return (
     <div className={styles['messages-list']}>
-      <Orders detailPanelFnc={detailPanel} customiseTemplate={customiseTemplate} messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
+      <Orders detailPanelFnc={detailPanel} columns={columns} rows={rows} />
     </div>
   )
 }
