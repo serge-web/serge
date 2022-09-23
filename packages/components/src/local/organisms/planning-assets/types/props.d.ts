@@ -17,12 +17,12 @@ export default interface PropTypes {
   /** list of platforms & styles */
   platformStyles: PlatformStyle[]
   /** selection rows callback */
-  onSelectionChange?: (rows: Row[]) => void
+  onSelectionChange?: (rows: AssetRow[]) => void
   /** visible rows change callback */
-  onVisibleRowsChange?: (row: Row[]) => void
+  onVisibleRowsChange?: (row: AssetRow[]) => void
 }
 
-export type Row = {
+export type AssetRow = {
   id: string
   icon: string
   name: string

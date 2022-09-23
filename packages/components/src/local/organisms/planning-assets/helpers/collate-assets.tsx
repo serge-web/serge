@@ -2,7 +2,7 @@ import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset, ForceData, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
-import { Row } from '../types/props'
+import { AssetRow } from '../types/props'
 import AssetIcon from '../../../asset-icon'
 import React from 'react'
 import styles from '../styles.module.scss'
@@ -16,7 +16,7 @@ type SummaryData = {
 }
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
-  platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>) => {
+  platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>): void => {
   if (!platformTypesDict[pType]) {
     const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
     if (thisP) {
@@ -103,7 +103,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
  */
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
-  const renderIcon = (row: Row): React.ReactElement => {
+  const renderIcon = (row: AssetRow): React.ReactElement => {
     if (!row.icon) return <></>
     const icons = row.icon.split(',')
     if (icons.length === 3) {
@@ -111,7 +111,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     }
     return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
   }
-  const renderOwner = (row: Row): React.ReactElement => {
+  const renderOwner = (row: AssetRow): React.ReactElement => {
     const match = row.owner && summaryData.roles[row.owner]
     if (match) {
       return <>{match}</>
@@ -119,7 +119,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
       return <></>
     }
   }
-  const renderPlatformType = (row: Row): React.ReactElement => {
+  const renderPlatformType = (row: AssetRow): React.ReactElement => {
     const match = row.platformType && summaryData.platformTypes[row.platformType]
     if (match) {
       return <>{match}</>
@@ -173,8 +173,8 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
  * @returns a list of rows, representing the asset and it's children
  */
 export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData['uniqid'], assetForce: ForceData,
-  forceColors: ForceStyle[], platformIcons: PlatformStyle[], parentId?: string): Row[] => {
-  const itemRows: Row[] = []
+  forceColors: ForceStyle[], platformIcons: PlatformStyle[], parentId?: string): AssetRow[] => {
+  const itemRows: AssetRow[] = []
 
   const iconFor = (platformType: string): string => {
     const pType = platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)
@@ -192,7 +192,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const perception = findPerceivedAsTypes(playerForce, asset.name, !!visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
     if (perception) {
       const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
-      const res: Row = {
+      const res: AssetRow = {
         id: asset.uniqid,
         icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
         force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
@@ -204,7 +204,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       itemRows.push(res)
     }
   } else {
-    const res: Row = {
+    const res: AssetRow = {
       id: asset.uniqid,
       icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,
       force: assetForce.name,
@@ -230,8 +230,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   return itemRows
 }
 
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce?: ForceData['uniqid']): Row[] => {
-  const rows: Row[] = []
+export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce?: ForceData['uniqid']): AssetRow[] => {
+  const rows: AssetRow[] = []
 
   // ok, work through the assets
   forces.forEach((force: ForceData) => {

@@ -1,36 +1,20 @@
-import React from 'react'
-import { MessageMap, PlayerUi, MappingConstraints, ChannelUI, ChannelMapping } from '@serge/custom-types'
+import { Assets, HexGrid, InfoMarkers, Mapping, PlanningChannel } from '@serge/components'
 import {
-  FORCE_LAYDOWN,
-  PERCEPTION_OF_CONTACT,
-  STATE_OF_WORLD,
-  CREATE_TASK_GROUP,
-  LEAVE_TASK_GROUP,
-  HOST_PLATFORM,
-  SUBMIT_PLANS,
-  DELETE_PLATFORM,
-  VISIBILITY_CHANGES,
-  CHANNEL_MAPPING,
-  Phase,
-  CHANNEL_COLLAB,
-  CHANNEL_CUSTOM,
-  CHANNEL_CHAT,
-  CHANNEL_PLANNING,
-  UPDATE_MARKER,
-  DELETE_MARKER,
-  CLONE_MARKER,
-  UMPIRE_LAYDOWN
+  CHANNEL_CHAT, CHANNEL_COLLAB,
+  CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { sendMapMessage, isChatChannel } from '@serge/helpers'
+import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageMap, PlayerUi } from '@serge/custom-types'
+import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
-import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { Mapping, Assets, HexGrid, InfoMarkers } from '@serge/components'
 import _ from 'lodash'
+import React from 'react'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
-import PlanningChannel from '../../../Components/PlanningChannel'
 
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import CollabChannel from '../../../Components/CollabChannel'
-import findChannelByID from './findChannelByID'
+import { usePlayerUiDispatch } from '../../../Store/PlayerUi'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -44,6 +28,9 @@ const phaseFor = (phase: string): Phase => {
 }
 
 const factory = (state: PlayerUi): Factory => {
+  const dispatch = usePlayerUiDispatch()
+  const reduxDisplatch = useDispatch()
+
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
     if (channelID === '') return
     if (typeof channelID === 'number') channelID = channelID.toString()
@@ -148,50 +135,55 @@ const factory = (state: PlayerUi): Factory => {
     </Mapping>
 
     if (_.isEmpty(state.channels)) return
-
-    const matchedChannel = findChannelByID(state.channels, node.getId())
-    if (!matchedChannel || !renderThisChannel(matchedChannel[1])) {
+    const channel = state.channels[node.getId()]
+    if (!channel || !renderThisChannel(channel)) {
       return null
     }
-    const channelName = node.getName().toLowerCase()
-    const channelDefinition = state.allChannels.find((channel) => channel.uniqid === node.getId())
-    if (!channelDefinition) {
-      // ok, this channel has been deleted
-      console.log('channel definition not found, presumed deleted')
-    } else {
-      // sort out if it's a modern channel
-      const v3Channel = channelDefinition
-      const isV3 = !!v3Channel.channelType
-      if (isV3) {
-        switch (v3Channel.channelType) {
-          case CHANNEL_COLLAB:
-            return <CollabChannel channelId={matchedChannel[0]} />
-          case CHANNEL_CHAT:
-            return <ChatChannel channelId={matchedChannel[0]} />
-          case CHANNEL_PLANNING:
-            return <PlanningChannel channelId={matchedChannel[0]} />
-          case CHANNEL_MAPPING: {
-            const channel = matchedChannel[1].cData as ChannelMapping
-            const constraints = channel.constraints
-            return renderMap(node.getId(), constraints, channel)
-          }
-          case CHANNEL_CUSTOM:
-            return <ChatChannel isCustomChannel={true} channelId={matchedChannel[0]} />
-          default:
-            console.log('not yet handling', v3Channel)
+    console.log('matched channel', channel)
+    const channelData: ChannelTypes = channel.cData
+    const isV3 = !!channelData.channelType
+    if (isV3) {
+      switch (channelData.channelType) {
+        case CHANNEL_COLLAB:
+          return <CollabChannel channelId={channel.uniqid} />
+        case CHANNEL_CHAT:
+          return <ChatChannel channelId={channel.uniqid} />
+        case CHANNEL_PLANNING:
+          return <PlanningChannel
+            templates={channel.templates}
+            messages={channel.messages}
+            channel={channel.cData as ChannelPlanning}
+            selectedRoleId={state.selectedRole}
+            selectedRoleName={state.selectedRoleName}
+            currentWargame={state.currentWargame}
+            selectedForce={state.selectedForce}
+            isUmpire={state.isUmpire}
+            allForces={state.allForces}
+            platformTypes={state.allPlatformTypes}
+            gameDate={state.gameDate}
+            currentTurn={state.currentTurn}
+            dispatch={dispatch}
+            getAllWargameMessages={getAllWargameMessages}
+            markAllAsRead={markAllAsRead}
+            markUnread={markUnread}
+            openMessage={openMessage}
+            saveMessage={saveMessage}
+            reduxDispatch={reduxDisplatch}
+            saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+
+          />
+        case CHANNEL_MAPPING: {
+          const channelD = channel.cData as ChannelMapping
+          const constraints = channelD.constraints
+          return renderMap(node.getId(), constraints, channel.cData as ChannelMapping)
         }
-      } else {
-        if (channelName === CHANNEL_MAPPING) {
-          return <div>Legacy mapping channel not supported</div>
-        } else if (matchedChannel.length) {
-          // find out if channel just contains chat template
-          if (isChatChannel(channelDefinition)) {
-            return <ChatChannel channelId={matchedChannel[0]} />
-          } else {
-            console.log('Not rendering channel for ', channelDefinition)
-          }
-        }
+        case CHANNEL_CUSTOM:
+          return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
+        default:
+          console.log('not yet handling', channelData)
       }
+    } else {
+      return <>This is a legacy channel. It is not being rendered.</>
     }
   }
 }

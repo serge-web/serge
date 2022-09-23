@@ -1,4 +1,4 @@
-import { ChannelUI, MessageDetails } from '@serge/custom-types'
+import { MessageDetails } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
@@ -52,14 +52,7 @@ interface StoryPropTypes {
 
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel } = args
-  const channels = {}
-  P9Mock.data.channels.channels.forEach(c => {
-    channels[c.name] = {
-      cData: c,
-      name: c.name,
-      uniqid: c.uniqid
-    } as ChannelUI
-  })
+
   const postBack = (details: MessageDetails, message: any): void => {
     console.log('send message', details, message)
   }
