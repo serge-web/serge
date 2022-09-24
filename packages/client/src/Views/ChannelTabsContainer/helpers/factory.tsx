@@ -159,6 +159,7 @@ const factory = (state: PlayerUi): Factory => {
           return <PlanningChannel
             templates={channel.templates}
             allTemplates={allTemplates}
+            adjudicationTemplate={state.allTemplatesByKey['k16e-land']}
             messages={channel.messages}
             channel={channel.cData as ChannelPlanning}
             selectedRoleId={state.selectedRole}
