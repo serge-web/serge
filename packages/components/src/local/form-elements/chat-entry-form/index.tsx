@@ -1,16 +1,12 @@
-import React, { useRef, useState } from 'react'
 import { Box } from '@material-ui/core'
-
-/* Import Types */
-import Props from './types/props'
+import { UNSENT_CHAT_MESSAGE_TYPE, UNSENT_PRIVATE_MESSAGE_TYPE } from '@serge/config'
 import { MessageDetails, MessagePlanning } from '@serge/custom-types'
-
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
+import React, { useRef, useState } from 'react'
+import { dummyMessages } from '../../organisms/support-panel/helpers/dummy_messages'
 import ChatInputText from '../chat-input-text'
 import PrivateChatInputToggle from '../private-chat-input-toggle'
-import { dummyMessages } from '../../organisms/support-panel/helpers/dummy_messages'
+import styles from './styles.module.scss'
+import Props from './types/props'
 
 /* Render component */
 export const ChatEntryForm: React.FC<Props> = ({
@@ -29,12 +25,11 @@ export const ChatEntryForm: React.FC<Props> = ({
 }: Props) => {
   const [message, setMessage] = useState('')
   const [privateMessage, setPrivateMessage] = useState('')
-  const [privateMessageType, setPrivateMessageType] = useState('')
   const messageEle = useRef<any>(null)
   const privateMessageEle = useRef<any>(null)
   const timestamp = new Date().toISOString()
 
-  const submitForm = (type: string): void => {
+  const submitForm = (): void => {
     if (!message) return
     const details: MessageDetails = {
       channel: channel,
@@ -45,7 +40,7 @@ export const ChatEntryForm: React.FC<Props> = ({
         roleName: roleName,
         iconURL: from.iconURL || (from.icon || '')
       },
-      messageType: 'Chat',
+      messageType: UNSENT_CHAT_MESSAGE_TYPE,
       timestamp: timestamp,
       privateMessage: privateMessage,
       turnNumber: turnNumber
@@ -67,17 +62,19 @@ export const ChatEntryForm: React.FC<Props> = ({
     }
 
     postBack && postBack(details, contents)
-    clearCachedMessage && clearCachedMessage([privateMessageType, type])
-    messageEle.current.clear()
+    clearCachedMessage && clearCachedMessage([UNSENT_PRIVATE_MESSAGE_TYPE, UNSENT_CHAT_MESSAGE_TYPE])
     setMessage('')
     setPrivateMessage('')
+    messageEle.current.clear()
     privateMessageEle && privateMessageEle.current && privateMessageEle.current.clear()
   }
 
   const onCancel = () => {
     messageEle.current.clear()
-    onchangeChatInputMessage('', 'chat')
-    clearCachedMessage && clearCachedMessage(['chat'])
+    privateMessageEle.current.clear()
+    onchangeChatInputMessage('', UNSENT_CHAT_MESSAGE_TYPE)
+    onChangePrivateStorage('', UNSENT_PRIVATE_MESSAGE_TYPE)
+    clearCachedMessage && clearCachedMessage([UNSENT_PRIVATE_MESSAGE_TYPE, UNSENT_CHAT_MESSAGE_TYPE])
   }
 
   return (
@@ -97,7 +94,6 @@ export const ChatEntryForm: React.FC<Props> = ({
         <Box mt={1}>
           <PrivateChatInputToggle
             privatValue={privatMessageValue}
-            clearPrivateStorage={(type: string): void => setPrivateMessageType(type)}
             postBack={(message, messageType): void => {
               onChangePrivateStorage(message, messageType)
               setPrivateMessage(message)

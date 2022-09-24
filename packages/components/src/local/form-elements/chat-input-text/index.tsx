@@ -1,34 +1,28 @@
-import React, { useState, useImperativeHandle, useEffect } from 'react'
 import { IconButton, InputAdornment } from '@material-ui/core'
 import { SendOutlined } from '@material-ui/icons'
-
-/* Import Types */
+import { UNSENT_CHAT_MESSAGE_TYPE } from '@serge/config'
+import React, { useEffect, useImperativeHandle, useState } from 'react'
+import TextInput from './../../atoms/text-input'
+import styles from './styles.module.scss'
 import Props from './types/props'
 
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-/* Import Component */
-import TextInput from './../../atoms/text-input'
-
-const UNSENT_MESSAGE_TYPE = 'chat'
 /* Render component */
 export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange, chatInputvalue, onCancel }: Props, ref) => {
   const [formState, setFormState] = useState('')
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
-    onMessageChange && onMessageChange(e.value, UNSENT_MESSAGE_TYPE)
+    onMessageChange && onMessageChange(e.value, UNSENT_CHAT_MESSAGE_TYPE)
   }
 
   useEffect(() => {
-    const value = chatInputvalue(UNSENT_MESSAGE_TYPE)
-    onMessageChange && onMessageChange(value, UNSENT_MESSAGE_TYPE)
+    const value = chatInputvalue(UNSENT_CHAT_MESSAGE_TYPE)
+    onMessageChange && onMessageChange(value, UNSENT_CHAT_MESSAGE_TYPE)
     setFormState(value)
   }, [])
 
   const submitForm = (): void => {
-    postBack && postBack(UNSENT_MESSAGE_TYPE)
+    postBack && postBack(UNSENT_CHAT_MESSAGE_TYPE)
     setFormState('')
   }
 
