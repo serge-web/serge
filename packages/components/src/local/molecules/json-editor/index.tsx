@@ -37,7 +37,10 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const genLocalStorageId = (): string => {
-    return messageId
+    if (!template._id) {
+      console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
+    }
+    return messageId + template._id
   }
 
   const initEditor = (): () => void => {
@@ -87,7 +90,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     const handleClick = ({ target }: any): void => {
       // @ts-ignore
-      const storageData = expiredStorage.getItem(messageId) ? JSON.parse(expiredStorage.getItem(messageId)) : null
+      const storageData = expiredStorage.getItem(genLocalStorageId()) ? JSON.parse(expiredStorage.getItem(genLocalStorageId())) : null
       const targetId = target.getAttribute('id')
       if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
         if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
