@@ -2,8 +2,9 @@ import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { Asset, CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLngBounds, LatLngExpression, latLngBounds } from 'leaflet'
+import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import React, { useEffect, useState } from 'react'
+import { AssetRow } from '../planning-assets/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel from '../support-panel'
 import styles from './styles.module.scss'
@@ -37,6 +38,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [zoom] = useState<number>(12)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
 
+  const [opForces, setOpForces] = useState<AssetRow[]>([])
+  const [ownForces, setOwnForces] = useState<AssetRow[]>([])
+
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
 
@@ -58,6 +62,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
+
+  useEffect(() => {
+    console.log('=> [PlanningChannel] ownForces update: ', ownForces && ownForces.length, 'items')
+  }, [ownForces])
+
+  useEffect(() => {
+    console.log('=> [PlanningChannel]: opForces update: ', opForces && opForces.length, 'items')
+  }, [opForces])
 
   const onReadAll = (): void => {
     dispatch(markAllAsRead(channel.uniqid))
@@ -110,8 +122,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         currentTurn={currentTurn}
         setSelectedItem={setSelectedItem}
         selectedItem={selectedItem}
+        setOpForcesForParent={setOpForces}
+        setOwnForcesForParent={setOwnForces}
       />
-      <SupportMapping allForces={allForces} bounds={bounds} zoom={zoom} position={position} />
+      <SupportMapping
+        allForces={allForces}
+        bounds={bounds}
+        zoom={zoom}
+        position={position}
+        opForces={opForces}
+        ownForces={ownForces}
+      />
     </div>
   )
 }

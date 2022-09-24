@@ -1,17 +1,16 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
-import SupportMapping from './index'
-import docs from './README.md'
-import SupportMappingProps from './types/props'
-import { P9Mock } from '@serge/mocks'
 
-const forces = P9Mock.data.forces.forces
+import PlanningForce from './index'
+import docs from './README.md'
+import PlanningForceProps from './types/props'
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/organisms/SupportMapping',
-  component: SupportMapping,
+  title: 'local/organisms/PlanningForce',
+  component: PlanningForce,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -26,11 +25,12 @@ export default {
       expanded: true
     }
   },
-  argTypes: {}
+  argTypes: {
+  }
 }
 
-const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping allForces={forces} position={[51.505, -0.09]} zoom={12} opForces={[]} ownForces={[]} />
+const Template: Story<PlanningForceProps> = () => {
+  return <PlanningForce assets={[]} />
 }
 
 export const Default = Template.bind({})

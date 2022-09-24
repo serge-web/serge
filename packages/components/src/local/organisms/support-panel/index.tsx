@@ -4,6 +4,7 @@ import { MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
+import { isEqual } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
@@ -34,14 +35,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  setSelectedItem
+  setSelectedItem,
+  setOpForcesForParent,
+  setOwnForcesForParent
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[3])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
-  // handle selections from asset tables
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
 
@@ -104,10 +106,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('rows change', opFor, data.length)
     if (opFor) {
       setOpForces(data)
-      // setOpForcesParent(data)
+      setOpForcesForParent(data)
     } else {
       setOwnForces(data)
-      // setOwnForcesParent(data)
+      setOwnForcesForParent(data)
     }
   }
 
@@ -120,20 +122,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('=> ownForces update: ', ownForces && ownForces.length, 'items')
+    console.log('=> [SupportPanel]: ownForces update: ', ownForces && ownForces.length, 'items')
   }, [ownForces])
 
   useEffect(() => {
-    console.log('=> opForces update: ', opForces && opForces.length, 'items')
+    console.log('=> [SupportPanel]: opForces update: ', opForces && opForces.length, 'items')
   }, [opForces])
-
-  // Note: utility tool to generate random orders
-  // const dummyOrders = randomOrdersDocs(45, allForces, [allForces[1].uniqid, allForces[2].uniqid])
-  // console.log(dummyOrders)
-
-  // note: for support panels we don't have force icons, so we don't need
-  // to provide hide forces prop
-  const hideForcesInChannel = false
 
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
@@ -165,7 +159,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     playerRoleId={selectedRoleId}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
-                    hideForcesInChannel={!!hideForcesInChannel}
+                    hideForcesInChannel={false}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
@@ -209,7 +203,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     playerRoleId={selectedRoleId}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
-                    hideForcesInChannel={!!hideForcesInChannel}
+                    hideForcesInChannel={false}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
@@ -248,4 +242,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   )
 }
 
-export default SupportPanel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => !isEqual(prevProps, nextProps)
+
+export default React.memo(SupportPanel, areEqual)
