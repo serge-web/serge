@@ -108,6 +108,8 @@ const Template: Story<SupportPanelProps> = (args) => {
     isUmpire={!!force.umpire}
     selectedItem={''}
     setSelectedItem={setSelectedItem}
+    setOpForcesForParent={noop}
+    setOwnForcesForParent={noop}
   />
 }
 

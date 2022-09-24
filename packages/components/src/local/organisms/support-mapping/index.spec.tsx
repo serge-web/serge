@@ -7,7 +7,7 @@ const forces = P9Mock.data.forces.forces
 
 describe('Support Mapping component: ', () => {
   it('renders component correctly', () => {
-    const tree = mount(<SupportMapping allForces={forces} position={[51.505, -0.09]} zoom={12} />)
+    const tree = mount(<SupportMapping allForces={forces} position={[51.505, -0.09]} zoom={12} opForces={[]} ownForces={[]} />)
     expect(tree).toMatchSnapshot()
   })
 })
