@@ -21,7 +21,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         <h6
           className="MuiTypography-root-201 MuiTypography-h6-218"
         >
-          My Orders
+          Adjudication
         </h6>
       </div>
       <div

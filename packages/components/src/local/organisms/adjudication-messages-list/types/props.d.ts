@@ -8,7 +8,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   messages: Array<MessagePlanning>
   /** forces in this game
-   * 
+   *
    */
   forces: ForceData[]
   /**
