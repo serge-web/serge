@@ -9,9 +9,11 @@ import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/m
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
+import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const forces = P9Mock.data.forces.forces
 
 export default {
   title: 'local/organisms/AdjudicationMessagesList',
@@ -60,6 +62,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const newestMessages = mostRecentPlanningOnly(planningMessages)
 
   return <AdjudicationMessagesList
+    forces={forces} setSelectedItem={(): any => noop} 
     messages={newestMessages}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}

@@ -7,6 +7,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * for ChannelMessage components
    */
   messages: Array<MessagePlanning>
+  /** forces in this game
+   * 
+   */
+  forces: ForceData[]
   /**
    *  current game-date (may be used in JSON Editor for date-picker)
    */
@@ -49,4 +53,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * method to customise the new (or existing) message template
    */
   customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
+  /**
+   *  select an item on the map
+   */
+  setSelectedItem: {(asset: Asset['uniqid'] | undefined): void}
 }

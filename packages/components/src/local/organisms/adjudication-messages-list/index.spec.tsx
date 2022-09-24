@@ -7,9 +7,11 @@ import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
+import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
-const blueForce = P9Mock.data.forces.forces[1]
+const forces = P9Mock.data.forces.forces
+const blueForce = forces[1]
 const blueRole = blueForce.roles[0]
 
 describe('AdjudicationMessagesList component: ', () => {
@@ -43,7 +45,7 @@ describe('AdjudicationMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<AdjudicationMessagesList template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
+      .create(<AdjudicationMessagesList forces={forces} setSelectedItem={(): any => noop} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
