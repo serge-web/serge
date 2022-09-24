@@ -906,7 +906,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           title: "Subject(s) of orders",
           items: {
             type: "object",
-            title: "Asset",
+            title: "Target",
             properties: {
               FEName: {
                 type: "string",
