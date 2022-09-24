@@ -52,6 +52,17 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                       "grid_columns": 3
                     }
                   },
+                  "By": {
+                    "title": "By",
+                    "type": "string",
+                    "format": "radio",
+                    "enum": [
+                      "Blue",
+                      "Red",
+                      "Green",
+                      "White"
+                    ]
+                  },
                   "Force": {
                     "title": "Force",
                     "type": "string",
