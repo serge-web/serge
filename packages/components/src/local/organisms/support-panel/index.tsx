@@ -34,10 +34,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  selectedItem,
   setSelectedItem
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(TABS[3])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
@@ -204,6 +203,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <div className={styles['order-group']}>
                   <AdjudicationMessagesList
                     messages={messages}
+                    forces={allForces}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
@@ -216,6 +216,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     template={adjudicationTemplate}
                     customiseTemplate={customiseTemplate}
+                    setSelectedItem={setSelectedItem}
                   />
                 </div>
               }
@@ -234,15 +235,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    platformTypes,
     messages,
-    selectedForce,
-    selectedRoleId,
-    selectedItem,
-    turnPresentation,
-    gameDate,
-    channel,
-    templates
+    selectedRoleId
   ]
   )
 
