@@ -5,7 +5,6 @@ import { AssetRow } from '../planning-assets/types/props'
 import PropTypes from './types/props'
 
 export const PlanningForces: React.FC<PropTypes> = ({ assets }) => {
-
   return <>
     {
       assets.length > 0 && <LayerGroup key={'first-forces-layer'}>

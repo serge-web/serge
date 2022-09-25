@@ -34,6 +34,7 @@ describe('Support Panel component: ', () => {
         onReadAll={noop}
         onRead={noop}
         templates={myTemplates}
+        adjudicationTemplate={planningMessageTemplatesMock[0]}
         activityTimeChanel={noop}
         dispatch={noop}
         saveMessage={(): any => noop}
