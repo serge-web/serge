@@ -40,6 +40,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
 
+  const [filterApplied, setFilterApplied] = useState<boolean>(true)
+
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
 
@@ -130,6 +132,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         position={position}
         opForces={opForces}
         ownForces={ownForces}
+        filterApplied={filterApplied}
+        setFilterApplied={setFilterApplied}
       />
     </div>
   )

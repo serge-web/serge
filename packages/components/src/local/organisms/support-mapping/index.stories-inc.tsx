@@ -5,6 +5,7 @@ import SupportMapping from './index'
 import docs from './README.md'
 import SupportMappingProps from './types/props'
 import { P9Mock } from '@serge/mocks'
+import { noop } from 'lodash'
 
 const forces = P9Mock.data.forces.forces
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -30,7 +31,7 @@ export default {
 }
 
 const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping allForces={forces} position={[51.505, -0.09]} zoom={12} opForces={[]} ownForces={[]} />
+  return <SupportMapping filterApplied={true} setFilterApplied={(): void => noop()} allForces={forces} position={[51.505, -0.09]} zoom={12} opForces={[]} ownForces={[]} />
 }
 
 export const Default = Template.bind({})

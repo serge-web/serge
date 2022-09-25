@@ -8,4 +8,6 @@ export default interface PropTypes {
   allForces: ForceData[]
   opForces: AssetRow[]
   ownForces: AssetRow[]
+  filterApplied: boolean
+  setFilterApplied
 }
