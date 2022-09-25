@@ -3,10 +3,9 @@ import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-import { OrderRow } from '../orders/types/props'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import styles from './styles.module.scss'
-import PropTypes from './types/props'
+import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, isUmpire, gameDate, customiseTemplate, playerForceId }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])

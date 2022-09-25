@@ -1,6 +1,15 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { ChannelPlanning, ForceData, MessagePlanning } from '@serge/custom-types'
 
+export type OrderRow = {
+  id: string
+  title: string
+  role: string
+  activity: string
+  startDate: string
+  endDate: string
+}
+
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
   /**
    * The list of channel messages properties required
