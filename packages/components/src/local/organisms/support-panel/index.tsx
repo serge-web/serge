@@ -47,6 +47,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
 
+  console.warn('=> [SupportPanel] selectedForce', selectedForce.name)
+
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
