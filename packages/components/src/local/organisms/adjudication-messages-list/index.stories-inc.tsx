@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
-import { mostRecentPlanningOnly } from '@serge/helpers'
+import { forceColors, mostRecentPlanningOnly } from '@serge/helpers'
 import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
@@ -64,6 +64,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   return <AdjudicationMessagesList
     forces={forces} setSelectedItem={(): any => noop}
     messages={newestMessages}
+    forceColors={forceColors(forces)}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}
     template={planningMessageTemplatesMock[0]}

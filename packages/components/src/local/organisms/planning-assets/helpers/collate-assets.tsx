@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
+import { Asset, ForceData, MessagePlanning, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { AssetRow } from '../types/props'
@@ -9,8 +9,8 @@ import styles from '../styles.module.scss'
 import { latLng } from 'leaflet'
 
 type SummaryData = {
-  roles: {}
-  platformTypes: {}
+  roles: Record<Role['roleId'], Role['name']>
+  platformTypes: Record<PlatformStyle['uniqid'], PlatformStyle['name']>
   statuses: string[]
   conditions: string[]
   forces: string[]
@@ -18,7 +18,7 @@ type SummaryData = {
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
   platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>): void => {
-  if (!platformTypesDict[pType]) {
+  if (!platformTypesDict[pType] && platformStyles.length) {
     const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
     if (thisP) {
       platformTypesDict[pType] = thisP.name
@@ -58,7 +58,7 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
 
 export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'],
   opFor: boolean, platformStyles: PlatformStyle[]): SummaryData => {
-  const roleDict: {} = {}
+  const roleDict: Record<Role['roleId'], Role['name']> = {}
   const platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']> = {}
   const statuses: string[] = []
   const conditions: string[] = []
@@ -93,6 +93,11 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
       // we store roles for own force, or all for an umpire
       if (isUmpireForce || (force.uniqid === playerForce)) {
         force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
+        // capture all force names for umpire
+        if (isUmpireForce && !forcesNames.includes(force.name)) {
+          forcesNames.push(force.name)
+        }
+
         force.assets && force.assets.forEach((asset: Asset) => {
           if (asset.status) {
             const state = asset.status.state
@@ -120,6 +125,56 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   return res
 }
 
+const renderIcon = (row: AssetRow): React.ReactElement => {
+  if (!row.icon) return <></>
+  const icons = row.icon.split(',')
+  if (icons.length === 3) {
+    return <span><AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />{icons[2]}</span>
+  }
+  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
+}
+
+export const arrToDict = (arr: string[]): {} | undefined => {
+  if (arr && arr.length > 0) {
+    const res = {}
+    arr.forEach((item: string) => {
+      res[item] = item
+    })
+    return res
+  } else {
+    return undefined
+  }
+}
+
+const renderPlatformType = (row: AssetRow, platformTypes: {}): React.ReactElement => {
+  const match = row.platformType && platformTypes[row.platformType]
+  if (match) {
+    return <>{match}</>
+  } else {
+    return <></>
+  }
+}
+
+export const renderOwner = (row: AssetRow, roles: {}): React.ReactElement => {
+  const match = row.owner && roles[row.owner]
+  if (match) {
+    return <>{match}</>
+  } else {
+    return <></>
+  }
+}
+
+export const collateActivities = (rows: MessagePlanning[]): string[] => {
+  const activities: string[] = []
+  rows.forEach((row: MessagePlanning) => {
+    const activity = row.message.ActivityType
+    if (!activities.includes(activity)) {
+      activities.push(activity)
+    }
+  })
+  return activities
+}
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
@@ -128,50 +183,14 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
  */
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
-  const renderIcon = (row: AssetRow): React.ReactElement => {
-    if (!row.icon) return <></>
-    const icons = row.icon.split(',')
-    if (icons.length === 3) {
-      return <span><AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />{icons[2]}</span>
-    }
-    return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
-  }
-  const renderOwner = (row: AssetRow): React.ReactElement => {
-    const match = row.owner && summaryData.roles[row.owner]
-    if (match) {
-      return <>{match}</>
-    } else {
-      return <></>
-    }
-  }
-  const renderPlatformType = (row: AssetRow): React.ReactElement => {
-    const match = row.platformType && summaryData.platformTypes[row.platformType]
-    if (match) {
-      return <>{match}</>
-    } else {
-      return <></>
-    }
-  }
-
-  const arrToDict = (arr: string[]): {} | undefined => {
-    if (arr && arr.length > 0) {
-      const res = {}
-      arr.forEach((item: string) => {
-        res[item] = item
-      })
-      return res
-    } else {
-      return undefined
-    }
-  }
 
   const columns: Column[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
-    { title: 'Type', field: 'platformType', render: renderPlatformType, lookup: summaryData.platformTypes },
+    { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'Condition', field: 'condition', lookup: arrToDict(summaryData.conditions) },
     { title: 'Status', field: 'status', lookup: arrToDict(summaryData.statuses) },
-    { title: 'Owner', field: 'owner', render: renderOwner, lookup: summaryData.roles }
+    { title: 'Owner', field: 'owner', render: (row): React.ReactElement => renderOwner(row, summaryData.roles), lookup: summaryData.roles }
   ]
 
   // don't need to show Force if we're just showing
