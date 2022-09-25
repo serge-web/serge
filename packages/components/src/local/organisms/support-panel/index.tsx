@@ -204,6 +204,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     playerRoleId={selectedRoleId}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
+                    forceColors={forceCols}
                     hideForcesInChannel={false}
                     onRead={onRead}
                     onUnread={onUnread}
