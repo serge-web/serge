@@ -8,7 +8,6 @@ import docs from './README.md'
 import MessageListPropTypes from './types/props'
 import { P9Mock } from '@serge/mocks'
 import { ForceData } from '@serge/custom-types'
-import { UMPIRE_FORCE } from '@serge/config'
 import { forceColors, platformIcons } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -51,14 +50,12 @@ const forceCols = forceColors(forces)
 const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { forces, playerForce, isUmpire, render, opFor } = args
-  const force = playerForce === UMPIRE_FORCE ? undefined : playerForce
+  const { forces, playerForce, render, opFor } = args
   return <PlanningAssets
     forces={forces}
     forceColors={forceCols}
     platformStyles={platformStyles}
-    playerForce={force}
-    isUmpire={isUmpire}
+    playerForce={playerForce}
     render={render}
     opFor={opFor}
   />
@@ -67,8 +64,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
 export const Default = Template.bind({})
 Default.args = {
   forces: forces,
-  playerForce: undefined,
-  isUmpire: true,
+  playerForce: forces[0],
   render: noop,
   opFor: false
 }
@@ -76,8 +72,7 @@ Default.args = {
 export const OpFor = Template.bind({})
 OpFor.args = {
   forces: P9Mock.data.forces.forces,
-  playerForce: blueForce.uniqid,
-  isUmpire: true,
+  playerForce: blueForce,
   render: noop,
   opFor: true
 }

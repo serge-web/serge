@@ -143,7 +143,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
               {activeTab === TABS[0] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
-                  playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={false}
+                  playerForce={selectedForce} render={onRender} opFor={false}
                   onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
               }
             </TabPanel>
@@ -185,7 +185,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
-                  playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={true}
+                  playerForce={selectedForce} render={onRender} opFor={true}
                   onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
               }
             </TabPanel>
