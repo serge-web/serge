@@ -91,6 +91,11 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
+              "ID": {
+                "title": "ID",
+                "type": "boolean",
+                "format": "checkbox"
+              },
               "Comment": {
                 "title": "Comment",
                 "type": "string",
