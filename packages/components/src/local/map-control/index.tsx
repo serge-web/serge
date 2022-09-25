@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DomEvent } from 'leaflet'
+import { DomEvent, LatLngBounds } from 'leaflet'
 import Item from './helpers/item'
 import cx from 'classnames'
 
@@ -51,6 +51,14 @@ export const MapControl: React.FC<PropTypes> = ({
   setFilterApplied
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
+  const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
+
+  /** the forces from props has changed */
+  useEffect(() => {
+    if (originalBounds === undefined) {
+      setOriginalBounds(bounds)
+    }
+  }, [bounds])
 
   /*
    * disable map scroll and click events to allow
@@ -69,7 +77,7 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* set map to overall view */
   const handleHome = (): void => {
-    bounds && map.flyToBounds(bounds)
+    originalBounds && map.flyToBounds(originalBounds, { duration: 0.75 })
   }
 
   /* set view as force */
