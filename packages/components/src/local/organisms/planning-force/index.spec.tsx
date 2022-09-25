@@ -5,7 +5,7 @@ import PlanningForce from './index'
 describe('Planning Force component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
-      .create(<PlanningForce assets={[]} />)
+      .create(<PlanningForce opFor={true} assets={[]} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

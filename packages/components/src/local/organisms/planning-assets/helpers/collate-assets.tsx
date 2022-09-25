@@ -52,7 +52,6 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
     }
   )})
   return rows
-
 }
 
 export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['uniqid'],
@@ -214,21 +213,23 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
-    const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
-    const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
-    if (perception) {
-      const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
-      const res: AssetRow = {
-        id: asset.uniqid,
-        icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
-        force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-        condition: UNKNOWN_TYPE,
-        name: perception.name,
-        platformType: perception.typeId,
-        status: asset.status?.state || '',
-        position: asset.location && latLng(asset.location[0], asset.location[1])
-      }
-      itemRows.push(res)
+    if(assetForce.uniqid !== playerForce.uniqid) {
+      const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
+      const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      if (perception) {
+        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
+        const res: AssetRow = {
+          id: asset.uniqid,
+          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
+          force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
+          condition: UNKNOWN_TYPE,
+          name: perception.name,
+          platformType: perception.typeId,
+          status: asset.status?.state || '',
+          position: asset.location && latLng(asset.location[0], asset.location[1])
+        }
+        itemRows.push(res)
+      }  
     }
   } else {
     const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))

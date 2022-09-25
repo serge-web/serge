@@ -4,7 +4,9 @@ import { LayerGroup, Marker, Tooltip } from 'react-leaflet'
 import { AssetRow } from '../planning-assets/types/props'
 import PropTypes from './types/props'
 
-export const PlanningForces: React.FC<PropTypes> = ({ assets }) => {
+export const PlanningForces: React.FC<PropTypes> = ({ assets, opFor }) => {
+  // temporarily use alternate icon for opForces
+  const iconToUse = opFor ? 'marker-icon-2x.png' : 'layers.png'
   return <>
     {
       assets.length > 0 && <LayerGroup key={'first-forces-layer'}>
@@ -15,7 +17,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets }) => {
               key={'asset-icon-' + index}
               position={loc}
               icon={L.divIcon({
-                html: '<img src="./images/marker-icon-2x.png" style="width:20px;height:30px"/>'
+                html: '<img src="./images/' + iconToUse + '" style="width:20px;height:30px"/>'
               })} >
               <Tooltip>{asset.name}</Tooltip>
             </Marker>

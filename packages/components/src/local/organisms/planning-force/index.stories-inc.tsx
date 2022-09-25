@@ -30,7 +30,7 @@ export default {
 }
 
 const Template: Story<PlanningForceProps> = () => {
-  return <PlanningForce assets={[]} />
+  return <PlanningForce assets={[]} opFor={true} />
 }
 
 export const Default = Template.bind({})

@@ -96,7 +96,7 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* utilty method for whether we're filtering planned routes  */
   const isFilterApplied = (): 'light' | 'dark' => {
-    return filterApplied ? 'dark' : 'light'
+    return !filterApplied ? 'dark' : 'light'
   }
 
   /* callback responding to filter planned routes toggle  */

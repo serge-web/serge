@@ -12,6 +12,8 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, ow
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
 
+  console.log('[SupportMapping] own assets:', ownAssets.length, 'filter', filterApplied)
+
   useEffect(() => {
     console.log('=> [SupportMapping] ownForces update: ', ownAssets && ownAssets.length, 'items')
   }, [ownAssets])
@@ -26,8 +28,6 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, ow
       if (leafletElement === undefined) {
         setLeafletElement(map)
       }
-      // const map: L.Map = ref.leafletElement
-      // map.zoomControl.setPosition('bottomright')
     }
   }
 
@@ -49,10 +49,10 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, ow
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
       <LayerGroup key={'own-forces'}>
-        <PlanningForces assets={ownAssets} />
+        <PlanningForces opFor={false} assets={ownAssets} />
       </LayerGroup>
       <LayerGroup key={'opp-forces'}>
-        <PlanningForces assets={opAssets} />
+        <PlanningForces opFor={true} assets={opAssets} />
       </LayerGroup>
     </Map>
   )

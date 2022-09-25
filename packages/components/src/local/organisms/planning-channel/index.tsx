@@ -53,7 +53,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = forceColors(allForces)
-    const platIcons =platformIcons(platformTypes)
+    const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, selectedForce)
     const opp = getOppAssets(allForces, forceCols, platIcons, selectedForce)
     setAllOwnAssets(own)
@@ -61,8 +61,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setAllOppAssets(opp)
     setOpAssetsFiltered(opp)
   }, [allForces])
-
-  console.log('planning channel - own', allOwnAssets.length, ownAssetsFiltered.length, allOppAssets.length, opAssetsFiltered.length)
 
   useEffect(() => {
     if (selectedItem) {
@@ -148,8 +146,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         bounds={bounds}
         zoom={zoom}
         position={position}
-        opAssets={opAssetsFiltered}
-        ownAssets={ownAssetsFiltered}
+        opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
+        ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
       />
