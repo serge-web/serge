@@ -1,5 +1,5 @@
 import { Chip, Table } from '@material-ui/core'
-import { MessagePlanning } from '@serge/custom-types'
+import { ForceData, MessagePlanning } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearchLocation } from '@fortawesome/free-solid-svg-icons'
@@ -8,13 +8,16 @@ import React, { useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
-import { findAsset } from '@serge/helpers'
+import { findAsset, ForceStyle } from '@serge/helpers'
+import { arrToDict, collateActivities, getColumnSummary } from '../planning-assets/helpers/collate-assets'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, messages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, setSelectedItem
+  customiseTemplate, playerForceId, setSelectedItem, forceColors
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
+  const [columns, setColumns] = useState<Column[]>([])
+  const [filter, setFilter] = useState<boolean>(false)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
@@ -28,30 +31,34 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const dataTable = myMessages.map(message => {
+      const forceName: ForceStyle = forceColors.find((force: ForceStyle) => force.forceId === message.details.from.forceId)
       return {
         id: message._id,
         title: message.message.title,
-        force: message.details.from.forceId,
+        force: (forceName && forceName.force) || 'unknown',
         role: message.details.from.roleName,
         activity: message.message.ActivityType,
         period: shortDate(message.message.startDate) + '-' + shortDate(message.message.endDate)
       }
     })
     setRows(dataTable)
+
+    const umpireForce = forces.find((force: ForceData) => force.umpire)
+    const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+    const activities = collateActivities(myMessages)
+    const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
+      { title: 'ID', field: 'id' },
+      { title: 'Title', field: 'title' },
+      { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
+      { title: 'Activity', field: 'activity', lookup: arrToDict(activities) },
+      { title: 'Duration', field: 'period' }
+    ]
+    setColumns(columnsData)
   }, [myMessages])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
-
-  const columns: Column[] = jestWorkerId ? [] : [
-    { title: 'ID', field: 'id' },
-    { title: 'Title', field: 'title' },
-    { title: 'Force', field: 'force' },
-    { title: 'Owner', field: 'role' },
-    { title: 'Activity', field: 'activity' },
-    { title: 'Duration', field: 'period' }
-  ]
 
   const assetClick = (objName: string): void => {
     const asset = findAsset(forces, undefined, objName)
@@ -139,9 +146,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         title={'Adjudication'}
         columns={columns}
         data={rows}
+        actions={jestWorkerId ? [] : [
+          {
+            icon: 'filter',
+            iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+            tooltip: 'Show filter controls',
+            isFreeAction: true,
+            onClick: (): void => setFilter(!filter)
+          }
+        ]}
         options={{
-          sorting: true,
-          paging: false
+          paging: false,
+          sorting: false,
+          filtering: filter,
+          selection: !jestWorkerId // fix unit-test for material table
         }}
         {...extendProps}
       />

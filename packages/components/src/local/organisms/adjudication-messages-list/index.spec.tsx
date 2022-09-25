@@ -8,6 +8,7 @@ import moment from 'moment-timezone'
 
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
+import { forceColors } from '@serge/helpers'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const forces = P9Mock.data.forces.forces
@@ -46,7 +47,7 @@ describe('AdjudicationMessagesList component: ', () => {
 
     const tree = renderer
       .create(<AdjudicationMessagesList forces={forces} setSelectedItem={(): any => noop} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
-        messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
+        messages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()

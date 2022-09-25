@@ -65,4 +65,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *  select an item on the map
    */
   setSelectedItem: {(asset: Asset['uniqid'] | undefined): void}
+  /** forces and colors
+   *
+   */
+  forceColors: ForceStyle[]
 }

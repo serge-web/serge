@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
+import { Asset, ForceData, MessagePlanning, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from 'material-table'
 import { AssetRow } from '../types/props'
@@ -18,7 +18,7 @@ type SummaryData = {
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
   platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>): void => {
-  if (!platformTypesDict[pType]) {
+  if (!platformTypesDict[pType] && platformStyles.length) {
     const thisP = platformStyles.find((plat: PlatformStyle) => plat.uniqid === pType)
     if (thisP) {
       platformTypesDict[pType] = thisP.name
@@ -93,6 +93,11 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
       // we store roles for own force, or all for an umpire
       if (isUmpireForce || (force.uniqid === playerForce)) {
         force.roles.forEach((role: Role) => { roleDict[role.roleId] = role.name })
+        // capture all force names for umpire
+        if (isUmpireForce && !forcesNames.includes(force.name)) {
+          forcesNames.push(force.name)
+        }
+
         force.assets && force.assets.forEach((asset: Asset) => {
           if (asset.status) {
             const state = asset.status.state
@@ -129,7 +134,7 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
 }
 
-const arrToDict = (arr: string[]): {} | undefined => {
+export const arrToDict = (arr: string[]): {} | undefined => {
   if (arr && arr.length > 0) {
     const res = {}
     arr.forEach((item: string) => {
@@ -150,13 +155,24 @@ const renderPlatformType = (row: AssetRow, platformTypes: {}): React.ReactElemen
   }
 }
 
-const renderOwner = (row: AssetRow, roles: {}): React.ReactElement => {
+export const renderOwner = (row: AssetRow, roles: {}): React.ReactElement => {
   const match = row.owner && roles[row.owner]
   if (match) {
     return <>{match}</>
   } else {
     return <></>
   }
+}
+
+export const collateActivities = (rows: MessagePlanning[]): string[] => {
+  const activities: string[] = []
+  rows.forEach((row: MessagePlanning) => {
+    const activity = row.message.ActivityType
+    if (!activities.includes(activity)) {
+      activities.push(activity)
+    }
+  })
+  return activities
 }
 
 /**
