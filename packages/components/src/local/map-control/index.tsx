@@ -120,7 +120,6 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
-
   /** the forces from props has changed */
   useEffect(() => {
     const storeStyle = (label: string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {

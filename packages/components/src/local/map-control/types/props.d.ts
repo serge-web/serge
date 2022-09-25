@@ -1,6 +1,5 @@
 import { CellLabelStyle } from '@serge/config'
 import { ForceData } from '@serge/custom-types'
-import { boolean } from '@storybook/addon-knobs'
 import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
