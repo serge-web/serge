@@ -45,7 +45,7 @@ export default {
   argTypes: {
     selectedRoleId: {
       name: 'View as',
-      defaultValue: allRoles[0],
+      defaultValue: allRoles[1],
       control: {
         type: 'select',
         options: allRoles

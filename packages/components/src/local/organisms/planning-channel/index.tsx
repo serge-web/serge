@@ -1,9 +1,10 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { Asset, CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
-import { findAsset } from '@serge/helpers'
+import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import React, { useEffect, useState } from 'react'
+import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel from '../support-panel'
@@ -37,13 +38,31 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [zoom] = useState<number>(12)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
 
-  const [opForces, setOpForces] = useState<AssetRow[]>([])
-  const [ownForces, setOwnForces] = useState<AssetRow[]>([])
+  // all of the assets known to players of this force
+  const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
+  const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
+
+  const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
+  const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
 
   const [filterApplied, setFilterApplied] = useState<boolean>(true)
 
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
+
+  useEffect(() => {
+    // produce the own and opp assets for this player force
+    const forceCols = forceColors(allForces)
+    const platIcons =platformIcons(platformTypes)
+    const own = getOwnAssets(allForces, forceCols, platIcons, selectedForce)
+    const opp = getOppAssets(allForces, forceCols, platIcons, selectedForce)
+    setAllOwnAssets(own)
+    setOwnAssetsFiltered(own)
+    setAllOppAssets(opp)
+    setOpAssetsFiltered(opp)
+  }, [allForces])
+
+  console.log('planning channel - own', allOwnAssets.length, ownAssetsFiltered.length, allOppAssets.length, opAssetsFiltered.length)
 
   useEffect(() => {
     if (selectedItem) {
@@ -65,12 +84,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [])
 
   useEffect(() => {
-    console.log('=> [PlanningChannel] ownForces update: ', ownForces && ownForces.length, 'items')
-  }, [ownForces])
+    console.log('=> [PlanningChannel] ownForces update: ', ownAssetsFiltered && ownAssetsFiltered.length, 'items')
+  }, [ownAssetsFiltered])
 
   useEffect(() => {
-    console.log('=> [PlanningChannel]: opForces update: ', opForces && opForces.length, 'items')
-  }, [opForces])
+    console.log('=> [PlanningChannel]: opForces update: ', opAssetsFiltered && opAssetsFiltered.length, 'items')
+  }, [opAssetsFiltered])
 
   const onReadAll = (): void => {
     dispatch(markAllAsRead(channel.uniqid))
@@ -122,16 +141,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         currentTurn={currentTurn}
         setSelectedItem={setSelectedItem}
         selectedItem={selectedItem}
-        setOpForcesForParent={setOpForces}
-        setOwnForcesForParent={setOwnForces}
+        setOpForcesForParent={setOpAssetsFiltered}
+        setOwnForcesForParent={setOwnAssetsFiltered}
       />
       <SupportMapping
-        allForces={allForces}
         bounds={bounds}
         zoom={zoom}
         position={position}
-        opForces={opForces}
-        ownForces={ownForces}
+        opAssets={opAssetsFiltered}
+        ownAssets={ownAssetsFiltered}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
       />
