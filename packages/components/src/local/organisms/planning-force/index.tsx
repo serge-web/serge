@@ -6,7 +6,7 @@ import PropTypes from './types/props'
 
 export const PlanningForces: React.FC<PropTypes> = ({ assets, opFor }) => {
   // temporarily use alternate icon for opForces
-  const iconToUse = opFor ? 'marker-icon-2x.png' : 'layers.png'
+  const iconToUse = opFor ? 'layers.png' : 'marker-icon-2x.png'
   return <>
     {
       assets.length > 0 && <LayerGroup key={'first-forces-layer'}>
