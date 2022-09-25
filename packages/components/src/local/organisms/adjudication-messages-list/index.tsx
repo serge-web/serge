@@ -1,22 +1,20 @@
 import { Chip, Table } from '@material-ui/core'
 import { MessagePlanning } from '@serge/custom-types'
-import { Column } from 'material-table'
+import MaterialTable, { Column } from 'material-table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearchLocation } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-import Orders from '../orders'
-import { OrderRow } from '../orders/types/props'
 import styles from './styles.module.scss'
-import PropTypes from './types/props'
+import PropTypes, { AdjudicationRow } from './types/props'
 import { findAsset } from '@serge/helpers'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, messages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, setSelectedItem
 }: PropTypes) => {
-  const [rows, setRows] = useState<OrderRow[]>([])
+  const [rows, setRows] = useState<AdjudicationRow[]>([])
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
@@ -36,8 +34,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         force: message.details.from.forceId,
         role: message.details.from.roleName,
         activity: message.message.ActivityType,
-        startDate: shortDate(message.message.startDate),
-        endDate: shortDate(message.message.endDate)
+        period: shortDate(message.message.startDate) + '-' + shortDate(message.message.endDate)
       }
     })
     setRows(dataTable)
@@ -53,13 +50,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     { title: 'Force', field: 'force' },
     { title: 'Owner', field: 'role' },
     { title: 'Activity', field: 'activity' },
-    { title: 'Start Date', field: 'startDate' },
-    { title: 'Finish Date', field: 'endDate' }
+    { title: 'Duration', field: 'period' }
   ]
-  if (!isUmpire) {
-    // drop the force column, since player only sees their force
-    columns.splice(2, 1)
-  }
 
   const assetClick = (objName: string): void => {
     const asset = findAsset(forces, undefined, objName)
@@ -82,7 +74,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     </span><br /></>
   }
 
-  const detailPanel = (rowData: OrderRow): any => {
+  const detailPanel = (rowData: AdjudicationRow): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
     if (!message) {
@@ -137,11 +129,30 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  const extendProps = jestWorkerId ? {} : {
+    detailPanel: detailPanel
+  }
+
   return (
     <div className={styles['messages-list']}>
-      <Orders title='Adjudication' detailPanelFnc={detailPanel} columns={columns} rows={rows} />
+      <MaterialTable
+        title={'Adjudication'}
+        columns={columns}
+        data={rows}
+        options={{
+          sorting: true,
+          paging: false
+        }}
+        {...extendProps}
+      />
     </div>
   )
+
+  // return (
+  //   <div className={styles['messages-list']}>
+  //     <Orders title='Adjudication' detailPanelFnc={detailPanel} columns={columns} rows={rows} />
+  //   </div>
+  // )
 }
 
 export default AdjudicationMessagesList
