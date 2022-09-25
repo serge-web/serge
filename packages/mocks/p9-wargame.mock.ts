@@ -2849,6 +2849,7 @@ const game: Wargame = {
               "condition": "Full capability",
               "contactId": "C115",
               "name": "Fisher-C",
+              "position": "83064bfffffffff",
               "perceptions": [
                 {
                   "by": "F-Blue",
