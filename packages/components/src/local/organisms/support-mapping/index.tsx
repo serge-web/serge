@@ -52,6 +52,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
         map={leafletElement}
         bounds={bounds}
         filterApplied={filterApplied}
+        zoomStepSize={1}
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />

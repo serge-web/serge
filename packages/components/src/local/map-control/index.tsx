@@ -55,7 +55,6 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /** the forces from props has changed */
   useEffect(() => {
-    console.log('setting bounds')
     if (originalBounds === undefined) {
       setOriginalBounds(bounds)
     }
@@ -78,7 +77,6 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* set map to overall view */
   const handleHome = (): void => {
-    console.log('handle home', originalBounds, map)
     originalBounds && map.flyToBounds(originalBounds, { duration: 0.75 })
   }
 
