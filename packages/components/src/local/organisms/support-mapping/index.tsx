@@ -48,9 +48,11 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, op
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
-      <LayerGroup key={'first-forces-layer'}>
+      <LayerGroup key={'own-forces'}>
+        <PlanningForces assets={ownForces} />
+      </LayerGroup>
+      <LayerGroup key={'opp-forces'}>
         <PlanningForces assets={opForces} />
-        {/* <PlanningForces assets={ownForces} /> */}
       </LayerGroup>
     </Map>
   )
