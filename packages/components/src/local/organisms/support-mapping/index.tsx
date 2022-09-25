@@ -7,7 +7,10 @@ import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
 
-export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, ownAssets, opAssets, filterApplied, setFilterApplied }) => {
+export const SupportMapping: React.FC<PropTypes> = ({
+  position, bounds, ownAssets,
+  opAssets, filterApplied, setFilterApplied, selectedItem
+}) => {
   const TileLayerProps = MapConstants.TileLayer
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
@@ -22,11 +25,19 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, ow
     console.log('=> [SupportMapping]: opForces update: ', opAssets && opAssets.length, 'items')
   }, [opAssets])
 
+  useEffect(() => {
+    if (position !== undefined) {
+      const defaultZoom = 8
+      leafletElement && leafletElement.flyTo(position, defaultZoom)
+    }
+  }, [position])
+
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
       const map: LMap = ref.leafletElement
       if (leafletElement === undefined) {
         setLeafletElement(map)
+        bounds && map.fitBounds(bounds)
       }
     }
   }
@@ -34,25 +45,21 @@ export const SupportMapping: React.FC<PropTypes> = ({ position, bounds, zoom, ow
   return (
     <Map
       className={styles.map}
-      center={bounds ? undefined : position}
-      bounds={bounds}
-      zoom={bounds ? undefined : zoom}
       ref={handleEvents}
       zoomControl={false}
     >
       <MapControl
         map={leafletElement}
-        home={bounds?.getCenter()}
         bounds={bounds}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
       <LayerGroup key={'own-forces'}>
-        <PlanningForces opFor={false} assets={ownAssets} />
+        <PlanningForces opFor={false} assets={ownAssets} selectedItem={selectedItem} />
       </LayerGroup>
       <LayerGroup key={'opp-forces'}>
-        <PlanningForces opFor={true} assets={opAssets} />
+        <PlanningForces opFor={true} assets={opAssets} selectedItem={selectedItem} />
       </LayerGroup>
     </Map>
   )

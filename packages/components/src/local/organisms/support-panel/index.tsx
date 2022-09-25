@@ -39,7 +39,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   setOpForcesForParent,
   setOwnForcesForParent
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(TABS[3])
+  const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))

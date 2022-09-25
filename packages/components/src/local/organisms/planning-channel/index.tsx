@@ -152,6 +152,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
+        selectedItem={selectedItem}
       />
     </div>
   )

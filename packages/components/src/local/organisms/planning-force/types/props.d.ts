@@ -6,4 +6,6 @@ export default interface PropTypes {
    * Will not be necessary once we have PHASE-2 icons
    */
   opFor: boolean
+  /** id of selected asset */
+  selectedItem?: string | undefined
 }
