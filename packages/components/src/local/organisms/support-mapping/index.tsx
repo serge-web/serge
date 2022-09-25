@@ -9,7 +9,8 @@ import MapControl from '../../map-control'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
-  opAssets, filterApplied, setFilterApplied, selectedItem
+  opAssets, filterApplied, setFilterApplied, selectedItem, forces,
+  viewAsCallback, viewAsForce
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
@@ -52,6 +53,9 @@ export const SupportMapping: React.FC<PropTypes> = ({
         map={leafletElement}
         bounds={bounds}
         filterApplied={filterApplied}
+        forces={forces || undefined}
+        viewAsCallback={viewAsCallback}
+        viewAsForce={viewAsForce}
         zoomStepSize={1}
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />

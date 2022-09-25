@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { Asset, CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
@@ -39,6 +39,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [zoom] = useState<number>(12)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
 
+  // which force to view the data as
+  const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
+  const [currentForce, setCurrentForce] = useState<ForceData>(selectedForce)
+
   // all of the assets known to players of this force
   const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
   const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
@@ -52,16 +56,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
 
   useEffect(() => {
+    const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
+    if (force) {
+      setCurrentForce(force)
+    }
+  }, [viewAsForce])
+
+  useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = forceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, selectedForce)
-    const opp = getOppAssets(allForces, forceCols, platIcons, selectedForce)
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
     setAllOwnAssets(own)
     setOwnAssetsFiltered(own)
     setAllOppAssets(opp)
     setOpAssetsFiltered(opp)
-  }, [allForces])
+  }, [allForces, currentForce])
 
   useEffect(() => {
     if (selectedItem) {
@@ -135,7 +146,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         isUmpire={isUmpire}
         selectedRoleName={selectedRoleName}
         selectedRoleId={selectedRoleId}
-        selectedForce={selectedForce}
+        selectedForce={currentForce}
         allForces={allForces}
         gameDate={gameDate}
         currentTurn={currentTurn}
@@ -153,6 +164,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
         selectedItem={selectedItem}
+        forces={allForces}
+        viewAsCallback={setViewAsForce}
+        viewAsForce={viewAsForce}
       />
     </div>
   )
