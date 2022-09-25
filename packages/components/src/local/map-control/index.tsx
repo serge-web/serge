@@ -11,6 +11,7 @@ import PublicIcon from '@material-ui/icons/Public'
 import HistoryIcon from '@material-ui/icons/History'
 import PlannedIcon from '@material-ui/icons/Update'
 import InfoIcon from '@material-ui/icons/Info'
+import FilterIcon from '@material-ui/icons/Filter'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -45,7 +46,9 @@ export const MapControl: React.FC<PropTypes> = ({
   setFilterPlannedRoutes,
   filterHistoryRoutes,
   setFilterHistoryRoutes,
-  addInfoMarker
+  addInfoMarker,
+  filterApplied,
+  setFilterApplied
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
 
@@ -91,6 +94,11 @@ export const MapControl: React.FC<PropTypes> = ({
     return filterHistoryRoutes ? 'dark' : 'light'
   }
 
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterApplied = (): 'light' | 'dark' => {
+    return !filterApplied ? 'dark' : 'light'
+  }
+
   /* callback responding to filter planned routes toggle  */
   const togglePlannedFilter = (): void => {
     if (setFilterPlannedRoutes) {
@@ -102,6 +110,13 @@ export const MapControl: React.FC<PropTypes> = ({
   const toggleHistoryFilter = (): void => {
     if (setFilterHistoryRoutes) {
       setFilterHistoryRoutes(!filterHistoryRoutes)
+    }
+  }
+
+  /* callback responding to filter applied toggle  */
+  const toggleFilterApplied = (): void => {
+    if (setFilterApplied) {
+      setFilterApplied(!filterApplied)
     }
   }
 
@@ -137,24 +152,39 @@ export const MapControl: React.FC<PropTypes> = ({
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon /></Item>}
         </div>
         <div className={cx('leaflet-control')} data-tour="counter-clockwise">
-          <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}
-            contentTheme={isFilterAsHistoryRoutes()} >
-            <HistoryIcon />
-          </Item>
-          <Item title="View all planned steps" onClick={(): void => { togglePlannedFilter() }}
-            contentTheme={isFilterAsPlannedRoutes()} >
-            <PlannedIcon />
-          </Item>
+          {
+            setFilterHistoryRoutes &&
+            <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}
+              contentTheme={isFilterAsHistoryRoutes()} >
+              <HistoryIcon />
+            </Item>
+          }
+          {
+            setFilterPlannedRoutes &&
+            <Item title="View all planned steps" onClick={(): void => { togglePlannedFilter() }}
+              contentTheme={isFilterAsPlannedRoutes()} >
+              <PlannedIcon />
+            </Item>
+          }
         </div>
-        { addInfoMarker &&
-          <div className={cx('leaflet-control')}>
-            <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}
-              contentTheme={ 'dark' } >
-              <InfoIcon/>
+        {
+          setFilterApplied &&
+          <div className={cx('leaflet-control')} data-tour="filter-applied">
+            <Item title="Match table filters" onClick={(): void => { toggleFilterApplied() }}
+              contentTheme={isFilterApplied()} >
+              <FilterIcon />
             </Item>
           </div>
         }
-        {forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
+        {addInfoMarker &&
+          <div className={cx('leaflet-control')}>
+            <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}
+              contentTheme={'dark'} >
+              <InfoIcon />
+            </Item>
+          </div>
+        }
+        {viewAsCallback && forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
           {forces.map((force: any): JSX.Element => (
             <Item
               contentTheme={showAsSelected(force.uniqid)}
@@ -166,7 +196,7 @@ export const MapControl: React.FC<PropTypes> = ({
             </Item>
           ))}
         </div>}
-        {cellStyles.length > 0 && <div className={cx('leaflet-control')}>
+        {cellLabelCallback && cellStyles.length > 0 && <div className={cx('leaflet-control')}>
           {cellStyles.map((style: CellStyleDetails): JSX.Element => (
             <Item
               contentTheme={style.active ? 'light' : 'dark'}

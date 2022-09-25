@@ -7,9 +7,9 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     details: {
       "$id": "https://example.com/arrays.schema.json",
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "description": "Feedback on a set of orders",
+      "description": "Outcomes from a set of orders",
       "type": "object",
-      "title": "Adjudication Feedback",
+      "title": "Adjudication Outcomes",
       "properties": {
         "GeneralFeedback": {
           "title": "General Feedback",
@@ -21,6 +21,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "format": "table",
           "additionalProperties": false,
           "items": {
+            "title": "ISR Outcome",
             "type": "object",
             "required": [
               "Asset"
@@ -91,6 +92,11 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
+              "ID": {
+                "title": "ID",
+                "type": "boolean",
+                "format": "checkbox"
+              },
               "Comment": {
                 "title": "Comment",
                 "type": "string",
@@ -109,6 +115,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "format": "table",
           "additionalProperties": false,
           "items": {
+            "title": "Damage Outcome",
             "type": "object",
             "required": [
               "Asset",
@@ -158,6 +165,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "format": "table",
           "additionalProperties": false,
           "items": {
+            "title": "Movement Outcome",
             "type": "object",
             "required": [
               "Asset",

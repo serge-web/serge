@@ -5,7 +5,8 @@ export default interface PropTypes {
   bounds?: LatLngBounds
   position?: LatLngExpression
   zoom: number
-  allForces: ForceData[]
-  opForces: AssetRow[]
-  ownForces: AssetRow[]
+  ownAssets: AssetRow[]
+  opAssets: AssetRow[]
+  filterApplied: boolean
+  setFilterApplied
 }

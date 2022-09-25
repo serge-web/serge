@@ -5,10 +5,8 @@ import { LatLng } from 'leaflet'
 export default interface PropTypes {
   /** data for this game */
   forces: ForceData[]
-  /** the force to display for (omit to show for all forces) */
-  playerForce?: ForceData['uniqid']
-  /** if player is umpire - so can see all */
-  isUmpire: boolean
+  /** the force to display */
+  playerForce: ForceData
   /** now sure what this one is for */
   render: (assets: string[][]) => void
   /** whether to show player perspective of other forces */
