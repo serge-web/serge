@@ -36,10 +36,11 @@ export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets  = collateItem(false, asset, playerForce, force, forceColors, platformIcons, undefined)
+      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, undefined)
       rows.push(...assets)
     }
-  )})
+    )
+  })
   return rows
 }
 
@@ -47,10 +48,11 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets  = collateItem(true, asset, playerForce, force, forceColors, platformIcons, undefined)
+      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, undefined)
       rows.push(...assets)
     }
-  )})
+    )
+  })
   return rows
 }
 
@@ -213,7 +215,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
-    if(assetForce.uniqid !== playerForce.uniqid) {
+    if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
       if (perception) {
@@ -229,13 +231,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           position: asset.location && latLng(asset.location[0], asset.location[1])
         }
         itemRows.push(res)
-      }  
+      }
     }
   } else {
     const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
     const myForce = assetForce.uniqid === playerForce.uniqid
     const umpireInOwnFor = (isUmpire && !opFor)
-    if(umpireInOwnFor || myForce || visibleToThisForce) {
+    if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
         icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,

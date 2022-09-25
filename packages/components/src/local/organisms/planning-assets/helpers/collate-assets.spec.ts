@@ -96,21 +96,21 @@ describe('check collating assets', () => {
   })
 
   it('handles NEW ownFor', () => {
-    const umpireOwnForces = getOwnAssets(forces, forceCols, platformStyles, umpireForce )
+    const umpireOwnForces = getOwnAssets(forces, forceCols, platformStyles, umpireForce)
     expect(umpireOwnForces).toBeTruthy()
     expect(umpireOwnForces.length).toEqual(105)
 
-    const blueOwnForces = getOwnAssets(forces, forceCols, platformStyles, blueForce )
+    const blueOwnForces = getOwnAssets(forces, forceCols, platformStyles, blueForce)
     expect(blueOwnForces).toBeTruthy()
     expect(blueOwnForces.length).toEqual(40)
   })
 
   it('handles NEW oppFor', () => {
-    const umpireOppForces = getOppAssets(forces, forceCols, platformStyles, umpireForce )
+    const umpireOppForces = getOppAssets(forces, forceCols, platformStyles, umpireForce)
     expect(umpireOppForces).toBeTruthy()
     expect(umpireOppForces.length).toEqual(0)
 
-    const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce )
+    const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce)
     expect(blueOppForces).toBeTruthy()
     expect(blueOppForces.length).toEqual(39)
   })
