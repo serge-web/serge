@@ -752,7 +752,7 @@ const game: Wargame = {
             {
                 "uniqid": "a181",
                 "contactId": "CA2869",
-                "name": "Blue:0",
+                "name": "Blue:20",
                 "perceptions": [],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
@@ -769,7 +769,7 @@ const game: Wargame = {
                     {
                         "uniqid": "a182",
                         "contactId": "CA1162",
-                        "name": "Blue:1",
+                        "name": "Blue:21",
                         "perceptions": [
                             {
                                 "by": "F-Green",
@@ -793,7 +793,7 @@ const game: Wargame = {
                     {
                         "uniqid": "a183",
                         "contactId": "CA1601",
-                        "name": "Blue:2",
+                        "name": "Blue:22",
                         "perceptions": [
                             {
                                 "by": "F-Red",
@@ -817,7 +817,7 @@ const game: Wargame = {
                     {
                         "uniqid": "a184",
                         "contactId": "CA1167",
-                        "name": "Blue:3",
+                        "name": "Blue:23",
                         "perceptions": [
                             {
                                 "by": "F-Red",
@@ -847,7 +847,7 @@ const game: Wargame = {
             {
                 "uniqid": "a185",
                 "contactId": "CA2050",
-                "name": "Blue:4",
+                "name": "Blue:24",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -875,7 +875,7 @@ const game: Wargame = {
             {
                 "uniqid": "a186",
                 "contactId": "CA1397",
-                "name": "Blue:5",
+                "name": "Blue:25",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -904,7 +904,7 @@ const game: Wargame = {
             {
                 "uniqid": "a187",
                 "contactId": "CA1213",
-                "name": "Blue:6",
+                "name": "Blue:26",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -928,7 +928,7 @@ const game: Wargame = {
             {
                 "uniqid": "a188",
                 "contactId": "CA78",
-                "name": "Blue:7",
+                "name": "Blue:27",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -952,7 +952,7 @@ const game: Wargame = {
             {
                 "uniqid": "a189",
                 "contactId": "CA2307",
-                "name": "Blue:8",
+                "name": "Blue:28",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -976,7 +976,7 @@ const game: Wargame = {
             {
                 "uniqid": "a190",
                 "contactId": "CA3222",
-                "name": "Blue:9",
+                "name": "Blue:29",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -1004,7 +1004,7 @@ const game: Wargame = {
             {
                 "uniqid": "a191",
                 "contactId": "CA3036",
-                "name": "Blue:10",
+                "name": "Blue:30",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -1027,7 +1027,7 @@ const game: Wargame = {
             {
                 "uniqid": "a192",
                 "contactId": "CA2291",
-                "name": "Blue:11",
+                "name": "Blue:31",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -1050,7 +1050,7 @@ const game: Wargame = {
             {
                 "uniqid": "a193",
                 "contactId": "CA1832",
-                "name": "Blue:12",
+                "name": "Blue:32",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -1074,7 +1074,7 @@ const game: Wargame = {
             {
                 "uniqid": "a194",
                 "contactId": "CA2037",
-                "name": "Blue:13",
+                "name": "Blue:33",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -1096,7 +1096,7 @@ const game: Wargame = {
             {
                 "uniqid": "a195",
                 "contactId": "CA2829",
-                "name": "Blue:14",
+                "name": "Blue:34",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -1125,7 +1125,7 @@ const game: Wargame = {
             {
                 "uniqid": "a196",
                 "contactId": "CA2934",
-                "name": "Blue:15",
+                "name": "Blue:35",
                 "perceptions": [],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
@@ -1142,7 +1142,7 @@ const game: Wargame = {
             {
                 "uniqid": "a197",
                 "contactId": "CA1099",
-                "name": "Blue:16",
+                "name": "Blue:36",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -1166,7 +1166,7 @@ const game: Wargame = {
             {
                 "uniqid": "a198",
                 "contactId": "CA3380",
-                "name": "Blue:17",
+                "name": "Blue:37",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -1189,7 +1189,7 @@ const game: Wargame = {
             {
                 "uniqid": "a199",
                 "contactId": "CA3371",
-                "name": "Blue:18",
+                "name": "Blue:38",
                 "perceptions": [
                     {
                         "by": "F-Red",
@@ -1218,7 +1218,7 @@ const game: Wargame = {
             {
                 "uniqid": "a200",
                 "contactId": "CA1900",
-                "name": "Blue:19",
+                "name": "Blue:39",
                 "perceptions": [],
                 "platformTypeId": "id-missile",
                 "condition": "working",
@@ -1787,7 +1787,7 @@ const game: Wargame = {
             {
                 "uniqid": "a121",
                 "contactId": "CA1528",
-                "name": "Red Force:0",
+                "name": "Red Force:20",
                 "perceptions": [],
                 "platformTypeId": "id-task-group",
                 "condition": "working",
@@ -1804,7 +1804,7 @@ const game: Wargame = {
                     {
                         "uniqid": "a122",
                         "contactId": "CA622",
-                        "name": "Red Force:1",
+                        "name": "Red Force:21",
                         "perceptions": [
                             {
                                 "by": "F-Blue",
@@ -1832,7 +1832,7 @@ const game: Wargame = {
                     {
                         "uniqid": "a123",
                         "contactId": "CA2476",
-                        "name": "Red Force:2",
+                        "name": "Red Force:22",
                         "perceptions": [
                             {
                                 "by": "F-Blue",
@@ -1859,7 +1859,7 @@ const game: Wargame = {
                     {
                         "uniqid": "a124",
                         "contactId": "CA2830",
-                        "name": "Red Force:3",
+                        "name": "Red Force:23",
                         "perceptions": [],
                         "platformTypeId": "id-frigate-ta",
                         "condition": "working",
@@ -1878,7 +1878,7 @@ const game: Wargame = {
             {
                 "uniqid": "a125",
                 "contactId": "CA470",
-                "name": "Red Force:4",
+                "name": "Red Force:24",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -1906,7 +1906,7 @@ const game: Wargame = {
             {
                 "uniqid": "a126",
                 "contactId": "CA755",
-                "name": "Red Force:5",
+                "name": "Red Force:25",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -1928,7 +1928,7 @@ const game: Wargame = {
             {
                 "uniqid": "a127",
                 "contactId": "CA1355",
-                "name": "Red Force:6",
+                "name": "Red Force:26",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -1952,7 +1952,7 @@ const game: Wargame = {
             {
                 "uniqid": "a128",
                 "contactId": "CA2880",
-                "name": "Red Force:7",
+                "name": "Red Force:27",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -1976,7 +1976,7 @@ const game: Wargame = {
             {
                 "uniqid": "a129",
                 "contactId": "CA699",
-                "name": "Red Force:8",
+                "name": "Red Force:28",
                 "perceptions": [],
                 "platformTypeId": "id-carrier",
                 "condition": "working",
@@ -1993,7 +1993,7 @@ const game: Wargame = {
             {
                 "uniqid": "a130",
                 "contactId": "CA1739",
-                "name": "Red Force:9",
+                "name": "Red Force:29",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2016,7 +2016,7 @@ const game: Wargame = {
             {
                 "uniqid": "a131",
                 "contactId": "CA2227",
-                "name": "Red Force:10",
+                "name": "Red Force:30",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2044,7 +2044,7 @@ const game: Wargame = {
             {
                 "uniqid": "a132",
                 "contactId": "CA1312",
-                "name": "Red Force:11",
+                "name": "Red Force:31",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2073,7 +2073,7 @@ const game: Wargame = {
             {
                 "uniqid": "a133",
                 "contactId": "CA2665",
-                "name": "Red Force:12",
+                "name": "Red Force:32",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2100,7 +2100,7 @@ const game: Wargame = {
             {
                 "uniqid": "a134",
                 "contactId": "CA2132",
-                "name": "Red Force:13",
+                "name": "Red Force:33",
                 "perceptions": [],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
@@ -2117,7 +2117,7 @@ const game: Wargame = {
             {
                 "uniqid": "a135",
                 "contactId": "CA2864",
-                "name": "Red Force:14",
+                "name": "Red Force:34",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2144,7 +2144,7 @@ const game: Wargame = {
             {
                 "uniqid": "a136",
                 "contactId": "CA1736",
-                "name": "Red Force:15",
+                "name": "Red Force:35",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -2167,7 +2167,7 @@ const game: Wargame = {
             {
                 "uniqid": "a137",
                 "contactId": "CA1417",
-                "name": "Red Force:16",
+                "name": "Red Force:36",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2194,7 +2194,7 @@ const game: Wargame = {
             {
                 "uniqid": "a138",
                 "contactId": "CA215",
-                "name": "Red Force:17",
+                "name": "Red Force:37",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2218,7 +2218,7 @@ const game: Wargame = {
             {
                 "uniqid": "a139",
                 "contactId": "CA1230",
-                "name": "Red Force:18",
+                "name": "Red Force:38",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2246,7 +2246,7 @@ const game: Wargame = {
             {
                 "uniqid": "a140",
                 "contactId": "CA1405",
-                "name": "Red Force:19",
+                "name": "Red Force:39",
                 "perceptions": [],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
@@ -2263,7 +2263,7 @@ const game: Wargame = {
             {
                 "uniqid": "a141",
                 "contactId": "CA477",
-                "name": "Red Force:20",
+                "name": "Red Force:40",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2292,7 +2292,7 @@ const game: Wargame = {
             {
                 "uniqid": "a142",
                 "contactId": "CA1807",
-                "name": "Red Force:21",
+                "name": "Red Force:41",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2315,7 +2315,7 @@ const game: Wargame = {
             {
                 "uniqid": "a143",
                 "contactId": "CA2747",
-                "name": "Red Force:22",
+                "name": "Red Force:42",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -2339,7 +2339,7 @@ const game: Wargame = {
             {
                 "uniqid": "a144",
                 "contactId": "CA2849",
-                "name": "Red Force:23",
+                "name": "Red Force:43",
                 "perceptions": [],
                 "platformTypeId": "id-destroyer",
                 "condition": "working",
@@ -2356,7 +2356,7 @@ const game: Wargame = {
             {
                 "uniqid": "a145",
                 "contactId": "CA1256",
-                "name": "Red Force:24",
+                "name": "Red Force:44",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -2380,7 +2380,7 @@ const game: Wargame = {
             {
                 "uniqid": "a146",
                 "contactId": "CA2705",
-                "name": "Red Force:25",
+                "name": "Red Force:45",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2409,7 +2409,7 @@ const game: Wargame = {
             {
                 "uniqid": "a147",
                 "contactId": "CA2294",
-                "name": "Red Force:26",
+                "name": "Red Force:46",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2438,7 +2438,7 @@ const game: Wargame = {
             {
                 "uniqid": "a148",
                 "contactId": "CA3367",
-                "name": "Red Force:27",
+                "name": "Red Force:47",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2461,7 +2461,7 @@ const game: Wargame = {
             {
                 "uniqid": "a149",
                 "contactId": "CA425",
-                "name": "Red Force:28",
+                "name": "Red Force:48",
                 "perceptions": [],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
@@ -2478,7 +2478,7 @@ const game: Wargame = {
             {
                 "uniqid": "a150",
                 "contactId": "CA3135",
-                "name": "Red Force:29",
+                "name": "Red Force:49",
                 "perceptions": [],
                 "platformTypeId": "id-mcm",
                 "condition": "working",
@@ -2495,7 +2495,7 @@ const game: Wargame = {
             {
                 "uniqid": "a151",
                 "contactId": "CA2759",
-                "name": "Red Force:30",
+                "name": "Red Force:50",
                 "perceptions": [],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
@@ -2512,7 +2512,7 @@ const game: Wargame = {
             {
                 "uniqid": "a152",
                 "contactId": "CA2000",
-                "name": "Red Force:31",
+                "name": "Red Force:51",
                 "perceptions": [],
                 "platformTypeId": "id-auxiliary",
                 "condition": "working",
@@ -2529,7 +2529,7 @@ const game: Wargame = {
             {
                 "uniqid": "a153",
                 "contactId": "CA3258",
-                "name": "Red Force:32",
+                "name": "Red Force:52",
                 "perceptions": [
                     {
                         "by": "F-Green",
@@ -2552,7 +2552,7 @@ const game: Wargame = {
             {
                 "uniqid": "a154",
                 "contactId": "CA855",
-                "name": "Red Force:33",
+                "name": "Red Force:53",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2581,7 +2581,7 @@ const game: Wargame = {
             {
                 "uniqid": "a155",
                 "contactId": "CA2779",
-                "name": "Red Force:34",
+                "name": "Red Force:54",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2609,7 +2609,7 @@ const game: Wargame = {
             {
                 "uniqid": "a156",
                 "contactId": "CA2533",
-                "name": "Red Force:35",
+                "name": "Red Force:55",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2633,7 +2633,7 @@ const game: Wargame = {
             {
                 "uniqid": "a157",
                 "contactId": "CA1989",
-                "name": "Red Force:36",
+                "name": "Red Force:56",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2662,7 +2662,7 @@ const game: Wargame = {
             {
                 "uniqid": "a158",
                 "contactId": "CA2635",
-                "name": "Red Force:37",
+                "name": "Red Force:57",
                 "perceptions": [
                     {
                         "by": "F-Blue",
@@ -2691,7 +2691,7 @@ const game: Wargame = {
             {
                 "uniqid": "a159",
                 "contactId": "CA3087",
-                "name": "Red Force:38",
+                "name": "Red Force:58",
                 "perceptions": [],
                 "platformTypeId": "id-frigate-ta",
                 "condition": "working",
@@ -2708,7 +2708,7 @@ const game: Wargame = {
             {
                 "uniqid": "a160",
                 "contactId": "CA653",
-                "name": "Red Force:39",
+                "name": "Red Force:59",
                 "perceptions": [],
                 "platformTypeId": "id-missile",
                 "condition": "working",

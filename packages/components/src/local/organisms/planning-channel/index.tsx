@@ -23,6 +23,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   templates,
   messages,
   channel,
+  adjudicationTemplate,
   selectedRoleId,
   selectedRoleName,
   currentWargame,
@@ -125,6 +126,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         onUnread={onUnread}
         onRead={onRead}
         templates={templates}
+        adjudicationTemplate={adjudicationTemplate}
         activityTimeChanel={newActiveMessage}
         saveMessage={saveMessage}
         saveNewActivityTimeMessage={saveNewActivityTimeMessage}

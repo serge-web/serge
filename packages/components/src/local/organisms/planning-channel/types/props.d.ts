@@ -3,6 +3,7 @@ import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
   templates: TemplateBody[]
+  adjudicationTemplate: TemplateBody
   channel: ChannelPlanning
   messages: Array<MessagePlanning | MessageInfoTypeClipped>
   selectedRoleId: Role['roleId']

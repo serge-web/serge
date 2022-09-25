@@ -8,6 +8,7 @@ import { isEqual } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
+import AdjudicationMessagesList from '../adjudication-messages-list'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
@@ -24,6 +25,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onReadAll,
   channel,
   templates,
+  adjudicationTemplate,
   saveMessage,
   saveNewActivityTimeMessage,
   selectedForce,
@@ -33,13 +35,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  selectedItem,
   setSelectedItem,
   setOpForcesForParent,
   setOwnForcesForParent
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(TABS[0])
-  const [isShowPanel, setShowPanel] = useState<boolean>(false)
+  const [activeTab, setActiveTab] = useState<string>(TABS[3])
+  const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
@@ -81,6 +82,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
+        <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
       </div>
     )
   }
@@ -181,11 +183,35 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 </div>
               }
             </TabPanel>
+
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
                   playerForce={selectedForce} render={onRender} opFor={true}
                   onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
+              }
+            </TabPanel>
+            <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
+              {activeTab === TABS[3] &&
+                <div className={styles['order-group']}>
+                  <AdjudicationMessagesList
+                    messages={messages}
+                    forces={allForces}
+                    gameDate={gameDate}
+                    playerForceId={selectedForce.uniqid}
+                    playerRoleId={selectedRoleId}
+                    isUmpire={!!selectedForce.umpire}
+                    turnPresentation={turnPresentation}
+                    hideForcesInChannel={false}
+                    onRead={onRead}
+                    onUnread={onUnread}
+                    onMarkAllAsRead={onReadAll}
+                    channel={channel}
+                    template={adjudicationTemplate}
+                    customiseTemplate={customiseTemplate}
+                    setSelectedItem={setSelectedItem}
+                  />
+                </div>
               }
             </TabPanel>
             <div className={styles['resize-indicator-container']} >
@@ -202,15 +228,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    platformTypes,
     messages,
-    selectedForce,
-    selectedRoleId,
-    selectedItem,
-    turnPresentation,
-    gameDate,
-    channel,
-    templates
+    selectedRoleId
   ]
   )
 

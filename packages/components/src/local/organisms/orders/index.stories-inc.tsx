@@ -1,9 +1,9 @@
-import { planningMessages, planningMessageTemplatesMock, WargameMock } from '@serge/mocks'
+import { planningMessages } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Orders from './index'
 import docs from './README.md'
-import OrdersProps from './types/props'
+import OrdersProps, { OrderRow } from './types/props'
 
 console.clear()
 
@@ -24,11 +24,13 @@ export default {
     }
   }
 }
-const templates = Object.values(planningMessageTemplatesMock)
+
+const detailPanel = (rowData: OrderRow): any => {
+  return <div>message: {JSON.stringify(rowData)}</div>
+}
 
 const Template: Story<OrdersProps> = ({ columns, rows }) =>
-  <Orders columns={columns} messages={planningMessages}
-    gameDate={WargameMock.data.overview.gameDate} rows={rows} templates={templates} />
+  <Orders detailPanelFnc={detailPanel} columns={columns} rows={rows}/>
 
 export const Default = Template.bind({})
 Default.args = {

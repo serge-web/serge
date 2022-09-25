@@ -14,6 +14,8 @@ export default interface PropTypes {
   channel: ChannelPlanning
   /** new orders templates for this player */
   templates: TemplateBody[]
+  /** adjudication template */
+  adjudicationTemplate: TemplateBody
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
