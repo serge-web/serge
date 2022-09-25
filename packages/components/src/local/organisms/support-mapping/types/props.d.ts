@@ -9,4 +9,6 @@ export default interface PropTypes {
   opAssets: AssetRow[]
   filterApplied: boolean
   setFilterApplied
+  /** id of selected asset */
+  selectedItem?: string | undefined
 }
