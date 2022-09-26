@@ -16,7 +16,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedItem }) =>
   const getAssetIcon = useCallback((icon: string, isSelected: boolean, isDestroyed: boolean) => {
     const [imageSrc, bgColor] = icon.split(',')
     return (
-      ReactDOMServer.renderToString(<div className={cx({ [styles.iconBase]: true, [styles.selected]: isSelected })} style={{ backgroundColor: bgColor }}>
+      ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={{ backgroundColor: bgColor }}>
         <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} />
       </div>)
     )
