@@ -1,13 +1,13 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import SupportMapping from '../support-mapping'
-import SupportPanel from '../support-panel'
+import SupportPanel, { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
@@ -53,7 +53,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [filterApplied, setFilterApplied] = useState<boolean>(true)
 
   // handle selections from asset tables
-  const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -77,15 +77,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [allForces, currentForce])
 
   useEffect(() => {
-    if (selectedItem) {
-      const asset = findAsset(allForces, selectedItem)
+    if (selectedItems.length === 1) {
+      const asset = findAsset(allForces, selectedItems[0])
       const location = asset.location
       if (location) {
         setBounds(undefined)
         setPosition(location)
       }
     }
-  }, [selectedItem])
+  }, [selectedItems])
 
   useEffect(() => {
     const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')
@@ -129,34 +129,37 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
+  const supportPanelContext = useMemo(() => ({ selectedItems }), [selectedItems])
+
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
-      <SupportPanel
-        channel={channel}
-        platformTypes={platformTypes}
-        messages={planningMessages}
-        onReadAll={onReadAll}
-        onUnread={onUnread}
-        onRead={onRead}
-        templates={templates}
-        adjudicationTemplate={adjudicationTemplate}
-        activityTimeChanel={newActiveMessage}
-        saveMessage={saveMessage}
-        saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-        dispatch={reduxDispatch}
-        currentWargame={currentWargame}
-        isUmpire={isUmpire}
-        selectedRoleName={selectedRoleName}
-        selectedRoleId={selectedRoleId}
-        selectedForce={currentForce}
-        allForces={allForces}
-        gameDate={gameDate}
-        currentTurn={currentTurn}
-        setSelectedItem={setSelectedItem}
-        selectedItem={selectedItem}
-        setOpForcesForParent={setOpAssetsFiltered}
-        setOwnForcesForParent={setOwnAssetsFiltered}
-      />
+      <SupportPanelContext.Provider value={supportPanelContext}>
+        <SupportPanel
+          channel={channel}
+          platformTypes={platformTypes}
+          messages={planningMessages}
+          onReadAll={onReadAll}
+          onUnread={onUnread}
+          onRead={onRead}
+          templates={templates}
+          adjudicationTemplate={adjudicationTemplate}
+          activityTimeChanel={newActiveMessage}
+          saveMessage={saveMessage}
+          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+          dispatch={reduxDispatch}
+          currentWargame={currentWargame}
+          isUmpire={isUmpire}
+          selectedRoleName={selectedRoleName}
+          selectedRoleId={selectedRoleId}
+          selectedForce={currentForce}
+          allForces={allForces}
+          gameDate={gameDate}
+          currentTurn={currentTurn}
+          setSelectedItems={setSelectedItems}
+          setOpForcesForParent={setOpAssetsFiltered}
+          setOwnForcesForParent={setOwnAssetsFiltered}
+        />
+      </SupportPanelContext.Provider>
       <SupportMapping
         bounds={bounds}
         zoom={zoom}
@@ -165,7 +168,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
-        selectedItem={selectedItem}
+        selectedItems={selectedItems}
+        setSelectedItems={setSelectedItems}
         forces={allForces}
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}

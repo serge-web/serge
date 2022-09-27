@@ -7,5 +7,6 @@ export default interface PropTypes {
    */
   opFor: boolean
   /** id of selected asset */
-  selectedItem?: string | undefined
+  selectedItems: string[]
+  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
 }

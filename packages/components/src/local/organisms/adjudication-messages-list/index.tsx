@@ -13,7 +13,7 @@ import { arrToDict, collateActivities, getColumnSummary } from '../planning-asse
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, messages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, setSelectedItem, forceColors
+  customiseTemplate, playerForceId, setSelectedItems, forceColors
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -65,7 +65,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (asset) {
       // don't change selection yet - it collapses the panel
       const doSetSelected = false
-      doSetSelected && setSelectedItem(asset.uniqid)
+      doSetSelected && setSelectedItems([asset.uniqid])
     }
   }
 

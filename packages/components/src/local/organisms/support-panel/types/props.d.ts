@@ -30,8 +30,7 @@ export default interface PropTypes {
   gameDate: string
   currentTurn: number
   currentWargame: string
-  selectedItem: Asset['uniqid'] | undefined
-  setSelectedItem: { (asset: Asset['uniqid'] | undefined): void }
+  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
   setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
   setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
 }
@@ -46,4 +45,8 @@ export type TabPanelProps = {
 export type PanelActionTabsProps = {
   onChange: (tab: string) => void
   className?: string
+}
+
+export type SupportPanelContextInterface = {
+  selectedItems: string[]
 }

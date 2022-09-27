@@ -43,8 +43,7 @@ describe('Support Panel component: ', () => {
         selectedRoleId={blueRole.roleId}
         selectedRoleName={blueRole.name}
         isUmpire={false}
-        selectedItem={''}
-        setSelectedItem={(): any => noop}
+        setSelectedItems={(): any => noop}
         setOpForcesForParent={noop}
         setOwnForcesForParent={noop}
       />)
