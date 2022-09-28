@@ -5,7 +5,7 @@ import { SupportPanelContext } from '../support-panel'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
@@ -14,8 +14,10 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
 
   useEffect(() => {
     setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
+    // TODO - swap next line for
+    // setRows(assets)
     setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets))
-  }, [playerForce, forces, selectedAssets])
+  }, [playerForce, forces, selectedAssets, assets])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID

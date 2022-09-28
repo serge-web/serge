@@ -150,6 +150,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 activeTab === TABS[0] &&
                 <PlanningAssets
                   forceColors={forceCols}
+                  assets={allOwnAssets}
                   platformStyles={platIcons}
                   forces={allForces}
                   playerForce={selectedForce}
@@ -203,6 +204,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningAssets
                   forceColors={forceCols}
                   platformStyles={platIcons}
+                  assets={allOppAssets}
                   forces={allForces}
                   playerForce={selectedForce}
                   render={onRender}

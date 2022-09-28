@@ -19,7 +19,10 @@ export default interface PropTypes {
   onSelectionChange?: (rows: AssetRow[]) => void
   /** visible rows change callback */
   onVisibleRowsChange?: (row: AssetRow[]) => void
-  // selectedAssets: string[]
+  /**
+   *  set of assets visible to me
+   */
+  assets: AssetRow[]
 }
 
 export type AssetRow = {
