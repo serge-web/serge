@@ -4,9 +4,11 @@ import { MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
+import { isEqual } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
+import AdjudicationMessagesList from '../adjudication-messages-list'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
@@ -23,6 +25,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onReadAll,
   channel,
   templates,
+  adjudicationTemplate,
   saveMessage,
   saveNewActivityTimeMessage,
   selectedForce,
@@ -32,17 +35,19 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  selectedItem,
-  setSelectedItem
+  setSelectedItem,
+  setOpForcesForParent,
+  setOwnForcesForParent
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
-  const [isShowPanel, setShowPanel] = useState<boolean>(false)
+  const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
-  // handle selections from asset tables
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
+
+  console.warn('=> [SupportPanel] selectedForce', selectedForce.name)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -79,6 +84,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
+        <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
       </div>
     )
   }
@@ -99,13 +105,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
-    console.log('rows change', opFor, data.length)
     if (opFor) {
       setOpForces(data)
-      // setOpForcesParent(data)
+      setOpForcesForParent(data)
     } else {
       setOwnForces(data)
-      // setOwnForcesParent(data)
+      setOwnForcesForParent(data)
     }
   }
 
@@ -118,20 +123,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('=> ownForces update: ', ownForces && ownForces.length, 'items')
+    console.log('=> [SupportPanel]: ownForces update: ', ownForces && ownForces.length, 'items')
   }, [ownForces])
 
   useEffect(() => {
-    console.log('=> opForces update: ', opForces && opForces.length, 'items')
+    console.log('=> [SupportPanel]: opForces update: ', opForces && opForces.length, 'items')
   }, [opForces])
-
-  // Note: utility tool to generate random orders
-  // const dummyOrders = randomOrdersDocs(45, allForces, [allForces[1].uniqid, allForces[2].uniqid])
-  // console.log(dummyOrders)
-
-  // note: for support panels we don't have force icons, so we don't need
-  // to provide hide forces prop
-  const hideForcesInChannel = false
 
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
@@ -149,7 +146,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
               {activeTab === TABS[0] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
-                  playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={false}
+                  playerForce={selectedForce} render={onRender} opFor={false}
                   onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
               }
             </TabPanel>
@@ -163,7 +160,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     playerRoleId={selectedRoleId}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
-                    hideForcesInChannel={!!hideForcesInChannel}
+                    hideForcesInChannel={false}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
@@ -188,11 +185,36 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 </div>
               }
             </TabPanel>
+
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
                 <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
-                  playerForce={selectedForce?.uniqid || ''} isUmpire={true} render={onRender} opFor={true}
+                  playerForce={selectedForce} render={onRender} opFor={true}
                   onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
+              }
+            </TabPanel>
+            <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
+              {activeTab === TABS[3] &&
+                <div className={styles['order-group']}>
+                  <AdjudicationMessagesList
+                    messages={messages}
+                    forces={allForces}
+                    gameDate={gameDate}
+                    playerForceId={selectedForce.uniqid}
+                    playerRoleId={selectedRoleId}
+                    isUmpire={!!selectedForce.umpire}
+                    turnPresentation={turnPresentation}
+                    forceColors={forceCols}
+                    hideForcesInChannel={false}
+                    onRead={onRead}
+                    onUnread={onUnread}
+                    onMarkAllAsRead={onReadAll}
+                    channel={channel}
+                    template={adjudicationTemplate}
+                    customiseTemplate={customiseTemplate}
+                    setSelectedItem={setSelectedItem}
+                  />
+                </div>
               }
             </TabPanel>
             <div className={styles['resize-indicator-container']} >
@@ -209,15 +231,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    platformTypes,
     messages,
-    selectedForce,
-    selectedRoleId,
-    selectedItem,
-    turnPresentation,
-    gameDate,
-    channel,
-    templates
+    selectedRoleId
   ]
   )
 
@@ -229,4 +244,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   )
 }
 
-export default SupportPanel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => !isEqual(prevProps, nextProps)
+
+export default React.memo(SupportPanel, areEqual)

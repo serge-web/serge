@@ -45,7 +45,7 @@ export default {
   argTypes: {
     selectedRoleId: {
       name: 'View as',
-      defaultValue: allRoles[0],
+      defaultValue: allRoles[1],
       control: {
         type: 'select',
         options: allRoles
@@ -112,6 +112,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     channel={channels[0] as ChannelPlanning}
     messages={planningMessages}
     templates={templateBodies}
+    adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
     getAllWargameMessages={(): any => noop}
     markAllAsRead={mockFn}

@@ -139,6 +139,7 @@ const factory = (state: PlayerUi): Factory => {
     if (!channel || !renderThisChannel(channel)) {
       return null
     }
+    const allTemplates = Object.values(state.allTemplatesByKey)
     const channelData: ChannelTypes = channel.cData
     const isV3 = !!channelData.channelType
     if (isV3) {
@@ -157,6 +158,8 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_PLANNING:
           return <PlanningChannel
             templates={channel.templates}
+            allTemplates={allTemplates}
+            adjudicationTemplate={state.allTemplatesByKey['k16e-land']}
             messages={channel.messages}
             channel={channel.cData as ChannelPlanning}
             selectedRoleId={state.selectedRole}

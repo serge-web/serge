@@ -1,9 +1,11 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, MessagePlanning, PlainInteraction } from '@serge/custom-types'
-import { findAsset } from '@serge/helpers'
+import { Asset, CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLngBounds, LatLngExpression, latLngBounds } from 'leaflet'
+import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import React, { useEffect, useState } from 'react'
+import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
+import { AssetRow } from '../planning-assets/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel from '../support-panel'
 import styles from './styles.module.scss'
@@ -21,6 +23,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   templates,
   messages,
   channel,
+  adjudicationTemplate,
   selectedRoleId,
   selectedRoleName,
   currentWargame,
@@ -36,8 +39,42 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [zoom] = useState<number>(12)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
 
+  // which force to view the data as
+  const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
+  const [currentForce, setCurrentForce] = useState<ForceData>(selectedForce)
+
+  // all of the assets known to players of this force
+  const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
+  const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
+
+  const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
+  const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
+
+  const [filterApplied, setFilterApplied] = useState<boolean>(true)
+
   // handle selections from asset tables
   const [selectedItem, setSelectedItem] = useState<Asset['uniqid'] | undefined>(undefined)
+
+  useEffect(() => {
+    const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
+    if (force) {
+      setCurrentForce(force)
+    }
+  }, [viewAsForce])
+
+  console.warn('=> [PlanningChannel]', currentForce.name)
+
+  useEffect(() => {
+    // produce the own and opp assets for this player force
+    const forceCols = forceColors(allForces)
+    const platIcons = platformIcons(platformTypes)
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
+    setAllOwnAssets(own)
+    setOwnAssetsFiltered(own)
+    setAllOppAssets(opp)
+    setOpAssetsFiltered(opp)
+  }, [allForces, currentForce])
 
   useEffect(() => {
     if (selectedItem) {
@@ -57,6 +94,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
+
+  useEffect(() => {
+    console.log('=> [PlanningChannel] ownForces update: ', ownAssetsFiltered && ownAssetsFiltered.length, 'items')
+  }, [ownAssetsFiltered])
+
+  useEffect(() => {
+    console.log('=> [PlanningChannel]: opForces update: ', opAssetsFiltered && opAssetsFiltered.length, 'items')
+  }, [opAssetsFiltered])
 
   const onReadAll = (): void => {
     dispatch(markAllAsRead(channel.uniqid))
@@ -94,6 +139,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         onUnread={onUnread}
         onRead={onRead}
         templates={templates}
+        adjudicationTemplate={adjudicationTemplate}
         activityTimeChanel={newActiveMessage}
         saveMessage={saveMessage}
         saveNewActivityTimeMessage={saveNewActivityTimeMessage}
@@ -102,14 +148,28 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         isUmpire={isUmpire}
         selectedRoleName={selectedRoleName}
         selectedRoleId={selectedRoleId}
-        selectedForce={selectedForce}
+        selectedForce={currentForce}
         allForces={allForces}
         gameDate={gameDate}
         currentTurn={currentTurn}
         setSelectedItem={setSelectedItem}
         selectedItem={selectedItem}
+        setOpForcesForParent={setOpAssetsFiltered}
+        setOwnForcesForParent={setOwnAssetsFiltered}
       />
-      <SupportMapping allForces={allForces} bounds={bounds} zoom={zoom} position={position} />
+      <SupportMapping
+        bounds={bounds}
+        zoom={zoom}
+        position={position}
+        opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
+        ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
+        filterApplied={filterApplied}
+        setFilterApplied={setFilterApplied}
+        selectedItem={selectedItem}
+        forces={allForces}
+        viewAsCallback={setViewAsForce}
+        viewAsForce={viewAsForce}
+      />
     </div>
   )
 }

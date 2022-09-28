@@ -1,55 +1,70 @@
-import { Asset, ForceData } from '@serge/custom-types'
-import { LatLng, latLng } from 'leaflet'
-import React, { useState, useEffect } from 'react'
-import { Map, ScaleControl, TileLayer, Marker, LayerGroup, Tooltip } from 'react-leaflet'
+import React, { useEffect, useState } from 'react'
+import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
+import PlanningForces from '../planning-force'
 import { MapConstants } from './helper/MapConstants'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { Map as LMap } from 'leaflet'
+import MapControl from '../../map-control'
 
-export const SupportMapping: React.FC<PropTypes> = ({ allForces, position, bounds, zoom }) => {
+export const SupportMapping: React.FC<PropTypes> = ({
+  position, bounds, ownAssets,
+  opAssets, filterApplied, setFilterApplied, selectedItem, forces,
+  viewAsCallback, viewAsForce
+}) => {
   const TileLayerProps = MapConstants.TileLayer
 
-  const [markers, setMarkers] = useState<Asset[]>([])
+  const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
+
+  console.log('[SupportMapping] own assets:', ownAssets.length, 'filter', filterApplied)
 
   useEffect(() => {
-    const res: Asset[] = []
-    allForces.forEach((force: ForceData) => {
-      force.assets && force.assets.forEach((a: Asset) => {
-        const loc = a.location
-        if (loc) {
-          res.push(a)
-        }
-      })
-    })
-    setMarkers(res)
-  }, [allForces])
+    console.log('=> [SupportMapping] ownForces update: ', ownAssets && ownAssets.length, 'items')
+  }, [ownAssets])
+
+  useEffect(() => {
+    console.log('=> [SupportMapping]: opForces update: ', opAssets && opAssets.length, 'items')
+  }, [opAssets])
+
+  useEffect(() => {
+    if (position !== undefined) {
+      const defaultZoom = 8
+      leafletElement && leafletElement.flyTo(position, defaultZoom)
+    }
+  }, [position])
 
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
-      const map: L.Map = ref.leafletElement
-      map.zoomControl.setPosition('bottomright')
+      const map: LMap = ref.leafletElement
+      if (leafletElement === undefined) {
+        setLeafletElement(map)
+        bounds && map.fitBounds(bounds)
+      }
     }
   }
 
   return (
     <Map
       className={styles.map}
-      center={bounds ? undefined : position}
-      bounds={bounds}
-      zoom={bounds ? undefined : zoom}
       ref={handleEvents}
+      zoomControl={false}
     >
+      <MapControl
+        map={leafletElement}
+        bounds={bounds}
+        filterApplied={filterApplied}
+        forces={forces || undefined}
+        viewAsCallback={viewAsCallback}
+        viewAsForce={viewAsForce}
+        zoomStepSize={1}
+        setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
-      <LayerGroup key={'first-forces-layer'}>
-        {
-          markers && markers.map((a: Asset, index: number) => {
-            const loc: LatLng = a.location ? latLng([a.location[0], a.location[1]]) : latLng([0, 0])
-            return <Marker key={'asset-icon-' + index} position={loc}>
-              <Tooltip>{a.name}</Tooltip>
-            </Marker>
-          })
-        }
+      <LayerGroup key={'own-forces'}>
+        <PlanningForces opFor={false} assets={ownAssets} selectedItem={selectedItem} />
+      </LayerGroup>
+      <LayerGroup key={'opp-forces'}>
+        <PlanningForces opFor={true} assets={opAssets} selectedItem={selectedItem} />
       </LayerGroup>
     </Map>
   )

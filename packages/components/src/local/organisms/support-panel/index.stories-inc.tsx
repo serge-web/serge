@@ -94,6 +94,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     onRead={noop}
     channel={planningChannel}
     templates={myTemplates}
+    adjudicationTemplate={planningMessageTemplatesMock[0]}
     activityTimeChanel={noop}
     allForces={P9Mock.data.forces.forces}
     gameDate={P9Mock.data.overview.gameDate}
@@ -108,6 +109,8 @@ const Template: Story<SupportPanelProps> = (args) => {
     isUmpire={!!force.umpire}
     selectedItem={''}
     setSelectedItem={setSelectedItem}
+    setOpForcesForParent={noop}
+    setOwnForcesForParent={noop}
   />
 }
 

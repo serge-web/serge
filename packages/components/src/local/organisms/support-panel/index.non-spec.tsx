@@ -34,6 +34,7 @@ describe('Support Panel component: ', () => {
         onReadAll={noop}
         onRead={noop}
         templates={myTemplates}
+        adjudicationTemplate={planningMessageTemplatesMock[0]}
         activityTimeChanel={noop}
         dispatch={noop}
         saveMessage={(): any => noop}
@@ -44,6 +45,8 @@ describe('Support Panel component: ', () => {
         isUmpire={false}
         selectedItem={''}
         setSelectedItem={(): any => noop}
+        setOpForcesForParent={noop}
+        setOwnForcesForParent={noop}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

@@ -10,7 +10,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
   const [filter, setFilter] = useState<boolean>(false)
 
   useEffect(() => {
-    setColumns(getColumns(opFor, forces, playerForce || '', platformStyles))
+    setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
     setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce))
   }, [playerForce, forces])
 

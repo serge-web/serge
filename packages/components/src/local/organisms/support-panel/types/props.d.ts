@@ -1,5 +1,6 @@
 import { TurnFormats } from '@serge/config'
 import { ChannelPlanning, ForceData, MessagePlanning, Role } from '@serge/custom-types'
+import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {
   messages: MessagePlanning[]
@@ -13,6 +14,8 @@ export default interface PropTypes {
   channel: ChannelPlanning
   /** new orders templates for this player */
   templates: TemplateBody[]
+  /** adjudication template */
+  adjudicationTemplate: TemplateBody
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
@@ -28,7 +31,9 @@ export default interface PropTypes {
   currentTurn: number
   currentWargame: string
   selectedItem: Asset['uniqid'] | undefined
-  setSelectedItem: {(asset: Asset['uniqid'] | undefined): void}
+  setSelectedItem: { (asset: Asset['uniqid'] | undefined): void }
+  setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
+  setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
 }
 
 export type TabPanelProps = {

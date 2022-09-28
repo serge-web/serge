@@ -1,14 +1,16 @@
-import { MessagePlanning } from '@serge/custom-types'
-import { Column } from 'material-table'
+import { MessagePlanning, TemplateBody } from '@serge/custom-types'
+import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import Orders from '../orders'
-import { OrderRow } from '../orders/types/props'
+import JsonEditor from '../../molecules/json-editor'
+import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import styles from './styles.module.scss'
-import PropTypes from './types/props'
+import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, isUmpire, gameDate, customiseTemplate, playerForceId }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
+  const [columns, setColumns] = useState<Column[]>([])
+  const [filter, setFilter] = useState<boolean>(false)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
@@ -21,43 +23,109 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
   }
 
   useEffect(() => {
+    const roles: string[] = []
     const dataTable = myMessages.map(message => {
+      const author = message.details.from.roleName
+      if (!roles.includes(author)) {
+        roles.push(author)
+      }
       return {
         id: message._id,
         title: message.message.title,
-        force: message.details.from.forceId,
-        role: message.details.from.roleName,
+        role: author,
         activity: message.message.ActivityType,
         startDate: shortDate(message.message.startDate),
         endDate: shortDate(message.message.endDate)
       }
     })
     setRows(dataTable)
+
+    // fix unit-test for MaterialTable
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    // end
+
+    const activities = collateActivities(myMessages)
+
+    const columnData: Column[] = jestWorkerId ? [] : [
+      { title: 'ID', field: 'id' },
+      { title: 'Title', field: 'title' },
+      { title: 'Author', field: 'role', lookup: arrToDict(roles) },
+      { title: 'Activity', field: 'activity', lookup: arrToDict(activities) },
+      { title: 'Start Date', field: 'startDate' },
+      { title: 'Finish Date', field: 'endDate' }
+    ]
+    if (!isUmpire) {
+      // drop the force column, since player only sees their force
+      columns.splice(2, 1)
+    }
+    setColumns(columnData)
   }, [myMessages])
+
+  const detailPanel = (rowData: OrderRow): any => {
+    // retrieve the message & template
+    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
+    if (!message) {
+      console.error('message not found, id:', rowData.id, 'messages:', messages)
+    } else {
+      const localTemplates = templates || []
+      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+      if (!template) {
+        console.log('template not found for', message.details.messageType, 'templates:', templates)
+      }
+      if (message && template) {
+        return <JsonEditor
+          messageContent={message.message}
+          customiseTemplate={customiseTemplate}
+          messageId={rowData.id}
+          template={template}
+          disabled={false}
+          gameDate={gameDate}
+        />
+      } else {
+        return <div>Template not found for {message.details.messageType}</div>
+      }
+    }
+  }
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
-  const columns: Column[] = jestWorkerId ? [] : [
-    { title: 'ID', field: 'id' },
-    { title: 'Title', field: 'title' },
-    { title: 'Force', field: 'force' },
-    { title: 'Owner', field: 'role' },
-    { title: 'Activity', field: 'activity' },
-    { title: 'Start Date', field: 'startDate' },
-    { title: 'Finish Date', field: 'endDate' }
-  ]
-  if (!isUmpire) {
-    // drop the force column, since player only sees their force
-    columns.splice(2, 1)
+  const extendProps = jestWorkerId ? {} : {
+    detailPanel: detailPanel
   }
 
   return (
     <div className={styles['messages-list']}>
-      <Orders customiseTemplate={customiseTemplate} messages={messages} columns={columns} rows={rows} templates={templates || []} gameDate={gameDate} />
+      <MaterialTable
+        title={'Orders'}
+        columns={columns}
+        data={rows}
+        actions={jestWorkerId ? [] : [
+          {
+            icon: 'filter',
+            iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+            tooltip: 'Show filter controls',
+            isFreeAction: true,
+            onClick: (): void => setFilter(!filter)
+          }
+        ]}
+        options={{
+          paging: false,
+          sorting: false,
+          filtering: filter,
+          selection: !jestWorkerId // fix unit-test for material table
+        }}
+        {...extendProps}
+      />
     </div>
   )
+
+  // return (
+  //   <div className={styles['messages-list']}>
+  //     <Orders detailPanelFnc={detailPanel} columns={columns} rows={rows} />
+  //   </div>
+  // )
 }
 
 export default PlanningMessagesList

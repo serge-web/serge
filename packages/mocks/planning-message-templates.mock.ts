@@ -3,6 +3,222 @@ import { TemplateBody } from "@serge/custom-types"
 const planningMessageTemplatesMock: TemplateBody[] = [
   {
     lastUpdated: '2019-09-30T12:37:26.705Z',
+    title: 'Adjudication Feedback',
+    details: {
+      "$id": "https://example.com/arrays.schema.json",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "description": "Outcomes from a set of orders",
+      "type": "object",
+      "title": "Adjudication Outcomes",
+      "properties": {
+        "GeneralFeedback": {
+          "title": "General Feedback",
+          "type": "string",
+          "format": "textarea"
+        },
+        "ISR": {
+          "type": "array",
+          "format": "table",
+          "additionalProperties": false,
+          "items": {
+            "title": "ISR Outcome",
+            "type": "object",
+            "required": [
+              "Asset"
+            ],
+            "properties": {
+              "Asset": {
+                "title": "Asset",
+                "type": "string",
+                "enum": [
+                  "Tank A",
+                  "Tank B",
+                  "Tank C",
+                  "Plane A"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "By": {
+                "title": "By",
+                "type": "string",
+                "format": "radio",
+                "enum": [
+                  "Blue",
+                  "Red",
+                  "Green",
+                  "White"
+                ]
+              },
+              "Force": {
+                "title": "Force",
+                "type": "string",
+                "enum": [
+                  "Unknown",
+                  "Blue",
+                  "Red",
+                  "Green",
+                  "White"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "Type": {
+                "title": "Platform Type",
+                "type": "string",
+                "enum": [
+                  "Unknown",
+                  "Tank",
+                  "Frigate",
+                  "Fighter",
+                  "Destroyer"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "Condition": {
+                "title": "Condition",
+                "type": "string",
+                "enum": [
+                  "Unknown",
+                  "Working",
+                  "Damaged",
+                  "Destroyed"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "ID": {
+                "title": "ID",
+                "type": "boolean",
+                "format": "checkbox"
+              },
+              "Comment": {
+                "title": "Comment",
+                "type": "string",
+                "format": "textarea"
+              },
+              "Private": {
+                "title": "Private",
+                "type": "string",
+                "format": "textarea"
+              }
+            }
+          }
+        },
+        "Damage": {
+          "type": "array",
+          "format": "table",
+          "additionalProperties": false,
+          "items": {
+            "title": "Damage Outcome",
+            "type": "object",
+            "required": [
+              "Asset",
+              "Condition"
+            ],
+            "properties": {
+              "Asset": {
+                "title": "Asset",
+                "type": "string",
+                "enum": [
+                  "Bunker 114",
+                  "Bunker 143",
+                  "Airfield C234",
+                  "Port D23"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "Condition": {
+                "title": "Condition",
+                "type": "string",
+                "enum": [
+                  "Working",
+                  "Damaged",
+                  "Destroyed"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "Comment": {
+                "title": "Comment",
+                "type": "string",
+                "format": "textarea"
+              },
+              "Private": {
+                "title": "Private",
+                "type": "string",
+                "format": "textarea"
+              }
+            }
+          }
+        },
+        "Movement": {
+          "type": "array",
+          "format": "table",
+          "additionalProperties": false,
+          "items": {
+            "title": "Movement Outcome",
+            "type": "object",
+            "required": [
+              "Asset",
+              "Location"
+            ],
+            "properties": {
+              "Asset": {
+                "title": "Asset",
+                "type": "string",
+                "enum": [
+                  "Tank A",
+                  "Tank B",
+                  "Tank C",
+                  "Plane A"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "Location": {
+                "title": "Location",
+                "type": "string",
+                "enum": [
+                  "Point A",
+                  "Point B",
+                  "Point C"
+                ],
+                "options": {
+                  "grid_columns": 3
+                }
+              },
+              "Comment": {
+                "title": "Comment",
+                "type": "string",
+                "format": "textarea"
+              },
+              "Private": {
+                "title": "Private",
+                "type": "string",
+                "format": "textarea"
+              }
+            }
+          }
+        }
+      }
+    }
+    ,
+    completed: false,
+    _id: 'k16-adjud',
+    _rev: '1-7fa1e6dd6b4ac5b6afc45b596ee7af61'
+  },
+  {
+    lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Link',
     details: {
       type: 'object',
@@ -698,7 +914,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           title: "Subject(s) of orders",
           items: {
             type: "object",
-            title: "Asset",
+            title: "Target",
             properties: {
               FEName: {
                 type: "string",
@@ -726,7 +942,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     title: "Land Activity",
     _id: 'k16e-land',
     _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
-  },{
+  }, {
     completed: false,
     details: {
       format: "grid",

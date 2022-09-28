@@ -1,13 +1,12 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { ChannelPlanning, ForceData, MessagePlanning } from '@serge/custom-types'
 
-export type OrderRow = {
+export type AdjudicationRow = {
   id: string
   title: string
   role: string
   activity: string
-  startDate: string
-  endDate: string
+  period: string
 }
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
@@ -16,6 +15,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * for ChannelMessage components
    */
   messages: Array<MessagePlanning>
+  /** forces in this game
+   *
+   */
+  forces: ForceData[]
   /**
    *  current game-date (may be used in JSON Editor for date-picker)
    */
@@ -25,9 +28,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   channel: ChannelPlanning
   /**
-   * templates for new types of orders created by this role
+   * template for providing feedback
    */
-  templates?: TemplateBody[]
+  template: TemplateBody
   /**
    * Callback on expanding message item
    */
@@ -58,4 +61,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * method to customise the new (or existing) message template
    */
   customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
+  /**
+   *  select an item on the map
+   */
+  setSelectedItem: {(asset: Asset['uniqid'] | undefined): void}
+  /** forces and colors
+   *
+   */
+  forceColors: ForceStyle[]
 }

@@ -218,8 +218,11 @@ const MessageCreator: React.FC<PropTypes> = ({
         theme: 'bootstrap4',
         disable_collapse: true, // eslint-disable-line @typescript-eslint/camelcase
         disable_edit_json: true, // eslint-disable-line @typescript-eslint/camelcase
+        disable_array_reorder: true, // eslint-disable-line @typescript-eslint/camelcase
+        disable_array_delete_last_row: true, // eslint-disable-line @typescript-eslint/camelcase
         disable_properties: true, // eslint-disable-line @typescript-eslint/camelcase
-        prompt_before_delete: false // eslint-disable-line @typescript-eslint/camelcase
+        prompt_before_delete: false, // eslint-disable-line @typescript-eslint/camelcase
+        array_controls_top: false // eslint-disable-line @typescript-eslint/camelcase
       })
     )
   }
