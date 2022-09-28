@@ -37,7 +37,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  selectedAssets,
+  //  selectedAssets,
   setSelectedAssets,
   selectedOrders,
   setSelectedOrders,
@@ -51,6 +51,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
+
+  const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
+  const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -96,18 +99,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> render')
   }
 
-  const onSelectionChange = (opFor: boolean, data: AssetRow[]): void => {
-    // Special processing here.  The new selection will only be the
-    // current selection for the relevant table.
-    // So, the new selection is the existing items from the
-    // "other" table, plus the new selection from this table
-    const rowIds = data.map((row: AssetRow) => row.id)
-    const otherList = opFor ? ownForces : opForces
-    const allItemsInOtherTable = otherList.map((row: AssetRow) => row.id)
-    const selectedItemsInOtherTable = selectedAssets.filter((item: string) => allItemsInOtherTable.includes(item))
-    const fullNewSelection = selectedItemsInOtherTable.concat(rowIds)
-    setSelectedAssets(fullNewSelection)
-  }
+  useEffect(() => {
+    const allSelectedAssets = selectedOwnAssets.concat(selectedOpAssets)
+    setSelectedAssets(allSelectedAssets.map((row: AssetRow) => row.id))
+  }, [selectedOpAssets, selectedOwnAssets])
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
     if (opFor) {
@@ -158,7 +153,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   playerForce={selectedForce}
                   render={onRender}
                   opFor={false}
-                  onSelectionChange={(data): void => onSelectionChange(false, data)}
+                  onSelectionChange={setSelectedOwnAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
                 />
               }
@@ -210,7 +205,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   playerForce={selectedForce}
                   render={onRender}
                   opFor={true}
-                  onSelectionChange={(data): void => onSelectionChange(true, data)}
+                  onSelectionChange={setSelectedOpAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
                 />
               }
