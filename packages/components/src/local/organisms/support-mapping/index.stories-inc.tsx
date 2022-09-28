@@ -45,8 +45,8 @@ const Template: Story<SupportMappingProps> = () => {
     position={[101.505, 20.09]}
     zoom={12} opAssets={oppAssets}
     ownAssets={ownAssets}
-    selectedItems={[]}
-    setSelectedItems={noop}
+    selectedAssets={[]}
+    setSelectedAssets={noop}
   />
 }
 

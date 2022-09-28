@@ -9,9 +9,9 @@ export default interface PropTypes {
   opAssets: AssetRow[]
   filterApplied: boolean
   setFilterApplied
-  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
+  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
   /** id of selected asset */
-  selectedItems: string[]
+  selectedAssets: string[]
   /** list of forces. User for `viewAs` feature */
   forces: ForceData[]
   /** callback for umpire clicking on view-as button */

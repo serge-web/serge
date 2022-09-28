@@ -10,12 +10,12 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
-  const { selectedItems } = useContext(SupportPanelContext)
+  const { selectedAssets } = useContext(SupportPanelContext)
 
   useEffect(() => {
     setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
-    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedItems))
-  }, [playerForce, forces, selectedItems])
+    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets))
+  }, [playerForce, forces, selectedAssets])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID

@@ -31,7 +31,7 @@ export default {
 }
 
 const Template: Story<PlanningForceProps> = () => {
-  return <PlanningForce assets={[]} opFor={true} selectedItems={[]} setSelectedItems={noop} />
+  return <PlanningForce assets={[]} opFor={true} selectedAssets={[]} setSelectedAssets={noop} />
 }
 
 export const Default = Template.bind({})

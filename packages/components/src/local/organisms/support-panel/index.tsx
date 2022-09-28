@@ -16,7 +16,7 @@ import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedItems: [] })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [] })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -37,8 +37,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  selectedItems,
-  setSelectedItems,
+  selectedAssets,
+  setSelectedAssets,
+  selectedOrders,
+  setSelectedOrders,
   setOpForcesForParent,
   setOwnForcesForParent
 }) => {
@@ -102,9 +104,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const rowIds = data.map((row: AssetRow) => row.id)
     const otherList = opFor ? ownForces : opForces
     const allItemsInOtherTable = otherList.map((row: AssetRow) => row.id)
-    const selectedItemsInOtherTable = selectedItems.filter((item: string) => allItemsInOtherTable.includes(item))
+    const selectedItemsInOtherTable = selectedAssets.filter((item: string) => allItemsInOtherTable.includes(item))
     const fullNewSelection = selectedItemsInOtherTable.concat(rowIds)
-    setSelectedItems(fullNewSelection)
+    setSelectedAssets(fullNewSelection)
   }
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
@@ -178,6 +180,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     templates={templates}
                     customiseTemplate={customiseTemplate}
+                    selectedOrders={selectedOrders}
+                    setSelectedOrders={setSelectedOrders}
                   />
                   <NewMessage
                     orderableChannel={true}
@@ -230,7 +234,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     template={adjudicationTemplate}
                     customiseTemplate={customiseTemplate}
-                    setSelectedItems={setSelectedItems}
+                    selectedOrders={selectedOrders}
+                    setSelectedOrders={setSelectedOrders}
                   />
                 </div>
               }

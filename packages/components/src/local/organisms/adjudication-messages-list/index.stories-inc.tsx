@@ -62,7 +62,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const newestMessages = mostRecentPlanningOnly(planningMessages)
 
   return <AdjudicationMessagesList
-    forces={forces} setSelectedItems={noop}
+    forces={forces}
+    setSelectedAssets={noop}
     messages={newestMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}

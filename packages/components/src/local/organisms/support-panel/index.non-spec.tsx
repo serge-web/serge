@@ -27,7 +27,7 @@ describe('Support Panel component: ', () => {
         allForces={P9Mock.data.forces.forces}
         gameDate={P9Mock.data.overview.gameDate}
         currentWargame={P9Mock.currentWargame || ''}
-        selectedItems={[]}
+        selectedAssets={[]}
         currentTurn={P9Mock.gameTurn}
         messages={planningMessages}
         channel={planningChannel}
@@ -44,7 +44,7 @@ describe('Support Panel component: ', () => {
         selectedRoleId={blueRole.roleId}
         selectedRoleName={blueRole.name}
         isUmpire={false}
-        setSelectedItems={(): any => noop}
+        setSelectedAssets={noop}
         setOpForcesForParent={noop}
         setOwnForcesForParent={noop}
       />)

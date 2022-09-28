@@ -86,7 +86,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     platformTypes={platformTypes}
     messages={planningMessages}
     onReadAll={noop}
-    selectedItems={[]}
+    selectedAssets={[]}
     onUnread={noop}
     onRead={noop}
     channel={planningChannel}
@@ -104,7 +104,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     selectedRoleName={roleVal.name}
     selectedForce={force}
     isUmpire={!!force.umpire}
-    setSelectedItems={noop}
+    setSelectedAssets={noop}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
   />

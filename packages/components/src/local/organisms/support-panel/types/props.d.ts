@@ -30,8 +30,10 @@ export default interface PropTypes {
   gameDate: string
   currentTurn: number
   currentWargame: string
-  selectedItems: string[]
-  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
+  selectedAssets: string[]
+  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  selectedOrders: string[]
+  setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
   setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
   setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
 }
@@ -49,5 +51,5 @@ export type PanelActionTabsProps = {
 }
 
 export type SupportPanelContextInterface = {
-  selectedItems: string[]
+  selectedAssets: string[]
 }

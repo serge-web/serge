@@ -9,7 +9,7 @@ import MapControl from '../../map-control'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
-  opAssets, filterApplied, setFilterApplied, setSelectedItems, selectedItems, forces,
+  opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
   viewAsCallback, viewAsForce
 }) => {
   const TileLayerProps = MapConstants.TileLayer
@@ -68,10 +68,10 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
       <LayerGroup key={'own-forces'}>
-        <PlanningForces opFor={false} assets={ownAssets} setSelectedItems={setSelectedItems} selectedItems={selectedItems} />
+        <PlanningForces opFor={false} assets={ownAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
       <LayerGroup key={'opp-forces'}>
-        <PlanningForces opFor={true} assets={opAssets} setSelectedItems={setSelectedItems} selectedItems={selectedItems} />
+        <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
     </Map>
   )

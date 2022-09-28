@@ -53,7 +53,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [filterApplied, setFilterApplied] = useState<boolean>(true)
 
   // handle selections from asset tables
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [selectedAssets, setSelectedAssets] = useState<string[]>([])
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -62,7 +63,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }, [viewAsForce])
 
-  console.warn('=> [PlanningChannel] [row', selectedItems)
+  console.warn('=> [PlanningChannel] [row', selectedAssets)
 
   useEffect(() => {
     // produce the own and opp assets for this player force
@@ -77,8 +78,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [allForces, currentForce])
 
   useEffect(() => {
-    if (selectedItems.length > 0) {
-      const assets = selectedItems.map((id: string): Asset => findAsset(allForces, id))
+    if (selectedAssets.length) {
+      const assets = selectedAssets.map((id: string): Asset => findAsset(allForces, id))
       const assetsWithLocation = assets.filter((asset: Asset) => asset.location !== undefined)
       const locations: any = assetsWithLocation.map((asset: Asset) => asset.location)
       if (locations.length > 0) {
@@ -96,7 +97,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       }
     }
-  }, [selectedItems])
+  }, [selectedAssets])
 
   useEffect(() => {
     const channelClassName = channel.name.toLowerCase().replace(/ /g, '-')
@@ -140,7 +141,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const supportPanelContext = useMemo(() => ({ selectedItems }), [selectedItems])
+  const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -166,8 +167,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allForces={allForces}
           gameDate={gameDate}
           currentTurn={currentTurn}
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
+          selectedAssets={selectedAssets}
+          setSelectedAssets={setSelectedAssets}
+          selectedOrders={selectedOrders}
+          setSelectedOrders={setSelectedOrders}
           setOpForcesForParent={setOpAssetsFiltered}
           setOwnForcesForParent={setOwnAssetsFiltered}
         />
@@ -180,8 +183,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
-        selectedItems={selectedItems}
-        setSelectedItems={setSelectedItems}
+        selectedAssets={selectedAssets}
+        setSelectedAssets={setSelectedAssets}
         forces={allForces}
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
