@@ -30,6 +30,7 @@ export default interface PropTypes {
   gameDate: string
   currentTurn: number
   currentWargame: string
+  selectedItems: string[]
   setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
   setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
   setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>

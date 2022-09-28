@@ -62,7 +62,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }, [viewAsForce])
 
-  console.warn('=> [PlanningChannel]', currentForce.name)
+  console.warn('=> [PlanningChannel] [row', selectedItems)
 
   useEffect(() => {
     // produce the own and opp assets for this player force
@@ -166,6 +166,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allForces={allForces}
           gameDate={gameDate}
           currentTurn={currentTurn}
+          selectedItems={selectedItems}
           setSelectedItems={setSelectedItems}
           setOpForcesForParent={setOpAssetsFiltered}
           setOwnForcesForParent={setOwnAssetsFiltered}

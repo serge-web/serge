@@ -86,6 +86,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     platformTypes={platformTypes}
     messages={planningMessages}
     onReadAll={noop}
+    selectedItems={[]}
     onUnread={noop}
     onRead={noop}
     channel={planningChannel}

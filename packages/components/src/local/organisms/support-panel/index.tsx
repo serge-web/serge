@@ -37,6 +37,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
+  selectedItems,
   setSelectedItems,
   setOpForcesForParent,
   setOwnForcesForParent
@@ -48,10 +49,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
-
-  // const { selectedItems } = useContext(SupportPanelContext)
-
-  console.warn('=> [SupportPanel] selectedForce', selectedForce.name)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -98,8 +95,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onSelectionChange = (opFor: boolean, data: AssetRow[]): void => {
-    console.log('new selection', opFor, data.length)
-    setSelectedItems(data.map(d => d.id))
+    // Special processing here.  The new selection will only be the
+    // current selection for the relevant table.
+    // So, the new selection is the existing items from the
+    // "other" table, plus the new selection from this table
+    const rowIds = data.map((row: AssetRow) => row.id)
+    const otherList = opFor ? ownForces : opForces
+    const allItemsInOtherTable = otherList.map((row: AssetRow) => row.id)
+    const selectedItemsInOtherTable = selectedItems.filter((item: string) => allItemsInOtherTable.includes(item))
+    const fullNewSelection = selectedItemsInOtherTable.concat(rowIds)
+    setSelectedItems(fullNewSelection)
   }
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
