@@ -87,7 +87,9 @@ const Template: Story<SupportPanelProps> = (args) => {
     messages={planningMessages}
     onReadAll={noop}
     selectedAssets={[]}
-    onUnread={noop}
+    setSelectedAssets={noop}
+    selectedOrders={[]}
+    setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
     channel={planningChannel}
     templates={myTemplates}
@@ -104,7 +106,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     selectedRoleName={roleVal.name}
     selectedForce={force}
     isUmpire={!!force.umpire}
-    setSelectedAssets={noop}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
   />

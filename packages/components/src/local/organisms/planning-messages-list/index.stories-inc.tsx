@@ -9,6 +9,7 @@ import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/m
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
+import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -70,6 +71,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     onRead={onRead}
     isUmpire={true}
     hideForcesInChannel={hideForcesInChannel}
+    selectedOrders={[]}
+    setSelectedOrders={(): any => noop}
   />
 }
 

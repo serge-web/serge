@@ -63,7 +63,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   return <AdjudicationMessagesList
     forces={forces}
-    setSelectedAssets={noop}
+    setSelectedOrders={noop}
+    selectedOrders={[]}
     messages={newestMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
