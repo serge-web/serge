@@ -92,8 +92,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           }
         })
         if (mapBounds) {
-          setPosition(undefined)
-          setBounds(mapBounds)
+          // do we actually just have one location?
+          if (mapBounds.getNorthWest().equals(mapBounds.getSouthEast())) {
+            // ok, treat it as new map centre
+            setBounds(undefined)
+            setPosition(mapBounds.getNorthWest())
+          } else {
+            // zoom to
+            setPosition(undefined)
+            setBounds(mapBounds)
+          }
         }
       }
     }
