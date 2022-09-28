@@ -1,10 +1,11 @@
 import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
-import { checkV3ParticipantStates } from '@serge/helpers'
+import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React from 'react'
+import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -53,6 +54,12 @@ export default {
 }
 
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
+
+// produce the own and opp assets for this player force
+const forceCols = forceColors(forces)
+const platIcons = platformIcons(platformTypes)
+const own = getOwnAssets(forces, forceCols, platIcons, forces[1])
+const opp = getOppAssets(forces, forceCols, platIcons, forces[1])
 
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
@@ -108,8 +115,8 @@ const Template: Story<SupportPanelProps> = (args) => {
     isUmpire={!!force.umpire}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
-    allOppAssets={[]}
-    allOwnAssets={[]}
+    allOppAssets={opp}
+    allOwnAssets={own}
   />
 }
 
