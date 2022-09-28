@@ -27,9 +27,16 @@ export const SupportMapping: React.FC<PropTypes> = ({
   }, [opAssets])
 
   useEffect(() => {
+    if ((bounds !== undefined) && leafletElement) {
+      console.log('zoom before', leafletElement.getZoom())
+      leafletElement.flyToBounds(bounds, { duration: 0.4 })
+    }
+  }, [bounds])
+
+  useEffect(() => {
     if (position !== undefined) {
-      const defaultZoom = 8
-      leafletElement && leafletElement.flyTo(position, defaultZoom)
+      const defaultZoom = 4
+      leafletElement && leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 

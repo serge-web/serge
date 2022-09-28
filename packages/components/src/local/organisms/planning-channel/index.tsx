@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { Asset, CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
@@ -77,12 +77,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [allForces, currentForce])
 
   useEffect(() => {
-    if (selectedItems.length === 1) {
-      const asset = findAsset(allForces, selectedItems[0])
-      const location = asset.location
-      if (location) {
-        setBounds(undefined)
-        setPosition(location)
+    if (selectedItems.length > 0) {
+      const assets = selectedItems.map((id: string): Asset => findAsset(allForces, id))
+      const assetsWithLocation = assets.filter((asset: Asset) => asset.location !== undefined)
+      const locations: any = assetsWithLocation.map((asset: Asset) => asset.location)
+      if (locations.length > 0) {
+        let mapBounds: LatLngBounds | undefined
+        locations.forEach((loc: [number, number]) => {
+          if (!mapBounds) {
+            mapBounds = latLngBounds(loc, loc)
+          } else {
+            mapBounds.extend(loc)
+          }
+        })
+        if (mapBounds) {
+          setPosition(undefined)
+          setBounds(mapBounds)
+        }
       }
     }
   }, [selectedItems])
