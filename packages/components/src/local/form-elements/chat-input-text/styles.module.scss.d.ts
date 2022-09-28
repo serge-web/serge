@@ -2,6 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'icon-send': string;
+  'icon-cancel': string;
+  'cancel': string;
+  'main': string;
+  'action': string;
+  'divider': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

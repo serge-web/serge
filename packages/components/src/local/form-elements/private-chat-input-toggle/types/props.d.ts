@@ -9,7 +9,6 @@ export default interface Props {
    */
   postBack?: { (value: string, messageType: string): void }
   privatValue: (value: string) => string
-  clearPrivateStorage?: (clearName: string) => void
   /**
    * Post messages when ctrl + enter key pressed
    */
