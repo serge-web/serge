@@ -1,5 +1,5 @@
-import { IconButton, InputAdornment } from '@material-ui/core'
-import { SendOutlined } from '@material-ui/icons'
+import { Divider, IconButton, InputAdornment } from '@material-ui/core'
+import { Delete, SendOutlined } from '@material-ui/icons'
 import { UNSENT_CHAT_MESSAGE_TYPE } from '@serge/config'
 import React, { useEffect, useImperativeHandle, useState } from 'react'
 import TextInput from './../../atoms/text-input'
@@ -27,10 +27,10 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
   }
 
   useImperativeHandle(ref, () => ({
-    setFormState(text: string): void {
+    setFormState: (text: string): void => {
       setFormState(text)
     },
-    clear(): void {
+    clear: (): void => {
       setFormState('')
     }
   }))
@@ -43,7 +43,6 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
 
   return (
     <div className={styles.main}>
-      <div className={styles.cancel} onClick={onCancel}>X</div>
       <TextInput
         fullWidth
         multiline
@@ -55,9 +54,13 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
         placeholder={placeholder}
         onKeyDown={keyDownHandler}
         endAdornment={
-          <InputAdornment position="end">
+          <InputAdornment position="end" className={styles.action}>
             <IconButton onClick={submitForm}>
               <SendOutlined fontSize="small" className={styles['icon-send']} />
+            </IconButton>
+            <Divider className={styles.divider} />
+            <IconButton onClick={onCancel}>
+              <Delete fontSize="medium" className={styles['icon-cancel']} />
             </IconButton>
           </InputAdornment>
         }

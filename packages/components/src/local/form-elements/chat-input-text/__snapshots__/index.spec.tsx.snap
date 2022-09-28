@@ -4,11 +4,6 @@ exports[`ChatInputText component: renders correctly 1`] = `
 <div
   className="main"
 >
-  <div
-    className="cancel"
-  >
-    X
-  </div>
   <section
     className="input-container disable-offset fullwidth"
   >
@@ -58,7 +53,7 @@ exports[`ChatInputText component: renders correctly 1`] = `
           tabIndex={-1}
         />
         <div
-          className="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-filled"
+          className="MuiInputAdornment-root action MuiInputAdornment-positionEnd MuiInputAdornment-filled"
         >
           <button
             className="MuiButtonBase-root MuiIconButton-root"
@@ -89,6 +84,44 @@ exports[`ChatInputText component: renders correctly 1`] = `
               >
                 <path
                   d="M4.01 6.03l7.51 3.22-7.52-1 .01-2.22m7.5 8.72L4 17.97v-2.22l7.51-1M2.01 3L2 10l15 2-15 2 .01 7L23 12 2.01 3z"
+                />
+              </svg>
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
+          </button>
+          <hr
+            className="MuiDivider-root divider"
+          />
+          <button
+            className="MuiButtonBase-root MuiIconButton-root"
+            disabled={false}
+            onBlur={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root icon-cancel"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
                 />
               </svg>
             </span>
