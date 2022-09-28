@@ -36,6 +36,8 @@ export default interface PropTypes {
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
   setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
   setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
+  allOwnAssets: AssetRow[]
+  allOppAssets: AssetRow[]
 }
 
 export type TabPanelProps = {

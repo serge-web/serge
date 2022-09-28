@@ -72,9 +72,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
     setAllOwnAssets(own)
-    setOwnAssetsFiltered(own)
+    setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
-    setOpAssetsFiltered(opp)
+    setOpAssetsFiltered(opp.slice())
   }, [allForces, currentForce])
 
   useEffect(() => {
@@ -181,6 +181,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           setSelectedOrders={setSelectedOrders}
           setOpForcesForParent={setOpAssetsFiltered}
           setOwnForcesForParent={setOwnAssetsFiltered}
+          allOwnAssets={allOwnAssets}
+          allOppAssets={allOppAssets}
         />
       </SupportPanelContext.Provider>
       <SupportMapping

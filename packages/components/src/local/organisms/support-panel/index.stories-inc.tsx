@@ -108,6 +108,8 @@ const Template: Story<SupportPanelProps> = (args) => {
     isUmpire={!!force.umpire}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
+    allOppAssets={[]}
+    allOwnAssets={[]}
   />
 }
 

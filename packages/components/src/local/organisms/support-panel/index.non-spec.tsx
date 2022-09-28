@@ -49,6 +49,8 @@ describe('Support Panel component: ', () => {
         isUmpire={false}
         setOpForcesForParent={noop}
         setOwnForcesForParent={noop}
+        allOppAssets={[]}
+        allOwnAssets={[]}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

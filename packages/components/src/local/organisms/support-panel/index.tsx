@@ -42,7 +42,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedOrders,
   setSelectedOrders,
   setOpForcesForParent,
-  setOwnForcesForParent
+  setOwnForcesForParent,
+  allOppAssets,
+  allOwnAssets
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -52,8 +54,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [opForces, setOpForces] = useState<AssetRow[]>([])
   const [ownForces, setOwnForces] = useState<AssetRow[]>([])
 
-  const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
-  const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
+  const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>(allOwnAssets)
+  const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>(allOppAssets)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
