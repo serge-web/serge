@@ -1,5 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
+import { noop } from 'lodash'
 import React from 'react'
 
 import PlanningForce from './index'
@@ -30,7 +31,7 @@ export default {
 }
 
 const Template: Story<PlanningForceProps> = () => {
-  return <PlanningForce assets={[]} opFor={true} />
+  return <PlanningForce assets={[]} opFor={true} selectedAssets={[]} setSelectedAssets={noop} />
 }
 
 export const Default = Template.bind({})
