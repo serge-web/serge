@@ -26,7 +26,7 @@ const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.pla
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
     if (redZeroAsset) {
-      const item = collateItem(true, redZeroAsset, blueForce, redForce, forceCols, platformStyles, undefined)
+      const item = collateItem(true, redZeroAsset, blueForce, redForce, forceCols, platformStyles, [], undefined)
       expect(item).toBeTruthy()
       expect(item.length).toEqual(4)
       const first = item[0]
@@ -37,7 +37,7 @@ describe('check collating assets', () => {
 
   it('handles collate item for opfor with lots of unknowns', () => {
     if (redAssetWithUnknown) {
-      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, undefined)
+      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, [], undefined)
       expect(item).toBeTruthy()
       expect(item.length).toEqual(4)
       const first = item[0]
@@ -50,7 +50,7 @@ describe('check collating assets', () => {
 
   it('handles collate item for opfor wwith unknown type', () => {
     if (redAssetWithUnknown) {
-      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, undefined)
+      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, [], undefined)
       expect(item).toBeTruthy()
       expect(item.length).toEqual(4)
       const first = item[0]
@@ -81,11 +81,11 @@ describe('check collating assets', () => {
     expect(ownerCol.lookup).toBeTruthy()
     expect(ownerCol.lookup && Object.keys(ownerCol.lookup).length).toEqual(8)
 
-    const umpireRows = getRows(false, forces, forceCols, platformStyles, umpireForce)
+    const umpireRows = getRows(false, forces, forceCols, platformStyles, umpireForce, [])
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(105)
 
-    const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce)
+    const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce, [])
     expect(blueRows).toBeTruthy()
     expect(blueRows.length).toEqual(40)
 
@@ -124,11 +124,11 @@ describe('check collating assets', () => {
     expect(blueColumns).toBeTruthy()
     expect(blueColumns.length).toEqual(4)
 
-    const umpireRows = getRows(true, forces, forceCols, platformStyles, umpireForce)
+    const umpireRows = getRows(true, forces, forceCols, platformStyles, umpireForce, [])
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(0)
 
-    const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce)
+    const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce, [])
     expect(blueRows).toBeTruthy()
     expect(blueRows.length).toEqual(39)
   })

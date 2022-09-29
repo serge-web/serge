@@ -18,10 +18,10 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
   }, [])
 
   useImperativeHandle(ref, () => ({
-    setFormState(text: string): void {
+    setFormState (text: string): void {
       setFormState(text)
     },
-    clear(): void {
+    clear (): void {
       setFormState('')
     }
   }))

@@ -38,7 +38,16 @@ const ownAssets = getOwnAssets(forces, forceColors(forces), platformIcons(platfo
 const oppAssets = getOppAssets(forces, forceColors(forces), platformIcons(platforms), forces[1])
 
 const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping forces={[]} filterApplied={true} setFilterApplied={(): void => noop()} position={[101.505, 20.09]} zoom={12} opAssets={oppAssets} ownAssets={ownAssets} />
+  return <SupportMapping
+    forces={[]}
+    filterApplied={true}
+    setFilterApplied={noop}
+    position={[101.505, 20.09]}
+    zoom={12} opAssets={oppAssets}
+    ownAssets={ownAssets}
+    selectedAssets={[]}
+    setSelectedAssets={noop}
+  />
 }
 
 export const Default = Template.bind({})

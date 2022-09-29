@@ -19,6 +19,10 @@ export default interface PropTypes {
   onSelectionChange?: (rows: AssetRow[]) => void
   /** visible rows change callback */
   onVisibleRowsChange?: (row: AssetRow[]) => void
+  /**
+   *  set of assets visible to me
+   */
+  assets: AssetRow[]
 }
 
 export type AssetRow = {
@@ -32,4 +36,5 @@ export type AssetRow = {
   force?: string
   owner?: string
   position?: LatLng
+  tableData?: { checked: boolean }
 }

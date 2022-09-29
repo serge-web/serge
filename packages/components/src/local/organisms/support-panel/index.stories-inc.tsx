@@ -1,10 +1,11 @@
 import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
-import { checkV3ParticipantStates } from '@serge/helpers'
+import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React from 'react'
+import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -54,6 +55,12 @@ export default {
 
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
+// produce the own and opp assets for this player force
+const forceCols = forceColors(forces)
+const platIcons = platformIcons(platformTypes)
+const own = getOwnAssets(forces, forceCols, platIcons, forces[1])
+const opp = getOppAssets(forces, forceCols, platIcons, forces[1])
+
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
   // separate out the two elements of the combined role
@@ -73,10 +80,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     }
   }
 
-  const setSelectedItem = (asset: string): void => {
-    console.log('item selected:', asset)
-  }
-
   const force = forces.find((value: ForceData) => value.uniqid === forceStr)
   if (!force) {
     throw Error('can\'t find force')
@@ -90,7 +93,10 @@ const Template: Story<SupportPanelProps> = (args) => {
     platformTypes={platformTypes}
     messages={planningMessages}
     onReadAll={noop}
-    onUnread={noop}
+    selectedAssets={[]}
+    setSelectedAssets={noop}
+    selectedOrders={[]}
+    setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
     channel={planningChannel}
     templates={myTemplates}
@@ -107,10 +113,10 @@ const Template: Story<SupportPanelProps> = (args) => {
     selectedRoleName={roleVal.name}
     selectedForce={force}
     isUmpire={!!force.umpire}
-    selectedItem={''}
-    setSelectedItem={setSelectedItem}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
+    allOppAssets={opp}
+    allOwnAssets={own}
   />
 }
 
