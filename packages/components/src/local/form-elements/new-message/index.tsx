@@ -29,7 +29,7 @@ const NewMessage: React.FC<PropTypes> = ({
   const tab = useRef<any>(null)
 
   const setTemplate = (templateData: TemplateBody): void => {
-    setSelectedType(templateData && templateData.title)
+    setSelectedType(templateData.title)
     setSelectedSchema(templateData.details)
   }
 
