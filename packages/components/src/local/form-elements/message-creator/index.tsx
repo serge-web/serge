@@ -139,7 +139,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     const changeValue = getMessageCreatorValue && getMessageCreatorValue(messageOption)
 
     const valueTimer = setTimeout(() => {
-      if (changeValue) return editor && editor?.setValue(changeValue)
+      if (changeValue) return editor && editor.setValue(changeValue)
     }, 10)
 
     return (): void => clearTimeout(valueTimer)
