@@ -20,6 +20,8 @@ export default interface PropTypes {
   viewAsForce?: string
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
+  /** callback, for if a map action is clicked */
+  actionCallback?: {(force: string, category: string, actionId: string): void}
 }
 
 export interface MappingMenuItem {

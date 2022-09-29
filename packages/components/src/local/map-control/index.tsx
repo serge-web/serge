@@ -48,7 +48,9 @@ export const MapControl: React.FC<PropTypes> = ({
   setFilterHistoryRoutes,
   addInfoMarker,
   filterApplied,
-  setFilterApplied
+  setFilterApplied,
+  actionCallback,
+  actionItems
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
@@ -150,6 +152,10 @@ export const MapControl: React.FC<PropTypes> = ({
   }, [cellLabelType])
 
   if (!map) return null
+
+  if (actionCallback) {
+    console.log('provide drop-down menu for items', actionItems)
+  }
 
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>

@@ -50,6 +50,7 @@ const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perFor
     })
   }
 })
+console.log('do it', filledInPerForcePlanningActivities)
 
 export default {
   title: 'local/organisms/PlanningChannel',

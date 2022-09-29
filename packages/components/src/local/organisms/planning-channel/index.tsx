@@ -27,7 +27,8 @@ const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: Forc
         }
         const item2: MappingMenuItem = {
           id: act.uniqid,
-          name: act.name
+          name: act.name,
+          color: act.color
         }
         return item2
       })
@@ -174,6 +175,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
+  const mapActionCallback = (force: string, category: string, actionId: string) => {
+    console.log('action clicked', force, category, actionId)
+  }
+
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   return (
@@ -224,6 +229,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
         actionItems={mapActionItems}
+        actionCallback={mapActionCallback}
       />
     </div>
   )
