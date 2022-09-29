@@ -1,4 +1,4 @@
-import { ChannelPlanning, ForceData, MessageInfoTypeClipped, PlatformTypeData, PlayerUiActionTypes } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageInfoTypeClipped, PerForcePlanningActivitySet, PlatformTypeData, PlayerUiActionTypes } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
@@ -23,5 +23,6 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: object) => Function
-
+  /** set of activities that can be planned using this planning channel */
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
 }

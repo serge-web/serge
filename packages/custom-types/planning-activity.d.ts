@@ -6,7 +6,12 @@ import { TemplateBody } from "./template"
  */
 export interface PerForcePlanningActivitySet {
   force: ForceData['uniqid']
-  activities: PlanningActivity[]
+  groupedActivities: GroupedActivitySet[]
+}
+
+export interface GroupedActivitySet {
+  category: string
+  activities: Array<PlanningActivity | PlanningActivity['uniqid']>
 }
 
 /** 
