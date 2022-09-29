@@ -63,8 +63,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }, [viewAsForce])
 
-  console.warn('=> [PlanningChannel] [row', selectedAssets)
-
   useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = forceColors(allForces)

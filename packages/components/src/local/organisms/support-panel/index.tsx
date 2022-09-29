@@ -51,9 +51,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
-  const [opForces, setOpForces] = useState<AssetRow[]>([])
-  const [ownForces, setOwnForces] = useState<AssetRow[]>([])
-
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
 
@@ -77,11 +74,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
     const oldOwnAssets = schema.properties?.Assets?.items?.properties?.FEName?.enum
     if (oldOwnAssets) {
-      schema.properties.Assets.items.properties.FEName.enum = ownForces.map((asset: AssetRow) => asset.name)
+      schema.properties.Assets.items.properties.FEName.enum = allOwnAssets.map((asset: AssetRow) => asset.name)
     }
     const oldOwnTargets = schema.properties?.Targets?.items?.properties?.FEName?.enum
     if (oldOwnTargets) {
-      schema.properties.Targets.items.properties.FEName.enum = opForces.map((asset: AssetRow) => asset.name)
+      schema.properties.Targets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
     }
     return schema
   }
@@ -109,10 +106,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
     if (opFor) {
-      setOpForces(data)
       setOpForcesForParent(data)
     } else {
-      setOwnForces(data)
       setOwnForcesForParent(data)
     }
   }
@@ -124,14 +119,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
     saveMessage(currentWargame, details, message)
   }
-
-  useEffect(() => {
-    console.log('=> [SupportPanel]: ownForces update: ', ownForces && ownForces.length, 'items')
-  }, [ownForces])
-
-  useEffect(() => {
-    console.log('=> [SupportPanel]: opForces update: ', opForces && opForces.length, 'items')
-  }, [opForces])
 
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
