@@ -31,7 +31,11 @@ const MessageCreator: React.FC<PropTypes> = ({
   currentTurn,
   channel,
   gameDate,
-  postBack
+  postBack,
+  createMessageValue,
+  messageOption,
+  getMessageCreatorValue,
+  clearCachedCreatorMessage
 }) => {
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
@@ -87,6 +91,7 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     editor.destroy()
     createEditor(selectedSchema)
+    clearCachedCreatorMessage && clearCachedCreatorMessage(['', messageOption])
     onMessageSend && onMessageSend(e)
   }
 
@@ -128,7 +133,22 @@ const MessageCreator: React.FC<PropTypes> = ({
     return (): void => {
       destroyEditor(editor)
     }
-  }, [schema])
+  }, [schema, messageOption])
+
+  useEffect(() => {
+    const changeValue = getMessageCreatorValue && getMessageCreatorValue(messageOption)
+
+    const valueTimer = setTimeout(() => {
+      if (changeValue) return changeValue && editor?.setValue(changeValue)
+    }, 10)
+
+    return (): void => clearTimeout(valueTimer)
+  }, [editor])
+
+  const transferChangeValue = (): void => {
+    const message = editor?.getValue()
+    createMessageValue && createMessageValue(message, messageOption)
+  }
 
   /**
    * helper function to for validation Datetime or Date or Time props of json
@@ -235,7 +255,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         onCancel={onPopupCancel}
         onConfirm={onPopupConfirm}
       />
-      <div className="form-group message-creator" ref={editorPreviewRef} />
+      <div className="form-group message-creator" ref={editorPreviewRef} onBlur={transferChangeValue} />
       {privateMessage && (
         <div className="flex-content form-group">
           <label

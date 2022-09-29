@@ -18,32 +18,35 @@ const NewMessage: React.FC<PropTypes> = ({
   selectedRole,
   selectedRoleName,
   postBack,
+  saveCachedNewMessageValue,
+  getCachedNewMessagevalue,
+  clearCachedNewMessage,
   customiseTemplate
 }) => {
-  const prevTemplates = usePrevious(templates)
+  const prevTemplates: TemplateBody = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
+  const [selectedType, setSelectedType] = useState<string>('')
   const tab = useRef<any>(null)
 
-  const mapTemplateToDropdown = (item: TemplateBody): any => ({
-    value: JSON.stringify(item.details),
-    option: item.title
-  })
-  const setTemplate = (value: string): void => {
-    setSelectedSchema(JSON.parse(value))
+  const setTemplate = (templateData: TemplateBody): void => {
+    setSelectedType(templateData && templateData.title)
+    setSelectedSchema(templateData.details)
   }
 
-  const allTemplates = (templates.length && templates[0] && templates.map(mapTemplateToDropdown)) || []
+  const allTemplates: TemplateBody[] = (templates.length && templates[0] && templates) || []
 
   const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
   useEffect(() => {
     setSelectedSchema(null)
+    setSelectedType('')
   }, [channel])
 
   useEffect(() => {
     if (!prevTemplates) {
       if (templates.length) {
         setSelectedSchema(templates[0].details)
+        setSelectedType(templates[0].title)
       } else {
         console.warn('Zero templates received for channel ', channel)
       }
@@ -81,11 +84,15 @@ const NewMessage: React.FC<PropTypes> = ({
               selectOptions={allTemplates}
               placeholder='Select message'
               className='message-input'
-              data={JSON.stringify(selectedSchema)}
+              data={selectedType}
             />
           )
         }
         <MessageCreator
+          getMessageCreatorValue={getCachedNewMessagevalue}
+          clearCachedCreatorMessage={clearCachedNewMessage}
+          createMessageValue={saveCachedNewMessageValue}
+          messageOption={selectedType}
           schema={selectedSchema}
           channel={channel}
           confirmCancel={!!confirmCancel}
@@ -99,6 +106,7 @@ const NewMessage: React.FC<PropTypes> = ({
           selectedRoleName={selectedRoleName}
           postBack={postBack}
           customiseTemplate={customiseTemplate}
+
         />
       </Collapsible>
     </div>

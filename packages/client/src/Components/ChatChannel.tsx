@@ -39,7 +39,8 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (details: MessageDetails, message: any): void => {
+  const messageHandler = (details: MessageDetails, message: Object): void => {
+    console.log('message', message)
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
@@ -113,7 +114,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     playerUiDispatch(markUnread(channelId, message))
   }
 
-  const cacheMessage = (value: string, messageType: string): void | string => {
+  const cacheMessage = (value: string | any, messageType: string): void | string => {
     return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
   }
 
@@ -169,6 +170,9 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
               isCustomChannel
                 ? <NewMessage
                   channel={channel}
+                  saveCachedNewMessageValue={cacheMessage}
+                  getCachedNewMessagevalue={getCachedMessage}
+                  clearCachedNewMessage={clearCachedMessage}
                   orderableChannel={true}
                   confirmCancel={true}
                   privateMessage={!!selectedForce.umpire}

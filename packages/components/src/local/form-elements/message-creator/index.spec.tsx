@@ -20,6 +20,7 @@ it('MessageCreator renders correctly', () => {
   const tree = renderer
     .create(<MessageCreator
       channel={channel}
+      messageOption='Chat'
       currentTurn={0}
       gameDate=''
       privateMessage={true}

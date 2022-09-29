@@ -10,8 +10,11 @@ export default interface PropTypes {
   selectedRoleName: string
   currentTurn: number
   gameDate: string
+  saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
+  getCachedNewMessagevalue?: (value: string) => string
+  clearCachedNewMessage?: (data: string[]) => void
   channel: ChannelTypes
-  /** method to customise new (or existing) message template */
+    /** method to customise new (or existing) message template */
   customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
   /**
    * The method for posting messages out of the component
