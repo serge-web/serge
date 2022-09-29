@@ -113,14 +113,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  useEffect(() => {
-    console.log('=> [PlanningChannel] ownForces update: ', ownAssetsFiltered && ownAssetsFiltered.length, 'items')
-  }, [ownAssetsFiltered])
-
-  useEffect(() => {
-    console.log('=> [PlanningChannel]: opForces update: ', opAssetsFiltered && opAssetsFiltered.length, 'items')
-  }, [opAssetsFiltered])
-
   const onReadAll = (): void => {
     dispatch(markAllAsRead(channel.uniqid))
   }

@@ -16,16 +16,6 @@ export const SupportMapping: React.FC<PropTypes> = ({
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
 
-  console.log('[SupportMapping] own assets:', ownAssets.length, 'filter', filterApplied)
-
-  useEffect(() => {
-    console.log('=> [SupportMapping] ownForces update: ', ownAssets && ownAssets.length, 'items')
-  }, [ownAssets])
-
-  useEffect(() => {
-    console.log('=> [SupportMapping]: opForces update: ', opAssets && opAssets.length, 'items')
-  }, [opAssets])
-
   useEffect(() => {
     if ((bounds !== undefined) && leafletElement) {
       leafletElement.flyToBounds(bounds, { duration: 0.6 })
