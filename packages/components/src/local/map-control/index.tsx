@@ -165,6 +165,12 @@ export const MapControl: React.FC<PropTypes> = ({
           {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon /></Item>}
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon /></Item>}
         </div>
+        {actionCallback &&
+          <div className={cx('leaflet-control')}>
+            {/* popup tree of action items when below button clicked */}
+            <Item title="New orders" >New orders...</Item>
+          </div>
+        }
         <div className={cx('leaflet-control')} data-tour="counter-clockwise">
           {
             setFilterHistoryRoutes &&
