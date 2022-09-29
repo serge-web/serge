@@ -4,7 +4,7 @@ import { TemplateBody } from "./template"
 /**
  * collection of activities for a force
  */
-export interface PlanningActivitySet {
+export interface PerForcePlanningActivitySet {
   force: ForceData['uniqid']
   activities: PlanningActivity[]
 }

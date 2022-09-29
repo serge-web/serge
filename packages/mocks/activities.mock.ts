@@ -1,9 +1,9 @@
 import { P9Mock } from "."
-import { GeometryType, PerForcePlanningActivitySet, PlanningActivities } from '@serge/custom-types'
+import { GeometryType, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
 
 const forces = P9Mock.data.forces.forces
 
-const PlanningActivities: PlanningActivities = [
+export const planningActivities: PlanningActivity[] = [
   {
     uniqid: 'precis-strike',
     name: 'Precision Strike',
@@ -101,7 +101,7 @@ const PlanningActivities: PlanningActivities = [
   }
 ]
 
-const MockActivities: PerForcePlanningActivitySet[] = [
+export const MockActivities: PerForcePlanningActivitySet[] = [
   {
     force: forces[1].uniqid,
     activities: [
