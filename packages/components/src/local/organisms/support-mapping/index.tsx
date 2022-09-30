@@ -10,7 +10,7 @@ import MapControl from '../../map-control'
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
   opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
-  viewAsCallback, viewAsForce
+  viewAsCallback, viewAsForce, actionItems, actionCallback
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
@@ -53,6 +53,8 @@ export const SupportMapping: React.FC<PropTypes> = ({
         viewAsCallback={viewAsCallback}
         viewAsForce={viewAsForce}
         zoomStepSize={1}
+        actionItems={actionItems}
+        actionCallback={actionCallback}
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />

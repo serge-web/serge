@@ -1,9 +1,12 @@
-import { P9Mock } from "."
-import { GeometryType, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import P9Mock from "./p9-wargame.mock"
+import { PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { GeometryType } from "@serge/config"
 
 const forces = P9Mock.data.forces.forces
 
-export const planningActivities: PlanningActivity[] = [
+
+
+export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'precis-strike',
     name: 'Precision Strike',
@@ -101,18 +104,64 @@ export const planningActivities: PlanningActivity[] = [
   }
 ]
 
-export const MockActivities: PerForcePlanningActivitySet[] = [
+export const MockPerForceActivities: PerForcePlanningActivitySet[] = [
   {
     force: forces[1].uniqid,
-    activities: [
-      'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+    groupedActivities: [{
+      category: 'Maritime',
+      activities:
+        [
+          'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+        ]
+    }, {
+      category: 'Land',
+      activities:
+        [
+          'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+        ]
+    }, {
+      category: 'Air',
+      activities:
+        [
+          'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+        ]
+    }, {
+      category: 'Other',
+      activities:
+        [
+          'precis-strike', 'area-strike', 'area-recce', 'point-recce', 'cyber'
+        ]
+    }
+
     ]
   },
   {
     force: forces[2].uniqid,
-    activities: [
-      'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
-    ]
+    groupedActivities: [{
+      category: 'Maritime',
+      activities:
+        [
+          'precis-strike', 'area-strike', 'transit'
+        ]
+    }, {
+      category: 'Land',
+      activities:
+        [
+          'precis-strike', 'point-recce', 'cyber'
+        ]
+    }, {
+      category: 'Air',
+      activities:
+        [
+          'transit', 'area-recce', 'point-recce', 'cyber'
+        ]
+    }, {
+      category: 'Other',
+      activities:
+        [
+          'precis-strike', 'point-recce', 'cyber'
+        ]
+    }]
   }
 
 ]

@@ -1,22 +1,24 @@
 import ForceData from "./force-data"
 import { TemplateBody } from "./template"
+import { GeometryType } from "@serge/config"
 
 /**
  * collection of activities for a force
  */
 export interface PerForcePlanningActivitySet {
+  /** the force this set of activityes relates to */
   force: ForceData['uniqid']
-  activities: PlanningActivity[]
+  /** the grouped set of activities for this force */
+  groupedActivities: GroupedActivitySet[]
 }
 
-/** 
- * the type of geometry to draw
- */
-export enum GeometryType {
-  point,
-  polyline,
-  polygon
+export interface GroupedActivitySet {
+  /** the category of activities (such as maritime, land, air) */
+  category: string
+  /** the set of activities for this category */
+  activities: Array<PlanningActivity | PlanningActivity['uniqid']>
 }
+
 
 /** 
  * a geometry that can be planned (drawn) in the PlanningChannel

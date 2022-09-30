@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -23,6 +23,32 @@ forces.forEach((force: ForceData) => {
   force.roles.forEach((role: Role) => {
     allRoles.push(force.uniqid + ' ~ ' + role.roleId)
   })
+})
+
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
+  return {
+    force: force.force,
+    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
+      const res: GroupedActivitySet = {
+        category: group.category,
+        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
+          if (typeof act === 'string') {
+            const actId = act as string
+            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
+            if (!activity) {
+              throw Error('Planning activity not found:' + actId)
+            }
+            return activity
+          } else {
+            return act
+          }
+        })
+      }
+      return res
+    })
+  }
 })
 
 export default {
@@ -130,6 +156,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     allForces={forces}
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
+    forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
 
