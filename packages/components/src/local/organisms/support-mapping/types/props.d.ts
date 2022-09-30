@@ -22,8 +22,10 @@ export default interface PropTypes {
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */
   actionCallback?: {(force: string, category: string, actionId: string): void}
-  /** the set of orders to display */
-  orders?: MessagePlanning[]
+  /**
+    * Optional mapping structure with children component
+    */
+  children?: JSX.Element
 }
 
 export interface MappingMenuItem {

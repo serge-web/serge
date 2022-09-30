@@ -1,50 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { LayerGroup, Map, ScaleControl, TileLayer, GeoJSON } from 'react-leaflet'
+import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
 import PlanningForces from '../planning-force'
 import { MapConstants } from './helper/MapConstants'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
-import { MessagePlanning, PlannedActivityGeometry } from '@serge/custom-types'
 import _ from 'lodash'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
   opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
-  viewAsCallback, viewAsForce, actionItems, actionCallback, orders
+  viewAsCallback, viewAsForce, actionItems, actionCallback, children
 }) => {
   const TileLayerProps = MapConstants.TileLayer
-  const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>(undefined)
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
-
-  useEffect(() => {
-    if (orders) {
-      const withLocation = orders.filter((msg: MessagePlanning) => {
-        return msg.message.location !== undefined
-      })
-      const geometries = withLocation.map((msg: MessagePlanning): GeoJSON.Feature[] => {
-        if (msg.message.location) {
-          const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
-            const res = { ...act.geometry }
-            if (res.properties) {
-              res.properties.uniqid = act.uniqid
-            } else {
-              res.properties = { uniqid: act.uniqid }
-            }
-            return res
-          })
-          return geoms
-        } else {
-          throw Error('Location missing ' + msg.message.title)
-        }
-      })
-      const flatGeom = _.flatten(geometries)
-      setOrderGeometries(flatGeom)
-      console.log('geo', geometries)
-    }
-  }, [bounds])
 
   useEffect(() => {
     if ((bounds !== undefined) && leafletElement) {
@@ -94,12 +65,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <LayerGroup key={'opp-forces'}>
         <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
-      {
-        orderGeometries &&
-        <LayerGroup key={'orders'}>
-          <GeoJSON data={orderGeometries}/>
-        </LayerGroup>
-      }
+      {children}
     </Map>
   )
 }

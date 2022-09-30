@@ -3,9 +3,11 @@ import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, Per
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
+import PlanningOrders from '../planning-orders'
 import SupportMapping from '../support-mapping'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
@@ -233,9 +235,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
         actionItems={mapActionItems}
-        actionCallback={mapActionCallback}
-        orders={messages}
-      />
+        actionCallback={mapActionCallback}>
+        <PlanningOrders orders={messages} activities={[]} setSelectedOrders={noop} />
+      </SupportMapping>
     </div>
   )
 }
