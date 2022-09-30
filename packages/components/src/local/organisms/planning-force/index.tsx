@@ -12,7 +12,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
   // temporarily use alternate icon for opForces
   // const iconForThisForce = opFor ? 'layers.png' : 'marker-icon-2x.png'
 
-  const getAssetIcon = (icon: string, isSelected: boolean, isDestroyed: boolean) => {
+  const getAssetIcon = (icon: string, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = icon.split(',')
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={{ backgroundColor: bgColor }}>

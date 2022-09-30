@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
 import PlanningForces from '../planning-force'
 import { MapConstants } from './helper/MapConstants'
@@ -10,7 +10,7 @@ import MapControl from '../../map-control'
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
   opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
-  viewAsCallback, viewAsForce
+  viewAsCallback, viewAsForce, maxWidth
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
@@ -39,12 +39,11 @@ export const SupportMapping: React.FC<PropTypes> = ({
     }
   }
 
-  return (
-    <Map
-      className={styles.map}
-      ref={handleEvents}
-      zoomControl={false}
-    >
+  /**
+   * prevent it re-renders on suport panel resizing
+   */
+  const MapContent = useMemo(() => {
+    return <>
       <MapControl
         map={leafletElement}
         bounds={bounds}
@@ -62,7 +61,24 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <LayerGroup key={'opp-forces'}>
         <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
-    </Map>
+    </>
+  }, [
+    ownAssets.length,
+    opAssets.length,
+    selectedAssets.length
+  ])
+
+  return (
+    <div className={styles['map-container']}>
+      <Map
+        className={styles.map}
+        ref={handleEvents}
+        zoomControl={false}
+        style={{ width: maxWidth }}
+      >
+        {MapContent}
+      </Map>
+    </div>
   )
 }
 

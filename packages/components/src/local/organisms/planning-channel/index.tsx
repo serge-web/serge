@@ -56,6 +56,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
+  const [mapMaxWidth, setMapMaxWidth] = useState<string>('100%')
+
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
     if (force) {
@@ -139,6 +141,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
+  const onPanelWidthChange = (width: number): void => setMapMaxWidth(`calc(100% - ${width}px)`)
+
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   return (
@@ -173,6 +177,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           setOwnForcesForParent={setOwnAssetsFiltered}
           allOwnAssets={allOwnAssets}
           allOppAssets={allOppAssets}
+          onPanelWidthChange={onPanelWidthChange}
         />
       </SupportPanelContext.Provider>
       <SupportMapping
@@ -188,6 +193,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         forces={allForces}
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
+        maxWidth={mapMaxWidth}
       />
     </div>
   )
