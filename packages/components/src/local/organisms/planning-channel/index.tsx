@@ -13,6 +13,8 @@ import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { LayerGroup } from 'react-leaflet'
+import PlanningForces from '../planning-force'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -238,18 +240,22 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         bounds={bounds}
         zoom={zoom}
         position={position}
-        opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
-        ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
-        selectedAssets={selectedAssets}
-        setSelectedAssets={setSelectedAssets}
         forces={allForces}
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
         actionItems={mapActionItems}
         actionCallback={mapActionCallback}>
-        <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+        <>
+          <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+          <LayerGroup key={'own-forces'}>
+            <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+          </LayerGroup>
+          <LayerGroup key={'opp-forces'}>
+            <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+          </LayerGroup>
+        </>
       </SupportMapping>
     </div>
   )

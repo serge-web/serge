@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
-import PlanningForces from '../planning-force'
+import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { MapConstants } from './helper/MapConstants'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
-import _ from 'lodash'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, ownAssets,
-  opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
+  position, bounds,
+  filterApplied, setFilterApplied, forces,
   viewAsCallback, viewAsForce, actionItems, actionCallback, children
 }) => {
   const TileLayerProps = MapConstants.TileLayer
@@ -59,12 +57,6 @@ export const SupportMapping: React.FC<PropTypes> = ({
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
-      <LayerGroup key={'own-forces'}>
-        <PlanningForces opFor={false} assets={ownAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-      </LayerGroup>
-      <LayerGroup key={'opp-forces'}>
-        <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-      </LayerGroup>
       {children}
     </Map>
   )
