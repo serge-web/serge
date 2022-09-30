@@ -5,12 +5,11 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
-import ViewAs from '../view-as'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds,
-  filterApplied, setFilterApplied, forces,
-  viewAsCallback, viewAsForce, actionItems, actionCallback, children
+  filterApplied, setFilterApplied,
+  actionItems, actionCallback, children, toolbarChildren
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
@@ -53,7 +52,11 @@ export const SupportMapping: React.FC<PropTypes> = ({
         actionItems={actionItems}
         actionCallback={actionCallback}
         setFilterApplied={setFilterApplied}>
-        <ViewAs forces={forces} viewAsCallback={viewAsCallback} viewAsForce={viewAsForce} />
+        <>
+          {toolbarChildren &&
+            toolbarChildren
+          }
+        </>
       </MapControl>
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />

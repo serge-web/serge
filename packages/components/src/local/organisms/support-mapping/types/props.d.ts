@@ -6,12 +6,6 @@ export default interface PropTypes {
   zoom: number
   filterApplied: boolean
   setFilterApplied
-  /** list of forces. User for `viewAs` feature */
-  forces: ForceData[]
-  /** callback for umpire clicking on view-as button */
-  viewAsCallback?: { (force: ForceData['uniqid']): void }
-  /** current value of `view as` */
-  viewAsForce?: string
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */
@@ -20,6 +14,8 @@ export default interface PropTypes {
     * Optional mapping structure with children component
     */
   children?: JSX.Element
+  /** toolbar buttons */
+  toolbarChildren?: JSX.Element
 }
 
 export interface MappingMenuItem {

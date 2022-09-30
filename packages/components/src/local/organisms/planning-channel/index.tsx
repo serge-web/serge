@@ -15,6 +15,7 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { LayerGroup } from 'react-leaflet'
 import PlanningForces from '../planning-force'
+import ViewAs from '../view-as'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -246,6 +247,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
         actionItems={mapActionItems}
+        toolbarChildren={
+          <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+        }
         actionCallback={mapActionCallback}>
         <>
           <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
