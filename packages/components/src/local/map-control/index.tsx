@@ -48,7 +48,9 @@ export const MapControl: React.FC<PropTypes> = ({
   setFilterHistoryRoutes,
   addInfoMarker,
   filterApplied,
-  setFilterApplied
+  setFilterApplied,
+  actionCallback,
+  actionItems
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
@@ -151,6 +153,10 @@ export const MapControl: React.FC<PropTypes> = ({
 
   if (!map) return null
 
+  if (actionCallback) {
+    console.log('provide drop-down menu for items', actionItems)
+  }
+
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
@@ -159,6 +165,12 @@ export const MapControl: React.FC<PropTypes> = ({
           {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon /></Item>}
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon /></Item>}
         </div>
+        {actionCallback &&
+          <div className={cx('leaflet-control')}>
+            {/* popup tree of action items when below button clicked */}
+            <Item title="New orders" >New orders...</Item>
+          </div>
+        }
         <div className={cx('leaflet-control')} data-tour="counter-clockwise">
           {
             setFilterHistoryRoutes &&

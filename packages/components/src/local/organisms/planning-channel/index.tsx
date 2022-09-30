@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, ForceData, MessagePlanning, PlainInteraction } from '@serge/custom-types'
+import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
@@ -7,9 +7,35 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import SupportMapping from '../support-mapping'
+import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+
+const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
+  const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
+  if (!force) {
+    throw Error('force not found')
+  }
+  return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
+    const item: MappingMenuItem = {
+      id: grp.category,
+      name: grp.category,
+      children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
+        if (typeof (act) === 'string') {
+          throw Error('Should receive real planning activity' + act)
+        }
+        const item2: MappingMenuItem = {
+          id: act.uniqid,
+          name: act.name,
+          color: act.color
+        }
+        return item2
+      })
+    }
+    return item
+  })
+}
 
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
@@ -32,7 +58,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   allForces,
   platformTypes,
   gameDate,
-  currentTurn
+  currentTurn,
+  forcePlanningActivities
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
@@ -57,6 +84,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   const [mapMaxWidth, setMapMaxWidth] = useState<string>('100%')
+  // action items to go on map
+  const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -64,6 +93,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setCurrentForce(force)
     }
   }, [viewAsForce])
+
+  useEffect(() => {
+    if (forcePlanningActivities) {
+      setMapActionItems(collateMappingItems(forcePlanningActivities, selectedForce.uniqid))
+    }
+  }, [forcePlanningActivities])
 
   useEffect(() => {
     // produce the own and opp assets for this player force
@@ -143,6 +178,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const onPanelWidthChange = (width: number): void => setMapMaxWidth(`calc(100% - ${width}px)`)
 
+  const mapActionCallback = (force: string, category: string, actionId: string) => {
+    console.log('action clicked', force, category, actionId)
+  }
+
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   return (
@@ -194,6 +233,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         viewAsCallback={setViewAsForce}
         viewAsForce={viewAsForce}
         maxWidth={mapMaxWidth}
+        actionItems={mapActionItems}
+        actionCallback={mapActionCallback}
       />
     </div>
   )

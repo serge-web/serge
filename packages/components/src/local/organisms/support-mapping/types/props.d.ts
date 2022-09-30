@@ -19,4 +19,15 @@ export default interface PropTypes {
   /** current value of `view as` */
   viewAsForce?: string
   maxWidth?: string
+  /** tree of menu items */
+  actionItems?: MappingMenuItem[]
+  /** callback, for if a map action is clicked */
+  actionCallback?: {(force: string, category: string, actionId: string): void}
+}
+
+export interface MappingMenuItem {
+  name: string
+  id: string
+  color?: string
+  children?: MappingMenuItem[]
 }
