@@ -1,0 +1,8 @@
+export default interface PropTypes {
+    // current set of forces
+    forces?: ForceData[]
+    /** callback for umpire clicking on view-as button */
+    viewAsCallback?: { (force: ForceData['uniqid']): void }
+    /** current value of `view as` */
+    viewAsForce?: string
+}

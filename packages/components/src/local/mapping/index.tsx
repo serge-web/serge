@@ -68,6 +68,7 @@ import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
 import generateTestData from './helpers/gen-test-mapping-data'
+import ViewAs from '../organisms/view-as'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -922,9 +923,6 @@ export const Mapping: React.FC<PropTypes> = ({
             map={leafletElement}
             home={mapCentre}
             bounds={mapBounds}
-            forces={playerForce === UMPIRE_FORCE ? forcesState : undefined}
-            viewAsCallback={viewAsCallback}
-            viewAsForce={viewAsForce}
             filterPlannedRoutes={filterPlannedRoutes}
             setFilterPlannedRoutes={setFilterPlannedRoutes}
             filterHistoryRoutes={filterHistoryRoutes}
@@ -932,7 +930,9 @@ export const Mapping: React.FC<PropTypes> = ({
             cellLabelType={cellLabelStyle}
             cellLabelCallback={setCellLabelStyle}
             addInfoMarker={showAddInfo ? localAddInfoMarker : undefined}
-          />
+          >
+            <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : undefined} />
+          </MapControl>
           {mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
               url={mappingConstraintState.tileLayer.url}
