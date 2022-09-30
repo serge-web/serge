@@ -16,6 +16,8 @@ import PropTypes from './types/props'
 import { LayerGroup } from 'react-leaflet'
 import PlanningForces from '../planning-force'
 import ViewAs from '../view-as'
+import FilterIcon from '@material-ui/icons/Filter'
+import Item from '../../map-control/helpers/item'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -241,13 +243,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         bounds={bounds}
         zoom={zoom}
         position={position}
-        filterApplied={filterApplied}
-        setFilterApplied={setFilterApplied}
         actionItems={mapActionItems}
+        actionCallback={mapActionCallback}
         toolbarChildren={
-          <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-        }
-        actionCallback={mapActionCallback}>
+          <>
+            <div className={cx('leaflet-control')} data-tour="filter-applied">
+              <Item title="Match table filters" onClick={(): void => { setFilterApplied(!setFilterApplied) }}
+                contentTheme={!filterApplied ? 'dark' : 'light'} >
+                <FilterIcon />
+              </Item>
+            </div>
+            <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+          </>
+        }>
         <>
           <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
           <LayerGroup key={'own-forces'}>

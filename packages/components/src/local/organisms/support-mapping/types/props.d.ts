@@ -4,8 +4,6 @@ export default interface PropTypes {
   bounds?: LatLngBounds
   position?: LatLngExpression
   zoom: number
-  filterApplied: boolean
-  setFilterApplied
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */

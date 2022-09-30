@@ -8,7 +8,6 @@ import MapControl from '../../map-control'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds,
-  filterApplied, setFilterApplied,
   actionItems, actionCallback, children, toolbarChildren
 }) => {
   const TileLayerProps = MapConstants.TileLayer
@@ -47,11 +46,9 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <MapControl
         map={leafletElement}
         bounds={bounds}
-        filterApplied={filterApplied}
         zoomStepSize={1}
         actionItems={actionItems}
-        actionCallback={actionCallback}
-        setFilterApplied={setFilterApplied}>
+        actionCallback={actionCallback}>
         <>
           {toolbarChildren &&
             toolbarChildren

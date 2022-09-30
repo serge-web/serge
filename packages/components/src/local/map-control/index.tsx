@@ -11,7 +11,6 @@ import HomeIcon from '@material-ui/icons/Home'
 import HistoryIcon from '@material-ui/icons/History'
 import PlannedIcon from '@material-ui/icons/Update'
 import InfoIcon from '@material-ui/icons/Info'
-import FilterIcon from '@material-ui/icons/Filter'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -44,8 +43,6 @@ export const MapControl: React.FC<PropTypes> = ({
   filterHistoryRoutes,
   setFilterHistoryRoutes,
   addInfoMarker,
-  filterApplied,
-  setFilterApplied,
   actionCallback,
   actionItems
 }) => {
@@ -89,11 +86,6 @@ export const MapControl: React.FC<PropTypes> = ({
     return filterHistoryRoutes ? 'dark' : 'light'
   }
 
-  /* utilty method for whether we're filtering planned routes  */
-  const isFilterApplied = (): 'light' | 'dark' => {
-    return !filterApplied ? 'dark' : 'light'
-  }
-
   /* callback responding to filter planned routes toggle  */
   const togglePlannedFilter = (): void => {
     if (setFilterPlannedRoutes) {
@@ -105,13 +97,6 @@ export const MapControl: React.FC<PropTypes> = ({
   const toggleHistoryFilter = (): void => {
     if (setFilterHistoryRoutes) {
       setFilterHistoryRoutes(!filterHistoryRoutes)
-    }
-  }
-
-  /* callback responding to filter applied toggle  */
-  const toggleFilterApplied = (): void => {
-    if (setFilterApplied) {
-      setFilterApplied(!filterApplied)
     }
   }
 
@@ -172,15 +157,6 @@ export const MapControl: React.FC<PropTypes> = ({
             </Item>
           }
         </div>
-        {
-          setFilterApplied &&
-          <div className={cx('leaflet-control')} data-tour="filter-applied">
-            <Item title="Match table filters" onClick={(): void => { toggleFilterApplied() }}
-              contentTheme={isFilterApplied()} >
-              <FilterIcon />
-            </Item>
-          </div>
-        }
         {addInfoMarker &&
           <div className={cx('leaflet-control')}>
             <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}
