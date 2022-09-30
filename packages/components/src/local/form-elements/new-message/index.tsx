@@ -5,6 +5,7 @@ import DropdownInput from '../dropdown-input'
 import { TemplateBody } from '@serge/custom-types'
 import { usePrevious } from '@serge/helpers'
 import PropTypes from './types/props'
+const NEW_MESSAGE_BY_DEFAULT_TITLE = 'NEW_MESSAGE_TITLE'
 
 const NewMessage: React.FC<PropTypes> = ({
   templates,
@@ -29,6 +30,7 @@ const NewMessage: React.FC<PropTypes> = ({
   const tab = useRef<any>(null)
 
   const setTemplate = (templateData: TemplateBody): void => {
+    saveCachedNewMessageValue && saveCachedNewMessageValue(templateData.title, NEW_MESSAGE_BY_DEFAULT_TITLE)
     setSelectedType(templateData.title)
     setSelectedSchema(templateData.details)
   }
@@ -38,15 +40,17 @@ const NewMessage: React.FC<PropTypes> = ({
   const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
   useEffect(() => {
-    setSelectedSchema(null)
-    setSelectedType('')
-  }, [channel])
-
-  useEffect(() => {
     if (!prevTemplates) {
       if (templates.length) {
-        setSelectedSchema(templates[0].details)
-        setSelectedType(templates[0].title)
+        const schemaTitle = getCachedNewMessagevalue && getCachedNewMessagevalue(NEW_MESSAGE_BY_DEFAULT_TITLE)
+        if (schemaTitle) {
+          const findColumn = templates.find(find => find.title === schemaTitle)
+          setSelectedSchema(findColumn.details)
+          setSelectedType(findColumn.title)
+        } else {
+          setSelectedSchema(templates[0].details)
+          setSelectedType(templates[0].title)
+        }
       } else {
         console.warn('Zero templates received for channel ', channel)
       }
@@ -89,9 +93,9 @@ const NewMessage: React.FC<PropTypes> = ({
           )
         }
         <MessageCreator
-          getMessageCreatorValue={getCachedNewMessagevalue}
+          getcachedCreatorMessageValue={getCachedNewMessagevalue}
           clearCachedCreatorMessage={clearCachedNewMessage}
-          createMessageValue={saveCachedNewMessageValue}
+          createCachedCreatorMessage={saveCachedNewMessageValue}
           messageOption={selectedType}
           schema={selectedSchema}
           channel={channel}

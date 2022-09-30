@@ -10,12 +10,20 @@ export default interface PropTypes {
   selectedForce: ForceData
   selectedRole: string
   selectedRoleName: string
+
+  // the template show
   messageOption: string
   currentTurn: number
-  messageCreatorValue?: Editor | null
-  getMessageCreatorValue?: (value: string) => string
-  createMessageValue?: (message: any, messageOption: string) => void
+
+  // way to retrieve cached messages from the browser
+  getcachedCreatorMessageValue?: (value: string) => string
+
+  // the method of saving messages in the browser
+  createCachedCreatorMessage?: (message: any, messageOption: string) => void
+
+  // method is way to clear cached messages from the browser
   clearCachedCreatorMessage?: (data: string[]) => void
+
   /**
    * The method for posting messages out of the component
    */

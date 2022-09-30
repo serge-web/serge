@@ -32,9 +32,9 @@ const MessageCreator: React.FC<PropTypes> = ({
   channel,
   gameDate,
   postBack,
-  createMessageValue,
   messageOption,
-  getMessageCreatorValue,
+  createCachedCreatorMessage,
+  getcachedCreatorMessageValue,
   clearCachedCreatorMessage
 }) => {
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -47,7 +47,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
-      channel: channel.uniqid,
+      channel: channel && channel.uniqid,
       from: {
         force: selectedForce.name,
         forceColor: selectedForce.color,
@@ -136,7 +136,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   }, [schema, messageOption])
 
   useEffect(() => {
-    const changeValue = getMessageCreatorValue && getMessageCreatorValue(messageOption)
+    const changeValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(messageOption)
 
     const valueTimer = setTimeout(() => {
       if (changeValue) return editor && editor.setValue(changeValue)
@@ -144,11 +144,6 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     return (): void => clearTimeout(valueTimer)
   }, [editor])
-
-  const transferChangeValue = (): void => {
-    const message = editor?.getValue()
-    createMessageValue && createMessageValue(message, messageOption)
-  }
 
   /**
    * helper function to for validation Datetime or Date or Time props of json
@@ -204,7 +199,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   }
 
   /**
-   * custom validation set for type datetime-local, date, time
+   * custom validation set foWr type datetime-local, date, time
    */
   const configDateTimeCustomValidation = (): any => {
     // multiple message type will repeat custom validators, reinitialize it for every instance
@@ -245,6 +240,11 @@ const MessageCreator: React.FC<PropTypes> = ({
         array_controls_top: false // eslint-disable-line @typescript-eslint/camelcase
       })
     )
+  }
+
+  const transferChangeValue = (): void => {
+    const message = editor?.getValue()
+    createCachedCreatorMessage && createCachedCreatorMessage(message, messageOption)
   }
 
   return (
