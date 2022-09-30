@@ -30,7 +30,6 @@ export default {
 
 const Template: Story<SupportMappingProps> = () => {
   return <SupportMapping
-    forces={[]}
     filterApplied={true}
     setFilterApplied={noop}
     position={[101.505, 20.09]}

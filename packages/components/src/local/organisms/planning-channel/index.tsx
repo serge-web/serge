@@ -243,9 +243,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         position={position}
         filterApplied={filterApplied}
         setFilterApplied={setFilterApplied}
-        forces={allForces}
-        viewAsCallback={setViewAsForce}
-        viewAsForce={viewAsForce}
         actionItems={mapActionItems}
         toolbarChildren={
           <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
