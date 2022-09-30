@@ -119,7 +119,7 @@ export const planningMessages: MessagePlanning[] = [
       Description: "More land operations",
       Location: "Region-A",
       Status: "Minor",
-      geometry: sampleActivity,
+      location: sampleActivity,
       title: "Operation Bravo-12",
       Assets: [
         {

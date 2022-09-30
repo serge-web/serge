@@ -94,6 +94,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce])
 
   useEffect(() => {
+    console.log('selected orders updated')
+  }, [selectedOrders])
+
+  useEffect(() => {
     if (forcePlanningActivities) {
       setMapActionItems(collateMappingItems(forcePlanningActivities, selectedForce.uniqid))
     }
@@ -175,7 +179,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const mapActionCallback = (force: string, category: string, actionId: string) => {
+  const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
 
@@ -230,6 +234,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         viewAsForce={viewAsForce}
         actionItems={mapActionItems}
         actionCallback={mapActionCallback}
+        orders={messages}
       />
     </div>
   )
