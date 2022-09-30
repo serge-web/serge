@@ -32,7 +32,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
     uniqid: 'area-strike',
     name: 'Area Strike',
     template: 'Air Activity',
-    color: '#30f',
+    color: '#b0f',
     geometries: [
       {
         aType: GeometryType.polyline,

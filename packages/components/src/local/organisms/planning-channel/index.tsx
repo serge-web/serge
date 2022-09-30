@@ -3,11 +3,11 @@ import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, Per
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
-import { noop } from 'lodash'
+import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
-import PlanningOrders from '../planning-orders'
+import MapPlanningOrders from '../map-planning-orders'
 import SupportMapping from '../support-mapping'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
@@ -87,6 +87,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   // action items to go on map
   const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
+
+  // the planning activiites for the selected force
+  const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
+
+  useEffect(() => {
+    if (forcePlanningActivities) {
+      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
+      if (force) {
+        const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+        setPlanningActivities(_.flatten(activities))
+      }
+    }
+  }, [viewAsForce, forcePlanningActivities])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -236,7 +249,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         viewAsForce={viewAsForce}
         actionItems={mapActionItems}
         actionCallback={mapActionCallback}>
-        <PlanningOrders orders={messages} activities={[]} setSelectedOrders={noop} />
+        <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
       </SupportMapping>
     </div>
   )

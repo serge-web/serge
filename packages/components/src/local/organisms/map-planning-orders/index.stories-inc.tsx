@@ -3,7 +3,7 @@ import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React from 'react'
 
-import PlanningOrders from './index'
+import MapPlanningOrders from './index'
 import docs from './README.md'
 import PlanningOrdersProps from './types/props'
 
@@ -11,7 +11,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 
 export default {
   title: 'local/organisms/PlanningOrders',
-  component: PlanningOrders,
+  component: MapPlanningOrders,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -31,7 +31,7 @@ export default {
 }
 
 const Template: Story<PlanningOrdersProps> = () => {
-  return <PlanningOrders activities={[]} setSelectedOrders={noop} orders={[]}/>
+  return <MapPlanningOrders activities={[]} setSelectedOrders={noop} orders={[]}/>
 }
 
 export const Default = Template.bind({})
