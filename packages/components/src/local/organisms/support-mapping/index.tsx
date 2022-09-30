@@ -9,27 +9,23 @@ import MapControl from '../../map-control'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
-  opAssets, filterApplied, setFilterApplied, selectedItem, forces,
-  viewAsCallback, viewAsForce
+  opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
+  viewAsCallback, viewAsForce, actionItems, actionCallback
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
 
-  console.log('[SupportMapping] own assets:', ownAssets.length, 'filter', filterApplied)
-
   useEffect(() => {
-    console.log('=> [SupportMapping] ownForces update: ', ownAssets && ownAssets.length, 'items')
-  }, [ownAssets])
-
-  useEffect(() => {
-    console.log('=> [SupportMapping]: opForces update: ', opAssets && opAssets.length, 'items')
-  }, [opAssets])
+    if ((bounds !== undefined) && leafletElement) {
+      leafletElement.flyToBounds(bounds, { duration: 0.6 })
+    }
+  }, [bounds])
 
   useEffect(() => {
     if (position !== undefined) {
-      const defaultZoom = 8
-      leafletElement && leafletElement.flyTo(position, defaultZoom)
+      const defaultZoom = 10
+      leafletElement && leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
@@ -57,14 +53,16 @@ export const SupportMapping: React.FC<PropTypes> = ({
         viewAsCallback={viewAsCallback}
         viewAsForce={viewAsForce}
         zoomStepSize={1}
+        actionItems={actionItems}
+        actionCallback={actionCallback}
         setFilterApplied={setFilterApplied} />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
       <LayerGroup key={'own-forces'}>
-        <PlanningForces opFor={false} assets={ownAssets} selectedItem={selectedItem} />
+        <PlanningForces opFor={false} assets={ownAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
       <LayerGroup key={'opp-forces'}>
-        <PlanningForces opFor={true} assets={opAssets} selectedItem={selectedItem} />
+        <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
     </Map>
   )

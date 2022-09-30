@@ -9,12 +9,24 @@ export default interface PropTypes {
   opAssets: AssetRow[]
   filterApplied: boolean
   setFilterApplied
+  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
   /** id of selected asset */
-  selectedItem?: string | undefined
+  selectedAssets: string[]
   /** list of forces. User for `viewAs` feature */
   forces: ForceData[]
   /** callback for umpire clicking on view-as button */
-  viewAsCallback?: {(force: ForceData['uniqid']): void}
+  viewAsCallback?: { (force: ForceData['uniqid']): void }
   /** current value of `view as` */
   viewAsForce?: string
+  /** tree of menu items */
+  actionItems?: MappingMenuItem[]
+  /** callback, for if a map action is clicked */
+  actionCallback?: {(force: string, category: string, actionId: string): void}
+}
+
+export interface MappingMenuItem {
+  name: string
+  id: string
+  color?: string
+  children?: MappingMenuItem[]
 }

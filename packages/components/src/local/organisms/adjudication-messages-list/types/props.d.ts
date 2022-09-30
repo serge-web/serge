@@ -60,13 +60,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * method to customise the new (or existing) message template
    */
-  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
-  /**
-   *  select an item on the map
-   */
-  setSelectedItem: {(asset: Asset['uniqid'] | undefined): void}
+  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
   /** forces and colors
    *
    */
   forceColors: ForceStyle[]
+
+  selectedOrders: string[]
+  setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
 }

@@ -5,7 +5,7 @@ import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { isEqual } from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -14,7 +14,9 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import styles from './styles.module.scss'
-import PropTypes, { PanelActionTabsProps, TabPanelProps } from './types/props'
+import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
+
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [] })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -35,19 +37,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  setSelectedItem,
+  //  selectedAssets,
+  setSelectedAssets,
+  selectedOrders,
+  setSelectedOrders,
   setOpForcesForParent,
-  setOwnForcesForParent
+  setOwnForcesForParent,
+  allOppAssets,
+  allOwnAssets
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
-  const [opForces, setOpForces] = useState<AssetRow[]>([])
-  const [ownForces, setOwnForces] = useState<AssetRow[]>([])
-
-  console.warn('=> [SupportPanel] selectedForce', selectedForce.name)
+  const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
+  const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -69,11 +74,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
     const oldOwnAssets = schema.properties?.Assets?.items?.properties?.FEName?.enum
     if (oldOwnAssets) {
-      schema.properties.Assets.items.properties.FEName.enum = ownForces.map((asset: AssetRow) => asset.name)
+      schema.properties.Assets.items.properties.FEName.enum = allOwnAssets.map((asset: AssetRow) => asset.name)
     }
     const oldOwnTargets = schema.properties?.Targets?.items?.properties?.FEName?.enum
     if (oldOwnTargets) {
-      schema.properties.Targets.items.properties.FEName.enum = opForces.map((asset: AssetRow) => asset.name)
+      schema.properties.Targets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
     }
     return schema
   }
@@ -93,23 +98,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> render')
   }
 
-  const onSelectionChange = (opFor: boolean, data: AssetRow[]): void => {
-    console.log('new selection', opFor, data.length)
-    if (data.length > 0) {
-      setSelectedItem(data[0].id)
-      // setSelectedItemParent(data[0].id)
-    } else {
-      setSelectedItem(undefined)
-      // setSelectedItemParent(undefined)
-    }
-  }
+  useEffect(() => {
+    const allSelectedAssets = selectedOwnAssets.concat(selectedOpAssets)
+    const selectedAssetIDs = allSelectedAssets.map((row: AssetRow) => row.id)
+    setSelectedAssets(selectedAssetIDs)
+  }, [selectedOwnAssets, selectedOpAssets])
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
     if (opFor) {
-      setOpForces(data)
       setOpForcesForParent(data)
     } else {
-      setOwnForces(data)
       setOwnForcesForParent(data)
     }
   }
@@ -121,14 +119,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
     saveMessage(currentWargame, details, message)
   }
-
-  useEffect(() => {
-    console.log('=> [SupportPanel]: ownForces update: ', ownForces && ownForces.length, 'items')
-  }, [ownForces])
-
-  useEffect(() => {
-    console.log('=> [SupportPanel]: opForces update: ', opForces && opForces.length, 'items')
-  }, [opForces])
 
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
@@ -144,10 +134,19 @@ export const SupportPanel: React.FC<PropTypes> = ({
         >
           <div className={styles.content}>
             <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-              {activeTab === TABS[0] &&
-                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
-                  playerForce={selectedForce} render={onRender} opFor={false}
-                  onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />
+              {
+                activeTab === TABS[0] &&
+                <PlanningAssets
+                  forceColors={forceCols}
+                  assets={allOwnAssets}
+                  platformStyles={platIcons}
+                  forces={allForces}
+                  playerForce={selectedForce}
+                  render={onRender}
+                  opFor={false}
+                  onSelectionChange={setSelectedOwnAssets}
+                  onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
+                />
               }
             </TabPanel>
             <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
@@ -167,6 +166,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     templates={templates}
                     customiseTemplate={customiseTemplate}
+                    selectedOrders={selectedOrders}
+                    setSelectedOrders={setSelectedOrders}
                   />
                   <NewMessage
                     orderableChannel={true}
@@ -188,9 +189,17 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
-                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={allForces}
-                  playerForce={selectedForce} render={onRender} opFor={true}
-                  onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />
+                <PlanningAssets
+                  forceColors={forceCols}
+                  platformStyles={platIcons}
+                  assets={allOppAssets}
+                  forces={allForces}
+                  playerForce={selectedForce}
+                  render={onRender}
+                  opFor={true}
+                  onSelectionChange={setSelectedOpAssets}
+                  onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
+                />
               }
             </TabPanel>
             <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
@@ -212,7 +221,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     template={adjudicationTemplate}
                     customiseTemplate={customiseTemplate}
-                    setSelectedItem={setSelectedItem}
+                    selectedOrders={selectedOrders}
+                    setSelectedOrders={setSelectedOrders}
                   />
                 </div>
               }
