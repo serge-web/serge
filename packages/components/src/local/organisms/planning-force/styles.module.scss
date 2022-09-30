@@ -1,7 +1,6 @@
 @import "../../../../../themes/dependencies/variables";
 
 .selected {
-  border-radius: 50% !important;
   border: 6px double #fff;
   width: 40px;
   height: 40px;
@@ -10,7 +9,7 @@
 }
 
 .iconbase {
-  border-radius: 5px;
+  border-radius: 70% !important;
 }
 
 @keyframes pulse {
