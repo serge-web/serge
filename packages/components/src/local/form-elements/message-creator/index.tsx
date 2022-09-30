@@ -47,7 +47,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
-      channel: channel && channel.uniqid,
+      channel: channel.uniqid,
       from: {
         force: selectedForce.name,
         forceColor: selectedForce.color,
