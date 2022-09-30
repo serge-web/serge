@@ -73,6 +73,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
     uniqid: 'area-recce',
     name: 'Area Reconnaisance',
     template: 'Air Activity',
+    color: '#5b0',
     geometries: [
       {
         aType: GeometryType.polyline,
