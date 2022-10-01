@@ -4,8 +4,6 @@ import { GeometryType } from "@serge/config"
 
 const forces = P9Mock.data.forces.forces
 
-
-
 export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'precis-strike',
@@ -15,15 +13,18 @@ export const MockPlanningActivities: PlanningActivity[] = [
     geometries: [
       {
         aType: GeometryType.polyline,
-        name: 'Route in'
+        name: 'Route in',
+        uniqid: 'aa1'
       },
       {
         aType: GeometryType.point,
-        name: 'Target Location'
+        name: 'Target Location',
+        uniqid: 'aa2'
       },
       {
         aType: GeometryType.polyline,
-        name: 'Route out'
+        name: 'Route out',
+        uniqid: 'aa3'
       },
     ]
   },
@@ -31,19 +32,22 @@ export const MockPlanningActivities: PlanningActivity[] = [
     uniqid: 'area-strike',
     name: 'Area Strike',
     template: 'Air Activity',
-    color: '#30f',
+    color: '#b0f',
     geometries: [
       {
         aType: GeometryType.polyline,
-        name: 'Route in'
+        name: 'Route in',
+        uniqid: 'aa4'
       },
       {
         aType: GeometryType.polygon,
-        name: 'Target Area'
+        name: 'Target Area',
+        uniqid: 'aa5'
       },
       {
         aType: GeometryType.polyline,
-        name: 'Route out'
+        name: 'Route out',
+        uniqid: 'aa6'
       },
     ]
   },
@@ -55,7 +59,8 @@ export const MockPlanningActivities: PlanningActivity[] = [
     geometries: [
       {
         aType: GeometryType.polyline,
-        name: 'Route'
+        name: 'Route',
+        uniqid: 'aa7'
       }
     ]
   },
@@ -68,18 +73,22 @@ export const MockPlanningActivities: PlanningActivity[] = [
     uniqid: 'area-recce',
     name: 'Area Reconnaisance',
     template: 'Air Activity',
+    color: '#5b0',
     geometries: [
       {
         aType: GeometryType.polyline,
-        name: 'Route in'
+        name: 'Route in',
+        uniqid: 'aa8'
       },
       {
         aType: GeometryType.polygon,
-        name: 'Target Area'
+        name: 'Target Area',
+        uniqid: 'aa9'
       },
       {
         aType: GeometryType.polyline,
-        name: 'Route out'
+        name: 'Route out',
+        uniqid: 'a10'
       },
     ]
   },
@@ -90,15 +99,18 @@ export const MockPlanningActivities: PlanningActivity[] = [
     geometries: [
       {
         aType: GeometryType.polyline,
-        name: 'Route in'
+        name: 'Route in',
+        uniqid: 'a11'
       },
       {
         aType: GeometryType.point,
-        name: 'Target Area'
+        name: 'Target Area',
+        uniqid: 'a12'
       },
       {
         aType: GeometryType.polyline,
-        name: 'Route out'
+        name: 'Route out',
+        uniqid: 'a13'
       },
     ]
   }

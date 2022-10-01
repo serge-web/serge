@@ -1,16 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
-import PlanningForces from '../planning-force'
+import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { MapConstants } from './helper/MapConstants'
-import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
+import styles from './styles.module.scss'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, ownAssets,
-  opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
-  viewAsCallback, viewAsForce, maxWidth, actionItems, actionCallback
+  position, bounds,
+  actionItems, actionCallback, children, toolbarChildren, maxWidth
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
@@ -53,28 +51,20 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <MapControl
         map={leafletElement}
         bounds={bounds}
-        filterApplied={filterApplied}
-        forces={forces || undefined}
-        viewAsCallback={viewAsCallback}
-        viewAsForce={viewAsForce}
         zoomStepSize={1}
         actionItems={actionItems}
-        actionCallback={actionCallback}
-        setFilterApplied={setFilterApplied} />
+        actionCallback={actionCallback}>
+        <>
+          {toolbarChildren &&
+            toolbarChildren
+          }
+        </>
+      </MapControl>
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
-      <LayerGroup key={'own-forces'}>
-        <PlanningForces opFor={false} assets={ownAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-      </LayerGroup>
-      <LayerGroup key={'opp-forces'}>
-        <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-      </LayerGroup>
+      {children}
     </>
-  }, [
-    ownAssets.length,
-    opAssets.length,
-    selectedAssets.length
-  ])
+  }, [children, toolbarChildren])
 
   return (
     <div className={styles['map-container']}>

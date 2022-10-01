@@ -3,14 +3,20 @@ import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, Per
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
+import MapPlanningOrders from '../map-planning-orders'
 import SupportMapping from '../support-mapping'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { LayerGroup } from 'react-leaflet'
+import PlanningForces from '../planning-force'
+import ViewAs from '../view-as'
+import ApplyFilter from '../apply-filter'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -87,12 +93,29 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // action items to go on map
   const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
 
+  // the planning activiites for the selected force
+  const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
+
+  useEffect(() => {
+    if (forcePlanningActivities) {
+      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
+      if (force) {
+        const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+        setPlanningActivities(_.flatten(activities))
+      }
+    }
+  }, [viewAsForce, forcePlanningActivities])
+
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
     if (force) {
       setCurrentForce(force)
     }
   }, [viewAsForce])
+
+  useEffect(() => {
+    console.log('selected orders updated')
+  }, [selectedOrders])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -178,7 +201,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const onPanelWidthChange = (width: number): void => setMapMaxWidth(`calc(100% - ${width}px)`)
 
-  const mapActionCallback = (force: string, category: string, actionId: string) => {
+  const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
 
@@ -223,19 +246,25 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         bounds={bounds}
         zoom={zoom}
         position={position}
-        opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
-        ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
-        filterApplied={filterApplied}
-        setFilterApplied={setFilterApplied}
-        selectedAssets={selectedAssets}
-        setSelectedAssets={setSelectedAssets}
-        forces={allForces}
-        viewAsCallback={setViewAsForce}
-        viewAsForce={viewAsForce}
         maxWidth={mapMaxWidth}
         actionItems={mapActionItems}
         actionCallback={mapActionCallback}
-      />
+        toolbarChildren={
+          <>
+            <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+            <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+          </>
+        }>
+        <>
+          <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+          <LayerGroup key={'own-forces'}>
+            <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+          </LayerGroup>
+          <LayerGroup key={'opp-forces'}>
+            <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+          </LayerGroup>
+        </>
+      </SupportMapping>
     </div>
   )
 }

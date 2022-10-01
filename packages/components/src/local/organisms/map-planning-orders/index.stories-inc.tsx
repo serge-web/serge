@@ -1,15 +1,17 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
+import { noop } from 'lodash'
 import React from 'react'
-import SupportMapping from './index'
+
+import MapPlanningOrders from './index'
 import docs from './README.md'
-import SupportMappingProps from './types/props'
+import PlanningOrdersProps from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/organisms/SupportMapping',
-  component: SupportMapping,
+  title: 'local/organisms/PlanningOrders',
+  component: MapPlanningOrders,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -24,14 +26,12 @@ export default {
       expanded: true
     }
   },
-  argTypes: {}
+  argTypes: {
+  }
 }
 
-const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping
-    position={[101.505, 20.09]}
-    zoom={12}
-  />
+const Template: Story<PlanningOrdersProps> = () => {
+  return <MapPlanningOrders activities={[]} setSelectedOrders={noop} orders={[]}/>
 }
 
 export const Default = Template.bind({})
