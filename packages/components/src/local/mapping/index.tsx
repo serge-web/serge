@@ -931,7 +931,7 @@ export const Mapping: React.FC<PropTypes> = ({
             cellLabelCallback={setCellLabelStyle}
             addInfoMarker={showAddInfo ? localAddInfoMarker : undefined}
           >
-            <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : undefined} />
+            <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
           </MapControl>
           {mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
