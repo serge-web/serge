@@ -13,9 +13,7 @@ export const ViewAs: React.FC<PropTypes> = ({
 }) => {
   /* set view as force */
   const viewAs = (force: string): void => {
-    if (viewAsCallback) {
-      viewAsCallback(force)
-    }
+    viewAsCallback(force)
   }
 
   /* utilty method for whether to show view-as button as selected  */
@@ -24,7 +22,7 @@ export const ViewAs: React.FC<PropTypes> = ({
   }
 
   return <>
-    {viewAsCallback && forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
+    {forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
       {forces.map((force: any): JSX.Element => (
         <Item
           contentTheme={showAsSelected(force.uniqid)}
