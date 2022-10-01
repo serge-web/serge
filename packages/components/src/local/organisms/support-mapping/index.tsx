@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { MapConstants } from './helper/MapConstants'
-import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
+import styles from './styles.module.scss'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds,
-  actionItems, actionCallback, children, toolbarChildren
+  actionItems, actionCallback, children, toolbarChildren, maxWidth
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
+
+  useEffect(() => {
+    if (leafletElement) {
+      leafletElement.invalidateSize()
+    }
+  }, [maxWidth])
 
   useEffect(() => {
     if ((bounds !== undefined) && leafletElement) {
@@ -21,9 +27,9 @@ export const SupportMapping: React.FC<PropTypes> = ({
   }, [bounds])
 
   useEffect(() => {
-    if (position !== undefined) {
+    if (position !== undefined && leafletElement) {
       const defaultZoom = 10
-      leafletElement && leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
+      leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
@@ -37,12 +43,11 @@ export const SupportMapping: React.FC<PropTypes> = ({
     }
   }
 
-  return (
-    <Map
-      className={styles.map}
-      ref={handleEvents}
-      zoomControl={false}
-    >
+  /**
+   * prevent it re-renders on suport panel resizing
+   */
+  const MapContent = useMemo(() => {
+    return <>
       <MapControl
         map={leafletElement}
         bounds={bounds}
@@ -58,7 +63,20 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
       {children}
-    </Map>
+    </>
+  }, [children, toolbarChildren])
+
+  return (
+    <div className={styles['map-container']}>
+      <Map
+        className={styles.map}
+        ref={handleEvents}
+        zoomControl={false}
+        style={{ width: maxWidth }}
+      >
+        {MapContent}
+      </Map>
+    </div>
   )
 }
 

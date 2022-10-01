@@ -90,6 +90,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
+  const [mapMaxWidth, setMapMaxWidth] = useState<string>('100%')
   // action items to go on map
   const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
 
@@ -199,6 +200,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
+  const onPanelWidthChange = (width: number): void => setMapMaxWidth(`calc(100% - ${width}px)`)
+
   const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
@@ -237,12 +240,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           setOwnForcesForParent={setOwnAssetsFiltered}
           allOwnAssets={allOwnAssets}
           allOppAssets={allOppAssets}
+          onPanelWidthChange={onPanelWidthChange}
         />
       </SupportPanelContext.Provider>
       <SupportMapping
         bounds={bounds}
         zoom={zoom}
         position={position}
+        maxWidth={mapMaxWidth}
         actionItems={mapActionItems}
         actionCallback={mapActionCallback}
         toolbarChildren={
