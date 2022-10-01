@@ -17,15 +17,21 @@ export const SupportMapping: React.FC<PropTypes> = ({
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
 
   useEffect(() => {
+    if (leafletElement) {
+      leafletElement.invalidateSize()
+    }
+  }, [maxWidth])
+
+  useEffect(() => {
     if ((bounds !== undefined) && leafletElement) {
       leafletElement.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
 
   useEffect(() => {
-    if (position !== undefined) {
+    if (position !== undefined && leafletElement) {
       const defaultZoom = 10
-      leafletElement && leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
+      leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
