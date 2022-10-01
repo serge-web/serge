@@ -112,12 +112,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce, forcePlanningActivities])
 
   useEffect(() => {
-    if (planningActivities.length) {
-      setCurrentActivity(planningActivities[0])
-    }
-  }, [planningActivities])
-
-  useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
     if (force) {
       setCurrentForce(force)
@@ -217,13 +211,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
-    console.log('geometries drawn', geometries)
     setCurrentActivity(undefined)
+    window.alert('Geometries complete ' + geometries.length)
   }
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
-  const doIt = false
+  const startDrawing = (): void => {
+    if (planningActivities) {
+      setCurrentActivity(planningActivities[0])
+    }
+  }
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -271,10 +269,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           <>
             <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
             <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-            <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
+            { /* dummy button, to trigger drawing process */}
             <div className={cx('leaflet-control')}>
-              <Item title='go' onClick={planningActivities.length && doIt && setCurrentActivity(planningActivities[0])}>Go</Item>
+              <Item title='go' onClick={startDrawing}>Start</Item>
             </div>
+            <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
           </>
         }>
         <>
