@@ -9,6 +9,8 @@ import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
+console.clear()
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 const wargame = P9Mock.data
