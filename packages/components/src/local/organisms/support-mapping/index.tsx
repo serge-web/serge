@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
 import PlanningForces from '../planning-force'
 import { MapConstants } from './helper/MapConstants'
@@ -10,11 +10,17 @@ import MapControl from '../../map-control'
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
   opAssets, filterApplied, setFilterApplied, setSelectedAssets, selectedAssets, forces,
-  viewAsCallback, viewAsForce, actionItems, actionCallback
+  viewAsCallback, viewAsForce, maxWidth, actionItems, actionCallback
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
+
+  useEffect(() => {
+    if (leafletElement) {
+      leafletElement.invalidateSize()
+    }
+  }, [maxWidth])
 
   useEffect(() => {
     if ((bounds !== undefined) && leafletElement) {
@@ -23,9 +29,9 @@ export const SupportMapping: React.FC<PropTypes> = ({
   }, [bounds])
 
   useEffect(() => {
-    if (position !== undefined) {
+    if (position !== undefined && leafletElement) {
       const defaultZoom = 10
-      leafletElement && leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
+      leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
@@ -39,12 +45,11 @@ export const SupportMapping: React.FC<PropTypes> = ({
     }
   }
 
-  return (
-    <Map
-      className={styles.map}
-      ref={handleEvents}
-      zoomControl={false}
-    >
+  /**
+   * prevent it re-renders on suport panel resizing
+   */
+  const MapContent = useMemo(() => {
+    return <>
       <MapControl
         map={leafletElement}
         bounds={bounds}
@@ -64,7 +69,24 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <LayerGroup key={'opp-forces'}>
         <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
-    </Map>
+    </>
+  }, [
+    ownAssets.length,
+    opAssets.length,
+    selectedAssets.length
+  ])
+
+  return (
+    <div className={styles['map-container']}>
+      <Map
+        className={styles.map}
+        ref={handleEvents}
+        zoomControl={false}
+        style={{ width: maxWidth }}
+      >
+        {MapContent}
+      </Map>
+    </div>
   )
 }
 

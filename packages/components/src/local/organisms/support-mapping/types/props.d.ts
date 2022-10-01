@@ -18,6 +18,7 @@ export default interface PropTypes {
   viewAsCallback?: { (force: ForceData['uniqid']): void }
   /** current value of `view as` */
   viewAsForce?: string
+  maxWidth?: string
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */

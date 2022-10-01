@@ -38,6 +38,7 @@ export default interface PropTypes {
   setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
   allOwnAssets: AssetRow[]
   allOppAssets: AssetRow[]
+  onPanelWidthChange?: (width: number) => void
 }
 
 export type TabPanelProps = {
