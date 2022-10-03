@@ -1,16 +1,21 @@
 import AddIcon from '@material-ui/icons/Add'
-import HistoryIcon from '@material-ui/icons/History'
-import HomeIcon from '@material-ui/icons/Home'
-import InfoIcon from '@material-ui/icons/Info'
 import RemoveIcon from '@material-ui/icons/Remove'
+import HomeIcon from '@material-ui/icons/Home'
+
+import HistoryIcon from '@material-ui/icons/History'
 import PlannedIcon from '@material-ui/icons/Update'
+import InfoIcon from '@material-ui/icons/Info'
+
+/* Import proptypes */
+import PropTypes from './types/props'
 import { CellLabelStyle } from '@serge/config'
-import cx from 'classnames'
-import { DomEvent, LatLngBounds } from 'leaflet'
 import React, { useEffect, useState } from 'react'
+import { LatLngBounds, DomEvent } from 'leaflet'
+import cx from 'classnames'
+
 import { useMap } from 'react-leaflet-v4'
 import Item from './helpers/item'
-import PropTypes from './types/props'
+
 interface CellStyleDetails {
   label: string
   value: CellLabelStyle

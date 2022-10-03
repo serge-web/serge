@@ -1,10 +1,13 @@
 import { CellLabelStyle } from '@serge/config'
-import { ForceData } from '@serge/custom-types'
-import { LatLng, LatLngBounds, Map } from 'leaflet'
+import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
   // main
-  map?: Map
+  map?: any
+  /**
+  * Optional child components
+  */
+  children?: JSX.Element
   // whether to show home control
   showHome?: boolean
   // current map centre

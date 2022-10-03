@@ -1,64 +1,52 @@
+
 import 'leaflet/dist/leaflet.css'
-import React, { useEffect, useMemo } from 'react'
-import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
-import MapControl from '../../map-control'
-import { MapConstants } from './helper/MapConstants'
+import { useMap } from 'react-leaflet-v4'
+import React, { useEffect } from 'react'
 import PropTypes from './types/props'
+import MapControl from '../../map-control'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds,
-  actionItems, actionCallback, children, toolbarChildren, maxWidth
+  actionItems, actionCallback, toolbarChildren, maxWidth
 }) => {
-  const TileLayerProps = MapConstants.TileLayer
-
   const map = useMap()
 
   useEffect(() => {
-    if (map) {
+    if (map && map.invalidateSize) {
       map.invalidateSize()
+    }
+    // diagnostics:
+    if (map && map.invalidateSize === undefined) {
+      console.log('warning, poss wrong map element', map)
     }
   }, [maxWidth])
 
   useEffect(() => {
-    if (bounds && map) {
+    if ((bounds !== undefined) && map && map.flyToBounds) {
       map.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
 
   useEffect(() => {
-    if (position && map) {
+    if (position && map && map.flyTo) {
       const defaultZoom = 10
       map.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
-  /**
-   * prevent it re-renders on suport panel resizing
-   */
-  const MapContent = useMemo(() => {
-    return <>
-      <MapControl
-        bounds={bounds}
-        zoomStepSize={1}
-        actionItems={actionItems}
-        actionCallback={actionCallback}
-        mapVer='v4'
-      >
-        <>
-          {toolbarChildren &&
-            toolbarChildren
-          }
-        </>
-      </MapControl>
-      <TileLayer {...TileLayerProps} />
-      <ScaleControl position='topright' />
-      {children}
-    </>
-  }, [children, toolbarChildren])
-
-  return (<>
-    {MapContent}
-  </>
+  return (
+    <MapControl
+      bounds={bounds}
+      zoomStepSize={1}
+      actionItems={actionItems}
+      mapVer='v4'
+      actionCallback={actionCallback}>
+      <>
+        {toolbarChildren &&
+          toolbarChildren
+        }
+      </>
+    </MapControl>
   )
 }
 

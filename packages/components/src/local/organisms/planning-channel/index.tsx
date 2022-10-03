@@ -5,18 +5,19 @@ import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
-import { LayerGroup, MapContainer } from 'react-leaflet-v4'
-import ApplyFilter from '../apply-filter'
-import MapPlanningOrders from '../map-planning-orders'
+import { MapContainer } from 'react-leaflet-v4'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
-import PlanningForces from '../planning-force'
+import MapPlanningOrders from '../map-planning-orders'
 import SupportMapping from '../support-mapping'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import ViewAs from '../view-as'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { LayerGroup } from 'react-leaflet'
+import PlanningForces from '../planning-force'
+import ViewAs from '../view-as'
+import ApplyFilter from '../apply-filter'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -242,38 +243,35 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onPanelWidthChange={onPanelWidthChange}
         />
       </SupportPanelContext.Provider>
-      <div className={styles['map-container']}>
-        <MapContainer
-          className={styles.map}
-          zoomControl={false}
-          center={bounds?.getCenter()}
-          zoom={zoom}
-        // style={{ width: '50%' }}
-        >
-          <SupportMapping
-            bounds={bounds}
-            position={position}
-            maxWidth={mapMaxWidth}
-            actionItems={mapActionItems}
-            actionCallback={mapActionCallback}
-            toolbarChildren={
-              <>
-                <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-              </>
-            }>
+      <MapContainer
+        className={styles.map}
+        zoomControl={false}
+        center={bounds?.getCenter()}
+        zoom={zoom}
+      >
+        <SupportMapping
+          bounds={bounds}
+          position={position}
+          actionItems={mapActionItems}
+          actionCallback={mapActionCallback}
+          maxWidth={mapMaxWidth}
+          toolbarChildren={
             <>
-              <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
-              <LayerGroup key={'own-forces'}>
-                <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-              </LayerGroup>
-              <LayerGroup key={'opp-forces'}>
-                <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-              </LayerGroup>
+              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+              <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
             </>
-          </SupportMapping>
-        </MapContainer>
-      </div>
+          }>
+          <>
+            <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+            <LayerGroup key={'own-forces'}>
+              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+            </LayerGroup>
+            <LayerGroup key={'opp-forces'}>
+              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+            </LayerGroup>
+          </>
+        </SupportMapping>
+      </MapContainer>
     </div>
   )
 }
