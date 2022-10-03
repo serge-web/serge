@@ -12,19 +12,23 @@ export const SupportMapping: React.FC<PropTypes> = ({
   const map = useMap()
 
   useEffect(() => {
-    if (map) {
+    if (map && map.invalidateSize) {
       map.invalidateSize()
+    }
+    // diagnostics:
+    if (map && map.invalidateSize === undefined) {
+      console.log('warning, poss wrong map element', map)
     }
   }, [maxWidth])
 
   useEffect(() => {
-    if ((bounds !== undefined) && map) {
+    if ((bounds !== undefined) && map && map.flyToBounds) {
       map.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
 
   useEffect(() => {
-    if (position) {
+    if (position && map && map.flyTo) {
       const defaultZoom = 10
       map.flyTo(position, defaultZoom, { duration: 0.6 })
     }
