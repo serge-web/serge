@@ -3,7 +3,11 @@ import React from 'react'
 import SupportMapping from './index'
 
 jest.mock('react-leaflet-v4', () => ({
-  useMap: (): jest.Mock => jest.fn(),
+  useMap: (): any => ({
+    invalidateSize: (): jest.Mock => jest.fn(),
+    flyTo: (): jest.Mock => jest.fn(),
+    flyToBounds: (): jest.Mock => jest.fn()
+  }),
   LayerGroup: (): React.ReactElement => <></>,
   ScaleControl: (): React.ReactElement => <></>,
   TileLayer: (): React.ReactElement => <></>
