@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import SupportMapping from './index'
-import { noop } from 'lodash'
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn(),
@@ -12,8 +11,7 @@ jest.mock('react-leaflet-v4', () => ({
 
 describe('Support Mapping component: ', () => {
   it('renders component correctly', () => {
-    const tree = mount(<SupportMapping forces={[]} filterApplied={true} setFilterApplied={noop}
-      opAssets={[]} ownAssets={[]} setSelectedAssets={noop} selectedAssets={[]} />)
+    const tree = mount(<SupportMapping />)
     expect(tree).toMatchSnapshot()
   })
 })

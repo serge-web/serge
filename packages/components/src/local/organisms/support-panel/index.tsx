@@ -44,7 +44,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   setOpForcesForParent,
   setOwnForcesForParent,
   allOppAssets,
-  allOwnAssets
+  allOwnAssets,
+  onPanelWidthChange
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -104,6 +105,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setSelectedAssets(selectedAssetIDs)
   }, [selectedOwnAssets, selectedOpAssets])
 
+  useEffect(() => {
+    onPanelWidthChange && onPanelWidthChange(isShowPanel ? 330 : 0)
+  }, [isShowPanel])
+
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
     if (opFor) {
       setOpForcesForParent(data)
@@ -120,6 +125,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     saveMessage(currentWargame, details, message)
   }
 
+  const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
+    onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -131,6 +140,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           maxWidth={MAX_PANEL_WIDTH}
           minHeight={MIN_PANEL_HEIGHT}
           maxHeight={MAX_PANEL_HEIGHT}
+          onResize={onSizeChange}
         >
           <div className={styles.content}>
             <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>

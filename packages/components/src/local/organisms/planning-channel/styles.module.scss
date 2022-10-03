@@ -4,6 +4,13 @@
   height: 100%;
 }
 
+.map-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .map {
   height: 100%;
   z-index: 0;
