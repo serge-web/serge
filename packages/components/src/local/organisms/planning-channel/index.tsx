@@ -252,13 +252,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <SupportMapping
           bounds={bounds}
           position={position}
-          opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
-          ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
-          filterApplied={filterApplied}
-          setFilterApplied={setFilterApplied}
-          selectedAssets={selectedAssets}
-          setSelectedAssets={setSelectedAssets}
-          forces={allForces}
           actionItems={mapActionItems}
           actionCallback={mapActionCallback}
           maxWidth={mapMaxWidth}
