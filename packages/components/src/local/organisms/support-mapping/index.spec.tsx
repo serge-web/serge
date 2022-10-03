@@ -3,10 +3,17 @@ import React from 'react'
 import SupportMapping from './index'
 import { noop } from 'lodash'
 
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn(),
+  LayerGroup: (): React.ReactElement => <></>,
+  ScaleControl: (): React.ReactElement => <></>,
+  TileLayer: (): React.ReactElement => <></>
+}))
+
 describe('Support Mapping component: ', () => {
   it('renders component correctly', () => {
     const tree = mount(<SupportMapping forces={[]} filterApplied={true} setFilterApplied={noop}
-      position={[51.505, -0.09]} zoom={12} opAssets={[]} ownAssets={[]} setSelectedAssets={noop} selectedAssets={[]} />)
+      opAssets={[]} ownAssets={[]} setSelectedAssets={noop} selectedAssets={[]} />)
     expect(tree).toMatchSnapshot()
   })
 })

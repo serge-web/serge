@@ -44,5 +44,5 @@ export default interface PropTypes {
   /** callback, for if a map action is clicked */
   actionCallback?: { (force: string, category: string, actionId: string): void }
 
-  mapVer: 'v2' | 'v4'
+  mapVer?: 'v2' | 'v4'
 }

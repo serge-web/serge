@@ -3,6 +3,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningForce from './index'
 
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn()
+}))
+
 describe('Planning Force component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer

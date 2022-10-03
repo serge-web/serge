@@ -10,6 +10,11 @@ export const mockFn = (): PlayerUiActionTypes => ({
   payload: {}
 })
 
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn(),
+  MapContainer: (): React.ReactElement => <></>
+}))
+
 const wargame = P9Mock.data
 const channels = wargame.channels.channels
 const planningChannel = channels[0]

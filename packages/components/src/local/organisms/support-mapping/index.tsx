@@ -16,13 +16,13 @@ export const SupportMapping: React.FC<PropTypes> = ({
   const map = useMap()
 
   useEffect(() => {
-    if ((bounds !== undefined) && map) {
+    if (bounds && map) {
       map.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
 
   useEffect(() => {
-    if (position !== undefined) {
+    if (position) {
       const defaultZoom = 10
       map.flyTo(position, defaultZoom, { duration: 0.6 })
     }

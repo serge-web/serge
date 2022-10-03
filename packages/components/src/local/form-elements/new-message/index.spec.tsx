@@ -4,6 +4,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import NewMessage from './index'
 
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn()
+}))
+
 it('NewMessage renders correctly', () => {
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
