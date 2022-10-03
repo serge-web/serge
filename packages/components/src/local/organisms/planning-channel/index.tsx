@@ -4,6 +4,7 @@ import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import React, { useEffect, useMemo, useState } from 'react'
+import { MapContainer } from 'react-leaflet-v4'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import SupportMapping from '../support-mapping'
@@ -175,7 +176,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const mapActionCallback = (force: string, category: string, actionId: string) => {
+  const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
 
@@ -215,22 +216,28 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allOppAssets={allOppAssets}
         />
       </SupportPanelContext.Provider>
-      <SupportMapping
-        bounds={bounds}
+      <MapContainer
+        className={styles.map}
+        zoomControl={false}
+        center={bounds?.getCenter()}
         zoom={zoom}
-        position={position}
-        opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
-        ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
-        filterApplied={filterApplied}
-        setFilterApplied={setFilterApplied}
-        selectedAssets={selectedAssets}
-        setSelectedAssets={setSelectedAssets}
-        forces={allForces}
-        viewAsCallback={setViewAsForce}
-        viewAsForce={viewAsForce}
-        actionItems={mapActionItems}
-        actionCallback={mapActionCallback}
-      />
+      >
+        <SupportMapping
+          bounds={bounds}
+          position={position}
+          opAssets={filterApplied ? opAssetsFiltered : allOppAssets}
+          ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}
+          filterApplied={filterApplied}
+          setFilterApplied={setFilterApplied}
+          selectedAssets={selectedAssets}
+          setSelectedAssets={setSelectedAssets}
+          forces={allForces}
+          viewAsCallback={setViewAsForce}
+          viewAsForce={viewAsForce}
+          actionItems={mapActionItems}
+          actionCallback={mapActionCallback}
+        />
+      </MapContainer>
     </div>
   )
 }

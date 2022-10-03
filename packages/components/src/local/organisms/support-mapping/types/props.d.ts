@@ -4,7 +4,6 @@ import { AssetRow } from '../../planning-assets/types/props'
 export default interface PropTypes {
   bounds?: LatLngBounds
   position?: LatLngExpression
-  zoom: number
   ownAssets: AssetRow[]
   opAssets: AssetRow[]
   filterApplied: boolean
@@ -21,7 +20,7 @@ export default interface PropTypes {
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */
-  actionCallback?: {(force: string, category: string, actionId: string): void}
+  actionCallback?: { (force: string, category: string, actionId: string): void }
 }
 
 export interface MappingMenuItem {

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+import React, { useEffect } from 'react'
+import { LayerGroup, ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
+import MapControl from '../../map-control'
 import PlanningForces from '../planning-force'
 import { MapConstants } from './helper/MapConstants'
-import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import { Map as LMap } from 'leaflet'
-import MapControl from '../../map-control'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, ownAssets,
@@ -14,39 +13,24 @@ export const SupportMapping: React.FC<PropTypes> = ({
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
-  const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
+  const map = useMap()
 
   useEffect(() => {
-    if ((bounds !== undefined) && leafletElement) {
-      leafletElement.flyToBounds(bounds, { duration: 0.6 })
+    if ((bounds !== undefined) && map) {
+      map.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
 
   useEffect(() => {
     if (position !== undefined) {
       const defaultZoom = 10
-      leafletElement && leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
+      map.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
-  const handleEvents = (ref: any): void => {
-    if (ref && ref.leafletElement) {
-      const map: LMap = ref.leafletElement
-      if (leafletElement === undefined) {
-        setLeafletElement(map)
-        bounds && map.fitBounds(bounds)
-      }
-    }
-  }
-
   return (
-    <Map
-      className={styles.map}
-      ref={handleEvents}
-      zoomControl={false}
-    >
+    <>
       <MapControl
-        map={leafletElement}
         bounds={bounds}
         filterApplied={filterApplied}
         forces={forces || undefined}
@@ -55,7 +39,9 @@ export const SupportMapping: React.FC<PropTypes> = ({
         zoomStepSize={1}
         actionItems={actionItems}
         actionCallback={actionCallback}
-        setFilterApplied={setFilterApplied} />
+        setFilterApplied={setFilterApplied}
+        mapVer='v4'
+      />
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
       <LayerGroup key={'own-forces'}>
@@ -64,7 +50,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <LayerGroup key={'opp-forces'}>
         <PlanningForces opFor={true} assets={opAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
       </LayerGroup>
-    </Map>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
 import { CellLabelStyle } from '@serge/config'
 import { ForceData } from '@serge/custom-types'
-import { LatLng, LatLngBounds } from 'leaflet'
+import { LatLng, LatLngBounds, Map } from 'leaflet'
 
 export default interface PropTypes {
   // main
-  map?: any
+  map?: Map
   // whether to show home control
   showHome?: boolean
   // current map centre
@@ -43,4 +43,6 @@ export default interface PropTypes {
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */
   actionCallback?: { (force: string, category: string, actionId: string): void }
+
+  mapVer: 'v2' | 'v4'
 }

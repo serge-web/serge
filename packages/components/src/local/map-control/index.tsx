@@ -1,32 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { DomEvent, LatLngBounds } from 'leaflet'
-import Item from './helpers/item'
-import cx from 'classnames'
-
-/* Import icons */
 import AddIcon from '@material-ui/icons/Add'
-import RemoveIcon from '@material-ui/icons/Remove'
-import HomeIcon from '@material-ui/icons/Home'
-import PublicIcon from '@material-ui/icons/Public'
-import HistoryIcon from '@material-ui/icons/History'
-import PlannedIcon from '@material-ui/icons/Update'
-import InfoIcon from '@material-ui/icons/Info'
 import FilterIcon from '@material-ui/icons/Filter'
-
-/* Import proptypes */
-import PropTypes from './types/props'
+import HistoryIcon from '@material-ui/icons/History'
+import HomeIcon from '@material-ui/icons/Home'
+import InfoIcon from '@material-ui/icons/Info'
+import PublicIcon from '@material-ui/icons/Public'
+import RemoveIcon from '@material-ui/icons/Remove'
+import PlannedIcon from '@material-ui/icons/Update'
 import { CellLabelStyle, UMPIRE_FORCE } from '@serge/config'
-
+import cx from 'classnames'
+import { DomEvent, LatLngBounds } from 'leaflet'
+import React, { useEffect, useState } from 'react'
+import { useMap } from 'react-leaflet-v4'
+import Item from './helpers/item'
+import PropTypes from './types/props'
 interface CellStyleDetails {
   label: string
   value: CellLabelStyle
   active: boolean
 }
 
-/* Import Styles */
-// import styles from './styles.module.scss'
-
-/* Render component */
 export const MapControl: React.FC<PropTypes> = ({
   /* main */
   map,
@@ -50,10 +42,12 @@ export const MapControl: React.FC<PropTypes> = ({
   filterApplied,
   setFilterApplied,
   actionCallback,
-  actionItems
+  actionItems,
+  mapVer = 'v2'
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
+  const localMap = mapVer === 'v4' ? useMap() : map
 
   /** the forces from props has changed */
   useEffect(() => {
@@ -73,13 +67,19 @@ export const MapControl: React.FC<PropTypes> = ({
   }
   /* change map zoom level */
   const handleZoomChange = (changeValue: number): void => {
-    const currentZoom = map.getZoom()
-    if (currentZoom) map.setZoom(currentZoom + changeValue)
+    if (!localMap) {
+      return
+    }
+    const currentZoom = localMap.getZoom()
+    if (currentZoom) localMap.setZoom(currentZoom + changeValue)
   }
 
   /* set map to overall view */
   const handleHome = (): void => {
-    originalBounds && map.flyToBounds(originalBounds, { duration: 0.75 })
+    if (!localMap || !originalBounds) {
+      return
+    }
+    localMap.flyToBounds(originalBounds, { duration: 0.75 })
   }
 
   /* set view as force */
@@ -151,7 +151,7 @@ export const MapControl: React.FC<PropTypes> = ({
     setCellStyles(cellStyleList)
   }, [cellLabelType])
 
-  if (!map) return null
+  if (!localMap) return null
 
   if (actionCallback) {
     console.log('provide drop-down menu for items', actionItems)
