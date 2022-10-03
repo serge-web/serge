@@ -1,10 +1,13 @@
 import { CellLabelStyle } from '@serge/config'
-import { ForceData } from '@serge/custom-types'
-import { LatLng, LatLngBounds, Map } from 'leaflet'
+import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
   // main
-  map?: Map
+  map?: any
+  /**
+  * Optional child components
+  */
+  children?: JSX.Element
   // whether to show home control
   showHome?: boolean
   // current map centre
@@ -15,12 +18,6 @@ export default interface PropTypes {
   showZoom?: boolean
   // size of zoom in/out increment
   zoomStepSize?: number
-  // current set of forces
-  forces?: ForceData[]
-  /** callback for umpire clicking on view-as button */
-  viewAsCallback?: { (force: ForceData['uniqid']): void }
-  /** current value of `view as` */
-  viewAsForce?: string
   /** callback for umpire clicking on view-as button */
   cellLabelCallback?: { (style: CellLabelStyle): void }
   /** current value of `view as` */

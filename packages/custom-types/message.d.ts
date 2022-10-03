@@ -25,7 +25,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Role from './role'
-import { Force, ForceRole, StateOfWorld, ForceData, ChannelCore } from '.'
+import { Force, ForceRole, StateOfWorld, ForceData, ChannelCore, PlannedActivityGeometry } from '.'
 import Wargame from './wargame'
 import { MapAnnotation } from './map-annotation'
 
@@ -99,6 +99,8 @@ export interface PlanningMessageStructure {
   startDate?: string
   /** end-time of this plan */
   endDate?: string
+  /** any location-related data */
+  location?: PlannedActivityGeometry[]
   /** remainder of fields generated from message template */
   [property: string]: any
 }

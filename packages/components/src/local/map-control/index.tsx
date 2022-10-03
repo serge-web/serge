@@ -1,18 +1,21 @@
 import AddIcon from '@material-ui/icons/Add'
-import FilterIcon from '@material-ui/icons/Filter'
-import HistoryIcon from '@material-ui/icons/History'
-import HomeIcon from '@material-ui/icons/Home'
-import InfoIcon from '@material-ui/icons/Info'
-import PublicIcon from '@material-ui/icons/Public'
 import RemoveIcon from '@material-ui/icons/Remove'
+import HomeIcon from '@material-ui/icons/Home'
+
+import HistoryIcon from '@material-ui/icons/History'
 import PlannedIcon from '@material-ui/icons/Update'
-import { CellLabelStyle, UMPIRE_FORCE } from '@serge/config'
-import cx from 'classnames'
-import { DomEvent, LatLngBounds } from 'leaflet'
+import InfoIcon from '@material-ui/icons/Info'
+
+/* Import proptypes */
+import PropTypes from './types/props'
+import { CellLabelStyle } from '@serge/config'
 import React, { useEffect, useState } from 'react'
+import { LatLngBounds, DomEvent } from 'leaflet'
+import cx from 'classnames'
+
 import { useMap } from 'react-leaflet-v4'
 import Item from './helpers/item'
-import PropTypes from './types/props'
+
 interface CellStyleDetails {
   label: string
   value: CellLabelStyle
@@ -22,16 +25,13 @@ interface CellStyleDetails {
 export const MapControl: React.FC<PropTypes> = ({
   /* main */
   map,
+  children,
   /* home */
   showHome = true,
   bounds,
   /* zoom */
   showZoom = true,
   zoomStepSize = 0.5,
-  /* view as */
-  forces = [],
-  viewAsCallback,
-  viewAsForce,
   cellLabelCallback,
   cellLabelType,
   filterPlannedRoutes,
@@ -39,8 +39,6 @@ export const MapControl: React.FC<PropTypes> = ({
   filterHistoryRoutes,
   setFilterHistoryRoutes,
   addInfoMarker,
-  filterApplied,
-  setFilterApplied,
   actionCallback,
   actionItems,
   mapVer = 'v2'
@@ -82,18 +80,6 @@ export const MapControl: React.FC<PropTypes> = ({
     localMap.flyToBounds(originalBounds, { duration: 0.75 })
   }
 
-  /* set view as force */
-  const viewAs = (force: string): void => {
-    if (viewAsCallback) {
-      viewAsCallback(force)
-    }
-  }
-
-  /* utilty method for whether to show view-as button as selected  */
-  const showAsSelected = (force: string): 'light' | 'dark' | undefined => {
-    return viewAsForce !== undefined ? viewAsForce === force ? 'light' : 'dark' : 'dark'
-  }
-
   /* utilty method for whether we're filtering planned routes  */
   const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
     return filterPlannedRoutes ? 'dark' : 'light'
@@ -102,11 +88,6 @@ export const MapControl: React.FC<PropTypes> = ({
   /* utilty method for whether we're filtering planned routes  */
   const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
     return filterHistoryRoutes ? 'dark' : 'light'
-  }
-
-  /* utilty method for whether we're filtering planned routes  */
-  const isFilterApplied = (): 'light' | 'dark' => {
-    return !filterApplied ? 'dark' : 'light'
   }
 
   /* callback responding to filter planned routes toggle  */
@@ -120,13 +101,6 @@ export const MapControl: React.FC<PropTypes> = ({
   const toggleHistoryFilter = (): void => {
     if (setFilterHistoryRoutes) {
       setFilterHistoryRoutes(!filterHistoryRoutes)
-    }
-  }
-
-  /* callback responding to filter applied toggle  */
-  const toggleFilterApplied = (): void => {
-    if (setFilterApplied) {
-      setFilterApplied(!filterApplied)
     }
   }
 
@@ -187,15 +161,6 @@ export const MapControl: React.FC<PropTypes> = ({
             </Item>
           }
         </div>
-        {
-          setFilterApplied &&
-          <div className={cx('leaflet-control')} data-tour="filter-applied">
-            <Item title="Match table filters" onClick={(): void => { toggleFilterApplied() }}
-              contentTheme={isFilterApplied()} >
-              <FilterIcon />
-            </Item>
-          </div>
-        }
         {addInfoMarker &&
           <div className={cx('leaflet-control')}>
             <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}
@@ -204,18 +169,6 @@ export const MapControl: React.FC<PropTypes> = ({
             </Item>
           </div>
         }
-        {viewAsCallback && forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
-          {forces.map((force: any): JSX.Element => (
-            <Item
-              contentTheme={showAsSelected(force.uniqid)}
-              key={`k_${force.uniqid}`}
-              onClick={(): void => { viewAs(force.uniqid) }}
-              title={`View As ${force.name}`}
-            >
-              <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }} />
-            </Item>
-          ))}
-        </div>}
         {cellLabelCallback && cellStyles.length > 0 && <div className={cx('leaflet-control')}>
           {cellStyles.map((style: CellStyleDetails): JSX.Element => (
             <Item
@@ -228,6 +181,7 @@ export const MapControl: React.FC<PropTypes> = ({
             </Item>
           ))}
         </div>}
+        {children}
       </div>
     </div>
   )
