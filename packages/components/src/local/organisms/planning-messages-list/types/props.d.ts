@@ -57,5 +57,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * method to customise the new (or existing) message template
    */
-  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
+  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+
+  selectedOrders: string[]
+  setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
 }

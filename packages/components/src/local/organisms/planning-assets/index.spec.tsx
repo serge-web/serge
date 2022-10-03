@@ -15,7 +15,7 @@ const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.p
 describe('Planning Assets component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
-      .create(<PlanningAssets forceColors={forceCols} platformStyles={platformStyles} forces={forces} opFor={false}
+      .create(<PlanningAssets assets={[]} forceColors={forceCols} platformStyles={platformStyles} forces={forces} opFor={false}
         playerForce={blueForce} render={noop} />)
       .toJSON()
     expect(tree).toMatchSnapshot()

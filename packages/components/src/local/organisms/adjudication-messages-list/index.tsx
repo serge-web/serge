@@ -12,12 +12,14 @@ import { findAsset, ForceStyle } from '@serge/helpers'
 import { arrToDict, collateActivities, getColumnSummary } from '../planning-assets/helpers/collate-assets'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, messages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, setSelectedItem, forceColors
+  forces, messages, template, isUmpire, gameDate, selectedOrders, setSelectedOrders,
+  customiseTemplate, playerForceId, forceColors
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+
+  console.log('selectedOrders: ', selectedOrders, setSelectedOrders)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
@@ -64,8 +66,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const asset = findAsset(forces, undefined, objName)
     if (asset) {
       // don't change selection yet - it collapses the panel
-      const doSetSelected = false
-      doSetSelected && setSelectedItem(asset.uniqid)
+      // const doSetSelected = false
+      // doSetSelected && setSelectedAssets([asset.uniqid])
     }
   }
 

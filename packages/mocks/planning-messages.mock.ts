@@ -1,5 +1,199 @@
 
-import { MessagePlanning, } from '@serge/custom-types'
+import { MessagePlanning, PlannedActivityGeometry, } from '@serge/custom-types'
+
+const sampleActivityOne: PlannedActivityGeometry[] = [
+  {
+    uniqid: 'aa4',
+    geometry: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            135.0659,
+            -4.2149
+          ],
+          [
+            134.868,
+            -7.362
+          ],
+          [
+            137.636,
+            -12.404
+          ],
+          [
+            136.9228,
+            -15.1781
+          ]
+        ]
+      }
+    }
+  },  {
+    uniqid: 'aa5',
+    geometry: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              136.9335,
+              -15.1993
+            ],
+            [
+              132.978,
+              -14.9872
+            ],
+            [
+              131.7480,
+              -18.375375
+            ],
+            [
+              136.64794,
+              -20.0972
+            ],
+            [
+              138.62548,
+              -17.39257
+            ],
+            [
+              136.933,
+              -15.1993
+            ]
+          ]
+        ]
+      }
+    }
+  },  {
+    uniqid: 'aa6',
+    geometry: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            136.7138,
+            -15.26298
+          ],
+          [
+            136.0986,
+            -12.16822
+          ],
+          [
+            133.8574,
+            -7.73276
+          ],
+          [
+            134.8681,
+            -4.36832
+          ]
+        ]
+      }
+    }
+  }
+]
+
+const sampleActivityTwo: PlannedActivityGeometry[] = [
+  {
+    uniqid: 'aa8',
+    geometry: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            131.6601,
+            -1.53790
+          ],
+          [
+            129.375,
+            -8.40716
+          ],
+          [
+            123.222,
+            -13.1545
+          ],
+          [
+            122.167,
+            -22.6748
+          ],
+          [
+            126.2109,
+            -26.03704
+          ]
+        ]
+      }
+    }
+  },  {
+    uniqid: 'aa9',
+    geometry: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              126.386718,
+              -23.885837
+            ],
+            [
+              126.210937,
+              -28.149503
+            ],
+            [
+              131.3964,
+              -28.381735
+            ],
+            [
+              131.484,
+              -24.28702
+            ],
+            [
+              126.3867,
+              -23.885
+            ]
+          ]
+        ]
+      }
+    }
+  },  {
+    uniqid: 'a10',
+    geometry: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            132.3632,
+            -26.66709
+          ],
+          [
+            137.6367,
+            -22.99885
+          ],
+          [
+            139.0429,
+            -15.45368
+          ],
+          [
+            137.636,
+            -8.66791
+          ],
+          [
+            132.011,
+            -1.93322
+          ]
+        ]
+      }
+    }
+  }
+]
 
 export const planningMessages: MessagePlanning[] = [
   {
@@ -23,6 +217,7 @@ export const planningMessages: MessagePlanning[] = [
       Description: "More land operations",
       Location: "Region-A",
       Status: "Minor",
+      location: sampleActivityOne,
       title: "Operation Bravo-12",
       Assets: [
         {
@@ -49,7 +244,7 @@ export const planningMessages: MessagePlanning[] = [
     _rev: '2',
     hasBeenRead: false
   },
- 
+
   {
     "messageType": "PlanningMessage",
     "details": {
@@ -72,6 +267,7 @@ export const planningMessages: MessagePlanning[] = [
       "startDate": "2022-09-21T04:00:00.000Z",
       "endDate": "2022-09-21T09:00:00.000Z",
       "Description": "Order description 3",
+      location: sampleActivityTwo,
       "Location": "Point-A",
       "ActivityType": "Kinetic",
       "Assets": [

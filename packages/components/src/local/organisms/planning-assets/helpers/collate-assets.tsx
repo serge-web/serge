@@ -1,12 +1,12 @@
 import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset, ForceData, MessagePlanning, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
-import { Column } from 'material-table'
-import { AssetRow } from '../types/props'
-import AssetIcon from '../../../asset-icon'
-import React from 'react'
-import styles from '../styles.module.scss'
 import { latLng } from 'leaflet'
+import { Column } from 'material-table'
+import React from 'react'
+import AssetIcon from '../../../asset-icon'
+import styles from '../styles.module.scss'
+import { AssetRow } from '../types/props'
 
 type SummaryData = {
   roles: Record<Role['roleId'], Role['name']>
@@ -36,7 +36,7 @@ export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, undefined)
+      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, [], undefined)
       rows.push(...assets)
     }
     )
@@ -48,7 +48,7 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, undefined)
+      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], undefined)
       rows.push(...assets)
     }
     )
@@ -217,7 +217,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
  * @returns a list of rows, representing the asset and it's children
  */
 export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData, assetForce: ForceData,
-  forceColors: ForceStyle[], platformIcons: PlatformStyle[], parentId?: string): AssetRow[] => {
+  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[], parentId?: string): AssetRow[] => {
   const itemRows: AssetRow[] = []
 
   const iconFor = (platformType: string): string => {
@@ -247,7 +247,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           name: perception.name,
           platformType: perception.typeId,
           status: asset.status?.state || '',
-          position: asset.location && latLng(asset.location[0], asset.location[1])
+          position: asset.location && latLng(asset.location[0], asset.location[1]),
+          tableData: { checked: selectedAssets.includes(asset.uniqid) }
         }
         itemRows.push(res)
       }
@@ -266,7 +267,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         platformType: asset.platformTypeId || '',
         status: asset.status?.state || '',
         owner: asset.owner ? asset.owner : '',
-        position: asset.location && latLng(asset.location[0], asset.location[1])
+        position: asset.location && latLng(asset.location[0], asset.location[1]),
+        tableData: { checked: selectedAssets.includes(asset.uniqid) }
       }
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
@@ -279,13 +281,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   // also sort out the comprising entries
   if (asset.comprising) {
     asset.comprising.forEach((asset2: Asset) => {
-      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, asset.uniqid))
+      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, selectedAssets, asset.uniqid))
     })
   }
   return itemRows
 }
 
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData): AssetRow[] => {
+export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, selectedAssets: string[]): AssetRow[] => {
   const rows: AssetRow[] = []
 
   // ok, work through the assets
@@ -296,7 +298,7 @@ export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceS
       const handleAllForces = (!opFor && playerForce.umpire)
       if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
         force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, undefined))
+          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, selectedAssets, undefined))
         })
       }
     }

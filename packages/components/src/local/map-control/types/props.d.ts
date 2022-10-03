@@ -1,10 +1,13 @@
 import { CellLabelStyle } from '@serge/config'
-import { ForceData } from '@serge/custom-types'
 import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
   // main
   map?: any
+  /**
+  * Optional child components
+  */
+  children?: JSX.Element
   // whether to show home control
   showHome?: boolean
   // current map centre
@@ -15,28 +18,26 @@ export default interface PropTypes {
   showZoom?: boolean
   // size of zoom in/out increment
   zoomStepSize?: number
-  // current set of forces
-  forces?: ForceData[]
   /** callback for umpire clicking on view-as button */
-  viewAsCallback?: {(force: ForceData['uniqid']): void}
-  /** current value of `view as` */
-  viewAsForce?: string
-  /** callback for umpire clicking on view-as button */
-  cellLabelCallback?: {(style: CellLabelStyle): void}
+  cellLabelCallback?: { (style: CellLabelStyle): void }
   /** current value of `view as` */
   cellLabelType?: CellLabelStyle
   /** whether planned routes filtered */
   filterPlannedRoutes?: boolean
   /** callback for toggling planned routes */
-  setFilterPlannedRoutes?: {(value: boolean): void}
+  setFilterPlannedRoutes?: { (value: boolean): void }
   /** whether History routes filtered */
   filterHistoryRoutes?: boolean
   /** callback for toggling History routes */
-  setFilterHistoryRoutes?: {(value: boolean): void}
+  setFilterHistoryRoutes?: { (value: boolean): void }
   /** callback for adding a new information marker */
-  addInfoMarker?: {(): void}
+  addInfoMarker?: { (): void }
   /** if filter is applied */
   filterApplied?: boolean
   /** callback for applying filter */
-  setFilterApplied?: {(value: boolean): void}
+  setFilterApplied?: { (value: boolean): void }
+  /** tree of menu items */
+  actionItems?: MappingMenuItem[]
+  /** callback, for if a map action is clicked */
+  actionCallback?: { (force: string, category: string, actionId: string): void }
 }

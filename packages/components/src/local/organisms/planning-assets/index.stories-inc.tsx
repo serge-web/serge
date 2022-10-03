@@ -53,6 +53,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const { forces, playerForce, render, opFor } = args
   return <PlanningAssets
     forces={forces}
+    assets={[]}
     forceColors={forceCols}
     platformStyles={platformStyles}
     playerForce={playerForce}

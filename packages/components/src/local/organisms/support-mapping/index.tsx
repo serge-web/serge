@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { LayerGroup, Map, ScaleControl, TileLayer } from 'react-leaflet'
-import PlanningForces from '../planning-force'
+import React, { useEffect, useMemo, useState } from 'react'
+import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { MapConstants } from './helper/MapConstants'
-import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { Map as LMap } from 'leaflet'
 import MapControl from '../../map-control'
+import styles from './styles.module.scss'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, ownAssets,
-  opAssets, filterApplied, setFilterApplied, selectedItem, forces,
-  viewAsCallback, viewAsForce
+  position, bounds,
+  actionItems, actionCallback, children, toolbarChildren, maxWidth
 }) => {
   const TileLayerProps = MapConstants.TileLayer
 
   const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
 
-  console.log('[SupportMapping] own assets:', ownAssets.length, 'filter', filterApplied)
+  useEffect(() => {
+    if (leafletElement) {
+      leafletElement.invalidateSize()
+    }
+  }, [maxWidth])
 
   useEffect(() => {
-    console.log('=> [SupportMapping] ownForces update: ', ownAssets && ownAssets.length, 'items')
-  }, [ownAssets])
+    if ((bounds !== undefined) && leafletElement) {
+      leafletElement.flyToBounds(bounds, { duration: 0.6 })
+    }
+  }, [bounds])
 
   useEffect(() => {
-    console.log('=> [SupportMapping]: opForces update: ', opAssets && opAssets.length, 'items')
-  }, [opAssets])
-
-  useEffect(() => {
-    if (position !== undefined) {
-      const defaultZoom = 8
-      leafletElement && leafletElement.flyTo(position, defaultZoom)
+    if (position !== undefined && leafletElement) {
+      const defaultZoom = 10
+      leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
@@ -43,30 +43,40 @@ export const SupportMapping: React.FC<PropTypes> = ({
     }
   }
 
-  return (
-    <Map
-      className={styles.map}
-      ref={handleEvents}
-      zoomControl={false}
-    >
+  /**
+   * prevent it re-renders on suport panel resizing
+   */
+  const MapContent = useMemo(() => {
+    return <>
       <MapControl
         map={leafletElement}
         bounds={bounds}
-        filterApplied={filterApplied}
-        forces={forces || undefined}
-        viewAsCallback={viewAsCallback}
-        viewAsForce={viewAsForce}
         zoomStepSize={1}
-        setFilterApplied={setFilterApplied} />
+        actionItems={actionItems}
+        actionCallback={actionCallback}>
+        <>
+          {toolbarChildren &&
+            toolbarChildren
+          }
+        </>
+      </MapControl>
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
-      <LayerGroup key={'own-forces'}>
-        <PlanningForces opFor={false} assets={ownAssets} selectedItem={selectedItem} />
-      </LayerGroup>
-      <LayerGroup key={'opp-forces'}>
-        <PlanningForces opFor={true} assets={opAssets} selectedItem={selectedItem} />
-      </LayerGroup>
-    </Map>
+      {children}
+    </>
+  }, [children, toolbarChildren])
+
+  return (
+    <div className={styles['map-container']}>
+      <Map
+        className={styles.map}
+        ref={handleEvents}
+        zoomControl={false}
+        style={{ width: maxWidth }}
+      >
+        {MapContent}
+      </Map>
+    </div>
   )
 }
 

@@ -46,7 +46,7 @@ describe('AdjudicationMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<AdjudicationMessagesList forces={forces} setSelectedItem={(): any => noop} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
+      .create(<AdjudicationMessagesList selectedOrders={[]} setSelectedOrders={noop} forces={forces} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
         messages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()

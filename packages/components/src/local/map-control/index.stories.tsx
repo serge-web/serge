@@ -19,7 +19,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MapControl filterPlannedRoutes={true}>Title</MapControl>
+export const Default: React.FC = () => <MapControl filterPlannedRoutes={true}></MapControl>
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {

@@ -22,6 +22,16 @@ export enum CollaborativePermission {
   CanUnClaim
 }
 
+
+/** 
+ * the type of geometry that can represent planning activities
+ */
+ export enum GeometryType {
+  point,
+  polyline,
+  polygon
+}
+
 /** the initial state for new messages in a collab edit channel */
 export enum InitialStates {
   PENDING_REVIEW = 'PENDING_REVIEW',

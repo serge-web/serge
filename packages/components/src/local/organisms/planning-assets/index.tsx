@@ -1,18 +1,23 @@
 import { Asset } from '@serge/custom-types'
 import MaterialTable, { Column, MTableBody } from 'material-table'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { SupportPanelContext } from '../support-panel'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
+  const { selectedAssets } = useContext(SupportPanelContext)
+
   useEffect(() => {
     setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
-    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce))
-  }, [playerForce, forces])
+    // TODO - swap next line for
+    // setRows(assets)
+    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets))
+  }, [playerForce, forces, selectedAssets, assets])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
@@ -31,7 +36,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
       // change an asset
       blueAssets[2].name = blueAssets[2].name + '?'
       // update the data
-      setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce))
+      setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, []))
     }
   }
 
@@ -60,7 +65,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ forces, playerForce, opFor
       paging: false,
       sorting: false,
       filtering: filter,
-      selection: !jestWorkerId // fix unit-test for material table
+      selection: !jestWorkerId // fix unit-test for material table,
     }}
     onSelectionChange={onSelectionChange}
     components={{
