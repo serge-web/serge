@@ -2,7 +2,8 @@ import { geometriesFor, randomOrdersDocs } from './gen-order-data'
 
 import { P9Mock, MockPlanningActivities, planningMessages } from '@serge/mocks'
 import moment from 'moment'
-import { MessagePlanning } from '@serge/custom-types'
+import { MessagePlanning, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import L from 'leaflet'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -32,72 +33,85 @@ it('produces planned goemetries', () => {
   }
 })
 
-const periodFor = (messages: MessagePlanning[]): Array<moment.Moment | undefined> => {
-  let startDate: moment.Moment | undefined
-  let endDate: moment.Moment | undefined
-  messages.forEach((msg: MessagePlanning) => {
-    const thisStart = moment(msg.message.startDate)
-    const thisEnd = moment(msg.message.endDate)
-    if (!startDate || thisStart.isBefore(startDate)) {
-      startDate = thisStart.clone()
-    }
-    if (!endDate || thisEnd.isAfter(endDate)) {
-      endDate = thisEnd.clone()
-    }
-
-    // const location = msg.message.location
-    // if (location) {
-    //   location.forEach((plan: PlannedActivityGeometry) => {
-    //     const geom = plan.geometry
-    //     const props = geom.properties as PlannedProps
-    //     if (props) {
-    //       const thisStart = moment(props.startDate)
-    //       const thisEnd = moment(props.endDate)
-    //       if (!startDate || thisStart.isBefore(startDate)) {
-    //         startDate = thisStart.clone()
-    //       }
-    //       if (!endDate || thisEnd.isAfter(endDate)) {
-    //         endDate = thisEnd.clone()
-    //       }
-    //     }
-    //   })
-    // }
-  })
-  return [startDate, endDate]
+interface GeomWithOrders extends PlannedActivityGeometry {
+  activity: MessagePlanning
 }
 
-const intoBins = (messages: MessagePlanning[], startDate: moment.Moment, endDate: moment.Moment): MessagePlanning[] => {
-  const thisBin = messages.filter((msg: MessagePlanning) => {
-    const thisStart = moment(msg.message.startDate)
-    const thisEnd = moment(msg.message.endDate)
-    //   console.log('bins', startDate, thisStart, endDate, thisEnd)
-    return (thisStart.isSameOrAfter(startDate) && thisEnd.isSameOrBefore(endDate))
+const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] => {
+  const res: GeomWithOrders[] = []
+  messages.forEach((message: MessagePlanning) => {
+    if (message.message.location) {
+      message.message.location.forEach((plan: PlannedActivityGeometry) => {
+        const newItem = { ...plan, activity: message }
+        res.push(newItem)
+      })
+    }
   })
-  return thisBin
+  return res
 }
 
-const binMessages = (messages: MessagePlanning[], bins: number): number => {
-  console.log('len', messages.length)
-  const [startDate, endDate] = periodFor(messages)
+const findPlannedGeometries = (orders: GeomWithOrders[], time: string, windowMins: number): GeomWithOrders[] => {
+  const timeStart = moment(time)
+  const timeEnd = moment(time).add(windowMins, 'm')
+  const inWindow = orders.filter((value: GeomWithOrders) => {
+    const props = value.geometry.properties as PlannedProps
+    return moment(props.startDate).isSameOrBefore(timeEnd) && moment(props.endDate).isSameOrAfter(timeStart)
+  })
+  return inWindow
+}
+const clean = (val: number): number => {
+  const scalar = 1000
+  return Math.floor(val * scalar) / scalar
+}
 
-  if (startDate && endDate) {
-    const period = endDate.valueOf() - startDate.valueOf()
-    //    console.log('dates', startDate, endDate, period)
-    const start = startDate.valueOf()
-    const binSize = period / bins
+const cleanCoords = (data: number[][]): number[][] => {
+  return [[clean(data[0][0]), clean(data[0][1])], [clean(data[1][0]), clean(data[1][1])]]
+}
 
-    for (let bin = 0; bin <= bins; bin++) {
-      const thisStart = start + bin * binSize
-      const thisEnd = thisStart + binSize
-      //    console.log('period', moment(thisStart), moment(thisEnd))
-      const thisBin = intoBins(messages, moment(thisStart), moment(thisEnd))
-      console.log('size', thisBin.length)
+const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): number => {
+  let bounds: L.LatLngBounds | undefined
+  orders.forEach((geom: GeomWithOrders) => {
+    const geoAny = geom.geometry.geometry as any
+    geoAny.coordinates.forEach((point: number[]) => {
+      const pt = L.latLng(point[1], point[0])
+      if (!bounds) {
+        bounds = L.latLngBounds(pt, pt)
+      } else {
+        bounds.extend(pt)
+      }
+    })
+  })
+  console.log('outer bounds', bounds)
+  const boxes = []
+  if (bounds) {
+    const height = bounds.getNorth() - bounds.getSouth()
+    const width = bounds.getEast() - bounds.getWest()
+    const heightDelta = height / binsPerSize
+    const widthDelta = width / binsPerSize
+    for (let x = 0; x <= binsPerSize; x++) {
+      for (let y = 0; y < binsPerSize; y++) {
+        const bX = clean(bounds.getWest() + x * widthDelta)
+        const bY = clean(bounds.getSouth() + y * heightDelta)
+        const tX = clean(bX + widthDelta)
+        const tY = clean(bY + heightDelta)
+        const bbox = cleanCoords([[bY, bX], [tY, tX]])
+        const poly = [[[bX, bY], [tX, bY], [tX, tY], [bX, tY], [bX, bY]]]
+        console.log(poly)
+        // pushGeo(poly)
+        boxes.push(bbox)
+      }
     }
   }
-
-  return messages.length
+  console.log(boxes)
+  return 2 + boxes.length
 }
 
 it('bins overlaps for time', () => {
-  expect(binMessages(planningMessages, 12)).toEqual(10)
+  const time = '2022-11-15T00:00:00.000Z'
+  const orders = invertMessages(planningMessages)
+  const binsInWindow = findPlannedGeometries(orders, time, 30)
+  console.log(binsInWindow.length)
+  // now do spatial binning
+  const bins = spatialBinning(binsInWindow, 2)
+  console.log(bins)
 })
