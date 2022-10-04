@@ -2,7 +2,7 @@ import { geometriesFor, randomOrdersDocs } from './gen-order-data'
 
 import { P9Mock, MockPlanningActivities, planningMessages } from '@serge/mocks'
 import moment from 'moment'
-import { MessagePlanning, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { MessagePlanning } from '@serge/custom-types'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -70,7 +70,7 @@ const intoBins = (messages: MessagePlanning[], startDate: moment.Moment, endDate
   const thisBin = messages.filter((msg: MessagePlanning) => {
     const thisStart = moment(msg.message.startDate)
     const thisEnd = moment(msg.message.endDate)
-    console.log('bins', startDate, thisStart, endDate, thisEnd)
+    //   console.log('bins', startDate, thisStart, endDate, thisEnd)
     return (thisStart.isSameOrAfter(startDate) && thisEnd.isSameOrBefore(endDate))
   })
   return thisBin
@@ -82,14 +82,14 @@ const binMessages = (messages: MessagePlanning[], bins: number): number => {
 
   if (startDate && endDate) {
     const period = endDate.valueOf() - startDate.valueOf()
-    console.log('dates', startDate, endDate, period)
+    //    console.log('dates', startDate, endDate, period)
     const start = startDate.valueOf()
     const binSize = period / bins
 
     for (let bin = 0; bin <= bins; bin++) {
       const thisStart = start + bin * binSize
       const thisEnd = thisStart + binSize
-      console.log('period', moment(thisStart), moment(thisEnd))
+      //    console.log('period', moment(thisStart), moment(thisEnd))
       const thisBin = intoBins(messages, moment(thisStart), moment(thisEnd))
       console.log('size', thisBin.length)
     }

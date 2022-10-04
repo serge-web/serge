@@ -287,7 +287,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   geometries.forEach((val: PlannedActivityGeometry) => {
     const props = val.geometry.properties
     if (props) {
-      const thisStart = moment(props.endDate)
+      const thisStart = moment(props.startDate)
       const thisEnd = moment(props.endDate)
       if (!startDate || thisStart.isBefore(startDate)) {
         startDate = thisStart.clone()
