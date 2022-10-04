@@ -92,6 +92,16 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
     }
   }, [orders])
 
+  useEffect(() => {
+    const outputOrderTimings = false
+    if (orders && outputOrderTimings) {
+      const timings = orders.map((msg: MessagePlanning) => {
+        return '' + msg.message.title + ',' + msg.message.startDate + ', ' + msg.message.endDate
+      })
+      console.log(timings)
+    }
+  }, [orders])
+
   return <>
     {
       orderGeometries &&

@@ -333,7 +333,8 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
   for (let i = 0; i < count; i++) {
-    const minsOffset = Math.floor(psora(1 + i) * 6) * 10
+    const willIncrement = psora(2 + i) > 0.7
+    const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 4) * 5 : 0
     startTime = startTime.add(minsOffset, 'm')
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
     res.push(createMessage(authorForce, 2 + i * 3, orderTypes, startTime))

@@ -231,7 +231,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const genData = (): void => {
-    const newOrders = randomOrdersDocs(200, allForces, [allForces[1].uniqid, allForces[2].uniqid], planningActivities)
+    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], planningActivities)
     console.log(newOrders)
   }
 
