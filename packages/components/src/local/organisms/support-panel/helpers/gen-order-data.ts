@@ -1,8 +1,13 @@
-import { PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ForceData, MessageDetails, MessageDetailsFrom, MessagePlanning, PerceivedTypes, Role } from '@serge/custom-types'
+import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
+import {
+  Asset, ForceData, MessageDetails, MessageDetailsFrom, MessagePlanning,
+  PerceivedTypes, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, Role
+} from '@serge/custom-types'
 import { PlanningMessageStructure } from '@serge/custom-types/message'
 import { findPerceivedAsTypes } from '@serge/helpers'
 import moment from 'moment-timezone'
+import * as turf from '@turf/turf'
+import L from 'leaflet'
 
 const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,
@@ -102,7 +107,7 @@ const psora = (k: number): number => {
   return r - Math.floor(r)
 }
 
-const randomArrayItem = (arr: any[], ctr: number): any => {
+const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
   return arr[Math.floor(arr.length * psora(ctr))]
 }
 
@@ -114,7 +119,73 @@ const activityTypes = ['Transit', 'Kinetic', 'Asymmetric']
 
 const locations = ['Point-A', 'Point-B', 'Region-A', 'Region-B', 'Polyline-A', 'Polyline-B']
 
-const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
+const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seed: number): GeoJSON.Feature => {
+  switch (geometry.aType) {
+    case GeometryType.point: {
+      return {
+        type: 'Feature',
+        properties: {
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: target.location || [-104.994, 39.75]
+        }
+      }
+    }
+    case GeometryType.polygon: {
+      // calculate the reference of cell immediately behind the origin
+      const leafPt = target.location || [100, -44]
+      const origin = turf.point([leafPt[1], leafPt[0]])
+      const rangeKm = Math.floor(psora(seed++) * 40)
+      const newTL = turf.destination(origin, rangeKm, 315).geometry.coordinates
+      const newBR = turf.destination(origin, rangeKm, 135).geometry.coordinates
+      const leafTL = L.latLng(newTL[1], newTL[0])
+      const leafBR = L.latLng(newBR[1], newBR[0])
+      return {
+        type: 'Feature',
+        properties: {
+        },
+        geometry: {
+          type: 'Polygon',
+          coordinates: [[[leafTL.lat, leafTL.lng], [leafBR.lat, leafBR.lng]]]
+        }
+      }
+    }
+    case GeometryType.polyline: {
+      const ownPt = own.location || [100, -44]
+      const tgtPt = target.location || [100, -44]
+      return {
+        type: 'Feature',
+        properties: {
+        },
+        geometry: {
+          type: 'LineString',
+          coordinates: [ownPt, tgtPt]
+        }
+      }
+    }
+  }
+}
+
+/** produce some planned geometries */
+export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: PlanningActivity, ctr: number): PlannedActivityGeometry[] => {
+  const own = randomArrayItem(ownAssets, ctr++)
+  const other = randomArrayItem(targets, ctr++)
+  const geoms = activity.geometries
+  if (geoms) {
+    const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry): PlannedActivityGeometry => {
+      const planned: PlannedActivityGeometry = {
+        uniqid: plan.uniqid,
+        geometry: geometryFor(own, other, plan, psora(ctr))
+      }
+      return planned
+    })
+    return res
+  }
+  return []
+}
+
+const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningActivity[]): MessagePlanning => {
   // details first
   const from = randomRole(force.roles, ctr)
   const fromD: MessageDetailsFrom = {
@@ -179,6 +250,7 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
     endDate: moment(startDate).add(Math.floor(psora(ctr * 2) * 19), 'h').toISOString(),
     Description: 'Order description ' + ctr,
     Location: randomArrayItem(locations, ctr + 8),
+    location: geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.ownAssets, ctr++)], randomArrayItem(orderTypes, ctr++), ctr),
     ActivityType: activity,
     Assets: assetObj,
     Targets: targetObj
@@ -187,12 +259,12 @@ const createMessage = (force: PerForceData, ctr: number): MessagePlanning => {
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
-export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[]): MessagePlanning[] => {
+export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PlanningActivity[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
   for (let i = 0; i < count; i++) {
     const authorForce: PerForceData = randomArrayItem(perForce, i)
-    res.push(createMessage(authorForce, i + 3))
+    res.push(createMessage(authorForce, i + 3, orderTypes))
   }
   return res
 }
