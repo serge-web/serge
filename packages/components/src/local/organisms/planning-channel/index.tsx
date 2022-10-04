@@ -19,6 +19,7 @@ import ViewAs from '../view-as'
 import ApplyFilter from '../apply-filter'
 import MapDrawActivity from '../map-draw-activity'
 import Item from '../../map-control/helpers/item'
+import { randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -101,6 +102,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // the activity currently being planned
   const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
 
+  const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
+
   useEffect(() => {
     if (forcePlanningActivities) {
       const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
@@ -182,8 +185,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     dispatch(markAllAsRead(channel.uniqid))
   }
 
+  useEffect(() => {
   // drop the turn markers
-  const planningMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
+    const myMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
+    setPlanningMessages(myMessages)
+    console.warn('have set planning messages', messages.length, myMessages.length)
+  }, [messages])
 
   const onRead = (detail: MessagePlanning): void => {
     dispatch(openMessage(channel.uniqid, detail as any as MessageChannel))
@@ -221,6 +228,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (planningActivities) {
       setCurrentActivity(planningActivities[0])
     }
+  }
+
+  const genData = (): void => {
+    const newOrders = randomOrdersDocs(100, allForces, [allForces[1].uniqid, allForces[2].uniqid], planningActivities)
+    console.log(newOrders)
+  }
+
+  const analyseData = (): void => {
+    console.log('analyse data')
   }
 
   return (
@@ -274,10 +290,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <Item title='go' onClick={startDrawing}>Start</Item>
             </div>
             <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
+            <div className={cx('leaflet-control')}>
+              <Item onClick={genData}>Gen</Item>
+            </div>
+            <div className={cx('leaflet-control')}>
+              <Item onClick={analyseData}>Lyze</Item>
+            </div>
           </>
         }>
         <>
-          <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+          <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
           <LayerGroup key={'own-forces'}>
             <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
           </LayerGroup>
