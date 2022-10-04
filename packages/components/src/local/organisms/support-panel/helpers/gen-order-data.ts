@@ -63,6 +63,7 @@ interface PerForceData {
   forceColor: ForceData['color']
   roles: Role[]
   ownAssets: Asset[]
+  otherAssets: Asset[]
   opAsset: PerceivedTypes[]
 }
 
@@ -70,6 +71,7 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
   const res: PerForceData[] = createFor.map((forceId: string): PerForceData => {
     const thisForce = forces.find((force: ForceData) => force.uniqid === forceId)
     const opAssets: PerceivedTypes[] = []
+    const realOpAssets: Asset[] = []
     forces.forEach((force: ForceData) => {
       if (force.uniqid !== forceId) {
         if (force.assets) {
@@ -85,6 +87,7 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
             )
             if (perceivedAsTypes) {
               opAssets.push(perceivedAsTypes)
+              realOpAssets.push(asset)
             }
           })
         }
@@ -96,7 +99,8 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
       forceColor: (thisForce && thisForce.color) || '',
       roles: thisForce ? thisForce.roles : [],
       ownAssets: (thisForce && thisForce.assets) || [],
-      opAsset: opAssets
+      opAsset: opAssets,
+      otherAssets: realOpAssets
     }
   })
   return res
@@ -122,13 +126,14 @@ const locations = ['Point-A', 'Point-B', 'Region-A', 'Region-B', 'Polyline-A', '
 const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seed: number): GeoJSON.Feature => {
   switch (geometry.aType) {
     case GeometryType.point: {
+      const loc = target.location ? [target.location[1], target.location[0]] : [-104.994, 39.75]
       return {
         type: 'Feature',
         properties: {
         },
         geometry: {
           type: 'Point',
-          coordinates: target.location || [-104.994, 39.75]
+          coordinates: loc
         }
       }
     }
@@ -139,8 +144,8 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
       const rangeKm = Math.floor(psora(seed++) * 40)
       const newTL = turf.destination(origin, rangeKm, 315).geometry.coordinates
       const newBR = turf.destination(origin, rangeKm, 135).geometry.coordinates
-      const leafTL = L.latLng(newTL[1], newTL[0])
-      const leafBR = L.latLng(newBR[1], newBR[0])
+      const leafTL = L.latLng(newTL[0], newTL[1])
+      const leafBR = L.latLng(newBR[0], newBR[1])
       return {
         type: 'Feature',
         properties: {
@@ -160,7 +165,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
         },
         geometry: {
           type: 'LineString',
-          coordinates: [ownPt, tgtPt]
+          coordinates: [[ownPt[1], ownPt[0]], [tgtPt[1], tgtPt[0]]]
         }
       }
     }
@@ -250,7 +255,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     endDate: moment(startDate).add(Math.floor(psora(ctr * 2) * 19), 'h').toISOString(),
     Description: 'Order description ' + ctr,
     Location: randomArrayItem(locations, ctr + 8),
-    location: geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.ownAssets, ctr++)], randomArrayItem(orderTypes, ctr++), ctr),
+    location: geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)], randomArrayItem(orderTypes, ctr++), ctr),
     ActivityType: activity,
     Assets: assetObj,
     Targets: targetObj
