@@ -50,7 +50,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
 
   useEffect(() => {
     if (orders) {
-      const withLocation = orders.filter((msg: MessagePlanning) => msg.message.location !== undefined)
+      const withLocation = orders.filter((msg: MessagePlanning) => msg.message && msg.message.location !== undefined)
       const geometries = withLocation.map((msg: MessagePlanning): GeoJSON.Feature[] => {
         if (msg.message.location) {
           const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
