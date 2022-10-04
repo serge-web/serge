@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -107,7 +107,8 @@ export default {
 const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
-    isUmpire
+    isUmpire,
+    messages
   } = args
 
   const mockFn = (): PlayerUiActionTypes => ({
@@ -138,7 +139,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
-    messages={planningMessages}
+    messages={messages}
     templates={templateBodies}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
@@ -163,4 +164,11 @@ const Template: Story<PlanningChannelProps> = (args) => {
 }
 
 export const Default = Template.bind({})
-Default.args = {}
+Default.args = {
+  messages: planningMessages
+}
+
+export const BulkData = Template.bind({})
+BulkData.args = {
+  messages: planningMessagesBulk
+}

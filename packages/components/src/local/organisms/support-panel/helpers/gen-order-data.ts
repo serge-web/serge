@@ -110,8 +110,10 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
 
 /** return a pseudo random number between 0 and 1 */
 const psora = (k: number): number => {
-  const r = Math.PI * (k ^ 4)
-  return r - Math.floor(r)
+  const m = Math.pow(3 + k, 2)
+  const r = Math.PI * m
+  const res = r - Math.floor(r)
+  return res
 }
 
 const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
@@ -130,7 +132,8 @@ const flipMe = (point: number[]): number[] => {
   return [point[1], point[0]]
 }
 
-const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seed: number): GeoJSON.Feature => {
+const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string): GeoJSON.Feature => {
+  const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
   switch (geometry.aType) {
     case GeometryType.point: {
@@ -138,6 +141,8 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
       return {
         type: 'Feature',
         properties: {
+          startDate: timeStart,
+          endDate: timeFinish
         },
         geometry: {
           type: 'Point',
@@ -149,16 +154,17 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
       // calculate the reference of cell immediately behind the origin
       const leafPt = target.location || dummyLocation
       const origin = turf.point([leafPt[1], leafPt[0]])
-      const rangeKm = 30 + Math.floor(psora(seed++) * 140)
+      const rangeKm = 30 + psora(seed) * 600
       const newTL = turf.destination(origin, rangeKm, 315).geometry.coordinates
       const newBR = turf.destination(origin, rangeKm, 135).geometry.coordinates
       const leafTL = L.latLng(newTL[0], newTL[1])
       const leafBR = L.latLng(newBR[0], newBR[1])
-      const coords = [[[leafTL.lat, leafTL.lng], [leafBR.lat, leafBR.lng]]]
-      console.log('poly', coords)
+      const coords = [[[leafTL.lat, leafTL.lng], [leafTL.lat, leafBR.lng], [leafBR.lat, leafBR.lng], [leafBR.lat, leafTL.lng], [leafTL.lat, leafTL.lng]]]
       return {
         type: 'Feature',
         properties: {
+          startDate: timeStart,
+          endDate: timeFinish
         },
         geometry: {
           type: 'Polygon',
@@ -169,23 +175,25 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
     case GeometryType.polyline: {
       const ownPt = own.location || dummyLocation
       const tgtPt = target.location || dummyLocation
-      const numBreaks = Math.floor(psora(seed++) * 4) + 1
+      const numBreaks = Math.floor(psora(seed) * 4) + 1
       const deltaLat = (tgtPt[0] - ownPt[0]) / numBreaks
       const deltaLng = (tgtPt[1] - ownPt[1]) / numBreaks
       const path = [flipMe(ownPt)]
       for (let i = 1; i <= numBreaks; i++) {
-        const newPtLat = ownPt[0] + deltaLat * i + psora(i) * 2
-        const newPtLng = ownPt[1] + deltaLng * i + psora(i) * 2
+        const variance = 0.5
+        const newPtLat = ownPt[0] + deltaLat * i - variance + psora(seed + i) * 2 * variance
+        const newPtLng = ownPt[1] + deltaLng * i - variance + psora(seed - i) * 2 * variance
         const roundedLat = Math.trunc(newPtLat * 100) / 100
         const roundedLng = Math.trunc(newPtLng * 100) / 100
         const pt = [roundedLat, roundedLng]
         path.push(flipMe(pt))
       }
       path.push(flipMe(tgtPt))
-      console.log('path', seed, geometry.uniqid, geometry.name, own.uniqid, target.uniqid, path)
       return {
         type: 'Feature',
         properties: {
+          startDate: timeStart,
+          endDate: timeFinish
         },
         geometry: {
           type: 'LineString',
@@ -197,16 +205,20 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
 }
 
 /** produce some planned geometries */
-export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: PlanningActivity, ctr: number): PlannedActivityGeometry[] => {
+export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
   const own = randomArrayItem(ownAssets, ctr++)
   const other = randomArrayItem(targets, ctr++)
   const geoms = activity.geometries
   if (geoms) {
     const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry, index: number): PlannedActivityGeometry => {
+      const timeStart = timeNow
+      const minsOffset = Math.floor(psora(1 + index * ctr) * 20) * 10
+      const timeEnd = timeStart.clone().add(minsOffset, 'm')
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(own, other, plan, index)
+        geometry: geometryFor(own, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString())
       }
+      timeNow = timeEnd
       return planned
     })
     return res
@@ -214,9 +226,9 @@ export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: Pl
   return []
 }
 
-const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningActivity[]): MessagePlanning => {
+const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningActivity[], timeNow: moment.Moment): MessagePlanning => {
   // details first
-  const from = randomRole(force.roles, ctr)
+  const from = randomRole(force.roles, 4 + ctr)
   const fromD: MessageDetailsFrom = {
     force: force.forceName,
     forceColor: force.forceColor,
@@ -236,7 +248,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
   for (let k = 0; k < numAssets; k++) {
-    let possAsset = randomArrayItem(force.ownAssets, ctr + 3)
+    let possAsset = randomArrayItem(force.ownAssets, 1 + k + ctr + 3)
     let ctr2 = ctr
     while (assets.includes(possAsset)) {
       possAsset = randomArrayItem(force.ownAssets, ++ctr2)
@@ -247,13 +259,13 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     const startDate = moment('2022-09-21T00:00:00.000Z').add(psora(index + 2) * 5, 'h').startOf('hour').toISOString()
     return {
       FEName: asset.name,
-      Number: Math.floor(psora(index) * 5),
+      Number: Math.floor(psora(index + 2) * 5),
       StartDate: startDate,
-      EndDate: moment(startDate).add(Math.floor(psora(index + 2) * 19), 'h').toISOString()
+      EndDate: moment(startDate).add(Math.floor(psora(ctr + index + 2) * 19), 'h').toISOString()
     }
   })
 
-  const numTargets = randomArrayItem([1, 2, 3], ctr * 1.4)
+  const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
   const targets: PerceivedTypes[] = []
   for (let m = 0; m < numTargets; m++) {
     let possTarget = randomArrayItem(force.opAsset, m + 3)
@@ -271,15 +283,43 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   })
 
   const activity = randomArrayItem(activityTypes, ctr - 3)
-  const startDate = moment('2022-09-21T00:00:00.000Z').add(psora(2) * 5, 'h').startOf('hour').toISOString()
+  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)],
+    randomArrayItem(orderTypes, ctr++), 5 * psora(4 * ctr), timeNow)
+
+  // sort out the overall time period
+  let startDate: moment.Moment | undefined
+  let endDate: moment.Moment | undefined
+  geometries.forEach((val: PlannedActivityGeometry) => {
+    const props = val.geometry.properties
+    if (props) {
+      const thisStart = moment(props.endDate)
+      const thisEnd = moment(props.endDate)
+      if (!startDate || thisStart.isBefore(startDate)) {
+        startDate = thisStart.clone()
+      }
+      if (!endDate || thisEnd.isAfter(endDate)) {
+        endDate = thisEnd.clone()
+      }
+    }
+  })
+
+  if (!startDate) {
+    const timeStart = timeNow
+    const minsOffset = Math.floor(psora(2 * ctr) * 20) * 10
+    const timeEnd = timeStart.clone().add(minsOffset, 'm')
+    startDate = timeStart
+    endDate = timeEnd
+  }
+
+  // create the message
   const message: PlanningMessageStructure = {
     reference: force.forceName + '-' + ctr,
     title: 'Order item ' + ctr + ' ' + activity,
-    startDate: startDate,
-    endDate: moment(startDate).add(Math.floor(psora(ctr * 2) * 19), 'h').toISOString(),
+    startDate: startDate && startDate.toISOString(),
+    endDate: endDate && endDate.toISOString(),
     Description: 'Order description ' + ctr,
     Location: randomArrayItem(locations, ctr + 8),
-    location: geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)], randomArrayItem(orderTypes, ctr++), psora(ctr)),
+    location: geometries,
     ActivityType: activity,
     Assets: assetObj,
     Targets: targetObj
@@ -291,9 +331,12 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
 export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PlanningActivity[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
+  let startTime = moment('2022-11-15T00:00:00.000Z')
   for (let i = 0; i < count; i++) {
-    const authorForce: PerForceData = randomArrayItem(perForce, i)
-    res.push(createMessage(authorForce, i + 3, orderTypes))
+    const minsOffset = Math.floor(psora(1 + i) * 6) * 10
+    startTime = startTime.add(minsOffset, 'm')
+    const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
+    res.push(createMessage(authorForce, 2 + i * 3, orderTypes, startTime))
   }
   return res
 }
