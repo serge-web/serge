@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "target": "ES2019",
     "module": "commonjs",
     "lib": ["es5", "es6", "es7", "es2017", "ES2019", "dom"],
