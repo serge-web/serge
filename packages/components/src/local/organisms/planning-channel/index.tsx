@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
+import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
@@ -17,6 +17,8 @@ import { LayerGroup } from 'react-leaflet'
 import PlanningForces from '../planning-force'
 import ViewAs from '../view-as'
 import ApplyFilter from '../apply-filter'
+import MapDrawActivity from '../map-draw-activity'
+import Item from '../../map-control/helpers/item'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -95,6 +97,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   // the planning activiites for the selected force
   const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
+
+  // the activity currently being planned
+  const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -205,7 +210,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
+  const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
+    setCurrentActivity(undefined)
+    window.alert('Geometries complete ' + geometries.length)
+  }
+
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
+
+  const startDrawing = (): void => {
+    if (planningActivities) {
+      setCurrentActivity(planningActivities[0])
+    }
+  }
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -253,6 +269,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           <>
             <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
             <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+            { /* dummy button, to trigger drawing process */}
+            <div className={cx('leaflet-control')}>
+              <Item title='go' onClick={startDrawing}>Start</Item>
+            </div>
+            <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
           </>
         }>
         <>
