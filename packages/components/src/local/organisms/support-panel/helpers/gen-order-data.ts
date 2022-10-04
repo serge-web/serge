@@ -1,7 +1,7 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, MessageDetails, MessageDetailsFrom, MessagePlanning,
-  PerceivedTypes, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, Role
+  PerceivedTypes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { PlanningMessageStructure } from '@serge/custom-types/message'
 import { findPerceivedAsTypes } from '@serge/helpers'
@@ -135,15 +135,16 @@ const flipMe = (point: number[]): number[] => {
 const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string): GeoJSON.Feature => {
   const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
+  const dateProps: PlannedProps = {
+    startDate: timeStart,
+    endDate: timeFinish
+  }
   switch (geometry.aType) {
     case GeometryType.point: {
       const loc = target.location || dummyLocation
       return {
         type: 'Feature',
-        properties: {
-          startDate: timeStart,
-          endDate: timeFinish
-        },
+        properties: dateProps,
         geometry: {
           type: 'Point',
           coordinates: flipMe(loc)
@@ -162,10 +163,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
       const coords = [[[leafTL.lat, leafTL.lng], [leafTL.lat, leafBR.lng], [leafBR.lat, leafBR.lng], [leafBR.lat, leafTL.lng], [leafTL.lat, leafTL.lng]]]
       return {
         type: 'Feature',
-        properties: {
-          startDate: timeStart,
-          endDate: timeFinish
-        },
+        properties: dateProps,
         geometry: {
           type: 'Polygon',
           coordinates: coords
@@ -191,10 +189,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
       path.push(flipMe(tgtPt))
       return {
         type: 'Feature',
-        properties: {
-          startDate: timeStart,
-          endDate: timeFinish
-        },
+        properties: dateProps,
         geometry: {
           type: 'LineString',
           coordinates: path

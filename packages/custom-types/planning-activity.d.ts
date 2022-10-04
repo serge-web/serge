@@ -58,6 +58,12 @@ export interface PlannedActivityGeometry {
   geometry: GeoJSON.Feature
 } 
 
+/** structure for how we store date in props */
+export interface PlannedProps {
+  startDate: string
+  endDate: string
+}
+
 /** object that describes the structure of
  * an activity that can be planned in the PlanningChannel
  */
