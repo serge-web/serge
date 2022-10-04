@@ -35,7 +35,6 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
         }
       }
     }
-    console.warn('activity color not found for', feature)
     return {
       color: forceColor || '#f00'
     }

@@ -1,8 +1,6 @@
-import { OrderRow } from '../../planning-assets/types/props'
-
 export default interface PropTypes {
   /** the set of orders to display */
-  orders: OrderRow[]
+  orders: MessagePlanning[]
   /** a reference list of plannign activiites (used to get color/styling) */
   activities: PlanningActivity[]
   /** handler for a set of orders being clicked */
