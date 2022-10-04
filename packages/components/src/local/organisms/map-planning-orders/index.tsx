@@ -1,6 +1,6 @@
 
 import { MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
-import { PathOptions, StyleFunction, Layer } from 'leaflet'
+import { PathOptions, StyleFunction, Layer, circleMarker } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
@@ -20,6 +20,19 @@ const findActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGe
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
   const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>(undefined)
 
+  const geojsonMarkerOptions = {
+    radius: 20,
+    fillColor: '#ff7800',
+    color: '#0f0',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+  }
+
+  const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: L.LatLng): L.Layer => {
+    return circleMarker(latlng, geojsonMarkerOptions)
+  }
+
   /** orders definitions can specify the color to use.  If there is one, use it.
    * else use the force color
    */
@@ -31,7 +44,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
         const color = activity.color
         return {
           color: color,
-          fillColor: color
+          fillColor: color,
+          className: 'leaflet-default-icon-path'
         }
       }
     }
@@ -82,7 +96,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
     {
       orderGeometries &&
       <LayerGroup key={'orders'}>
-        <GeoJSON style={styleFor} onEachFeature={onEachFeature} data={orderGeometries} />
+        <GeoJSON style={styleFor} pointToLayer={pointToLayer} onEachFeature={onEachFeature} data={orderGeometries} />
       </LayerGroup>
     }
   </>
