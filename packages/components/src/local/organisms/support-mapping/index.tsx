@@ -1,14 +1,14 @@
 
 import 'leaflet/dist/leaflet.css'
-import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
 import React, { useEffect } from 'react'
-import PropTypes from './types/props'
+import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
 import MapControl from '../../map-control'
 import { MapConstants } from './helper/MapConstants'
+import PropTypes from './types/props'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds,
-  actionItems, actionCallback, toolbarChildren, maxWidth, children
+  actionItems, actionCallback, toolbarChildren, mapWidth, children
 }) => {
   const TileLayerProps = MapConstants.TileLayer
   const map = useMap()
@@ -17,7 +17,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
     if (map) {
       map.invalidateSize()
     }
-  }, [maxWidth])
+  }, [mapWidth])
 
   useEffect(() => {
     if (bounds && map) {

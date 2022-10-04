@@ -3,7 +3,7 @@ import { LatLngExpression, LatLngBounds } from 'leaflet'
 export default interface PropTypes {
   bounds?: LatLngBounds
   position?: LatLngExpression
-  maxWidth?: string
+  mapWidth?: string
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */

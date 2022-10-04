@@ -18,8 +18,8 @@ import ViewAs from '../view-as'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-import MapDrawActivity from '../map-draw-activity'
 import Item from '../../map-control/helpers/item'
+import MapDrawActivity from '../map-draw-activity'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -92,7 +92,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
-  const [mapMaxWidth, setMapMaxWidth] = useState<string>('100%')
+  const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
   // action items to go on map
   const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
 
@@ -205,7 +205,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const onPanelWidthChange = (width: number): void => setMapMaxWidth(`calc(100% - ${width}px)`)
+  const onPanelWidthChange = (width: number): void => setMapWidth(`calc(100% - ${width}px)`)
 
   const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
@@ -223,6 +223,24 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setCurrentActivity(planningActivities[0])
     }
   }
+
+  const mapChildren = useMemo(() => {
+    return (
+      <>
+        <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+        <LayerGroup key={'own-forces'}>
+          <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+        </LayerGroup>
+        <LayerGroup key={'opp-forces'}>
+          <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+        </LayerGroup>
+        { /* dummy button, to trigger drawing process */}
+        <div className={cx('leaflet-control')}>
+          <Item title='go' onClick={startDrawing}>Start</Item>
+        </div>
+        <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
+      </>)
+  }, [selectedAssets])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -259,42 +277,31 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onPanelWidthChange={onPanelWidthChange}
         />
       </SupportPanelContext.Provider>
-      <MapContainer
-        className={styles.map}
-        zoomControl={false}
-        center={bounds?.getCenter()}
-        zoom={zoom}
-      >
-        <SupportMapping
-          bounds={bounds}
-          position={position}
-          actionItems={mapActionItems}
-          actionCallback={mapActionCallback}
-          maxWidth={mapMaxWidth}
-          toolbarChildren={
-            <>
-              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-              <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-            </>
-          }>
-          <>
-            <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
-            <LayerGroup key={'own-forces'}>
-              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-            </LayerGroup>
-            <LayerGroup key={'opp-forces'}>
-              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-            </LayerGroup>
-            <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-            <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-            { /* dummy button, to trigger drawing process */}
-            <div className={cx('leaflet-control')}>
-              <Item title='go' onClick={startDrawing}>Start</Item>
-            </div>
-            <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
-          </>
-        </SupportMapping>
-      </MapContainer>
+      <div className={styles['map-container']}>
+        <div style={{ width: mapWidth }}>
+          <MapContainer
+            className={styles.map}
+            zoomControl={false}
+            center={bounds?.getCenter()}
+            zoom={zoom}
+          >
+            <SupportMapping
+              bounds={bounds}
+              position={position}
+              actionItems={mapActionItems}
+              actionCallback={mapActionCallback}
+              mapWidth={mapWidth}
+              toolbarChildren={
+                <>
+                  <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                  <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                </>
+              }>
+              {mapChildren}
+            </SupportMapping>
+          </MapContainer>
+        </div>
+      </div>
     </div>
   )
 }
