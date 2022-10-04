@@ -76,18 +76,20 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
       if (force.uniqid !== forceId) {
         if (force.assets) {
           force.assets.forEach((asset: Asset) => {
-            const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
-              forceId,
-              asset.name,
-              !!(force.visibleTo && force.visibleTo.includes(forceId)),
-              asset.contactId,
-              force.uniqid,
-              asset.platformTypeId,
-              asset.perceptions
-            )
-            if (perceivedAsTypes) {
-              opAssets.push(perceivedAsTypes)
-              realOpAssets.push(asset)
+            if (asset.location) {
+              const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
+                forceId,
+                asset.name,
+                !!(force.visibleTo && force.visibleTo.includes(forceId)),
+                asset.contactId,
+                force.uniqid,
+                asset.platformTypeId,
+                asset.perceptions
+              )
+              if (perceivedAsTypes) {
+                opAssets.push(perceivedAsTypes)
+                realOpAssets.push(asset)
+              }
             }
           })
         }
@@ -106,6 +108,7 @@ const collateForceData = (forces: ForceData[], createFor: string[]): PerForceDat
   return res
 }
 
+/** return a pseudo random number between 0 and 1 */
 const psora = (k: number): number => {
   const r = Math.PI * (k ^ 4)
   return r - Math.floor(r)
@@ -123,49 +126,70 @@ const activityTypes = ['Transit', 'Kinetic', 'Asymmetric']
 
 const locations = ['Point-A', 'Point-B', 'Region-A', 'Region-B', 'Polyline-A', 'Polyline-B']
 
+const flipMe = (point: number[]): number[] => {
+  return [point[1], point[0]]
+}
+
 const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seed: number): GeoJSON.Feature => {
+  const dummyLocation = [39.75, -104.994]
   switch (geometry.aType) {
     case GeometryType.point: {
-      const loc = target.location ? [target.location[1], target.location[0]] : [-104.994, 39.75]
+      const loc = target.location || dummyLocation
       return {
         type: 'Feature',
         properties: {
         },
         geometry: {
           type: 'Point',
-          coordinates: loc
+          coordinates: flipMe(loc)
         }
       }
     }
     case GeometryType.polygon: {
       // calculate the reference of cell immediately behind the origin
-      const leafPt = target.location || [100, -44]
+      const leafPt = target.location || dummyLocation
       const origin = turf.point([leafPt[1], leafPt[0]])
-      const rangeKm = Math.floor(psora(seed++) * 40)
+      const rangeKm = 30 + Math.floor(psora(seed++) * 140)
       const newTL = turf.destination(origin, rangeKm, 315).geometry.coordinates
       const newBR = turf.destination(origin, rangeKm, 135).geometry.coordinates
       const leafTL = L.latLng(newTL[0], newTL[1])
       const leafBR = L.latLng(newBR[0], newBR[1])
+      const coords = [[[leafTL.lat, leafTL.lng], [leafBR.lat, leafBR.lng]]]
+      console.log('poly', coords)
       return {
         type: 'Feature',
         properties: {
         },
         geometry: {
           type: 'Polygon',
-          coordinates: [[[leafTL.lat, leafTL.lng], [leafBR.lat, leafBR.lng]]]
+          coordinates: coords
         }
       }
     }
     case GeometryType.polyline: {
-      const ownPt = own.location || [100, -44]
-      const tgtPt = target.location || [100, -44]
+      const ownPt = own.location || dummyLocation
+      const tgtPt = target.location || dummyLocation
+      const numBreaks = Math.floor(psora(seed++) * 4) + 1
+      const deltaLat = (tgtPt[0] - ownPt[0]) / numBreaks
+      const deltaLng = (tgtPt[1] - ownPt[1]) / numBreaks
+      const path = [flipMe(ownPt)]
+      for (let i = 1; i <= numBreaks; i++) {
+        const newPtLat = ownPt[0] + deltaLat * i + psora(i) * 2
+        const newPtLng = ownPt[1] + deltaLng * i + psora(i) * 2
+        const roundedLat = Math.trunc(newPtLat * 100) / 100
+        const roundedLng = Math.trunc(newPtLng * 100) / 100
+        const pt = [roundedLat, roundedLng]
+        path.push(flipMe(pt))
+      }
+      path.push(flipMe(tgtPt))
+      console.log('path', seed, geometry.uniqid, geometry.name, own.uniqid, target.uniqid, path)
       return {
         type: 'Feature',
         properties: {
         },
         geometry: {
           type: 'LineString',
-          coordinates: [[ownPt[1], ownPt[0]], [tgtPt[1], tgtPt[0]]]
+          coordinates: path
         }
       }
     }
@@ -178,10 +202,10 @@ export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: Pl
   const other = randomArrayItem(targets, ctr++)
   const geoms = activity.geometries
   if (geoms) {
-    const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry): PlannedActivityGeometry => {
+    const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry, index: number): PlannedActivityGeometry => {
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(own, other, plan, psora(ctr))
+        geometry: geometryFor(own, other, plan, index)
       }
       return planned
     })
@@ -255,7 +279,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     endDate: moment(startDate).add(Math.floor(psora(ctr * 2) * 19), 'h').toISOString(),
     Description: 'Order description ' + ctr,
     Location: randomArrayItem(locations, ctr + 8),
-    location: geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)], randomArrayItem(orderTypes, ctr++), ctr),
+    location: geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)], randomArrayItem(orderTypes, ctr++), psora(ctr)),
     ActivityType: activity,
     Assets: assetObj,
     Targets: targetObj
