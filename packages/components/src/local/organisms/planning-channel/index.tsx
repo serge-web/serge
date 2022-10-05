@@ -105,7 +105,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
-  const [debugStep, setDebugStep] = useState<number>(12)
+  const [debugStep, setDebugStep] = useState<number>(0)
 
   useEffect(() => {
     if (forcePlanningActivities) {

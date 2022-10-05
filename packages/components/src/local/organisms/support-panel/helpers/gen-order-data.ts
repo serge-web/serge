@@ -4,7 +4,7 @@ import {
   PerceivedTypes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { PlanningMessageStructure } from '@serge/custom-types/message'
-import { findPerceivedAsTypes } from '@serge/helpers'
+import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import moment from 'moment-timezone'
 import * as turf from '@turf/turf'
 import L from 'leaflet'
@@ -398,7 +398,7 @@ export const findPlannedGeometries = (orders: GeomWithOrders[], time: string, wi
     const props = value.geometry.properties as PlannedProps
     return moment(props.startDate).isSameOrBefore(timeEnd) && moment(props.endDate).isSameOrAfter(timeStart)
   })
-  return inWindow
+  return deepCopy(inWindow)
 }
 
 const clean = (val: number): number => {
