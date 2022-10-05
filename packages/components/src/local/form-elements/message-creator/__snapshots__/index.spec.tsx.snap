@@ -22,6 +22,8 @@ Array [
     <textarea
       className="form-control"
       id="private-message-input"
+      onChange={[Function]}
+      value=""
     />
   </div>,
   <div

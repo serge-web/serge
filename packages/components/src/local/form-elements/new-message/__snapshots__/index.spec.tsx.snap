@@ -120,6 +120,8 @@ exports[`NewMessage renders correctly 1`] = `
           <textarea
             className="form-control"
             id="private-message-input"
+            onChange={[Function]}
+            value=""
           />
         </div>
         <div
