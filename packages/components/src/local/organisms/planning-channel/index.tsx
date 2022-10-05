@@ -20,6 +20,7 @@ import ApplyFilter from '../apply-filter'
 import MapDrawActivity from '../map-draw-activity'
 import Item from '../../map-control/helpers/item'
 import { randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import OrderPlotter from './helpers/OrderPlotter'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -299,6 +300,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           </>
         }>
         <>
+          <OrderPlotter orders={planningMessages} step={1} />
           <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
           <LayerGroup key={'own-forces'}>
             <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />

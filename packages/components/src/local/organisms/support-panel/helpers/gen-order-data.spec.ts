@@ -1,9 +1,7 @@
-import { geometriesFor, randomOrdersDocs } from './gen-order-data'
-
+import { geometriesFor, randomOrdersDocs, invertMessages, findPlannedGeometries, spatialBinning, putInBin } from './gen-order-data'
 import { P9Mock, MockPlanningActivities, planningMessages } from '@serge/mocks'
 import moment from 'moment'
-import { MessagePlanning, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import L from 'leaflet'
+import * as turf from '@turf/turf'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -33,85 +31,155 @@ it('produces planned goemetries', () => {
   }
 })
 
-interface GeomWithOrders extends PlannedActivityGeometry {
-  activity: MessagePlanning
-}
-
-const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] => {
-  const res: GeomWithOrders[] = []
-  messages.forEach((message: MessagePlanning) => {
-    if (message.message.location) {
-      message.message.location.forEach((plan: PlannedActivityGeometry) => {
-        const newItem = { ...plan, activity: message }
-        res.push(newItem)
-      })
-    }
-  })
-  return res
-}
-
-const findPlannedGeometries = (orders: GeomWithOrders[], time: string, windowMins: number): GeomWithOrders[] => {
-  const timeStart = moment(time)
-  const timeEnd = moment(time).add(windowMins, 'm')
-  const inWindow = orders.filter((value: GeomWithOrders) => {
-    const props = value.geometry.properties as PlannedProps
-    return moment(props.startDate).isSameOrBefore(timeEnd) && moment(props.endDate).isSameOrAfter(timeStart)
-  })
-  return inWindow
-}
-const clean = (val: number): number => {
-  const scalar = 1000
-  return Math.floor(val * scalar) / scalar
-}
-
-const cleanCoords = (data: number[][]): number[][] => {
-  return [[clean(data[0][0]), clean(data[0][1])], [clean(data[1][0]), clean(data[1][1])]]
-}
-
-const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): number => {
-  let bounds: L.LatLngBounds | undefined
-  orders.forEach((geom: GeomWithOrders) => {
-    const geoAny = geom.geometry.geometry as any
-    geoAny.coordinates.forEach((point: number[]) => {
-      const pt = L.latLng(point[1], point[0])
-      if (!bounds) {
-        bounds = L.latLngBounds(pt, pt)
-      } else {
-        bounds.extend(pt)
-      }
-    })
-  })
-  console.log('outer bounds', bounds)
-  const boxes = []
-  if (bounds) {
-    const height = bounds.getNorth() - bounds.getSouth()
-    const width = bounds.getEast() - bounds.getWest()
-    const heightDelta = height / binsPerSize
-    const widthDelta = width / binsPerSize
-    for (let x = 0; x <= binsPerSize; x++) {
-      for (let y = 0; y < binsPerSize; y++) {
-        const bX = clean(bounds.getWest() + x * widthDelta)
-        const bY = clean(bounds.getSouth() + y * heightDelta)
-        const tX = clean(bX + widthDelta)
-        const tY = clean(bY + heightDelta)
-        const bbox = cleanCoords([[bY, bX], [tY, tX]])
-        const poly = [[[bX, bY], [tX, bY], [tX, tY], [bX, tY], [bX, bY]]]
-        console.log(poly)
-        // pushGeo(poly)
-        boxes.push(bbox)
-      }
+it('overlaps works as expected', () => {
+  const point: turf.Feature = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        [
+          120.99316406249999,
+          -15.35249785815401
+        ]
+      ]
     }
   }
-  console.log(boxes)
-  return 2 + boxes.length
-}
+
+  const line: turf.Feature = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'LineString',
+      coordinates: [
+        [
+          117.99316406249999,
+          -26.35249785815401
+        ],
+        [
+          122.56347656249999,
+          -11.5230875068685
+        ],
+        [
+          136.2744140625,
+          -11.60919340793894
+        ]
+      ]
+    }
+  }
+  const poly: turf.Feature = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [
+            116.486,
+            -21.64
+          ],
+          [
+            132.942,
+            -21.64
+          ],
+          [
+            132.942,
+            -13.982
+          ],
+          [
+            116.486,
+            -13.982
+          ],
+          [
+            116.486,
+            -21.64
+          ]
+        ]
+      ]
+    }
+  }
+  const poly2: turf.Feature = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [
+            126.298828125,
+            -25.324166525738384
+          ],
+          [
+            135.83496093749997,
+            -25.324166525738384
+          ],
+          [
+            135.83496093749997,
+            -20.179723502765153
+          ],
+          [
+            126.298828125,
+            -20.179723502765153
+          ],
+          [
+            126.298828125,
+            -25.324166525738384
+          ]
+        ]
+      ]
+    }
+  }
+
+  const disconnectedPoly: turf.Feature = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [
+            134.2529296875,
+            -16.1724728083975
+          ],
+          [
+            140.361328125,
+            -16.1724728083975
+          ],
+          [
+            140.361328125,
+            -13.2399454992863
+          ],
+          [
+            134.2529296875,
+            -13.2399454992863
+          ],
+          [
+            134.2529296875,
+            -16.1724728083975
+          ]
+        ]
+      ]
+    }
+  }
+
+  expect(turf.booleanCrosses(poly, line)).toBeTruthy()
+  const pointGeo = point.geometry as any
+  const turfPoint = turf.point(pointGeo.coordinates[0])
+  const polyCoords = poly.geometry as any
+  const poly2a = turf.polygon(polyCoords.coordinates)
+  expect(turf.booleanPointInPolygon(turfPoint, poly2a)).toBeTruthy()
+  expect(turf.booleanOverlap(poly, poly2)).toBeTruthy()
+  expect(turf.booleanOverlap(poly, disconnectedPoly)).toBeFalsy()
+})
 
 it('bins overlaps for time', () => {
   const time = '2022-11-15T00:00:00.000Z'
   const orders = invertMessages(planningMessages)
-  const binsInWindow = findPlannedGeometries(orders, time, 30)
-  console.log(binsInWindow.length)
+  const binsInTimeWindow = findPlannedGeometries(orders, time, 30)
   // now do spatial binning
-  const bins = spatialBinning(binsInWindow, 2)
-  console.log(bins)
+  const bins = spatialBinning(binsInTimeWindow, 6)
+
+  const binnedOrders = putInBin(orders, bins)
+  expect(binnedOrders).toBeTruthy()
+  expect(binnedOrders.length).toEqual(22)
 })

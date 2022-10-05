@@ -67,6 +67,13 @@ interface PerForceData {
   opAsset: PerceivedTypes[]
 }
 
+/** object that lets us put the parent orders object into
+ * a planned geometry
+ */
+export interface GeomWithOrders extends PlannedActivityGeometry {
+  activity: MessagePlanning
+}
+
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
   const res: PerForceData[] = createFor.map((forceId: string): PerForceData => {
     const thisForce = forces.find((force: ForceData) => force.uniqid === forceId)
@@ -323,6 +330,19 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
+export const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] => {
+  const res: GeomWithOrders[] = []
+  messages.forEach((message: MessagePlanning) => {
+    if (message.message.location) {
+      message.message.location.forEach((plan: PlannedActivityGeometry) => {
+        const newItem = { ...plan, activity: message }
+        res.push(newItem)
+      })
+    }
+  })
+  return res
+}
+
 export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PlanningActivity[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
@@ -334,5 +354,103 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
     res.push(createMessage(authorForce, 2 + i * 3, orderTypes, startTime))
   }
+  return res
+}
+
+export const findPlannedGeometries = (orders: GeomWithOrders[], time: string, windowMins: number): GeomWithOrders[] => {
+  const timeStart = moment(time)
+  const timeEnd = moment(time).add(windowMins, 'm')
+  const inWindow = orders.filter((value: GeomWithOrders) => {
+    const props = value.geometry.properties as PlannedProps
+    return moment(props.startDate).isSameOrBefore(timeEnd) && moment(props.endDate).isSameOrAfter(timeStart)
+  })
+  return inWindow
+}
+
+const clean = (val: number): number => {
+  const scalar = 1000
+  return Math.floor(val * scalar) / scalar
+}
+
+export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): turf.Feature[] => {
+  let bounds: L.LatLngBounds | undefined
+  orders.forEach((geom: GeomWithOrders) => {
+    const geoAny = geom.geometry.geometry as any
+    geoAny.coordinates.forEach((point: number[]) => {
+      const pt = L.latLng(point[1], point[0])
+      if (!bounds) {
+        bounds = L.latLngBounds(pt, pt)
+      } else {
+        bounds.extend(pt)
+      }
+    })
+  })
+  const boxes: turf.Feature[] = []
+  if (bounds) {
+    const height = bounds.getNorth() - bounds.getSouth()
+    const width = bounds.getEast() - bounds.getWest()
+    const heightDelta = height / binsPerSize
+    const widthDelta = width / binsPerSize
+    for (let x = 0; x < binsPerSize; x++) {
+      for (let y = 0; y < binsPerSize; y++) {
+        const bX = clean(bounds.getWest() + x * widthDelta)
+        const bY = clean(bounds.getSouth() + y * heightDelta)
+        const tX = clean(bX + widthDelta)
+        const tY = clean(bY + heightDelta)
+        const poly = [[[bX, bY], [tX, bY], [tX, tY], [bX, tY], [bX, bY]]]
+        const turfPoly = turf.polygon(poly)
+        // pushGeo(poly)
+        boxes.push(turfPoly)
+      }
+    }
+  }
+  return boxes
+}
+
+export interface SpatialBin {
+  polygon: turf.Feature
+  orders: GeomWithOrders[]
+}
+
+export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): SpatialBin[] => {
+  const res: SpatialBin[] = []
+  bins.forEach((poly: turf.Feature) => {
+    const thisBin: SpatialBin = {
+      polygon: poly,
+      orders: []
+    }
+    const polyGeo = poly.geometry as any
+    const turfPoly = turf.polygon(polyGeo.coordinates)
+    orders.forEach((order: GeomWithOrders) => {
+      const geom = order.geometry.geometry as any
+      const coords = geom.coordinates
+      switch (order.geometry.geometry.type) {
+        case 'Point': {
+          const pt = turf.point(coords)
+          if (turf.booleanPointInPolygon(pt, turfPoly)) {
+            thisBin.orders.push(order)
+          }
+          break
+        }
+        case 'LineString': {
+          const lineS = turf.lineString(coords)
+          if (turf.booleanCrosses(lineS, poly)) {
+            thisBin.orders.push(order)
+          }
+          break
+        }
+        case 'Polygon': {
+          const thisPoly = turf.polygon(coords)
+          if (turf.booleanOverlap(poly, thisPoly)) {
+            thisBin.orders.push(order)
+          }
+          break
+        }
+      }
+    })
+    if (thisBin.orders.length > 0) {
+      res.push(thisBin)
+    }
+  })
   return res
 }
