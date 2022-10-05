@@ -105,6 +105,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
+  const [debugStep, setDebugStep] = useState<number>(0)
+
   useEffect(() => {
     if (forcePlanningActivities) {
       const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
@@ -187,7 +189,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-  // drop the turn markers
+    // drop the turn markers
     const myMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
     setPlanningMessages(myMessages)
     console.warn('have set planning messages', messages.length, myMessages.length)
@@ -236,9 +238,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log(newOrders)
   }
 
-  const analyseData = (): void => {
-    console.log('analyse data')
+  const incrementDebugStep = (): void => {
+    setDebugStep(1 + debugStep)
   }
+
+  const doNotRender = !7
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -295,19 +299,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <Item onClick={genData}>Gen</Item>
             </div>
             <div className={cx('leaflet-control')}>
-              <Item onClick={analyseData}>Lyze</Item>
+              <Item onClick={incrementDebugStep}>Step</Item>
             </div>
           </>
         }>
         <>
-          <OrderPlotter orders={planningMessages} step={1} />
-          <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
-          <LayerGroup key={'own-forces'}>
-            <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-          </LayerGroup>
-          <LayerGroup key={'opp-forces'}>
-            <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-          </LayerGroup>
+          <OrderPlotter orders={planningMessages} step={debugStep} />
+          {doNotRender &&
+            <>
+              <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+              <LayerGroup key={'own-forces'}>
+                <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+              </LayerGroup>
+              <LayerGroup key={'opp-forces'}>
+                <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+              </LayerGroup>
+            </>
+          }
         </>
       </SupportMapping>
     </div>

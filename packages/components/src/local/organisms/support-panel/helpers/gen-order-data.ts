@@ -399,6 +399,10 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): t
         const tY = clean(bY + heightDelta)
         const poly = [[[bX, bY], [tX, bY], [tX, tY], [bX, tY], [bX, bY]]]
         const turfPoly = turf.polygon(poly)
+        if (!turfPoly.properties) {
+          turfPoly.properties = {}
+        }
+        turfPoly.properties.bType = 'box'
         // pushGeo(poly)
         boxes.push(turfPoly)
       }
@@ -448,7 +452,7 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
         }
       }
     })
-    if (thisBin.orders.length > 0) {
+    if (thisBin.orders.length >= 0) {
       res.push(thisBin)
     }
   })
