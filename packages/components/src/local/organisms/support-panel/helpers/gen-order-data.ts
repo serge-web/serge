@@ -71,7 +71,14 @@ interface PerForceData {
  * a planned geometry
  */
 export interface GeomWithOrders extends PlannedActivityGeometry {
+  /**
+   *  the set of orders this geometry relates to
+   */
   activity: MessagePlanning
+  /**
+   * the force these orders belong to
+   */
+  force: ForceData['uniqid']
 }
 
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
@@ -335,7 +342,8 @@ export const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] =>
   messages.forEach((message: MessagePlanning) => {
     if (message.message.location) {
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
-        const newItem = { ...plan, activity: message }
+        const fromBit = message.details.from
+        const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
@@ -359,6 +367,28 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
     res.push(createMessage(authorForce, 2 + i * 3, orderTypes, startTime))
   }
   return res
+}
+
+export const overlapsInTime = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
+  const myProps = me.geometry.properties as PlannedProps
+  const otherProps = other.geometry.properties as PlannedProps
+  if (myProps && otherProps && myProps.startTime && myProps.endTime && otherProps.startTime && otherProps.endTime) {
+    return (myProps.startTime <= otherProps.endTime && myProps.endTime >= otherProps.startTime)
+  }
+  return true
+}
+
+export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
+  return orders.map((order: GeomWithOrders) => {
+    if (order.geometry.properties) {
+      const planned = order.geometry.properties as PlannedProps
+      if (!planned.startTime) {
+        planned.startTime = moment(planned.startDate).valueOf()
+        planned.endTime = moment(planned.endDate).valueOf()
+      }
+    }
+    return order
+  })
 }
 
 export const findPlannedGeometries = (orders: GeomWithOrders[], time: string, windowMins: number): GeomWithOrders[] => {

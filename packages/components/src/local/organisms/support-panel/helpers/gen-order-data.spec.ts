@@ -1,7 +1,8 @@
-import { geometriesFor, randomOrdersDocs, invertMessages, findPlannedGeometries, spatialBinning, putInBin } from './gen-order-data'
+import { geometriesFor, randomOrdersDocs, invertMessages, findPlannedGeometries, spatialBinning, putInBin, injectTimes, overlapsInTime } from './gen-order-data'
 import { P9Mock, MockPlanningActivities, planningMessages } from '@serge/mocks'
 import moment from 'moment'
 import * as turf from '@turf/turf'
+import { deepCopy } from '@serge/helpers'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -174,12 +175,23 @@ it('overlaps works as expected', () => {
 
 it('bins overlaps for time', () => {
   const time = '2022-11-15T00:00:00.000Z'
-  const orders = invertMessages(planningMessages)
+  const orders = invertMessages(deepCopy(planningMessages))
   const binsInTimeWindow = findPlannedGeometries(orders, time, 30)
   // now do spatial binning
   const bins = spatialBinning(binsInTimeWindow, 6)
 
   const binnedOrders = putInBin(orders, bins)
   expect(binnedOrders).toBeTruthy()
-  expect(binnedOrders.length).toEqual(22)
+  expect(binnedOrders.length).toEqual(36)
+})
+
+it('fills in time values', () => {
+  const messages = deepCopy(planningMessages)
+  const orders = invertMessages(messages)
+  const withTimes = injectTimes(orders)
+  expect(withTimes.length).toEqual(22)
+  expect(withTimes[0].geometry.properties).toBeTruthy()
+  expect(withTimes[0].geometry.properties?.startTime).toEqual(1668470400000)
+  expect(overlapsInTime(withTimes[0], withTimes[1])).toBeTruthy()
+  expect(overlapsInTime(withTimes[0], withTimes[2])).toBeFalsy()
 })

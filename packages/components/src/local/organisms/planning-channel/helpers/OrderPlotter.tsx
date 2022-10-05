@@ -3,7 +3,7 @@ import { MessagePlanning } from '@serge/custom-types'
 import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
-import { findPlannedGeometries, GeomWithOrders, invertMessages, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 import * as turf from '@turf/turf'
 
 export interface PlotterTypes {
@@ -111,6 +111,10 @@ interface Contact {
   second: GeomWithOrders
 }
 
+const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
+  return me.force !== other.force
+}
+
 const findTouching = (geometries: GeomWithOrders[]): Contact[] => {
   const res: Contact[] = []
   const checked: string[] = []
@@ -126,24 +130,11 @@ const findTouching = (geometries: GeomWithOrders[]): Contact[] => {
           // have we already checked this permutation?
           if (!checked.includes(id) && !checked.includes(revId)) {
             checked.push(id)
-            const theseTouch = touches(me, other)
-            if (me.uniqid === 'aa8' && other.uniqid === 'a11') {
-              console.log('more testing', theseTouch)
-            }
-            if (theseTouch) {
-              const sortIt = (orders: GeomWithOrders): void => {
-                if (!orders.geometry.properties) {
-                  orders.geometry.properties = {}
-                }
-                orders.geometry.properties.touching = true
-              }
-              sortIt(me)
-              sortIt(other)
-              const newContact: Contact = {
+            if (differentForces(me, other) && overlapsInTime(me, other) && touches(me, other)) {
+              res.push({
                 first: me,
                 second: other
-              }
-              res.push(newContact)
+              })
             }
           }
         }
@@ -162,8 +153,9 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
     setFeatures([])
     if (bins.length === 0) {
       const geometries = invertMessages(orders)
+      const withTimes = injectTimes(geometries)
       const time = '2022-11-15T00:00:00.000Z'
-      const binsInTimeWindow = findPlannedGeometries(geometries, time, 30)
+      const binsInTimeWindow = findPlannedGeometries(withTimes, time, 30)
       // now do spatial binning
       const bins = spatialBinning(binsInTimeWindow, 6)
       const binnedOrders = putInBin(geometries, bins)
@@ -176,8 +168,28 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
     console.log('step', step)
     if (bins.length > 0 && step >= 0) {
       setCurrentBins([bins[step]])
-      findTouching(bins[step].orders)
-      setFeatures(bins[step].orders.map((val: GeomWithOrders) => val.geometry))
+      const contacts = findTouching(bins[step].orders)
+      const contactNames: string[] = []
+      contacts.forEach((val: Contact) => {
+        const check = (orders: GeomWithOrders): void => {
+          const id = genID(orders)
+          if (!contactNames.includes(id)) {
+            contactNames.push(id)
+          }
+        }
+        check(val.first)
+        check(val.second)
+      })
+      setFeatures(bins[step].orders.map((val: GeomWithOrders) => {
+        const id = genID(val)
+        if (contactNames.includes(id)) {
+          if (!val.geometry.properties) {
+            val.geometry.properties = {}
+          }
+          val.geometry.properties.touching = true
+        }
+        return val.geometry
+      }))
     }
   }, [orders, step])
 
@@ -212,7 +224,6 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
 
   const styleForFeatures: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
     const touching = feature && feature.properties && !!feature.properties.touching
-    console.log('feature', feature)
     return {
       color: touching ? '#0f0' : '#b00',
       fillColor: '#00f',

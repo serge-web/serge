@@ -62,6 +62,10 @@ export interface PlannedActivityGeometry {
 export interface PlannedProps {
   startDate: string
   endDate: string
+  // optional unix epoch, for quicker date comparison
+  startTime?: number
+  // optional unix epoch, for quicker date comparison
+  endTime?: number
 }
 
 /** object that describes the structure of
