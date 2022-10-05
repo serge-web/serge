@@ -336,6 +336,10 @@ export const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] =>
     if (message.message.location) {
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
         const newItem = { ...plan, activity: message }
+        if (!newItem.geometry.properties) {
+          newItem.geometry.properties = {}
+        }
+        newItem.geometry.properties.name = message.message.title + ' ' + plan.uniqid
         res.push(newItem)
       })
     }
@@ -402,7 +406,7 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): t
         if (!turfPoly.properties) {
           turfPoly.properties = {}
         }
-        turfPoly.properties.bType = 'box'
+        turfPoly.properties.name = 'box_' + (x * binsPerSize + y)
         // pushGeo(poly)
         boxes.push(turfPoly)
       }
@@ -418,13 +422,16 @@ export interface SpatialBin {
 
 export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): SpatialBin[] => {
   const res: SpatialBin[] = []
-  bins.forEach((poly: turf.Feature) => {
+  bins.forEach((poly: turf.Feature, index: number) => {
     const thisBin: SpatialBin = {
       polygon: poly,
       orders: []
     }
     const polyGeo = poly.geometry as any
     const turfPoly = turf.polygon(polyGeo.coordinates)
+    if (index === 7) {
+      console.log('seven')
+    }
     orders.forEach((order: GeomWithOrders) => {
       const geom = order.geometry.geometry as any
       const coords = geom.coordinates
@@ -452,9 +459,12 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
         }
       }
     })
-    if (thisBin.orders.length >= 0) {
-      res.push(thisBin)
+    // store the bin count
+    if (!poly.properties) {
+      poly.properties = {}
     }
+    poly.properties.orderNum = thisBin.orders.length
+    res.push(thisBin)
   })
   return res
 }
