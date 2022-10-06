@@ -262,7 +262,7 @@ it('does some diagnostics', () => {
           if (overlapsInTime(geom1, geom2)) {
             const con1 = touches(geom1, geom2, 'aa', randomizer)
             !con1 && console.log('not touching', index1, index2, show(geom1), show(geom2))
-            con1 && console.log('overlaps', index1, index2, show(geom1), show(geom2), moment(con1?.timeStart), moment(con1?.timeEnd))
+            con1 && console.log('overlaps', index1, index2, show(geom1), show(geom2), moment(con1.timeStart), moment(con1.timeEnd))
             //            con1 && console.log(con1, geom1.geometry.geometry.type, geom1.geometry.geometry.type, index1, index2)
           }
         }

@@ -174,7 +174,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   const filterPendingFeatures = (inContact: boolean, feature: GeoJSON.Feature): any => {
     // put the activity name into the popup for the feature
-    if (feature && feature.properties && feature.properties) {
+    if (feature && feature.properties) {
       const myProps = feature.properties as PlannedProps
       if (inContact) {
         return myProps.inContact
