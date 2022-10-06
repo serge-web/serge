@@ -111,6 +111,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
   const [contactsProcessed] = useState<string[]>([])
   const [geometries, setGeometries] = useState<GeomWithOrders[]>([])
+  const [binToProcess, setBinToProcess] = useState<number | undefined>(undefined)
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -160,12 +161,15 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
         setGeometries(withTimes)
       }
     }
-    console.log('step', step, bins.length)
     if (bins.length > 0 && step >= 0) {
-      setCurrentBins([bins[step]])
-      const newContacts = findTouching(bins[step].orders)
+      setBinToProcess(0)
+    }
+  }, [orders, step])
 
-      console.table(newContacts.map((con: PlanningContact) => con.id))
+  useEffect(() => {
+    if (binToProcess !== undefined) {
+      const bin = bins[binToProcess]
+      const newContacts = findTouching(bin.orders)
 
       // update contact status
       const updated = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
@@ -183,10 +187,13 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
         }
         return newItem
       })
-      console.log('setting geom', updated)
       setGeometries(updated)
+      setCurrentBins([bin])
+      if (binToProcess < bins.length - 1) {
+        setTimeout(() => setBinToProcess(1 + binToProcess), 200)
+      }
     }
-  }, [orders, step])
+  }, [binToProcess])
 
   const onEachFeature = (feature: GeoJSON.Feature, layer: Layer): any => {
     // put the activity name into the popup for the feature
