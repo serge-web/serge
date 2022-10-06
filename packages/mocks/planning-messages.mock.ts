@@ -163,19 +163,19 @@ export const planningMessages: MessagePlanning[] = [
         "details": {
             "channel": "channel-blue-planning",
             "from": {
-                "force": "Red Force",
-                "forceColor": "#F00",
-                "roleName": "Logs",
-                "roleId": "rkr226f5a",
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Air-3",
+                "roleId": "3rk116f53",
                 "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Red"
+                "forceId": "F-Blue"
             },
             "messageType": "Land Activity",
             "timestamp": "2022-09-22T21:06:20.164Z",
             "turnNumber": 3
         },
         "message": {
-            "reference": "Red Force-9",
+            "reference": "Blue Force-9", 
             "title": "Order item 9 Transit",
             "startDate": "2022-11-15T00:00:00.000Z",
             "endDate": "2022-11-15T04:50:00.000Z",
