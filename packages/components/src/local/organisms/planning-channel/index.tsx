@@ -19,7 +19,7 @@ import ViewAs from '../view-as'
 import ApplyFilter from '../apply-filter'
 import MapDrawActivity from '../map-draw-activity'
 import Item from '../../map-control/helpers/item'
-import { randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import OrderPlotter from './helpers/OrderPlotter'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
@@ -242,6 +242,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setDebugStep(1 + debugStep)
   }
 
+  const handleAdjudication = (contact: PlanningContact): void => {
+    console.log('Apply some adjudication for', contact.id)
+  }
+
   const doNotRender = !7
 
   return (
@@ -304,7 +308,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           </>
         }>
         <>
-          <OrderPlotter orders={planningMessages} step={debugStep} />
+          <OrderPlotter orders={planningMessages} step={debugStep} handleAdjudication={handleAdjudication} />
           {doNotRender &&
             <>
               <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />

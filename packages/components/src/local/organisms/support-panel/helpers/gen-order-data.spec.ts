@@ -205,6 +205,16 @@ it('generates time intersection', () => {
   const orders = invertMessages(messages)
   const withTimes = injectTimes(orders)
   const me = withTimes[4]
+  const other = withTimes[17]
+  const contact = timeIntersect(me, other)
+  expect(contact).toBeTruthy()
+})
+
+it('generates time intersection', () => {
+  const messages = deepCopy(planningMessages)
+  const orders = invertMessages(messages)
+  const withTimes = injectTimes(orders)
+  const me = withTimes[4]
   const other = withTimes[11]
   const noOverlap = withTimes[12]
   const contact = timeIntersect(me, other)
@@ -226,6 +236,10 @@ it('generates time intersection', () => {
   expect(contact3.length).toEqual(0)
 })
 
+const randomizer = (): number => {
+  return 0.5
+}
+
 it('does some diagnostics', () => {
   const messages = deepCopy(planningMessages)
   const orders = invertMessages(messages)
@@ -235,18 +249,18 @@ it('does some diagnostics', () => {
   debug && withTimes.forEach((geom1: GeomWithOrders, index1: number) => {
     withTimes.forEach((geom2: GeomWithOrders, index2: number) => {
       if (index1 !== index2) {
-        if (geom1.geometry.geometry.type !== 'LineString' && geom2.geometry.geometry.type !== 'LineString') {
+        if (geom1.geometry.geometry.type === 'LineString' && geom2.geometry.geometry.type !== 'LineString') {
           const show = (geom: GeomWithOrders): string => {
             return geom.geometry.geometry.type
             // const props = geom.geometry.properties as PlannedProps
             // return props.startDate + '  -  ' + props.endDate
           }
-          const con2 = touches(geom1, geom2, 'aa')
+          const con2 = touches(geom1, geom2, 'aa', randomizer)
           if (con2) {
             console.log('touches', index1, index2, overlapsInTime(geom1, geom2), show(geom1), show(geom2))
           }
           if (overlapsInTime(geom1, geom2)) {
-            const con1 = touches(geom1, geom2, 'aa')
+            const con1 = touches(geom1, geom2, 'aa', randomizer)
             !con1 && console.log('not touching', index1, index2, show(geom1), show(geom2))
             con1 && console.log('overlaps', index1, index2, show(geom1), show(geom2), moment(con1?.timeStart), moment(con1?.timeEnd))
             //            con1 && console.log(con1, geom1.geometry.geometry.type, geom1.geometry.geometry.type, index1, index2)
@@ -276,7 +290,7 @@ it('generates full contact for two polygons', () => {
   const me = withTimes[4]
   const other = withTimes[17]
   const id = 'aa'
-  const con1 = touches(me, other, id)
+  const con1 = touches(me, other, id, randomizer)
   expect(con1).toBeTruthy()
   if (con1) {
     const myProps = me.geometry.properties as PlannedProps
@@ -287,20 +301,47 @@ it('generates full contact for two polygons', () => {
   }
 })
 
-it('generates full contact for polygons & point', () => {
+it('generates full contact for polygon & point', () => {
   const messages = deepCopy(planningMessages)
   const orders = invertMessages(messages)
   const withTimes = injectTimes(orders)
   expect(withTimes.length).toEqual(22)
 
-  const me = withTimes[11]
-  const other = withTimes[14]
-  const con1 = touches(me, other, 'aa')
-  expect(con1).toBeFalsy()
+  const me = withTimes[17]
+  const other = withTimes[20]
+
+  // move the point into the polygon
+  const myGeom = me.geometry.geometry as any
+  expect(myGeom.type).toEqual('Polygon')
+  const otherGeom = other.geometry.geometry as any
+  expect(otherGeom.type).toEqual('Point')
+  otherGeom.coordinates[0] = myGeom.coordinates[0][0][0]
+
+  const con1 = touches(me, other, 'aa', randomizer)
+  expect(timeIntersect(me, other)).toBeTruthy()
+  const overlap = overlapsInTime(me, other)
+  expect(overlap).toBeTruthy()
+  expect(con1).toBeTruthy()
   if (con1) {
-    const myProps = me.geometry.properties as PlannedProps
     const otherProps = other.geometry.properties as PlannedProps
-    expect(con1.timeStart).toEqual(myProps.startTime)
+    expect(con1.timeStart).toEqual(otherProps.startTime)
     expect(con1.timeEnd).toEqual(otherProps.endTime)
+  }
+})
+
+it('generates full contact for polygon & line', () => {
+  const messages = deepCopy(planningMessages)
+  const orders = invertMessages(messages)
+  const withTimes = injectTimes(orders)
+  expect(withTimes.length).toEqual(22)
+
+  const me = withTimes[17]
+  const other = withTimes[18]
+  const con1 = touches(me, other, 'aa', randomizer)
+  expect(con1).toBeTruthy()
+  if (con1) {
+    // TODO: implement moving along the line
+    expect(con1.timeStart).toEqual(1668477000000)
+    expect(con1.timeEnd).toEqual(1668477000000)
   }
 })

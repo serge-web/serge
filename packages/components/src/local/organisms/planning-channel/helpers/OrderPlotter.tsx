@@ -5,10 +5,13 @@ import React, { useEffect, useState } from 'react'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
 import { PlanningContact, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 import { deepCopy } from '@serge/helpers'
+import _ from 'lodash'
+import moment from 'moment-timezone'
 
 export interface PlotterTypes {
   orders: MessagePlanning[]
   step: number
+  handleAdjudication: {(contact: PlanningContact): void}
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
@@ -19,12 +22,15 @@ const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
-export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
+export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjudication }) => {
   const [bins, setBins] = useState<SpatialBin[]>([])
   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
-  const [contactsProcessed] = useState<string[]>([])
+  const [interactionsProcessed, setInteractionsProcessed] = useState<string[]>([])
   const [geometries, setGeometries] = useState<GeomWithOrders[]>([])
   const [binToProcess, setBinToProcess] = useState<number | undefined>(undefined)
+  const [binningComplete, setBinningComplete] = useState<boolean>(false)
+  const [contacts, setContacts] = useState<PlanningContact[]>([])
+  const [sentForAdjudication] = useState<PlanningContact[]>([])
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -40,12 +46,14 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
             const second = meFirst ? other : me
             const id = createContactReference(first.id, second.id)
             // have we already checked this permutation?
-            if (!contactsProcessed.includes(id)) {
-              contactsProcessed.push(id)
-              if (differentForces(me, other) && overlapsInTime(me, other)) {
-                const contact = touches(me, other, id)
-                if (contact) {
-                  res.push(contact)
+            if (!interactionsProcessed.includes(id)) {
+              if (!sentForAdjudication.find((item: PlanningContact) => item.id === id)) {
+                interactionsProcessed.push(id)
+                if (differentForces(me, other) && overlapsInTime(me, other)) {
+                  const contact = touches(me, other, id, Math.random)
+                  if (contact) {
+                    res.push(contact)
+                  }
                 }
               }
             }
@@ -57,13 +65,19 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
   }
 
   useEffect(() => {
-    if (bins.length === 0) {
+    if (bins.length === 0 && !binningComplete) {
       const geometries = invertMessages(orders)
       const withTimes = injectTimes(geometries)
-      const time = '2022-11-15T00:00:00.000Z'
-      const binsInTimeWindow = findPlannedGeometries(withTimes, time, 30)
+      let time = '2022-11-15T00:00:00.000Z'
+      if (sentForAdjudication.length) {
+        const lastId = sentForAdjudication[sentForAdjudication.length - 1]
+        console.log('last one', lastId)
+        time = moment(lastId.timeStart).toISOString()
+      }
+      const geometriesInTimeWindow = findPlannedGeometries(withTimes, time, 130)
+      console.log('looking from ', time, geometriesInTimeWindow.length)
       // now do spatial binning
-      const bins = spatialBinning(binsInTimeWindow, 6)
+      const bins = spatialBinning(geometriesInTimeWindow, 6)
       const binnedOrders = putInBin(geometries, bins)
       setBins(binnedOrders)
       if (step <= 0) {
@@ -71,15 +85,19 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
         setGeometries(withTimes)
       }
     }
-    if (bins.length > 0 && step >= 0) {
+    console.log('step', step)
+    if (step > 0) {
       setBinToProcess(0)
     }
   }, [orders, step])
 
   useEffect(() => {
-    if (binToProcess !== undefined) {
+    if (bins.length && binToProcess !== undefined) {
       const bin = bins[binToProcess]
       const newContacts = findTouching(bin.orders)
+      setContacts(contacts.concat(newContacts))
+
+      console.log('found', newContacts.length, 'from analysis of ', interactionsProcessed.length, 'interactions')
 
       // update contact status
       const updated = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
@@ -100,10 +118,51 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
       setGeometries(updated)
       setCurrentBins([bin])
       if (binToProcess < bins.length - 1) {
-        setTimeout(() => setBinToProcess(1 + binToProcess), 200)
+        setTimeout(() => setBinToProcess(1 + binToProcess), 0)
+      } else {
+        setBinningComplete(true)
       }
     }
-  }, [binToProcess])
+  }, [binToProcess, bins])
+
+  const summariseContact = (val: PlanningContact): any => {
+    return {
+      val: moment(val.timeStart).toISOString(),
+      a: val.first.activity.message.title + ' ' + val.first.id,
+      b: val.second.activity.message.title + ' ' + val.second.id
+    }
+  }
+
+  useEffect(() => {
+    if (binningComplete) {
+      const withTime = contacts.filter((contact: PlanningContact) => contact.timeStart !== -1)
+      // sort by start time
+      const sorted = _.sortBy(withTime, ['timeStart'])
+      if (sorted.length > 0) {
+        const nextToProcess = sorted[0]
+        handleAdjudication(nextToProcess)
+        // reset
+        setContacts([])
+        setInteractionsProcessed([])
+        setBins([])
+        setCurrentBins(bins)
+        sentForAdjudication.push(nextToProcess)
+        const cleanGeoms = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
+          const clean: GeomWithOrders = deepCopy(geom)
+          const props = clean.geometry.properties as PlannedProps
+          delete props.inContact
+          delete props.newContact
+          return clean
+        })
+        setGeometries(cleanGeoms)
+      }
+      const debug = !7
+      debug && console.table(sorted.map((val: PlanningContact) => {
+        return summariseContact(val)
+      }))
+      setBinningComplete(false)
+    }
+  }, [binningComplete])
 
   const onEachFeature = (feature: GeoJSON.Feature, layer: Layer): any => {
     // put the activity name into the popup for the feature
