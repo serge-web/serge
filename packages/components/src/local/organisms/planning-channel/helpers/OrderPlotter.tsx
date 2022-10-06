@@ -173,11 +173,12 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         setCurrentBins(bins)
         sentForAdjudication.push(nextToProcess)
 
+        setMessage1('Sending for adjudication:' + nextToProcess.id)
+
         const withRecentlySent = geometries.map((val: GeomWithOrders): GeomWithOrders => {
           const newItem = deepCopy(val)
           const doingNext = (nextToProcess.first.id === val.id || nextToProcess.second.id === val.id)
           if (doingNext) {
-            console.log('setting for adj', val.id)
             const props = newItem.geometry.properties as PlannedProps
             props.sentForAdjudication = true
           }
@@ -265,7 +266,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   return <>
     {(message1.length > 0 || message2.length > 0) &&
-      <Marker opacity={0} position={[-4, 130]}>
+      <Marker opacity={0} position={[-4, 120]}>
         <Tooltip permanent={true}>
           <span>{message1}</span><br /><span>{message2}</span>
         </Tooltip>
