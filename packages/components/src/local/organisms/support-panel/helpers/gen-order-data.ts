@@ -438,7 +438,7 @@ const clean = (val: number): number => {
   return Math.floor(val * scalar) / scalar
 }
 
-export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): turf.Feature[] => {
+export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): turf.Feature[] => {
   let bounds: L.LatLngBounds | undefined
   orders.forEach((geom: GeomWithOrders) => {
     const geoAny = geom.geometry.geometry as any
@@ -474,10 +474,10 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): t
   if (bounds) {
     const height = bounds.getNorth() - bounds.getSouth()
     const width = bounds.getEast() - bounds.getWest()
-    const heightDelta = height / binsPerSize
-    const widthDelta = width / binsPerSize
-    for (let x = 0; x < binsPerSize; x++) {
-      for (let y = 0; y < binsPerSize; y++) {
+    const heightDelta = height / binsPerSide
+    const widthDelta = width / binsPerSide
+    for (let x = 0; x < binsPerSide; x++) {
+      for (let y = 0; y < binsPerSide; y++) {
         const bX = clean(bounds.getWest() + x * widthDelta)
         const bY = clean(bounds.getSouth() + y * heightDelta)
         const tX = clean(bX + widthDelta)
@@ -487,7 +487,7 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): t
         if (!turfPoly.properties) {
           turfPoly.properties = {}
         }
-        turfPoly.properties.name = 'box_' + (x * binsPerSize + y)
+        turfPoly.properties.name = 'box_' + (x * binsPerSide + y)
         // pushGeo(poly)
         boxes.push(turfPoly)
       }

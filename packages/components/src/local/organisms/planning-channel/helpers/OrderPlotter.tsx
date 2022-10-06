@@ -11,7 +11,7 @@ import moment from 'moment-timezone'
 export interface PlotterTypes {
   orders: MessagePlanning[]
   step: number
-  handleAdjudication: {(contact: PlanningContact): void}
+  handleAdjudication: { (contact: PlanningContact): void }
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
@@ -66,19 +66,28 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   useEffect(() => {
     if (bins.length === 0 && !binningComplete) {
-      const geometries = invertMessages(orders)
-      const withTimes = injectTimes(geometries)
+      const cleanGeoms = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
+        const clean: GeomWithOrders = deepCopy(geom)
+        const props = clean.geometry.properties as PlannedProps
+        delete props.inContact
+        delete props.newContact
+        return clean
+      })
+      setGeometries(cleanGeoms)
+
+      const newGeometries = invertMessages(orders)
+      const withTimes = injectTimes(newGeometries)
       let time = '2022-11-15T00:00:00.000Z'
       if (sentForAdjudication.length) {
         const lastId = sentForAdjudication[sentForAdjudication.length - 1]
         console.log('last one', lastId)
         time = moment(lastId.timeStart).toISOString()
       }
-      const geometriesInTimeWindow = findPlannedGeometries(withTimes, time, 130)
+      const geometriesInTimeWindow = findPlannedGeometries(withTimes, time, 60)
       console.log('looking from ', time, geometriesInTimeWindow.length)
       // now do spatial binning
       const bins = spatialBinning(geometriesInTimeWindow, 6)
-      const binnedOrders = putInBin(geometries, bins)
+      const binnedOrders = putInBin(geometriesInTimeWindow, bins)
       setBins(binnedOrders)
       if (step <= 0) {
         setCurrentBins(binnedOrders)
@@ -147,14 +156,6 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         setBins([])
         setCurrentBins(bins)
         sentForAdjudication.push(nextToProcess)
-        const cleanGeoms = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
-          const clean: GeomWithOrders = deepCopy(geom)
-          const props = clean.geometry.properties as PlannedProps
-          delete props.inContact
-          delete props.newContact
-          return clean
-        })
-        setGeometries(cleanGeoms)
       }
       const debug = !7
       debug && console.table(sorted.map((val: PlanningContact) => {
@@ -168,6 +169,18 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     // put the activity name into the popup for the feature
     if (feature && feature.properties && feature.properties.name) {
       layer.bindPopup(feature.properties.name)
+    }
+  }
+
+  const filterPendingFeatures = (inContact: boolean, feature: GeoJSON.Feature): any => {
+    // put the activity name into the popup for the feature
+    if (feature && feature.properties && feature.properties) {
+      const myProps = feature.properties as PlannedProps
+      if (inContact) {
+        return myProps.inContact
+      } else {
+        return !myProps.inContact
+      }
     }
   }
 
@@ -228,10 +241,16 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
     {
       geometries.length > 0 &&
-      <LayerGroup key={'features'}>
-        <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
-          data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_' + Math.random()} />
-      </LayerGroup >
+      <>
+        <LayerGroup key={'features'}>
+          <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
+            filter={(feature: any): boolean => filterPendingFeatures(false, feature)}
+            data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_no_contact' + Math.random()} />
+          <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
+            filter={(feature: any): boolean => filterPendingFeatures(true, feature)}
+            data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_contact' + Math.random()} />
+        </LayerGroup >
+      </>
     }
   </>
 }
