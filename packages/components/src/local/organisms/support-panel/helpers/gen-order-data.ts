@@ -442,7 +442,26 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSize: number): t
   let bounds: L.LatLngBounds | undefined
   orders.forEach((geom: GeomWithOrders) => {
     const geoAny = geom.geometry.geometry as any
-    geoAny.coordinates.forEach((point: number[]) => {
+    let coords
+    switch (geom.geometry.geometry.type) {
+      case 'LineString': {
+        coords = geoAny.coordinates
+        break
+      }
+      case 'Point': {
+        coords = geoAny.coordinates
+        break
+      }
+      case 'Polygon': {
+        coords = geoAny.coordinates[0][0]
+        break
+      }
+    }
+
+    coords && coords.forEach((point: number[]) => {
+      if (point[1] > 0) {
+        console.log('north', geom.activity)
+      }
       const pt = L.latLng(point[1], point[0])
       if (!bounds) {
         bounds = L.latLngBounds(pt, pt)
@@ -531,7 +550,7 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
   return res
 }
 
-export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string): PlanningContact | null => {
+export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: {(): number}): PlanningContact | null => {
   const geom = me.geometry.geometry as any
   const myCoords = geom.coordinates
   const geom2 = other.geometry.geometry as any
@@ -622,6 +641,13 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string): 
     if (res) {
       if (period === undefined) {
         period = timeIntersect(me, other)
+      } else {
+        // line funcs not calculating actual time. create some random data
+        const intersect = timeIntersect(me, other)
+        const start = intersect[0]
+        const end = intersect[1]
+        const interval = end - start
+        period = [start + 0.3 * randomizer() * interval, start + 0.8 * randomizer() * interval]
       }
       const contact: PlanningContact = {
         first: me,
