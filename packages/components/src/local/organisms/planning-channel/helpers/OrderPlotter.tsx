@@ -3,109 +3,12 @@ import { MessagePlanning, PlannedProps } from '@serge/custom-types'
 import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
-import { PlanningContact, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
-import * as turf from '@turf/turf'
+import { PlanningContact, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 import { deepCopy } from '@serge/helpers'
 
 export interface PlotterTypes {
   orders: MessagePlanning[]
   step: number
-}
-
-const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string): PlanningContact | null => {
-  const geom = me.geometry.geometry as any
-  const myCoords = geom.coordinates
-  const geom2 = other.geometry.geometry as any
-  const otherCoords = geom2.coordinates
-  let res: boolean | undefined
-  const titles: string[] = []
-  const monitor = (titles.includes(me.activity.message.title) ||
-    titles.includes(other.activity.message.title))
-  if (monitor) {
-    console.log('check', me, other)
-  }
-  switch (me.geometry.geometry.type) {
-    case 'Point': {
-      const mePt = turf.point(myCoords)
-      switch (other.geometry.geometry.type) {
-        case 'Point': {
-          const otherPt = turf.point(otherCoords)
-          res = turf.booleanEqual(mePt, otherPt)
-          break
-        }
-        case 'LineString': {
-          const otherLine = turf.lineString(otherCoords)
-          res = turf.booleanPointOnLine(mePt, otherLine)
-          break
-        }
-        case 'Polygon': {
-          const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanPointInPolygon(mePt, turfPoly))
-          break
-        }
-      }
-      break
-    }
-    case 'LineString': {
-      const meLine = turf.lineString(myCoords)
-      switch (other.geometry.geometry.type) {
-        case 'Point': {
-          const otherPt = turf.point(otherCoords)
-          res = turf.booleanPointOnLine(otherPt, meLine)
-          break
-        }
-        case 'LineString': {
-          const otherLine = turf.lineString(otherCoords)
-          const inter = turf.lineIntersect(meLine, otherLine)
-          res = inter.features.length > 0
-          break
-        }
-        case 'Polygon': {
-          const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanCrosses(meLine, turfPoly))
-          break
-        }
-      }
-      break
-    }
-    case 'Polygon': {
-      const mePoly = turf.polygon(myCoords)
-      switch (other.geometry.geometry.type) {
-        case 'Point': {
-          const otherPt = turf.point(otherCoords)
-          res = turf.booleanPointInPolygon(otherPt, mePoly)
-          break
-        }
-        case 'LineString': {
-          const otherLine = turf.lineString(otherCoords)
-          res = turf.booleanCrosses(mePoly, otherLine)
-          break
-        }
-        case 'Polygon': {
-          const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanOverlap(mePoly, turfPoly))
-          break
-        }
-      }
-      break
-    }
-  }
-  if (res === undefined) {
-    console.warn('Didn\'t handle this case', me, other)
-    return null
-  } else {
-    if (res) {
-      const contact: PlanningContact = {
-        first: me,
-        second: other,
-        id: id,
-        timeStart: -1,
-        timeEnd: -1
-      }
-      return contact
-    }
-    return null
-  }
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {

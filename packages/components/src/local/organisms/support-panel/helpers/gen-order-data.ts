@@ -159,12 +159,30 @@ const flipMe = (point: number[]): number[] => {
   return [point[1], point[0]]
 }
 
+/** generate the time intersection between the two geometries */
+export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number[] => {
+  const meProps = me.geometry.properties as PlannedProps
+  const otherProps = other.geometry.properties as PlannedProps
+
+  // TODO: this next check can be deleted once the implementation is stable
+  if (meProps.startTime > otherProps.endTime || meProps.endTime < otherProps.startTime) {
+    typeof jest === 'undefined' && console.warn('Geometries do not overlap in time')
+    return []
+  }
+
+  const start = Math.max(meProps.startTime || -1, otherProps.startTime || -1)
+  const end = Math.min(meProps.endTime || -1, otherProps.endTime || -1)
+  return [start, end]
+}
+
 const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string): GeoJSON.Feature => {
   const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
   const dateProps: PlannedProps = {
     startDate: timeStart,
-    endDate: timeFinish
+    endDate: timeFinish,
+    startTime: moment(timeStart).valueOf(),
+    endTime: moment(timeFinish).valueOf()
   }
   switch (geometry.aType) {
     case GeometryType.point: {
@@ -511,4 +529,109 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
     res.push(thisBin)
   })
   return res
+}
+
+export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string): PlanningContact | null => {
+  const geom = me.geometry.geometry as any
+  const myCoords = geom.coordinates
+  const geom2 = other.geometry.geometry as any
+  const otherCoords = geom2.coordinates
+  let res: PlanningContact | boolean | undefined
+  let period: number[] | undefined
+  const titles: string[] = []
+  const monitor = (titles.includes(me.activity.message.title) ||
+    titles.includes(other.activity.message.title))
+  if (monitor) {
+    console.log('check', me, other)
+  }
+  switch (me.geometry.geometry.type) {
+    case 'Point': {
+      const mePt = turf.point(myCoords)
+      switch (other.geometry.geometry.type) {
+        case 'Point': {
+          const otherPt = turf.point(otherCoords)
+          res = turf.booleanEqual(mePt, otherPt)
+          break
+        }
+        case 'LineString': {
+          const otherLine = turf.lineString(otherCoords)
+          res = turf.booleanPointOnLine(mePt, otherLine)
+          period = [-1, -1]
+          break
+        }
+        case 'Polygon': {
+          const turfPoly = turf.polygon(otherCoords)
+          res = (turf.booleanPointInPolygon(mePt, turfPoly))
+          break
+        }
+      }
+      break
+    }
+    case 'LineString': {
+      const meLine = turf.lineString(myCoords)
+      switch (other.geometry.geometry.type) {
+        case 'Point': {
+          const otherPt = turf.point(otherCoords)
+          res = turf.booleanPointOnLine(otherPt, meLine)
+          period = [-1, -1]
+          break
+        }
+        case 'LineString': {
+          const otherLine = turf.lineString(otherCoords)
+          const inter = turf.lineIntersect(meLine, otherLine)
+          res = inter.features.length > 0
+          period = [-1, -1]
+          break
+        }
+        case 'Polygon': {
+          const turfPoly = turf.polygon(otherCoords)
+          res = (turf.booleanCrosses(meLine, turfPoly))
+          period = [-1, -1]
+          break
+        }
+      }
+      break
+    }
+    case 'Polygon': {
+      const mePoly = turf.polygon(myCoords)
+      switch (other.geometry.geometry.type) {
+        case 'Point': {
+          const otherPt = turf.point(otherCoords)
+          res = turf.booleanPointInPolygon(otherPt, mePoly)
+          break
+        }
+        case 'LineString': {
+          const otherLine = turf.lineString(otherCoords)
+          res = turf.booleanCrosses(mePoly, otherLine)
+          period = [-1, -1]
+          break
+        }
+        case 'Polygon': {
+          const turfPoly = turf.polygon(otherCoords)
+          res = (turf.booleanOverlap(mePoly, turfPoly))
+          break
+        }
+      }
+      break
+    }
+  }
+  if (res === undefined) {
+    console.warn('Didn\'t handle this case', me, other)
+    return null
+  } else {
+    if (res) {
+      if (period === undefined) {
+        period = timeIntersect(me, other)
+      }
+      const contact: PlanningContact = {
+        first: me,
+        second: other,
+        id: id,
+        timeStart: period[0],
+        timeEnd: period[1]
+      }
+      return contact
+    }
+    return null
+  }
 }
