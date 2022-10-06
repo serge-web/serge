@@ -12,7 +12,7 @@ export interface PlotterTypes {
   step: number
 }
 
-const touches = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
+const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string): PlanningContact | null => {
   const geom = me.geometry.geometry as any
   const myCoords = geom.coordinates
   const geom2 = other.geometry.geometry as any
@@ -92,9 +92,19 @@ const touches = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
   }
   if (res === undefined) {
     console.warn('Didn\'t handle this case', me, other)
-    return false
+    return null
   } else {
-    return res
+    if (res) {
+      const contact: PlanningContact = {
+        first: me,
+        second: other,
+        id: id,
+        timeStart: -1,
+        timeEnd: -1
+      }
+      return contact
+    }
+    return null
   }
 }
 
@@ -129,14 +139,11 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
             // have we already checked this permutation?
             if (!contactsProcessed.includes(id)) {
               contactsProcessed.push(id)
-              if (differentForces(me, other) && overlapsInTime(me, other) && touches(me, other)) {
-                res.push({
-                  id: id,
-                  first: first,
-                  second: second,
-                  timeStart: -1,
-                  timeEnd: -1
-                })
+              if (differentForces(me, other) && overlapsInTime(me, other)) {
+                const contact = touches(me, other, id)
+                if (contact) {
+                  res.push(contact)
+                }
               }
             }
           }
