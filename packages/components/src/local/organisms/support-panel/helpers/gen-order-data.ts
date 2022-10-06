@@ -5,9 +5,9 @@ import {
 } from '@serge/custom-types'
 import { PlanningMessageStructure } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
-import moment from 'moment-timezone'
 import * as turf from '@turf/turf'
 import L from 'leaflet'
+import moment from 'moment-timezone'
 
 const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,

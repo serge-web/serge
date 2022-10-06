@@ -124,8 +124,6 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       const newContacts = findTouching(bin.orders)
       setContacts(contacts.concat(newContacts))
 
-      console.log('found', newContacts.length, 'from analysis of ', interactionsProcessed.length, 'interactions')
-
       // update contact status
       const updated = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
         const newItem: GeomWithOrders = deepCopy(geom)
@@ -174,6 +172,18 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         setBins([])
         setCurrentBins(bins)
         sentForAdjudication.push(nextToProcess)
+
+        const withRecentlySent = geometries.map((val: GeomWithOrders): GeomWithOrders => {
+          const newItem = deepCopy(val)
+          const doingNext = (nextToProcess.first.id === val.id || nextToProcess.second.id === val.id)
+          if (doingNext) {
+            console.log('setting for adj', val.id)
+            const props = newItem.geometry.properties as PlannedProps
+            props.sentForAdjudication = true
+          }
+          return newItem
+        })
+        setGeometries(withRecentlySent)
       }
       const debug = !7
       debug && console.table(sorted.map((val: PlanningContact) => {
@@ -229,20 +239,22 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       const props = feature.properties as PlannedProps
       const inContact = props.inContact
       const newContact = props.newContact
-      const toBeConsidered = props.toBeConsidered
+      const newlySent = props.sentForAdjudication
       let color
-      if (inContact) {
+      if (newlySent) {
+        color = '#f00'
+      } else if (inContact) {
         if (newContact) {
           color = '#0f0'
         } else {
           color = '#080'
         }
       } else {
-        color = toBeConsidered ? '#f64' : '#aaa'
+        color = '#aaa'
       }
       return {
         color: color,
-        weight: toBeConsidered ? 3 : 1,
+        weight: newlySent ? 3 : 1,
         fillColor: '#00f',
         className: 'leaflet-default-icon-path'
       }
