@@ -62,10 +62,10 @@ export interface PlannedActivityGeometry {
 export interface PlannedProps {
   startDate: string
   endDate: string
-  // optional unix epoch, for quicker date comparison
-  startTime?: number
-  // optional unix epoch, for quicker date comparison
-  endTime?: number
+  // unix epoch, for quicker date comparison
+  startTime: number
+  // unix epoch, for quicker date comparison
+  endTime: number
 
   /** this order is involved in a contact */
   inContact?: boolean
