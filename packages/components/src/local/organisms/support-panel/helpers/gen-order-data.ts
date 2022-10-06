@@ -67,6 +67,15 @@ interface PerForceData {
   opAsset: PerceivedTypes[]
 }
 
+/** an instance of one geometry interacting with another */
+export interface PlanningContact {
+  id: string
+  first: GeomWithOrders
+  second: GeomWithOrders
+  timeStart: number // unix millis
+  timeEnd: number // unix millis
+}
+
 /** object that lets us put the parent orders object into
  * a planned geometry
  */
@@ -79,6 +88,10 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
    * the force these orders belong to
    */
   force: ForceData['uniqid']
+  /**
+   * id for this state/activity
+   */
+  id: string
 }
 
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
@@ -343,7 +356,8 @@ export const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] =>
     if (message.message.location) {
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
         const fromBit = message.details.from
-        const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force }
+        const id = message.message.title + '-' + plan.uniqid + '-' + message._id
+        const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }

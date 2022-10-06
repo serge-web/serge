@@ -66,6 +66,11 @@ export interface PlannedProps {
   startTime?: number
   // optional unix epoch, for quicker date comparison
   endTime?: number
+
+  /** this order is involved in a contact */
+  inContact?: boolean
+  /** contact for this order has been identified in the last turn */
+  newContact?: boolean
 }
 
 /** object that describes the structure of

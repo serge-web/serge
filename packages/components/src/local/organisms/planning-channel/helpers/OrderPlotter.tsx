@@ -1,9 +1,9 @@
 
-import { MessagePlanning } from '@serge/custom-types'
+import { MessagePlanning, PlannedProps } from '@serge/custom-types'
 import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
-import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { PlanningContact, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 import * as turf from '@turf/turf'
 import { deepCopy } from '@serge/helpers'
 
@@ -98,15 +98,6 @@ const touches = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
   }
 }
 
-const genID = (orders: GeomWithOrders): string => {
-  return orders.activity.message.title + '-' + orders.uniqid
-}
-
-interface Contact {
-  first: GeomWithOrders
-  second: GeomWithOrders
-}
-
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
   return me.force !== other.force
 }
@@ -115,53 +106,46 @@ const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
-const findTouching = (geometries: GeomWithOrders[], contacts: string[]): Contact[] => {
-  const res: Contact[] = []
-  const checked: string[] = []
-  geometries.forEach((me: GeomWithOrders, myIndex: number) => {
-    geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
-      // check it's not me
-      if (myIndex !== otherIndex) {
-        // don't compare geometries that are part of the same activity
-        if (me.activity._id !== other.activity._id) {
-          // generate IDs, to ensure we don't compare shapes twice
-          const myId = genID(me)
-          const otherId = genID(other)
-          const meFirst = (myId < otherId)
-          const first = meFirst ? me : other
-          const second = meFirst ? other : me
-          const id = createContactReference(genID(first), genID(second))
-          // have we already checked this permutation?
-          if (!checked.includes(id)) {
-            // have we got this interaction already?
-            if (!contacts.includes(id)) {
-              console.log('check', id)
-              checked.push(id)
-              if (differentForces(me, other) && overlapsInTime(me, other) && touches(me, other)) {
-                res.push({
-                  first: first,
-                  second: second
-                })
-              }
-            } else {
-              console.warn('not checking', id)
-            }
-          }
-        }
-      }
-    })
-  })
-  return res
-}
-
 export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
   const [bins, setBins] = useState<SpatialBin[]>([])
   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
-  const [features, setFeatures] = useState<GeoJSON.Feature[]>([])
-  const [contactsFound, setContactsFound] = useState<string[]>([])
+  const [contactsProcessed] = useState<string[]>([])
+  const [geometries, setGeometries] = useState<GeomWithOrders[]>([])
+
+  const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
+    const res: PlanningContact[] = []
+    geometries.forEach((me: GeomWithOrders, myIndex: number) => {
+      geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
+        // check it's not me
+        if (myIndex !== otherIndex) {
+          // don't compare geometries that are part of the same activity
+          if (me.activity._id !== other.activity._id) {
+            // generate IDs, to ensure we don't compare shapes twice
+            const meFirst = (me.id < other.id)
+            const first = meFirst ? me : other
+            const second = meFirst ? other : me
+            const id = createContactReference(first.id, second.id)
+            // have we already checked this permutation?
+            if (!contactsProcessed.includes(id)) {
+              contactsProcessed.push(id)
+              if (differentForces(me, other) && overlapsInTime(me, other) && touches(me, other)) {
+                res.push({
+                  id: id,
+                  first: first,
+                  second: second,
+                  timeStart: -1,
+                  timeEnd: -1
+                })
+              }
+            }
+          }
+        }
+      })
+    })
+    return res
+  }
 
   useEffect(() => {
-    setFeatures([])
     if (bins.length === 0) {
       const geometries = invertMessages(orders)
       const withTimes = injectTimes(geometries)
@@ -173,55 +157,34 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
       setBins(binnedOrders)
       if (step <= 0) {
         setCurrentBins(binnedOrders)
-        setFeatures(geometries.map((val: GeomWithOrders) => val.geometry))
+        setGeometries(withTimes)
       }
     }
-    console.log('step', step)
+    console.log('step', step, bins.length)
     if (bins.length > 0 && step >= 0) {
       setCurrentBins([bins[step]])
-      const contacts = findTouching(bins[step].orders, contactsFound)
-      console.log('contacts', contacts)
-      const contactNames: string[] = []
-      const newContacts = contacts.filter((val: Contact) => {
-        const id = createContactReference(genID(val.first), genID(val.second))
-        if (contactsFound.includes(id)) {
-          console.log('shoud not have checked', id, contactsFound)
+      const newContacts = findTouching(bins[step].orders)
+
+      console.table(newContacts.map((con: PlanningContact) => con.id))
+
+      // update contact status
+      const updated = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
+        const newItem: GeomWithOrders = deepCopy(geom)
+        const props: PlannedProps = newItem.geometry.properties as PlannedProps
+        if (props.newContact) {
+          delete props.newContact
         }
-        return !contactsFound.includes(id)
+        if (!props.inContact) {
+          const isNewContact = newContacts.find((val: PlanningContact) => val.first.id === newItem.id || val.second.id === newItem.id)
+          if (isNewContact) {
+            props.inContact = true
+            props.newContact = true
+          }
+        }
+        return newItem
       })
-      if (newContacts.length) {
-        const newContactList = newContacts.map((val: Contact) => {
-          return createContactReference(genID(val.first), genID(val.second))
-        })
-        console.log('storing contacts', contactsFound.length, newContactList.length)
-        setContactsFound(contactsFound.concat(newContactList))
-      }
-      contacts.forEach((val: Contact) => {
-        const check = (orders: GeomWithOrders): void => {
-          const id = genID(orders)
-          if (!contactNames.includes(id)) {
-            contactNames.push(id)
-          }
-        }
-        check(val.first)
-        check(val.second)
-      })
-      setFeatures(bins[step].orders.map((val: GeomWithOrders) => {
-        const id = genID(val)
-        if (contactNames.includes(id)) {
-          if (!val.geometry.properties) {
-            val.geometry.properties = {}
-          }
-          val.geometry.properties.touching = true
-        }
-        if (contactsFound.includes(id)) {
-          if (!val.geometry.properties) {
-            val.geometry.properties = {}
-          }
-          val.geometry.properties.oldTouching = true
-        }
-        return deepCopy(val.geometry)
-      }))
+      console.log('setting geom', updated)
+      setGeometries(updated)
     }
   }, [orders, step])
 
@@ -255,13 +218,27 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
   }
 
   const styleForFeatures: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
-    const oldTouching = feature && feature.properties && !!feature.properties.oldTouching
-    const touching = feature && feature.properties && !!feature.properties.touching
-    console.log('feature', contactsFound.length, feature?.id, oldTouching, touching)
-    return {
-      color: touching ? '#0f0' : oldTouching ? '#005' : '#b00',
-      fillColor: '#00f',
-      className: 'leaflet-default-icon-path'
+    if (feature) {
+      const props = feature.properties as PlannedProps
+      const inContact = props.inContact
+      const newContact = props.newContact
+      let color
+      if (inContact) {
+        if (newContact) {
+          color = '#0f0'
+        } else {
+          color = '#080'
+        }
+      } else {
+        color = '#aaa'
+      }
+      return {
+        color: color,
+        fillColor: '#00f',
+        className: 'leaflet-default-icon-path'
+      }
+    } else {
+      return {}
     }
   }
 
@@ -274,9 +251,10 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step }) => {
       </LayerGroup>
     }
     {
-      features.length > 0 &&
+      geometries.length > 0 &&
       <LayerGroup key={'features'}>
-        <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature} data={features} key={'feature_' + features.length} />
+        <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
+          data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_' + Math.random()} />
       </LayerGroup >
     }
   </>
