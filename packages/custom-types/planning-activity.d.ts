@@ -71,6 +71,8 @@ export interface PlannedProps {
   inContact?: boolean
   /** contact for this order has been identified in the last turn */
   newContact?: boolean
+  /** this geometry is to be considered in this turn */
+  toBeConsidered?: boolean
 }
 
 /** object that describes the structure of

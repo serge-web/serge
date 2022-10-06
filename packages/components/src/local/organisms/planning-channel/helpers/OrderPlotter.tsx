@@ -1,12 +1,12 @@
 
 import { MessagePlanning, PlannedProps } from '@serge/custom-types'
-import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
-import React, { useEffect, useState } from 'react'
-import { LayerGroup, GeoJSON } from 'react-leaflet'
-import { PlanningContact, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 import { deepCopy } from '@serge/helpers'
+import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment-timezone'
+import React, { useEffect, useState } from 'react'
+import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet'
+import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 
 export interface PlotterTypes {
   orders: MessagePlanning[]
@@ -31,6 +31,8 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   const [binningComplete, setBinningComplete] = useState<boolean>(false)
   const [contacts, setContacts] = useState<PlanningContact[]>([])
   const [sentForAdjudication] = useState<PlanningContact[]>([])
+  const [message1, setMessage1] = useState<string>('')
+  const [message2, setMessage2] = useState<string>('')
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -71,6 +73,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         const props = clean.geometry.properties as PlannedProps
         delete props.inContact
         delete props.newContact
+        delete props.toBeConsidered
         return clean
       })
       setGeometries(cleanGeoms)
@@ -83,18 +86,28 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         console.log('last one', lastId)
         time = moment(lastId.timeStart).toISOString()
       }
-      const geometriesInTimeWindow = findPlannedGeometries(withTimes, time, 60)
+      setMessage2('Considering activities from ' + time + ' onwards')
+
+      const geometriesInTimeWindow = findPlannedGeometries(withTimes, time, 160)
       console.log('looking from ', time, geometriesInTimeWindow.length)
+
+      // update if it's to be considered
+      const updated = withTimes.map((geom: GeomWithOrders): GeomWithOrders => {
+        const newItem: GeomWithOrders = deepCopy(geom)
+        const props = geom.geometry.properties as PlannedProps
+        props.toBeConsidered = geometriesInTimeWindow.some((val: GeomWithOrders) => val.id === geom.id)
+        return newItem
+      })
+      setGeometries(updated)
+
       // now do spatial binning
       const bins = spatialBinning(geometriesInTimeWindow, 6)
       const binnedOrders = putInBin(geometriesInTimeWindow, bins)
       setBins(binnedOrders)
-      if (step <= 0) {
-        setCurrentBins(binnedOrders)
-        setGeometries(withTimes)
-      }
+      setCurrentBins(binnedOrders)
+
+      setMessage1('Generating interactions for' + geometriesInTimeWindow.length + ' orders in this time window in ' + bins.length + ' bins')
     }
-    console.log('step', step)
     if (step > 0) {
       setBinToProcess(0)
     }
@@ -102,6 +115,11 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   useEffect(() => {
     if (bins.length && binToProcess !== undefined) {
+      setMessage1('Processing bin ' + (1 + binToProcess) + ' of ' + bins.length + ' (' + interactionsProcessed.length + ' tests)')
+      if (sentForAdjudication.length > 0) {
+        const lastItem = sentForAdjudication[sentForAdjudication.length - 1]
+        setMessage2('Considering activities from ' + moment(lastItem.timeStart).toISOString() + ' onwards')
+      }
       const bin = bins[binToProcess]
       const newContacts = findTouching(bin.orders)
       setContacts(contacts.concat(newContacts))
@@ -211,6 +229,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       const props = feature.properties as PlannedProps
       const inContact = props.inContact
       const newContact = props.newContact
+      const toBeConsidered = props.toBeConsidered
       let color
       if (inContact) {
         if (newContact) {
@@ -219,10 +238,11 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
           color = '#080'
         }
       } else {
-        color = '#aaa'
+        color = toBeConsidered ? '#f64' : '#aaa'
       }
       return {
         color: color,
+        weight: toBeConsidered ? 3 : 1,
         fillColor: '#00f',
         className: 'leaflet-default-icon-path'
       }
@@ -232,6 +252,13 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   }
 
   return <>
+    {(message1.length > 0 || message2.length > 0) &&
+      <Marker opacity={0} position={[-4, 130]}>
+        <Tooltip permanent={true}>
+          <span>{message1}</span><br /><span>{message2}</span>
+        </Tooltip>
+      </Marker>
+    }
     {bins.length > 0 &&
       <LayerGroup key={'bins'}>
         {currentBins.map((bin: SpatialBin, index: number) =>
