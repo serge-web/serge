@@ -8,6 +8,7 @@ import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import L from 'leaflet'
 import moment from 'moment-timezone'
+import { linePolyContact, ShapeInteraction, TimePeriod } from './shape-intersects'
 
 const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,
@@ -72,6 +73,7 @@ export interface PlanningContact {
   id: string
   first: GeomWithOrders
   second: GeomWithOrders
+  intersection?: GeoJSON.Geometry
   timeStart: number // unix millis
   timeEnd: number // unix millis
 }
@@ -173,6 +175,11 @@ export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number
   const start = Math.max(meProps.startTime || -1, otherProps.startTime || -1)
   const end = Math.min(meProps.endTime || -1, otherProps.endTime || -1)
   return [start, end]
+}
+
+const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
+  const props = geom.geometry.properties as PlannedProps
+  return [props.startTime || -1, props.endTime || -1]
 }
 
 const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
@@ -587,13 +594,16 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
   return res
 }
 
-export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: {(): number}): PlanningContact | null => {
+export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: { (): number }): PlanningContact | null => {
   const geom = me.geometry.geometry as any
   const myCoords = geom.coordinates
   const geom2 = other.geometry.geometry as any
   const otherCoords = geom2.coordinates
+  const myTime = timePeriodForGeom(me)
+  const otherTime = timePeriodForGeom(other)
   let res: PlanningContact | boolean | undefined
   let period: number[] | undefined
+  let intersection: ShapeInteraction | undefined
   const titles: string[] = []
   const monitor = (titles.includes(me.activity.message.title) ||
     titles.includes(other.activity.message.title))
@@ -643,6 +653,13 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanCrosses(meLine, turfPoly))
           period = [-1, -1]
+          if (res) {
+            intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
+            // if the line doesn't actually enter poly when it's running, cancel contact
+            if (!intersection) {
+              res = undefined
+            }
+          }
           break
         }
       }
@@ -660,11 +677,25 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
           const otherLine = turf.lineString(otherCoords)
           res = turf.booleanCrosses(mePoly, otherLine)
           period = [-1, -1]
+          if (res) {
+            intersection = linePolyContact(otherLine.geometry, otherTime, mePoly.geometry, myTime)
+            // if the line doesn't actually enter poly when it's running, cancel contact
+            if (!intersection) {
+              res = undefined
+            }
+          }
           break
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanOverlap(mePoly, turfPoly))
+          // TODO: fill in the other bits of the `intersects
+          //          if (res) {
+          //            const intersects =  turf.intersect(mePoly, turfPoly)
+          // if (intersects) {
+          //   intersection = intersects.geometry
+          // }
+          //        }
           break
         }
       }
@@ -692,14 +723,28 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
       if (makeItMiss) {
         return null
       } else {
-        const contact: PlanningContact = {
-          first: me,
-          second: other,
-          id: id,
-          timeStart: period[0],
-          timeEnd: period[1]
+        if (intersection) {
+          const contact: PlanningContact = {
+            first: me,
+            second: other,
+            id: id,
+            intersection: intersection.intersection.geometry,
+            timeStart: intersection.startTime,
+            timeEnd: intersection.endTime
+          }
+          return contact
+
+        } else {
+          const contact: PlanningContact = {
+            first: me,
+            second: other,
+            id: id,
+            timeStart: period[0],
+            timeEnd: period[1]
+          }
+          return contact
+
         }
-        return contact
       }
     }
     return null

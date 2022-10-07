@@ -1,6 +1,7 @@
 
 import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
+import * as turf from '@turf/turf'
 import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment-timezone'
@@ -36,6 +37,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   const [message1, setMessage1] = useState<string>('')
   const [message2, setMessage2] = useState<string>('')
   const [toAdjudicate, setToAdjudicate] = useState<PlanningContact | undefined>(undefined)
+  const [adjudicationHighlight, setAdjudicationHighlight] = useState<GeoJSON.Feature | undefined>(undefined)
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -195,6 +197,10 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         setMessage1('Sending for adjudication:' + nextToProcess.id)
         console.timeEnd('Execution Time')
         setToAdjudicate(sorted[0])
+        if (sorted[0].intersection) {
+          const asFeature: GeoJSON.Feature = turf.feature(sorted[0].intersection)
+          setAdjudicationHighlight(asFeature)
+        }
       }
       const debug = !7
       debug && console.table(sorted.map((val: PlanningContact) => {
@@ -248,6 +254,19 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     if (feature) {
       return {
         color: '#f00',
+        weight: 3,
+        fillColor: '#00f',
+        className: 'leaflet-default-icon-path'
+      }
+    } else {
+      return {}
+    }
+  }
+
+  const styleForAdjudicateIntersection: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
+    if (feature) {
+      return {
+        color: '#0f0',
         weight: 3,
         fillColor: '#00f',
         className: 'leaflet-default-icon-path'
@@ -317,6 +336,10 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         <LayerGroup key={'features'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicate} onEachFeature={onEachFeature}
             data={[toAdjudicate.first.geometry, toAdjudicate.second.geometry]} key={'to_ad_' + toAdjudicate.id} />
+          {adjudicationHighlight &&
+            <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicateIntersection} onEachFeature={onEachFeature}
+              data={[adjudicationHighlight]} key={'intersect_' + toAdjudicate.id} />
+          }
         </LayerGroup >
       </>
     }
