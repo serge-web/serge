@@ -388,7 +388,8 @@ const localFindActivity = (id: string, group: GroupedActivitySet): PlanningActiv
 export const findActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
-    throw Error('Failed to find activities for this force:' + forceId)
+    console.log('activities', activities)
+    throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
   }
   const group = force.groupedActivities.find((val: GroupedActivitySet) => {
     return !!localFindActivity(id, val)
@@ -542,16 +543,13 @@ export interface SpatialBin {
 
 export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): SpatialBin[] => {
   const res: SpatialBin[] = []
-  bins.forEach((poly: turf.Feature, index: number) => {
+  bins.forEach((poly: turf.Feature, _index: number) => {
     const thisBin: SpatialBin = {
       polygon: poly,
       orders: []
     }
     const polyGeo = poly.geometry as any
     const turfPoly = turf.polygon(polyGeo.coordinates)
-    if (index === 7) {
-      console.log('seven')
-    }
     orders.forEach((order: GeomWithOrders) => {
       const geom = order.geometry.geometry as any
       const coords = geom.coordinates

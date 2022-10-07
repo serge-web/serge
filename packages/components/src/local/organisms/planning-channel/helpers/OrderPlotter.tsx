@@ -104,7 +104,6 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       setMessage2('Considering activities from ' + time + ' onwards')
 
       const geometriesInTimeWindow = findPlannedGeometries(withTimes, time, 160)
-      console.log('looking from ', time, geometriesInTimeWindow.length)
 
       // update if it's to be considered
       const updated = withTimes.map((geom: GeomWithOrders): GeomWithOrders => {

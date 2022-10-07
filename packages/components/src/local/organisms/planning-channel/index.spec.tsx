@@ -1,5 +1,5 @@
-import { ChannelPlanning, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { ChannelPlanning, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
@@ -18,6 +18,32 @@ const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformType
 
 const force = forces[1]
 const role = force && force.roles[0]
+
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
+  return {
+    force: force.force,
+    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
+      const res: GroupedActivitySet = {
+        category: group.category,
+        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
+          if (typeof act === 'string') {
+            const actId = act as string
+            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
+            if (!activity) {
+              throw Error('Planning activity not found:' + actId)
+            }
+            return activity
+          } else {
+            return act
+          }
+        })
+      }
+      return res
+    })
+  }
+})
 
 const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
   return async (): Promise<void> => {
@@ -56,6 +82,7 @@ describe('Planning Channel component: ', () => {
       allForces={forces}
       gameDate={P9Mock.data.overview.gameDate}
       currentTurn={P9Mock.gameTurn}
+      forcePlanningActivities={filledInPerForcePlanningActivities}
     />)
     expect(tree).toMatchSnapshot()
   })
