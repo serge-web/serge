@@ -371,7 +371,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
 }
 
 const localFindActivity = (id: string, group: GroupedActivitySet): PlanningActivityGeometry | undefined => {
-  let activity: PlanningActivityGeometry | undefined = undefined
+  let activity: PlanningActivityGeometry | undefined
   group.activities.forEach((act: string | PlanningActivity) => {
     if (typeof act === 'string') {
       throw new Error('Found string definition for activity. Should be real activity')
@@ -391,7 +391,7 @@ export const findActivity = (id: string, forceId: string, activities: PerForcePl
     throw Error('Failed to find activities for this force:' + forceId)
   }
   const group = force.groupedActivities.find((val: GroupedActivitySet) => {
-    return !!localFindActivity(id, val) 
+    return !!localFindActivity(id, val)
   })
   if (!group) {
     throw Error('Failed to find group activities for this activity:' + id)
@@ -401,7 +401,6 @@ export const findActivity = (id: string, forceId: string, activities: PerForcePl
     throw Error('Failed to find group activities for this activity:' + id)
   }
   return activity.name
-
 }
 
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {

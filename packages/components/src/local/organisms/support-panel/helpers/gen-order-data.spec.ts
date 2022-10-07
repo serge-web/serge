@@ -202,7 +202,7 @@ it('overlaps works as expected', () => {
 
 it('finds activities', () => {
   const activity = activities[0].groupedActivities[1].activities[1] as PlanningActivity
-  const found = findActivity(activity.geometries && activity.geometries[1].uniqid || '', activities[0].force, activities)
+  const found = findActivity((activity.geometries && activity.geometries[1].uniqid) || '', activities[0].force, activities)
   expect(found).toBeTruthy()
   expect(found).toEqual(activity.geometries && activity.geometries[1].name)
 })
