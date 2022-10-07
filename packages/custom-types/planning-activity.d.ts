@@ -74,8 +74,6 @@ export interface PlannedProps {
   newContact?: boolean
   /** this geometry is to be considered in this turn */
   toBeConsidered?: boolean
-  /** this geometry has just been sent for adjudication */
-  sentForAdjudication?: boolean
 }
 
 /** object that describes the structure of

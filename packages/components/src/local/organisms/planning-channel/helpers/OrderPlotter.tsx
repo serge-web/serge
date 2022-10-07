@@ -34,6 +34,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   const [sentForAdjudication] = useState<PlanningContact[]>([])
   const [message1, setMessage1] = useState<string>('')
   const [message2, setMessage2] = useState<string>('')
+  const [toAdjudicate, setToAdjudicate] = useState<PlanningContact | undefined>(undefined)
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -116,6 +117,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   useEffect(() => {
     if (bins.length && binToProcess !== undefined) {
+      setToAdjudicate(undefined)
       setMessage1('Processing bin ' + (1 + binToProcess) + ' of ' + bins.length + ' (' + interactionsProcessed.length + ' tests)')
       if (sentForAdjudication.length > 0) {
         const lastItem = sentForAdjudication[sentForAdjudication.length - 1]
@@ -176,16 +178,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
         setMessage1('Sending for adjudication:' + nextToProcess.id)
 
-        const withRecentlySent = geometries.map((val: GeomWithOrders): GeomWithOrders => {
-          const newItem = deepCopy(val)
-          const doingNext = (nextToProcess.first.id === val.id || nextToProcess.second.id === val.id)
-          if (doingNext) {
-            const props = newItem.geometry.properties as PlannedProps
-            props.sentForAdjudication = true
-          }
-          return newItem
-        })
-        setGeometries(withRecentlySent)
+        setToAdjudicate(sorted[0])
       }
       const debug = !7
       debug && console.table(sorted.map((val: PlanningContact) => {
@@ -235,17 +228,26 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: L.LatLng): L.Layer => {
     return circleMarker(latlng, geojsonMarkerOptions)
   }
+  const styleForAdjudicate: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
+    if (feature) {
+      return {
+        color: '#f00',
+        weight:  3,
+        fillColor: '#00f',
+        className: 'leaflet-default-icon-path'
+      }
+    } else {
+      return {}
+    }
+  }
 
   const styleForFeatures: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
     if (feature) {
       const props = feature.properties as PlannedProps
       const inContact = props.inContact
       const newContact = props.newContact
-      const newlySent = props.sentForAdjudication
       let color
-      if (newlySent) {
-        color = '#f00'
-      } else if (inContact) {
+      if (inContact) {
         if (newContact) {
           color = '#0f0'
         } else {
@@ -256,7 +258,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       }
       return {
         color: color,
-        weight: newlySent ? 3 : 1,
+        weight:  1,
         fillColor: '#00f',
         className: 'leaflet-default-icon-path'
       }
@@ -281,7 +283,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       </LayerGroup>
     }
     {
-      geometries.length > 0 &&
+      geometries.length > 0 && !toAdjudicate &&
       <>
         <LayerGroup key={'features'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
@@ -290,6 +292,15 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
             filter={(feature: any): boolean => filterPendingFeatures(true, feature)}
             data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_contact' + Math.random()} />
+        </LayerGroup >
+      </>
+    }
+    {
+      toAdjudicate &&
+      <>
+        <LayerGroup key={'features'}>
+          <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicate} onEachFeature={onEachFeature}
+            data={[toAdjudicate.first.geometry, toAdjudicate.second.geometry]} key={'to_ad_' + toAdjudicate.id} />
         </LayerGroup >
       </>
     }
