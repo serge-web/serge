@@ -57,7 +57,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
                 interactionsProcessed.push(id)
                 if (differentForces(me, other) && overlapsInTime(me, other)) {
                   // see if we have a cached ocntact
-                  const cachedResult = cachedContacts.id
+                  const cachedResult = cachedContacts[id]
                   if (cachedResult !== undefined) {
                     if (cachedResult !== null) {
                       res.push(cachedResult)
@@ -67,7 +67,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
                     if (contact) {
                       res.push(contact)
                     }
-                    cachedContacts.id = contact || null
+                    cachedContacts[id] = contact || null
                   }
                 }
               }
@@ -130,6 +130,10 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   useEffect(() => {
     if (bins.length && binToProcess !== undefined) {
       setToAdjudicate(undefined)
+      if (binToProcess === 0) {
+        setInteractionsProcessed([])
+      }
+
       setMessage1('Processing bin ' + (1 + binToProcess) + ' of ' + bins.length + ' (' + interactionsProcessed.length + ' tests)')
       if (sentForAdjudication.length > 0) {
         const lastItem = sentForAdjudication[sentForAdjudication.length - 1]
