@@ -367,7 +367,8 @@ it('generates full contact for polygon & line', () => {
 
   const me = withTimes[17]
   const other = withTimes[18]
-  const con1 = touches(me, other, 'aa', randomizer)
+  // note: don't use the randomiser. We want to force the line to be generated
+  const con1 = touches(me, other, 'aa', (): number => {return 0.1})
   expect(con1).toBeTruthy()
   if (con1) {
     // TODO: implement moving along the line
