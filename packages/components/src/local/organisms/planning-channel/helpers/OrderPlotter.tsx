@@ -31,6 +31,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   const [binToProcess, setBinToProcess] = useState<number | undefined>(undefined)
   const [binningComplete, setBinningComplete] = useState<boolean>(false)
   const [contacts, setContacts] = useState<PlanningContact[]>([])
+  const [cachedContacts] = useState<Record<string, PlanningContact | null>>({})
   const [sentForAdjudication] = useState<PlanningContact[]>([])
   const [message1, setMessage1] = useState<string>('')
   const [message2, setMessage2] = useState<string>('')
@@ -51,12 +52,22 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
             const id = createContactReference(first.id, second.id)
             // have we already checked this permutation?
             if (!interactionsProcessed.includes(id)) {
+              // has it already been sent for adjudication?
               if (!sentForAdjudication.find((item: PlanningContact) => item.id === id)) {
                 interactionsProcessed.push(id)
                 if (differentForces(me, other) && overlapsInTime(me, other)) {
-                  const contact = touches(me, other, id, Math.random)
-                  if (contact) {
-                    res.push(contact)
+                  // see if we have a cached ocntact
+                  const cachedResult = cachedContacts.id
+                  if (cachedResult !== undefined) {
+                    if (cachedResult !== null) {
+                      res.push(cachedResult)
+                    }
+                  } else {
+                    const contact = touches(me, other, id, Math.random)
+                    if (contact) {
+                      res.push(contact)
+                    }
+                    cachedContacts.id = contact || null
                   }
                 }
               }
@@ -79,6 +90,8 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         return clean
       })
       setGeometries(cleanGeoms)
+
+      console.time('Execution Time')
 
       const newGeometries = invertMessages(orders, activities)
       const withTimes = injectTimes(newGeometries)
@@ -177,7 +190,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         sentForAdjudication.push(nextToProcess)
 
         setMessage1('Sending for adjudication:' + nextToProcess.id)
-
+        console.timeEnd('Execution Time')
         setToAdjudicate(sorted[0])
       }
       const debug = !7
@@ -232,7 +245,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     if (feature) {
       return {
         color: '#f00',
-        weight:  3,
+        weight: 3,
         fillColor: '#00f',
         className: 'leaflet-default-icon-path'
       }
@@ -258,7 +271,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       }
       return {
         color: color,
-        weight:  1,
+        weight: 1,
         fillColor: '#00f',
         className: 'leaflet-default-icon-path'
       }
