@@ -30,7 +30,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   const channel = channelUI.cData as ChannelChat
   const [hideAuthor] = useState<boolean>(!!channel.hideMessageAuthor)
   const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
-  
+
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
     if (state.channels[channelId].messages!.length === 0) {
@@ -170,6 +170,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
               isCustomChannel
                 ? <NewMessage
                   channel={channel}
+                  channelId={channelId}
                   saveCachedNewMessageValue={cacheMessage}
                   getCachedNewMessagevalue={getCachedMessage}
                   clearCachedNewMessage={clearCachedMessage}

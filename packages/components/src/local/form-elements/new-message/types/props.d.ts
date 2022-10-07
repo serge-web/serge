@@ -8,6 +8,7 @@ export default interface PropTypes {
   selectedForce?: ForceData
   selectedRole: string
   selectedRoleName: string
+  channelId?: string
   currentTurn: number
   gameDate: string
   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void

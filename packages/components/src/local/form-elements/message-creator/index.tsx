@@ -2,7 +2,11 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Confirm } from '@serge/components'
 import {
-  CHANNEL_COLLAB, CollaborativeMessageStates, InitialStates, UNSENT_PRIVATE_MESSAGE_TYPE
+  CHANNEL_COLLAB,
+  CollaborativeMessageStates,
+  InitialStates,
+  UNSENT_PRIVATE_MESSAGE_TYPE,
+  UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
 import {
   ChannelCollab,
@@ -110,6 +114,8 @@ const MessageCreator: React.FC<PropTypes> = ({
 
   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
+    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    editor && editor.destroy()
     onCancel && onCancel(event)
   }
 
@@ -134,7 +140,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     return (): void => {
       destroyEditor(editor)
     }
-  }, [schema, messageOption])
+  }, [schema, messageOption, confirmIsOpen])
 
   useEffect(() => {
     const formValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(messageOption)
