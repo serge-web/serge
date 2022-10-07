@@ -676,6 +676,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
     return null
   } else {
     if (res) {
+      let makeItMiss = false
       if (period === undefined) {
         period = timeIntersect(me, other)
       } else {
@@ -685,15 +686,21 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         const end = intersect[1]
         const interval = end - start
         period = [start + 0.3 * randomizer() * interval, start + 0.8 * randomizer() * interval]
+        // this is a line. Make it likely to miss
+        makeItMiss = randomizer() > 0.2
       }
-      const contact: PlanningContact = {
-        first: me,
-        second: other,
-        id: id,
-        timeStart: period[0],
-        timeEnd: period[1]
+      if (makeItMiss) {
+        return null 
+      } else {
+        const contact: PlanningContact = {
+          first: me,
+          second: other,
+          id: id,
+          timeStart: period[0],
+          timeEnd: period[1]
+        }
+        return contact  
       }
-      return contact
     }
     return null
   }
