@@ -59,6 +59,8 @@ export interface PlannedActivityGeometry {
 
 /** structure for how we store date in props */
 export interface PlannedProps {
+  // combination of activity name & geometry name
+  id: string
   startDate: string
   endDate: string
   // unix epoch, for quicker date comparison

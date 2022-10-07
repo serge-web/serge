@@ -1,5 +1,5 @@
 
-import { MessagePlanning, PlannedProps } from '@serge/custom-types'
+import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
@@ -12,6 +12,7 @@ export interface PlotterTypes {
   orders: MessagePlanning[]
   step: number
   handleAdjudication: { (contact: PlanningContact): void }
+  activities: PerForcePlanningActivitySet[]
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
@@ -22,7 +23,7 @@ const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
-export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjudication }) => {
+export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjudication, activities }) => {
   const [bins, setBins] = useState<SpatialBin[]>([])
   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
   const [interactionsProcessed, setInteractionsProcessed] = useState<string[]>([])
@@ -78,7 +79,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       })
       setGeometries(cleanGeoms)
 
-      const newGeometries = invertMessages(orders)
+      const newGeometries = invertMessages(orders, activities)
       const withTimes = injectTimes(newGeometries)
       let time = '2022-11-15T00:00:00.000Z'
       if (sentForAdjudication.length) {

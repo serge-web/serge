@@ -5,22 +5,22 @@ import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
+import { LayerGroup } from 'react-leaflet'
+import Item from '../../map-control/helpers/item'
+import ApplyFilter from '../apply-filter'
+import MapDrawActivity from '../map-draw-activity'
+import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
-import MapPlanningOrders from '../map-planning-orders'
+import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
+import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import ViewAs from '../view-as'
+import OrderPlotter from './helpers/OrderPlotter'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import { LayerGroup } from 'react-leaflet'
-import PlanningForces from '../planning-force'
-import ViewAs from '../view-as'
-import ApplyFilter from '../apply-filter'
-import MapDrawActivity from '../map-draw-activity'
-import Item from '../../map-control/helpers/item'
-import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
-import OrderPlotter from './helpers/OrderPlotter'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -308,7 +308,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           </>
         }>
         <>
-          <OrderPlotter orders={planningMessages} step={debugStep} handleAdjudication={handleAdjudication} />
+          <OrderPlotter orders={planningMessages} activities={forcePlanningActivities || []} step={debugStep} handleAdjudication={handleAdjudication} />
           {doNotRender &&
             <>
               <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />

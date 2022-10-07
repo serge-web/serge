@@ -1,16 +1,39 @@
-import {
-  geometriesFor, randomOrdersDocs, invertMessages, findPlannedGeometries, spatialBinning,
-  putInBin, injectTimes, overlapsInTime, touches, GeomWithOrders, timeIntersect
-} from './gen-order-data'
-import { P9Mock, MockPlanningActivities, planningMessages } from '@serge/mocks'
-import moment from 'moment'
-import * as turf from '@turf/turf'
+import { GroupedActivitySet, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { PlannedProps } from '@serge/custom-types'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
+import * as turf from '@turf/turf'
+import moment from 'moment'
+import { findActivity, findPlannedGeometries, geometriesFor, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
+
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const activities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
+  return {
+    force: force.force,
+    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
+      const res: GroupedActivitySet = {
+        category: group.category,
+        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
+          if (typeof act === 'string') {
+            const actId = act as string
+            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
+            if (!activity) {
+              throw Error('Planning activity not found:' + actId)
+            }
+            return activity
+          } else {
+            return act
+          }
+        })
+      }
+      return res
+    })
+  }
+})
 
 it('produces order data', () => {
   const numOrders = 20
@@ -177,9 +200,16 @@ it('overlaps works as expected', () => {
   expect(turf.booleanOverlap(poly, disconnectedPoly)).toBeFalsy()
 })
 
+it('finds activities', () => {
+  const activity = activities[0].groupedActivities[1].activities[1] as PlanningActivity
+  const found = findActivity(activity.geometries && activity.geometries[1].uniqid || '', activities[0].force, activities)
+  expect(found).toBeTruthy()
+  expect(found).toEqual(activity.geometries && activity.geometries[1].name)
+})
+
 it('bins overlaps for time', () => {
   const time = '2022-11-15T00:00:00.000Z'
-  const orders = invertMessages(deepCopy(planningMessages))
+  const orders = invertMessages(deepCopy(planningMessages), activities)
   const binsInTimeWindow = findPlannedGeometries(orders, time, 30)
   // now do spatial binning
   const bins = spatialBinning(binsInTimeWindow, 6)
@@ -191,7 +221,7 @@ it('bins overlaps for time', () => {
 
 it('fills in time values', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   expect(withTimes.length).toEqual(22)
   expect(withTimes[1].geometry.properties).toBeTruthy()
@@ -202,7 +232,7 @@ it('fills in time values', () => {
 
 it('generates time intersection', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   const me = withTimes[4]
   const other = withTimes[17]
@@ -212,7 +242,7 @@ it('generates time intersection', () => {
 
 it('generates time intersection', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   const me = withTimes[4]
   const other = withTimes[11]
@@ -242,7 +272,7 @@ const randomizer = (): number => {
 
 it('does some diagnostics', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   expect(withTimes.length).toEqual(22)
   const debug = !7
@@ -283,7 +313,7 @@ it('does some diagnostics', () => {
 
 it('generates full contact for two polygons', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   expect(withTimes.length).toEqual(22)
 
@@ -303,7 +333,7 @@ it('generates full contact for two polygons', () => {
 
 it('generates full contact for polygon & point', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   expect(withTimes.length).toEqual(22)
 
@@ -331,7 +361,7 @@ it('generates full contact for polygon & point', () => {
 
 it('generates full contact for polygon & line', () => {
   const messages = deepCopy(planningMessages)
-  const orders = invertMessages(messages)
+  const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
   expect(withTimes.length).toEqual(22)
 

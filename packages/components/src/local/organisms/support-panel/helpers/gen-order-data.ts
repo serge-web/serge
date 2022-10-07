@@ -1,7 +1,7 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import {
-  Asset, ForceData, MessageDetails, MessageDetailsFrom, MessagePlanning,
-  PerceivedTypes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
+  Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
+  PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { PlanningMessageStructure } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
@@ -175,10 +175,12 @@ export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number
   return [start, end]
 }
 
-const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string): GeoJSON.Feature => {
+const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
+  activity: PlanningActivity): GeoJSON.Feature => {
   const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
   const dateProps: PlannedProps = {
+    id: activity.name + '//' + geometry.name,
     startDate: timeStart,
     endDate: timeFinish,
     startTime: moment(timeStart).valueOf(),
@@ -256,7 +258,7 @@ export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: Pl
       const timeEnd = timeStart.clone().add(minsOffset, 'm')
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(own, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString())
+        geometry: geometryFor(own, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
       }
       timeNow = timeEnd
       return planned
@@ -368,18 +370,56 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
-export const invertMessages = (messages: MessagePlanning[]): GeomWithOrders[] => {
+const localFindActivity = (id: string, group: GroupedActivitySet): PlanningActivityGeometry | undefined => {
+  let activity: PlanningActivityGeometry | undefined = undefined
+  group.activities.forEach((act: string | PlanningActivity) => {
+    if (typeof act === 'string') {
+      throw new Error('Found string definition for activity. Should be real activity')
+    } else {
+      const match = act.geometries && act.geometries.find((val: PlanningActivityGeometry) => val.uniqid === id)
+      if (match) {
+        activity = match
+      }
+    }
+  })
+  return activity
+}
+
+export const findActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
+  const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+  if (!force) {
+    throw Error('Failed to find activities for this force:' + forceId)
+  }
+  const group = force.groupedActivities.find((val: GroupedActivitySet) => {
+    return !!localFindActivity(id, val) 
+  })
+  if (!group) {
+    throw Error('Failed to find group activities for this activity:' + id)
+  }
+  const activity = localFindActivity(id, group)
+  if (!activity) {
+    throw Error('Failed to find group activities for this activity:' + id)
+  }
+  return activity.name
+
+}
+
+export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
   messages.forEach((message: MessagePlanning) => {
     if (message.message.location) {
+      const forceId = message.details.from.forceId || 'unknown'
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
         const fromBit = message.details.from
-        const id = message.message.title + '-' + plan.uniqid + '-' + message._id
+        const activity = findActivity(plan.uniqid, forceId, activities)
+        const id = message.message.title + '//' + activity + '//' + message._id
         const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
-        newItem.geometry.properties.name = message.message.title + ' ' + plan.uniqid
+        newItem.geometry.properties.name = message.message.title + '//' + activity
+        newItem.geometry.properties.geomId = plan.uniqid
+        newItem.geometry.properties.force = forceId
         res.push(newItem)
       })
     }
