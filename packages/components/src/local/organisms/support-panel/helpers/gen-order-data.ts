@@ -690,7 +690,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         makeItMiss = randomizer() > 0.2
       }
       if (makeItMiss) {
-        return null 
+        return null
       } else {
         const contact: PlanningContact = {
           first: me,
@@ -699,7 +699,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
           timeStart: period[0],
           timeEnd: period[1]
         }
-        return contact  
+        return contact
       }
     }
     return null
