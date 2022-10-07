@@ -733,7 +733,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
             timeEnd: intersection.endTime
           }
           return contact
-
         } else {
           const contact: PlanningContact = {
             first: me,
@@ -743,7 +742,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
             timeEnd: period[1]
           }
           return contact
-
         }
       }
     }

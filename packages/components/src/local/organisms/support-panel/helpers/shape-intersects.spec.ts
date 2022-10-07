@@ -3,13 +3,13 @@ import GeoJSON, { Feature, LineString, Polygon } from 'geojson'
 import { containedIn, linePolyContact, trimLineToPeriod } from './shape-intersects'
 
 const data: GeoJSON.FeatureCollection = {
-  type: "FeatureCollection",
+  type: 'FeatureCollection',
   features: [
     {
-      type: "Feature",
+      type: 'Feature',
       properties: {},
       geometry: {
-        type: "LineString",
+        type: 'LineString',
         coordinates: [
           [
             117.7434,
@@ -35,10 +35,10 @@ const data: GeoJSON.FeatureCollection = {
       }
     },
     {
-      type: "Feature",
+      type: 'Feature',
       properties: {},
       geometry: {
-        type: "Polygon",
+        type: 'Polygon',
         coordinates: [
           [
             [
@@ -66,10 +66,10 @@ const data: GeoJSON.FeatureCollection = {
       }
     },
     {
-      type: "Feature",
+      type: 'Feature',
       properties: {},
       geometry: {
-        type: "LineString",
+        type: 'LineString',
         coordinates: [
           [
             130.935,
@@ -87,10 +87,10 @@ const data: GeoJSON.FeatureCollection = {
       }
     },
     {
-      type: "Feature",
+      type: 'Feature',
       properties: {},
       geometry: {
-        type: "Point",
+        type: 'Point',
         coordinates: [
           133.98248020559546,
           -11.183634212198807
@@ -98,10 +98,10 @@ const data: GeoJSON.FeatureCollection = {
       }
     },
     {
-      type: "Feature",
+      type: 'Feature',
       properties: {},
       geometry: {
-        type: "LineString",
+        type: 'LineString',
         coordinates: [
           [
             124.45312499999999,
@@ -122,18 +122,18 @@ const data: GeoJSON.FeatureCollection = {
 }
 
 const simpleLine: Feature<LineString> = {
-  type: "Feature",
+  type: 'Feature',
   properties: {},
   geometry: {
-    type: "LineString",
+    type: 'LineString',
     coordinates: [[0, 0], [0, 10]]
   }
 }
 const simplePoly: Feature<Polygon> = {
-  type: "Feature",
+  type: 'Feature',
   properties: {},
   geometry: {
-    type: "Polygon",
+    type: 'Polygon',
     coordinates: [
       [
         [-2, 2], [4, 2], [4, 4], [-2, 4], [-2, 2]
@@ -150,9 +150,6 @@ const independentLine = data.features[4].geometry as any
 
 !7 && console.log(lineIntersect, point, independentLine)
 
-
-
-
 it('trims line to periods', () => {
   expect(containedIn([4, 8], [2, 9])).toBeTruthy()
   expect(containedIn([4, 8], [4, 8])).toBeTruthy()
@@ -162,7 +159,7 @@ it('trims line to periods', () => {
 
 it('trim line to a period', () => {
   const tLine = turf.lineString(simpleLine.geometry.coordinates)
-  
+
   const res1 = trimLineToPeriod(tLine.geometry, [0, 10], [2, 8]) as LineString
   expect(res1).toBeTruthy()
   expect(res1.coordinates).toEqual([[0, 2], [0, 8]])

@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf'
-import { Feature, LineString, Polygon } from "geojson"
+import { Feature, LineString, Polygon } from 'geojson'
 
 /** the interaction of two shapes */
 export interface ShapeInteraction {
@@ -9,7 +9,6 @@ export interface ShapeInteraction {
 }
 
 export type TimePeriod = number[]
-
 
 export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Polygon, polyTime: TimePeriod): ShapeInteraction | undefined => {
   // trim the line to the valid period of the poly
@@ -26,7 +25,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
       // ok, line runs both sides of polygon
       const beforeSection = turf.lineSplit(fLine, overlap.features[0])
       const midSection = turf.lineSplit(beforeSection.features[1], overlap.features[1])
-  
+
       const res: ShapeInteraction = {
         intersection: midSection.features[0],
         startTime: timeI[0],
@@ -52,7 +51,6 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
   }
 }
 
-
 const elapsed = (period: TimePeriod): number => {
   return period[1] - period[0]
 }
@@ -69,7 +67,6 @@ const tEnd = (period: TimePeriod): number => {
 export const containedIn = (periodOne: TimePeriod, periodTwo: TimePeriod): boolean => {
   return tStart(periodOne) >= tStart(periodTwo) && tEnd(periodOne) <= tEnd(periodTwo)
 }
-
 
 export const trimLineToPeriod = (line: LineString, lineTime: TimePeriod, otherTime: TimePeriod): LineString | undefined => {
   if (containedIn(lineTime, otherTime)) {
@@ -112,5 +109,4 @@ export const timeIntersect2 = (periodOne: TimePeriod, periodTwo: TimePeriod): Ti
   const start = Math.max(tStart(periodOne), tStart(periodTwo))
   const end = Math.min(tEnd(periodOne), tEnd(periodTwo))
   return [start, end]
-
 }
