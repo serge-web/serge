@@ -239,8 +239,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           <Item title='go' onClick={startDrawing}>Start</Item>
         </div>
         <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
-      </>)
-  }, [selectedAssets])
+      </>
+    )
+  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>

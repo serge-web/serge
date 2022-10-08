@@ -48,7 +48,8 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
               position={loc}
               icon={L.divIcon({
                 iconSize: [30, 30],
-                html: getAssetIcon(asset, isSelected, false)
+                html: getAssetIcon(asset, isSelected, false),
+                className: styles['map-icon']
               })} >
               <Tooltip>{asset.name}</Tooltip>
             </Marker>
