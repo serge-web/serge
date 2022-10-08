@@ -6,7 +6,8 @@ jest.mock('react-leaflet-v4', () => ({
   useMap: (): any => ({
     invalidateSize: (): jest.Mock => jest.fn(),
     flyTo: (): jest.Mock => jest.fn(),
-    flyToBounds: (): jest.Mock => jest.fn()
+    flyToBounds: (): jest.Mock => jest.fn(),
+    on: (): jest.Mock => jest.fn(),
   }),
   LayerGroup: (): React.ReactElement => <></>,
   ScaleControl: (): React.ReactElement => <></>,

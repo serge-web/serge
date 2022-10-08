@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import React, { useEffect } from 'react'
 import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
 import MapControl from '../../map-control'
+import MapCoordinates from './helper/Coordinates'
 import { MapConstants } from './helper/MapConstants'
 import PropTypes from './types/props'
 
@@ -46,6 +47,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
       </MapControl>
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
+      <MapCoordinates />
       {children}
     </>
   )
