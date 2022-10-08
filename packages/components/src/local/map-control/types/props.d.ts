@@ -40,4 +40,6 @@ export default interface PropTypes {
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */
   actionCallback?: { (force: string, category: string, actionId: string): void }
+
+  mapVer?: 'v2' | 'v4'
 }

@@ -1,9 +1,9 @@
 
 import { MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
-import { PathOptions, StyleFunction, Layer } from 'leaflet'
+import { Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { LayerGroup, GeoJSON } from 'react-leaflet'
+import { GeoJSON, LayerGroup } from 'react-leaflet-v4'
 import PropTypes from './types/props'
 
 const findActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGeometry['uniqid']): PlanningActivity | undefined => {
@@ -18,7 +18,7 @@ const findActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGe
 }
 
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
-  const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>(undefined)
+  const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>()
 
   /** orders definitions can specify the color to use.  If there is one, use it.
    * else use the force color
@@ -50,7 +50,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
 
   useEffect(() => {
     if (orders) {
-      const withLocation = orders.filter((msg: MessagePlanning) => msg.message.location !== undefined)
+      const withLocation = orders.filter((msg: MessagePlanning) => msg.message && msg.message.location !== undefined)
       const geometries = withLocation.map((msg: MessagePlanning): GeoJSON.Feature[] => {
         if (msg.message.location) {
           const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
@@ -83,7 +83,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
     {
       orderGeometries &&
       <LayerGroup key={'orders'}>
-        <GeoJSON style={styleFor} onEachFeature={onEachFeature} data={orderGeometries} />
+        <GeoJSON style={styleFor} onEachFeature={onEachFeature} data={{ ...orderGeometries, type: 'Feature' }} />
       </LayerGroup>
     }
   </>

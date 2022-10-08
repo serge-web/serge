@@ -4,6 +4,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import MessageCreator from './index'
 
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn()
+}))
+
 it('MessageCreator renders correctly', () => {
   const channel = P9Mock.data.channels.channels[0]
   const channels = {}
