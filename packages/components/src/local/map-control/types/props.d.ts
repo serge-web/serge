@@ -42,4 +42,6 @@ export default interface PropTypes {
   actionCallback?: { (force: string, category: string, actionId: string): void }
 
   mapVer?: 'v2' | 'v4'
+
+  setDrawingMode?: (enable: boolean) => void
 }

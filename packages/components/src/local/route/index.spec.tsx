@@ -13,8 +13,19 @@ const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platform
 const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', false, platformTypes, false, false)
 const route: RouteType = store.routes[0] as RouteType
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 const clearFromTurn = (turn: number): void => {

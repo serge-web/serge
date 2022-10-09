@@ -1,10 +1,11 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
+import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import { LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
+import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import ApplyFilter from '../apply-filter'
 import MapPlanningOrders from '../map-planning-orders'
@@ -17,9 +18,6 @@ import SupportPanel, { SupportPanelContext } from '../support-panel'
 import ViewAs from '../view-as'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-
-import Item from '../../map-control/helpers/item'
-import MapDrawActivity from '../map-draw-activity'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -100,7 +98,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
 
   // the activity currently being planned
-  const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
+  // const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
+
+  const [isDrawing, setDrawing] = useState<boolean>(false)
+  const [polylineLatlgn, setPolylineLatlng] = useState<LatLng[]>([])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -211,16 +212,22 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
-  const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
-    setCurrentActivity(undefined)
-    window.alert('Geometries complete ' + geometries.length)
-  }
+  // const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
+  //   setCurrentActivity(undefined)
+  //   window.alert('Geometries complete ' + geometries.length)
+  // }
+
+  // const startDrawing = (): void => {
+  //   if (planningActivities) {
+  //     setCurrentActivity(planningActivities[0])
+  //   }
+  // }
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
-  const startDrawing = (): void => {
-    if (planningActivities) {
-      setCurrentActivity(planningActivities[0])
+  const onCreate = (e: { shape: string, layer: Layer }) => {
+    if (e.shape === 'Line') {
+      setPolylineLatlng(e.layer['_latlngs'])
     }
   }
 
@@ -234,11 +241,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <LayerGroup key={'opp-forces'}>
           <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
         </LayerGroup>
-        { /* dummy button, to trigger drawing process */}
-        <div className={cx('leaflet-control')}>
-          <Item title='go' onClick={startDrawing}>Start</Item>
-        </div>
-        <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
+        {/* <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} /> */}
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
@@ -291,11 +294,27 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               position={position}
               actionItems={mapActionItems}
               actionCallback={mapActionCallback}
+              setDrawingMode={(status: boolean) => setDrawing(status)}
+              polylineLatlgn={polylineLatlgn}
               mapWidth={mapWidth}
               toolbarChildren={
                 <>
-                  <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                  <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                  {!isDrawing && <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />}
+                  {!isDrawing && <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />}
+                  {
+                    isDrawing &&
+                    <GeomanControls
+                      options={{
+                        position: 'bottomright',
+                      }}
+                      globalOptions={{
+                        continueDrawing: true,
+                        editable: false,
+                      }}
+                      onCreate={onCreate}
+                      onChange={(e) => console.log('onChange', e)}
+                    />
+                  }
                 </>
               }>
               {mapChildren}

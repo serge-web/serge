@@ -10,9 +10,20 @@ export const mockFn = (): PlayerUiActionTypes => ({
   payload: {}
 })
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  },
+}))
+jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn(),
   MapContainer: (): React.ReactElement => <></>
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 const wargame = P9Mock.data

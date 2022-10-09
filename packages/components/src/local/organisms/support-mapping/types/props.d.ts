@@ -1,4 +1,4 @@
-import { LatLngExpression, LatLngBounds } from 'leaflet'
+import { LatLngExpression, LatLngBounds, LatLng } from 'leaflet'
 
 export default interface PropTypes {
   bounds?: LatLngBounds
@@ -14,6 +14,9 @@ export default interface PropTypes {
   children?: JSX.Element
   /** toolbar buttons */
   toolbarChildren?: JSX.Element
+
+  setDrawingMode?: (status: boolean) => void
+  polylineLatlgn?: LatLng[]
 }
 
 export interface MappingMenuItem {

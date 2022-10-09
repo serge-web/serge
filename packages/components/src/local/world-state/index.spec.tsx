@@ -11,8 +11,19 @@ const infoMarkers = watuWargame.data.annotations ? watuWargame.data.annotations.
 const force = watuWargame.data.forces.forces[0].uniqid
 const markerIcons = watuWargame.data.annotationIcons ? watuWargame.data.annotationIcons.markers : []
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 it('WorldState renders correctly', () => {
