@@ -13,6 +13,7 @@ import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-a
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
+import PolylineDecorator from '../support-mapping/helper/PolylineDecorator'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import ViewAs from '../view-as'
@@ -102,6 +103,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [isDrawing, setDrawing] = useState<boolean>(false)
   const [polylineLatlgn, setPolylineLatlng] = useState<LatLng[]>([])
+  const [geomanLayer, setGeomanLayer] = useState<Layer>()
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -228,6 +230,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const onCreate = (e: { shape: string, layer: Layer }) => {
     if (e.shape === 'Line') {
       setPolylineLatlng(e.layer['_latlngs'])
+      setGeomanLayer(e.layer)
     }
   }
 
@@ -295,7 +298,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               actionItems={mapActionItems}
               actionCallback={mapActionCallback}
               setDrawingMode={(status: boolean) => setDrawing(status)}
-              polylineLatlgn={polylineLatlgn}
               mapWidth={mapWidth}
               toolbarChildren={
                 <>
@@ -312,12 +314,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         editable: false,
                       }}
                       onCreate={onCreate}
-                      onChange={(e) => console.log('onChange', e)}
                     />
                   }
                 </>
               }>
-              {mapChildren}
+              <>
+                {mapChildren}
+                <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} />
+              </>
             </SupportMapping>
           </MapContainer>
         </div>

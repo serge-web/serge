@@ -24,7 +24,7 @@ const MapCoordinates: React.FC = () => {
   useEffect(() => {
     if (map) {
       map.on('mousemove', (event) => {
-        setLatlng(event['latlng'])
+        setLatlng((event as any).latlng)
       })
     }
   }, [map])
