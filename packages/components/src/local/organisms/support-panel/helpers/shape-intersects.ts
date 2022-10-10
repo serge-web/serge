@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf'
-import { Feature, LineString, Polygon } from 'geojson'
+import { Feature, LineString, Point, Polygon } from 'geojson'
 
 /** the interaction of two shapes */
 export interface ShapeInteraction {
@@ -9,6 +9,33 @@ export interface ShapeInteraction {
 }
 
 export type TimePeriod = number[]
+
+export const linePointContact = (line: LineString, lineTime: TimePeriod, point: Point, polyTime: TimePeriod): ShapeInteraction | undefined => {
+  // trim the line to the valid period of the point
+  const tLine: LineString | undefined = trimLineToPeriod(line, lineTime, polyTime)
+  if (tLine) {
+    // now re-check if the line and point interact
+    const onLine = turf.booleanPointOnLine(point, tLine)
+    if (onLine) {
+      // sort out the time of the interaction
+      const fLine: Feature<LineString> = turf.lineString(tLine.coordinates)
+      const fPoint: Feature<Point> = turf.point(point.coordinates)
+      const beforeSection = turf.lineSplit(fLine, fPoint).features[0]
+      const pointLength = turf.length(beforeSection)
+      const totalLength = turf.length(fLine)
+      const period = timeIntersect2(lineTime, polyTime)
+      const proportion = pointLength / totalLength
+      const time = tStart(period) + (tEnd(period) - tStart(period)) * proportion
+      const res: ShapeInteraction = {
+        intersection: fPoint,
+        startTime: tStart(period),
+        endTime: time
+      }
+      return res
+    }
+  }
+  return undefined
+}
 
 export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Polygon, polyTime: TimePeriod): ShapeInteraction | undefined => {
   // trim the line to the valid period of the poly

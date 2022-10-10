@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf'
-import GeoJSON, { Feature, LineString, Polygon } from 'geojson'
-import { containedIn, linePolyContact, trimLineToPeriod } from './shape-intersects'
+import GeoJSON, { Feature, LineString, Point, Polygon } from 'geojson'
+import { containedIn, linePointContact, linePolyContact, trimLineToPeriod } from './shape-intersects'
 
 const data: GeoJSON.FeatureCollection = {
   type: 'FeatureCollection',
@@ -129,6 +129,14 @@ const simpleLine: Feature<LineString> = {
     coordinates: [[0, 0], [0, 10]]
   }
 }
+const simplePoint: Feature<Point> = {
+  type: 'Feature',
+  properties: {},
+  geometry: {
+    type: 'Point',
+    coordinates: [0, 8]
+  }
+}
 const simplePoly: Feature<Polygon> = {
   type: 'Feature',
   properties: {},
@@ -180,6 +188,19 @@ it('intersection of line & poly', () => {
   const res3 = linePolyContact(endInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
   console.log(res3?.intersection.geometry)
 })
+
+it('intersection of line & point', () => {
+  const res = linePointContact(simpleLine.geometry, [0, 10], simplePoint.geometry, [0, 10])
+  console.log(res?.intersection.geometry)
+  // // start in poly
+  // const startInPoly = turf.lineString([[0, 3], [0, 10]])
+  // const res2 = linePolyContact(startInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
+  // console.log(res2?.intersection.geometry)
+  // const endInPoly = turf.lineString([[0, 0], [0, 3]])
+  // const res3 = linePolyContact(endInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
+  // console.log(res3?.intersection.geometry)
+})
+
 
 it('find how far along hte line to get the polygon overlap', () => {
   const tLine = turf.lineString(line.coordinates)
