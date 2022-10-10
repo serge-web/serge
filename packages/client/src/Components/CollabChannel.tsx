@@ -1,6 +1,7 @@
 import { CollabStatusBoard, NewMessage } from '@serge/components'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from '@serge/config'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
+import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
 import { MessageSentInteraction, PlainInteraction } from '@serge/custom-types/player-log'
 import '@serge/themes/App.scss'
 import React, { useEffect, useState } from 'react'
@@ -19,6 +20,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole, selectedRoleName, gameDate } = state
   const isUmpire = selectedForce && selectedForce.umpire
+  const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const channelUI = state.channels[channelId]
@@ -98,6 +100,20 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
   }
 
+  const cacheMessage = (value: string | any, messageType: string): void | string => {
+    return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
+  }
+
+  const getCachedMessage = (chatType: string): string => {
+    return chatType && getUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, chatType)
+  }
+
+  const clearCachedMessage = (data: string[]): void => {
+    data && data.forEach((removeType) => {
+      return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
+    })
+  }
+
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
@@ -124,6 +140,10 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         canCreateMessages &&
         <NewMessage
           activityTimeChanel={newActiveMessage}
+          saveCachedNewMessageValue={cacheMessage}
+          getCachedNewMessagevalue={getCachedMessage}
+          channel={channel}
+          clearCachedNewMessage={clearCachedMessage}
           orderableChannel={true}
           curChannel={channelId}
           confirmCancel={isCollabEdit}

@@ -59,6 +59,7 @@ const Template: Story<StoryPropTypes> = (args) => {
 
   return (<MessageCreator
     channel={channel}
+    messageOption='Chat'
     currentTurn={0}
     confirmCancel={confirmCancel}
     gameDate=''

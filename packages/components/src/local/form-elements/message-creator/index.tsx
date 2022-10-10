@@ -2,7 +2,11 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Confirm } from '@serge/components'
 import {
-  CHANNEL_COLLAB, CollaborativeMessageStates, InitialStates
+  CHANNEL_COLLAB,
+  CollaborativeMessageStates,
+  InitialStates,
+  UNSENT_PRIVATE_MESSAGE_TYPE,
+  UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
 import {
   ChannelCollab,
@@ -31,15 +35,20 @@ const MessageCreator: React.FC<PropTypes> = ({
   currentTurn,
   channel,
   gameDate,
-  postBack
+  postBack,
+  messageOption,
+  createCachedCreatorMessage,
+  getcachedCreatorMessageValue,
+  clearCachedCreatorMessage
 }) => {
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
+  const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
-
+  const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
@@ -87,6 +96,7 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     editor.destroy()
     createEditor(selectedSchema)
+    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
     onMessageSend && onMessageSend(e)
   }
 
@@ -104,6 +114,8 @@ const MessageCreator: React.FC<PropTypes> = ({
 
   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
+    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    editor && editor.destroy()
     onCancel && onCancel(event)
   }
 
@@ -128,7 +140,19 @@ const MessageCreator: React.FC<PropTypes> = ({
     return (): void => {
       destroyEditor(editor)
     }
-  }, [schema])
+  }, [schema, messageOption, confirmIsOpen])
+
+  useEffect(() => {
+    const formValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(messageOption)
+    const privateValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
+    setPrivateValue(privateValue)
+
+    const valueTimer = setTimeout(() => {
+      if (formValue) return editor && editor.setValue(formValue)
+    }, 10)
+
+    return (): void => clearTimeout(valueTimer)
+  }, [editor])
 
   /**
    * helper function to for validation Datetime or Date or Time props of json
@@ -184,7 +208,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   }
 
   /**
-   * custom validation set for type datetime-local, date, time
+   * custom validation set foWr type datetime-local, date, time
    */
   const configDateTimeCustomValidation = (): any => {
     // multiple message type will repeat custom validators, reinitialize it for every instance
@@ -227,6 +251,16 @@ const MessageCreator: React.FC<PropTypes> = ({
     )
   }
 
+  const transferChangeValue = (): void => {
+    const message = editor?.getValue()
+    createCachedCreatorMessage && createCachedCreatorMessage(message, messageOption)
+  }
+
+  const onChangePrivate = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setPrivateValue(e.target.value)
+    createCachedCreatorMessage && createCachedCreatorMessage(e.target.value, privatMessageOption)
+  }
+
   return (
     <>
       <Confirm
@@ -235,7 +269,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         onCancel={onPopupCancel}
         onConfirm={onPopupConfirm}
       />
-      <div className="form-group message-creator" ref={editorPreviewRef} />
+      <div className="form-group message-creator" ref={editorPreviewRef} onBlur={transferChangeValue} />
       {privateMessage && (
         <div className="flex-content form-group">
           <label
@@ -247,9 +281,11 @@ const MessageCreator: React.FC<PropTypes> = ({
             Private message
           </label>
           <textarea
+            onChange={onChangePrivate}
             id="private-message-input"
             className="form-control"
             ref={privateMessageRef}
+            value={privateValue}
           />
         </div>
       )}

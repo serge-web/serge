@@ -69,7 +69,7 @@ export const ChatEntryForm: React.FC<Props> = ({
     privateMessageEle && privateMessageEle.current && privateMessageEle.current.clear()
   }
 
-  const onCancel = () => {
+  const onCancel = (): void => {
     messageEle.current.clear()
     privateMessageEle.current.clear()
     onchangeChatInputMessage('', UNSENT_CHAT_MESSAGE_TYPE)
