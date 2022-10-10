@@ -247,7 +247,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('Apply some adjudication for', contact.id)
   }
 
-  console.log('planning channel', selectedForce.umpire , phase === Phase.Adjudication )
+  console.log('planning channel', selectedForce.umpire, phase === Phase.Adjudication)
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -308,8 +308,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             </div>
           </>
         }>
-        { selectedForce.umpire && phase === Phase.Adjudication ?
-          <OrderPlotter orders={planningMessages} activities={forcePlanningActivities || []} step={debugStep} handleAdjudication={handleAdjudication} />
+        { selectedForce.umpire && phase === Phase.Adjudication
+          ? <OrderPlotter orders={planningMessages} activities={forcePlanningActivities || []} step={debugStep} handleAdjudication={handleAdjudication} />
           : <>
             <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
@@ -320,7 +320,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             </LayerGroup>
           </>
         }
-        </SupportMapping>
+      </SupportMapping>
     </div>
   )
 }
