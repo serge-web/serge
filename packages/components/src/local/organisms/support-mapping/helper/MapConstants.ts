@@ -8,8 +8,8 @@ export const MapConstants = {
 }
 
 export const ArrowHeadPattern = {
-  offset: '100%',
-  repeat: 0,
+  offset: '100',
+  repeat: '100',
   symbol: L.Symbol.arrowHead({
     pixelSize: 15,
     polygon: false,
