@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
 import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
@@ -25,7 +25,8 @@ import PropTypes from './types/props'
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
   if (!force) {
-    throw Error('force not found')
+    // ok, could be umpire force
+    return []
   }
   return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
     const item: MappingMenuItem = {
@@ -64,7 +65,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   selectedRoleName,
   currentWargame,
   selectedForce,
-  isUmpire,
+  phase,
   allForces,
   platformTypes,
   gameDate,
@@ -246,7 +247,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('Apply some adjudication for', contact.id)
   }
 
-  const doNotRender = !7
+  console.log('planning channel', selectedForce.umpire , phase === Phase.Adjudication )
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -265,7 +266,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           dispatch={reduxDispatch}
           currentWargame={currentWargame}
-          isUmpire={isUmpire}
+          isUmpire={!!selectedForce.umpire}
           selectedRoleName={selectedRoleName}
           selectedRoleId={selectedRoleId}
           selectedForce={currentForce}
@@ -307,21 +308,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             </div>
           </>
         }>
-        <>
+        { selectedForce.umpire && phase === Phase.Adjudication ?
           <OrderPlotter orders={planningMessages} activities={forcePlanningActivities || []} step={debugStep} handleAdjudication={handleAdjudication} />
-          {doNotRender &&
-            <>
-              <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
-              <LayerGroup key={'own-forces'}>
-                <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-              </LayerGroup>
-              <LayerGroup key={'opp-forces'}>
-                <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-              </LayerGroup>
-            </>
-          }
-        </>
-      </SupportMapping>
+          : <>
+            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+            <LayerGroup key={'own-forces'}>
+              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+            </LayerGroup>
+            <LayerGroup key={'opp-forces'}>
+              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+            </LayerGroup>
+          </>
+        }
+        </SupportMapping>
     </div>
   )
 }

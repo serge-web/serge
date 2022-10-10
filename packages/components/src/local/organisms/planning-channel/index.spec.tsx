@@ -1,3 +1,4 @@
+import { Phase } from '@serge/config'
 import { ChannelPlanning, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
@@ -78,7 +79,7 @@ describe('Planning Channel component: ', () => {
       selectedRoleName={role?.name || ''}
       currentWargame={P9Mock.wargameTitle}
       selectedForce={force || forces[1]}
-      isUmpire={false}
+      phase={Phase.Planning}
       allForces={forces}
       gameDate={P9Mock.data.overview.gameDate}
       currentTurn={P9Mock.gameTurn}

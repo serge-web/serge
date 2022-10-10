@@ -107,8 +107,8 @@ export default {
 const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
-    isUmpire,
-    messages
+    messages,
+    phase
   } = args
 
   const mockFn = (): PlayerUiActionTypes => ({
@@ -129,6 +129,8 @@ const Template: Story<PlanningChannelProps> = (args) => {
       console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
     }
   }
+
+  console.log('story', force && force.umpire, force)
 
   // get the templates for this user
   const participants = planningChannel.participants as ParticipantPlanning[]
@@ -155,7 +157,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleName={role?.name || ''}
     currentWargame={P9Mock.wargameTitle}
     selectedForce={force || forces[1]}
-    isUmpire={isUmpire}
+    phase={phase}
     allForces={forces}
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
@@ -165,10 +167,18 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
 export const Default = Template.bind({})
 Default.args = {
-  messages: planningMessages
+  messages: planningMessages,
+  phase: Phase.Planning
 }
 
 export const BulkData = Template.bind({})
 BulkData.args = {
-  messages: planningMessagesBulk
+  messages: planningMessagesBulk,
+  phase: Phase.Planning
+}
+
+export const BulkDataInAdjudication = Template.bind({})
+BulkDataInAdjudication.args = {
+  messages: planningMessagesBulk,
+  phase: Phase.Adjudication
 }
