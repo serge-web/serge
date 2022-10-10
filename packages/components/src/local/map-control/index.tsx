@@ -1,9 +1,3 @@
-import React, { useEffect, useState } from 'react'
-import { DomEvent, LatLngBounds } from 'leaflet'
-import Item from './helpers/item'
-import cx from 'classnames'
-
-/* Import icons */
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import HomeIcon from '@material-ui/icons/Home'
@@ -15,6 +9,12 @@ import InfoIcon from '@material-ui/icons/Info'
 /* Import proptypes */
 import PropTypes from './types/props'
 import { CellLabelStyle } from '@serge/config'
+import React, { useEffect, useState } from 'react'
+import { LatLngBounds, DomEvent } from 'leaflet'
+import cx from 'classnames'
+
+import { useMap } from 'react-leaflet-v4'
+import Item from './helpers/item'
 
 interface CellStyleDetails {
   label: string
@@ -22,10 +22,6 @@ interface CellStyleDetails {
   active: boolean
 }
 
-/* Import Styles */
-// import styles from './styles.module.scss'
-
-/* Render component */
 export const MapControl: React.FC<PropTypes> = ({
   /* main */
   map,
@@ -44,10 +40,12 @@ export const MapControl: React.FC<PropTypes> = ({
   setFilterHistoryRoutes,
   addInfoMarker,
   actionCallback,
-  actionItems
+  actionItems,
+  mapVer = 'v2'
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
+  const localMap = mapVer === 'v4' ? useMap() : map
 
   /** the forces from props has changed */
   useEffect(() => {
@@ -67,13 +65,19 @@ export const MapControl: React.FC<PropTypes> = ({
   }
   /* change map zoom level */
   const handleZoomChange = (changeValue: number): void => {
-    const currentZoom = map.getZoom()
-    if (currentZoom) map.setZoom(currentZoom + changeValue)
+    if (!localMap) {
+      return
+    }
+    const currentZoom = localMap.getZoom()
+    if (currentZoom) localMap.setZoom(currentZoom + changeValue)
   }
 
   /* set map to overall view */
   const handleHome = (): void => {
-    originalBounds && map.flyToBounds(originalBounds, { duration: 0.75 })
+    if (!localMap || !originalBounds) {
+      return
+    }
+    localMap.flyToBounds(originalBounds, { duration: 0.75 })
   }
 
   /* utilty method for whether we're filtering planned routes  */
@@ -121,7 +125,7 @@ export const MapControl: React.FC<PropTypes> = ({
     setCellStyles(cellStyleList)
   }, [cellLabelType])
 
-  if (!map) return null
+  if (!localMap) return null
 
   if (actionCallback) {
     console.log('provide drop-down menu for items', actionItems)

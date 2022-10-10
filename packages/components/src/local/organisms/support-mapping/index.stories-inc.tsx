@@ -30,7 +30,6 @@ export default {
 const Template: Story<SupportMappingProps> = () => {
   return <SupportMapping
     position={[101.505, 20.09]}
-    zoom={12}
   />
 }
 

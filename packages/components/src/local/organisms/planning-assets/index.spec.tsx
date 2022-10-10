@@ -12,6 +12,10 @@ const blueForce = forces[1]
 const forceCols = forceColors(forces)
 const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
 
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn()
+}))
+
 describe('Planning Assets component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
