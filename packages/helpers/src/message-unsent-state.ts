@@ -13,7 +13,7 @@ export const getUnsentMessage = (currentWargame: string, selectedForce: string, 
   return ''
 }
 
-export const saveUnsentMessage = (message:string, currentWargame: string, selectedForce: string, selectedRole: string, channel: string, type: string): void => {
+export const saveUnsentMessage = (message:string | any, currentWargame: string, selectedForce: string, selectedRole: string, channel: string, type: string): void => {
   const modelName = getUnsentMessageKey(currentWargame, selectedForce, selectedRole, channel, type)
   expiredStorage.setItem(modelName, JSON.stringify(message), LOCAL_STORAGE_TIMEOUT)
 }
