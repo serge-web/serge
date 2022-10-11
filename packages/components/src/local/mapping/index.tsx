@@ -42,6 +42,12 @@ import styles from './styles.module.scss'
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
 
+interface CellStyleDetails {
+  label: string
+  value: CellLabelStyle
+  active: boolean
+}
+
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
   mappingConstraints,
@@ -106,6 +112,10 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
   const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
+  // let umpire choose how cells are labelled
+  const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
+
+
   if (!channel) {
     console.warn('Channel is missing from mapping component')
   }
@@ -135,6 +145,27 @@ export const Mapping: React.FC<PropTypes> = ({
       }
     }
   }, [mappingConstraintState, atlanticCells])
+
+  /** the forces from props has changed */
+  useEffect(() => {
+    const storeStyle = (label: string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
+      return {
+        label: label,
+        value: style,
+        active: style === current
+      }
+    }
+
+    // collate the cell styles
+    const cellStyleList: CellStyleDetails[] = [
+      storeStyle('Ctr', CellLabelStyle.CTR_LABELS, cellLabelStyle),
+      storeStyle('H3', CellLabelStyle.H3_LABELS, cellLabelStyle),
+      storeStyle('L/L', CellLabelStyle.LAT_LON_LABELS, cellLabelStyle),
+      storeStyle('X-Y', CellLabelStyle.X_Y_LABELS, cellLabelStyle),
+      storeStyle(' ', CellLabelStyle.BLANK, cellLabelStyle)
+    ]
+    setCellStyles(cellStyleList)
+  }, [cellLabelStyle])
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -903,8 +934,6 @@ export const Mapping: React.FC<PropTypes> = ({
             map={leafletElement}
             home={mapCentre}
             bounds={mapBounds}
-            cellLabelType={cellLabelStyle}
-            cellLabelCallback={setCellLabelStyle}
             addInfoMarker={showAddInfo ? localAddInfoMarker : undefined}
           >
             <>
@@ -918,6 +947,18 @@ export const Mapping: React.FC<PropTypes> = ({
                   <PlannedIcon />
                 </Item>
               </div>
+              {cellStyles.length > 0 && <div className={cx('leaflet-control')}>
+          {cellStyles.map((style: CellStyleDetails): JSX.Element => (
+            <Item
+              contentTheme={style.active ? 'light' : 'dark'}
+              key={`s_${style.value}`}
+              onClick={(): void => { setCellLabelStyle(style.value) }}
+              title={'Style cells as ' + style.label}
+            >
+              {style.label}
+            </Item>
+          ))}
+        </div>}
               <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
             </>
           </MapControl>

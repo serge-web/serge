@@ -1,4 +1,3 @@
-import { CellLabelStyle } from '@serge/config'
 import { LatLng, LatLngBounds } from 'leaflet'
 
 export default interface PropTypes {
@@ -18,10 +17,6 @@ export default interface PropTypes {
   showZoom?: boolean
   // size of zoom in/out increment
   zoomStepSize?: number
-  /** callback for umpire clicking on view-as button */
-  cellLabelCallback?: { (style: CellLabelStyle): void }
-  /** current value of `view as` */
-  cellLabelType?: CellLabelStyle
   /** callback for adding a new information marker */
   addInfoMarker?: { (): void }
   /** if filter is applied */
