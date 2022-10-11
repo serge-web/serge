@@ -20,6 +20,7 @@ import PropTypes from './types/props'
 
 import Item from '../../map-control/helpers/item'
 import MapDrawActivity from '../map-draw-activity'
+import NewOrderActions from './helpers/NewOrdersActions'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
@@ -224,6 +225,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
+  const newActionRequest = (planId: string): void => {
+    console.log('new orders for', planId)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -296,6 +301,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <>
                   <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                   <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                  <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
+                     newActionHandler={newActionRequest} />
                 </>
               }>
               {mapChildren}

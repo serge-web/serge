@@ -2,7 +2,6 @@ import AddIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import RemoveIcon from '@material-ui/icons/Remove'
 
-
 /* Import proptypes */
 import cx from 'classnames'
 import { DomEvent, LatLngBounds } from 'leaflet'
@@ -22,9 +21,6 @@ export const MapControl: React.FC<PropTypes> = ({
   /* zoom */
   showZoom = true,
   zoomStepSize = 0.5,
-  addInfoMarker,
-  actionCallback,
-  actionItems,
   mapVer = 'v2'
 }) => {
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
@@ -65,9 +61,6 @@ export const MapControl: React.FC<PropTypes> = ({
 
   if (!localMap) return null
 
-  if (actionCallback) {
-    console.log('provide drop-down menu for items', actionItems)
-  }
 
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
@@ -77,12 +70,6 @@ export const MapControl: React.FC<PropTypes> = ({
           {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon /></Item>}
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon /></Item>}
         </div>
-        {actionCallback &&
-          <div className={cx('leaflet-control')}>
-            {/* popup tree of action items when below button clicked */}
-            <Item title="New orders" >New orders...</Item>
-          </div>
-        }
         {children}
       </div>
     </div>
