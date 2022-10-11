@@ -920,7 +920,6 @@ export const Mapping: React.FC<PropTypes> = ({
                 </Item>
               </div>
               <CellLabelStyleSelector cellLabelStyle={cellLabelStyle} setCellLabelStyle={setCellLabelStyle} />
-             
               <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
             </>
           </MapControl>
