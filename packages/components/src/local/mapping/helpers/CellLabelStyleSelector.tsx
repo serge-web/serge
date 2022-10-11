@@ -18,7 +18,6 @@ interface CellStyleDetails {
 
 /* Render component */
 export const CellLabelStyleSelector: React.FC<LabelSelectorProps> = ({ cellLabelStyle, setCellLabelStyle }) => {
-
   // maintain local list of cell label styles
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
 

@@ -68,7 +68,7 @@ const NewMessage: React.FC<PropTypes> = ({
       }
     }, 0)
   }
-  
+
   const onCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     setUpdateNewMessage(true)
     setTimeout(() => {
