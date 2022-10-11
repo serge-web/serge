@@ -4,8 +4,19 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import MessageCreator from './index'
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 it('MessageCreator renders correctly', () => {

@@ -15,7 +15,6 @@ import {
 } from '@serge/custom-types'
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 
-// @ts-ignore
 import JSONEditor from '@json-editor/json-editor'
 import { configDateTimeLocal } from '@serge/helpers'
 import flatpickr from 'flatpickr'
@@ -213,7 +212,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const configDateTimeCustomValidation = (): any => {
     // multiple message type will repeat custom validators, reinitialize it for every instance
 
-    JSONEditor.defaults.custom_validators = [] // eslint-disable-line @typescript-eslint/camelcase
+    JSONEditor.defaults.custom_validators = []
     JSONEditor.defaults.custom_validators.push(function (
       schema: { format: string },
       value: string,
@@ -240,13 +239,13 @@ const MessageCreator: React.FC<PropTypes> = ({
       new JSONEditor(editorPreviewRef.current, {
         schema,
         theme: 'bootstrap4',
-        disable_collapse: true, // eslint-disable-line @typescript-eslint/camelcase
-        disable_edit_json: true, // eslint-disable-line @typescript-eslint/camelcase
-        disable_array_reorder: true, // eslint-disable-line @typescript-eslint/camelcase
-        disable_array_delete_last_row: true, // eslint-disable-line @typescript-eslint/camelcase
-        disable_properties: true, // eslint-disable-line @typescript-eslint/camelcase
-        prompt_before_delete: false, // eslint-disable-line @typescript-eslint/camelcase
-        array_controls_top: false // eslint-disable-line @typescript-eslint/camelcase
+        disable_collapse: true,
+        disable_edit_json: true,
+        disable_array_reorder: true,
+        disable_array_delete_last_row: true,
+        disable_properties: true,
+        prompt_before_delete: false,
+        array_controls_top: false
       })
     )
   }

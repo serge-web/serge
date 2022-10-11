@@ -1,16 +1,20 @@
 import { makeStyles } from '@material-ui/styles'
-import cx from 'classnames'
+<<<<<<< HEAD
 import { LeafletMouseEvent } from 'leaflet'
+=======
+>>>>>>> 1862-drawing-tool
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 
 const useStyles = makeStyles({
   root: {
     color: '#000',
-    marginBottom: 25,
-    marginRight: 2,
     fontSize: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    position: 'absolute',
+    zIndex: 500,
+    left: '50%',
+    transform: 'translateX(-50%)',
     paddingLeft: 10,
     paddingRight: 10
   }
@@ -30,8 +34,8 @@ const MapCoordinates: React.FC = () => {
   }, [map])
 
   return (
-    <div className={cx('leaflet-bottom', 'leaflet-right', classes.root)}>
-      Lat: {latlng.lat.toFixed(5)}, Lng: {latlng.lng.toFixed(5)}
+    <div className={classes.root}>
+      Lat: {latlng.lat.toFixed(4)}, Lng: {latlng.lng.toFixed(4)}
     </div>
   )
 }

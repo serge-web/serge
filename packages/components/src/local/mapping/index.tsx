@@ -109,7 +109,10 @@ export const Mapping: React.FC<PropTypes> = ({
   const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
   if (!channel) {
-    console.warn('Channel is missing from mapping component')
+    // we don't have mapping channel for some unit tests, so don't throw warning when that happens
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    const inProduction = !jestWorkerId
+    inProduction && console.warn('Channel is missing from mapping component')
   }
 
   // only update bounds if they're different to the current one
@@ -544,7 +547,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
           // special case. check turn time is non-zero
-          if (gameTurnTime === 0) {
+          if (!gameTurnTime) {
             console.error('Cannot plan route with zero game turn time')
             window.alert('Cannot plan route with zero game turn time')
           }
@@ -916,12 +919,12 @@ export const Mapping: React.FC<PropTypes> = ({
                   <PlannedIcon />
                 </Item>
               </div>
-              <div className={cx('leaflet-control')}>
+              { showAddInfo && <div className={cx('leaflet-control')}>
                 <Item title='Add information marker' onClick={(): void => { localAddInfoMarker() }}
                   contentTheme={'dark'} >
                   <InfoIcon />
                 </Item>
-              </div>
+              </div>}
               <CellLabelStyleSelector cellLabelStyle={cellLabelStyle} setCellLabelStyle={setCellLabelStyle} />
               <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
             </>

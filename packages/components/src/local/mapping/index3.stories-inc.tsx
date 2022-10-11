@@ -24,7 +24,7 @@ const mapChannel = cmdWkWargame.data.channels.channels.find((channel: ChannelTyp
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
-async function fetchMock (): Promise<any> {
+const fetchMock = async (): Promise<any> => {
   return {
     json: (): any => data
   }
@@ -143,7 +143,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     isGameControl,
     ...props
   } = args
-  const roleStr: string = playerRole
+  const roleStr: string = playerRole || ''
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
@@ -192,7 +192,7 @@ export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
-  gameTurnTime: twoFourHours,
+  gameTurnTime: { unit: 'millis', millis: twoFourHours },
   isGameControl: true,
   isUmpire: true,
   platforms: platformTypes,
@@ -215,7 +215,7 @@ export const DetailedCells = Template.bind({})
 DetailedCells.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
-  gameTurnTime: twoFourHours,
+  gameTurnTime: { unit: 'millis', millis: twoFourHours },
   isGameControl: true,
   isUmpire: true,
   platforms: platformTypes,

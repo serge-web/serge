@@ -6,10 +6,20 @@ import MapBar from '.'
 import Mapping from '../mapping'
 
 import { forces, localMappingConstraints, platformTypes } from '@serge/mocks'
-// import { Map } from 'leaflet'
+
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 it('Mapping renders correctly with AssetIcon', () => {
@@ -21,7 +31,7 @@ it('Mapping renders correctly with AssetIcon', () => {
   const tree = mount(<Mapping
     mappingConstraints={localMappingConstraints}
     forces={forces}
-    gameTurnTime={72000}
+    gameTurnTime={{ unit: 'millis', millis: 72000 }}
     wargameInitiated={true}
     platforms={platformTypes}
     infoMarkers={[]}

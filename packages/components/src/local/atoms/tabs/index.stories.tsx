@@ -27,6 +27,7 @@ export const Default: React.FC = () => <Tabs
   onChange={onChange}
   tabs={adminTabs} >Title</Tabs>
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

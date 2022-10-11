@@ -1,7 +1,7 @@
+import { MapAnnotation, MapAnnotations, Route, RouteStore, RouteTurn } from '@serge/custom-types'
+import { h3IsValid, h3ToGeo } from 'h3-js'
 import L from 'leaflet'
-import { RouteStore, Route, RouteTurn, MapAnnotations, MapAnnotation } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
-import { h3ToGeo, h3IsValid } from 'h3-js'
 
 /** signature of method to update location */
 interface ClusterSetter {
@@ -149,7 +149,11 @@ const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): voi
   clusters.forEach((cluster: Cluster) => {
     const idLen = cluster.ids.length
     if (!h3IsValid(cluster.hex)) {
-      console.warn('WARNING - encountered invalid hex reference', cluster.hex)
+      // dont't throw error for unit tests, some use legacy data
+      const jestWorkerId = process.env.JEST_WORKER_ID
+      const inProduction = !jestWorkerId
+      inProduction && console.warn('WARNING - encountered invalid hex reference', cluster.hex)
+      // end
     }
     if (idLen > 1) {
       const centreArr = h3ToGeo(cluster.hex)

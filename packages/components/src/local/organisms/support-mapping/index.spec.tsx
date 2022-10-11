@@ -2,12 +2,24 @@ import { mount } from 'enzyme'
 import React from 'react'
 import SupportMapping from './index'
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  },
+  polylineDecorator: (): any => ({
+    addTo: jest.fn()
+  })
+}))
+
+jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): any => ({
-    invalidateSize: (): jest.Mock => jest.fn(),
-    flyTo: (): jest.Mock => jest.fn(),
-    flyToBounds: (): jest.Mock => jest.fn(),
-    on: (): jest.Mock => jest.fn()
+    invalidateSize: jest.fn(),
+    flyTo: jest.fn(),
+    flyToBounds: jest.fn(),
+    on: jest.fn(),
+    addLayer: jest.fn()
   }),
   LayerGroup: (): React.ReactElement => <></>,
   ScaleControl: (): React.ReactElement => <></>,

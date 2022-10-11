@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactModal from 'react-modal'
 
 export default interface Props {
   title?: string

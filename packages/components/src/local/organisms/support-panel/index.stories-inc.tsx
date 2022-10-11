@@ -74,7 +74,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
   )
 
-  const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+  const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
     return async (): Promise<void> => {
       console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
     }

@@ -14,8 +14,19 @@ const coords = marker && h3ToGeo(marker.location)
 const location = coords && L.latLng(coords[0], coords[1])
 const icons = watuWargame.data.annotationIcons ? watuWargame.data.annotationIcons.markers : []
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 it('Mapping renders correctly with AssetIcon', () => {

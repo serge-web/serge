@@ -89,8 +89,7 @@ export const JsonEditor: React.FC<Props> = ({
     }
 
     const handleClick = ({ target }: any): void => {
-      // @ts-ignore
-      const storageData = expiredStorage.getItem(genLocalStorageId()) ? JSON.parse(expiredStorage.getItem(genLocalStorageId())) : null
+      const storageData = expiredStorage.getItem(genLocalStorageId()) ? JSON.parse(expiredStorage.getItem(genLocalStorageId()) || '{}') : null
       const targetId = target.getAttribute('id')
       if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
         if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {

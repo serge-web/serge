@@ -1,5 +1,7 @@
+import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { ChannelPlanning, ForceData, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
+import { TurnFormats } from '@serge/config'
 
 export type OrderRow = {
   id: string

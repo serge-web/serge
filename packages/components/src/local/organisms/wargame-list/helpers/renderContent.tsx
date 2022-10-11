@@ -11,7 +11,7 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import GameTitle from '../../../atoms/game-title'
 import OptionMenu from '../../../molecules/option-menu'
 
-export const RenderContent: FC<ContentProps> = ({ setWargameMenuOpen, scrollPos, game, onGameClick, wargameMenuOpen, menuConfig }): JSX.Element => {
+export const RenderContent: FC<ContentProps> = ({ setWargameMenuOpen, scrollPos, game, onGameClick, wargameMenuOpen, menuConfig }): React.ReactElement => {
   const optionMenuRef = useRef(null)
   const gameTitleRef = useRef(null)
 

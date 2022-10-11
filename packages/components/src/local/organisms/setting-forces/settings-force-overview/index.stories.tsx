@@ -26,6 +26,7 @@ export const Default: React.FC = () => {
   return <SettingsForceOverview data={data} handleChangeForce={(nextData): void => setData(nextData)} />
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

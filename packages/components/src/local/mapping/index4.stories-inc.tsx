@@ -1,6 +1,6 @@
 // import data types
 import { Phase, serverPath } from '@serge/config'
-import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
@@ -27,7 +27,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 
 console.clear()
 
-async function fetchMock (): Promise<any> {
+const fetchMock = async (): Promise<any> => {
   return {
     json: (): any => data
   }
@@ -134,7 +134,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     phase,
     ...props
   } = args
-  const roleStr: string = playerRole
+  const roleStr: string = playerRole || ''
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
@@ -153,15 +153,13 @@ const Template: Story<StoryPropTypes> = (args) => {
   )
 }
 
-const timeStep = (overview.gameTurnTime as MilliTurns).millis
-
 /**
  * DEFAULT VIEW
  */
 export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: forces,
-  gameTurnTime: timeStep,
+  gameTurnTime: overview.gameTurnTime,
   platforms: platformTypes,
   infoMarkers: annotations,
   markerIcons: icons,
@@ -174,7 +172,7 @@ NaturalEarth.args = {
     <>
       <HexGrid />
       <Assets />
-      <InfoMarkers/>
+      <InfoMarkers />
     </>
   )
 }
@@ -182,7 +180,7 @@ NaturalEarth.args = {
 export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: forces,
-  gameTurnTime: timeStep,
+  gameTurnTime: overview.gameTurnTime,
   platforms: platformTypes,
   channel: mapChannel,
   infoMarkers: annotations,
@@ -202,7 +200,7 @@ OpenStreetMap.args = {
 export const DetailedCells = Template.bind({})
 DetailedCells.args = {
   forces: forces,
-  gameTurnTime: timeStep,
+  gameTurnTime: overview.gameTurnTime,
   channel: mapChannel,
   platforms: platformTypes,
   infoMarkers: annotations,
