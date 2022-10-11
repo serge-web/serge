@@ -115,6 +115,8 @@ const injectFeedback = (message: MessageCustom, verb: string, feedback: string, 
   return message
 }
 
+type ModalHandlerFn = (message: MessageCustom) => void
+
 /* Render component */
 export const CollabMessageDetail: React.FC<Props> = ({
   templates, message, state, onChange, isObserver, isUmpire,
@@ -146,7 +148,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
 
-  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void } | undefined>()
+  const [modalHandler, setModalHandler] = useState<ModalHandlerFn>()
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
@@ -365,7 +367,11 @@ export const CollabMessageDetail: React.FC<Props> = ({
     } else {
       templateId = channelCollab.newMessageTemplate?._id
     }
-    const template = templateId && templates[templateId]
+    if (!templateId) {
+      return <></>
+    }
+
+    const template = templates[templateId]
 
     return (
       <>

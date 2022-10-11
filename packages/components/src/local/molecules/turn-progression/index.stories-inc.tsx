@@ -75,7 +75,6 @@ export default {
 const stepTime = 20000
 
 const Template: Story<TurnPropTypes> = (args) => {
-  // @ts-ignore: Add custom property for storybook
   const { ...props } = args
   const [state, setState] = useState({
     phase: props.phase,

@@ -1,8 +1,9 @@
+import { AnnotationMarkerData, ForceData, IconOption, PlatformType, PlatformTypeData } from '@serge/custom-types'
+import { Item } from '../../molecules/sortable-list'
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
-import { WargameOverview } from '../../../organisms/setting-overview'
 import { ChannelTypes } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
-import { ForceData, PlatformType, PlatformTypeData, AnnotationMarkerData, IconOption } from '@serge/custom-types'
+import { WargameOverview } from '../../../organisms/setting-overview'
 
 export default interface Props extends AdminLayoutProps {
   /**
@@ -21,10 +22,10 @@ export default interface Props extends AdminLayoutProps {
    * Channels, retrieved from database
    */
   channels: Array<ChannelTypes>
-   /**
-   * annotation types, retrieved from database
-   */
-      annotation?: AnnotationMarkerData
+  /**
+  * annotation types, retrieved from database
+  */
+  annotation?: AnnotationMarkerData
   /**
    * Callback on overview setting change events
    */
@@ -118,19 +119,19 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Handler for when user tries to delete role with Game Control privileges
    */
-  customDeleteHandler?: (role: Role) => void
+  customDeleteHandler?: (NewItems: Item[], key: number, handleChange: (changedItems: Item[]) => void) => void
   onDeleteAsset?: () => void
-   /**
-   * Callback on annotation types setting change events
-   */
+  /**
+  * Callback on annotation types setting change events
+  */
   onAnnotationChange: (annotation: AnnotationMarkerData) => void
-   /**
-   * Callback on annotation type delete button click events
-   */
+  /**
+  * Callback on annotation type delete button click events
+  */
   onDeleteAnnotation?: (annotation: IconOption) => void
-   /**
-   * Callback on annotation type duplicate button click events
-   */
+  /**
+  * Callback on annotation type duplicate button click events
+  */
   onDuplicateAnnotation?: (annotation: IconOption) => void
 
 }

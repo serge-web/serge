@@ -1,9 +1,8 @@
 import { RefObject } from 'react'
-
-// @ts-ignore
 import JSONEditor from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig?: any): Editor | null => {
   if (editor !== null) {
     editor.destroy()

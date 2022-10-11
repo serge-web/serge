@@ -1,11 +1,6 @@
 import React from 'react'
-
 import cx from 'classnames'
-
-/* Import proptypes */
 import PropTypes from './types/props'
-
-/* Import Styles */
 import styles from './styles.module.scss'
 
 /* Render component */
@@ -30,7 +25,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
     }
   }
 
-  const renderItem = (key: number): JSX.Element => {
+  const renderItem = (key: number): React.ReactElement => {
     let itemSize = 0
     let activeItem = false
     let selectedItem = false

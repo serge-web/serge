@@ -14,7 +14,7 @@ import { Select } from '@material-ui/core'
 /* Render component */
 export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
-  const modalRef = useRef<ReactModal>(null)
+  const modalRef = useRef<Modal>(null)
 
   useEffect(() => {
     if (isOpen) {
@@ -119,7 +119,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
             <span>{elmName}</span>
             {locked
               ? <span><FontAwesomeIcon icon={faLock} title="Attribute locked" /><input disabled={true} title={tooltip} value={item.valueWrite} /></span>
-              : editorFor(item, attributes, idx)
+              : editorFor(item, attributes || [], idx)
             }
           </div>
         })}

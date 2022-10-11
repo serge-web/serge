@@ -1,11 +1,11 @@
 import { Terrain } from '@serge/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import * as turf from '@turf/turf'
+import { lineString } from '@turf/turf'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, hexArea, polyfill } from 'h3-js'
 import L, { latLngBounds, LatLngBounds } from 'leaflet'
 import { orderBy } from 'lodash'
-import * as turf from '@turf/turf'
-import { lineString } from '@turf/turf'
 
 /** create a formatted lat/long label */
 const latLngLabel = (location: number[]): string => {
@@ -71,7 +71,7 @@ export const toDegrees = (rads: number): number => {
   return rads * 180 / Math.PI
 }
 
-export const toVector = (dx: number, dy: number): {magnitude: number, direction: number} => {
+export const toVector = (dx: number, dy: number): { magnitude: number, direction: number } => {
   const direction = toDegrees(Math.atan2(dy, dx))
   const magnitude = Math.sqrt(dx * dx + dy * dy)
   return { magnitude, direction }
@@ -123,6 +123,9 @@ export const leafletUnion = (poly1: L.LatLng[], poly2: L.LatLng[]): L.LatLng[] |
   const t1 = turf.polygon([toTurf(poly1)])
   const t2 = turf.polygon([toTurf(poly2)])
   const union = turf.union(t1, t2)
+  if (!union) {
+    return
+  }
   const data = union.geometry.coordinates
   let depth = 0
   if (Array.isArray(data[0])) {
@@ -230,6 +233,7 @@ export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
   * @param {number} res h grid resolution
   * @returns {SergeGrid3} h hex grid
   */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any): SergeGrid3 => {
   // outer boundary
   const boundsNum = h3polyFromBounds(bounds)
@@ -249,10 +253,11 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
   const centreLoc = bounds.getCenter()
   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
 
+  // eslint-disable-next-line no-undef
   const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
 
   // flatten the definitions array
-  const cellStyles: Array<{index: string, style: number}> = typedDefs && typedDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
+  const cellStyles: Array<{ index: string, style: number }> = typedDefs && typedDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
     return {
       index: (value.properties && value.properties.hexname) || '',
       style: (value.properties && value.properties.type) || ''
@@ -263,7 +268,7 @@ export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any)
   let styleMissing = 0
   const grid = cells.map((cell: H3Index): SergeHex3 => {
     // see if we have definition for this index
-    const match = cellStyles && cellStyles.find((value: {index: string, style: number}) => {
+    const match = cellStyles && cellStyles.find((value: { index: string, style: number }) => {
       return value.index === cell
     })
     const cellStyle = (match && match.style) || 0

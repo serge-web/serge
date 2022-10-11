@@ -123,7 +123,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const force = forces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
-  const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+  const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
     return async (): Promise<void> => {
       console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
     }
@@ -150,7 +150,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     reduxDispatch={noop}
     saveNewActivityTimeMessage={(): any => noop}
     platformTypes={platformTypes}
-    selectedRoleId={role?.roleId}
+    selectedRoleId={role?.roleId || ''}
     selectedRoleName={role?.name || ''}
     currentWargame={P9Mock.wargameTitle}
     selectedForce={force || forces[1]}

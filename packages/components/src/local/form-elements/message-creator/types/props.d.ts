@@ -1,4 +1,4 @@
-import { MessageDetails, ChannelTypes } from '@serge/custom-types'
+import { MessageDetails, ChannelTypes, ForceData } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
@@ -7,7 +7,7 @@ export default interface PropTypes {
   onMessageSend?: (e: MouseEvent<HTMLButtonElement>) => void
   onCancel?: (e: MouseEvent<HTMLButtonElement>) => void
   confirmCancel?: boolean
-  selectedForce: ForceData
+  selectedForce?: ForceData
   selectedRole: string
   selectedRoleName: string
 
@@ -27,9 +27,9 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the component
    */
-   postBack: { (details: MessageDetails, message: any): void }
+  postBack: { (details: MessageDetails, message: any): void }
   channel: ChannelTypes
   gameDate: string
-    /** method to customise the new (or existing) message template */
-    customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
+  /** method to customise the new (or existing) message template */
+  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
 }

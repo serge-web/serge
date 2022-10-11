@@ -1,4 +1,4 @@
-import MapAnnotation from '@serge/custom-types'
+import MapAnnotation, { AnnotationIcons } from '@serge/custom-types'
 import L from 'leaflet'
 
 export default interface PropTypes {
@@ -17,7 +17,7 @@ export default interface PropTypes {
   /**
    * drag handler. Undefined if not draggabpe
    */
-  dragged?: {(location: L.LatLng): void}
+  dragged?: { (location: L.LatLng): void }
   /**
    * list of icons
    */

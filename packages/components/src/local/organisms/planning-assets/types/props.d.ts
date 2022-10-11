@@ -1,6 +1,20 @@
 import { ForceData } from '@serge/custom-types'
-import { ForceStyle } from '@serge/helpers'
+import { ForceStyle, PlatformStyle } from '@serge/helpers'
 import { LatLng } from 'leaflet'
+
+export type AssetRow = {
+  id: string
+  icon: string
+  name: string
+  condition: string
+  status: string
+  platformType: string
+  parentId?: string
+  force?: string
+  owner?: string
+  position?: LatLng
+  tableData?: { checked: boolean }
+}
 
 export default interface PropTypes {
   /** data for this game */
@@ -23,18 +37,4 @@ export default interface PropTypes {
    *  set of assets visible to me
    */
   assets: AssetRow[]
-}
-
-export type AssetRow = {
-  id: string
-  icon: string
-  name: string
-  condition: string
-  status: string
-  platformType: string
-  parentId?: string
-  force?: string
-  owner?: string
-  position?: LatLng
-  tableData?: { checked: boolean }
 }

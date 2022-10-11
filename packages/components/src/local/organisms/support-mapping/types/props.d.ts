@@ -1,4 +1,12 @@
 import { LatLngBounds, LatLngExpression } from 'leaflet'
+import React from 'react'
+
+export interface MappingMenuItem {
+  name: string
+  id: string
+  color?: string
+  children?: MappingMenuItem[]
+}
 
 export default interface PropTypes {
   bounds?: LatLngBounds
@@ -11,16 +19,9 @@ export default interface PropTypes {
   /**
     * Optional mapping structure with children component
     */
-  children?: JSX.Element
+  children?: React.ReactElement
   /** toolbar buttons */
-  toolbarChildren?: JSX.Element
+  toolbarChildren?: React.ReactElement
 
   setDrawingMode?: (status: boolean) => void
-}
-
-export interface MappingMenuItem {
-  name: string
-  id: string
-  color?: string
-  children?: MappingMenuItem[]
 }

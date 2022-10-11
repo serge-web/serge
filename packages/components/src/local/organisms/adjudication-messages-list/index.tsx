@@ -33,7 +33,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const dataTable = myMessages.map(message => {
-      const forceName: ForceStyle = forceColors.find((force: ForceStyle) => force.forceId === message.details.from.forceId)
+      const forceName = forceColors.find((force: ForceStyle) => force.forceId === message.details.from.forceId)
       return {
         id: message._id,
         title: message.message.title,

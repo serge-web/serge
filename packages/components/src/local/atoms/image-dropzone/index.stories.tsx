@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-
-// Import component files
 import ImageDropzone from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -26,6 +24,7 @@ export const Default: React.FC = () => {
   return <ImageDropzone onChange={handleChange} limit={20000} />
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
@@ -44,7 +43,7 @@ export const ApiUpload8080: React.FC = () => {
   return <>
     <div style={{ border: '1px solid #000' }}>
       <div>{imageSrc.match('data:image/png;base64') ? 'data:image/png;base64' : imageSrc}</div>
-      {imageSrc ? <img aria-label='uploaded image' src={imageSrc}/> : 'waiting for image src'}
+      {imageSrc ? <img aria-label='uploaded image' src={imageSrc} /> : 'waiting for image src'}
     </div>
     <ImageDropzone use64onApiEror={true} iconUploadUrl={'http://localhost:8080/saveIcon'} onChange={handleChange} limit={20000} />
   </>

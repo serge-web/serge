@@ -16,7 +16,7 @@ import * as h3 from 'h3-js'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const Assets: React.FC<{}> = () => {
+export const Assets: React.FC = () => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
@@ -227,30 +227,32 @@ export const Assets: React.FC<{}> = () => {
 
   return <>
     <LayerGroup>{positionedAssets && positionedAssets.map((asset: AssetInfo) => {
-      return <MapIcon
-        key={'a_for_' + asset.uniqid}
-        name={asset.name}
-        orientationData={asset.orientationData}
-        contactId={asset.contactId}
-        uniqid={asset.uniqid}
-        position={asset.position}
-        typeId={asset.typeId}
-        selected={asset.selected}
-        condition={asset.condition}
-        status={asset.status}
-        visibleTo={asset.visibleTo}
-        force={asset.force}
-        perceivedForceColor={asset.perceivedForceColor}
-        tooltip={asset.name}
-        imageSrc={asset.iconUrl}
-        attributes={asset.attributes}
-        map={map}
-        markerDropped={markerDropped}
-        locationPending={asset.selected && forLaydown(asset.laydownPhase)} />
+      return (
+        <MapIcon
+          key={'a_for_' + asset.uniqid}
+          name={asset.name}
+          orientationData={asset.orientationData}
+          contactId={asset.contactId}
+          uniqid={asset.uniqid}
+          position={asset.position}
+          typeId={asset.typeId}
+          selected={asset.selected}
+          condition={asset.condition}
+          status={asset.status}
+          visibleTo={asset.visibleTo}
+          force={asset.force}
+          perceivedForceColor={asset.perceivedForceColor}
+          tooltip={asset.name}
+          imageSrc={asset.iconUrl}
+          attributes={asset.attributes}
+          map={map}
+          markerDropped={markerDropped}
+          locationPending={asset.selected && forLaydown(asset.laydownPhase)}
+        />
+      )
     })}
     {
-      penCentre &&
-      <>
+      penCentre && <>
         <Polygon
           key={'pending_area'}
           positions={pendingArea}
