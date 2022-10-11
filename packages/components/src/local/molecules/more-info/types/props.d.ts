@@ -9,4 +9,4 @@ export default interface Props {
   color?: string
   container?: ReactModal | HTMLElement | null
   customChipStyle?: React.CSSProperties
-};
+}

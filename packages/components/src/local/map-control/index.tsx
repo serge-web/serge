@@ -61,7 +61,6 @@ export const MapControl: React.FC<PropTypes> = ({
 
   if (!localMap) return null
 
-
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>

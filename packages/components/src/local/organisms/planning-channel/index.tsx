@@ -302,7 +302,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                   <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                   <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
                   <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
-                     newActionHandler={newActionRequest} />
+                    newActionHandler={newActionRequest} />
                 </>
               }>
               {mapChildren}
