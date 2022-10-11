@@ -19,6 +19,12 @@ jest.mock('react-leaflet-geoman-v2', () => ({
   GeomanControls: (): React.ReactElement => <></>
 }))
 
+jest.mock('uuid', () => {
+  return {
+      v4: jest.fn(() => 1)
+  };
+});
+
 it('NewMessage renders correctly', () => {
   const channels = {}
   P9Mock.data.channels.channels.forEach(c => {
