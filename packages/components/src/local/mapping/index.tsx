@@ -1,4 +1,5 @@
 import HistoryIcon from '@material-ui/icons/History'
+import InfoIcon from '@material-ui/icons/Info'
 import PlannedIcon from '@material-ui/icons/Update'
 import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from '@serge/config'
 import cx from 'classnames'
@@ -42,7 +43,7 @@ import styles from './styles.module.scss'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
-  
+
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
   mappingConstraints,
@@ -107,7 +108,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
   const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
-
   if (!channel) {
     console.warn('Channel is missing from mapping component')
   }
@@ -137,7 +137,6 @@ export const Mapping: React.FC<PropTypes> = ({
       }
     }
   }, [mappingConstraintState, atlanticCells])
-
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -695,7 +694,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const localAddInfoMarker = (): void => {
-    const runTest = true
+    const runTest = false
     if (runTest) {
       generateTestData(mappingConstraintState, forces, platforms, setForcesState)
     } else {
@@ -863,7 +862,6 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-
   /* utilty method for whether we're filtering planned routes  */
   const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
     return filterPlannedRoutes ? 'dark' : 'light'
@@ -906,7 +904,6 @@ export const Mapping: React.FC<PropTypes> = ({
             map={leafletElement}
             home={mapCentre}
             bounds={mapBounds}
-            addInfoMarker={showAddInfo ? localAddInfoMarker : undefined}
           >
             <>
               <div className={cx('leaflet-control')} data-tour="counter-clockwise">
@@ -917,6 +914,12 @@ export const Mapping: React.FC<PropTypes> = ({
                 <Item title="View all planned steps" onClick={(): void => { setFilterPlannedRoutes(!filterPlannedRoutes) }}
                   contentTheme={isFilterAsPlannedRoutes()} >
                   <PlannedIcon />
+                </Item>
+              </div>
+              <div className={cx('leaflet-control')}>
+                <Item title='Add information marker' onClick={(): void => { localAddInfoMarker() }}
+                  contentTheme={'dark'} >
+                  <InfoIcon />
                 </Item>
               </div>
               <CellLabelStyleSelector cellLabelStyle={cellLabelStyle} setCellLabelStyle={setCellLabelStyle} />
