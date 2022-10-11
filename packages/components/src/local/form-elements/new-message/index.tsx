@@ -48,6 +48,7 @@ const NewMessage: React.FC<PropTypes> = ({
       if (templates.length) {
         if (schemaTitle) {
           const findColumn = templates.find(find => find.title === schemaTitle)
+          if (!findColumn) return
           setSelectedSchema(findColumn.details)
           setSelectedType(findColumn.title)
         } else {
@@ -68,7 +69,7 @@ const NewMessage: React.FC<PropTypes> = ({
       }
     }, 0)
   }
-  
+
   const onCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     setUpdateNewMessage(true)
     setTimeout(() => {

@@ -13,18 +13,26 @@ exports[`NewMessage renders correctly 1`] = `
     className="Collapsible"
   >
     <span
+      aria-controls="collapsible-content-1665453173066"
+      aria-disabled={false}
+      aria-expanded={false}
       className="Collapsible__trigger is-closed"
+      id="collapsible-trigger-1665453173066"
       onClick={[Function]}
       onKeyPress={[Function]}
+      role="button"
       style={null}
       tabIndex={null}
     >
       New Message
     </span>
     <div
+      aria-labelledby="collapsible-trigger-1665453173066"
       className="Collapsible__contentOuter"
       hidden={false}
+      id="collapsible-content-1665453173066"
       onTransitionEnd={[Function]}
+      role="region"
       style={
         Object {
           "WebkitTransition": "height 200ms ease-in-out",

@@ -54,7 +54,7 @@ Standard.args = {
 
 export const Response = Template.bind({})
 Response.args = {
-  template: messageDataCollaborativeResponding[0].details.messageType,
+  template,
   messageContent: messageDataCollaborativeResponding[0].message,
   messageId: 'id_2ß',
   disabled: false,

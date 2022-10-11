@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, ReactFragment } from 'react'
 import moment from 'moment'
 
 /* Import Types */
@@ -25,14 +25,14 @@ const DetailLabel = ({ label }: any): React.ReactElement => (
 
 const createObjItem = (pair: Array<any>): React.ReactFragment => {
   return (
-    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}><DetailLabel label={`${pair[0]}:`} />{ deconstructObj(pair[1]) }</Fragment>
+    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}><DetailLabel label={`${pair[0]}:`} />{deconstructObj(pair[1])}</Fragment>
   )
 }
 
 const createBoolItem = (pair: Array<any>): React.ClassicElement<any> => {
   return (
     <Fragment key={`boolItem-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
+      <DetailLabel label={`${pair[0]}:`} />
       <span className={styles.data}>
         <FontAwesomeIcon icon={pair[1] ? faCheck : faTimes} />
       </span>
@@ -43,7 +43,7 @@ const createBoolItem = (pair: Array<any>): React.ClassicElement<any> => {
 const createTimeItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`dateTime-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
+      <DetailLabel label={`${pair[0]}:`} />
       <span className={styles.data}>{formatFullDate(pair[1])}</span>
     </Fragment>
   )
@@ -52,7 +52,7 @@ const createTimeItem = (pair: Array<any>): React.ReactFragment => {
 const createStrItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`strItem-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
+      <DetailLabel label={`${pair[0]}:`} />
       <span className={styles.data}>
         {pair[1]}
       </span>
@@ -63,7 +63,7 @@ const createStrItem = (pair: Array<any>): React.ReactFragment => {
 const createUrlItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`urlItem-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
+      <DetailLabel label={`${pair[0]}:`} />
       <span className={styles.data}>
         <a href={pair[1]} target='_blank' rel='noopener noreferrer'>{pair[1]}</a>
       </span>
@@ -74,7 +74,7 @@ const createUrlItem = (pair: Array<any>): React.ReactFragment => {
 const deconstructArr = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-group`}>
-      <DetailLabel label={`${pair[0]}:`}/>
+      <DetailLabel label={`${pair[0]}:`} />
       <p className={styles['detail-rows']}>
         {pair[1].map((item: Record<any, any>, key: number) => {
           return (
@@ -96,7 +96,7 @@ const deconstructObj = (obj: Record<any, any>): React.ReactFragment => {
 const defaultRender = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-${pair[1]}`}>
-      <DetailLabel label={`${capitalize(pair[0])}:`}/>
+      <DetailLabel label={`${capitalize(pair[0])}:`} />
       <span className={styles.data}>
         <Paragraph content={pair[1]} />
       </span>
@@ -104,7 +104,7 @@ const defaultRender = (pair: Array<any>): React.ReactFragment => {
   )
 }
 
-const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFragment => {
+const decideRender = (pair: Array<any>) => (fallback: (pair: any[]) => ReactFragment): React.ReactFragment => {
   const [, detail] = pair
   let renderer
   switch (true) {
@@ -146,12 +146,12 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, isUmpire, colla
     <div className={
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
-      { !collapsed && <>
-        { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
+      {!collapsed && <>
+        {keyPropPairs.map(pair => decideRender(pair)(defaultRender))}
         {
           privateMessage && isUmpire && (
             <div className={styles['wrap-private']}>
-              <DetailLabel label={<PrivateBadge />}/>
+              <DetailLabel label={<PrivateBadge />} />
               <span className={styles.private}>
                 <Paragraph content={privateMessage} />
               </span>

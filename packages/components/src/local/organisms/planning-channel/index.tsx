@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer } from 'leaflet'
@@ -187,7 +187,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   // drop the turn markers
-  const planningMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
+  const planningMessages = messages.filter(msg => msg.messageType !== INFO_MESSAGE_CLIPPED)
 
   const onRead = (detail: MessagePlanning): void => {
     dispatch(openMessage(channel.uniqid, detail as any as MessageChannel))
@@ -197,7 +197,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (message._id) {
       message.hasBeenRead = false
     }
-    dispatch(markUnread(channel.uniqid, message as any as MessageChannel))
+    dispatch(markUnread(channel.uniqid, message as any))
   }
 
   const newActiveMessage = (roleId: string, activityMessage: string): void => {
@@ -229,7 +229,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const onCreate = (e: { shape: string, layer: Layer }) => {
     if (e.shape === 'Line') {
-      setPolylineLatlng(e.layer['_latlngs'])
+      setPolylineLatlng((e.layer as any)._latlngs)
       setGeomanLayer(e.layer)
     }
   }
@@ -255,7 +255,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <SupportPanel
           channel={channel}
           platformTypes={platformTypes}
-          messages={planningMessages}
+          messages={planningMessages as MessagePlanning[]}
           onReadAll={onReadAll}
           onUnread={onUnread}
           onRead={onRead}
@@ -307,11 +307,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                     isDrawing &&
                     <GeomanControls
                       options={{
-                        position: 'bottomright',
+                        position: 'bottomright'
                       }}
                       globalOptions={{
                         continueDrawing: true,
-                        editable: false,
+                        editable: false
                       }}
                       onCreate={onCreate}
                     />

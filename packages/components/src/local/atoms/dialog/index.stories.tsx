@@ -1,4 +1,4 @@
-// Import component files
+import React from 'react'
 import DialogModal from './index'
 import docs from './README.md'
 
@@ -13,3 +13,5 @@ export default {
     }
   }
 }
+
+export const Default: React.FC = () => <DialogModal open={false} title="" />

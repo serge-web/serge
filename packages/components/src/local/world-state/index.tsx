@@ -120,7 +120,7 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
-  const renderMarkers = (item: GroupItem, _depth: Array<GroupItem> = []): JSX.Element => {
+  const renderMarkers = (item: GroupItem, _depth: Array<GroupItem> = []): React.ReactElement => {
     const canBeSelected = true
     const marker = item as MapAnnotation
     const forceColor = marker.color
@@ -140,7 +140,7 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
-  const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
+  const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): React.ReactElement => {
     // determine if this asset can be selected. We only allow assets at the top level
     // to be selected, since child elements are "managed" by the parent
     const atTopLevel: boolean = depth && depth.length === 0

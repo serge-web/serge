@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
@@ -573,7 +574,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
           // special case. check turn time is non-zero
-          if (gameTurnTime === 0) {
+          if (!gameTurnTime) {
             console.error('Cannot plan route with zero game turn time')
             window.alert('Cannot plan route with zero game turn time')
           }

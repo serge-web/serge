@@ -115,7 +115,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <Forces label="Perceived Force" name={'perceivedForce'} labelPlacement='top' options={perceivedForces} value={[perceivedForceId]} onChange={forceHandler} className={styles['input-container']} />
+        <Forces label="Perceived Force" name={'perceivedForce'} labelPlacement='top' options={perceivedForces} value={[perceivedForceId || '']} onChange={forceHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>

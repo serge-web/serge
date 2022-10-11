@@ -1,4 +1,4 @@
-import { MessageCustom, MessageStructure } from '@serge/custom-types'
+import { MessageCustom, MessageStructure, TemplateBody } from '@serge/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -43,5 +43,5 @@ export default interface Props {
   /**
    *  method to customize template, potentially filling any drop-downs
    */
-  customiseTemplate?: {(schema: Record<string, any>): Record<string, any>}
+  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
 }

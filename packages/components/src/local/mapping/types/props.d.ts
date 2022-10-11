@@ -1,5 +1,8 @@
+import L from 'leaflet'
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping, AnnotationIcons, Role, GameTurnLength } from '@serge/custom-types'
+import React from 'react'
+import { DeclutterData } from '@serge/helpers'
 
 export default interface PropTypes {
   /**
@@ -118,7 +121,7 @@ export default interface PropTypes {
   /**
    * Optional mapping structure with children component
    */
-  children?: JSX.Element
+  children?: React.ReactElement
   /**
    * length of each game turn (millis or struct)
    */
@@ -126,9 +129,9 @@ export default interface PropTypes {
   /** we need to be able to override the fetch
    * API call when running from StoryBook
    */
-  fetchOverride? : {(url: string): any}
+  fetchOverride?: { (url: string): any }
   /** declutter method to use. This allows us to
    * disable for testing
    */
-  declutter? : {(data: DeclutterData, diamMins: number): DeclutterData}
-  }
+  declutter?: { (data: DeclutterData, diamMins: number): DeclutterData }
+}

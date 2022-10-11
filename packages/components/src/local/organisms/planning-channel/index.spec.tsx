@@ -14,7 +14,7 @@ jest.mock('leaflet', () => ({
   ...jest.requireActual('leaflet'),
   Symbol: {
     arrowHead: jest.fn()
-  },
+  }
 }))
 jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({
@@ -35,7 +35,7 @@ const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformType
 const force = forces[1]
 const role = force && force.roles[0]
 
-const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
   return async (): Promise<void> => {
     console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
   }

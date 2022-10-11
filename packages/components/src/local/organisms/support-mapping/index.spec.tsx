@@ -7,19 +7,19 @@ jest.mock('leaflet', () => ({
   Symbol: {
     arrowHead: jest.fn()
   },
-  polylineDecorator: () => ({
-    addTo: () => jest.fn()
+  polylineDecorator: (): any => ({
+    addTo: jest.fn()
   })
 }))
 
 jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({
-  useMap: () => ({
-    invalidateSize: () => jest.fn(),
-    flyTo: () => jest.fn(),
-    flyToBounds: () => jest.fn(),
-    on: () => jest.fn(),
-    addLayer: () => jest.fn()
+  useMap: (): any => ({
+    invalidateSize: jest.fn(),
+    flyTo: jest.fn(),
+    flyToBounds: jest.fn(),
+    on: jest.fn(),
+    addLayer: jest.fn()
   }),
   LayerGroup: (): React.ReactElement => <></>,
   ScaleControl: (): React.ReactElement => <></>,

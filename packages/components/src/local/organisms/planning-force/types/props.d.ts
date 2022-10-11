@@ -1,3 +1,4 @@
+import React from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {

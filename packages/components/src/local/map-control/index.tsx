@@ -109,7 +109,7 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
-  const onDrawingModeChange = (status: boolean) => {
+  const onDrawingModeChange = (status: boolean): void => {
     setDrawingMode && setDrawingMode(status)
     setIsDrawing(status)
   }
@@ -157,10 +157,10 @@ export const MapControl: React.FC<PropTypes> = ({
           </div>
         }
         <div className={cx('leaflet-control')}>
-          <Item title="View As" onClick={() => onDrawingModeChange(false)} contentTheme={!isDrawing ? 'light' : 'dark'}>
+          <Item title="View As" onClick={(): void => onDrawingModeChange(false)} contentTheme={!isDrawing ? 'light' : 'dark'}>
             <ViewAsIcon />
           </Item>
-          <Item title="Draw" onClick={() => onDrawingModeChange(true)} contentTheme={isDrawing ? 'light' : 'dark'}>
+          <Item title="Draw" onClick={(): void => onDrawingModeChange(true)} contentTheme={isDrawing ? 'light' : 'dark'}>
             <DrawIcon />
           </Item>
         </div>
@@ -189,7 +189,7 @@ export const MapControl: React.FC<PropTypes> = ({
           </div>
         }
         {cellLabelCallback && cellStyles.length > 0 && <div className={cx('leaflet-control')}>
-          {cellStyles.map((style: CellStyleDetails): JSX.Element => (
+          {cellStyles.map((style: CellStyleDetails): React.ReactElement => (
             <Item
               contentTheme={style.active ? 'light' : 'dark'}
               key={`s_${style.value}`}

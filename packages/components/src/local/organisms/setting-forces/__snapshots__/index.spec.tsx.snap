@@ -828,7 +828,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                               title="Can release RFI responses"
                                             >
                                               <svg
-                                                className="svg-inline--fa fa-book-reader"
+                                                className="svg-inline--fa fa-book-open-reader"
                                               />
                                             </div>
                                           </div>

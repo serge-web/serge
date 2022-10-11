@@ -1,5 +1,5 @@
 import { DELETE_MARKER, UPDATE_MARKER, CLONE_MARKER } from '@serge/config'
-import { MarkerFormData } from '@serge/custom-types'
+import { MapAnnotation, MarkerFormData } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -14,4 +14,4 @@ export default interface PropTypes {
    * Handler to update a marker
    */
   updateMarker: (messageType: typeof UPDATE_MARKER | typeof DELETE_MARKER | typeof CLONE_MARKER, marker: MapAnnotation) => void
-  }
+}

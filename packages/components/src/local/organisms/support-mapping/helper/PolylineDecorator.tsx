@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { ArrowHeadPattern } from './MapConstants'
 
-type PolylineDecorator = {
+type PolylineDecoratorProps = {
   latlngs: LatLng[]
   layer?: Layer
 }
 
-const PolylineDecorator: React.FC<PolylineDecorator> = ({ latlngs, layer }) => {
+const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer }) => {
   const map = useMap()
 
   useEffect(() => {
