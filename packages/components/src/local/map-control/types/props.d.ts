@@ -1,6 +1,5 @@
 import { LatLng, LatLngBounds } from 'leaflet'
 import React from 'react'
-import { MappingMenuItem } from 'src/local/organisms/support-mapping/types/props'
 
 export default interface PropTypes {
   // main
@@ -21,6 +20,4 @@ export default interface PropTypes {
   zoomStepSize?: number
 
   mapVer?: 'v2' | 'v4'
-
-  setDrawingMode?: (enable: boolean) => void
 }

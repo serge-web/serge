@@ -24,7 +24,6 @@ export const MapControl: React.FC<PropTypes> = ({
   mapVer = 'v2'
 }) => {
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
-  const [isDrawing, setIsDrawing] = useState<boolean>(false)
 
   const localMap = mapVer === 'v4' ? useMap() : map
 
