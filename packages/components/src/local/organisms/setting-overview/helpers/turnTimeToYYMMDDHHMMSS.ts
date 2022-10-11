@@ -3,7 +3,7 @@ import { isInteger } from 'lodash'
 
 export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
   const time: Array<number> = [parseInt(turnTime.slice(0, 2)), parseInt(turnTime.slice(3, 5)), parseInt(turnTime.slice(6, 8)),
-  parseInt(turnTime.slice(9, 11)), parseInt(turnTime.slice(12, 14)), parseInt(turnTime.slice(15, 17))]
+    parseInt(turnTime.slice(9, 11)), parseInt(turnTime.slice(12, 14)), parseInt(turnTime.slice(15, 17))]
   const [years, months, days, hrs, mins, secs] = time
 
   const hasMonths = years + months > 0
@@ -25,7 +25,7 @@ export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
     const jestWorkerId = process.env.JEST_WORKER_ID
     const inProduction = !jestWorkerId
     inProduction && console.warn('Cannot process all zeroes', turnTime)
-    // end    
+    // end
     return undefined
   }
 }

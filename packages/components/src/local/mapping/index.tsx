@@ -1,75 +1,40 @@
 /* eslint-disable no-undef */
+import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from '@serge/config'
+import * as h3 from 'h3-js'
 import L from 'leaflet'
-import React, { createContext, useState, useEffect } from 'react'
+import { cloneDeep, isEqual } from 'lodash'
+import React, { createContext, useEffect, useState } from 'react'
+import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { fetch as whatFetch } from 'whatwg-fetch'
-import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import {
-  CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, CLONE_MARKER,
-  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER, FLAG_MARKER
-} from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
-import { cloneDeep, isEqual } from 'lodash'
-import * as h3 from 'h3-js'
 
 /* helper functions */
 import { createGridH3 } from './helpers/h3-helpers'
 
 import {
-  roundToNearest,
-  routeCreateStore,
-  routeAddSteps,
-  routeSetCurrent,
-  routeGetLatestPosition,
-  routeClearFromStep,
-  findPlatformTypeFor,
-  routeSetLaydown,
-  enumFromString,
-  turnTimeAsMillis,
-  routeDeclutter2,
   DeclutterData,
-  deepCopy
+  deepCopy, enumFromString, findPlatformTypeFor, roundToNearest, routeAddSteps, routeClearFromStep, routeCreateStore, routeDeclutter2, routeGetLatestPosition, routeSetCurrent, routeSetLaydown, turnTimeAsMillis
 } from '@serge/helpers'
 
 /* Import Types */
-import PropTypes from './types/props'
 import {
-  SergeGrid3,
-  MappingContext,
-  NewTurnValues,
-  PlanMobileAsset,
-  SelectedAsset,
-  RouteStore,
-  Route,
-  RouteTurn,
-  PlanTurnFormValues,
-  ForceData,
-  Asset,
-  Status,
-  MessageCreateTaskGroup,
-  MessageLeaveTaskGroup,
-  MessageHostPlatform,
-  SergeHex3,
-  TurningDetails,
-  MappingConstraints,
-  MessageMap,
-  MapAnnotation,
-  MapAnnotations,
-  MessageUpdateMarker,
-  MessageDeleteMarker,
-  MessageCloneMarker
+  Asset, ForceData, MapAnnotation,
+  MapAnnotations, MappingConstraints, MappingContext, MessageCloneMarker, MessageCreateTaskGroup, MessageDeleteMarker, MessageHostPlatform, MessageLeaveTaskGroup, MessageMap, MessageUpdateMarker, NewTurnValues,
+  PlanMobileAsset, PlanTurnFormValues, Route, RouteStore, RouteTurn, SelectedAsset, SergeGrid3, SergeHex3, Status, TurningDetails
 } from '@serge/custom-types'
+import PropTypes from './types/props'
 
 import ContextInterface from './types/context'
 
 /* Import Stylesheet */
-import './leaflet.css'
-import styles from './styles.module.scss'
-import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
-import generateTestData from './helpers/gen-test-mapping-data'
+import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import ViewAs from '../organisms/view-as'
+import generateTestData from './helpers/gen-test-mapping-data'
+import './leaflet.css'
+import styles from './styles.module.scss'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -139,7 +104,10 @@ export const Mapping: React.FC<PropTypes> = ({
   const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
   if (!channel) {
-    console.warn('Channel is missing from mapping component')
+    // we don't have mapping channel for some unit tests, so don't throw warning when that happens
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    const inProduction = !jestWorkerId
+    inProduction && console.warn('Channel is missing from mapping component')
   }
 
   // only update bounds if they're different to the current one
