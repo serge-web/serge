@@ -23,7 +23,7 @@ const MapCoordinates: React.FC = () => {
 
   useEffect(() => {
     if (map) {
-      map.on('mousemove', (event: LeafletMouseEvent ) => {
+      map.on('mousemove', (event: LeafletMouseEvent) => {
         setLatlng(event.latlng)
       })
     }
