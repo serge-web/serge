@@ -19,10 +19,6 @@ export default interface PropTypes {
   zoomStepSize?: number
   /** callback for adding a new information marker */
   addInfoMarker?: { (): void }
-  /** if filter is applied */
-  filterApplied?: boolean
-  /** callback for applying filter */
-  setFilterApplied?: { (value: boolean): void }
   /** tree of menu items */
   actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */

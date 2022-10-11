@@ -2,7 +2,6 @@ import AddIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import RemoveIcon from '@material-ui/icons/Remove'
 
-import InfoIcon from '@material-ui/icons/Info'
 
 /* Import proptypes */
 import cx from 'classnames'
@@ -12,7 +11,6 @@ import PropTypes from './types/props'
 
 import { useMap } from 'react-leaflet-v4'
 import Item from './helpers/item'
-
 
 export const MapControl: React.FC<PropTypes> = ({
   /* main */
@@ -65,8 +63,6 @@ export const MapControl: React.FC<PropTypes> = ({
     localMap.flyToBounds(originalBounds, { duration: 0.75 })
   }
 
-
-
   if (!localMap) return null
 
   if (actionCallback) {
@@ -87,16 +83,6 @@ export const MapControl: React.FC<PropTypes> = ({
             <Item title="New orders" >New orders...</Item>
           </div>
         }
-
-        {addInfoMarker &&
-          <div className={cx('leaflet-control')}>
-            <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}
-              contentTheme={'dark'} >
-              <InfoIcon />
-            </Item>
-          </div>
-        }
-
         {children}
       </div>
     </div>
