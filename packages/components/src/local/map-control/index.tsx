@@ -1,17 +1,15 @@
 import AddIcon from '@material-ui/icons/Add'
-import RemoveIcon from '@material-ui/icons/Remove'
 import HomeIcon from '@material-ui/icons/Home'
+import RemoveIcon from '@material-ui/icons/Remove'
 
-import HistoryIcon from '@material-ui/icons/History'
-import PlannedIcon from '@material-ui/icons/Update'
 import InfoIcon from '@material-ui/icons/Info'
 
 /* Import proptypes */
-import PropTypes from './types/props'
 import { CellLabelStyle } from '@serge/config'
-import React, { useEffect, useState } from 'react'
-import { LatLngBounds, DomEvent } from 'leaflet'
 import cx from 'classnames'
+import { DomEvent, LatLngBounds } from 'leaflet'
+import React, { useEffect, useState } from 'react'
+import PropTypes from './types/props'
 
 import { useMap } from 'react-leaflet-v4'
 import Item from './helpers/item'
@@ -34,10 +32,6 @@ export const MapControl: React.FC<PropTypes> = ({
   zoomStepSize = 0.5,
   cellLabelCallback,
   cellLabelType,
-  filterPlannedRoutes,
-  setFilterPlannedRoutes,
-  filterHistoryRoutes,
-  setFilterHistoryRoutes,
   addInfoMarker,
   actionCallback,
   actionItems,
@@ -78,30 +72,6 @@ export const MapControl: React.FC<PropTypes> = ({
       return
     }
     localMap.flyToBounds(originalBounds, { duration: 0.75 })
-  }
-
-  /* utilty method for whether we're filtering planned routes  */
-  const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
-    return filterPlannedRoutes ? 'dark' : 'light'
-  }
-
-  /* utilty method for whether we're filtering planned routes  */
-  const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
-    return filterHistoryRoutes ? 'dark' : 'light'
-  }
-
-  /* callback responding to filter planned routes toggle  */
-  const togglePlannedFilter = (): void => {
-    if (setFilterPlannedRoutes) {
-      setFilterPlannedRoutes(!filterPlannedRoutes)
-    }
-  }
-
-  /* callback responding to filter planned routes toggle  */
-  const toggleHistoryFilter = (): void => {
-    if (setFilterHistoryRoutes) {
-      setFilterHistoryRoutes(!filterHistoryRoutes)
-    }
   }
 
   /** the forces from props has changed */
@@ -145,22 +115,7 @@ export const MapControl: React.FC<PropTypes> = ({
             <Item title="New orders" >New orders...</Item>
           </div>
         }
-        <div className={cx('leaflet-control')} data-tour="counter-clockwise">
-          {
-            setFilterHistoryRoutes &&
-            <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}
-              contentTheme={isFilterAsHistoryRoutes()} >
-              <HistoryIcon />
-            </Item>
-          }
-          {
-            setFilterPlannedRoutes &&
-            <Item title="View all planned steps" onClick={(): void => { togglePlannedFilter() }}
-              contentTheme={isFilterAsPlannedRoutes()} >
-              <PlannedIcon />
-            </Item>
-          }
-        </div>
+
         {addInfoMarker &&
           <div className={cx('leaflet-control')}>
             <Item title='Add information marker' onClick={(): void => { addInfoMarker() }}

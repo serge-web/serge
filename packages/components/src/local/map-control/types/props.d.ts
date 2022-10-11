@@ -22,14 +22,6 @@ export default interface PropTypes {
   cellLabelCallback?: { (style: CellLabelStyle): void }
   /** current value of `view as` */
   cellLabelType?: CellLabelStyle
-  /** whether planned routes filtered */
-  filterPlannedRoutes?: boolean
-  /** callback for toggling planned routes */
-  setFilterPlannedRoutes?: { (value: boolean): void }
-  /** whether History routes filtered */
-  filterHistoryRoutes?: boolean
-  /** callback for toggling History routes */
-  setFilterHistoryRoutes?: { (value: boolean): void }
   /** callback for adding a new information marker */
   addInfoMarker?: { (): void }
   /** if filter is applied */
