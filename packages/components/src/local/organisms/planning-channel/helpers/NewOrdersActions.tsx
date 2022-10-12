@@ -30,11 +30,11 @@ export const NewOrderActions: React.FC<NewOrderActionProps> = ({ playerForce, is
   return (
     <>
       { actionItems && <div className={ cx('leaflet-control') }>
-        { actionItems.groupedActivities.map((group: GroupedActivitySet) => {
-          return <Item title={ group.category }>
-            {group.activities.map((plan: string | PlanningActivity) => {
+        { actionItems.groupedActivities.map((group: GroupedActivitySet, index: number) => {
+          return <Item key={'g_' + index} title={ group.category }>
+            {group.activities.map((plan: string | PlanningActivity, index2: number) => {
               return (typeof plan === 'object') &&
-                <Item title={ plan.name } onClick={() => newActionHandler(group.category, plan.uniqid) } />
+                <Item key={index + '_' + index2} title={ plan.name } onClick={() => newActionHandler(group.category, plan.uniqid) } />
             })}
           </Item>
         })
