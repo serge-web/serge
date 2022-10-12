@@ -237,8 +237,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
-  const newActionRequest = (planId: string): void => {
-    console.log('new orders for', planId)
+  const newActionRequest = (group: string, planId: string): void => {
+    console.log('new orders for', group, planId)
   }
 
   const mapChildren = useMemo(() => {
