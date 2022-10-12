@@ -23,27 +23,28 @@ import PropTypes from './types/props'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
-  if (!force) {
-    throw Error('force not found')
+  if (force) {
+    return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
+      const item: MappingMenuItem = {
+        id: grp.category,
+        name: grp.category,
+        children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
+          if (typeof (act) === 'string') {
+            throw Error('Should receive real planning activity' + act)
+          }
+          const item2: MappingMenuItem = {
+            id: act.uniqid,
+            name: act.name,
+            color: act.color
+          }
+          return item2
+        })
+      }
+      return item
+    })
+  } else {
+    return []
   }
-  return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
-    const item: MappingMenuItem = {
-      id: grp.category,
-      name: grp.category,
-      children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
-        if (typeof (act) === 'string') {
-          throw Error('Should receive real planning activity' + act)
-        }
-        const item2: MappingMenuItem = {
-          id: act.uniqid,
-          name: act.name,
-          color: act.color
-        }
-        return item2
-      })
-    }
-    return item
-  })
 }
 
 export const PlanningChannel: React.FC<PropTypes> = ({
