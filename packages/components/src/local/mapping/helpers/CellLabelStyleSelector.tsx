@@ -45,7 +45,7 @@ export const CellLabelStyleSelector: React.FC<LabelSelectorProps> = ({ cellLabel
   return (
     <>
       {cellStyles.length > 0 && <div className={cx('leaflet-control')}>
-        {cellStyles.map((style: CellStyleDetails): JSX.Element => (
+        {cellStyles.map((style: CellStyleDetails): React.ReactElement => (
           <Item
             contentTheme={style.active ? 'light' : 'dark'}
             key={`s_${style.value}`}
