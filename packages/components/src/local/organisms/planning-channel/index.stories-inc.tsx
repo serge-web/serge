@@ -107,7 +107,8 @@ export default {
 const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
-    isUmpire
+    isUmpire,
+    phase
   } = args
 
   const mockFn = (): PlayerUiActionTypes => ({
@@ -159,8 +160,10 @@ const Template: Story<PlanningChannelProps> = (args) => {
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
     forcePlanningActivities={filledInPerForcePlanningActivities}
+    phase={phase}
   />
 }
 
 export const Default = Template.bind({})
-Default.args = {}
+Default.args = {
+}

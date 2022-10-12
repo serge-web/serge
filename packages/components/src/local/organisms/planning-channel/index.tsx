@@ -63,6 +63,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   selectedRoleName,
   currentWargame,
   selectedForce,
+  phase,
   isUmpire,
   allForces,
   platformTypes,
@@ -307,7 +308,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               toolbarChildren={
                 <>
                   <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
-                    newActionHandler={newActionRequest} />
+                    newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
                   <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                   <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
                   {

@@ -1,3 +1,4 @@
+import { Phase } from '@serge/config'
 import { ChannelPlanning, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
 import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
@@ -72,6 +73,7 @@ describe('Planning Channel component: ', () => {
       allForces={forces}
       gameDate={P9Mock.data.overview.gameDate}
       currentTurn={P9Mock.gameTurn}
+      phase={Phase.Planning}
     />)
     expect(tree).toMatchSnapshot()
   })
