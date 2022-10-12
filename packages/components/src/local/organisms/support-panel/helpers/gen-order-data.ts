@@ -6,6 +6,7 @@ import {
 import { PlanningMessageStructure } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
+import { Feature, Geometry } from 'geojson'
 import L from 'leaflet'
 import moment from 'moment-timezone'
 import { linePolyContact, ShapeInteraction, TimePeriod } from './shape-intersects'
@@ -68,16 +69,6 @@ interface PerForceData {
   opAsset: PerceivedTypes[]
 }
 
-/** an instance of one geometry interacting with another */
-export interface PlanningContact {
-  id: string
-  first: GeomWithOrders
-  second: GeomWithOrders
-  intersection?: GeoJSON.Geometry
-  timeStart: number // unix millis
-  timeEnd: number // unix millis
-}
-
 /** object that lets us put the parent orders object into
  * a planned geometry
  */
@@ -94,6 +85,16 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
    * id for this state/activity
    */
   id: string
+}
+
+/** an instance of one geometry interacting with another */
+export interface PlanningContact {
+  id: string
+  first: GeomWithOrders
+  second: GeomWithOrders
+  intersection?: Geometry
+  timeStart: number // unix millis
+  timeEnd: number // unix millis
 }
 
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
@@ -183,7 +184,7 @@ const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
 }
 
 const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
-  activity: PlanningActivity): GeoJSON.Feature => {
+  activity: PlanningActivity): Feature => {
   const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
   const dateProps: PlannedProps = {

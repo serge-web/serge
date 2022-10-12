@@ -5,7 +5,7 @@ import { Feature, LineString, Point, Polygon } from 'geojson'
 export interface ShapeInteraction {
   startTime: number
   endTime: number
-  intersection: GeoJSON.Feature
+  intersection: Feature
 }
 
 export type TimePeriod = number[]

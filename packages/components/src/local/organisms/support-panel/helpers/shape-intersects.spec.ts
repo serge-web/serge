@@ -201,7 +201,6 @@ it('intersection of line & point', () => {
   // console.log(res3?.intersection.geometry)
 })
 
-
 it('find how far along hte line to get the polygon overlap', () => {
   const tLine = turf.lineString(line.coordinates)
   const tPoly = turf.polygon(poly.coordinates)

@@ -2,7 +2,7 @@
 import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { circleMarker, Layer, PathOptions, StyleFunction } from 'leaflet'
+import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
@@ -247,7 +247,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     fillOpacity: 0.8
   }
 
-  const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: L.LatLng): L.Layer => {
+  const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: LatLng): Layer => {
     return circleMarker(latlng, geojsonMarkerOptions)
   }
   const styleForAdjudicate: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
