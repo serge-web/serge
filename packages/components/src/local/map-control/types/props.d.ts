@@ -1,7 +1,5 @@
-import { CellLabelStyle } from '@serge/config'
 import { LatLng, LatLngBounds } from 'leaflet'
 import React from 'react'
-import { MappingMenuItem } from 'src/local/organisms/support-mapping/types/props'
 
 export default interface PropTypes {
   // main
@@ -20,30 +18,6 @@ export default interface PropTypes {
   showZoom?: boolean
   // size of zoom in/out increment
   zoomStepSize?: number
-  /** callback for umpire clicking on view-as button */
-  cellLabelCallback?: { (style: CellLabelStyle): void }
-  /** current value of `view as` */
-  cellLabelType?: CellLabelStyle
-  /** whether planned routes filtered */
-  filterPlannedRoutes?: boolean
-  /** callback for toggling planned routes */
-  setFilterPlannedRoutes?: { (value: boolean): void }
-  /** whether History routes filtered */
-  filterHistoryRoutes?: boolean
-  /** callback for toggling History routes */
-  setFilterHistoryRoutes?: { (value: boolean): void }
-  /** callback for adding a new information marker */
-  addInfoMarker?: { (): void }
-  /** if filter is applied */
-  filterApplied?: boolean
-  /** callback for applying filter */
-  setFilterApplied?: { (value: boolean): void }
-  /** tree of menu items */
-  actionItems?: MappingMenuItem[]
-  /** callback, for if a map action is clicked */
-  actionCallback?: { (force: string, category: string, actionId: string): void }
 
   mapVer?: 'v2' | 'v4'
-
-  setDrawingMode?: (enable: boolean) => void
 }

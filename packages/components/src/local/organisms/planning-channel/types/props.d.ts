@@ -1,3 +1,4 @@
+import { Phase } from '@serge/config'
 import { ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
@@ -25,4 +26,5 @@ export default interface PropTypes {
   saveMessage: (dbName: string, details: MessageDetails, message: any) => void
   /** set of activities that can be planned using this planning channel */
   forcePlanningActivities?: PerForcePlanningActivitySet[]
+  phase: Phase
 }

@@ -8,7 +8,7 @@ jest.mock('react-leaflet-v4', () => ({
 
 it('MapControl renders correctly', () => {
   const tree = renderer
-    .create(<MapControl filterPlannedRoutes={true} />)
+    .create(<MapControl/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

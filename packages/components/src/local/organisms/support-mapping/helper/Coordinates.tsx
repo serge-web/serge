@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
+import { LeafletMouseEvent } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 
@@ -23,8 +24,8 @@ const MapCoordinates: React.FC = () => {
 
   useEffect(() => {
     if (map) {
-      map.on('mousemove', (event) => {
-        setLatlng((event as any).latlng)
+      map.on('mousemove', (event: LeafletMouseEvent) => {
+        setLatlng(event.latlng)
       })
     }
   }, [map])

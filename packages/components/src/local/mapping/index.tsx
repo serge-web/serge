@@ -1,5 +1,8 @@
-/* eslint-disable no-undef */
+import HistoryIcon from '@material-ui/icons/History'
+import InfoIcon from '@material-ui/icons/Info'
+import PlannedIcon from '@material-ui/icons/Update'
 import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from '@serge/config'
+import cx from 'classnames'
 import * as h3 from 'h3-js'
 import L from 'leaflet'
 import { cloneDeep, isEqual } from 'lodash'
@@ -31,7 +34,9 @@ import ContextInterface from './types/context'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
+import Item from '../map-control/helpers/item'
 import ViewAs from '../organisms/view-as'
+import CellLabelStyleSelector from './helpers/CellLabelStyleSelector'
 import generateTestData from './helpers/gen-test-mapping-data'
 import './leaflet.css'
 import styles from './styles.module.scss'
@@ -96,8 +101,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [showAddInfo, setShowAddInfo] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
-  const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
-  const [lastAtlanticCells, setLastAtlanticCells] = useState<GeoJSON.FeatureCollection>()
+  const [atlanticCells, setAtlanticCells] = useState<FeatureCollection>()
+  const [lastAtlanticCells, setLastAtlanticCells] = useState<FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
@@ -692,7 +697,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const localAddInfoMarker = (): void => {
-    const runTest = true
+    const runTest = false
     if (runTest) {
       generateTestData(mappingConstraintState, forces, platforms, setForcesState)
     } else {
@@ -860,6 +865,16 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
+    return filterPlannedRoutes ? 'dark' : 'light'
+  }
+
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
+    return filterHistoryRoutes ? 'dark' : 'light'
+  }
+
   /**
    * this callback is called when the user clicks on a blank part of the map.
    * When that happens, clear the selection
@@ -892,15 +907,27 @@ export const Mapping: React.FC<PropTypes> = ({
             map={leafletElement}
             home={mapCentre}
             bounds={mapBounds}
-            filterPlannedRoutes={filterPlannedRoutes}
-            setFilterPlannedRoutes={setFilterPlannedRoutes}
-            filterHistoryRoutes={filterHistoryRoutes}
-            setFilterHistoryRoutes={setFilterHistoryRoutes}
-            cellLabelType={cellLabelStyle}
-            cellLabelCallback={setCellLabelStyle}
-            addInfoMarker={showAddInfo ? localAddInfoMarker : undefined}
           >
-            <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
+            <>
+              <div className={cx('leaflet-control')} data-tour="counter-clockwise">
+                <Item title="View full history" onClick={(): void => { setFilterHistoryRoutes(!filterHistoryRoutes) }}
+                  contentTheme={isFilterAsHistoryRoutes()} >
+                  <HistoryIcon />
+                </Item>
+                <Item title="View all planned steps" onClick={(): void => { setFilterPlannedRoutes(!filterPlannedRoutes) }}
+                  contentTheme={isFilterAsPlannedRoutes()} >
+                  <PlannedIcon />
+                </Item>
+              </div>
+              { showAddInfo && <div className={cx('leaflet-control')}>
+                <Item title='Add information marker' onClick={(): void => { localAddInfoMarker() }}
+                  contentTheme={'dark'} >
+                  <InfoIcon />
+                </Item>
+              </div>}
+              <CellLabelStyleSelector cellLabelStyle={cellLabelStyle} setCellLabelStyle={setCellLabelStyle} />
+              <ViewAs viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
+            </>
           </MapControl>
           {mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
@@ -917,7 +944,5 @@ export const Mapping: React.FC<PropTypes> = ({
     </MapContext.Provider>
   )
 }
-
 // Mapping.defaultProps = defaultProps
-
 export default Mapping
