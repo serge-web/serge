@@ -17,14 +17,10 @@ import PolylineDecorator from '../support-mapping/helper/PolylineDecorator'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import ViewAs from '../view-as'
+import NewOrderActions from './helpers/NewOrdersActions'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-<<<<<<< HEAD
-import NewOrderActions from './helpers/NewOrdersActions'
-
-=======
->>>>>>> 1862-drawing-tool
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
   if (!force) {

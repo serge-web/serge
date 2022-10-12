@@ -1,8 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
-<<<<<<< HEAD
 import { LeafletMouseEvent } from 'leaflet'
-=======
->>>>>>> 1862-drawing-tool
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 

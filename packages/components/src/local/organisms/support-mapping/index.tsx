@@ -9,9 +9,7 @@ import { MapConstants } from './helper/MapConstants'
 import PropTypes from './types/props'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds,
-  actionItems, actionCallback, toolbarChildren, mapWidth, children,
-  setDrawingMode
+  position, bounds, toolbarChildren, mapWidth, children
 }) => {
   const TileLayerProps = MapConstants.TileLayer
   const map = useMap()
@@ -40,10 +38,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
       <MapControl
         bounds={bounds}
         zoomStepSize={1}
-        actionItems={actionItems}
         mapVer='v4'
-        actionCallback={actionCallback}
-        setDrawingMode={setDrawingMode}
       >
         {toolbarChildren}
       </MapControl>
