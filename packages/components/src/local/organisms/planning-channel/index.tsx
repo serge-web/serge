@@ -1,11 +1,11 @@
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer } from 'leaflet'
+import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
-import { GeomanControls } from 'react-leaflet-geoman-v2'
+
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import ApplyFilter from '../apply-filter'
@@ -14,11 +14,11 @@ import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-a
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
-import PolylineDecorator from '../support-mapping/helper/PolylineDecorator'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import NewOrderActions from './helpers/NewOrdersActions'
+import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
@@ -73,12 +73,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   // the planning activiites for the selected force
   const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
-
-  // the activity currently being planned
-  // const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
-
-  const [polylineLatlgn, setPolylineLatlng] = useState<LatLng[]>([])
-  const [geomanLayer, setGeomanLayer] = useState<Layer>()
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
@@ -206,14 +200,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
-  const onCreate = (e: { shape: string, layer: Layer }) => {
-    console.log('create completed', e)
-    if (e.shape === 'Line') {
-      setPolylineLatlng((e.layer as any)._latlngs)
-      setGeomanLayer(e.layer)
-    }
-  }
-
   const genData = (): void => {
     const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
     setActivityBeingPlanned(newPlan)
@@ -234,6 +220,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('Apply some adjudication for', contact.id)
   }
 
+  const activityPlanned = (geoms: PlannedActivityGeometry[]): void => {
+    console.log('geoms planned', geoms)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -244,7 +234,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <LayerGroup key={'opp-forces'}>
           <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
         </LayerGroup>
-        <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} />
+        {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
         <OrderPlotter activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
           step={debugStep} />
       </>
@@ -306,34 +296,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                       <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
                         newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
-                      <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                      <div className={cx('leaflet-control')}>
-                        <Item onClick={genData}>Plan</Item>
-                      </div>
-                    </>
-                  }
-                  {
-                    activityBeingPlanned &&
-                    <>
-                      <div className={cx('leaflet-control')}>
-                        <Item onClick={() => setActivityBeingPlanned(undefined)}>Cancel</Item>
-                      </div>
+                      <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                      {phase === Phase.Planning && !selectedForce.umpire &&
+                        <div className={cx('leaflet-control')}>
+                          <Item onClick={genData}>Plan</Item>
+                        </div>
+                      }
                       <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
                       </div>
-                      <GeomanControls
-                        options={{
-                          position: 'bottomright'
-                        }}
-                        globalOptions={{
-                          continueDrawing: true,
-                          editable: false
-                        }}
-                        onCreate={onCreate}
-                      />
                     </>
-
                   }
+                  <OrderDrawing activity={activityBeingPlanned} planned={activityPlanned} cancelled={() => setActivityBeingPlanned(undefined)} />
                 </>
               }>
               <>
