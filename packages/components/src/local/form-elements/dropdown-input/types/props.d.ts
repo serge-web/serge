@@ -1,6 +1,8 @@
+import { TemplateBody } from '@serge/custom-types'
+
 export default interface PropTypes {
-  updateStore: (value: any) => void
-  selectOptions: { value: string, option: string }[]
+  updateStore: (update: TemplateBody) => void
+  selectOptions: TemplateBody[]
   disabled?: boolean
   data: string
   className: string

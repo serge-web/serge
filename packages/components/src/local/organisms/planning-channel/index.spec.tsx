@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, CoreMessage, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
@@ -10,6 +10,22 @@ export const mockFn = (): PlayerUiActionTypes => ({
   type: 'mock' as any,
   payload: {}
 })
+
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+jest.mock('leaflet-polylinedecorator', () => jest.fn())
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn(),
+  MapContainer: (): React.ReactElement => <></>
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
+}))
 
 const wargame = P9Mock.data
 const channels = wargame.channels.channels
@@ -46,7 +62,7 @@ const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perFor
   }
 })
 
-const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+const saveMessage = (dbName: string, details: MessageDetails, message: CoreMessage) => {
   return async (): Promise<void> => {
     console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
   }

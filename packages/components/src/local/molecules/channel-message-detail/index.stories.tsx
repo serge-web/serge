@@ -38,7 +38,6 @@ export default {
 }
 
 const Template: Story<DetailPropTypes> = (args) => {
-  // @ts-ignore: Add custom property for storybook
   const { isUmpire, message } = args
   return <ChannelMessageDetail
     message={message}

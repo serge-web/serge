@@ -1,4 +1,6 @@
 import noop from 'lodash'
+import React from 'react'
+import ReactModal from 'react-modal'
 
 export type Props = {
   isOpen: boolean
@@ -9,8 +11,8 @@ export type Props = {
   cancelBtnText?: string
   saveBtnText?: string
   // custom style
-  modalStyle?: {}
-  headerStyle?: {}
-  bodyStyle?: {}
-  footerStyle?: {}
+  modalStyle?: ReactModal.Styles
+  headerStyle?: React.CSSProperties
+  bodyStyle?: React.CSSProperties
+  footerStyle?: React.CSSProperties
 }

@@ -1,9 +1,9 @@
 import { Asset, ForceData, MappingConstraints, Perception, PlatformTypeData } from '@serge/custom-types'
-import L from 'leaflet'
-import { uniqueId } from 'lodash'
+import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
-import { deepCopy } from '@serge/helpers'
+import L from 'leaflet'
+import { uniqueId } from 'lodash'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
 const randomPointInPoly = (polygon: L.Polygon): any => {
@@ -76,6 +76,10 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const h3Pos = h3.geoToH3(posit[1], posit[0], h3Res)
     const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
     const platformType = platformTypes[platformTypeCtr]
+    if (!platformType) {
+      console.warn('failed to find platform type with index', platformTypeCtr, platformTypes.length)
+      continue
+    }
     const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
     const statuses = platformType.states
     const asset: Asset = {

@@ -2,7 +2,7 @@ import cx from 'classnames'
 import L, { LatLng, latLng } from 'leaflet'
 import React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, Marker, Tooltip } from 'react-leaflet'
+import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
 import styles from './styles.module.scss'
@@ -12,8 +12,8 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
   // temporarily use alternate icon for opForces
   // const iconForThisForce = opFor ? 'layers.png' : 'marker-icon-2x.png'
 
-  const getAssetIcon = (icon: string, isSelected: boolean, isDestroyed: boolean): string => {
-    const [imageSrc, bgColor] = icon.split(',')
+  const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
+    const [imageSrc, bgColor] = asset.icon.split(',')
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={{ backgroundColor: bgColor }}>
         <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} />
@@ -41,12 +41,15 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
             const isSelected = selectedAssets.includes(asset.id)
 
             return <Marker
-              onclick={(): void => handleAssetClick(asset.id)}
+              eventHandlers={{
+                click: (): void => handleAssetClick(asset.id)
+              }}
               key={`asset-icon-${index}`}
               position={loc}
               icon={L.divIcon({
                 iconSize: [30, 30],
-                html: getAssetIcon(asset.icon, isSelected, false)
+                html: getAssetIcon(asset, isSelected, false),
+                className: styles['map-icon']
               })} >
               <Tooltip>{asset.name}</Tooltip>
             </Marker>

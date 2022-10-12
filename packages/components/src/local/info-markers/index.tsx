@@ -12,7 +12,7 @@ import { geoToH3, h3ToGeo } from 'h3-js'
 import { UPDATE_MARKER } from '@serge/config'
 
 /* Render component */
-export const InfoMarkers: React.FC<{}> = () => {
+export const InfoMarkers: React.FC = () => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null

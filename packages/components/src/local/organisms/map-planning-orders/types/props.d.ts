@@ -1,3 +1,6 @@
+import { ForceData, MessagePlanning, PlanningActivity } from '@serge/custom-types'
+import React from 'react'
+
 export default interface PropTypes {
   /** the set of orders to display */
   orders: MessagePlanning[]

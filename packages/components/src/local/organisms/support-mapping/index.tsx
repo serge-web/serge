@@ -1,82 +1,52 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Map, ScaleControl, TileLayer } from 'react-leaflet'
+
+import 'leaflet-polylinedecorator'
+import 'leaflet/dist/leaflet.css'
+import React, { useEffect } from 'react'
+import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
+import MapControl from '../../map-control'
+import MapCoordinates from './helper/Coordinates'
 import { MapConstants } from './helper/MapConstants'
 import PropTypes from './types/props'
-import { Map as LMap } from 'leaflet'
-import MapControl from '../../map-control'
-import styles from './styles.module.scss'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds,
-  actionItems, actionCallback, children, toolbarChildren, maxWidth
+  position, bounds, toolbarChildren, mapWidth, children
 }) => {
   const TileLayerProps = MapConstants.TileLayer
-
-  const [leafletElement, setLeafletElement] = useState<LMap | undefined>(undefined)
+  const map = useMap()
 
   useEffect(() => {
-    if (leafletElement) {
-      leafletElement.invalidateSize()
+    if (map) {
+      map.invalidateSize()
     }
-  }, [maxWidth])
+  }, [mapWidth])
 
   useEffect(() => {
-    if ((bounds !== undefined) && leafletElement) {
-      leafletElement.flyToBounds(bounds, { duration: 0.6 })
+    if (bounds && map) {
+      map.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
 
   useEffect(() => {
-    if (position !== undefined && leafletElement) {
+    if (position && map) {
       const defaultZoom = 10
-      leafletElement.flyTo(position, defaultZoom, { duration: 0.6 })
+      map.flyTo(position, defaultZoom, { duration: 0.6 })
     }
   }, [position])
 
-  const handleEvents = (ref: any): void => {
-    if (ref && ref.leafletElement) {
-      const map: LMap = ref.leafletElement
-      if (leafletElement === undefined) {
-        setLeafletElement(map)
-        bounds && map.fitBounds(bounds)
-      }
-    }
-  }
-
-  /**
-   * prevent it re-renders on suport panel resizing
-   */
-  const MapContent = useMemo(() => {
-    return <>
+  return (
+    <>
       <MapControl
-        map={leafletElement}
         bounds={bounds}
         zoomStepSize={1}
-        actionItems={actionItems}
-        actionCallback={actionCallback}>
-        <>
-          {toolbarChildren &&
-            toolbarChildren
-          }
-        </>
+        mapVer='v4'
+      >
+        {toolbarChildren}
       </MapControl>
       <TileLayer {...TileLayerProps} />
       <ScaleControl position='topright' />
+      <MapCoordinates />
       {children}
     </>
-  }, [children, toolbarChildren])
-
-  return (
-    <div className={styles['map-container']}>
-      <Map
-        className={styles.map}
-        ref={handleEvents}
-        zoomControl={false}
-        style={{ width: maxWidth }}
-      >
-        {MapContent}
-      </Map>
-    </div>
   )
 }
 

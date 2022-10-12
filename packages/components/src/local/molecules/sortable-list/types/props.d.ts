@@ -1,4 +1,4 @@
-import { ReactNode, ReactText } from 'react'
+import React, { ReactNode, ReactText } from 'react'
 
 export interface ItemObject {
   name: string

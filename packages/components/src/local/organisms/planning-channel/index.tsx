@@ -1,52 +1,27 @@
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { Asset, CoreMessage, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import { LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
-import { LayerGroup } from 'react-leaflet'
+import { GeomanControls } from 'react-leaflet-geoman-v2'
+import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import ApplyFilter from '../apply-filter'
-import MapDrawActivity from '../map-draw-activity'
 import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
-import { MappingMenuItem } from '../support-mapping/types/props'
+import PolylineDecorator from '../support-mapping/helper/PolylineDecorator'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
+import NewOrderActions from './helpers/NewOrdersActions'
 import OrderPlotter from './helpers/OrderPlotter'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-
-const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
-  const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
-  if (!force) {
-    // ok, could be umpire force
-    return []
-  }
-  return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
-    const item: MappingMenuItem = {
-      id: grp.category,
-      name: grp.category,
-      children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
-        if (typeof (act) === 'string') {
-          throw Error('Should receive real planning activity' + act)
-        }
-        const item2: MappingMenuItem = {
-          id: act.uniqid,
-          name: act.name,
-          color: act.color
-        }
-        return item2
-      })
-    }
-    return item
-  })
-}
 
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
@@ -94,15 +69,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
-  const [mapMaxWidth, setMapMaxWidth] = useState<string>('100%')
-  // action items to go on map
-  const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
+  const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
 
   // the planning activiites for the selected force
   const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
 
   // the activity currently being planned
-  const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
+  // const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
+
+  const [isDrawing] = useState<boolean>(true)
+  const [polylineLatlgn, setPolylineLatlng] = useState<LatLng[]>([])
+  const [geomanLayer, setGeomanLayer] = useState<Layer>()
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
@@ -128,12 +105,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     console.log('selected orders updated')
   }, [selectedOrders])
-
-  useEffect(() => {
-    if (forcePlanningActivities) {
-      setMapActionItems(collateMappingItems(forcePlanningActivities, selectedForce.uniqid))
-    }
-  }, [forcePlanningActivities])
 
   useEffect(() => {
     // produce the own and opp assets for this player force
@@ -191,7 +162,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // drop the turn markers
-    const myMessages = messages.filter((msg: CoreMessage) => msg.messageType !== INFO_MESSAGE_CLIPPED)
+    const myMessages: MessagePlanning[] = messages.filter((msg: MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as MessagePlanning[]
     setPlanningMessages(myMessages)
     console.warn('have set planning messages', messages.length, myMessages.length)
   }, [messages])
@@ -204,7 +175,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (message._id) {
       message.hasBeenRead = false
     }
-    dispatch(markUnread(channel.uniqid, message as any as MessageChannel))
+    dispatch(markUnread(channel.uniqid, message as any))
   }
 
   const newActiveMessage = (roleId: string, activityMessage: string): void => {
@@ -215,22 +186,29 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const onPanelWidthChange = (width: number): void => setMapMaxWidth(`calc(100% - ${width}px)`)
+  const onPanelWidthChange = (width: number): void => setMapWidth(`calc(100% - ${width}px)`)
 
   const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
 
-  const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
-    setCurrentActivity(undefined)
-    window.alert('Geometries complete ' + geometries.length)
-  }
+  // const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
+  //   setCurrentActivity(undefined)
+  //   window.alert('Geometries complete ' + geometries.length)
+  // }
+
+  // const startDrawing = (): void => {
+  //   if (planningActivities) {
+  //     setCurrentActivity(planningActivities[0])
+  //   }
+  // }
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
-  const startDrawing = (): void => {
-    if (planningActivities) {
-      setCurrentActivity(planningActivities[0])
+  const onCreate = (e: { shape: string, layer: Layer }) => {
+    if (e.shape === 'Line') {
+      setPolylineLatlng((e.layer as any)._latlngs)
+      setGeomanLayer(e.layer)
     }
   }
 
@@ -249,13 +227,32 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   console.log('planning channel', selectedForce.umpire, phase === Phase.Adjudication)
 
+  const newActionRequest = (group: string, planId: string): void => {
+    console.log('new orders for', group, planId)
+  }
+
+  const mapChildren = useMemo(() => {
+    return (
+      <>
+        <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+        <LayerGroup key={'own-forces'}>
+          <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+        </LayerGroup>
+        <LayerGroup key={'opp-forces'}>
+          <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+        </LayerGroup>
+        {/* <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} /> */}
+      </>
+    )
+  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
+
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
       <SupportPanelContext.Provider value={supportPanelContext}>
         <SupportPanel
           channel={channel}
           platformTypes={platformTypes}
-          messages={planningMessages}
+          messages={planningMessages as MessagePlanning[]}
           onReadAll={onReadAll}
           onUnread={onUnread}
           onRead={onRead}
@@ -284,43 +281,56 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onPanelWidthChange={onPanelWidthChange}
         />
       </SupportPanelContext.Provider>
-      <SupportMapping
-        bounds={bounds}
-        zoom={zoom}
-        position={position}
-        maxWidth={mapMaxWidth}
-        actionItems={mapActionItems}
-        actionCallback={mapActionCallback}
-        toolbarChildren={
-          <>
-            <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-            <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-            { /* dummy button, to trigger drawing process */}
-            <div className={cx('leaflet-control')}>
-              <Item title='go' onClick={startDrawing}>Start</Item>
-            </div>
-            <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} />
-            <div className={cx('leaflet-control')}>
-              <Item onClick={genData}>Gen</Item>
-            </div>
-            <div className={cx('leaflet-control')}>
-              <Item onClick={incrementDebugStep}>Step</Item>
-            </div>
-          </>
-        }>
-        { selectedForce.umpire && phase === Phase.Adjudication
-          ? <OrderPlotter orders={planningMessages} activities={forcePlanningActivities || []} step={debugStep} handleAdjudication={handleAdjudication} />
-          : <>
-            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
-            <LayerGroup key={'own-forces'}>
-              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-            </LayerGroup>
-            <LayerGroup key={'opp-forces'}>
-              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-            </LayerGroup>
-          </>
-        }
-      </SupportMapping>
+      <div className={styles['map-container']}>
+        <div style={{ width: mapWidth }}>
+          <MapContainer
+            className={styles.map}
+            zoomControl={false}
+            center={bounds?.getCenter()}
+            zoom={zoom}
+          >
+            <SupportMapping
+              bounds={bounds}
+              position={position}
+              actionCallback={mapActionCallback}
+              mapWidth={mapWidth}
+              toolbarChildren={
+                <>
+                  <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
+                    newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
+                  <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                  <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                  {
+                    isDrawing &&
+                    <GeomanControls
+                      options={{
+                        position: 'bottomright'
+                      }}
+                      globalOptions={{
+                        continueDrawing: true,
+                        editable: false
+                      }}
+                      onCreate={onCreate}
+                    />
+                  }
+                  <div className={cx('leaflet-control')}>
+                    <Item onClick={genData}>Gen</Item>
+                  </div>
+                  <div className={cx('leaflet-control')}>
+                    <Item onClick={incrementDebugStep}>Step</Item>
+                  </div>
+                </>
+              }>
+              <>
+                {mapChildren}
+                <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} />
+                <OrderPlotter activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
+                  step={debugStep} />
+              </>
+            </SupportMapping>
+          </MapContainer>
+        </div>
+      </div>
     </div>
   )
 }

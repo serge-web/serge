@@ -1,12 +1,13 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, Role } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {
   messages: MessagePlanning[]
   turnPresentation?: TurnFormats
   onRead: (message: MessagePlanning) => void
-  onUnread: (message: MessageChannel | ChatMessage) => void
+  onUnread: (message: MessagePlanning) => void
   onReadAll: () => void
   /**
    * definition of this channel
@@ -19,8 +20,8 @@ export default interface PropTypes {
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => Function
-  saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => Function
+  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => void
+  saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   dispatch: Dispatch<any>
   isUmpire: boolean
   selectedRoleName: Role['name']

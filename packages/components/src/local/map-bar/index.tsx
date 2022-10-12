@@ -115,6 +115,7 @@ export const MapBar: React.FC = () => {
   useEffect(() => {
     if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected && selectedAsset) {
       const closePlanningForm = (): void => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setSelectedAsset(undefined)
       }
@@ -240,6 +241,7 @@ export const MapBar: React.FC = () => {
     // is it a new id?
     if (selectedAsset && selectedAsset.uniqid === id) {
       // current clicked on, clear it
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setSelectedAsset(undefined)
     } else {
@@ -270,6 +272,7 @@ export const MapBar: React.FC = () => {
     // is it a new id?
     if (selectedMarker && selectedMarker === id) {
       // current clicked on, clear it
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setSelectedMarker(undefined)
     } else {
@@ -302,6 +305,7 @@ export const MapBar: React.FC = () => {
       assetId: selectedAsset.uniqid
     }
     // clear the selected asset
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setSelectedAsset(undefined)
     // now trigger the delete

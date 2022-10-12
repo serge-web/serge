@@ -71,8 +71,8 @@ const Template: Story<StoryPropTypes> = (args) => {
   console.log('turn time', turnTime, overview.gameTurnTime)
   overview.gameTurnTime = turnTime
   return (
-    // @ts-ignore it thinks we're missing wargame initiated, but storybook is providing that
     <SettingOverview
+      wargameInitiated
       overview={overview}
       onChange={handleChange}
       onSave={handleSave}

@@ -143,7 +143,13 @@ export const getParticipantStates = (
   }: CheckParticipantStates = isLegacyChannel ? checkLegacyParticipantStates(channel, forceId, role, isObserver) : checkV3ParticipantStates(channelAsV3, forceId, role, isObserver)
 
   const chatTemplate = getTemplateById(allTemplatesByKey, defaultMessageId)
-  if (typeof chatTemplate === 'undefined') console.warn('Warning, unable to find Chat template for channel with no templates defined')
+  if (typeof chatTemplate === 'undefined') {
+    // dont't throw error for unit tests, some use legacy data
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    const inProduction = !jestWorkerId
+    inProduction && console.warn('Warning, unable to find Chat template for channel with no templates defined')
+    // end
+  }
 
   if (isParticipant) {
     if (templatesIDs && templatesIDs.length !== 0) {

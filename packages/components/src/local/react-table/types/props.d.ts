@@ -4,7 +4,7 @@ export type Column = TableColumn & {
   // true if we want to enable filter value for this column
   colFilter?: boolean
 }
-export type Row = { [x: string], collapsible?: Collapsible }
+export type Row = { [x: string], collapsible?: any }
 
 export type ReactTableProps = Omit<TableProps, 'columns'> & {
   columns: Column[]

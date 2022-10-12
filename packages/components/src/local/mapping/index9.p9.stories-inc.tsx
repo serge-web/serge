@@ -30,7 +30,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 
 console.clear()
 
-async function fetchMock (): Promise<any> {
+const fetchMock = async (): Promise<any> => {
   return {
     json: (): any => data
   }
@@ -170,7 +170,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     isUmpire,
     ...props
   } = args
-  const roleStr: string = playerRole
+  const roleStr: string = playerRole || ''
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
@@ -180,11 +180,10 @@ const Template: Story<StoryPropTypes> = (args) => {
     console.log('keep compiler happy, one linter needs isUmpire to be defined, another says it\'s unused')
   }
   const isUmpireForce = isGameControlRole
-  const turnLength: MilliTurns = { unit: 'millis', millis: gameTurnTime }
   return (
     <Mapping
       playerForce={force}
-      gameTurnTime={turnLength}
+      gameTurnTime={gameTurnTime}
       isGameControl={isGameControlRole}
       isUmpire={isUmpireForce}
       playerRole={role}
@@ -214,7 +213,7 @@ P9Trials.args = {
     <>
       <HexGrid />
       <Assets />
-      <InfoMarkers/>
+      <InfoMarkers />
     </>
   )
 }

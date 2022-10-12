@@ -1,3 +1,4 @@
+import L from 'leaflet'
 import React, { useContext, useEffect, useState } from 'react'
 import { LayerGroup, Polyline } from 'react-leaflet'
 
@@ -25,8 +26,8 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   const [historyRoutes, setHistoryRoutes] = useState<RouteData | undefined>(undefined)
   const [plannedRoutes, setPlannedRoutes] = useState<RouteData | undefined>(undefined)
   const [oneStepPlannedRoutes, setOneStepPlannedRoutes] = useState<L.LatLng[]>([])
-  const [historyTurnMarkers, setHistoryTurnMarkers] = useState<JSX.Element[]>([])
-  const [plannedTurnMarkers, setPlannedTurnMarkers] = useState<JSX.Element[]>([])
+  const [historyTurnMarkers, setHistoryTurnMarkers] = useState<React.ReactElement[]>([])
+  const [plannedTurnMarkers, setPlannedTurnMarkers] = useState<React.ReactElement[]>([])
 
   // set the routeData
   // Note : the planned and history data are often created in the same way,

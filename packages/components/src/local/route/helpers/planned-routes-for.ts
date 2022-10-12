@@ -1,4 +1,4 @@
-import { LatLng } from 'leaflet'
+import L, { LatLng } from 'leaflet'
 
 /* Impot types */
 import { RouteMarker, RouteMarkerDuo, RouteMarkerStatus, RouteTurn as RouteTurnType } from '@serge/custom-types'

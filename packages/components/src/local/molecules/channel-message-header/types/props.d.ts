@@ -1,3 +1,4 @@
+import { Role } from '@serge/custom-types'
 import React from 'react'
 
 export default interface Props {
@@ -21,9 +22,9 @@ export default interface Props {
    * Message sender rolename
    */
   roleName?: Role['name']
-   /**
-   * Message force color
-   */
+  /**
+  * Message force color
+  */
   forceColor: string
   /**
    * Message type

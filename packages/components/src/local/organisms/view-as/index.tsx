@@ -23,7 +23,7 @@ export const ViewAs: React.FC<PropTypes> = ({
 
   return <>
     {forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
-      {forces.map((force: any): JSX.Element => (
+      {forces.map((force: any): React.ReactElement => (
         <Item
           contentTheme={showAsSelected(force.uniqid)}
           key={`k_${force.uniqid}`}
