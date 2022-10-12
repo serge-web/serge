@@ -222,6 +222,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const activityPlanned = (geoms: PlannedActivityGeometry[]): void => {
     console.log('geoms planned', geoms)
+    setActivityBeingPlanned(undefined)
   }
 
   const mapChildren = useMemo(() => {

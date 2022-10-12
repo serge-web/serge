@@ -1,6 +1,8 @@
+import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import cx from 'classnames'
-import { Layer } from 'leaflet'
+import { Geometry } from 'geojson'
+import { Layer, PM } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import Item from '../../../map-control/helpers/item'
@@ -13,68 +15,115 @@ interface OrderDrawingProps {
 
 /* Render component */
 export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, cancelled }) => {
-  const [plannedGeometries, setPlannedGeometries] = useState<PlannedActivityGeometry[]>([])
+  const [plannedGeometries, setPlannedGeometries] = useState<Geometry[]>([])
   const [currentGeometry, setCurrentGeometry] = useState<number>(-1)
   const [planningGeometries, setPlanningGeometries] = useState<PlanningActivityGeometry[]>([])
+  const [pendingGeometry, setPendingGeometry] = useState<Geometry | undefined>(undefined)
+  const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
+  const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
 
   useEffect(() => {
+    setPlannedGeometries([])
+    setPlanningGeometries([])
+    setCurrentGeometry(-1)
     if (activity && activity.geometries) {
       setPlanningGeometries(activity.geometries)
       setCurrentGeometry(0)
-    } else {
-      setCurrentGeometry(-1)
     }
   }, [activity])
 
   useEffect(() => {
-    // configure the drawing tool
-    const current = planningGeometries[currentGeometry]
-    console.log('config for', current)
+    if (pendingGeometry) {
+      const newGeoms = plannedGeometries.concat(pendingGeometry)
+      setPlannedGeometries(newGeoms)
+      setPendingGeometry(undefined)
+    }
+  }, [pendingGeometry])
+
+  useEffect(() => {
+    if (currentGeometry >= 0) {
+      // configure the drawing tool
+      const current = planningGeometries[currentGeometry]
+      const globalOpts: PM.GlobalOptions = {
+        continueDrawing: false,
+        editable: false,
+        allowCutting: false,
+        allowRemoval: false,
+        allowRotation: false
+      }
+      const toolbarOpts: PM.ToolbarOptions = {
+        position: 'bottomright',
+        drawCircle: false,
+        drawMarker: false,
+        drawPolygon: false,
+        drawPolyline: false,
+        drawCircleMarker: false,
+        drawRectangle: false,
+        drawText: false
+        //        editControls: false
+      }
+      switch (current.aType) {
+        case GeometryType.point: {
+          toolbarOpts.drawMarker = true
+          break
+        }
+        case GeometryType.polyline: {
+          toolbarOpts.drawPolyline = true
+          break
+        }
+        case GeometryType.polygon: {
+          toolbarOpts.drawPolygon = true
+          break
+        }
+      }
+      setDrawOptions(toolbarOpts)
+      setGlobalOptions(globalOpts)
+      console.log('config for', currentGeometry, current)
+    }
   }, [currentGeometry])
 
   useEffect(() => {
-    if (currentGeometry > planningGeometries.length) {
+    if (plannedGeometries.length === planningGeometries.length && plannedGeometries.length > 0) {
       // we've generated all geometries
-      planned(plannedGeometries)
-    } else {
+      const plannedGeoms = plannedGeometries.map((geom: Geometry, index: number) => {
+        const planned: PlannedActivityGeometry = {
+          uniqid: planningGeometries[index].uniqid,
+          geometry: {
+            type: 'Feature',
+            properties: {},
+            geometry: geom
+          }
+        }
+        return planned
+      })
+      planned(plannedGeoms)
+    } else if (plannedGeometries.length > 0) {
       // move forward one
       setCurrentGeometry(currentGeometry + 1)
     }
   }, [plannedGeometries])
 
-  const onCreate = (e: { shape: string, layer: Layer }): void => {
-    // store planned geometry
-    console.log('create completed', e)
-    const newGeom: PlannedActivityGeometry = {
-      uniqid: planningGeometries[currentGeometry].uniqid,
-      geometry: {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: [[-22, 144], [-18, 130], [-16, 123]]
-        }
-      }
-    }
-    const newGeoms = plannedGeometries.concat(newGeom)
-    setPlannedGeometries(newGeoms)
+  const cancelDrawing = (): void => {
+    cancelled()
   }
 
-  console.log('order drawing', activity)
+  const onCreate = (e: { shape: string, layer: Layer }): void => {
+    const newGeom: Geometry = {
+      type: 'LineString',
+      coordinates: [[-22, 144], [-18, 130], [-16, 123]]
+    }
+    setPendingGeometry(newGeom)
+  }
+
   return (
     <> {activity &&
       <>
         <div className={cx('leaflet-control')}>
-          <Item onClick={cancelled}>Cancel</Item>
+          <Item onClick={cancelDrawing}>Cancel</Item>
         </div>
         <GeomanControls
-          options={{
-            position: 'bottomright'
-          }}
-          globalOptions={{
-            continueDrawing: true,
-            editable: false
-          }}
+          options={drawOptions}
+          globalOptions={globalOptions}
           onCreate={onCreate}
         />
       </>
