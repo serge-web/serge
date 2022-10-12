@@ -2,7 +2,7 @@ import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import cx from 'classnames'
 import { Geometry } from 'geojson'
-import { Layer, PM } from 'leaflet'
+import { LatLng, Layer, PM } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import Item from '../../../map-control/helpers/item'
@@ -13,12 +13,18 @@ interface OrderDrawingProps {
   planned: { (geometries: PlannedActivityGeometry[]): void }
 }
 
+interface PendingItem {
+  shape: PM.SUPPORTED_SHAPES
+  layer: Layer
+}
+
 /* Render component */
 export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, cancelled }) => {
   const [plannedGeometries, setPlannedGeometries] = useState<Geometry[]>([])
+  const [geoLayers, setGeoLayers] = useState<Layer[]>([])
   const [currentGeometry, setCurrentGeometry] = useState<number>(-1)
   const [planningGeometries, setPlanningGeometries] = useState<PlanningActivityGeometry[]>([])
-  const [pendingGeometry, setPendingGeometry] = useState<Geometry | undefined>(undefined)
+  const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
 
@@ -34,9 +40,50 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
 
   useEffect(() => {
     if (pendingGeometry) {
-      const newGeoms = plannedGeometries.concat(pendingGeometry)
-      setPlannedGeometries(newGeoms)
-      setPendingGeometry(undefined)
+      const layerAsAny = pendingGeometry.layer as any
+      let res: Geometry | undefined
+      switch (pendingGeometry.shape) {
+        case 'Line': {
+          const longLats = layerAsAny._latlngs.map((pt: LatLng): number[] => {
+            return [pt.lng, pt.lat]
+          })
+          res = {
+            type: 'LineString',
+            coordinates: longLats
+          }
+          break
+        }
+        case 'Polygon': {
+          const longLats = layerAsAny._latlngs.map((pt: LatLng[]): number[][] => {
+            return pt.map((pt2: LatLng): number[] => {
+              return [pt2.lng, pt2.lat]
+            })
+          })
+          res = {
+            type: 'Polygon',
+            coordinates: longLats
+          }
+          break
+        }
+        case 'Point': {
+          const pt2 = layerAsAny._latlngs
+          const longLats = [pt2.lng, pt2.lat]
+          res = {
+            type: 'Point',
+            coordinates: longLats
+          }
+          break
+        }
+      }
+      // append the layer to our private list
+      const newLayers = geoLayers.concat(pendingGeometry.layer)
+      setGeoLayers(newLayers)
+
+      if (res) {
+        const newGeoms = plannedGeometries.concat(res)
+        setPlannedGeometries(newGeoms)
+        setPendingGeometry(undefined)
+      }
     }
   }, [pendingGeometry])
 
@@ -51,6 +98,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         allowRemoval: false,
         allowRotation: false
       }
+      // switch off all controls
       const toolbarOpts: PM.ToolbarOptions = {
         position: 'bottomright',
         drawCircle: false,
@@ -59,9 +107,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         drawPolyline: false,
         drawCircleMarker: false,
         drawRectangle: false,
-        drawText: false
-        //        editControls: false
+        drawText: false,
+        removalMode: false
       }
+      // now just switch on the control we want
       switch (current.aType) {
         case GeometryType.point: {
           toolbarOpts.drawMarker = true
@@ -78,7 +127,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       }
       setDrawOptions(toolbarOpts)
       setGlobalOptions(globalOpts)
-      console.log('config for', currentGeometry, current)
     }
   }, [currentGeometry])
 
@@ -97,6 +145,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return planned
       })
       planned(plannedGeoms)
+      // now delete the GeoMan layer
+      geoLayers.forEach((layer: Layer) => layer.remove())
+      setGeoLayers([])
     } else if (plannedGeometries.length > 0) {
       // move forward one
       setCurrentGeometry(currentGeometry + 1)
@@ -108,11 +159,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }
 
   const onCreate = (e: { shape: string, layer: Layer }): void => {
-    const newGeom: Geometry = {
-      type: 'LineString',
-      coordinates: [[-22, 144], [-18, 130], [-16, 123]]
-    }
-    setPendingGeometry(newGeom)
+    setPendingGeometry(e)
   }
 
   return (
