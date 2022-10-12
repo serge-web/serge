@@ -1,5 +1,7 @@
 import { CellLabelStyle } from '@serge/config'
 import { LatLng, LatLngBounds } from 'leaflet'
+import React from 'react'
+import { MappingMenuItem } from 'src/local/organisms/support-mapping/types/props'
 
 export default interface PropTypes {
   // main
@@ -7,7 +9,7 @@ export default interface PropTypes {
   /**
   * Optional child components
   */
-  children?: JSX.Element
+  children?: React.ReactElement
   // whether to show home control
   showHome?: boolean
   // current map centre
@@ -42,4 +44,6 @@ export default interface PropTypes {
   actionCallback?: { (force: string, category: string, actionId: string): void }
 
   mapVer?: 'v2' | 'v4'
+
+  setDrawingMode?: (enable: boolean) => void
 }

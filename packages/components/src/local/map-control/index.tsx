@@ -5,6 +5,8 @@ import HomeIcon from '@material-ui/icons/Home'
 import HistoryIcon from '@material-ui/icons/History'
 import PlannedIcon from '@material-ui/icons/Update'
 import InfoIcon from '@material-ui/icons/Info'
+import ViewAsIcon from '@material-ui/icons/Visibility'
+import DrawIcon from '@material-ui/icons/TimelineRounded'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -41,10 +43,13 @@ export const MapControl: React.FC<PropTypes> = ({
   addInfoMarker,
   actionCallback,
   actionItems,
-  mapVer = 'v2'
+  mapVer = 'v2',
+  setDrawingMode
 }) => {
   const [cellStyles, setCellStyles] = useState<CellStyleDetails[]>([])
   const [originalBounds, setOriginalBounds] = useState<LatLngBounds | undefined>(undefined)
+  const [isDrawing, setIsDrawing] = useState<boolean>(false)
+
   const localMap = mapVer === 'v4' ? useMap() : map
 
   /** the forces from props has changed */
@@ -104,6 +109,11 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
+  const onDrawingModeChange = (status: boolean): void => {
+    setDrawingMode && setDrawingMode(status)
+    setIsDrawing(status)
+  }
+
   /** the forces from props has changed */
   useEffect(() => {
     const storeStyle = (label: string, style: CellLabelStyle, current: CellLabelStyle | undefined): CellStyleDetails => {
@@ -139,12 +149,21 @@ export const MapControl: React.FC<PropTypes> = ({
           {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon /></Item>}
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon /></Item>}
         </div>
-        {actionCallback &&
+        {
+          actionCallback &&
           <div className={cx('leaflet-control')}>
             {/* popup tree of action items when below button clicked */}
             <Item title="New orders" >New orders...</Item>
           </div>
         }
+        <div className={cx('leaflet-control')}>
+          <Item title="View As" onClick={(): void => onDrawingModeChange(false)} contentTheme={!isDrawing ? 'light' : 'dark'}>
+            <ViewAsIcon />
+          </Item>
+          <Item title="Draw" onClick={(): void => onDrawingModeChange(true)} contentTheme={isDrawing ? 'light' : 'dark'}>
+            <DrawIcon />
+          </Item>
+        </div>
         <div className={cx('leaflet-control')} data-tour="counter-clockwise">
           {
             setFilterHistoryRoutes &&
@@ -170,7 +189,7 @@ export const MapControl: React.FC<PropTypes> = ({
           </div>
         }
         {cellLabelCallback && cellStyles.length > 0 && <div className={cx('leaflet-control')}>
-          {cellStyles.map((style: CellStyleDetails): JSX.Element => (
+          {cellStyles.map((style: CellStyleDetails): React.ReactElement => (
             <Item
               contentTheme={style.active ? 'light' : 'dark'}
               key={`s_${style.value}`}

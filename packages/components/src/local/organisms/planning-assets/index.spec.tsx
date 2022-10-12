@@ -12,8 +12,19 @@ const blueForce = forces[1]
 const forceCols = forceColors(forces)
 const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 describe('Planning Assets component: ', () => {

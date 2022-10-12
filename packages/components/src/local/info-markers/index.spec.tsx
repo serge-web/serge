@@ -9,8 +9,19 @@ import InfoMarkers from '.'
 const forces = watuWargame.data.forces.forces
 const markers = watuWargame.data.annotations?.annotations || []
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 it('Mapping renders correctly with AsseticonURL', () => {

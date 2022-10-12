@@ -134,7 +134,7 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
 }
 
-export const arrToDict = (arr: string[]): {} | undefined => {
+export const arrToDict = (arr: string[]): any => {
   if (arr && arr.length > 0) {
     const res = {}
     arr.forEach((item: string) => {
@@ -146,7 +146,7 @@ export const arrToDict = (arr: string[]): {} | undefined => {
   }
 }
 
-const renderPlatformType = (row: AssetRow, platformTypes: {}): React.ReactElement => {
+const renderPlatformType = (row: AssetRow, platformTypes: Record<string, string>): React.ReactElement => {
   const match = row.platformType && platformTypes[row.platformType]
   if (match) {
     return <>{match}</>
@@ -155,7 +155,7 @@ const renderPlatformType = (row: AssetRow, platformTypes: {}): React.ReactElemen
   }
 }
 
-export const renderOwner = (row: AssetRow, roles: {}): React.ReactElement => {
+export const renderOwner = (row: AssetRow, roles: Record<string, string>): React.ReactElement => {
   const match = row.owner && roles[row.owner]
   if (match) {
     return <>{match}</>

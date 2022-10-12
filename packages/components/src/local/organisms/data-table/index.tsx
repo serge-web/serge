@@ -19,7 +19,7 @@ import { EMPTY_CELL } from '@serge/config'
 
 export const ROW_DATA_TYPE = 'RowDataType'
 export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'
-export type TableCell = {
+export type TableCellType = {
   component: any
   label: string
 }
@@ -171,7 +171,7 @@ export const DataTable: React.FC<Props> = ({ columns, data, sort, noExpand = fal
     }
   }
 
-  const matches = (src: string[], dest: string | string[] | TableCell): boolean => {
+  const matches = (src: string[], dest: string | string[] | TableCellType): boolean => {
     if (Array.isArray(dest)) {
       const destStr = dest.map(item => item.trim()).join(' ') || EMPTY_CELL
       return src.some(item => destStr.includes(item))

@@ -16,7 +16,7 @@ import { DropItem } from '../dropzone/types/props'
 import styles from './styles.module.scss'
 import { TASK_GROUP } from '@serge/config'
 
-const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => <>name: {item.name}<br />depth: {depth.length}</>
+const defaulRender = (item: GroupItem, depth: Array<GroupItem>): React.ReactElement => <>name: {item.name}<br />depth: {depth.length}</>
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
@@ -58,7 +58,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
     if (onDeleteAsset && setList) onDeleteAsset(setList, item)
   }
 
-  const renderGroupItem = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element | null => {
+  const renderGroupItem = (item: GroupItem, depth: Array<GroupItem> = []): React.ReactElement | null => {
     // const itemInsideOf: Item | undefined = items.find(i => Array.isArray(i.comprising) && i.comprising.find(({ uniqid }) => uniqid === item.uniqid))
 
     // on first level not render items inside of comprising

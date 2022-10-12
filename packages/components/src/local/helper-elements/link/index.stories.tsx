@@ -27,6 +27,7 @@ export const Default: React.FC = () => <Link
   onClick={onClick}
   disabled={boolean('Disabled', false)} >Title</Link>
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

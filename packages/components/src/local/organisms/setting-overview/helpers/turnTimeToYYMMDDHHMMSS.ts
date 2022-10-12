@@ -21,7 +21,11 @@ export const fromMasked = (turnTime: string): GameTurnLength | undefined => {
     const val = years * 12 + months
     return { unit: 'months', months: val }
   } else {
-    console.warn('Cannot process all zeroes', turnTime)
+    // dont't throw error for unit tests, unit tests deliberately provide duff data
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    const inProduction = !jestWorkerId
+    inProduction && console.warn('Cannot process all zeroes', turnTime)
+    // end
     return undefined
   }
 }

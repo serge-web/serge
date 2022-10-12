@@ -25,7 +25,6 @@ const force = {
   iconURL: ''
 }
 
-// @ts-ignore
-const showMessage = (message: MessageChannel): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
+const showMessage = (message: MessageChannel): void => window.alert(`Your message, from ${(message.details as any).from.force} was: "${(message as any).message.content}"`)
 
 export const Default: React.FC = () => <AdminMessageCreator turnNumber={1} from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'} postBack={showMessage} />

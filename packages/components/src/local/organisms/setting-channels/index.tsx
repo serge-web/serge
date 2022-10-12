@@ -115,8 +115,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   const closeChannelsMenu = (event: React.MouseEvent<Document, MouseEvent>): void => {
-    // @ts-ignore
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    if (anchorRef.current && anchorRef.current.contains(event.target as Node)) {
       return
     }
     setOpen(false)
@@ -203,7 +202,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               color="secondary"
-              disabled= {!selectedChannelState}
+              disabled={!selectedChannelState}
               onClick={(): void => { onSave && onSave(localChannelUpdates[selectedItem]) }}
               data-qa-type="save"
             >

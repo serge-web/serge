@@ -16,7 +16,6 @@ export default {
   }
 }
 
-// @ts-ignore
 const showMessage = (message: string): void => window.alert(`Your message was: "${message}"`)
 const chatvalue = (value: string): any => window.alert(`message value: "${value}"`)
 

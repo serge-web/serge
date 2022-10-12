@@ -1,11 +1,11 @@
-import React, { MouseEvent, useEffect, useRef, useState, useMemo } from 'react'
-import Collapsible from 'react-collapsible'
-import MessageCreator from '../message-creator'
-import DropdownInput from '../dropdown-input'
+import { UNSENT_SELECT_BY_DEFAULT_VALUE } from '@serge/config'
 import { TemplateBody } from '@serge/custom-types'
 import { usePrevious } from '@serge/helpers'
+import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
+import Collapsible from 'react-collapsible'
+import DropdownInput from '../dropdown-input'
+import MessageCreator from '../message-creator'
 import PropTypes from './types/props'
-import { UNSENT_SELECT_BY_DEFAULT_VALUE } from '@serge/config'
 
 const NewMessage: React.FC<PropTypes> = ({
   templates,
@@ -48,6 +48,7 @@ const NewMessage: React.FC<PropTypes> = ({
       if (templates.length) {
         if (schemaTitle) {
           const findColumn = templates.find(find => find.title === schemaTitle)
+          if (!findColumn) return
           setSelectedSchema(findColumn.details)
           setSelectedType(findColumn.title)
         } else {
@@ -68,7 +69,7 @@ const NewMessage: React.FC<PropTypes> = ({
       }
     }, 0)
   }
-  
+
   const onCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     setUpdateNewMessage(true)
     setTimeout(() => {

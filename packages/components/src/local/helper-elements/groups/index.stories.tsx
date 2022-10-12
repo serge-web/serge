@@ -29,8 +29,9 @@ const items: Array<GroupItem> = [
   { uniqid: 6, name: 'Item 6' }
 ]
 
-export const Default: React.FC = () => <Groups canOrganise={boolean('Player can organise assets', true)} items={items}/>
+export const Default: React.FC = () => <Groups canOrganise={boolean('Player can organise assets', true)} items={items} />
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

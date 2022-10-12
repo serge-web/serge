@@ -34,7 +34,7 @@ exports[`Image Dropzone component: renders correctly 1`] = `
       type="file"
     />
     <svg
-      className="svg-inline--fa fa-file-upload"
+      className="svg-inline--fa fa-file-arrow-up"
     />
     <p>
       Drag and drop a png/svg icon, or click to select. 

@@ -10,9 +10,20 @@ export const mockFn = (): PlayerUiActionTypes => ({
   payload: {}
 })
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn(),
   MapContainer: (): React.ReactElement => <></>
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
 }))
 
 const wargame = P9Mock.data
@@ -24,7 +35,7 @@ const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformType
 const force = forces[1]
 const role = force && force.roles[0]
 
-const saveMessage = (dbName: string, details: MessageDetails, message: object) => {
+const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
   return async (): Promise<void> => {
     console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
   }

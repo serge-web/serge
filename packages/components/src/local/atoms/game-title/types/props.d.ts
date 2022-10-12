@@ -1,3 +1,4 @@
+import React from 'react'
 import { WargameList } from '@serge/custom-types'
 
 export default interface Props extends WargameList {
@@ -8,5 +9,5 @@ export default interface Props extends WargameList {
   /**
    * Container element ref
    */
-   ref?: React.Ref<HTMLSpanElement>
+  ref?: React.Ref<HTMLSpanElement>
 }

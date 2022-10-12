@@ -50,7 +50,7 @@ greenF.assets && greenF.assets.forEach((asset: Asset) => {
   sortAsset(asset, LaydownTypes.UmpireLaydown)
 })
 
-async function fetchMock (): Promise<any> {
+const fetchMock = async (): Promise<any> => {
   return {
     json: (): any => data
   }
@@ -151,7 +151,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     turnNumber,
     ...props
   } = args
-  const roleStr: string = playerRole
+  const roleStr: string = playerRole || ''
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const force = roleStr.substring(0, ind)
@@ -189,7 +189,7 @@ NaturalEarth.args = {
     <>
       <HexGrid />
       <Assets />
-      <InfoMarkers/>
+      <InfoMarkers />
     </>
   )
 }
