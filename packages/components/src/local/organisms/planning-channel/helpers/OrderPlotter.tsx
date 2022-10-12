@@ -131,6 +131,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   useEffect(() => {
     if (bins.length && binToProcess !== undefined) {
+      console.log('step', binToProcess)
       setToAdjudicate(undefined)
       if (binToProcess === 0) {
         setInteractionsProcessed([])
@@ -303,22 +304,22 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   }
 
   return <>
-    {(message1.length > 0 || message2.length > 0) &&
+    {(message1.length > 0 || message2.length > 0) && !7 &&
       <Marker opacity={0} position={[-4, 120]}>
         <Tooltip permanent={true}>
           <span>{message1}</span><br /><span>{message2}</span>
         </Tooltip>
       </Marker>
     }
-    {bins.length > 0 &&
+    {bins.length > 0 && !7 &&
       <LayerGroup key={'bins'}>
-        {currentBins.map((bin: SpatialBin, index: number) =>
+        {!7 && currentBins.map((bin: SpatialBin, index: number) =>
           <GeoJSON style={styleForBoxes} onEachFeature={onEachFeature} data={bin.polygon} key={'a_' + index + Math.random()} />
         )}
       </LayerGroup>
     }
     {
-      geometries.length > 0 && !toAdjudicate &&
+      geometries.length > 0 && !toAdjudicate && !7 &&
       <>
         <LayerGroup key={'features'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
@@ -331,9 +332,9 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       </>
     }
     {
-      toAdjudicate &&
+      toAdjudicate && !7 &&
       <>
-        <LayerGroup key={'features'}>
+        <LayerGroup key={'feature_to_adjudicate'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicate} onEachFeature={onEachFeature}
             data={[toAdjudicate.first.geometry, toAdjudicate.second.geometry]} key={'to_ad_' + toAdjudicate.id} />
           {adjudicationHighlight &&

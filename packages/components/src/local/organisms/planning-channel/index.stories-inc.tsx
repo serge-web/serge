@@ -130,8 +130,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
-  console.log('story', force && force.umpire, force)
-
   // get the templates for this user
   const participants = planningChannel.participants as ParticipantPlanning[]
   const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
