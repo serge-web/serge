@@ -5734,6 +5734,14 @@
   dependencies:
     "@types/leaflet" "*"
 
+"@types/leaflet-textpath@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/leaflet-textpath/-/leaflet-textpath-1.2.1.tgz#267b36bfc19e06cc445fd5172ced336616dc9963"
+  integrity sha512-N+2ZDbKkCpUpDt1wDaPrUF5SWAgfPByIDFNjy9fEakAgyDQfU5b32jE9hmqu8jjh78Si+LnONHw9q4Hv0b79OQ==
+  dependencies:
+    "@types/leaflet" "*"
+    "@types/react" "*"
+
 "@types/leaflet@*":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.8.0.tgz#dc92d3e868fb6d5067b4b59fa08cd4441f84fabe"
@@ -16060,6 +16068,11 @@ leaflet-rotatedmarker@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/leaflet-rotatedmarker/-/leaflet-rotatedmarker-0.2.0.tgz#4467f49f98d1bfd56959bd9c6705203dd2601277"
   integrity sha512-yc97gxLXwbZa+Gk9VCcqI0CkvIBC9oNTTjFsHqq4EQvANrvaboib4UdeQLyTnEqDpaXHCqzwwVIDHtvz2mUiDg==
+
+leaflet-textpath@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/leaflet-textpath/-/leaflet-textpath-1.2.3.tgz#0adef3a2d438c1c781f4e1154b8fa2f963cfd8a7"
+  integrity sha512-mPb5m2MlihNkLlo762j8S8FJCUyLvDU2fJTjjmDWKfqqyUQkV3ca3IzrxwsfzYz2DXrV2ytCVHb5+DjQymF+8w==
 
 leaflet.markercluster@^1.4.1:
   version "1.5.3"

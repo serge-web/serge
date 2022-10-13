@@ -1,4 +1,4 @@
-import L from 'leaflet'
+import L, { Pattern, TextPathOptions } from 'leaflet'
 
 export const MapConstants = {
   TileLayer: {
@@ -7,7 +7,7 @@ export const MapConstants = {
   }
 }
 
-export const ArrowHeadPattern = {
+export const ArrowHeadPattern: Pattern = {
   offset: '100',
   repeat: '100',
   symbol: L.Symbol.arrowHead({
@@ -15,4 +15,14 @@ export const ArrowHeadPattern = {
     polygon: false,
     pathOptions: { stroke: true }
   })
+}
+
+export const LeafletTextOption: TextPathOptions = {
+  repeat: false,
+  center: true,
+  below: false,
+  offset: -10,
+  attributes: {
+    'font-size': '15'
+  }
 }

@@ -1,7 +1,8 @@
 import L, { LatLng, Layer } from 'leaflet'
+import 'leaflet-textpath'
 import React, { useEffect } from 'react'
 import { useMap } from 'react-leaflet-v4'
-import { ArrowHeadPattern } from './MapConstants'
+import { ArrowHeadPattern, LeafletTextOption } from './MapConstants'
 
 type PolylineDecoratorProps = {
   latlngs: LatLng[]
@@ -21,6 +22,7 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer })
   useEffect(() => {
     for (let i = 0; i < latlngs.length - 1; i++) {
       const polyline = L.polyline([latlngs[i], latlngs[i + 1]]).addTo(map)
+      polyline.setText('Input Text Here', LeafletTextOption)
       L.polylineDecorator(polyline, {
         patterns: [ArrowHeadPattern]
       }).addTo(map)
