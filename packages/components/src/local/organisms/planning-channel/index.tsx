@@ -17,32 +17,34 @@ import PolylineDecorator from '../support-mapping/helper/PolylineDecorator'
 import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import ViewAs from '../view-as'
+import NewOrderActions from './helpers/NewOrdersActions'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
   const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
-  if (!force) {
-    throw Error('force not found')
+  if (force) {
+    return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
+      const item: MappingMenuItem = {
+        id: grp.category,
+        name: grp.category,
+        children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
+          if (typeof (act) === 'string') {
+            throw Error('Should receive real planning activity' + act)
+          }
+          const item2: MappingMenuItem = {
+            id: act.uniqid,
+            name: act.name,
+            color: act.color
+          }
+          return item2
+        })
+      }
+      return item
+    })
+  } else {
+    return []
   }
-  return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
-    const item: MappingMenuItem = {
-      id: grp.category,
-      name: grp.category,
-      children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
-        if (typeof (act) === 'string') {
-          throw Error('Should receive real planning activity' + act)
-        }
-        const item2: MappingMenuItem = {
-          id: act.uniqid,
-          name: act.name,
-          color: act.color
-        }
-        return item2
-      })
-    }
-    return item
-  })
 }
 
 export const PlanningChannel: React.FC<PropTypes> = ({
@@ -62,6 +64,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   selectedRoleName,
   currentWargame,
   selectedForce,
+  phase,
   isUmpire,
   allForces,
   platformTypes,
@@ -234,6 +237,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
+  const newActionRequest = (group: string, planId: string): void => {
+    console.log('new orders for', group, planId)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -301,8 +308,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               mapWidth={mapWidth}
               toolbarChildren={
                 <>
-                  {!isDrawing && <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />}
-                  {!isDrawing && <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />}
+                  <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
+                    newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
+                  <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                  <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
                   {
                     isDrawing &&
                     <GeomanControls
