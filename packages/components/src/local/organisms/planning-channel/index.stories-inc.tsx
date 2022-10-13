@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -64,10 +64,10 @@ export default {
     },
     options: {
       // We have no addons enabled in this story, so the addon panel should be hidden
-      showPanel: true
+      showPanel: false
     },
     controls: {
-      expanded: true
+      expanded: false
     }
   },
   argTypes: {
@@ -107,7 +107,7 @@ export default {
 const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
-    isUmpire,
+    messages,
     phase
   } = args
 
@@ -139,7 +139,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
-    messages={planningMessages}
+    messages={messages}
     templates={templateBodies}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
@@ -155,15 +155,28 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleName={role?.name || ''}
     currentWargame={P9Mock.wargameTitle}
     selectedForce={force || forces[1]}
-    isUmpire={isUmpire}
+    phase={phase}
     allForces={forces}
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
     forcePlanningActivities={filledInPerForcePlanningActivities}
-    phase={phase}
   />
 }
 
 export const Default = Template.bind({})
 Default.args = {
+  messages: planningMessages,
+  phase: Phase.Planning
+}
+
+export const BulkData = Template.bind({})
+BulkData.args = {
+  messages: planningMessagesBulk,
+  phase: Phase.Planning
+}
+
+export const BulkDataInAdjudication = Template.bind({})
+BulkDataInAdjudication.args = {
+  messages: planningMessagesBulk,
+  phase: Phase.Adjudication
 }

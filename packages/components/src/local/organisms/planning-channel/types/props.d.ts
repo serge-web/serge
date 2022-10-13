@@ -12,7 +12,8 @@ export default interface PropTypes {
   currentWargame: string
   selectedForce: ForceData
   platformTypes: PlatformTypeData[]
-  isUmpire: boolean
+  /** which phase game is currently in */
+  phase: Phase
   allForces: ForceData[]
   gameDate: string
   currentTurn: number

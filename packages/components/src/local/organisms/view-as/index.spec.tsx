@@ -9,7 +9,7 @@ const forces = P9Mock.data.forces.forces
 describe('Planning Force component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
-      .create(<ViewAs forces={forces} viewAsForce={forces[1].uniqid} viewAsCallback={noop} />)
+      .create(<ViewAs isUmpire={true} forces={forces} viewAsForce={forces[1].uniqid} viewAsCallback={noop} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

@@ -1,51 +1,27 @@
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlanningActivity } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer } from 'leaflet'
+import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
-import { GeomanControls } from 'react-leaflet-geoman-v2'
+
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
+import Item from '../../map-control/helpers/item'
 import ApplyFilter from '../apply-filter'
 import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
-import PolylineDecorator from '../support-mapping/helper/PolylineDecorator'
-import { MappingMenuItem } from '../support-mapping/types/props'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
+import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import NewOrderActions from './helpers/NewOrdersActions'
+import OrderDrawing from './helpers/OrderDrawing'
+import OrderPlotter from './helpers/OrderPlotter'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-
-const collateMappingItems = (items: PerForcePlanningActivitySet[], forceId: ForceData['uniqid']): MappingMenuItem[] => {
-  const force = items.find((value: PerForcePlanningActivitySet) => value.force === forceId)
-  if (force) {
-    return force.groupedActivities.map((grp: GroupedActivitySet): MappingMenuItem => {
-      const item: MappingMenuItem = {
-        id: grp.category,
-        name: grp.category,
-        children: grp.activities.map((act: string | PlanningActivity): MappingMenuItem => {
-          if (typeof (act) === 'string') {
-            throw Error('Should receive real planning activity' + act)
-          }
-          const item2: MappingMenuItem = {
-            id: act.uniqid,
-            name: act.name,
-            color: act.color
-          }
-          return item2
-        })
-      }
-      return item
-    })
-  } else {
-    return []
-  }
-}
 
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
@@ -65,7 +41,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   currentWargame,
   selectedForce,
   phase,
-  isUmpire,
   allForces,
   platformTypes,
   gameDate,
@@ -95,18 +70,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
-  // action items to go on map
-  const [mapActionItems, setMapActionItems] = useState<MappingMenuItem[]>([])
 
   // the planning activiites for the selected force
   const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
 
-  // the activity currently being planned
-  // const [currentActivity, setCurrentActivity] = useState<PlanningActivity | undefined>(undefined)
+  const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
-  const [isDrawing, setDrawing] = useState<boolean>(false)
-  const [polylineLatlgn, setPolylineLatlng] = useState<LatLng[]>([])
-  const [geomanLayer, setGeomanLayer] = useState<Layer>()
+  const [debugStep, setDebugStep] = useState<number>(0)
+
+  const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -128,12 +100,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     console.log('selected orders updated')
   }, [selectedOrders])
-
-  useEffect(() => {
-    if (forcePlanningActivities) {
-      setMapActionItems(collateMappingItems(forcePlanningActivities, selectedForce.uniqid))
-    }
-  }, [forcePlanningActivities])
 
   useEffect(() => {
     // produce the own and opp assets for this player force
@@ -189,8 +155,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     dispatch(markAllAsRead(channel.uniqid))
   }
 
-  // drop the turn markers
-  const planningMessages = messages.filter(msg => msg.messageType !== INFO_MESSAGE_CLIPPED)
+  useEffect(() => {
+    // drop the turn markers
+    const myMessages: MessagePlanning[] = messages.filter((msg: MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as MessagePlanning[]
+    setPlanningMessages(myMessages)
+    console.warn('have set planning messages', messages.length, myMessages.length)
+  }, [messages])
 
   const onRead = (detail: MessagePlanning): void => {
     dispatch(openMessage(channel.uniqid, detail as any as MessageChannel))
@@ -230,28 +200,44 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
-  const onCreate = (e: { shape: string, layer: Layer }) => {
-    if (e.shape === 'Line') {
-      setPolylineLatlng((e.layer as any)._latlngs)
-      setGeomanLayer(e.layer)
-    }
+  const genData = (): void => {
+    const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+    setActivityBeingPlanned(newPlan)
+
+    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], planningActivities)
+    !7 && console.log(newOrders)
+  }
+
+  const incrementDebugStep = (): void => {
+    setDebugStep(1 + debugStep)
   }
 
   const newActionRequest = (group: string, planId: string): void => {
     console.log('new orders for', group, planId)
   }
 
+  const handleAdjudication = (contact: PlanningContact): void => {
+    console.log('Apply some adjudication for', contact.id)
+  }
+
+  const activityPlanned = (geoms: PlannedActivityGeometry[]): void => {
+    console.log('geoms planned', geoms)
+    setActivityBeingPlanned(undefined)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
-        <MapPlanningOrders forceColor={selectedForce.color} orders={messages} activities={planningActivities} setSelectedOrders={noop} />
+        <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
         <LayerGroup key={'own-forces'}>
           <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
         </LayerGroup>
         <LayerGroup key={'opp-forces'}>
           <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
         </LayerGroup>
-        {/* <MapDrawActivity planningActivity={currentActivity} storeFeature={onDrawingComplete} cancelFeature={(): void => setCurrentActivity(undefined)} /> */}
+        {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
+        <OrderPlotter activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
+          step={debugStep} />
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
@@ -273,7 +259,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           dispatch={reduxDispatch}
           currentWargame={currentWargame}
-          isUmpire={isUmpire}
+          isUmpire={!!selectedForce.umpire}
           selectedRoleName={selectedRoleName}
           selectedRoleId={selectedRoleId}
           selectedForce={currentForce}
@@ -302,34 +288,31 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <SupportMapping
               bounds={bounds}
               position={position}
-              actionItems={mapActionItems}
               actionCallback={mapActionCallback}
-              setDrawingMode={(status: boolean) => setDrawing(status)}
               mapWidth={mapWidth}
               toolbarChildren={
                 <>
-                  <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
-                    newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
-                  <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                  <ViewAs forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                  {
-                    isDrawing &&
-                    <GeomanControls
-                      options={{
-                        position: 'bottomright'
-                      }}
-                      globalOptions={{
-                        continueDrawing: true,
-                        editable: false
-                      }}
-                      onCreate={onCreate}
-                    />
+                  {!activityBeingPlanned &&
+                    <>
+                      <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                      <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
+                        newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
+                      <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                      {phase === Phase.Planning && !selectedForce.umpire &&
+                        <div className={cx('leaflet-control')}>
+                          <Item onClick={genData}>Plan</Item>
+                        </div>
+                      }
+                      <div className={cx('leaflet-control')}>
+                        <Item onClick={incrementDebugStep}>Step</Item>
+                      </div>
+                    </>
                   }
+                  <OrderDrawing activity={activityBeingPlanned} planned={activityPlanned} cancelled={() => setActivityBeingPlanned(undefined)} />
                 </>
               }>
               <>
                 {mapChildren}
-                <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} />
               </>
             </SupportMapping>
           </MapContainer>

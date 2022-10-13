@@ -13,8 +13,12 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer })
 
   useEffect(() => {
     if (layer) {
-      // remove layer which drawed by leaflet-geoman, we only need the set of latlngs to decorate the polyline
-      map.removeLayer(layer)
+      if (map) {
+        // remove layer which drawed by leaflet-geoman, we only need the set of latlngs to decorate the polyline
+        map.removeLayer(layer)
+      } else {
+        console.warn('Warning - polyline decorator doesn\'t have map reference')
+      }
     }
   }, [layer])
 

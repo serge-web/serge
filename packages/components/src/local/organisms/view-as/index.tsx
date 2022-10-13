@@ -1,15 +1,16 @@
 import cx from 'classnames'
 import React from 'react'
 
-import PropTypes from './types/props'
 import PublicIcon from '@material-ui/icons/Public'
 import { UMPIRE_FORCE } from '@serge/config'
 import Item from '../../map-control/helpers/item'
+import PropTypes from './types/props'
 
 export const ViewAs: React.FC<PropTypes> = ({
   forces = [],
   viewAsCallback,
-  viewAsForce
+  viewAsForce,
+  isUmpire
 }) => {
   /* set view as force */
   const viewAs = (force: string): void => {
@@ -22,7 +23,7 @@ export const ViewAs: React.FC<PropTypes> = ({
   }
 
   return <>
-    {forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
+    {isUmpire && forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
       {forces.map((force: any): React.ReactElement => (
         <Item
           contentTheme={showAsSelected(force.uniqid)}

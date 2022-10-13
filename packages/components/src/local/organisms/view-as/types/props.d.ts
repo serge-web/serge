@@ -7,4 +7,6 @@ export default interface PropTypes {
   viewAsCallback: { (force: ForceData['uniqid']): void }
   /** current value of `view as` */
   viewAsForce: string
+  /** whether current player is from umpire force */
+  isUmpire: boolean
 }

@@ -1,2802 +1,1259 @@
 
-import { MessagePlanning, PlannedActivityGeometry, } from '@serge/custom-types'
-
-const sampleActivityOne: PlannedActivityGeometry[] = [
-  {
-    uniqid: 'aa4',
-    geometry: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            135.0659,
-            -4.2149
-          ],
-          [
-            134.868,
-            -7.362
-          ],
-          [
-            137.636,
-            -12.404
-          ],
-          [
-            136.9228,
-            -15.1781
-          ]
-        ]
-      }
-    }
-  },  {
-    uniqid: 'aa5',
-    geometry: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              136.9335,
-              -15.1993
-            ],
-            [
-              132.978,
-              -14.9872
-            ],
-            [
-              131.7480,
-              -18.375375
-            ],
-            [
-              136.64794,
-              -20.0972
-            ],
-            [
-              138.62548,
-              -17.39257
-            ],
-            [
-              136.933,
-              -15.1993
-            ]
-          ]
-        ]
-      }
-    }
-  },  {
-    uniqid: 'aa6',
-    geometry: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            136.7138,
-            -15.26298
-          ],
-          [
-            136.0986,
-            -12.16822
-          ],
-          [
-            133.8574,
-            -7.73276
-          ],
-          [
-            134.8681,
-            -4.36832
-          ]
-        ]
-      }
-    }
-  }
-]
-
-const sampleActivityTwo: PlannedActivityGeometry[] = [
-  {
-    uniqid: 'aa8',
-    geometry: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            131.6601,
-            -1.53790
-          ],
-          [
-            129.375,
-            -8.40716
-          ],
-          [
-            123.222,
-            -13.1545
-          ],
-          [
-            122.167,
-            -22.6748
-          ],
-          [
-            126.2109,
-            -26.03704
-          ]
-        ]
-      }
-    }
-  },  {
-    uniqid: 'aa9',
-    geometry: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              126.386718,
-              -23.885837
-            ],
-            [
-              126.210937,
-              -28.149503
-            ],
-            [
-              131.3964,
-              -28.381735
-            ],
-            [
-              131.484,
-              -24.28702
-            ],
-            [
-              126.3867,
-              -23.885
-            ]
-          ]
-        ]
-      }
-    }
-  },  {
-    uniqid: 'a10',
-    geometry: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            132.3632,
-            -26.66709
-          ],
-          [
-            137.6367,
-            -22.99885
-          ],
-          [
-            139.0429,
-            -15.45368
-          ],
-          [
-            137.636,
-            -8.66791
-          ],
-          [
-            132.011,
-            -1.93322
-          ]
-        ]
-      }
-    }
-  }
-]
+import { MessagePlanning } from '@serge/custom-types'
 
 export const planningMessages: MessagePlanning[] = [
-  {
-    messageType: "PlanningMessage",
-    details: {
-      channel: "channel-blue-planning",
-      from: {
-        force: "Blue",
-        forceColor: "#00F",
-        roleName: "Mar-1",
-        roleId: "rk116f5e",
-        iconURL: "default_img/umpireDefault.png"
-      },
-      messageType: "Land Activity",
-      timestamp: "2022-09-21T13:15:09.106Z",
-      turnNumber: 6
-    },
-    message: {
-      reference: "Blue-12",
-      Date: "13/05/2021 16:12",
-      Description: "More land operations",
-      Location: "Region-A",
-      Status: "Minor",
-      location: sampleActivityOne,
-      title: "Operation Bravo-12",
-      Assets: [
-        {
-          FEName: "Blue:4",
-          Number: 1,
-          StartDate: "13/05/2021",
-          EndDate: "14/05/2021"
-        },
-        {
-          FEName: "Blue:13",
-          Number: 4,
-          StartDate: "13/05/2021",
-          EndDate: "14/05/2021"
-        }
-      ],
-      Targets: [
-        {
-          FEName: "Red Force:3",
-          Number: 4
-        }
-      ]
-    },
-    _id: 'idp_3a',
-    _rev: '2',
-    hasBeenRead: false
-  },
-
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Furnishing",
-        "roleId": "rkr226f5d",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T17:34:15.816Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-3",
-      "title": "Order item 3 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T09:00:00.000Z",
-      "Description": "Order description 3",
-      location: sampleActivityTwo,
-      "Location": "Point-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:18",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:0",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:10",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA155",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_3",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T21:53:22.527Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-4",
-      "title": "Order item 4 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T17:00:00.000Z",
-      "Description": "Order description 4",
-      "Location": "Point-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:8",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:10",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:18",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:23",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA2050",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_4",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-25T02:12:29.237Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-5",
-      "title": "Order item 5 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T22:00:00.000Z",
-      "Description": "Order description 5",
-      "Location": "Point-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:23",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:18",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:8",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:31",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA2037",
-          "Number": 1
-        },
-        {
-          "FEName": "CA155",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_5",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-27T09:04:29.633Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-6",
-      "title": "Order item 6 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T06:00:00.000Z",
-      "Description": "Order description 6",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:31",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:16",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2050",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2037",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_6",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Mar-4",
-        "roleId": "rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-28T13:23:36.343Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-7",
-      "title": "Order item 7 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T11:00:00.000Z",
-      "Description": "Order description 7",
-      "Location": "Region-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:19",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "BOUM 3",
-          "Number": 1
-        },
-        {
-          "FEName": "Red Force:27",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2635",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_7",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-2",
-        "roleId": "2rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-29T17:42:43.054Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-8",
-      "title": "Order item 8 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T19:00:00.000Z",
-      "Description": "Order description 8",
-      "Location": "Polyline-A",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:7",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:14",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA994",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_8",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-3",
-        "roleId": "3rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T14:01:49.764Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-9",
-      "title": "Order item 9 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T06:00:00.000Z",
-      "Description": "Order description 9",
-      "Location": "Polyline-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:7",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:19",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA994",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_9",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Logs",
-        "roleId": "blue-logs",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T15:48:02.790Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-10",
-      "title": "Order item 10 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T09:00:00.000Z",
-      "Description": "Order description 10",
-      "Location": "Point-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:12",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:7",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA3126",
-          "Number": 1
-        },
-        {
-          "FEName": "CA994",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_10",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T20:07:09.501Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-11",
-      "title": "Order item 11 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T14:00:00.000Z",
-      "Description": "Order description 11",
-      "Location": "Point-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:8",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:10",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:17",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:16",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2499",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_11",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-25T00:26:16.211Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-12",
-      "title": "Order item 12 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T22:00:00.000Z",
-      "Description": "Order description 12",
-      "Location": "Point-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:16",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:17",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:8",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:30",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 1
-        },
-        {
-          "FEName": "CA155",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_12",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-26T04:45:22.922Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-13",
-      "title": "Order item 13 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T08:00:00.000Z",
-      "Description": "Order description 13",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:30",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:16",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_13",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Mar-4",
-        "roleId": "rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-28T11:37:23.317Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-14",
-      "title": "Order item 14 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T11:00:00.000Z",
-      "Description": "Order description 14",
-      "Location": "Region-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:19",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:4",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "BOUM 3",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_14",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-1",
-        "roleId": "1rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-29T15:56:30.028Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-15",
-      "title": "Order item 15 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T16:00:00.000Z",
-      "Description": "Order description 15",
-      "Location": "Polyline-A",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:14",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA523",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2635",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_15",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-3",
-        "roleId": "3rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T12:15:36.738Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-16",
-      "title": "Order item 16 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T05:00:00.000Z",
-      "Description": "Order description 16",
-      "Location": "Polyline-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:19",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1326",
-          "Number": 1
-        },
-        {
-          "FEName": "BOUM 3",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_16",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Logs",
-        "roleId": "blue-logs",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T16:34:43.449Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-17",
-      "title": "Order item 17 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T11:00:00.000Z",
-      "Description": "Order description 17",
-      "Location": "Point-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:12",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:6",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:11",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA3126",
-          "Number": 1
-        },
-        {
-          "FEName": "CA523",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1326",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_17",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T18:20:56.475Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-18",
-      "title": "Order item 18 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T14:00:00.000Z",
-      "Description": "Order description 18",
-      "Location": "Point-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:7",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:16",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:17",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_18",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-24T22:40:03.185Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-19",
-      "title": "Order item 19 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T19:00:00.000Z",
-      "Description": "Order description 19",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:15",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:17",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:7",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:23",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_19",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-26T02:59:09.896Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-20",
-      "title": "Order item 20 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T08:00:00.000Z",
-      "Description": "Order description 20",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:23",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA2037",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_20",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Mar-4",
-        "roleId": "rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-27T07:18:16.607Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-21",
-      "title": "Order item 21 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T13:00:00.000Z",
-      "Description": "Order description 21",
-      "Location": "Region-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:18",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "C026",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1230",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_21",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-1",
-        "roleId": "1rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-29T14:10:17.002Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-22",
-      "title": "Order item 22 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T16:00:00.000Z",
-      "Description": "Order description 22",
-      "Location": "Polyline-A",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:9",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA523",
-          "Number": 1
-        },
-        {
-          "FEName": "Red Force:27",
-          "Number": 1
-        },
-        {
-          "FEName": "C026",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_22",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-2",
-        "roleId": "2rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T10:29:23.712Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-23",
-      "title": "Order item 23 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T21:00:00.000Z",
-      "Description": "Order description 23",
-      "Location": "Polyline-A",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:18",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1326",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_23",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Logs",
-        "roleId": "blue-logs",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T14:48:30.423Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-24",
-      "title": "Order item 24 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T10:00:00.000Z",
-      "Description": "Order description 24",
-      "Location": "Point-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:16",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:6",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:11",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1312",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_24",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-24T19:07:37.134Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-25",
-      "title": "Order item 25 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T16:00:00.000Z",
-      "Description": "Order description 25",
-      "Location": "Point-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:7",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:16",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:15",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:12",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_25",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-24T20:53:50.160Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-26",
-      "title": "Order item 26 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T19:00:00.000Z",
-      "Description": "Order description 26",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:15",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:7",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:22",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:30",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_26",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-26T01:12:56.870Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-27",
-      "title": "Order item 27 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T05:00:00.000Z",
-      "Description": "Order description 27",
-      "Location": "Region-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:22",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:6",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_27",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Mar-4",
-        "roleId": "rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-27T05:32:03.581Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-28",
-      "title": "Order item 28 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T13:00:00.000Z",
-      "Description": "Order description 28",
-      "Location": "Region-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:13",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Red Force:36",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1230",
-          "Number": 1
-        },
-        {
-          "FEName": "Red Force:27",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_28",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-1",
-        "roleId": "1rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-28T09:51:10.291Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-29",
-      "title": "Order item 29 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T18:00:00.000Z",
-      "Description": "Order description 29",
-      "Location": "Polyline-A",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:9",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA523",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_29",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-2",
-        "roleId": "2rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T08:43:10.687Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-30",
-      "title": "Order item 30 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T21:00:00.000Z",
-      "Description": "Order description 30",
-      "Location": "Polyline-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:13",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:6",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1326",
-          "Number": 1
-        },
-        {
-          "FEName": "Red Force:36",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_30",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-3",
-        "roleId": "3rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T13:02:17.397Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-31",
-      "title": "Order item 31 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T08:00:00.000Z",
-      "Description": "Order description 31",
-      "Location": "Polyline-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:15",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:6",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:11",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA2227",
-          "Number": 1
-        },
-        {
-          "FEName": "CA523",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_31",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-24T17:21:24.108Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-32",
-      "title": "Order item 32 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T15:00:00.000Z",
-      "Description": "Order description 32",
-      "Location": "Point-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:14",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:15",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:6",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1397",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:12",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_32",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-25T21:40:30.818Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-33",
-      "title": "Order item 33 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T21:00:00.000Z",
-      "Description": "Order description 33",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:14",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:6",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:22",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:29",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1397",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_33",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-25T23:26:43.844Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-34",
-      "title": "Order item 34 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T05:00:00.000Z",
-      "Description": "Order description 34",
-      "Location": "Region-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:22",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:14",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:29",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:37",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_34",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-1",
-        "roleId": "1rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-27T03:45:50.555Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-35",
-      "title": "Order item 35 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T10:00:00.000Z",
-      "Description": "Order description 35",
-      "Location": "Region-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:13",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Red Force:36",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1230",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_35",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-1",
-        "roleId": "1rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-28T08:04:57.265Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-36",
-      "title": "Order item 36 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T18:00:00.000Z",
-      "Description": "Order description 36",
-      "Location": "Region-B",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:18",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:8",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "C026",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2294",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_36",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-2",
-        "roleId": "2rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-29T12:24:03.976Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-37",
-      "title": "Order item 37 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T04:00:00.000Z",
-      "Description": "Order description 37",
-      "Location": "Polyline-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:10",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:13",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:18",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1764",
-          "Number": 1
-        },
-        {
-          "FEName": "Red Force:36",
-          "Number": 1
-        },
-        {
-          "FEName": "C026",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_37",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Furnishing",
-        "roleId": "rkr226f5d",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-23T11:16:04.371Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-38",
-      "title": "Order item 38 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T07:00:00.000Z",
-      "Description": "Order description 38",
-      "Location": "Polyline-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:6",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:37",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:15",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        },
-        {
-          "FEName": "BOUM 3",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:12",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_38",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Furnishing",
-        "roleId": "rkr226f5d",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-24T15:35:11.082Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-39",
-      "title": "Order item 39 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T13:00:00.000Z",
-      "Description": "Order description 39",
-      "Location": "Point-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:13",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:15",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:6",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1397",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_39",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-25T19:54:17.792Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-40",
-      "title": "Order item 40 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T20:00:00.000Z",
-      "Description": "Order description 40",
-      "Location": "Region-A",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:21",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:6",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:13",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:29",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:17",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_40",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Logs",
-        "roleId": "rkr226f5a",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-27T00:13:24.503Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-41",
-      "title": "Order item 41 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T07:00:00.000Z",
-      "Description": "Order description 41",
-      "Location": "Region-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:21",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:13",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:29",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:37",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1397",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_41",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Comms",
-        "roleId": "rkr226f5b",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-27T01:59:37.529Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-42",
-      "title": "Order item 42 Asymmetric",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T10:00:00.000Z",
-      "Description": "Order description 42",
-      "Location": "Region-B",
-      "ActivityType": "Asymmetric",
-      "Assets": [
-        {
-          "FEName": "Red Force:29",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:16",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:11",
-          "Number": 1
-        },
-        {
-          "FEName": "BARLAY",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_42",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-2",
-        "roleId": "2rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-28T06:18:44.239Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-43",
-      "title": "Order item 43 Transit",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T15:00:00.000Z",
-      "Description": "Order description 43",
-      "Location": "Polyline-A",
-      "ActivityType": "Transit",
-      "Assets": [
-        {
-          "FEName": "Blue:18",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:8",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "C026",
-          "Number": 1
-        },
-        {
-          "FEName": "CA2294",
-          "Number": 1
-        },
-        {
-          "FEName": "Red Force:36",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_43",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#00F",
-        "roleName": "Air-2",
-        "roleId": "2rk116f53",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Blue"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-29T10:37:50.950Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Blue-44",
-      "title": "Order item 44 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T04:00:00.000Z",
-      "Description": "Order description 44",
-      "Location": "Polyline-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Blue:6",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:13",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Blue:18",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA523",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Blue_44",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Furnishing",
-        "roleId": "rkr226f5d",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-22T06:56:57.661Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-45",
-      "title": "Order item 45 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T09:00:00.000Z",
-      "Description": "Order description 45",
-      "Location": "Polyline-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:5",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:37",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:7",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1555",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_45",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "Furnishing",
-        "roleId": "rkr226f5d",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-24T13:48:58.056Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-46",
-      "title": "Order item 46 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T12:00:00.000Z",
-      "Description": "Order description 46",
-      "Location": "Point-A",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:13",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:7",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:5",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:20",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "CA1397",
-          "Number": 1
-        },
-        {
-          "FEName": "Blue:7",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_46",
-    "_rev": "2"
-  },
-  {
-    "messageType": "PlanningMessage",
-    "details": {
-      "channel": "channel-blue-planning",
-      "from": {
-        "force": "Red Force",
-        "forceColor": "#F00",
-        "roleName": "CO",
-        "roleId": "rkr226f5e",
-        "iconURL": "default_img/umpireDefault.png",
-        "forceId": "F-Red"
-      },
-      "messageType": "Land Activity",
-      "timestamp": "2022-09-25T18:08:04.766Z",
-      "turnNumber": 3
-    },
-    "message": {
-      "reference": "Red Force-47",
-      "title": "Order item 47 Kinetic",
-      "startDate": "2022-09-21T04:00:00.000Z",
-      "endDate": "2022-09-21T18:00:00.000Z",
-      "Description": "Order description 47",
-      "Location": "Point-B",
-      "ActivityType": "Kinetic",
-      "Assets": [
-        {
-          "FEName": "Red Force:20",
-          "Number": 2,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T20:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:5",
-          "Number": 3,
-          "StartDate": "2022-09-21T04:00:00.000Z",
-          "EndDate": "2022-09-21T22:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:13",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T00:00:00.000Z"
-        },
-        {
-          "FEName": "Red Force:28",
-          "Number": 4,
-          "StartDate": "2022-09-21T00:00:00.000Z",
-          "EndDate": "2022-09-21T02:00:00.000Z"
-        }
-      ],
-      "Targets": [
-        {
-          "FEName": "Blue:11",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1555",
-          "Number": 1
-        },
-        {
-          "FEName": "CA1397",
-          "Number": 1
-        }
-      ]
-    },
-    "hasBeenRead": false,
-    "_id": "m_F-Red_47",
-    "_rev": "2"
-  }
-
-
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Mar-4",
+                "roleId": "rk116f53",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-29T08:51:37.924Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue-6",
+            "title": "Order item 6 Transit",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T04:30:00.000Z",
+            "Description": "Order description 6",
+            "Location": "Polyline-B",
+            "location": [
+                {
+                    "uniqid": "aa4",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T00:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    139.3171,
+                                    -8.0633
+                                ],
+                                [
+                                    127.86,
+                                    -14.53
+                                ],
+                                [
+                                    116.77,
+                                    -21.64
+                                ],
+                                [
+                                    116.4863,
+                                    -21.3267
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "aa5",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T01:20:00.000Z",
+                            "endDate": "2022-11-15T02:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        115.80145984954203,
+                                        -20.68461466370769
+                                    ],
+                                    [
+                                        115.80145984954203,
+                                        -21.965987864645918
+                                    ],
+                                    [
+                                        117.1771461162646,
+                                        -21.965987864645918
+                                    ],
+                                    [
+                                        117.1771461162646,
+                                        -20.68461466370769
+                                    ],
+                                    [
+                                        115.80145984954203,
+                                        -20.68461466370769
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "aa6",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T02:50:00.000Z",
+                            "endDate": "2022-11-15T04:30:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    139.3171,
+                                    -8.0633
+                                ],
+                                [
+                                    131.44,
+                                    -12.85
+                                ],
+                                [
+                                    123.82,
+                                    -16.41
+                                ],
+                                [
+                                    116.47,
+                                    -21.68
+                                ],
+                                [
+                                    116.4863,
+                                    -21.3267
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Transit",
+            "Assets": [
+                {
+                    "FEName": "Blue:18",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T19:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "CA670",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:36",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:8",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Blue_6",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Air-3",
+                "roleId": "3rk116f53",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-22T21:06:20.164Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue Force-9", 
+            "title": "Order item 9 Transit",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T04:50:00.000Z",
+            "Description": "Order description 9",
+            "Location": "Region-B",
+            "location": [
+                {
+                    "uniqid": "aa8",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T00:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    142.2515,
+                                    -18.0243
+                                ],
+                                [
+                                    143.46,
+                                    -15.88
+                                ],
+                                [
+                                    143.58,
+                                    -12.84
+                                ],
+                                [
+                                    144.98,
+                                    -10.52
+                                ],
+                                [
+                                    145.67,
+                                    -8.92
+                                ],
+                                [
+                                    145.878,
+                                    -8.4283
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "aa9",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T01:40:00.000Z",
+                            "endDate": "2022-11-15T03:10:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        142.74777117084554,
+                                        -5.298967139234306
+                                    ],
+                                    [
+                                        142.74777117084554,
+                                        -11.532440289640927
+                                    ],
+                                    [
+                                        149.05912379326483,
+                                        -11.532440289640927
+                                    ],
+                                    [
+                                        149.05912379326483,
+                                        -5.298967139234306
+                                    ],
+                                    [
+                                        142.74777117084554,
+                                        -5.298967139234306
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a10",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T03:10:00.000Z",
+                            "endDate": "2022-11-15T04:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    142.2515,
+                                    -18.0243
+                                ],
+                                [
+                                    143.47,
+                                    -15.18
+                                ],
+                                [
+                                    144.79,
+                                    -11.24
+                                ],
+                                [
+                                    145.39,
+                                    -8.02
+                                ],
+                                [
+                                    145.878,
+                                    -8.4283
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Transit",
+            "Assets": [
+                {
+                    "FEName": "Red Force:27",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T05:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:56",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T02:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:46",
+                    "Number": 4,
+                    "StartDate": "2022-09-21T04:00:00.000Z",
+                    "EndDate": "2022-09-21T11:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:52",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T17:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "Blue:7",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Red_9",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Air-3",
+                "roleId": "3rk116f53",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-29T07:05:03.194Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue-12",
+            "title": "Order item 12 Kinetic",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T00:40:00.000Z",
+            "Description": "Order description 12",
+            "Location": "Polyline-B",
+            "location": [],
+            "ActivityType": "Kinetic",
+            "Assets": [
+                {
+                    "FEName": "Blue:35",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T19:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "CA670",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:36",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Blue_12",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Logs",
+                "roleId": "blue-logs",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-23T14:47:47.015Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue-15",
+            "title": "Order item 15 Kinetic",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T05:30:00.000Z",
+            "Description": "Order description 15",
+            "Location": "Polyline-A",
+            "location": [
+                {
+                    "uniqid": "a11",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T00:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    139.8303,
+                                    -8.5197
+                                ],
+                                [
+                                    134.53,
+                                    -12.05
+                                ],
+                                [
+                                    129.52,
+                                    -16.28
+                                ],
+                                [
+                                    129.3162,
+                                    -16.1699
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a12",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:50:00.000Z",
+                            "endDate": "2022-11-15T03:00:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                129.3162,
+                                -16.1699
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a13",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T03:00:00.000Z",
+                            "endDate": "2022-11-15T05:30:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    139.8303,
+                                    -8.5197
+                                ],
+                                [
+                                    136.81,
+                                    -10.77
+                                ],
+                                [
+                                    132.82,
+                                    -13.99
+                                ],
+                                [
+                                    129.12,
+                                    -15.93
+                                ],
+                                [
+                                    129.3162,
+                                    -16.1699
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Kinetic",
+            "Assets": [
+                {
+                    "FEName": "Blue:35",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T06:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "CA670",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:36",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Blue_15",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Mar-4",
+                "roleId": "rk116f53",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-22T12:14:31.627Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue-18",
+            "title": "Order item 18 Asymmetric",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T00:50:00.000Z",
+            "Description": "Order description 18",
+            "Location": "Point-A",
+            "location": [
+                {
+                    "uniqid": "aa7",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T00:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    139.8303,
+                                    -8.5197
+                                ],
+                                [
+                                    141.6,
+                                    -14.63
+                                ],
+                                [
+                                    142.73,
+                                    -20.41
+                                ],
+                                [
+                                    142.9809,
+                                    -20.6715
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Asymmetric",
+            "Assets": [
+                {
+                    "FEName": "Blue:18",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T04:00:00.000Z"
+                },
+                {
+                    "FEName": "Blue:24",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T12:00:00.000Z"
+                },
+                {
+                    "FEName": "Blue:36",
+                    "Number": 4,
+                    "StartDate": "2022-09-21T04:00:00.000Z",
+                    "EndDate": "2022-09-21T12:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "CA670",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:36",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Blue_18",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Air-1",
+                "roleId": "1rk116f53",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-25T23:25:17.028Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue-21",
+            "title": "Order item 21 Asymmetric",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T06:50:00.000Z",
+            "Description": "Order description 21",
+            "Location": "Polyline-B",
+            "location": [
+                {
+                    "uniqid": "aa8",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T01:20:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    138.5853,
+                                    -6.3233
+                                ],
+                                [
+                                    132.07,
+                                    -10.56
+                                ],
+                                [
+                                    125.62,
+                                    -14.74
+                                ],
+                                [
+                                    119.45,
+                                    -18.64
+                                ],
+                                [
+                                    119.7138,
+                                    -18.9116
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "aa9",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T01:20:00.000Z",
+                            "endDate": "2022-11-15T04:00:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        118.84543534793804,
+                                        -18.084106397505767
+                                    ],
+                                    [
+                                        118.84543534793804,
+                                        -19.735018325182658
+                                    ],
+                                    [
+                                        120.5907796757433,
+                                        -19.735018325182658
+                                    ],
+                                    [
+                                        120.5907796757433,
+                                        -18.084106397505767
+                                    ],
+                                    [
+                                        118.84543534793804,
+                                        -18.084106397505767
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a10",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T04:00:00.000Z",
+                            "endDate": "2022-11-15T06:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    138.5853,
+                                    -6.3233
+                                ],
+                                [
+                                    119.36,
+                                    -18.87
+                                ],
+                                [
+                                    119.7138,
+                                    -18.9116
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Asymmetric",
+            "Assets": [
+                {
+                    "FEName": "Blue:24",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T12:00:00.000Z"
+                },
+                {
+                    "FEName": "Blue:19",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T17:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "CA670",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Blue_21",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#00F",
+                "roleName": "Mar-2",
+                "roleId": "rk116f51",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Blue"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-25T16:20:03.221Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Blue-24",
+            "title": "Order item 24 Kinetic",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T03:40:00.000Z",
+            "Description": "Order description 24",
+            "Location": "Region-A",
+            "location": [
+                {
+                    "uniqid": "a11",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T00:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    144.648,
+                                    -9.6247
+                                ],
+                                [
+                                    143.02,
+                                    -13.57
+                                ],
+                                [
+                                    140.83,
+                                    -17.08
+                                ],
+                                [
+                                    140.9707,
+                                    -17.0411
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a12",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:50:00.000Z",
+                            "endDate": "2022-11-15T02:30:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                140.9707,
+                                -17.0411
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a13",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T02:30:00.000Z",
+                            "endDate": "2022-11-15T03:40:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    144.648,
+                                    -9.6247
+                                ],
+                                [
+                                    143.22,
+                                    -13.68
+                                ],
+                                [
+                                    141.18,
+                                    -17.35
+                                ],
+                                [
+                                    140.9707,
+                                    -17.0411
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Kinetic",
+            "Assets": [
+                {
+                    "FEName": "Blue:10",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T11:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "CA670",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:36",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Red Force:8",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Blue_24",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Red Force",
+                "forceColor": "#F00",
+                "roleName": "Comms",
+                "roleId": "rkr226f5b",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Red"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-21T14:58:50.204Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Red Force-27",
+            "title": "Order item 27 Kinetic",
+            "startDate": "2022-11-15T00:00:00.000Z",
+            "endDate": "2022-11-15T03:30:00.000Z",
+            "Description": "Order description 27",
+            "Location": "Region-A",
+            "location": [
+                {
+                    "uniqid": "aa4",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:00:00.000Z",
+                            "endDate": "2022-11-15T00:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    117.7434,
+                                    -21.0232
+                                ],
+                                [
+                                    139.43,
+                                    -8.41
+                                ],
+                                [
+                                    139.3171,
+                                    -8.0633
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "aa5",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:50:00.000Z",
+                            "endDate": "2022-11-15T01:50:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        135.660795472479,
+                                        -4.4014498451590764
+                                    ],
+                                    [
+                                        135.660795472479,
+                                        -11.692166040138547
+                                    ],
+                                    [
+                                        143.03995968857592,
+                                        -11.692166040138547
+                                    ],
+                                    [
+                                        143.03995968857592,
+                                        -4.4014498451590764
+                                    ],
+                                    [
+                                        135.660795472479,
+                                        -4.4014498451590764
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "aa6",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T01:50:00.000Z",
+                            "endDate": "2022-11-15T03:30:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    117.7434,
+                                    -21.0232
+                                ],
+                                [
+                                    125.26,
+                                    -16.41
+                                ],
+                                [
+                                    131.89,
+                                    -12.69
+                                ],
+                                [
+                                    138.81,
+                                    -7.68
+                                ],
+                                [
+                                    139.3171,
+                                    -8.0633
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Kinetic",
+            "Assets": [
+                {
+                    "FEName": "Red Force:29",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T02:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "Blue:7",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Blue:16",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Red_27",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Red Force",
+                "forceColor": "#F00",
+                "roleName": "CO",
+                "roleId": "rkr226f5e",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Red"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-22T03:21:37.977Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Red Force-30",
+            "title": "Order item 30 Transit",
+            "startDate": "2022-11-15T00:05:00.000Z",
+            "endDate": "2022-11-15T03:15:00.000Z",
+            "Description": "Order description 30",
+            "Location": "Point-A",
+            "location": [],
+            "ActivityType": "Transit",
+            "Assets": [
+                {
+                    "FEName": "Red Force:13",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T03:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:42",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T18:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:30",
+                    "Number": 4,
+                    "StartDate": "2022-09-21T04:00:00.000Z",
+                    "EndDate": "2022-09-21T07:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "Blue:7",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Blue:16",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Red_30",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-blue-planning",
+            "from": {
+                "force": "Red Force",
+                "forceColor": "#F00",
+                "roleName": "Comms",
+                "roleId": "rkr226f5b",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "F-Red"
+            },
+            "messageType": "Land Activity",
+            "timestamp": "2022-09-27T05:28:26.541Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "reference": "Red Force-33",
+            "title": "Order item 33 Kinetic",
+            "startDate": "2022-11-15T00:20:00.000Z",
+            "endDate": "2022-11-15T02:40:00.000Z",
+            "Description": "Order description 33",
+            "Location": "Point-A",
+            "location": [
+                {
+                    "uniqid": "a11",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T00:20:00.000Z",
+                            "endDate": "2022-11-15T01:10:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    126.8957,
+                                    -17.0157
+                                ],
+                                [
+                                    134.51,
+                                    -14.31
+                                ],
+                                [
+                                    142.29,
+                                    -12.45
+                                ],
+                                [
+                                    149.36,
+                                    -10.3
+                                ],
+                                [
+                                    149.3998,
+                                    -10.1238
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a12",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T01:10:00.000Z",
+                            "endDate": "2022-11-15T01:10:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                149.3998,
+                                -10.1238
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "a13",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "startDate": "2022-11-15T01:10:00.000Z",
+                            "endDate": "2022-11-15T02:40:00.000Z"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    126.8957,
+                                    -17.0157
+                                ],
+                                [
+                                    132.42,
+                                    -15.1
+                                ],
+                                [
+                                    137.83,
+                                    -13.32
+                                ],
+                                [
+                                    143.52,
+                                    -12.25
+                                ],
+                                [
+                                    149.5,
+                                    -9.89
+                                ],
+                                [
+                                    149.3998,
+                                    -10.1238
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ],
+            "ActivityType": "Kinetic",
+            "Assets": [
+                {
+                    "FEName": "Red Force:33",
+                    "Number": 2,
+                    "StartDate": "2022-09-21T02:00:00.000Z",
+                    "EndDate": "2022-09-21T14:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:51",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T08:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:30",
+                    "Number": 4,
+                    "StartDate": "2022-09-21T04:00:00.000Z",
+                    "EndDate": "2022-09-21T13:00:00.000Z"
+                },
+                {
+                    "FEName": "Red Force:25",
+                    "Number": 0,
+                    "StartDate": "2022-09-21T00:00:00.000Z",
+                    "EndDate": "2022-09-21T15:00:00.000Z"
+                }
+            ],
+            "Targets": [
+                {
+                    "FEName": "Blue:7",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Blue:16",
+                    "Number": 1
+                },
+                {
+                    "FEName": "Blue:9",
+                    "Number": 1
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_F-Red_33",
+        "_rev": "2"
+    }
 ]
