@@ -1,6 +1,6 @@
 
 import { MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
-import { Layer, PathOptions, StyleFunction } from 'leaflet'
+import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { GeoJSON, LayerGroup } from 'react-leaflet-v4'
@@ -20,6 +20,19 @@ const findActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGe
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
   const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>()
 
+  const geojsonMarkerOptions = {
+    radius: 20,
+    fillColor: '#ff7800',
+    color: '#0f0',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+  }
+
+  const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: LatLng): Layer => {
+    return circleMarker(latlng, geojsonMarkerOptions)
+  }
+
   /** orders definitions can specify the color to use.  If there is one, use it.
    * else use the force color
    */
@@ -31,11 +44,11 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
         const color = activity.color
         return {
           color: color,
-          fillColor: color
+          fillColor: color,
+          className: 'leaflet-default-icon-path'
         }
       }
     }
-    console.warn('activity color not found for', feature)
     return {
       color: forceColor || '#f00'
     }
@@ -79,11 +92,21 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
     }
   }, [orders])
 
+  useEffect(() => {
+    const outputOrderTimings = false
+    if (orders && outputOrderTimings) {
+      const timings = orders.map((msg: MessagePlanning) => {
+        return '' + msg.message.title + ',' + msg.message.startDate + ', ' + msg.message.endDate
+      })
+      console.log(timings)
+    }
+  }, [orders])
+
   return <>
     {
       orderGeometries &&
       <LayerGroup key={'orders'}>
-        <GeoJSON style={styleFor} onEachFeature={onEachFeature} data={{ ...orderGeometries, type: 'Feature' }} />
+        <GeoJSON style={styleFor} pointToLayer={pointToLayer} onEachFeature={onEachFeature} data={{ ...orderGeometries, type: 'Feature' }} />
       </LayerGroup>
     }
   </>

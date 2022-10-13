@@ -33,9 +33,17 @@ export default {
   }
 }
 
-const Template: Story<ViewAsProps> = () => {
-  return <ViewAs forces={forces} viewAsForce={forces[1].uniqid} viewAsCallback={noop} />
+const Template: Story<ViewAsProps> = (props) => {
+  const isUmpire = props.isUmpire
+  return <ViewAs isUmpire={isUmpire} forces={forces} viewAsForce={forces[1].uniqid} viewAsCallback={noop} />
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const NotUmpire = Template.bind({})
+NotUmpire.args = {
+  isUmpire: false
+}
+
+export const Umpire = Template.bind({})
+Umpire.args = {
+  isUmpire: true
+}

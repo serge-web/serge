@@ -12,8 +12,6 @@ export default interface PropTypes {
   bounds?: LatLngBounds
   position?: LatLngExpression
   mapWidth?: string
-  /** tree of menu items */
-  actionItems?: MappingMenuItem[]
   /** callback, for if a map action is clicked */
   actionCallback?: { (force: string, category: string, actionId: string): void }
   /**
@@ -22,6 +20,4 @@ export default interface PropTypes {
   children?: React.ReactElement
   /** toolbar buttons */
   toolbarChildren?: React.ReactElement
-
-  setDrawingMode?: (status: boolean) => void
 }

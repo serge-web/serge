@@ -1,7 +1,6 @@
-import ForceData from "./force-data"
-import { TemplateBody } from "./template"
-import { GeometryType } from "@serge/config"
-import { GeoJSON } from 'react-leaflet';
+import { GeometryType } from "@serge/config";
+import ForceData from "./force-data";
+import { TemplateBody } from "./template";
 
 /**
  * collection of activities for a force
@@ -57,6 +56,25 @@ export interface PlannedActivityGeometry {
    */
   geometry: GeoJSON.Feature
 } 
+
+/** structure for how we store date in props */
+export interface PlannedProps {
+  // combination of activity name & geometry name
+  id: string
+  startDate: string
+  endDate: string
+  // unix epoch, for quicker date comparison
+  startTime: number
+  // unix epoch, for quicker date comparison
+  endTime: number
+
+  /** this order is involved in a contact */
+  inContact?: boolean
+  /** contact for this order has been identified in the last turn */
+  newContact?: boolean
+  /** this geometry is to be considered in this turn */
+  toBeConsidered?: boolean
+}
 
 /** object that describes the structure of
  * an activity that can be planned in the PlanningChannel
