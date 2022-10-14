@@ -1,19 +1,22 @@
 import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy, ForceStyle } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { Feature, GeoJsonObject } from 'geojson'
-import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
+import { Position } from '@turf/turf'
+import { Feature, GeoJsonObject, LineString, Point, Polygon } from 'geojson'
+import { circleMarker, latLng, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
-import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
+import { CircleMarker, GeoJSON, LayerGroup, Marker, Polygon as RPolygon, Tooltip } from 'react-leaflet-v4'
+import PolylineDecorator from '../../support-mapping/helper/PolylineDecorator'
+import { findActivity, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 
 export interface OrderPlotterProps {
   orders: MessagePlanning[]
   step: number
   handleAdjudication: { (contact: PlanningContact): void }
   activities: PerForcePlanningActivitySet[]
+  forceCols: Array<ForceStyle>
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
@@ -24,7 +27,7 @@ const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
-export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activities, handleAdjudication }) => {
+export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activities, handleAdjudication, forceCols }) => {
   const [bins, setBins] = useState<SpatialBin[]>([])
   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
   const [interactionsProcessed, setInteractionsProcessed] = useState<string[]>([])
@@ -38,9 +41,9 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const [message1, setMessage1] = useState<string>('')
   const [message2, setMessage2] = useState<string>('')
   const [toAdjudicate, setToAdjudicate] = useState<PlanningContact | undefined>(undefined)
-  const [toAdjudicateGeometries, setToAdjudicateGeometries] = useState<GeoJsonObject | undefined>(undefined)
   const [adjudicationHighlight, setAdjudicationHighlight] = useState<Feature | undefined>(undefined)
-  const [adjudicationHighlightGeometry, setAdjudicationHighlightGeometry] = useState<GeoJsonObject | undefined>(undefined)
+  const [adjudicationLayers] = useState<React.ReactElement[]>([])
+
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -213,6 +216,15 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   }, [binningComplete])
 
   useEffect(() => {
+    if (!toAdjudicate) {
+      // ok - we're not adjudicating something, flush the adjuducation layers
+      adjudicationLayers.forEach((item: React.ReactElement) => {
+        !7 && console.log('item', item)
+      })
+    }
+  }, [toAdjudicate])
+
+  useEffect(() => {
     if (geometriesWithOrders.length) {
       const geoJson = {
         type: 'FeatureCollection',
@@ -221,27 +233,6 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       setGeometries(geoJson as GeoJsonObject)
     }
   }, [geometriesWithOrders])
-
-  useEffect(() => {
-    if (toAdjudicate !== undefined) {
-      const geoJson = {
-        type: 'FeatureCollection',
-        features: [toAdjudicate.first.geometry, toAdjudicate.second.geometry]
-      }
-      console.log('adj', geoJson)
-      setToAdjudicateGeometries(geoJson as GeoJsonObject)
-    }
-  }, [toAdjudicate])
-
-  useEffect(() => {
-    if (toAdjudicate !== undefined) {
-      const geoJson = {
-        type: 'Feature',
-        geometry: adjudicationHighlight
-      }
-      setAdjudicationHighlightGeometry(geoJson as GeoJsonObject)
-    }
-  }, [adjudicationHighlight])
 
   const onEachFeature = (feature: GeoJSON.Feature, layer: Layer): any => {
     // put the activity name into the popup for the feature
@@ -337,9 +328,61 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     }
   }
 
+  const shapesForContact = (contact: PlanningContact): React.ReactElement => {
+    // TODO: flush the existing adjudicationLayers
+    const hightlightColor = '#0f0'
+    const interFeature = contact.intersection && {
+      type: 'Feature',
+      geometry: contact.intersection,
+      properties: {}
+    }
+    return <>
+    { shapeForGeomWithOrders(contact.first)}
+    { shapeForGeomWithOrders(contact.second)}
+    { interFeature && shapeFor(interFeature as Feature, hightlightColor, '')}
+    </>
+  }
+
+  const shapeForGeomWithOrders = (geom: GeomWithOrders): React.ReactElement => {
+    const geometry = geom.geometry
+    const force = geom.activity.details.from.forceId
+    const activity = findActivity(geom.uniqid, force || '', activities)
+    const color = forceCols.find((value: ForceStyle) => value.forceId === force)
+    return shapeFor(geometry, (color && color.color) || '', activity)
+  }
+
+  /** produce a shape for this feature */
+  const shapeFor = (feature: Feature, color: string, label: string): React.ReactElement => {
+    let res: React.ReactElement | undefined = undefined
+    switch (feature.geometry.type) {
+      case 'LineString': {
+        const ls = feature.geometry as LineString
+        const coords: LatLng[] = ls.coordinates.map((pos: Position) => latLng(pos[1], pos[0]))
+        res = <PolylineDecorator message={label} latlngs={coords} color={(color) || ''} ></PolylineDecorator>
+        break
+      } 
+      case 'Polygon': {
+        const poly = feature.geometry as Polygon
+        const coords: LatLng[] = poly.coordinates[0].map((pos: Position) => latLng(pos[1], pos[0]))
+        res = <RPolygon color={(color) || ''}  positions={coords}/>
+        break
+      }
+      case 'Point': {
+        const poly = feature.geometry as Point
+        const centre: LatLng = latLng(poly.coordinates[1], poly.coordinates[0])
+        res = <CircleMarker  color={(color) || ''} center={centre} />
+        break
+      }
+    }
+    if (res) {
+      adjudicationLayers.push(res)
+    }
+    return res || <></>
+  }
+
   return <>
     {(message1.length > 0 || message2.length > 0) &&
-      <Marker opacity={0} position={[-8, 120]}>
+      <Marker opacity={0} position={[-2, 120]}>
         <Tooltip permanent={true}>
           <span>{message1}</span><br /><span>{message2}</span>
         </Tooltip>
@@ -366,14 +409,11 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       </>
     }
     {
-      toAdjudicateGeometries && toAdjudicate &&
+      toAdjudicate &&
       <>
         <LayerGroup key={'feature_to_adjudicate'}>
-          <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicate} onEachFeature={onEachFeature}
-            data={toAdjudicateGeometries} key={'to_ad_' + toAdjudicate.id} />
-          {adjudicationHighlightGeometry &&
-            <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicateIntersection} onEachFeature={onEachFeature}
-              data={adjudicationHighlightGeometry} key={'intersect_' + toAdjudicate.id} />
+          {
+            shapesForContact(toAdjudicate)
           }
         </LayerGroup >
       </>

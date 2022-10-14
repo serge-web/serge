@@ -7,9 +7,11 @@ import { ArrowHeadPattern, LeafletTextOption } from './MapConstants'
 type PolylineDecoratorProps = {
   latlngs: LatLng[]
   layer?: Layer
+  color?: string
+  message?: string
 }
 
-const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer }) => {
+const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, message, color }) => {
   const map = useMap()
 
   useEffect(() => {
@@ -25,10 +27,19 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer })
 
   useEffect(() => {
     for (let i = 0; i < latlngs.length - 1; i++) {
-      const polyline = L.polyline([latlngs[i], latlngs[i + 1]]).addTo(map)
-      polyline.setText('Input Text Here', LeafletTextOption)
+      const pathOpts: L.PolylineOptions = {}
+      const newArrow = {...ArrowHeadPattern}
+      if (color) {
+        pathOpts.color = color
+        const arrowHead = newArrow.symbol as L.Symbol.ArrowHead
+        arrowHead.initialize({pathOptions: {color: color}})
+      }
+      const polyline = L.polyline([latlngs[i], latlngs[i + 1]], pathOpts).addTo(map)
+      if (message) {
+        polyline.setText(message, LeafletTextOption)
+      }
       L.polylineDecorator(polyline, {
-        patterns: [ArrowHeadPattern]
+        patterns: [newArrow]
       }).addTo(map)
     }
   }, [latlngs])

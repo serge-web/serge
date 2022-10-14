@@ -1,6 +1,6 @@
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
-import { findAsset, forceColors, platformIcons } from '@serge/helpers'
+import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
@@ -82,7 +82,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
 
-  const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
+  const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(true)
+
+  const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -107,7 +109,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // produce the own and opp assets for this player force
-    const forceCols = forceColors(allForces)
+    const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
@@ -115,6 +117,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
     setOpAssetsFiltered(opp.slice())
+    setForceColors(forceCols)
   }, [allForces, currentForce])
 
   useEffect(() => {
@@ -230,12 +233,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setActivityBeingPlanned(undefined)
   }
 
-  console.log('show interaction genny', showInteractionGenerator)
-
   const mapChildren = useMemo(() => {
     return (
       <>
-        {showInteractionGenerator ? <OrderPlotter orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
+        {showInteractionGenerator ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
             <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
