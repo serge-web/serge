@@ -82,7 +82,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
 
-  const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(true)
+  const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
