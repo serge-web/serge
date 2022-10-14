@@ -44,7 +44,6 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const [adjudicationHighlight, setAdjudicationHighlight] = useState<Feature | undefined>(undefined)
   const [adjudicationLayers] = useState<React.ReactElement[]>([])
 
-
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
     geometries.forEach((me: GeomWithOrders, myIndex: number) => {
@@ -337,9 +336,9 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       properties: {}
     }
     return <>
-    { shapeForGeomWithOrders(contact.first)}
-    { shapeForGeomWithOrders(contact.second)}
-    { interFeature && shapeFor(interFeature as Feature, hightlightColor, '')}
+      { shapeForGeomWithOrders(contact.first)}
+      { shapeForGeomWithOrders(contact.second)}
+      { interFeature && shapeFor(interFeature as Feature, hightlightColor, '')}
     </>
   }
 
@@ -353,24 +352,24 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
 
   /** produce a shape for this feature */
   const shapeFor = (feature: Feature, color: string, label: string): React.ReactElement => {
-    let res: React.ReactElement | undefined = undefined
+    let res: React.ReactElement | undefined
     switch (feature.geometry.type) {
       case 'LineString': {
         const ls = feature.geometry as LineString
         const coords: LatLng[] = ls.coordinates.map((pos: Position) => latLng(pos[1], pos[0]))
         res = <PolylineDecorator message={label} latlngs={coords} color={(color) || ''} ></PolylineDecorator>
         break
-      } 
+      }
       case 'Polygon': {
         const poly = feature.geometry as Polygon
         const coords: LatLng[] = poly.coordinates[0].map((pos: Position) => latLng(pos[1], pos[0]))
-        res = <RPolygon color={(color) || ''}  positions={coords}/>
+        res = <RPolygon color={(color) || ''} positions={coords}/>
         break
       }
       case 'Point': {
         const poly = feature.geometry as Point
         const centre: LatLng = latLng(poly.coordinates[1], poly.coordinates[0])
-        res = <CircleMarker  color={(color) || ''} center={centre} />
+        res = <CircleMarker color={(color) || ''} center={centre} />
         break
       }
     }

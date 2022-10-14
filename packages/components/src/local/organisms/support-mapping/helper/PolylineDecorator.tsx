@@ -28,11 +28,11 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, m
   useEffect(() => {
     for (let i = 0; i < latlngs.length - 1; i++) {
       const pathOpts: L.PolylineOptions = {}
-      const newArrow = {...ArrowHeadPattern}
+      const newArrow = { ...ArrowHeadPattern }
       if (color) {
         pathOpts.color = color
         const arrowHead = newArrow.symbol as L.Symbol.ArrowHead
-        arrowHead.initialize({pathOptions: {color: color}})
+        arrowHead.initialize({ pathOptions: { color: color } })
       }
       const polyline = L.polyline([latlngs[i], latlngs[i + 1]], pathOpts).addTo(map)
       if (message) {
