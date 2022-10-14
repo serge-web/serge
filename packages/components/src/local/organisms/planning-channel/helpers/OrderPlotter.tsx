@@ -40,8 +40,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const [message1, setMessage1] = useState<string>('')
   const [message2, setMessage2] = useState<string>('')
   const [toAdjudicateFeature, setToAdjudicateFeature] = useState<React.ReactElement | undefined>(undefined)
-  const [layersToDelete] = useState<L.Layer[]>([])
-
+  const [layersToDelete] = useState<Layer[]>([])
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -201,13 +200,13 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
         console.timeEnd('Execution Time')
 
         // flush any temporary layers
-        while(layersToDelete.length > 0) {
+        while (layersToDelete.length > 0) {
           const layer = layersToDelete.shift()
-          layer && layer.remove()          
+          layer && layer.remove()
         }
 
         // handler to store layer references
-        const storeRef = (polyline: L.Layer): void => {
+        const storeRef = (polyline: Layer): void => {
           layersToDelete.push(polyline)
         }
 
@@ -298,7 +297,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     }
   }
 
-  const shapesForContact = (contact: PlanningContact, storeRef: { (polyline: L.Layer): void }): React.ReactElement => {
+  const shapesForContact = (contact: PlanningContact, storeRef: { (polyline: Layer): void }): React.ReactElement => {
     const hightlightColor = '#0f0'
     const interFeature = contact.intersection && {
       type: 'Feature',
@@ -312,7 +311,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     </>
   }
 
-  const shapeForGeomWithOrders = (geom: GeomWithOrders, storeRef: { (polyline: L.Layer): void }): React.ReactElement => {
+  const shapeForGeomWithOrders = (geom: GeomWithOrders, storeRef: { (polyline: Layer): void }): React.ReactElement => {
     const geometry = geom.geometry
     const force = geom.activity.details.from.forceId
     const activity = findActivity(geom.uniqid, force || '', activities)
@@ -320,9 +319,8 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     return shapeFor(geometry, (color && color.color) || '', activity, storeRef)
   }
 
-
   /** produce a shape for this feature */
-  const shapeFor = (feature: Feature, color: string, label: string, storeRef: { (polyline: L.Layer): void }): React.ReactElement => {
+  const shapeFor = (feature: Feature, color: string, label: string, storeRef: { (polyline: Layer): void }): React.ReactElement => {
     let res: React.ReactElement | undefined
     switch (feature.geometry.type) {
       case 'LineString': {
