@@ -1,15 +1,15 @@
-
 import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
+import { Feature, GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet'
+import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
 import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 
-export interface PlotterTypes {
+export interface OrderPlotterProps {
   orders: MessagePlanning[]
   step: number
   handleAdjudication: { (contact: PlanningContact): void }
@@ -24,11 +24,12 @@ const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
-export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjudication, activities }) => {
+export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activities, handleAdjudication }) => {
   const [bins, setBins] = useState<SpatialBin[]>([])
   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
   const [interactionsProcessed, setInteractionsProcessed] = useState<string[]>([])
-  const [geometries, setGeometries] = useState<GeomWithOrders[]>([])
+  const [geometriesWithOrders, setGeometriesWithOrders] = useState<GeomWithOrders[]>([])
+  const [geometries, setGeometries] = useState<GeoJsonObject | undefined>(undefined)
   const [binToProcess, setBinToProcess] = useState<number | undefined>(undefined)
   const [binningComplete, setBinningComplete] = useState<boolean>(false)
   const [contacts, setContacts] = useState<PlanningContact[]>([])
@@ -37,7 +38,9 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
   const [message1, setMessage1] = useState<string>('')
   const [message2, setMessage2] = useState<string>('')
   const [toAdjudicate, setToAdjudicate] = useState<PlanningContact | undefined>(undefined)
-  const [adjudicationHighlight, setAdjudicationHighlight] = useState<GeoJSON.Feature | undefined>(undefined)
+  const [toAdjudicateGeometries, setToAdjudicateGeometries] = useState<GeoJsonObject | undefined>(undefined)
+  const [adjudicationHighlight, setAdjudicationHighlight] = useState<Feature | undefined>(undefined)
+  const [adjudicationHighlightGeometry, setAdjudicationHighlightGeometry] = useState<GeoJsonObject | undefined>(undefined)
 
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
@@ -83,7 +86,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   useEffect(() => {
     if (bins.length === 0 && !binningComplete) {
-      const cleanGeoms = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
+      const cleanGeoms = geometriesWithOrders.map((geom: GeomWithOrders): GeomWithOrders => {
         const clean: GeomWithOrders = deepCopy(geom)
         const props = clean.geometry.properties as PlannedProps
         delete props.inContact
@@ -91,7 +94,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         delete props.toBeConsidered
         return clean
       })
-      setGeometries(cleanGeoms)
+      setGeometriesWithOrders(cleanGeoms)
 
       console.time('Execution Time')
 
@@ -114,7 +117,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         props.toBeConsidered = geometriesInTimeWindow.some((val: GeomWithOrders) => val.id === geom.id)
         return newItem
       })
-      setGeometries(updated)
+      setGeometriesWithOrders(updated)
 
       // now do spatial binning
       const bins = spatialBinning(geometriesInTimeWindow, 6)
@@ -131,7 +134,6 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
 
   useEffect(() => {
     if (bins.length && binToProcess !== undefined) {
-      console.log('step', binToProcess)
       setToAdjudicate(undefined)
       if (binToProcess === 0) {
         setInteractionsProcessed([])
@@ -147,7 +149,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       setContacts(contacts.concat(newContacts))
 
       // update contact status
-      const updated = geometries.map((geom: GeomWithOrders): GeomWithOrders => {
+      const updated = geometriesWithOrders.map((geom: GeomWithOrders): GeomWithOrders => {
         const newItem: GeomWithOrders = deepCopy(geom)
         const props: PlannedProps = newItem.geometry.properties as PlannedProps
         if (props.newContact) {
@@ -162,7 +164,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         }
         return newItem
       })
-      setGeometries(updated)
+      setGeometriesWithOrders(updated)
       setCurrentBins([bin])
       if (binToProcess < bins.length - 1) {
         setTimeout(() => setBinToProcess(1 + binToProcess), 0)
@@ -179,7 +181,6 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       b: val.second.activity.message.title + ' ' + val.second.id
     }
   }
-
   useEffect(() => {
     if (binningComplete) {
       const withTime = contacts.filter((contact: PlanningContact) => contact.timeStart !== -1)
@@ -199,7 +200,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
         console.timeEnd('Execution Time')
         setToAdjudicate(sorted[0])
         if (sorted[0].intersection) {
-          const asFeature: GeoJSON.Feature = turf.feature(sorted[0].intersection)
+          const asFeature: Feature = turf.feature(sorted[0].intersection)
           setAdjudicationHighlight(asFeature)
         }
       }
@@ -211,6 +212,37 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
   }, [binningComplete])
 
+  useEffect(() => {
+    if (geometriesWithOrders.length) {
+      const geoJson = {
+        type: 'FeatureCollection',
+        features: geometriesWithOrders.map((geom: GeomWithOrders) => geom.geometry)
+      }
+      setGeometries(geoJson as GeoJsonObject)
+    }
+  }, [geometriesWithOrders])
+
+  useEffect(() => {
+    if (toAdjudicate !== undefined) {
+      const geoJson = {
+        type: 'FeatureCollection',
+        features: [toAdjudicate.first.geometry, toAdjudicate.second.geometry]
+      }
+      console.log('adj', geoJson)
+      setToAdjudicateGeometries(geoJson as GeoJsonObject)
+    }
+  }, [toAdjudicate])
+
+  useEffect(() => {
+    if (toAdjudicate !== undefined) {
+      const geoJson = {
+        type: 'Feature',
+        geometry: adjudicationHighlight
+      }
+      setAdjudicationHighlightGeometry(geoJson as GeoJsonObject)
+    }
+  }, [adjudicationHighlight])
+
   const onEachFeature = (feature: GeoJSON.Feature, layer: Layer): any => {
     // put the activity name into the popup for the feature
     if (feature && feature.properties && feature.properties.name) {
@@ -218,7 +250,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
   }
 
-  const filterPendingFeatures = (inContact: boolean, feature: GeoJSON.Feature): any => {
+  const filterPendingFeatures = (inContact: boolean, feature: Feature): any => {
     // put the activity name into the popup for the feature
     if (feature && feature.properties) {
       const myProps = feature.properties as PlannedProps
@@ -230,7 +262,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
   }
 
-  const styleForBoxes: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
+  const styleForBoxes: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     const hasOrders = feature && feature.properties && feature.properties.orderNum > 0
     return {
       color: '#f0f',
@@ -248,10 +280,10 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     fillOpacity: 0.8
   }
 
-  const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: LatLng): Layer => {
+  const pointToLayer = (_feature: Feature<any>, latlng: LatLng): Layer => {
     return circleMarker(latlng, geojsonMarkerOptions)
   }
-  const styleForAdjudicate: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
+  const styleForAdjudicate: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       return {
         color: '#f00',
@@ -264,7 +296,7 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
   }
 
-  const styleForAdjudicateIntersection: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
+  const styleForAdjudicateIntersection: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       return {
         color: '#0f0',
@@ -277,7 +309,9 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
   }
 
-  const styleForFeatures: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
+  !7 && console.log(styleForAdjudicateIntersection, styleForAdjudicate, currentBins, interactionsProcessed, binToProcess, setInteractionsProcessed, setBinningComplete, contacts, setContacts, cachedContacts, message1, message2, toAdjudicate, setToAdjudicate, adjudicationHighlight, setAdjudicationHighlight)
+
+  const styleForFeatures: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const props = feature.properties as PlannedProps
       const inContact = props.inContact
@@ -303,15 +337,15 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
     }
   }
 
-  return (<>
-    {(message1.length > 0 || message2.length > 0) && !7 &&
-      <Marker opacity={0} position={[-4, 120]}>
+  return <>
+    {(message1.length > 0 || message2.length > 0) &&
+      <Marker opacity={0} position={[-8, 120]}>
         <Tooltip permanent={true}>
           <span>{message1}</span><br /><span>{message2}</span>
         </Tooltip>
       </Marker>
     }
-    {bins.length > 0 && !7 &&
+    {bins.length > 0 &&
       <LayerGroup key={'bins'}>
         {!7 && currentBins.map((bin: SpatialBin, index: number) =>
           <GeoJSON style={styleForBoxes} onEachFeature={onEachFeature} data={bin.polygon} key={'a_' + index + Math.random()} />
@@ -319,32 +353,32 @@ export const OrderPlotter: React.FC<PlotterTypes> = ({ orders, step, handleAdjud
       </LayerGroup>
     }
     {
-      geometries.length > 0 && !toAdjudicate && !7 &&
+      geometries !== undefined && !toAdjudicate &&
       <>
         <LayerGroup key={'features'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
             filter={(feature: any): boolean => filterPendingFeatures(false, feature)}
-            data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_no_contact' + Math.random()} />
+            data={geometries} key={'feature_no_contact' + Math.random()} />
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
             filter={(feature: any): boolean => filterPendingFeatures(true, feature)}
-            data={geometries.map((val: GeomWithOrders) => val.geometry)} key={'feature_contact' + Math.random()} />
+            data={geometries} key={'feature_contact' + Math.random()} />
         </LayerGroup >
       </>
     }
     {
-      toAdjudicate && !7 &&
+      toAdjudicateGeometries && toAdjudicate &&
       <>
         <LayerGroup key={'feature_to_adjudicate'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicate} onEachFeature={onEachFeature}
-            data={[toAdjudicate.first.geometry, toAdjudicate.second.geometry]} key={'to_ad_' + toAdjudicate.id} />
-          {adjudicationHighlight &&
+            data={toAdjudicateGeometries} key={'to_ad_' + toAdjudicate.id} />
+          {adjudicationHighlightGeometry &&
             <GeoJSON pointToLayer={pointToLayer} style={styleForAdjudicateIntersection} onEachFeature={onEachFeature}
-              data={[adjudicationHighlight]} key={'intersect_' + toAdjudicate.id} />
+              data={adjudicationHighlightGeometry} key={'intersect_' + toAdjudicate.id} />
           }
         </LayerGroup >
       </>
     }
-  </>)
+  </>
 }
 
 export default OrderPlotter

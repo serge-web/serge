@@ -21,7 +21,7 @@ import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-
 import ViewAs from '../view-as'
 import NewOrderActions from './helpers/NewOrdersActions'
 import OrderDrawing from './helpers/OrderDrawing'
-import OrderPlotter2 from './helpers/OrderPlotter2'
+import OrderPlotter from './helpers/OrderPlotter'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
@@ -235,7 +235,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
-        {showInteractionGenerator ? <OrderPlotter2 orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
+        {showInteractionGenerator ? <OrderPlotter orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
             <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
