@@ -309,7 +309,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <div className={cx('leaflet-control')}>
-                            <Item onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                            <Item title='Toggle interaction generator' onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
                           </div>
                           <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
                             newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
