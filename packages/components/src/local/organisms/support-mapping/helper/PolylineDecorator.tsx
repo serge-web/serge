@@ -9,9 +9,14 @@ type PolylineDecoratorProps = {
   layer?: Layer
   color?: string
   message?: string
+  /**
+   * once the line is created, this callback is called, so the parent
+   * class can store the laer, and to choose when to delete it.
+   */
+  storeRef?: {(polyline: L.Layer): void}
 }
 
-const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, message, color }) => {
+const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, message, color, storeRef }) => {
   const map = useMap()
 
   useEffect(() => {
@@ -26,22 +31,25 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, m
   }, [layer])
 
   useEffect(() => {
-    for (let i = 0; i < latlngs.length - 1; i++) {
-      const pathOpts: L.PolylineOptions = {}
-      const newArrow = { ...ArrowHeadPattern }
-      if (color) {
-        pathOpts.color = color
-        const arrowHead = newArrow.symbol as L.Symbol.ArrowHead
-        arrowHead.initialize({ pathOptions: { color: color } })
-      }
-      const polyline = L.polyline([latlngs[i], latlngs[i + 1]], pathOpts).addTo(map)
-      if (message) {
-        polyline.setText(message, LeafletTextOption)
-      }
-      L.polylineDecorator(polyline, {
-        patterns: [newArrow]
-      }).addTo(map)
+    const pathOpts: L.PolylineOptions = {}
+    const newArrow = { ...ArrowHeadPattern }
+    if (color) {
+      pathOpts.color = color
+      const arrowHead = newArrow.symbol as L.Symbol.ArrowHead
+      arrowHead.initialize({ pathOptions: { color: color } })
     }
+    const polyline = L.polyline(latlngs, pathOpts).addTo(map)
+    if (message) {
+      polyline.setText(message, LeafletTextOption)
+    }
+    const polylineDecorator = L.polylineDecorator(polyline, {
+      patterns: [newArrow]
+    })
+    // we need to be able to detach this object from the outside. So, tell parent
+    // code about the created object
+    storeRef && storeRef(polyline)
+    storeRef && storeRef(polylineDecorator)
+    polylineDecorator.addTo(map)
   }, [latlngs])
 
   return <></>
