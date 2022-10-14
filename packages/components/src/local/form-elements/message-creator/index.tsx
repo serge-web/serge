@@ -8,15 +8,13 @@ import {
   UNSENT_PRIVATE_MESSAGE_TYPE,
   UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
+import JsonEditor from '../../molecules/json-editor'
 import {
   ChannelCollab,
-  Editor,
   MessageDetails
 } from '@serge/custom-types'
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 
-import JSONEditor from '@json-editor/json-editor'
-import { configDateTimeLocal } from '@serge/helpers'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
 import PropTypes from './types/props'
@@ -40,10 +38,10 @@ const MessageCreator: React.FC<PropTypes> = ({
   getcachedCreatorMessageValue,
   clearCachedCreatorMessage
 }) => {
-  const [editor, setEditor] = useState<Editor | null>(null)
-  const editorPreviewRef = createRef<HTMLDivElement>()
   const privateMessageRef = createRef<HTMLTextAreaElement>()
+  const [formMessage, setFormMessage] = useState<any>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
+  const [clearName, setClearName] = useState('')
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -84,17 +82,14 @@ const MessageCreator: React.FC<PropTypes> = ({
       details.privateMessage = privateMessageRef.current.value
       privateMessageRef.current.value = ''
     }
+    
+    if (formMessage.content === '') return
 
-    if (!editor || editor.getValue().content === '') return
-
-    // retrieve the formatted message
-    const message = editor.getValue()
 
     // send the data
-    postBack && postBack(details, message)
-
-    editor.destroy()
-    createEditor(selectedSchema)
+    setPrivateValue('')
+    postBack && postBack(details, formMessage)
+    setClearName(messageOption)
     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
     onMessageSend && onMessageSend(e)
   }
@@ -113,151 +108,28 @@ const MessageCreator: React.FC<PropTypes> = ({
 
   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
+    setClearName(messageOption)
     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
-    editor && editor.destroy()
     onCancel && onCancel(event)
   }
 
-  const destroyEditor = (editorObject: Editor | null): void => {
-    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
-  }
-
   useEffect(() => {
-    if (!schema) {
-      destroyEditor(editor)
-    }
+    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
+    setPrivateValue(privateValues)
+    
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
-      destroyEditor(editor)
       setSelectedSchema(schema)
     }
 
-    if (schema && schema.type) {
-      if (editor && (editor.ready || !editor.destroyed)) return
-      createEditor(schema)
-    }
-
-    return (): void => {
-      destroyEditor(editor)
-    }
   }, [schema, messageOption, confirmIsOpen])
-
-  useEffect(() => {
-    const formValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(messageOption)
-    const privateValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
-    setPrivateValue(privateValue)
-
-    const valueTimer = setTimeout(() => {
-      if (formValue) return editor && editor.setValue(formValue)
-    }, 10)
-
-    return (): void => clearTimeout(valueTimer)
-  }, [editor])
-
-  /**
-   * helper function to for validation Datetime or Date or Time props of json
-   */
-  const configCommonValidation = (
-    schema: { format: string },
-    value: string,
-    path: any
-  ): any => {
-    let format = ''
-    let defaultFieldName = ''
-    switch (schema.format) {
-      case 'datetime-local':
-        if (
-          value === '' ||
-          !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)
-        ) {
-          format = 'DD/MM/YYYY HH:MM'
-          defaultFieldName = 'Datetime'
-        }
-        break
-      case 'date':
-        if (value === '' || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
-          format = 'DD/MM/YYYY'
-          defaultFieldName = 'Date'
-        }
-        break
-      case 'time':
-        if (value === '' || !/^(\d{2}:\d{2})?$/.test(value)) {
-          format = 'HH:MM'
-          defaultFieldName = 'Time'
-        }
-        break
-      default:
-        return {}
-    }
-
-    if (format !== '') {
-      const listFieldName = path.split('.')
-      const fieldName =
-        listFieldName.length > 0
-          ? listFieldName[listFieldName.length - 1]
-          : defaultFieldName
-      // Errors must be an object with `path`, `property`, and `message`
-      const message = `${fieldName} must be in the format '${format}'`
-      return {
-        path: path,
-        property: 'format',
-        message: message
-      }
-    }
-    return {}
-  }
-
-  /**
-   * custom validation set foWr type datetime-local, date, time
-   */
-  const configDateTimeCustomValidation = (): any => {
-    // multiple message type will repeat custom validators, reinitialize it for every instance
-
-    JSONEditor.defaults.custom_validators = []
-    JSONEditor.defaults.custom_validators.push(function (
-      schema: { format: string },
-      value: string,
-      path: any
-    ) {
-      const errors = []
-      const customValidationErrors = configCommonValidation(
-        schema,
-        value,
-        path
-      )
-      if (!_.isEmpty(customValidationErrors)) {
-        errors.push(customValidationErrors)
-      }
-      return errors
-    })
-  }
-
-  const createEditor = (schema: any): void => {
-    configDateTimeCustomValidation()
-    schema = configDateTimeLocal(schema, gameDate)
-
-    setEditor(
-      new JSONEditor(editorPreviewRef.current, {
-        schema,
-        theme: 'bootstrap4',
-        disable_collapse: true,
-        disable_edit_json: true,
-        disable_array_reorder: true,
-        disable_array_delete_last_row: true,
-        disable_properties: true,
-        prompt_before_delete: false,
-        array_controls_top: false
-      })
-    )
-  }
-
-  const transferChangeValue = (): void => {
-    const message = editor?.getValue()
-    createCachedCreatorMessage && createCachedCreatorMessage(message, messageOption)
-  }
 
   const onChangePrivate = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setPrivateValue(e.target.value)
     createCachedCreatorMessage && createCachedCreatorMessage(e.target.value, privatMessageOption)
+  }
+
+  const responseHandler = (val: { [property: string]: any }): void => {
+    setFormMessage(val)
   }
 
   return (
@@ -268,7 +140,21 @@ const MessageCreator: React.FC<PropTypes> = ({
         onCancel={onPopupCancel}
         onConfirm={onPopupConfirm}
       />
-      <div className="form-group message-creator" ref={editorPreviewRef} onBlur={transferChangeValue} />
+      <JsonEditor
+        messageContent={null}
+        template={{
+          details: selectedSchema,
+          _id: channel.uniqid
+        }}
+        clearCachedName={setClearName}
+        messageId={messageOption}
+        formClassName={'form-group message-creator'}
+        title={'Response'}
+        cachedName={clearName}
+        storeNewValue={responseHandler}
+        disabled={false}
+        gameDate={gameDate}
+      />
       {privateMessage && (
         <div className="flex-content form-group">
           <label

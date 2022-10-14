@@ -1,4 +1,4 @@
-import { MessageCustom, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { MessageCustom, MessageStructure } from '@serge/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -9,7 +9,7 @@ export default interface Props {
   /**
    * content of message
    */
-  messageContent: MessageStructure
+  messageContent: MessageStructure | null
   /**
    * id for message (used for tracking message read)
    */
@@ -22,6 +22,8 @@ export default interface Props {
    * title to display above the form
    */
   title?: string
+  cachedName?: string | boolean
+  clearCachedName?: Dispatch<SetStateAction<string>>
   /**
    * whether the form is editable (disable for read-only view)
    */
@@ -40,6 +42,7 @@ export default interface Props {
   gameDate: string
   /** disable/enable Array tools with form */
   disableArrayToolsWithEditor?: boolean
+  formClassName?: string
   /**
    *  method to customize template, potentially filling any drop-downs
    */

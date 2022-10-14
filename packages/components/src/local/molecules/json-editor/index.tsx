@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react'
+import React, { useState, useRef, useLayoutEffect, useEffect} from 'react'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,11 +16,17 @@ const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
-  messageId, messageContent, title, template, storeNewValue,
-  customiseTemplate, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true
+  messageId, messageContent, title, template, storeNewValue, formClassName,
+  customiseTemplate, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true, cachedName, clearCachedName,
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
+
+  const memoryName = messageId + template._id
+  
+  const destroyEditor = (editorObject: Editor | null): void => {
+    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
+  }
 
   if (!template) {
     const styles = {
@@ -35,14 +41,31 @@ export const JsonEditor: React.FC<Props> = ({
   const handleChange = (value: { [property: string]: any }): void => {
     storeNewValue && storeNewValue(value)
   }
-
+  
   const genLocalStorageId = (): string => {
     if (!template._id) {
       console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
     }
-    return messageId + template._id
+
+    return memoryName
   }
 
+  useEffect(() => {
+
+      if (!messageContent && template.details && template.details.type) {
+        if (cachedName === messageId) {
+          expiredStorage.removeItem(genLocalStorageId())
+          clearCachedName('')
+          initEditor()
+        } else {
+          initEditor()
+        }
+      }
+
+    return (): void => destroyEditor(editor)
+
+  }, [template.details, messageId, cachedName])
+ 
   const initEditor = (): () => void => {
     const jsonEditorConfig = disabled
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
@@ -108,8 +131,15 @@ export const JsonEditor: React.FC<Props> = ({
 
     if (nextEditor) {
       const messageJson = expiredStorage.getItem(genLocalStorageId())
-      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
-      nextEditor.on('change', changeListenter)
+      if(messageJson && !messageContent) {
+        nextEditor.setValue( JSON.parse(messageJson) )
+        nextEditor.on('change', changeListenter)
+      }else if (messageContent) {
+        nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
+        nextEditor.on('change', changeListenter)
+      } else {
+        nextEditor.on('change', changeListenter)
+      }
     }
 
     setEditor(nextEditor)
@@ -138,7 +168,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (editor) editor.destroy()
     return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
-
+  
   useLayoutEffect(() => {
     if (editor) {
       if (disabled) {
@@ -150,7 +180,7 @@ export const JsonEditor: React.FC<Props> = ({
   }, [editor])
 
   return (
-    <div className={disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
+      <div className={formClassName ? formClassName : disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
   )
 }
 
