@@ -1,6 +1,6 @@
-import { GeometryType } from "@serge/config";
-import ForceData from "./force-data";
-import { TemplateBody } from "./template";
+import { GeometryType } from "@serge/config"
+import ForceData from "./force-data"
+import { TemplateBody } from "./template"
 
 /**
  * collection of activities for a force
