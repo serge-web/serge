@@ -4,7 +4,7 @@ import RemoveIcon from '@material-ui/icons/Remove'
 
 /* Import proptypes */
 import cx from 'classnames'
-import L, { DomEvent, LatLngBounds } from 'leaflet'
+import { DomEvent, LatLngBounds } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import PropTypes from './types/props'
 
@@ -33,47 +33,6 @@ export const MapControl: React.FC<PropTypes> = ({
       setOriginalBounds(bounds)
     }
   }, [bounds])
-
-  useEffect(() => {
-    if (localMap) {
-      const items = [
-        {
-          label: 'group 1',
-          value: 'g11',
-          items: [
-            { label: 'option 1', value: 'g11' },
-            { label: 'option 2', value: 'g12' },
-            { label: 'option 3', value: 'g13' },
-            {
-              label: 'group 3',
-              value: 'g132',
-              items: [
-                { label: 'option 1', value: 'g131' },
-                { label: 'option 2', value: 'g132' },
-                { label: 'option 3', value: 'g133' }
-              ]
-            }
-          ]
-        },
-        { label: 'option 5', value: 'g5' },
-        {
-          label: 'group 2',
-          value: 'g21',
-          items: [
-            { label: 'option 6', value: 'g21' },
-            { label: 'option 7', value: 'g22' }
-          ]
-        }
-      ]
-      L.control.select({
-        position: 'topleft',
-        items: items,
-        onSelect: (item: any) => {
-          console.log('select: ', item)
-        }
-      }).addTo(localMap)
-    }
-  }, [localMap])
 
   /*
    * disable map scroll and click events to allow

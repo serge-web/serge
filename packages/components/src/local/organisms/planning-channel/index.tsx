@@ -20,6 +20,7 @@ import ViewAs from '../view-as'
 import NewOrderActions from './helpers/NewOrdersActions'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
+import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
@@ -238,6 +239,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
         <OrderPlotter activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
           step={debugStep} />
+        <PlanningActitivityMenu planningActivities={planningActivities} />
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
@@ -298,7 +300,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
                         newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
                       <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                      {phase === Phase.Planning && !selectedForce.umpire &&
+                      {
+                        phase === Phase.Planning && !selectedForce.umpire &&
                         <div className={cx('leaflet-control')}>
                           <Item onClick={genData}>Plan</Item>
                         </div>
