@@ -11,7 +11,7 @@ module.exports = {
   },
   'extends': ['plugin:@typescript-eslint/recommended', 'standard', 'plugin:storybook/recommended'],
   'plugins': ['@typescript-eslint', // Let's us override rules below.
-  'react'],
+    'react'],
   "ignorePatterns": ["*.scss.d.ts", '*.snap'],
   'rules': {
     "semi": [2, "never"],
@@ -41,8 +41,8 @@ module.exports = {
     // Allows us to use Import and Export keywords.
     "react/jsx-uses-react": 1,
     // Treats  React imports as used variables in JSX/TSX files
-    'react/jsx-uses-vars': 1 // Treats component names as used variables in JSX/TSX files
-
+    'react/jsx-uses-vars': 1, // Treats component names as used variables in JSX/TSX files
+    'no-useless-constructor': 'off',
   },
   'env': {
     'jest': true
