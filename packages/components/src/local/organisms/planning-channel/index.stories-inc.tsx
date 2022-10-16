@@ -12,7 +12,7 @@ import PlanningChannelProps from './types/props'
 
 console.clear()
 
-export const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, style?: CSSProperties }> = ({ src, children, style }) => {
+const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, style?: CSSProperties }> = ({ src, children, style }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
 
   useEffect(() => {
