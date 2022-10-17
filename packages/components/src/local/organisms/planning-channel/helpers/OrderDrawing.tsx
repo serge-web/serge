@@ -65,12 +65,12 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           }
           break
         }
-        case 'Point': {
-          const pt2 = layerAsAny._latlngs
-          const longLats = [pt2.lng, pt2.lat]
+        case 'Marker': {
+          const pt2 = layerAsAny._latlng
+          const longLat = [pt2.lng, pt2.lat]
           res = {
             type: 'Point',
-            coordinates: longLats
+            coordinates: longLat
           }
           break
         }
