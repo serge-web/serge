@@ -1,11 +1,13 @@
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
-import { findAsset, forceColors, platformIcons } from '@serge/helpers'
+import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { faCalculator } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import ApplyFilter from '../apply-filter'
@@ -81,6 +83,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
 
+  const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
+
+  const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
+
   useEffect(() => {
     if (forcePlanningActivities) {
       const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
@@ -104,7 +110,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // produce the own and opp assets for this player force
-    const forceCols = forceColors(allForces)
+    const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
@@ -112,6 +118,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
     setOpAssetsFiltered(opp.slice())
+    setForceColors(forceCols)
   }, [allForces, currentForce])
 
   useEffect(() => {
@@ -210,6 +217,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const incrementDebugStep = (): void => {
+    console.log('debug step', debugStep)
     setDebugStep(1 + debugStep)
   }
 
@@ -229,20 +237,24 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
-        <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
-        <LayerGroup key={'own-forces'}>
-          <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-        </LayerGroup>
-        <LayerGroup key={'opp-forces'}>
-          <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
-        </LayerGroup>
-        {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
-        <OrderPlotter activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
-          step={debugStep} />
-        <PlanningActitivityMenu planningActivities={planningActivities} />
+        {showInteractionGenerator ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
+          : <>
+            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+            <LayerGroup key={'own-forces'}>
+              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+            </LayerGroup>
+            <LayerGroup key={'opp-forces'}>
+              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+            </LayerGroup>
+            <OrderPlotter forceCols={forceColors} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
+              step={debugStep} />
+            {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
+            <PlanningActitivityMenu planningActivities={planningActivities} />
+          </>
+        }
       </>
     )
-  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
+  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep, showInteractionGenerator])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -296,19 +308,24 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <>
                   {!activityBeingPlanned &&
                     <>
-                      <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                      <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
-                        newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
-                      <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                      {
-                        phase === Phase.Planning && !selectedForce.umpire &&
+                      { showInteractionGenerator ? <div className={cx('leaflet-control')}>
+                        <Item onClick={incrementDebugStep}>Step</Item>
+                      </div>
+                        : <>
+                          <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Toggle interaction generator' onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                          </div>
+                          <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
+                            newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
+                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                          {phase === Phase.Planning && !selectedForce.umpire &&
                         <div className={cx('leaflet-control')}>
                           <Item onClick={genData}>Plan</Item>
                         </div>
+                          }
+                        </>
                       }
-                      <div className={cx('leaflet-control')}>
-                        <Item onClick={incrementDebugStep}>Step</Item>
-                      </div>
                     </>
                   }
                   <OrderDrawing activity={activityBeingPlanned} planned={activityPlanned} cancelled={() => setActivityBeingPlanned(undefined)} />

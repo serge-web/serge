@@ -704,7 +704,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
     }
   }
   if (res === undefined) {
-    console.warn('Didn\'t handle this case', me, other)
+    // console.warn('Didn\'t handle this case', me, other)
     return null
   } else {
     if (res) {
