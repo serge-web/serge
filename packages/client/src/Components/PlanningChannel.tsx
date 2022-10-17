@@ -24,7 +24,7 @@ const PlanningChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const channelPlanning = channelUI.cData as ChannelPlanning
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { allForces, currentWargame, selectedForce, selectedRole } = state
-  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  if (selectedForce === undefined) throw new Error('selectedForce is not specified')
   const platformTypes = state.allPlatformTypes
 
   useEffect(() => {
