@@ -22,6 +22,7 @@ import ViewAs from '../view-as'
 import NewOrderActions from './helpers/NewOrdersActions'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
+import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
@@ -245,6 +246,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <LayerGroup key={'opp-forces'}>
               <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
+            <OrderPlotter forceCols={forceColors} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
+              step={debugStep} />
+            {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
+            <PlanningActitivityMenu planningActivities={planningActivities} />
           </>
         }
       </>

@@ -1,17 +1,40 @@
+import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
 console.clear()
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, style?: CSSProperties }> = ({ src, children, style }) => {
+  const [loaded, setLoaded] = useState<boolean>(false)
+
+  useEffect(() => {
+    const head = document.querySelector('head')
+    const script = document.createElement('script')
+    if (!head) {
+      return
+    }
+    script.async = true
+    script.src = src
+    script.onload = () => {
+      setLoaded(true)
+    }
+    head.appendChild(script)
+  }, [])
+
+  return (
+    loaded ? <div style={style}>{children}</div> : null
+  )
+}
+
+const wrapper: React.FC = (storyFn: any) => <ScriptDecorator src='/leaflet.select/leaflet.control.select.js' style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
 
 const wargame = P9Mock.data
 const channels = wargame.channels.channels
