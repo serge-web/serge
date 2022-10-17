@@ -17,9 +17,8 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
-import NewOrderActions from './helpers/NewOrdersActions'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
@@ -225,10 +224,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setDebugStep(1 + debugStep)
   }
 
-  const newActionRequest = (group: string, planId: string): void => {
-    console.log('new orders for', group, planId)
-  }
-
   const handleAdjudication = (contact: PlanningContact): void => {
     console.log('Apply some adjudication for', contact.id)
   }
@@ -240,6 +235,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     console.log('plan new activity', group, activity)
+    if (forcePlanningActivities) {
+      const newActivity = findActivity(activity, selectedForce.uniqid, forcePlanningActivities)
+      if (newActivity) {
+        if (newActivity.geometries) {
+          setActivityBeingPlanned(newActivity)
+        } else {
+          // no geometry required, just open new orders
+          console.log('Show new orders')
+        }
+      }
+    }
   }
 
   const mapChildren = useMemo(() => {
@@ -248,7 +254,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
-            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
               <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
@@ -322,10 +328,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <div className={cx('leaflet-control')}>
                             <Item title='Toggle interaction generator' onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
-                          </div>
-                          <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
-                            newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
-                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                          </div>                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
                           {phase === Phase.Planning && !selectedForce.umpire &&
                         <div className={cx('leaflet-control')}>
                           <Item onClick={genData}>Plan</Item>

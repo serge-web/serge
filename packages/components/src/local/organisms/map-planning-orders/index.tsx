@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { GeoJSON, LayerGroup } from 'react-leaflet-v4'
 import PropTypes from './types/props'
 
-const findActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGeometry['uniqid']): PlanningActivity | undefined => {
+const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGeometry['uniqid']): PlanningActivity | undefined => {
   const activity = activities.find((value: PlanningActivity) => {
     // it's only worth processing if it has a color
     if (value.color && value.geometries) {
@@ -39,7 +39,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
   const styleFor: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
     const featureId = feature && feature.properties && feature.properties.uniqid
     if (featureId && activities && activities.length) {
-      const activity = findActivity(activities, featureId)
+      const activity = localFindActivity(activities, featureId)
       if (activity) {
         const color = activity.color
         return {
@@ -73,7 +73,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
             } else {
               res.properties = { uniqid: act.uniqid }
             }
-            const activity = findActivity(activities, act.uniqid)
+            const activity = localFindActivity(activities, act.uniqid)
             if (activity && activity.geometries) {
               const geometry = activity.geometries.find((geom: PlanningActivityGeometry) => geom.uniqid === act.uniqid)
               if (geometry) {

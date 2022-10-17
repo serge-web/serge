@@ -8,7 +8,7 @@ import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { CircleMarker, GeoJSON, LayerGroup, Marker, Polygon as RPolygon, Tooltip } from 'react-leaflet-v4'
 import PolylineDecorator from '../../support-mapping/helper/PolylineDecorator'
-import { findActivity, findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, findPlanningGeometry, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
 
 export interface OrderPlotterProps {
   orders: MessagePlanning[]
@@ -314,7 +314,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const shapeForGeomWithOrders = (geom: GeomWithOrders, storeRef: { (polyline: Layer): void }): React.ReactElement => {
     const geometry = geom.geometry
     const force = geom.activity.details.from.forceId
-    const activity = findActivity(geom.uniqid, force || '', activities)
+    const activity = findPlanningGeometry(geom.uniqid, force || '', activities)
     const color = forceCols.find((value: ForceStyle) => value.forceId === force)
     return shapeFor(geometry, (color && color.color) || '', activity, storeRef)
   }
