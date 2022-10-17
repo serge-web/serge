@@ -86,12 +86,10 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
   }, [orders])
 
   return <>
-    {
-      orderGeometries &&
+    { orderGeometries && orderGeometries.length > 0 &&
       <LayerGroup key={'orders'}>
         { orderGeometries }
-      </LayerGroup>
-    }
+      </LayerGroup> }
   </>
 }
 
