@@ -29,3 +29,9 @@ export default interface PropTypes {
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   phase: Phase
 }
+
+export type PlanningActitivityMenuType = {
+  label: string
+  value: string
+  items?: PlanningActitivityMenuType[]
+}
