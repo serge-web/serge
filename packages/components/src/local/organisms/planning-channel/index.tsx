@@ -17,9 +17,8 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
-import NewOrderActions from './helpers/NewOrdersActions'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
@@ -75,7 +74,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
 
   // the planning activiites for the selected force
-  const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
+  const [flattenedPlanningActivities, setFlattenedPlanningActivities] = useState<PlanningActivity[]>([])
+  const [thisForcePlanningActivities, setThisForcePlanningActivities] = useState<PerForcePlanningActivitySet | undefined>(undefined)
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
@@ -89,13 +89,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (forcePlanningActivities) {
-      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
+      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === selectedForce.uniqid)
+      setThisForcePlanningActivities(force)
+
+      // produce flattened set of activities, for convenience
       if (force) {
         const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
-        setPlanningActivities(_.flatten(activities))
+        setFlattenedPlanningActivities(_.flatten(activities))
       }
     }
-  }, [viewAsForce, forcePlanningActivities])
+  }, [selectedForce, forcePlanningActivities])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -212,17 +215,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
     setActivityBeingPlanned(newPlan)
 
-    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], planningActivities)
+    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
     !7 && console.log(newOrders)
   }
 
   const incrementDebugStep = (): void => {
     console.log('debug step', debugStep)
     setDebugStep(1 + debugStep)
-  }
-
-  const newActionRequest = (group: string, planId: string): void => {
-    console.log('new orders for', group, planId)
   }
 
   const handleAdjudication = (contact: PlanningContact): void => {
@@ -234,22 +233,35 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setActivityBeingPlanned(undefined)
   }
 
+  /** player has used menu to trigger the creation of a new set of orders (activity) */
+  const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
+    console.log('plan new activity', group, activity)
+    if (forcePlanningActivities) {
+      const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
+      if (newActivity.geometries) {
+        setActivityBeingPlanned(newActivity)
+      } else {
+        // no geometry required, just open new orders
+        console.log('Show new orders')
+      }
+    }
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
-        {showInteractionGenerator ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
+        <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+        {showInteractionGenerator
+          ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
-            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
               <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             <LayerGroup key={'opp-forces'}>
               <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
-            <OrderPlotter forceCols={forceColors} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
-              step={debugStep} />
             {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
-            <PlanningActitivityMenu planningActivities={planningActivities} />
           </>
         }
       </>
@@ -308,21 +320,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <>
                   {!activityBeingPlanned &&
                     <>
-                      { showInteractionGenerator ? <div className={cx('leaflet-control')}>
+                      <div className={cx('leaflet-control')}>
+                        <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                          onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                      </div>
+                      {showInteractionGenerator ? <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
                       </div>
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                          <div className={cx('leaflet-control')}>
-                            <Item title='Toggle interaction generator' onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
-                          </div>
-                          <NewOrderActions playerForce={selectedForce.uniqid} actions={forcePlanningActivities || []}
-                            newActionHandler={newActionRequest} phase={phase} isUmpire={selectedForce.umpire || false} />
                           <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {phase === Phase.Planning && !selectedForce.umpire &&
-                        <div className={cx('leaflet-control')}>
-                          <Item onClick={genData}>Plan</Item>
-                        </div>
+                          {phase === Phase.Planning && !selectedForce.umpire && !7 && // don't bother with this, but keep it in case we want to gen more data
+                            <div className={cx('leaflet-control')}>
+                              <Item onClick={genData}>Plan</Item>
+                            </div>
                           }
                         </>
                       }
