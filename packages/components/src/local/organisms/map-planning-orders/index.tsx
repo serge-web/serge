@@ -65,7 +65,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
           if (activity && activity.color) {
             color = activity.color
           }
-          return shapeFor(feature, color, feature.properties ? feature.properties.name : 'unknown', storeRef)
+          return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef)
         } else {
           return <></>
         }
