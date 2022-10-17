@@ -70,8 +70,10 @@ const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ plannin
               handleClick(item)
             }
           })
-          selectControl.addTo(map)
           setControlButton(selectControl)
+        }
+        if (controlButton) {
+          controlButton.addTo(map)
         }
       } else {
         // control not visible. Remove it, if we have to
@@ -80,7 +82,7 @@ const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ plannin
         }
       }
     }
-  }, [planningActivities, showControl])
+  }, [planningActivities, showControl, controlButton])
 
   return <></>
 }
