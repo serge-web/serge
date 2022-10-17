@@ -13,6 +13,9 @@ type SelectOption = {
   position: 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
   items: SelectItem[]
   multi?: boolean
+  iconMain?: string
+  iconGroupChecked?: string
+  iconGroupUnchecked?: string
   selectedDefault?: boolean
   onOpen?: () => void
   onClose?: () => void

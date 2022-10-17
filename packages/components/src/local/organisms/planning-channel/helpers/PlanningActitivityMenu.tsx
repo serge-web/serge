@@ -62,6 +62,9 @@ const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ plannin
           const items = getItems(planningActivities)
           const selectControl = L.control.select({
             position: 'topleft',
+            iconMain: '📝',
+            iconGroupChecked: '⊳',
+            iconGroupUnchecked: '⊳',
             items: items,
             onSelect: (item: any) => {
               handleClick(item)
