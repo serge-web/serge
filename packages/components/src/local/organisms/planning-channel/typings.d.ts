@@ -1,11 +1,17 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import * as Leaflet from 'leaflet'
+import 'leaflet'
+
+type SelectItem = {
+  value: string
+  label: string
+  items?: SelectItem[]
+}
 
 type SelectOption = {
   position: 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
-  items: any[]
+  items: SelectItem[]
   multi?: boolean
   selectedDefault?: boolean
   onOpen?: () => void
@@ -17,6 +23,8 @@ type SelectOption = {
 class Select extends Control {
   constructor(options?: SelectOption);
   addTo(map: Map): this;
+  // remove comes from the parent contrlol
+  remove(): void
 }
 
 declare module 'leaflet' {

@@ -250,6 +250,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
+        <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
@@ -261,7 +262,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
-            <PlanningActitivityMenu handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
           </>
         }
       </>
@@ -320,18 +320,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <>
                   {!activityBeingPlanned &&
                     <>
-                      { showInteractionGenerator ? <div className={cx('leaflet-control')}>
+                      <div className={cx('leaflet-control')}>
+                        <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                          onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                      </div>
+                      {showInteractionGenerator ? <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
                       </div>
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                          <div className={cx('leaflet-control')}>
-                            <Item title='Toggle interaction generator' onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
-                          </div>                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {phase === Phase.Planning && !selectedForce.umpire &&
-                        <div className={cx('leaflet-control')}>
-                          <Item onClick={genData}>Plan</Item>
-                        </div>
+                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                          {phase === Phase.Planning && !selectedForce.umpire && !7 && // don't bother with this, but keep it in case we want to gen more data
+                            <div className={cx('leaflet-control')}>
+                              <Item onClick={genData}>Plan</Item>
+                            </div>
                           }
                         </>
                       }

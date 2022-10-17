@@ -1,7 +1,8 @@
 import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
 import L from 'leaflet'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
+import { Select, SelectItem } from '../typings'
 
 type PlanningActitivityMenuProps = {
   /**
@@ -11,11 +12,21 @@ type PlanningActitivityMenuProps = {
   /**
    * handler for new orders being selected
    */
-  handler: {(groupName: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']): void}
+  handler: { (groupName: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']): void }
+  /**
+   * flag for whether to show select menu.
+   * Note: because we add the control to the map ourself, we we're adding ourselves each time this control
+   * Note: was included/remove from the map. To prevent repeatedly being added, we have `showControl` prop.
+   * Note: which means the component only gets generated once, and we add/remove a single instance of the
+   * Note: control from the map
+   * */
+  showControl: boolean
 }
 
-const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ planningActivities, handler }) => {
+const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ planningActivities, handler, showControl }) => {
   const map = useMap()
+
+  const [controlButton, setControlButton] = useState<Select | undefined>(undefined)
 
   const separator = '////'
 
@@ -26,32 +37,47 @@ const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ plannin
     handler && handler(group, activity)
   }
 
-  useEffect(() => {
-    if (planningActivities) {
-      const items = planningActivities.groupedActivities.map((group: GroupedActivitySet) => {
-        const realItems = group.activities.filter((act: string | PlanningActivity) => typeof act !== 'string')
-        const children = realItems.map((item: string | PlanningActivity) => {
+  /** generate the tree of activities */
+  const getItems = (activities: PerForcePlanningActivitySet): SelectItem[] => {
+    return activities.groupedActivities.map((group: GroupedActivitySet) => {
+      const realItems = group.activities.filter((act: string | PlanningActivity) => typeof act !== 'string')
+      return {
+        label: group.category,
+        value: group.category,
+        items: realItems.map((item: string | PlanningActivity) => {
           const theAct = item as PlanningActivity
           return {
             label: theAct.name,
             value: group.category + separator + theAct.uniqid
           }
         })
-        return {
-          label: group.category,
-          value: group.category,
-          items: children
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (planningActivities) {
+      if (showControl) {
+        if (!controlButton) {
+          const items = getItems(planningActivities)
+          const selectControl = L.control.select({
+            position: 'topleft',
+            items: items,
+            onSelect: (item: any) => {
+              handleClick(item)
+            }
+          })
+          selectControl.addTo(map)
+          setControlButton(selectControl)
         }
-      })
-      L.control.select({
-        position: 'topleft',
-        items: items,
-        onSelect: (item: any) => {
-          handleClick(item)
+      } else {
+        // control not visible. Remove it, if we have to
+        if (controlButton) {
+          controlButton.remove()
         }
-      }).addTo(map)
+      }
     }
-  }, [planningActivities])
+  }, [planningActivities, showControl])
 
   return <></>
 }
