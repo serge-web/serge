@@ -1,5 +1,6 @@
 
 import { MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
@@ -18,7 +19,9 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
 }
 
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
-  const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>()
+  const [orderGeometries, setOrderGeometries] = useState<GeoJsonObject | undefined>()
+
+  console.log('orders', orders)
 
   const geojsonMarkerOptions = {
     radius: 20,
@@ -88,7 +91,11 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
         }
       })
       const flatGeom = _.flatten(geometries)
-      setOrderGeometries(flatGeom)
+      const geojson = {
+        type: 'FeatureCollection',
+        features: flatGeom
+      }
+      setOrderGeometries(geojson as GeoJsonObject)
     }
   }, [orders])
 
@@ -102,11 +109,13 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
     }
   }, [orders])
 
+  console.log('order geometries', orderGeometries)
+
   return <>
     {
       orderGeometries &&
       <LayerGroup key={'orders'}>
-        <GeoJSON style={styleFor} pointToLayer={pointToLayer} onEachFeature={onEachFeature} data={{ ...orderGeometries, type: 'Feature' }} />
+        <GeoJSON style={styleFor} pointToLayer={pointToLayer} onEachFeature={onEachFeature} data={{ ...orderGeometries, type: 'FeatureCollection' }} />
       </LayerGroup>
     }
   </>
