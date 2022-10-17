@@ -21,8 +21,6 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
   const [orderGeometries, setOrderGeometries] = useState<GeoJsonObject | undefined>()
 
-  console.log('orders', orders)
-
   const geojsonMarkerOptions = {
     radius: 20,
     fillColor: '#ff7800',
@@ -108,8 +106,6 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
       console.log(timings)
     }
   }, [orders])
-
-  console.log('order geometries', orderGeometries)
 
   return <>
     {
