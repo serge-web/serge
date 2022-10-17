@@ -73,7 +73,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
 
   // the planning activiites for the selected force
-  const [planningActivities, setPlanningActivities] = useState<PlanningActivity[]>([])
+  const [flattenedPlanningActivities, setFlattenedPlanningActivities] = useState<PlanningActivity[]>([])
+  const [thisForcePlanningActivities, setThisForcePlanningActivities] = useState<PerForcePlanningActivitySet | undefined>(undefined)
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
 
@@ -83,13 +84,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (forcePlanningActivities) {
-      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === viewAsForce)
+      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === selectedForce.uniqid)
+      setThisForcePlanningActivities(force)
+
+      // produce flattened set of activities, for convenience
       if (force) {
         const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
-        setPlanningActivities(_.flatten(activities))
+        setFlattenedPlanningActivities(_.flatten(activities))
       }
     }
-  }, [viewAsForce, forcePlanningActivities])
+  }, [selectedForce, forcePlanningActivities])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -205,7 +209,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
     setActivityBeingPlanned(newPlan)
 
-    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], planningActivities)
+    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
     !7 && console.log(newOrders)
   }
 
@@ -226,10 +230,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setActivityBeingPlanned(undefined)
   }
 
+  const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
+    console.log('plan new activity', group, activity)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
-        <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={planningActivities} setSelectedOrders={noop} />
+        <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
         <LayerGroup key={'own-forces'}>
           <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
         </LayerGroup>
@@ -239,7 +247,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
         <OrderPlotter activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} orders={planningMessages}
           step={debugStep} />
-        <PlanningActitivityMenu planningActivities={planningActivities} />
+        <PlanningActitivityMenu handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets])
