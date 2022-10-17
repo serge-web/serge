@@ -427,15 +427,13 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
   return activity.name
 }
 
-export const findActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
+export const findActivity = (id: string, category: GroupedActivitySet['category'], forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
     console.log('activities', activities)
     throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
   }
-  const group = force.groupedActivities.find((val: GroupedActivitySet) => {
-    return !!findActivityInGroup(id, val)
-  })
+  const group = force.groupedActivities.find((val: GroupedActivitySet) => val.category === category)
   if (!group) {
     throw Error('Failed to find group activities for this activity:' + id)
   }

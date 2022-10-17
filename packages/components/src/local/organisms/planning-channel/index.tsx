@@ -233,17 +233,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setActivityBeingPlanned(undefined)
   }
 
+  /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     console.log('plan new activity', group, activity)
     if (forcePlanningActivities) {
-      const newActivity = findActivity(activity, selectedForce.uniqid, forcePlanningActivities)
-      if (newActivity) {
-        if (newActivity.geometries) {
-          setActivityBeingPlanned(newActivity)
-        } else {
-          // no geometry required, just open new orders
-          console.log('Show new orders')
-        }
+      const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
+      if (newActivity.geometries) {
+        setActivityBeingPlanned(newActivity)
+      } else {
+        // no geometry required, just open new orders
+        console.log('Show new orders')
       }
     }
   }
