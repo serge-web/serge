@@ -123,7 +123,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           break
         }
         case GeometryType.polyline: {
-          instruction = 'Click map to specify line for of ' + current.name
+          instruction = 'Click map to specify line for ' + current.name
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Line')
