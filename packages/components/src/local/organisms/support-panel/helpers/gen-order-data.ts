@@ -378,13 +378,13 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
-const localFindActivity = (id: string, group: GroupedActivitySet): PlanningActivityGeometry | undefined => {
+const findGeometryInGroup = (geomId: string, group: GroupedActivitySet): PlanningActivityGeometry | undefined => {
   let activity: PlanningActivityGeometry | undefined
   group.activities.forEach((act: string | PlanningActivity) => {
     if (typeof act === 'string') {
       throw new Error('Found string definition for activity. Should be real activity')
     } else {
-      const match = act.geometries && act.geometries.find((val: PlanningActivityGeometry) => val.uniqid === id)
+      const match = act.geometries && act.geometries.find((val: PlanningActivityGeometry) => val.uniqid === geomId)
       if (match) {
         activity = match
       }
@@ -393,23 +393,56 @@ const localFindActivity = (id: string, group: GroupedActivitySet): PlanningActiv
   return activity
 }
 
-export const findActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
+const findActivityInGroup = (activityId: string, group: GroupedActivitySet): PlanningActivity => {
+  const activity = group.activities.find((act: string | PlanningActivity) => {
+    if (typeof act === 'string') {
+      throw new Error('Found string definition for activity. Should be real activity')
+    } else {
+      return act.uniqid === activityId
+    }
+  })
+  if (activity === undefined) {
+    throw new Error('Found string definition for activity. Should be real activity')
+  } else {
+    return activity as PlanningActivity
+  }
+}
+
+export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
     console.log('activities', activities)
     throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
   }
   const group = force.groupedActivities.find((val: GroupedActivitySet) => {
-    return !!localFindActivity(id, val)
+    return !!findGeometryInGroup(id, val)
   })
   if (!group) {
     throw Error('Failed to find group activities for this activity:' + id)
   }
-  const activity = localFindActivity(id, group)
+  const activity = findGeometryInGroup(id, group)
   if (!activity) {
     throw Error('Failed to find group activities for this activity:' + id)
   }
   return activity.name
+}
+
+export const findActivity = (id: string, category: GroupedActivitySet['category'], forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
+  const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+  if (!force) {
+    console.log('activities', activities)
+    throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
+  }
+  const group = force.groupedActivities.find((val: GroupedActivitySet) => val.category === category)
+  if (!group) {
+    throw Error('Failed to find group activities for this activity:' + id)
+  }
+  const activity = findActivityInGroup(id, group)
+  if (!activity) {
+    throw Error('Failed to find group activities for this activity:' + id)
+  } else {
+    return activity
+  }
 }
 
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
@@ -419,7 +452,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
       const forceId = message.details.from.forceId || 'unknown'
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
         const fromBit = message.details.from
-        const activity = findActivity(plan.uniqid, forceId, activities)
+        const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.title + '//' + activity + '//' + message._id
         const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
         if (!newItem.geometry.properties) {
@@ -704,7 +737,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
     }
   }
   if (res === undefined) {
-    console.warn('Didn\'t handle this case', me, other)
+    // console.warn('Didn\'t handle this case', me, other)
     return null
   } else {
     if (res) {

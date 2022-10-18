@@ -3,7 +3,7 @@ import { deepCopy } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
 import * as turf from '@turf/turf'
 import moment from 'moment'
-import { findActivity, findPlannedGeometries, geometriesFor, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
+import { findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -202,7 +202,7 @@ it('overlaps works as expected', () => {
 
 it('finds activities', () => {
   const activity = activities[0].groupedActivities[1].activities[1] as PlanningActivity
-  const found = findActivity((activity.geometries && activity.geometries[1].uniqid) || '', activities[0].force, activities)
+  const found = findPlanningGeometry((activity.geometries && activity.geometries[1].uniqid) || '', activities[0].force, activities)
   expect(found).toBeTruthy()
   expect(found).toEqual(activity.geometries && activity.geometries[1].name)
 })
