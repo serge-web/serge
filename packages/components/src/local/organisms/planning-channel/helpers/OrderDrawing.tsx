@@ -5,6 +5,7 @@ import { Geometry } from 'geojson'
 import { LatLng, Layer, PM } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
+import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
 
 interface OrderDrawingProps {
@@ -27,6 +28,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+
+  const map = useMap()
 
   useEffect(() => {
     setPlannedGeometries([])
@@ -101,27 +104,30 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // switch off all controls
       const toolbarOpts: PM.ToolbarOptions = {
         position: 'bottomright',
-        drawCircle: false,
-        drawMarker: false,
-        drawPolygon: false,
-        drawPolyline: false,
-        drawCircleMarker: false,
-        drawRectangle: false,
-        drawText: false,
-        removalMode: false
+        drawControls: false,
+        editControls: false
       }
       // now just switch on the control we want
       switch (current.aType) {
         case GeometryType.point: {
-          toolbarOpts.drawMarker = true
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Marker')
+          }
           break
         }
         case GeometryType.polyline: {
-          toolbarOpts.drawPolyline = true
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Line')
+          }
           break
         }
         case GeometryType.polygon: {
-          toolbarOpts.drawPolygon = true
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Polygon')
+          }
           break
         }
       }
@@ -155,6 +161,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }, [plannedGeometries])
 
   const cancelDrawing = (): void => {
+    if (map) {
+      map.pm.disableDraw()
+    }
     cancelled()
   }
 
