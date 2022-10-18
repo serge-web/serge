@@ -79,6 +79,7 @@
     "h3-js": "^3.7.2",
     "jest": "^26.4.2",
     "leaflet": "^1.8.0",
+    "leaflet-notifications": "^1.0.7",
     "leaflet-polylinedecorator": "^1.6.0",
     "leaflet-textpath": "^1.2.3",
     "markdown-loader": "^5.1.0",

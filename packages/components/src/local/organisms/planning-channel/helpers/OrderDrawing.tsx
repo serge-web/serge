@@ -28,6 +28,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+  const [notification, setNotification] = useState<any | undefined>(undefined)
 
   const map = useMap()
 
@@ -108,8 +109,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         editControls: false
       }
       // now just switch on the control we want
+      let instruction: string | undefined
       switch (current.aType) {
         case GeometryType.point: {
+          instruction = 'Click map to specify point location'
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Marker')
@@ -117,6 +120,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           break
         }
         case GeometryType.polyline: {
+          instruction = 'Click map to specify first point of route'
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Line')
@@ -124,6 +128,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           break
         }
         case GeometryType.polygon: {
+          instruction = 'Click map to specify first point on area'
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Polygon')
@@ -133,6 +138,20 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       }
       setDrawOptions(toolbarOpts)
       setGlobalOptions(globalOpts)
+
+      if (!notification) {
+        // const notif = L.control
+        //   .notifications({
+        //     timeout: 3000,
+        //     position: 'topright',
+        //     closable: true,
+        //     dismissable: true
+        //   })
+        // notif.addTo(map)
+        // setNotification(notif)
+        setNotification(undefined)
+      }
+      console.log('msg', activity && activity.name, instruction)
     }
   }, [currentGeometry])
 
