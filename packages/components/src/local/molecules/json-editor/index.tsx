@@ -22,13 +22,7 @@ export const JsonEditor: React.FC<Props> = ({
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
 
-  const memoryName = messageId + template._id
-
-  const destroyEditor = (editorObject: Editor | null): void => {
-    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
-  }
-
-  if (template == null) {
+  if (!template) {
     const styles = {
       color: '#f00',
       background: '#ff0',
@@ -36,6 +30,12 @@ export const JsonEditor: React.FC<Props> = ({
       fontSize: '16px'
     }
     return <span style={styles} >Schema not found for {template}</span>
+  }
+
+  const memoryName = messageId + template._id
+
+  const destroyEditor = (editorObject: Editor | null): void => {
+    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
