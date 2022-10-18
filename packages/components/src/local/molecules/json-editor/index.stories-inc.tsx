@@ -1,12 +1,12 @@
 import React from 'react'
 
 // Import component files
+import { withKnobs } from '@storybook/addon-knobs'
 import JsonEditor from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import { MessageTemplatesMockByKey, WargameMock, messageDataCollaborativeResponding, messageDataCollaborativeEditing, P9Mock } from '@serge/mocks'
+import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMockByKey, P9Mock, WargameMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import Props from './types/props'
