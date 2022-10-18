@@ -5,6 +5,7 @@ import { Geometry } from 'geojson'
 import { LatLng, Layer, PM } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
+import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
 
 interface OrderDrawingProps {
@@ -27,6 +28,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+  const [notification, setNotification] = useState<any | undefined>(undefined)
+
+  const map = useMap()
 
   useEffect(() => {
     setPlannedGeometries([])
@@ -101,32 +105,53 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // switch off all controls
       const toolbarOpts: PM.ToolbarOptions = {
         position: 'bottomright',
-        drawCircle: false,
-        drawMarker: false,
-        drawPolygon: false,
-        drawPolyline: false,
-        drawCircleMarker: false,
-        drawRectangle: false,
-        drawText: false,
-        removalMode: false
+        drawControls: false,
+        editControls: false
       }
       // now just switch on the control we want
+      let instruction: string | undefined
       switch (current.aType) {
         case GeometryType.point: {
-          toolbarOpts.drawMarker = true
+          instruction = 'Click map to specify point location'
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Marker')
+          }
           break
         }
         case GeometryType.polyline: {
-          toolbarOpts.drawPolyline = true
+          instruction = 'Click map to specify first point of route'
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Line')
+          }
           break
         }
         case GeometryType.polygon: {
-          toolbarOpts.drawPolygon = true
+          instruction = 'Click map to specify first point on area'
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Polygon')
+          }
           break
         }
       }
       setDrawOptions(toolbarOpts)
       setGlobalOptions(globalOpts)
+
+      if (!notification) {
+        // const notif = L.control
+        //   .notifications({
+        //     timeout: 3000,
+        //     position: 'topright',
+        //     closable: true,
+        //     dismissable: true
+        //   })
+        // notif.addTo(map)
+        // setNotification(notif)
+        setNotification(undefined)
+      }
+      console.log('msg', activity && activity.name, instruction)
     }
   }, [currentGeometry])
 
@@ -155,6 +180,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }, [plannedGeometries])
 
   const cancelDrawing = (): void => {
+    if (map) {
+      map.pm.disableDraw()
+    }
     cancelled()
   }
 
