@@ -38,7 +38,7 @@ const storeNewValue = (value: { [property: string]: any }): void => {
 const template = MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType]
 const channel = P9Mock.data.channels.channels[0]
 const templateMessageCreator = {
-  template: MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType] && MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType].details,
+  details: MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType] && MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType].details,
   _id: channel.uniqid
 }
 
@@ -46,7 +46,7 @@ const Template: Story<Props> = ({ messageId, disabled, template }) => {
   return (
     <JsonEditor
       storeNewValue={storeNewValue}
-      template={template || templateMessageCreator}
+      template={template}
       messageId={messageId}
       disabled={disabled}
       gameDate={WargameMock.data.overview.gameDate}
@@ -58,15 +58,24 @@ export const Standard = Template.bind({})
 Standard.args = {
   messageContent: messageDataCollaborativeEditing[0].message,
   messageId: 'id_1',
-  template: template || templateMessageCreator,
+  template: template,
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
 export const Response = Template.bind({})
 Response.args = {
-  template: template || templateMessageCreator,
+  template: templateMessageCreator,
   messageContent: messageDataCollaborativeResponding[0].message,
+  messageId: 'id_2ß',
+  disabled: false,
+  gameDate: WargameMock.data.overview.gameDate
+}
+
+export const MessageCreator = Template.bind({})
+MessageCreator.args = {
+  template: templateMessageCreator,
+  // messageContent: messageDataCollaborativeResponding[0].message,
   messageId: 'id_2ß',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
