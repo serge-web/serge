@@ -1,4 +1,5 @@
-import { MessageCustom, MessageStructure } from '@serge/custom-types'
+import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from '@serge/custom-types'
+import { React } from 'react'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -17,13 +18,13 @@ export default interface Props {
   /**
    * template ID
    */
-  template: TemplateBody
+  template: TemplateBody | TempletCreatorBody
   /**
    * title to display above the form
    */
   title?: string
   cachedName?: string | boolean
-  clearCachedName?: Dispatch<SetStateAction<string>>
+  clearCachedName?: React.Dispatch<string>
   /**
    * whether the form is editable (disable for read-only view)
    */

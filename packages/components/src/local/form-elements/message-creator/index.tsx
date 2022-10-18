@@ -16,7 +16,6 @@ import {
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 
 import flatpickr from 'flatpickr'
-import _ from 'lodash'
 import PropTypes from './types/props'
 flatpickr('.calendar')
 
@@ -41,7 +40,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
-  const [clearName, setClearName] = useState('')
+  const [clearName, setClearName] = useState<string>('')
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -82,9 +81,9 @@ const MessageCreator: React.FC<PropTypes> = ({
       details.privateMessage = privateMessageRef.current.value
       privateMessageRef.current.value = ''
     }
-    
-    if (formMessage.content === '') return
 
+    if (formMessage.content === '') return
+    
 
     // send the data
     setPrivateValue('')
@@ -93,6 +92,15 @@ const MessageCreator: React.FC<PropTypes> = ({
     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
     onMessageSend && onMessageSend(e)
   }
+
+  useEffect(() => {
+    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
+    setPrivateValue(privateValues)
+
+    if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
+      setSelectedSchema(schema)
+    }
+  }, [messageOption])
 
   const openConfirmPopup = (event: MouseEvent<HTMLButtonElement>): void => {
     if (confirmCancel) {
@@ -108,20 +116,11 @@ const MessageCreator: React.FC<PropTypes> = ({
 
   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
+    setPrivateValue('')
     setClearName(messageOption)
     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
     onCancel && onCancel(event)
   }
-
-  useEffect(() => {
-    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
-    setPrivateValue(privateValues)
-    
-    if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
-      setSelectedSchema(schema)
-    }
-
-  }, [schema, messageOption, confirmIsOpen])
 
   const onChangePrivate = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setPrivateValue(e.target.value)
