@@ -6,7 +6,7 @@ import JsonEditor from './index'
 import docs from './README.md'
 
 // Import mock
-import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMockByKey, P9Mock, WargameMock } from '@serge/mocks'
+import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, P9Mock, WargameMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import Props from './types/props'
@@ -35,10 +35,10 @@ const storeNewValue = (value: { [property: string]: any }): void => {
   console.log('store data', value)
 }
 
-const template = MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType]
+const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
 const channel = P9Mock.data.channels.channels[0]
 const templateMessageCreator = {
-  details: MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType] && MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType].details,
+  details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType].details,
   _id: channel.uniqid
 }
 
@@ -75,7 +75,6 @@ Response.args = {
 export const MessageCreator = Template.bind({})
 MessageCreator.args = {
   template: templateMessageCreator,
-  // messageContent: messageDataCollaborativeResponding[0].message,
   messageId: 'id_2ß',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate
