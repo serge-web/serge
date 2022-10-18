@@ -12,7 +12,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
-  console.log('selectedOrders: ', selectedOrders, setSelectedOrders)
+  console.log('selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
