@@ -1,9 +1,11 @@
 
 import { MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
-import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
+import { Feature } from 'geojson'
+import { Layer } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { GeoJSON, LayerGroup } from 'react-leaflet-v4'
+import { LayerGroup } from 'react-leaflet-v4'
+import { shapeFor } from '../planning-channel/helpers/SharedOrderRenderer'
 import PropTypes from './types/props'
 
 const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGeometry['uniqid']): PlanningActivity | undefined => {
@@ -18,53 +20,13 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
 }
 
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
-  const [orderGeometries, setOrderGeometries] = useState<GeoJSON.Feature[] | undefined>()
-
-  const geojsonMarkerOptions = {
-    radius: 20,
-    fillColor: '#ff7800',
-    color: '#0f0',
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-  }
-
-  const pointToLayer = (_feature: GeoJSON.Feature<any>, latlng: LatLng): Layer => {
-    return circleMarker(latlng, geojsonMarkerOptions)
-  }
-
-  /** orders definitions can specify the color to use.  If there is one, use it.
-   * else use the force color
-   */
-  const styleFor: StyleFunction<any> = (feature?: GeoJSON.Feature<any>): PathOptions => {
-    const featureId = feature && feature.properties && feature.properties.uniqid
-    if (featureId && activities && activities.length) {
-      const activity = localFindActivity(activities, featureId)
-      if (activity) {
-        const color = activity.color
-        return {
-          color: color,
-          fillColor: color,
-          className: 'leaflet-default-icon-path'
-        }
-      }
-    }
-    return {
-      color: forceColor || '#f00'
-    }
-  }
-
-  const onEachFeature = (feature: GeoJSON.Feature, layer: Layer): any => {
-    // put the activity name into the popup for the feature
-    if (feature && feature.properties && feature.properties.name) {
-      layer.bindPopup(feature.properties.name)
-    }
-  }
+  const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
+  const [layersToDelete] = useState<Layer[]>([])
 
   useEffect(() => {
     if (orders) {
       const withLocation = orders.filter((msg: MessagePlanning) => msg.message && (msg.message.location !== undefined))
-      const geometries = withLocation.map((msg: MessagePlanning): GeoJSON.Feature[] => {
+      const geometries = withLocation.map((msg: MessagePlanning): Feature[] => {
         if (msg.message.location) {
           const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
             const res = { ...act.geometry }
@@ -79,6 +41,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
               if (geometry) {
                 res.properties.name = geometry.name
               }
+            } else {
+              console.warn('failed to find activity for', act.uniqid)
             }
             return res
           })
@@ -88,7 +52,26 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
         }
       })
       const flatGeom = _.flatten(geometries)
-      setOrderGeometries(flatGeom)
+
+      // handler to store layer references
+      const storeRef = (polyline: Layer): void => {
+        layersToDelete.push(polyline)
+      }
+
+      const elements = flatGeom.map((feature: Feature) => {
+        if (feature.properties) {
+          const activity = localFindActivity(activities, feature.properties.uniqid)
+          let color = forceColor || '#0f0'
+          if (activity && activity.color) {
+            color = activity.color
+          }
+          return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef)
+        } else {
+          return <></>
+        }
+      })
+
+      setOrderGeometries(elements)
     }
   }, [orders])
 
@@ -98,17 +81,15 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
       const timings = orders.map((msg: MessagePlanning) => {
         return '' + msg.message.title + ',' + msg.message.startDate + ', ' + msg.message.endDate
       })
-      console.log(timings)
+      console.log('timings', timings)
     }
   }, [orders])
 
   return <>
-    {
-      orderGeometries &&
+    { orderGeometries && orderGeometries.length > 0 &&
       <LayerGroup key={'orders'}>
-        <GeoJSON style={styleFor} pointToLayer={pointToLayer} onEachFeature={onEachFeature} data={{ ...orderGeometries, type: 'Feature' }} />
-      </LayerGroup>
-    }
+        { orderGeometries }
+      </LayerGroup> }
   </>
 }
 
