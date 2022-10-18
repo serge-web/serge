@@ -1,14 +1,13 @@
 import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy, ForceStyle } from '@serge/helpers'
-import { Position } from '@turf/turf'
-import { Feature, GeoJsonObject, LineString, Point, Polygon } from 'geojson'
-import { circleMarker, latLng, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
+import { Feature, GeoJsonObject } from 'geojson'
+import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { CircleMarker, GeoJSON, LayerGroup, Marker, Polygon as RPolygon, Tooltip } from 'react-leaflet-v4'
-import PolylineDecorator from '../../support-mapping/helper/PolylineDecorator'
-import { findPlannedGeometries, findPlanningGeometry, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
+import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
+import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
+import { shapeFor, shapeForGeomWithOrders } from './SharedOrderRenderer'
 
 export interface OrderPlotterProps {
   orders: MessagePlanning[]
@@ -305,44 +304,10 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       properties: {}
     }
     return <>
-      {shapeForGeomWithOrders(contact.first, storeRef)}
-      {shapeForGeomWithOrders(contact.second, storeRef)}
+      {shapeForGeomWithOrders(contact.first, forceCols, activities, storeRef)}
+      {shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef)}
       {interFeature && shapeFor(interFeature as Feature, hightlightColor, '', storeRef)}
     </>
-  }
-
-  const shapeForGeomWithOrders = (geom: GeomWithOrders, storeRef: { (polyline: Layer): void }): React.ReactElement => {
-    const geometry = geom.geometry
-    const force = geom.activity.details.from.forceId
-    const activity = findPlanningGeometry(geom.uniqid, force || '', activities)
-    const color = forceCols.find((value: ForceStyle) => value.forceId === force)
-    return shapeFor(geometry, (color && color.color) || '', activity, storeRef)
-  }
-
-  /** produce a shape for this feature */
-  const shapeFor = (feature: Feature, color: string, label: string, storeRef: { (polyline: Layer): void }): React.ReactElement => {
-    let res: React.ReactElement | undefined
-    switch (feature.geometry.type) {
-      case 'LineString': {
-        const ls = feature.geometry as LineString
-        const coords: LatLng[] = ls.coordinates.map((pos: Position) => latLng(pos[1], pos[0]))
-        res = <PolylineDecorator storeRef={storeRef} message={label} latlngs={coords} color={(color) || ''} />
-        break
-      }
-      case 'Polygon': {
-        const poly = feature.geometry as Polygon
-        const coords: LatLng[] = poly.coordinates[0].map((pos: Position) => latLng(pos[1], pos[0]))
-        res = <RPolygon color={(color) || ''} positions={coords} />
-        break
-      }
-      case 'Point': {
-        const poly = feature.geometry as Point
-        const centre: LatLng = latLng(poly.coordinates[1], poly.coordinates[0])
-        res = <CircleMarker color={(color) || ''} center={centre} />
-        break
-      }
-    }
-    return res || <></>
   }
 
   return <>
