@@ -42,13 +42,12 @@ const templateMessageCreator = {
   _id: channel.uniqid
 }
 
-const Template: Story<Props> = ({ messageId, disabled, template, messageContent }) => {
+const Template: Story<Props> = ({ messageId, disabled, template }) => {
   return (
     <JsonEditor
       storeNewValue={storeNewValue}
       template={template || templateMessageCreator}
       messageId={messageId}
-      messageContent={messageContent || null}
       disabled={disabled}
       gameDate={WargameMock.data.overview.gameDate}
     />

@@ -83,7 +83,6 @@ const MessageCreator: React.FC<PropTypes> = ({
     }
 
     if (formMessage.content === '') return
-    
 
     // send the data
     setPrivateValue('')
@@ -140,7 +139,6 @@ const MessageCreator: React.FC<PropTypes> = ({
         onConfirm={onPopupConfirm}
       />
       <JsonEditor
-        messageContent={null}
         template={{
           details: selectedSchema,
           _id: channel.uniqid

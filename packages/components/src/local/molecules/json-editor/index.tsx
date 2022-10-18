@@ -28,7 +28,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
 
-  if (!template) {
+  if (template == null) {
     const styles = {
       color: '#f00',
       background: '#ff0',
@@ -154,8 +154,6 @@ export const JsonEditor: React.FC<Props> = ({
         expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
-      } else if (!template.details) {
-        destroyEditor(editor)
       } else {
         initEditor()
       }

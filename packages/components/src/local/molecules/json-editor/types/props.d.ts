@@ -10,7 +10,7 @@ export default interface Props {
   /**
    * content of message
    */
-  messageContent: MessageStructure | null
+  messageContent?: MessageStructure
   /**
    * id for message (used for tracking message read)
    */

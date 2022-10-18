@@ -16,7 +16,6 @@ describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(<JsonEditor
-        messageContent={message.message || null}
         template={template || templateMessageCreator}
         messageId={`${message._id}_${message.message.Reference}`}
         disabled={true}
