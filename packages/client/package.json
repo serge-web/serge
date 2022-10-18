@@ -45,7 +45,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-ace-editor": "0.0.3",
-    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-css-transition-group": "^15.0.7",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-collapsible": "^2.6.0",
     "react-color": "^2.17.3",

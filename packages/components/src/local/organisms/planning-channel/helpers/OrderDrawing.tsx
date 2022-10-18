@@ -3,10 +3,13 @@ import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } f
 import cx from 'classnames'
 import { Geometry } from 'geojson'
 import { LatLng, Layer, PM } from 'leaflet'
+import 'leaflet-notifications'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
+
+declare const L: any // needed because control.notifications is not in TS type defs
 
 interface OrderDrawingProps {
   activity: PlanningActivity | undefined
@@ -112,7 +115,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       let instruction: string | undefined
       switch (current.aType) {
         case GeometryType.point: {
-          instruction = 'Click map to specify point location'
+          instruction = 'Click map to specify point location for ' + current.name
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Marker')
@@ -120,7 +123,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           break
         }
         case GeometryType.polyline: {
-          instruction = 'Click map to specify first point of route'
+          instruction = 'Click map to specify line for of ' + current.name
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Line')
@@ -128,7 +131,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           break
         }
         case GeometryType.polygon: {
-          instruction = 'Click map to specify first point on area'
+          instruction = 'Click map to specify area for ' + current.name
           if (map) {
             map.pm.disableDraw()
             map.pm.enableDraw('Polygon')
@@ -140,20 +143,21 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       setGlobalOptions(globalOpts)
 
       if (!notification) {
-        // const notif = L.control
-        //   .notifications({
-        //     timeout: 3000,
-        //     position: 'topright',
-        //     closable: true,
-        //     dismissable: true
-        //   })
-        // notif.addTo(map)
-        // setNotification(notif)
-        setNotification(undefined)
+        const notif = L.control
+          .notifications({
+            timeout: 5000,
+            position: 'topleft',
+            closable: true,
+            dismissable: true
+          })
+        notif.addTo(map)
+        setNotification(notif)
       }
-      console.log('msg', activity && activity.name, instruction)
+      if (notification) {
+        notification.info(activity && activity.name, instruction)
+      }
     }
-  }, [currentGeometry])
+  }, [currentGeometry, notification])
 
   useEffect(() => {
     if (plannedGeometries.length === planningGeometries.length && plannedGeometries.length > 0) {
@@ -170,6 +174,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return planned
       })
       planned(plannedGeoms)
+      if (notification) {
+        notification.success(activity && activity.name, 'Geometries defined')
+      }
+
       // now delete the GeoMan layer
       geoLayers.forEach((layer: Layer) => layer.remove())
       setGeoLayers([])
