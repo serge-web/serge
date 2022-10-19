@@ -190,6 +190,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const cancelDrawing = (): void => {
     if (map) {
       map.pm.disableDraw()
+      // also ditch the lines
+      const layers = map.pm.getGeomanDrawLayers()
+      if (layers.length) {
+        layers.forEach((layer: Layer) => layer.remove())
+      }
     }
     cancelled()
   }
