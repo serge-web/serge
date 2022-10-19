@@ -179,6 +179,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     currentWargame={P9Mock.wargameTitle}
     selectedForce={force || forces[1]}
     phase={phase}
+    turnNumber={4}
     allForces={forces}
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
