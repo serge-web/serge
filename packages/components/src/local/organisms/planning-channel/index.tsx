@@ -227,21 +227,26 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('Apply some adjudication for', contact.id)
   }
 
-  const activityPlanned = (geoms: PlannedActivityGeometry[]): void => {
-    console.log('geoms planned', geoms)
-    setActivityBeingPlanned(undefined)
+  /** player has finished planning an activity
+   * 
+   */
+  const activityPlanned = (activity: PlanningActivity | undefined, geoms: PlannedActivityGeometry[]): void => {
+    if (activity) {
+      console.log('geoms planned', geoms, selectedAssets, activity, activity.template, activity.uniqid)
+      setActivityBeingPlanned(undefined)  
+    } else {
+      console.error('UI Presumes there is an activity being planned.')
+    }
   }
 
   /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
-    console.log('plan new activity', group, activity)
     if (forcePlanningActivities) {
       const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
       if (newActivity.geometries) {
         setActivityBeingPlanned(newActivity)
       } else {
-        // no geometry required, just open new orders
-        console.log('Show new orders')
+        activityPlanned(newActivity, [])
       }
     }
   }
@@ -338,7 +343,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       }
                     </>
                   }
-                  <OrderDrawing activity={activityBeingPlanned} planned={activityPlanned} cancelled={() => setActivityBeingPlanned(undefined)} />
+                  <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => activityPlanned(activityBeingPlanned, geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 </>
               }>
               <>
