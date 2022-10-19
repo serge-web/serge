@@ -202,7 +202,6 @@ const fixedMessages = planningMessages.map((msg: MessagePlanning) => {
     }
   }
   const randomAssets = (force: ForceData): string[] => {
-    console.log('random', force)
     const res = []
     if (force && force.assets) {
       const numAssets = 1 + Math.floor(Math.random() * 2)
