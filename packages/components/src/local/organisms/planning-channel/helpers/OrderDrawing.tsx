@@ -1,3 +1,5 @@
+import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import cx from 'classnames'
@@ -202,7 +204,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     <> {activity &&
       <>
         <div className={cx('leaflet-control')}>
-          <Item onClick={cancelDrawing}>Cancel</Item>
+          <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
         </div>
         <GeomanControls
           options={drawOptions}
