@@ -188,9 +188,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
 }
 
 const fixedMessages = 7 ? [] : planningMessages.map((msg: MessagePlanning) => {
-  const newMsg = { ... msg }
+  const newMsg = { ...msg }
   // drop the legacy entries
-  delete newMsg.message.Assets 
+  delete newMsg.message.Assets
   delete newMsg.message.Targets
   delete newMsg.message.ActivityType
   // find the force
@@ -209,7 +209,7 @@ const fixedMessages = 7 ? [] : planningMessages.map((msg: MessagePlanning) => {
     const res = []
     if (force && force.assets) {
       const numAssets = 1 + Math.floor(Math.random() * 2)
-      for (let i=0; i< numAssets; i++) {
+      for (let i = 0; i < numAssets; i++) {
         const asset = force.assets[Math.floor(Math.random() * force.assets.length)]
         res.push(asset.uniqid)
       }
