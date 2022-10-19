@@ -228,12 +228,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   /** player has finished planning an activity
-   * 
+   *
    */
   const activityPlanned = (activity: PlanningActivity | undefined, geoms: PlannedActivityGeometry[]): void => {
     if (activity) {
       console.log('geoms planned', geoms, selectedAssets, activity, activity.template, activity.uniqid)
-      setActivityBeingPlanned(undefined)  
+      setActivityBeingPlanned(undefined)
     } else {
       console.error('UI Presumes there is an activity being planned.')
     }
