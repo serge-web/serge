@@ -187,8 +187,12 @@ const Template: Story<PlanningChannelProps> = (args) => {
   />
 }
 
-const fixedMessages = planningMessages.map((msg: MessagePlanning) => {
+const fixedMessages = 7 ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ... msg }
+  // drop the legacy entries
+  delete newMsg.message.Assets 
+  delete newMsg.message.Targets
+  delete newMsg.message.ActivityType
   // find the force
   const thisForce = newMsg.details.from.forceId
   const activities = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === thisForce)
