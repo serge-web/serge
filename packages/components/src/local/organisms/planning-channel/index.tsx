@@ -252,7 +252,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
       const plans: PlanningMessageStructure = {
         reference: 'unset',
-        title: 'Pending'
+        title: 'Pending',
+        activity: activityBeingPlanned.uniqid
       }
       if (activityPlanned && activityPlanned.length) {
         plans.location = activityPlanned

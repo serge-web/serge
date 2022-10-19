@@ -3,7 +3,7 @@ import {
   COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
-import { Asset, ChannelCore, ForceData, ForceRole, PlannedActivityGeometry, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -88,6 +88,8 @@ export interface PlanningMessageStructure {
   ownAssets?: Array<Asset['uniqid']>
   /** other assets involved in plan */
   otherAssets?: Array<Asset['uniqid']>
+  /** id of the activity being conducted */
+  activity?: PlanningActivity['uniqid']
   /** remainder of fields generated from message template */
   [property: string]: any
 }
