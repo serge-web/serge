@@ -15,7 +15,8 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
     case 'LineString': {
       const ls = feature.geometry as LineString
       const coords: LatLng[] = ls.coordinates.map((pos: Position) => latLng(pos[1], pos[0]))
-      res = <PolylineDecorator storeRef={storeRef} message={label} latlngs={coords} color={(color) || ''} />
+      const randomKey = '' + Math.floor(Math.random() * 1000000)
+      res = <PolylineDecorator key={randomKey} storeRef={storeRef} message={label} latlngs={coords} color={(color) || ''} />
       break
     }
     case 'Polygon': {
