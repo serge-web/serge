@@ -1,11 +1,17 @@
+import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import cx from 'classnames'
 import { Geometry } from 'geojson'
 import { LatLng, Layer, PM } from 'leaflet'
+import 'leaflet-notifications'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
+import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
+
+declare const L: any // needed because control.notifications is not in TS type defs
 
 interface OrderDrawingProps {
   activity: PlanningActivity | undefined
@@ -27,6 +33,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+  const [notification, setNotification] = useState<any | undefined>(undefined)
+
+  const map = useMap()
 
   useEffect(() => {
     setPlannedGeometries([])
@@ -101,34 +110,56 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // switch off all controls
       const toolbarOpts: PM.ToolbarOptions = {
         position: 'bottomright',
-        drawCircle: false,
-        drawMarker: false,
-        drawPolygon: false,
-        drawPolyline: false,
-        drawCircleMarker: false,
-        drawRectangle: false,
-        drawText: false,
-        removalMode: false
+        drawControls: false,
+        editControls: false
       }
       // now just switch on the control we want
+      let instruction: string | undefined
       switch (current.aType) {
         case GeometryType.point: {
-          toolbarOpts.drawMarker = true
+          instruction = 'Click map to specify point location for ' + current.name
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Marker')
+          }
           break
         }
         case GeometryType.polyline: {
-          toolbarOpts.drawPolyline = true
+          instruction = 'Click map to specify line for ' + current.name
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Line')
+          }
           break
         }
         case GeometryType.polygon: {
-          toolbarOpts.drawPolygon = true
+          instruction = 'Click map to specify area for ' + current.name
+          if (map) {
+            map.pm.disableDraw()
+            map.pm.enableDraw('Polygon')
+          }
           break
         }
       }
       setDrawOptions(toolbarOpts)
       setGlobalOptions(globalOpts)
+
+      if (!notification) {
+        const notif = L.control
+          .notifications({
+            timeout: 5000,
+            position: 'topleft',
+            closable: true,
+            dismissable: true
+          })
+        notif.addTo(map)
+        setNotification(notif)
+      }
+      if (notification) {
+        notification.info(activity && activity.name, instruction)
+      }
     }
-  }, [currentGeometry])
+  }, [currentGeometry, notification])
 
   useEffect(() => {
     if (plannedGeometries.length === planningGeometries.length && plannedGeometries.length > 0) {
@@ -145,6 +176,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return planned
       })
       planned(plannedGeoms)
+      if (notification) {
+        notification.success(activity && activity.name, 'Geometries defined')
+      }
+
       // now delete the GeoMan layer
       geoLayers.forEach((layer: Layer) => layer.remove())
       setGeoLayers([])
@@ -155,6 +190,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }, [plannedGeometries])
 
   const cancelDrawing = (): void => {
+    if (map) {
+      map.pm.disableDraw()
+    }
     cancelled()
   }
 
@@ -166,7 +204,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     <> {activity &&
       <>
         <div className={cx('leaflet-control')}>
-          <Item onClick={cancelDrawing}>Cancel</Item>
+          <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
         </div>
         <GeomanControls
           options={drawOptions}

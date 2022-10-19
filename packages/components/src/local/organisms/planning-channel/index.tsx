@@ -69,6 +69,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   // handle selections from asset tables
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
+  // have `local` selected assets handler, since we don't always want to
+  // propagate changes to selected assets
+  const [localSelectedAssets, setLocalSelectedAssets] = useState<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
@@ -110,6 +113,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     console.log('selected orders updated')
   }, [selectedOrders])
+
+  useEffect(() => {
+    // only update selected assets if we're not planning an activity
+    if (!activityBeingPlanned) {
+      setSelectedAssets(localSelectedAssets)
+    }
+  }, [localSelectedAssets])
 
   useEffect(() => {
     // produce the own and opp assets for this player force
@@ -198,17 +208,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
-  // const onDrawingComplete = (geometries: PlannedActivityGeometry[]): void => {
-  //   setCurrentActivity(undefined)
-  //   window.alert('Geometries complete ' + geometries.length)
-  // }
-
-  // const startDrawing = (): void => {
-  //   if (planningActivities) {
-  //     setCurrentActivity(planningActivities[0])
-  //   }
-  // }
-
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   const genData = (): void => {
@@ -256,10 +255,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           : <>
             <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
-              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             <LayerGroup key={'opp-forces'}>
-              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setSelectedAssets} selectedAssets={selectedAssets} />
+              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
           </>
@@ -293,7 +292,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           gameDate={gameDate}
           currentTurn={currentTurn}
           selectedAssets={selectedAssets}
-          setSelectedAssets={setSelectedAssets}
+          setSelectedAssets={setLocalSelectedAssets}
           selectedOrders={selectedOrders}
           setSelectedOrders={setSelectedOrders}
           setOpForcesForParent={setOpAssetsFiltered}
