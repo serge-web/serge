@@ -7,12 +7,16 @@ import MapControl from '../../map-control'
 import MapCoordinates from './helper/Coordinates'
 import { MapConstants } from './helper/MapConstants'
 import PropTypes from './types/props'
+import L from 'leaflet'
 
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, toolbarChildren, mapWidth, children
 }) => {
   const TileLayerProps = MapConstants.TileLayer
   const map = useMap()
+  L.Map.mergeOptions({
+    closePopupOnClick: false
+  })
 
   useEffect(() => {
     if (map) {
