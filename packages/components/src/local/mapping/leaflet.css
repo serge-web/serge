@@ -652,7 +652,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   margin: 0;
 }
 .leaflet-popup .leaflet-popup-content-wrapper {
-  background: rgba(255, 255, 255, 0.8);
+  background: transparent;
   color: #000;
   font-size: 14px;
   border: 0;
