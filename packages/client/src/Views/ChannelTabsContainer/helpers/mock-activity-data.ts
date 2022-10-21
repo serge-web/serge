@@ -293,8 +293,8 @@ export const perForceMockActivityData = [
             ]
           },
           {
-            uniqid: 'area-recce',
-            name: 'Area Reconnaisance',
+            uniqid: 'air-recce',
+            name: 'Air Reconnaisance',
             template: 'Air Activity',
             color: '#5b0',
             geometries: [
@@ -306,7 +306,12 @@ export const perForceMockActivityData = [
               {
                 aType: 2,
                 name: 'Target Area',
-                uniqid: 'aa9'
+                uniqid: 'aa9a'
+              },
+              {
+                aType: 2,
+                name: 'Flight Box',
+                uniqid: 'aa9b'
               },
               {
                 aType: 1,
