@@ -8,7 +8,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'precis-strike',
     name: 'Precision Strike',
-    template: 'Air Activity',
+    template: 'k16e-land',
     color: '#f0f',
     geometries: [
       {
@@ -31,7 +31,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'area-strike',
     name: 'Area Strike',
-    template: 'Air Activity',
+    template: 'k16e-land',
     color: '#b0f',
     geometries: [
       {
@@ -54,7 +54,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'transit',
     name: 'Transit',
-    template: 'Maritime Activity',
+    template: 'k16e-maritime',
     color: '#f33',
     geometries: [
       {
@@ -67,7 +67,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'cyber',
     name: 'Non spatial cyber',
-    template: 'Other Activity',
+    template: 'k16e-other',
   },
   {
     uniqid: 'air-recce',
@@ -100,13 +100,18 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'area-recce',
     name: 'Area Reconnaisance',
-    template: 'Air Activity',
+    template: 'k16e-air',
     color: '#5b0',
     geometries: [
       {
         aType: GeometryType.polyline,
         name: 'Route in',
         uniqid: 'aa8'
+      },
+      {
+        aType: GeometryType.polygon,
+        name: 'Flight Box',
+        uniqid: 'aa9'
       },
       {
         aType: GeometryType.polygon,
@@ -123,7 +128,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'point-recce',
     name: 'Point Reconnaisance',
-    template: 'Air Activity',
+    template: 'k16e-air',
     geometries: [
       {
         aType: GeometryType.polyline,
