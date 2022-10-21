@@ -70,6 +70,34 @@ export const MockPlanningActivities: PlanningActivity[] = [
     template: 'k16e-other',
   },
   {
+    uniqid: 'air-recce',
+    name: 'Air Reconnaisance',
+    template: 'Air Activity',
+    color: '#5b0',
+    geometries: [
+      {
+        aType: GeometryType.polyline,
+        name: 'Route in',
+        uniqid: 'aa8'
+      },
+      {
+        aType: GeometryType.polygon,
+        name: 'Flight box',
+        uniqid: 'aa9a'
+      },
+      {
+        aType: GeometryType.polygon,
+        name: 'Target Area',
+        uniqid: 'aa9b'
+      },
+      {
+        aType: GeometryType.polyline,
+        name: 'Route out',
+        uniqid: 'a10'
+      },
+    ]
+  },
+  {
     uniqid: 'area-recce',
     name: 'Area Reconnaisance',
     template: 'k16e-air',
@@ -140,7 +168,7 @@ export const MockPerForceActivities: PerForcePlanningActivitySet[] = [
       category: 'Air',
       activities:
         [
-          'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+          'precis-strike', 'area-strike', 'transit', 'air-recce', 'point-recce', 'cyber'
         ]
     }, {
       category: 'Other',
