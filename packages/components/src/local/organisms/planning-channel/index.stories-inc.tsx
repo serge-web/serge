@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
@@ -179,12 +179,57 @@ const Template: Story<PlanningChannelProps> = (args) => {
     currentWargame={P9Mock.wargameTitle}
     selectedForce={force || forces[1]}
     phase={phase}
+    turnNumber={4}
     allForces={forces}
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
     forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
+const doIt = 7 // don't transform the messages
+const fixedMessages = doIt ? [] : planningMessages.map((msg: MessagePlanning) => {
+  const newMsg = { ...msg }
+  // drop the legacy entries
+  delete newMsg.message.Assets
+  delete newMsg.message.Targets
+  delete newMsg.message.ActivityType
+  // find the force
+  const thisForce = newMsg.details.from.forceId
+  const activities = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === thisForce)
+  if (activities) {
+    const grouped = activities.groupedActivities
+    const randomGroup = grouped[Math.floor(Math.random() * grouped.length)]
+    const activity = randomGroup.activities[Math.floor(Math.random() * randomGroup.activities.length)]
+    if (activity && typeof activity !== 'string') {
+      const planAct = activity as PlanningActivity
+      newMsg.message.activity = planAct.uniqid
+    }
+  }
+  const randomAssets = (force: ForceData): string[] => {
+    const res = []
+    if (force && force.assets) {
+      const numAssets = 1 + Math.floor(Math.random() * 2)
+      for (let i = 0; i < numAssets; i++) {
+        const asset = force.assets[Math.floor(Math.random() * force.assets.length)]
+        res.push(asset.uniqid)
+      }
+    }
+    return res
+  }
+  const myForce = forces.find((force: ForceData) => force.uniqid === thisForce)
+  const otherForces = forces.filter((force: ForceData) => force.uniqid !== thisForce)
+  if (myForce) {
+    const myAssetIds = randomAssets(myForce)
+    newMsg.message.ownAssets = myAssetIds
+  }
+  if (otherForces) {
+    const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])
+    newMsg.message.otherAssets = otherAssetIds
+  }
+  return newMsg
+})
+
+console.log('fixed', fixedMessages)
 
 export const Default = Template.bind({})
 Default.args = {
