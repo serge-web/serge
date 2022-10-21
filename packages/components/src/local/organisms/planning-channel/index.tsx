@@ -255,7 +255,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         title: 'Pending',
         activity: activityBeingPlanned.uniqid
       }
-      if (activityPlanned && activityPlanned.length) {
+      if (activityPlanned.length) {
         plans.location = activityPlanned
       }
       if (ownAssets.length) {
