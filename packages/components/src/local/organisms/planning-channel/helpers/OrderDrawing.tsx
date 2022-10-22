@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
+import { CustomTooltip } from './CustomTooltip'
 
 declare const L: any // needed because control.notifications is not in TS type defs
 
@@ -189,6 +190,12 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     }
   }, [plannedGeometries])
 
+  useEffect(() => {
+    if (map) {
+      map.pm.setLang('en', CustomTooltip, 'en');
+    }
+  }, [])
+
   const cancelDrawing = (): void => {
     if (map) {
       map.pm.disableDraw()
@@ -206,7 +213,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }
 
   return (
-    <> {activity &&
+    <> {!activity &&
       <>
         <div className={cx('leaflet-control')}>
           <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
