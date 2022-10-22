@@ -2,11 +2,12 @@ import { PerForcePlanningActivitySet } from '@serge/custom-types'
 import { ForceStyle } from '@serge/helpers'
 import { Position } from '@turf/turf'
 import { Feature, LineString, Point, Polygon } from 'geojson'
-import { latLng, LatLng, Layer } from 'leaflet'
+import L, { latLng, LatLng, Layer } from 'leaflet'
 import React from 'react'
-import { CircleMarker, Polygon as RPolygon, Tooltip } from 'react-leaflet-v4'
+import { CircleMarker, Marker, Polygon as RPolygon, Tooltip } from 'react-leaflet-v4'
 import PolylineDecorator from '../../support-mapping/helper/PolylineDecorator'
 import { findPlanningGeometry, GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
+import styles from '../styles.module.scss'
 
 /** produce a shape for this feature */
 export const shapeFor = (feature: Feature, color: string, label: string, storeRef: { (polyline: Layer): void }): React.ReactElement => {
@@ -21,11 +22,16 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
     case 'Polygon': {
       const poly = feature.geometry as Polygon
       const coords: LatLng[] = poly.coordinates[0].map((pos: Position) => latLng(pos[1], pos[0]))
+      const center = L.polygon(coords).getBounds().getCenter()
+      const polygonName = 'Name'
+      const polygonNameIcon = L.divIcon({ html: `<div style="transform: translateX(-50%);font-szie: 16px;">${polygonName}</div>`, className: styles['polygon-name'] })
+
       res = <>
         <RPolygon color={(color) || ''} positions={coords}>
-          {label &&
-            <Tooltip>{label}</Tooltip>
-          }
+          <>
+            {label && <Tooltip>{label}</Tooltip>}
+            <Marker position={center} icon={polygonNameIcon} />
+          </>
         </RPolygon>
       </>
       break
