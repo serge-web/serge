@@ -4,7 +4,7 @@ import { Feature } from 'geojson'
 import { Layer } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { LayerGroup, useMap } from 'react-leaflet-v4'
+import { LayerGroup } from 'react-leaflet-v4'
 import { shapeFor } from '../planning-channel/helpers/SharedOrderRenderer'
 import PropTypes from './types/props'
 
@@ -22,7 +22,6 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
   const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
   const [layersToDelete] = useState<Layer[]>([])
-  const map = useMap()
 
   useEffect(() => {
     if (orders) {
@@ -66,7 +65,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
           if (activity && activity.color) {
             color = activity.color
           }
-          return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef, map)
+          return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef)
         } else {
           return <></>
         }
@@ -87,10 +86,10 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
   }, [orders])
 
   return <>
-    {orderGeometries && orderGeometries.length > 0 &&
+    { orderGeometries && orderGeometries.length > 0 &&
       <LayerGroup key={'orders'}>
-        {orderGeometries}
-      </LayerGroup>}
+        { orderGeometries }
+      </LayerGroup> }
   </>
 }
 
