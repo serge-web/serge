@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
@@ -8,6 +8,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { MessageDetails, MessageDetailsFrom, PlanningMessageStructure } from '@serge/custom-types/message'
+import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import ApplyFilter from '../apply-filter'
@@ -43,6 +45,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   currentWargame,
   selectedForce,
   phase,
+  turnNumber,
   allForces,
   platformTypes,
   gameDate,
@@ -85,6 +88,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [debugStep, setDebugStep] = useState<number>(0)
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
+  const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -227,21 +231,63 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('Apply some adjudication for', contact.id)
   }
 
-  const activityPlanned = (geoms: PlannedActivityGeometry[]): void => {
-    console.log('geoms planned', geoms)
-    setActivityBeingPlanned(undefined)
-  }
+  useEffect(() => {
+    if (activityBeingPlanned && activityPlanned) {
+      const ownAssets: Array<Asset['uniqid']> = selectedAssets.filter((id: string) => allOwnAssets.some((row: AssetRow) => row.id === id))
+      const otherAssets: Array<Asset['uniqid']> = selectedAssets.filter((id: string) => allOppAssets.some((row: AssetRow) => row.id === id))
+      const from: MessageDetailsFrom = {
+        force: selectedForce.uniqid,
+        forceId: selectedForce.uniqid,
+        forceColor: selectedForce.color,
+        iconURL: selectedForce.iconURL,
+        roleId: selectedRoleId,
+        roleName: selectedRoleName
+      }
+      const messageDetails: MessageDetails = {
+        channel: channel.uniqid,
+        from: from,
+        messageType: activityBeingPlanned.template,
+        timestamp: moment().toISOString(),
+        turnNumber: turnNumber
+      }
+      const plans: PlanningMessageStructure = {
+        reference: 'unset',
+        title: 'Pending',
+        activity: activityBeingPlanned.uniqid
+      }
+      if (activityPlanned.length) {
+        plans.location = activityPlanned
+      }
+      if (ownAssets.length) {
+        plans.ownAssets = ownAssets
+      }
+      if (otherAssets.length) {
+        plans.otherAssets = otherAssets
+      }
+      const newPlan: MessagePlanning = {
+        messageType: PLANNING_MESSAGE,
+        _id: '',
+        details: messageDetails,
+        message: plans
+      }
+      console.log('Ready to inject new message:', newPlan)
+      // this method may have been called without an activity being planned, but this is the tidy place to do it
+      setActivityBeingPlanned(undefined)
+      setActivityPlanned(undefined)
+    } else {
+      console.error('UI Presumes there is an activity being planned.')
+    }
+  }, [activityPlanned])
 
   /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
-    console.log('plan new activity', group, activity)
     if (forcePlanningActivities) {
       const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
       if (newActivity.geometries) {
         setActivityBeingPlanned(newActivity)
       } else {
-        // no geometry required, just open new orders
-        console.log('Show new orders')
+        setActivityBeingPlanned(newActivity)
+        setActivityPlanned([])
       }
     }
   }
@@ -338,7 +384,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       }
                     </>
                   }
-                  <OrderDrawing activity={activityBeingPlanned} planned={activityPlanned} cancelled={() => setActivityBeingPlanned(undefined)} />
+                  <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 </>
               }>
               <>

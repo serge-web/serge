@@ -1,33 +1,15 @@
 import {
-  CUSTOM_MESSAGE,
-  INFO_MESSAGE,
-  CHAT_MESSAGE,
-  FEEDBACK_MESSAGE,
-  PLANNING_MESSAGE,
-  FORCE_LAYDOWN,
-  VISIBILITY_CHANGES,
-  PERCEPTION_OF_CONTACT,
-  SUBMIT_PLANS,
-  STATE_OF_WORLD,
-  INFO_MESSAGE_CLIPPED,
-  CREATE_TASK_GROUP,
-  LEAVE_TASK_GROUP,
-  HOST_PLATFORM,
-  DELETE_PLATFORM,
-  UPDATE_MARKER,
-  CollaborativeMessageStates,
-  COUNTER_MESSAGE,
-  DELETE_MARKER,
-  CLONE_MARKER
+  CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
+  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
+import { Asset, ChannelCore, ForceData, ForceRole, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
-import Visibility from './visibility'
 import Role from './role'
-import { Force, ForceRole, StateOfWorld, ForceData, ChannelCore, PlannedActivityGeometry } from '.'
+import Visibility from './visibility'
 import Wargame from './wargame'
-import { MapAnnotation } from './map-annotation'
 
 export interface MessageDetailsFrom {
   /** name of force - to be @deprecated
@@ -64,7 +46,8 @@ export interface MessageDetails {
    * extra data for when message being edited collaboratively
    */
   collaboration?: CollaborationDetails
-  messageType: string,
+  /** ID of template for this message */
+  messageType: TemplateBody['_id'],
   /** time message sent */
   timestamp: string,
   /** turn when this message was sent */
@@ -101,6 +84,12 @@ export interface PlanningMessageStructure {
   endDate?: string
   /** any location-related data */
   location?: PlannedActivityGeometry[]
+  /** own assets involved in plan */
+  ownAssets?: Array<Asset['uniqid']>
+  /** other assets involved in plan */
+  otherAssets?: Array<Asset['uniqid']>
+  /** id of the activity being conducted */
+  activity?: PlanningActivity['uniqid']
   /** remainder of fields generated from message template */
   [property: string]: any
 }
