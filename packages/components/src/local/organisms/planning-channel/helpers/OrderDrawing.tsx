@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
-import { CustomTooltip } from './CustomTooltip'
+import { CustomTranslation } from './CustomTranslation'
 
 declare const L: any // needed because control.notifications is not in TS type defs
 
@@ -108,6 +108,17 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         allowRemoval: false,
         allowRotation: false
       }
+
+      const updateTranslation = (instruction: string, type: 'Line' | 'Marker' | 'Polygon') => {
+        /** TODO: build an instruction as an object if we want to override multiple tooltips */
+        CustomTranslation.tooltips.firstVertex = instruction
+        if (map) {
+          map.pm.disableDraw()
+          map.pm.enableDraw(type)
+          map.pm.setLang('en', CustomTranslation, 'en');
+        }
+      }
+
       // switch off all controls
       const toolbarOpts: PM.ToolbarOptions = {
         position: 'bottomright',
@@ -119,26 +130,17 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       switch (current.aType) {
         case GeometryType.point: {
           instruction = 'Click map to specify point location for ' + current.name
-          if (map) {
-            map.pm.disableDraw()
-            map.pm.enableDraw('Marker')
-          }
+          updateTranslation(instruction, 'Marker')
           break
         }
         case GeometryType.polyline: {
           instruction = 'Click map to specify line for ' + current.name
-          if (map) {
-            map.pm.disableDraw()
-            map.pm.enableDraw('Line')
-          }
+          updateTranslation(instruction, 'Line')
           break
         }
         case GeometryType.polygon: {
           instruction = 'Click map to specify area for ' + current.name
-          if (map) {
-            map.pm.disableDraw()
-            map.pm.enableDraw('Polygon')
-          }
+          updateTranslation(instruction, 'Polygon')
           break
         }
       }
@@ -189,12 +191,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       setCurrentGeometry(currentGeometry + 1)
     }
   }, [plannedGeometries])
-
-  useEffect(() => {
-    if (map) {
-      map.pm.setLang('en', CustomTooltip, 'en');
-    }
-  }, [])
 
   const cancelDrawing = (): void => {
     if (map) {

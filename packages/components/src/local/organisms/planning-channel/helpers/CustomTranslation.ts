@@ -1,7 +1,43 @@
-export const CustomTooltip = {
+export type CustomTranslationType = {
+  tooltips: {
+    placeMarker: string,
+    firstVertex: string,
+    continueLine: string,
+    finishLine: string,
+    finishPoly: string,
+    finishRect: string,
+    startCircle: string,
+    finishCircle: string,
+    placeCircleMarker: string,
+    placeText: string
+  },
+  actions: {
+    finish: string,
+    cancel: string,
+    removeLastVertex: string
+  },
+  buttonTitles: {
+    drawMarkerButton: string,
+    drawPolyButton: string,
+    drawLineButton: string,
+    drawCircleButton: string,
+    drawRectButton: string,
+    editButton: string,
+    dragButton: string,
+    cutButton: string,
+    deleteButton: string,
+    drawCircleMarkerButton: string,
+    snappingButton: string,
+    pinningButton: string,
+    rotateButton: string,
+    drawTextButton: string
+  }
+}
+
+export const CustomTranslation: CustomTranslationType = {
   tooltips: {
     placeMarker: "Click to place marker",
-    firstVertex: "Click to start",
+    firstVertex: "Click to place first vertex",
     continueLine: "Click to continue drawing",
     finishLine: "Click any existing marker to finish",
     finishPoly: "Click first marker to finish",
