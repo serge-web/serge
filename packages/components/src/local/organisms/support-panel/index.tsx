@@ -4,7 +4,6 @@ import { MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import { isEqual } from 'lodash'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
@@ -264,6 +263,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   )
 }
 
-const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => !isEqual(prevProps, nextProps)
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => JSON.stringify(prevProps) === JSON.stringify(nextProps)
 
 export default React.memo(SupportPanel, areEqual)
