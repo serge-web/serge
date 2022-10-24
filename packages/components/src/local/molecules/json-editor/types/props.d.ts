@@ -1,4 +1,5 @@
-import { MessageCustom, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from '@serge/custom-types'
+import { React } from 'react'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -9,7 +10,7 @@ export default interface Props {
   /**
    * content of message
    */
-  messageContent: MessageStructure
+  messageContent?: MessageStructure
   /**
    * id for message (used for tracking message read)
    */
@@ -17,11 +18,14 @@ export default interface Props {
   /**
    * template ID
    */
-  template: TemplateBody
+  template: TemplateBody | TempletCreatorBody
   /**
    * title to display above the form
    */
   title?: string
+  cachedName?: string | boolean
+  clearCachedName?: React.Dispatch<string>
+  saveMessage?: () => void
   /**
    * whether the form is editable (disable for read-only view)
    */
@@ -40,6 +44,8 @@ export default interface Props {
   gameDate: string
   /** disable/enable Array tools with form */
   disableArrayToolsWithEditor?: boolean
+  formClassName?: string
+  formId?: string
   /**
    *  method to customize template, potentially filling any drop-downs
    */

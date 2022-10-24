@@ -20,7 +20,8 @@ const GameAdmin = (): React.ReactElement => {
   }
   const schema = useMemo(() => {
     return chatChannel.template
-  }, [chatChannel.template])
+  }, [chatChannel.messages.length])
+
   return (
     <div className='contain-game-admin'>
       <MessagesListRenderProp

@@ -7,17 +7,19 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
+
 const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
+  enum listType {
+    HOSTING,
+    COMPRISING
+  }
+
   // find the force
   let topLevelAsset: Asset | undefined
   let parentForce: ForceData | undefined
   let parentListType: listType | undefined
   let parentAsset: Asset | undefined
   let theAsset: Asset | undefined
-  enum listType {
-    HOSTING,
-    COMPRISING
-  }
   forces.forEach((force: ForceData) => {
     if (force.assets && !parentForce) {
       force.assets.forEach((asset: Asset) => {
