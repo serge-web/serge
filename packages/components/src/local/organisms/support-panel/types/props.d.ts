@@ -40,6 +40,7 @@ export default interface PropTypes {
   allOwnAssets: AssetRow[]
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
+  activities: PlanningActivity[]
 }
 
 export type TabPanelProps = {

@@ -1,5 +1,6 @@
-import { PerForcePlanningActivitySet } from '@serge/custom-types'
-import { MockPerForceActivities, P9Mock, planningMessages } from '@serge/mocks'
+import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
+import _ from 'lodash'
 import React from 'react'
 
 // Import component files
@@ -22,11 +23,41 @@ export default {
 const allForces = P9Mock.data.forces.forces
 const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 const forceId = allForces[1].uniqid
-const activities = MockPerForceActivities.find((value: PerForcePlanningActivitySet) => value.force === forceId)
+
+
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
+  return {
+    force: force.force,
+    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
+      const res: GroupedActivitySet = {
+        category: group.category,
+        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
+          if (typeof act === 'string') {
+            const actId = act as string
+            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
+            if (!activity) {
+              throw Error('Planning activity not found:' + actId)
+            }
+            return activity
+          } else {
+            return act
+          }
+        })
+      }
+      return res
+    })
+  }
+})
+
+const force = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+const activities: Array<PlanningActivity[]> | undefined  = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+const flatActivities = _.flatten(activities)
 
 export const WithAssets: React.FC = () => <OrderDetail plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId} 
-activities={activities} />
+activities={flatActivities} />
 
 export const WithLocation: React.FC = () => <OrderDetail plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId} 
-activities={activities} />
+activities={flatActivities} />
 

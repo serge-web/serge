@@ -36,7 +36,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   currentTurn,
   currentWargame,
-  //  selectedAssets,
   setSelectedAssets,
   selectedOrders,
   setSelectedOrders,
@@ -44,7 +43,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   setOwnForcesForParent,
   allOppAssets,
   allOwnAssets,
-  onPanelWidthChange
+  onPanelWidthChange,
+  activities
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -179,6 +179,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
+                    forces={allForces}
+                    platformTypes={platformTypes}
+                    activities={activities}
                   />
                   <NewMessage
                     orderableChannel={true}

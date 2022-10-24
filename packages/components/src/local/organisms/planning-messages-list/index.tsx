@@ -8,7 +8,8 @@ import { arrToDict, collateActivities } from '../planning-assets/helpers/collate
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
-export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, isUmpire, gameDate, customiseTemplate, playerForceId, selectedOrders, setSelectedOrders }: PropTypes) => {
+export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, isUmpire, gameDate, customiseTemplate, 
+  playerForceId, selectedOrders, setSelectedOrders, forces, platformTypes, activities }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
@@ -91,7 +92,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
           return <div>Template not found for {message.details.messageType}</div>
         }
       } else {
-        return <OrderDetail plan={message} />
+        return <OrderDetail plan={message} forces={forces} platformTypes={platformTypes} activities={activities} force={playerForceId} />
       }
     }
   }

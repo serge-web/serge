@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@material-ui/core'
-import { PlannedActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
+import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
 import React from 'react'
 import PropTypes from './types/props'
@@ -40,11 +40,21 @@ export const OrderDetail: React.FC<PropTypes> = ({
           {tidyAssList(details.otherAssets)}
         </CardContent>
       </Card>
-      <Card>
+      <Card key='activity'>
         <CardContent>Location</CardContent>
         <CardContent>
           {details.location && details.location.length > 0 &&
             details.location.map((geom: PlannedActivityGeometry) => {
+              const activity = details.activity
+              if (activity) {
+                const theAct: PlanningActivity | undefined = activities.find((act: PlanningActivity) => act.uniqid === activity)
+                if (theAct) {
+                  const geom3 = theAct.geometries && theAct.geometries.find((pGeom: PlanningActivityGeometry) => pGeom.uniqid === geom.uniqid)
+                  if (geom3) {
+                    return geom3.name
+                  }
+                }
+              }
               return geom.uniqid + ', '
             })
           }
