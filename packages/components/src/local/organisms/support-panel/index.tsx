@@ -80,7 +80,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       const oldOwnTargets = schema.properties?.Targets?.items?.properties?.FEName?.enum
       if (oldOwnTargets) {
         schema.properties.Targets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
-      }  
+      }
     }
     return schema
   }
