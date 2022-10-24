@@ -3,6 +3,7 @@
 interface CssExports {
   'map': string;
   'map-container': string;
+  'polygon-name': string;
   'root': string;
 }
 export const cssExports: CssExports;

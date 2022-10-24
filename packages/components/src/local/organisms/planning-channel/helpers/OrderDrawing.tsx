@@ -2,6 +2,7 @@ import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 import cx from 'classnames'
 import { Geometry } from 'geojson'
 import { LatLng, Layer, PM } from 'leaflet'
@@ -10,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
+import { CustomTranslation } from './CustomTranslation'
 
 declare const L: any // needed because control.notifications is not in TS type defs
 
@@ -33,7 +35,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
-  const [notification, setNotification] = useState<any | undefined>(undefined)
 
   const map = useMap()
 
@@ -107,59 +108,49 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         allowRemoval: false,
         allowRotation: false
       }
+
       // switch off all controls
       const toolbarOpts: PM.ToolbarOptions = {
         position: 'bottomright',
         drawControls: false,
         editControls: false
       }
+
+      map.pm.disableDraw()
+
+      // make copy of translations file. Note: we have to set the language BEFORE
+      // we enable the draw mode, for the new tooltip to be used for the new mode
+      const newTranslations = deepCopy(CustomTranslation)
+
       // now just switch on the control we want
-      let instruction: string | undefined
       switch (current.aType) {
         case GeometryType.point: {
-          instruction = 'Click map to specify point location for ' + current.name
-          if (map) {
-            map.pm.disableDraw()
-            map.pm.enableDraw('Marker')
-          }
+          newTranslations.tooltips.placeMarker = 'Click map to specify point location for <b>[' + current.name + ']</b>'
+          map.pm.setLang('en', newTranslations, 'en')
+          map.pm.enableDraw('Marker')
           break
         }
         case GeometryType.polyline: {
-          instruction = 'Click map to specify line for ' + current.name
-          if (map) {
-            map.pm.disableDraw()
-            map.pm.enableDraw('Line')
-          }
+          newTranslations.tooltips.firstVertex = 'Click map to start route for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.finishLine = 'Click existing route point to complete <b>[' + current.name + ']</b>'
+          map.pm.setLang('en', newTranslations, 'en')
+          map.pm.enableDraw('Line')
           break
         }
         case GeometryType.polygon: {
-          instruction = 'Click map to specify area for ' + current.name
-          if (map) {
-            map.pm.disableDraw()
-            map.pm.enableDraw('Polygon')
-          }
+          newTranslations.tooltips.firstVertex = 'Click map to start area for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.finishPoly = 'Click existing marker to complete <b>[' + current.name + ']</b>'
+          map.pm.setLang('en', newTranslations, 'en')
+          map.pm.enableDraw('Polygon')
           break
         }
       }
       setDrawOptions(toolbarOpts)
       setGlobalOptions(globalOpts)
-
-      if (!notification) {
-        const notif = L.control
-          .notifications({
-            timeout: 5000,
-            position: 'topleft',
-            closable: true,
-            dismissable: true
-          })
-        notif.addTo(map)
-        setNotification(notif)
-      }
-      if (notification) {
-        notification.info(activity && activity.name, instruction)
-      }
     }
-  }, [currentGeometry, notification])
+  }, [currentGeometry])
 
   useEffect(() => {
     if (plannedGeometries.length === planningGeometries.length && plannedGeometries.length > 0) {
@@ -176,9 +167,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return planned
       })
       planned(plannedGeoms)
-      if (notification) {
-        notification.success(activity && activity.name, 'Geometries defined')
-      }
 
       // now delete the GeoMan layer
       geoLayers.forEach((layer: Layer) => layer.remove())
