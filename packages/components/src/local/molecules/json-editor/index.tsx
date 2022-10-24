@@ -204,10 +204,10 @@ export const JsonEditor: React.FC<Props> = ({
       {
         formId
           ? <>
-              <SaveMessageButton />
-              <div id={formId} ref={jsonEditorRef} />
-              <SaveMessageButton />
-            </>
+            <SaveMessageButton />
+            <div id={formId} ref={jsonEditorRef} />
+            <SaveMessageButton />
+          </>
           : <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
       }
     </>

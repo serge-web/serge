@@ -128,7 +128,7 @@ const NewMessage: React.FC<PropTypes> = ({
           selectedRoleName={selectedRoleName}
           postBack={postBack}
           customiseTemplate={customiseTemplate}
-          
+
         />
       </Collapsible>
     </div>
