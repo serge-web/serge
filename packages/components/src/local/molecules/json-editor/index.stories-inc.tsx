@@ -1,12 +1,12 @@
 import React from 'react'
 
 // Import component files
+import { withKnobs } from '@storybook/addon-knobs'
 import JsonEditor from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 // Import mock
-import { MessageTemplatesMockByKey, WargameMock, messageDataCollaborativeResponding, messageDataCollaborativeEditing } from '@serge/mocks'
+import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, P9Mock, WargameMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import Props from './types/props'
@@ -35,11 +35,22 @@ const storeNewValue = (value: { [property: string]: any }): void => {
   console.log('store data', value)
 }
 
-const template = MessageTemplatesMockByKey[messageDataCollaborativeEditing[0].details.messageType]
+const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
+const channel = P9Mock.data.channels.channels[0]
+const templateMessageCreator = {
+  details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType].details,
+  _id: channel.uniqid
+}
 
-const Template: Story<Props> = ({ messageId, disabled, template, messageContent }) => {
+const Template: Story<Props> = ({ messageId, disabled, template }) => {
   return (
-    <JsonEditor storeNewValue={storeNewValue} template={template} messageId={messageId} messageContent={messageContent} disabled={disabled} gameDate={WargameMock.data.overview.gameDate} />
+    <JsonEditor
+      storeNewValue={storeNewValue}
+      template={template}
+      messageId={messageId}
+      disabled={disabled}
+      gameDate={WargameMock.data.overview.gameDate}
+    />
   )
 }
 
@@ -54,8 +65,16 @@ Standard.args = {
 
 export const Response = Template.bind({})
 Response.args = {
-  template,
+  template: templateMessageCreator,
   messageContent: messageDataCollaborativeResponding[0].message,
+  messageId: 'id_2ß',
+  disabled: false,
+  gameDate: WargameMock.data.overview.gameDate
+}
+
+export const MessageCreator = Template.bind({})
+MessageCreator.args = {
+  template: templateMessageCreator,
   messageId: 'id_2ß',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate

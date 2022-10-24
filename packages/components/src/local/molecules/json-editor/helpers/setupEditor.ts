@@ -1,6 +1,7 @@
 import { RefObject } from 'react'
 import JSONEditor from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
+import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig?: any): Editor | null => {
@@ -8,6 +9,8 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     editor.destroy()
     editor = null
   }
+
+  configDateTimeCustomValidation()
 
   const disableCollapse = 'disable_collapse'
   const disableEditJson = 'disable_edit_json'

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react'
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,14 +10,28 @@ import { Editor } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import { configDateTimeLocal } from '@serge/helpers'
 import { expiredStorage } from '@serge/config'
+import { Button } from '../../atoms/button'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
-  messageId, messageContent, title, template, storeNewValue,
-  customiseTemplate, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true
+  messageId,
+  messageContent,
+  title,
+  template,
+  storeNewValue,
+  formClassName,
+  formId,
+  customiseTemplate,
+  disabled = false,
+  expandHeight = true,
+  gameDate,
+  disableArrayToolsWithEditor = true,
+  cachedName,
+  clearCachedName,
+  saveMessage
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -32,6 +46,12 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
+  const memoryName = `${messageId}-${template._id}`
+
+  const destroyEditor = (editorObject: Editor | null): void => {
+    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
+  }
+
   const handleChange = (value: { [property: string]: any }): void => {
     storeNewValue && storeNewValue(value)
   }
@@ -40,7 +60,8 @@ export const JsonEditor: React.FC<Props> = ({
     if (!template._id) {
       console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
     }
-    return messageId + template._id
+
+    return memoryName
   }
 
   const initEditor = (): () => void => {
@@ -108,8 +129,15 @@ export const JsonEditor: React.FC<Props> = ({
 
     if (nextEditor) {
       const messageJson = expiredStorage.getItem(genLocalStorageId())
-      nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
-      nextEditor.on('change', changeListenter)
+      if (messageJson && !messageContent) {
+        nextEditor.setValue(JSON.parse(messageJson))
+        nextEditor.on('change', changeListenter)
+      } else if (messageContent) {
+        nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
+        nextEditor.on('change', changeListenter)
+      } else {
+        nextEditor.on('change', changeListenter)
+      }
     }
 
     setEditor(nextEditor)
@@ -134,6 +162,20 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
+  useEffect(() => {
+    if (!messageContent && template.details && template.details.type) {
+      if (cachedName === messageId) {
+        expiredStorage.removeItem(genLocalStorageId())
+        clearCachedName('')
+        initEditor()
+      } else {
+        initEditor()
+      }
+    }
+
+    return (): void => destroyEditor(editor)
+  }, [template.details, messageId, cachedName])
+
   useLayoutEffect(() => {
     if (editor) editor.destroy()
     return initEditor()
@@ -149,8 +191,26 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }, [editor])
 
+  const SaveMessageButton = () => (
+    editor && formId ? (
+      <div className='button-wrap' >
+        { !disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null }
+      </div>
+    ) : null
+  )
+
   return (
-    <div className={disabled ? 'edt-disable' : 'edt-enable'} ref={jsonEditorRef} />
+    <>
+      {
+        formId
+          ? <>
+              <SaveMessageButton />
+              <div id={formId} ref={jsonEditorRef} />
+              <SaveMessageButton />
+            </>
+          : <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+      }
+    </>
   )
 }
 

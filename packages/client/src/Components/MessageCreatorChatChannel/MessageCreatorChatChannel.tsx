@@ -1,26 +1,22 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { useDispatch } from 'react-redux'
-import { Editor, MessageDetails } from '@serge/custom-types'
-import setupEditor from './helpers/setupEditor'
+import { MessageDetails } from '@serge/custom-types'
 import Props from './types'
+import { JsonEditor } from '@serge/components'
 
 const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactElement => {
-  const editorPreviewRef = createRef<HTMLDivElement>()
-  const [editor, setEditor] = useState<Editor | null>(null)
+  const [message, setMessage] = useState<any>({})
+  const [clearName, setClearName] = useState<string>('')
   const state = usePlayerUiState()
   const dispatch = useDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  useEffect(() => {
-    setEditor(setupEditor(editor, schema, editorPreviewRef))
-  }, [])
-
   const sendMessage = (): void => {
-    if (editor !== null) {
+    if (message) {
       const messageDetails: MessageDetails = {
         channel: state.chatChannel.name,
         from: {
@@ -35,16 +31,32 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
         turnNumber: state.currentTurn
       }
 
-      if (editor.getValue().content === '') return
-
-      saveMessage(state.currentWargame, messageDetails, editor.getValue())()
+      if (message.content === '') return
+      saveMessage(state.currentWargame, messageDetails, message)()
+      setClearName(state.chatChannel.name)
       saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
-      setEditor(setupEditor(editor, schema, editorPreviewRef))
     }
   }
-
+  
+  const getMessageValue = (val: { [property: string]: any }): void => {
+    setMessage(val)
+  }
+  
   return <div className='media'>
-    <div className='media-body message-creator' ref={editorPreviewRef}/>
+    <JsonEditor
+      template={{
+        details: schema,
+        _id: state.selectedRole
+      }}
+      clearCachedName={setClearName}
+      cachedName={clearName}
+      messageId={state.chatChannel.name}
+      formClassName={'form-group message-creator'}
+      title={'Response'}
+      storeNewValue={getMessageValue}
+      disabled={false}
+      gameDate={state.gameDate}
+    />
     <div className='align-self-center'>
       <button name='send' className='btn btn-action btn-action--complimentary' onClick={sendMessage} >
         <span className='sr-only'>Send test</span>

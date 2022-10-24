@@ -29,6 +29,7 @@ const NewMessage: React.FC<PropTypes> = ({
   const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
   const [selectedType, setSelectedType] = useState<string>('')
   const [updateNewMessage, setUpdateNewMessage] = useState(false)
+
   const tab = useRef<any>(null)
 
   const schemaTitle = useMemo(() => getCachedNewMessagevalue && getCachedNewMessagevalue(UNSENT_SELECT_BY_DEFAULT_VALUE), [channelId, updateNewMessage])
@@ -127,7 +128,7 @@ const NewMessage: React.FC<PropTypes> = ({
           selectedRoleName={selectedRoleName}
           postBack={postBack}
           customiseTemplate={customiseTemplate}
-
+          
         />
       </Collapsible>
     </div>
