@@ -74,7 +74,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
       // check if message is being edited
-      if (!7) {
+      const failureVal = !7
+      if (failureVal) {
         console.warn('show JSON Editor')
         const localTemplates = templates || []
         const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
