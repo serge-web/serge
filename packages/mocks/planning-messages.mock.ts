@@ -3,40 +3,42 @@ import { MessagePlanning } from '@serge/custom-types'
 
 export const planningMessages: MessagePlanning[] = [
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Mar-4",
-                "roleId": "rk116f53",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Mar-4",
+                roleId: "rk116f53",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T08:51:37.924Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-29T08:51:37.924Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue-6",
-            "title": "Order item 6 Transit",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T04:30:00.000Z",
-            "Description": "Order description 6",
-            "Location": "Polyline-B",
-            "location": [
+        message: {
+            reference: "Blue-6",
+            title: "Order item 6 Transit",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T04:30:00.000Z",
+            Description: "Order description 6",
+            Location: "Polyline-B",
+            location: [
                 {
-                    "uniqid": "aa4",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T00:50:00.000Z"
+                    uniqid: "aa4",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T00:50:00.000Z",
+                            uniqid: "aa4",
+                            name: "Route in"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     139.3171,
                                     -8.0633
@@ -58,16 +60,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "aa5",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T01:20:00.000Z",
-                            "endDate": "2022-11-15T02:50:00.000Z"
+                    uniqid: "aa5",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T01:20:00.000Z",
+                            endDate: "2022-11-15T02:50:00.000Z",
+                            uniqid: "aa5",
+                            name: "Target Area"
                         },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
+                        geometry: {
+                            type: "Polygon",
+                            coordinates: [
                                 [
                                     [
                                         115.80145984954203,
@@ -95,16 +99,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "aa6",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T02:50:00.000Z",
-                            "endDate": "2022-11-15T04:30:00.000Z"
+                    uniqid: "aa6",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T02:50:00.000Z",
+                            endDate: "2022-11-15T04:30:00.000Z",
+                            uniqid: "aa6",
+                            name: "Route out"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     139.3171,
                                     -8.0633
@@ -130,69 +136,56 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Transit",
-            "Assets": [
-                {
-                    "FEName": "Blue:18",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T19:00:00.000Z"
-                }
+            activity: "area-strike",
+            ownAssets: [
+                "a187"
             ],
-            "Targets": [
-                {
-                    "FEName": "CA670",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:36",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:8",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a156",
+                "a150"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Blue_6",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Blue_6",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Air-3",
-                "roleId": "3rk116f53",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Air-3",
+                roleId: "3rk116f53",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T21:06:20.164Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-22T21:06:20.164Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue Force-9", 
-            "title": "Order item 9 Transit",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T04:50:00.000Z",
-            "Description": "Order description 9",
-            "Location": "Region-B",
-            "location": [
+        message: {
+            reference: "Blue Force-9",
+            title: "Order item 9 Transit",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T04:50:00.000Z",
+            Description: "Order description 9",
+            Location: "Region-B",
+            location: [
                 {
-                    "uniqid": "aa8",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T00:50:00.000Z"
+                    uniqid: "aa8",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T00:50:00.000Z",
+                            uniqid: "aa8",
+                            name: "Route in"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     142.2515,
                                     -18.0243
@@ -222,16 +215,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "aa9",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T01:40:00.000Z",
-                            "endDate": "2022-11-15T03:10:00.000Z"
+                    uniqid: "aa9",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T01:40:00.000Z",
+                            endDate: "2022-11-15T03:10:00.000Z",
+                            uniqid: "aa9",
+                            name: "Flight Box"
                         },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
+                        geometry: {
+                            type: "Polygon",
+                            coordinates: [
                                 [
                                     [
                                         142.74777117084554,
@@ -259,16 +254,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a10",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T03:10:00.000Z",
-                            "endDate": "2022-11-15T04:50:00.000Z"
+                    uniqid: "a10",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T03:10:00.000Z",
+                            endDate: "2022-11-15T04:50:00.000Z",
+                            uniqid: "a10",
+                            name: "Route out"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     142.2515,
                                     -18.0243
@@ -294,127 +291,90 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Transit",
-            "Assets": [
-                {
-                    "FEName": "Red Force:27",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T05:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:56",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T02:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:46",
-                    "Number": 4,
-                    "StartDate": "2022-09-21T04:00:00.000Z",
-                    "EndDate": "2022-09-21T11:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:52",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T17:00:00.000Z"
-                }
+            activity: "area-strike",
+            ownAssets: [
+                "a198"
             ],
-            "Targets": [
-                {
-                    "FEName": "Blue:7",
-                    "Number": 1
-                }
-            ]
+            otherAssets: []
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Red_9",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Red_9",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Air-3",
-                "roleId": "3rk116f53",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Air-3",
+                roleId: "3rk116f53",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T07:05:03.194Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-29T07:05:03.194Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue-12",
-            "title": "Order item 12 Kinetic",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T00:40:00.000Z",
-            "Description": "Order description 12",
-            "Location": "Polyline-B",
-            "location": [],
-            "ActivityType": "Kinetic",
-            "Assets": [
-                {
-                    "FEName": "Blue:35",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T19:00:00.000Z"
-                }
+        message: {
+            reference: "Blue-12",
+            title: "Order item 12 Kinetic",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T00:40:00.000Z",
+            Description: "Order description 12",
+            Location: "Polyline-B",
+            location: [],
+            activity: "precis-strike",
+            ownAssets: [
+                "a186",
+                "a172"
             ],
-            "Targets": [
-                {
-                    "FEName": "CA670",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:36",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a132",
+                "a146"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Blue_12",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Blue_12",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Logs",
-                "roleId": "blue-logs",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Logs",
+                roleId: "blue-logs",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T14:47:47.015Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-23T14:47:47.015Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue-15",
-            "title": "Order item 15 Kinetic",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T05:30:00.000Z",
-            "Description": "Order description 15",
-            "Location": "Polyline-A",
-            "location": [
+        message: {
+            reference: "Blue-15",
+            title: "Order item 15 Kinetic",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T05:30:00.000Z",
+            Description: "Order description 15",
+            Location: "Polyline-A",
+            location: [
                 {
-                    "uniqid": "a11",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T00:50:00.000Z"
+                    uniqid: "a11",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T00:50:00.000Z",
+                            uniqid: "a11"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     139.8303,
                                     -8.5197
@@ -436,16 +396,17 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a12",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:50:00.000Z",
-                            "endDate": "2022-11-15T03:00:00.000Z"
+                    uniqid: "a12",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:50:00.000Z",
+                            endDate: "2022-11-15T03:00:00.000Z",
+                            uniqid: "a12"
                         },
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
+                        geometry: {
+                            type: "Point",
+                            coordinates: [
                                 129.3162,
                                 -16.1699
                             ]
@@ -453,16 +414,17 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a13",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T03:00:00.000Z",
-                            "endDate": "2022-11-15T05:30:00.000Z"
+                    uniqid: "a13",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T03:00:00.000Z",
+                            endDate: "2022-11-15T05:30:00.000Z",
+                            uniqid: "a13"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     139.8303,
                                     -8.5197
@@ -488,65 +450,54 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Kinetic",
-            "Assets": [
-                {
-                    "FEName": "Blue:35",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T06:00:00.000Z"
-                }
+            activity: "area-strike",
+            ownAssets: [
+                "a200",
+                "a185"
             ],
-            "Targets": [
-                {
-                    "FEName": "CA670",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:36",
-                    "Number": 1
-                }
-            ]
+            otherAssets: []
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Blue_15",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Blue_15",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Mar-4",
-                "roleId": "rk116f53",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Mar-4",
+                roleId: "rk116f53",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T12:14:31.627Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-22T12:14:31.627Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue-18",
-            "title": "Order item 18 Asymmetric",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T00:50:00.000Z",
-            "Description": "Order description 18",
-            "Location": "Point-A",
-            "location": [
+        message: {
+            reference: "Blue-18",
+            title: "Order item 18 Asymmetric",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T00:50:00.000Z",
+            Description: "Order description 18",
+            Location: "Point-A",
+            location: [
                 {
-                    "uniqid": "aa7",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T00:50:00.000Z"
+                    uniqid: "aa7",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T00:50:00.000Z",
+                            uniqid: "aa7",
+                            name: "Route"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     139.8303,
                                     -8.5197
@@ -568,77 +519,56 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Asymmetric",
-            "Assets": [
-                {
-                    "FEName": "Blue:18",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T04:00:00.000Z"
-                },
-                {
-                    "FEName": "Blue:24",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T12:00:00.000Z"
-                },
-                {
-                    "FEName": "Blue:36",
-                    "Number": 4,
-                    "StartDate": "2022-09-21T04:00:00.000Z",
-                    "EndDate": "2022-09-21T12:00:00.000Z"
-                }
+            activity: "cyber",
+            ownAssets: [
+                "a186"
             ],
-            "Targets": [
-                {
-                    "FEName": "CA670",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:36",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a0pra000201",
+                "a0pra000201"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Blue_18",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Blue_18",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Air-1",
-                "roleId": "1rk116f53",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Air-1",
+                roleId: "1rk116f53",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T23:25:17.028Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-25T23:25:17.028Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue-21",
-            "title": "Order item 21 Asymmetric",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T06:50:00.000Z",
-            "Description": "Order description 21",
-            "Location": "Polyline-B",
-            "location": [
+        message: {
+            reference: "Blue-21",
+            title: "Order item 21 Asymmetric",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T06:50:00.000Z",
+            Description: "Order description 21",
+            Location: "Polyline-B",
+            location: [
                 {
-                    "uniqid": "aa8",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T01:20:00.000Z"
+                    uniqid: "aa8",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T01:20:00.000Z",
+                            uniqid: "aa8",
+                            name: "Route in"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     138.5853,
                                     -6.3233
@@ -664,16 +594,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "aa9",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T01:20:00.000Z",
-                            "endDate": "2022-11-15T04:00:00.000Z"
+                    uniqid: "aa9",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T01:20:00.000Z",
+                            endDate: "2022-11-15T04:00:00.000Z",
+                            uniqid: "aa9",
+                            name: "Flight Box"
                         },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
+                        geometry: {
+                            type: "Polygon",
+                            coordinates: [
                                 [
                                     [
                                         118.84543534793804,
@@ -701,16 +633,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a10",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T04:00:00.000Z",
-                            "endDate": "2022-11-15T06:50:00.000Z"
+                    uniqid: "a10",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T04:00:00.000Z",
+                            endDate: "2022-11-15T06:50:00.000Z",
+                            uniqid: "a10",
+                            name: "Route out"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     138.5853,
                                     -6.3233
@@ -728,67 +662,56 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Asymmetric",
-            "Assets": [
-                {
-                    "FEName": "Blue:24",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T12:00:00.000Z"
-                },
-                {
-                    "FEName": "Blue:19",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T17:00:00.000Z"
-                }
+            activity: "area-recce",
+            ownAssets: [
+                "a170",
+                "a165"
             ],
-            "Targets": [
-                {
-                    "FEName": "CA670",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a116",
+                "a118"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Blue_21",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Blue_21",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#00F",
-                "roleName": "Mar-2",
-                "roleId": "rk116f51",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Blue"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Mar-2",
+                roleId: "rk116f51",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T16:20:03.221Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-25T16:20:03.221Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Blue-24",
-            "title": "Order item 24 Kinetic",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T03:40:00.000Z",
-            "Description": "Order description 24",
-            "Location": "Region-A",
-            "location": [
+        message: {
+            reference: "Blue-24",
+            title: "Order item 24 Kinetic",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T03:40:00.000Z",
+            Description: "Order description 24",
+            Location: "Region-A",
+            location: [
                 {
-                    "uniqid": "a11",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T00:50:00.000Z"
+                    uniqid: "a11",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T00:50:00.000Z",
+                            uniqid: "a11"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     144.648,
                                     -9.6247
@@ -810,16 +733,17 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a12",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:50:00.000Z",
-                            "endDate": "2022-11-15T02:30:00.000Z"
+                    uniqid: "a12",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:50:00.000Z",
+                            endDate: "2022-11-15T02:30:00.000Z",
+                            uniqid: "a12"
                         },
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
+                        geometry: {
+                            type: "Point",
+                            coordinates: [
                                 140.9707,
                                 -17.0411
                             ]
@@ -827,16 +751,17 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a13",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T02:30:00.000Z",
-                            "endDate": "2022-11-15T03:40:00.000Z"
+                    uniqid: "a13",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T02:30:00.000Z",
+                            endDate: "2022-11-15T03:40:00.000Z",
+                            uniqid: "a13"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     144.648,
                                     -9.6247
@@ -858,69 +783,56 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Kinetic",
-            "Assets": [
-                {
-                    "FEName": "Blue:10",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T11:00:00.000Z"
-                }
+            activity: "point-recce",
+            ownAssets: [
+                "a172",
+                "a185"
             ],
-            "Targets": [
-                {
-                    "FEName": "CA670",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:36",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Red Force:8",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a125"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Blue_24",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Blue_24",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Red Force",
-                "forceColor": "#F00",
-                "roleName": "Comms",
-                "roleId": "rkr226f5b",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Red"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Red Force",
+                forceColor: "#F00",
+                roleName: "Comms",
+                roleId: "rkr226f5b",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T14:58:50.204Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-21T14:58:50.204Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Red Force-27",
-            "title": "Order item 27 Kinetic",
-            "startDate": "2022-11-15T00:00:00.000Z",
-            "endDate": "2022-11-15T03:30:00.000Z",
-            "Description": "Order description 27",
-            "Location": "Region-A",
-            "location": [
+        message: {
+            reference: "Red Force-27",
+            title: "Order item 27 Kinetic",
+            startDate: "2022-11-15T00:00:00.000Z",
+            endDate: "2022-11-15T03:30:00.000Z",
+            Description: "Order description 27",
+            Location: "Region-A",
+            location: [
                 {
-                    "uniqid": "aa4",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:00:00.000Z",
-                            "endDate": "2022-11-15T00:50:00.000Z"
+                    uniqid: "aa4",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:00:00.000Z",
+                            endDate: "2022-11-15T00:50:00.000Z",
+                            uniqid: "aa4",
+                            name: "Route in"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     117.7434,
                                     -21.0232
@@ -938,16 +850,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "aa5",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:50:00.000Z",
-                            "endDate": "2022-11-15T01:50:00.000Z"
+                    uniqid: "aa5",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:50:00.000Z",
+                            endDate: "2022-11-15T01:50:00.000Z",
+                            uniqid: "aa5",
+                            name: "Target Area"
                         },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
+                        geometry: {
+                            type: "Polygon",
+                            coordinates: [
                                 [
                                     [
                                         135.660795472479,
@@ -975,16 +889,18 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "aa6",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T01:50:00.000Z",
-                            "endDate": "2022-11-15T03:30:00.000Z"
+                    uniqid: "aa6",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T01:50:00.000Z",
+                            endDate: "2022-11-15T03:30:00.000Z",
+                            uniqid: "aa6",
+                            name: "Route out"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     117.7434,
                                     -21.0232
@@ -1010,125 +926,91 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Kinetic",
-            "Assets": [
-                {
-                    "FEName": "Red Force:29",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T02:00:00.000Z"
-                }
+            activity: "point-recce",
+            ownAssets: [
+                "a153"
             ],
-            "Targets": [
-                {
-                    "FEName": "Blue:7",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Blue:16",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a168",
+                "a166"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Red_27",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Red_27",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Red Force",
-                "forceColor": "#F00",
-                "roleName": "CO",
-                "roleId": "rkr226f5e",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Red"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Red Force",
+                forceColor: "#F00",
+                roleName: "CO",
+                roleId: "rkr226f5e",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T03:21:37.977Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-22T03:21:37.977Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Red Force-30",
-            "title": "Order item 30 Transit",
-            "startDate": "2022-11-15T00:05:00.000Z",
-            "endDate": "2022-11-15T03:15:00.000Z",
-            "Description": "Order description 30",
-            "Location": "Point-A",
-            "location": [],
-            "ActivityType": "Transit",
-            "Assets": [
-                {
-                    "FEName": "Red Force:13",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T03:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:42",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T18:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:30",
-                    "Number": 4,
-                    "StartDate": "2022-09-21T04:00:00.000Z",
-                    "EndDate": "2022-09-21T07:00:00.000Z"
-                }
+        message: {
+            reference: "Red Force-30",
+            title: "Order item 30 Transit",
+            startDate: "2022-11-15T00:05:00.000Z",
+            endDate: "2022-11-15T03:15:00.000Z",
+            Description: "Order description 30",
+            Location: "Point-A",
+            location: [],
+            activity: "transit",
+            ownAssets: [
+                "a131"
             ],
-            "Targets": [
-                {
-                    "FEName": "Blue:7",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Blue:16",
-                    "Number": 1
-                }
+            otherAssets: [
+                "a0pra000202"
             ]
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Red_30",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Red_30",
+        _rev: "2"
     },
     {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-blue-planning",
-            "from": {
-                "force": "Red Force",
-                "forceColor": "#F00",
-                "roleName": "Comms",
-                "roleId": "rkr226f5b",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "F-Red"
+        messageType: "PlanningMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Red Force",
+                forceColor: "#F00",
+                roleName: "Comms",
+                roleId: "rkr226f5b",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T05:28:26.541Z",
-            "turnNumber": 3
+            messageType: "Land Activity",
+            timestamp: "2022-09-27T05:28:26.541Z",
+            turnNumber: 3
         },
-        "message": {
-            "reference": "Red Force-33",
-            "title": "Order item 33 Kinetic",
-            "startDate": "2022-11-15T00:20:00.000Z",
-            "endDate": "2022-11-15T02:40:00.000Z",
-            "Description": "Order description 33",
-            "Location": "Point-A",
-            "location": [
+        message: {
+            reference: "Red Force-33",
+            title: "Order item 33 Kinetic",
+            startDate: "2022-11-15T00:20:00.000Z",
+            endDate: "2022-11-15T02:40:00.000Z",
+            Description: "Order description 33",
+            Location: "Point-A",
+            location: [
                 {
-                    "uniqid": "a11",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T00:20:00.000Z",
-                            "endDate": "2022-11-15T01:10:00.000Z"
+                    uniqid: "a11",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T00:20:00.000Z",
+                            endDate: "2022-11-15T01:10:00.000Z",
+                            uniqid: "a11"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     126.8957,
                                     -17.0157
@@ -1154,16 +1036,17 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a12",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T01:10:00.000Z",
-                            "endDate": "2022-11-15T01:10:00.000Z"
+                    uniqid: "a12",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T01:10:00.000Z",
+                            endDate: "2022-11-15T01:10:00.000Z",
+                            uniqid: "a12"
                         },
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
+                        geometry: {
+                            type: "Point",
+                            coordinates: [
                                 149.3998,
                                 -10.1238
                             ]
@@ -1171,16 +1054,17 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 },
                 {
-                    "uniqid": "a13",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "startDate": "2022-11-15T01:10:00.000Z",
-                            "endDate": "2022-11-15T02:40:00.000Z"
+                    uniqid: "a13",
+                    geometry: {
+                        type: "Feature",
+                        properties: {
+                            startDate: "2022-11-15T01:10:00.000Z",
+                            endDate: "2022-11-15T02:40:00.000Z",
+                            uniqid: "a13"
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
                                 [
                                     126.8957,
                                     -17.0157
@@ -1210,50 +1094,15 @@ export const planningMessages: MessagePlanning[] = [
                     }
                 }
             ],
-            "ActivityType": "Kinetic",
-            "Assets": [
-                {
-                    "FEName": "Red Force:33",
-                    "Number": 2,
-                    "StartDate": "2022-09-21T02:00:00.000Z",
-                    "EndDate": "2022-09-21T14:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:51",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T08:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:30",
-                    "Number": 4,
-                    "StartDate": "2022-09-21T04:00:00.000Z",
-                    "EndDate": "2022-09-21T13:00:00.000Z"
-                },
-                {
-                    "FEName": "Red Force:25",
-                    "Number": 0,
-                    "StartDate": "2022-09-21T00:00:00.000Z",
-                    "EndDate": "2022-09-21T15:00:00.000Z"
-                }
+            activity: "point-recce",
+            ownAssets: [
+                "a158",
+                "a147"
             ],
-            "Targets": [
-                {
-                    "FEName": "Blue:7",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Blue:16",
-                    "Number": 1
-                },
-                {
-                    "FEName": "Blue:9",
-                    "Number": 1
-                }
-            ]
+            otherAssets: []
         },
-        "hasBeenRead": false,
-        "_id": "m_F-Red_33",
-        "_rev": "2"
+        hasBeenRead: false,
+        _id: "m_F-Red_33",
+        _rev: "2"
     }
 ]

@@ -88,6 +88,7 @@ describe('Planning Channel component: ', () => {
       markUnread={mockFn}
       openMessage={mockFn}
       saveMessage={saveMessage}
+      turnNumber={3}
       reduxDispatch={noop}
       saveNewActivityTimeMessage={(): any => noop}
       platformTypes={platformTypes}
