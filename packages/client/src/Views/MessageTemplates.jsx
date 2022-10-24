@@ -21,14 +21,17 @@ const MessageTemplates = () => {
   const dispatch = useDispatch()
   const { messageTypes, umpireMenu, gameDate } = useSelector(state => state)
   const [jsonMessage, setJsonMessage] = useState([])
+  const [clearCached, setClearCached] = useState('')
+
   const schema = useMemo(() => {
     const filter = messageTypes && messageTypes.messages.find((mes) => mes._id === umpireMenu.selectedSchemaID)
     if (filter) return filter
     return []
   }, [umpireMenu.selectedSchemaID])
-
+  
   const saveMessage = () => {
-    if (!schema || !umpireMenu.selectedSchemaID) return null
+    if (!umpireMenu.selectedSchemaID) return null
+    setClearCached(schema._id)
     dispatch(createMessage(jsonMessage, { ...schema, _id: umpireMenu.selectedSchemaID }))
   }
 
@@ -138,6 +141,8 @@ const MessageTemplates = () => {
             <JsonEditor
               id='preview'
               formId='preview-editor'
+              cachedName={clearCached}
+              clearCachedName={setClearCached}
               saveMessage={saveMessage}
               messageId={schema._id}
               template={schema}
