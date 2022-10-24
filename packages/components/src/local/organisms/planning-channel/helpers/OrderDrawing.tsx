@@ -2,6 +2,7 @@ import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 import cx from 'classnames'
 import { Geometry } from 'geojson'
 import { LatLng, Layer, PM } from 'leaflet'
@@ -10,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
-import { CustomTranslation, CustomTranslationType } from './CustomTranslation'
+import { CustomTranslation } from './CustomTranslation'
 
 declare const L: any // needed because control.notifications is not in TS type defs
 
@@ -34,7 +35,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
-  const [translations] = useState<CustomTranslationType>(CustomTranslation)
 
   const map = useMap()
 
@@ -118,42 +118,39 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
 
       map.pm.disableDraw()
 
+      // make copy of translations file. Note: we have to set the language BEFORE
+      // we enable the draw mode, for the new tooltip to be used for the new mode
+      const newTranslations = deepCopy(CustomTranslation)
+
       // now just switch on the control we want
       switch (current.aType) {
         case GeometryType.point: {
-          console.log('marker', current)
-          translations.tooltips.placeMarker = 'Click map to specify point location for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.placeMarker = 'Click map to specify point location for <b>[' + current.name + ']</b>'
+          map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Marker')
           break
         }
         case GeometryType.polyline: {
-          console.log('line', current)
-          translations.tooltips.firstVertex = 'Click map to start route for <b>[' + current.name + ']</b>'
-          translations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
-          translations.tooltips.finishLine = 'Click existing route point to complete <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.firstVertex = 'Click map to start route for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.finishLine = 'Click existing route point to complete <b>[' + current.name + ']</b>'
+          map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Line')
           break
         }
         case GeometryType.polygon: {
-          console.log('poly', current)
-          translations.tooltips.firstVertex = 'Click map to start area for <b>[' + current.name + ']</b>'
-          translations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
-          translations.tooltips.finishPoly = 'Click existing marker to complete <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.firstVertex = 'Click map to start area for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.finishPoly = 'Click existing marker to complete <b>[' + current.name + ']</b>'
+          map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Polygon')
           break
         }
       }
-      map.pm.setLang('en', translations, 'en')
-
       setDrawOptions(toolbarOpts)
       setGlobalOptions(globalOpts)
     }
   }, [currentGeometry])
-
-  useEffect(() => {
-    map.pm.setLang('en', translations, 'en')
-    console.log('trans', translations.tooltips)
-  }, [globalOptions, drawOptions])
 
   useEffect(() => {
     if (plannedGeometries.length === planningGeometries.length && plannedGeometries.length > 0) {
