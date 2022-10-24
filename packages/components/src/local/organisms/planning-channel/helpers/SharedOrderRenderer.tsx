@@ -24,8 +24,7 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
       const poly = feature.geometry as Polygon
       const coords: LatLng[] = poly.coordinates[0].map((pos: Position) => latLng(pos[1], pos[0]))
       const center = L.polygon(coords).getBounds().getCenter()
-      const polygonName = 'Name'
-      const polygonNameIcon = L.divIcon({ html: `<div style="transform: translateX(-50%);font-szie: 16px;">${polygonName}</div>`, className: styles['polygon-name'] })
+      const polygonNameIcon = L.divIcon({ html: `<div style="transform: translateX(-50%);padding-top:15px;font-size: 16px;">${label}</div>`, className: styles['polygon-name'] })
 
       res = <>
         <RPolygon color={(color) || ''} positions={coords}>
