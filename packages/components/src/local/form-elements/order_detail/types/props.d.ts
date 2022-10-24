@@ -1,4 +1,4 @@
-import { PlanningActivity } from "@serge/custom-types"
+import { PlanningActivity } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -17,6 +17,5 @@ export default interface PropTypes {
 
   /** current Force */
   force: ForceData['uniqid']
-
 
 }

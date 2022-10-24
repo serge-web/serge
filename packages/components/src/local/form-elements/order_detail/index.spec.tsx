@@ -13,14 +13,14 @@ const forceId = allForces[1].uniqid
 const plan = planningMessages[2]
 
 const force = MockPerForceActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
-const activities: Array<PlanningActivity[]> | undefined  = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
 const flatActivities = _.flatten(activities)
 
 it('CheckboxType renders correctly', () => {
   const tree = renderer
     .create(<div>
-     <OrderDetail plan={plan} forces={allForces} platformTypes={platformTypes} force={forceId} 
-activities={flatActivities} />
+      <OrderDetail plan={plan} forces={allForces} platformTypes={platformTypes} force={forceId}
+        activities={flatActivities} />
     </div>)
     .toJSON()
   expect(tree).toMatchSnapshot()

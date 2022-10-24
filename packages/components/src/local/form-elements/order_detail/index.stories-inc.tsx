@@ -24,7 +24,6 @@ const allForces = P9Mock.data.forces.forces
 const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 const forceId = allForces[1].uniqid
 
-
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
 const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
@@ -52,12 +51,11 @@ const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perFor
 })
 
 const force = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
-const activities: Array<PlanningActivity[]> | undefined  = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
 const flatActivities = _.flatten(activities)
 
-export const WithAssets: React.FC = () => <OrderDetail plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId} 
-activities={flatActivities} />
+export const WithAssets: React.FC = () => <OrderDetail plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId}
+  activities={flatActivities} />
 
-export const WithLocation: React.FC = () => <OrderDetail plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId} 
-activities={flatActivities} />
-
+export const WithLocation: React.FC = () => <OrderDetail plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId}
+  activities={flatActivities} />
