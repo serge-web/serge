@@ -10,14 +10,28 @@ import { Editor } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import { configDateTimeLocal } from '@serge/helpers'
 import { expiredStorage } from '@serge/config'
+import { Button } from '../../atoms/button'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
-  messageId, messageContent, title, template, storeNewValue, formClassName,
-  customiseTemplate, disabled = false, expandHeight = true, gameDate, disableArrayToolsWithEditor = true, cachedName, clearCachedName
+  messageId,
+  messageContent,
+  title,
+  template,
+  storeNewValue,
+  formClassName,
+  formId,
+  customiseTemplate,
+  disabled = false,
+  expandHeight = true,
+  gameDate,
+  disableArrayToolsWithEditor = true,
+  cachedName,
+  clearCachedName,
+  saveMessage
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -32,7 +46,7 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
-  const memoryName = messageId + template._id
+  const memoryName = `${messageId}-${template._id}`
 
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
@@ -177,8 +191,26 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }, [editor])
 
+  const SaveMessageButton = () => (
+    editor && formId ? (
+      <div className='button-wrap' >
+        { !disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null }
+      </div>
+    ) : null
+  )
+
   return (
-    <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+    <>
+      {
+        formId
+          ? <>
+              <SaveMessageButton />
+              <div id={formId} ref={jsonEditorRef} />
+              <SaveMessageButton />
+            </>
+          : <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+      }
+    </>
   )
 }
 

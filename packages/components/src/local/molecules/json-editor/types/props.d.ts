@@ -25,6 +25,7 @@ export default interface Props {
   title?: string
   cachedName?: string | boolean
   clearCachedName?: React.Dispatch<string>
+  saveMessage?: () => void
   /**
    * whether the form is editable (disable for read-only view)
    */
@@ -44,6 +45,7 @@ export default interface Props {
   /** disable/enable Array tools with form */
   disableArrayToolsWithEditor?: boolean
   formClassName?: string
+  formId?: string
   /**
    *  method to customize template, potentially filling any drop-downs
    */

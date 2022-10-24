@@ -32,6 +32,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   channel,
   gameDate,
   postBack,
+  customiseTemplate,
   messageOption,
   createCachedCreatorMessage,
   getcachedCreatorMessageValue,
@@ -40,7 +41,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
-  const [clearName, setClearName] = useState<string>('')
+  const [clearName, setClearName] = useState<string>(messageOption)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -99,7 +100,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
     }
-  }, [messageOption])
+  }, [schema, messageOption])
 
   const openConfirmPopup = (event: MouseEvent<HTMLButtonElement>): void => {
     if (confirmCancel) {
@@ -144,6 +145,7 @@ const MessageCreator: React.FC<PropTypes> = ({
           _id: channel.uniqid
         }}
         clearCachedName={setClearName}
+        customiseTemplate={customiseTemplate}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
         title={'Response'}
