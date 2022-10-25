@@ -54,12 +54,26 @@ const force = filledInPerForcePlanningActivities.find((val: PerForcePlanningActi
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
 const flatActivities = _.flatten(activities)
 
-const onEdit = (reference: string) => {
-  console.log('editing', reference)
+const onEditMessage = (reference: string) => {
+  console.log('editing message', reference)
 }
 
-export const WithAssets: React.FC = () => <OrderDetail onEdit={onEdit} plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId}
+const onEditGeometry = (reference: string) => {
+  console.log('editing geometry', reference)
+}
+
+const onEditOwnAssets = (reference: string) => {
+  console.log('editing own assets', reference)
+}
+
+const onEditOppAssets = (reference: string) => {
+  console.log('editing opp assets', reference)
+}
+
+export const WithAssets: React.FC = () => <OrderDetail onEditMessage={onEditMessage} onEditGeometry={onEditGeometry} onEditOwnAssets={onEditOwnAssets} onEditOppAssets={onEditOppAssets}
+  plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId}
   activities={flatActivities} />
 
-export const WithLocation: React.FC = () => <OrderDetail onEdit={onEdit} plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId}
+export const WithLocation: React.FC = () => <OrderDetail onEditMessage={onEditMessage} onEditGeometry={onEditGeometry} onEditOwnAssets={onEditOwnAssets} onEditOppAssets={onEditOppAssets}
+  plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId}
   activities={flatActivities} />

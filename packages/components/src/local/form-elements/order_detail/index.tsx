@@ -1,18 +1,27 @@
-import { Card, CardContent } from '@material-ui/core'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Card, CardContent, Link } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from './types/props'
 
 export const OrderDetail: React.FC<PropTypes> = ({
-  plan, forces, platformTypes, activities, onEdit
+  plan, forces, platformTypes, activities, onEditMessage, onEditGeometry, onEditOwnAssets, onEditOppAssets
 }) => {
-  const tidyAssList = (title: string, assIds: string[] | undefined): React.ReactElement => {
+  const [props, setProps] = useState<string[]>([])
+
+  useEffect(() => {
+    setProps(['a', 'b', 'c'])
+  }, [plan])
+
+  const tidyAssList = (title: string, assIds: string[] | undefined, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
+    console.log('title', title, onEdit)
     return <Card key={title}>
-      <CardContent>Own</CardContent>
+      <CardContent>{title}</CardContent>
       <CardContent>
-        {assIds && assIds.length > 0 && <ul>
+        {assIds && assIds.length > 0 && <><ul>
           {assIds.map((id: string) => {
             const asset = findAsset(forces, id)
             if (asset) {
@@ -24,6 +33,8 @@ export const OrderDetail: React.FC<PropTypes> = ({
           })
           }
         </ul>
+        <Link onClick={() => onEdit(reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link>
+        </>
         }
       </CardContent>
     </Card>
@@ -33,13 +44,13 @@ export const OrderDetail: React.FC<PropTypes> = ({
   return (
     <div>
       <div><b>{details.reference} - </b>{details.title} - <b>{theActivity && theActivity.name}</b></div>
-      {tidyAssList('Own', details.ownAssets)}
-      {tidyAssList('Other', details.otherAssets)}
+      {tidyAssList('Own', details.ownAssets, details.reference, onEditOwnAssets)}
+      {tidyAssList('Other', details.otherAssets, details.reference, onEditOppAssets)}
       <Card key='activity'>
         <CardContent>Location</CardContent>
         <CardContent>
-          {details.location && details.location.length > 0 &&
-            <ul> {
+          {details.location && details.location.length > 0
+            ? <><ul> {
               details.location.map((geom: PlannedActivityGeometry) => {
                 const activity = details.activity
                 if (activity) {
@@ -56,13 +67,24 @@ export const OrderDetail: React.FC<PropTypes> = ({
                 return <></>
               })}
             </ul>
+            <Link onClick={() => onEditGeometry(details.reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link>
+            </>
+            : <span>N/A</span>}
+        </CardContent>
+      </Card>
+      <Card key='props'>
+        <CardContent>Template Props</CardContent>
+        <CardContent>
+          {props.map((val: string) => {
+            return <li>{val}</li>
+          })
           }
         </CardContent>
       </Card>
       <div> <Button
         variant="contained"
         color="default"
-        onClick={() => onEdit(details.reference)}
+        onClick={() => onEditMessage(details.reference)}
       >
         Edit
       </Button></div>

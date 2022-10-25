@@ -19,7 +19,7 @@ const flatActivities = _.flatten(activities)
 it('CheckboxType renders correctly', () => {
   const tree = renderer
     .create(<div>
-      <OrderDetail onEdit={noop} plan={plan} forces={allForces} platformTypes={platformTypes} force={forceId}
+      <OrderDetail onEditMessage={noop} onEditGeometry={noop} onEditOwnAssets={noop} onEditOppAssets={noop} plan={plan} forces={allForces} platformTypes={platformTypes} force={forceId}
         activities={flatActivities} />
     </div>)
     .toJSON()

@@ -70,6 +70,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const editDetail = (reference: string) => {
     console.log('Edit this document', reference)
   }
+  const editLocation = (reference: string) => {
+    console.log('Edit location', reference)
+  }
+
+  const editOwnAssets = (reference: string) => {
+    console.log('Edit own assets', reference)
+  }
+
+  const editOppAssets = (reference: string) => {
+    console.log('Edit opp assets', reference)
+  }
 
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
@@ -99,7 +110,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <div>Template not found for {message.details.messageType}</div>
         }
       } else {
-        return <OrderDetail onEdit={editDetail} plan={message} forces={forces} platformTypes={platformTypes} activities={activities} force={playerForceId} />
+        return <OrderDetail plan={message} forces={forces}
+          onEditMessage={editDetail} onEditGeometry={editLocation} onEditOwnAssets={editOwnAssets} onEditOppAssets={editOppAssets}
+          platformTypes={platformTypes} activities={activities} force={playerForceId} />
       }
     }
   }

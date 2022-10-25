@@ -19,6 +19,15 @@ export default interface PropTypes {
   force: ForceData['uniqid']
 
   /** callback to edit item with specified reference */
-  onEdit: {(reference: string): void}
+  onEditMessage: { (reference: string): void }
+
+  /** callback to edit item with specified reference */
+  onEditGeometry: { (reference: string): void }
+
+  /** callback to edit item with specified reference */
+  onEditOwnAssets: { (reference: string): void }
+
+  /** callback to edit item with specified reference */
+  onEditOppAssets: { (reference: string): void }
 
 }
