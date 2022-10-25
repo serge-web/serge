@@ -1,5 +1,5 @@
-import { INFO_MESSAGE_CLIPPED, MESSAGE_SENT_INTERACTION, Phase } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, MessageSentInteraction, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
@@ -93,6 +93,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
+
+  const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -263,18 +265,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       if (otherAssets.length) {
         plans.otherAssets = otherAssets
       }
-      // const newPlan: MessagePlanning = {
-      //   messageType: PLANNING_MESSAGE,
-      //   _id: '',
-      //   details: messageDetails,
-      //   message: plans
-      // }
-      console.log('Ready to inject new message:', messageDetails, plans)
-      const activity: MessageSentInteraction = {
-        aType: MESSAGE_SENT_INTERACTION
+      const newPlan: MessagePlanning = {
+        messageType: PLANNING_MESSAGE,
+        _id: '',
+        details: messageDetails,
+        message: plans
       }
-      saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-      saveMessage(currentWargame, messageDetails, plans)()
+      setDraftMessage(newPlan)
+      // console.log('Ready to inject new message:', messageDetails, plans)
+      // const activity: MessageSentInteraction = {
+      //   aType: MESSAGE_SENT_INTERACTION
+      // }
+      // saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
+//      saveMessage(currentWargame, messageDetails, plans)()
       // this method may have been called without an activity being planned, but this is the tidy place to do it
       setActivityBeingPlanned(undefined)
       setActivityPlanned(undefined)
@@ -351,6 +354,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allOppAssets={allOppAssets}
           onPanelWidthChange={onPanelWidthChange}
           activities={flattenedPlanningActivities}
+          draftMessage={draftMessage}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

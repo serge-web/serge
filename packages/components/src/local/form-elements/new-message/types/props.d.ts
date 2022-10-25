@@ -21,4 +21,9 @@ export default interface PropTypes {
    * The method for posting messages out of the component
    */
   postBack: { (details: MessageDetails, message: any): void }
+
+  /** 
+   * draft message to open in editor. The template should come from the details-messageType
+   */
+  draftMessage?: CoreMessage
 }

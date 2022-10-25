@@ -44,7 +44,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allOppAssets,
   allOwnAssets,
   onPanelWidthChange,
-  activities
+  activities,
+  draftMessage
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -196,6 +197,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     postBack={postBack}
                     customiseTemplate={customiseTemplate}
+                    draftMessage={draftMessage}
                   />
                 </div>
               }
