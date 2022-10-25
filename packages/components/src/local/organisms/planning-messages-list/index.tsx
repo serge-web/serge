@@ -2,12 +2,16 @@ import { MessagePlanning, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import OrderDetail from '../../form-elements/order_detail'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
-export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates, isUmpire, gameDate, customiseTemplate, playerForceId, selectedOrders, setSelectedOrders }: PropTypes) => {
+export const PlanningMessagesList: React.FC<PropTypes> = ({
+  messages, templates, isUmpire, gameDate, customiseTemplate,
+  playerForceId, selectedOrders, setSelectedOrders, forces, platformTypes, activities
+}: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
@@ -63,28 +67,52 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
     setColumns(columnData)
   }, [myMessages])
 
+  const editDetail = (reference: string) => {
+    console.log('Edit this document', reference)
+  }
+  const editLocation = (reference: string) => {
+    console.log('Edit location', reference)
+  }
+
+  const editOwnAssets = (reference: string) => {
+    console.log('Edit own assets', reference)
+  }
+
+  const editOppAssets = (reference: string) => {
+    console.log('Edit opp assets', reference)
+  }
+
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
-      const localTemplates = templates || []
-      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
-      if (!template) {
-        console.log('template not found for', message.details.messageType, 'templates:', templates)
-      }
-      if (message && template) {
-        return <JsonEditor
-          messageContent={message.message}
-          customiseTemplate={customiseTemplate}
-          messageId={rowData.id}
-          template={template}
-          disabled={false}
-          gameDate={gameDate}
-        />
+      // check if message is being edited
+      const failureVal = !7
+      if (failureVal) {
+        console.warn('show JSON Editor')
+        const localTemplates = templates || []
+        const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+        if (!template) {
+          console.log('template not found for', message.details.messageType, 'templates:', templates)
+        }
+        if (message && template) {
+          return <JsonEditor
+            messageContent={message.message}
+            customiseTemplate={customiseTemplate}
+            messageId={rowData.id}
+            template={template}
+            disabled={false}
+            gameDate={gameDate}
+          />
+        } else {
+          return <div>Template not found for {message.details.messageType}</div>
+        }
       } else {
-        return <div>Template not found for {message.details.messageType}</div>
+        return <OrderDetail plan={message} forces={forces}
+          onEditMessage={editDetail} onEditGeometry={editLocation} onEditOwnAssets={editOwnAssets} onEditOppAssets={editOppAssets}
+          platformTypes={platformTypes} activities={activities} force={playerForceId} />
       }
     }
   }
@@ -122,12 +150,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({ messages, templates,
       />
     </div>
   )
-
-  // return (
-  //   <div className={styles['messages-list']}>
-  //     <Orders detailPanelFnc={detailPanel} columns={columns} rows={rows} />
-  //   </div>
-  // )
 }
 
 export default PlanningMessagesList

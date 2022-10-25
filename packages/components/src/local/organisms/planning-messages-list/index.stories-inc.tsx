@@ -6,10 +6,10 @@ import React, { useState } from 'react'
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
 import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { noop } from 'lodash'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
-import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -60,6 +60,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(planningMessages)
 
+  const allForces = P9Mock.data.forces.forces
+
   return <PlanningMessagesList
     messages={newestMessages}
     channel={planningChannel}
@@ -73,6 +75,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
     hideForcesInChannel={hideForcesInChannel}
     selectedOrders={[]}
     setSelectedOrders={(): any => noop}
+    forces={allForces}
+    platformTypes={[]}
+    activities={[]}
   />
 }
 

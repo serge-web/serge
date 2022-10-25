@@ -51,6 +51,7 @@ describe('Support Panel component: ', () => {
         setOwnForcesForParent={noop}
         allOppAssets={[]}
         allOwnAssets={[]}
+        activities={[]}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

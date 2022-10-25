@@ -346,6 +346,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allOwnAssets={allOwnAssets}
           allOppAssets={allOppAssets}
           onPanelWidthChange={onPanelWidthChange}
+          activities={flattenedPlanningActivities}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

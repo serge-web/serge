@@ -1,10 +1,10 @@
 /* global it expect */
-import React from 'react'
-import renderer from 'react-test-renderer'
-import PlanningMessagesList from './index'
 import { PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
+import React from 'react'
+import renderer from 'react-test-renderer'
+import PlanningMessagesList from './index'
 
 import { P9Mock } from '@serge/mocks'
 import { noop } from 'lodash'
@@ -47,7 +47,7 @@ describe('ChannelMessagesList component: ', () => {
       .create(<PlanningMessagesList gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
+        playerForceId={blueForce.uniqid} forces={[]} platformTypes={[]} activities={[]} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

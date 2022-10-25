@@ -1,7 +1,7 @@
+import { TurnFormats } from '@serge/config'
+import { ChannelPlanning, ForceData, MessagePlanning, PlanningActivity, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
-import { TurnFormats } from '@serge/config'
 
 export type OrderRow = {
   id: string
@@ -63,4 +63,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
+
+  forces: ForceData[]
+  platformTypes: PlatformTypeData[]
+  /** list of activities for this force */
+  activities: PlanningActivity[]
 }
