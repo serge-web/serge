@@ -2,7 +2,7 @@
 
 import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
 import { MockPerForceActivities, P9Mock, planningMessages } from '@serge/mocks'
-import _ from 'lodash'
+import _, { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import OrderDetail from './index'
@@ -19,7 +19,7 @@ const flatActivities = _.flatten(activities)
 it('CheckboxType renders correctly', () => {
   const tree = renderer
     .create(<div>
-      <OrderDetail plan={plan} forces={allForces} platformTypes={platformTypes} force={forceId}
+      <OrderDetail onEdit={noop} plan={plan} forces={allForces} platformTypes={platformTypes} force={forceId}
         activities={flatActivities} />
     </div>)
     .toJSON()

@@ -54,8 +54,12 @@ const force = filledInPerForcePlanningActivities.find((val: PerForcePlanningActi
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
 const flatActivities = _.flatten(activities)
 
-export const WithAssets: React.FC = () => <OrderDetail plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId}
+const onEdit = (reference: string) => {
+  console.log('editing', reference)
+}
+
+export const WithAssets: React.FC = () => <OrderDetail onEdit={onEdit} plan={planningMessages[2]} forces={allForces} platformTypes={platformTypes} force={forceId}
   activities={flatActivities} />
 
-export const WithLocation: React.FC = () => <OrderDetail plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId}
+export const WithLocation: React.FC = () => <OrderDetail onEdit={onEdit} plan={planningMessages[1]} forces={allForces} platformTypes={platformTypes} force={forceId}
   activities={flatActivities} />

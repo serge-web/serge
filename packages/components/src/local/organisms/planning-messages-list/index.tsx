@@ -67,6 +67,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setColumns(columnData)
   }, [myMessages])
 
+  const editDetail = (reference: string) => {
+    console.log('Edit this document', reference)
+  }
+
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
@@ -95,7 +99,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <div>Template not found for {message.details.messageType}</div>
         }
       } else {
-        return <OrderDetail plan={message} forces={forces} platformTypes={platformTypes} activities={activities} force={playerForceId} />
+        return <OrderDetail onEdit={editDetail} plan={message} forces={forces} platformTypes={platformTypes} activities={activities} force={playerForceId} />
       }
     }
   }
