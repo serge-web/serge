@@ -1,18 +1,5 @@
-.selected > * {
-  font-weight: 700;
 
-  svg {
-    background-color: #fff;
-    border-radius: 2px;
-  }
+.link {
+  padding-left: 10px;
 }
 
-.input-container {
-  margin-bottom: 1vmin;
-  padding-left: 25px !important;
-  flex-wrap: wrap;
-  label {
-    margin: 0;
-    padding: 0 2px;
-  }
-}

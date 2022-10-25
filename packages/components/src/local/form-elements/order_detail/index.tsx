@@ -1,10 +1,10 @@
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Card, CardContent, Grid, Link } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
+import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 export const OrderDetail: React.FC<PropTypes> = ({
@@ -26,7 +26,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
 
   const tidyAssList = (title: string, assIds: string[] | undefined, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
     return <Card key={title}>
-      <CardContent>{title} <Link onClick={() => onEdit(reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
+      <CardContent>{title} <Link className={styles.link} onClick={() => onEdit(reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
       <CardContent>
         {assIds && assIds.length > 0 && <ul>
           {assIds.map((id: string) => {
@@ -58,7 +58,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
         </Grid>
         <Grid item>
           <Card key='activity'>
-            <CardContent>Location<Link onClick={() => onEditGeometry(details.reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
+            <CardContent>Location<Link className={styles.link} onClick={() => onEditGeometry(details.reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
             <CardContent>
               {details.location && details.location.length > 0
                 ? <ul> {
@@ -82,24 +82,19 @@ export const OrderDetail: React.FC<PropTypes> = ({
             </CardContent>
           </Card>
         </Grid>
+        <Grid>
+          <Card key='props'>
+            <CardContent>Template Props<Link className={styles.link} onClick={() => onEditMessage(details.reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
+            <CardContent>
+              {props.map((val: string, index: number) => {
+                return <li key={index}>{val}</li>
+              })
+              }
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
 
-      <Card key='props'>
-        <CardContent>Template Props</CardContent>
-        <CardContent>
-          {props.map((val: string) => {
-            return <li>{val}</li>
-          })
-          }
-        </CardContent>
-      </Card>
-      <div> <Button
-        variant="contained"
-        color="default"
-        onClick={() => onEditMessage(details.reference)}
-      >
-        Edit
-      </Button></div>
     </div>
   )
 }
