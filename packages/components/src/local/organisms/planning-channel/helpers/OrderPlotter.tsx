@@ -304,9 +304,9 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       properties: {}
     }
     return <>
-      {shapeForGeomWithOrders(contact.first, forceCols, activities, storeRef)}
-      {shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef)}
-      {interFeature && shapeFor(interFeature as Feature, hightlightColor, '', storeRef)}
+      {shapeForGeomWithOrders(contact.first, forceCols, activities, storeRef, 1)}
+      {shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef, 2)}
+      {interFeature && shapeFor(interFeature as Feature, hightlightColor, '', storeRef, 3)}
     </>
   }
 
