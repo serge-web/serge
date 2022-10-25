@@ -123,7 +123,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-    saveMessage(currentWargame, details, message)
+    saveMessage(currentWargame, details, message)()
   }
 
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {

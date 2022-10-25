@@ -20,7 +20,7 @@ export default interface PropTypes {
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => void
+  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => Function
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   dispatch: Dispatch<any>
   isUmpire: boolean

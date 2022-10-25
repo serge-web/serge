@@ -184,7 +184,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // drop the turn markers
     const myMessages: MessagePlanning[] = messages.filter((msg: MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as MessagePlanning[]
     setPlanningMessages(myMessages)
-    console.warn('have set planning messages', messages.length, myMessages.length)
   }, [messages])
 
   const onRead = (detail: MessagePlanning): void => {
@@ -275,12 +274,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         aType: MESSAGE_SENT_INTERACTION
       }
       saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-      saveMessage(currentWargame, messageDetails, plans)
+      saveMessage(currentWargame, messageDetails, plans)()
       // this method may have been called without an activity being planned, but this is the tidy place to do it
       setActivityBeingPlanned(undefined)
       setActivityPlanned(undefined)
     } else {
-      console.error('UI Presumes there is an activity being planned.')
+      console.log('UI Presumes there is an activity being planned.')
     }
   }, [activityPlanned])
 
