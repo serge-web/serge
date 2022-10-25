@@ -35,7 +35,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
               const pType = platformTypes.find((plat: PlatformTypeData) => plat.uniqid === asset.platformTypeId)
               return <li key={id}>{asset.name} - {pType && pType.name}</li>
             } else {
-              return <span>Not Found</span>
+              return <span key='n/f'>Not Found</span>
             }
           })
           }
@@ -62,7 +62,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
             <CardContent>
               {details.location && details.location.length > 0
                 ? <ul> {
-                  details.location.map((geom: PlannedActivityGeometry) => {
+                  details.location.map((geom: PlannedActivityGeometry, index: number) => {
                     const activity = details.activity
                     if (activity) {
                       const theAct: PlanningActivity | undefined = activities.find((act: PlanningActivity) => {
@@ -71,14 +71,14 @@ export const OrderDetail: React.FC<PropTypes> = ({
                       if (theAct && theAct.geometries) {
                         const theGeom = theAct.geometries.find((plan: PlanningActivityGeometry) => plan.uniqid === geom.uniqid)
                         if (theGeom) {
-                          return <li key={theGeom.uniqid}>{theGeom.name}</li>
+                          return <li key={index}>{theGeom.name}</li>
                         }
                       }
                     }
-                    return <></>
+                    return <span key={index}></span>
                   })}
                 </ul>
-                : <span>N/A</span>}
+                : <span key='na2'>N/A</span>}
             </CardContent>
           </Card>
         </Grid>
