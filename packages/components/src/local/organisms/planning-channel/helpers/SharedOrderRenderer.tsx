@@ -10,14 +10,13 @@ import { findPlanningGeometry, GeomWithOrders } from '../../support-panel/helper
 import styles from '../styles.module.scss'
 
 /** produce a shape for this feature */
-export const shapeFor = (feature: Feature, color: string, label: string, storeRef: { (polyline: Layer): void }): React.ReactElement => {
+export const shapeFor = (feature: Feature, color: string, label: string, storeRef: { (polyline: Layer): void }, index: number): React.ReactElement => {
   let res: React.ReactElement | undefined
   switch (feature.geometry.type) {
     case 'LineString': {
       const ls = feature.geometry as LineString
       const coords: LatLng[] = ls.coordinates.map((pos: Position) => latLng(pos[1], pos[0]))
-      const randomKey = '' + Math.floor(Math.random() * 1000000)
-      res = <PolylineDecorator key={randomKey} storeRef={storeRef} message={label} latlngs={coords} color={(color) || ''} />
+      res = <PolylineDecorator key={index} storeRef={storeRef} message={label} latlngs={coords} color={(color) || ''} />
       break
     }
     case 'Polygon': {
@@ -27,7 +26,7 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
       const polygonNameIcon = L.divIcon({ html: `<div style="transform: translateX(-50%);padding-top:15px;font-size: 16px;">${label}</div>`, className: styles['polygon-name'] })
 
       res = <>
-        <RPolygon color={(color) || ''} positions={coords}>
+        <RPolygon key={index} color={(color) || ''} positions={coords}>
           <>
             {label && <Tooltip>{label}</Tooltip>}
             <Marker position={center} icon={polygonNameIcon} />
@@ -39,7 +38,7 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
     case 'Point': {
       const poly = feature.geometry as Point
       const centre: LatLng = latLng(poly.coordinates[1], poly.coordinates[0])
-      res = <CircleMarker radius={30} color={(color) || ''} center={centre}>
+      res = <CircleMarker key={index} radius={30} color={(color) || ''} center={centre}>
         {label &&
           <Tooltip>{label}</Tooltip>
         }
@@ -50,10 +49,11 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
   return res || <></>
 }
 
-export const shapeForGeomWithOrders = (geom: GeomWithOrders, forceCols: ForceStyle[], activities: PerForcePlanningActivitySet[], storeRef: { (polyline: Layer): void }): React.ReactElement => {
+export const shapeForGeomWithOrders = (geom: GeomWithOrders, forceCols: ForceStyle[], 
+    activities: PerForcePlanningActivitySet[], storeRef: { (polyline: Layer): void }, index: number): React.ReactElement => {
   const geometry = geom.geometry
   const force = geom.activity.details.from.forceId
   const activity = findPlanningGeometry(geom.uniqid, force || '', activities)
   const color = forceCols.find((value: ForceStyle) => value.forceId === force)
-  return shapeFor(geometry, (color && color.color) || '', activity, storeRef)
+  return shapeFor(geometry, (color && color.color) || '', activity, storeRef, index)
 }

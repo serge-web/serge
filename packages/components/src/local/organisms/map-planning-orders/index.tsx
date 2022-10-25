@@ -58,14 +58,14 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
         layersToDelete.push(polyline)
       }
 
-      const elements = flatGeom.map((feature: Feature) => {
+      const elements = flatGeom.map((feature: Feature, index: number) => {
         if (feature.properties) {
           const activity = localFindActivity(activities, feature.properties.uniqid)
           let color = forceColor || '#0f0'
           if (activity && activity.color) {
             color = activity.color
           }
-          return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef)
+          return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef, index)
         } else {
           return <></>
         }
