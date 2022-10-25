@@ -45,10 +45,11 @@ const NewMessage: React.FC<PropTypes> = ({
 
   const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
-  console.log('new message', draftMessage)
+  console.log('new message', templates.length, draftMessage, selectedSchema, selectedType)
 
   useEffect(() => {
-    if (!prevTemplates || updateNewMessage) {
+    console.log('new message effect', prevTemplates, updateNewMessage, draftMessage)
+    if (!prevTemplates || updateNewMessage || draftMessage) {
       console.log('open editor', draftMessage)
       if (templates.length) {
         if (schemaTitle) {
@@ -106,7 +107,7 @@ const NewMessage: React.FC<PropTypes> = ({
   return (
     <div className={classes} style={{ zIndex: 10 }}>
       <Collapsible
-        open={!!schemaTitle}
+        open={!!schemaTitle || draftMessage}
         onOpening={onOpencollapsible}
         onClose={onClossCollapsible}
         trigger={'New Message'}

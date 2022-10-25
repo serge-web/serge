@@ -131,6 +131,8 @@ const MessageCreator: React.FC<PropTypes> = ({
   const responseHandler = (val: { [property: string]: any }): void => {
     setFormMessage(val)
   }
+  
+  console.log('message creator', schema, draftMessage)
 
   return (
     <>

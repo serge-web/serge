@@ -131,6 +131,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
   }
 
+  console.log('support panel', draftMessage)
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
