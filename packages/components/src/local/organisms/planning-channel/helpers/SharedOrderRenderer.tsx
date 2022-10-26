@@ -26,11 +26,11 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
       const polygonNameIcon = L.divIcon({ html: `<div style="transform: translateX(-50%);padding-top:15px;font-size: 16px;">${label}</div>`, className: styles['polygon-name'] })
 
       res = <RPolygon key={index} color={(color) || ''} positions={coords}>
-          <>
-            {label && <Tooltip>{label}</Tooltip>}
-            <Marker position={center} icon={polygonNameIcon} />
-          </>
-        </RPolygon>
+        <>
+          {label && <Tooltip>{label}</Tooltip>}
+          <Marker position={center} icon={polygonNameIcon} />
+        </>
+      </RPolygon>
       break
     }
     case 'Point': {
