@@ -1,6 +1,6 @@
 import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
-import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity, TemplateBody } from '@serge/custom-types'
+import { deepCopy, findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
@@ -138,6 +138,34 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setAllOppAssets(opp)
     setOpAssetsFiltered(opp.slice())
     setForceColors(forceCols)
+
+    const newActivities = forcePlanningActivities && forcePlanningActivities.map((force: PerForcePlanningActivitySet) => {
+      const newGroup = force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
+        const newActs = group.activities.map((plan: string | PlanningActivity): PlanningActivity => {
+          if (typeof plan === 'string') {
+            return plan as unknown as PlanningActivity
+          } else {
+            const newPlan: PlanningActivity = deepCopy(plan)
+            const templTitle = newPlan.template
+            const newTempl = templates.find((templ: TemplateBody) => templ.title === templTitle)
+            newPlan.template = newTempl ? newTempl._id : templTitle
+            return newPlan
+          }
+        })
+        const res2: GroupedActivitySet = {
+          category: group.category,
+          activities: newActs
+        }
+        return res2
+      })
+      const res: PerForcePlanningActivitySet = {
+        force: force.force,
+        groupedActivities: newGroup
+      }
+      return res
+    })
+    console.log(newActivities)
+
   }, [allForces, currentForce])
 
   useEffect(() => {
