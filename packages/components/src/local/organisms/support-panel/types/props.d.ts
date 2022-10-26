@@ -42,7 +42,7 @@ export default interface PropTypes {
   onPanelWidthChange?: (width: number) => void
   activities: PlanningActivity[]
   /** a draft copy of an new orders */
-  draftMessage?: MessagePlanning 
+  draftMessage?: MessagePlanning
   onCancelDraftMessage?: {(): void}
 }
 

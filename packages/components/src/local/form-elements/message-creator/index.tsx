@@ -133,7 +133,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   }
 
   draftMessage && console.warn('still have to put this draft message into editor:', draftMessage)
-  
+
   return (
     <>
       <Confirm

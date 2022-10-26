@@ -53,7 +53,7 @@ const NewMessage: React.FC<PropTypes> = ({
           const findColumn = templates.find(find => find.title === schemaTitle)
           if (findColumn) {
             setSelectedSchema(findColumn.details)
-            setSelectedType(findColumn.title)  
+            setSelectedType(findColumn.title)
           }
         } else {
           if (draftMessage) {
@@ -64,7 +64,7 @@ const NewMessage: React.FC<PropTypes> = ({
             const template = templates.find((tmpl: TemplateBody) => tmpl.title === schemaTitle)
             if (template) {
               setSelectedSchema(template.details)
-              setSelectedType(template.title)  
+              setSelectedType(template.title)
             }
           } else {
             setUpdateNewMessage(false)

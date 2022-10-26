@@ -25,7 +25,7 @@ export default interface PropTypes {
    */
   postBack: { (details: MessageDetails, message: any): void }
 
-  /** 
+  /**
    * draft message to open in editor. The template should come from the details-messageType
    */
   draftMessage?: CoreMessage
