@@ -286,7 +286,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     if (forcePlanningActivities) {
       const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
-      console.log('new act', activity, newActivity)
       if (newActivity.geometries) {
         setActivityBeingPlanned(newActivity)
       } else {
