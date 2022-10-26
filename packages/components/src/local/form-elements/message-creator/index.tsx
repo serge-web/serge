@@ -131,9 +131,9 @@ const MessageCreator: React.FC<PropTypes> = ({
   const responseHandler = (val: { [property: string]: any }): void => {
     setFormMessage(val)
   }
-  
-  console.log('message creator', schema, draftMessage)
 
+  draftMessage && console.warn('still have to put this draft message into editor:', draftMessage)
+  
   return (
     <>
       <Confirm

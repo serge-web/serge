@@ -41,7 +41,9 @@ export default interface PropTypes {
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
   activities: PlanningActivity[]
+  /** a draft copy of an new orders */
   draftMessage?: MessagePlanning 
+  onCancelDraftMessage?: {(): void}
 }
 
 export type TabPanelProps = {

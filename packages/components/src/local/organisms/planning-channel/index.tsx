@@ -271,14 +271,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         details: messageDetails,
         message: plans
       }
+      // open this in the editor
       setDraftMessage(newPlan)
-      // console.log('Ready to inject new message:', messageDetails, plans)
-      // const activity: MessageSentInteraction = {
-      //   aType: MESSAGE_SENT_INTERACTION
-      // }
-      // saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-//      saveMessage(currentWargame, messageDetails, plans)()
-      // this method may have been called without an activity being planned, but this is the tidy place to do it
+
+      // clean up
       setActivityBeingPlanned(undefined)
       setActivityPlanned(undefined)
     } else {
@@ -290,6 +286,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     if (forcePlanningActivities) {
       const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
+      console.log('new act', activity, newActivity)
       if (newActivity.geometries) {
         setActivityBeingPlanned(newActivity)
       } else {
@@ -297,6 +294,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         setActivityPlanned([])
       }
     }
+  }
+
+  const cancelDraftMessage = (): void => {
+    setDraftMessage(undefined)
   }
 
   const mapChildren = useMemo(() => {
@@ -355,6 +356,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onPanelWidthChange={onPanelWidthChange}
           activities={flattenedPlanningActivities}
           draftMessage={draftMessage}
+          onCancelDraftMessage={cancelDraftMessage}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

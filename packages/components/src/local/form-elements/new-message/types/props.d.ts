@@ -2,7 +2,10 @@ import { ChannelTypes, ForceData, MessageDetails, TemplateBody } from '@serge/cu
 
 export default interface PropTypes {
   orderableChannel: boolean
+  /** whether a confirm box is shown when cancelling a message */
   confirmCancel: boolean
+  /** player has cancelled creating new message */
+  onCancel?: {(): void}
   templates: TemplateBody[]
   privateMessage: boolean
   selectedForce?: ForceData

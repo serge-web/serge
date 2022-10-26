@@ -13,6 +13,7 @@ const NewMessage: React.FC<PropTypes> = ({
   privateMessage,
   orderableChannel,
   confirmCancel,
+  onCancel,
   currentTurn,
   gameDate,
   selectedForce,
@@ -45,12 +46,8 @@ const NewMessage: React.FC<PropTypes> = ({
 
   const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
-  console.log('new message', templates.length, draftMessage, selectedSchema, selectedType)
-
   useEffect(() => {
-    console.log('new message effect', prevTemplates, updateNewMessage, draftMessage)
     if (!prevTemplates || updateNewMessage || draftMessage) {
-      console.log('open editor', draftMessage)
       if (templates.length) {
         if (schemaTitle) {
           const findColumn = templates.find(find => find.title === schemaTitle)
@@ -61,8 +58,10 @@ const NewMessage: React.FC<PropTypes> = ({
         } else {
           if (draftMessage) {
             const msg = draftMessage as CoreMessage
-            const schemaId = msg.details.messageType
-            const template = templates.find(find => find._id === schemaId)
+            const schemaTitle = msg.details.messageType
+            // note: unusually, on the next line we compare by title. This is because it's the message
+            // note: title that is stored in the message details
+            const template = templates.find((tmpl: TemplateBody) => tmpl.title === schemaTitle)
             if (template) {
               setSelectedSchema(template.details)
               setSelectedType(template.title)  
@@ -87,8 +86,9 @@ const NewMessage: React.FC<PropTypes> = ({
     }, 0)
   }
 
-  const onCancel = (e: MouseEvent<HTMLButtonElement>): void => {
+  const onCancelLocal = (e: MouseEvent<HTMLButtonElement>): void => {
     setUpdateNewMessage(true)
+    onCancel && onCancel()
     setTimeout(() => {
       if (tab && tab.current) {
         tab.current.handleTriggerClick(e)
@@ -136,7 +136,7 @@ const NewMessage: React.FC<PropTypes> = ({
           confirmCancel={!!confirmCancel}
           privateMessage={privateMessage}
           onMessageSend={onMessageSend}
-          onCancel={onCancel}
+          onCancel={onCancelLocal}
           currentTurn={currentTurn}
           gameDate={gameDate}
           selectedForce={selectedForce}
