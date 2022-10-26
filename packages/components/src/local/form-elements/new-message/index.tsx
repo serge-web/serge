@@ -58,10 +58,8 @@ const NewMessage: React.FC<PropTypes> = ({
         } else {
           if (draftMessage) {
             const msg = draftMessage as CoreMessage
-            const schemaTitle = msg.details.messageType
-            // note: unusually, on the next line we compare by title. This is because it's the message
-            // note: title that is stored in the message details
-            const template = templates.find((tmpl: TemplateBody) => tmpl.title === schemaTitle)
+            const schemaId = msg.details.messageType
+            const template = templates.find((tmpl: TemplateBody) => tmpl._id === schemaId)
             if (template) {
               setSelectedSchema(template.details)
               setSelectedType(template.title)

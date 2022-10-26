@@ -35,7 +35,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
               const pType = platformTypes.find((plat: PlatformTypeData) => plat.uniqid === asset.platformTypeId)
               return <li key={index}>{asset.name} - {pType && pType.name}</li>
             } else {
-              return <Span key={index}>Not Found</Span>
+              return <div key={index}>Not Found</div>
             }
           })
           }
