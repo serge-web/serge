@@ -107,7 +107,7 @@ const NewMessage: React.FC<PropTypes> = ({
   return (
     <div className={classes} style={{ zIndex: 10 }}>
       <Collapsible
-        open={!!schemaTitle || draftMessage}
+        open={!!schemaTitle || !!draftMessage}
         onOpening={onOpencollapsible}
         onClose={onClossCollapsible}
         trigger={'New Message'}
