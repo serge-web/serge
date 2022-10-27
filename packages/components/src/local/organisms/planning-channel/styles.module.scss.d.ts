@@ -3,6 +3,7 @@
 interface CssExports {
   'map': string;
   'map-container': string;
+  'marker-icon': string;
   'polygon-name': string;
   'root': string;
 }
