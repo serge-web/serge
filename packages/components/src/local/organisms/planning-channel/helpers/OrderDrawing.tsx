@@ -5,15 +5,18 @@ import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } f
 import { deepCopy } from '@serge/helpers'
 import cx from 'classnames'
 import { Geometry } from 'geojson'
-import { LatLng, Layer, PM } from 'leaflet'
+import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import React, { useEffect, useState } from 'react'
+import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
+import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
+import styles from '../styles.module.scss'
 import { CustomTranslation } from './CustomTranslation'
 
-declare const L: any // needed because control.notifications is not in TS type defs
+// declare const L: any // needed because control.notifications is not in TS type defs
 
 interface OrderDrawingProps {
   activity: PlanningActivity | undefined
@@ -122,10 +125,22 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // we enable the draw mode, for the new tooltip to be used for the new mode
       const newTranslations = deepCopy(CustomTranslation)
 
+      const getAssetIcon = (imageSrc: string): string => {
+        return (
+          ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} />)
+        )
+      }
+
       // now just switch on the control we want
       switch (current.aType) {
         case GeometryType.point: {
+          const icon = L.divIcon({
+            iconSize: [30, 30],
+            html: getAssetIcon('/images/marker-icon-2x.png'),
+            className: styles['marker-icon']
+          })
           newTranslations.tooltips.placeMarker = 'Click map to specify point location for <b>[' + current.name + ']</b>'
+          map.pm.setGlobalOptions({ markerStyle: { icon } })
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Marker')
           break
