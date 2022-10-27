@@ -1,25 +1,23 @@
+import { faSearchLocation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Chip, Table } from '@material-ui/core'
 import { ForceData, MessagePlanning } from '@serge/custom-types'
+import { findAsset, ForceStyle } from '@serge/helpers'
 import MaterialTable, { Column } from 'material-table'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearchLocation } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
+import { arrToDict, collateActivities, getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
-import { findAsset, ForceStyle } from '@serge/helpers'
-import { arrToDict, collateActivities, getColumnSummary } from '../planning-assets/helpers/collate-assets'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, messages, template, isUmpire, gameDate, selectedOrders, setSelectedOrders,
+  forces, messages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, forceColors
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-
-  console.log('selectedOrders: ', selectedOrders, setSelectedOrders)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {

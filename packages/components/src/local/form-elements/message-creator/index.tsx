@@ -8,12 +8,12 @@ import {
   UNSENT_PRIVATE_MESSAGE_TYPE,
   UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
-import JsonEditor from '../../molecules/json-editor'
 import {
   ChannelCollab,
   MessageDetails
 } from '@serge/custom-types'
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
+import JsonEditor from '../../molecules/json-editor'
 
 import flatpickr from 'flatpickr'
 import PropTypes from './types/props'
@@ -36,7 +36,8 @@ const MessageCreator: React.FC<PropTypes> = ({
   messageOption,
   createCachedCreatorMessage,
   getcachedCreatorMessageValue,
-  clearCachedCreatorMessage
+  clearCachedCreatorMessage,
+  draftMessage
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
@@ -130,6 +131,8 @@ const MessageCreator: React.FC<PropTypes> = ({
   const responseHandler = (val: { [property: string]: any }): void => {
     setFormMessage(val)
   }
+
+  draftMessage && console.warn('still have to put this draft message into editor:', draftMessage)
 
   return (
     <>

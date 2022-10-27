@@ -1,4 +1,4 @@
-import { MessageDetails, ChannelTypes, ForceData } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 
 export default interface PropTypes {
@@ -32,4 +32,6 @@ export default interface PropTypes {
   gameDate: string
   /** method to customise the new (or existing) message template */
   customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+  /** draft message to show in editor */
+  draftMessage?: CoreMessage
 }

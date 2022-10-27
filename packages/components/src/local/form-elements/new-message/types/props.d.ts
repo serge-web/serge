@@ -1,8 +1,11 @@
-import { ChannelTypes, ForceData, MessageDetails, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
+  /** whether a confirm box is shown when cancelling a message */
   confirmCancel: boolean
+  /** player has cancelled creating new message */
+  onCancel?: {(): void}
   templates: TemplateBody[]
   privateMessage: boolean
   selectedForce?: ForceData
@@ -21,4 +24,9 @@ export default interface PropTypes {
    * The method for posting messages out of the component
    */
   postBack: { (details: MessageDetails, message: any): void }
+
+  /**
+   * draft message to open in editor. The template should come from the details-messageType
+   */
+  draftMessage?: CoreMessage
 }

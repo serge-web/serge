@@ -89,7 +89,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
       // check if message is being edited
-      const failureVal = !7
+      const failureVal = 7
       if (failureVal) {
         console.warn('show JSON Editor')
         const localTemplates = templates || []
@@ -98,6 +98,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           console.log('template not found for', message.details.messageType, 'templates:', templates)
         }
         if (message && template) {
+          // TODO: mangle object to make our specialised data look neat in the template.
           return <JsonEditor
             messageContent={message.message}
             customiseTemplate={customiseTemplate}

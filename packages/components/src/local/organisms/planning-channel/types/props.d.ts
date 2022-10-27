@@ -25,7 +25,7 @@ export default interface PropTypes {
   markAllAsRead: (channel: string) => PlayerUiActionTypes
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
-  saveMessage: (dbName: string, details: MessageDetails, message: any) => void
+  saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
   /** set of activities that can be planned using this planning channel */
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   phase: Phase

@@ -1,43 +1,16 @@
-import React from 'react'
 import {
-  SET_CURRENT_WARGAME_PLAYER,
-  SET_FORCE,
-  SET_ROLE,
-  SET_ALL_TEMPLATES_PLAYERUI,
-  SHOW_HIDE_OBJECTIVES,
-  UPDATE_MESSAGE_STATE,
-  SET_FEEDBACK_MESSAGES,
-  SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE,
-  SET_ALL_MESSAGES,
-  OPEN_MESSAGE,
-  MARK_UNREAD,
-  CLOSE_MESSAGE,
-  MARK_ALL_AS_READ,
-  OPEN_TOUR,
-  OPEN_MODAL,
-  CLOSE_MODAL,
-  MARK_ALL_AS_UNREAD,
-  FEEDBACK_MESSAGE
+  CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES,
+  UPDATE_MESSAGE_STATE
 } from '@serge/config'
+import React from 'react'
 import * as wargamesApi from '../../api/wargames_api'
-import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
+import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
-  Wargame,
-  Role,
-  Message,
-  MessageDetails,
-  MessageFeedback,
-  MessageChannel,
-  MessageCustom,
-  MessageInfoType,
-  MessageDetailsFrom,
-  MessageMap,
-  TemplateBodysByKey,
-  PlayerUiActionTypes,
-  ChatMessage
+  ChatMessage, Message, MessageChannel,
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({

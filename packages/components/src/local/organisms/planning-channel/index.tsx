@@ -94,6 +94,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
+  const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
+
   useEffect(() => {
     if (forcePlanningActivities) {
       const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === selectedForce.uniqid)
@@ -184,7 +186,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // drop the turn markers
     const myMessages: MessagePlanning[] = messages.filter((msg: MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as MessagePlanning[]
     setPlanningMessages(myMessages)
-    console.warn('have set planning messages', messages.length, myMessages.length)
   }, [messages])
 
   const onRead = (detail: MessagePlanning): void => {
@@ -270,12 +271,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         details: messageDetails,
         message: plans
       }
-      console.log('Ready to inject new message:', newPlan)
-      // this method may have been called without an activity being planned, but this is the tidy place to do it
+      // open this in the editor
+      setDraftMessage(newPlan)
+
+      // clean up
       setActivityBeingPlanned(undefined)
       setActivityPlanned(undefined)
     } else {
-      console.error('UI Presumes there is an activity being planned.')
+      console.log('UI Presumes there is an activity being planned.')
     }
   }, [activityPlanned])
 
@@ -290,6 +293,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         setActivityPlanned([])
       }
     }
+  }
+
+  const cancelDraftMessage = (): void => {
+    setDraftMessage(undefined)
   }
 
   const mapChildren = useMemo(() => {
@@ -347,6 +354,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allOppAssets={allOppAssets}
           onPanelWidthChange={onPanelWidthChange}
           activities={flattenedPlanningActivities}
+          draftMessage={draftMessage}
+          onCancelDraftMessage={cancelDraftMessage}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

@@ -20,7 +20,7 @@ export default interface PropTypes {
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => void
+  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => {(): void}
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   dispatch: Dispatch<any>
   isUmpire: boolean
@@ -41,6 +41,9 @@ export default interface PropTypes {
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
   activities: PlanningActivity[]
+  /** a draft copy of an new orders */
+  draftMessage?: MessagePlanning
+  onCancelDraftMessage?: {(): void}
 }
 
 export type TabPanelProps = {

@@ -29,13 +29,13 @@ export const OrderDetail: React.FC<PropTypes> = ({
       <CardContent>{title} <Link className={styles.link} onClick={() => onEdit(reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
       <CardContent>
         {assIds && assIds.length > 0 && <ul>
-          {assIds.map((id: string) => {
+          {assIds.map((id: string, index: number) => {
             const asset = findAsset(forces, id)
             if (asset) {
               const pType = platformTypes.find((plat: PlatformTypeData) => plat.uniqid === asset.platformTypeId)
-              return <li key={id}>{asset.name} - {pType && pType.name}</li>
+              return <li key={index}>{asset.name} - {pType && pType.name}</li>
             } else {
-              return <span key='n/f'>Not Found</span>
+              return <div key={index}>Not Found</div>
             }
           })
           }

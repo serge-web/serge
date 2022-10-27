@@ -44,7 +44,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allOppAssets,
   allOwnAssets,
   onPanelWidthChange,
-  activities
+  activities,
+  draftMessage,
+  onCancelDraftMessage
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -53,6 +55,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
+
+  const ORDERS_TAB = 1
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -107,6 +111,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [selectedOwnAssets, selectedOpAssets])
 
   useEffect(() => {
+    // if there is a draft message, open the `my orders` tab
+    if (draftMessage) {
+      setActiveTab(TABS[ORDERS_TAB])
+    }
+  }, [draftMessage])
+
+  useEffect(() => {
     onPanelWidthChange && onPanelWidthChange(isShowPanel ? 330 : 0)
   }, [isShowPanel])
 
@@ -118,12 +129,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }
   }
 
+  const cancelNewOrders = (): void => {
+    onCancelDraftMessage && onCancelDraftMessage()
+  }
+
   const postBack = (details: MessageDetails, message: any): void => {
     const activity: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-    saveMessage(currentWargame, details, message)
+    saveMessage(currentWargame, details, message)()
   }
 
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
@@ -160,8 +175,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >
-              {activeTab === TABS[1] &&
+            <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
+              {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
                   <PlanningMessagesList
                     messages={messages}
@@ -191,11 +206,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     selectedForce={selectedForce}
                     selectedRoleName={selectedRoleName}
                     confirmCancel={false}
+                    onCancel={cancelNewOrders}
                     channel={channel}
                     currentTurn={currentTurn}
                     gameDate={gameDate}
                     postBack={postBack}
                     customiseTemplate={customiseTemplate}
+                    draftMessage={draftMessage}
                   />
                 </div>
               }
