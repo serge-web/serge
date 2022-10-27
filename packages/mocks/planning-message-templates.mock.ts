@@ -910,7 +910,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           type: "array",
           propertyOrder: 90,
           format: "table",
-          minItems: 1,
+          minItems: 0,
           title: "Subject(s) of orders",
           items: {
             type: "object",
