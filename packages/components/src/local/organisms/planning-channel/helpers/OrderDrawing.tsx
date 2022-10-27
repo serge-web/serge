@@ -101,7 +101,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }, [pendingGeometry])
 
   useEffect(() => {
-    if (currentGeometry >= 0) {
+    // cancel drawing
+    map.pm.disableDraw()
+
+    // note: we may have empty planning geometries for non-spatial
+    if (currentGeometry >= 0 && planningGeometries.length > 0) {
       // configure the drawing tool
       const current = planningGeometries[currentGeometry]
       const globalOpts: PM.GlobalOptions = {
@@ -118,8 +122,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         drawControls: false,
         editControls: false
       }
-
-      map.pm.disableDraw()
 
       // make copy of translations file. Note: we have to set the language BEFORE
       // we enable the draw mode, for the new tooltip to be used for the new mode
