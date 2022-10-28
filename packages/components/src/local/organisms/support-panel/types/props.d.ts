@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PlainInteraction, PlanningActivity, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
@@ -40,7 +40,6 @@ export default interface PropTypes {
   allOwnAssets: AssetRow[]
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
-  activities: PlanningActivity[]
   /** a draft copy of an new orders */
   draftMessage?: MessagePlanning
   onCancelDraftMessage?: {(): void}

@@ -47,7 +47,7 @@ describe('ChannelMessagesList component: ', () => {
       .create(<PlanningMessagesList gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} forces={[]} platformTypes={[]} activities={[]} onMarkAllAsRead={markAllAsRead} />)
+        playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

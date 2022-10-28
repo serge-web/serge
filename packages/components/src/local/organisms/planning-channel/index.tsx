@@ -365,7 +365,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allOwnAssets={allOwnAssets}
           allOppAssets={allOppAssets}
           onPanelWidthChange={onPanelWidthChange}
-          activities={flattenedPlanningActivities}
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
         />

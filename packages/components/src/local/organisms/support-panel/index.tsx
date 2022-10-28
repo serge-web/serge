@@ -44,7 +44,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allOppAssets,
   allOwnAssets,
   onPanelWidthChange,
-  activities,
   draftMessage,
   onCancelDraftMessage
 }) => {
@@ -194,9 +193,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
-                    forces={allForces}
-                    platformTypes={platformTypes}
-                    activities={activities}
                   />
                   <NewMessage
                     orderableChannel={true}

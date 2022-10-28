@@ -149,7 +149,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     setOwnForcesForParent={noop}
     allOppAssets={opp}
     allOwnAssets={own}
-    activities={flatActivities}
   />
 }
 

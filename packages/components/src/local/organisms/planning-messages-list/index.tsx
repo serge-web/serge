@@ -2,7 +2,6 @@ import { MessagePlanning, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import OrderDetail from '../../form-elements/order_detail'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
@@ -11,7 +10,7 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, templates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, setSelectedOrders, forces, platformTypes, activities
+  playerForceId, playerRoleId, selectedOrders, setSelectedOrders
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -68,21 +67,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setColumns(columnData)
   }, [myMessages])
 
-  const editDetail = (reference: string) => {
-    console.log('Edit this document', reference)
-  }
-  const editLocation = (reference: string) => {
-    console.log('Edit location', reference)
-  }
-
-  const editOwnAssets = (reference: string) => {
-    console.log('Edit own assets', reference)
-  }
-
-  const editOppAssets = (reference: string) => {
-    console.log('Edit opp assets', reference)
-  }
-
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
@@ -90,32 +74,25 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
       // check if message is being edited
-      const failureVal = 7
-      if (failureVal) {
-        const localTemplates = templates || []
-        const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
-        if (!template) {
-          console.log('template not found for', message.details.messageType, 'templates:', templates)
-        }
-        if (message && template) {
-          const canEdit = message.details.from.roleId === playerRoleId
-          return <JsonEditor
-            messageContent={message.message}
-            customiseTemplate={customiseTemplate}
-            messageId={rowData.id}
-            template={template}
-            disabled={!canEdit}
-            gameDate={gameDate}
-            modifyForEdit={collapseLocation}
-            modifyForSave={expandLocation}
-          />
-        } else {
-          return <div>Template not found for {message.details.messageType}</div>
-        }
+      const localTemplates = templates || []
+      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+      if (!template) {
+        console.log('template not found for', message.details.messageType, 'templates:', templates)
+      }
+      if (message && template) {
+        const canEdit = message.details.from.roleId === playerRoleId
+        return <JsonEditor
+          messageContent={message.message}
+          customiseTemplate={customiseTemplate}
+          messageId={rowData.id}
+          template={template}
+          disabled={!canEdit}
+          gameDate={gameDate}
+          modifyForEdit={collapseLocation}
+          modifyForSave={expandLocation}
+        />
       } else {
-        return <OrderDetail plan={message} forces={forces}
-          onEditMessage={editDetail} onEditGeometry={editLocation} onEditOwnAssets={editOwnAssets} onEditOppAssets={editOppAssets}
-          platformTypes={platformTypes} activities={activities} force={playerForceId} />
+        return <div>Template not found for {message.details.messageType}</div>
       }
     }
   }
