@@ -5,12 +5,13 @@ import React, { useEffect, useState } from 'react'
 import OrderDetail from '../../form-elements/order_detail'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
+import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, templates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, selectedOrders, setSelectedOrders, forces, platformTypes, activities
+  playerForceId, playerRoleId, selectedOrders, setSelectedOrders, forces, platformTypes, activities
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -91,21 +92,22 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // check if message is being edited
       const failureVal = 7
       if (failureVal) {
-        console.warn('show JSON Editor')
         const localTemplates = templates || []
         const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
         if (!template) {
           console.log('template not found for', message.details.messageType, 'templates:', templates)
         }
         if (message && template) {
-          // TODO: mangle object to make our specialised data look neat in the template.
+          const canEdit = message.details.from.roleId === playerRoleId
           return <JsonEditor
             messageContent={message.message}
             customiseTemplate={customiseTemplate}
             messageId={rowData.id}
             template={template}
-            disabled={false}
+            disabled={!canEdit}
             gameDate={gameDate}
+            modifyForEdit={collapseLocation}
+            modifyForSave={expandLocation}
           />
         } else {
           return <div>Template not found for {message.details.messageType}</div>
