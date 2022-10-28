@@ -758,23 +758,35 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     details: {
       format: "grid",
       properties: {
+        Reference: {
+          propertyOrder: 20,
+          type: "string"
+        },
+        title: {
+          propertyOrder: 25,
+          type: "string"
+        },
+        Activity: {
+          propertyOrder: 30,
+          type: "string"
+        },
         Date: {
+          propertyOrder: 40,
           format: "datetime-local",
           type: "string"
         },
         Description: {
+          propertyOrder: 50,
           format: "textarea",
           type: "string"
         },
         Status: {
+          propertyOrder: 60,
           enum: [
             "Minor",
             "Major",
             "Critical"
           ],
-          type: "string"
-        },
-        title: {
           type: "string"
         }
       },
@@ -795,11 +807,24 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           type: "string",
           title: "Reference (sys generated)",
           readonly: "readonly",
-          propertyOrder: 10
+          propertyOrder: 25
         },
-        Title: {
+        title: {
           type: "string",
           propertyOrder: 20
+        },
+        StartDate2: {
+          type: "string",
+          title: "Start date2",
+          propertyOrder: 28,
+          format: "date",
+          options: {
+            flatpickr: {
+              wrap: false,
+              time_24hr: true,
+              dateFormat: "d/m/Y"
+            }
+          }
         },
         startDate: {
           format: "datetime-local",
@@ -854,7 +879,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           type: "string",
           propertyOrder: 70
         },
-        Assets: {
+        ownAssets: {
           type: "array",
           format: "table",
           minItems: 1,
@@ -906,11 +931,11 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             }
           }
         },
-        Targets: {
+        oppAssets: {
           type: "array",
           propertyOrder: 90,
           format: "table",
-          minItems: 1,
+          minItems: 0,
           title: "Subject(s) of orders",
           items: {
             type: "object",

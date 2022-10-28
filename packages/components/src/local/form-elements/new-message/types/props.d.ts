@@ -5,7 +5,7 @@ export default interface PropTypes {
   /** whether a confirm box is shown when cancelling a message */
   confirmCancel: boolean
   /** player has cancelled creating new message */
-  onCancel?: {(): void}
+  onCancel?: { (): void }
   templates: TemplateBody[]
   privateMessage: boolean
   selectedForce?: ForceData

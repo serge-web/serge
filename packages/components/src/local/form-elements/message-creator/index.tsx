@@ -45,6 +45,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [clearName, setClearName] = useState<string>(messageOption)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
+  const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -132,7 +133,16 @@ const MessageCreator: React.FC<PropTypes> = ({
     setFormMessage(val)
   }
 
-  draftMessage && console.warn('still have to put this draft message into editor:', draftMessage)
+  useEffect(() => {
+    if (draftMessage) {
+      const anyDraft = draftMessage as any
+      if (anyDraft.message) {
+        setMessageContent(anyDraft.message)
+      } else {
+        setMessageContent(undefined)
+      }
+    }
+  }, [draftMessage])
 
   return (
     <>
@@ -151,11 +161,12 @@ const MessageCreator: React.FC<PropTypes> = ({
         customiseTemplate={customiseTemplate}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
-        title={'Response'}
+        title={messageOption}
         cachedName={clearName}
         storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}
+        messageContent={messageContent}
       />
       {privateMessage && (
         <div className="flex-content form-group">

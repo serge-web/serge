@@ -1,9 +1,9 @@
-import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import _, { noop } from 'lodash'
+import { noop } from 'lodash'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import SupportPanel from './index'
@@ -89,38 +89,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     throw Error('can\'t find role')
   }
 
-  const planningActivities = MockPlanningActivities
-  const perForcePlanningActivities = MockPerForceActivities
-  const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-    return {
-      force: force.force,
-      groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-        const res: GroupedActivitySet = {
-          category: group.category,
-          activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-            if (typeof act === 'string') {
-              const actId = act as string
-              const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-              if (!activity) {
-                throw Error('Planning activity not found:' + actId)
-              }
-              return activity
-            } else {
-              return act
-            }
-          })
-        }
-        return res
-      })
-    }
-  })
-
-  const forceActivities = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === forceStr)
-
-  // produce flattened set of activities, for convenience
-  const activities = forceActivities && forceActivities.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
-  const flatActivities = _.flatten(activities)
-
   return <SupportPanel
     platformTypes={platformTypes}
     messages={planningMessages}
@@ -149,7 +117,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     setOwnForcesForParent={noop}
     allOppAssets={opp}
     allOwnAssets={own}
-    activities={flatActivities}
   />
 }
 

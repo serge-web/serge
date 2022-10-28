@@ -186,8 +186,8 @@ const Template: Story<PlanningChannelProps> = (args) => {
     forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
-const doIt = 7 // don't transform the messages
-const fixedMessages = doIt ? [] : planningMessages.map((msg: MessagePlanning) => {
+const doNotDoIt = 7 // don't transform the messages
+const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
   // drop the legacy entries
   delete newMsg.message.Assets
@@ -229,7 +229,7 @@ const fixedMessages = doIt ? [] : planningMessages.map((msg: MessagePlanning) =>
   return newMsg
 })
 
-console.log('fixed', fixedMessages)
+!doNotDoIt && console.log('fixed', fixedMessages)
 
 export const Default = Template.bind({})
 Default.args = {

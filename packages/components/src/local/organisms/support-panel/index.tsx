@@ -44,7 +44,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allOppAssets,
   allOwnAssets,
   onPanelWidthChange,
-  activities,
   draftMessage,
   onCancelDraftMessage
 }) => {
@@ -77,13 +76,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
     if (schema) {
-      const oldOwnAssets = schema.properties?.Assets?.items?.properties?.FEName?.enum
+      const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.FEName?.enum
       if (oldOwnAssets) {
-        schema.properties.Assets.items.properties.FEName.enum = allOwnAssets.map((asset: AssetRow) => asset.name)
+        schema.properties.ownAssets.items.properties.FEName.enum = allOwnAssets.map((asset: AssetRow) => asset.name)
       }
-      const oldOwnTargets = schema.properties?.Targets?.items?.properties?.FEName?.enum
+      const oldOwnTargets = schema.properties?.otherAssets?.items?.properties?.FEName?.enum
       if (oldOwnTargets) {
-        schema.properties.Targets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
+        schema.properties.otherAssets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
       }
     }
     return schema
@@ -194,9 +193,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
-                    forces={allForces}
-                    platformTypes={platformTypes}
-                    activities={activities}
                   />
                   <NewMessage
                     orderableChannel={true}

@@ -17,6 +17,7 @@ import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
+import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
@@ -115,10 +116,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setCurrentForce(force)
     }
   }, [viewAsForce])
-
-  useEffect(() => {
-    console.log('selected orders updated')
-  }, [selectedOrders])
 
   useEffect(() => {
     // only update selected assets if we're not planning an activity
@@ -234,6 +231,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (activityBeingPlanned && activityPlanned) {
+      // collate the new draft message
       const ownAssets: Array<Asset['uniqid']> = selectedAssets.filter((id: string) => allOwnAssets.some((row: AssetRow) => row.id === id))
       const otherAssets: Array<Asset['uniqid']> = selectedAssets.filter((id: string) => allOppAssets.some((row: AssetRow) => row.id === id))
       const from: MessageDetailsFrom = {
@@ -271,16 +269,28 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         details: messageDetails,
         message: plans
       }
-      // open this in the editor
-      setDraftMessage(newPlan)
+
+      // mangle the location, to render it
+      const newDoc = collapseLocation(newPlan) as MessagePlanning
+
+      // now open this in the editor
+      setDraftMessage(newDoc)
 
       // clean up
       setActivityBeingPlanned(undefined)
       setActivityPlanned(undefined)
     } else {
+      if (activityBeingPlanned) {
+        setDraftMessage(undefined)
+      }
       console.log('UI Presumes there is an activity being planned.')
     }
   }, [activityPlanned])
+
+  const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): {(): void} => {
+    const unmangledMessage = expandLocation(message)
+    return saveMessage(dbName, details, unmangledMessage)
+  }
 
   /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
@@ -296,7 +306,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const cancelDraftMessage = (): void => {
-    setDraftMessage(undefined)
+    if (draftMessage) {
+      setDraftMessage(undefined)
+    }
   }
 
   const mapChildren = useMemo(() => {
@@ -333,7 +345,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           templates={templates}
           adjudicationTemplate={adjudicationTemplate}
           activityTimeChanel={newActiveMessage}
-          saveMessage={saveMessage}
+          saveMessage={saveMessageLocal}
           saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           dispatch={reduxDispatch}
           currentWargame={currentWargame}
@@ -353,7 +365,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           allOwnAssets={allOwnAssets}
           allOppAssets={allOppAssets}
           onPanelWidthChange={onPanelWidthChange}
-          activities={flattenedPlanningActivities}
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
         />

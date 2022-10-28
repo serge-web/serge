@@ -60,8 +60,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(planningMessages)
 
-  const allForces = P9Mock.data.forces.forces
-
   return <PlanningMessagesList
     messages={newestMessages}
     channel={planningChannel}
@@ -75,9 +73,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     hideForcesInChannel={hideForcesInChannel}
     selectedOrders={[]}
     setSelectedOrders={(): any => noop}
-    forces={allForces}
-    platformTypes={[]}
-    activities={[]}
   />
 }
 
