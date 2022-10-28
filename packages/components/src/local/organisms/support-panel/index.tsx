@@ -212,7 +212,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     postBack={postBack}
                     customiseTemplate={customiseTemplate}
-                    draftMessage={draftMessage}                 
+                    draftMessage={draftMessage}
                   />
                 </div>
               }
