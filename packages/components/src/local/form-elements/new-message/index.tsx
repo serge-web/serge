@@ -63,6 +63,8 @@ const NewMessage: React.FC<PropTypes> = ({
             if (template) {
               setSelectedSchema(template.details)
               setSelectedType(template.title)
+            } else {
+              console.warn('failed to find schema', schemaId, templates)
             }
           } else {
             setUpdateNewMessage(false)
