@@ -1,16 +1,16 @@
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 /* Import Stylesheet */
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
-import Props from './types/props'
 import { Editor } from '@serge/custom-types'
+import Props from './types/props'
 
-import setupEditor from './helpers/setupEditor'
-import { configDateTimeLocal } from '@serge/helpers'
 import { expiredStorage } from '@serge/config'
+import { configDateTimeLocal } from '@serge/helpers'
 import { Button } from '../../atoms/button'
+import setupEditor from './helpers/setupEditor'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
@@ -31,7 +31,9 @@ export const JsonEditor: React.FC<Props> = ({
   disableArrayToolsWithEditor = true,
   cachedName,
   clearCachedName,
-  saveMessage
+  saveMessage,
+  modifyForEdit,
+  modifyForSave
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -53,7 +55,8 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
-    storeNewValue && storeNewValue(value)
+    const newDoc = modifyForSave ? modifyForSave(value) : value
+    storeNewValue && storeNewValue(newDoc)
   }
 
   const genLocalStorageId = (): string => {
@@ -128,12 +131,15 @@ export const JsonEditor: React.FC<Props> = ({
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
-      const messageJson = expiredStorage.getItem(genLocalStorageId())
+      // only retrieve from expired content if we haven't been provided with message content
+      const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
       if (messageJson && !messageContent) {
         nextEditor.setValue(JSON.parse(messageJson))
         nextEditor.on('change', changeListenter)
       } else if (messageContent) {
-        nextEditor.setValue(typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent)
+        const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
+        const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
+        nextEditor.setValue(modified)
         nextEditor.on('change', changeListenter)
       } else {
         nextEditor.on('change', changeListenter)
@@ -163,7 +169,8 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    if (!messageContent && template.details && template.details.type) {
+    //    if (!messageContent && template.details && template.details.type) {
+    if (template.details && template.details.type) {
       if (cachedName === messageId) {
         expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
@@ -174,7 +181,7 @@ export const JsonEditor: React.FC<Props> = ({
     }
 
     return (): void => destroyEditor(editor)
-  }, [template.details, messageId, cachedName])
+  }, [template.details, messageId, cachedName, messageContent])
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
@@ -194,7 +201,7 @@ export const JsonEditor: React.FC<Props> = ({
   const SaveMessageButton = () => (
     editor && formId ? (
       <div className='button-wrap' >
-        { !disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null }
+        {!disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null}
       </div>
     ) : null
   )
