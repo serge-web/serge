@@ -117,10 +117,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce])
 
   useEffect(() => {
-    console.log('selected orders updated')
-  }, [selectedOrders])
-
-  useEffect(() => {
     // only update selected assets if we're not planning an activity
     if (!activityBeingPlanned) {
       setSelectedAssets(localSelectedAssets)
@@ -234,6 +230,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (activityBeingPlanned && activityPlanned) {
+      // collate the new draft message
       const ownAssets: Array<Asset['uniqid']> = selectedAssets.filter((id: string) => allOwnAssets.some((row: AssetRow) => row.id === id))
       const otherAssets: Array<Asset['uniqid']> = selectedAssets.filter((id: string) => allOppAssets.some((row: AssetRow) => row.id === id))
       const from: MessageDetailsFrom = {
@@ -271,13 +268,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         details: messageDetails,
         message: plans
       }
-      // open this in the editor
+      // now open this in the editor
       setDraftMessage(newPlan)
 
       // clean up
       setActivityBeingPlanned(undefined)
       setActivityPlanned(undefined)
     } else {
+      if (activityBeingPlanned) {
+        setDraftMessage(undefined)
+      }
       console.log('UI Presumes there is an activity being planned.')
     }
   }, [activityPlanned])
@@ -296,7 +296,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const cancelDraftMessage = (): void => {
-    setDraftMessage(undefined)
+    if (draftMessage) {
+      setDraftMessage(undefined)
+    }
   }
 
   const mapChildren = useMemo(() => {
