@@ -3,7 +3,7 @@ import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/hel
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import _, { noop } from 'lodash'
+import { noop } from 'lodash'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import SupportPanel from './index'
@@ -114,12 +114,6 @@ const Template: Story<SupportPanelProps> = (args) => {
       })
     }
   })
-
-  const forceActivities = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === forceStr)
-
-  // produce flattened set of activities, for convenience
-  const activities = forceActivities && forceActivities.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
-  const flatActivities = _.flatten(activities)
 
   return <SupportPanel
     platformTypes={platformTypes}
