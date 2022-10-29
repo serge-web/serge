@@ -106,7 +106,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   return (
-    <div className={styles['messages-list']}>
+    <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
         columns={columns}
