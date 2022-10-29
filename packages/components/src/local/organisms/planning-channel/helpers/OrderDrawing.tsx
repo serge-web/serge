@@ -105,7 +105,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     map.pm.disableDraw()
 
     // note: we may have empty planning geometries for non-spatial
-    if (currentGeometry >= 0 && planningGeometries.length > 0) {
+    if (activity && currentGeometry >= 0 && planningGeometries.length > 0) {
       // configure the drawing tool
       const current = planningGeometries[currentGeometry]
       const globalOpts: PM.GlobalOptions = {
@@ -133,6 +133,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         )
       }
 
+      const header = '<b>' + activity.name + '</b><br/>'
+
       // now just switch on the control we want
       switch (current.aType) {
         case GeometryType.point: {
@@ -141,24 +143,24 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
             html: getAssetIcon('/images/marker-icon-2x.png'),
             className: styles['marker-icon']
           })
-          newTranslations.tooltips.placeMarker = 'Click map to specify point location for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.placeMarker = header + 'Click map to specify point location for <b>[' + current.name + ']</b>'
           map.pm.setGlobalOptions({ markerStyle: { icon } })
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Marker')
           break
         }
         case GeometryType.polyline: {
-          newTranslations.tooltips.firstVertex = 'Click map to start route for <b>[' + current.name + ']</b>'
-          newTranslations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
-          newTranslations.tooltips.finishLine = 'Click existing route point to complete <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.firstVertex = header + 'Click map to start route for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.continueLine = header + 'Click map to continue <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.finishLine = header + 'Click existing route point to complete <b>[' + current.name + ']</b>'
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Line')
           break
         }
         case GeometryType.polygon: {
-          newTranslations.tooltips.firstVertex = 'Click map to start area for <b>[' + current.name + ']</b>'
-          newTranslations.tooltips.continueLine = 'Click map to continue <b>[' + current.name + ']</b>'
-          newTranslations.tooltips.finishPoly = 'Click existing marker to complete <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.firstVertex = header + 'Click map to start area for <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.continueLine = header + 'Click map to continue <b>[' + current.name + ']</b>'
+          newTranslations.tooltips.finishPoly = header + 'Click existing marker to complete <b>[' + current.name + ']</b>'
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Polygon')
           break
