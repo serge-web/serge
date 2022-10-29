@@ -33,7 +33,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
 
       // sort out what to render
       const withLocation = orders.filter((msg: MessagePlanning) => msg.message && (msg.message.location !== undefined))
-      const isSelected = withLocation.filter((msg: MessagePlanning) => selectedOrders.includes(msg._id))
+      const isSelected = withLocation.filter((msg: MessagePlanning) => selectedOrders && selectedOrders.includes(msg._id))
       const geometries = isSelected.map((msg: MessagePlanning): Feature[] => {
         if (msg.message.location) {
           const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
