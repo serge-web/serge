@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import L, { LatLng, latLng } from 'leaflet'
-import React from 'react'
+import React, { useCallback } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
@@ -8,10 +8,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets }) => {
-  // temporarily use alternate icon for opForces
-  // const iconForThisForce = opFor ? 'layers.png' : 'marker-icon-2x.png'
-
+export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
     return (
@@ -31,26 +28,54 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     setSelectedAssets([...selectedAssets])
   }
 
+  const getMarkerOption = useCallback((asset: AssetRow, index: number) => {
+    const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
+    const isSelected = selectedAssets.includes(asset.id)
+
+    return {
+      eventHandlers: {
+        click: (): void => {
+          if (interactive) {
+            handleAssetClick(asset.id)
+          }
+        }
+      },
+      key: `asset-icon-${index}`,
+      position: loc,
+      icon: L.divIcon({
+        iconSize: [30, 30],
+        html: getAssetIcon(asset, isSelected, false),
+        className: styles['map-icon']
+      })
+    }
+  }, [])
+
   return <>
     {
       assets.length > 0 &&
       <LayerGroup key={'first-forces-layer'}>
         {
+          interactive &&
           assets.map((asset: AssetRow, index: number) => {
-            const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
-            const isSelected = selectedAssets.includes(asset.id)
+            const markerOption = getMarkerOption(asset, index)
 
             return <Marker
-              eventHandlers={{
-                click: (): void => handleAssetClick(asset.id)
-              }}
-              key={`asset-icon-${index}`}
-              position={loc}
-              icon={L.divIcon({
-                iconSize: [30, 30],
-                html: getAssetIcon(asset, isSelected, false),
-                className: styles['map-icon']
-              })} >
+              {...markerOption}
+            >
+              <Tooltip>{asset.name}</Tooltip>
+            </Marker>
+          })
+        }
+        {
+          !interactive &&
+          assets.map((asset: AssetRow, index: number) => {
+            const markerOption = getMarkerOption(asset, index)
+
+            return <Marker
+              pmIgnore
+              interactive={false}
+              {...markerOption}
+            >
               <Tooltip>{asset.name}</Tooltip>
             </Marker>
           })
