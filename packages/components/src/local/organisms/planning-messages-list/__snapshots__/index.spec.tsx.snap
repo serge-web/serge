@@ -3,6 +3,11 @@
 exports[`ChannelMessagesList component:  renders component correctly 1`] = `
 <div
   className="messages-list"
+  style={
+    Object {
+      "zIndex": 9,
+    }
+  }
 >
   <div
     className="MuiPaper-root-164 MuiPaper-elevation2-168 MuiPaper-rounded-165"

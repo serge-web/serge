@@ -16,7 +16,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
-  !7 && console.log('selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
+  !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
@@ -97,6 +97,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  const onSelectionChange = (rows: OrderRow[]): void => {
+    const indices = rows.map((row: OrderRow): string => row.id)
+    setSelectedOrders(indices)
+  }
+
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
@@ -106,7 +111,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   return (
-    <div className={styles['messages-list']}>
+    <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
         columns={columns}
@@ -126,6 +131,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
         }}
+        onSelectionChange={onSelectionChange}
         {...extendProps}
       />
     </div>

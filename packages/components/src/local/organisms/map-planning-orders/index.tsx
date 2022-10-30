@@ -19,14 +19,22 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
   return activity
 }
 
-export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor }) => {
+export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor, selectedOrders }) => {
   const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
   const [layersToDelete] = useState<Layer[]>([])
 
   useEffect(() => {
     if (orders) {
+      // clear existing data
+      while (layersToDelete.length > 0) {
+        const layer = layersToDelete.shift()
+        layer && layer.remove()
+      }
+
+      // sort out what to render
       const withLocation = orders.filter((msg: MessagePlanning) => msg.message && (msg.message.location !== undefined))
-      const geometries = withLocation.map((msg: MessagePlanning): Feature[] => {
+      const isSelected = withLocation.filter((msg: MessagePlanning) => selectedOrders && selectedOrders.includes(msg._id))
+      const geometries = isSelected.map((msg: MessagePlanning): Feature[] => {
         if (msg.message.location) {
           const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
             const res = { ...act.geometry }
@@ -73,7 +81,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
 
       setOrderGeometries(elements)
     }
-  }, [orders])
+  }, [orders, selectedOrders])
 
   useEffect(() => {
     const outputOrderTimings = false
